@@ -26,12 +26,11 @@
 
   grid-row-gap: $block-gap;
   grid-column-gap: $block-gap;
-  grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
+  grid-template-areas: "high" "score" "play" "stats" "history";
 
   @include breakpoint($mq-col2) {
-    grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
+    grid-template-areas: "high high" "score stats" "play play" "history history";
   }
-
 
   &__high {
     @extend %box-neat;
@@ -46,7 +45,7 @@
       @include breakpoint($mq-col2) {
         &::before,
         &::after {
-          content: ' ';
+          content: " ";
           width: 7em;
           height: 7em;
           margin: 3em;
@@ -64,7 +63,7 @@
 
       strong {
         font-size: 2.5em;
-        margin: .5em 0;
+        margin: 0.5em 0;
       }
     }
   }
@@ -79,12 +78,12 @@
       width: 100%;
 
       td {
-        padding: .5em 1em;
+        padding: 0.5em 1em;
         text-align: right;
 
         number {
           font-size: 2em;
-          font-family: 'storm';
+          font-family: "storm";
         }
       }
     }
@@ -100,7 +99,7 @@
     padding: 1em 3em;
 
     &__number {
-      font-family: 'storm';
+      font-family: "storm";
       width: 3ch;
       text-align: center;
       font-size: 11em;

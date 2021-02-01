@@ -13,7 +13,7 @@
     position: absolute;
     top: 4px;
     right: 5px;
-    opacity: .6;
+    opacity: 0.6;
 
     @include transition;
 
@@ -33,7 +33,7 @@
       @extend %metal;
 
       font-size: 1.4em;
-      padding: .6rem 1rem;
+      padding: 0.6rem 1rem;
       border-bottom: $border;
     }
 
@@ -70,8 +70,9 @@
       }
     }
 
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
 
     th {
@@ -98,8 +99,9 @@
       }
     }
 
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
 
     th {
@@ -128,7 +130,7 @@
 
     td:last-child {
       font-weight: bold;
-      opacity: .8;
+      opacity: 0.8;
     }
 
     tr.win td:last-child {
@@ -150,6 +152,6 @@
   }
 
   .color-icon {
-    opacity: .6;
+    opacity: 0.6;
   }
 }

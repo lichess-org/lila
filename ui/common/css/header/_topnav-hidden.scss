@@ -40,7 +40,6 @@
         left: 13px;
       }
 
-
       transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
       &::after,
@@ -55,7 +54,6 @@
           top: -9px;
         }
 
-
         transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
       }
 
@@ -66,8 +64,8 @@
           bottom: -10px;
         }
 
-
-        transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        transition: bottom 0.1s 0.25s ease-in,
+          transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
       }
     }
 
@@ -89,7 +87,8 @@
         &::after {
           bottom: 0;
           transform: rotate(-90deg);
-          transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+          transition: bottom 0.1s ease-out,
+            transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
       }
     }
@@ -118,13 +117,12 @@
       max-width: 70%;
     }
 
-
     z-index: z("topnav");
 
     a {
       color: $c-font;
       text-decoration: none;
-      padding: .7em 0;
+      padding: 0.7em 0;
       opacity: 0;
 
       @include transition(opacity);
@@ -178,6 +176,5 @@
     /* actually don't, since on mobile devices the scrool bar
      * has no width, and that menu is mainly for mobile. */
     // padding-right: 15px;
- 
   }
 }

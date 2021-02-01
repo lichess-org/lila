@@ -1,18 +1,17 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
-import { LobbyOpts, Tab } from './interfaces';
-import LobbyController from './ctrl';
+import { init } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
+import klass from "snabbdom/modules/class";
+import attributes from "snabbdom/modules/attributes";
+import { Chessground } from "chessground";
+import { LobbyOpts, Tab } from "./interfaces";
+import LobbyController from "./ctrl";
 
 export const patch = init([klass, attributes]);
 
-import makeCtrl from './ctrl';
-import view from './view/main';
+import makeCtrl from "./ctrl";
+import view from "./view/main";
 
 export default function main(opts: LobbyOpts) {
-
   let vnode: VNode, ctrl: LobbyController;
 
   function redraw() {
@@ -22,7 +21,7 @@ export default function main(opts: LobbyOpts) {
   ctrl = new makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
+  opts.element.innerHTML = "";
   vnode = patch(opts.element, blueprint);
 
   return {
@@ -36,7 +35,7 @@ export default function main(opts: LobbyOpts) {
     enterPool: ctrl.enterPool,
     leavePool: ctrl.leavePool,
     setup: ctrl.setup,
-    redraw: ctrl.redraw
+    redraw: ctrl.redraw,
   };
 }
 

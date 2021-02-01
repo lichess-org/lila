@@ -8,9 +8,8 @@ function dig(chapId, node, path) {
       var set = {};
       set[`${path}.n`] = [];
       printjson(set);
-      db.study_chapter.update({_id:chapId},{$set:set});
-    }
-    else {
+      db.study_chapter.update({ _id: chapId }, { $set: set });
+    } else {
       dig(chapId, c, newPath);
     }
   }
@@ -19,5 +18,5 @@ function dig(chapId, node, path) {
 // db.study_chapter.find({studyId: studyId}).forEach(chap => {
 db.study_chapter.find({}).forEach(chap => {
   print(`${chap.studyId}/${chap._id}`);
-  dig(chap._id, chap.root, 'root');
+  dig(chap._id, chap.root, "root");
 });

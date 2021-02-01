@@ -1,26 +1,28 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-import cls from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import { SimulOpts } from './interfaces';
-import SimulCtrl from './ctrl';
-import LichessChat from 'chat';
+import { init } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
+import cls from "snabbdom/modules/class";
+import attributes from "snabbdom/modules/attributes";
+import { SimulOpts } from "./interfaces";
+import SimulCtrl from "./ctrl";
+import LichessChat from "chat";
 
 const patch = init([cls, attributes]);
 
-import view from './view/main';
+import view from "./view/main";
 
 export function start(opts: SimulOpts) {
-
-  const element = document.querySelector('main.simul') as HTMLElement;
+  const element = document.querySelector("main.simul") as HTMLElement;
 
   lichess.socket = new lichess.StrongSocket(
-    `/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
-      receive: (t: string, d: any) => ctrl.socket.receive(t, d)
-    });
+    `/simul/${opts.data.id}/socket/v4`,
+    opts.socketVersion,
+    {
+      receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+    },
+  );
   opts.socketSend = lichess.socket.send;
   opts.element = element;
-  opts.$side = $('.simul__side').clone();
+  opts.$side = $(".simul__side").clone();
 
   let vnode: VNode;
 
@@ -31,11 +33,11 @@ export function start(opts: SimulOpts) {
   const ctrl = new SimulCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  element.innerHTML = '';
+  element.innerHTML = "";
   vnode = patch(element, blueprint);
 
   redraw();
-};
+}
 
 // that's for the rest of lichess to access the chat
 window.LichessChat = LichessChat;

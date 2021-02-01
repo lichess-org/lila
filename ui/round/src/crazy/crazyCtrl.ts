@@ -1,20 +1,26 @@
-import { isPlayerTurn } from 'game/game';
-import { dragNewPiece } from 'chessground/drag';
-import { setDropMode, cancelDropMode } from 'chessground/drop';
-import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
-import { RoundData } from '../interfaces';
+import { isPlayerTurn } from "game/game";
+import { dragNewPiece } from "chessground/drag";
+import { setDropMode, cancelDropMode } from "chessground/drop";
+import RoundController from "../ctrl";
+import * as cg from "chessground/types";
+import { RoundData } from "../interfaces";
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: cg.Role[] = [
+  "pawn",
+  "knight",
+  "bishop",
+  "rook",
+  "queen",
+];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-    role = el.getAttribute('data-role') as cg.Role,
-    color = el.getAttribute('data-color') as cg.Color,
-    number = el.getAttribute('data-nb');
-  if (!role || !color || number === '0') return;
+    role = el.getAttribute("data-role") as cg.Role,
+    color = el.getAttribute("data-color") as cg.Color,
+    number = el.getAttribute("data-nb");
+  if (!role || !color || number === "0") return;
   e.stopPropagation();
   e.preventDefault();
   dragNewPiece(ctrl.chessground.state, { color, role }, e);
@@ -33,11 +39,11 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (!isPlayerTurn(data)) return false;
 
-  if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
+  if (role === "pawn" && (key[1] === "1" || key[1] === "8")) return false;
 
   const dropStr = data.possibleDrops;
 
-  if (typeof dropStr === 'undefined' || dropStr === null) return true;
+  if (typeof dropStr === "undefined" || dropStr === null) return true;
 
   const drops = dropStr.match(/.{2}/g) || [];
 
@@ -45,7 +51,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd() {
-  const store = lichess.storage.make('crazyKeyHist');
+  const store = lichess.storage.make("crazyKeyHist");
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -69,7 +75,7 @@ export function init(ctrl: RoundController) {
         crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;
 
-      const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
+      const nb = crazyData.pockets[color === "white" ? 0 : 1][role];
       setDropMode(ctrl.chessground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);
@@ -86,9 +92,9 @@ export function init(ctrl: RoundController) {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  lichess.pubsub.on('ply', () => {
+  lichess.pubsub.on("ply", () => {
     if (crazyKeys.length > 0) setDrop();
-  })
+  });
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
@@ -97,16 +103,19 @@ export function init(ctrl: RoundController) {
         crazyKeys.push(i);
         setDrop();
       }
-    })
-    .bind(iStr, () => {
-      const idx = crazyKeys.indexOf(i);
-      if (idx >= 0) {
-        crazyKeys.splice(idx, 1);
-        if (idx === crazyKeys.length) {
-          setDrop();
+    }).bind(
+      iStr,
+      () => {
+        const idx = crazyKeys.indexOf(i);
+        if (idx >= 0) {
+          crazyKeys.splice(idx, 1);
+          if (idx === crazyKeys.length) {
+            setDrop();
+          }
         }
-      }
-    }, 'keyup');
+      },
+      "keyup",
+    );
   }
 
   const resetKeys = () => {
@@ -116,16 +125,19 @@ export function init(ctrl: RoundController) {
     }
   };
 
-  window.addEventListener('blur', resetKeys);
+  window.addEventListener("blur", resetKeys);
 
   // Handle focus on input bars – these will hide keyup events
-  window.addEventListener('focus', e => {
-    if (e.target && (e.target as HTMLElement).localName === 'input')
-      resetKeys();
-  }, { capture: true });
+  window.addEventListener(
+    "focus",
+    e => {
+      if (e.target && (e.target as HTMLElement).localName === "input")
+        resetKeys();
+    },
+    { capture: true },
+  );
 
-  if (lichess.storage.get('crazyKeyHist') !== '0')
-    preloadMouseIcons(ctrl.data);
+  if (lichess.storage.get("crazyKeyHist") !== "0") preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,
@@ -133,7 +145,7 @@ export function init(ctrl: RoundController) {
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
-  for (const pKey of 'PNBRQ') 
+  for (const pKey of "PNBRQ")
     fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

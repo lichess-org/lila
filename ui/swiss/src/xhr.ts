@@ -1,22 +1,22 @@
-import throttle from 'common/throttle';
-import { json } from 'common/xhr';
-import SwissCtrl from './ctrl';
-import { isOutcome } from './util';
+import throttle from "common/throttle";
+import { json } from "common/xhr";
+import SwissCtrl from "./ctrl";
+import { isOutcome } from "./util";
 
 // when the tournament no longer exists
 const onFail = () => lichess.reload();
 
 const join = (ctrl: SwissCtrl, password?: string) =>
   json(`/swiss/${ctrl.data.id}/join`, {
-    method: 'post',
+    method: "post",
     body: JSON.stringify({
-      password: password || ''
+      password: password || "",
     }),
-    headers: { 'Content-Type': 'application/json'},
+    headers: { "Content-Type": "application/json" },
   }).catch(onFail);
 
 const withdraw = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
+  json(`/swiss/${ctrl.data.id}/withdraw`, { method: "post" }).catch(onFail);
 
 const loadPage = (ctrl: SwissCtrl, p: number) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
@@ -28,7 +28,11 @@ const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
   json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
 
 const reload = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`).then(data => {
+  json(
+    `/swiss/${ctrl.data.id}?page=${
+      ctrl.focusOnMe ? "" : ctrl.page
+    }&playerInfo=${ctrl.playerInfoId || ""}`,
+  ).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
   }, onFail);
@@ -40,12 +44,17 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
   }, onFail);
 
 const readSheetMin = (str: string) =>
-  str ? str.split('|').map(s =>
-    isOutcome(s) ? s : {
-      g: s.slice(0, 8),
-      o: s[8] == 'o',
-      w: (s[8] == 'w' ? true : (s[8] == 'l' ? false : undefined))
-  }) : [];
+  str
+    ? str.split("|").map(s =>
+        isOutcome(s)
+          ? s
+          : {
+              g: s.slice(0, 8),
+              o: s[8] == "o",
+              w: s[8] == "w" ? true : s[8] == "l" ? false : undefined,
+            },
+      )
+    : [];
 
 export default {
   join: throttle(1000, join),
@@ -54,5 +63,5 @@ export default {
   loadPageOf,
   reloadNow: reload,
   playerInfo,
-  readSheetMin
+  readSheetMin,
 };

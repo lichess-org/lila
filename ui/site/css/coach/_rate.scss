@@ -12,14 +12,14 @@ rate-stars {
 }
 
 star {
-  font: 2em 'lichess';
+  font: 2em "lichess";
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
-  padding: 0 .1em;
+  padding: 0 0.1em;
 
   &:after {
-    content: 't';
+    content: "t";
     color: $c-shade;
   }
 

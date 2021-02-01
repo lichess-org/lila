@@ -1,14 +1,14 @@
-import PuzzleSession from './session';
-import { Api as CgApi } from 'chessground/api';
-import { CevalCtrl, NodeEvals } from 'ceval';
-import { Config as CgConfig } from 'chessground/config';
-import { Deferred } from 'common/defer';
-import { Outcome } from 'chessops/types';
-import { Prop } from 'common';
-import { Role, Move } from 'chessops/types';
-import { StoredBooleanProp } from 'common/storage';
-import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode';
+import PuzzleSession from "./session";
+import { Api as CgApi } from "chessground/api";
+import { CevalCtrl, NodeEvals } from "ceval";
+import { Config as CgConfig } from "chessground/config";
+import { Deferred } from "common/defer";
+import { Outcome } from "chessops/types";
+import { Prop } from "common";
+import { Role, Move } from "chessops/types";
+import { StoredBooleanProp } from "common/storage";
+import { TreeWrapper } from "tree";
+import { VNode } from "snabbdom/vnode";
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -31,7 +31,12 @@ export interface AllThemes {
   static: Set<ThemeKey>;
 }
 
-export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
+export type PuzzleDifficulty =
+  | "easiest"
+  | "easier"
+  | "normal"
+  | "harder"
+  | "hardest";
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -74,12 +79,12 @@ export interface Vm {
   node: Tree.Node;
   mainline: Tree.Node[];
   pov: Color;
-  mode: 'play' | 'view' | 'try';
+  mode: "play" | "view" | "try";
   round?: PuzzleRound;
   next: Deferred<PuzzleData>;
   justPlayed?: Key;
   resultSent: boolean;
-  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
+  lastFeedback: "init" | "fail" | "win" | "good" | "retry";
   initialPath: Tree.Path;
   initialNode: Tree.Node;
   canViewSolution: boolean;
@@ -99,7 +104,7 @@ export interface PuzzleOpts {
   themes?: {
     dynamic: string;
     static: string;
-  }
+  };
 }
 
 export interface PuzzlePrefs {
@@ -186,13 +191,17 @@ export interface PuzzleRound {
 }
 
 export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
+  start(
+    orig: Key,
+    dest: Key,
+    callback: (orig: Key, dest: Key, prom: Role) => void,
+  ): boolean;
   cancel(): void;
   view(): MaybeVNode;
 }
 
 export interface MoveTest {
-  move: Move,
+  move: Move;
   fen: Fen;
   path: Tree.Path;
 }

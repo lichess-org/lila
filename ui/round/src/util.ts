@@ -1,9 +1,16 @@
-import * as cg from 'chessground/types'
-import { h } from 'snabbdom'
-import { Hooks } from 'snabbdom/hooks'
-import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
-import { VNodeData } from 'snabbdom/vnode'
+import * as cg from "chessground/types";
+import { h } from "snabbdom";
+import { Hooks } from "snabbdom/hooks";
+import { opposite } from "chessground/util";
+import {
+  Redraw,
+  EncodedDests,
+  Dests,
+  MaterialDiff,
+  Step,
+  CheckCount,
+} from "./interfaces";
+import { VNodeData } from "snabbdom/vnode";
 
 const pieceScores = {
   pawn: 1,
@@ -11,38 +18,47 @@ const pieceScores = {
   bishop: 3,
   rook: 5,
   queen: 9,
-  king: 0
+  king: 0,
 };
 
 export const justIcon = (icon: string): VNodeData => ({
-  attrs: { 'data-icon': icon }
+  attrs: { "data-icon": icon },
 });
 
 export const uci2move = (uci: string): cg.Key[] | undefined => {
   if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
+  if (uci[1] === "@") return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
-}
+};
 
 export const onInsert = (f: (el: HTMLElement) => void): Hooks => ({
   insert(vnode) {
     f(vnode.elm as HTMLElement);
-  }
+  },
 });
 
-export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive: boolean = true): Hooks =>
+export const bind = (
+  eventName: string,
+  f: (e: Event) => void,
+  redraw?: Redraw,
+  passive: boolean = true,
+): Hooks =>
   onInsert(el => {
-    el.addEventListener(eventName, e => {
-      f(e);
-      redraw && redraw();
-    }, { passive });
+    el.addEventListener(
+      eventName,
+      e => {
+        f(e);
+        redraw && redraw();
+      },
+      { passive },
+    );
   });
 
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();
   if (!dests) return dec;
-  if (typeof dests == 'string')
-    for (const ds of dests.split(' ')) {
+  if (typeof dests == "string")
+    for (const ds of dests.split(" ")) {
       dec.set(ds.slice(0, 2), ds.slice(2).match(/.{2}/g) as cg.Key[]);
     }
   else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
@@ -66,15 +82,15 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
 export function getScore(pieces: cg.Pieces): number {
   let score = 0;
   for (const p of pieces.values()) {
-    score += pieceScores[p.role] * (p.color === 'white' ? 1 : -1);
+    score += pieceScores[p.role] * (p.color === "white" ? 1 : -1);
   }
   return score;
 }
 
 export const noChecks: CheckCount = {
   white: 0,
-  black: 0
-}
+  black: 0,
+};
 
 export function countChecks(steps: Step[], ply: Ply): CheckCount {
   const checks: CheckCount = { ...noChecks };
@@ -89,10 +105,16 @@ export function countChecks(steps: Step[], ply: Ply): CheckCount {
 }
 
 export const spinner = () =>
-  h('div.spinner', {
-    'aria-label': 'loading'
-  }, [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
+  h(
+    "div.spinner",
+    {
+      "aria-label": "loading",
+    },
+    [
+      h("svg", { attrs: { viewBox: "0 0 40 40" } }, [
+        h("circle", {
+          attrs: { cx: 20, cy: 20, r: 18, fill: "none" },
+        }),
+      ]),
+    ],
+  );

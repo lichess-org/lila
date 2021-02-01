@@ -13,8 +13,8 @@
     @extend %box-radius;
 
     background: mix($c-primary, $c-bg-box, 12%);
-    padding: .2em .6em;
-    margin: .2em;
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
 
     &:hover {
       background: mix($c-primary, $c-bg-box, 15%);

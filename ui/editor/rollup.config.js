@@ -1,9 +1,9 @@
-import { rollupProject } from '@build/rollupProject';
+import { rollupProject } from "@build/rollupProject";
 
 export default rollupProject({
   main: {
-    name: 'LichessEditor',
-    input: 'src/main.ts',
-    output: 'editor',
+    name: "LichessEditor",
+    input: "src/main.ts",
+    output: "editor",
   },
 });

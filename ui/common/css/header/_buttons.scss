@@ -13,13 +13,12 @@
     /* we don't want a lighter dark font in the top gradient */
     @if $theme == "transp" {
       @extend %page-text;
-    }
-    @else {
+    } @else {
       color: $c-font;
     }
 
     font-size: 1.1rem;
-    padding: 0 .7rem;
+    padding: 0 0.7rem;
 
     &:hover {
       color: $c-font-clearer;

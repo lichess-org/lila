@@ -18,7 +18,7 @@
   .suggestion,
   .pending,
   .negotiation {
-    padding: .5em 3%;
+    padding: 0.5em 3%;
     background: $c-bg-zebra;
     border: $border;
     border-width: 0 1px;
@@ -34,7 +34,7 @@
     }
 
     .button {
-      margin: .5em 0 0 0;
+      margin: 0.5em 0 0 0;
     }
   }
 
@@ -243,7 +243,6 @@
       @include breakpoint($mq-col2) {
         display: block;
       }
-
 
       &:hover {
         background: $c-bad;

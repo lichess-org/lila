@@ -28,13 +28,13 @@
     text-align: center;
 
     &.engine {
-      opacity: .5;
+      opacity: 0.5;
       .user-link {
         text-decoration: line-through;
         font-weight: normal;
       }
       .trophy {
-        opacity: .3;
+        opacity: 0.3;
         filter: grayscale(100%) contrast(10%);
       }
     }
@@ -56,7 +56,7 @@
   }
 
   .trophy {
-    margin: 0 auto .5em auto;
+    margin: 0 auto 0.5em auto;
     background: center / contain no-repeat;
   }
 
@@ -84,15 +84,14 @@
     }
   }
 
-
   .user-link {
     font-weight: bold;
     letter-spacing: -1px;
   }
 
   .stats {
-    margin: .5em auto 0 auto;
-    font-size: .7em;
+    margin: 0.5em auto 0 auto;
+    font-size: 0.7em;
 
     th {
       letter-spacing: -1px;
@@ -107,6 +106,6 @@
   }
 
   .third .stats {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }

@@ -14,7 +14,7 @@
   display: grid;
   grid-template-columns: 280px 2vmin 210px;
   grid-template-rows: min-content auto min-content;
-  grid-template-areas: '.            . e-tools' 'spare-top    . e-tools' 'e-board      . e-tools' 'spare-bottom . e-tools' '.            . e-tools';
+  grid-template-areas: ".            . e-tools" "spare-top    . e-tools" "e-board      . e-tools" "spare-bottom . e-tools" ".            . e-tools";
   user-select: none;
 
   .main-board {
@@ -42,6 +42,6 @@
 
   .metadata {
     background: $c-bg-zebra;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

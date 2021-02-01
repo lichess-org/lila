@@ -1,10 +1,10 @@
 export function setup() {
-  lichess.pubsub.on('speech.enabled', onSpeechChange);
+  lichess.pubsub.on("speech.enabled", onSpeechChange);
   onSpeechChange(lichess.sound.speech());
 }
 
 function onSpeechChange(enabled: boolean) {
-  if (!window.LichessSpeech && enabled) lichess.loadModule('speech');
+  if (!window.LichessSpeech && enabled) lichess.loadModule("speech");
   else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
 }
 

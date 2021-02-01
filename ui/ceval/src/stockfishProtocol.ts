@@ -1,13 +1,15 @@
-import { lichessVariantRules } from 'chessops/compat';
-import { WorkerOpts, Work } from './types';
-import { Deferred, defer } from 'common/defer';
+import { lichessVariantRules } from "chessops/compat";
+import { WorkerOpts, Work } from "./types";
+import { Deferred, defer } from "common/defer";
 
-const EVAL_REGEX = new RegExp(''
-  + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
-  + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
-  + /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source
-  + /pv (.+)/.source);
+const EVAL_REGEX = new RegExp(
+  "" +
+    /^info depth (\d+) seldepth \d+ multipv (\d+) /.source +
+    /score (cp|mate) ([-\d]+) /.source +
+    /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source +
+    /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source +
+    /pv (.+)/.source,
+);
 
 export default class Protocol {
   private work: Work | null = null;
@@ -24,15 +26,17 @@ export default class Protocol {
 
   init(): void {
     // get engine name/version
-    this.send('uci');
+    this.send("uci");
 
     // analyse without contempt
-    this.setOption('UCI_Chess960', 'true');
-    this.setOption('UCI_AnalyseMode', 'true');
-    this.setOption('Analysis Contempt', 'Off');
+    this.setOption("UCI_Chess960", "true");
+    this.setOption("UCI_AnalyseMode", "true");
+    this.setOption("Analysis Contempt", "Off");
 
-    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
-    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    if (this.opts.variant === "antichess")
+      this.setOption("UCI_Variant", "giveaway");
+    // for old asmjs fallback
+    else this.setOption("UCI_Variant", lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
@@ -40,8 +44,9 @@ export default class Protocol {
   }
 
   received(text: string): void {
-    if (text.startsWith('id name ')) this.engineName = text.substring('id name '.length);
-    else if (text.startsWith('bestmove ')) {
+    if (text.startsWith("id name "))
+      this.engineName = text.substring("id name ".length);
+    else if (text.startsWith("bestmove ")) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       if (this.work && this.curEval) this.work.emit(this.curEval);
@@ -54,12 +59,12 @@ export default class Protocol {
 
     const depth = parseInt(matches[1]),
       multiPv = parseInt(matches[2]),
-      isMate = matches[3] === 'mate',
+      isMate = matches[3] === "mate",
       povEv = parseInt(matches[4]),
       evalType = matches[5],
       nodes = parseInt(matches[6]),
       elapsedMs: number = parseInt(matches[7]),
-      moves = matches[8].split(' ');
+      moves = matches[8].split(" ");
 
     // Sometimes we get #0. Let's just skip it.
     if (isMate && !povEv) return;
@@ -70,7 +75,7 @@ export default class Protocol {
     if (depth < this.opts.minDepth) return;
 
     const pivot = this.work.threatMode ? 0 : 1;
-    const ev = (this.work.ply % 2 === pivot) ? -povEv : povEv;
+    const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
@@ -95,7 +100,7 @@ export default class Protocol {
         cp: isMate ? undefined : ev,
         mate: isMate ? ev : undefined,
         pvs: [pvData],
-        millis: elapsedMs
+        millis: elapsedMs,
       };
     } else if (this.curEval) {
       this.curEval.pvs.push(pvData);
@@ -117,26 +122,30 @@ export default class Protocol {
       // we ignore all but the first request. The engine will show as loading
       // indefinitely. Until this is fixed, it is still better than a
       // possible deadlock.
-      console.log('ceval: tried to start analysing before requesting stop');
+      console.log("ceval: tried to start analysing before requesting stop");
       return;
     }
     this.work = w;
     this.curEval = null;
     this.stopped = null;
     this.expectedPvs = 1;
-    if (this.opts.threads) this.setOption('Threads', this.opts.threads());
-    if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
-    this.setOption('MultiPV', this.work.multiPv);
-    this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-    if (this.work.maxDepth >= 99) this.send('go depth 99');
-    else this.send('go movetime 90000 depth ' + this.work.maxDepth);
+    if (this.opts.threads) this.setOption("Threads", this.opts.threads());
+    if (this.opts.hashSize) this.setOption("Hash", this.opts.hashSize());
+    this.setOption("MultiPV", this.work.multiPv);
+    this.send(
+      ["position", "fen", this.work.initialFen, "moves"]
+        .concat(this.work.moves)
+        .join(" "),
+    );
+    if (this.work.maxDepth >= 99) this.send("go depth 99");
+    else this.send("go movetime 90000 depth " + this.work.maxDepth);
   }
 
   stop(): Promise<void> {
     if (!this.stopped) {
       this.work = null;
       this.stopped = defer<void>();
-      this.send('stop');
+      this.send("stop");
     }
     return this.stopped.promise;
   }

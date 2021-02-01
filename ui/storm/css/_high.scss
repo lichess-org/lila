@@ -27,9 +27,8 @@
       }
     }
 
-
     strong {
-      font-family: 'storm';
+      font-family: "storm";
       font-weight: normal;
       font-size: 3em;
 
@@ -40,12 +39,17 @@
 
     .highlight-alltime & {
       &:first-child {
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%) $c-brag;
+        background: linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            transparent 45%
+          )
+          $c-brag;
         color: $c-brag-over;
 
         strong {
           font-size: 4em;
-          line-height: .8em;
+          line-height: 0.8em;
 
           @include breakpoint($mq-xx-small) {
             font-size: 9em;

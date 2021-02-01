@@ -1,12 +1,21 @@
 import StrongSocket from "./component/socket";
 import { requestIdleCallback, escapeHtml } from "./component/functions";
-import makeChat from './component/chat';
-import once from './component/once';
-import spinnerHtml from './component/spinner';
-import sri from './component/sri';
+import makeChat from "./component/chat";
+import once from "./component/once";
+import spinnerHtml from "./component/spinner";
+import sri from "./component/sri";
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
-import { assetUrl, loadCss, loadCssPath, jsModule, loadScript, hopscotch, userComplete, loadModule } from "./component/assets";
+import {
+  assetUrl,
+  loadCss,
+  loadCssPath,
+  jsModule,
+  loadScript,
+  hopscotch,
+  userComplete,
+  loadModule,
+} from "./component/assets";
 import widget from "./component/widget";
 import idleTimer from "./component/idle-timer";
 import pubsub from "./component/pubsub";
@@ -19,7 +28,7 @@ import * as miniGame from "./component/mini-game";
 import { format as timeago } from "./component/timeago";
 import watchers from "./component/watchers";
 
-export default function() {
+export default function () {
   const l = window.lichess;
   l.StrongSocket = StrongSocket;
   l.requestIdleCallback = requestIdleCallback;
@@ -52,5 +61,6 @@ export default function() {
   l.miniBoard = miniBoard;
   l.miniGame = miniGame;
   l.timeago = timeago;
-  l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
+  l.contentLoaded = (parent?: HTMLElement) =>
+    pubsub.emit("content-loaded", parent);
 }

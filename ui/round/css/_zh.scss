@@ -1,12 +1,12 @@
 .pocket {
   &-top {
     grid-area: mat-top;
-    margin-bottom: -.5em;
+    margin-bottom: -0.5em;
   }
 
   &-bottom {
     grid-area: mat-bot;
-    margin-top: -.5em;
+    margin-top: -0.5em;
   }
 
   @include breakpoint($mq-col2-uniboard) {
@@ -26,7 +26,6 @@
       display: none;
     }
   }
-
 
   @include breakpoint($mq-tall) {
     #{$moves-tag} {

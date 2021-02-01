@@ -61,7 +61,7 @@
 
   &.goodMove .verdict::before {
     background: $c-good;
-    content: '✓';
+    content: "✓";
     font-size: 1.7em;
   }
 
@@ -71,7 +71,7 @@
 
   &.inaccuracy .verdict::before {
     background: $c-brag;
-    content: '?';
+    content: "?";
   }
 
   &.mistake .verdict,
@@ -82,7 +82,7 @@
   &.mistake .verdict::before,
   &.blunder .verdict::before {
     background: $c-bad;
-    content: '✗';
+    content: "✗";
   }
 
   .comment move {

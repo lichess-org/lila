@@ -1,17 +1,17 @@
-import { Prop } from 'common';
-import { NotifCtrl } from './notif';
-import { AnalyseData, Redraw } from '../interfaces';
-import { StudyPracticeCtrl } from './practice/interfaces';
-import { StudyChaptersCtrl } from './studyChapters';
-import { DescriptionCtrl } from './description';
-import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
-import { GamebookOverride } from './gamebook/interfaces';
-import { GlyphCtrl } from './studyGlyph';
-import { CommentForm } from './commentForm';
-import { TopicsCtrl } from './topics';
-import RelayCtrl from './relay/relayCtrl';
-import { ServerEvalCtrl } from './serverEval';
-import { MultiBoardCtrl } from './multiBoard';
+import { Prop } from "common";
+import { NotifCtrl } from "./notif";
+import { AnalyseData, Redraw } from "../interfaces";
+import { StudyPracticeCtrl } from "./practice/interfaces";
+import { StudyChaptersCtrl } from "./studyChapters";
+import { DescriptionCtrl } from "./description";
+import GamebookPlayCtrl from "./gamebook/gamebookPlayCtrl";
+import { GamebookOverride } from "./gamebook/interfaces";
+import { GlyphCtrl } from "./studyGlyph";
+import { CommentForm } from "./commentForm";
+import { TopicsCtrl } from "./topics";
+import RelayCtrl from "./relay/relayCtrl";
+import { ServerEvalCtrl } from "./serverEval";
+import { MultiBoardCtrl } from "./multiBoard";
 
 export interface StudyCtrl {
   data: StudyData;
@@ -62,8 +62,14 @@ export interface StudyCtrl {
   trans: Trans;
 }
 
-export type Tab = 'intro' | 'members' | 'chapters';
-export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
+export type Tab = "intro" | "members" | "chapters";
+export type ToolTab =
+  | "tags"
+  | "comments"
+  | "glyphs"
+  | "serverEval"
+  | "share"
+  | "multiBoard";
 
 export interface StudyVm {
   loading: boolean;
@@ -88,14 +94,14 @@ export interface StudyData {
   position: Position;
   ownerId: string;
   settings: StudySettings;
-  visibility: 'public' | 'unlisted' | 'private';
+  visibility: "public" | "unlisted" | "private";
   createdAt: number;
   from: string;
   likes: number;
-  isNew?: boolean
+  isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: StudyChapterMeta[]
+  chapters: StudyChapterMeta[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
@@ -105,7 +111,7 @@ export interface StudyData {
 
 export type Topic = string;
 
-type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
+type UserSelection = "nobody" | "owner" | "contributor" | "member" | "everyone";
 
 export interface StudySettings {
   computer: UserSelection;
@@ -150,7 +156,7 @@ export interface StudyChapter {
   name: string;
   ownerId: string;
   setup: StudyChapterSetup;
-  tags: TagArray[]
+  tags: TagArray[];
   practice: boolean;
   conceal?: number;
   gamebook: boolean;
@@ -187,7 +193,7 @@ export type StudyMember = {
     title?: string;
   };
   role: string;
-}
+};
 
 export interface StudyMemberMap {
   [id: string]: StudyMember;
@@ -201,20 +207,20 @@ export interface LocalPaths {
 }
 
 export interface ChapterPreview {
-  id: string
-  name: string
+  id: string;
+  name: string;
   players?: {
-    white: ChapterPreviewPlayer
-    black: ChapterPreviewPlayer
-  }
-  orientation: Color
-  fen: string
-  lastMove?: string
-  playing: boolean
+    white: ChapterPreviewPlayer;
+    black: ChapterPreviewPlayer;
+  };
+  orientation: Color;
+  fen: string;
+  lastMove?: string;
+  playing: boolean;
 }
 
 export interface ChapterPreviewPlayer {
-  name: string
-  title?: string
-  rating?: number
+  name: string;
+  title?: string;
+  rating?: number;
 }

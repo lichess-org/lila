@@ -22,7 +22,7 @@
 
   .game-list {
     .mini-game {
-      padding: .3em;
+      padding: 0.3em;
     }
 
     a {
@@ -34,7 +34,9 @@
 
       background: fade-out($c-accent, 0.7);
 
-      &, a, .mini-game__clock {
+      &,
+      a,
+      .mini-game__clock {
         color: $c-accent-over;
       }
     }

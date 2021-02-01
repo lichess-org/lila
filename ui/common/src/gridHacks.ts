@@ -1,14 +1,13 @@
-import throttle from './throttle';
+import throttle from "./throttle";
 
 export const runner = (hacks: () => void, throttleMs: number = 100): void => {
-
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () =>
     requestAnimationFrame(() => {
       hacks();
       schedule();
-    })
+    }),
   );
 
   function schedule() {
@@ -17,13 +16,13 @@ export const runner = (hacks: () => void, throttleMs: number = 100): void => {
   }
 
   runHacks();
-}
+};
 
 let boundChessgroundResize = false;
 
 export const bindChessgroundResizeOnce = (f: () => void): void => {
   if (!boundChessgroundResize) {
     boundChessgroundResize = true;
-    document.body.addEventListener('chessground.resize', f);
+    document.body.addEventListener("chessground.resize", f);
   }
-}
+};

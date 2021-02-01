@@ -5,7 +5,13 @@ $vp-max-width: 1200px !default;
   @return $value / ($value * 0 + 1);
 }
 
-@mixin fluid-size($prop, $min-size, $max-size, $min-vw: $vp-min-width, $max-vw: $vp-max-width) {
+@mixin fluid-size(
+  $prop,
+  $min-size,
+  $max-size,
+  $min-vw: $vp-min-width,
+  $max-vw: $vp-max-width
+) {
   $u1: unit($min-vw);
   $u2: unit($max-vw);
   $u3: unit($min-size);
@@ -16,15 +22,17 @@ $vp-max-width: 1200px !default;
       #{$prop}: $min-size;
 
       @media (min-width: $min-vw) {
-        #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        #{$prop}: calc(
+          #{$min-size} + #{strip-unit($max-size - $min-size)} *
+            ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+        );
       }
 
       @media (min-width: $max-vw) {
         #{$prop}: $max-size;
       }
     }
-  }
-  @else {
+  } @else {
     @error "fluid-size requires that all values have the same unit";
   }
 }

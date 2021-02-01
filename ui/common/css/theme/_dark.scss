@@ -85,7 +85,11 @@ $c-font-shadow: black;
 $text-shadow: none;
 
 @mixin metal-bg {
-  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+  background: linear-gradient(
+    to bottom,
+    hsl($c-site-hue, 7%, 22),
+    hsl($c-site-hue, 5%, 19) 100%
+  );
 }
 
 @mixin metal {
@@ -93,7 +97,11 @@ $text-shadow: none;
 }
 
 @mixin metal-hover {
-  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
+  background: linear-gradient(
+    to bottom,
+    hsl($c-site-hue, 7%, 25),
+    hsl($c-site-hue, 5%, 22) 100%
+  );
   color: $c-font-clear;
 }
 
@@ -105,4 +113,5 @@ $text-shadow: none;
   @include metal-hover;
 }
 
-@mixin theme-style {}
+@mixin theme-style {
+}

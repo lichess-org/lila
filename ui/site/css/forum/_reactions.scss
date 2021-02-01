@@ -4,7 +4,7 @@
   font-size: 1.1em;
 
   &.loading {
-    opacity: .3;
+    opacity: 0.3;
   }
 
   button {
@@ -12,7 +12,7 @@
 
     @include transition;
 
-    padding: .3em .6em;
+    padding: 0.3em 0.6em;
     order: 1;
     color: $c-link;
     height: 2.5em;
@@ -35,11 +35,11 @@
   }
 
   .forum-post:hover &-auth button.no {
-    opacity: .4;
+    opacity: 0.4;
     filter: grayscale(100%);
 
     &:hover {
-      opacity: .7;
+      opacity: 0.7;
       filter: grayscale(0%);
       background: mix($c-primary, $c-bg-box, 15%);
 
@@ -59,6 +59,6 @@
     height: 20px;
     transition: transform 0.15s cubic-bezier(0.2, 0, 0.13, 2);
     pointer-events: none;
-    margin-right: .4em;
+    margin-right: 0.4em;
   }
 }

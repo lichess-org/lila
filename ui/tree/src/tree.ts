@@ -1,6 +1,6 @@
-import * as treePath from './path';
-import * as ops from './ops';
-import { defined } from 'common';
+import * as treePath from "./path";
+import * as ops from "./ops";
+import { defined } from "common";
 
 export type MaybeNode = Tree.Node | undefined;
 
@@ -26,7 +26,11 @@ export interface TreeWrapper {
   deleteNodeAt(path: Tree.Path): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
-  getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
+  getCurrentNodesAfterPly(
+    nodeList: Tree.Node[],
+    mainline: Tree.Node[],
+    ply: number,
+  ): Tree.Node[];
   merge(tree: Tree.Node): void;
   removeCeval(): void;
   removeComputerVariations(): void;
@@ -35,7 +39,6 @@ export interface TreeWrapper {
 }
 
 export function build(root: Tree.Node): TreeWrapper {
-
   function lastNode(): MaybeNode {
     return ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
   }
@@ -45,7 +48,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function nodeAtPathFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
-    if (path === '') return node;
+    if (path === "") return node;
     const child = ops.childById(node, treePath.head(path));
     return child ? nodeAtPathFrom(child, treePath.tail(path)) : node;
   }
@@ -54,8 +57,11 @@ export function build(root: Tree.Node): TreeWrapper {
     return nodeAtPathOrNullFrom(root, path);
   }
 
-  function nodeAtPathOrNullFrom(node: Tree.Node, path: Tree.Path): Tree.Node | undefined {
-    if (path === '') return node;
+  function nodeAtPathOrNullFrom(
+    node: Tree.Node,
+    path: Tree.Path,
+  ): Tree.Node | undefined {
+    if (path === "") return node;
     const child = ops.childById(node, treePath.head(path));
     return child ? nodeAtPathOrNullFrom(child, treePath.tail(path)) : undefined;
   }
@@ -63,18 +69,23 @@ export function build(root: Tree.Node): TreeWrapper {
   function longestValidPathFrom(node: Tree.Node, path: Tree.Path): Tree.Path {
     var id = treePath.head(path);
     const child = ops.childById(node, id);
-    return child ? id + longestValidPathFrom(child, treePath.tail(path)) : '';
+    return child ? id + longestValidPathFrom(child, treePath.tail(path)) : "";
   }
 
-  function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
-    var node, nodes = [];
+  function getCurrentNodesAfterPly(
+    nodeList: Tree.Node[],
+    mainline: Tree.Node[],
+    ply: number,
+  ): Tree.Node[] {
+    var node,
+      nodes = [];
     for (let i in nodeList) {
       node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);
     }
     return nodes;
-  };
+  }
 
   function pathIsMainline(path: Tree.Path): boolean {
     return pathIsMainlineFrom(root, path);
@@ -85,9 +96,9 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
-    if (path === '') return true;
+    if (path === "") return true;
     const pathId = treePath.head(path),
-    child = node.children[0];
+      child = node.children[0];
     if (!child || child.id !== pathId) return false;
     return pathIsMainlineFrom(child, treePath.tail(path));
   }
@@ -97,7 +108,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function lastMainlineNodeFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
-    if (path === '') return node;
+    if (path === "") return node;
     const pathId = treePath.head(path);
     const child = node.children[0];
     if (!child || child.id !== pathId) return node;
@@ -105,15 +116,18 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function getNodeList(path: Tree.Path): Tree.Node[] {
-    return ops.collect(root, function(node: Tree.Node) {
+    return ops.collect(root, function (node: Tree.Node) {
       const id = treePath.head(path);
-      if (id === '') return;
+      if (id === "") return;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
   }
 
-  function updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined {
+  function updateAt(
+    path: Tree.Path,
+    update: (node: Tree.Node) => void,
+  ): Tree.Node | undefined {
     const node = nodeAtPathOrNull(path);
     if (node) {
       update(node);
@@ -125,19 +139,25 @@ export function build(root: Tree.Node): TreeWrapper {
   // returns new path
   function addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined {
     const newPath = path + node.id,
-    existing = nodeAtPathOrNull(newPath);
+      existing = nodeAtPathOrNull(newPath);
     if (existing) {
-      (['dests', 'drops', 'clock'] as Array<keyof Tree.Node>).forEach(key => {
-        if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key] as never;
+      (["dests", "drops", "clock"] as Array<keyof Tree.Node>).forEach(key => {
+        if (defined(node[key]) && !defined(existing[key]))
+          existing[key] = node[key] as never;
       });
       return newPath;
     }
-    return updateAt(path, function(parent: Tree.Node) {
+    return updateAt(path, function (parent: Tree.Node) {
       parent.children.push(node);
-    }) ? newPath : undefined;
+    })
+      ? newPath
+      : undefined;
   }
 
-  function addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined {
+  function addNodes(
+    nodes: Tree.Node[],
+    path: Tree.Path,
+  ): Tree.Path | undefined {
     const node = nodes[0];
     if (!node) return path;
     const newPath = addNode(node, path);
@@ -165,27 +185,29 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function setCommentAt(comment: Tree.Comment, path: Tree.Path) {
-    return !comment.text ? deleteCommentAt(comment.id, path) : updateAt(path, function(node) {
-      node.comments = node.comments || [];
-      const existing = node.comments.find(function(c) {
-        return c.id === comment.id;
-      });
-      if (existing) existing.text = comment.text;
-      else node.comments.push(comment);
-    });
+    return !comment.text
+      ? deleteCommentAt(comment.id, path)
+      : updateAt(path, function (node) {
+          node.comments = node.comments || [];
+          const existing = node.comments.find(function (c) {
+            return c.id === comment.id;
+          });
+          if (existing) existing.text = comment.text;
+          else node.comments.push(comment);
+        });
   }
 
   function deleteCommentAt(id: string, path: Tree.Path) {
-    return updateAt(path, function(node) {
-      var comments = (node.comments || []).filter(function(c) {
-        return c.id !== id
+    return updateAt(path, function (node) {
+      var comments = (node.comments || []).filter(function (c) {
+        return c.id !== id;
       });
       node.comments = comments.length ? comments : undefined;
     });
   }
 
   function setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path) {
-    return updateAt(path, function(node) {
+    return updateAt(path, function (node) {
       node.glyphs = glyphs;
     });
   }
@@ -194,11 +216,14 @@ export function build(root: Tree.Node): TreeWrapper {
     return nodeAtPath(treePath.init(path));
   }
 
-  function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
-    if (!('parentClock' in node)) {
+  function getParentClock(
+    node: Tree.Node,
+    path: Tree.Path,
+  ): Tree.Clock | undefined {
+    if (!("parentClock" in node)) {
       const par = path && parentNode(path);
       if (!par) node.parentClock = node.clock;
-      else if (!('clock' in par)) node.parentClock = undefined;
+      else if (!("clock" in par)) node.parentClock = undefined;
       else node.parentClock = par.clock;
     }
     return node.parentClock;
@@ -216,12 +241,12 @@ export function build(root: Tree.Node): TreeWrapper {
     addNode,
     addNodes,
     addDests(dests: string, path: Tree.Path) {
-      return updateAt(path, function(node: Tree.Node) {
+      return updateAt(path, function (node: Tree.Node) {
         node.dests = dests;
       });
     },
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {
-      return updateAt(path, function(node: Tree.Node) {
+      return updateAt(path, function (node: Tree.Node) {
         node.shapes = shapes;
       });
     },
@@ -229,7 +254,7 @@ export function build(root: Tree.Node): TreeWrapper {
     deleteCommentAt,
     setGlyphsAt,
     setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
-      return updateAt(path, function(node) {
+      return updateAt(path, function (node) {
         node.clock = clock;
       });
     },
@@ -242,7 +267,7 @@ export function build(root: Tree.Node): TreeWrapper {
     deleteNodeAt,
     promoteAt,
     forceVariationAt(path: Tree.Path, force: boolean) {
-      return updateAt(path, function(node) {
+      return updateAt(path, function (node) {
         node.forceVariation = force;
       });
     },
@@ -251,19 +276,19 @@ export function build(root: Tree.Node): TreeWrapper {
       ops.merge(root, tree);
     },
     removeCeval() {
-      ops.updateAll(root, function(n) {
+      ops.updateAll(root, function (n) {
         delete n.ceval;
         delete n.threat;
       });
     },
     removeComputerVariations() {
-      ops.mainlineNodeList(root).forEach(function(n) {
-        n.children = n.children.filter(function(c) {
+      ops.mainlineNodeList(root).forEach(function (n) {
+        n.children = n.children.filter(function (c) {
           return !c.comp;
         });
       });
     },
     parentNode,
-    getParentClock
+    getParentClock,
   };
 }

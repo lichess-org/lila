@@ -1,5 +1,5 @@
 declare const __info__: {
-  date: string,
-  commit: string,
-  message: string,
+  date: string;
+  commit: string;
+  message: string;
 };

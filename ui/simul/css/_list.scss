@@ -31,7 +31,8 @@
       padding-bottom: 1em;
     }
 
-    .host, .players {
+    .host,
+    .players {
       display: none;
     }
 
@@ -41,13 +42,11 @@
       }
     }
 
-
     @include breakpoint($mq-small) {
       .players {
         display: table-cell;
       }
     }
-
 
     .header {
       cursor: pointer;

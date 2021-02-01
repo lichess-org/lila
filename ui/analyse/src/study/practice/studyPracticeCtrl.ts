@@ -1,23 +1,32 @@
-import * as xhr from '../studyXhr';
-import { prop } from 'common';
-import { storedProp } from 'common/storage';
-import makeSuccess from './studyPracticeSuccess';
-import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
-import { StudyData, StudyCtrl } from '../interfaces';
-import AnalyseCtrl from '../../ctrl';
+import * as xhr from "../studyXhr";
+import { prop } from "common";
+import { storedProp } from "common/storage";
+import makeSuccess from "./studyPracticeSuccess";
+import { readOnlyProp } from "../../util";
+import { StudyPracticeData, Goal, StudyPracticeCtrl } from "./interfaces";
+import { StudyData, StudyCtrl } from "../interfaces";
+import AnalyseCtrl from "../../ctrl";
 
-export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
-
+export default function (
+  root: AnalyseCtrl,
+  studyData: StudyData,
+  data: StudyPracticeData,
+): StudyPracticeCtrl {
   const goal = prop<Goal>(root.data.practiceGoal!),
-  nbMoves = prop(0),
-  // null = ongoing, true = win, false = fail
-  success = prop<boolean | null>(null),
-  analysisUrl = prop(''),
-  autoNext = storedProp('practice-auto-next', true);
+    nbMoves = prop(0),
+    // null = ongoing, true = win, false = fail
+    success = prop<boolean | null>(null),
+    analysisUrl = prop(""),
+    autoNext = storedProp("practice-auto-next", true);
 
-  lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`);
-  lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`);
+  lichess.sound.loadOggOrMp3(
+    "practiceSuccess",
+    `${lichess.sound.baseUrl}/other/energy3`,
+  );
+  lichess.sound.loadOggOrMp3(
+    "practiceFailure",
+    `${lichess.sound.baseUrl}/other/failure2`,
+  );
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -27,8 +36,13 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     nbMoves(0);
     success(null);
     const chapter = studyData.chapter;
-    history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
-    analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
+    history.replaceState(null, chapter.name, data.url + "/" + chapter.id);
+    analysisUrl(
+      "/analysis/standard/" +
+        root.node.fen.replace(/ /g, "_") +
+        "?color=" +
+        root.bottomColor(),
+    );
   }
   onLoad();
 
@@ -45,7 +59,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   function checkSuccess(): void {
     const gamebook = getStudy().gamebookPlay();
     if (gamebook) {
-      if (gamebook.state.feedback === 'end') onVictory();
+      if (gamebook.state.feedback === "end") onVictory();
       return;
     }
     if (!getStudy().data.chapter.practice) {
@@ -60,14 +74,14 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function onVictory(): void {
     saveNbMoves();
-    lichess.sound.play('practiceSuccess');
+    lichess.sound.play("practiceSuccess");
     if (autoNext()) setTimeout(goToNext, 1000);
   }
 
   function saveNbMoves(): void {
     const chapterId = getStudy().currentChapter().id,
-    former = data.completion[chapterId];
-    if (typeof former === 'undefined' || nbMoves() < former) {
+      former = data.completion[chapterId];
+    if (typeof former === "undefined" || nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
@@ -80,14 +94,15 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function onFailure(): void {
     root.node.fail = true;
-    lichess.sound.play('practiceFailure');
+    lichess.sound.play("practiceFailure");
   }
 
   return {
     onLoad,
     onJump() {
       // reset failure state if no failed move found in mainline history
-      if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
+      if (success() === false && !root.nodeList.find(n => !!n.fail))
+        success(null);
       checkSuccess();
     },
     onCeval: checkSuccess,
@@ -97,7 +112,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     nbMoves,
     reset() {
       root.tree.root.children = [];
-      root.userJump('');
+      root.userJump("");
       root.practice!.reset();
       onLoad();
       root.practice!.resume();
@@ -105,6 +120,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     isWhite: root.bottomIsWhite,
     analysisUrl,
     autoNext,
-    goToNext
+    goToNext,
   };
 }

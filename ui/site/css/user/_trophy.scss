@@ -15,7 +15,7 @@
 }
 
 .trophy.award {
-  font-family: 'lichess';
+  font-family: "lichess";
   speak: none;
   line-height: 100%;
 }
@@ -34,7 +34,8 @@
   }
 }
 
-.trophy, .shield-trophy {
+.trophy,
+.shield-trophy {
   transition: transform 0.2s;
 
   &:not(.patron):hover {
@@ -55,7 +56,8 @@
 }
 
 .fire-trophy {
-  &, &:hover {
+  &,
+  &:hover {
     color: if($theme-light, $c-font-dim, $c-font-clear);
   }
 
@@ -148,7 +150,7 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  font-family: 'lichess';
+  font-family: "lichess";
   text-align: center;
 }
 

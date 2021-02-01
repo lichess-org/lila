@@ -9,21 +9,21 @@ function shuffle(a) {
 }
 
 var list = [
-  'awesome',
-  'excellent',
-  'greatJob',
-  'perfect',
-  'outstanding',
-  'wayToGo',
-  'yesYesYes',
-  'youreGoodAtThis',
-  'nailedIt',
-  'rightOn'
+  "awesome",
+  "excellent",
+  "greatJob",
+  "perfect",
+  "outstanding",
+  "wayToGo",
+  "yesYesYes",
+  "youreGoodAtThis",
+  "nailedIt",
+  "rightOn",
 ];
 shuffle(list);
 
 var it = 0;
 
-module.exports = function() {
+module.exports = function () {
   return list[it++ % list.length];
 };

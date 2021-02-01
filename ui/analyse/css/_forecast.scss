@@ -7,7 +7,7 @@
 
   &.loading .box,
   &.loading .add {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   .overlay {
@@ -22,14 +22,14 @@
     @extend %metal;
 
     border-bottom: $border;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
   }
 
   .entry {
     @extend %flex-center-nowrap;
 
-    padding: .7em .1em .7em .6em;
-    margin-left: -.1em;
+    padding: 0.7em 0.1em 0.7em 0.6em;
+    margin-left: -0.1em;
 
     @include transition;
 
@@ -37,8 +37,8 @@
     border-bottom: $border;
 
     &::before {
-      margin-left: -.6em;
-      opacity: .4;
+      margin-left: -0.6em;
+      opacity: 0.4;
     }
 
     .del {
@@ -49,23 +49,23 @@
       top: 8px;
       width: 1.5em;
       height: 1.5em;
-      line-height: .8em;
+      line-height: 0.8em;
       text-align: center;
       display: block;
-      font-size: .9em;
+      font-size: 0.9em;
       opacity: 0;
 
       @include transition;
 
       background: $c-bad;
       color: $c-bad-over;
-      padding: .25em;
+      padding: 0.25em;
       border-radius: 50%;
       z-index: 1;
     }
 
     &:hover .del {
-      opacity: .6;
+      opacity: 0.6;
     }
 
     .del:hover {
@@ -77,14 +77,14 @@
     @extend %button-none, %flex-center-nowrap;
 
     width: 100%;
-    padding: .7em;
+    padding: 0.7em;
     text-align: left;
     color: $c-font-dim;
     cursor: inherit;
 
     &::before {
       font-size: 2.2em;
-      opacity: .6;
+      opacity: 0.6;
     }
 
     &.enabled {
@@ -96,7 +96,7 @@
       @include transition;
 
       &::before {
-        opacity: .7;
+        opacity: 0.7;
         color: $c-good;
       }
 
@@ -110,7 +110,7 @@
     }
 
     > span {
-      font-size: .9em;
+      font-size: 0.9em;
 
       > span {
         color: $c-font-dim;
@@ -128,7 +128,7 @@
 
   sans > * {
     display: inline-block;
-    margin-right: .2em;
+    margin-right: 0.2em;
   }
 
   .add sans {

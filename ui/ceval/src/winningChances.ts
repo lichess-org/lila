@@ -1,7 +1,7 @@
-import { Eval } from './types';
+import { Eval } from "./types";
 
 function toPov(color: Color, diff: number): number {
-  return color === 'white' ? diff : -diff;
+  return color === "white" ? diff : -diff;
 }
 
 /**
@@ -22,7 +22,9 @@ function mateWinningChances(mate: number): number {
 }
 
 function evalWinningChances(ev: Eval): number {
-  return typeof ev.mate !== 'undefined' ? mateWinningChances(ev.mate) : cpWinningChances(ev.cp!);
+  return typeof ev.mate !== "undefined"
+    ? mateWinningChances(ev.mate)
+    : cpWinningChances(ev.cp!);
 }
 
 // winning chances for a color

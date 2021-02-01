@@ -8,13 +8,13 @@
     @include transition;
 
     &.empty {
-      opacity: .5;
+      opacity: 0.5;
     }
 
     &::before {
       font-size: 3em;
-      opacity: .5;
-      margin-right: .2em;
+      opacity: 0.5;
+      margin-right: 0.2em;
 
       @include transition;
     }
@@ -24,7 +24,7 @@
 
       &::before {
         color: $c-link;
-        opacity: .7;
+        opacity: 0.7;
       }
     }
 
@@ -35,7 +35,7 @@
 
       &::before {
         color: $c-accent;
-        opacity: .7;
+        opacity: 0.7;
       }
     }
 
@@ -44,17 +44,17 @@
 
       @extend %flex-column;
 
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
 
     rating span,
     .rank {
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     i {
-      font-size: .75em;
-      opacity: .2;
+      font-size: 0.75em;
+      opacity: 0.2;
       color: $c-font-dim;
 
       @include transition;
@@ -62,7 +62,7 @@
 
     &:hover i {
       color: $c-link;
-      opacity: .7;
+      opacity: 0.7;
     }
 
     &.active i {
@@ -70,7 +70,7 @@
     }
 
     .shy {
-      font-size: .8em;
+      font-size: 0.8em;
       opacity: 0.6;
       line-height: 1em;
     }
@@ -81,7 +81,7 @@
 
     font-size: 1.1em;
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     margin: 0;
     display: inline-block;
   }
@@ -94,7 +94,7 @@
 
   @include breakpoint($mq-not-medium) {
     a {
-      padding: .3em;
+      padding: 0.3em;
     }
 
     a > i,
@@ -105,12 +105,12 @@
     }
   }
 
-
   @include breakpoint($mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
 
-    br, .rank {
+    br,
+    .rank {
       display: none;
     }
 
@@ -119,7 +119,7 @@
       justify-content: center;
 
       &::before {
-        opacity: .8;
+        opacity: 0.8;
         font-size: 1.5em;
       }
 

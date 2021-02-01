@@ -16,11 +16,11 @@
   }
 
   grid-gap: $block-gap;
-  grid-template-areas: 'schedule' 'side';
+  grid-template-areas: "schedule" "side";
 
   @include breakpoint($mq-medium) {
     grid-template-columns: minmax(200px, 300px);
-    grid-template-areas: 'side schedule' 'side list' 'side .';
+    grid-template-areas: "side schedule" "side list" "side .";
 
     &__side {
       margin: 0;

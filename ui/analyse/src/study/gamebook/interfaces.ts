@@ -1,2 +1,1 @@
-
-export type GamebookOverride = undefined | 'play' | 'analyse';
+export type GamebookOverride = undefined | "play" | "analyse";

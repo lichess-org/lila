@@ -1,17 +1,20 @@
-import { VNode } from 'snabbdom/vnode'
-import { Player, Status, Source, Clock } from 'game';
-import * as cg from 'chessground/types';
-import { ForecastData } from './forecast/interfaces';
-import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
-import { RelayData } from './study/relay/interfaces';
-import AnalyseController from './ctrl';
-import { ChatCtrl } from 'chat';
+import { VNode } from "snabbdom/vnode";
+import { Player, Status, Source, Clock } from "game";
+import * as cg from "chessground/types";
+import { ForecastData } from "./forecast/interfaces";
+import {
+  StudyPracticeData,
+  Goal as PracticeGoal,
+} from "./study/practice/interfaces";
+import { RelayData } from "./study/relay/interfaces";
+import AnalyseController from "./ctrl";
+import { ChatCtrl } from "chat";
 
 export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[]
+export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export { Key, Piece } from "chessground/types";
 
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;
@@ -41,11 +44,11 @@ export interface AnalyseData {
   clock?: Clock;
   pref: any;
   url: {
-    socket: string
-  }
+    socket: string;
+  };
   userTv?: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export interface ServerEvalData {
@@ -83,7 +86,7 @@ export interface Opening {
 
 export interface Division {
   middle?: number;
-  end?: number
+  end?: number;
 }
 
 export interface Analysis {
@@ -118,7 +121,7 @@ export interface AnalyseOpts {
   i18n: any;
   chat: {
     parseMoves: boolean;
-    instance?: Promise<ChatCtrl>
+    instance?: Promise<ChatCtrl>;
   };
 }
 
@@ -126,7 +129,9 @@ export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
 }
 
-export type Conceal = boolean | 'conceal' | 'hide' | null;
-export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
+export type Conceal = boolean | "conceal" | "hide" | null;
+export type ConcealOf = (
+  isMainline: boolean,
+) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export type Redraw = () => void;

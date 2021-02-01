@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from "snabbdom/vnode";
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -42,18 +42,18 @@ export interface SwissData {
   nextRound?: {
     at: string;
     in: number;
-  }
+  };
   greatPlayer?: {
     name: string;
     url: string;
-  }
+  };
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
   stats?: Stats;
   password?: boolean;
 }
 
-export type Status = 'created' | 'started' | 'finished';
+export type Status = "created" | "started" | "finished";
 
 export interface MyInfo {
   id: string;
@@ -115,7 +115,7 @@ export interface Board {
   clock?: {
     white: number;
     black: number;
-  }
+  };
   winner?: Color;
 }
 
@@ -144,7 +144,7 @@ export interface Pager {
 export type Page = Player[];
 
 export interface Pages {
-  [n: number]: Page
+  [n: number]: Page;
 }
 
 export interface PlayerExt extends Player {

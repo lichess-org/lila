@@ -1,8 +1,8 @@
-import { Outcome } from 'chessops/types';
-import { Prop } from 'common';
-import { StoredProp, StoredBooleanProp } from 'common/storage';
+import { Outcome } from "chessops/types";
+import { Prop } from "common";
+import { StoredProp, StoredBooleanProp } from "common/storage";
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx';
+export type CevalTechnology = "asmjs" | "wasm" | "wasmx";
 
 export interface Eval {
   cp?: number;
@@ -69,7 +69,12 @@ export interface CevalCtrl {
   variant: Variant;
   setHovering: (fen: string, uci?: string) => void;
   multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
+  start: (
+    path: string,
+    steps: Step[],
+    threatMode?: boolean,
+    deeper?: boolean,
+  ) => void;
   stop(): void;
   threads: StoredProp<number> | undefined;
   hashSize: StoredProp<number> | undefined;
@@ -104,8 +109,8 @@ export interface ParentCtrl {
 }
 
 export interface NodeEvals {
-  client?: Tree.ClientEval
-  server?: Tree.ServerEval
+  client?: Tree.ClientEval;
+  server?: Tree.ServerEval;
 }
 
 export interface Step {

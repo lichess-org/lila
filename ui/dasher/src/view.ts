@@ -1,43 +1,43 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
 
-import { DasherCtrl } from './dasher'
-import links from './links'
-import { view as langsView } from './langs'
-import { view as soundView } from './sound'
-import { view as backgroundView } from './background'
-import { view as boardView } from './board'
-import { view as themeView } from './theme'
-import { view as pieceView } from './piece'
-import { spinner } from './util'
+import { DasherCtrl } from "./dasher";
+import links from "./links";
+import { view as langsView } from "./langs";
+import { view as soundView } from "./sound";
+import { view as backgroundView } from "./background";
+import { view as boardView } from "./board";
+import { view as themeView } from "./theme";
+import { view as pieceView } from "./piece";
+import { spinner } from "./util";
 
 export function loading(): VNode {
-  return h('div#dasher_app.dropdown', h('div.initiating', spinner()));
+  return h("div#dasher_app.dropdown", h("div.initiating", spinner()));
 }
 
 export function loaded(ctrl: DasherCtrl): VNode {
   let content: VNode | undefined;
-  switch(ctrl.mode()) {
-    case 'langs':
+  switch (ctrl.mode()) {
+    case "langs":
       content = langsView(ctrl.subs.langs);
       break;
-    case 'sound':
+    case "sound":
       content = soundView(ctrl.subs.sound);
       break;
-    case 'background':
+    case "background":
       content = backgroundView(ctrl.subs.background);
       break;
-    case 'board':
+    case "board":
       content = boardView(ctrl.subs.board);
       break;
-    case 'theme':
+    case "theme":
       content = themeView(ctrl.subs.theme);
       break;
-    case 'piece':
+    case "piece":
       content = pieceView(ctrl.subs.piece);
       break;
     default:
       content = links(ctrl);
   }
-  return h('div#dasher_app.dropdown', content);
+  return h("div#dasher_app.dropdown", content);
 }

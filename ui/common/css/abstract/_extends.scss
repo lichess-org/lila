@@ -1,22 +1,22 @@
 %base-font-fallback {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: "Noto Sans", Sans-Serif;
 }
 
 %base-font {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: "Noto Sans", Sans-Serif;
 }
 
 %roboto {
-  font-family: 'Roboto', Sans-Serif;
+  font-family: "Roboto", Sans-Serif;
 }
 
 %roboto-fat {
-  font-family: 'Roboto', Sans-Serif;
+  font-family: "Roboto", Sans-Serif;
   font-weight: 600;
 }
 
 %chess-font {
-  font-family: 'Noto Chess', 'Noto Sans';
+  font-family: "Noto Chess", "Noto Sans";
 }
 
 %san {
@@ -117,7 +117,7 @@
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
   display: inline-block;
-  padding: .5em;
+  padding: 0.5em;
 
   &:checked {
     background: $c-secondary-dimmer;
@@ -198,7 +198,7 @@
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: 'lichess';
+  font-family: "lichess";
   font-style: normal;
   font-weight: normal;
   text-transform: none;

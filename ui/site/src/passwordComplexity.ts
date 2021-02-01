@@ -26,4 +26,3 @@ function updateMeter(score: number): void {
     (children[i] as HTMLElement).style.backgroundColor = i < score ? color : "";
   }
 }
-

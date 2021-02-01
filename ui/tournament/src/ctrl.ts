@@ -1,10 +1,17 @@
-import makeSocket from './socket';
-import * as xhr from './xhr';
-import { myPage, players } from './pagination';
-import * as sound from './sound';
-import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
-import { TournamentSocket } from './socket';
+import makeSocket from "./socket";
+import * as xhr from "./xhr";
+import { myPage, players } from "./pagination";
+import * as sound from "./sound";
+import * as tour from "./tournament";
+import {
+  TournamentData,
+  TournamentOpts,
+  Pages,
+  PlayerInfo,
+  TeamInfo,
+  Standing,
+} from "./interfaces";
+import { TournamentSocket } from "./socket";
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -12,7 +19,6 @@ interface CtrlTeamInfo {
 }
 
 export default class TournamentController {
-
   opts: TournamentOpts;
   data: TournamentData;
   trans: Trans;
@@ -29,7 +35,7 @@ export default class TournamentController {
   joinWithTeamSelector: boolean = false;
   redraw: () => void;
 
-  private lastStorage = lichess.storage.make('last-redirect');
+  private lastStorage = lichess.storage.make("last-redirect");
 
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
@@ -39,7 +45,7 @@ export default class TournamentController {
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = tour.isIn(this);
-    setTimeout(() => this.disableClicks = false, 1500);
+    setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
     sound.end(this.data);
@@ -55,8 +61,8 @@ export default class TournamentController {
 
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
-    if (!this.data.me && data.me && this.data['private']) lichess.reload();
-    this.data = {...this.data, ...data};
+    if (!this.data.me && data.me && this.data["private"]) lichess.reload();
+    this.data = { ...this.data, ...data };
     this.data.me = data.me; // to account for removal on withdraw
     if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
       this.playerInfo.data = data.playerInfo;
@@ -68,13 +74,13 @@ export default class TournamentController {
     this.recountTeams();
     this.redirectToMyGame();
   };
-  
 
   myGameId = () => this.data.me?.gameId;
 
   private recountTeams() {
-    if (this.data.teamBattle) 
-      this.data.teamBattle.hasMoreThanTenTeams = Object.keys(this.data.teamBattle.teams).length > 10;
+    if (this.data.teamBattle)
+      this.data.teamBattle.hasMoreThanTenTeams =
+        Object.keys(this.data.teamBattle.teams).length > 10;
   }
 
   private redirectToMyGame() {
@@ -83,18 +89,20 @@ export default class TournamentController {
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
-    const delay = (rightNow || document.hasFocus()) ? 10 : (1000 + Math.random() * 500);
+    const delay =
+      rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect('/' + gameId);
+        lichess.redirect("/" + gameId);
       }
     }, delay);
   };
 
   loadPage = (data: Standing) => {
-    if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
-  }
+    if (!data.failed || !this.pages[data.page])
+      this.pages[data.page] = data.players;
+  };
 
   setPage = (page: number) => {
     this.page = page;
@@ -108,10 +116,12 @@ export default class TournamentController {
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+      this.pages[this.page]
+        .filter(p => p.name.toLowerCase() == userId)
+        .forEach(this.showPlayerInfo);
       this.redraw();
     });
-  }
+  };
 
   userSetPage = (page: number) => {
     this.focusOnMe = false;
@@ -130,9 +140,10 @@ export default class TournamentController {
 
   join = (password?: string, team?: string) => {
     this.joinWithTeamSelector = false;
-    if (!this.data.verdicts.accepted) return this.data.verdicts.list.forEach(v => {
-      if (v.verdict !== 'ok') alert(v.verdict);
-    });
+    if (!this.data.verdicts.accepted)
+      return this.data.verdicts.list.forEach(v => {
+        if (v.verdict !== "ok") alert(v.verdict);
+      });
     if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {
@@ -140,7 +151,7 @@ export default class TournamentController {
       this.joinSpinner = true;
       this.focusOnMe = true;
     }
-  }
+  };
 
   scrollToMe = () => {
     const page = myPage(this);
@@ -153,28 +164,27 @@ export default class TournamentController {
     if (this.focusOnMe) this.scrollToMe();
   };
 
-  showPlayerInfo = (player) => {
+  showPlayerInfo = player => {
     if (this.data.secondsToStart) return;
     const userId = player.name.toLowerCase();
     this.teamInfo.requested = undefined;
     this.playerInfo = {
       id: this.playerInfo.id === userId ? null : userId,
       player: player,
-      data: null
+      data: null,
     };
     if (this.playerInfo.id) xhr.playerInfo(this, this.playerInfo.id);
   };
 
-  setPlayerInfoData = (data) => {
-    if (data.player.id === this.playerInfo.id)
-      this.playerInfo.data = data;
+  setPlayerInfoData = data => {
+    if (data.player.id === this.playerInfo.id) this.playerInfo.data = data;
   };
 
   showTeamInfo = (teamId: string) => {
     this.playerInfo.id = undefined;
     this.teamInfo = {
       requested: this.teamInfo.requested === teamId ? undefined : teamId,
-      loaded: undefined
+      loaded: undefined,
     };
     if (this.teamInfo.requested) xhr.teamInfo(this, this.teamInfo.requested);
   };
@@ -184,5 +194,5 @@ export default class TournamentController {
       this.teamInfo.loaded = teamInfo;
   };
 
-  toggleSearch = () => this.searching = !this.searching;
+  toggleSearch = () => (this.searching = !this.searching);
 }

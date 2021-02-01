@@ -1,16 +1,16 @@
 db.trophy.drop();
-db.trophy.ensureIndex({user: 1});
+db.trophy.ensureIndex({ user: 1 });
 db.trophy.insert({
-  _id: 'zugMiracle',
-  kind: 'zugMiracle',
-  user: 'zugaddict',
-  date: new Date()
+  _id: "zugMiracle",
+  kind: "zugMiracle",
+  user: "zugaddict",
+  date: new Date(),
 });
 db.trophy.insert({
-  _id: 'wayOfBerserk',
-  kind: 'wayOfBerserk',
-  user: 'hiimgosu',
-  date: new Date()
+  _id: "wayOfBerserk",
+  kind: "wayOfBerserk",
+  user: "hiimgosu",
+  date: new Date(),
 });
 // db.trophy.insert({
 //   _id: 'marathon1',

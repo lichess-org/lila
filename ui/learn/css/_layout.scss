@@ -2,7 +2,9 @@ $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(
+    100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}
+  );
 
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
@@ -26,11 +28,11 @@ $mq-col3: $mq-col3-uniboard;
   }
 
   &--run {
-    grid-template-areas: 'main' 'table' 'side';
+    grid-template-areas: "main" "table" "side";
   }
 
   &--map {
-    grid-template-areas: 'side' 'main';
+    grid-template-areas: "side" "main";
   }
 
   grid-gap: $block-gap;
@@ -39,11 +41,11 @@ $mq-col3: $mq-col3-uniboard;
     &--run {
       grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
       grid-template-rows: fit-content(0);
-      grid-template-areas: 'main table' 'side .';
+      grid-template-areas: "main table" "side .";
     }
 
     &--map {
-      grid-template-areas: 'side main';
+      grid-template-areas: "side main";
       grid-template-columns: 240px auto;
 
       @include breakpoint($mq-x-large) {
@@ -52,11 +54,10 @@ $mq-col3: $mq-col3-uniboard;
     }
   }
 
-
   @include breakpoint($mq-col3) {
     &--run {
       grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-      grid-template-areas: 'side main table';
+      grid-template-areas: "side main table";
     }
   }
 }

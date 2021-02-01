@@ -9,7 +9,7 @@
     @extend %flex-center;
 
     span {
-      margin-left: .4em;
+      margin-left: 0.4em;
     }
   }
 
@@ -29,7 +29,7 @@
     font-size: 2em;
 
     .details {
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 
@@ -86,7 +86,7 @@
 
   .counter td {
     text-align: right;
-    padding: .8em 1.2em;
+    padding: 0.8em 1.2em;
     font-weight: bold;
     font-size: 1.2em;
   }
@@ -107,7 +107,7 @@
 
   .result th,
   .result td {
-    padding: .8em 0;
+    padding: 0.8em 0;
   }
 
   .result td:first-child {

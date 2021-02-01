@@ -1,8 +1,8 @@
-type Board = {pieces: {[key: number]: string}, turn: boolean};
-export type SanToUci = {[key: string]: Uci};
+type Board = { pieces: { [key: number]: string }; turn: boolean };
+export type SanToUci = { [key: string]: Uci };
 
 function fixCrazySan(san: string) {
-  return san[0] === 'P' ? san.slice(1) : san;
+  return san[0] === "P" ? san.slice(1) : san;
 }
 
 function decomposeUci(uci: string) {
@@ -26,38 +26,45 @@ function isBlack(p: string) {
 }
 
 function readFen(fen: string) {
-  const parts = fen.split(' '),
-  board: Board = {
-    pieces: {},
-    turn: parts[1] === 'w'
-  };
+  const parts = fen.split(" "),
+    board: Board = {
+      pieces: {},
+      turn: parts[1] === "w",
+    };
 
-  parts[0].split('/').slice(0, 8).forEach((row, y) => {
-    let x = 0;
-    row.split('').forEach(v => {
-      if (v == '~') return;
-      const nb = parseInt(v, 10);
-      if (nb) x += nb;
-      else {
-        board.pieces[(7 - y) * 8 + x] = v;
-        x++;
-      }
+  parts[0]
+    .split("/")
+    .slice(0, 8)
+    .forEach((row, y) => {
+      let x = 0;
+      row.split("").forEach(v => {
+        if (v == "~") return;
+        const nb = parseInt(v, 10);
+        if (nb) x += nb;
+        else {
+          board.pieces[(7 - y) * 8 + x] = v;
+          x++;
+        }
+      });
     });
-  });
 
   return board;
 }
 
 function kingMovesTo(s: number) {
-  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function(o) {
-    return o >= 0 && o < 64 && squareDist(s, o) === 1;
-  });
+  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(
+    function (o) {
+      return o >= 0 && o < 64 && squareDist(s, o) === 1;
+    },
+  );
 }
 
 function knightMovesTo(s: number) {
-  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function(o) {
-    return o >= 0 && o < 64 && squareDist(s, o) <= 2;
-  });
+  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(
+    function (o) {
+      return o >= 0 && o < 64 && squareDist(s, o) <= 2;
+    },
+  );
 }
 
 var ROOK_DELTAS = [8, 1, -8, -1];
@@ -66,8 +73,12 @@ var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
 function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   var result: number[] = [];
-  deltas.forEach(function(delta) {
-    for (var square = s + delta; square >= 0 && square < 64 && squareDist(square, square - delta) === 1; square += delta) {
+  deltas.forEach(function (delta) {
+    for (
+      var square = s + delta;
+      square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
+      square += delta
+    ) {
       result.push(square);
       if (board.pieces[square]) break;
     }
@@ -76,7 +87,7 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
 }
 
 function sanOf(board: Board, uci: string) {
-  if (uci.includes('@')) return fixCrazySan(uci);
+  if (uci.includes("@")) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);
@@ -86,35 +97,38 @@ function sanOf(board: Board, uci: string) {
   var pt = board.pieces[from].toLowerCase();
 
   // pawn moves
-  if (pt === 'p') {
+  if (pt === "p") {
     var san: string;
     if (uci[0] === uci[2]) san = move[1];
-    else san = uci[0] + 'x' + move[1];
-    if (move[2]) san += '=' + move[2].toUpperCase();
+    else san = uci[0] + "x" + move[1];
+    if (move[2]) san += "=" + move[2].toUpperCase();
     return san;
   }
 
   // castling
-  if (pt == 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
-    if (to < from) return 'O-O-O';
-    else return 'O-O';
+  if (
+    pt == "k" &&
+    ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)
+  ) {
+    if (to < from) return "O-O-O";
+    else return "O-O";
   }
 
   var san = pt.toUpperCase();
 
   // disambiguate normal moves
   var candidates: number[] = [];
-  if (pt == 'k') candidates = kingMovesTo(to);
-  else if (pt == 'n') candidates = knightMovesTo(to);
-  else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
-  else if (pt == 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
-  else if (pt == 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
+  if (pt == "k") candidates = kingMovesTo(to);
+  else if (pt == "n") candidates = knightMovesTo(to);
+  else if (pt == "r") candidates = slidingMovesTo(to, ROOK_DELTAS, board);
+  else if (pt == "b") candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
+  else if (pt == "q") candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
 
   var rank = false,
     file = false;
   for (var i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
-    if ((from >> 3) === (candidates[i] >> 3)) file = true;
+    if (from >> 3 === candidates[i] >> 3) file = true;
     if ((from & 7) === (candidates[i] & 7)) rank = true;
     else file = true;
   }
@@ -122,18 +136,18 @@ function sanOf(board: Board, uci: string) {
   if (rank) san += uci[1];
 
   // target
-  if (d) san += 'x';
+  if (d) san += "x";
   san += move[1];
   return san;
 }
 
 export function sanWriter(fen: string, ucis: string[]): SanToUci {
   var board = readFen(fen);
-  var sans: SanToUci = {}
-  ucis.forEach(function(uci) {
+  var sans: SanToUci = {};
+  ucis.forEach(function (uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;
-    if (san.includes('x')) sans[san.replace('x', '')] = uci;
+    if (san.includes("x")) sans[san.replace("x", "")] = uci;
   });
   return sans;
 }

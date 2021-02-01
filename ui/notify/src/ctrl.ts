@@ -1,15 +1,14 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
-import * as xhr from 'common/xhr';
-import notify from 'common/notification';
-import { asText } from './view';
+import { Ctrl, NotifyOpts, NotifyData, Redraw } from "./interfaces";
+import * as xhr from "common/xhr";
+import notify from "common/notification";
+import { asText } from "./view";
 
 export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
-
   let data: NotifyData | undefined,
     initiating = true,
     scrolling = false;
 
-  const readAllStorage = lichess.storage.make('notify-read-all');
+  const readAllStorage = lichess.storage.make("notify-read-all");
 
   readAllStorage.listen(_ => {
     if (data) {
@@ -38,15 +37,19 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!lichess.quietMode) lichess.sound.play('newPM');
+    if (!lichess.quietMode) lichess.sound.play("newPM");
     const text = asText(notif);
-    const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
+    const pushSubsribed =
+      parseInt(lichess.storage.get("push-subscribed") || "0", 10) + 86400000 >=
+      Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
   }
 
   const loadPage = (page: number) =>
-    xhr.json(xhr.url('/notify', { page: page || 1 }))
-      .then(d => update(d, false), _ => lichess.announce({ msg: 'Failed to load notifications' }));
+    xhr.json(xhr.url("/notify", { page: page || 1 })).then(
+      d => update(d, false),
+      _ => lichess.announce({ msg: "Failed to load notifications" }),
+    );
 
   function nextPage() {
     if (!data || !data.pager.nextPage) return;
@@ -67,13 +70,18 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   function setMsgRead(user: string) {
-    if (data) data.pager.currentPageResults.forEach(n => {
-      if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
-        n.read = true;
-        data!.unread = Math.max(0, data!.unread - 1);
-        opts.setCount(data!.unread);
-      }
-    });
+    if (data)
+      data.pager.currentPageResults.forEach(n => {
+        if (
+          n.type == "privateMessage" &&
+          n.content.user.id == user &&
+          !n.read
+        ) {
+          n.read = true;
+          data!.unread = Math.max(0, data!.unread - 1);
+          opts.setCount(data!.unread);
+        }
+      });
   }
 
   return {
@@ -85,6 +93,6 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     previousPage,
     loadPage,
     setVisible,
-    setMsgRead
+    setMsgRead,
   };
 }

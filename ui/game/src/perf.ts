@@ -11,6 +11,6 @@ export const perf = {
     threeCheck: ".",
     antichess: "@",
     atomic: ">",
-    horde: "_"
-  }
+    horde: "_",
+  },
 };

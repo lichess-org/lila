@@ -1,64 +1,78 @@
-type State = 'off' | 'opening' | 'getting-media' | 'ready' | 'calling' | 'answering' | 'getting-stream' | 'on' | 'stopping';
+type State =
+  | "off"
+  | "opening"
+  | "getting-media"
+  | "ready"
+  | "calling"
+  | "answering"
+  | "getting-stream"
+  | "on"
+  | "stopping";
 
 export function palantir(opts: PalantirOpts) {
-
   const devices = navigator.mediaDevices;
-  if (!devices) return alert('Voice chat requires navigator.mediaDevices');
+  if (!devices) return alert("Voice chat requires navigator.mediaDevices");
 
-  let state: State = 'off',
+  let state: State = "off",
     peer: any | undefined,
     myStream: any | undefined;
 
   function start() {
-    setState('opening');
-    peer = new window['Peer'](peerIdOf(opts.uid))
-      .on('open', () => {
-        setState('getting-media');
-        devices.getUserMedia({video: false, audio: true}).then((s: any) => {
-          myStream = s;
-          setState('ready');
-          lichess.sound.say("Voice chat is ready.", true, true);
-          ping();
-        }, function(err) {
-          log(`Failed to get local stream: ${err}`);
-        }).catch(err => log(err));
+    setState("opening");
+    peer = new window["Peer"](peerIdOf(opts.uid))
+      .on("open", () => {
+        setState("getting-media");
+        devices
+          .getUserMedia({ video: false, audio: true })
+          .then(
+            (s: any) => {
+              myStream = s;
+              setState("ready");
+              lichess.sound.say("Voice chat is ready.", true, true);
+              ping();
+            },
+            function (err) {
+              log(`Failed to get local stream: ${err}`);
+            },
+          )
+          .catch(err => log(err));
       })
-      .on('call', (call: any) => {
+      .on("call", (call: any) => {
         if (!findOpenConnectionTo(call.peer)) {
-          setState('answering', call.peer);
+          setState("answering", call.peer);
           startCall(call);
           call.answer(myStream);
         }
       })
-      .on('stream', s => {
-        console.log('stream', s);
+      .on("stream", s => {
+        console.log("stream", s);
       })
-      .on('connection', c => {
+      .on("connection", c => {
         log("Connected to: " + c.peer);
       })
-      .on('disconnected', () => {
-        if (state == 'stopping') destroyPeer();
+      .on("disconnected", () => {
+        if (state == "stopping") destroyPeer();
         else {
-          setState('opening', 'reconnect');
+          setState("opening", "reconnect");
           peer.reconnect();
         }
       })
-      .on('close', () => log('peer.close'))
-      .on('error', err => log(`peer.error: ${err}`));
+      .on("close", () => log("peer.close"))
+      .on("error", err => log(`peer.error: ${err}`));
   }
 
   function startCall(call: any) {
     call
-      .on('stream', () => {
-        log('call.stream');
-        setState('on', call.peer);
+      .on("stream", () => {
+        log("call.stream");
+        setState("on", call.peer);
         lichess.sound.say("Connected", true, true);
       })
-      .on('close', () => {
-        log('call.close');
+      .on("close", () => {
+        log("call.close");
         stopCall(call);
       })
-      .on('error', e => {
+      .on("error", e => {
         log(`call.error: ${e}`);
         stopCall(call);
       });
@@ -66,44 +80,45 @@ export function palantir(opts: PalantirOpts) {
   }
 
   function stopCall(_: any) {
-    if (!hasAnOpenConnection()) setState('ready', 'no call remaining');
+    if (!hasAnOpenConnection()) setState("ready", "no call remaining");
   }
 
   function call(uid: string) {
     const peerId = peerIdOf(uid);
-    if (peer &&
+    if (
+      peer &&
       myStream &&
       peer.id < peerId && // yes that's how we decide who calls who
       !findOpenConnectionTo(peerId)
     ) {
-      setState('calling', peerId);
+      setState("calling", peerId);
       startCall(peer.call(peerId, myStream));
     }
   }
 
   function stop() {
-    if (peer && state != 'off') {
-      setState('stopping');
+    if (peer && state != "off") {
+      setState("stopping");
       peer.disconnect();
     }
   }
 
   function log(msg: string) {
-    console.log('[palantir]', msg);
+    console.log("[palantir]", msg);
   }
 
-  function setState(s: State, msg: string = '') {
+  function setState(s: State, msg: string = "") {
     log(`state: ${state} -> ${s} ${msg}`);
     state = s;
     opts.redraw();
   }
 
-  const reverse = (s: string) => s.split('').reverse().join('');
+  const reverse = (s: string) => s.split("").reverse().join("");
 
   function peerIdOf(uid: string) {
     const host = location.hostname;
-    const hash = btoa(reverse(btoa(reverse(uid + host)))).replace(/=/g,'');
-    return `${host.replace('.', '-')}-${uid}-${hash}`;
+    const hash = btoa(reverse(btoa(reverse(uid + host)))).replace(/=/g, "");
+    return `${host.replace(".", "-")}-${uid}-${hash}`;
   }
 
   function destroyPeer() {
@@ -115,7 +130,7 @@ export function palantir(opts: PalantirOpts) {
       myStream.getTracks().forEach(t => t.stop());
       myStream = undefined;
     }
-    setState('off');
+    setState("off");
   }
 
   function connectionsTo(peerId) {
@@ -132,7 +147,10 @@ export function palantir(opts: PalantirOpts) {
     if (peer) {
       for (let otherPeer in peer.connections) {
         peer.connections[otherPeer].forEach(c => {
-          if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
+          if (
+            c.peerConnection &&
+            c.peerConnection.connectionState == "disconnected"
+          ) {
             log(`close disconnected call to ${c.peer}`);
             c.close();
             opts.redraw();
@@ -155,45 +173,61 @@ export function palantir(opts: PalantirOpts) {
   }
 
   function ping() {
-    if (state != 'off') lichess.pubsub.emit('socket.send', 'palantirPing');
+    if (state != "off") lichess.pubsub.emit("socket.send", "palantirPing");
   }
 
-  lichess.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  lichess.pubsub.on('socket.in.palantirOff', lichess.reload); // remote disconnection
-  lichess.pubsub.on('palantir.toggle', v => { if (!v) stop() });
+  lichess.pubsub.on("socket.in.palantir", uids => uids.forEach(call));
+  lichess.pubsub.on("socket.in.palantirOff", lichess.reload); // remote disconnection
+  lichess.pubsub.on("palantir.toggle", v => {
+    if (!v) stop();
+  });
 
   start();
   setInterval(closeDisconnectedCalls, 1400);
   setInterval(ping, 5000);
 
-  setInterval(function() {
-    peer && Object.keys(peer.connections).forEach(peerId => {
-      console.log(peerId, !!findOpenConnectionTo(peerId));
-    });
+  setInterval(function () {
+    peer &&
+      Object.keys(peer.connections).forEach(peerId => {
+        console.log(peerId, !!findOpenConnectionTo(peerId));
+      });
   }, 3000);
 
   return {
     render: h => {
       const connections = allOpenConnections();
-      return devices ? h('div.mchat__tab.palantir.data-count.palantir-' + state, {
-        attrs: {
-          'data-icon': '',
-          title: `Voice chat: ${state}`,
-          'data-count': state == 'on' ? connections.length + 1 : 0
-        },
-        hook: {
-          insert(vnode) {
-            (vnode.elm as HTMLElement).addEventListener('click', () => peer ? stop() : start());
-          }
-        }
-      }, state == 'on' ?
-        connections.map(c =>
-          h('audio.palantir__audio.' + c.peer, {
-            attrs: { autoplay: true },
-            hook: { insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream } }
-          })
-        ) : []
-      ) : null;
-    }
-  }
+      return devices
+        ? h(
+            "div.mchat__tab.palantir.data-count.palantir-" + state,
+            {
+              attrs: {
+                "data-icon": "",
+                "title": `Voice chat: ${state}`,
+                "data-count": state == "on" ? connections.length + 1 : 0,
+              },
+              hook: {
+                insert(vnode) {
+                  (vnode.elm as HTMLElement).addEventListener("click", () =>
+                    peer ? stop() : start(),
+                  );
+                },
+              },
+            },
+            state == "on"
+              ? connections.map(c =>
+                  h("audio.palantir__audio." + c.peer, {
+                    attrs: { autoplay: true },
+                    hook: {
+                      insert(vnode) {
+                        (vnode.elm as HTMLAudioElement).srcObject =
+                          c.remoteStream;
+                      },
+                    },
+                  }),
+                )
+              : [],
+          )
+        : null;
+    },
+  };
 }

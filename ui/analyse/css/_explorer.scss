@@ -7,7 +7,7 @@
 
   transition-delay: 0.3s;
   overflow-y: scroll;
-  font-size: .9em;
+  font-size: 0.9em;
 
   &.reduced {
     flex: 0.3 3 0px;
@@ -78,7 +78,7 @@
   }
 
   .moves td:nth-child(2) {
-    font-size: .75em;
+    font-size: 0.75em;
     text-align: right;
   }
 
@@ -96,7 +96,7 @@
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   .white {
@@ -155,7 +155,7 @@
     text-align: center;
     padding: 3px 5px;
     border-radius: 3px;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   .game_menu {
@@ -205,7 +205,7 @@
       padding: 3px 5px;
       margin-left: 5px;
       border-radius: 3px;
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
 

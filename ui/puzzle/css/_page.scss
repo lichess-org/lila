@@ -14,7 +14,6 @@
       grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
     }
 
-
     &.puzzle-recommended {
       display: block;
     }
@@ -29,7 +28,7 @@
     &::before {
       @extend %data-icon;
 
-      content: '-';
+      content: "-";
       color: $c-font-dimmer;
       flex: 0 0 1.6em;
       text-align: center;
@@ -52,7 +51,6 @@
       padding-left: 1em;
     }
 
-
     > span {
       flex: 1 1 100%;
       margin: 0;
@@ -63,14 +61,14 @@
       font-size: 1.7em;
       display: block;
       line-height: 1em;
-      margin: .1em 0 .25em 0;
+      margin: 0.1em 0 0.25em 0;
 
       em {
         @extend %roboto;
 
         color: $c-font-dimmer;
-        font-size: .8em;
-        margin-left: .7ch;
+        font-size: 0.8em;
+        margin-left: 0.7ch;
         letter-spacing: -1px;
       }
     }
@@ -131,17 +129,15 @@
   }
 
   &__puzzle {
-    padding: .4em;
-    
+    padding: 0.4em;
 
     &__meta {
       @extend %flex-between;
-      font-size: .9em;
-      padding: 0 .3em;
+      font-size: 0.9em;
+      padding: 0 0.3em;
     }
 
     &__rating {
-
     }
 
     &__id {

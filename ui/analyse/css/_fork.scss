@@ -9,7 +9,6 @@ $c-fork: $c-primary;
     display: none;
   }
 
-
   move {
     @extend %san, %flex-center;
 
@@ -17,7 +16,7 @@ $c-fork: $c-primary;
     color: $c-font-clear;
     flex: 0 0 50%;
     cursor: pointer;
-    padding: .2em 1em;
+    padding: 0.2em 1em;
     border-bottom: 1px solid $c-bg-box;
 
     &:nth-child(odd) {
@@ -42,6 +41,6 @@ $c-fork: $c-primary;
 
     flex: 3 0 auto;
     text-align: right;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

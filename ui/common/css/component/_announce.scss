@@ -8,7 +8,7 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  padding: .7rem 1rem;
+  padding: 0.7rem 1rem;
   z-index: z("tour-reminder");
   width: 100%;
 
@@ -16,7 +16,6 @@
     width: auto;
     border-top-right-radius: 3px;
   }
-
 
   a {
     color: $c-primary-over;

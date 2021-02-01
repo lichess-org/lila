@@ -1,4 +1,4 @@
-export const root: Tree.Path = '';
+export const root: Tree.Path = "";
 
 export function size(path: Tree.Path): number {
   return path.length / 2;
@@ -25,7 +25,7 @@ export function contains(p1: Tree.Path, p2: Tree.Path): boolean {
 }
 
 export function fromNodeList(nodes: Tree.Node[]): Tree.Path {
-  let path = '';
+  let path = "";
   for (const i in nodes) path += nodes[i].id;
   return path;
 }

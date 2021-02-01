@@ -22,7 +22,8 @@
   .checkable {
     @extend %nowrap-ellipsis;
 
-    label, input {
+    label,
+    input {
       vertical-align: middle;
       cursor: pointer;
     }
@@ -47,7 +48,7 @@
   }
 
   input {
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
 
   .range {
@@ -58,7 +59,7 @@
     @extend %flex-center-nowrap;
     justify-content: center;
     input {
-      padding: .6em 0;
+      padding: 0.6em 0;
       margin: 0 1ch;
     }
   }
@@ -68,7 +69,7 @@
     text-align: right;
 
     button {
-      margin-left: .3em;
+      margin-left: 0.3em;
     }
   }
 }

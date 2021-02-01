@@ -1,6 +1,6 @@
-import { Role } from 'chessground/types';
-import {Prop} from 'common';
-import { VNode } from 'snabbdom/vnode'
+import { Role } from "chessground/types";
+import { Prop } from "common";
+import { VNode } from "snabbdom/vnode";
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -43,7 +43,7 @@ export interface StormVm {
     moves: number;
     errors: number;
     response?: RunResponse;
-  }
+  };
   dupTab?: boolean;
   signed: Prop<string | undefined>;
   lateStart: boolean;
@@ -74,7 +74,11 @@ export interface StormPuzzle {
 }
 
 export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
+  start(
+    orig: Key,
+    dest: Key,
+    callback: (orig: Key, dest: Key, prom: Role) => void,
+  ): boolean;
   cancel(): void;
   view(): MaybeVNode;
 }
@@ -101,6 +105,6 @@ export interface RunResponse {
 }
 
 export interface NewHigh {
-  key: 'day' | 'week' | 'month' | 'allTime';
+  key: "day" | "week" | "month" | "allTime";
   prev: number;
 }

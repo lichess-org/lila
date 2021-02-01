@@ -56,7 +56,6 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     }
   }
 
-
   .sub {
     margin: 3px 0;
     font-size: 1rem;
@@ -89,16 +88,16 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   rating {
     @extend %roboto;
 
-    margin-left: .7em;
+    margin-left: 0.7em;
 
     .rp {
-      margin-left: .2em;
+      margin-left: 0.2em;
     }
   }
 
   score {
     float: right;
-    font-size: .7em;
+    font-size: 0.7em;
     margin-top: 2px;
 
     > * {
@@ -113,7 +112,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
       padding: 1px 6px;
       display: inline-block;
       text-align: center;
-      opacity: .7;
+      opacity: 0.7;
     }
   }
 

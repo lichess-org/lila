@@ -1,17 +1,20 @@
-import { prop, notEmpty } from 'common';
-import * as xhr from 'common/xhr';
-import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
-import { AnalyseData } from '../interfaces';
+import { prop, notEmpty } from "common";
+import * as xhr from "common/xhr";
+import { ForecastCtrl, ForecastData, ForecastStep } from "./interfaces";
+import { AnalyseData } from "../interfaces";
 
-export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
-
+export function make(
+  cfg: ForecastData,
+  data: AnalyseData,
+  redraw: () => void,
+): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
-    return fc.map(node => node.ply + ':' + node.uci).join(',');
+    return fc.map(node => node.ply + ":" + node.uci).join(",");
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -19,7 +22,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function findStartingWithNode(node: ForecastStep): ForecastStep[][] {
-    return forecasts.filter(function(fc) {
+    return forecasts.filter(function (fc) {
       return contains(fc, [node]);
     });
   }
@@ -47,16 +50,20 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function fixAll() {
     // remove contained forecasts
-    forecasts = forecasts.filter(function(fc, i) {
-      return forecasts.filter(function(f, j) {
-        return i !== j && contains(f, fc)
-      }).length === 0;
+    forecasts = forecasts.filter(function (fc, i) {
+      return (
+        forecasts.filter(function (f, j) {
+          return i !== j && contains(f, fc);
+        }).length === 0
+      );
     });
     // remove colliding forecasts
-    forecasts = forecasts.filter(function(fc, i) {
-      return forecasts.filter(function(f, j) {
-        return i < j && collides(f, fc)
-      }).length === 0;
+    forecasts = forecasts.filter(function (fc, i) {
+      return (
+        forecasts.filter(function (f, j) {
+          return i < j && collides(f, fc);
+        }).length === 0
+      );
     });
   }
 
@@ -65,56 +72,62 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   function reloadToLastPly() {
     loading(true);
     redraw();
-    history.replaceState(null, '', '#last');
+    history.replaceState(null, "", "#last");
     lichess.reload();
-  };
+  }
 
   function isCandidate(fc: ForecastStep[]): boolean {
     fc = truncate(fc);
     if (!isLongEnough(fc)) return false;
-    var collisions = forecasts.filter(function(f) {
+    var collisions = forecasts.filter(function (f) {
       return contains(f, fc);
     });
     if (collisions.length) return false;
     return true;
-  };
+  }
 
   function save() {
     if (cfg.onMyTurn) return;
     loading(true);
     redraw();
-    xhr.json(saveUrl, {
-      method: 'POST',
-      body: JSON.stringify(forecasts),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(data => {
-      if (data.reload) reloadToLastPly();
-      else {
-        loading(false);
-        forecasts = data.steps || [];
-      }
-      redraw();
-    });
-  };
+    xhr
+      .json(saveUrl, {
+        method: "POST",
+        body: JSON.stringify(forecasts),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(data => {
+        if (data.reload) reloadToLastPly();
+        else {
+          loading(false);
+          forecasts = data.steps || [];
+        }
+        redraw();
+      });
+  }
 
   function playAndSave(node: ForecastStep) {
     if (!cfg.onMyTurn) return;
     loading(true);
     redraw();
-    xhr.json(`${saveUrl}/${node.uci}`, {
-      method: 'POST',
-      body: JSON.stringify(findStartingWithNode(node)
-        .filter(notEmpty)
-        .map(fc => fc.slice(1))),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(data => {
-      if (data.reload) reloadToLastPly();
-      else {
-        loading(false);
-        forecasts = data.steps || [];
-      }
-      redraw();
-    });
+    xhr
+      .json(`${saveUrl}/${node.uci}`, {
+        method: "POST",
+        body: JSON.stringify(
+          findStartingWithNode(node)
+            .filter(notEmpty)
+            .map(fc => fc.slice(1)),
+        ),
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(data => {
+        if (data.reload) reloadToLastPly();
+        else {
+          loading(false);
+          forecasts = data.steps || [];
+        }
+        redraw();
+      });
   }
 
   return {
@@ -127,7 +140,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     },
     isCandidate,
     removeIndex(index) {
-      forecasts = forecasts.filter((_, i) => i !== index)
+      forecasts = forecasts.filter((_, i) => i !== index);
       save();
     },
     list: () => forecasts,
@@ -136,6 +149,6 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     onMyTurn: !!cfg.onMyTurn,
     findStartingWithNode,
     playAndSave,
-    reloadToLastPly
+    reloadToLastPly,
   };
 }

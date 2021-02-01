@@ -1,12 +1,13 @@
 $mq-col2: $mq-col2-uniboard;
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(
+    100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}
+  );
 
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
-
 
   user-select: none;
 }
@@ -24,9 +25,8 @@ $mq-col2: $mq-col2-uniboard;
     margin: 2vh 2vw;
 
     @include breakpoint($mq-col2) {
-      margin: 2vh .5rem;
+      margin: 2vh 0.5rem;
     }
-
 
     span {
       text-transform: uppercase;
@@ -58,6 +58,6 @@ $mq-col2: $mq-col2-uniboard;
   &__about__link {
     margin-top: 2vh;
     text-align: center;
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }

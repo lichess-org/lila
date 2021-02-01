@@ -7,8 +7,7 @@
     &.black::before {
       content: "J";
     }
-  }
-  @else {
+  } @else {
     &.white::before {
       content: "J";
     }

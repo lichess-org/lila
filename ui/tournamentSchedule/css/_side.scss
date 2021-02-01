@@ -23,7 +23,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     white-space: nowrap;
-    padding: .2em 0;
+    padding: 0.2em 0;
     line-height: 1.5;
 
     @include transition;
@@ -61,7 +61,7 @@
 .scheduled {
   a {
     color: $c-font;
-    padding: .5em 0 .5em 2.7em;
+    padding: 0.5em 0 0.5em 2.7em;
     display: block;
     position: relative;
     line-height: 1.2;
@@ -75,7 +75,7 @@
       background: mix($c-brag, $c-bg-page, 20%);
 
       &::before {
-        left: .5rem;
+        left: 0.5rem;
       }
     }
   }
@@ -89,7 +89,7 @@
     @include transition;
 
     position: absolute;
-    top: .3rem;
+    top: 0.3rem;
     left: 0;
     font-size: 2.2em;
     opacity: 0.6;

@@ -6,24 +6,24 @@ export const redirect = obj => {
   else {
     url = obj.url;
     if (obj.cookie) {
-      const domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
+      const domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, "$1");
       const cookie = [
-        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
-        '; max-age=' + obj.cookie.maxAge,
-        '; path=/',
-        '; domain=' + domain
-      ].join('');
+        encodeURIComponent(obj.cookie.name) + "=" + obj.cookie.value,
+        "; max-age=" + obj.cookie.maxAge,
+        "; path=/",
+        "; domain=" + domain,
+      ].join("");
       document.cookie = cookie;
     }
   }
-  const href = '//' + location.host + '/' + url.replace(/^\//, '');
+  const href = "//" + location.host + "/" + url.replace(/^\//, "");
   redirectInProgress = href;
   location.href = href;
 };
 
 export const unload = {
-  expected: false
-}
+  expected: false,
+};
 
 export const reload = () => {
   if (redirectInProgress) return;

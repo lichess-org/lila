@@ -12,13 +12,12 @@ main {
     display: none;
   }
 
-
   &.reverse {
     transform: rotateX(180deg);
   }
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 0;

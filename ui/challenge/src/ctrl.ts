@@ -1,9 +1,18 @@
-import * as xhr from 'common/xhr';
-import notify from 'common/notification';
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser, Reasons } from './interfaces';
+import * as xhr from "common/xhr";
+import notify from "common/notification";
+import {
+  Ctrl,
+  ChallengeOpts,
+  ChallengeData,
+  ChallengeUser,
+  Reasons,
+} from "./interfaces";
 
-export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
-
+export default function (
+  opts: ChallengeOpts,
+  data: ChallengeData,
+  redraw: () => void,
+): Ctrl {
   let trans = (key: string) => key;
   let redirecting = false;
   let reasons: Reasons = {};
@@ -22,22 +31,27 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function notifyNew() {
     data.in.forEach(c => {
-      if (lichess.once('c-' + c.id)) {
+      if (lichess.once("c-" + c.id)) {
         if (!lichess.quietMode && data.in.length <= 3) {
           opts.show();
-          lichess.sound.play('newChallenge');
+          lichess.sound.play("newChallenge");
         }
-        const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
-        !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
+        const pushSubsribed =
+          parseInt(lichess.storage.get("push-subscribed") || "0", 10) +
+            86400000 >=
+          Date.now(); // 24h
+        !pushSubsribed &&
+          c.challenger &&
+          notify(showUser(c.challenger) + " challenges you!");
         opts.pulse();
       }
     });
   }
 
   function showUser(user: ChallengeUser) {
-    var rating = user.rating + (user.provisional ? '?' : '');
-    var fullName = (user.title ? user.title + ' ' : '') + user.name;
-    return fullName + ' (' + rating + ')';
+    var rating = user.rating + (user.provisional ? "?" : "");
+    var fullName = (user.title ? user.title + " " : "") + user.name;
+    return fullName + " (" + rating + ")";
   }
 
   update(data);
@@ -51,10 +65,14 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.text(
-            `/challenge/${id}/decline`,
-            { method: 'post', body: xhr.form({reason}) }
-          ).catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
+          xhr
+            .text(`/challenge/${id}/decline`, {
+              method: "post",
+              body: xhr.form({ reason }),
+            })
+            .catch(() =>
+              lichess.announce({ msg: "Failed to send challenge decline" }),
+            );
         }
       });
     },
@@ -62,10 +80,13 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.text(
-            `/challenge/${id}/cancel`,
-            { method: 'post' }
-          ).catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
+          xhr
+            .text(`/challenge/${id}/cancel`, { method: "post" })
+            .catch(() =>
+              lichess.announce({
+                msg: "Failed to send challenge cancellation",
+              }),
+            );
         }
       });
     },
@@ -73,6 +94,6 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
     onRedirect() {
       redirecting = true;
       requestAnimationFrame(redraw);
-    }
+    },
   };
-};
+}

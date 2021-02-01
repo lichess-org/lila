@@ -4,7 +4,7 @@
   p {
     color: $c-font;
     position: relative;
-    margin: 0 .7em;
+    margin: 0 0.7em;
     padding: 1em 0;
     border: $border;
     border-width: 1px 0;
@@ -12,7 +12,7 @@
     font-size: 1.1rem;
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -9px;
       left: 42px;
@@ -35,7 +35,7 @@
     text-align: right;
 
     &:before {
-      content: '\2014\2009';
+      content: "\2014\2009";
     }
   }
 }

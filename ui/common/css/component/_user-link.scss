@@ -5,11 +5,11 @@
 
   &.online .line {
     &::before {
-      content: '';
+      content: "";
     }
 
     color: $c-good;
-    opacity: .9;
+    opacity: 0.9;
 
     &.patron {
       opacity: 1;
@@ -36,11 +36,11 @@
     }
 
     &.patron::before {
-      content: '' !important;
+      content: "" !important;
     }
 
     &.moderator::before {
-      content: '';
+      content: "";
     }
   }
 }

@@ -1,16 +1,25 @@
-import variantConfirm from './variant';
-import * as hookRepo from './hookRepo';
-import * as seekRepo from './seekRepo';
-import { make as makeStores, Stores } from './store';
-import * as xhr from './xhr';
-import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
-import LobbySocket from './socket';
-import Filter from './filter';
-import Setup from './setup';
+import variantConfirm from "./variant";
+import * as hookRepo from "./hookRepo";
+import * as seekRepo from "./seekRepo";
+import { make as makeStores, Stores } from "./store";
+import * as xhr from "./xhr";
+import * as poolRangeStorage from "./poolRangeStorage";
+import {
+  LobbyOpts,
+  LobbyData,
+  Tab,
+  Mode,
+  Sort,
+  Hook,
+  Seek,
+  Pool,
+  PoolMember,
+} from "./interfaces";
+import LobbySocket from "./socket";
+import Filter from "./filter";
+import Setup from "./setup";
 
 export default class LobbyController {
-
   data: LobbyData;
   playban: any;
   isBot: boolean;
@@ -38,21 +47,24 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
-    this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
+    this.filter = new Filter(lichess.storage.make("lobby.filter"), this);
     this.setup = new Setup(lichess.storage.make, this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
-    this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
-    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get(),
-      this.mode = this.stores.mode.get(),
-      this.sort = this.stores.sort.get(),
-      this.trans = opts.trans;
+    this.stores = makeStores(
+      this.data.me ? this.data.me.username.toLowerCase() : null,
+    );
+    (this.tab = this.isBot ? "now_playing" : this.stores.tab.get()),
+      (this.mode = this.stores.mode.get()),
+      (this.sort = this.stores.sort.get()),
+      (this.trans = opts.trans);
 
-    this.poolInStorage = lichess.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(_ => { // when another tab joins a pool
+    this.poolInStorage = lichess.storage.make("lobby.pool-in");
+    this.poolInStorage.listen(_ => {
+      // when another tab joins a pool
       this.leavePool();
       redraw();
     });
@@ -61,39 +73,40 @@ export default class LobbyController {
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
-    }
-    else {
+      if (this.playban.remainingSecond < 86400)
+        setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
+    } else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
-        else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+        else if (this.tab === "real_time" && !this.data.hooks.length)
+          this.socket.realTimeIn();
       }, 10 * 1000);
       this.joinPoolFromLocationHash();
     }
 
-    lichess.pubsub.on('socket.open', () => {
-      if (this.tab === 'real_time') {
+    lichess.pubsub.on("socket.open", () => {
+      if (this.tab === "real_time") {
         this.data.hooks = [];
         this.socket.realTimeIn();
-      } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      } else if (this.tab === "pools" && this.poolMember) this.poolIn();
     });
 
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       if (this.poolMember) this.socket.poolOut(this.poolMember);
     });
   }
 
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);
-    if (this.tab === 'real_time') this.redraw();
-  };
+    if (this.tab === "real_time") this.redraw();
+  }
 
   flushHooks = (now: boolean) => {
     if (this.flushHooksTimeout) clearTimeout(this.flushHooksTimeout);
     if (now) this.doFlushHooks();
     else {
       this.stepping = true;
-      if (this.tab === 'real_time') this.redraw();
+      if (this.tab === "real_time") this.redraw();
       setTimeout(() => {
         this.stepping = false;
         this.doFlushHooks();
@@ -106,9 +119,9 @@ export default class LobbyController {
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
-      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
-      else if (tab === 'real_time') this.socket.realTimeIn();
-      else if (this.tab === 'real_time') {
+      if (tab === "seeks") xhr.seeks().then(this.setSeeks);
+      else if (tab === "real_time") this.socket.realTimeIn();
+      else if (this.tab === "real_time") {
         this.socket.realTimeOut();
         this.data.hooks = [];
       }
@@ -128,19 +141,21 @@ export default class LobbyController {
 
   onSetFilter = () => {
     this.flushHooks(true);
-    if (this.tab !== 'real_time') this.redraw();
+    if (this.tab !== "real_time") this.redraw();
   };
 
   clickHook = (id: string) => {
     const hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.stepping || this.redirecting) return;
-    if (hook.action === 'cancel' || variantConfirm(hook.variant)) this.socket.send(hook.action, hook.id);
+    if (hook.action === "cancel" || variantConfirm(hook.variant))
+      this.socket.send(hook.action, hook.id);
   };
 
   clickSeek = (id: string) => {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
-    if (seek.action === 'cancelSeek' || variantConfirm(seek.variant)) this.socket.send(seek.action, seek.id);
+    if (seek.action === "cancelSeek" || variantConfirm(seek.variant))
+      this.socket.send(seek.action, seek.id);
   };
 
   setSeeks = (seeks: Seek[]) => {
@@ -152,7 +167,7 @@ export default class LobbyController {
   clickPool = (id: string) => {
     if (!this.data.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id == id)!);
-      this.setTab('real_time');
+      this.setTab("real_time");
     } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
     else {
       this.enterPool({ id });
@@ -162,7 +177,7 @@ export default class LobbyController {
 
   enterPool = (member: PoolMember) => {
     poolRangeStorage.set(member.id, member.range);
-    this.setTab('pools');
+    this.setTab("pools");
     this.poolMember = member;
     this.poolIn();
   };
@@ -194,10 +209,13 @@ export default class LobbyController {
       .map(p => p.gameId)
       .filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
-      setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
+      setTimeout(
+        () => this.socket.send("startWatching", newIds.join(" ")),
+        2000,
+      );
       newIds.forEach(id => this.alreadyWatching.push(id));
     }
-  };
+  }
 
   setRedirecting = () => {
     this.redirecting = true;
@@ -210,11 +228,11 @@ export default class LobbyController {
 
   awake = () => {
     switch (this.tab) {
-      case 'real_time':
+      case "real_time":
         this.data.hooks = [];
         this.socket.realTimeIn();
         break;
-      case 'seeks':
+      case "seeks":
         xhr.seeks().then(this.setSeeks);
         break;
     }
@@ -223,17 +241,17 @@ export default class LobbyController {
   // after click on round "new opponent" button
   // also handles onboardink link for anon users
   private joinPoolFromLocationHash() {
-    if (location.hash.startsWith('#pool/')) {
+    if (location.hash.startsWith("#pool/")) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
         member: any = { id: match![1], blocking: match![2] },
         range = poolRangeStorage.get(member.id);
       if (range) member.range = range;
       if (match) {
-        this.setTab('pools');
+        this.setTab("pools");
         if (this.data.me) this.enterPool(member);
         else setTimeout(() => this.clickPool(member.id), 1500);
-        history.replaceState(null, '', '/');
+        history.replaceState(null, "", "/");
       }
     }
   }
