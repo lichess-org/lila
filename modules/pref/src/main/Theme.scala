@@ -43,6 +43,7 @@ object Theme extends ThemeObject {
   val all = List(
     "solid-orange",
     "solid-natural",
+    "wood1",
     "kaya1",
     "kaya2",
     "oak",
@@ -63,7 +64,7 @@ object Theme extends ThemeObject {
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }
 
-  lazy val default = allByName get "solid-orange" err "Can't find default theme D:"
+  lazy val default = allByName get "wood1" err "Can't find default theme D:"
 }
 
 object Theme3d extends ThemeObject {
