@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Зробіть хід, щоб розпочати</string>
+  <string name="puzzlesSolved">задач вирішено</string>
+  <string name="newDailyHighscore">Новий щоденний рекорд!</string>
+  <string name="newWeeklyHighscore">Новий щотижневий рекорд!</string>
+  <string name="newMonthlyHighscore">Новий щомісячний рекорд!</string>
+  <string name="newAllTimeHighscore">Новий рекорд за весь час!</string>
+  <string name="previousHighscoreWasX">Попередній рекорд був %s</string>
+  <string name="playAgain">Грати знову</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 серія</item>
+    <item quantity="few">%s серії</item>
+    <item quantity="many">%s серій</item>
+    <item quantity="other">%s серій</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Зіграна одна серія в %2$s</item>
+    <item quantity="few">Зіграно %1$s серії в %2$s</item>
+    <item quantity="many">Зіграно %1$s серій в %2$s</item>
+    <item quantity="other">Зіграно %1$s серій в %2$s</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="highscores">Рекорди</string>
+</resources>
