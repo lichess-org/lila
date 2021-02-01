@@ -47,6 +47,7 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="releaseTheAccount">Scaoil an cuntas ionas gur féidir leis an dalta é a bhainistiú go neamhspleách.</string>
   <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
+  <string name="teachers">Múinteoirí</string>
   <plurals name="nbStudents">
     <item quantity="one">Dalta</item>
     <item quantity="two">%s dalta</item>
@@ -56,4 +57,10 @@ Seo an nasc le dul isteach sa rang.</string>
   </plurals>
   <string name="students">Daltaí</string>
   <string name="noStudents">Níl aon dalta sa rang, fós.</string>
+  <string name="timePlaying">Am ag imirt</string>
+  <string name="na">N/B</string>
+  <string name="news">Nuacht ranga</string>
+  <string name="editNews">Cuir nuacht in eagar</string>
+  <string name="notifyAllStudents">Cuir in iúl do gach dalta</string>
+  <string name="nothingHere">Níl aon rud anseo, fós.</string>
 </resources>
