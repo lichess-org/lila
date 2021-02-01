@@ -154,6 +154,9 @@ caisliú ar taobh na mbanríon!</string>
   <string name="castlingComplete">Comhghairdeas! Ba chóir duit caisliú i gcluiche beagnach i gcónaí.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Bog dubh an ceithearnach
+dhá chearnóg!
+Marú é en passant.</string>
   <string name="takeAllThePawnsEnPassant">Tóg na ceithearnigh uile en passant!</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
