@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="fork">Gabhal</string>
+  <string name="mate">Marbhsháinn</string>
+  <string name="mateIn1">Marbhsháinn i beart amháin</string>
+  <string name="mateIn2">Marbhsháinn i 2 bheart</string>
+  <string name="mateIn3">Marbhsháinn i 3 bheart</string>
+  <string name="mateIn4">Marbhsháinn i 4 bheart</string>
+  <string name="mateIn5">Marbhsháinn i 5 mbeart nó níos mó</string>
+  <string name="middlegame">Lár an cluiche</string>
+  <string name="opening">Oscail</string>
+  <string name="pawnEndgameDescription">Deireadh cluiche le ceithearnaigh amháin.</string>
   <string name="pin">Teannta</string>
   <string name="promotion">Ardú</string>
   <string name="queenRookEndgame">Cor deiridh don Banríon agus Casieal</string>
@@ -9,5 +18,9 @@
   <string name="sacrifice">Íobairt</string>
   <string name="short">Fadhbh gearr</string>
   <string name="skewer">Sá</string>
+  <string name="veryLong">Fadhbh an-fhada</string>
+  <string name="veryLongDescription">Ceithre bheart nó níos mó le buachan.</string>
+  <string name="xRayAttack">Ionsaí x-ghathaithe</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="healthyMix">Meascán sláintiúil</string>
 </resources>
