@@ -4,7 +4,10 @@
   <string name="teachClassesOfChessStudents">Múin ranganna daltaí ficheallaithe leis an tsraith uirlisí ranganna Lichess.</string>
   <string name="features">Gnéithe</string>
   <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do daltaí</string>
+  <string name="trackStudentProgress">Rianaigh dul chun cinn na daltaí i gcluichí agus i fadhbhanna fichille</string>
   <string name="messageAllStudents">Cuir teachtaireacht chuig gach dalta faoi ábhar nua ranga</string>
+  <string name="freeForAllForever">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
+  <string name="applyToBeLichessTeacher">Déan iarratas bheith i do Mhúinteoir Lichess</string>
   <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
