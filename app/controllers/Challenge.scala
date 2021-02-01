@@ -331,13 +331,15 @@ final class Challenge(
                   )
                 ).fuccess
               case Right(bulk) =>
-                env.challenge.bulk.schedule(bulk) inject {
-                  Ok(Json.obj("games" -> bulk.games.map { g =>
-                    Json.obj(
-                      "gameId"  -> g.id,
-                      "userIds" -> Json.arr(g.white, g.black)
-                    )
-                  })) as JSON
+                env.challenge.bulk.schedule(bulk) map {
+                  case Some(error) => BadRequest(jsonError(error))
+                  case _ =>
+                    Ok(Json.obj("games" -> bulk.games.map { g =>
+                      Json.obj(
+                        "gameId"  -> g.id,
+                        "userIds" -> Json.arr(g.white, g.black)
+                      )
+                    })) as JSON
                 }
             }
         )

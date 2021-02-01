@@ -67,9 +67,8 @@ final class ChallengeBulkApi(
     }
 
   private def startClocks(bulk: ScheduledBulk): Funit = workQueue(bulk.by) {
-    fuccess {
-      Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
-    }
+    Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
+    coll.delete.one($id(bulk._id)).void
   }
 
   private def makePairings(bulk: ScheduledBulk): Funit = workQueue(bulk.by) {
