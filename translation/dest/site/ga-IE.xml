@@ -773,7 +773,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="withEverybody">Le gach duine</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
   <string name="kidMode">Mód páistí</string>
-  <string name="kidModeExplanation">Is saincheist sábháilteacht é seo. I mód páistí, díchumasaítear gach modh cumarsáide. Úsáid é seo do do pháistí agus scoláirí, chun iad a chosaint ó úsáideoirí idirlíne eile.</string>
+  <string name="kidModeExplanation">Baineann sé seo le sábháilteacht. Sa modh páiste, tá gach cumarsáid múchta. Usáid é seo do páistí agus daltaí scoile, chun iad a chosaint ar úsáideoirí idirlín eile.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa mhodh linbh, faigheann an lógó Lichess íocón %s, ionas go mbeidh a fhios agat go bhfuil do pháistí sábháilte.</string>
   <string name="enableKidMode">Las mód páistí</string>
   <string name="disableKidMode">Múch mód páistí</string>
