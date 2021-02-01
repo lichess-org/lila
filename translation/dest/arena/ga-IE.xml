@@ -13,7 +13,7 @@ Is fiú pointí dúbailte iad na cluichí a leanann go dtí go caillfear cluiche
 Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfear pointe do cailluint cluiche.
 
 Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Láthair le Báiní</string>
+  <string name="berserk">Airéine Báiní</string>
   <string name="berserkAnswer">Nuair a chliceálann imreoir an cnaipe Báiní ag tús an chluiche, cailleann siad leath a gcuid ama ar an chlog, ach faigheann siad pointe comórtais breise amháin don bua.
 
 Ag dul le Bainí i maor ama le incrimint caillfear an t-incrimint fosta (is eisceacht é 1 + 2, tugann sé 1 + 0).
@@ -38,5 +38,5 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   </plurals>
   <string name="thisIsPrivate">Is comórtas príobháideach é seo</string>
   <string name="shareUrl">Comhroinn an URL seo chun ligean do imreoirí a bheith páirteach: %s</string>
-  <string name="history">Stair sa Láthair</string>
+  <string name="history">Stair Airéine</string>
 </resources>
