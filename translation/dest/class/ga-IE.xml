@@ -33,6 +33,14 @@
   <string name="realName">Fíorainm</string>
   <string name="privateWillNeverBeShown">Príobháideach. Ní thaispeánfar ríomh taobh amuigh den rang. Cabhraíonn sé seo leat cuimhneamh ar cé hé an dalta.</string>
   <string name="addStudent">Cuir dalta leis</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Próifíl Lichess %1$s cruthaithe do %2$s.</string>
+  <string name="studentCredentials">Dalta: %1$s 
+Ainm úsáideora: %2$s
+Pasfhocal: %3$s</string>
+  <string name="inviteALichessAccount">Tabhair cuireadh do chuntas Lichess</string>
+  <string name="inviteDesc1">Má tá cuntas Lichess ag an dalta cheana féin, is féidir leat cuireadh a thabhairt dóibh chuig an rang.</string>
+  <string name="inviteDesc2">Gheobhaidh siad teachtaireacht ar Lichess le nasc chun páirt a ghlacadh sa rang.</string>
+  <string name="inviteDesc3">Tábhachtach: ná tabhair cuireadh ach do dalta a bhfuil aithne agat orthu, agus ar mian leo páirt gníomhach a glacadh sa rang.</string>
   <string name="generateANewUsername">Cruthaigh ainm úsáideora nua</string>
   <string name="welcomeToClass">Fáilte go dtí do rang: %s.
 Seo an nasc le dul isteach sa rang.</string>
@@ -49,8 +57,10 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="managed">Faoi bhainistíocht</string>
   <string name="thisStudentAccountIsManaged">Tá cuntas an dalta seo faoi bhainistíocht</string>
   <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go neamhspleách</string>
+  <string name="release">Scaoil</string>
   <string name="releaseTheAccount">Scaoil an cuntas ionas gur féidir leis an dalta é a bhainistiú go neamhspleách.</string>
   <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
+  <string name="releaseDesc2">Fanfaidh an dalta sa rang tar éis a chuntas a scaoileadh.</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
   <string name="teachers">Múinteoirí</string>
   <plurals name="nbTeachers">
@@ -82,4 +92,7 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="nothingHere">Níl aon rud anseo, fós.</string>
   <string name="newsEdit1">Nuacht ranga ar fad i réimse amháin.</string>
   <string name="newsEdit2">Cuir an nuacht is déanaí ag an mbarr. Ná scrios nuacht roimhe seo.</string>
+  <string name="newsEdit3">Scar nuacht le ---
+Beidh líne chothrománach le feiceáil.</string>
+  <string name="markdownAvailable">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
 </resources>
