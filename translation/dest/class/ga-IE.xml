@@ -39,5 +39,12 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="other">%s cuireadh ar feitheamh</item>
   </plurals>
   <string name="noPendingInvitations">Gan cuireadh ar feitheamh</string>
+  <plurals name="nbStudents">
+    <item quantity="one">Dalta</item>
+    <item quantity="two">%s dalta</item>
+    <item quantity="few">%s dalta</item>
+    <item quantity="many">%s dalta</item>
+    <item quantity="other">%s dalta</item>
+  </plurals>
   <string name="students">Daltaí</string>
 </resources>
