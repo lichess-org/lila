@@ -8,7 +8,7 @@
   <string name="passwordReset_clickOrIgnore">Bu sorğunu siz etmisinizsə, aşağıdakı bağlantıya klikləyin. Siz etməmisinizsə, bu emailə əhəmiyyət verməyin.</string>
   <string name="emailChange_subject">Yeni email ünvanınızı təsdiqləyin, %s</string>
   <string name="emailChange_intro">E-poçt adresini dəyişdirmək üçün sorğu göndərdiniz.</string>
-  <string name="emailChange_click">Bu email sizin üçün əlçatandırsa, zəhmət olmasa aşağıdakı bağlantıya klikləyin:</string>
+  <string name="emailChange_click">Bu e-poçtu aldığınızı təsdiqləmək üçün aşağıdakı linki vurun:</string>
   <string name="welcome_subject">Lichess.org-a Xoş Gəldiniz, %s</string>
   <string name="welcome_text">https://lichess.org üzərindən hesabınız uğurla yaradıldı.
 
