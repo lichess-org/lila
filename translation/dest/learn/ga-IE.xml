@@ -159,6 +159,7 @@ caisliú ar taobh na mbanríon!</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="theGameIsADraw">Is cothrom é an cluiche</string>
   <string name="stalemateIntro">Nuair nach bhfuil ficheallaí i sáinn agus mura bhfuil beart dlíthiúil aige, seo leamhsáinn. Seo cluiche cothrom: ní bhuaigh éinne, ní chailleann éinne.</string>
+  <string name="stalemateComplete">Comhghairdeas! Is fearr duit a bheith i leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
