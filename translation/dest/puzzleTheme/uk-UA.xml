@@ -27,6 +27,7 @@
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусудніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="dovetailMate">Мат \"ластівчиний хвіст\"</string>
+  <string name="dovetailMateDescription">Королева ставить мат королю, який стоїть поруч, в якого два поля для відступу зайняті власними фігурами.</string>
   <string name="equality">Рівність</string>
   <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
