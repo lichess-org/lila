@@ -4,6 +4,7 @@
   <string name="teachClassesOfChessStudents">Múin ranganna daltaí ficheallaithe leis an tsraith uirlisí ranganna Lichess.</string>
   <string name="features">Gnéithe</string>
   <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do daltaí</string>
+  <string name="messageAllStudents">Cuir teachtaireacht chuig gach dalta faoi ábhar nua ranga</string>
   <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
@@ -39,7 +40,9 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="other">%s cuireadh ar feitheamh</item>
   </plurals>
   <string name="noPendingInvitations">Gan cuireadh ar feitheamh</string>
+  <string name="lastActiveDate">Gníomhach</string>
   <string name="managed">Faoi bhainistíocht</string>
+  <string name="thisStudentAccountIsManaged">Tá cuntas an dalta seo faoi bhainistíocht</string>
   <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go féinrialaitheach</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
   <plurals name="nbStudents">
