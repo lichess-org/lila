@@ -4,6 +4,7 @@
   <string name="notEnoughRatedGames">Níor imríodh go leor cluichí rátáilte chun rátáil iontaofa a bhunú.</string>
   <string name="ratingDeviation">Diall rátála. %s.</string>
   <string name="ratingDeviationHelp">Ciallaíonn luach níos ísle go bhfuil an rátáil níos cobhsaí. Os cionn %s, meastar go bhfuil an rátáil sealadach.</string>
+  <string name="berserkedGames">Cluichí Bainí</string>
   <string name="averageOpponent">Meán céile comhraic</string>
   <string name="highestRating">Rátáil is airde: %s</string>
   <string name="lowestRating">Rátáil is ísle: %s</string>
