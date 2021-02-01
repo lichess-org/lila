@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Fadbhbanna</string>
+  <string name="puzzleThemes">Téamaí fadhbhanna fichille</string>
   <string name="recommended">Molta</string>
   <string name="phases">Céimeanna</string>
   <string name="motifs">Móitífeanna</string>
