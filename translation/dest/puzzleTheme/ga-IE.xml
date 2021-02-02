@@ -96,10 +96,13 @@
   <string name="queensideAttack">Ionsaí ar taobh na mbanríona</string>
   <string name="queensideAttackDescription">Ionsaí ar rí an namhaid, tar éis dóibh caisliú ar taobh na mbanríona.</string>
   <string name="quietMove">Beart cúin</string>
+  <string name="quietMoveDescription">Beart nach ndéanann sáinn nó marú, ach a ullmhaíonn bagairt dosheachanta le haghaidh beart níos déanaí.</string>
   <string name="rookEndgame">Cor deiridh caiseal</string>
   <string name="rookEndgameDescription">Cor deiridh le caisil agus ceithearnaigh amháin.</string>
   <string name="sacrifice">Íobairt</string>
+  <string name="sacrificeDescription">Beartaíocht a bhaineann le íobairt píosa sa ghearrthéarma, chun buntáiste a fháil tar éis bearta éigeantach.</string>
   <string name="short">Fadhbh gearr</string>
+  <string name="shortDescription">Dhá bheart le bua.</string>
   <string name="skewer">Sá</string>
   <string name="smotheredMate">Sáinn plúchta</string>
   <string name="trappedPiece">Píosa gafa</string>
