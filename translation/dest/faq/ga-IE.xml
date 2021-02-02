@@ -2,6 +2,12 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="beingAPatron">a bheith ina phátrún</string>
+  <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
+  <string name="otherWaysToHelp">bealaí eile le cuidiú</string>
+  <string name="areThereWebsitesBasedOnLichess">An bhfuil suíomhanna Gréasáin bunaithe ar Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
+  <string name="fairPlay">Cothrom na Féinne</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
@@ -30,6 +36,8 @@ Ná iarr ar an teideal LM.</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
+  <string name="lichessRatings">Rátálacha Lichess</string>
+  <string name="ratingLeaderboards">bord ceannais rátála</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
   <string name="howToThreeDots">Conas...</string>
