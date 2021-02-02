@@ -3,6 +3,7 @@ package lila.study
 import BSONHandlers._
 import Node.Children
 
+import lila.common.Chronometer
 import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
@@ -19,13 +20,16 @@ private object StudyFlatTree {
 
   object reader {
 
-    def rootChildren(flatTree: Bdoc): Children = traverse {
-      flatTree.elements.toList
-        .collect {
-          case el if el.name.nonEmpty => FlatNode(Path(el.name), el.value.asOpt[Bdoc].get)
+    def rootChildren(flatTree: Bdoc): Children =
+      Chronometer.syncMon(_.study.tree.read) {
+        traverse {
+          flatTree.elements.toList
+            .collect {
+              case el if el.name != Path.rootDbKey => FlatNode(Path(el.name), el.value.asOpt[Bdoc].get)
+            }
+            .sortBy(-_.depth)
         }
-        .sortBy(-_.depth)
-    }
+      }
 
     private def traverse(children: List[FlatNode]): Children =
       children
@@ -37,7 +41,7 @@ private object StudyFlatTree {
     // assumes that node has a greater depth than roots (sort beforehand)
     private def update(roots: Map[Path, Children], flat: FlatNode): Map[Path, Children] = {
       val node = flat.toNodeWithChildren(roots get flat.path)
-      roots.removed(flat.path).updatedWith(flat.path.init) {
+      roots.removed(flat.path).updatedWith(flat.path.parent) {
         case None           => Children(Vector(node)).some
         case Some(siblings) => siblings.addNode(node).some
       }
@@ -47,9 +51,11 @@ private object StudyFlatTree {
   object writer {
 
     def rootChildren(root: Node.Root): Vector[(String, Bdoc)] =
-      root.children.nodes.flatMap { traverse(_, Path.root) }
+      Chronometer.syncMon(_.study.tree.write) {
+        root.children.nodes.flatMap { traverse(_, Path.root) }
+      }
 
-    def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] = {
+    private def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] = {
       val path = parentPath + node.id
       node.children.nodes.flatMap {
         traverse(_, path)

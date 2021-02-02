@@ -159,76 +159,79 @@ object BSONHandlers {
   }
 
   def readNode(doc: Bdoc, id: UciCharPair): Node = {
+    import Node.BsonFields._
     val r = new Reader(doc)
     Node(
       id = id,
-      ply = r int "p",
-      move = WithSan(r.get[Uci]("u"), r.str("s")),
-      fen = r.get[FEN]("f"),
-      check = r boolD "c",
-      shapes = r.getO[Shapes]("h") | Shapes.empty,
-      comments = r.getO[Comments]("co") | Comments.empty,
-      gamebook = r.getO[Gamebook]("ga"),
-      glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
-      score = r.getO[Score]("e"),
-      crazyData = r.getO[Crazyhouse.Data]("z"),
-      clock = r.getO[Centis]("l"),
+      ply = r int ply,
+      move = WithSan(r.get[Uci](uci), r.str(san)),
+      fen = r.get[FEN](fen),
+      check = r boolD check,
+      shapes = r.getO[Shapes](shapes) | Shapes.empty,
+      comments = r.getO[Comments](comments) | Comments.empty,
+      gamebook = r.getO[Gamebook](gamebook),
+      glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
+      score = r.getO[Score](score),
+      crazyData = r.getO[Crazyhouse.Data](crazy),
+      clock = r.getO[Centis](clock),
       children = Node.emptyChildren,
-      forceVariation = r boolD "fv"
+      forceVariation = r boolD forceVariation
     )
   }
 
   def writeNode(s: Node) = {
+    import Node.BsonFields._
     val w = new Writer
     $doc(
-      "p"  -> s.ply,
-      "u"  -> s.move.uci,
-      "s"  -> s.move.san,
-      "f"  -> s.fen,
-      "c"  -> w.boolO(s.check),
-      "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
-      "co" -> s.comments.value.nonEmpty.option(s.comments),
-      "ga" -> s.gamebook,
-      "g"  -> s.glyphs.nonEmpty,
-      "e"  -> s.score,
-      "l"  -> s.clock,
-      "z"  -> s.crazyData,
-      "fv" -> w.boolO(s.forceVariation)
+      ply            -> s.ply,
+      uci            -> s.move.uci,
+      san            -> s.move.san,
+      fen            -> s.fen,
+      check          -> w.boolO(s.check),
+      shapes         -> s.shapes.value.nonEmpty.option(s.shapes),
+      comments       -> s.comments.value.nonEmpty.option(s.comments),
+      gamebook       -> s.gamebook,
+      glyphs         -> s.glyphs.nonEmpty,
+      score          -> s.score,
+      clock          -> s.clock,
+      crazy          -> s.crazyData,
+      forceVariation -> w.boolO(s.forceVariation)
     )
   }
 
   import Node.Root
   implicit private[study] lazy val NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+    import Node.BsonFields._
     def reads(fullReader: Reader) = {
-      val rootNode = fullReader.doc.getAsOpt[Bdoc]("") err "Missing root"
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
       Root(
-        ply = r int "p",
-        fen = r.get[FEN]("f"),
-        check = r boolD "c",
-        shapes = r.getO[Shapes]("h") | Shapes.empty,
-        comments = r.getO[Comments]("co") | Comments.empty,
-        gamebook = r.getO[Gamebook]("ga"),
-        glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
-        score = r.getO[Score]("e"),
-        clock = r.getO[Centis]("l"),
-        crazyData = r.getO[Crazyhouse.Data]("z"),
+        ply = r int ply,
+        fen = r.get[FEN](fen),
+        check = r boolD check,
+        shapes = r.getO[Shapes](shapes) | Shapes.empty,
+        comments = r.getO[Comments](comments) | Comments.empty,
+        gamebook = r.getO[Gamebook](gamebook),
+        glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
+        score = r.getO[Score](score),
+        clock = r.getO[Centis](clock),
+        crazyData = r.getO[Crazyhouse.Data](crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
     def writes(w: Writer, r: Root) = $doc(
       StudyFlatTree.writer.rootChildren(r) appended {
-        "" -> $doc(
-          "p"  -> r.ply,
-          "f"  -> r.fen,
-          "c"  -> r.check.some.filter(identity),
-          "h"  -> r.shapes.value.nonEmpty.option(r.shapes),
-          "co" -> r.comments.value.nonEmpty.option(r.comments),
-          "ga" -> r.gamebook,
-          "g"  -> r.glyphs.nonEmpty,
-          "e"  -> r.score,
-          "l"  -> r.clock,
-          "z"  -> r.crazyData
+        Path.rootDbKey -> $doc(
+          ply      -> r.ply,
+          fen      -> r.fen,
+          check    -> r.check.some.filter(identity),
+          shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
+          comments -> r.comments.value.nonEmpty.option(r.comments),
+          gamebook -> r.gamebook,
+          glyphs   -> r.glyphs.nonEmpty,
+          score    -> r.score,
+          clock    -> r.clock,
+          crazy    -> r.crazyData
         )
       }
     )

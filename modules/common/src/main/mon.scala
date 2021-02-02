@@ -597,6 +597,12 @@ object mon {
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     }
   }
+  object study {
+    object tree {
+      val read  = timer("study.tree.read").withoutTags()
+      val write = timer("study.tree.write").withoutTags()
+    }
+  }
   object api {
     val userGames = counter("api.cost").withTag("endpoint", "userGames")
     val users     = counter("api.cost").withTag("endpoint", "users")

@@ -126,32 +126,37 @@ final class ChapterRepo(val coll: Coll)(implicit
 
   def setScore(score: Option[lila.tree.Eval.Score]) = setNodeValue("e", score) _
 
-  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit =
-    ??? // TODO
-  // setNodeValue("n", children.some) _
+  // overrides all children sub-nodes in DB! Make the tree merge beforehand.
+  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
+    val parentOrderField = pathToField(path, Node.BsonFields.order)
+    val (set: Bdoc, unset: Option[String]) =
+      if (children.nodes.sizeIs > 1) ($doc(parentOrderField -> children.nodes.map(_.id)), None)
+      else ($empty, parentOrderField.some)
+    val allSet = set ++ $doc(
+      children.nodes.map { node =>
+        (path + node).toDbField -> writeNode(node)
+      }
+    )
+
+    coll.update
+      .one($id(chapter.id), $set(allSet) ++ unset.??(u => $unset(u)))
+      .void
+  }
 
   private def setNodeValue[A: BSONWriter](
       field: String,
       value: Option[A]
   )(chapter: Chapter, path: Path): Funit =
-    pathToField(chapter, path, field) match {
-      case None =>
-        logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")
-        funit
-      case Some(field) =>
-        (value match {
-          case None    => coll.unsetField($id(chapter.id), field)
-          case Some(v) => coll.updateField($id(chapter.id), field, v)
-        }) void
-    }
-
-  // root.n.0.n.0.n.1.n.0.n.2.subField
-  private def pathToField(chapter: Chapter, path: Path, subField: String): Option[String] =
-    if (path.isEmpty) s"root.$subField".some
-    else
-      chapter.root.children.pathToIndexes(path) map { indexes =>
-        s"root.n.${indexes.mkString(".n.")}.$subField"
+    coll
+      .updateOrUnsetField($id(chapter.id), pathToField(path, field), value)
+      .addEffect {
+        case 0 => logger.warn(s"Can't setNodeValue ${chapter.id} $path $field, no node matched!")
+        case _ =>
       }
+      .void
+
+  // root.path.subField
+  private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
 
   private[study] def setChild(chapter: Chapter, path: Path, child: Node): Funit =
     ??? // TODO

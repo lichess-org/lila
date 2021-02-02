@@ -216,14 +216,6 @@ object Node {
         case x => x
       })
 
-    // List(0, 0, 1, 0, 2)
-    def pathToIndexes(path: Path): Option[List[Int]] =
-      path.split.fold(List.empty[Int].some) { case (head, tail) =>
-        getNodeAndIndex(head) flatMap { case (node, index) =>
-          node.children.pathToIndexes(tail).map(rest => index :: rest)
-        }
-      }
-
     def countRecursive: Int =
       nodes.foldLeft(nodes.size) { case (count, n) =>
         count + n.children.countRecursive
@@ -363,4 +355,21 @@ object Node {
       children = Children(b.children.view.map(fromBranch).toVector),
       forceVariation = false
     )
+
+  object BsonFields {
+    val ply            = "p"
+    val uci            = "u"
+    val san            = "s"
+    val fen            = "f"
+    val check          = "c"
+    val shapes         = "h"
+    val comments       = "co"
+    val gamebook       = "ga"
+    val glyphs         = "g"
+    val score          = "e"
+    val clock          = "l"
+    val crazy          = "z"
+    val forceVariation = "fv"
+    val order          = "o"
+  }
 }
