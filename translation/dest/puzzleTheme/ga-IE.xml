@@ -17,7 +17,14 @@
   <string name="dovetailMate">Marbhsháinn déada</string>
   <string name="dovetailMateDescription">Déanann banríon marbhsháinn ar rí cóngarach dí, níl ach dhá chearnóg éalaithe aige agus tá a píosaí cairdiúla ag cuir cosc ar a soghluaisteacht chuig na cearnóga seo.</string>
   <string name="equality">Comhionannas</string>
+  <string name="equalityDescription">Tar ar ais ó suíomh caillte, agus faigh cluiche cothrom nó suíomh cothrom. (meastóireacht ≤ 200cp)</string>
+  <string name="kingsideAttack">Ionsaí ar taobh an rí</string>
+  <string name="kingsideAttackDescription">Ionsaí ar rí an chéile comhraic, tar éis dóibh caisliú ar thaobh an rí.</string>
+  <string name="clearance">Glanadh</string>
+  <string name="clearanceDescription">Beart, go minic le luas, a ghlanann cearnóg, treas nó fiarthrasnán le haghaidh smaoineamh beartach.</string>
   <string name="defensiveMove">Beart cosanta</string>
+  <string name="defensiveMoveDescription">Beart cruinn nó staith bearta atá tábhachtach chun cailliúint ábhair nó buntáiste eile a sheachaint.</string>
+  <string name="deflection">Sraonadh</string>
   <string name="discoveredAttack">Ionsaí nochta</string>
   <string name="doubleCheck">Sáinn faoi dhó</string>
   <string name="endgame">Cor deiridh</string>
