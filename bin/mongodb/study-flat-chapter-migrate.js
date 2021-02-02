@@ -1,3 +1,11 @@
+print(`parallelism: ${parallelism}, instance: ${instance}`);
+
+const idChars = 'abcdefghyjklmnopqrstuvwxyzABCDEFGHYJKLMNOPQRSTUVWXYZ0123456789'.split('');
+const sliceSize = idChars.length / parallelism;
+const charSlice = idChars.slice(sliceSize * (instance -1), sliceSize * instance);
+const firstCharRegex = new RegExp('^[' + charSlice.join('') + ']');
+print(firstCharRegex);
+
 const coll = db.study_chapter_flat;
 coll.drop();
 coll.createIndex({studyId:1,order:1})
@@ -31,9 +39,9 @@ let tooDeepNb = 0;
 let batch = [];
 
 const batchSize = 1000;
-const totalNb = db.study_chapter_backup.count();
+const totalNb = db.study_chapter_backup.count() / parallelism;
 
-db.study_chapter_backup.find().forEach(c => {
+db.study_chapter_backup.find({_id:firstCharRegex}).forEach(c => {
   try {
     sumSizeFrom += Object.bsonsize(c);
   } catch (e) {
