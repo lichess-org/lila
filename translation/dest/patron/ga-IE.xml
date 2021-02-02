@@ -7,14 +7,19 @@
   <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
   <string name="newPatrons">Pátrúin Nua</string>
   <string name="freeChess">Ficheall saor in aisce do gach duine, go deo!</string>
+  <string name="noAdsNoSubs">Gan fógraí, gan aon síntiúis; ach foinse oscailte agus paisean.</string>
   <string name="thankYou">Go raibh maith agat as do bhronntanas!</string>
   <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
   <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
+  <string name="ifNotRenewed">Mura ndéantar athnuachan ar, déanfaimid tú a íosghrádú go cuntas saor in aisce.</string>
   <string name="lifetime">Saol</string>
+  <string name="payLifetimeOnce">Íoc %s uair amháin. Bí i do Phátrún Lichess go deo!</string>
   <string name="lifetimePatron">Pátrún Lichess Saoil</string>
   <string name="makeExtraDonation">Déan tabhartas breise?</string>
   <string name="monthly">Míosúil</string>
+  <string name="recurringBilling">Billeáil athfhillteach, ag athnuachan do sciatháin Pátrún gach mí.</string>
   <string name="onetime">Aonuaire</string>
+  <string name="singleDonation">Bronntanas amháin a thugann sciatháin an Phátrúin duit ar feadh míosa.</string>
   <string name="otherAmount">Eile</string>
   <string name="pleaseEnterAmount">Iontráil méid in USD le do thoil</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
@@ -26,6 +31,8 @@
   <string name="officialNonProfit">An neamhbhrabús oifigiúil é Lichess?</string>
   <string name="actOfCreation">Sea, seo an deimhniú corpraithe</string>
   <string name="changeMonthlySupport">An bhfuil cead agam mo thacaíocht mhíosúil a athrú / a chealú?</string>
+  <string name="changeOrContact">Cinnte, am ar bith, ón leathanach seo.
+Nó is féidir leat %s.</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
   <string name="otherMethods">Modhanna eile deonaithe?</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>
