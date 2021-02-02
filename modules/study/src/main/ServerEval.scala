@@ -57,7 +57,7 @@ object ServerEval {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
-                .fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
+                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
                     info.eval.score
                       .ifTrue {

@@ -22,7 +22,7 @@ sealed trait RootOrNode {
   val score: Option[Score]
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
-  def mainline: List[Node]
+  def mainline: Vector[Node]
   def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
 }
@@ -70,7 +70,7 @@ case class Node(
 
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
-  def mainline: List[Node] = this :: children.first.??(_.mainline)
+  def mainline: Vector[Node] = this +: children.first.??(_.mainline)
 
   def updateMainlineLast(f: Node => Node): Node =
     children.first.fold(f(this)) { main =>
@@ -120,14 +120,14 @@ object Node {
         case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
       }
 
-    def nodesOn(path: Path): List[(Node, Path)] =
-      path.split ?? { case (head, tail) =>
-        get(head) ?? { first =>
-          (first, Path(List(head))) :: first.children.nodesOn(tail).map { case (n, p) =>
-            (n, p prepend head)
-          }
-        }
-      }
+    // def nodesOn(path: Path): List[(Node, Path)] =
+    //   path.split ?? { case (head, tail) =>
+    //     get(head) ?? { first =>
+    //       (first, Path(List(head))) :: first.children.nodesOn(tail).map { case (n, p) =>
+    //         (n, p prepend head)
+    //       }
+    //     }
+    //   }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
       path.split match {
@@ -302,7 +302,7 @@ object Node {
         copy(children = children.update(main updateMainlineLast f))
       }
 
-    lazy val mainline: List[Node] = children.first.??(_.mainline)
+    lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 
     def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
 

@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciCharPair
 
-case class Path(ids: List[UciCharPair]) extends AnyVal {
+case class Path(ids: Vector[UciCharPair]) extends AnyVal {
 
   def head: Option[UciCharPair] = ids.headOption
 
@@ -14,10 +14,11 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
 
   def isEmpty = ids.isEmpty
 
-  def +(node: Node): Path = Path(ids :+ node.id)
-  def +(more: Path): Path = Path(ids ::: more.ids)
+  def +(id: UciCharPair): Path = Path(ids appended id)
+  def +(node: Node): Path      = Path(ids appended node.id)
+  def +(more: Path): Path      = Path(ids appendedAll more.ids)
 
-  def prepend(id: UciCharPair) = Path(id :: ids)
+  def prepend(id: UciCharPair) = Path(ids prepended id)
 
   def intersect(other: Path): Path =
     Path {
@@ -40,7 +41,7 @@ object Path {
             UciCharPair(p(0), b)
           }
         }
-        .toList
+        .toVector
     }
 
   val root = Path("")

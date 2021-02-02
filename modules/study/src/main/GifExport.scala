@@ -28,7 +28,7 @@ final class GifExport(
             chapter.tags(_.Black),
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr())
+          "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr())
         )
       )
       .stream() flatMap {
@@ -39,10 +39,10 @@ final class GifExport(
     }
 
   @annotation.tailrec
-  private def framesRec(nodes: List[RootOrNode], arr: JsArray): JsArray =
+  private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
     nodes match {
       case Nil => arr
-      case node :: tail =>
+      case node +: tail =>
         framesRec(
           tail,
           arr :+ Json

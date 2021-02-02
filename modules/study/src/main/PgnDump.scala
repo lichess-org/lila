@@ -26,7 +26,7 @@ final class PgnDump(
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) =
     Pgn(
       tags = makeTags(study, chapter),
-      turns = toTurns(chapter.root)(flags),
+      turns = toTurns(chapter.root)(flags).toList,
       initial = Initial(
         chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
       )
@@ -105,7 +105,7 @@ object PgnDump {
       result = none,
       variations = flags.variations ?? {
         variations.view.map { child =>
-          toTurns(child.mainline, noVariations)
+          toTurns(child.mainline, noVariations).toList
         }.toList
       },
       secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
@@ -138,34 +138,37 @@ object PgnDump {
       black = second map { node2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(implicit flags: WithFlags): List[chessPgn.Turn] =
+  def toTurns(root: Node.Root)(implicit flags: WithFlags): Vector[chessPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
-  def toTurns(line: List[Node], variations: Variations)(implicit flags: WithFlags): List[chessPgn.Turn] = {
+  def toTurns(
+      line: Vector[Node],
+      variations: Variations
+  )(implicit flags: WithFlags): Vector[chessPgn.Turn] = {
     line match {
-      case Nil => Nil
-      case first :: rest if first.ply % 2 == 0 =>
+      case Vector() => Vector()
+      case first +: rest if first.ply % 2 == 0 =>
         chessPgn.Turn(
           number = 1 + (first.ply - 1) / 2,
           white = none,
           black = node2move(first, variations).some
-        ) :: toTurnsFromWhite(rest, first.children.variations)
+        ) +: toTurnsFromWhite(rest, first.children.variations)
       case l => toTurnsFromWhite(l, variations)
     }
   }.filterNot(_.isEmpty)
 
-  def toTurnsFromWhite(line: List[Node], variations: Variations)(implicit
+  def toTurnsFromWhite(line: Vector[Node], variations: Variations)(implicit
       flags: WithFlags
-  ): List[chessPgn.Turn] =
+  ): Vector[chessPgn.Turn] =
     line
       .grouped(2)
-      .foldLeft(variations -> List.empty[chessPgn.Turn]) { case variations ~ turns ~ pair =>
+      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case variations ~ turns ~ pair =>
         pair.headOption.fold(variations -> turns) { first =>
           pair
             .lift(1)
             .getOrElse(first)
             .children
-            .variations -> (toTurn(first, pair lift 1, variations) :: turns)
+            .variations -> (toTurn(first, pair lift 1, variations) +: turns)
         }
       }
       ._2

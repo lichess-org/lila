@@ -213,22 +213,25 @@ object BSONHandlers {
         score = r.getO[Score]("e"),
         clock = r.getO[Centis]("l"),
         crazyData = r.getO[Crazyhouse.Data]("z"),
-        children = StudyFlatTree.rootChildren(fullReader.doc)
+        children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
-    def writes(w: Writer, s: Root) = ???
-    // $doc(
-    //   "p"  -> s.ply,
-    //   "f"  -> s.fen,
-    //   "c"  -> w.boolO(s.check),
-    //   "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
-    //   "co" -> s.comments.value.nonEmpty.option(s.comments),
-    //   "ga" -> s.gamebook,
-    //   "g"  -> s.glyphs.nonEmpty,
-    //   "e"  -> s.score,
-    //   "l"  -> s.clock,
-    //   "z"  -> s.crazyData
-    // )
+    def writes(w: Writer, r: Root) = $doc(
+      StudyFlatTree.writer.rootChildren(r) appended {
+        "" -> $doc(
+          "p"  -> r.ply,
+          "f"  -> r.fen,
+          "c"  -> r.check.some.filter(identity),
+          "h"  -> r.shapes.value.nonEmpty.option(r.shapes),
+          "co" -> r.comments.value.nonEmpty.option(r.comments),
+          "ga" -> r.gamebook,
+          "g"  -> r.glyphs.nonEmpty,
+          "e"  -> r.score,
+          "l"  -> r.clock,
+          "z"  -> r.crazyData
+        )
+      }
+    )
   }
 
   implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
