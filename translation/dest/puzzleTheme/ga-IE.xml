@@ -104,8 +104,14 @@
   <string name="short">Fadhbh gearr</string>
   <string name="shortDescription">Dhá bheart le bua.</string>
   <string name="skewer">Sá</string>
+  <string name="skewerDescription">Móitíf ina bhfuil píosa cuachtach á ionsaí, ag bogadh amach as bealach, agus ag ligean píosa le cuacht níos ísle a mharú nó a ionsaí, inbhéart teannta.</string>
   <string name="smotheredMate">Sáinn plúchta</string>
+  <string name="smotheredMateDescription">Marbhsháinn ó ridire ina bhfuil an rí faoin ionsaí greimithe (nó plúchta) toisc go bhfuil a phíosaí féin timpeall air.</string>
+  <string name="superGM">Cluichí Super GM</string>
+  <string name="superGMDescription">Fadhbhanna ó chluichí a d’imir na bhficheallaithe is fearr ar an domhan.</string>
   <string name="trappedPiece">Píosa gafa</string>
+  <string name="trappedPieceDescription">Ní féidir le píosa éalú ó marú toisc go bhfuil soghluaiseacht teoranta aige.</string>
+  <string name="underPromotion">Foardú</string>
   <string name="veryLong">Fadhbh an-fhada</string>
   <string name="veryLongDescription">Ceithre bheart nó níos mó le buachan.</string>
   <string name="xRayAttack">Ionsaí x-ghathaithe</string>
