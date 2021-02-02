@@ -9,6 +9,9 @@
   <string name="castling">Caisliú</string>
   <string name="castlingDescription">Cuir an rí i bhfolach, agus scaoil an caiseal le haghaidh ionsaí.</string>
   <string name="capturingDefender">Marú an cosantóir</string>
+  <string name="capturingDefenderDescription">Bain amach píosa atá ríthábhachtach do cosaint píosa eile, ag ceadaigh an píosa atá anois gan chosaint a mharú an sa chéad bheart ina dhiaidh.</string>
+  <string name="crushing">Tubaisteach</string>
+  <string name="crushingDescription">Féach ar earráid an chéile comhraic chun buntáiste cumhachtach a fháil. (meastóireacht ≥ 600cp)</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
   <string name="dovetailMate">Marbhsháinn déada</string>
   <string name="defensiveMove">Beart cosanta</string>
