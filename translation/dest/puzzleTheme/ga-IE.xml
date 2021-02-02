@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Ceithearnach chun cinn</string>
+  <string name="advantage">Buntáiste</string>
   <string name="anastasiaMate">Marbhsháinn Anastasia</string>
   <string name="arabianMate">Marbhsháinn Arabaigh</string>
+  <string name="attackingF2F7">Ag ionsaí f2 nó f7</string>
+  <string name="attackingF2F7Description">Ionsaí ag díriú ar an ceithearnach f2 nó f7, mar shampla ins an oscailt ae friochta.</string>
+  <string name="attraction">Meabhlú</string>
   <string name="backRankMate">Marbhsháinn céim ar cúl</string>
   <string name="bishopEndgame">Cor deiridh easpaig</string>
   <string name="bishopEndgameDescription">Cor deiridh le easpaig agus ceithearnaigh amháin.</string>
@@ -31,6 +36,7 @@
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
   <string name="fork">Gabhal</string>
   <string name="hookMate">Marbhsháinn corrán</string>
+  <string name="interference">Bac</string>
   <string name="knightEndgame">Cor deiridh ridire</string>
   <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
   <string name="mate">Marbhsháinn</string>
