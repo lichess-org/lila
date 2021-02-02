@@ -8,9 +8,13 @@
   <string name="areThereWebsitesBasedOnLichess">An bhfuil suíomhanna Gréasáin bunaithe ar Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
   <string name="fairPlay">Cothrom na Féinne</string>
+  <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
+  <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
+  <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
@@ -39,7 +43,10 @@ Ná iarr ar an teideal LM.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
+  <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
+  <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
+  <string name="connexionLostCanIGetMyRatingBack">Chaill mé cluiche de bharr moille/dícheangail. An féidir liom mo chuid pointí rátála a fháil ar ais?</string>
   <string name="howToThreeDots">Conas...</string>
   <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh Gréasáin</string>
 </resources>
