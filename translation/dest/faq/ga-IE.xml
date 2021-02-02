@@ -2,7 +2,10 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="whyIsLichessCalledLichess">Cén fáth a dtugtar Lichess ar Lichess?</string>
   <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
+  <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
   <string name="beingAPatron">a bheith ina phátrún</string>
   <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
   <string name="otherWaysToHelp">bealaí eile le cuidiú</string>
