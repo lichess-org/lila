@@ -39,6 +39,8 @@
   <string name="reportMobileIssue">Mar eagrán aip móibíleacha Lichess ar GitHub</string>
   <string name="reportBugInDiscord">Sa fhreastalaí Discord Lichess</string>
   <string name="illegalPawnCapture">Marú ceithearnach mídhleathach</string>
+  <string name="calledEnPassant">Tugtar \"en passant\" air agus \'sé ceann de rialacha i bhficheall.</string>
+  <string name="tryEnPassant">Bain triail as an gcluiche beag idirghníomhach seo chun níos mó a fhoghlaim faoi \"en passant\".</string>
   <string name="illegalCastling">Caisliú dodhéanta nó mídhleathach</string>
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
@@ -47,7 +49,10 @@
   <string name="banAppeal">Achomharc ar thoirmeasc nó srian IP</string>
   <string name="sendAppealTo">Féadfaidh tú achomharc a sheoladh chuig %s.</string>
   <string name="falsePositives">Tarlaíonn bréagdheimhnigh uaireanta, agus bíonn brón orainn faoi sin.</string>
+  <string name="ifLegit">Má tá d’achomharc dlisteanach, ardóimid an toirmeasc chomh luath agus is féidir.</string>
   <string name="otherRestriction">Srian eile</string>
+  <string name="monetizing">Monatóireacht Lichess</string>
   <string name="buyingLichess">Ag ceannach Lichess</string>
   <string name="authorizationToUse">Údarú chun Lichess a úsáid</string>
+  <string name="sendEmailAt">Seol ríomhphost chugainn ag %s.</string>
 </resources>
