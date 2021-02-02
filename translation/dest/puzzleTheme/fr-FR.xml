@@ -30,7 +30,7 @@
   <string name="dovetailMateDescription">Une Dame mate un Roi placé sur une case adjacente, les deux seules cases de fuite étant occupées par des pièces amies.</string>
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
-  <string name="kingsideAttack">Attaque sur l\'aile roi</string>
+  <string name="kingsideAttack">Attaque sur l\'aile Roi</string>
   <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le petit roque.</string>
   <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
