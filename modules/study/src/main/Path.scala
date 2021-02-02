@@ -31,6 +31,8 @@ case class Path(ids: Vector[UciCharPair]) extends AnyVal {
     if (ids.isEmpty) s"root.${Path.rootDbKey}"
     else s"root.${Path encodeDbKey this}"
 
+  def depth = ids.size
+
   override def toString = ids.mkString
 }
 
