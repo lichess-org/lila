@@ -7,7 +7,11 @@
   <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
   <string name="newPatrons">Pátrúin Nua</string>
   <string name="freeChess">Ficheall saor in aisce do gach duine, go deo!</string>
+  <string name="thankYou">Go raibh maith agat as do bhronntanas!</string>
+  <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
+  <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
   <string name="lifetime">Saol</string>
+  <string name="lifetimePatron">Pátrún Lichess Saoil</string>
   <string name="makeExtraDonation">Déan tabhartas breise?</string>
   <string name="monthly">Míosúil</string>
   <string name="onetime">Aonuaire</string>
@@ -18,6 +22,7 @@
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
+  <string name="costBreakdown">Féach an miondealú mionsonraithe ar chostais</string>
   <string name="officialNonProfit">An neamhbhrabús oifigiúil é Lichess?</string>
   <string name="actOfCreation">Sea, seo an deimhniú corpraithe</string>
   <string name="changeMonthlySupport">An bhfuil cead agam mo thacaíocht mhíosúil a athrú / a chealú?</string>
@@ -45,6 +50,7 @@
   <string name="cancelSupport">cuir do thacaíocht ar ceal</string>
   <string name="xOrY">%1$s nó %2$s</string>
   <string name="decideHowMuch">Socraigh cad is fiú Lichess duit:</string>
+  <string name="stopPayments">Tarraing do chárta creidmheasa as agus stop íocaíochtaí:</string>
   <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>
   <string name="paymentHistory">Stair íocaíochta</string>
   <string name="paid">Íoctha</string>
