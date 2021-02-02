@@ -31,6 +31,15 @@
   <string name="youCanAlsoReachReportPage">Is féidir leat an leathanach sin a fháil freisin tríd an cnaipe tuairiscithe %s a chliceáil ar leathanach próifíle.</string>
   <string name="doNotReportInForum">Ná tabhair tuairisc ar imreoirí san fhóram.</string>
   <string name="doNotSendReportEmails">Ná seol ríomhphoist tuairisc chugainn.</string>
+  <string name="doNotMessageModerators">Ná seol ríomhphoist díreach chuig modhnóirí.</string>
+  <string name="onlyReports">Caithfear tuairisc a dhéanamh tríd an bhfoirm tuarascála amháín.</string>
+  <string name="wantReportBug">Ba mhaith liom fabht a thuairisciú</string>
+  <string name="reportBugInForum">Sa chuid Aiseolas Lichess den fhóram</string>
+  <string name="reportWebsiteIssue">Mar eagrán de shuíomh Gréasáin Lichess ar GitHub</string>
+  <string name="reportMobileIssue">Mar eagrán aip móibíleacha Lichess ar GitHub</string>
+  <string name="reportBugInDiscord">Sa fhreastalaí Discord Lichess</string>
+  <string name="illegalPawnCapture">Marú ceithearnach mídhleathach</string>
+  <string name="illegalCastling">Caisliú dodhéanta nó mídhleathach</string>
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
