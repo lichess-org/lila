@@ -43,6 +43,7 @@
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
+  <string name="errorPage">Leathanach earráide</string>
   <string name="falsePositives">Tarlaíonn bréagdheimhnigh uaireanta, agus bíonn brón orainn faoi sin.</string>
   <string name="otherRestriction">Srian eile</string>
   <string name="buyingLichess">Ag ceannach Lichess</string>
