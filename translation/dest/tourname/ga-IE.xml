@@ -2,12 +2,18 @@
 <resources>
   <string name="hourlyRapidArena">Réimse Mear in aghaidh na huaire</string>
   <string name="hourlyRapid">Mear in aghaidh na huaire</string>
+  <string name="hourlyXArena">Réimse %s in aghaidh na huaire</string>
+  <string name="hourlyX">%s in aghaidh na huaire</string>
   <string name="dailyRapidArena">Réimse Mear Laethúil</string>
   <string name="dailyRapid">Mear Laethúil</string>
+  <string name="dailyClassicalArena">Réimse Clasaiceach Laethúil</string>
+  <string name="dailyClassical">Clasaiceach Laethúil</string>
   <string name="dailyXArena">Láthair Laethúil %s</string>
+  <string name="dailyX">%s Laethúil</string>
   <string name="easternRapidArena">Réimse Mear an Oirthir</string>
   <string name="easternRapid">Mear an Oirthir</string>
   <string name="easternClassicalArena">Láthair Clasaiceach an Oirthir</string>
+  <string name="easternClassical">Clasaiceach an Oirthir</string>
   <string name="easternXArena">Láthair an Oirthir %s</string>
   <string name="easternX">An Oirthir %s</string>
   <string name="weeklyRapidArena">Réimse Mear Seachtainiúil</string>
