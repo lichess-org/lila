@@ -16,6 +16,7 @@
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
   <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
+  <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
@@ -61,6 +62,8 @@ Ná iarr ar an teideal LM.</string>
   <string name="whatIsProvisionalRating">Cén fáth go bhfuil comhartha ceiste (?) In aice le rátáil?</string>
   <string name="provisionalRatingExplanation">Ciallaíonn an comhartha ceiste go bhfuil an rátáil sealadach. Cúiseanna san áireamh:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
+  <string name="similarOpponents">céile comhraic den chaighdeán céanna</string>
+  <string name="howDoLeaderoardsWork">Conas a oibríonn céimeanna agus cláracha ceann riain?</string>
   <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">imir 30 cluiche rátáilte ar a laghad i rátáil ar leith,</string>
