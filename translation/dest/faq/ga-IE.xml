@@ -57,6 +57,10 @@ Ná iarr ar an teideal LM.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
+  <string name="whatIsProvisionalRating">Cén fáth go bhfuil comhartha ceiste (?) In aice le rátáil?</string>
+  <string name="provisionalRatingExplanation">Ciallaíonn an comhartha ceiste go bhfuil an rátáil sealadach. Cúiseanna san áireamh:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
   <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">imir 30 cluiche rátáilte ar a laghad i rátáil ar leith,</string>
