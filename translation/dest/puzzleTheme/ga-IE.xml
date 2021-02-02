@@ -7,6 +7,8 @@
   <string name="bishopEndgameDescription">Cor deiridh le easpaig agus ceithearnaigh amháin.</string>
   <string name="bodenMate">Marbhsháinn Boden</string>
   <string name="castling">Caisliú</string>
+  <string name="castlingDescription">Cuir an rí i bhfolach, agus scaoil an caiseal le haghaidh ionsaí.</string>
+  <string name="capturingDefender">Marú an cosantóir</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
   <string name="dovetailMate">Marbhsháinn déada</string>
   <string name="defensiveMove">Beart cosanta</string>
