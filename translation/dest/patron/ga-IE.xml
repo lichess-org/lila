@@ -11,4 +11,10 @@
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
+  <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
+  <string name="currentStatus">Stádás laithreach</string>
+  <string name="nextPayment">An chéad íocaíocht eile</string>
+  <string name="youWillBeChargedXOnY">Beidh tú muirearaithe %1$s ar %2$s.</string>
+  <string name="makeAdditionalDonation">Déan bronntanas breise anois</string>
+  <string name="update">Nuashonrú</string>
 </resources>
