@@ -53,14 +53,19 @@ ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="errorPage">Leathanach earráide</string>
   <string name="reportErrorPage">Má thiteann tú ar leathanach earráide, féadfaidh tú é a thuairisciú:</string>
   <string name="banAppeal">Achomharc ar thoirmeasc nó srian IP</string>
+  <string name="engineAppeal">Marc innill nó caimiléireacht</string>
   <string name="sendAppealTo">Féadfaidh tú achomharc a sheoladh chuig %s.</string>
   <string name="falsePositives">Tarlaíonn bréagdheimhnigh uaireanta, agus bíonn brón orainn faoi sin.</string>
   <string name="ifLegit">Má tá d’achomharc dlisteanach, ardóimid an toirmeasc chomh luath agus is féidir.</string>
+  <string name="accountLost">Mar sin féin má d’úsáid tú cúnamh innill go deimhin, fiú uair amháin, ar an drochuair cailltear do chuntas.</string>
+  <string name="doNotDeny">Ná séanadh go bhfuil caimiléireacht déanta agat. Más mian leat go gceadófaí duit cuntas nua a chruthú, ní gá ach ligean isteach ar an méid a rinne tú, agus taispeáin gur thuig tú gur botún a bhí ann.</string>
   <string name="otherRestriction">Srian eile</string>
   <string name="collaboration">Comhoibriú, dlíthiúil, tráchtála</string>
   <string name="monetizing">Monatóireacht Lichess</string>
   <string name="buyingLichess">Ag ceannach Lichess</string>
   <string name="authorizationToUse">Údarú chun Lichess a úsáid</string>
+  <string name="welcomeToUse">Tá fáilte romhat Lichess a úsáid le haghaidh do ghníomhaíochta, fiú tráchtála.</string>
   <string name="videosAndBooks">Féadfaidh tú é a thaispeáint i do chuid físeáin, agus féadfaidh tú scáileáin de Lichess a phriontáil i do leabhair.</string>
+  <string name="creditAppreciated">Tá meas ar chreidmheas ach níl sé ag teastáil.</string>
   <string name="sendEmailAt">Seol ríomhphost chugainn ag %s.</string>
 </resources>
