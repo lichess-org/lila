@@ -8,16 +8,23 @@
   <string name="doYouHaveStream">An bhfuil cuntas Twitch nó YouTube agat?</string>
   <string name="hereWeGo">Réidh téigh!</string>
   <string name="allStreamers">Sruthaithe uile</string>
+  <string name="editPage">Cuir leathanach sruthaithe in eagar</string>
   <string name="yourPage">Do leathanach sruthú</string>
   <string name="downloadKit">Íoslódáil trealamh sruthú</string>
   <string name="xIsStreaming">%s ag sruthlú</string>
   <string name="rules">Rialacha sruthlú</string>
   <string name="rule2">Bain an eochair-fhocal nuair atá tú ag sruthlú stuif neamh-Lichess.</string>
+  <string name="perk1">Faigh deilbhín sraoilleán lasrach ar do phróifíl Lichess.</string>
   <string name="perk2">Teigh suas go barr an liosta sruthlaithe.</string>
   <string name="perk3">Cuir in iúl do do leanúna Lichess.</string>
   <string name="approved">Tá do shruthlú ceadaithe.</string>
+  <string name="pleaseFillIn">Líon isteach d’eolais sruthaithe le do thoil, agus uaslódáil pictiúr.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Nuair atá tú réidh le liostáil mar sruthú Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">iarr ar athbhreithniú modhnóra</string>
+  <string name="anotherLanguage">Má tá do shruth i dteanga seachas Béarla, cuir an chlib teanga cheart (%s) leis, idir lúibíní cearnacha, ag tús do theidil srutha.
+Mar shamplaí, \"[RU]\" don Rúisis, \"[TR]\" don Tuircis, \"[FR]\" don Fhraincis, srl.
+Cuir é seo i dteideal an tsrutháin ar leathanach Twitch nó YouTube, ní i socruithe an tsrutha Lichess.
+Má tá do shruth i mBéarla, ní gá clib teanga a áireamh.</string>
   <string name="twitchUsername">D\'ainm úsáideora nó URL Twitch</string>
   <string name="optionalOrEmpty">Roghnach. Fág folamh mura bhfuil ceann ann</string>
   <string name="youtubeChannel">Do ID cainéal nó URL YouTube</string>
@@ -33,6 +40,7 @@
   <string name="whenApproved">Nuair atá siad faofa ó modhnóirí</string>
   <string name="headline">Ceannlíne</string>
   <string name="longDescription">Cur síos fada</string>
+  <string name="xStreamerPicture">%s pictiúr sruthaithe</string>
   <string name="changePicture">Athraigh/scrios do phictiúr</string>
   <string name="uploadPicture">Uaslódáil pictiúr</string>
   <string name="deletePicture">Scrios pictiúr</string>
