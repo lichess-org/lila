@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Deonaigh</string>
+  <string name="lichessPatron">Pátrún Lichess</string>
+  <string name="freeAccount">Cuntas saor in aisce</string>
+  <string name="becomePatron">Bí i do Phátrún Lichess</string>
+  <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
+  <string name="newPatrons">Pátrúin Nua</string>
+  <string name="freeChess">Ficheall saor in aisce do gach duine, go deo!</string>
   <string name="lifetime">Saol</string>
   <string name="makeExtraDonation">Déan tabhartas breise?</string>
   <string name="monthly">Míosúil</string>
