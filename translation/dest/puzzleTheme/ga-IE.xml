@@ -13,7 +13,10 @@
   <string name="crushing">Tubaisteach</string>
   <string name="crushingDescription">Féach ar earráid an chéile comhraic chun buntáiste cumhachtach a fháil. (meastóireacht ≥ 600cp)</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
+  <string name="doubleBishopMateDescription">Dhá ionsaitheoir easpig ar trasnáin cóngarach dá chéile marbhsháinn ar rí ina bhfuil píosaí cairdiúla ag cuir bac air.</string>
   <string name="dovetailMate">Marbhsháinn déada</string>
+  <string name="dovetailMateDescription">Déanann banríon marbhsháinn ar rí cóngarach dí, níl ach dhá chearnóg éalaithe aige agus tá a píosaí cairdiúla ag cuir cosc ar a soghluaisteacht chuig na cearnóga seo.</string>
+  <string name="equality">Comhionannas</string>
   <string name="defensiveMove">Beart cosanta</string>
   <string name="discoveredAttack">Ionsaí nochta</string>
   <string name="doubleCheck">Sáinn faoi dhó</string>
