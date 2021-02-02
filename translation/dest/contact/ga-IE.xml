@@ -15,6 +15,12 @@
   <string name="wantTitle">Ba mhaith liom mo theideal a thaispeáint ar Lichess</string>
   <string name="visitTitleConfirmation">Chun do theideal a thaispeáint ar do phróifíl Lichess, agus páirt a ghlacadh in Airéine dar teideal, déan cuairt ar an leathanach dearbhaithe teidil</string>
   <string name="wantCloseAccount">Ba mhaith liom mo chuntas a dhúnadh</string>
+  <string name="closeYourAccount">Is féidir do chuntas a dhúnadh ar an leathanach seo</string>
+  <string name="doNotAskByEmail">Ná iarr orainn trí r-phost cuntas a dhúnadh, ní dhéanfaimid é.</string>
+  <string name="wantReopen">Ba mhaith liom mo chuntas a athoscailt</string>
+  <string name="reopenOnThisPage">Is féidir do chuntas a athoscailt ar an leathanach seo. Ní oibríonn sé ach uair amháin.</string>
+  <string name="doNotAskByEmailToReopen">Ná iarr orainn trí r-phost cuntas a athoscailt, ní dhéanfaimid é.</string>
+  <string name="wantChangeUsername">Ba mhaith liom m\'ainm úsáideora a athrú</string>
   <string name="wantClearHistory">Ba mhaith liom mo stair nó mo rátáil a ghlanadh</string>
   <string name="cantClearHistory">Ní féidir stair do chluiche, stair bhfreagra, nó rátálacha a ghlanadh.</string>
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
