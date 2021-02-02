@@ -2,6 +2,8 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
+  <string name="eightVariants">8 leagan fichille</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="goodIntroduction">réamhrá maith</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
@@ -20,8 +22,12 @@ Is annamh a bhronnann muid é ar ficheallaí suntasacha atá ina saoránaigh mha
 
 Ná iarr ar an teideal LM.</string>
   <string name="whatUsernameCanIchoose">Cad is féidir a bheith ar m\'ainm úsáideora?</string>
+  <string name="guidelines">treoirlínte</string>
+  <string name="canIChangeMyUsername">An bhfuil cead agam m’ainm úsáideora a athrú?</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
+  <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
+  <string name="displayPreferences">taispeáin roghanna</string>
   <string name="howToThreeDots">Conas...</string>
 </resources>
