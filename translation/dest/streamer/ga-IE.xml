@@ -17,10 +17,14 @@
   <string name="rules">Rialacha sruthlú</string>
   <string name="rule1">Cuir an eochairfhocal \"lichess.org\" san áireamh i do theideal srutha agus bain úsáid as an gcatagóir \"Ficheall\" nuair a dhéanann tú sruth ar Lichess.</string>
   <string name="rule2">Bain an eochair-fhocal nuair atá tú ag sruthlú stuif neamh-Lichess.</string>
+  <string name="rule3">Braithfidh Lichess do shruth go huathoibríoch agus ligfidh sé na buntáistí seo a leanas:</string>
+  <string name="perks">Buntáistí a bhaineann le sruthú leis an eochairfhocal</string>
   <string name="perk1">Faigh deilbhín sraoilleán lasrach ar do phróifíl Lichess.</string>
   <string name="perk2">Teigh suas go barr an liosta sruthlaithe.</string>
   <string name="perk3">Cuir in iúl do do leanúna Lichess.</string>
+  <string name="perk4">Taispeáin do shruth i do chluichí, comórtais agus staidéir.</string>
   <string name="approved">Tá do shruthlú ceadaithe.</string>
+  <string name="pendingReview">Tá modhnóirí ag athbhreithniú ar do shruth.</string>
   <string name="pleaseFillIn">Líon isteach d’eolais sruthaithe le do thoil, agus uaslódáil pictiúr.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Nuair atá tú réidh le liostáil mar sruthú Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">iarr ar athbhreithniú modhnóra</string>
