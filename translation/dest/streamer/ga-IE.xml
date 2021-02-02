@@ -53,4 +53,9 @@ Má tá do shruth i mBéarla, ní gá clib teanga a áireamh.</string>
   <string name="uploadPicture">Uaslódáil pictiúr</string>
   <string name="deletePicture">Scrios pictiúr</string>
   <string name="maxSize">Uasmhéid: %s</string>
+  <string name="installBlocker">Suiteáil bogearraí mailíseacha cosanta!</string>
+  <string name="beSafe">Bí sábháilte ó fhógraí agus ó rianaithe ag líonadh
+Twitch agus YouTube.
+Molann Lichess uBlock Origin
+atá saor in aisce agus foinse oscailte.</string>
 </resources>
