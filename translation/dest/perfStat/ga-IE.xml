@@ -11,8 +11,23 @@
   <string name="ratedGames">Cluichí rátáilte</string>
   <string name="tournamentGames">Cluichí comórtais</string>
   <string name="berserkedGames">Cluichí Bainí</string>
+  <string name="timeSpentPlaying">Am a chaitear ag imirt</string>
   <string name="averageOpponent">Meán céile comhraic</string>
+  <string name="victories">Buanna</string>
+  <string name="defeats">Cailleadh cluichí</string>
+  <string name="disconnections">Dícheangail</string>
+  <string name="notEnoughGames">Gan go leor cluichí imearta</string>
   <string name="highestRating">Rátáil is airde: %s</string>
   <string name="lowestRating">Rátáil is ísle: %s</string>
+  <string name="fromXToY">ó %1$s go %2$s</string>
+  <string name="winningStreak">Stríoc bua</string>
+  <string name="losingStreak">Stríoc caillte</string>
+  <string name="longestStreak">Stríoc is faide: %s</string>
+  <string name="currentStreak">Stríoc reatha: %s</string>
+  <string name="bestRated">Bua ar an rátáil is fearr</string>
+  <string name="worstRated">Cailleadh cluichí ar an rátáil is measa</string>
+  <string name="gamesInARow">Cluichí a imrítear i ndiaidh a chéile</string>
+  <string name="lessThanOneHour">Níos lú ná uair an chloig idir cluichí</string>
+  <string name="maxTimePlaying">Uasmhéid ama caite ag imirt</string>
   <string name="now">anois</string>
 </resources>
