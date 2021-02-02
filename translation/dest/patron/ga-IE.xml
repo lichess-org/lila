@@ -11,10 +11,25 @@
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
+  <string name="officialNonProfit">An neamhbhrabús oifigiúil é Lichess?</string>
+  <string name="actOfCreation">Sea, seo an deimhniú corpraithe</string>
+  <string name="changeMonthlySupport">An bhfuil cead agam mo thacaíocht mhíosúil a athrú / a chealú?</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
+  <string name="otherMethods">Modhanna eile deonaithe?</string>
+  <string name="youSupportWith">Tacaíonn tú le lichess.org le %s in aghaidh na míosa.</string>
+  <string name="tyvm">Go raibh míle maith agat as do chuidiú. Tú thar cionn!</string>
   <string name="currentStatus">Stádás laithreach</string>
   <string name="nextPayment">An chéad íocaíocht eile</string>
   <string name="youWillBeChargedXOnY">Beidh tú muirearaithe %1$s ar %2$s.</string>
   <string name="makeAdditionalDonation">Déan bronntanas breise anois</string>
   <string name="update">Nuashonrú</string>
+  <string name="changeMonthlyAmount">Athraigh an méid míosúil (%s)</string>
+  <string name="cancelSupport">cuir do thacaíocht ar ceal</string>
+  <string name="xOrY">%1$s nó %2$s</string>
+  <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>
+  <string name="paymentHistory">Stair íocaíochta</string>
+  <string name="paid">Íoctha</string>
+  <string name="viewOthers">Féach ar Phátrúin Lichess eile</string>
+  <string name="date">Dáta</string>
+  <string name="amount">Méid</string>
 </resources>
