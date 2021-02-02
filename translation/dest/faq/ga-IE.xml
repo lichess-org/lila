@@ -2,6 +2,7 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="leechess">lee-chess</string>
   <string name="beingAPatron">a bheith ina phátrún</string>
   <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
   <string name="otherWaysToHelp">bealaí eile le cuidiú</string>
@@ -53,7 +54,11 @@ Ná iarr ar an teideal LM.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
+  <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">imir 30 cluiche rátáilte ar a laghad i rátáil ar leith,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">imir cluiche rátáilte laistigh den tseachtain seo caite don rátáil seo,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i bhficheall caighdeánach, agus níos ísle ná %2$s in leaganacha,</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
   <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
   <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
