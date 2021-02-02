@@ -54,6 +54,9 @@ final class StudyMultiBoard(
 
     def nbResults: Fu[Int] = chapterRepo.coll.secondaryPreferred.countSel(selector)
 
+    /* TODO fix
+     * printjson(db.study_chapter_flat.aggregate([{$match:{studyId:'6IzKWsfb'}},{$project:{root:{$objectToArray:'$root'}}},{$unwind:'$root'},{$project:{'root.v.f':1,size:{$strLenBytes:'$root.k'}}},{$sort:{size:-1}},{$limit:1}]).toArray())
+     * */
     def slice(offset: Int, length: Int): Fu[Seq[ChapterPreview]] =
       chapterRepo.coll
         .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
@@ -65,11 +68,16 @@ final class StudyMultiBoard(
             Project(
               $doc(
                 "comp" -> $doc(
-                  "$function" -> $doc(
-                    "lang" -> "js",
-                    "args" -> $arr("$root", "$tags"),
-                    "body" -> """function(node, tags) { tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result')); if (tags.length) while(child = node.n[0]) { node = child }; return {node:{fen:node.f,uci:node.u},tags} }"""
-                  )
+                  // "$function" -> $doc(
+                  //   "lang" -> "js",
+                  //   "args" -> $arr("$root", "$tags"),
+                  //   "body" -> """function(node, tags) { tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result')); if (tags.length) while(child = node.n[0]) { node = child }; return {node:{fen:node.f,uci:node.u},tags} }"""
+                  // )
+                  // {node:{fen:node.f,uci:node.u},tags}
+                  "node" -> $doc(
+                    "fen" -> "$root._.f"
+                  ),
+                  "tags" -> true
                 ),
                 "orientation" -> "$setup.orientation",
                 "name"        -> true

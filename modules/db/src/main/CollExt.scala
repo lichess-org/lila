@@ -198,6 +198,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)
 
+    def updateOrUnsetField[V: BSONWriter](selector: Bdoc, field: String, value: Option[V]): Fu[Int] =
+      value match {
+        case None    => unsetField(selector, field).dmap(_.n)
+        case Some(v) => updateField(selector, field, v).dmap(_.n)
+      }
+
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
       one[D](selector) flatMap {
         _ ?? { doc =>

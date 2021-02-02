@@ -82,7 +82,7 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
-          lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) { case (position, n) =>
+          lila.common.Future.fold(node.mainline.toList)(Position(chapter, path).ref) { case (position, n) =>
             studyApi.addNode(
               studyId = study.id,
               position = position,

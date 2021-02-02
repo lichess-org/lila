@@ -27,10 +27,13 @@ final private class StudySequencer(
       f: Study.WithChapter => Funit
   ): Funit =
     sequenceStudy(studyId) { study =>
-      chapterRepo.byId(chapterId) flatMap {
-        _.filter(_.studyId == studyId) ?? { chapter =>
-          f(Study.WithChapter(study, chapter))
+      chapterRepo
+        .byId(chapterId)
+        .flatMap {
+          _.filter(_.studyId == studyId) ?? { chapter =>
+            f(Study.WithChapter(study, chapter))
+          }
         }
-      }
+        .mon(_.study.sequencer.chapterTime)
     }
 }
