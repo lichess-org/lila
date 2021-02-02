@@ -4,6 +4,8 @@
   <string name="lichessStreamer">Sruthú Lichess</string>
   <string name="live">BEO!</string>
   <string name="offline">AS LÍNE</string>
+  <string name="currentlyStreaming">Ag sruthú faoi láthair: %s</string>
+  <string name="lastStream">Sruth deireanach %s</string>
   <string name="becomeStreamer">Bí i do shruthú Lichess</string>
   <string name="doYouHaveStream">An bhfuil cuntas Twitch nó YouTube agat?</string>
   <string name="hereWeGo">Réidh téigh!</string>
@@ -13,6 +15,7 @@
   <string name="downloadKit">Íoslódáil trealamh sruthú</string>
   <string name="xIsStreaming">%s ag sruthlú</string>
   <string name="rules">Rialacha sruthlú</string>
+  <string name="rule1">Cuir an eochairfhocal \"lichess.org\" san áireamh i do theideal srutha agus bain úsáid as an gcatagóir \"Ficheall\" nuair a dhéanann tú sruth ar Lichess.</string>
   <string name="rule2">Bain an eochair-fhocal nuair atá tú ag sruthlú stuif neamh-Lichess.</string>
   <string name="perk1">Faigh deilbhín sraoilleán lasrach ar do phróifíl Lichess.</string>
   <string name="perk2">Teigh suas go barr an liosta sruthlaithe.</string>
@@ -39,6 +42,7 @@ Má tá do shruth i mBéarla, ní gá clib teanga a áireamh.</string>
   <string name="visibility">Le feiceáil ar an leathanach sruthú</string>
   <string name="whenApproved">Nuair atá siad faofa ó modhnóirí</string>
   <string name="headline">Ceannlíne</string>
+  <string name="tellUsAboutTheStream">Inis dúinn faoi do shruth in aon abairt amháin</string>
   <string name="longDescription">Cur síos fada</string>
   <string name="xStreamerPicture">%s pictiúr sruthaithe</string>
   <string name="changePicture">Athraigh/scrios do phictiúr</string>
