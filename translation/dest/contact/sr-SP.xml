@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Желим да избришем своју историју и рејтинг</string>
   <string name="cantClearHistory">Није могуће избрисати вашу историју парија ни проблема, као ни рејтинг.</string>
   <string name="wantReport">Желим да пријавим играча</string>
+  <string name="toReportAPlayerUseForm">Да бисте пријавили играча, користите форму за пријављивање</string>
   <string name="youCanAlsoReachReportPage">Такође можете доћи до те странице ако притиснете на %s пријави дугме на страници налога.</string>
   <string name="doNotReportInForum">Не пријављуј играче на форуму.</string>
   <string name="doNotSendReportEmails">Не шаљите нам пријаве е-поштом.</string>
@@ -45,9 +46,12 @@
   <string name="castlingPrevented">Рокада је забрањена само ако краљ пролази кроз контролисано поље.</string>
   <string name="castlingRules">Увери се да разумеш правила рокаде</string>
   <string name="tryCastling">Пробај ову малу интерактивну игру како би увежбао рокаду у шаху</string>
+  <string name="castlingImported">Ако сте увезли партију или сте је почели из позиције, проверите да ли сте добро наместили право за рокаду.</string>
+  <string name="insufficientMaterial">Недовољно материјала за мат</string>
   <string name="fideMate">По FIDE Laws of Chess §6.9, ако је мат могућ са било којим редоследом легалних потеза, партија није реми</string>
   <string name="knightMate">Могуће је матирати уз помоћ само коња или ловца, ако противник има фигура сем краља.</string>
   <string name="noRatingPoints">Рејтинг поени нису додељени</string>
+  <string name="ratedGame">Проверите да ли сте одиграли рангирану партију. Неформалне партије не мењају рејтинг играча.</string>
   <string name="errorPage">Страница са грешком</string>
   <string name="sendAppealTo">Можеш послати жалбу %s.</string>
   <string name="falsePositives">Грешке се могу дешавати понекад, и нама је жао због тога.</string>
