@@ -44,4 +44,5 @@
   <string name="leadersChat">Чет за вође</string>
   <string name="closeTeam">Угаси тим</string>
   <string name="closeTeamDescription">Угаси тим заувек.</string>
+  <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>
