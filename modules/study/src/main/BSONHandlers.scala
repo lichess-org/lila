@@ -197,7 +197,7 @@ object BSONHandlers {
       crazy          -> n.crazyData,
       forceVariation -> w.boolO(n.forceVariation),
       order -> {
-        (n.children.nodes.sizeIs > 1) option $arr(n.children.nodes.map(_.id))
+        (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
       }
     )
   }

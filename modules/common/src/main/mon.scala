@@ -602,6 +602,9 @@ object mon {
       val read  = timer("study.tree.read").withoutTags()
       val write = timer("study.tree.write").withoutTags()
     }
+    object sequencer {
+      val chapterTime = timer("study.sequencer.chapter.time").withoutTags()
+    }
   }
   object api {
     val userGames = counter("api.cost").withTag("endpoint", "userGames")

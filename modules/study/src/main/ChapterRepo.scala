@@ -128,15 +128,14 @@ final class ChapterRepo(val coll: Coll)(implicit
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
-    val parentOrderField = pathToField(path, Node.BsonFields.order)
-    val (set: Bdoc, unset: Option[String]) =
-      if (children.nodes.sizeIs > 1) ($doc(parentOrderField -> children.nodes.map(_.id)), None)
-      else ($empty, parentOrderField.some)
-    val allSet = set ++ $doc(childrenTreeToBsonElements(path, children))
 
-    coll.update
-      .one($id(chapter.id), $set(allSet) ++ unset.??(u => $unset(u)))
-      .void
+    val set: Bdoc = {
+      (children.nodes.sizeIs > 1) ?? $doc(
+        pathToField(path, Node.BsonFields.order) -> children.nodes.map(_.id)
+      )
+    } ++ $doc(childrenTreeToBsonElements(path, children))
+
+    coll.update.one($id(chapter.id), $set(set)).void
   }
 
   private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
