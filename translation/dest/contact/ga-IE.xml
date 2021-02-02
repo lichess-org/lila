@@ -38,6 +38,7 @@
   <string name="reportWebsiteIssue">Mar eagrán de shuíomh Gréasáin Lichess ar GitHub</string>
   <string name="reportMobileIssue">Mar eagrán aip móibíleacha Lichess ar GitHub</string>
   <string name="reportBugInDiscord">Sa fhreastalaí Discord Lichess</string>
+  <string name="howToReportBug">Déan cur síos, le do thoil, ar an gcuma atá ar an bhfabht, ar a raibh súil agat go dtarlódh sé ina ionad, agus ar na céimeanna chun an fabht a atáirgeadh.</string>
   <string name="illegalPawnCapture">Marú ceithearnach mídhleathach</string>
   <string name="calledEnPassant">Tugtar \"en passant\" air agus \'sé ceann de rialacha i bhficheall.</string>
   <string name="tryEnPassant">Bain triail as an gcluiche beag idirghníomhach seo chun níos mó a fhoghlaim faoi \"en passant\".</string>
@@ -48,6 +49,8 @@ ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="tryCastling">Bain triail as an gcluiche beag idirghníomhach seo chun an caisliú i bhficheall a chleachtadh</string>
   <string name="castlingImported">Má iompórtáladh tú an cluiche, nó má chuir tú tús leis ó shuíomh, déan cinnte go socróidh tú na rialacha caisliú i gceart.</string>
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
+  <string name="fideMate">De réir Dhlíthe Fichille FIDE §6.9, más féidir marbhsháinn a dhéanamh ar an clár ar aon nós, ansin ní cluiche cothrom atá ann</string>
+  <string name="knightMate">Is féidir marbhsháinn a dhéanamh le ridire nó easpag amháin, má tá níos mó ná rí ag an céile comhraic.</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
   <string name="errorPage">Leathanach earráide</string>
@@ -67,5 +70,7 @@ ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="welcomeToUse">Tá fáilte romhat Lichess a úsáid le haghaidh do ghníomhaíochta, fiú tráchtála.</string>
   <string name="videosAndBooks">Féadfaidh tú é a thaispeáint i do chuid físeáin, agus féadfaidh tú scáileáin de Lichess a phriontáil i do leabhair.</string>
   <string name="creditAppreciated">Tá meas ar chreidmheas ach níl sé ag teastáil.</string>
+  <string name="noneOfTheAbove">Aon cheann de na nithe thuas</string>
   <string name="sendEmailAt">Seol ríomhphost chugainn ag %s.</string>
+  <string name="explainYourRequest">Mínigh d’iarratas go soiléir agus go críochnúil. Luaigh d’ainm úsáideora Lichess, agus aon fhaisnéis a d’fhéadfadh cabhrú linn cabhrú leat.</string>
 </resources>
