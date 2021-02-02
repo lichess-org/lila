@@ -51,8 +51,10 @@
   <string name="falsePositives">Tarlaíonn bréagdheimhnigh uaireanta, agus bíonn brón orainn faoi sin.</string>
   <string name="ifLegit">Má tá d’achomharc dlisteanach, ardóimid an toirmeasc chomh luath agus is féidir.</string>
   <string name="otherRestriction">Srian eile</string>
+  <string name="collaboration">Comhoibriú, dlíthiúil, tráchtála</string>
   <string name="monetizing">Monatóireacht Lichess</string>
   <string name="buyingLichess">Ag ceannach Lichess</string>
   <string name="authorizationToUse">Údarú chun Lichess a úsáid</string>
+  <string name="videosAndBooks">Féadfaidh tú é a thaispeáint i do chuid físeáin, agus féadfaidh tú scáileáin de Lichess a phriontáil i do leabhair.</string>
   <string name="sendEmailAt">Seol ríomhphost chugainn ag %s.</string>
 </resources>
