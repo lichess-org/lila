@@ -3,6 +3,7 @@
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
   <string name="whyIsLichessCalledLichess">Cén fáth a dtugtar Lichess ar Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Is meascán de bheo/solas/libre agus fichille é Lichess. Luaitear %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
   <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
