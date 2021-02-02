@@ -48,7 +48,7 @@
   <string name="exposedKing">Rí nochtaithe</string>
   <string name="exposedKingDescription">Beartaíocht ina bhfuil rí gan mórán cosantóirí timpeall air, agus marbhsháinn mar thoradh air go minic.</string>
   <string name="fork">Gabhal</string>
-  <string name="forkDescription">Beart ina n-ionsaíonn an píosa bogtha dhá phíosa an céile comhraic ag an am céanna.</string>
+  <string name="forkDescription">Saghas ionsaí faoi dhó nó bagairt dhúbailte.</string>
   <string name="hangingPiece">Píosa ar crochadh</string>
   <string name="hangingPieceDescription">Beartaíocht ina bhfuil píosa comhraic gan chosaint nó gan chosaint go leor agus saor le marú.</string>
   <string name="hookMate">Marbhsháinn corrán</string>
@@ -56,13 +56,15 @@
   <string name="interference">Bac</string>
   <string name="interferenceDescription">Ag bogadh píosa idir dhá phíosa do chéile comhraic chun píosa comhraic amháin nó an dá phíosa comhraic a fhágáil gan chosaint, mar ridire ar chearnóg chosanta idir dhá chaiseal.</string>
   <string name="intermezzo">Intermezzo</string>
-  <string name="intermezzoDescription">Tarlaíonn Zwischenzug i lár malartú píosaí nó i líne beartaíochta in áit eile ar an gclár nuair a ghluaiseann imreoir píosa ar shlí nach bhfuil an t-imreoir eile ag súil 
-leis chun suíomh níos fearr a fháil.</string>
+  <string name="intermezzoDescription">Tarlaíonn Zwischenzug i lár malartú píosaí nó i líne beartaíochta in áit eile ar an gclár nuair a ghluaiseann imreoir píosa ar shlí nach bhfuil an t-imreoir eile ag súil leis chun suíomh níos fearr a fháil.</string>
   <string name="knightEndgame">Cor deiridh ridire</string>
   <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
   <string name="long">Fadhbh fada</string>
   <string name="longDescription">Trí bheart le bua.</string>
   <string name="master">Máistir-chluichí</string>
+  <string name="masterDescription">Fadhbhanna ó chluichí a imríonn ficheallaí le teideal.</string>
+  <string name="masterVsMaster">Cluichí Máistir vs Máistir</string>
+  <string name="masterVsMasterDescription">Fadhbhanna ó chluichí idir dhá fhicheallaí le teideal.</string>
   <string name="mate">Marbhsháinn</string>
   <string name="mateDescription">Buaigh an cluiche le stíl.</string>
   <string name="mateIn1">Marbhsháinn i beart amháin</string>
@@ -74,6 +76,7 @@ leis chun suíomh níos fearr a fháil.</string>
   <string name="mateIn4">Marbhsháinn i 4 bheart</string>
   <string name="mateIn4Description">Tabhair Marbhsháinn i ceithre bheart.</string>
   <string name="mateIn5">Marbhsháinn i 5 mbeart nó níos mó</string>
+  <string name="mateIn5Description">Obair amach an marbháháinn le seicheamh fada.</string>
   <string name="middlegame">Lár an cluiche</string>
   <string name="middlegameDescription">Beartaíocht san dara céim den chluiche.</string>
   <string name="oneMove">Fadhbh beart-amháin</string>
@@ -85,6 +88,7 @@ leis chun suíomh níos fearr a fháil.</string>
   <string name="pin">Teannta</string>
   <string name="pinDescription">Beartaíocht le teannta, nuair nach féidir le píosa bogadh gan ionsaí a nochtadh ar phíosa le cuacht níos mó.</string>
   <string name="promotion">Ardú</string>
+  <string name="promotionDescription">\'Sé ceithearnach atá ag ardú nó ag bagairt ardú lár an bartaíocht.</string>
   <string name="queenEndgame">Cor deiridh na mbanríona</string>
   <string name="queenEndgameDescription">Cor deiridh le banríonacha agus ceithearnaigh amháin.</string>
   <string name="queenRookEndgame">Cor deiridh don Banríon agus Casieal</string>
