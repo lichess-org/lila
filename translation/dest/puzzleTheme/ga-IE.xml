@@ -44,13 +44,20 @@
   <string name="doubleCheckDescription">Ag sáiniú le dhá phíosa ag an am céanna, tar éis ionsaí nochta ina n-ionsaíonn an píosa gluaiseachta agus an píosa nochtaithe araon rí an chéile comhraic.</string>
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
+  <string name="enPassantDescription">Beartaíocht a bhaineann leis an riail en passant, sa tslí gur féidir le ceithearnach ceithearnach an céile comhraic a mharú agus é ag úsáid a ghluaiseachta tosaigh dhá chearnóg.</string>
+  <string name="exposedKing">Rí nochtaithe</string>
+  <string name="exposedKingDescription">Beartaíocht ina bhfuil rí gan mórán cosantóirí timpeall air, agus marbhsháinn mar thoradh air go minic.</string>
   <string name="fork">Gabhal</string>
+  <string name="forkDescription">Beart ina n-ionsaíonn an píosa bogtha dhá phíosa an céile comhraic ag an am céanna.</string>
   <string name="hangingPiece">Píosa ar crochadh</string>
   <string name="hangingPieceDescription">Beartaíocht ina bhfuil píosa comhraic gan chosaint nó gan chosaint go leor agus saor le marú.</string>
   <string name="hookMate">Marbhsháinn corrán</string>
   <string name="hookMateDescription">Marbhsháinn le caiseal, ridire, agus ceithearnach in éineacht le ceithearnach namhaid amháin chun éalú rí an namhaid a chosc.</string>
   <string name="interference">Bac</string>
+  <string name="interferenceDescription">Ag bogadh píosa idir dhá phíosa do chéile comhraic chun píosa comhraic amháin nó an dá phíosa comhraic a fhágáil gan chosaint, mar ridire ar chearnóg chosanta idir dhá chaiseal.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Tarlaíonn Zwischenzug i lár malartú píosaí nó i líne beartaíochta in áit eile ar an gclár nuair a ghluaiseann imreoir píosa ar shlí nach bhfuil an t-imreoir eile ag súil 
+leis chun suíomh níos fearr a fháil.</string>
   <string name="knightEndgame">Cor deiridh ridire</string>
   <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
   <string name="long">Fadhbh fada</string>
