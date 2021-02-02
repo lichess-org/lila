@@ -500,7 +500,7 @@
   <string name="typePrivateNotesHere">Skriv private notater her</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
-  <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
+  <string name="invalidAuthenticationCode">Ugyldig autentiseringskode</string>
   <string name="emailMeALink">Send meg en lenke</string>
   <string name="currentPassword">Nåværende passord</string>
   <string name="newPassword">Nytt passord</string>
