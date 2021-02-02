@@ -2,7 +2,9 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
@@ -31,4 +33,5 @@ Ná iarr ar an teideal LM.</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
   <string name="howToThreeDots">Conas...</string>
+  <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh Gréasáin</string>
 </resources>
