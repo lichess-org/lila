@@ -50,32 +50,6 @@
     </filter>
     <inkscape:path-effect
        effect="mirror_symmetry"
-       start_point="284.18608,120.29265"
-       end_point="284.18608,137.98161"
-       center_point="284.18608,129.13713"
-       id="path-effect4724-5"
-       is_visible="true"
-       mode="free"
-       discard_orig_path="false"
-       fuse_paths="true"
-       oposite_fuse="false"
-       lpeversion="0"
-       split_items="false" />
-    <inkscape:path-effect
-       effect="mirror_symmetry"
-       start_point="275.14301,98.12006"
-       end_point="275.14301,350.07326"
-       center_point="275.14301,224.09666"
-       id="path-effect4547-0-6"
-       is_visible="true"
-       mode="free"
-       discard_orig_path="false"
-       fuse_paths="true"
-       oposite_fuse="false"
-       lpeversion="0"
-       split_items="false" />
-    <inkscape:path-effect
-       effect="mirror_symmetry"
        start_point="273.50283,331.92091"
        end_point="273.50283,477.30227"
        center_point="273.50283,404.61159"

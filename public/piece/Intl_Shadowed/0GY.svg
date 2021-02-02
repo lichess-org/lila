@@ -31,70 +31,6 @@
   <defs
      id="defs1721">
     <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter1552">
-      <feFlood
-         flood-opacity="0.498039"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood1542" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite1544" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur1546" />
-      <feOffset
-         dx="4.57967e-15"
-         dy="4.41314e-15"
-         result="offset"
-         id="feOffset1548" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite1550" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter1540">
-      <feFlood
-         flood-opacity="0.498039"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood1530" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite1532" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur1534" />
-      <feOffset
-         dx="4.57967e-15"
-         dy="4.41314e-15"
-         result="offset"
-         id="feOffset1536" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite1538" />
-    </filter>
-    <filter
        id="drop-shadow-9">
       <feGaussianBlur
          in="SourceAlpha"
@@ -111,42 +47,6 @@
          in2="offsetBlur"
          mode="normal"
          id="feBlend5060" />
-    </filter>
-    <filter
-       id="drop-shadow-9-3">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur5056-6" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset5058-9" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend5060-6" />
-    </filter>
-    <filter
-       id="drop-shadow-5-1-1">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur5056-6-9-88" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset5058-2-6-1-6" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend5060-8-9-5" />
     </filter>
   </defs>
   <sodipodi:namedview

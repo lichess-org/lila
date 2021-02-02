@@ -28,106 +28,6 @@
   <defs
      id="defs1721">
     <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter1552">
-      <feFlood
-         flood-opacity="0.498039"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood1542" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite1544" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur1546" />
-      <feOffset
-         dx="4.57967e-15"
-         dy="4.41314e-15"
-         result="offset"
-         id="feOffset1548" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite1550" />
-    </filter>
-    <filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Drop Shadow"
-       id="filter1540">
-      <feFlood
-         flood-opacity="0.498039"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         id="feFlood1530" />
-      <feComposite
-         in="flood"
-         in2="SourceGraphic"
-         operator="in"
-         result="composite1"
-         id="feComposite1532" />
-      <feGaussianBlur
-         in="composite1"
-         stdDeviation="2.5"
-         result="blur"
-         id="feGaussianBlur1534" />
-      <feOffset
-         dx="4.57967e-15"
-         dy="4.41314e-15"
-         result="offset"
-         id="feOffset1536" />
-      <feComposite
-         in="SourceGraphic"
-         in2="offset"
-         operator="over"
-         result="composite2"
-         id="feComposite1538" />
-    </filter>
-    <filter
-       id="drop-shadow-9">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur5056" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset5058" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend5060" />
-    </filter>
-    <filter
-       id="drop-shadow-2">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur6807" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset6809" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend6811" />
-    </filter>
-    <filter
        id="drop-shadow-2-8">
       <feGaussianBlur
          in="SourceAlpha"
@@ -144,60 +44,6 @@
          in2="offsetBlur"
          mode="normal"
          id="feBlend6811-0" />
-    </filter>
-    <filter
-       id="drop-shadow-9-4">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur5056-0" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset5058-1" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend5060-3" />
-    </filter>
-    <filter
-       id="drop-shadow-2-8-5">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur6807-2-8" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset6809-8-8" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend6811-0-3" />
-    </filter>
-    <filter
-       id="drop-shadow-9-6">
-      <feGaussianBlur
-         in="SourceAlpha"
-         result="blur"
-         stdDeviation="2"
-         id="feGaussianBlur5056-9" />
-      <feOffset
-         result="offsetBlur"
-         dx="2"
-         dy="2"
-         id="feOffset5058-5" />
-      <feBlend
-         in="SourceGraphic"
-         in2="offsetBlur"
-         mode="normal"
-         id="feBlend5060-0" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -267,7 +113,7 @@ Original file is available at: https://commons.wikimedia.org/wiki/File:Shogi_gyo
     </g>
     <g
        aria-label="王"
-       transform="matrix(-1.1890553,0,0,1.069744,71.011911,8.3782983)"
+       transform="matrix(-1.1890553,0,0,1.069744,71.011909,8.3782976)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.072px;line-height:1.25;font-family:PMingLiU;-inkscape-font-specification:PMingLiU;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:#efbf00;stroke-width:0.423169;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="text2298-4-3">
       <path
