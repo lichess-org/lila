@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Ceithearnach chun cinn</string>
+  <string name="advancedPawnDescription">Tá ceithearnach ag ardú nó atá ag bagairt ardú ríthábhachtach don bheartaíocht.</string>
   <string name="advantage">Buntáiste</string>
+  <string name="advantageDescription">Tóg do sheans buntáiste ceart a fháil. (200cp ≤ meast ≤ 600cp)</string>
   <string name="anastasiaMate">Marbhsháinn Anastasia</string>
   <string name="arabianMate">Marbhsháinn Arabaigh</string>
   <string name="attackingF2F7">Ag ionsaí f2 nó f7</string>
@@ -35,10 +37,17 @@
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
   <string name="fork">Gabhal</string>
+  <string name="hangingPiece">Píosa ar crochadh</string>
+  <string name="hangingPieceDescription">Beartaíocht ina bhfuil píosa comhraic gan chosaint nó gan chosaint go leor agus saor le marú.</string>
   <string name="hookMate">Marbhsháinn corrán</string>
+  <string name="hookMateDescription">Marbhsháinn le caiseal, ridire, agus ceithearnach in éineacht le ceithearnach namhaid amháin chun éalú rí an namhaid a chosc.</string>
   <string name="interference">Bac</string>
+  <string name="intermezzo">Intermezzo</string>
   <string name="knightEndgame">Cor deiridh ridire</string>
   <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
+  <string name="long">Fadhbh fada</string>
+  <string name="longDescription">Trí bheart le bua.</string>
+  <string name="master">Máistir-chluichí</string>
   <string name="mate">Marbhsháinn</string>
   <string name="mateDescription">Buaigh an cluiche le stíl.</string>
   <string name="mateIn1">Marbhsháinn i beart amháin</string>
