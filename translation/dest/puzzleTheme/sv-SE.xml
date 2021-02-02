@@ -24,7 +24,7 @@
   <string name="capturingDefenderDescription">Ta en pjäs som försvarar en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
   <string name="crushing">Krossande</string>
   <string name="crushingDescription">Upptäck motståndares blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">Dubbla löpare schakmatt</string>
+  <string name="doubleBishopMate">Dubbla löpare schackmatt</string>
   <string name="doubleBishopMateDescription">Två attackerande löpare på intilliggande diagonaler levererar schackmatt mot en kung som blockeras av egna pjäser.</string>
   <string name="dovetailMateDescription">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
   <string name="equality">Utjämning</string>
