@@ -104,9 +104,9 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  ): Fu[Paginator[Study.WithChaptersAndLiked]] = {
+  ): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll { coll =>
     val adapter = new Adapter[Study](
-      collection = studyRepo.coll,
+      collection = coll,
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match {

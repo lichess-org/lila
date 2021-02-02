@@ -26,7 +26,6 @@ final class Env(
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
     mongo: lila.db.Env,
-    mainDb: lila.db.Db,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(implicit
@@ -48,10 +47,10 @@ final class Env(
 
   private val socket: StudySocket = wire[StudySocket]
 
-  lazy val studyRepo             = new StudyRepo(mainDb(CollName("study")))
+  lazy val studyRepo             = new StudyRepo(studyDb(CollName("study")))
   lazy val chapterRepo           = new ChapterRepo(studyDb(CollName("study_chapter_flat")))
-  private lazy val topicRepo     = new StudyTopicRepo(mainDb(CollName("study_topic")))
-  private lazy val userTopicRepo = new StudyUserTopicRepo(mainDb(CollName("study_user_topic")))
+  private lazy val topicRepo     = new StudyTopicRepo(studyDb(CollName("study_topic")))
+  private lazy val userTopicRepo = new StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
 

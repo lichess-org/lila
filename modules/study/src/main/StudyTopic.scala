@@ -1,11 +1,12 @@
 package lila.study
 
+import play.api.libs.json._
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import play.api.libs.json._
 
 import lila.common.Future
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
@@ -52,8 +53,8 @@ object StudyTopics {
     }
 }
 
-final private class StudyTopicRepo(val coll: Coll)
-final private class StudyUserTopicRepo(val coll: Coll)
+final private class StudyTopicRepo(val coll: AsyncColl)
+final private class StudyUserTopicRepo(val coll: AsyncColl)
 
 final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
     implicit
@@ -64,7 +65,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   import BSONHandlers.{ StudyTopicBSONHandler, StudyTopicsBSONHandler }
 
   def byId(str: String): Fu[Option[StudyTopic]] =
-    topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
+    topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
 
   def findLike(str: String, myId: Option[User.ID], nb: Int = 10): Fu[StudyTopics] = {
     (str.lengthIs >= 2) ?? {
@@ -75,21 +76,21 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           }
         }
       favsFu flatMap { favs =>
-        topicRepo.coll
-          .find($doc("_id".$startsWith(str, "i")))
-          .sort($sort.naturalAsc)
-          .cursor[Bdoc](ReadPreference.secondaryPreferred)
-          .list(nb - favs.size)
-          .dmap {
-            _ flatMap docTopic
+        topicRepo
+          .coll {
+            _.find($doc("_id".$startsWith(str, "i")))
+              .sort($sort.naturalAsc)
+              .cursor[Bdoc](ReadPreference.secondaryPreferred)
+              .list(nb - favs.size)
           }
+          .dmap { _ flatMap docTopic }
           .dmap { favs ::: _ }
       }
     }
   } dmap StudyTopics.apply
 
   def userTopics(userId: User.ID): Fu[StudyTopics] =
-    userTopicRepo.coll.byId(userId).map {
+    userTopicRepo.coll(_.byId(userId)).dmap {
       _.flatMap(_.getAsOpt[StudyTopics]("topics")) | StudyTopics.empty
     }
 
@@ -104,31 +105,34 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
           case _                    => StudyTopics.empty
         }
-    userTopicRepo.coll.update
-      .one(
+    userTopicRepo.coll {
+      _.update.one(
         $id(user.id),
         $set("topics" -> topics),
         upsert = true
       )
-      .void
+    }.void
   }
 
   def userTopicsAdd(userId: User.ID, topics: StudyTopics): Funit =
     topics.value.nonEmpty ??
-      userTopicRepo.coll.update
-        .one(
-          $id(userId),
-          $addToSet("topics" -> $doc("$each" -> topics)),
-          upsert = true
-        )
-        .void
+      userTopicRepo.coll {
+        _.update
+          .one(
+            $id(userId),
+            $addToSet("topics" -> $doc("$each" -> topics)),
+            upsert = true
+          )
+      }.void
 
   def popular(nb: Int): Fu[StudyTopics] =
-    topicRepo.coll
-      .find($empty)
-      .sort($sort.naturalAsc)
-      .cursor[Bdoc]()
-      .list(nb)
+    topicRepo
+      .coll {
+        _.find($empty)
+          .sort($sort.naturalAsc)
+          .cursor[Bdoc]()
+          .list(nb)
+      }
       .dmap {
         _ flatMap docTopic
       }
@@ -151,8 +155,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     }.unit
 
   private def recomputeNow: Funit =
-    studyRepo.coll
-      .aggregateWith[Bdoc]() { framework =>
+    studyRepo.coll {
+      _.aggregateWith[Bdoc]() { framework =>
         import framework._
         List(
           Match(
@@ -165,9 +169,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           UnwindField("topics"),
           SortByFieldCount("topics"),
           Project($doc("_id" -> true)),
-          Out(topicRepo.coll.name)
+          Out(topicRepo.coll.name.value)
         )
-      }
-      .headOption
-      .void
+      }.headOption
+    }.void
 }
