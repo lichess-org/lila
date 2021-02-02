@@ -26,6 +26,7 @@
     <item quantity="other">Coinnigh gearr é: %s carachtar uas</item>
   </plurals>
   <string name="visibility">Le feiceáil ar an leathanach sruthlú</string>
+  <string name="whenApproved">Nuair atá siad faofa ó modhnóirí</string>
   <string name="headline">Ceannlíne</string>
   <string name="longDescription">Cur síos fada</string>
   <string name="changePicture">Athraigh/scrios do phictiúr</string>
