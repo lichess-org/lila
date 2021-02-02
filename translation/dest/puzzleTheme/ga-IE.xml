@@ -5,7 +5,9 @@
   <string name="advantage">Buntáiste</string>
   <string name="advantageDescription">Tóg do sheans buntáiste ceart a fháil. (200cp ≤ meast ≤ 600cp)</string>
   <string name="anastasiaMate">Marbhsháinn Anastasia</string>
+  <string name="anastasiaMateDescription">Oibríonn ridire agus caiseal nó banríon le chéile chun rí an namhaid a cheansaigh idir imeall an clár fichille agus píosa cairdiúil.</string>
   <string name="arabianMate">Marbhsháinn Arabaigh</string>
+  <string name="arabianMateDescription">Oibríonn ridire agus caiseal le chéile chun rí an namhaid a cheansaigh idir cúinne an clár fichille.</string>
   <string name="attackingF2F7">Ag ionsaí f2 nó f7</string>
   <string name="attackingF2F7Description">Ionsaí ag díriú ar an ceithearnach f2 nó f7, mar shampla ins an oscailt ae friochta.</string>
   <string name="attraction">Meabhlú</string>
