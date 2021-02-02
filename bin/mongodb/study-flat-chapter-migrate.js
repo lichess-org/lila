@@ -7,12 +7,11 @@ const firstCharRegex = new RegExp('^[' + charSlice.join('') + ']');
 print(firstCharRegex);
 
 const coll = db.study_chapter_flat;
-coll.drop();
 coll.createIndex({studyId:1,order:1})
 
 function flattenEach(parentPath, node, nodes) {
   const path = parentPath + encodePath(node.i || '');
-  if (path.length > 400 * 2) throw 'Too deep!';
+  if (path.length > 400 * 2) return;
   if (node.n.length > 1) node.o = node.n.map(child => child.i);
   node.n.forEach(child => flattenEach(path, child, nodes));
   delete node.n;
