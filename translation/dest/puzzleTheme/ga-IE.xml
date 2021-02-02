@@ -11,7 +11,9 @@
   <string name="attackingF2F7">Ag ionsaí f2 nó f7</string>
   <string name="attackingF2F7Description">Ionsaí ag díriú ar an ceithearnach f2 nó f7, mar shampla ins an oscailt ae friochta.</string>
   <string name="attraction">Meabhlú</string>
+  <string name="attractionDescription">Malartú nó íobairt a spreagann nó a chuireann brú ar phíosa comhraic dul go cearnóg a cheadaíonn beartíocht leantach.</string>
   <string name="backRankMate">Marbhsháinn céim ar cúl</string>
+  <string name="backRankMateDescription">Déan marbhsháinn ar an rí ar an céim baile, sa tslí go bhfuil sé gafa ansin lena phíosaí féin.</string>
   <string name="bishopEndgame">Cor deiridh easpaig</string>
   <string name="bishopEndgameDescription">Cor deiridh le easpaig agus ceithearnaigh amháin.</string>
   <string name="bodenMate">Marbhsháinn Boden</string>
