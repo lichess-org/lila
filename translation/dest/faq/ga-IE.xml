@@ -58,6 +58,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
+  <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
   <string name="whatIsProvisionalRating">Cén fáth go bhfuil comhartha ceiste (?) In aice le rátáil?</string>
