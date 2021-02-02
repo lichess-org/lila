@@ -9,14 +9,13 @@ import reactivemongo.api.bson._
 import scala.util.Success
 import scala.util.Try
 
+import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-
-import lila.common.Iso
 
 object BSONHandlers {
 
@@ -159,65 +158,50 @@ object BSONHandlers {
     )
   }
 
-  implicit val ChildrenBSONHandler: BSONHandler[Node.Children] = tryHandler[Node.Children](
-    { case arr: BSONArray =>
-      Try {
-        Node.Children(arr.values.view.flatMap(NodeBSONHandler.readOpt).toVector)
-      }
-    },
-    children =>
-      BSONArray(children.nodes map { n =>
-        NodeBSONHandler.writeTry(n).get
-      })
-  )
-
-  implicit lazy val NodeBSONHandler: BSON[Node] = new BSON[Node] {
-    def reads(r: Reader) =
-      Node(
-        id = r.get[UciCharPair]("i"),
-        ply = r int "p",
-        move = WithSan(r.get[Uci]("u"), r.str("s")),
-        fen = r.get[FEN]("f"),
-        check = r boolD "c",
-        shapes = r.getO[Shapes]("h") | Shapes.empty,
-        comments = r.getO[Comments]("co") | Comments.empty,
-        gamebook = r.getO[Gamebook]("ga"),
-        glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
-        score = r.getO[Score]("e"),
-        crazyData = r.getO[Crazyhouse.Data]("z"),
-        clock = r.getO[Centis]("l"),
-        children =
-          try {
-            r.get[Node.Children]("n")
-          } catch {
-            case _: StackOverflowError =>
-              logger.warn(s"study ChildrenBSONHandler StackOverflowError")
-              Node.emptyChildren
-          },
-        forceVariation = r boolD "fv"
-      )
-    def writes(w: Writer, s: Node) =
-      $doc(
-        "i"  -> s.id,
-        "p"  -> s.ply,
-        "u"  -> s.move.uci,
-        "s"  -> s.move.san,
-        "f"  -> s.fen,
-        "c"  -> w.boolO(s.check),
-        "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
-        "co" -> s.comments.value.nonEmpty.option(s.comments),
-        "ga" -> s.gamebook,
-        "g"  -> s.glyphs.nonEmpty,
-        "e"  -> s.score,
-        "l"  -> s.clock,
-        "z"  -> s.crazyData,
-        "n"  -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren),
-        "fv" -> w.boolO(s.forceVariation)
-      )
+  def readNode(doc: Bdoc, id: UciCharPair): Node = {
+    val r = new Reader(doc)
+    Node(
+      id = id,
+      ply = r int "p",
+      move = WithSan(r.get[Uci]("u"), r.str("s")),
+      fen = r.get[FEN]("f"),
+      check = r boolD "c",
+      shapes = r.getO[Shapes]("h") | Shapes.empty,
+      comments = r.getO[Comments]("co") | Comments.empty,
+      gamebook = r.getO[Gamebook]("ga"),
+      glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
+      score = r.getO[Score]("e"),
+      crazyData = r.getO[Crazyhouse.Data]("z"),
+      clock = r.getO[Centis]("l"),
+      children = Node.emptyChildren,
+      forceVariation = r boolD "fv"
+    )
   }
+
+  def writeNode(s: Node) = {
+    val w = new Writer
+    $doc(
+      "p"  -> s.ply,
+      "u"  -> s.move.uci,
+      "s"  -> s.move.san,
+      "f"  -> s.fen,
+      "c"  -> w.boolO(s.check),
+      "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
+      "co" -> s.comments.value.nonEmpty.option(s.comments),
+      "ga" -> s.gamebook,
+      "g"  -> s.glyphs.nonEmpty,
+      "e"  -> s.score,
+      "l"  -> s.clock,
+      "z"  -> s.crazyData,
+      "fv" -> w.boolO(s.forceVariation)
+    )
+  }
+
   import Node.Root
   implicit private[study] lazy val NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
-    def reads(r: Reader) =
+    def reads(fullReader: Reader) = {
+      val rootNode = fullReader.doc.getAsOpt[Bdoc]("") err "Missing root"
+      val r        = new Reader(rootNode)
       Root(
         ply = r int "p",
         fen = r.get[FEN]("f"),
@@ -229,22 +213,22 @@ object BSONHandlers {
         score = r.getO[Score]("e"),
         clock = r.getO[Centis]("l"),
         crazyData = r.getO[Crazyhouse.Data]("z"),
-        children = r.get[Node.Children]("n")
+        children = StudyFlatTree.rootChildren(fullReader.doc)
       )
-    def writes(w: Writer, s: Root) =
-      $doc(
-        "p"  -> s.ply,
-        "f"  -> s.fen,
-        "c"  -> w.boolO(s.check),
-        "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
-        "co" -> s.comments.value.nonEmpty.option(s.comments),
-        "ga" -> s.gamebook,
-        "g"  -> s.glyphs.nonEmpty,
-        "e"  -> s.score,
-        "l"  -> s.clock,
-        "z"  -> s.crazyData,
-        "n"  -> s.children
-      )
+    }
+    def writes(w: Writer, s: Root) = ???
+    // $doc(
+    //   "p"  -> s.ply,
+    //   "f"  -> s.fen,
+    //   "c"  -> w.boolO(s.check),
+    //   "h"  -> s.shapes.value.nonEmpty.option(s.shapes),
+    //   "co" -> s.comments.value.nonEmpty.option(s.comments),
+    //   "ga" -> s.gamebook,
+    //   "g"  -> s.glyphs.nonEmpty,
+    //   "e"  -> s.score,
+    //   "l"  -> s.clock,
+    //   "z"  -> s.crazyData
+    // )
   }
 
   implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)

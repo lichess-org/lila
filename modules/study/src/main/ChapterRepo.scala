@@ -126,7 +126,9 @@ final class ChapterRepo(val coll: Coll)(implicit
 
   def setScore(score: Option[lila.tree.Eval.Score]) = setNodeValue("e", score) _
 
-  def setChildren(children: Node.Children) = setNodeValue("n", children.some) _
+  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit =
+    ??? // TODO
+  // setNodeValue("n", children.some) _
 
   private def setNodeValue[A: BSONWriter](
       field: String,
@@ -152,14 +154,15 @@ final class ChapterRepo(val coll: Coll)(implicit
       }
 
   private[study] def setChild(chapter: Chapter, path: Path, child: Node): Funit =
-    pathToField(chapter, path, "n") ?? { parentChildrenPath =>
-      coll.update.one(
-        $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
-        $set(s"$parentChildrenPath.$$" -> child)
-      ) flatMap { res =>
-        (res.n == 0) ?? coll.update.one($id(chapter.id), $push(parentChildrenPath -> child)).void
-      }
-    }
+    ??? // TODO
+  // pathToField(chapter, path, "n") ?? { parentChildrenPath =>
+  //   coll.update.one(
+  //     $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
+  //     $set(s"$parentChildrenPath.$$" -> child)
+  //   ) flatMap { res =>
+  //     (res.n == 0) ?? coll.update.one($id(chapter.id), $push(parentChildrenPath -> child)).void
+  //   }
+  // }
 
   private[study] def idNamesByStudyIds(
       studyIds: Seq[Study.Id],
