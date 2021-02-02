@@ -500,7 +500,7 @@
   <string name="typePrivateNotesHere">Skriv private notater her</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
-  <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
+  <string name="invalidAuthenticationCode">Ugyldig autentiseringskode</string>
   <string name="emailMeALink">Send meg en lenke</string>
   <string name="currentPassword">Nåværende passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -773,7 +773,7 @@
   <string name="doItAgain">Gjenta</string>
   <string name="reviewWhiteMistakes">Gå gjennom hvits feil</string>
   <string name="reviewBlackMistakes">Gå gjennom svarts feil</string>
-  <string name="advantage">Fordel</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Fordel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>

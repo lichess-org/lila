@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">शुरू करने के लिए एक चाल खेलें।</string>
+  <string name="puzzlesSolved">हल पहेलियों की संख्या</string>
+  <string name="newDailyHighscore">आज का नया सर्वश्रेष्ठ स्कोर</string>
+  <string name="newWeeklyHighscore">इस हफ्ते का नया सर्वश्रेष्ठ स्कोर</string>
+  <string name="newMonthlyHighscore">इस महीने का नया सर्वश्रेष्ठ स्कोर</string>
+  <string name="newAllTimeHighscore">अब तक का सर्वश्रेष्ठ स्कोर</string>
+  <string name="previousHighscoreWasX">पुराना सर्वश्रेष्ठ स्कोर %s था</string>
+  <string name="playAgain">फिर से खेलेंगे?</string>
+  <string name="highscoreX">सर्वश्रेष्ठ स्कोर: %s</string>
+  <string name="score">स्कोर</string>
+  <string name="moves">चाल</string>
+  <string name="time">समय</string>
+  <string name="timePerMove">समय प्रति चाल</string>
+  <string name="runs">रन</string>
+</resources>

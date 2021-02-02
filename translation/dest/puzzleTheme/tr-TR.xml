@@ -2,7 +2,7 @@
 <resources>
   <string name="advancedPawn">İlerlemiş piyon</string>
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
-  <string name="advantage">Avantaj yakala</string>
+  <string name="advantage">Avantaj</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="anastasiaMate">Anastasia matı</string>
   <string name="anastasiaMateDescription">Kale veya vezir, atın yardımıyla tahtanın kenarı ve kendi taşı arasında sıkıştırılan rakip şahı mat eder.</string>

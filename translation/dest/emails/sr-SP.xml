@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Потврдите ваш налог на lichess.org, %s</string>
-  <string name="emailConfirm_click">Кликните на линк да активирате ваш Lichess налог:</string>
-  <string name="emailConfirm_ignore">Уколико се нисте регистровали за Lichess, можете безбедно занемарити ову поруку.</string>
-  <string name="passwordReset_subject">Измените вашу лозинку за lichess.org, %s</string>
+  <string name="emailConfirm_subject">Потврдите ваш lichess.org налог, %s</string>
+  <string name="emailConfirm_click">Кликните на линк да активирате ваш Личес налог:</string>
+  <string name="emailConfirm_ignore">Уколико се нисте регистровали за Личес, можете безбедно занемарити ову поруку.</string>
+  <string name="passwordReset_subject">Измените вашу lichess.org лозинку, %s</string>
   <string name="passwordReset_intro">Примили смо захтев за измену лозинке вашег налога.</string>
   <string name="passwordReset_clickOrIgnore">Ако сте направили овај захтев, кликните линк испод. Ако нисте, игноришите ово.</string>
   <string name="emailChange_subject">Потврдите нову адресу е-поште: %s</string>
-  <string name="emailChange_intro">Затражили сте промену ваше е-адресе.</string>
-  <string name="emailChange_click">Да би потврдили да имате приступ овој е-адреси, кликните линк испод:</string>
+  <string name="emailChange_intro">Затражили сте промену ваше адресе е-поште.</string>
+  <string name="emailChange_click">Да бисте потврдили да имате приступ овој е-пошти, молимо вас кликнете линк испод:</string>
   <string name="welcome_subject">Добродошли у lichess.org, %s</string>
   <string name="welcome_text">Успешно сте направили ваш налог на https://lichess.org.
 
@@ -16,7 +16,7 @@
 
 Забавите се, и нека ваше фигуре увек нађу пут ка противничком краљу!</string>
   <string name="logInToLichess">Улогуј се на lichess.org, %s</string>
-  <string name="common_orPaste">(Кликање не ради? Пробајте то налепити у ваш прегледач!)</string>
-  <string name="common_note">Ово је сервисна е-адреса везана за сајт који користите %s.</string>
-  <string name="common_contact">Како би сте нас контактирали, молимо вас да користите %s.</string>
+  <string name="common_orPaste">(Кликање не ради? Пробајте га налепити у ваш прегледач!)</string>
+  <string name="common_note">Ово је сервисна е-пошта везана са Вашим коришћењем %s.</string>
+  <string name="common_contact">Да бисте нас контактирали, молимо вас користите %s.</string>
 </resources>

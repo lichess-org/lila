@@ -9,7 +9,7 @@
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
-  <string name="strength">Снага</string>
+  <string name="strength">Јачина</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
   <string name="toggleSound">Укључи/искључи звук</string>
   <string name="chat">Ћаскање</string>
@@ -22,8 +22,8 @@
   <string name="createAGame">Започни нову партију</string>
   <string name="whiteIsVictorious">Бели је победник</string>
   <string name="blackIsVictorious">Црни је победник</string>
-  <string name="youPlayTheWhitePieces">Играш са белим фигурама</string>
-  <string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
+  <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
+  <string name="youPlayTheBlackPieces">Играте са црним фигурама</string>
   <string name="itsYourTurn">Ти си на потезу!</string>
   <string name="kingInTheCenter">Краљ је у центру</string>
   <string name="threeChecks">Три шаха</string>
@@ -809,7 +809,7 @@
   <string name="doItAgain">Урадите поново</string>
   <string name="reviewWhiteMistakes">Пронађите грешке белог</string>
   <string name="reviewBlackMistakes">Пронађите грешке црног</string>
-  <string name="advantage">Предност</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Предност</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
     <item quantity="few">%s секунде</item>

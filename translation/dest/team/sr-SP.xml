@@ -16,7 +16,7 @@
   <plurals name="teamLeaders">
     <item quantity="one">Вођа тима</item>
     <item quantity="few">Вође тима</item>
-    <item quantity="other">Вође тима</item>
+    <item quantity="other">Вођа тима</item>
   </plurals>
   <string name="teamBestPlayers">Најбољи играчи тима</string>
   <string name="teamRecentMembers">Скорашњи чланови тима</string>
@@ -44,4 +44,5 @@
   <string name="leadersChat">Чет за вође</string>
   <string name="closeTeam">Угаси тим</string>
   <string name="closeTeamDescription">Угаси тим заувек.</string>
+  <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>

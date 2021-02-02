@@ -773,7 +773,7 @@
   <string name="doItAgain">Tekrarlayın</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
   <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
-  <string name="advantage">Avantaj</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Avantaj</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s saniye</item>
     <item quantity="other">%s saniye</item>

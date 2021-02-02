@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playAgain">Играј опет</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 покушај</item>
+    <item quantity="few">%s покушаја</item>
+    <item quantity="other">%s покушаја</item>
+  </plurals>
+  <string name="time">Време</string>
+  <string name="timePerMove">Време по потезу</string>
+  <string name="bestRunOfDay">Најбољи покушај дана</string>
+</resources>

@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Bog le tosú</string>
+  <string name="puzzlesSolved">fadhbhanna déanta</string>
+  <string name="newDailyHighscore">Ardscór laethúil nua!</string>
+  <string name="newWeeklyHighscore">Ardscór seachtainiúil nua!</string>
+  <string name="newMonthlyHighscore">Ardscór míosa nua!</string>
+  <string name="newAllTimeHighscore">Ardscór nua an tsaoil!</string>
+  <string name="previousHighscoreWasX">Ba é %s an ardscór roimhe seo</string>
+  <string name="playAgain">Imir arís</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 stríocáin</item>
+    <item quantity="two">%s stríocáin</item>
+    <item quantity="few">%s stríocáin</item>
+    <item quantity="many">%s stríocáin</item>
+    <item quantity="other">%s stríocáin</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">D\'imir stríocáin amháin de %2$s</item>
+    <item quantity="two">D\'imir %1$s stríocáin de %2$s</item>
+    <item quantity="few">D\'imir %1$s stríocáin de %2$s</item>
+    <item quantity="many">D\'imir %1$s stríocáin de %2$s</item>
+    <item quantity="other">D\'imir %1$s stríocáin de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Ardscór: %s</string>
+  <string name="score">Scór</string>
+  <string name="moves">Bearta</string>
+  <string name="accuracy">Cruinneas</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Sraithbhuille</string>
+  <string name="time">Am</string>
+  <string name="timePerMove">Am an bheart</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Réitithe is airde</string>
+  <string name="puzzlesPlayed">Fadhbhanna imeartha</string>
+  <string name="newRun">Stríocáin nua (eochair aicearra: Spás)</string>
+  <string name="endRun">Stríocáin deireadh (eochair aicearra: Iontráil)</string>
+  <string name="highscores">Ardscóir</string>
+  <string name="viewBestRuns">Féach ar stríocáin is fearr</string>
+  <string name="bestRunOfDay">An stríocán is fearr sa lá</string>
+  <string name="runs">Stríocáin</string>
+</resources>

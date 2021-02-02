@@ -9,6 +9,7 @@
   <string name="lengths">Довжина</string>
   <string name="mates">Мати</string>
   <string name="goals">Цілі</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Походження</string>
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
   <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>
@@ -46,5 +47,9 @@
   <string name="addAnotherTheme">Додати іншу тему</string>
   <string name="jumpToNextPuzzleImmediately">Перейти до наступної задачі миттєво</string>
   <string name="puzzleDashboard">Дошка задач</string>
+  <string name="improvementAreas">Слабкі сторони</string>
   <string name="strengths">Сильні сторони</string>
+  <string name="history">Історія задач</string>
+  <string name="solved">вирішені</string>
+  <string name="failed">невирішені</string>
 </resources>

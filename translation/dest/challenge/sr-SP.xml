@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="youCannotChallengeX">Не можете изазвати %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
 </resources>

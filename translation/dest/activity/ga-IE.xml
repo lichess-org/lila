@@ -1,4 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Gníomhaíocht</string>
+  <string name="hostedALiveStream">Bhí sruth beo faoi cúram</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Thacaíodh le lichess.org ar feadh mí amháin mar %2$s</item>
+    <item quantity="two">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="few">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+    <item quantity="many">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="other">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+    <item quantity="two">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+    <item quantity="few">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+    <item quantity="many">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+    <item quantity="other">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s fadhb beartach réitithe</item>
+    <item quantity="two">%s fhadhb beartach réitithe</item>
+    <item quantity="few">%s bhfadhb beartach réitithe</item>
+    <item quantity="many">%s fadhb beartach réitithe</item>
+    <item quantity="other">%s fadhb beartach réitithe</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Imríodh cluiche amháin %2$s</item>
+    <item quantity="two">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="few">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="many">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="other">Imríodh %1$s cluichí %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Phostaíodh teachtaireacht amháin i %2$s</item>
+    <item quantity="two">Phostaíodh %1$s teachtaireachtí i %2$s</item>
+    <item quantity="few">Phostaíodh %1$s teachtaireachtí i %2$s</item>
+    <item quantity="many">Phostaíodh %1$s teachtaireachtí i %2$s</item>
+    <item quantity="other">Phostaíodh %1$s teachtaireachtí i %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s beart imeartha</item>
+    <item quantity="two">%1$s bheart imeartha</item>
+    <item quantity="few">%1$s beart imeartha</item>
+    <item quantity="many">%1$s beart imeartha</item>
+    <item quantity="other">%1$s beart imeartha</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">i gcluiche amháin comhfhreagrais</item>
+    <item quantity="two">i %1$s chluiche comhfhreagrais</item>
+    <item quantity="few">i %1$s cluiche comhfhreagrais</item>
+    <item quantity="many">i %1$s cluiche comhfhreagrais</item>
+    <item quantity="other">i %1$s cluiche comhfhreagrais</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s cluiche comhfhreagrais críochnaithe</item>
+    <item quantity="two">%s chluiche comhfhreagrais críochnaithe</item>
+    <item quantity="few">%s gcluiche comhfhreagrais críochnaithe</item>
+    <item quantity="many">%s cluiche comhfhreagrais críochnaithe</item>
+    <item quantity="other">%s cluiche comhfhreagrais críochnaithe</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Thosaíodh imreoir amháin a leanacht</item>
+    <item quantity="two">Thosaíodh %s imreoirí a leanacht</item>
+    <item quantity="few">Thosaíodh %s imreoirí a leanacht</item>
+    <item quantity="many">Thosaíodh %s imreoirí a leanacht</item>
+    <item quantity="other">Thosaíodh %s imreoirí a leanacht</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Fuarthas %s leantóir nua</item>
+    <item quantity="two">Fuarthas %s leantóir nua</item>
+    <item quantity="few">Fuarthas %s leantóir nua</item>
+    <item quantity="many">Fuarthas %s leantóir nua</item>
+    <item quantity="other">Fuarthas %s leantóir nua</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Bhí taispeántas comhuaineach faoi cúram</item>
+    <item quantity="two">Bhí %s taispeántais comhuaineacha faoi cúram</item>
+    <item quantity="few">Bhí %s taispeántais comhuaineacha faoi cúram</item>
+    <item quantity="many">Bhí %s taispeántais comhuaineacha faoi cúram</item>
+    <item quantity="other">Bhí %s taispeántais comhuaineacha faoi cúram</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Glacadh páirt i %s taispeántas comhuaineach</item>
+    <item quantity="two">Glacadh páirt i %s thaispeántais comhuaineacha</item>
+    <item quantity="few">Glacadh páirt i %s dtaispeántais comhuaineacha</item>
+    <item quantity="many">Glacadh páirt i %s taispeántais comhuaineacha</item>
+    <item quantity="other">Glacadh páirt i %s taispeántais comhuaineacha</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Chruthaigh %s staidéar nua</item>
+    <item quantity="two">Chruthaigh %s staidéar nua</item>
+    <item quantity="few">Chruthaigh %s staidéar nua</item>
+    <item quantity="many">Chruthaigh %s staidéar nua</item>
+    <item quantity="other">Chruthaigh %s staidéar nua</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">San iomaíocht i %s comórtas</item>
+    <item quantity="two">San iomaíocht i %s chomórtas</item>
+    <item quantity="few">San iomaíocht i %s gcomórtas</item>
+    <item quantity="many">San iomaíocht i %s comórtas</item>
+    <item quantity="other">San iomaíocht i %s comórtas</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+    <item quantity="two">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s chluiche i %4$s</item>
+    <item quantity="few">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s gcluiche i %4$s</item>
+    <item quantity="many">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+    <item quantity="other">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+  </plurals>
+  <string name="signedUp">Sínithe suas le lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Isteach i %s foireann</item>
+    <item quantity="two">Isteach i %s fhoireann</item>
+    <item quantity="few">Isteach i %s bhfoireann</item>
+    <item quantity="many">Isteach i %s foireann</item>
+    <item quantity="other">Isteach i %s foireann</item>
+  </plurals>
 </resources>

@@ -6,6 +6,8 @@
   <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат Анастасії</string>
   <string name="anastasiaMateDescription">Кінь з турою або ферзем ловлять короля між краєм дошки та власною фігурою.</string>
+  <string name="arabianMate">Арабський мат</string>
+  <string name="arabianMateDescription">Кінь та тура ловлять короля на кутку дошки.</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>
@@ -14,12 +16,18 @@
   <string name="backRankMateDescription">Мат королю в останньому ряду, коли він у пастці між власних фігур.</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
   <string name="bishopEndgameDescription">Закінчення гри лише зі слонами та пішаками.</string>
+  <string name="bodenMate">Мат Бодена</string>
+  <string name="bodenMateDescription">Два слони на перехресних діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="castling">Рокіровка</string>
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Визначте грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
+  <string name="doubleBishopMate">Мат двома слонами</string>
+  <string name="doubleBishopMateDescription">Два слони на сусудніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
+  <string name="dovetailMate">Мат \"ластівчиний хвіст\"</string>
+  <string name="dovetailMateDescription">Королева ставить мат королю, який стоїть поруч, в якого два поля для відступу зайняті власними фігурами.</string>
   <string name="equality">Рівність</string>
   <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>

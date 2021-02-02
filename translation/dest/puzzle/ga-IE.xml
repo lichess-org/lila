@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Fadbhbanna</string>
+  <string name="puzzleThemes">Téamaí fadhbhanna fichille</string>
   <string name="recommended">Molta</string>
   <string name="phases">Céimeanna</string>
   <string name="motifs">Móitífeanna</string>
@@ -8,6 +9,7 @@
   <string name="lengths">Faid</string>
   <string name="mates">Marbhsháinneacha</string>
   <string name="goals">Aidhmeanna</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Foinse</string>
   <string name="specialMoves">Bearta speisialta</string>
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
   <string name="voteToLoadNextOne">Vótáil chun an chéad cheann eile a lódáil!</string>
@@ -43,4 +45,12 @@
   <string name="harder">Níos deacra</string>
   <string name="hardest">Is deacra</string>
   <string name="example">Sampla</string>
+  <string name="addAnotherTheme">Cuir téama eile leis</string>
+  <string name="jumpToNextPuzzleImmediately">Léim chuig an chéad fadhbh eile láithreach</string>
+  <string name="puzzleDashboard">Painéal fadhbhanna</string>
+  <string name="improvementAreas">Réimsí feabhsúcháin</string>
+  <string name="strengths">Cumais</string>
+  <string name="history">Stair fadhbhanna</string>
+  <string name="solved">réitithe</string>
+  <string name="failed">teipthe</string>
 </resources>

@@ -17,4 +17,18 @@
     <item quantity="other">%1$s dəfə %2$s oynadı</item>
   </plurals>
   <string name="highscoreX">Ən yüksək nəticə: %s</string>
+  <string name="score">Hesab</string>
+  <string name="moves">Gediş sayı</string>
+  <string name="accuracy">Dəqiqlik</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="time">Vaxt</string>
+  <string name="timePerMove">Gediş başına vaxt</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ən çətin tapmaca</string>
+  <string name="puzzlesPlayed">Ən çətin tapmaca</string>
+  <string name="newRun">Yeni tur (qısayol: Boşluq düyməsi)</string>
+  <string name="endRun">Turu bitir</string>
+  <string name="highscores">Ən yüksək ballar</string>
+  <string name="viewBestRuns">Ən yaxşı cəhdləri göstər</string>
+  <string name="bestRunOfDay">Günün ən yaxşı cəhdi</string>
+  <string name="runs">Cəhdlərin sayı</string>
 </resources>

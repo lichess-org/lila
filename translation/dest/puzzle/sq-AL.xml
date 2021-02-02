@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Enigmat</string>
+  <string name="recommended">Të rekomanduara</string>
+  <string name="lengths">Gjatësia</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origjina</string>
+  <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
+  <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
+  <string name="puzzleId">Ushtrimi %s</string>
+  <string name="puzzleOfTheDay">Ushtrimi i ditës</string>
+  <string name="clickToSolve">Kliko për t\'a zgjidhur</string>
+  <string name="goodMove">Lëvizje e mirë</string>
+  <string name="bestMove">Lëvizja më e mirë!</string>
+  <string name="keepGoing">Vazhdo…</string>
+  <string name="puzzleSuccess">Sukses!</string>
+  <string name="ratingX">Vlerësimi: %s</string>
+  <string name="hidden">i fshehur</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Luajtur %s herë</item>
+    <item quantity="other">Luajtur %s herë</item>
+  </plurals>
+  <string name="fromGameLink">Prej lojës %s</string>
+  <string name="continueTraining">Vazhdo trajnimin</string>
+  <string name="difficultyLevel">Niveli i vështirsisë</string>
+  <string name="normal">Normal</string>
+  <string name="easiest">Më e lehta</string>
+  <string name="hardest">Më e vështira</string>
+  <string name="example">Shembull</string>
+  <string name="strengths">Niveli i vështirësisë</string>
+  <string name="solved">zgjidhur</string>
+  <string name="failed">dështoj</string>
+</resources>

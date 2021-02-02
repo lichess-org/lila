@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Често постављана питања</string>
-  <string name="frequentlyAskedQuestions">Често постављена питања</string>
-  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Личес зове Личес?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Послушај како то стручњак изговара.</string>
@@ -74,7 +74,7 @@
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
   <string name="lichessRatings">Личес рејтинзи</string>
-  <string name="whichRatingSystemUsedByLichess">Који систем рејтинга користи Личес?</string>
+  <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
 
 У суштини, Глико рејтинг користи \"интервале поузданости\" када рачуна и преставља твој рејтинг. Када тек почнеш користити сајт, твој рејтинг започиње на 1500 ± 700. Тбој рејтинг је 1500, а 700 представља твој интервал поузданости.

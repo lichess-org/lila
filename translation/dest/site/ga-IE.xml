@@ -2,9 +2,9 @@
 <resources>
   <string name="playWithAFriend">Imir le cara</string>
   <string name="playWithTheMachine">Imir leis an ríomhaire</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo dóibh</string>
   <string name="gameOver">Cluiche Thart</string>
-  <string name="waitingForOpponent">Ag fanacht le hiomaitheora</string>
+  <string name="waitingForOpponent">Ag fanacht ar chéile comhraic</string>
   <string name="waiting">Ag fanacht</string>
   <string name="yourTurn">Do bheart</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
@@ -24,7 +24,7 @@
   <string name="blackIsVictorious">Tá an bua ag Dubh</string>
   <string name="youPlayTheWhitePieces">Féadfaidh tú imir le na píosaí bána</string>
   <string name="youPlayTheBlackPieces">Féadfaidh tú imir le na píosaí dubha</string>
-  <string name="itsYourTurn">Is é do sheal!</string>
+  <string name="itsYourTurn">\'Sé do bheart!</string>
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Rás críochnaithe</string>
@@ -87,14 +87,28 @@
   <string name="recentGames">Cluichí dheireanacha</string>
   <string name="topGames">Cluichí is fearr</string>
   <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
-  <string name="noGameFound">Ní bhfuarathas aon cluichí</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh leis an sainroghchlár.</string>
-  <string name="openingExplorer">Fiosraitheoir tionscnaimh</string>
-  <string name="xOpeningExplorer">%s fiosraitheoir tionscnaimh</string>
-  <string name="winPreventedBy50MoveRule">Bac ar bhua toisc riail an 50 bhogadh</string>
-  <string name="lossSavedBy50MoveRule">Bac ar cailliúint toisc riail an 50 bhogadh</string>
-  <string name="allSet">Réidh le n-imeacht!</string>
-  <string name="importPgn">Iompórtaigh PGN</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="two">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="few">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="many">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="other">Marbhsháinn i %s leath-bheart</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">An chéad marú nó beart ceithearnach eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="two">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="few">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="many">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="other">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+  </plurals>
+  <string name="noGameFound">Níor aimsíodh cluiche</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
+  <string name="openingExplorer">Taighde Oscailt</string>
+  <string name="xOpeningExplorer">%s taighde oscailt</string>
+  <string name="winPreventedBy50MoveRule">Bac ar bua mar gheall ar an riail 50 beart</string>
+  <string name="lossSavedBy50MoveRule">Bac ar cailliúint mar gheall ar an riail 50 beart</string>
+  <string name="allSet">Réidh le himirt!</string>
+  <string name="importPgn">Iompórtáil PGN</string>
   <string name="delete">Scrios</string>
   <string name="deleteThisImportedGame">Scrios an gluiche iompórtáilte?</string>
   <string name="replayMode">Mód athimeartha</string>
@@ -121,7 +135,28 @@
   <string name="claimADraw">Máigh cluiche cothrom</string>
   <string name="offerDraw">Tairg Comhscór</string>
   <string name="draw">Comhscór</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s imreoir</item>
+    <item quantity="two">%s imreoir</item>
+    <item quantity="few">%s imreoir</item>
+    <item quantity="many">%s imreoir</item>
+    <item quantity="other">%s imreoir</item>
+  </plurals>
   <string name="currentGames">Cluichí ar siúl</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s cluiche</item>
+    <item quantity="two">%s chluiche</item>
+    <item quantity="few">%s gcluiche</item>
+    <item quantity="many">%s cluiche</item>
+    <item quantity="other">%s cluiche</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s leabharmharc</item>
+    <item quantity="two">%s leabharmharc</item>
+    <item quantity="few">%s leabharmharc</item>
+    <item quantity="many">%s leabharmharc</item>
+    <item quantity="other">%s leabharmharc</item>
+  </plurals>
   <string name="viewInFullSize">Amharc lánmhéide</string>
   <string name="logOut">Logáil amach</string>
   <string name="signIn">Logáil isteach</string>
@@ -140,7 +175,7 @@
   <string name="minutesPerSide">Nóiméid an taobh</string>
   <string name="variant">Cineál</string>
   <string name="variants">Cineáil</string>
-  <string name="timeControl">Smacht ama</string>
+  <string name="timeControl">Maor ama</string>
   <string name="realTime">Fíor-am</string>
   <string name="correspondence">Comhfhreagras</string>
   <string name="daysPerTurn">Laethanta do gach beart</string>
@@ -166,7 +201,7 @@
   <string name="usernameOrEmail">Ainm úsáideora</string>
   <string name="changeUsername">Athraigh ainm an úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
-  <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní féidir ach cás na litir ann a athrú.</string>
+  <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit cás na litreacha i d’ainm úsáideora a athrú.</string>
   <string name="password">Focal faire</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh ríomhphost</string>
@@ -174,7 +209,7 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
-  <string name="rankX">Áit: %s</string>
+  <string name="rankX">Céim: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Nuashonraítear céimíocht gach %s nóimead</item>
     <item quantity="two">Nuashonraítear céimíocht gach %s nóimead</item>
@@ -182,7 +217,21 @@
     <item quantity="many">Nuashonraítear céimíocht gach %s nóimead</item>
     <item quantity="other">Nuashonraítear céimíocht gach %s nóimead</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s fadhb</item>
+    <item quantity="two">%s fadhb</item>
+    <item quantity="few">%s fadhb</item>
+    <item quantity="many">%s fadhb</item>
+    <item quantity="other">%s fadhb</item>
+  </plurals>
   <string name="gamesPlayed">Cluichí imeartha</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s cluiche leat</item>
+    <item quantity="two">%s chluiche leat</item>
+    <item quantity="few">%s gcluiche leat</item>
+    <item quantity="many">%s cluiche leat</item>
+    <item quantity="other">%s cluiche leat</item>
+  </plurals>
   <string name="cancel">Cealaigh</string>
   <string name="whiteTimeOut">Am an Bháin istigh</string>
   <string name="blackTimeOut">Am an Duibh istigh</string>
@@ -242,6 +291,27 @@
     <item quantity="many">%s chluichí rátáilte</item>
     <item quantity="other">%s chluichí rátáilte</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s bua</item>
+    <item quantity="two">%s bhua</item>
+    <item quantity="few">%s mbua</item>
+    <item quantity="many">%s bua</item>
+    <item quantity="other">%s bua</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s caill</item>
+    <item quantity="two">%s chaill</item>
+    <item quantity="few">%s gcaill</item>
+    <item quantity="many">%s caill</item>
+    <item quantity="other">%s caill</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s cothrom</item>
+    <item quantity="two">%s chothrom</item>
+    <item quantity="few">%s gcothrom</item>
+    <item quantity="many">%s cothrom</item>
+    <item quantity="other">%s comhscór</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s á imirt</item>
     <item quantity="two">%s á imirt</item>
@@ -271,7 +341,14 @@
   <string name="bookmarkThisGame">Cuir leabharmhairc leis an gcluiche seo</string>
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
-  <string name="tournamentPoints">Pointí ó chomórtais</string>
+  <string name="tournamentPoints">Pointí comórtais</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s pointe comórtais</item>
+    <item quantity="two">%s phointe comórtais</item>
+    <item quantity="few">%s bpointe comórtais</item>
+    <item quantity="many">%s pointe comórtais</item>
+    <item quantity="other">%s pointe comórtais</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s staidéar</item>
     <item quantity="two">%s staidéir</item>
@@ -295,6 +372,20 @@
     <item quantity="few">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Caithfidh tú %1$s cluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="two">Caithfidh tú %1$s chluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="few">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="many">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="other">Caithfidh tú %1$s cluiche rátáilte %2$s níos mó a imirt</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+    <item quantity="two">Caithfidh tú %s chluiche rátáilte eile a imirt</item>
+    <item quantity="few">Caithfidh tú %s gcluiche rátáilte eile a imirt</item>
+    <item quantity="many">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+    <item quantity="other">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
@@ -324,6 +415,13 @@
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="importGameExplanation">Greamaigh cluiche PGN chun athsheinm brabhsáilte a fháil,
 anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s cluiche iompórtáilte</item>
+    <item quantity="two">%s chluiche iompórtáilte</item>
+    <item quantity="few">%s gcluiche iompórtáilte</item>
+    <item quantity="many">%s cluiche iompórtáilte</item>
+    <item quantity="other">%s cluiche iompórtáilte</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an mbord le bogadh a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
@@ -388,7 +486,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="advancedSettings">Ardsocruithe</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
-  <string name="emptyTournamentName">Fág folamh chun an chomórtas a ainmniú in ainneoin d\'imreoir fichille cáiliúil.</string>
+  <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh ficheallaí suntasach.</string>
   <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
   <string name="fewerPlayers">Má shocraíonn tú rialacha a mbaineann le chuir isteach ar an gcomórtas, beidh níos lú imreoirí ag do chomórtas.</string>
   <string name="showAdvancedSettings">Taispeán na socruithe níos casta</string>
@@ -405,7 +503,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
-  <string name="berserkRate">Ráta berserk</string>
+  <string name="berserkRate">Ráta le Báiní</string>
   <string name="performance">Cruthú</string>
   <string name="tournamentComplete">Comórtas críochnaithe</string>
   <string name="movesPlayed">Bogaidh imeartha</string>
@@ -427,7 +525,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="profileCompletion">Comhlánú próifíle: %s</string>
   <string name="xRating">rátáil %s</string>
   <string name="ifNoneLeaveEmpty">Mura bhfuil, fág folamh</string>
-  <string name="gameCompletionRate">Ráta críochnúcháin cluiche: %s</string>
+  <string name="gameCompletionRate">Ráta críochnaithe cluiche: %s</string>
   <string name="profile">Próifíl</string>
   <string name="editProfile">Cuir próifíl in eagar</string>
   <string name="firstName">Céadainm</string>
@@ -440,10 +538,17 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="watchLichessTV">Féach ar Lichess TV</string>
   <string name="previouslyOnLichessTV">Níos luaithe ar Lichess TV</string>
   <string name="onlinePlayers">Imreoirí ar-líne</string>
-  <string name="activeToday">Gniomhach inniu</string>
+  <string name="activeToday">Gníomhach inniu</string>
   <string name="activePlayers">Imreoirí gníomhach</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Aire duit, tá an cluiche seo rátáilte ach níl clog ann!</string>
   <string name="success">D\'éirigh leat</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s cluiche san imirt</item>
+    <item quantity="two">%s chluiche san imirt</item>
+    <item quantity="few">%s gcluiche san imirt</item>
+    <item quantity="many">%s cluiche san imirt</item>
+    <item quantity="other">%s cluiche san imirt</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Téigh ar aghaidh chuig an chéad cluiche eile go huathoibríoch i ndiaidh bogadh</string>
   <string name="autoSwitch">Athrú uathoibríoch</string>
   <string name="puzzles">Fadbhbanna</string>
@@ -523,7 +628,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="starting">Ag tosú:</string>
   <string name="allInformationIsPublicAndOptional">Tá an t-eolas ar fad roghnach agus beidh sé infheicthe do chách.</string>
   <string name="yourCityRegionOrDepartment">Do chathair, réigiún nó cúige.</string>
-  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi fichelle, na oscailtí is fearr leat, imreoirí,...</string>
+  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi ficheall, na oscailtí is fearr leat, ficheallaithe, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">%s carachtar ar a mhéad.</item>
     <item quantity="two">%s carachtairí ar a mhéad.</item>
@@ -538,7 +643,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">%s bloic</item>
     <item quantity="other">%s bloc</item>
   </plurals>
-  <string name="listBlockedPlayers">Liostaigh na himreoirí a chuir tú bac le</string>
+  <string name="listBlockedPlayers">Liostaigh ficheallaithe a chuir tú bac le</string>
   <string name="human">Duine</string>
   <string name="computer">Ríomhaire</string>
   <string name="side">Taobh</string>
@@ -603,19 +708,19 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="noSimulFound">Ní bhfuarthas cluiche comhuaineach</string>
   <string name="noSimulExplanation">Níl an taispeántas comhuaineach seo ann.</string>
   <string name="returnToSimulHomepage">Ar aís go leathanach baile cluichí comhuaineach</string>
-  <string name="aboutSimul">Bíonn imreoir aonair os comhair roinnt imreoirí ag an am céanna i gcluichí comhuaineacha.</string>
+  <string name="aboutSimul">Bíonn ficheallaí aonair os comhair roinnt ficheallaithe ag an am céanna i gcluichí comhuaineacha.</string>
   <string name="aboutSimulImage">As 50 céile comhraic, bhuaigh Fischer 47 cluiche, 2 chluiche cothrom agus chaill sé 1.</string>
   <string name="aboutSimulRealLife">Tógtar an coincheap ó imeachtaí sa saol fíor. Sa fíorshaol, baineann sé seo leis an óstach comhuaineach ag bogadh ó thábla go tábla chun aon bheart amháin a dhéanamh.</string>
-  <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
+  <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach ficheallaí cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha ócáideach i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
-  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
-  <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach imreoir an leagan atá le himirt a roghnú.</string>
+  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt ficheallaithe ag an am céanna.</string>
+  <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach ficheallaí an leagan atá le himirt a roghnú.</string>
   <string name="simulClockHint">Socrú Clog Fischer. Braitheann an méid ama a theastaíonn uait ar an méid céile comhraic atá agat.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>
   <string name="simulHostExtraTime">Óstáil am-clog breise</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
-  <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
+  <string name="tournamentFAQ">CCanna Comórtas Láthair</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
   <string name="averageCentipawnLoss">Meánchaillteanas ceithearnach sa lár</string>
@@ -629,24 +734,24 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentHomeDescription">Imir comortais fichille ar luas tapaigh! Bí ar chamchuairt sceidealta oifigiúil, nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Ficheall 960 (Chess960), Rí an Chnoic (King of the Hill), Sáinn faoi thrí (Threecheck), agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan deireadh.</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
   <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
-  <string name="tournamentMayHaveBeenCanceled">B\'fhéidir go raibh an comórtas curtha ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
+  <string name="tournamentMayHaveBeenCanceled">B\'fhéidir go raibh an comórtas curtha ar ceal má d\'fhág gach ficheallaí sular thosaigh sé.</string>
   <string name="returnToTournamentsHomepage">Fill ar leathanach baile na gcomórtas</string>
   <string name="weeklyPerfTypeRatingDistribution">Dáileadh %s rátá seachtainiúil</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s imreoir an tseachtain seo.</item>
-    <item quantity="two">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="few">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="many">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="other">%1$s %2$s imreoirí an tseachtain seo.</item>
+    <item quantity="one">%1$s %2$s ficheallaí an tseachtain seo.</item>
+    <item quantity="two">%1$s %2$s fhicheallaí an tseachtain seo.</item>
+    <item quantity="few">%1$s %2$s bhficheallaí an tseachtain seo.</item>
+    <item quantity="many">%1$s %2$s ficheallaí an tseachtain seo.</item>
+    <item quantity="other">%1$s %2$s ficheallaí an tseachtain seo.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Is é do rátáil %1$s %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s imreoirí.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoirí.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as ficheallaithe %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as ficheallaithe %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Níl rátáil %s bunaithe agat.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
-  <string name="checkYourEmail">Féach ar do ríomhphost</string>
+  <string name="checkYourEmail">Seiceáil ar do r-phost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tá ríomhphost seolta againn. Cliceáil ar an nasc sa ríomhphost chun do chuntas a ghníomhachtú.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura bhfeiceann tú an ríomhphost, seiceáil áiteanna eile a d’fhéadfadh é a bheith ann, mar i do bhruscar, spam, sóisialta nó fillteáin eile.</string>
   <string name="weHaveSentYouAnEmailTo">Tá ríomhphost seolta againn chuig %s. Cliceáil ar an nasc sa ríomhphost chun do phasfhocal a athshocrú.</string>
@@ -661,14 +766,14 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="crosstable">Trastábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrollú thar an gclár freisin chun bogadh sa chluiche.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
-  <string name="letOtherPlayersMessageYou">Lig d’imreoirí eile teachtaireacht a chur chugat</string>
+  <string name="letOtherPlayersMessageYou">Lig do ficheallaithe teachtaireacht a chur chugat</string>
   <string name="shareYourInsightsData">Comhroinn do chuid sonraí léargas fichille</string>
   <string name="withNobody">Le duine ar bith</string>
   <string name="withFriends">Le cairde</string>
   <string name="withEverybody">Le gach duine</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
   <string name="kidMode">Mód páistí</string>
-  <string name="kidModeExplanation">Is saincheist sábháilteacht é seo. I mód páistí, díchumasaítear gach modh cumarsáide. Úsáid é seo do do pháistí agus scoláirí, chun iad a chosaint ó úsáideoirí idirlíne eile.</string>
+  <string name="kidModeExplanation">Baineann sé seo le sábháilteacht. Sa modh páiste, tá gach cumarsáid múchta. Usáid é seo do páistí agus daltaí scoile, chun iad a chosaint ar úsáideoirí idirlín eile.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa mhodh linbh, faigheann an lógó Lichess íocón %s, ionas go mbeidh a fhios agat go bhfuil do pháistí sábháilte.</string>
   <string name="enableKidMode">Las mód páistí</string>
   <string name="disableKidMode">Múch mód páistí</string>
@@ -687,7 +792,19 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="correspondenceChess">Comhfhreagrais fichille</string>
   <string name="onlineAndOfflinePlay">Imir ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
+  <string name="followAndChallengeFriends">Lean agus tabhair dúshlán faoi chairde</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Ar fáil i %s teanga!</item>
+    <item quantity="two">Ar fáil i %s theanga!</item>
+    <item quantity="few">Ar fáil i %s dteanga!</item>
+    <item quantity="many">Ar fáil i %s teanga!</item>
+    <item quantity="other">Ar fáil i %s teanga!</item>
+  </plurals>
   <string name="gameAnalysis">Anailís cluiche</string>
+  <string name="xHostsY">óstálann %1$s %2$s</string>
+  <string name="xJoinsY">tagann %1$s %2$s</string>
+  <string name="xLikesY">Is maith le %1$s %2$s</string>
+  <string name="xCreatesStudyY">cruthaíonn %1$s staidéar %2$s</string>
   <string name="quickPairing">Péireáil tapaidh</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
@@ -697,35 +814,100 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
   <string name="transparent">Trédhearcach</string>
+  <string name="backgroundImageUrl">URL íomhá cúlra:</string>
+  <string name="boardGeometry">Céimseata an chlár</string>
+  <string name="boardTheme">Téama an chlár</string>
+  <string name="boardSize">Méid chlár</string>
   <string name="pieceSet">Foireann fichille</string>
+  <string name="embedInYourWebsite">Leabaithe i do shuíomh Gréasáin</string>
+  <string name="usernameAlreadyUsed">Tá an t-ainm úsáideora seo in úsáid cheana féin, bain triail as ceann eile.</string>
+  <string name="usernamePrefixInvalid">Caithfidh an t-ainm úsáideora tosú le litir.</string>
+  <string name="usernameSuffixInvalid">Caithfidh an t-ainm úsáideora críochniú le litir nó uimhir.</string>
+  <string name="usernameCharsInvalid">Ní mór nach mbeadh ach litreacha, uimhreacha, fo-línte agus fleiscíní san ainm úsáideora. Ní cheadaítear fochomhlachtaí leanúnacha agus naisc.</string>
+  <string name="usernameUnacceptable">Níl an t-ainm úsáideora seo inghlactha.</string>
+  <string name="directlySupportLichess">Tabhair tacaíocht díreach do Lichess</string>
+  <string name="playChessInStyle">Imir fichille go stuama</string>
   <string name="chessBasics">Bunrudaí fichille</string>
   <string name="coaches">Bainisteoirí</string>
   <string name="invalidPgn">PGN neamhbhailí</string>
   <string name="invalidFen">FEN neamhbhailí</string>
+  <string name="error.minLength">\'Sé %s an fad íosta</string>
+  <string name="error.maxLength">\'Sé %s an fad uasta</string>
+  <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
+  <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="error.unknown">Earráid</string>
+  <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
   <string name="perfRatingX">Rátáil: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="two">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="few">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="many">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="other">%s soicind chun an chéad bheart a imirt</item>
+  </plurals>
   <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
+  <string name="anotherWasX">Ceann eile ab ea %s</string>
+  <string name="bestWasX">Is fearr %s</string>
+  <string name="youBrowsedAway">Brabhsáil tú ar éalú</string>
+  <string name="resumePractice">Atosú cleachtadh</string>
+  <string name="theGameIsADraw">Cluiche cothrom.</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
+  <string name="seeBestMove">Féach an beart is fearr</string>
+  <string name="hideBestMove">Folaigh an beart is fearr</string>
+  <string name="getAHint">Faigh leid</string>
+  <string name="evaluatingYourMove">Déan staidéar ar do bheart ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
-  <string name="skipThisMove">Léim thar an beart seo</string>
-  <string name="next">Ar Aghaidh</string>
+  <string name="learnFromYourMistakes">Foghlaim ó do bhotúin</string>
+  <string name="learnFromThisMistake">Foghlaim ón mbotún seo</string>
+  <string name="skipThisMove">Scip an bheart seo</string>
+  <string name="next">Ar aghaidh</string>
   <string name="xWasPlayed">Imríodh %s</string>
+  <string name="findBetterMoveForWhite">Faigh beart níos fearr do bán</string>
+  <string name="findBetterMoveForBlack">Faigh beart níos fearr do dubh</string>
+  <string name="resumeLearning">Atosaigh an fhoghlaim</string>
   <string name="youCanDoBetter">Tá beart níos fearr ann</string>
+  <string name="tryAnotherMoveForWhite">Triail beart bán eile</string>
+  <string name="tryAnotherMoveForBlack">Triail beart dubh eile</string>
   <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
+  <string name="noMistakesFoundForWhite">Ní bhfuarthas aon bhotúin ó bán</string>
+  <string name="noMistakesFoundForBlack">Ní bhfuarthas aon bhotúin ó dubh</string>
+  <string name="doneReviewingWhiteMistakes">Déanta ag athbhreithniú botúin bhána</string>
+  <string name="doneReviewingBlackMistakes">Déanta ag athbhreithniú botúin dhubh</string>
   <string name="doItAgain">Déan arís é</string>
+  <string name="reviewWhiteMistakes">Athbhreithniú botúin bhána</string>
+  <string name="reviewBlackMistakes">Athbhreithniú botúin dhubh</string>
   <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s soicind</item>
+    <item quantity="two">%s soicind</item>
+    <item quantity="few">%s soicind</item>
+    <item quantity="many">%s soicind</item>
+    <item quantity="other">%s soicind</item>
+  </plurals>
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
+  <string name="conditionalPremoves">Réamhbheart coinníollach</string>
+  <string name="addCurrentVariation">Cuir athrúchán reatha leis</string>
+  <string name="playVariationToCreateConditionalPremoves">Imir athrúchán chun réamhbheart coinníollach a chruthú</string>
+  <string name="noConditionalPremoves">Gan aon réamhbheart coinníollach</string>
   <string name="playX">Imir %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">agus sábháil %s líne réamhbheart</item>
+    <item quantity="two">agus sábháil %s líne réamhbheart</item>
+    <item quantity="few">agus sábháil %s líne réamhbheart</item>
+    <item quantity="many">agus sábháil %s líne réamhbheart</item>
+    <item quantity="other">agus sábháil %s líne réamhbheart</item>
+  </plurals>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
   <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
   <string name="why">Cén fáth?</string>
   <string name="pleasantChessExperience">Is mian dúinn atmaisféar maith fichille a chur ar fáil do chách.</string>
+  <string name="goodPractice">De bhrí sin, ní mór dúinn a chinntiú go leanann gach ficheallaí dea-chleachtas.</string>
   <string name="potentialProblem">Nuair a aimsítear fadhb fhéideartha, taispeánann muid an teachtaireacht seo.</string>
   <string name="howToAvoidThis">Conas é seo a sheachaint?</string>
   <string name="playEveryGame">Imir gach cluiche a chuireann tú tús leis.</string>
@@ -737,7 +919,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="lifetimeScore">Scór saoil</string>
   <string name="currentMatchScore">Scór reatha an chluiche</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
-  <string name="agreementNice">Aontaím go léireoidh mé meas d\'imreoirí eile i gcónaí.</string>
+  <string name="agreementNice">Aontaím go mbeidh meas agam i gcónaí do ficheallaithe eile.</string>
   <string name="agreementAccount">Aontaím nach gcruthóidh mé ilcuntais.</string>
   <string name="agreementPolicy">Aontaím go leanfaidh mé gach polasaithe Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cuardaigh nó cuir tús le comhrá nua</string>

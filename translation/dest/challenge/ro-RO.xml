@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="declineNoBot">Nu accept provocările roboților.</string>
-  <string name="declineOnlyBot">Accept doar provocările roboților.</string>
+  <string name="challenges">Provocări</string>
+  <string name="challengeToPlay">Provoacă la o partidă</string>
+  <string name="challengeDeclined">Provocare refuzată</string>
+  <string name="challengeAccepted">Provocare acceptată!</string>
+  <string name="challengeCanceled">Provocare anulată.</string>
+  <string name="registerToSendChallenges">Vă rugăm să vă înregistrați pentru a putea trimite provocări.</string>
+  <string name="declineNoBot">Accept doar provocări de la roboți.</string>
+  <string name="declineOnlyBot">Accept doar provocări de la roboți.</string>
 </resources>

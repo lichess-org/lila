@@ -2,9 +2,80 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="whyIsLichessCalledLichess">Cén fáth a dtugtar Lichess ar Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Is meascán de bheo/solas/libre agus fichille é Lichess. Luaitear %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
+  <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
+  <string name="beingAPatron">a bheith ina phátrún</string>
+  <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
+  <string name="otherWaysToHelp">bealaí eile le cuidiú</string>
+  <string name="areThereWebsitesBasedOnLichess">An bhfuil suíomhanna Gréasáin bunaithe ar Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
+  <string name="fairPlay">Cothrom na Féinne</string>
+  <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
+  <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
+  <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
+  <string name="gameplay">Imirt chomhoibritheach</string>
+  <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
+  <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
+  <string name="eightVariants">8 leagan fichille</string>
+  <string name="insufficientMaterial">Ag cailleadh ar an clog, cluichí cothroma agus gan go leoir píosaí</string>
+  <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
+  <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
+  <string name="goodIntroduction">réamhrá maith</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
+  <string name="lichessTraining">Traenáil Lichess</string>
+  <string name="threefoldRepetition">Athshuíomh faoi thrí</string>
   <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">athshuíomh faoi thrí</string>
+  <string name="notRepeatedMoves">Ní dhearna muid bearta athshuíomh. Cén fáth go raibh an cluiche fós réitithe mar cluiche cothrom trí athshuíomh?</string>
+  <string name="repeatedPositionsThatMatters">Baineann athshuíomh trí athshuíomh %1$s, agus ní bearta. Ní gá go dtarlódh athshuíomh i ndiaidh a chéile.</string>
+  <string name="positions">suíomhanna</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Rinneamar athshuíomh trí huaire. Cén fáth nach raibh an cluiche réithe mar cluiche cothrom?</string>
   <string name="threeFoldHasToBeClaimed">Caithfear athshuíomh a éileamh ag ceann de na himreoirí. Is féidir leat é sin a dhéanamh trí brú an cnaipe a thaispeántar, nó trí cluiche cothrom a offráil roimh do bheart deiridh. is cuma má dhiúltaíonn do chéile comhraic an cluiche cothrom, éileofar an athhshuíomh ar aon nós. Féadfaidh tú %1$s Lichess an athshuíomh a maígh ar do shon go huathoibríoch. Mar rud breis, má dtarlíonn athshuíomh cúig huaire críochnaíonn an cluiche láithreach.</string>
   <string name="configure">cumraigh</string>
+  <string name="accounts">Cuntais</string>
+  <string name="titlesAvailableOnLichess">Cad iad na teidil atá ar Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Aithníonn Lichess gach teideal FIDE a fuarthas ó dhráma OTB (thar an gclár), chomh maith le %1$s. Seo liosta de theidil FIDE:</string>
+  <string name="asWellAsManyNMtitles">go leor máistir-teidil náisiúnta</string>
+  <string name="verificationForm">foirm fíoraithe</string>
+  <string name="canIbecomeLM">An féidir liom an teideal Máistir Lichess (LM) a fháil?</string>
+  <string name="noUpperCaseDot">Ní féidir.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tá an teideal onórach seo neamhoifigiúil agus níl sé ar fáíl ach ar Lichess.
+
+Is annamh a bhronnann muid é ar ficheallaí suntasacha atá ina saoránaigh mhaithe Lichess, faoi rogha fúinn. Ní bhfaigheann tú an teideal LM, faigheann an teideal LM thú. Má cháilíonn tú, gheobhaidh tú teachtaireacht uainn maidir leis agus an rogha glacadh leis nó diúltú.
+
+Ná iarr ar an teideal LM.</string>
+  <string name="whatUsernameCanIchoose">Cad is féidir a bheith ar m\'ainm úsáideora?</string>
+  <string name="usernamesNotOffensive">Go ginearálta, níor cheart go mbeadh ainmneacha úsáideora: maslach, aithris a dhéanamh ar dhuine eile, nó fógraíocht a dhéanamh. Is féidir leat níos mó a léamh faoin %1$s.</string>
+  <string name="guidelines">treoirlínte</string>
+  <string name="canIChangeMyUsername">An bhfuil cead agam m’ainm úsáideora a athrú?</string>
+  <string name="uniqueTrophies">Trófaithe uathúla</string>
+  <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
+  <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
+  <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
+  <string name="lichessRatings">Rátálacha Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
+  <string name="whatIsProvisionalRating">Cén fáth go bhfuil comhartha ceiste (?) In aice le rátáil?</string>
+  <string name="provisionalRatingExplanation">Ciallaíonn an comhartha ceiste go bhfuil an rátáil sealadach. Cúiseanna san áireamh:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
+  <string name="similarOpponents">céile comhraic den chaighdeán céanna</string>
+  <string name="howDoLeaderoardsWork">Conas a oibríonn céimeanna agus cláracha ceann riain?</string>
+  <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
+  <string name="ratingLeaderboards">bord ceannais rátála</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">imir 30 cluiche rátáilte ar a laghad i rátáil ar leith,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">imir cluiche rátáilte laistigh den tseachtain seo caite don rátáil seo,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i bhficheall caighdeánach, agus níos ísle ná %2$s in leaganacha,</string>
+  <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
+  <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
+  <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
+  <string name="displayPreferences">taispeáin roghanna</string>
+  <string name="connexionLostCanIGetMyRatingBack">Chaill mé cluiche de bharr moille/dícheangail. An féidir liom mo chuid pointí rátála a fháil ar ais?</string>
+  <string name="howToThreeDots">Conas...</string>
+  <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh Gréasáin</string>
 </resources>

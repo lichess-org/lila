@@ -53,7 +53,7 @@ ach gabhann sé go fiar!</string>
   <string name="captureThenPromote">Gabh, agus ansin, ardaigh!</string>
   <string name="useAllThePawns">Bain úsáid as gach ceithearnach!
 Ní gá duit ardaigh.</string>
-  <string name="aPawnOnTheSecondRank">Is féidir le ceithearnach ar an dara rang bogadh dhá cearnóg ag an am céanna!</string>
+  <string name="aPawnOnTheSecondRank">Is féidir le ceithearnach ar an dara rang bogadh dhá cearnóg i mbeart amháín!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Sciob gach réalta!
 Ní gá duit ardaigh.</string>
   <string name="pawnComplete">Comhghairdeas! Tá fhios agat rúin na ceithearnaigh.</string>
@@ -111,20 +111,96 @@ gan féidir leis é a cosaint!</string>
   <string name="intermediate">Meanleibhéal</string>
   <string name="boardSetup">Leag amach an clár</string>
   <string name="howTheGameStarts">Conas a tosaíonn an cluiche</string>
+  <string name="boardSetupIntro">Tá an dá arm in aghaidh a chéile, réidh don chath.</string>
+  <string name="thisIsTheInitialPosition">Seo an suíomh tosaigh
+de gach cluiche fichille!
+Déan aon beart le leanúint.</string>
+  <string name="firstPlaceTheRooks">I dtús leag amach na caisil!
+Téann siad sna cúinní.</string>
+  <string name="thenPlaceTheKnights">Ansin leag amach na ridirí!
+Téann siad in aice leis na caisil.</string>
+  <string name="placeTheBishops">Leag amach na heaspaig!
+Téann siad in aice leis na ridirí.</string>
+  <string name="placeTheQueen">Leag amach an bhanríon!
+Téann sí ar a dath féin.</string>
+  <string name="placeTheKing">Leag amach an rí!
+Díreach in aice lena bhanríon.</string>
+  <string name="pawnsFormTheFrontLine">Ceithearnigh ar líne tosaigh.
+Déan aon bheart le leanúint.</string>
+  <string name="boardSetupComplete">Comhghairdeas! Tá a fhios agat anois leagan amach clár fichille.</string>
   <string name="castling">Caisliú</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
+  <string name="castlingIntro">Cuir do rí chuig sábháilteachta, agus scaoil do caiseal le haghaidh ionsaí!</string>
+  <string name="castleKingSide">Bog do rí dhá chearnóg
+le caisliú ar taobh an rí!</string>
+  <string name="castleQueenSide">Bog do rí dhá chearnóg
+le caisliú ar taobh na mbanríona!</string>
+  <string name="theKnightIsInTheWay">Tá an ridire ar an mbealach!
+Bog é, ansin caisliú ar taobh an rí.</string>
+  <string name="castleKingSideMovePiecesFirst">Caisliú ar taobh an rí!
+Caithfidh tú píosaí a thógáil amach ar dtús.</string>
+  <string name="castleQueenSideMovePiecesFirst">Caisliú ar taobh na mbanríona!
+Caithfidh tú píosaí a thógáil amach ar dtús.</string>
+  <string name="youCannotCastleIfMoved">Níol cheart caisliú má
+tá an rí bogtha cheanna
+nó má tá an caiseal bogtha cheanna.</string>
+  <string name="youCannotCastleIfAttacked">Níol cheart caisliú má
+tá an rí ag dul trasna cearnóg atá faoi ionsaí namhaid.
+Cuir bac ar an sáinn ansin caisliú!</string>
+  <string name="findAWayToCastleKingSide">Faigh bealach chun
+caisliú ar taobh an rí!</string>
+  <string name="findAWayToCastleQueenSide">Faigh bealach chun
+caisliú ar taobh na mbanríon!</string>
+  <string name="castlingComplete">Comhghairdeas! Ba chóir duit caisliú i gcluiche beagnach i gcónaí.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
+  <string name="enPassantIntro">Nuair a bogann ceithearnach do chéile comhraic dhá chearnóg, tá cead é a mharú mar a bhog sé le cearnóg amháin.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Bog dubh an ceithearnach
+dhá chearnóg!
+Marú é en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">Oibríonn en passant amháin
+díreach tar éis 
+beart ceithearnach an chéile comhraic.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Oibríonn en passant amháin
+nuair atá do cheithearnach ar an 5ú céim.</string>
+  <string name="takeAllThePawnsEnPassant">Tóg na ceithearnigh uile en passant!</string>
+  <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="theGameIsADraw">Is cothrom é an cluiche</string>
+  <string name="stalemateIntro">Nuair nach bhfuil ficheallaí i sáinn agus mura bhfuil beart dlíthiúil aige, seo leamhsáinn. Seo cluiche cothrom: ní bhuaigh éinne, ní chailleann éinne.</string>
+  <string name="stalemateGoal">Chun leamhsháinn a dhéanamh ar dubh:
+- Níl aon beart dlithiúil ag dubh
+- Níl aon sáinn ann.</string>
+  <string name="stalemateComplete">Comhghairdeas! Is fearr duit a bheith i leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
+  <string name="pieceValueIntro">Tá luach níos airde ag píosaí a bhfuil soghluaisteacht ard acu!
+Banríon = 9
+Rook = 5
+Easpag = 3
+Ridire = 3
+Ceithearnach = 1
+Tá an rí gan phraghas! Má chailltear, sin deireadh an cluiche.</string>
+  <string name="queenOverBishop">Tóg an píosa
+leis an luach is airde!
+Banríon &gt; Easpag</string>
+  <string name="takeThePieceWithTheHighestValue">Tóg an píosa
+leis an luach is airde!</string>
+  <string name="pieceValueComplete">Comhghairdeas! Tá luach na píosaí ar eolas agat!
+Banríon = 9
+Rook = 5
+Easpag = 3
+Ridire = 3
+Ceithearnach = 1</string>
   <string name="checkInTwo">Sáinn i dhá beart</string>
   <string name="twoMovesToGiveCheck">Dhá beart chun sáinn</string>
+  <string name="checkInTwoIntro">Faigh an comhcheangal cheart de dhá bheart a sáinniú rí an chéile comhraic!</string>
+  <string name="checkInTwoGoal">Bhagair rí an chéile comhraic
+i dhá bheart!</string>
   <string name="checkInTwoComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
-  <string name="whatNext">Cad é an chéad chéim eile?</string>
-  <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ba mhaith leat imreoir níos láidre a bheith?</string>
+  <string name="whatNext">Cad eile?</string>
+  <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ar mhaith leat bheith níos láidre mar imreoir?</string>
   <string name="register">Cláraigh</string>
   <string name="getAFreeLichessAccount">Faigh cuntas saor Lichess</string>
   <string name="practice">Cleachtaigh</string>

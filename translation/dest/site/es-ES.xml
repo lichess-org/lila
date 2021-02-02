@@ -46,8 +46,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona que entre en este enlace jugará contigo.</string>
   <string name="whiteResigned">Las blancas abandonaron</string>
   <string name="blackResigned">Las negras abandonaron</string>
-  <string name="whiteLeftTheGame">Las blancas han abandonado la partida</string>
-  <string name="blackLeftTheGame">Las negras han abandonado la partida</string>
+  <string name="whiteLeftTheGame">Las blancas han dejado la partida</string>
+  <string name="blackLeftTheGame">Las negras han dejado la partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este enlace para invitar espectadores a ver la partida</string>
   <string name="theComputerAnalysisHasFailed">El análisis del ordenador ha fallado</string>
   <string name="viewTheComputerAnalysis">Ver el análisis del ordenador</string>
@@ -773,7 +773,7 @@
   <string name="doItAgain">Volver a revisar los errores</string>
   <string name="reviewWhiteMistakes">Revisar los errores del blanco</string>
   <string name="reviewBlackMistakes">Revisar los errores del negro</string>
-  <string name="advantage">Ventaja</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Ventaja</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segundo</item>
     <item quantity="other">%s segundos</item>

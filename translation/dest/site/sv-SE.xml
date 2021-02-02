@@ -46,7 +46,7 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den första som använder den här länken kommer att spela med dig.</string>
   <string name="whiteResigned">Vit har gett upp</string>
   <string name="blackResigned">Svart har gett upp</string>
-  <string name="whiteLeftTheGame">Vitspelaren har lämnat partiet</string>
+  <string name="whiteLeftTheGame">Vit har lämnat partiet</string>
   <string name="blackLeftTheGame">Svartspelaren har lämnat partiet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Dela länken till åskådare som vill se partiet</string>
   <string name="theComputerAnalysisHasFailed">Datoranalysen misslyckades</string>
@@ -562,7 +562,7 @@
   <string name="playOnTheBoardOffline">Spela 2 på samma enhet</string>
   <string name="playOfflineComputer">Spela mot dator</string>
   <string name="opponent">Motståndare</string>
-  <string name="learnMenu">Lära sig</string>
+  <string name="learnMenu">Lär dig</string>
   <string name="studyMenu">Studier</string>
   <string name="practice">Träning</string>
   <string name="community">Gemenskap</string>

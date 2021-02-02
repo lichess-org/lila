@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">معما</string>
+  <string name="puzzleThemes">تم پازل هت</string>
+  <string name="recommended">توصیه شده
+عنوان برای تم های پازل ها قابل مشاهده است در  https://lichess.org/training/themes
+تنها موضوع تحت عنوان \"healthy mix\" است. تغییرd نخواهد کرد.</string>
+  <string name="phases">فاز ها</string>
+  <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
+  <string name="lengths">مدت</string>
+  <string name="mates">مات</string>
+  <string name="goals">اهداف</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">منشا</string>
+  <string name="specialMoves">حرکات مخصوص</string>
+  <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
+  <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="yourPuzzleRatingX">ریتینگ پازل شما</string>
+  <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
+  <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
+  <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
+  <string name="puzzleId">گیج شده</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
+  <string name="clickToSolve">برای جل کردن کلیک کنید</string>
+  <string name="goodMove">حرکتی خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
   <string name="puzzleSuccess">موفقیت!</string>
+  <string name="puzzleComplete">پازل تمام شد!</string>
+  <string name="notTheMove">ابن حرکت صحیح نیست</string>
+  <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
+  <string name="ratingX">ریتینگ</string>
   <string name="hidden">پنهان</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s بار بازی شده است</item>
+    <item quantity="other">این جدول%s بار بازی شده است</item>
+  </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
   <string name="normal">معمولی</string>
+  <string name="easier">اسان تر</string>
   <string name="easiest">آسان‌ترین</string>
+  <string name="harder">سخت تر</string>
   <string name="hardest">سخت‌ترین</string>
+  <string name="example">مثال</string>
+  <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
+  <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
+با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
+  <string name="puzzleDashboard">داشبورد پازل</string>
+  <string name="improvementAreas">پیشرفتها
+اینها مضامین معمایی است که کاربر در آنها ضعیف است و می تواند برای بهینه سازی پیشرفت خود آموزش ببیند.</string>
+  <string name="strengths">استحکامات</string>
+  <string name="history">تاریخ پازل</string>
+  <string name="solved">حل شده</string>
+  <string name="failed">شکست!</string>
 </resources>

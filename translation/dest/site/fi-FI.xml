@@ -214,7 +214,7 @@
   <string name="accept">Hyväksy</string>
   <string name="decline">Hylkää</string>
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
-  <string name="eventInProgress">Pelataan paraikaa</string>
+  <string name="eventInProgress">Parhaillaan menossa</string>
   <string name="finished">Päättynyt</string>
   <string name="finishesX">päättyy %s</string>
   <string name="abortGame">Keskeytä peli</string>
@@ -607,12 +607,12 @@
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
-  <string name="hostANewSimul">Isännöi uutta simultaania</string>
+  <string name="hostANewSimul">Pidä uusi simultaani</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
   <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
   <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
-  <string name="aboutSimulImage">50:stä vastustajastaan Fischer voitti 47, pelasi kahden kanssa tasan ja hävisi yhdelle.</string>
+  <string name="aboutSimulImage">50 vastustajastaan Fischer voitti 47, pelasi kahdesti tasan ja hävisi yhden.</string>
   <string name="aboutSimulRealLife">Simultaanien käsite on otettu netin ulkopuolisista tapahtumista; niissä simultaaninäytöksen antaja liikkuu pöydältä toiselle pelaten siirron kerrallaan.</string>
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
@@ -773,7 +773,7 @@
   <string name="doItAgain">Sama uudelleen</string>
   <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
   <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
-  <string name="advantage">Etu</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
     <item quantity="other">%s sekuntia</item>

@@ -13,4 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s केवल दोस्तों की चुनौतियों को स्वीकार करता है।</string>
   <string name="declineGeneric">मैं इस समय चुनौतियों को स्वीकार नहीं कर रहा हूं।</string>
   <string name="declineLater">मैं अभी चुनौतियों को स्वीकार नहीं कर रहा हूं, कृपया बाद में फिर से पूछें।</string>
+  <string name="declineTooFast">मेरे लिए समय नियंत्रण बहुत तेज़ है, कृपया मुझे धीमे खेल में चुनौती दें</string>
+  <string name="declineTooSlow">मेरे लिए समय नियंत्रण बहुत धीमे है, कृपया मुझे तेज़ खेल में चुनौती दें</string>
+  <string name="declineTimeControl">मैं अभी इस समय-प्रारूप के साथ चुनौतियों को स्वीकार नहीं कर रहा हूं</string>
+  <string name="declineRated">इसके बजाय कृपया मुझे एक रेटेड चुनौती भेजें</string>
+  <string name="declineCasual">इसके बजाय कृपया मुझे एक आकस्मिक चुनौती भेजें</string>
+  <string name="declineNoBot">मैं कंप्यूटर से चुनौतियों को स्वीकार नहीं कर रहा हूँ</string>
+  <string name="declineOnlyBot">मैं केवल कंप्यूटर से चुनौतियों को स्वीकार कर रहा हूं</string>
 </resources>
