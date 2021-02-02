@@ -17,6 +17,7 @@
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
+  <string name="insufficientMaterial">Ag cailleadh ar an clog, cluichí cothroma agus gan go leoir píosaí</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
   <string name="goodIntroduction">réamhrá maith</string>
@@ -28,6 +29,7 @@
   <string name="notRepeatedMoves">Ní dhearna muid bearta athshuíomh. Cén fáth go raibh an cluiche fós réitithe mar cluiche cothrom trí athshuíomh?</string>
   <string name="repeatedPositionsThatMatters">Baineann athshuíomh trí athshuíomh %1$s, agus ní bearta. Ní gá go dtarlódh athshuíomh i ndiaidh a chéile.</string>
   <string name="positions">suíomhanna</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Rinneamar athshuíomh trí huaire. Cén fáth nach raibh an cluiche réithe mar cluiche cothrom?</string>
   <string name="threeFoldHasToBeClaimed">Caithfear athshuíomh a éileamh ag ceann de na himreoirí. Is féidir leat é sin a dhéanamh trí brú an cnaipe a thaispeántar, nó trí cluiche cothrom a offráil roimh do bheart deiridh. is cuma má dhiúltaíonn do chéile comhraic an cluiche cothrom, éileofar an athhshuíomh ar aon nós. Féadfaidh tú %1$s Lichess an athshuíomh a maígh ar do shon go huathoibríoch. Mar rud breis, má dtarlíonn athshuíomh cúig huaire críochnaíonn an cluiche láithreach.</string>
   <string name="configure">cumraigh</string>
   <string name="accounts">Cuntais</string>
@@ -43,6 +45,7 @@ Is annamh a bhronnann muid é ar ficheallaí suntasacha atá ina saoránaigh mha
 
 Ná iarr ar an teideal LM.</string>
   <string name="whatUsernameCanIchoose">Cad is féidir a bheith ar m\'ainm úsáideora?</string>
+  <string name="usernamesNotOffensive">Go ginearálta, níor cheart go mbeadh ainmneacha úsáideora: maslach, aithris a dhéanamh ar dhuine eile, nó fógraíocht a dhéanamh. Is féidir leat níos mó a léamh faoin %1$s.</string>
   <string name="guidelines">treoirlínte</string>
   <string name="canIChangeMyUsername">An bhfuil cead agam m’ainm úsáideora a athrú?</string>
   <string name="uniqueTrophies">Trófaithe uathúla</string>
