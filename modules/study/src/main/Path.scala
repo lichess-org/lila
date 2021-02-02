@@ -29,7 +29,7 @@ case class Path(ids: Vector[UciCharPair]) extends AnyVal {
 
   def toDbField =
     if (ids.isEmpty) s"root.${Path.rootDbKey}"
-    else s"root.${ids.mkString}"
+    else s"root.${Path encodeDbKey this}"
 
   override def toString = ids.mkString
 }
@@ -48,10 +48,18 @@ object Path {
         .toVector
     }
 
+  def fromDbKey(key: String): Path = apply(decodeDbKey(key))
+
   val root = Path("")
 
   // mongodb objects don't support empty keys
   val rootDbKey = "_"
+
+  // mongodb objects don't support '.' and '$' in keys
+  def encodeDbKey(path: Path): String        = encodeDbKey(path.ids.mkString)
+  def encodeDbKey(pair: UciCharPair): String = encodeDbKey(pair.toString)
+  def encodeDbKey(pathStr: String): String   = pathStr.replace('.', 144.toChar).replace('$', 145.toChar)
+  def decodeDbKey(key: String): String       = key.replace(144.toChar, '.').replace(145.toChar, '$')
 
   def isMainline(node: RootOrNode, path: Path): Boolean =
     path.split.fold(true) { case (id, rest) =>

@@ -120,14 +120,15 @@ object Node {
         case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
       }
 
-    // def nodesOn(path: Path): List[(Node, Path)] =
-    //   path.split ?? { case (head, tail) =>
-    //     get(head) ?? { first =>
-    //       (first, Path(List(head))) :: first.children.nodesOn(tail).map { case (n, p) =>
-    //         (n, p prepend head)
-    //       }
-    //     }
-    //   }
+    // select all nodes on that path
+    def nodesOn(path: Path): Vector[(Node, Path)] =
+      path.split ?? { case (head, tail) =>
+        get(head) ?? { first =>
+          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
+            (n, p prepend head)
+          }
+        }
+      }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
       path.split match {

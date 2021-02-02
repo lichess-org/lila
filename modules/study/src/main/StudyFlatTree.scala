@@ -25,7 +25,8 @@ private object StudyFlatTree {
         traverse {
           flatTree.elements.toList
             .collect {
-              case el if el.name != Path.rootDbKey => FlatNode(Path(el.name), el.value.asOpt[Bdoc].get)
+              case el if el.name != Path.rootDbKey =>
+                FlatNode(Path.fromDbKey(el.name), el.value.asOpt[Bdoc].get)
             }
             .sortBy(-_.depth)
         }
@@ -59,7 +60,7 @@ private object StudyFlatTree {
       val path = parentPath + node.id
       node.children.nodes.flatMap {
         traverse(_, path)
-      } appended (path.toString -> writeNode(node))
+      } appended (Path.encodeDbKey(path) -> writeNode(node))
     }
   }
 }

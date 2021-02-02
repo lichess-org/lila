@@ -78,10 +78,10 @@ object ServerEval {
                                 node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
                               )(chapter, path + node) >> {
                                 chapter.root.nodeAt(path).flatMap { parent =>
-                                  analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                    parent.addChild(child).children.get(child.id)
-                                  }
-                                } ?? { chapterRepo.setChild(chapter, path, _) }
+                                  analysisLine(parent, chapter.setup.variant, info) map parent.addChild
+                                } ?? { parentWithNewChildren =>
+                                  chapterRepo.setChildren(parentWithNewChildren.children)(chapter, path)
+                                }
                               }
                           }
                       } inject path + node

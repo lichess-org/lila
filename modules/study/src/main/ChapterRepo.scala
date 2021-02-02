@@ -132,16 +132,18 @@ final class ChapterRepo(val coll: Coll)(implicit
     val (set: Bdoc, unset: Option[String]) =
       if (children.nodes.sizeIs > 1) ($doc(parentOrderField -> children.nodes.map(_.id)), None)
       else ($empty, parentOrderField.some)
-    val allSet = set ++ $doc(
-      children.nodes.map { node =>
-        (path + node).toDbField -> writeNode(node)
-      }
-    )
+    val allSet = set ++ $doc(childrenTreeToBsonElements(path, children))
 
     coll.update
       .one($id(chapter.id), $set(allSet) ++ unset.??(u => $unset(u)))
       .void
   }
+
+  private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
+    children.nodes.flatMap { node =>
+      val path = parentPath + node
+      childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeNode(node))
+    }
 
   private def setNodeValue[A: BSONWriter](
       field: String,
@@ -157,17 +159,6 @@ final class ChapterRepo(val coll: Coll)(implicit
 
   // root.path.subField
   private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"
-
-  private[study] def setChild(chapter: Chapter, path: Path, child: Node): Funit =
-    ??? // TODO
-  // pathToField(chapter, path, "n") ?? { parentChildrenPath =>
-  //   coll.update.one(
-  //     $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
-  //     $set(s"$parentChildrenPath.$$" -> child)
-  //   ) flatMap { res =>
-  //     (res.n == 0) ?? coll.update.one($id(chapter.id), $push(parentChildrenPath -> child)).void
-  //   }
-  // }
 
   private[study] def idNamesByStudyIds(
       studyIds: Seq[Study.Id],

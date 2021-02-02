@@ -297,34 +297,33 @@ final class StudyApi(
     }
 
   def promote(studyId: Study.Id, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
-    ??? // TODO
-  // sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
-  //   Contribute(who.u, study) {
-  //     chapter.updateRoot { root =>
-  //       root.withChildren { children =>
-  //         if (toMainline) children.promoteToMainlineAt(position.path)
-  //         else children.promoteUpAt(position.path).map(_._1)
-  //       }
-  //     } match {
-  //       case Some(newChapter) =>
-  //         chapterRepo.update(newChapter) >>-
-  //           sendTo(study.id)(_.promote(position, toMainline, who)) >>
-  //           newChapter.root.children
-  //             .nodesOn {
-  //               newChapter.root.mainlinePath.intersect(position.path)
-  //             }
-  //             .collect {
-  //               case (node, path) if node.forceVariation =>
-  //                 doForceVariation(Study.WithChapter(study, newChapter), path, force = false, who)
-  //             }
-  //             .sequenceFu
-  //             .void
-  //       case None =>
-  //         fufail(s"Invalid promoteToMainline $studyId $position") >>-
-  //           reloadSriBecauseOf(study, who.sri, chapter.id)
-  //     }
-  //   }
-  // }
+    sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
+      Contribute(who.u, study) {
+        chapter.updateRoot { root =>
+          root.withChildren { children =>
+            if (toMainline) children.promoteToMainlineAt(position.path)
+            else children.promoteUpAt(position.path).map(_._1)
+          }
+        } match {
+          case Some(newChapter) =>
+            chapterRepo.update(newChapter) >>-
+              sendTo(study.id)(_.promote(position, toMainline, who)) >>
+              newChapter.root.children
+                .nodesOn {
+                  newChapter.root.mainlinePath.intersect(position.path)
+                }
+                .collect {
+                  case (node, path) if node.forceVariation =>
+                    doForceVariation(Study.WithChapter(study, newChapter), path, force = false, who)
+                }
+                .sequenceFu
+                .void
+          case None =>
+            fufail(s"Invalid promoteToMainline $studyId $position") >>-
+              reloadSriBecauseOf(study, who.sri, chapter.id)
+        }
+      }
+    }
 
   def forceVariation(studyId: Study.Id, position: Position.Ref, force: Boolean)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { sc =>

@@ -179,23 +179,26 @@ object BSONHandlers {
     )
   }
 
-  def writeNode(s: Node) = {
+  def writeNode(n: Node) = {
     import Node.BsonFields._
     val w = new Writer
     $doc(
-      ply            -> s.ply,
-      uci            -> s.move.uci,
-      san            -> s.move.san,
-      fen            -> s.fen,
-      check          -> w.boolO(s.check),
-      shapes         -> s.shapes.value.nonEmpty.option(s.shapes),
-      comments       -> s.comments.value.nonEmpty.option(s.comments),
-      gamebook       -> s.gamebook,
-      glyphs         -> s.glyphs.nonEmpty,
-      score          -> s.score,
-      clock          -> s.clock,
-      crazy          -> s.crazyData,
-      forceVariation -> w.boolO(s.forceVariation)
+      ply            -> n.ply,
+      uci            -> n.move.uci,
+      san            -> n.move.san,
+      fen            -> n.fen,
+      check          -> w.boolO(n.check),
+      shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
+      comments       -> n.comments.value.nonEmpty.option(n.comments),
+      gamebook       -> n.gamebook,
+      glyphs         -> n.glyphs.nonEmpty,
+      score          -> n.score,
+      clock          -> n.clock,
+      crazy          -> n.crazyData,
+      forceVariation -> w.boolO(n.forceVariation),
+      order -> {
+        (n.children.nodes.sizeIs > 1) option $arr(n.children.nodes.map(_.id))
+      }
     )
   }
 
