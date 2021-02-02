@@ -12,6 +12,7 @@
   <string name="youHaveLifetime">Tá cuntas Pátrún Saoil agat. Tá sé sin iontach iontach ar fad!</string>
   <string name="patronUntil">Tá cuntas Pátrún agat go dtí %s.</string>
   <string name="ifNotRenewed">Mura ndéantar athnuachan ar, déanfaimid tú a íosghrádú go cuntas saor in aisce.</string>
+  <string name="weRelyOnSupport">Táimid ag brath ar thacaíocht ó dhaoine cosúil leatsa chun é a bheith indéanta. Má thaitníonn Lichess leat, smaoinigh ar thacaíocht a thabhairt dúinn trí bronntanas a bhronnadh agus a bheith i do Phátrún!</string>
   <string name="lifetime">Saol</string>
   <string name="payLifetimeOnce">Íoc %s uair amháin. Bí i do Phátrún Lichess go deo!</string>
   <string name="lifetimePatron">Pátrún Lichess Saoil</string>
@@ -27,6 +28,8 @@
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
   <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
   <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
+  <string name="serversAndDeveloper">Ar an gcéad dul síos, freastalaithe cumhachtacha.
+Ansin íocaimid forbróir lánaimseartha: %s, bunaitheoir Lichess.</string>
   <string name="costBreakdown">Féach an miondealú mionsonraithe ar chostais</string>
   <string name="officialNonProfit">An neamhbhrabús oifigiúil é Lichess?</string>
   <string name="actOfCreation">Sea, seo an deimhniú corpraithe</string>
@@ -38,6 +41,8 @@ Nó is féidir leat %s.</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>
   <string name="bitcoin">Agus seo ár seoladh bitcoin: %s</string>
   <string name="patronFeatures">An gcoinnítear roinnt gnéithe do Phátrúin?</string>
+  <string name="noPatronFeatures">Ní ar chor ar bith, toisc go bhfuil Lichess saor in aisce, go deo, agus do gach duine. Is gealltanas é sin.
+Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fionnuar.</string>
   <string name="featuresComparison">Féach ar comparáid ghné mionsonraithe</string>
   <plurals name="patronForMonths">
     <item quantity="one">Pátrún Lichess ar feadh míosa</item>
@@ -68,4 +73,5 @@ Nó is féidir leat %s.</string>
   <string name="checkOutProfile">Féach ar do leathanach próifíle!</string>
   <string name="nowLifetime">Is Pátrún Lichess ar feadh an tsaoil anois thú!</string>
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
+  <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
 </resources>
