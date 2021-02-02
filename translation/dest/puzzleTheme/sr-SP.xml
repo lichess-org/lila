@@ -6,4 +6,13 @@
   <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ eval ≤ 600cp)</string>
   <string name="arabianMate">Арапски мат</string>
   <string name="attackingF2F7">Напад на f2 или на f7</string>
+  <string name="deflection">Дефлекција</string>
+  <string name="fork">Маказе</string>
+  <string name="master">Партије мајстора</string>
+  <string name="mateIn1">Мат у 1</string>
+  <string name="mateIn2">Мат у 2</string>
+  <string name="mateIn3">Мат у 3</string>
+  <string name="mateIn4">Мат у 4</string>
+  <string name="mateIn5">Мат у 5 или више</string>
+  <string name="opening">Отварање</string>
 </resources>
