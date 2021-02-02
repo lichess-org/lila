@@ -24,5 +24,15 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Iompar cluiche</string>
   <string name="howDoYouMovePieces">Conas a bhogann tú píosaí?</string>
   <string name="clickTwoSquares">Cliceáil dhá chearnóg</string>
+  <string name="dragPiece">Tarraing píosa</string>
+  <string name="bothClicksAndDrag">Aon slí</string>
+  <string name="premovesPlayingDuringOpponentTurn">Réamh-bheart (ag imirt i lár am comhraic)</string>
+  <string name="takebacksWithOpponentApproval">Aistarraing (le ceadú céile comhraic)</string>
+  <string name="inCasualGamesOnly">I gcluichí fánach amháin</string>
+  <string name="promoteToQueenAutomatically">Ardú go banríon sa ghnáthchúrsa</string>
+  <string name="whenPremoving">Réamh-ghluaiseacht</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Nuair atá am fágtha &lt; 30 soicind</string>
+  <string name="moveConfirmation">Deimhniú beart</string>
+  <string name="inCorrespondenceGames">Cluichí comhfhreagrais</string>
 </resources>
