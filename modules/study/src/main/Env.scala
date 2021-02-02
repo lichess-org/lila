@@ -25,7 +25,8 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
-    db: lila.db.Db,
+    mongo: lila.db.Env,
+    mainDb: lila.db.Db,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(implicit
@@ -35,6 +36,8 @@ final class Env(
     mode: play.api.Mode
 ) {
 
+  private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
+
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](studyId.value)(GetVersion)
 
@@ -43,12 +46,12 @@ final class Env(
 
   private def scheduler = system.scheduler
 
-  private val socket = wire[StudySocket]
+  private val socket: StudySocket = wire[StudySocket]
 
-  lazy val studyRepo             = new StudyRepo(db(CollName("study")))
-  lazy val chapterRepo           = new ChapterRepo(db(CollName("study_chapter_flat")))
-  private lazy val topicRepo     = new StudyTopicRepo(db(CollName("study_topic")))
-  private lazy val userTopicRepo = new StudyUserTopicRepo(db(CollName("study_user_topic")))
+  lazy val studyRepo             = new StudyRepo(mainDb(CollName("study")))
+  lazy val chapterRepo           = new ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  private lazy val topicRepo     = new StudyTopicRepo(mainDb(CollName("study_topic")))
+  private lazy val userTopicRepo = new StudyUserTopicRepo(mainDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
 
@@ -73,8 +76,6 @@ final class Env(
   lazy val api: StudyApi = wire[StudyApi]
 
   lazy val pager = wire[StudyPager]
-
-  private def runCommand = db.runCommand
 
   lazy val multiBoard = wire[StudyMultiBoard]
 
