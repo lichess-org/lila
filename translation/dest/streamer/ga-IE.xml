@@ -4,6 +4,11 @@
   <string name="offline">AS LÍNE</string>
   <string name="doYouHaveStream">An bhfuil cuntas Twitch nó YouTube agat?</string>
   <string name="hereWeGo">Réidh téigh!</string>
+  <string name="yourPage">Do leathanach sruthlú</string>
+  <string name="downloadKit">Íoslódáil trealamh sruthlú</string>
+  <string name="xIsStreaming">%s ag sruthlú</string>
+  <string name="rules">Rialacha sruthlú</string>
+  <string name="rule2">Bain an eochair-fhocal nuair atá tú ag sruthlú stuif neamh-Lichess.</string>
   <string name="optionalOrEmpty">Roghnach. Fág folamh mura bhfuil ceann ann</string>
   <string name="youtubeChannel">Do ID cainéal nó URL YouTube</string>
   <string name="headline">Ceannlíne</string>
