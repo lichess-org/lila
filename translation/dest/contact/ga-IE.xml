@@ -21,8 +21,16 @@
   <string name="reopenOnThisPage">Is féidir do chuntas a athoscailt ar an leathanach seo. Ní oibríonn sé ach uair amháin.</string>
   <string name="doNotAskByEmailToReopen">Ná iarr orainn trí r-phost cuntas a athoscailt, ní dhéanfaimid é.</string>
   <string name="wantChangeUsername">Ba mhaith liom m\'ainm úsáideora a athrú</string>
+  <string name="changeUsernameCase">Déan cuairt ar an leathanach seo chun cás d’ainm úsáideora a athrú</string>
+  <string name="cantChangeMore">Ní féidir linn níos mó a athrú ná an cás. Ar chúiseanna teicniúla, tá sé dodhéanta go hiomlán.</string>
+  <string name="orCloseAccount">Mar sin féin, is féidir leat do chuntas reatha a dhúnadh, agus ceann nua a chruthú.</string>
   <string name="wantClearHistory">Ba mhaith liom mo stair nó mo rátáil a ghlanadh</string>
   <string name="cantClearHistory">Ní féidir stair do chluiche, stair bhfreagra, nó rátálacha a ghlanadh.</string>
+  <string name="wantReport">Ba mhaith liom ficheallaí a thuairisciú</string>
+  <string name="toReportAPlayerUseForm">Chun imreoir a thuairisciú, úsáid as an bhfoirm tuarascála</string>
+  <string name="youCanAlsoReachReportPage">Is féidir leat an leathanach sin a fháil freisin tríd an cnaipe tuairiscithe %s a chliceáil ar leathanach próifíle.</string>
+  <string name="doNotReportInForum">Ná tabhair tuairisc ar imreoirí san fhóram.</string>
+  <string name="doNotSendReportEmails">Ná seol ríomhphoist tuairisc chugainn.</string>
   <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
