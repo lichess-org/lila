@@ -43,7 +43,7 @@
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
   <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
-  <string name="puzzleDashboard">問題成績ボード</string>
+  <string name="puzzleDashboard">問題成績データ</string>
   <string name="improvementAreas">改善ポイント</string>
   <string name="strengths">得意テーマ</string>
   <string name="history">解答履歴</string>
