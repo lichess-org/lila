@@ -630,11 +630,11 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="yourCityRegionOrDepartment">Do chathair, réigiún nó cúige.</string>
   <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi ficheall, na oscailtí is fearr leat, ficheallaithe, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">%s carachtar ar a mhéad.</item>
-    <item quantity="two">%s charachtair ar a mhéad.</item>
-    <item quantity="few">%s carachtairí ar a mhéad.</item>
-    <item quantity="many">%s carachtairí ar a mhéad.</item>
-    <item quantity="other">%s carachtairí ar a mhéad.</item>
+    <item quantity="one">Uasmhéid %s carachtar.</item>
+    <item quantity="two">Uasmhéid %s charachtar.</item>
+    <item quantity="few">Uasmhéid %s gcarachtar.</item>
+    <item quantity="many">Uasmhéid %s carachtar.</item>
+    <item quantity="other">Uasmhéid %s carachtar.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s bac</item>
