@@ -110,7 +110,7 @@
   <string name="allSet">Réidh le himirt!</string>
   <string name="importPgn">Iompórtáil PGN</string>
   <string name="delete">Scrios</string>
-  <string name="deleteThisImportedGame">Scrios an gluiche iompórtáilte?</string>
+  <string name="deleteThisImportedGame">Scrios an cluiche iompórtáilte?</string>
   <string name="replayMode">Mód athimeartha</string>
   <string name="realtimeReplay">Fíor-am</string>
   <string name="byCPL">De réir CPL</string>
@@ -518,7 +518,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="popularOpenings">Oscailtí a bhfuil tóir orthu</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="clearBoard">Glan an bhord</string>
-  <string name="savePosition">Sábhail suíomh</string>
+  <string name="savePosition">Sábhail an suíomh</string>
   <string name="loadPosition">Lódáil suíomh</string>
   <string name="isPrivate">Príobháideach</string>
   <string name="reportXToModerators">Tuairiscigh %s do na modhnóirí</string>
@@ -530,7 +530,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="editProfile">Cuir próifíl in eagar</string>
   <string name="firstName">Céadainm</string>
   <string name="lastName">Sloinne</string>
-  <string name="biography">Féinaisnéis</string>
+  <string name="biography">Beathaisnéis</string>
   <string name="country">Tír</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="socialMediaLinks">Nascanna le meáin sóisialta</string>
