@@ -57,7 +57,7 @@
   <string name="requestAComputerAnalysis">Iarr anailís an ríomhaire</string>
   <string name="computerAnalysis">Anailís ríomhaire</string>
   <string name="computerAnalysisAvailable">Anailís Ríomhaire ar fáil</string>
-  <string name="analysis">Anailíse Bóird</string>
+  <string name="analysis">Bórd anailíse</string>
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
@@ -65,7 +65,7 @@
   <string name="goDeeper">Téigh níos doimhne</string>
   <string name="showThreat">Taispeáin an bhagairt</string>
   <string name="inLocalBrowser">sa bhrabhsálaí áitiúil</string>
-  <string name="toggleLocalEvaluation">Scóránú meastóireachta logánta</string>
+  <string name="toggleLocalEvaluation">Scoránú measúnú áitiúil</string>
   <string name="promoteVariation">Ardaigh athrúcháin</string>
   <string name="makeMainLine">Déan príomhlíne</string>
   <string name="deleteFromHere">Scrios as seo amach</string>
@@ -73,12 +73,12 @@
   <string name="move">Beart</string>
   <string name="variantLoss">Teip malairte</string>
   <string name="variantWin">Bua malartach</string>
-  <string name="insufficientMaterial">Easpa maoine</string>
+  <string name="insufficientMaterial">Gan go leoir píosaí don marbhsháinn</string>
   <string name="pawnMove">Beart ceithearnach</string>
-  <string name="capture">Gabh</string>
+  <string name="capture">Marú</string>
   <string name="close">Dún</string>
-  <string name="winning">Buach</string>
-  <string name="losing">Caillteach</string>
+  <string name="winning">Ag bua</string>
+  <string name="losing">Ag cailliúnt</string>
   <string name="drawn">Comhscór</string>
   <string name="unknown">Ní fios</string>
   <string name="database">Bunachar</string>
