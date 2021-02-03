@@ -56,11 +56,12 @@ private object StudyFlatTree {
         root.children.nodes.flatMap { traverse(_, Path.root) }
       }
 
-    private def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] = {
-      val path = parentPath + node.id
-      node.children.nodes.flatMap {
-        traverse(_, path)
-      } appended (Path.encodeDbKey(path) -> writeNode(node))
-    }
+    private def traverse(node: Node, parentPath: Path): Vector[(String, Bdoc)] =
+      (parentPath.depth < Node.MAX_PLIES) ?? {
+        val path = parentPath + node.id
+        node.children.nodes.flatMap {
+          traverse(_, path)
+        } appended (Path.encodeDbKey(path) -> writeNode(node))
+      }
   }
 }
