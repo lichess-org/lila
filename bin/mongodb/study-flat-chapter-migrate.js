@@ -7,16 +7,16 @@ const firstCharRegex = new RegExp('^[' + charSlice.join('') + ']');
 print(firstCharRegex);
 
 const coll = db.study_chapter_flat;
-coll.createIndex({studyId:1,order:1})
+// coll.createIndex({studyId:1,order:1})
 
 function flattenEach(parentPath, node, nodes) {
-  const path = parentPath + encodePath(node.i || '');
+  const path = parentPath + encodePath(node.i);
   if (path.length > 400 * 2) return;
   if (node.n.length > 1) node.o = node.n.map(child => child.i);
   node.n.forEach(child => flattenEach(path, child, nodes));
   delete node.n;
   delete node.i;
-  nodes[path] = node;
+  nodes[path || '_'] = node;
 }
 
 const dotRegex = /\./g;
@@ -25,7 +25,7 @@ const dollarRegex = /\$/g;
 function encodePath(path) {
   return path ? path
     .replace(dotRegex, String.fromCharCode(144))
-    .replace(dollarRegex, String.fromCharCode(145)) : '_';
+    .replace(dollarRegex, String.fromCharCode(145)) : '';
 }
 
 let i = 0;
@@ -38,9 +38,18 @@ let tooDeepNb = 0;
 let batch = [];
 
 const batchSize = 1000;
-const totalNb = db.study_chapter_backup.count() / parallelism;
+const totalNb = (db.study_chapter_backup.count() - db.study_chapter_flat.count()) / parallelism;
 
-db.study_chapter_backup.find({_id:firstCharRegex}).forEach(c => {
+db.study_chapter_backup.aggregate([
+  {$lookup:{
+    from:'study_chapter_flat',
+    as:'flat',
+    let:{id:'$_id'},
+    pipeline:[{$match:{$expr:{$eq:['$_id', '$$id']}}},{$project:{_id:1}}]
+  }},
+  { $match:{flat:[]} },
+  { $project:{flat:false} }
+]).forEach(c => {
   try {
     sumSizeFrom += Object.bsonsize(c);
   } catch (e) {
@@ -78,4 +87,8 @@ db.study_chapter_backup.find({_id:firstCharRegex}).forEach(c => {
     tooBigNb = 0;
     tooDeepNb = 0;
   }
+});
+coll.insertMany(batch, {
+  ordered: false,
+  // writeConcern: { w: 0, j: false }
 });
