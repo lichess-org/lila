@@ -162,14 +162,14 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         $id(chapter.id) ++ $doc(path.toDbField $exists true),
         pathToField(path, field),
         value
-      )
-        .addEffect {
-          case 0 =>
-            logger.warn(
-              s"Can't setNodeValue ${chapter.id} '$path' $field '${path.toDbField}' / no node matched!"
-            )
-          case _ =>
-        }
+      ).map {
+        case 0 =>
+          logger.warn(
+            s"Can't setNodeValue ${chapter.studyId}/${chapter.id} '$path' $field '${path.toDbField}' / no node matched!"
+          )
+          false
+        case _ => true
+      }
     }.void
 
   // root.path.subField
