@@ -83,11 +83,11 @@ neamhcosanta a tógáil!</string>
   <string name="captureAndDefendPieces">Gabh agus cosain píosaí</string>
   <string name="combatIntro">Tá fhios ag gascíoch maith faoin dá iasacht agus cosaint!</string>
   <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
-  <string name="checkInOne">Sáinn i beart amháin</string>
+  <string name="checkInOne">Sáinn i mbeart amháin</string>
   <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
   <string name="checkInOneIntro">Chun do chéile comhraic a cur i sáinn, ionsaigh a rí. Is gá dó é a cosaint!</string>
-  <string name="checkInOneGoal">Ionsaigh an rí namhaid
-i beart amháin!</string>
+  <string name="checkInOneGoal">Ionsaigh ar an rí namhaid
+i mbeart amháin!</string>
   <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="outOfCheck">As sháinn</string>
   <string name="defendYourKing">Cosain do rí</string>
