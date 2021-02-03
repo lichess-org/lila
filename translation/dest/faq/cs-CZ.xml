@@ -53,6 +53,7 @@ Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. 
 
 Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má kámen, který by mohl králi zatarasit únikovou cestu.</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
+  <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
