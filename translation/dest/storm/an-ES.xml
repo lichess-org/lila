@@ -25,4 +25,10 @@
   <string name="timePerMove">Tiempo per movimiento</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Exercicio mas dificil resuelto</string>
   <string name="puzzlesPlayed">Exercicios feitos</string>
+  <string name="newRun">Nuevo intento (tecla: espacio)</string>
+  <string name="endRun">Rematar intento (tecla: Enter)</string>
+  <string name="highscores">Puntuacions mas altas</string>
+  <string name="viewBestRuns">Veyer los millors intentos</string>
+  <string name="bestRunOfDay">Millor intento d\'o día</string>
+  <string name="runs">Intentos</string>
 </resources>
