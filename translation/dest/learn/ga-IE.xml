@@ -89,7 +89,7 @@ neamhcosanta a tógáil!</string>
   <string name="checkInOneGoal">Ionsaigh ar an rí namhaid
 i mbeart amháin!</string>
   <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
-  <string name="outOfCheck">As sháinn</string>
+  <string name="outOfCheck">Ealú ó sáinn</string>
   <string name="defendYourKing">Cosain do rí</string>
   <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh duit éalú nó an iasacht a blocáil.</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
@@ -166,12 +166,12 @@ nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="takeAllThePawnsEnPassant">Tóg na ceithearnigh uile en passant!</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
-  <string name="theGameIsADraw">Is cothrom é an cluiche</string>
+  <string name="theGameIsADraw">Seo cluiche cothrom</string>
   <string name="stalemateIntro">Nuair nach bhfuil ficheallaí i sáinn agus mura bhfuil beart dlíthiúil aige, seo leamhsáinn. Seo cluiche cothrom: ní bhuaigh éinne, ní chailleann éinne.</string>
   <string name="stalemateGoal">Chun leamhsháinn a dhéanamh ar dubh:
 - Níl aon beart dlithiúil ag dubh
 - Níl aon sáinn ann.</string>
-  <string name="stalemateComplete">Comhghairdeas! Is fearr duit a bheith i leamhsháinn ná marbhsháinn!</string>
+  <string name="stalemateComplete">Comhghairdeas! Níos fearr leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
