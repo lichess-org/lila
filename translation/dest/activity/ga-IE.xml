@@ -25,10 +25,10 @@
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Imríodh cluiche amháin %2$s</item>
-    <item quantity="two">Imríodh %1$s cluichí %2$s</item>
-    <item quantity="few">Imríodh %1$s cluichí %2$s</item>
-    <item quantity="many">Imríodh %1$s cluichí %2$s</item>
-    <item quantity="other">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="two">Imríodh %1$s chluiche %2$s</item>
+    <item quantity="few">Imríodh %1$s gcluiche %2$s</item>
+    <item quantity="many">Imríodh %1$s cluiche %2$s</item>
+    <item quantity="other">Imríodh %1$s cluiche %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Phostaíodh teachtaireacht amháin i %2$s</item>
@@ -59,11 +59,11 @@
     <item quantity="other">%s cluiche comhfhreagrais críochnaithe</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Thosaíodh imreoir amháin a leanacht</item>
-    <item quantity="two">Thosaíodh %s imreoirí a leanacht</item>
-    <item quantity="few">Thosaíodh %s imreoirí a leanacht</item>
-    <item quantity="many">Thosaíodh %s imreoirí a leanacht</item>
-    <item quantity="other">Thosaíodh %s imreoirí a leanacht</item>
+    <item quantity="one">Thosaíodh ficheallaí amháin a leanacht</item>
+    <item quantity="two">Thosaíodh %s fhicheallaí a leanacht</item>
+    <item quantity="few">Thosaíodh %s bhficheallaí a leanacht</item>
+    <item quantity="many">Thosaíodh %s ficheallaí a leanacht</item>
+    <item quantity="other">Thosaíodh %s ficheallaí a leanacht</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Fuarthas %s leantóir nua</item>

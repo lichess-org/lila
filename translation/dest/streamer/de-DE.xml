@@ -16,7 +16,7 @@
   <string name="xIsStreaming">%s streamt gerade</string>
   <string name="rules">Streaming-Regeln</string>
   <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
-  <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-Sachen streamst.</string>
+  <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-bezogen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
   <string name="perk1">Erhalte ein flammendes Streamer-Symbol auf deinem Lichess-Profil.</string>
@@ -51,7 +51,7 @@ Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.<
   <string name="maxSize">Maximale Größe: %s</string>
   <string name="installBlocker">Installiere einen Malware-Blocker!</string>
   <string name="beSafe">Schütze dich vor Werbung und Trackern,
-die Twitch und YouTube infizieren.
+die Twitch und YouTube befallen.
 Lichess empfiehlt uBlock Origin,
 was kostenlos und quelloffen ist.</string>
 </resources>
