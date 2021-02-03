@@ -108,8 +108,9 @@ object SetupBulk {
   }
 
   sealed trait ScheduleError
-  case class BadTokens(tokens: List[BadToken]) extends ScheduleError
-  case object RateLimited                      extends ScheduleError
+  case class BadTokens(tokens: List[BadToken])    extends ScheduleError
+  case class DuplicateUsers(users: List[User.ID]) extends ScheduleError
+  case object RateLimited                         extends ScheduleError
 
   def toJson(bulk: ScheduledBulk) = {
     import bulk._
@@ -172,37 +173,48 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
       .flatMap {
         case Left(errors) => fuccess(Left(BadTokens(errors.reverse)))
         case Right(allPlayers) =>
-          val pairs = allPlayers.reverse
-            .grouped(2)
-            .collect { case List(w, b) => (w, b) }
+          val dups = allPlayers
+            .groupBy(identity)
+            .view
+            .mapValues(_.size)
+            .collect {
+              case (u, nb) if nb > 1 => u
+            }
             .toList
-          val nbGames = pairs.size
-          rateLimit[Fu[Result]](me.id, cost = nbGames) {
-            lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames).unit
-            idGenerator
-              .games(nbGames)
-              .map {
-                _.toList zip pairs
-              }
-              .map {
-                _.map { case (id, (w, b)) =>
-                  ScheduledGame(id, w, b)
+          if (dups.nonEmpty) fuccess(Left(DuplicateUsers(dups)))
+          else {
+            val pairs = allPlayers.reverse
+              .grouped(2)
+              .collect { case List(w, b) => (w, b) }
+              .toList
+            val nbGames = pairs.size
+            rateLimit[Fu[Result]](me.id, cost = nbGames) {
+              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames).unit
+              idGenerator
+                .games(nbGames)
+                .map {
+                  _.toList zip pairs
                 }
-              }
-              .dmap {
-                ScheduledBulk(
-                  _id = lila.common.ThreadLocalRandom nextString 8,
-                  by = me.id,
-                  _,
-                  data.variant,
-                  data.clock,
-                  Mode(data.rated),
-                  pairAt = data.pairAt | DateTime.now,
-                  startClocksAt = data.startClocksAt,
-                  scheduledAt = DateTime.now
-                )
-              }
-              .dmap(Right.apply)
-          }(fuccess(Left(RateLimited)))
+                .map {
+                  _.map { case (id, (w, b)) =>
+                    ScheduledGame(id, w, b)
+                  }
+                }
+                .dmap {
+                  ScheduledBulk(
+                    _id = lila.common.ThreadLocalRandom nextString 8,
+                    by = me.id,
+                    _,
+                    data.variant,
+                    data.clock,
+                    Mode(data.rated),
+                    pairAt = data.pairAt | DateTime.now,
+                    startClocksAt = data.startClocksAt,
+                    scheduledAt = DateTime.now
+                  )
+                }
+                .dmap(Right.apply)
+            }(fuccess(Left(RateLimited)))
+          }
       }
 }

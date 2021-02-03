@@ -48,6 +48,8 @@ final class BulkPairing(env: Env) extends LilaController(env) {
                     }
                   )
                 ).fuccess
+              case Left(SetupBulk.DuplicateUsers(users)) =>
+                BadRequest(Json.obj("duplicateUsers" -> users)).fuccess
               case Right(bulk) =>
                 env.challenge.bulk.schedule(bulk) map {
                   case Left(error) => BadRequest(jsonError(error))
