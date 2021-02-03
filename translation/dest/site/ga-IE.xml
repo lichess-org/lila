@@ -600,8 +600,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="privacy">Príobháideachas</string>
   <string name="privacyPolicy">Polasaí príobháideacht</string>
   <string name="letOtherPlayersFollowYou">Lig do ficheallaithe eile tú a leanacht</string>
-  <string name="letOtherPlayersChallengeYou">Lig d\'imreoirí eile dúshlán a sheoladh chugat</string>
-  <string name="letOtherPlayersInviteYouToStudy">Lig d\'imreoirí eile cuireadh staidéir a sheoladh chugat</string>
+  <string name="letOtherPlayersChallengeYou">Lig do ficheallaithe eile dúshlán a sheol chugat</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lig do ficheallaithe eile cuireadh staidéir a sheoladh chugat</string>
   <string name="sound">Fuaim</string>
   <string name="none">Tada</string>
   <string name="fast">Tapa</string>
