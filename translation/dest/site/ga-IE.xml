@@ -856,7 +856,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="seeBestMove">Féach an beart is fearr</string>
   <string name="hideBestMove">Folaigh an beart is fearr</string>
   <string name="getAHint">Faigh leid</string>
-  <string name="evaluatingYourMove">Déan staidéar ar do bheart ...</string>
+  <string name="evaluatingYourMove">Luacháil do bheart ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
   <string name="learnFromYourMistakes">Foghlaim ó do bhotúin</string>
