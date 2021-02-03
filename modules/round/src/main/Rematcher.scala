@@ -30,7 +30,8 @@ final private class Rematcher(
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,
     duration = 1 minute,
-    key = "round.rematch"
+    key = "round.rematch",
+    log = false
   )
 
   import Rematcher.Offers

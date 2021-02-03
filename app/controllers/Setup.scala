@@ -29,7 +29,8 @@ final class Setup(
     5,
     1.minute,
     key = "setup.post",
-    enforce = env.net.rateLimit.value
+    enforce = env.net.rateLimit.value,
+    log = false
   )
 
   def aiForm =
