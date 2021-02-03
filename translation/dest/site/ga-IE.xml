@@ -550,7 +550,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="other">%s cluiche san imirt</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Téigh ar aghaidh chuig an chéad cluiche eile go huathoibríoch i ndiaidh bogadh</string>
-  <string name="autoSwitch">Athrú uathoibríoch</string>
+  <string name="autoSwitch">Uath-lasc</string>
   <string name="puzzles">Fadbhbanna</string>
   <string name="latestUpdates">Nuashonraithe is déanaí</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
@@ -593,7 +593,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="currentPassword">Pasfhocal reatha</string>
   <string name="newPassword">Pasfhocal nua</string>
   <string name="newPasswordAgain">Pasfhocal nua (arís)</string>
-  <string name="newPasswordsDontMatch">Tá difríocht idir an dhá pasfhocail nua</string>
+  <string name="newPasswordsDontMatch">Ní hionann na pasfhocail nua</string>
   <string name="newPasswordStrength">Neart pasfhocail</string>
   <string name="clockInitialTime">Am tosaithe ar an gclog</string>
   <string name="clockIncrement">Am le cur leis an gclog</string>
@@ -631,7 +631,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi ficheall, na oscailtí is fearr leat, ficheallaithe, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">%s carachtar ar a mhéad.</item>
-    <item quantity="two">%s carachtairí ar a mhéad.</item>
+    <item quantity="two">%s charachtair ar a mhéad.</item>
     <item quantity="few">%s carachtairí ar a mhéad.</item>
     <item quantity="many">%s carachtairí ar a mhéad.</item>
     <item quantity="other">%s carachtairí ar a mhéad.</item>
