@@ -6,6 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Is meascán de bheo/solas/libre agus fichille é Lichess. Luaitear %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
+  <string name="whyLiveLightLibre">Beo, toisc go nimrítear agus féachtar ar chluichí i bhfíor-am 24/7; éadrom agus saor toisc gur foinse oscailte í Lichess agus neamhualaithe ó bruscar dílseánaigh a phléann suíomhanna Gréasáin eile.</string>
   <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
   <string name="beingAPatron">a bheith ina phátrún</string>
   <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
