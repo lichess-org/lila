@@ -158,9 +158,16 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       value: Option[A]
   )(chapter: Chapter, path: Path): Funit =
     coll {
-      _.updateOrUnsetField($id(chapter.id), pathToField(path, field), value)
+      _.updateOrUnsetField(
+        $id(chapter.id) ++ $doc(path.toDbField $exists true),
+        pathToField(path, field),
+        value
+      )
         .addEffect {
-          case 0 => logger.warn(s"Can't setNodeValue ${chapter.id} $path $field, no node matched!")
+          case 0 =>
+            logger.warn(
+              s"Can't setNodeValue ${chapter.id} '$path' $field '${path.toDbField}' / no node matched!"
+            )
           case _ =>
         }
     }.void
