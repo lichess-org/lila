@@ -134,7 +134,7 @@ object UserInfo {
         (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) dmap some })
           .mon(_.user segment "nbBlockers") zip
         postApi.nbByUser(user.id).mon(_.user segment "nbPosts") zip
-        studyRepo.countByOwner(user.id).mon(_.user segment "nbStudies") zip
+        studyRepo.countByOwner(user.id).nevermind.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip
         revolutionApi.active(user).mon(_.user segment "revolutions") zip
