@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Tiempo inicial d\'o reloch</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidat</string>
+  <string name="privacyPolicy">Politica de privacidat</string>
   <string name="letOtherPlayersFollowYou">Permitir que atros chugadors te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que atros chugadors te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que atros chugadors te conviden a estudios</string>
@@ -655,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no trobas lo correu, mira a veyer si ye en atras carpetas (spam, social, ...).</string>
   <string name="weHaveSentYouAnEmailTo">T\'hemos ninviau un correu a %s. Restableix la tuya clau fendo clic en o vinclo.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En rechistrar-te, acceptas las %s.</string>
+  <string name="readAboutOur">Leye sobre la nuestra %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo de connexión entre tu y lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo pa procesar un movimiento en o servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
@@ -771,7 +773,7 @@
   <string name="doItAgain">Tornar a revisar las errors</string>
   <string name="reviewWhiteMistakes">Revisar las errors d\'as blancas</string>
   <string name="reviewBlackMistakes">Revisar las errors d\'as negras</string>
-  <string name="advantage">Avantache</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Avantache</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segundo</item>
     <item quantity="other">%s segundos</item>
