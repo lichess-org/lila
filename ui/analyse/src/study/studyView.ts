@@ -174,18 +174,6 @@ export function side(ctrl: StudyCtrl): VNode {
   ]);
 
   return h('div.study__side', [
-    h('div', {
-      attrs: {
-        style: 'background: #cc3333; color: white; font-weight: bold; padding: 5px;',
-      }
-    }, [
-      'Studies are back! Unfortunately, changes from Feb 3rd 6-10 UTC had to be rolled back. Further rollbacks not planned, but possible. ',
-      h('a', {
-        attrs: {
-          href: 'https://lichess.org/forum/lichess-feedback/studies-bug-and-downtime',
-        },
-      }, ' Read more.'),
-    ]),
     tabs,
     (activeTab === 'members' ? memberView : chapterView)(ctrl)
   ]);
