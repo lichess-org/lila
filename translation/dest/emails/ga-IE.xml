@@ -17,7 +17,7 @@ Seo do leathanach próifíle:
 
 Bíodh spraoi agat, agus beidh do phíosaí teacht i gcónaí ar a mbealach chuig do opponents rí!</string>
   <string name="logInToLichess">Logáil isteach go lichess.org %s</string>
-  <string name="common_orPaste">(Cliceáil gan obair? Bain triail as é a chur isteach i do bhrabhsálaí!)</string>
+  <string name="common_orPaste">(Nach n-oibríonn cliceáil? Bain triail as é a chur i do bhrabhsálaí!)</string>
   <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid %s.</string>
   <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
 </resources>
