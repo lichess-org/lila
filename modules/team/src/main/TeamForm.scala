@@ -25,7 +25,7 @@ final private[team] class TeamForm(
     def requestMessage(team: Team) =
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
-    val description = "description" -> cleanText(minLength = 30, maxLength = 2000)
+    val description = "description" -> cleanText(minLength = 30, maxLength = 4000)
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
