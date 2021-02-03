@@ -15,8 +15,8 @@
   <string name="from">Bu tarixdə:</string>
   <string name="to">Bu tarixə qədər:</string>
   <string name="humanOrComputer">Oyunçunun rəqibi insanmı yoxsa kompüterdirmi</string>
-  <string name="aiLevel">Zorluq səviyyəsi</string>
-  <string name="source">Qaynaq</string>
+  <string name="aiLevel">Süni zəka səviyyəsi</string>
+  <string name="source">Mənbə</string>
   <string name="nbTurns">Gediş sayı</string>
   <string name="result">Nəticə</string>
   <string name="winnerColor">Qalibin rəngi</string>
