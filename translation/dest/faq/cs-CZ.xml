@@ -47,6 +47,11 @@ Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč
 
 Počítačová analýza na Lichessu využívá program Stockfish. Hráčovi tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
   <string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
+  <string name="lichessFollowFIDErules">Když hráči dojde čas, obvykle to znamená, že partii prohraje. Platí zde ovšem jedna výjimka, a to v případě, že je na šachovnici taková pozice, že by mu nebylo možné dát mat žádnou legální kombinací tahů. V takovém případě se bude jednat o remízu (viz %1$s).
+
+Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
+
+Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má kámen, který by mohl králi zatarasit únikovou cestu.</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
