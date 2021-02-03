@@ -174,7 +174,7 @@ nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="stalemateComplete">Comhghairdeas! Níos fearr leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
-  <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
+  <string name="evaluatePieceStrength">Luacháil láidreacht na píosaí</string>
   <string name="pieceValueIntro">Tá luach níos airde ag píosaí a bhfuil soghluaisteacht ard acu!
 Banríon = 9
 Rook = 5
@@ -204,14 +204,14 @@ i dhá bheart!</string>
   <string name="register">Cláraigh</string>
   <string name="getAFreeLichessAccount">Faigh cuntas saor Lichess</string>
   <string name="practice">Cleachtaigh</string>
-  <string name="learnCommonChessPositions">Foghlaim suíomhanna fichille coiteanna</string>
+  <string name="learnCommonChessPositions">Foghlaim suíomhanna fichille coitianta</string>
   <string name="puzzles">Fadbhbanna</string>
   <string name="exerciseYourTacticalSkills">Cleacht do scileanna beartaíochta</string>
   <string name="videos">Físeáin</string>
-  <string name="watchInstructiveChessVideos">Féach ar físeáin fichille oideachasúla</string>
+  <string name="watchInstructiveChessVideos">Féach ar fhíseáin fichille oideachais</string>
   <string name="playPeople">Imir le daoine eile</string>
   <string name="opponentsFromAroundTheWorld">Céilí comhrac ar fud an domhain</string>
-  <string name="playMachine">Imir leis an mheaisín</string>
+  <string name="playMachine">Imir leis an ríomhaire</string>
   <string name="testYourSkillsWithTheComputer">Triail do scileanna leis an ríomhaire</string>
   <string name="letsGo">Ar aghaidh linn!</string>
   <string name="stageX">Leibhéal %s</string>
