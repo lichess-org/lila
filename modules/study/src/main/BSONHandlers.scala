@@ -158,24 +158,37 @@ object BSONHandlers {
     )
   }
 
-  def readNode(doc: Bdoc, id: UciCharPair): Node = {
-    import Node.BsonFields._
-    val r = new Reader(doc)
-    Node(
-      id = id,
-      ply = r int ply,
-      move = WithSan(r.get[Uci](uci), r.str(san)),
-      fen = r.get[FEN](fen),
-      check = r boolD check,
-      shapes = r.getO[Shapes](shapes) | Shapes.empty,
-      comments = r.getO[Comments](comments) | Comments.empty,
-      gamebook = r.getO[Gamebook](gamebook),
-      glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
-      score = r.getO[Score](score),
-      crazyData = r.getO[Crazyhouse.Data](crazy),
-      clock = r.getO[Centis](clock),
-      children = Node.emptyChildren,
-      forceVariation = r boolD forceVariation
+  def readNode(doc: Bdoc, id: UciCharPair): Option[Node] = {
+    import Node.{ BsonFields => F }
+    for {
+      ply <- doc.getAsOpt[Int](F.ply)
+      uci <- doc.getAsOpt[Uci](F.uci)
+      san <- doc.getAsOpt[String](F.san)
+      fen <- doc.getAsOpt[FEN](F.fen)
+      check          = ~doc.getAsOpt[Boolean](F.check)
+      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
+      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+      gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
+      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      score          = doc.getAsOpt[Score](F.score)
+      clock          = doc.getAsOpt[Centis](F.clock)
+      crazy          = doc.getAsOpt[Crazyhouse.Data](F.crazy)
+      forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+    } yield Node(
+      id,
+      ply,
+      WithSan(uci, san),
+      fen,
+      check,
+      shapes,
+      comments,
+      gamebook,
+      glyphs,
+      score,
+      clock,
+      crazy,
+      Node.emptyChildren,
+      forceVariation
     )
   }
 

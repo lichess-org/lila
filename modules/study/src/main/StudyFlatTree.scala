@@ -13,9 +13,10 @@ private object StudyFlatTree {
   private case class FlatNode(path: Path, data: Bdoc) {
     val depth = path.ids.size
 
-    def toNodeWithChildren(children: Option[Children]): Node = {
-      readNode(data, path.ids.last)
-    }.copy(children = children | Node.emptyChildren)
+    def toNodeWithChildren(children: Option[Children]): Option[Node] =
+      readNode(data, path.ids.last) map {
+        _.copy(children = children | Node.emptyChildren)
+      }
   }
 
   object reader {
@@ -41,10 +42,11 @@ private object StudyFlatTree {
 
     // assumes that node has a greater depth than roots (sort beforehand)
     private def update(roots: Map[Path, Children], flat: FlatNode): Map[Path, Children] = {
-      val node = flat.toNodeWithChildren(roots get flat.path)
-      roots.removed(flat.path).updatedWith(flat.path.parent) {
-        case None           => Children(Vector(node)).some
-        case Some(siblings) => siblings.addNode(node).some
+      flat.toNodeWithChildren(roots get flat.path).fold(roots) { node =>
+        roots.removed(flat.path).updatedWith(flat.path.parent) {
+          case None           => Children(Vector(node)).some
+          case Some(siblings) => siblings.addNode(node).some
+        }
       }
     }
   }
