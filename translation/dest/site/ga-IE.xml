@@ -86,7 +86,7 @@
   <string name="averageRatingX">Meán-rátáil: %s</string>
   <string name="recentGames">Cluichí dheireanacha</string>
   <string name="topGames">Cluichí is fearr</string>
-  <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
+  <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s ficheallaithe le rátáil FIDE ó %2$s go %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Marbhsháinn i %s leath-bheart</item>
     <item quantity="two">Marbhsháinn i %s leath-bheart</item>
@@ -136,11 +136,11 @@
   <string name="offerDraw">Tairg Comhscór</string>
   <string name="draw">Comhscór</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s imreoir</item>
-    <item quantity="two">%s imreoir</item>
-    <item quantity="few">%s imreoir</item>
-    <item quantity="many">%s imreoir</item>
-    <item quantity="other">%s imreoir</item>
+    <item quantity="one">%s ficheallaí</item>
+    <item quantity="two">%s fhicheallaí</item>
+    <item quantity="few">%s bhficheallaí</item>
+    <item quantity="many">%s ficheallaí</item>
+    <item quantity="other">%s ficheallaí</item>
   </plurals>
   <string name="currentGames">Cluichí ar siúl</string>
   <plurals name="nbGames">
@@ -167,7 +167,7 @@
   <string name="forum">Fóram</string>
   <string name="xPostedInForumY">Scríobh %1$s teachtaireacht sa topaic %2$s</string>
   <string name="latestForumPosts">Postálacha fóraim is déanaí</string>
-  <string name="players">Imreoirí</string>
+  <string name="players">Ficheallaithe</string>
   <string name="friends">Cairde</string>
   <string name="discussions">Comhráite</string>
   <string name="today">Inniu</string>
@@ -329,7 +329,7 @@
     <item quantity="other">Tabhair %s shoicind</item>
   </plurals>
   <string name="thisAccountViolatedTos">Chuaigh an chuntas seo in aghaidh téarmaí sheirbhíse Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ardaíonn/Íslíonn an imreoir seo a rátáil ar shlí bhréagach</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ardaíonn/Íslíonn an ficheallaí seo a rátáil ar shlí bhréagach</string>
   <string name="openingExplorerAndTablebase">Taiscélaí thionscnaimh &amp; bunachar dheireadh an chluiche</string>
   <string name="takeback">Aistógadh</string>
   <string name="proposeATakeback">Iarraidh d\'aistógadh</string>
@@ -465,7 +465,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="more">Níos mó</string>
   <string name="memberSince">Ball ó</string>
   <string name="lastSeenActive">Gníomhach %s</string>
-  <string name="player">Imreoir</string>
+  <string name="player">Ficheallaí</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
@@ -488,7 +488,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
   <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh ficheallaí suntasach.</string>
   <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
-  <string name="fewerPlayers">Má shocraíonn tú rialacha a mbaineann le chuir isteach ar an gcomórtas, beidh níos lú imreoirí ag do chomórtas.</string>
+  <string name="fewerPlayers">Má shocraíonn tú rialacha a mbaineann le chuir isteach ar an gcomórtas, beidh níos lú ficheallaithe ag do chomórtas.</string>
   <string name="showAdvancedSettings">Taispeán na socruithe níos casta</string>
   <string name="makePrivateTournament">Déan an chomórtas príobháideach chun nach féidir fáil isteach ar ach le pasfhocal</string>
   <string name="join">Glac páirt</string>
@@ -500,7 +500,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosnú</string>
   <string name="tournamentPairingsAreNowClosed">Níl cluichí á shocrú níos mó.</string>
-  <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
+  <string name="standByX">Fan ort %s, ag roinnt ficheallaithe ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
   <string name="berserkRate">Ráta le Báiní</string>
@@ -537,9 +537,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
   <string name="watchLichessTV">Féach ar Lichess TV</string>
   <string name="previouslyOnLichessTV">Níos luaithe ar Lichess TV</string>
-  <string name="onlinePlayers">Imreoirí ar-líne</string>
+  <string name="onlinePlayers">Ficheallaithe ar-líne</string>
   <string name="activeToday">Gníomhach inniu</string>
-  <string name="activePlayers">Imreoirí gníomhach</string>
+  <string name="activePlayers">Ficheallaithe gníomhach</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Aire duit, tá an cluiche seo rátáilte ach níl clog ann!</string>
   <string name="success">D\'éirigh leat</string>
   <plurals name="nbGamesInPlay">
@@ -599,7 +599,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="clockIncrement">Am le cur leis an gclog</string>
   <string name="privacy">Príobháideachas</string>
   <string name="privacyPolicy">Polasaí príobháideacht</string>
-  <string name="letOtherPlayersFollowYou">Lig d\'imreoirí eile thú a leanacht</string>
+  <string name="letOtherPlayersFollowYou">Lig do ficheallaithe eile tú a leanacht</string>
   <string name="letOtherPlayersChallengeYou">Lig d\'imreoirí eile dúshlán a sheoladh chugat</string>
   <string name="letOtherPlayersInviteYouToStudy">Lig d\'imreoirí eile cuireadh staidéir a sheoladh chugat</string>
   <string name="sound">Fuaim</string>
@@ -836,7 +836,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="error.unknown">Earráid</string>
-  <string name="custom">Saincheaptha</string>
+  <string name="custom">Saincheap</string>
   <string name="notifications">Fógraí</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
