@@ -15,6 +15,10 @@
   <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
+  <string name="puzzleOfTheDay">Uganka dneva</string>
+  <string name="goodMove">Dobra poteza</string>
+  <string name="bestMove">Najboljša poteza!</string>
+  <string name="keepGoing">Nadaljuj…</string>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča uganke</string>
   <string name="strengths">Prednosti</string>
