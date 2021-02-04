@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Desafíos</string>
+  <string name="challengeToPlay">Desafía a unha partida</string>
+  <string name="challengeDeclined">Desafío rexeitado</string>
+  <string name="challengeAccepted">Desafío aceptado!</string>
+  <string name="challengeCanceled">Desafío cancelado.</string>
+  <string name="registerToSendChallenges">Por favor rexístrate para enviar desafíos.</string>
+  <string name="youCannotChallengeX">Non podes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non acepta desafíos.</string>
+</resources>
