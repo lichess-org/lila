@@ -45,7 +45,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = readPref
   ): Fu[AkkaStreamCursor[Study]] =
     coll.map(_.find(selector).sort(sort).cursor[Study](readPreference))
 
@@ -167,19 +167,19 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     coll {
       _.find(selectOwnerId(userId), idNameProjection.some)
         .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](ReadPreference.secondaryPreferred)
+        .cursor[Study.IdName](readPref)
         .list(nb)
     }
 
   // heavy AF. Only use for GDPR.
   private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
-    coll(_.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId), ReadPreference.secondaryPreferred))
+    coll(_.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId), readPref))
 
   def recentByContributor(userId: User.ID, nb: Int) =
     coll {
       _.find(selectContributorId(userId), idNameProjection.some)
         .sort($sort desc "updatedAt")
-        .cursor[Study.IdName](ReadPreference.secondaryPreferred)
+        .cursor[Study.IdName](readPref)
         .list(nb)
     }
 

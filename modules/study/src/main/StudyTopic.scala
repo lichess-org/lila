@@ -80,7 +80,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           .coll {
             _.find($doc("_id".$startsWith(str, "i")))
               .sort($sort.naturalAsc)
-              .cursor[Bdoc](ReadPreference.secondaryPreferred)
+              .cursor[Bdoc](readPref)
               .list(nb - favs.size)
           }
           .dmap { _ flatMap docTopic }

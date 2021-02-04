@@ -52,7 +52,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       coll map {
         _.find($studyId(studyId))
           .sort($sort asc "order")
-          .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
+          .cursor[Chapter](readPreference = readPref)
           .documentSource()
       }
     }
@@ -208,7 +208,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         $doc("_id" -> true, "name" -> true).some
       )
         .sort($sort asc "order")
-        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](readPref)
         .list(Study.maxChapters * 2)
     }
       .dmap { _ flatMap readIdName }

@@ -51,7 +51,7 @@ final class StudyMultiBoard(
 
     private val selector = $doc("studyId" -> studyId) ++ playing.??(playingSelector)
 
-    def nbResults: Fu[Int] = chapterRepo.coll(_.secondaryPreferred.countSel(selector))
+    def nbResults: Fu[Int] = chapterRepo.coll(_.countSel(selector))
 
     /* TODO fix
      * printjson(db.study_chapter_flat.aggregate([{$match:{studyId:'6IzKWsfb'}},{$project:{root:{$objectToArray:'$root'}}},{$unwind:'$root'},{$project:{'root.v.f':1,size:{$strLenBytes:'$root.k'}}},{$sort:{size:-1}},{$limit:1}]).toArray())
@@ -59,7 +59,7 @@ final class StudyMultiBoard(
     def slice(offset: Int, length: Int): Fu[Seq[ChapterPreview]] =
       chapterRepo
         .coll {
-          _.aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+          _.aggregateList(length, readPreference = readPref) { framework =>
             import framework._
             Match(selector) -> List(
               Sort(Ascending("order")),
