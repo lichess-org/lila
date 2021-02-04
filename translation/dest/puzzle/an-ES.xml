@@ -29,6 +29,10 @@
   <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
   <string name="ratingX">Puntuación: %s</string>
   <string name="hidden">amagau</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Chugau %s vegada</item>
+    <item quantity="other">Chugau %s vegadas</item>
+  </plurals>
   <string name="fromGameLink">D\'a partida %s</string>
   <string name="continueTraining">Continar entrenamiento</string>
   <string name="difficultyLevel">Nivel de dificultat</string>
