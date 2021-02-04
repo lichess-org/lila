@@ -122,7 +122,7 @@
   <string name="cpus">LAPanna</string>
   <string name="memory">Cuimhne</string>
   <string name="infiniteAnalysis">Anailís neamhtheoranta</string>
-  <string name="removesTheDepthLimit">Faigheann sé réidh leis an teorainn doimhneacht, agus coiníonn sé do ríomhaire teolaí</string>
+  <string name="removesTheDepthLimit">Faigheann sé réidh leis an teorainn doimhneacht, agus coinníonn sé do ríomhaire te</string>
   <string name="blunder">Meancóg</string>
   <string name="blunders">Botúin mhóra</string>
   <string name="mistake">Botún</string>
