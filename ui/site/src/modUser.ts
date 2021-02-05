@@ -140,7 +140,7 @@ lichess.load.then(() => {
 
   extendTablesortNumber();
 
-  if (location.search.startsWith('?mod')) $toggle.trigger('click');
+  if (new URL(location.href).searchParams.has('mod')) $toggle.trigger('click');
 
   window.Mousetrap
     .bind('m', () => $toggle.trigger('click'))
