@@ -21,14 +21,15 @@
       }
       &-bottom {
         grid-area: mat-bot;
+        border-radius: 0px 0px 3px 3px;
         position: absolute;
         width: 100%;
         top: calc(100% * 10/11);
-        border-radius: 0px 0px 3px 3px;
       }
       @include breakpoint($mq-col2-uniboard) {
         &-top {
           // margin-bottom: $block-gap;
+
         }
         &-bottom {
           // margin-top: $block-gap;
@@ -37,7 +38,6 @@
       @extend %box-radius;
       display: flex;
       justify-content: center;
-      width: 62.5%;
       @include breakpoint($mq-col2-uniboard) {
         width: 100%;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
@@ -55,11 +55,6 @@
       }
       &-c2 {
         @extend %square;
-      }
-      &-c2.shadow-piece{
-        border: 0px solid rgba(21, 120, 27, 0.4);
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px rgba(21, 120, 28, 0.4) inset;
       }
       piece {
         display: block;
@@ -82,30 +77,6 @@
           opacity: 0.1;
           &::after {
             content: none;
-          }
-        }
-        &.premove {
-          background-color: #555;
-        }
-        &.selected-square {
-          background-color: #14551e80 !important;
-          @extend %box-radius;
-        }
-      }
-      &.usable {
-        piece {
-          cursor: pointer;
-          pointer-events: auto;
-          &:hover {
-            background-color: #14551e50;
-          }
-          @media (hover: none) {
-            &:hover {
-              background-color: transparent;
-            }
-          }
-          &:first-child:hover {
-            @extend %box-radius;
           }
         }
       }
