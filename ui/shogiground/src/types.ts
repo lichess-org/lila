@@ -129,6 +129,8 @@ export interface Rect {
 export type Dests = Map<Key, Key[]>;
 
 export interface Elements {
+  pockets: HTMLElement[];
+  boardSpan: HTMLElement;
   board: HTMLElement;
   container: HTMLElement;
   ghost?: HTMLElement;

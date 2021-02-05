@@ -1,9 +1,10 @@
 import { State } from "./state";
-import { key2pos, createEl } from "./util";
+import { key2pos, createEl, isMiniBoard } from "./util";
 import { whitePov } from "./board";
 import * as util from "./util";
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from "./anim";
 import { DragCurrent } from "./drag";
+import { addPocketEl } from "./pocket";
 import * as cg from "./types";
 
 type PieceName = string; // `$color $role`
@@ -19,6 +20,8 @@ export function render(s: State): void {
       : util.posToTranslateAbs(s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
+    boardSpanEl: HTMLElement | null = s.dom.elements.boardSpan,
+    pockets: HTMLElement[] = s.dom.elements.pockets,
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
     anims: AnimVectors = curAnim ? curAnim.plan.anims : new Map(),
@@ -174,6 +177,13 @@ export function render(s: State): void {
         if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asWhite);
         boardEl.appendChild(pieceNode);
       }
+    }
+  }
+
+  if (isMiniBoard(boardSpanEl)) {
+    for (const i of [0, 1]) {
+      if (!pockets[i].innerHTML)
+        addPocketEl(s, pockets[i], i === 0 ? "top" : "bottom");
     }
   }
 
