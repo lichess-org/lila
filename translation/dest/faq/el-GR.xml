@@ -17,14 +17,19 @@
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν το %1$s, το %2$s ή την %3$s.</string>
   <string name="fairPlay">Κανόνες Δικαίου Παιχνιδιού</string>
+  <string name="gameplay">Παιχνίδι</string>
   <string name="eightVariants">8 παραλλαγές σκάκιου</string>
   <string name="fideHandbookX">βιβλίο κανονισμών FIDE %s</string>
   <string name="officialRulesPDF">επίσημοι κανόνες (PDF)</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
+  <string name="accounts">Λογαριασμοί</string>
+  <string name="noUpperCaseDot">Όχι.</string>
+  <string name="guidelines">οδηγίες</string>
   <string name="canIChangeMyUsername">Μπορώ να αλλάξω το όνομα χρήστη μου;</string>
   <string name="usernamesCannotBeChanged">Όχι, τα ονόματα χρηστών δεν μπορούν να αλλάξουν για τεχνικούς και πρακτικούς λόγους. Τα ονόματα χρηστών υλοποιούνται σε πάρα πολλές θέσεις: βάσεις δεδομένων, εξαγωγές, αρχεία καταγραφής και στο μυαλό των ανθρώπων. Μπορείτε να προσαρμόσετε την κεφαλαιοποίηση μία φορά.</string>
+  <string name="uniqueTrophies">Μοναδικά τρόπαια</string>
   <string name="lichessRatings">Αξιολογήσεις Lichess</string>
   <string name="whatIsProvisionalRating">Γιατί υπάρχει ένα ερωτηματικό (?) δίπλα στην βαθμολογία;</string>
   <string name="provisionalRatingExplanation">Το ερωτηματικό σημαίνει ότι η βαθμολογία είναι προσωρινή. Οι λόγοι συμπεριλαμβάνουν:</string>
@@ -32,5 +37,7 @@
   <string name="similarOpponents">αντίπαλοι με παρόμοια απόδοση</string>
   <string name="notPlayedRecently">Ο παίκτης δεν έχει παίξει αρκετά πρόσφατα παιχνίδια. Ανάλογα με τον αριθμό των παιχνιδιών που έχετε παίξει, μπορεί να χρειαστεί περίπου ένα χρόνο αδράνειας για να γίνει ξανά προσωρινή η βαθμολογία σας.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Συγκεκριμένα, σημαίνει ότι η απόκλιση Glicko-2 είναι μεγαλύτερη από 110. Η απόκλιση είναι το επίπεδο εμπιστοσύνης που έχει το σύστημα στην βαθμολογία. Όσο χαμηλότερη είναι η απόκλιση, τόσο πιο σταθερή είναι η βαθμολογία.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Έχασα ένα παιχνίδι λόγω καθυστέρησης/αποσύνδεσης. Μπορώ να πάρω τους βαθμούς μου πίσω;</string>
+  <string name="howToThreeDots">Πως να...</string>
   <string name="enableDisableNotificationPopUps">Ενεργοποίηση ή απενεργοποίηση εμφάνισης ειδοποιήσεων;</string>
 </resources>
