@@ -6,7 +6,11 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Is meascán de bheo/solas/libre agus fichille é Lichess. Luaitear %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
+  <string name="whyLiveLightLibre">Beo, toisc go nimrítear agus féachtar ar chluichí i bhfíor-am 24/7; éadrom agus saor toisc gur foinse oscailte í Lichess agus neamhualaithe ó bruscar dílseánaigh a phléann suíomhanna Gréasáin eile.</string>
+  <string name="whyIsLilaCalledLila">Ar an dóigh chéanna, seasann an cód foinseach do Lichess, %1$s, do li[ficheall in sca]la, ag féachaint dó go bhfuil an chuid is mó de Lichess scríofa i %2$s, teanga ríomhchláraithe iomasach.</string>
   <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Reáchtáiltear Lichess trí bronntanais ó phátrúin agus iarrachtaí foireann oibrithe deonacha.</string>
+  <string name="findMoreAndSeeHowHelp">Is féidir tuilleadh a fháil amach faoi %1$s (%2$s san áireamh). Más mian leat cabhrú le Lichess trí do chuid ama agus scileanna a chur ar fáil go deonach, tá go leor %3$s ann.</string>
   <string name="beingAPatron">a bheith ina phátrún</string>
   <string name="breakdownOfOurCosts">miondealú ar ár gcostais</string>
   <string name="otherWaysToHelp">bealaí eile le cuidiú</string>

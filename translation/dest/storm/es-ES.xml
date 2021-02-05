@@ -27,7 +27,7 @@
   <string name="puzzlesPlayed">Ejercicios hechos</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
-  <string name="highscores">Mejores puntuaciones</string>
+  <string name="highscores">Puntuaciones más altas</string>
   <string name="viewBestRuns">Ver las mejores rondas</string>
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>

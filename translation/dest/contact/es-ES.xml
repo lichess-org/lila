@@ -45,7 +45,7 @@
   <string name="illegalCastling">Enroque ilegal o imposible</string>
   <string name="castlingPrevented">El enroque está prohibido si el rey pasa por un cuadrado controlado.</string>
   <string name="castlingRules">Asegúrate de entender las reglas del enroque</string>
-  <string name="tryCastling">Prueba este pequeño juego interactivo para practicar el enroque en el ajedrez</string>
+  <string name="tryCastling">Prueba este pequeño tutorial interactivo para practicar el enroque en el ajedrez</string>
   <string name="castlingImported">Si has importado el juego, o lo iniciaste desde una posición, asegúrate de establecer correctamente los derechos del enroque.</string>
   <string name="insufficientMaterial">Material insuficiente para dar mate</string>
   <string name="fideMate">Según las reglas FIDE §6.9, si un jaque mate es posible con cualquier secuencia legal de movimientos, entonces el juego no es un empate</string>

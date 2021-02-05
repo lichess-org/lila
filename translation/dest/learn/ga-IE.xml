@@ -3,7 +3,7 @@
   <string name="learnChess">Foghlaim ficheall</string>
   <string name="byPlaying">trí imirt!</string>
   <string name="menu">Roghchlár</string>
-  <string name="progressX">Tomhas: %s</string>
+  <string name="progressX">Forás: %s</string>
   <string name="resetMyProgress">Athshocraigh mo thomhas</string>
   <string name="youWillLoseAllYourProgress">Caillfidh tú do thomhas ar fad!</string>
   <string name="play">imir!</string>
@@ -18,7 +18,7 @@
 chun rudaí a bhrostú!</string>
   <string name="rookComplete">Comhghairdeas! Fuair tú máistreacht ar an gcaiseal.</string>
   <string name="theBishop">An t-easpag</string>
-  <string name="itMovesDiagonally">Bogann sé go fiar</string>
+  <string name="itMovesDiagonally">Bogann sé ar fiar</string>
   <string name="bishopIntro">Ansin, foghlaimímid conas a bhogann an t-easpag!</string>
   <string name="youNeedBothBishops">Easpag geal amháin,
 easpag dorcha amháin.
@@ -35,7 +35,7 @@ Tá an dá uait!</string>
   <string name="lastOne">An ceann deiridh!</string>
   <string name="kingComplete">Anois, is tusa rí na ríthe!</string>
   <string name="theKnight">An ridire</string>
-  <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
+  <string name="itMovesInAnLShape">Bogann sé ar nós an litir L</string>
   <string name="knightIntro">Is dúshlán mór é seo duit. Is píosa... casta é an ridire.</string>
   <string name="knightsHaveAFancyWay">Tá slí bogadh ardnósach
 ag an ridire!</string>
@@ -43,14 +43,14 @@ ag an ridire!</string>
 Éalaigh agus cloígh na réaltaí!</string>
   <string name="knightComplete">Comhghairdeas! Fuair tú máistreacht ar an ridire.</string>
   <string name="thePawn">An ceithearnach</string>
-  <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
+  <string name="itMovesForwardOnly">Bogann sé díreach ar aghaidh i gconaí</string>
   <string name="pawnIntro">Is píosa lag é an ceithearnach, ach tá cumas láidir aige.</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach cearnóg amháin. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Formhór an ama, is fearr ardaigh chun banríona.
 Ach uaireanta, bheith an ridire úsáideach!</string>
-  <string name="pawnsMoveForward">Bogann an ceithearnach go díreach,
-ach gabhann sé go fiar!</string>
-  <string name="captureThenPromote">Gabh, agus ansin, ardaigh!</string>
+  <string name="pawnsMoveForward">Bogann an ceithearnach díreach ar aghaidh,
+ach maraíonn sé ar fiar!</string>
+  <string name="captureThenPromote">Marú, ansin, ardaigh!</string>
   <string name="useAllThePawns">Bain úsáid as gach ceithearnach!
 Ní gá duit ardaigh.</string>
   <string name="aPawnOnTheSecondRank">Is féidir le ceithearnach ar an dara rang bogadh dhá cearnóg i mbeart amháín!</string>
@@ -62,12 +62,12 @@ Ní gá duit ardaigh.</string>
   <string name="itNowPromotesToAStrongerPiece">Is féidir leis chun píosa níos láidre a ardú.</string>
   <string name="selectThePieceYouWant">Pioc an píosa is fearr leat!</string>
   <string name="fundamentals">Buneolas</string>
-  <string name="capture">Gabháil</string>
-  <string name="takeTheEnemyPieces">Gabh na píosaí namhad</string>
-  <string name="captureIntro">Aithin na píosaí namhad neamhcosanta, agus gabh iad!</string>
-  <string name="takeTheBlackPieces">Gabh na píosaí dubha!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Gabh na píosaí dubha!
-Agus ná caill do chuid féin.</string>
+  <string name="capture">Marú</string>
+  <string name="takeTheEnemyPieces">Marú na píosaí namhad</string>
+  <string name="captureIntro">Aithin píosaí neamhchosanta an chéile comhraic, agus marú iad!</string>
+  <string name="takeTheBlackPieces">Marú na píosaí dubha!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Marú na píosaí dubha!
+Agus ná caill do chuid píosaí féin.</string>
   <string name="captureComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="protection">Cosaint</string>
   <string name="keepYourPiecesSafe">Coinnigh do phíosaí slán</string>
@@ -79,17 +79,17 @@ Agus ná caill do chuid féin.</string>
 ach is féidir leat cosaint!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ná lig dóibh aon píosa
 neamhcosanta a tógáil!</string>
-  <string name="combat">Comhrac</string>
-  <string name="captureAndDefendPieces">Gabh agus cosain píosaí</string>
-  <string name="combatIntro">Tá fhios ag gascíoch maith faoin dá iasacht agus cosaint!</string>
+  <string name="combat">Troid</string>
+  <string name="captureAndDefendPieces">Marú agus cosaint píosaí</string>
+  <string name="combatIntro">Tá fhios ag gach saighdiúir faoi ionsaí agus cosaint!</string>
   <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
-  <string name="checkInOne">Sáinn i beart amháin</string>
+  <string name="checkInOne">Sáinn i mbeart amháin</string>
   <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
   <string name="checkInOneIntro">Chun do chéile comhraic a cur i sáinn, ionsaigh a rí. Is gá dó é a cosaint!</string>
-  <string name="checkInOneGoal">Ionsaigh an rí namhaid
-i beart amháin!</string>
+  <string name="checkInOneGoal">Ionsaigh ar an rí namhaid
+i mbeart amháin!</string>
   <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
-  <string name="outOfCheck">As sháinn</string>
+  <string name="outOfCheck">Ealú ó sáinn</string>
   <string name="defendYourKing">Cosain do rí</string>
   <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh duit éalú nó an iasacht a blocáil.</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
@@ -102,7 +102,7 @@ trí do chosaint!</string>
   <string name="escapeOrBlock">Éalaigh leis an rí
 nó an iasacht a blocáil!</string>
   <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
-  <string name="mateInOne">Marbhsháinn i beart amháin</string>
+  <string name="mateInOne">Marbhsháinn i mbeart amháin</string>
   <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
   <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
   <string name="attackYourOpponentsKing">Iasaigh ar an rí namhaid
@@ -166,15 +166,15 @@ nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="takeAllThePawnsEnPassant">Tóg na ceithearnigh uile en passant!</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
-  <string name="theGameIsADraw">Is cothrom é an cluiche</string>
+  <string name="theGameIsADraw">Seo cluiche cothrom</string>
   <string name="stalemateIntro">Nuair nach bhfuil ficheallaí i sáinn agus mura bhfuil beart dlíthiúil aige, seo leamhsáinn. Seo cluiche cothrom: ní bhuaigh éinne, ní chailleann éinne.</string>
   <string name="stalemateGoal">Chun leamhsháinn a dhéanamh ar dubh:
 - Níl aon beart dlithiúil ag dubh
 - Níl aon sáinn ann.</string>
-  <string name="stalemateComplete">Comhghairdeas! Is fearr duit a bheith i leamhsháinn ná marbhsháinn!</string>
+  <string name="stalemateComplete">Comhghairdeas! Níos fearr leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
-  <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
+  <string name="evaluatePieceStrength">Luacháil láidreacht na píosaí</string>
   <string name="pieceValueIntro">Tá luach níos airde ag píosaí a bhfuil soghluaisteacht ard acu!
 Banríon = 9
 Rook = 5
@@ -193,8 +193,8 @@ Rook = 5
 Easpag = 3
 Ridire = 3
 Ceithearnach = 1</string>
-  <string name="checkInTwo">Sáinn i dhá beart</string>
-  <string name="twoMovesToGiveCheck">Dhá beart chun sáinn</string>
+  <string name="checkInTwo">Sáinn i dhá bheart</string>
+  <string name="twoMovesToGiveCheck">Dhá bheart don sáinn</string>
   <string name="checkInTwoIntro">Faigh an comhcheangal cheart de dhá bheart a sáinniú rí an chéile comhraic!</string>
   <string name="checkInTwoGoal">Bhagair rí an chéile comhraic
 i dhá bheart!</string>
@@ -204,14 +204,14 @@ i dhá bheart!</string>
   <string name="register">Cláraigh</string>
   <string name="getAFreeLichessAccount">Faigh cuntas saor Lichess</string>
   <string name="practice">Cleachtaigh</string>
-  <string name="learnCommonChessPositions">Foghlaim suíomhanna fichille coiteanna</string>
+  <string name="learnCommonChessPositions">Foghlaim suíomhanna fichille coitianta</string>
   <string name="puzzles">Fadbhbanna</string>
   <string name="exerciseYourTacticalSkills">Cleacht do scileanna beartaíochta</string>
   <string name="videos">Físeáin</string>
-  <string name="watchInstructiveChessVideos">Féach ar físeáin fichille oideachasúla</string>
+  <string name="watchInstructiveChessVideos">Féach ar fhíseáin fichille oideachais</string>
   <string name="playPeople">Imir le daoine eile</string>
   <string name="opponentsFromAroundTheWorld">Céilí comhrac ar fud an domhain</string>
-  <string name="playMachine">Imir leis an mheaisín</string>
+  <string name="playMachine">Imir leis an ríomhaire</string>
   <string name="testYourSkillsWithTheComputer">Triail do scileanna leis an ríomhaire</string>
   <string name="letsGo">Ar aghaidh linn!</string>
   <string name="stageX">Leibhéal %s</string>

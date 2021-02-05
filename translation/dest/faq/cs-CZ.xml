@@ -23,18 +23,37 @@
   <string name="ratingRefundExplanation">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
  (Například pokud se vaše hodnocení po těchto hrách mezitím výrazně zvyšovalo, je možné, že nedostanete nazpátek žádné body, a nebo jen jejich část.) Maximálně vám můžeme vrátit 150 bodů.</string>
   <string name="preventLeavingGameWithoutResigning">Co děláte s hráči, kteří opouštějí rozehrané hry, aniž by se vzdali?</string>
+  <string name="leavingGameWithoutResigningExplanation">Hráčům, kteří často přerušují nebo ukončují hry, bude dočasně zakázáno hrát. Tato informace není veřejně uvedena na jejich profilu. Pokud v tomto chování pokračují, délka zákazu se prodlužuje a nakonec jim může být úplně uzavřen účet.</string>
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
   <string name="gameplay">Hraní hry</string>
+  <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
   <string name="basedOnGameDuration">Časové kontroly Lichess jsou založeny na odhadu doby trvání partie = %1$s
 Například odhadovaná délka partie 5+3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
   <string name="durationFormula">(počáteční čas) + 40 × (přídavek)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess podporuje standartní šachy a %1$s.</string>
   <string name="eightVariants">8 variant šachu</string>
+  <string name="whatIsACPL">Co je to průměrná pěšcová ztráta (angl. \"average centipawn loss\")?</string>
+  <string name="acplExplanation">V šachu se jako jednotka síly jednotlivých tahů ve srovnání s nejlepšími možnými tahy doporučenými počítačem používá tzv. centipawn (z angličtiny). Jeden centipawn je ekvivalentní jedné setině hodnoty pěšáka. To znamená, že 100 centipawnů odpovídá jednomu pěšákovi.
+
+Nejlepší tah doporučený počítačem ztrácí 0 centipawnů (z definice). Slabší tah povede na zhoršení pozice, a právě toto zhoršení pozice se měří v centipawnech.
+
+Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč pěšcovou ztrátu, tím silnější tahy hraje.
+
+Počítačová analýza na Lichessu využívá program Stockfish. Hráčovi tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
+  <string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
+  <string name="lichessFollowFIDErules">Když hráči dojde čas, obvykle to znamená, že partii prohraje. Platí zde ovšem jedna výjimka, a to v případě, že je na šachovnici taková pozice, že by mu nebylo možné dát mat žádnou legální kombinací tahů. V takovém případě se bude jednat o remízu (viz %1$s).
+
+Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
+
+Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má kámen, který by mohl králi zatarasit únikovou cestu.</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
+  <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
