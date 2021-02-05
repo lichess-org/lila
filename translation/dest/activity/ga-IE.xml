@@ -10,11 +10,11 @@
     <item quantity="other">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
-    <item quantity="two">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
-    <item quantity="few">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
-    <item quantity="many">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
-    <item quantity="other">Rinneadh cleactadh ar suíomh %1$s de chuid %2$s</item>
+    <item quantity="one">Rinneadh cleactadh ar %1$s suíomh de chuid %2$s</item>
+    <item quantity="two">Rinneadh cleactadh ar %1$s shuíomh de chuid %2$s</item>
+    <item quantity="few">Rinneadh cleactadh ar%1$s suíomh de chuid %2$s</item>
+    <item quantity="many">Rinneadh cleactadh ar %1$s suíomh de chuid %2$s</item>
+    <item quantity="other">Rinneadh cleactadh ar %1$s suíomh de chuid %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s fadhb beartach réitithe</item>

@@ -2,21 +2,21 @@
 <resources>
   <string name="emailConfirm_subject">Lichess.org hesabınızı təsdiqləyin, %s</string>
   <string name="emailConfirm_click">Lichess hesabınızı aktivləşdirmək üçün bu linkə klikləyin:</string>
-  <string name="emailConfirm_ignore">Lichessdə qeydiyyatdan keçməmisinizsə, bu mesaja əhəmiyyət verməyə bilərsiniz.</string>
+  <string name="emailConfirm_ignore">Əgər Lichess\'də qeydiyyatdan keçməmisinizsə, bu mesaja əhəmiyyət verməyə bilərsiniz.</string>
   <string name="passwordReset_subject">Lichess.org şifrənizi sıfırlayın, %s</string>
   <string name="passwordReset_intro">Hesabınızın şifrəsini sıfırlamaq üçün bir sorğu aldıq.</string>
-  <string name="passwordReset_clickOrIgnore">Bu sorğunu siz etmisinizsə, aşağıdakı bağlantıya klikləyin. Siz etməmisinizsə, bu emailə əhəmiyyət verməyin.</string>
+  <string name="passwordReset_clickOrIgnore">Əgər bu sorğunu siz etmisinizsə, aşağıdakı linkə klikləyin. Siz etməmisinizsə, bu e-poçta əhəmiyyət verməyin.</string>
   <string name="emailChange_subject">Yeni email ünvanınızı təsdiqləyin, %s</string>
   <string name="emailChange_intro">E-poçt adresini dəyişdirmək üçün sorğu göndərdiniz.</string>
   <string name="emailChange_click">Bu e-poçtu aldığınızı təsdiqləmək üçün aşağıdakı linki vurun:</string>
-  <string name="welcome_subject">Lichess.org-a Xoş Gəldiniz, %s</string>
+  <string name="welcome_subject">Lichess.org\'a xoş gəldiniz, %s</string>
   <string name="welcome_text">https://lichess.org üzərindən hesabınız uğurla yaradıldı.
 
 Profil səhifəniz: %1$s. Profilinizi %2$s üzərindən özəlləşdirə bilərsiniz.
 
 Əylənin, fiqurlarınız hər zaman rəqib şahına gedən yolu tapa bilsin!</string>
-  <string name="logInToLichess">Lichess.org-a giriş edin, %s</string>
-  <string name="common_orPaste">(Klikləmə işləmədi? Kopyalayıb brazuerdə yapışdırmağı sına!)</string>
-  <string name="common_note">Bu, %s saytından istifadənizlə bağlı xidməti bir emaildir.</string>
+  <string name="logInToLichess">Lichess.org\'a giriş edin, %s</string>
+  <string name="common_orPaste">(Klikləmə işləmədi? Kopyalayıb brauzerə yapışdırmağı yoxla!)</string>
+  <string name="common_note">Bu, %s istifadənizlə əlaqəli bir xidmət e-poçtudur.</string>
   <string name="common_contact">Bizimlə əlaqə üçün, zəhmət olmasa bu linkdən istifadə edin: %s.</string>
 </resources>

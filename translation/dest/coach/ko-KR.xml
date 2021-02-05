@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess 지도자들</string>
+  <string name="lichessCoach">Lichess 지도자들</string>
+  <string name="languages">언어</string>
+  <string name="otherExperiences">또 다른 경력</string>
+</resources>

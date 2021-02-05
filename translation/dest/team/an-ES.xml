@@ -12,6 +12,8 @@
   <string name="noTeamFound">Garra equipo trobau</string>
   <string name="joinTeam">Unir-se a l\'equipo</string>
   <string name="quitTeam">Abandonar l\'equipo</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Revisar manualment las demandas d\'admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si ye marcau, los chugados habrán d\'escribir una petición pa unir-se a l\'equipo, la qual puetz acceptar u refusar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capitán de l\'equipo</item>
     <item quantity="other">Liders de l\'equipo</item>
@@ -41,4 +43,8 @@ Los chugadors a los quals no les faiga goyo recibir los tuyos mensaches pueden a
   <string name="leadersChat">Chat de liders</string>
   <string name="closeTeam">Zarrar equipo</string>
   <string name="closeTeamDescription">Zarrar l\'equipo pa cutio.</string>
+  <string name="teamPassword">Clau de l\'equipo</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcional) Una clau que los nuevos miembros han de conoixer pa unir-se a este equipo.</string>
+  <string name="incorrectTeamPassword">Clau d\'equipo incorrecta.</string>
+  <string name="teamAlreadyExists">Este equipo ya existe.</string>
 </resources>

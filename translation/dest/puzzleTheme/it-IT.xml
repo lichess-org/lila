@@ -47,7 +47,7 @@
   <string name="enPassantDescription">Una tattica che coinvolge la regola dell\'en passant, in cui un pedone può catturare un pedone avversario che l\'ha superato usando la propria mossa iniziale di due caselle.</string>
   <string name="exposedKing">Re esposto</string>
   <string name="exposedKingDescription">Una tattica che coinvolge un re con pochi difensori vicini, il che spesso porta al matto.</string>
-  <string name="fork">Forchetta</string>
+  <string name="fork">Attacco doppio</string>
   <string name="forkDescription">Una mossa in cui un pezzo attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
   <string name="hangingPieceDescription">Una tattica che coinvolge un pezzo indifeso o insufficientemente difeso, e che dunque può essere catturato.</string>

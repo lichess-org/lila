@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
   <string name="voteToLoadNextOne">Vótáil chun an chéad cheann eile a lódáil!</string>
   <string name="yourPuzzleRatingX">Do rátáil faidhbe: %s</string>
-  <string name="findTheBestMoveForWhite">Faigh an beart is fearr le bán.</string>
-  <string name="findTheBestMoveForBlack">Faigh an beart is fearr le dubh.</string>
+  <string name="findTheBestMoveForWhite">Faigh an beart is fearr do bán.</string>
+  <string name="findTheBestMoveForBlack">Faigh an beart is fearr do dubh.</string>
   <string name="toGetPersonalizedPuzzles">Chun fadhbanna pearsantaithe a fháil:</string>
   <string name="puzzleId">Fadhb %s</string>
   <string name="puzzleOfTheDay">Fadhb an lae</string>

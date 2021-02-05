@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Problemas</string>
+  <string name="puzzleThemes">Temas de problemas</string>
+  <string name="recommended">Recomendau</string>
+  <string name="phases">Fases</string>
+  <string name="motifs">Motivos</string>
+  <string name="advanced">Abanzau</string>
+  <string name="lengths">Longaria</string>
+  <string name="mates">Mates</string>
+  <string name="goals">Obchectivos</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Orichen</string>
+  <string name="specialMoves">Movimientos especials</string>
+  <string name="didYouLikeThisPuzzle">Te fa goyo este problema?</string>
+  <string name="voteToLoadNextOne">Vota pa cargar lo siguient!</string>
+  <string name="yourPuzzleRatingX">La tuya puntuación en problemas ye de: %s</string>
+  <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
+  <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
+  <string name="toGetPersonalizedPuzzles">Pa aconseguir problemas personalizaus:</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema d\'o día</string>
+  <string name="clickToSolve">Fe cli pa resolver</string>
+  <string name="goodMove">Buen movimiento</string>
+  <string name="bestMove">Lo millor movimiento!</string>
+  <string name="keepGoing">Contina…</string>
+  <string name="puzzleSuccess">Bien feito!</string>
+  <string name="puzzleComplete">Problema completau!</string>
+  <string name="notTheMove">Ixe no ye lo movimiento!</string>
+  <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
+  <string name="ratingX">Puntuación: %s</string>
+  <string name="hidden">amagau</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Chugau %s vegada</item>
+    <item quantity="other">Chugau %s vegadas</item>
+  </plurals>
+  <string name="fromGameLink">D\'a partida %s</string>
+  <string name="continueTraining">Continar entrenamiento</string>
+  <string name="difficultyLevel">Nivel de dificultat</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Mas facil</string>
+  <string name="easiest">Lo mas facil</string>
+  <string name="harder">Dificil</string>
+  <string name="hardest">Lo mas dificil</string>
+  <string name="example">Exemplo</string>
+  <string name="addAnotherTheme">Anyadir belatro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Pasar immediatament a lo siguient problema</string>
+  <string name="puzzleDashboard">Panel de problemas</string>
+  <string name="improvementAreas">Arias de millora</string>
+  <string name="strengths">Fuerzas</string>
+  <string name="history">Historial d\'os problemas</string>
+  <string name="solved">resuelto</string>
+  <string name="failed">suspendiu</string>
+</resources>
