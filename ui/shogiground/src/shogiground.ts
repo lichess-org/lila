@@ -30,6 +30,7 @@ export function Shogiground(element: HTMLElement, config?: Config): Api {
         updateBounds(state);
         if (elements.svg) svg.renderSvg(state, elements.svg);
       };
+    state.pockets = elements.pockets;
     state.dom = {
       elements,
       bounds,

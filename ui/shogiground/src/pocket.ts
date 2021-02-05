@@ -1,11 +1,42 @@
 import { State } from "./state";
 import { createEl, droppableRoles } from "./util";
+import { Pockets, Role } from "./types";
+
+const droppableLetters: { [letter: string]: Role } = {
+  p: "pawn",
+  l: "lance",
+  n: "knight",
+  s: "silver",
+  g: "gold",
+  b: "bishop",
+  r: "rook",
+};
+
+export function makePockets(str?: string | null): Pockets {
+  const pockets = [
+    { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 },
+    { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 }
+  ];
+  if (str) {
+    let num = 0;
+    for (const c of str) {
+      const role = droppableLetters[c.toLowerCase()];
+      if (role) {
+        pockets[c.toLowerCase() === c ? 1 : 0][role] += num ? num : 1;
+        num = 0;
+      } else {
+        num = num * 10 + Number(c);
+      }
+    }
+  }
+  return pockets;
+}
 
 export function addPocketEl(
   s: State,
   element: HTMLElement,
   position: string
-) {
+): HTMLElement {
   const pocket = createEl("div", "pocket is2d pocket-" + position),
     color = (s.orientation === "white") !== (position == "top") ? "white" : "black";
   element.appendChild(pocket);
@@ -21,4 +52,5 @@ export function addPocketEl(
     c2.appendChild(piece);
 
   }
+  return pocket;
 }

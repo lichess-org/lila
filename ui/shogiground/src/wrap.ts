@@ -4,6 +4,7 @@ import { setVisible, createEl, isMiniBoard } from "./util";
 import { colors, Notation } from "./types";
 import { createElement as createSVG } from "./svg";
 import { Elements } from "./types";
+import { makePockets } from "./pocket";
 
 export function renderWrap(
   element: HTMLElement,
@@ -32,13 +33,18 @@ export function renderWrap(
   element.classList.toggle("manipulable", !s.viewOnly);
 
   const helper = createEl("cg-helper");
-  let pockets;
+
+  // this is probably not the place to extract data from the html tag, maybe it is better to get data-pocket from the config but i am avoiding rewriting every call of Shogiground here
+  let pockets = makePockets(element.getAttribute("data-pocket"));
+  console.log(element.attributes);
+  console.log(pockets);
+  let pocketEls;
 
   element.appendChild(helper);
   if (isMiniBoard(element)) {
-    pockets = [createEl("cg-pocket"), createEl("cg-pocket")];
-    element.insertBefore(pockets[s.orientation === "white" ? 0 : 1], helper);
-    element.insertBefore(pockets[s.orientation === "white" ? 1 : 0], helper.nextSibling);
+    pocketEls = [createEl("cg-pocket"), createEl("cg-pocket")];
+    element.insertBefore(pocketEls[s.orientation === "white" ? 0 : 1], helper);
+    element.insertBefore(pocketEls[s.orientation === "white" ? 1 : 0], helper.nextSibling);
   }
   const container = createEl("cg-container");
   helper.appendChild(container);
@@ -101,6 +107,7 @@ export function renderWrap(
     ghost,
     svg,
     pockets,
+    pocketEls,
   };
 }
 

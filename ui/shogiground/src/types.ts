@@ -111,6 +111,17 @@ export interface Drop {
   key: Key;
 }
 export type Pieces = Map<Key, Piece>;
+export type Pockets = Pocket[];
+export interface Pocket {
+    pawn: number,
+    lance: number,
+    knight: number,
+    silver: number,
+    gold: number,
+    bishop: number,
+    rook: number
+}
+
 export type PiecesDiff = Map<Key, Piece | undefined>;
 
 export type KeyPair = [Key, Key];
@@ -129,7 +140,8 @@ export interface Rect {
 export type Dests = Map<Key, Key[]>;
 
 export interface Elements {
-  pockets: HTMLElement[];
+  pockets: Pockets;
+  pocketEls: HTMLElement[];
   boardSpan: HTMLElement;
   board: HTMLElement;
   container: HTMLElement;

@@ -21,7 +21,7 @@ export function render(s: State): void {
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
     boardSpanEl: HTMLElement | null = s.dom.elements.boardSpan,
-    pockets: HTMLElement[] = s.dom.elements.pockets,
+    pocketEls: HTMLElement[] = s.dom.elements.pocketEls,
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
     anims: AnimVectors = curAnim ? curAnim.plan.anims : new Map(),
@@ -180,10 +180,18 @@ export function render(s: State): void {
     }
   }
 
+  console.log(s.pockets);
   if (isMiniBoard(boardSpanEl)) {
     for (const i of [0, 1]) {
-      if (!pockets[i].innerHTML)
-        addPocketEl(s, pockets[i], i === 0 ? "top" : "bottom");
+      // add pockets if nonexistent yet
+      let pocketEl;
+      if (!pocketEls[i].innerHTML)
+        pocketEl = addPocketEl(s, pocketEls[i], i === 0 ? "top" : "bottom");
+      else pocketEl = pocketEls[i].firstChild;
+      for (const pocket of pocketEl.getElementsByTagName("piece")) {
+        const role = pocket.getAttribute("data-role");
+        pocket.setAttribute("data-nb", s.pockets[i][role])
+      }
     }
   }
 
