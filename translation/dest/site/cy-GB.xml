@@ -261,6 +261,14 @@
   <string name="toStudy">Astudio</string>
   <string name="importGame">Mewnforio gêm</string>
   <string name="importGameExplanation">Wedi postio PGN fyddwch yn gallu chwarae drwy\'r gem, cewch dadansoddiad gyfrifiadurol, cyfle i drafod y gem ac URL i\'w rannu.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="zero">Mewnforiwyd %s o gêmau</item>
+    <item quantity="one">Mewnforiwyd %s gêm</item>
+    <item quantity="two">Mewnforiwyd %s gêm</item>
+    <item quantity="few">Mewnforiwyd %s o gêmau</item>
+    <item quantity="many">Mewnforiwyd %s o gêmau</item>
+    <item quantity="other">Mewnforiwyd %s o gêmau</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">CAPTCHA gwyddbwyll ydy hwnnw.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
   <string name="captcha.fail">Datryswch y captcha os gwelwch yn dda.</string>
