@@ -235,7 +235,7 @@ final class Puzzle(
           }
         case None if themeOrId.size == Puz.idSize =>
           OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
-            ctx.me.ifTrue(getBool("casual")) foreach { env.puzzle.api.casual.set(_, puz.id) }
+            ctx.me foreach { env.puzzle.api.casual.set(_, puz.id) }
             renderShow(puz, PuzzleTheme.mix)
           }
         case None =>
