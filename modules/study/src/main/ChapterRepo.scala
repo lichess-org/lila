@@ -119,20 +119,20 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
-  def setShapes(shapes: lila.tree.Node.Shapes) = setNodeValue("h", shapes.value.nonEmpty option shapes) _
+  def setShapes(shapes: lila.tree.Node.Shapes) =
+    setNodeValue(Node.BsonFields.shapes, shapes.value.nonEmpty option shapes) _
 
   def setComments(comments: lila.tree.Node.Comments) =
-    setNodeValue("co", comments.value.nonEmpty option comments) _
+    setNodeValue(Node.BsonFields.comments, comments.value.nonEmpty option comments) _
 
-  def setGamebook(gamebook: lila.tree.Node.Gamebook) = setNodeValue("ga", gamebook.nonEmpty option gamebook) _
+  def setGamebook(gamebook: lila.tree.Node.Gamebook) =
+    setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook) _
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue("g", glyphs.nonEmpty) _
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
 
-  def setClock(clock: Option[chess.Centis]) = setNodeValue("l", clock) _
+  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
 
-  def forceVariation(force: Boolean) = setNodeValue("fv", force option true) _
-
-  def setScore(score: Option[lila.tree.Eval.Score]) = setNodeValue("e", score) _
+  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
@@ -162,15 +162,28 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         $id(chapter.id) ++ $doc(path.toDbField $exists true),
         pathToField(path, field),
         value
-      ).map {
-        case 0 =>
-          logger.warn(
-            s"Can't setNodeValue ${chapter.studyId}/${chapter.id} '$path' $field '${path.toDbField}' / no node matched!"
-          )
-          false
-        case _ => true
-      }
-    }.void
+      ).void
+    }
+
+  private[study] def setNodeValues(
+      chapter: Chapter,
+      path: Path,
+      values: List[(String, Option[BSONValue])]
+  ): Funit =
+    values.collect { case (field, Some(v)) =>
+      pathToField(path, field) -> v
+    } match {
+      case Nil => funit
+      case sets =>
+        coll {
+          _.update
+            .one(
+              $id(chapter.id) ++ $doc(path.toDbField $exists true),
+              $set($doc(sets))
+            )
+            .void
+        }
+    }
 
   // root.path.subField
   private def pathToField(path: Path, subField: String): String = s"${path.toDbField}.$subField"

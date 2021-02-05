@@ -59,32 +59,40 @@ object ServerEval {
               lila.common.Future
                 .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
-                    info.eval.score
-                      .ifTrue {
-                        node.score.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                      }
-                      .?? { score =>
-                        chapterRepo.setScore(score.some)(chapter, path + node) >>
-                          advOpt.?? { adv =>
-                            chapterRepo.setComments(
+                    chapter.root.nodeAt(path).flatMap { parent =>
+                      analysisLine(parent, chapter.setup.variant, info) map parent.addChild
+                    } ?? { parentWithNewChildren =>
+                      chapterRepo.setChildren(parentWithNewChildren.children)(chapter, path)
+                    } >> {
+                      import BSONHandlers._
+                      import Node.{ BsonFields => F }
+                      chapterRepo.setNodeValues(
+                        chapter,
+                        path + node,
+                        List(
+                          F.score -> info.eval.score
+                            .ifTrue {
+                              node.score.isEmpty ||
+                              advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                            }
+                            .flatMap(EvalScoreBSONHandler.writeOpt),
+                          F.comments -> advOpt
+                            .map { adv =>
                               node.comments + Comment(
                                 Comment.Id.make,
                                 Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
                                 Comment.Author.Lichess
                               )
-                            )(chapter, path + node) >>
-                              chapterRepo.setGlyphs(
-                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                              )(chapter, path + node) >> {
-                                chapter.root.nodeAt(path).flatMap { parent =>
-                                  analysisLine(parent, chapter.setup.variant, info) map parent.addChild
-                                } ?? { parentWithNewChildren =>
-                                  chapterRepo.setChildren(parentWithNewChildren.children)(chapter, path)
-                                }
-                              }
-                          }
-                      } inject path + node
+                            }
+                            .flatMap(CommentsBSONHandler.writeOpt),
+                          F.glyphs -> advOpt
+                            .map { adv =>
+                              node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                            }
+                            .flatMap(GlyphsBSONHandler.writeOpt)
+                        )
+                      )
+                    } inject path + node
                 } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
