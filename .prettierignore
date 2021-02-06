@@ -1,7 +1,13 @@
 modules
 app
-public
 project
+
+public/css
+public/piece-css
+public/compiled
+public/glyphs.json
+public/javascripts/vendor
+public/vendor
 
 dist/
 ui/common/**/*.js
