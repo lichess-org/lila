@@ -1,22 +1,10 @@
 name: Lint code
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v1
-
-      - name: Setup Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: Install and lint
-        run: |
-          yarn
-          yarn lint
+      - run: yarn install && yarn run check-format
