@@ -1,6 +1,12 @@
 name: Lint code
 
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'l10n_master'
+  pull_request:
+    paths-ignore:
+      - 'translation/dest/**'
 
 jobs:
   lint:

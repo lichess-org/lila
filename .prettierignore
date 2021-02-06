@@ -9,6 +9,8 @@ public/glyphs.json
 public/javascripts/vendor
 public/vendor
 
+translation/dest
+
 dist/
 ui/common/**/*.js
 ui/common/**/*.d.ts
