@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Odštartujte potiahnutím</string>
   <string name="puzzlesSolved">vyriešených úloh</string>
   <string name="newDailyHighscore">Nové najvyššie skóre dňa!</string>
   <string name="newWeeklyHighscore">Nové najvyššie skóre týždňa!</string>
