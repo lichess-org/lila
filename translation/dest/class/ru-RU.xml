@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Классы Lichess</string>
+  <string name="lichessClasses">Классы</string>
   <string name="teachClassesOfChessStudents">Преподавайте шахматы ученикам с помощью инструмента «Классы Lichess».</string>
   <string name="features">Возможности</string>
   <string name="quicklyGenerateSafeUsernames">Быстро создавайте безопасные имена и пароли для учеников</string>
