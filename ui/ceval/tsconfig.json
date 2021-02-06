@@ -1,8 +1,7 @@
 {
   "extends": "../tsconfig_module.base.json",
-  "include": ["src/*.ts", "test/*.ts"],
+  "include": ["src"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": ".",
+    "outDir": "./dist"
   }
 }

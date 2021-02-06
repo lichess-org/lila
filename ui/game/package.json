@@ -4,6 +4,7 @@
   "private": true,
   "description": "lichess.org game",
   "main": "game.js",
+  "typings": "game",
   "keywords": [
     "chess",
     "lichess",
