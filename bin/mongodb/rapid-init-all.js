@@ -19,23 +19,23 @@ function copyPerf(p) {
     gl: {
       r: p.gl.r,
       v: p.gl.v,
-      d: p.gl.d
+      d: p.gl.d,
     },
     nb: p.nb,
-    re: p.re
+    re: p.re,
   };
 }
 
 var initialGlicko = {
   r: 1500,
   v: 0.06,
-  d: 350
+  d: 350,
 };
 
 // var query = {_id:{$in:['thibault', 'neio']}};
 var query = {
-  'perfs.classical.nb':{$gte:1},
-  'v':{$exists:false}
+  'perfs.classical.nb': { $gte: 1 },
+  v: { $exists: false },
 };
 
 var done = 0;
@@ -52,13 +52,14 @@ db.user4.find(query).forEach(u => {
     s: { $gte: 30 },
     ra: true,
     v: { $exists: false },
-    c: { $exists: true }
+    c: { $exists: true },
   };
-  db.game5.find(gameQuery, { _id: false, c: true, ca: true })
-    .sort({ca:-1})
+  db.game5
+    .find(gameQuery, { _id: false, c: true, ca: true })
+    .sort({ ca: -1 })
     .hint('us_1_ca_-1')
     .forEach(g => {
-      switch(getPerf(getTc(g))) {
+      switch (getPerf(getTc(g))) {
         case 'rapid':
           rapidPerf.nb++;
           if (!rapidPerf.la) rapidPerf.la = g.ca;
@@ -69,27 +70,27 @@ db.user4.find(query).forEach(u => {
           break;
       }
     });
-    [classicalPerf, rapidPerf].forEach(perf => {
-      if (perf.nb < 10) {
-        if (perf.nb < 5) perf.gl.d = 350;
-        else perf.gl.d = 150;
-        perf.gl.v = 0.06;
-      }
-      if (!perf.la) delete perf.la;
-      perf.nb = NumberInt(perf.nb);
-    });
+  [classicalPerf, rapidPerf].forEach(perf => {
+    if (perf.nb < 10) {
+      if (perf.nb < 5) perf.gl.d = 350;
+      else perf.gl.d = 150;
+      perf.gl.v = 0.06;
+    }
+    if (!perf.la) delete perf.la;
+    perf.nb = NumberInt(perf.nb);
+  });
 
-    var update = {
-      $set: {
-        v: 2 // user version 2
-      }
-    };
+  var update = {
+    $set: {
+      v: 2, // user version 2
+    },
+  };
 
-    if (classicalPerf.nb == 0) update['$unset'] = {'perfs.classical': true};
-    else update['$set']['perfs.classical'] = classicalPerf;
-    if (rapidPerf.nb > 0) update['$set']['perfs.rapid'] = rapidPerf;
+  if (classicalPerf.nb == 0) update['$unset'] = { 'perfs.classical': true };
+  else update['$set']['perfs.classical'] = classicalPerf;
+  if (rapidPerf.nb > 0) update['$set']['perfs.rapid'] = rapidPerf;
 
-    db.user4.update({_id:u._id}, update);
-    db.perf_stat.remove({_id:u._id + '/3'});
-    done++;
+  db.user4.update({ _id: u._id }, update);
+  db.perf_stat.remove({ _id: u._id + '/3' });
+  done++;
 });

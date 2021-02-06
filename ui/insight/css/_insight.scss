@@ -162,7 +162,7 @@
 
       flex: 1 1 auto;
       text-align: center;
-      padding: .5em .2em;
+      padding: 0.5em 0.2em;
       cursor: pointer;
       position: relative;
       color: $c-font-page;
@@ -204,7 +204,7 @@
     a {
       color: $c-font;
       display: block;
-      padding: .7em;
+      padding: 0.7em;
 
       @include transition;
     }
@@ -229,8 +229,8 @@
 
   .clear {
     color: $c-bad;
-    font-size: .9em;
-    margin-bottom: .5em;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
   }
 
   .filters {
@@ -260,7 +260,13 @@
     .ms-parent.selected .ms-choice {
       $c-sel-ms-choice: fade-out($c-accent, 0.3);
 
-      background: linear-gradient(to right, $c-sel-ms-choice 0px, $c-sel-ms-choice 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(
+        to right,
+        $c-sel-ms-choice 0px,
+        $c-sel-ms-choice 5px,
+        rgba(0, 0, 0, 0) 5px,
+        rgba(0, 0, 0, 0) 100%
+      );
     }
 
     .ms-parent:hover .ms-choice {
@@ -300,7 +306,7 @@
   }
 
   .ms-drop {
-    font-size: .9em;
+    font-size: 0.9em;
 
     ul {
       padding: 0;
@@ -408,7 +414,7 @@
       @include transition(background);
 
       color: $c-font;
-      padding: .4em;
+      padding: 0.4em;
 
       span {
         box-shadow: none;
@@ -424,7 +430,7 @@
       @extend %flex-between-nowrap, %nowrap-hidden, %box-neat;
 
       background: $c-bg-box;
-      padding: .3em .6em;
+      padding: 0.3em 0.6em;
 
       &__pl,
       &__op {

@@ -1,5 +1,5 @@
-$(function() {
-  $('#inquiry .notes').on('mouseenter', function() {
+$(function () {
+  $('#inquiry .notes').on('mouseenter', function () {
     $(this).find('textarea')[0].focus();
   });
   $('#inquiry .costello').on('click', () => {
@@ -14,7 +14,7 @@ $(function() {
     $('#inquiry input.auto-next').val('0');
   }
 
-  $('#inquiry .switcher input').on('change', function() {
+  $('#inquiry .switcher input').on('change', function () {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });

@@ -5,7 +5,6 @@ import { myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 
 export default class SwissCtrl {
-
   data: SwissData;
   trans: Trans;
   socket: SwissSocket;
@@ -26,14 +25,14 @@ export default class SwissCtrl {
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
-    setTimeout(() => this.disableClicks = false, 1500);
+    setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
     this.redirectToMyGame();
   }
 
   reload = (data: SwissData): void => {
-    this.data = {...this.data, ...this.readData(data)};
+    this.data = { ...this.data, ...this.readData(data) };
     this.data.me = data.me; // to account for removal on withdraw
     this.data.nextRound = data.nextRound; // to account for removal
     this.loadPage(this.data.standing);
@@ -53,7 +52,7 @@ export default class SwissCtrl {
     xhr.join(this, password);
     this.joinSpinner = true;
     this.focusOnMe = true;
-  }
+  };
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
@@ -61,7 +60,7 @@ export default class SwissCtrl {
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
-    const delay = (rightNow || document.hasFocus()) ? 10 : (1000 + Math.random() * 500);
+    const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
@@ -77,7 +76,7 @@ export default class SwissCtrl {
 
   loadPage = (data: Standing) => {
     this.pages[data.page] = this.readStanding(data).players;
-  }
+  };
 
   setPage = (page: number) => {
     this.page = page;
@@ -91,7 +90,7 @@ export default class SwissCtrl {
     }
   };
 
-  toggleSearch = () => this.searching = !this.searching;
+  toggleSearch = () => (this.searching = !this.searching);
 
   jumpToPageOf = (name: string) => {
     const userId = name.toLowerCase();
@@ -103,7 +102,7 @@ export default class SwissCtrl {
       this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
-  }
+  };
 
   userSetPage = (page: number) => {
     this.focusOnMe = false;
@@ -122,38 +121,37 @@ export default class SwissCtrl {
   askReload = () => {
     if (this.joinSpinner || (this.data.nextRound && this.data.me)) xhr.reloadNow(this);
     else this.reloadSoon();
-  }
+  };
 
   withdraw = () => {
     xhr.withdraw(this);
     this.joinSpinner = true;
-  }
+  };
 
   private reloadSoonThrottle: () => void;
 
   private reloadSoon = () => {
-    if (!this.reloadSoonThrottle) this.reloadSoonThrottle = throttle(
-      Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
-      () => xhr.reloadNow(this)
-    );
+    if (!this.reloadSoonThrottle)
+      this.reloadSoonThrottle = throttle(Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)), () =>
+        xhr.reloadNow(this)
+      );
     this.reloadSoonThrottle();
-  }
+  };
 
   private isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () =>
-    $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
+  private redrawNbRounds = () => $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
 
   private readData = (data: SwissData) => ({
     ...data,
-    standing: this.readStanding(data.standing)
+    standing: this.readStanding(data.standing),
   });
 
   private readStanding = (standing: Standing) => ({
     ...standing,
     players: standing.players.map(p => ({
       ...p,
-      sheet: xhr.readSheetMin(p.sheetMin)
-    }))
+      sheet: xhr.readSheetMin(p.sheetMin),
+    })),
   });
 }

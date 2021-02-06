@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -24,13 +24,13 @@ export interface SimulData {
   isFinished: boolean;
   text: string;
   host: Host;
-  variants: Variant[]
+  variants: Variant[];
   applicants: Applicant[];
   pairings: Pairing[];
   quote?: {
     text: string;
     author: string;
-  }
+  };
   team?: Team;
 }
 
@@ -54,7 +54,7 @@ export interface Player extends LightUser {
 export interface Host extends LightUser {
   rating: number;
   gameId?: string;
-};
+}
 
 export interface Applicant {
   player: Player;
@@ -78,6 +78,6 @@ export interface Game {
   clock?: {
     white: number;
     black: number;
-  }
+  };
   winner?: Color;
 }

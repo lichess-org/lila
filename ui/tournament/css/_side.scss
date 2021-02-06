@@ -43,8 +43,8 @@
 
     .defender::before {
       font-size: 1.6em;
-      vertical-align: -.26em;
-      margin: 0 .15em 0 -.15em;
+      vertical-align: -0.26em;
+      margin: 0 0.15em 0 -0.15em;
     }
 
     &.conditions {
@@ -52,11 +52,13 @@
         opacity: 0.7;
       }
 
-      &.accepted, .accepted {
+      &.accepted,
+      .accepted {
         color: $c-good;
       }
 
-      &.refused, .refused {
+      &.refused,
+      .refused {
         color: $c-bad;
       }
     }
@@ -75,7 +77,7 @@
     padding: 1em;
     background: mix($c-fancy, $c-bg-box, 15%);
     margin-bottom: 1em;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 

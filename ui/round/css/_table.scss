@@ -13,7 +13,7 @@
 .expiration {
   @extend %flex-center;
 
-  font-size: .9rem;
+  font-size: 0.9rem;
   justify-content: center;
   line-height: 2;
   background: $c-good;
@@ -33,6 +33,6 @@
 
   strong {
     font-size: 1rem;
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
 }

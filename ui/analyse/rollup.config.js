@@ -13,5 +13,5 @@ export default rollupProject({
   studyTopicForm: {
     input: 'src/plugins/studyTopicForm.ts',
     output: 'study.topic.form',
-  }
+  },
 });

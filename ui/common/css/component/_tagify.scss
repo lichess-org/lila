@@ -41,24 +41,33 @@
   --tag-remove-btn-bg--hover: #{$tag-remove-btn-bg--hover};
   --tag--min-width: 1ch;
   --tag--max-width: auto;
-  --tag-hide-transition: .3s;
-  --loader-size: .8em;
+  --tag-hide-transition: 0.3s;
+  --loader-size: 0.8em;
 
   @mixin placeholder($show: true, $opacity: 0.5) {
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
 
     @if $show == true {
       opacity: $opacity;
       transform: none;
-    }
-    @else {
+    } @else {
       opacity: 0;
       transform: translatex(6px);
     }
   }
 
   @mixin tagReadonlyBG {
-    background: linear-gradient(45deg, var(--tag-bg) 25%, transparent 25%, transparent 50%, var(--tag-bg) 50%, var(--tag-bg) 75%, transparent 75%, transparent) 0 / 5px 5px;
+    background: linear-gradient(
+        45deg,
+        var(--tag-bg) 25%,
+        transparent 25%,
+        transparent 50%,
+        var(--tag-bg) 50%,
+        var(--tag-bg) 75%,
+        transparent 75%,
+        transparent
+      )
+      0 / 5px 5px;
     box-shadow: none;
     filter: brightness(0.95);
   }
@@ -88,7 +97,7 @@
   cursor: text;
   outline: none;
   position: relative;
-  transition: .1s;
+  transition: 0.1s;
   text-align: left;
   height: auto;
 
@@ -134,16 +143,16 @@
       &::after {
         content: '';
         vertical-align: middle;
-        margin: -2px 0 -2px .5em;
+        margin: -2px 0 -2px 0.5em;
         opacity: 1;
-        width: .7em;
-        height: .7em;
+        width: 0.7em;
+        height: 0.7em;
         width: var(--loader-size);
         height: var(--loader-size);
         border: 3px solid;
-        border-color: #EEE #BBB #888 transparent;
+        border-color: #eee #bbb #888 transparent;
         border-radius: 50%;
-        animation: rotateLoader .4s infinite linear;
+        animation: rotateLoader 0.4s infinite linear;
       }
 
       &:empty {
@@ -169,7 +178,7 @@
     z-index: 1;
     outline: none;
     cursor: default;
-    transition: .13s ease-out;
+    transition: 0.13s ease-out;
 
     > div {
       // :not([contenteditable])
@@ -183,7 +192,7 @@
       line-height: inherit;
       border-radius: 3px;
       user-select: none;
-      transition: .13s ease-out;
+      transition: 0.13s ease-out;
 
       > * {
         white-space: nowrap;
@@ -193,7 +202,7 @@
         vertical-align: top;
         min-width: var(--tag--min-width);
         max-width: var(--tag--max-width);
-        transition: .8s ease, .1s color;
+        transition: 0.8s ease, 0.1s color;
 
         &[contenteditable] {
           outline: none;
@@ -218,7 +227,7 @@
         z-index: -1;
         pointer-events: none;
         transition: 120ms ease;
-        animation: tags--bump .3s ease-out 1;
+        animation: tags--bump 0.3s ease-out 1;
         box-shadow: 0 0 0 $tag-inset-shadow-size $tag-bg inset;
         box-shadow: 0 0 0 calc(var(--tag-inset-shadow-size)) var(--tag-bg) inset;
       }
@@ -239,14 +248,12 @@
           box-shadow: 0 0 0 var(--tag-inset-shadow-size) var(--tag-hover) inset;
 
           //  box-shadow: 0 0 0 0 $tag-remove inset
-       
         }
 
         // background:nth($tagColor,2);
         //background:none;
         // box-shadow: 0 0 0 2px $tag-hover inset;
         // transition:50ms;
-     
       }
     }
 
@@ -265,7 +272,7 @@
         margin-right: 0;
         opacity: 0;
         transform: scale(0);
-        transition: .3s;
+        transition: 0.3s;
         transition: var(--tag-hide-transition);
         pointer-events: none;
       }
@@ -279,14 +286,14 @@
       &--notAllowed:not(.tagify__tag--editable) {
         div {
           > span {
-            opacity: .5;
+            opacity: 0.5;
           }
 
           // filter:blur(.2px);
           &::before {
             box-shadow: 0 0 0 $tag-inset-shadow-size $tag-invalid-bg inset !important;
             box-shadow: 0 0 0 var(--tag-inset-shadow-size) var(--tag-invalid-bg) inset !important;
-            transition: .2s;
+            transition: 0.2s;
           }
         }
       }
@@ -345,10 +352,10 @@
     height: $size;
     margin-right: $size / 3;
     margin-left: -$size / 3;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
 
     &::after {
-      content: "\00D7";
+      content: '\00D7';
     }
 
     &:hover {
@@ -359,14 +366,14 @@
       // + span{ box-shadow: 0 0 0 2px $tag-remove inset; transition:.2s; }
       + div {
         > span {
-          opacity: .5;
+          opacity: 0.5;
         }
 
         // filter:blur(.2px);
         &::before {
           box-shadow: 0 0 0 $tag-inset-shadow-size rgba($tag-remove, 0.3) inset !important;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size) var(--tag-remove-bg) inset !important;
-          transition: .2s;
+          transition: 0.2s;
         }
       }
     }
@@ -392,7 +399,7 @@
     $placeholder-width: 110px;
 
     @mixin placeholder-show {
-      opacity: .5;
+      opacity: 0.5;
       transform: none;
     }
 
@@ -477,7 +484,7 @@
 
       /* allows spaces at the beginning */
       color: $tag-text-color;
-      opacity: .3;
+      opacity: 0.3;
       pointer-events: none;
       max-width: 100px;
     }
@@ -524,7 +531,7 @@
       $size: 16px;
 
       content: '>';
-      opacity: .5;
+      opacity: 0.5;
       position: absolute;
       top: 50%;
       right: 0;
@@ -534,10 +541,10 @@
       height: $size / 2;
       pointer-events: none;
       transform: translate(-150%, -50%) scaleX(1.2) rotate(90deg);
-      transition: .2s ease-in-out;
+      transition: 0.2s ease-in-out;
     }
 
-    &[aria-expanded=true] {
+    &[aria-expanded='true'] {
       &::after {
         transform: translate(-150%, -50%) rotate(270deg) scaleY(1.2);
       }
@@ -574,7 +581,7 @@
     transform: translateY(1px);
     overflow: hidden;
 
-    &[placement="top"] {
+    &[placement='top'] {
       margin-top: 0;
       transform: translateY(-2px);
 
@@ -587,7 +594,7 @@
     // when the dropdown shows next to the caret while typing
     &--text {
       box-shadow: 0 0 0 3px rgba(var(--tagify-dd-color-primary), 0.1);
-      font-size: .9em;
+      font-size: 0.9em;
 
       #{$dropdown}__wrapper {
         border-width: 1px;
@@ -618,7 +625,7 @@
         transform: translateY(-1em);
       }
 
-      &[placement="top"] {
+      &[placement='top'] {
         #{$dropdown}__wrapper {
           transform: translateY(2em);
         }

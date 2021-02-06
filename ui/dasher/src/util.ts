@@ -1,13 +1,13 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
 export type Redraw = () => void;
 export type Close = () => void;
 export type Open = (sub: string) => void;
 
 export interface Prop<T> {
-  (): T
-  (v: T): T
+  (): T;
+  (v: T): T;
 }
 
 export function defined<A>(v: A | undefined): v is A {
@@ -33,21 +33,27 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
         if (redraw) redraw();
         return false;
       });
-    }
+    },
   };
 }
 
 export function header(name: string, close: Close) {
-  return h('a.head.text', {
-    attrs: { 'data-icon': 'I' },
-    hook: bind('click', close)
-  }, name);
+  return h(
+    'a.head.text',
+    {
+      attrs: { 'data-icon': 'I' },
+      hook: bind('click', close),
+    },
+    name
+  );
 }
 
 export function spinner() {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
       h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
+      }),
+    ]),
+  ]);
 }

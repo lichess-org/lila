@@ -7,15 +7,14 @@ import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
-  isSolving(): boolean
-  trans: Trans
-  [key: string]: any
+  isSolving(): boolean;
+  trans: Trans;
+  [key: string]: any;
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
-
   const game = root.data.game;
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
@@ -44,12 +43,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     }
     const fault = {
       node,
-      path: root.mainlinePathToPly(node.ply)
+      path: root.mainlinePathToPly(node.ply),
     };
     const prevPath = treePath.init(fault.path);
     const prev = {
       node: root.tree.nodeAtPath(prevPath),
-      path: prevPath
+      path: prevPath,
     };
     const solutionNode = prev.node.children.find(n => !!n.comp);
     current({
@@ -57,12 +56,16 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       prev,
       solution: {
         node: solutionNode,
-        path: prevPath + solutionNode!.id
+        path: prevPath + solutionNode!.id,
       },
-      openingUcis: []
+      openingUcis: [],
     });
     // fetch opening explorer moves
-    if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
+    if (
+      game.variant.key === 'standard' &&
+      game.division &&
+      (!game.division.middle || fault.node.ply < game.division.middle)
+    ) {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
@@ -80,10 +83,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     }
     root.userJump(prev.path);
     redraw();
-  };
+  }
 
   function onJump(): void {
-    const node = root.node, fb = feedback(), cur = current();
+    const node = root.node,
+      fb = feedback(),
+      cur = current();
     if (!cur) return;
     if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
       feedback('find');
@@ -91,9 +96,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci)) onWin(); // found in opening explorer
-      else if (node.comp) onWin(); // the computer solution line
-      else if (node.eval) onFail(); // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci)) onWin();
+      // found in opening explorer
+      else if (node.comp) onWin();
+      // the computer solution line
+      else if (node.eval) onFail();
+      // the move that was played in the game
       else {
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
@@ -101,14 +109,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       }
     }
     root.setAutoShapes();
-  };
+  }
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval ? (
-      node.ceval.depth >= 18 ||
-      (node.ceval.depth >= 14 && node.ceval.millis > 7000)
-    ) : false;
-  };
+    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && node.ceval.millis > 7000) : false;
+  }
 
   function checkCeval(): void {
     var node = root.node,
@@ -131,11 +136,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     feedback('fail');
     const bad = {
       node: root.node,
-      path: root.path
+      path: root.path,
     };
     root.userJump(current().prev.path);
-    if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children))
-      root.tree.deleteNodeAt(bad.path);
+    if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children)) root.tree.deleteNodeAt(bad.path);
     redraw();
   }
 
@@ -156,7 +160,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function hideComputerLine(node: Tree.Node): boolean {
     return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
-  };
+  }
 
   function showBadNode(): Tree.Node | undefined {
     const cur = current();
@@ -205,6 +209,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     trans: root.trans,
     noarg: root.trans.noarg,
     node: () => root.node,
-    redraw
+    redraw,
   };
-};
+}

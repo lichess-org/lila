@@ -12,7 +12,7 @@ export function pgnToTree(pgn: San[]): Tree.Node {
     ply: 0,
     id: '',
     fen: INITIAL_FEN,
-    children: []
+    children: [],
   } as Tree.Node;
   let current = root;
   pgn.forEach((san, i) => {
@@ -47,5 +47,5 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San) => ({
   id: scalachessCharPair(move),
   uci: makeUci(move),
   check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
-  children: []
+  children: [],
 });

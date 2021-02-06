@@ -1,18 +1,18 @@
 import * as xhr from 'common/xhr';
 
-export default function(publicKey: string) {
-
+export default function (publicKey: string) {
   var $checkout = $('div.plan_checkout');
   var lifetime = {
     cents: parseInt($checkout.data('lifetime-cents')),
-    usd: $checkout.data('lifetime-usd')
+    usd: $checkout.data('lifetime-usd'),
   };
-  var min = 100, max = 100 * 100000;
+  var min = 100,
+    max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
   if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
 
-  const getFreq = function() {
+  const getFreq = function () {
     return $checkout.find('group.freq input:checked').val();
   };
 
@@ -21,16 +21,16 @@ export default function(publicKey: string) {
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('#plan_monthly_1000').trigger('click');
 
-  const selectAmountGroup = function() {
+  const selectAmountGroup = function () {
     var freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
-  }
+  };
   selectAmountGroup();
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
-  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
     let amount: number;
     const raw: string = prompt(this.title) || '';
     try {
@@ -46,13 +46,14 @@ export default function(publicKey: string) {
     }
     if (cents < min) cents = min;
     else if (cents > max) cents = max;
-    var usd = '$' + (cents / 100);
+    var usd = '$' + cents / 100;
     $(this).text(usd);
     $(this).siblings('input').data('amount', cents).data('usd', usd);
   });
 
-  $checkout.find('button.paypal').on('click', function() {
-    let freq = getFreq(), cents: number;
+  $checkout.find('button.paypal').on('click', function () {
+    let freq = getFreq(),
+      cents: number;
     if (freq == 'lifetime') {
       cents = lifetime.cents;
     } else {
@@ -72,8 +73,9 @@ export default function(publicKey: string) {
     //       for now, this should work just fine.
     alert(error);
   };
-  $checkout.find('button.stripe').on('click', function() {
-    let freq = getFreq(), amount: number;
+  $checkout.find('button.stripe').on('click', function () {
+    let freq = getFreq(),
+      amount: number;
     if (freq == 'lifetime') {
       amount = lifetime.cents;
     } else {
@@ -83,26 +85,30 @@ export default function(publicKey: string) {
     if (amount < min || amount > max) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
-    xhr.json("/patron/stripe-checkout", {
-      method: "post",
-      body: xhr.form({
-        email: $checkout.data('email'),
-        amount,
-        freq
+    xhr
+      .json('/patron/stripe-checkout', {
+        method: 'post',
+        body: xhr.form({
+          email: $checkout.data('email'),
+          amount,
+          freq,
+        }),
       })
-    }).then(data => {
-      if (data.session && data.session.id) {
-        stripe.redirectToCheckout({
-          sessionId: data.session.id
-        }).then(result => showError(result.error.message));
-      } else {
-        location.assign("/patron");
-      }
-    }, showError);
+      .then(data => {
+        if (data.session && data.session.id) {
+          stripe
+            .redirectToCheckout({
+              sessionId: data.session.id,
+            })
+            .then(result => showError(result.error.message));
+        } else {
+          location.assign('/patron');
+        }
+      }, showError);
   });
 
   // Close Checkout on page navigation:
-  $(window).on('popstate', function() {
+  $(window).on('popstate', function () {
     window.stripeHandler.close();
   });
 }

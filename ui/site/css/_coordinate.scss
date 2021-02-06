@@ -46,12 +46,10 @@ $mq-col3: $mq-x-large;
     grid-template-areas: 'board    . table' 'board    . side' 'progress . .' 'score    . .';
   }
 
-
   @include breakpoint($mq-col3) {
     grid-template-areas: 'side . board    . table' '.    . progress . .' '.    . score    . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
-
 
   .box {
     padding: $block-gap;
@@ -157,7 +155,7 @@ $mq-col3: $mq-x-large;
 
     .explanation li {
       list-style: outside disc;
-      margin: .5em 0 .5em 1em;
+      margin: 0.5em 0 0.5em 1em;
     }
   }
 
@@ -207,7 +205,6 @@ $mq-col3: $mq-x-large;
     .explanation {
       @extend %page-text-shadow !optional;
     }
-
 
     .coord-trainer__score {
       opacity: 0;

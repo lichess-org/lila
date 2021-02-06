@@ -15,7 +15,6 @@
       @include transition(width);
     }
 
-
     body.clinput & {
       width: 20ch;
     }
@@ -33,13 +32,11 @@ body.clinput #top {
     }
   }
 
-
   @include breakpoint($mq-not-x-small) {
     .site-title {
       display: none;
     }
   }
-
 
   @include breakpoint($mq-not-xx-small) {
     .site-buttons > *:not(#clinput) {

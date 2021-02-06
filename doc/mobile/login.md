@@ -9,9 +9,11 @@ http --form POST l.org/login username=thibault password=xxxxxxxx 'Accept:applica
 ```
 
 Response: `200 OK`
+
 ```
 Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkKIu"; Expires=Tue, 21 Jul 2015 20:31:43 GMT; Path=/; Domain=.l.org; HTTPOnly
 ```
+
 ```javascript
 {
   "username": "thibault",

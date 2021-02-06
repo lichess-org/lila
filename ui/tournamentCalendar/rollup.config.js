@@ -1,6 +1,5 @@
 import { rollupProject } from '@build/rollupProject';
 
-
 export default rollupProject({
   main: {
     name: 'LichessTournamentCalendar',

@@ -34,7 +34,8 @@
   grid-area: clock-bot;
 }
 
-#{$rmoves-tag}, .col1-rmoves-preload {
+#{$rmoves-tag},
+.col1-rmoves-preload {
   grid-area: moves;
 }
 
@@ -84,7 +85,6 @@
     }
   }
 
-
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows: 1fr $material-height $clock-height $expiration-height $user-height $moves-height $controls-height $user-height $expiration-height $clock-height $material-height 1fr;
@@ -119,12 +119,10 @@
     }
   }
 
-
   @include breakpoint($mq-col2-uniboard-squeeze) {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
     grid-column-gap: #{$block-gap * 3 / 2};
   }
-
 
   &__board {
     grid-area: board;

@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
@@ -11,7 +11,8 @@ import RoundController from './ctrl';
 import { RoundData } from './interfaces';
 
 export function makeConfig(ctrl: RoundController): Config {
-  const data = ctrl.data, hooks = ctrl.makeCgHooks(),
+  const data = ctrl.data,
+    hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying();
   return {
@@ -24,7 +25,7 @@ export function makeConfig(ctrl: RoundController): Config {
     addPieceZIndex: ctrl.data.pref.is3d,
     highlight: {
       lastMove: data.pref.highlight,
-      check: data.pref.highlight
+      check: data.pref.highlight,
     },
     events: {
       move: hooks.onMove,
@@ -32,7 +33,7 @@ export function makeConfig(ctrl: RoundController): Config {
       insert(elements) {
         resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
         if (data.pref.coords == 1) changeColorHandle();
-      }
+      },
     },
     movable: {
       free: false,
@@ -42,12 +43,12 @@ export function makeConfig(ctrl: RoundController): Config {
       rookCastle: data.pref.rookCastle,
       events: {
         after: hooks.onUserMove,
-        afterNewPiece: hooks.onUserNewPiece
-      }
+        afterNewPiece: hooks.onUserNewPiece,
+      },
     },
     animation: {
       enabled: true,
-      duration: data.pref.animationDuration
+      duration: data.pref.animationDuration,
     },
     premovable: {
       enabled: data.pref.enablePremove,
@@ -55,28 +56,30 @@ export function makeConfig(ctrl: RoundController): Config {
       castle: data.game.variant.key !== 'antichess',
       events: {
         set: hooks.onPremove,
-        unset: hooks.onCancelPremove
-      }
+        unset: hooks.onCancelPremove,
+      },
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
       events: {
         set: hooks.onPredrop,
-        unset() { hooks.onPredrop(undefined) }
-      }
+        unset() {
+          hooks.onPredrop(undefined);
+        },
+      },
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,
-      showGhost: data.pref.highlight
+      showGhost: data.pref.highlight,
     },
     selectable: {
-      enabled: data.pref.moveEvent !== 1
+      enabled: data.pref.moveEvent !== 1,
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0'
+      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
     },
-    disableContextMenu: true
+    disableContextMenu: true,
   };
 }
 
@@ -87,21 +90,28 @@ export function reload(ctrl: RoundController) {
 export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
   const piece = ground.state.pieces.get(key);
   if (piece && piece.role === 'pawn') {
-    ground.setPieces(new Map([[key, {
-      color: piece.color,
-      role,
-      promoted: true,
-    }]]));
+    ground.setPieces(
+      new Map([
+        [
+          key,
+          {
+            color: piece.color,
+            role,
+            promoted: true,
+          },
+        ],
+      ])
+    );
   }
 }
 
 export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black': 'white';
+  if (data.game.variant.key === 'racingKings') return flip ? 'black' : 'white';
   else return flip ? data.opponent.color : data.player.color;
 }
 
 export function render(ctrl: RoundController) {
   return h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl))))
+    hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl)))),
   });
-};
+}

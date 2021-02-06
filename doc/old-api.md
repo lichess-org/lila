@@ -10,9 +10,9 @@ Parameters and result are similar to the users games API.
 
 Returns tournament info, and a page of the tournament standing
 
-name | type | default | description
---- | --- | --- | ---
-**page** | int | 1 | for standing pagination
+| name     | type | default | description             |
+| -------- | ---- | ------- | ----------------------- |
+| **page** | int  | 1       | for standing pagination |
 
 ```
 curl 'https://lichess.org/api/tournament/x5WNIngd?page=1'

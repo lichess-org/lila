@@ -14,7 +14,7 @@ export const ids = {
   outoftime: 35,
   cheat: 36,
   noStart: 37,
-  variantEnd: 60
+  variantEnd: 60,
 };
 
 export function started(data: GameData): boolean {

@@ -21,21 +21,21 @@ const tab: Config<Tab> = {
   fix(t: string | null): Tab {
     if (<Tab>t) return t as Tab;
     return 'pools';
-  }
+  },
 };
 const mode: Config<Mode> = {
   key: 'lobby.mode',
   fix(m: string | null): Mode {
     if (<Mode>m) return m as Mode;
     return 'list';
-  }
+  },
 };
 const sort: Config<Sort> = {
   key: 'lobby.sort',
   fix(s: string | null): Sort {
     if (<Sort>s) return s as Sort;
     return 'rating';
-  }
+  },
 };
 
 function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
@@ -43,12 +43,12 @@ function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      lichess.storage.set(fullKey, '' + t as string);
+      lichess.storage.set(fullKey, ('' + t) as string);
       return t;
     },
     get(): A {
       return conf.fix(lichess.storage.get(fullKey));
-    }
+    },
   };
 }
 
@@ -56,6 +56,6 @@ export function make(userId: string): Stores {
   return {
     tab: makeStore<Tab>(tab, userId),
     mode: makeStore<Mode>(mode, userId),
-    sort: makeStore<Sort>(sort, userId)
-  }
-};
+    sort: makeStore<Sort>(sort, userId),
+  };
+}

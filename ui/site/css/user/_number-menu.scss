@@ -10,10 +10,10 @@
     color: $c-font;
     text-align: center;
     line-height: 1.4em;
-    padding: .5em 5px;
+    padding: 0.5em 5px;
     text-transform: capitalize;
     white-space: normal;
-    font-size: .9em;
+    font-size: 0.9em;
 
     &:hover {
       color: $c-link;
@@ -23,8 +23,8 @@
   &--tabs .nm-item {
     @extend %box-radius-top;
 
-    margin-top: .7em;
-    padding-bottom: .8em;
+    margin-top: 0.7em;
+    padding-bottom: 0.8em;
 
     @include transition;
 

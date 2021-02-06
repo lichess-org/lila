@@ -3,7 +3,7 @@ const config = {
   clock: {
     initial: 3 * 60,
     // initial: 10,
-    malus: 10
+    malus: 10,
   },
   combo: {
     levels: [
@@ -11,10 +11,10 @@ const config = {
       [5, 3],
       [12, 5],
       [20, 7],
-      [30, 10]
+      [30, 10],
     ],
   },
-  timeToStart: 1000 * 60 * 2
+  timeToStart: 1000 * 60 * 2,
 };
 
 export default config;

@@ -1,4 +1,4 @@
-var util =  require('./util');
+var util = require('./util');
 
 var apple = 50;
 var capture = 50;
@@ -7,7 +7,7 @@ var scenario = 50;
 var levelBonus = {
   1: 500,
   2: 300,
-  3: 100
+  3: 100,
 };
 
 function getLevelBonus(l, nbMoves) {
@@ -31,7 +31,7 @@ function getLevelRank(l, score) {
 }
 
 function getStageMaxScore(s) {
-  return s.levels.reduce(function(sum, s) {
+  return s.levels.reduce(function (sum, s) {
     return sum + getLevelMaxScore(s);
   }, 0);
 }
@@ -45,11 +45,11 @@ function getStageRank(s, score) {
 }
 
 var pieceValues = {
-  'q': 90,
-  'r': 50,
-  'b': 30,
-  'n': 30,
-  'p': 10
+  q: 90,
+  r: 50,
+  b: 30,
+  n: 30,
+  p: 10,
 };
 
 module.exports = {
@@ -59,10 +59,10 @@ module.exports = {
   getLevelRank: getLevelRank,
   getLevelBonus: getLevelBonus,
   getStageRank: getStageRank,
-  pieceValue: function(p) {
+  pieceValue: function (p) {
     return pieceValues[p] || 0;
   },
-  gtz: function(s) {
+  gtz: function (s) {
     return s > 0;
-  }
+  },
 };

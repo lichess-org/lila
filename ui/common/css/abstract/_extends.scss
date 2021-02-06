@@ -117,7 +117,7 @@
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
   display: inline-block;
-  padding: .5em;
+  padding: 0.5em;
 
   &:checked {
     background: $c-secondary-dimmer;
@@ -220,7 +220,7 @@
   bottom: 0;
   right: 0;
   background: $c-page-mask;
-  z-index: z("fullscreen-mask");
+  z-index: z('fullscreen-mask');
 }
 
 %link-overlay {
@@ -229,7 +229,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: z("link-overlay");
+  z-index: z('link-overlay');
 }
 
 %abs-100 {

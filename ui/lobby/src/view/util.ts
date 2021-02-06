@@ -1,5 +1,5 @@
-import { h } from 'snabbdom'
-import { Hooks } from 'snabbdom/hooks'
+import { h } from 'snabbdom';
+import { Hooks } from 'snabbdom/hooks';
 import { MaybeVNodes } from '../interfaces';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
@@ -10,12 +10,12 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
         if (redraw) redraw();
         return res;
       });
-    }
+    },
   };
 }
 
 export function tds(bits: MaybeVNodes): MaybeVNodes {
-  return bits.map(function(bit) {
+  return bits.map(function (bit) {
     return h('td', [bit]);
   });
 }
@@ -24,23 +24,25 @@ export function spinner() {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
       h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
+      }),
+    ]),
+  ]);
 }
 
 export const perfIcons = {
-  'Blitz':')',
-  'Racing Kings':'',
-  'UltraBullet':'{',
-  'Bullet':'T',
-  'Classical':'+',
-  'Rapid':'#',
-  'Three-check':'.',
-  'Antichess':'@',
-  'Horde':'_',
-  'Atomic':'>',
-  'Crazyhouse':'',
-  'Chess960':'\'',
-  'Correspondence':';',
-  'King of the Hill':'('
+  Blitz: ')',
+  'Racing Kings': '',
+  UltraBullet: '{',
+  Bullet: 'T',
+  Classical: '+',
+  Rapid: '#',
+  'Three-check': '.',
+  Antichess: '@',
+  Horde: '_',
+  Atomic: '>',
+  Crazyhouse: '',
+  Chess960: "'",
+  Correspondence: ';',
+  'King of the Hill': '(',
 };

@@ -1,8 +1,8 @@
 $c-msg: $c-secondary;
 $msg-top-height: 4em;
 
-@import "side";
-@import "convo";
+@import 'side';
+@import 'convo';
 
 body {
   --app-height: 100vh;
@@ -27,14 +27,13 @@ body {
     height: calc(var(--app-height) * 0.98 - var(--site-header-height));
   }
 
-
   overflow: hidden;
 
   &__search {
     h2 {
       font-size: 1.3em;
       font-weight: bold;
-      margin: 1.2em 0 .8em 2em;
+      margin: 1.2em 0 0.8em 2em;
       text-transform: uppercase;
       color: $c-brag;
     }

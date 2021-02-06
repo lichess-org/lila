@@ -1,5 +1,5 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 import { fixCrazySan } from 'chess';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
@@ -15,13 +15,19 @@ export function plyToTurn(ply: Ply): number {
 }
 
 export function renderGlyphs(glyphs: Tree.Glyph[]): VNode[] {
-  return glyphs.map(glyph => h('glyph', {
-    attrs: { title: glyph.name }
-  }, glyph.symbol));
+  return glyphs.map(glyph =>
+    h(
+      'glyph',
+      {
+        attrs: { title: glyph.name },
+      },
+      glyph.symbol
+    )
+  );
 }
 
 function renderEval(e): VNode {
-  return h('eval', e.replace("-", "−"));
+  return h('eval', e.replace('-', '−'));
 }
 
 export function renderIndexText(ply: Ply, withDots?: boolean): string {
@@ -33,14 +39,18 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
-  const ev: any = cevalView.getBestEval({client: node.ceval, server: node.eval}) || {};
+  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
   return [h('san', fixCrazySan(node.san!))]
-    .concat((node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : [])
-    .concat(ctx.showEval ? (
-      defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (
-        defined(ev.mate) ? [renderEval('#' + ev.mate)] : []
-      )
-    ) : []);
+    .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
+    .concat(
+      ctx.showEval
+        ? defined(ev.cp)
+          ? [renderEval(normalizeEval(ev.cp))]
+          : defined(ev.mate)
+          ? [renderEval('#' + ev.mate)]
+          : []
+        : []
+    );
 }
 
 export function renderIndexAndMove(ctx: Ctx, node: Tree.Node): VNode[] | undefined {

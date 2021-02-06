@@ -12,7 +12,7 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
-    insert: vnode => f(vnode.elm as A)
+    insert: vnode => f(vnode.elm as A),
   };
 }
 

@@ -30,7 +30,7 @@
 
         strong {
           display: block;
-          margin-bottom: .4em;
+          margin-bottom: 0.4em;
         }
       }
     }
@@ -43,7 +43,6 @@
       @extend %roboto;
 
       // background: $c-bg-box;
-   
     }
   }
 
@@ -54,7 +53,7 @@
     }
 
     td {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
     }
 
     .header {
@@ -70,7 +69,8 @@
       display: block;
       color: $c-font;
 
-      &:hover, &:hover .team {
+      &:hover,
+      &:hover .team {
         color: $c-link;
       }
     }
@@ -93,7 +93,7 @@
 
       display: block;
       font-weight: bold;
-      margin-top: .2em;
+      margin-top: 0.2em;
       color: $c-brag;
     }
 

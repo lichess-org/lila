@@ -10,37 +10,39 @@ var pause = 500;
 // players.drop();
 
 dest.ensureIndex({
-  status: 1
+  status: 1,
 });
 dest.ensureIndex({
-  createdAt: 1
+  createdAt: 1,
 });
 dest.ensureIndex({
-  startsAt: 1
+  startsAt: 1,
 });
 pairings.ensureIndex({
   tid: 1,
-  d: -1
+  d: -1,
 });
 pairings.ensureIndex({
   tid: 1,
   u: 1,
-  d: -1
+  d: -1,
 });
 players.ensureIndex({
   tid: 1,
-  uid: 1
+  uid: 1,
 });
 players.ensureIndex({
   tid: 1,
-  m: -1
+  m: -1,
 });
 
-var cursor = orig.find({
-  status: 30
-}).sort({
-  createdAt: -1
-}); //.limit(max);
+var cursor = orig
+  .find({
+    status: 30,
+  })
+  .sort({
+    createdAt: -1,
+  }); //.limit(max);
 
 function int(i) {
   return NumberInt(i);
@@ -49,14 +51,14 @@ function int(i) {
 var uidIt = 0;
 
 function uid() {
-  return "i" + uidIt++;
+  return 'i' + uidIt++;
 }
 
 var it = 0;
 var max = cursor.count();
 var dat = new Date().getTime() / 1000;
 
-cursor.forEach(function(o) {
+cursor.forEach(function (o) {
   dest.insert(mkTour(o));
   insertPlayers(o);
   insertPairings(o);
@@ -68,7 +70,7 @@ cursor.forEach(function(o) {
     var ms = Math.round(1000 * (dat2 - dat - pause / 1000));
     var perSec = Math.round(batchSize / ms);
     dat = dat2;
-    print(it + " " + percent + "% " + ms + "ms");
+    print(it + ' ' + percent + '% ' + ms + 'ms');
     sleep(pause);
   }
 });
@@ -82,7 +84,7 @@ function insertPlayers(o) {
       tid: o._id,
       uid: p.id,
       r: int(p.rating),
-      m: int(p.score * 1000000 + (p.perf || 0) * 1000 + p.rating)
+      m: int(p.score * 1000000 + (p.perf || 0) * 1000 + p.rating),
     };
     if (p.withdraw) n.w = true;
     if (p.prov) n.pr = true;
@@ -102,7 +104,7 @@ function insertPairings(o) {
       tid: o._id,
       s: int(p.s),
       u: p.u,
-      t: int(p.t)
+      t: int(p.t),
     };
     if (p.w) n.w = p.w == p.u[0];
     if (p.b1) n.b1 = int(p.b1);
@@ -128,10 +130,11 @@ function mkTour(o) {
   if (o.system && o.system != 1) n.system = int(o.system);
   if (o.variant && o.variant != 1) n.variant = int(o.variant);
   if (o.mode && o.mode != 1) n.mode = int(o.mode);
-  if (o.schedule) n.schedule = {
-    freq: o.schedule.freq,
-    speed: o.schedule.speed
-  };
+  if (o.schedule)
+    n.schedule = {
+      freq: o.schedule.freq,
+      speed: o.schedule.speed,
+    };
   if (nbPlayers) n.winner = o.players[0].id;
   return n;
 }

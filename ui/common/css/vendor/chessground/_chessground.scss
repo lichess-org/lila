@@ -1,5 +1,5 @@
-@import "board-2d";
-@import "dark-board";
+@import 'board-2d';
+@import 'dark-board';
 
 cg-board {
   @extend %box-shadow, %abs-100;
@@ -51,7 +51,13 @@ square {
   }
 
   &.check {
-    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(231, 0, 0, 1) 25%,
+      rgba(169, 0, 0, 0) 89%,
+      rgba(158, 0, 0, 0) 100%
+    );
   }
 
   &.selected {
@@ -82,21 +88,21 @@ piece {
   width: 12.5%;
   height: 12.5%;
   background-size: cover;
-  z-index: z("cg__piece");
+  z-index: z('cg__piece');
   will-change: transform;
   pointer-events: none;
 
   &.dragging {
     cursor: move;
-    z-index: z("cg__piece.dragging");
+    z-index: z('cg__piece.dragging');
   }
 
   &.anim {
-    z-index: z("cg__piece.anim");
+    z-index: z('cg__piece.anim');
   }
 
   &.fading {
-    z-index: z("cg__piece.fading");
+    z-index: z('cg__piece.fading');
     opacity: 0.5;
   }
 
@@ -129,7 +135,7 @@ cg-container {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: z("cg__svg");
+  z-index: z('cg__svg');
   opacity: 0.6;
 
   image {

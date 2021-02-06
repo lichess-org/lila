@@ -1,7 +1,7 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 
 export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[]
+export type MaybeVNodes = MaybeVNode[];
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
@@ -11,17 +11,15 @@ interface Untyped {
   [key: string]: any;
 }
 
-export interface Hook extends Untyped {
-}
+export interface Hook extends Untyped {}
 
-export interface Seek extends Untyped {
-}
+export interface Seek extends Untyped {}
 
 export interface Pool {
   id: PoolId;
   lim: number;
   inc: number;
-  perf: string
+  perf: string;
 }
 
 export interface LobbyOpts extends Untyped {

@@ -1,12 +1,11 @@
 import * as control from './control';
 import { KeyboardController } from './interfaces';
 
-export default function(ctrl: KeyboardController): void {
-  window.Mousetrap
-    .bind(['left', 'k'], () => {
-      control.prev(ctrl);
-      ctrl.redraw();
-    })
+export default function (ctrl: KeyboardController): void {
+  window.Mousetrap.bind(['left', 'k'], () => {
+    control.prev(ctrl);
+    ctrl.redraw();
+  })
     .bind(['right', 'j'], () => {
       control.next(ctrl);
       ctrl.redraw();

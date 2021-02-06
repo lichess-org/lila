@@ -1,4 +1,5 @@
-body, #mz_menu .inner {
+body,
+#mz_menu .inner {
   margin-top: 53px !important;
 }
 
@@ -31,7 +32,7 @@ body.no-inquiry {
   top: 0;
   left: 0;
   right: 0;
-  z-index: z("inquiry");
+  z-index: z('inquiry');
 
   .costello {
     flex: 0 0 160px;
@@ -66,7 +67,9 @@ body.no-inquiry {
     }
   }
 
-  &, a, a.user-link .line {
+  &,
+  a,
+  a.user-link .line {
     color: #f0f0f0;
   }
 
@@ -95,7 +98,7 @@ body.no-inquiry {
   }
 
   .counter {
-    margin-left: .3em;
+    margin-left: 0.3em;
     flex: 0 0 auto;
   }
 
@@ -137,9 +140,9 @@ body.no-inquiry {
   }
 
   .report .atom {
-    margin-bottom: .8em;
+    margin-bottom: 0.8em;
     border-bottom: 1px solid #777;
-    padding-bottom: .8em;
+    padding-bottom: 0.8em;
   }
 
   .report .atom:last-child {
@@ -151,9 +154,9 @@ body.no-inquiry {
     display: inline-block;
     white-space: nowrap;
     font-weight: bold;
-    font-size: .9em;
-    padding: .1em .5em;
-    border-radius: .3em;
+    font-size: 0.9em;
+    padding: 0.1em 0.5em;
+    border-radius: 0.3em;
   }
 
   .score.green {
@@ -255,7 +258,7 @@ body.no-inquiry {
 
   .cancel button {
     margin-left: 5px;
-    font-size: .8em;
+    font-size: 0.8em;
     padding: 0 8px;
   }
 
@@ -287,7 +290,7 @@ body.no-inquiry {
       right: 0;
       background: #555;
       overflow: hidden;
-      padding: .4em 0;
+      padding: 0.4em 0;
     }
 
     &:hover {
@@ -312,7 +315,7 @@ body.no-inquiry {
     }
 
     &.buttons button {
-      padding: .5em 1.3em;
+      padding: 0.5em 1.3em;
       text-transform: initial;
     }
 

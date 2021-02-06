@@ -10,7 +10,7 @@
   &::before {
     color: mix($c-link, $c-bg-box, 80%);
     font-size: 5em;
-    margin-right: .4em;
+    margin-right: 0.4em;
 
     @include transition;
     @include breakpoint($mq-not-xx-small) {
@@ -31,12 +31,12 @@
   }
 
   h3 {
-    @include fluid-size("font-size", 23px, 35px);
+    @include fluid-size('font-size', 23px, 35px);
 
     color: $c-link;
   }
 
   p {
-    margin: .5em 0 0 0;
+    margin: 0.5em 0 0 0;
   }
 }

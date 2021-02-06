@@ -9,7 +9,7 @@
 
   h1 {
     font-size: 3.3em;
-    margin: .2em;
+    margin: 0.2em;
   }
 
   h2 {
@@ -29,7 +29,7 @@
     height: 16em;
     background: url(../images/practice/robot-golem.svg);
     margin: auto;
-    opacity: .8;
+    opacity: 0.8;
     animation: 1.2s fat-glide ease-in-out infinite;
   }
 
@@ -68,7 +68,7 @@
 
     height: 100%;
     background: mix($c-font-clearer, $c-primary, 25%);
-    background-image: img-url("grain.png");
+    background-image: img-url('grain.png');
     transform: translateX(-100px);
     animation: animatedBackground 50s linear infinite, animatedBar 1s forwards;
   }

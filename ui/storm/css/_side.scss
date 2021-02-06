@@ -23,7 +23,7 @@
       content: ' ';
       width: 5rem;
       height: 5rem;
-      background-image: img-url("icons/tornado.svg");
+      background-image: img-url('icons/tornado.svg');
       background-repeat: no-repeat;
       margin-right: 1.5rem;
     }
@@ -41,11 +41,11 @@
 
     justify-content: flex-end;
     height: 2.5em;
-    margin-bottom: .2em;
+    margin-bottom: 0.2em;
 
     .button {
       color: $c-font-dim;
-      padding: .5em 1.5em;
+      padding: 0.5em 1.5em;
     }
   }
 
@@ -56,7 +56,6 @@
     @include breakpoint($mq-col2) {
       margin: 0;
     }
-
 
     &__text {
       @extend %flex-column;
@@ -73,11 +72,11 @@
       span {
         @extend %roboto;
 
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
 
         @include breakpoint($mq-col2) {
           font-size: 1.5em;
-          letter-spacing: .2em;
+          letter-spacing: 0.2em;
         }
       }
     }
@@ -92,7 +91,7 @@
       font-size: 5.5rem;
       color: $c-brag;
       margin-right: 1rem;
-      transition: text-shadow .1s;
+      transition: text-shadow 0.1s;
     }
 
     .storm--mod-puzzle & {

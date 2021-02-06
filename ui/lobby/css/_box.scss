@@ -6,7 +6,7 @@
       @extend %metal, %flex-between;
 
       flex: 0 0 auto;
-      padding: .3em .5em;
+      padding: 0.3em 0.5em;
 
       .more {
         color: $c-font-dim;
@@ -24,7 +24,7 @@
         font-size: 1em;
         font-weight: bold;
         color: $c-font-dim;
-        padding: .3em;
+        padding: 0.3em;
       }
     }
 
@@ -48,13 +48,13 @@
     td {
       @extend %nowrap-ellipsis;
 
-      padding: .5em .4em;
+      padding: 0.5em 0.4em;
       border-top: $border;
       max-width: 21ch;
 
       /* prevent leaderboard overflow due to long usernames */
       &:first-child {
-        padding-left: .7em;
+        padding-left: 0.7em;
       }
 
       &.name a {
@@ -82,7 +82,7 @@
 
     td:last-child {
       text-align: right;
-      padding-right: .7em;
+      padding-right: 0.7em;
     }
   }
 

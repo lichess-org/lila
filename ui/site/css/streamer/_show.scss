@@ -1,6 +1,6 @@
 $mq-picture: $mq-large;
 
-@import "header";
+@import 'header';
 
 .streamer-show {
   .page-menu__content {
@@ -12,16 +12,15 @@ $mq-picture: $mq-large;
   h1 {
     @extend %roboto, %ellipsis;
 
-    @include fluid-size("font-size", 23px, 40px);
+    @include fluid-size('font-size', 23px, 40px);
 
     &::before {
-      margin-right: .2em;
+      margin-right: 0.2em;
       display: none;
 
       @include breakpoint($mq-xx-small) {
         display: inline;
       }
-
 
       @include breakpoint($mq-picture) {
         display: none;
@@ -36,7 +35,6 @@ $mq-picture: $mq-large;
     @include breakpoint($mq-medium) {
       display: block;
     }
-
 
     iframe {
       height: 500px;
@@ -81,7 +79,7 @@ $mq-picture: $mq-large;
 
   .services a:hover,
   .description a {
-    color: #3893E8;
+    color: #3893e8;
   }
 
   .ratings {
@@ -90,7 +88,7 @@ $mq-picture: $mq-large;
     justify-content: space-between;
     padding: 2em 50px 1em 58px;
     font-size: 1.6em;
-    line-height: .9;
+    line-height: 0.9;
     background: mix($c-brag, $c-bg-box, 20%);
     color: $c-font;
 
@@ -99,7 +97,7 @@ $mq-picture: $mq-large;
 
       &::before {
         font-size: 1.6em;
-        margin-right: .1em;
+        margin-right: 0.1em;
       }
     }
   }
@@ -116,7 +114,6 @@ $mq-picture: $mq-large;
     @include breakpoint($mq-small) {
       display: flex;
     }
-
 
     i {
       font-size: 40px;

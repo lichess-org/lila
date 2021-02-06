@@ -1,5 +1,5 @@
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import cls from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { SimulOpts } from './interfaces';
@@ -11,13 +11,11 @@ const patch = init([cls, attributes]);
 import view from './view/main';
 
 export function start(opts: SimulOpts) {
-
   const element = document.querySelector('main.simul') as HTMLElement;
 
-  lichess.socket = new lichess.StrongSocket(
-    `/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
-      receive: (t: string, d: any) => ctrl.socket.receive(t, d)
-    });
+  lichess.socket = new lichess.StrongSocket(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
+    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+  });
   opts.socketSend = lichess.socket.send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();
@@ -35,7 +33,7 @@ export function start(opts: SimulOpts) {
   vnode = patch(element, blueprint);
 
   redraw();
-};
+}
 
 // that's for the rest of lichess to access the chat
 window.LichessChat = LichessChat;

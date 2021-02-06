@@ -1,5 +1,5 @@
-@import "list-widget";
-@import "topics";
+@import 'list-widget';
+@import 'topics';
 
 $top-height: 3.2rem;
 
@@ -50,7 +50,7 @@ $top-height: 3.2rem;
       font-size: 1.2em;
 
       &__label::after {
-        margin-left: .6em;
+        margin-left: 0.6em;
       }
     }
 

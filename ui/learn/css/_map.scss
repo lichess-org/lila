@@ -19,11 +19,10 @@
       --min-width: 400px;
     }
 
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
-    margin: .8em 0 3em 0;
+    margin: 0.8em 0 3em 0;
   }
 
   .stage {
@@ -144,7 +143,7 @@
 
     &:before,
     &:after {
-      content: "";
+      content: '';
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
       position: absolute;
@@ -160,7 +159,7 @@
     }
 
     &.done {
-      background-color: #BFDC7A;
+      background-color: #bfdc7a;
     }
 
     &.done:before,
@@ -169,12 +168,12 @@
     }
 
     &.ongoing {
-      background-color: #B3E5FC;
+      background-color: #b3e5fc;
     }
 
     &.ongoing:before,
     &.ongoing:after {
-      border-top: 3px solid #536DFE;
+      border-top: 3px solid #536dfe;
     }
   }
 

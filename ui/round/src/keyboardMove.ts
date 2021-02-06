@@ -1,11 +1,11 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { sendPromotion } from './promotion'
-import { onInsert } from './util'
+import { sendPromotion } from './promotion';
+import { onInsert } from './util';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -42,7 +42,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let preHandlerBuffer = step.fen;
   let lastSelect = Date.now();
   const cgState = root.chessground.state;
-  const select = function(key: cg.Key): void {
+  const select = function (key: cg.Key): void {
     if (cgState.selected === key) root.chessground.cancelMove();
     else {
       root.chessground.selectSquare(key, true);
@@ -103,7 +103,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       return Date.now() - lastSelect < 500;
     },
     clock: () => root.clock,
-    resign: root.resign
+    resign: root.resign,
   };
 }
 
@@ -112,16 +112,14 @@ export function render(ctrl: KeyboardMove) {
     h('input', {
       attrs: {
         spellcheck: false,
-        autocomplete: false
+        autocomplete: false,
       },
       hook: onInsert(input =>
-        lichess.loadModule('round.keyboardMove').then(() =>
-          ctrl.registerHandler(lichess.keyboardMove({ input, ctrl }))
-        )
-      )
+        lichess.loadModule('round.keyboardMove').then(() => ctrl.registerHandler(lichess.keyboardMove({ input, ctrl })))
+      ),
     }),
-    ctrl.hasFocus() ?
-      h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
-      h('strong', 'Press <enter> to focus')
+    ctrl.hasFocus()
+      ? h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat')
+      : h('strong', 'Press <enter> to focus'),
   ]);
 }

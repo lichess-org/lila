@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { renderIndexAndMove } from './moveView';
 import { defined } from 'common';
 import { ConcealOf } from './interfaces';
@@ -10,8 +10,8 @@ export interface ForkCtrl {
     node: Tree.Node;
     selected: number;
     displayed: boolean;
-  },
-    next: () => boolean | undefined;
+  };
+  next: () => boolean | undefined;
   prev: () => boolean | undefined;
   proceed: (it?: number) => boolean | undefined;
 }
@@ -21,7 +21,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
   let selected: number = 0;
   function displayed() {
     return root.node.children.length > 1;
-  };
+  }
   return {
     state() {
       const node = root.node;
@@ -32,7 +32,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       return {
         node,
         selected,
-        displayed: displayed()
+        displayed: displayed(),
       };
     },
     next() {
@@ -56,7 +56,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         return true;
       }
       return undefined;
-    }
+    },
   };
 }
 
@@ -65,29 +65,38 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
   const state = root.fork.state();
   if (!state.displayed) return;
   const isMainline = concealOf && root.onMainline;
-  return h('div.analyse__fork', {
-    hook: onInsert(el => {
-      el.addEventListener('click', e => {
-        const target = e.target as HTMLElement,
-          it = parseInt(
-            (target.parentNode as HTMLElement).getAttribute('data-it') ||
-            target.getAttribute('data-it') || ''
-          );
-        root.fork.proceed(it);
-        root.redraw();
-      });
-    })
-  },
+  return h(
+    'div.analyse__fork',
+    {
+      hook: onInsert(el => {
+        el.addEventListener('click', e => {
+          const target = e.target as HTMLElement,
+            it = parseInt(
+              (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
+            );
+          root.fork.proceed(it);
+          root.redraw();
+        });
+      }),
+    },
     state.node.children.map((node, it) => {
       const conceal = isMainline && concealOf!(true)(root.path + node.id, node);
-      if (!conceal) return h('move', {
-        class: { selected: it === state.selected },
-        attrs: { 'data-it': it }
-      }, renderIndexAndMove({
-        withDots: true,
-        showEval: root.showComputer(),
-        showGlyphs: root.showComputer()
-      }, node)!);
+      if (!conceal)
+        return h(
+          'move',
+          {
+            class: { selected: it === state.selected },
+            attrs: { 'data-it': it },
+          },
+          renderIndexAndMove(
+            {
+              withDots: true,
+              showEval: root.showComputer(),
+              showGlyphs: root.showComputer(),
+            },
+            node
+          )!
+        );
       return undefined;
     })
   );

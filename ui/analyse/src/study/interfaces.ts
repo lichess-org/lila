@@ -92,10 +92,10 @@ export interface StudyData {
   createdAt: number;
   from: string;
   likes: number;
-  isNew?: boolean
+  isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: StudyChapterMeta[]
+  chapters: StudyChapterMeta[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
@@ -150,7 +150,7 @@ export interface StudyChapter {
   name: string;
   ownerId: string;
   setup: StudyChapterSetup;
-  tags: TagArray[]
+  tags: TagArray[];
   practice: boolean;
   conceal?: number;
   gamebook: boolean;
@@ -187,7 +187,7 @@ export type StudyMember = {
     title?: string;
   };
   role: string;
-}
+};
 
 export interface StudyMemberMap {
   [id: string]: StudyMember;
@@ -201,20 +201,20 @@ export interface LocalPaths {
 }
 
 export interface ChapterPreview {
-  id: string
-  name: string
+  id: string;
+  name: string;
   players?: {
-    white: ChapterPreviewPlayer
-    black: ChapterPreviewPlayer
-  }
-  orientation: Color
-  fen: string
-  lastMove?: string
-  playing: boolean
+    white: ChapterPreviewPlayer;
+    black: ChapterPreviewPlayer;
+  };
+  orientation: Color;
+  fen: string;
+  lastMove?: string;
+  playing: boolean;
 }
 
 export interface ChapterPreviewPlayer {
-  name: string
-  title?: string
-  rating?: number
+  name: string;
+  title?: string;
+  rating?: number;
 }

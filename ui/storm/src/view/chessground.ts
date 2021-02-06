@@ -3,15 +3,15 @@ import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-export default function(ctrl: StormCtrl): VNode {
+export default function (ctrl: StormCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
-      destroy: _ => ctrl.withGround(g => g.destroy())
-    }
+      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      destroy: _ => ctrl.withGround(g => g.destroy()),
+    },
   });
 }
 
@@ -31,36 +31,36 @@ function makeConfig(ctrl: StormCtrl): CgConfig {
       color: opts.movable!.color,
       dests: opts.movable!.dests,
       showDests: pref.destination,
-      rookCastle: pref.rookCastle
+      rookCastle: pref.rookCastle,
     },
     draggable: {
       enabled: pref.moveEvent > 0,
-      showGhost: pref.highlight
+      showGhost: pref.highlight,
     },
     selectable: {
-      enabled: pref.moveEvent !== 1
+      enabled: pref.moveEvent !== 1,
     },
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, 2, 0, (_) => !ctrl.clockMillis());
+        resizeHandle(elements, 2, 0, _ => !ctrl.clockMillis());
         if (pref.coords == 1) changeColorHandle();
-      }
+      },
     },
     premovable: {
-      enabled: false
+      enabled: false,
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0'
+      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
     },
     highlight: {
       lastMove: pref.highlight,
-      check: pref.highlight
+      check: pref.highlight,
     },
     animation: {
-      enabled: false
+      enabled: false,
     },
-    disableContextMenu: true
+    disableContextMenu: true,
   };
 }
