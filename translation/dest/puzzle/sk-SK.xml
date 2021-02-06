@@ -47,6 +47,9 @@
   <string name="addAnotherTheme">Pridať ďalšiu kategóriu</string>
   <string name="jumpToNextPuzzleImmediately">Automaticky prejsť na ďalšiu úlohu</string>
   <string name="puzzleDashboard">Nástenka šachových úloh</string>
+  <string name="improvementAreas">Oblasti zlepšovania</string>
   <string name="strengths">Silné stránky</string>
+  <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
+  <string name="failed">zlyhané</string>
 </resources>
