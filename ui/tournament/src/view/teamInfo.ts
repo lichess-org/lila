@@ -40,7 +40,7 @@ export default function(ctrl: TournamentController): VNode | undefined {
         ...(data.rating ? [
           numberRow(noarg('averageElo'), data.rating, 'raw'),
           ...(data.perf ? [
-            numberRow("Average performance", data.perf, 'raw'),
+            numberRow(noarg('averagePerformance'), data.perf, 'raw'),
             numberRow("Average score", data.score, 'raw')
           ] : [])
         ] : []),

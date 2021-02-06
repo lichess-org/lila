@@ -332,6 +332,7 @@
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
   <string name="xStartedStreaming">%s started streaming</string>
   <string name="averageElo">Average rating</string>
+  <string name="averagePerformance">Average performance</string>
   <string name="location">Location</string>
   <string name="filterGames">Filter games</string>
   <string name="reset">Reset</string>
