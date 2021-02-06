@@ -788,9 +788,13 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
   <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
+  <string name="goodPractice">tan ni la, mi wile e ni: jan ale li pona tawa nasin pi musi pona.</string>
+  <string name="potentialProblem">ike li lon la, mi pana lukin e lipu ni.</string>
+  <string name="howToAvoidThis">sina wile ala jo e lipu ni la, o pali e ni:</string>
   <string name="playEveryGame">sina open musi la, o pini e musi.</string>
   <string name="tryToWin">o wile e ni: mi wile pini pona (anu pini pi anpa ala) e musi.</string>
   <string name="resignLostGames">musi li pini ike, o toki \"mi anpa\" (kepeken nena).</string>
+  <string name="temporaryInconvenience"></string>
   <string name="wishYouGreatGames">mi wile e ni: musi sina pi ilo Lichess li pona.</string>
   <string name="thankYouForReading">sina lukin ale e lipu ni la, sina pona!</string>
   <string name="lifetimeScore">nanpa pona pi musi ale</string>
@@ -815,6 +819,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="inTheFAQ">lon lipu \"wile sona pi jan mute\"</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">jan li pali ike, li kepeken e ilo ike la, </string>
   <string name="useTheReportForm">o toki kepeken lipu ni</string>
+  <string name="toRequestSupport">sina wile toki tawa jan lawa pi ilo Lichess la, %1$s</string>
+  <string name="tryTheContactPage">o toki kepeken lipu \"toki tawa jan lawa\"</string>
   <string name="thisTopicIsArchived">toki ni li awen. jan li ken ala toki lon ona lon tenpo ni.</string>
   <string name="joinTheTeamXToPost">sina wile toki lon tomo toki ni la, o kama tawa kulupu \"%1$s\"</string>
   <string name="teamNamedX">kulupu %1$s</string>
