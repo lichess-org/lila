@@ -24,6 +24,7 @@
   <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
   <string name="crushing">Verpletter</string>
   <string name="crushingDescription">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Dubbel loper mat</string>
   <string name="equality">Gelykheid</string>
   <string name="equalityDescription">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside aanval</string>
