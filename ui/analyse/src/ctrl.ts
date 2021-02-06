@@ -275,7 +275,9 @@ export default class AnalyseCtrl {
       color = this.turnColor(),
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
-      movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
+      movableColor =
+        this.gamebookPlay() ? color :
+        this.practice ? this.bottomColor() : (
         !this.embed && (
           (dests && dests.size > 0) ||
           drops === null || drops.length
