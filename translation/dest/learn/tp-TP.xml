@@ -99,6 +99,8 @@ anu pini e utala!</string>
   <string name="mateInOneIntro">ijo ante li utala e jan lawa mije la, jan musi ona li ken ala pini e ni la, jan lawa li moli. jan ante li pini pona!</string>
   <string name="attackYourOpponentsKing">o utala e jan lawa mije lon nasin ni:
 jan musi ante li ken ala pini e ona!</string>
+  <string name="mateInOneComplete">pona a! sina ken pini pona e musi lon nasin ni!</string>
+  <string name="intermediate">sona pi insa wawa</string>
   <string name="boardSetup">supa musi</string>
   <string name="howTheGameStarts">nasin pi open musi</string>
   <string name="boardSetupIntro">kulupu utala tu li lon sinpin pi ona ante. ona li wile utala.</string>
@@ -120,6 +122,11 @@ o pali e tawa.</string>
   <string name="boardSetupComplete">pona a! sina sona e ni: nasin pi open musi li seme?</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
   <string name="theSpecialKingMove">jan lawa mije en tomo utala li ken tawa lon tenpo sama</string>
+  <string name="castlingIntro">o awen e jan lawa. o tawa e tomo utala tawa ni: ona li ken utala e ijo ante!</string>
+  <string name="castleKingSide">o tawa e jan lawa sina tawa ma tu pi poka mije!</string>
+  <string name="castleQueenSide">o tawa e jan lawa sina tawa ma tu pi poka meli!</string>
+  <string name="theKnightIsInTheWay">soweli tawa li lon insa nasin!
+o weka e ona tan nasin. o pali e tawa \"tomo awen\" lon poka mije.</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
