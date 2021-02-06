@@ -29,4 +29,25 @@
   <string name="trySomethingElse">o pali e tawa ante.</string>
   <string name="ratingX">nanpa wawa: %s</string>
   <string name="hidden">sona len</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">jan li musi e ona lon tenpo %s</item>
+    <item quantity="other">jan li musi e ona lon tenpo %s</item>
+  </plurals>
+  <string name="fromGameLink">tan musi %s</string>
+  <string name="continueTraining">o awen kama sona</string>
+  <string name="difficultyLevel">wawa pi musi lili</string>
+  <string name="normal">insa suli</string>
+  <string name="easier">lili</string>
+  <string name="easiest">lili mute</string>
+  <string name="harder">suli</string>
+  <string name="hardest">suli mute</string>
+  <string name="example">ona li sama ni:</string>
+  <string name="addAnotherTheme">o sin e kulupu ante</string>
+  <string name="jumpToNextPuzzleImmediately">musi lili li pini la, o pana e musi sin lon tenpo sama</string>
+  <string name="puzzleDashboard">lipu sona pi musi lili</string>
+  <string name="improvementAreas">wan musi sina pi wawa lili</string>
+  <string name="strengths">wan musi sina pi wawa suli</string>
+  <string name="history">musi lili pi tenpo pini</string>
+  <string name="solved">pini pona</string>
+  <string name="failed">pini ike</string>
 </resources>
