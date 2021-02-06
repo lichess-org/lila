@@ -191,8 +191,8 @@
     <item quantity="other">nanpa ni li sin lon tenpo Minuta %s</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">musi %s</item>
-    <item quantity="other">musi %s</item>
+    <item quantity="one">musi lili %s</item>
+    <item quantity="other">musi lili %s</item>
   </plurals>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <plurals name="nbGamesWithYou">
@@ -464,7 +464,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
-  <string name="puzzles">musi pi pilin lon</string>
+  <string name="puzzles">musi lili pi kama sona</string>
   <string name="latestUpdates">sona sin</string>
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
