@@ -127,6 +127,19 @@ o pali e tawa.</string>
   <string name="castleQueenSide">o tawa e jan lawa sina tawa ma tu pi poka meli!</string>
   <string name="theKnightIsInTheWay">soweli tawa li lon insa nasin!
 o weka e ona tan nasin. o pali e tawa \"tomo awen\" lon poka mije.</string>
+  <string name="castleKingSideMovePiecesFirst">o tawa \"tomo awen\" e jan lawa lon poka mije!
+taso, ijo ante li lon insa nasin sina. o weka e ona.</string>
+  <string name="castleQueenSideMovePiecesFirst">o tawa \"tomo awen\" e jan lawa lon poka meli!
+taso, ijo ante li lon insa nasin sina. o weka e ona.</string>
+  <string name="youCannotCastleIfMoved">jan lawa anu tomo utala li tawa lon tenpo pini la,
+sina ken ala tawa \"tomo awen\".</string>
+  <string name="youCannotCastleIfAttacked">ijo ante li utala e ma lon nasin
+pi jan lawa sina la, sina ken ala tawa \"tomo awen\".
+o awen e ma ni. o tawa \"tomo awen\"!</string>
+  <string name="findAWayToCastleKingSide">o lukin e ni: sina ken tawa \"tomo awen\"
+lon poka mije kepeken tawa seme?</string>
+  <string name="findAWayToCastleQueenSide">o lukin e ni: sina ken tawa \"tomo awen\"
+lon poka meli kepeken tawa seme?</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
