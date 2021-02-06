@@ -17,6 +17,7 @@
   <string name="bishopEndgame">Biskop eindspel</string>
   <string name="bishopEndgameDescription">\'N Eindspel met slegs biskoppe en pionne.</string>
   <string name="bodenMate">Boden se mat</string>
+  <string name="bodenMateDescription">Twee aanvallende lopers op oorkruisende diagonale mat \'n koning wat deur sy eie stukke geblok word.</string>
   <string name="castling">Kasteel</string>
   <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
   <string name="capturingDefender">Vang die verdediger vas</string>
