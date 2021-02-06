@@ -586,7 +586,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="questionsAndAnswers">Ceisteanna &amp; Freagraí</string>
   <string name="notes">Nótaí</string>
   <string name="typePrivateNotesHere">Scríobh nótaí príobháideach anseo</string>
-  <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal mícheart</string>
+  <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal neamhbhailí</string>
   <string name="incorrectPassword">Pasfhocal mícheart</string>
   <string name="invalidAuthenticationCode">Cód fíordheimhniú neamhbhailí</string>
   <string name="emailMeALink">Seol nasc chugam trí r-phost</string>
