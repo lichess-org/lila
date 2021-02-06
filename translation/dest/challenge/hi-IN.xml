@@ -18,6 +18,8 @@
   <string name="declineTimeControl">मैं अभी इस समय-प्रारूप के साथ चुनौतियों को स्वीकार नहीं कर रहा हूं</string>
   <string name="declineRated">इसके बजाय कृपया मुझे एक रेटेड चुनौती भेजें</string>
   <string name="declineCasual">इसके बजाय कृपया मुझे एक आकस्मिक चुनौती भेजें</string>
+  <string name="declineStandard">मैं अभी वैरिएंट चुनौतियों को स्वीकार नहीं कर रहा हूं।</string>
+  <string name="declineVariant">मैं अभी इस संस्करण को नहीं खेलना चाहता हूं।</string>
   <string name="declineNoBot">मैं कंप्यूटर से चुनौतियों को स्वीकार नहीं कर रहा हूँ</string>
   <string name="declineOnlyBot">मैं केवल कंप्यूटर से चुनौतियों को स्वीकार कर रहा हूं</string>
 </resources>

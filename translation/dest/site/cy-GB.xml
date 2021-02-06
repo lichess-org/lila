@@ -115,6 +115,14 @@
   <string name="offerDraw">Cynnig gêm gyfartal</string>
   <string name="draw">Gêm gyfartal</string>
   <string name="currentGames">Gêmau ar eu hanner</string>
+  <plurals name="nbBookmarks">
+    <item quantity="zero">%s o gêmau wedi\'u nodi</item>
+    <item quantity="one">%s gêm wedi\'u nodi</item>
+    <item quantity="two">%s gêm wedi\'u nodi</item>
+    <item quantity="few">%s o gêmau wedi\'u nodi</item>
+    <item quantity="many">%s o gêmau wedi\'u nodi</item>
+    <item quantity="other">%s o gêmau wedi\'u nodi</item>
+  </plurals>
   <string name="viewInFullSize">Edrych yn maint llawn</string>
   <string name="logOut">Allgofnodi</string>
   <string name="signIn">Mewngofnodi</string>
@@ -253,6 +261,14 @@
   <string name="toStudy">Astudio</string>
   <string name="importGame">Mewnforio gêm</string>
   <string name="importGameExplanation">Wedi postio PGN fyddwch yn gallu chwarae drwy\'r gem, cewch dadansoddiad gyfrifiadurol, cyfle i drafod y gem ac URL i\'w rannu.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="zero">Mewnforiwyd %s o gêmau</item>
+    <item quantity="one">Mewnforiwyd %s gêm</item>
+    <item quantity="two">Mewnforiwyd %s gêm</item>
+    <item quantity="few">Mewnforiwyd %s o gêmau</item>
+    <item quantity="many">Mewnforiwyd %s o gêmau</item>
+    <item quantity="other">Mewnforiwyd %s o gêmau</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">CAPTCHA gwyddbwyll ydy hwnnw.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliciwch ar y bwrdd i symud a dangos eich bod yn ddynol.</string>
   <string name="captcha.fail">Datryswch y captcha os gwelwch yn dda.</string>
@@ -473,6 +489,7 @@
   <string name="sourceCode">Côd gwreiddiol</string>
   <string name="simultaneousExhibitions">Cystadleuaeth cyfochrog</string>
   <string name="host">Gweinydd</string>
+  <string name="hostColorX">Lliw y gwesteiwr: %s</string>
   <string name="createdSimuls">Cystadleuaethau cyfochrog greuwyd yn ddiweddarach</string>
   <string name="hostANewSimul">Cystadleuaeth cyfochrog newydd</string>
   <string name="noSimulFound">Heb ffeindio cystadleuaeth cyfochrog</string>
@@ -511,12 +528,14 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
   <string name="yourRating">Eich gradd</string>
+  <string name="cumulative">Cronnus</string>
   <string name="glicko2Rating">Gradd Glicko-2</string>
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
   <string name="weHaveSentYouAnEmailTo">Anfonwyd neges e-bost at %s. Cliciwch ar y dolen yn y neges i ailosod eich cyfrinair.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Gan gofrestru, ydych yn cytuno ar ein %s.</string>
+  <string name="readAboutOur">Darllenwch am ein %s.</string>
   <string name="networkLagBetweenYouAndLichess">Oediad rhwng lichess a chi</string>
   <string name="timeToProcessAMoveOnLichessServer">Amser sydd angen i brosesu symudiad ar weinydd lichess</string>
   <string name="downloadAnnotated">Llwytho i lawr gan sylwadau</string>
@@ -540,6 +559,7 @@
   <string name="security">Diogelwch</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dyma restr o ddyfeisiau a defnyddiwyd i fewngofnodi i\'ch cyfrif. Analluogwch unrhyw sesiynnau amheus.</string>
   <string name="alternativelyYouCanX">Fel arall gallwch %s.</string>
+  <string name="revokeAllSessions">dirymu pob sesiwn</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
   <string name="asFreeAsLichess">Yn ddi-dâl fel lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Wedi\'i wneud am gariad gwyddbwyll, nid arian</string>
@@ -622,13 +642,15 @@
   <string name="doItAgain">Ailwneud</string>
   <string name="reviewWhiteMistakes">Adolygu camgymeriadau gwyn</string>
   <string name="reviewBlackMistakes">Adolygu camgymeriadau du</string>
-  <string name="advantage">Mantais</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Mantais</string>
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
   <string name="playX">Chwarae %s</string>
   <string name="sorry">Sori :(</string>
   <string name="why">Pam?</string>
+  <string name="howToAvoidThis">Sut i osgoi hyn?</string>
+  <string name="playEveryGame">Chwaraewch bob gêm rydych yn dechrau.</string>
   <string name="thankYouForReading">Diolch am darllen!</string>
   <string name="lifetimeScore">Sgôr hyd oes</string>
   <string name="edit">Addasu</string>

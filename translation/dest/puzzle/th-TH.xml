@@ -5,11 +5,15 @@
   <string name="phases">ช่วงของเกม</string>
   <string name="mates">การรุกจน</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
+  <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
+  <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
   <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
   <string name="puzzleId">ปริศนา %s</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+  <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>
   <string name="goodMove">เดินได้ดี</string>
+  <string name="bestMove">เดินได้ดีที่สุด!</string>
   <string name="keepGoing">เดินต่อไป...</string>
   <string name="puzzleSuccess">แก้ไขปริศนาสำเร็จ!</string>
   <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>

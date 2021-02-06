@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="createdNbStudies">
+    <item quantity="one">\"%s नवीन अभ्यास बनवलॆ.\"</item>
+    <item quantity="other">\"%s नवीन अभ्यास बनवलॆ.\"</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
+    <item quantity="other">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
+  </plurals>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">\"%s संघामध्यॆ शामीळ झाला.\"</item>
+    <item quantity="other">\"%s संघांमध्यॆ शामील झालात.\"</item>
+  </plurals>
+</resources>
