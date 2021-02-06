@@ -43,4 +43,6 @@
   <string name="puzzleDashboard">Panell de problemes</string>
   <string name="improvementAreas">Àrees de millora</string>
   <string name="strengths">Fortaleses</string>
+  <string name="solved">resolt</string>
+  <string name="failed">fallit</string>
 </resources>
