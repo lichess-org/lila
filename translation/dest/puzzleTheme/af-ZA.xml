@@ -16,6 +16,7 @@
   <string name="backRankMateDescription">Skaakmat die koning op die tuisrang, as hy daar vasgevang word deur sy eie stukke.</string>
   <string name="bishopEndgame">Biskop eindspel</string>
   <string name="bishopEndgameDescription">\'N Eindspel met slegs biskoppe en pionne.</string>
+  <string name="bodenMate">Boden se mat</string>
   <string name="castling">Kasteel</string>
   <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
   <string name="capturingDefender">Vang die verdediger vas</string>
