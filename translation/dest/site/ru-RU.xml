@@ -843,7 +843,7 @@
   <string name="doItAgain">Выполнить ещё раз</string>
   <string name="reviewWhiteMistakes">Разобрать ошибки белых</string>
   <string name="reviewBlackMistakes">Разобрать ошибки чёрных</string>
-  <string name="advantage">Преимущество</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Преимущество</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="few">%s секунды</item>
