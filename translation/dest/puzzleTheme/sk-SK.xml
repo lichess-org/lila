@@ -5,6 +5,7 @@
   <string name="advantage">Výhoda</string>
   <string name="advantageDescription">Využite svoju šancu získať rozhodujúcu prevahu (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastáziin mat</string>
+  <string name="arabianMate">Arabský mat</string>
   <string name="attackingF2F7">Útok na f2 alebo f7</string>
   <string name="attackingF2F7Description">Útok zameraný na f2 alebo f7 pešiaka, ako napríklad vo fried liver útoku.</string>
   <string name="attraction">Preťaženie</string>
@@ -20,6 +21,7 @@
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
   <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Mat dvojicou strelcov</string>
   <string name="dovetailMate">Devetailov mat</string>
   <string name="equality">Rovnováha</string>
   <string name="equalityDescription">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
