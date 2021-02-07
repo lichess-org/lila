@@ -43,7 +43,7 @@ function makeConfig(ctrl: StormCtrl): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, 2, 0, _ => !ctrl.clockMillis());
+        resizeHandle(elements, 1, 0, p => p == 0);
         if (pref.coords == 1) changeColorHandle();
       },
     },

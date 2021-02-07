@@ -137,6 +137,7 @@ export default class StormCtrl {
     this.redrawQuick();
     this.redrawSlow();
     this.withGround(this.showGround);
+    lichess.pubsub.emit('ply', this.vm.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
