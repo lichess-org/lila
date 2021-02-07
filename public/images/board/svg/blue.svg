@@ -12,8 +12,8 @@
    shape-rendering="crispEdges"
    version="1.1"
    id="svg20"
-   sodipodi:docname="blue.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   sodipodi:docname="blue2.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)">
   <metadata
      id="metadata26">
     <rdf:RDF>
@@ -22,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,327 +38,552 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="711"
+     inkscape:window-width="3360"
+     inkscape:window-height="1780"
      id="namedview22"
      showgrid="false"
-     inkscape:zoom="35.946543"
-     inkscape:cx="0.056814843"
-     inkscape:cy="2.3114944"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="90.509668"
+     inkscape:cx="9.2460864"
+     inkscape:cy="5.5433974"
+     inkscape:window-x="6708"
+     inkscape:window-y="1236"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg20" />
   <g
-     transform="scale(0.8888875)"
-     id="g40">
+     id="g3834"
+     transform="translate(-0.01735664,0.02170602)">
     <g
-       id="a">
+       id="g3758">
       <g
-         id="b">
+         id="g3700"
+         transform="translate(0.375,1.0234375)">
         <g
-           id="c">
+           id="g3676"
+           transform="matrix(-1,0,0,1,6.7534627,-1.0451376)">
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(0,5.3333253)"
+             id="use3430"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(1.777775,5.3333253)"
+             id="use3438"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(3.5555501,5.3333253)"
+             id="use3446"
+             width="100%"
+             height="100%" />
+        </g>
+        <g
+           id="g3671"
+           transform="matrix(-1,0,0,1,6.7534627,-1.0451375)">
           <g
-             id="d">
+             id="g3358"
+             transform="translate(2.5694547,-0.42539877)"
+             inkscape:tile-cx="1.2725579"
+             inkscape:tile-cy="1.6267863"
+             inkscape:tile-w="1.777775"
+             inkscape:tile-h="1.7777751"
+             inkscape:tile-x0="0.38367033"
+             inkscape:tile-y0="0.73789877">
             <rect
                id="e"
                fill="#dee3e6"
-               height="1"
-               width="1"
-               x="0"
-               y="0" />
+               height="0.88888752"
+               width="0.88888752"
+               x="-2.5694547"
+               y="0.42539889"
+               style="fill:#88a2b9;fill-opacity:1;stroke-width:0.888888" />
+            <rect
+               id="f"
+               fill="#8ca2ad"
+               height="0.88888752"
+               width="0.88888752"
+               y="1.3142864"
+               x="-2.5694547"
+               style="fill:#617a8e;fill-opacity:1;stroke-width:0.888888" />
             <use
-               id="use3"
+               id="use2999"
                xlink:href="#e"
                href="#e"
                y="1"
                x="1"
                width="100%"
-               height="100%" />
-            <rect
-               id="f"
-               fill="#8ca2ad"
-               height="1"
-               width="1"
-               y="1"
-               x="0" />
+               height="100%"
+               transform="translate(-0.11111248,-0.11111254)"
+               style="fill:#88a2b9;fill-opacity:1" />
             <use
-               id="use6"
+               id="use3003"
                xlink:href="#f"
                href="#f"
                y="-1"
                x="1"
                width="100%"
-               height="100%" />
+               height="100%"
+               transform="translate(-0.11111248,0.11111242)"
+               style="fill:#617a8e;fill-opacity:1" />
           </g>
           <use
-             id="use9"
-             xlink:href="#d"
-             href="#d"
-             x="2"
+             x="0"
              y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(0,1.7777751)"
+             id="use3426"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(0,3.5555502)"
+             id="use3428"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             id="use3432"
+             transform="translate(1.777775)"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(1.777775,1.7777751)"
+             id="use3434"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(1.777775,3.5555502)"
+             id="use3436"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             id="use3440"
+             transform="translate(3.5555501)"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(3.5555501,1.7777751)"
+             id="use3442"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(3.5555501,3.5555502)"
+             id="use3444"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             id="use3448"
+             transform="translate(5.3333251)"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(5.3333251,1.7777751)"
+             id="use3450"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(5.3333251,3.5555502)"
+             id="use3452"
+             width="100%"
+             height="100%" />
+          <use
+             x="0"
+             y="0"
+             inkscape:tiled-clone-of="#g3358"
+             xlink:href="#g3358"
+             transform="translate(5.3333251,5.3333253)"
+             id="use3454"
              width="100%"
              height="100%" />
         </g>
-        <use
-           id="use12"
-           xlink:href="#c"
-           href="#c"
-           x="4"
-           y="0"
-           width="100%"
-           height="100%" />
       </g>
-      <use
-         id="use15"
-         xlink:href="#b"
-         href="#b"
-         y="2"
-         x="0"
-         width="100%"
-         height="100%" />
-    </g>
-    <use
-       id="use18"
-       xlink:href="#a"
-       href="#a"
-       y="4"
-       x="0"
-       width="100%"
-       height="100%" />
-  </g>
-  <g
-     id="g40-3"
-     transform="matrix(0.8888875,0,0,0.8888875,0.8888875,0.8888875)">
-    <g
-       id="a-6">
       <g
-         id="b-7">
+         id="g3526"
+         transform="matrix(1,0,0,-1,-0.19168532,7.1249967)">
         <g
-           id="c-5">
+           id="g3496"
+           transform="translate(-0.28125,-0.0859375)">
           <g
-             id="d-3">
+             id="g3482">
             <rect
-               y="0"
-               x="0"
-               width="1"
-               height="1"
+               id="rect3466"
                fill="#dee3e6"
-               id="e-5" />
-            <use
-               height="100%"
-               width="100%"
-               x="1"
-               y="1"
-               href="#e"
-               xlink:href="#e-5"
-               id="use3-6" />
+               height="0.88888752"
+               width="0.88888752"
+               x="7.601398"
+               y="0.12153405"
+               style="fill:#88a2b9;fill-opacity:1;stroke-width:0.888888" />
             <rect
-               x="0"
-               y="1"
-               width="1"
-               height="1"
+               id="rect3468"
                fill="#8ca2ad"
-               id="f-2" />
-            <use
-               height="100%"
-               width="100%"
-               x="1"
-               y="-1"
-               href="#f"
-               xlink:href="#f-2"
-               id="use6-9" />
+               height="0.88888752"
+               width="0.88888752"
+               y="1.0104215"
+               x="7.6013985"
+               style="fill:#617a8e;fill-opacity:1;stroke-width:0.888888" />
           </g>
-          <use
-             height="100%"
-             width="100%"
-             y="0"
-             x="2"
-             href="#d"
-             xlink:href="#d-3"
-             id="use9-1" />
+          <g
+             id="g3488"
+             transform="translate(0,1.777775)">
+            <rect
+               id="rect3484"
+               fill="#dee3e6"
+               height="0.88888752"
+               width="0.88888752"
+               x="7.601398"
+               y="0.12153405"
+               style="fill:#88a2b9;fill-opacity:1;stroke-width:0.888888" />
+            <rect
+               id="rect3486"
+               fill="#8ca2ad"
+               height="0.88888752"
+               width="0.88888752"
+               y="1.0104215"
+               x="7.6013985"
+               style="fill:#617a8e;fill-opacity:1;stroke-width:0.888888" />
+          </g>
         </g>
-        <use
-           height="100%"
-           width="100%"
-           y="0"
-           x="4"
-           href="#c"
-           xlink:href="#c-5"
-           id="use12-2" />
+        <g
+           id="g3510"
+           transform="translate(-0.28125,3.4696125)">
+          <g
+             id="g3502">
+            <rect
+               id="rect3498"
+               fill="#dee3e6"
+               height="0.88888752"
+               width="0.88888752"
+               x="7.601398"
+               y="0.12153405"
+               style="fill:#88a2b9;fill-opacity:1;stroke-width:0.888888" />
+            <rect
+               id="rect3500"
+               fill="#8ca2ad"
+               height="0.88888752"
+               width="0.88888752"
+               y="1.0104215"
+               x="7.6013985"
+               style="fill:#617a8e;fill-opacity:1;stroke-width:0.888888" />
+          </g>
+          <g
+             id="g3508"
+             transform="translate(0,1.777775)">
+            <rect
+               id="rect3504"
+               fill="#dee3e6"
+               height="0.88888752"
+               width="0.88888752"
+               x="7.601398"
+               y="0.12153405"
+               style="fill:#88a2b9;fill-opacity:1;stroke-width:0.888888" />
+            <rect
+               id="rect3506"
+               fill="#8ca2ad"
+               height="0.88888752"
+               width="0.88888752"
+               y="1.0104215"
+               x="7.6013985"
+               style="fill:#617a8e;fill-opacity:1;stroke-width:0.888888" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3776"
+       transform="translate(3.3744234,-0.16232505)">
+      <g
+         id="g3578"
+         transform="translate(-12.596785,5.8242354)">
+        <g
+           id="g3548">
+          <g
+             id="g3534"
+             transform="translate(-0.0703125,2.2734375)">
+            <use
+               id="use3470"
+               xlink:href="#e"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(11.768378,-2.2713463)"
+               style="fill:#88a2b9;fill-opacity:1" />
+            <use
+               id="use3472"
+               xlink:href="#f"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(12.657266,-1.1602338)"
+               style="fill:#617a8e;fill-opacity:1" />
+          </g>
+          <g
+             id="g3540"
+             transform="translate(1.707463,2.2734375)">
+            <use
+               id="use3536"
+               xlink:href="#e"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(11.768378,-2.2713463)"
+               style="fill:#88a2b9;fill-opacity:1" />
+            <use
+               id="use3538"
+               xlink:href="#f"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(12.657266,-1.1602338)"
+               style="fill:#617a8e;fill-opacity:1" />
+          </g>
+        </g>
+        <g
+           id="g3562"
+           transform="translate(3.555551)">
+          <g
+             id="g3554"
+             transform="translate(-0.0703125,2.2734375)">
+            <use
+               id="use3550"
+               xlink:href="#e"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(11.768378,-2.2713463)"
+               style="fill:#88a2b9;fill-opacity:1" />
+            <use
+               id="use3552"
+               xlink:href="#f"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(12.657266,-1.1602338)"
+               style="fill:#617a8e;fill-opacity:1" />
+          </g>
+          <g
+             id="g3560"
+             transform="translate(1.707463,2.2734375)">
+            <use
+               id="use3556"
+               xlink:href="#e"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(11.768378,-2.2713463)"
+               style="fill:#88a2b9;fill-opacity:1" />
+            <use
+               id="use3558"
+               xlink:href="#f"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%"
+               transform="translate(12.657266,-1.1602338)"
+               style="fill:#617a8e;fill-opacity:1" />
+          </g>
+        </g>
       </g>
       <use
+         id="use3718"
+         xlink:href="#f"
+         href="#f"
+         y="-1"
+         x="1"
+         width="100%"
          height="100%"
-         width="100%"
-         x="0"
-         y="2"
-         href="#b"
-         xlink:href="#b-7"
-         id="use15-7" />
+         transform="translate(-1.7876067,6.9374391)"
+         style="fill:#617a8e;fill-opacity:1" />
     </g>
-    <use
-       height="100%"
-       width="100%"
-       x="0"
-       y="4"
-       href="#a"
-       xlink:href="#a-6"
-       id="use18-0" />
   </g>
-  <g
-     transform="matrix(0,0.8888875,-0.8888875,0,7.1111,0.88636807)"
-     id="g40-3-9">
-    <g
-       id="a-6-3">
-      <g
-         id="b-7-6">
-        <g
-           id="c-5-0">
-          <g
-             id="d-3-6">
-            <rect
-               id="e-5-2"
-               fill="#dee3e6"
-               height="1"
-               width="1"
-               x="0"
-               y="0" />
-            <use
-               id="use3-6-6"
-               xlink:href="#e-5-2"
-               href="#e"
-               y="1"
-               x="1"
-               width="100%"
-               height="100%" />
-            <rect
-               id="f-2-1"
-               fill="#8ca2ad"
-               height="1"
-               width="1"
-               y="1"
-               x="0" />
-            <use
-               id="use6-9-8"
-               xlink:href="#f-2-1"
-               href="#f"
-               y="-1"
-               x="1"
-               width="100%"
-               height="100%" />
-          </g>
-          <use
-             id="use9-1-7"
-             xlink:href="#d-3-6"
-             href="#d"
-             x="2"
-             y="0"
-             width="100%"
-             height="100%" />
-        </g>
-        <use
-           id="use12-2-9"
-           xlink:href="#c-5-0"
-           href="#c"
-           x="4"
-           y="0"
-           width="100%"
-           height="100%" />
-      </g>
-      <use
-         id="use15-7-2"
-         xlink:href="#b-7-6"
-         href="#b"
-         y="2"
-         x="0"
-         width="100%"
-         height="100%" />
-    </g>
-    <use
-       id="use18-0-0"
-       xlink:href="#a-6-3"
-       href="#a"
-       y="4"
-       x="0"
-       width="100%"
-       height="100%" />
-  </g>
-  <g
-     transform="matrix(0,0.8888875,-0.8888875,0,7.9999875,-0.00251943)"
-     id="g40-3-2">
-    <g
-       id="a-6-37">
-      <g
-         id="b-7-5">
-        <g
-           id="c-5-9">
-          <g
-             id="d-3-2">
-            <rect
-               id="e-5-28"
-               fill="#dee3e6"
-               height="1"
-               width="1"
-               x="0"
-               y="0" />
-            <use
-               id="use3-6-9"
-               xlink:href="#e-5-28"
-               href="#e"
-               y="1"
-               x="1"
-               width="100%"
-               height="100%" />
-            <rect
-               id="f-2-7"
-               fill="#8ca2ad"
-               height="1"
-               width="1"
-               y="1"
-               x="0" />
-            <use
-               id="use6-9-3"
-               xlink:href="#f-2-7"
-               href="#f"
-               y="-1"
-               x="1"
-               width="100%"
-               height="100%" />
-          </g>
-          <use
-             id="use9-1-6"
-             xlink:href="#d-3-2"
-             href="#d"
-             x="2"
-             y="0"
-             width="100%"
-             height="100%" />
-        </g>
-        <use
-           id="use12-2-1"
-           xlink:href="#c-5-9"
-           href="#c"
-           x="4"
-           y="0"
-           width="100%"
-           height="100%" />
-      </g>
-      <use
-         id="use15-7-29"
-         xlink:href="#b-7-5"
-         href="#b"
-         y="2"
-         x="0"
-         width="100%"
-         height="100%" />
-    </g>
-    <use
-       id="use18-0-3"
-       xlink:href="#a-6-37"
-       href="#a"
-       y="4"
-       x="0"
-       width="100%"
-       height="100%" />
-  </g>
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3864"
+     width="0.889"
+     height="0.889"
+     x="-0.00010653362"
+     y="2.6665564"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3870"
+     width="0.889"
+     height="0.889"
+     x="1.7776684"
+     y="2.6665564"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3872"
+     width="0.889"
+     height="0.889"
+     x="3.5554435"
+     y="2.6665564"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3874"
+     width="0.889"
+     height="0.889"
+     x="5.3333311"
+     y="2.6666687"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3876"
+     width="0.889"
+     height="0.889"
+     x="7.1111064"
+     y="2.6666687"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3878"
+     width="0.889"
+     height="0.889"
+     x="6.2222185"
+     y="3.555444"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3880"
+     width="0.889"
+     height="0.889"
+     x="4.4444437"
+     y="3.5555563"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3882"
+     width="0.889"
+     height="0.889"
+     x="2.6664436"
+     y="3.5555563"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3884"
+     width="0.889"
+     height="0.889"
+     x="0.88889343"
+     y="3.5554438"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3886"
+     width="0.889"
+     height="0.889"
+     x="-0.0001065731"
+     y="4.4444437"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3888"
+     width="0.889"
+     height="0.889"
+     x="1.7776684"
+     y="4.4443312"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3890"
+     width="0.889"
+     height="0.889"
+     x="3.5554435"
+     y="4.4443312"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3892"
+     width="0.889"
+     height="0.889"
+     x="5.3332181"
+     y="4.4443312"
+     rx="0.85009319"
+     ry="0.0062167831" />
+  <rect
+     style="fill:#99aec2;fill-opacity:1;stroke:none;stroke-width:0.872309"
+     id="rect3894"
+     width="0.889"
+     height="0.889"
+     x="7.1109939"
+     y="4.4443312"
+     rx="0.85009319"
+     ry="0.0062167831" />
 </svg>
