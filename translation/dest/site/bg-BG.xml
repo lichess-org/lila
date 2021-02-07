@@ -3,9 +3,9 @@
   <string name="playWithAFriend">Играй с приятел</string>
   <string name="playWithTheMachine">Игра с компютъра</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканиш някого на игра, дай му този адрес</string>
-  <string name="gameOver">Край на играта</string>
-  <string name="waitingForOpponent">Чакам за противник</string>
-  <string name="waiting">Чакам</string>
+  <string name="gameOver">Край на партията</string>
+  <string name="waitingForOpponent">Изчакване на противник</string>
+  <string name="waiting">Изчакване</string>
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
@@ -29,7 +29,7 @@
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Надпреварата завърши</string>
   <string name="variantEnding">Край на варианта</string>
-  <string name="newOpponent">Различен (от последния) противник</string>
+  <string name="newOpponent">Друг противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Противник иска да играе нова игра с вас</string>
   <string name="joinTheGame">Влез в играта</string>
   <string name="whitePlays">Белите на ход</string>
@@ -38,10 +38,10 @@
     <item quantity="one">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
     <item quantity="other">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
   </plurals>
-  <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можете да претендирате победа, претендирате реми, или ижчакате.</string>
+  <string name="opponentLeftChoices">Другият играч напусна играта. Можете да изискате победа, реми, или да изчакате.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
   <string name="forceResignation">Претендирай победа</string>
-  <string name="forceDraw">Претендирай реми</string>
+  <string name="forceDraw">Обяви реми</string>
   <string name="talkInChat">Моля бъдете учтиви в чата!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Първият човек който отвори този адрес ще играе с вас.</string>
   <string name="whiteResigned">Белите се предадоха</string>
@@ -53,7 +53,7 @@
   <string name="viewTheComputerAnalysis">Виж компютърния анализ</string>
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
-  <string name="computerAnalysisAvailable">Компютърния анализ е наличен</string>
+  <string name="computerAnalysisAvailable">Компютърният анализ е наличен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
