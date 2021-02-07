@@ -31,5 +31,6 @@
   <string name="pawnEndgame">Пешечен Ендшпил</string>
   <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
   <string name="pin">Свръзка</string>
+  <string name="pinDescription">Тактика, използваща свръзка, където една фигура не може да бъде преместена без да оголи за атака стоящата зад нея по-ценна фигура.</string>
   <string name="sacrifice">Жертване</string>
 </resources>
