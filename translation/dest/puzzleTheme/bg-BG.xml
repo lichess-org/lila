@@ -3,8 +3,21 @@
   <string name="advantage">Предимство</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
   <string name="arabianMate">Арабски мат</string>
+  <string name="attackingF2F7">Атака на f2 или f7</string>
   <string name="castling">Рокада</string>
   <string name="castlingDescription">Защити царя си, и приготви топа си за атака.</string>
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
+  <string name="fork">Вилица</string>
+  <string name="longDescription">Победа в три хода.</string>
+  <string name="master">Майсторски Игри</string>
+  <string name="mate">Матове</string>
+  <string name="mateDescription">Победи със стил.</string>
+  <string name="mateIn1">Мат след 1 ход</string>
+  <string name="mateIn1Description">Матирай с един ход.</string>
+  <string name="mateIn2">Мат след 2 хода</string>
+  <string name="mateIn2Description">Матирай с два хода.</string>
+  <string name="mateIn3">Мат след 3 хода</string>
+  <string name="mateIn3Description">Матирай с три хода.</string>
+  <string name="mateIn4">Мат след 4 хода</string>
 </resources>
