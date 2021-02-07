@@ -18,7 +18,7 @@ final private class SandbagWatch(
   private val onceEvery = lila.memo.OnceEvery(1 hour)
 
   def apply(game: Game, loser: Color): Fu[Boolean] =
-    game.rated ?? {
+    (game.rated && !game.fromApi) ?? {
       game.userIds
         .map { userId =>
           (records getIfPresent userId, isSandbag(game, loser, userId)) match {
