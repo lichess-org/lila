@@ -4,6 +4,10 @@ import { setDropMode, cancelDropMode } from "shogiground/drop";
 import RoundController from "../ctrl";
 import * as cg from "shogiground/types";
 import { RoundData } from "../interfaces";
+import { Shogi } from "shogiops/variant"; 
+import { parseFen } from "shogiops/fen";
+import { makeShogiFen, parseChessSquare } from "shogiops/compat";
+import { PocketRole } from 'shogiops/types'
 
 const li = window.lishogi;
 
@@ -56,6 +60,7 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   const dropPiece = ctrl.shogiground?.state.dropmode.piece;
   if(!dropMode.active || dropPiece?.role !== role){
     setDropMode(ctrl.shogiground.state, { color, role });
+    ctrl.selectedPiece = {color, role};
   }
   else{
     cancelDropMode(ctrl.shogiground.state);
@@ -70,11 +75,18 @@ let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
 export function valid(
-  data: RoundData,
   ctrl: RoundController,
   role: cg.Role,
   key: cg.Key
 ): boolean {
+  const data = ctrl.data;
+  const lastStep = data.steps[data.steps.length - 1];
+  const move = {role: role as PocketRole, to: parseChessSquare(key)!};
+  const color = ctrl.ply % 2 === 0 ? "white" : "black";
+
+  // Unless reload event occurs we have only board fen, so we have to fake the rest
+  const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
+
   if (crazyKeys.length === 0) dropWithDrag = true;
   else {
     dropWithKey = true;
@@ -83,41 +95,13 @@ export function valid(
 
   if (!isPlayerTurn(data)) return false;
 
-  const color = ctrl.ply % 2 === 0 ? "white" : "black";
-
-  // You can't place pawn on a file where you already have a pawn
-  if (role === "pawn") {
-    for (const [k, v] of ctrl.shogiground.state.pieces.entries()) {
-      if (
-        v.role === "pawn" &&
-        v.color === color &&
-        key[0] === k[0] &&
-        key != k
-      ) {
-        return false;
+  const shogi = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap()).unwrap();
+  const l = shogi.isLegal(move!);
+  if(role === 'pawn'){
+    shogi.play(move!);
+    if(shogi.isCheckmate()) alert("Checkmating with a pawn drop is an illegal move.");
       }
-    }
-  }
-  if (
-    (role === "pawn" || role === "lance") &&
-    ((key[1] === "1" && color === "black") ||
-      (key[1] === "9" && color === "white"))
-  )
-    return false;
-  if (
-    role === "knight" &&
-    (((key[1] === "1" || key[1] === "2") && color === "black") ||
-      ((key[1] === "9" || key[1] === "8") && color === "white"))
-  )
-    return false;
-  
-  const dropStr = data.possibleDrops;
-
-  if (typeof dropStr === "undefined" || dropStr === null) return true;
-
-  const drops = dropStr.match(/.{2}/g) || [];
-
-  return drops.includes(key);
+  return l;
 }
 
 export function onEnd() {

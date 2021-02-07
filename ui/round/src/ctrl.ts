@@ -18,7 +18,6 @@ import {
 } from "./corresClock/corresClockCtrl";
 import MoveOn from "./moveOn";
 import TransientMove from "./transientMove";
-import * as atomic from "./atomic";
 import * as sound from "./sound";
 import * as util from "./util";
 import * as xhr from "./xhr";
@@ -31,7 +30,6 @@ import { ctrl as makeKeyboardMove, KeyboardMove } from "./keyboardMove";
 import * as renderUser from "./view/user";
 import * as cevalSub from "./cevalSub";
 import * as keyboard from "./keyboard";
-import { isImpasse } from "shogiutil/util";
 
 import {
   RoundOpts,
@@ -47,7 +45,7 @@ import {
   NvuiPlugin
 } from "./interfaces";
 import { cancelDropMode } from "shogiground/drop";
-import { notationStyle } from "shogiutil/notation";
+import { notationStyle } from "common/notation";
 
 interface GoneBerserk {
   white?: boolean;
@@ -90,6 +88,8 @@ export default class RoundController {
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
+
+  selectedPiece?: cg.Piece;
 
   private music?: any;
 
@@ -180,6 +180,8 @@ export default class RoundController {
       li.ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta))
       this.sendMove(orig, dest, false, meta);
+    cancelDropMode(this.shogiground.state);
+    this.selectedPiece = undefined;
   };
 
   private onUserNewPiece = (
@@ -187,21 +189,23 @@ export default class RoundController {
     key: cg.Key,
     meta: cg.MoveMetadata
   ) => {
-    if (!this.replaying() && crazyValid(this.data, this, role, key)) {
+    if (!this.replaying() && crazyValid(this, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
     cancelDropMode(this.shogiground.state);
+    this.selectedPiece = undefined;
     this.redraw();
   };
 
-  private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
+  private onMove = (_: cg.Key, _1: cg.Key, captured?: cg.Piece) => {
     if (captured) {
-      if (this.data.game.variant.key === "atomic") {
-        sound.explode();
-        atomic.capture(this, dest);
-      } else sound.capture();
+      sound.capture();
     } else sound.move();
-    cancelDropMode(this.shogiground.state);
+  };
+
+  private onNewPiece = (piece: cg.Piece, key: cg.Key) => {
+    if (crazyValid(this, piece.role, key))
+      sound.move();
   };
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
@@ -225,7 +229,7 @@ export default class RoundController {
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
-    onNewPiece: sound.move, // check if drop is valid unitl we play the sound?
+    onNewPiece: this.onNewPiece,
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop,
@@ -433,14 +437,6 @@ export default class RoundController {
           this.shogiground.move(keys[0], keys[1]);
         }
       }
-      if (o.enpassant) {
-        const p = o.enpassant;
-        this.shogiground.setPieces(new Map([[p.key, undefined]]));
-        if (d.game.variant.key === "atomic") {
-          atomic.enpassant(this, p.key, p.color);
-          sound.explode();
-        } else sound.capture();
-      }
       if (o.promotion) {
         ground.promote(this.shogiground, util.uci2move(o.uci)![1]);
       }
@@ -487,16 +483,12 @@ export default class RoundController {
       cevalSub.publish(d, o);
     }
     if (!this.replaying() && playedColor != d.player.color) {
-      // atrocious hack to prevent race condition
-      // with explosions and premoves
-      // https://github.com/ornicar/lila/issues/343
-      const premoveDelay = d.game.variant.key === "atomic" ? 100 : 1;
       setTimeout(() => {
         if (!this.shogiground.playPremove() && !this.playPredrop()) {
           promotion.cancel(this);
           this.showYourMoveNotification();
         }
-      }, premoveDelay);
+      }, 1);
     }
     this.autoScroll();
     this.onChange();
@@ -508,7 +500,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.shogiground.playPredrop((drop) => {
-      return crazyValid(this.data, this, drop.role, drop.key);
+      return crazyValid(this, drop.role, drop.key);
     });
   };
 
@@ -735,7 +727,6 @@ export default class RoundController {
 
   canOfferDraw = (): boolean => {
     return (
-      isImpasse(this.data.steps[this.data.steps.length - 1].fen) &&
       game.drawable(this.data) &&
       (this.lastDrawOfferAtPly || -99) < this.ply - 20
     );

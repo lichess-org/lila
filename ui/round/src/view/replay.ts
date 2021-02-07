@@ -9,7 +9,7 @@ import viewStatus from "game/view/status";
 import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
-import { notationStyle } from 'shogiutil/notation';
+import { notationStyle } from 'common/notation';
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -41,7 +41,7 @@ const autoScroll = throttle(
     })
 );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: string, color: Color, notation: number) {
+function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, notation: number) {
   return step
     ? h(
         moveTag,
@@ -52,7 +52,6 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: s
           {
             san: step.san,
             uci: step.uci,
-            orientation: orientation,
             fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + color[0]
           }
         )
@@ -118,7 +117,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 
   for (let i = 0; i < move.length; i++) {
     els.push(h("index", i + 1 + ""));
-    els.push(renderMove(move[i], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
+    els.push(renderMove(move[i], curPly, true, i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
 

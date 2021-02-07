@@ -1,11 +1,11 @@
 import sanWriter from "./sanWriter";
 import { Dests } from "../interfaces";
 
-const keyRegex = /^[a-h][1-8]$/;
-const fileRegex = /^[a-h]$/;
-const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
-const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrq]$/;
+const keyRegex = /^[a-i][1-9]$/;
+const fileRegex = /^[a-i]$/;
+const crazyhouseRegex = /^\w?\*[a-i][1-9]$/;
+const ambiguousPromotionCaptureRegex = /^([a-i]x?)?[a-i](1|9)$/;
+const promotionRegex = /^([a-i]x?)?[a-i](1|9)=?[\+|\=]$/;
 
 interface SubmitOpts {
   force?: boolean;

@@ -9,7 +9,8 @@ import * as util from "./util";
 import { plyStep } from "./round";
 import RoundController from "./ctrl";
 import { RoundData } from "./interfaces";
-import { promotesTo } from "shogiutil/util";
+import { promote as promoteRole } from "shogiops/util";
+import { PromotableRole } from "shogiops/types";
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -73,6 +74,10 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: data.pref.moveEvent > 0,
       showGhost: data.pref.highlight,
     },
+    dropmode: {
+      active: !!ctrl.selectedPiece,
+      piece: ctrl.selectedPiece,
+    },
     selectable: {
       enabled: data.pref.moveEvent !== 1,
     },
@@ -91,7 +96,7 @@ export function reload(ctrl: RoundController) {
 export function promote(ground: CgApi, key: cg.Key) {
   const piece = ground.state.pieces.get(key);
   if (piece && !piece.promoted) {
-    const prole = promotesTo(piece.role);
+    const prole = promoteRole(piece.role as PromotableRole);
     ground.setPieces(
       new Map([
         [
@@ -108,8 +113,7 @@ export function promote(ground: CgApi, key: cg.Key) {
 }
 
 export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === "racingKings") return flip ? "black" : "white";
-  else return flip ? data.opponent.color : data.player.color;
+  return flip ? data.opponent.color : data.player.color;
 }
 
 export function render(ctrl: RoundController) {
