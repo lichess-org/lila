@@ -4,6 +4,7 @@
   "private": true,
   "description": "lichess.org common utils",
   "main": "common.js",
+  "typings": "common",
   "keywords": [
     "chess",
     "lichess"

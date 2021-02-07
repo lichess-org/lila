@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org non-visual user interface",
-  "main": "dist/main.js",
-  "types": "dist/main",
   "keywords": [
     "chess",
     "lichess",

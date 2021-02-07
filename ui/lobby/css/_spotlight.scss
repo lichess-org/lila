@@ -43,6 +43,12 @@
     }
   }
 
+  img.img.icon {
+    @if $theme-light {
+      filter: drop-shadow(1px 1px 1px $c-link);
+    }
+  }
+
   .name {
     margin-top: 1px;
     line-height: 13px;

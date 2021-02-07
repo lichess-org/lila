@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org local computer analysis",
-  "main": "dist/src/main.js",
-  "types": "dist/src/main",
+  "main": "dist/main.js",
+  "types": "dist/main",
   "keywords": [
     "chess",
     "lichess",
