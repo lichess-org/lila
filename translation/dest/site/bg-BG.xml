@@ -78,7 +78,7 @@
   <string name="losing">Губещ</string>
   <string name="drawn">Реми</string>
   <string name="unknown">Неизвестно</string>
-  <string name="database">Датабаза</string>
+  <string name="database">База данни</string>
   <string name="whiteDrawBlack">Бели / Реми / Черни</string>
   <string name="averageRatingX">Среден рейтинг: %s</string>
   <string name="recentGames">Скорошни игри</string>
