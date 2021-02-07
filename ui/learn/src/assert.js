@@ -1,4 +1,5 @@
 var readKeys = require("./util").readKeys;
+var compat = require("shogiops/compat");
 
 function pieceMatch(piece, matcher) {
   if (!piece) return false;
@@ -9,7 +10,7 @@ function pieceMatch(piece, matcher) {
 function pieceOnAnyOf(matcher, keys) {
   return function (level) {
     for (var i in keys)
-      if (pieceMatch(level.shogi.get(keys[i]), matcher)) return true;
+      if (pieceMatch(level.shogi.board.get(compat.parseChessSquare(i)), matcher)) return true;
     return false;
   };
 }
@@ -24,19 +25,19 @@ function fenToMatcher(fenPiece) {
 module.exports = {
   pieceOn: function (fenPiece, key) {
     return function (level) {
-      return pieceMatch(level.shogi.get(key), fenToMatcher(fenPiece));
+      return pieceMatch(level.shogi.board.get(compat.parseChessSquare(key)), fenToMatcher(fenPiece));
     };
   },
   pieceNotOn: function (fenPiece, key) {
     return function (level) {
-      return !pieceMatch(level.shogi.get(key), fenToMatcher(fenPiece));
+      return !pieceMatch(level.shogi.board.get(compat.parseChessSquare(key)), fenToMatcher(fenPiece));
     };
   },
   noPieceOn: function (keys) {
     keys = readKeys(keys);
     return function (level) {
       for (var key in level.shogi.occupation())
-        if (!keys.includes(key)) return true;
+        if (!keys.includes(compat.makeChessSquare(key))) return true;
       return false;
     };
   },
@@ -52,26 +53,26 @@ module.exports = {
     };
   },
   check: function (level) {
-    return level.shogi.instance.check;
+    return level.shogi.isCheck();
   },
   mate: function (level) {
-    return level.shogi.instance.winner !== "undefined";
+    return level.shogi.instance.isCheckmate() !== "undefined";
   },
   lastMoveSan: function (san) {
     return function (level) {
-      var moves = level.shogi.instance.san;
-      if (moves === "undefined") return false;
-      return moves[moves.length - 1] === san;
+      var move = level.shogi.instance.lastMove;
+      if (move === "undefined") return false;
+      return move === san;
     };
   },
   checkIn: function (nbMoves) {
     return function (level) {
-      return level.vm.nbMoves <= nbMoves && level.shogi.instance.check;
+      return level.vm.nbMoves <= nbMoves && level.shogi.isCheck();
     };
   },
   noCheckIn: function (nbMoves) {
     return function (level) {
-      return level.vm.nbMoves >= nbMoves && !level.shogi.instance.check;
+      return level.vm.nbMoves >= nbMoves && !level.shogi.isCheck();
     };
   },
   not: function (assert) {

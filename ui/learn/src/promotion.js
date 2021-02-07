@@ -20,16 +20,6 @@ function start(orig, dest, callback) {
         ["1", "2", "3"].includes(orig[1])) &&
         piece.color === "black"))
   ) {
-    if (
-      (["pawn", "lance"].includes(piece.role) &&
-        ((dest[1] === "9" && piece.color === "white") ||
-          (dest[1] === "1" && piece.color === "black"))) ||
-      (piece.role === "knight" &&
-        ((["8", "9"].includes(dest[1]) && piece.color === "white") ||
-          (["1", "2"].includes(dest[1]) && piece.color === "black")))
-    ) {
-      return false;
-    }
     promoting = {
       orig: orig,
       dest: dest,
@@ -43,9 +33,12 @@ function start(orig, dest, callback) {
 }
 
 function finish(role) {
-  if (promoting) ground.promote(promoting.dest, role);
+  let prom = true;
+  if (["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(role))
+    prom = false;
+  if (prom && promoting) ground.promote(promoting.dest, role);
   if (promoting.callback)
-    promoting.callback(promoting.orig, promoting.dest, role);
+    promoting.callback(promoting.orig, promoting.dest, prom);
   promoting = false;
 }
 

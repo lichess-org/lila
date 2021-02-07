@@ -6,9 +6,8 @@ var cg = new chessground.controller();
 
 module.exports = {
   instance: cg,
-  ab: "abcdef",
   set: function (opts) {
-    var check = opts.shogi.instance.check;
+    var check = opts.shogi.isCheck();
     cg.set({
       fen: opts.shogi.fen(),
       lastMove: opts.lastMoves,

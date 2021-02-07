@@ -7,7 +7,6 @@ module.exports = {
     if (l.apples) l.detectCapture = false;
     else l.apples = [];
     if (typeof l.detectCapture === "undefined") l.detectCapture = "unprotected";
-    if (l.fen.split(" ").length === 4) l.fen += " 0 1";
     return l;
   },
   assetUrl: $("body").data("asset-url") + "/assets/",

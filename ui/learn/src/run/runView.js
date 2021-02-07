@@ -9,8 +9,6 @@ var renderPromotion = require("../promotion").view;
 var renderProgress = require("../progress").view;
 var makeStars = require("../progress").makeStars;
 
-var i = 0;
-
 function renderFailed(ctrl) {
   return m(
     "div.result.failed",

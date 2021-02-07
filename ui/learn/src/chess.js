@@ -1,107 +1,89 @@
-var Shogi = require("shogiutil/vendor/Shogi").Shogi;
-var util = require("./util");
-const { roleToSan } = require("./util");
+var Shogi = require("shogiops").Shogi;
+var util = require("shogiops/util");
+var fenUtil = require("shogiops/fen");
+var compat = require("shogiops/compat");
+var squareSet = require("shogiops/squareSet");
+
 
 module.exports = function (fen, appleKeys) {
-  var shogi = Shogi.init(fen);
-  var oldShogi;
+  if(fen.split(' ').length === 1) fen += ' w'
+  var shogi = Shogi.fromSetup(fenUtil.parseFen(compat.makeShogiFen(fen)).unwrap(), false).unwrap();
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
-    var color = shogi.player === "white" ? "black" : "white";
     appleKeys.forEach(function (key) {
-      shogi = Shogi.init(Shogi.place(shogi.fen, "pawn", color, key));
+      shogi.board.set(compat.parseChessSquare(key), {role: 'pawn', color: util.opposite(shogi.turn)});
     });
   }
 
-  function updateShogi(s) {
-    oldShogi = shogi;
-    shogi = s;
-  }
-
-  function undo() {
-    shogi = oldShogi;
-  }
-
   function placePiece(role, color, key) {
-    shogi = Shogi.init(Shogi.place(shogi.fen, role, color, key));
-  }
-
-  function getSquarePiece(key) {
-    if (shogi.pieceMap[key]) {
-      var role = shogi.pieceMap[key].slice(6, 7);
-      var color = shogi.pieceMap[key].slice(0, 5);
-      return { type: role, color: color };
-    } else {
-      return null;
-    }
+    shogi.board.set(compat.parseChessSquare(key), {role: role, color: color});
   }
 
   function getColor() {
-    return shogi.player == "white" ? "white" : "black";
+    return util.opposite(shogi.turn);
   }
 
   function setColor(c) {
-    var turn = c === "white" ? "w" : "b";
-    var newFen = util.setFenTurn(shogi.fen, turn);
-    updateShogi(Shogi.init(newFen));
-  }
-
-  function filterPieces(c) {
-    var allPos = [];
-    for (var i in shogi.pieceMap) {
-      if (shogi.pieceMap[i].startsWith(c)) {
-        allPos.push(i);
-      }
-    }
-    return allPos;
+    shogi.turn = c === "white" ? "black" : "white";
   }
 
   function findKing(c) {
-    let king;
-    if (color === "white") king = "white-king";
-    else king = "black-king";
-    for (var i in shogi.pieceMap) {
-      if (shogi.pieceMap[i] === king) {
-        return i;
-      }
-    }
+    return compat.makeChessSquare(shogi.board.kingOf(util.opposite(c)));
   }
 
   var findCaptures = function () {
     var allCaptures = [];
-    const pieces = filterPieces(getColor());
-    for (var i in shogi.dests) {
-      for (var j in shogi.dests[i]) {
-        if (pieces.includes(shogi.dests[i][j]))
-          allCaptures.push({ orig: i, dest: shogi.dests[i][j] });
+    for (const [o, d] of shogi.allDests()) {
+      for (const s of d){
+        if(shogi.board[util.opposite(shogi.turn)].has(s))
+          allCaptures.push({ orig: compat.makeChessSquare(o), dest: compat.makeChessSquare(s) });
       }
     }
     return allCaptures;
   };
 
+  // This might be moved to shogiops later
+  var illegalMoves = function () {
+    const result = new Map();
+    const illegalDests = shogi.allDests({
+      king: undefined,
+      blockers: squareSet.SquareSet.empty(),
+      checkers: squareSet.SquareSet.empty(),
+      variantEnd: false,
+      mustCapture: false,
+    });
+    for(const [from, squares] of illegalDests){
+      if(squares.nonEmpty()){
+        const d = Array.from(squares, s => compat.makeChessSquare(s));
+        result.set(compat.makeChessSquare(from), d);
+      }
+    }
+    return result;
+  }
+
   return {
     dests: function (opts) {
       opts = opts || {};
-      if (opts.illegal) return Shogi.getUnsafeDests(shogi.fen);
-      return shogi.dests;
+      if (opts.illegal) return Object.fromEntries(illegalMoves());
+      return Object.fromEntries(compat.shogigroundDests(shogi));
     },
     pockets: function () {
-      return shogi.crazyhouse;
+      return shogi.pockets;
     },
     color: function (c) {
       if (c) setColor(c);
       else return getColor();
     },
     fen: function () {
-      return shogi.fen;
+      return compat.makeLishogiFen(fenUtil.makeFen(shogi.toSetup()));
     },
     move: function (orig, dest, prom) {
-      updateShogi(Shogi.move(shogi.fen, orig, dest, prom ? prom : "")); // valid?
+      shogi.play({from: compat.parseChessSquare(orig), to: compat.parseChessSquare(dest), promotion: prom});
       return { from: orig, to: dest, promotion: prom };
     },
     occupation: function () {
-      return shogi.pieceMap;
+      return shogi.board;
     },
     kingKey: function (color) {
       return findKing(color);
@@ -110,23 +92,53 @@ module.exports = function (fen, appleKeys) {
       return findCaptures()[0];
     },
     findUnprotectedCapture: function () {
+      return findCaptures().find(function(capture) {
+        const clone = shogi.clone();
+        clone.play({from: capture.from, to: capture.to, promotion: capture.promotion});
+        for(const [_, d] of clone.allDests()){
+          if(d.has(capture.to)) return false;
+        }
+        return true;
+      });
+    },
+    isCheck: function () {
+      const clone = shogi.clone();
+      clone.turn = util.opposite(clone.turn);
+      if(shogi.isCheck() || clone.isCheck()) return true;
       return false;
     },
     checks: function () {
-      if (!shogi.check) return null;
-      return shogi.check;
+      const clone = shogi.clone();
+      clone.turn = util.opposite(clone.turn);
+      const colorInCheck = shogi.isCheck() ? shogi.turn : clone.isCheck() ? clone.turn : undefined;
+      if (colorInCheck === undefined) return null;
+      const kingPos = this.kingKey(util.opposite(colorInCheck));
+
+      setColor(colorInCheck);
+      const allDests = shogi.allDests();
+      const origOfCheck = [];
+      for(const k of allDests.keys()){
+        if(allDests.get(k).has(compat.parseChessSquare(kingPos)))
+          origOfCheck.push(k);
+      }
+      const checks = origOfCheck.map(s => {
+        return {
+          orig: compat.makeChessSquare(s),
+          dest: kingPos
+        }
+      })
+      setColor(util.opposite(colorInCheck));
+      return checks;
     },
     playRandomMove: function () {
-      const orig = Object.keys(shogi.dests)[
-        Math.floor(Math.random() * Object.keys(shogi.dests).length)
-      ];
-      const moves = shogi.dests[orig];
-      const dest = moves[Math.floor(Math.random() * moves.length)];
-      updateShogi(Shogi.move(shogi.fen, orig, dest));
-      return { orig: orig, dest: dest };
+      const allD = shogi.allDests();
+      const keys = Array.from(allD.keys());
+      const from = keys[Math.floor(Math.random() * keys.length)];
+      // first() is not really random but good enough
+      const to = allD.get(from).first();
+      shogi.play({from: from, to: to});
+      return { orig: from, dest: to };
     },
-    get: getSquarePiece,
-    undo: undo,
     place: placePiece,
     instance: shogi,
   };
