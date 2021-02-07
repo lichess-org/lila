@@ -238,7 +238,7 @@ final class StudyApi(
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
             val newPosition = position.ref + node
-            chapterRepo.setChildren(parent.children)(chapter, position.path) >>
+            chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
               (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
               (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
               updateConceal(study, chapter, newPosition) >> {
