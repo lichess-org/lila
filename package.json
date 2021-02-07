@@ -2,16 +2,16 @@
   "name": "lila",
   "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org: the forever free, adless and open source chess server",
+  "description": "lishogi.org: the forever free, adless and open source shogi server",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila.git"
   },
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi"
   ],
-  "author": "Thibault Duplessis and the gang",
+  "author": "Thibault Duplessis and the gang (lichess)",
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
@@ -25,7 +25,6 @@
     "fs-extra": "^4.0.2",
     "learn": "2.0.0",
     "shogiground": "7.8.1",
-    "shogiutil": "1.0.0",
     "xml2js": "^0.4.19"
   },
   "workspaces": [
@@ -51,7 +50,6 @@
     "ui/round",
     "ui/serviceWorker",
     "ui/shogiground",
-    "ui/shogiutil",
     "ui/simul",
     "ui/site",
     "ui/swiss",
