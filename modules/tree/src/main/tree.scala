@@ -176,6 +176,8 @@ object Node {
     def ++(comments: Comments) = Comments(value ::: comments.value)
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
+
+    def hasLichessComment = value.exists(_.by == Comment.Author.Lichess)
   }
   object Comments {
     val empty = Comments(Nil)

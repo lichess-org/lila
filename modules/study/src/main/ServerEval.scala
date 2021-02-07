@@ -60,38 +60,42 @@ object ServerEval {
                 .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
                     chapter.root.nodeAt(path).flatMap { parent =>
-                      analysisLine(parent, chapter.setup.variant, info) map parent.addChild
-                    } ?? { parentWithNewChildren =>
-                      chapterRepo.setChildren(parentWithNewChildren.children)(chapter, path)
+                      analysisLine(parent, chapter.setup.variant, info) map { subTree =>
+                        parent.addChild(subTree) -> subTree
+                      }
+                    } ?? { case (newParent, subTree) =>
+                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers._
                       import Node.{ BsonFields => F }
-                      chapterRepo.setNodeValues(
-                        chapter,
-                        path + node,
-                        List(
-                          F.score -> info.eval.score
-                            .ifTrue {
-                              node.score.isEmpty ||
-                              advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                            }
-                            .flatMap(EvalScoreBSONHandler.writeOpt),
-                          F.comments -> advOpt
-                            .map { adv =>
-                              node.comments + Comment(
-                                Comment.Id.make,
-                                Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
-                                Comment.Author.Lichess
-                              )
-                            }
-                            .flatMap(CommentsBSONHandler.writeOpt),
-                          F.glyphs -> advOpt
-                            .map { adv =>
-                              node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                            }
-                            .flatMap(GlyphsBSONHandler.writeOpt)
-                        )
-                      )
+                      ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
+                        chapterRepo
+                          .setNodeValues(
+                            chapter,
+                            path + node,
+                            List(
+                              F.score -> info.eval.score
+                                .ifTrue {
+                                  node.score.isEmpty ||
+                                  advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                                }
+                                .flatMap(EvalScoreBSONHandler.writeOpt),
+                              F.comments -> advOpt
+                                .map { adv =>
+                                  node.comments + Comment(
+                                    Comment.Id.make,
+                                    Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
+                                    Comment.Author.Lichess
+                                  )
+                                }
+                                .flatMap(CommentsBSONHandler.writeOpt),
+                              F.glyphs -> advOpt
+                                .map { adv =>
+                                  node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                                }
+                                .flatMap(GlyphsBSONHandler.writeOpt)
+                            )
+                          )
                     } inject path + node
                 } void
             } >>- {

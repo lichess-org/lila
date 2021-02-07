@@ -146,6 +146,25 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
     coll(_.update.one($id(chapter.id), $set(set))).void
   }
 
+  // insert node and its children
+  // and sets the parent order field
+  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit = {
+    val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
+      (newParent.children.nodes.sizeIs > 1) ?? $doc(
+        pathToField(parentPath, Node.BsonFields.order) -> newParent.children.nodes.map(_.id)
+      )
+    }
+    coll(_.update.one($id(chapter.id), $set(set))).void
+  }
+
+  private def subTreeToBsonElements(parentPath: Path, subTree: Node): Vector[(String, Bdoc)] =
+    (parentPath.depth < Node.MAX_PLIES) ?? {
+      val path = parentPath + subTree
+      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) appended {
+        path.toDbField -> writeNode(subTree)
+      }
+    }
+
   private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
       children.nodes.flatMap { node =>
