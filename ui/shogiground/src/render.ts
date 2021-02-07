@@ -179,14 +179,13 @@ export function render(s: State): void {
     }
   }
 
-  console.log(s.pockets);
   if (s.pockets) {
     for (const i of [0, 1]) {
       // add pockets if nonexistent yet
       const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
       const pocketPieces = pocket.getElementsByTagName("piece");
       for (let j = 0; j < pocketPieces.length; j++) {
-        const role = pocketPieces[i].getAttribute("data-role");
+        const role = pocketPieces[j].getAttribute("data-role");
         pocketPieces[j].setAttribute("data-nb", s.pockets[i][role ? role : ""])
       }
     }

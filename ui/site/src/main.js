@@ -246,7 +246,7 @@
       return setTimeout(function () {
         lishogi.parseFen($elem);
       }, 500); // if not loaded yet
-    // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
+    // sometimes $elem is not a jQuery, can happen when content_loaded is telemriggered with random args
     if (!$elem || !$elem.each) $elem = $(".parse-fen");
     $elem.each(function () {
       var $this = $(this).removeClass("parse-fen");
@@ -258,12 +258,17 @@
       var ground = $this.data("shogiground");
       var playable = !!$this.data("playable");
       var resizable = !!$this.data("resizable");
+      var fen = $this.data("fen");
+      var pocketFromFen = fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
+      console.log(fen)
+      console.log($this.data("pocket"))
+      console.log(pocketFromFen)
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        fen: $this.data("fen") || lishogi.readServerFen($this.data("z")),
-        pockets: $this.data("pocket"),
+        fen: fen || lishogi.readServerFen($this.data("z")),
+        pockets: $this.data("pocket") || pocketFromFen,
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };
