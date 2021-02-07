@@ -19,7 +19,7 @@ resourceDirectory in Compile := baseDirectory.value / "conf"
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms,
   chess, compression, scalalib, hasher,
-  reactivemongo.driver, maxmind, prismic, scalatags,
+  reactivemongo.driver, reactivemongo.kamon, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, uaparser
 ) ++ {
