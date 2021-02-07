@@ -14,12 +14,12 @@ module.exports = {
   illustration: util.roundSvg(imgUrl),
   levels: [{
     goal: 'stalemateGoal',
-    fen: 'k7/8/8/6B1/8/1R6/8/8 w - -',
-    shapes: [arrow('g5e3')],
+    fen: '7k1/9/9/9/5R3/9/9/2K6/6L1L w - 1',
+    shapes: [arrow('f5f8')],
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
     scenario: [{
-      move: 'g5e3',
+      move: 'f5f8',
       shapes: [
         arrow('e3a7', 'blue'), arrow('b3b7', 'blue'), arrow('b3b8', 'blue'),
         circle('a7', 'blue'), circle('b7', 'blue'), circle('b8', 'blue')

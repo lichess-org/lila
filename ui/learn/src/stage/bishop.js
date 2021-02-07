@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       goal: "theFewerMoves",
-      fen: "9/9/9/9/9/9/2B5/9/9 w -",
+      fen: "9/9/9/9/9/9/2B6/9/9 w -",
       apples: "b2 c1 c5 e1 e3 f2",
       nbMoves: 6,
     },

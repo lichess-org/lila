@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       goal: "grabAllTheStars",
-      fen: "9/9/9/2R5/9/9/9/9/9 w -",
+      fen: "9/9/9/2R6/9/9/9/9/9 w -",
       apples: "c3 g3",
       nbMoves: 2,
     },

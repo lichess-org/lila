@@ -12,19 +12,9 @@ module.exports = {
   intro: 'pieceValueIntro',
   illustration: util.roundSvg(imgUrl),
   levels: [{ // rook
-    goal: 'queenOverBishop',
-    fen: '8/8/2qrbnp1/3P4/8/8/8/8 w - -',
-    scenario: ['d5c6'],
-    nbMoves: 1,
-    captures: 1,
-    shapes: [arrow('d5c6')],
-    success: assert.scenarioComplete,
-    failure: assert.scenarioFailed,
-    detectCapture: false
-  }, {
     goal: 'takeThePieceWithTheHighestValue',
-    fen: '8/8/4b3/1p6/6r1/8/4Q3/8 w - -',
-    scenario: ['e2e6'],
+    fen: '9/9/9/1r7/6r2/9/4B4/9/9 w - 1',
+    scenario: ['e3b6'],
     nbMoves: 1,
     captures: 1,
     success: assert.scenarioComplete,
@@ -32,7 +22,7 @@ module.exports = {
     detectCapture: true
   }, {
     goal: 'takeThePieceWithTheHighestValue',
-    fen: '5b2/8/6N1/2q5/3Kn3/2rp4/3B4/8 w - -',
+    fen: '9/9/9/1r7/6r2/9/4B4/9/9 w - 1',
     scenario: ['d4e4'],
     nbMoves: 1,
     captures: 1,

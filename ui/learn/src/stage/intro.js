@@ -1,5 +1,4 @@
 var util = require("../util");
-const assert = require("../assert");
 var arrow = util.arrow;
 
 module.exports = {

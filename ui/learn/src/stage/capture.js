@@ -18,7 +18,7 @@ module.exports = {
       fen: "9/2p2p3/9/9/9/2R6/9/9/9 w -",
       nbMoves: 2,
       captures: 2,
-      shapes: [arrow("c3c7"), arrow("c7f7")],
+      shapes: [arrow("c4c8"), arrow("c8f8")],
       success: assert.extinct("black"),
     },
     {
