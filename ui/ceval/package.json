@@ -19,14 +19,13 @@
     "prod": "yarn run compile"
   },
   "devDependencies": {
-    "@types/defer-promise": "1.0.0",
     "@types/jquery": "^2.0",
     "@types/lishogi": "2.0.0",
     "typescript": "^3"
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiutil": "1.0.0",
+    "shogiops": "^0.1.1",
     "snabbdom": "^0.7.4"
   }
 }

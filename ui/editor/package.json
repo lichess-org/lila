@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "snabbdom": "^0.7.4",
     "shogiground": "7.8.1",
-    "shogiutil": "1.0.0"
+    "shogiops": "^0.1.1",
+    "snabbdom": "^0.7.4"
   },
   "scripts": {
     "dev": "rollup --config",

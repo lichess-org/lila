@@ -3,13 +3,14 @@
   "version": "2.0.0",
   "private": true,
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "breakpoint-sass": "^2.7.1"
+    "breakpoint-sass": "^2.7.1",
+    "node-sass": "^5.0.0"
   },
   "devDependencies": {
     "glob": "^7.1.3",
