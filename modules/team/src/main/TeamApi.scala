@@ -152,6 +152,13 @@ final class TeamApi(
       }
     }
 
+  def cancelRequest(teamId: Team.ID, user: User): Fu[Option[Team]] =
+    teamRepo.coll.byId[Team](teamId) flatMap {
+      _ ?? { team =>
+        requestRepo.cancel(team.id, user) map (_ option team)
+      }
+    }
+
   def processRequest(team: Team, request: Request, accept: Boolean): Funit =
     for {
       _ <- requestRepo.coll.delete.one(request)

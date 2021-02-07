@@ -367,7 +367,7 @@ final class Team(
     AuthOrScoped(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          OptionFuResult(api.quit(id, me)) { team =>
+          OptionFuResult(api.cancelRequest(id, me) orElse api.quit(id, me)) { team =>
             negotiate(
               html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
               api = _ => jsonOkResult.fuccess
