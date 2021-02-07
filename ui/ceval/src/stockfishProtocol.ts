@@ -1,5 +1,6 @@
 import { WorkerOpts, Work } from "./types";
-import { chessToShogiUsi, fixSfen } from "shogiutil/util";
+import { assureUsi, makeShogiFen } from "shogiops/compat";
+import { Deferred, defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(
   "" +
@@ -14,7 +15,7 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: DeferPromise.Deferred<void> | null;
+  private stopped: Deferred<void> | null;
 
   public engineName: string | undefined;
 
@@ -126,24 +127,17 @@ export default class Protocol {
     this.expectedPvs = 1;
     if (this.opts.threads) this.setOption("Threads", this.opts.threads());
     if (this.opts.hashSize) this.setOption("Hash", this.opts.hashSize());
-    const splitted = this.work.initialFen.split(" ");
-    const oppositeColor = splitted[1] == "w" ? "b" : "w";
-    const boardFen =
-      splitted[0].slice(-1) == "/"
-        ? splitted[0].substring(0, splitted[0].length - 1)
-        : splitted[0];
-    const piecesInHand = splitted[2] ? splitted[2] : "-";
-    const oppositeColorSfen = fixSfen(boardFen) + " " + oppositeColor + " " + piecesInHand;
-    const usiMoves = this.work.moves.map(chessToShogiUsi);
+    const sfen = makeShogiFen(this.work.initialFen);
+    const usiMoves = this.work.moves.map(m => assureUsi(m)!);
     console.log(
       "sending this sfen: ",
-      oppositeColorSfen,
+      sfen,
       "and these moves",
       usiMoves
     );
     this.setOption("MultiPV", this.work.multiPv);
     this.send(
-      ["position", "sfen", oppositeColorSfen, "moves"]
+      ["position", "sfen", sfen, "moves"]
         .concat(usiMoves)
         .join(" ")
     );
@@ -163,13 +157,4 @@ export default class Protocol {
   isComputing(): boolean {
     return !this.stopped;
   }
-}
-
-function defer<A>(): DeferPromise.Deferred<A> {
-  const deferred: Partial<DeferPromise.Deferred<A>> = {};
-  deferred.promise = new Promise<A>((resolve, reject) => {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
-  });
-  return deferred as DeferPromise.Deferred<A>;
 }
