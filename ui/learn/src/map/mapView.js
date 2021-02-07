@@ -76,6 +76,12 @@ function whatNext(ctrl) {
             "register",
             "getAFreeLishogiAccount"
           ),
+      makeStage(
+        "/resources",
+        "pieces/K",
+        "shogiResources",
+        "curatedShogiResources"
+      ),
       //makeStage(
       //  "/practice",
       //  "robot-golem",
