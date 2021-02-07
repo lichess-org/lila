@@ -4,11 +4,10 @@ import { DragCurrent } from "./drag";
 import { Drawable } from "./draw";
 import { timer } from "./util";
 import * as cg from "./types";
-import { makePockets } from "./pocket";
 
 export interface State {
   pieces: cg.Pieces;
-  pockets: cg.Pockets;
+  pockets?: cg.Pockets;
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
   check?: cg.Key; // square currently in check "a2"
@@ -112,7 +111,6 @@ export interface State {
 export function defaults(): Partial<State> {
   return {
     pieces: fen.read(fen.initial),
-    pockets: makePockets(),
     orientation: "white",
     turnColor: "white",
     coordinates: true,

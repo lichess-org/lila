@@ -8,6 +8,13 @@
   }
 }
 
+.mini-board.no-pockets {
+  @extend %square;
+  cg-helper {
+    bottom: 0;
+  }
+}
+
 .mini-board {
   @extend %mini-board-square;
   cg-helper {

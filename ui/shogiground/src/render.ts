@@ -1,5 +1,5 @@
 import { State } from "./state";
-import { key2pos, createEl, isMiniBoard } from "./util";
+import { key2pos, createEl } from "./util";
 import { whitePov } from "./board";
 import * as util from "./util";
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from "./anim";
@@ -20,7 +20,6 @@ export function render(s: State): void {
       : util.posToTranslateAbs(s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
-    boardSpanEl: HTMLElement | null = s.dom.elements.boardSpan,
     pockets: HTMLElement[] = s.dom.elements.pockets,
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
@@ -181,7 +180,7 @@ export function render(s: State): void {
   }
 
   console.log(s.pockets);
-  if (isMiniBoard(boardSpanEl)) {
+  if (s.pockets && pockets) {
     for (const i of [0, 1]) {
       // add pockets if nonexistent yet
       let pocket;

@@ -12,7 +12,8 @@ const droppableLetters: { [letter: string]: Role } = {
   r: "rook",
 };
 
-export function makePockets(str?: string | null): Pockets {
+export function makePockets(str?: string | null): Pockets | undefined {
+  if (str === undefined) return undefined;
   const pockets = [
     { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 },
     { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 }

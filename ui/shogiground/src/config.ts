@@ -2,10 +2,12 @@ import { State } from './state'
 import { setCheck, setSelected } from './board'
 import { read as fenRead } from './fen'
 import { DrawShape, DrawBrush } from './draw'
+import { makePockets } from './pocket'
 import * as cg from './types'
 
 export interface Config {
   fen?: cg.FEN; // chess position in Forsyth notation
+  pockets?: string;
   orientation?: cg.Color; // board orientation. white | black
   turnColor?: cg.Color; // turn to play. white | black
   check?: cg.Color | boolean; // true for current color, false to unset
@@ -105,6 +107,8 @@ export function configure(state: State, config: Config): void {
     state.pieces = fenRead(config.fen);
     state.drawable.shapes = [];
   }
+
+  state.pockets = makePockets(config.pockets);
 
   // apply config values that could be undefined yet meaningful
   if (config.hasOwnProperty('check')) setCheck(state, config.check || false);
