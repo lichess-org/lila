@@ -9,6 +9,7 @@
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
   <string name="fork">Вилица</string>
+  <string name="long">Дълга задача</string>
   <string name="longDescription">Победа в три хода.</string>
   <string name="master">Майсторски Игри</string>
   <string name="mate">Матове</string>
@@ -24,6 +25,9 @@
   <string name="mateIn5">Мат в 5 или повече хода</string>
   <string name="mateIn5Description">Намерете дълга последователност от ходове водеща до мат.</string>
   <string name="middlegame">Мителшпил</string>
+  <string name="middlegameDescription">Тактика във втората фаза на играта.</string>
   <string name="opening">Дебют</string>
+  <string name="openingDescription">Тактика в първата фаза на играта.</string>
+  <string name="pawnEndgame">Пешечен Ендшпил</string>
   <string name="sacrifice">Жертване</string>
 </resources>
