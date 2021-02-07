@@ -36,5 +36,9 @@
   <string name="queenEndgameDescription">Ендшпил само с дами и пешки.</string>
   <string name="queenRookEndgame">Дама и топ</string>
   <string name="queenRookEndgameDescription">Ендшпил само с дами, топове и пешки.</string>
+  <string name="quietMove">Тих ход</string>
+  <string name="rookEndgame">Топовен ендшпил</string>
+  <string name="rookEndgameDescription">Ендшпил само с топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
+  <string name="skewer">Линеен удар</string>
 </resources>
