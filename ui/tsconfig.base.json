@@ -11,7 +11,13 @@
     "moduleResolution": "node",
     "target": "ES2016",
     "module": "commonjs",
-    "lib": ["DOM", "ES2016"],
-    "types": ["lishogi", "jquery", "defer-promise"]
+    "lib": [
+      "DOM",
+      "ES2016"
+    ],
+    "types": [
+      "lishogi",
+      "jquery"
+    ]
   }
 }
