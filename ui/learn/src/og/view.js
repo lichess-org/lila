@@ -155,8 +155,8 @@ function renderSquares(ctrl, ctx) {
       }
     }
   } else {
-    for (var key in squares)
-      dom.push(renderSquare(key, squares[key].join(" "), ctx));
+    for (const k in squares)
+      dom.push(renderSquare(k, squares[k].join(" "), ctx));
   }
   return dom;
 }
@@ -178,13 +178,14 @@ function renderContent(ctrl) {
   // must insert pieces in the right order
   // for 3D to display correctly
   var keys = ctx.asWhite ? util.allKeys : util.invKeys;
+  var i = 0;
   if (d.items) {
-    for (var i = 0; i < 81; i++) {
+    for (i = 0; i < 81; i++) {
       if (d.pieces[keys[i]] && !d.items.render(util.key2pos(keys[i]), keys[i]))
         children.push(renderPiece(d, keys[i], ctx));
     }
   } else {
-    for (var i = 0; i < 81; i++) {
+    for (i = 0; i < 81; i++) {
       if (d.pieces[keys[i]]) children.push(renderPiece(d, keys[i], ctx));
     }
     // the hack to drag new pieces on the board (editor and crazyhouse)

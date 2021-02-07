@@ -66,39 +66,6 @@ function unsetPredrop(data) {
   }
 }
 
-function tryAutoCastle(data, orig, dest) {
-  if (!data.autoCastle) return;
-  var king = data.pieces[dest];
-  if (king.role !== "king") return;
-  var origPos = util.key2pos(orig);
-  if (origPos[0] !== 5) return;
-  if (origPos[1] !== 1 && origPos[1] !== 8) return;
-  var destPos = util.key2pos(dest),
-    oldRookPos,
-    newRookPos,
-    newKingPos;
-  if (destPos[0] === 7 || destPos[0] === 8) {
-    oldRookPos = util.pos2key([8, origPos[1]]);
-    newRookPos = util.pos2key([6, origPos[1]]);
-    newKingPos = util.pos2key([7, origPos[1]]);
-  } else if (destPos[0] === 3 || destPos[0] === 1) {
-    oldRookPos = util.pos2key([1, origPos[1]]);
-    newRookPos = util.pos2key([4, origPos[1]]);
-    newKingPos = util.pos2key([3, origPos[1]]);
-  } else return;
-  delete data.pieces[orig];
-  delete data.pieces[dest];
-  delete data.pieces[oldRookPos];
-  data.pieces[newKingPos] = {
-    role: "king",
-    color: king.color,
-  };
-  data.pieces[newRookPos] = {
-    role: "rook",
-    color: king.color,
-  };
-}
-
 function baseMove(data, orig, dest) {
   var success = anim(function () {
     if (orig === dest || !data.pieces[orig]) return false;
@@ -111,7 +78,6 @@ function baseMove(data, orig, dest) {
     delete data.pieces[orig];
     data.lastMove = [orig, dest];
     data.check = null;
-    tryAutoCastle(data, orig, dest);
     callUserFunction(data.events.change);
     return true;
   }, data)();
@@ -226,7 +192,7 @@ function selectSquare(data, key, force) {
 function setSelected(data, key) {
   data.selected = key;
   if (key && isPremovable(data, key))
-    data.premovable.dests = premove(data.pieces, key, data.premovable.castle);
+    data.premovable.dests = premove(data.pieces, key);
   else data.premovable.dests = null;
 }
 
@@ -272,7 +238,7 @@ function canPremove(data, orig, dest) {
   return (
     orig !== dest &&
     isPremovable(data, orig) &&
-    util.containsX(premove(data.pieces, orig, data.premovable.castle), dest)
+    util.containsX(premove(data.pieces, orig), dest)
   );
 }
 

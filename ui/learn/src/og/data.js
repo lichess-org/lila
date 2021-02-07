@@ -14,7 +14,6 @@ module.exports = function (cfg) {
     renderRAF: null, // function that rerenders the board using requestAnimationFrame
     element: null, // DOM element of the board, required for drag piece centering
     bounds: null, // function that calculates the board bounds
-    autoCastle: false, // immediately complete the castle by moving the rook after king move
     viewOnly: false, // don't bind events: the user will never be able to move pieces around
     disableContextMenu: false, // because who needs a context menu on a chessboard
     resizable: true, // listens to chessground.resize on document.body to clear bounds cache
@@ -58,12 +57,10 @@ module.exports = function (cfg) {
         after: function (orig, dest, metadata) {}, // called after the move has been played
         afterNewPiece: function (role, pos) {}, // called after a new piece is dropped on the board
       },
-      rookCastle: true, // castle by moving the king to the rook
     },
     premovable: {
       enabled: true, // allow premoves for color that can not move
       showDests: true, // whether to add the premove-dest class on squares
-      castle: true, // whether to allow king castle premoves
       dests: [], // premove destinations for the current selection
       current: null, // keys of the current saved premove ["e2" "e4"] | null
       events: {

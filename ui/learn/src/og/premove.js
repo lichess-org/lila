@@ -59,7 +59,7 @@ const dragon = function (x1, y1, x2, y2) {
   return king(x1, y1, x2, y2) || rook(x1, y1, x2, y2);
 };
 
-module.exports = function (pieces, key, canCastle) {
+module.exports = function (pieces, key) {
   var piece = pieces[key];
   var pos = util.key2pos(key);
   var mobility;

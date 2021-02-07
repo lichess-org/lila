@@ -29,18 +29,4 @@ module.exports = function (data, config) {
   // no need for such short animations
   if (!data.animation.duration || data.animation.duration < 40)
     data.animation.enabled = false;
-
-  if (!data.movable.rookCastle) {
-    var rank = data.movable.color === "white" ? 1 : 9;
-    var kingStartPos = "e" + rank;
-    if (data.movable.dests) {
-      var dests = data.movable.dests[kingStartPos];
-      if (!dests || data.pieces[kingStartPos].role !== "king") return;
-      data.movable.dests[kingStartPos] = dests.filter(function (d) {
-        if (d === "a" + rank && dests.indexOf("c" + rank) !== -1) return false;
-        if (d === "h" + rank && dests.indexOf("g" + rank) !== -1) return false;
-        return true;
-      });
-    }
-  }
 };
