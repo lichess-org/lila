@@ -32,5 +32,9 @@
   <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
   <string name="pin">Свръзка</string>
   <string name="pinDescription">Тактика, използваща свръзка, където една фигура не може да бъде преместена без да оголи за атака стоящата зад нея по-ценна фигура.</string>
+  <string name="queenEndgame">Дамски ендшпили</string>
+  <string name="queenEndgameDescription">Ендшпил само с дами и пешки.</string>
+  <string name="queenRookEndgame">Дама и топ</string>
+  <string name="queenRookEndgameDescription">Ендшпил само с дами, топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
 </resources>
