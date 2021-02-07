@@ -214,15 +214,7 @@ interface Navigator {
 
 declare type VariantKey =
   | "standard"
-  | "chess960"
-  | "antichess"
-  | "fromPosition"
-  | "kingOfTheHill"
-  | "threeCheck"
-  | "atomic"
-  | "horde"
-  | "racingKings"
-  | "crazyhouse";
+  | "fromPosition";
 
 declare type Speed =
   | "bullet"
@@ -236,15 +228,7 @@ declare type Perf =
   | "blitz"
   | "classical"
   | "correspondence"
-  | "chess960"
-  | "antichess"
-  | "fromPosition"
-  | "kingOfTheHill"
-  | "threeCheck"
-  | "atomic"
-  | "horde"
-  | "racingKings"
-  | "crazyhouse";
+  | "fromPosition";
 
 declare type Color = "white" | "black";
 
