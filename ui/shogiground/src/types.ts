@@ -140,8 +140,7 @@ export interface Rect {
 export type Dests = Map<Key, Key[]>;
 
 export interface Elements {
-  pockets: Pockets;
-  pocketEls: HTMLElement[];
+  pockets: HTMLElement[];
   boardSpan: HTMLElement;
   board: HTMLElement;
   container: HTMLElement;

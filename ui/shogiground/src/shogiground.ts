@@ -30,7 +30,7 @@ export function Shogiground(element: HTMLElement, config?: Config): Api {
         updateBounds(state);
         if (elements.svg) svg.renderSvg(state, elements.svg);
       };
-    state.pockets = elements.pockets;
+    state.pockets = [{pawn: 4, lance: 2, knight: 0, silver: 1, gold: 0, bishop: 0, rook: 3}, {pawn: 4, lance: 2, knight: 0, silver: 1, gold: 0, bishop: 0, rook: 3}];
     state.dom = {
       elements,
       bounds,
