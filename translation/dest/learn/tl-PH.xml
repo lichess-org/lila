@@ -8,7 +8,7 @@
 	<string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
 	<string name="play">play!</string>
 	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntoduction">Introduction</string>
+	<string name="theIntoduction">Introduksyon</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
 	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
@@ -16,41 +16,41 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
 	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
-	<string name="theRook">The rook</string>
-	<string name="itMovesInStraightLines">It moves in straight lines</string>
-	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
-	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="theRook">Ang rook</string>
+	<string name="itMovesInStraightLines">Ito ay gumagalaw sa mga diretsong mga linya</string>
+	<string name="rookIntro">Ang rook ay makapngyarihang piraso. Handa ka na bang gamitin ito?</string>
+	<string name="rookGoal">Pindutin ang rook para ipunta ito sa bituin!</string>
 	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
-	<string name="grabAllTheStars">Grab all the stars!</string>
+	<string name="grabAllTheStars">Kunin lahat ng bituin!</string>
 	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
 	<string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
-	<string name="theBishop">The bishop</string>
-	<string name="itMovesDiagonally">It moves diagonally</string>
+	<string name="theBishop">Ang bishop</string>
+	<string name="itMovesDiagonally">Ito ay gumagalaw ng pahalang</string>
 	<string name="bishopIntro">Next we will learn how to manoeuvre a bishop!</string>
 	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
 	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
 	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
 	<string name="bishopComplete">Congratulations! You can command a bishop.</string>
-	<string name="theKing">The king</string>
-	<string name="theMostImportantPiece">The most important piece</string>
-	<string name="kingIntro">You are the king. If you fall in battle, the game is lost.</string>
-	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="theKing">Ang king</string>
+	<string name="theMostImportantPiece">Ang pinakaimportanteng piyesa</string>
+	<string name="kingIntro">Ikaw ang king. Kapag ikaw ay natumba sa laban, talo na ang laro.</string>
+	<string name="theKingIsSlow">Ang king ay medyo mabagal.</string>
 	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
-	<string name="kingComplete">You can now command the commander!</string>
-	<string name="theKnight">The knight</string>
-	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
-	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
-	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
+	<string name="kingComplete">Pwede mo nang utusan ang taga-utos!</string>
+	<string name="theKnight">Ang knight</string>
+	<string name="itMovesInAnLShape">Gumagalaw siya pahugis L, ngunit PAHARAP lamang!</string>
+	<string name="knightIntro">Ito ang hamon para sa iyo. Ang kabayo ay... isang nakakalitong piraso.</string>
+	<string name="knightsHaveAFancyWay">Ang kabayo ay may kakaibang paraan ng pagtalon!</string>
 	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
 	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
-	<string name="knightComplete">Congratulations! You have mastered the knight.</string>
-	<string name="thePawn">The pawn</string>
+	<string name="knightComplete">Binabati kita! Ikaw ay dalubhasa na sa knight</string>
+	<string name="thePawn">Ang pawn</string>
 	<string name="itMovesForwardOnly">March forward!</string>
-	<string name="pawnIntro">Pawns are weak, but they pack a lot of potential.</string>
+	<string name="pawnIntro">Ang mga pawn ay mahina, pero sila puno ng potensyal.</string>
 	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
 	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
 	<string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
@@ -58,12 +58,12 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
 	<string name="theLance">The lance</string>
 	<string name="itMovesStraightForward">It can go only forward.</string>
-	<string name="lanceIntro">Use it wisely.</string>
+	<string name="lanceIntro">Gamitin ito nang mabuti.</string>
 	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
 	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
 	<string name="lanceSummary">Moves forward, this is really easy.</string>
 	<string name="planceSummary">It\'s the same as the gold general.</string>
-	<string name="lanceComplete">Great job!</string>
+	<string name="lanceComplete">Napakahusay!</string>
 	<string name="theGold">The gold general</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
 	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
@@ -84,15 +84,15 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="fundamentals">Fundamentals</string>
 	<string name="capture">Capture</string>
 	<string name="takeTheEnemyPieces">Take the enemy pieces</string>
-	<string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
-	<string name="takeTheBlackPieces">Take the black pieces!</string>
+	<string name="captureIntro">Alamin ang mga piyesa na hindi nadepensahan ng kalaban, at dakpin sila!</string>
+	<string name="takeTheBlackPieces">Kunin ang mga piyesa ni Gote!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
 And don\'t lose yours.</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
-	<string name="protection">Protection</string>
-	<string name="keepYourPiecesSafe">Keep your pieces safe</string>
-	<string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
-	<string name="protectionComplete">Congratulations! A piece you don\'t lose is a piece you win!</string>
+	<string name="captureComplete">Binabati kita! Marunong ka na lumaban gamit ng mga piyesa sa shogi!</string>
+	<string name="protection">Proteksyon</string>
+	<string name="keepYourPiecesSafe">Panatilihing ligtas ang iyong mga piyesa</string>
+	<string name="protectionIntro">Alamin ang mga piyesa na umaatake sa iyo, at depensahan sila!</string>
+	<string name="protectionComplete">Binabati kita! Ang piyesa na hindi nawala sayo ay ang piyesa na napanalunan mo!</string>
 	<string name="escape">You\'re under attack!
 Escape the threat!</string>
 	<string name="noEscape">There is no escape,
@@ -105,23 +105,21 @@ any undefended piece!</string>
 	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
 	<string name="checkInOne">Check in one</string>
 	<string name="attackTheOpponentsKing">Attack the opponent\'s king</string>
-	<string name="checkInOneIntro">To check your opponent, attack their king. They must defend it!</string>
+	<string name="checkInOneIntro">Upang macheck ang iyong kalaban, atakihin ang hari nila. Dapat nilang depensahan ito!</string>
 	<string name="checkInOneGoal">Aim at the opponent\'s king
 in one move!</string>
-	<string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
-	<string name="outOfCheck">Out of check</string>
-	<string name="defendYourKing">Defend your king</string>
-	<string name="outOfCheckIntro">You are in check! You must escape or block the attack.</string>
-	<string name="escapeWithTheKing">Escape with the king!</string>
-	<string name="theKingCannotEscapeButBlock">The king cannot escape,
-but you can block the attack!</string>
-	<string name="youCanGetOutOfCheckByTaking">You can get out of check
-by taking the attacking piece.</string>
+	<string name="checkInOneComplete">Binabati kita! Na-check mo ang iyong kalaban, pagpilit sa kanila na depensahan ang kanilang hari!</string>
+	<string name="outOfCheck">Wala sa check</string>
+	<string name="defendYourKing">Depensahan ang iyong hari</string>
+	<string name="outOfCheckIntro">Ikaw ay nasa check! Kailangan nating tumakas o harangan ang atake.</string>
+	<string name="escapeWithTheKing">Itakas ang hari!</string>
+	<string name="theKingCannotEscapeButBlock">Ang hari ay hindi makakatakas,
+pero pwede mong harangan ang atake!</string>
+	<string name="youCanGetOutOfCheckByTaking">Pwede kang makawala sa pagkacheck sa pamamagitan ng pag-atake sa umataakeng piyesa</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
 through your defences!</string>
-	<string name="escapeOrBlock">Escape with the king
-or block the attack!</string>
-	<string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
+	<string name="escapeOrBlock">Itakas ang hari o harangan ang atake!</string>
+	<string name="outOfCheckComplete">Binabati kita! Ang iyong hari ay hindi kailanman makukuha, siguraduhin na ikaw ay makakadepensa sa check!</string>
 	<string name="mateInOne">Mate in one</string>
 	<string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
 	<string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
@@ -148,16 +146,16 @@ Right next to his queen.</string>
 	<string name="pawnsFormTheFrontLine">Pawns form the front line.
 Make any move to continue.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
-	<string name="stalemate">Stalemate</string>
-	<string name="theGameIsADraw">The game is a draw</string>
-	<string name="stalemateIntro">When a player is not in check and does not have a legal move, it\'s a stalemate. The game is drawn: no one wins, no one loses.</string>
-	<string name="stalemateGoal">To stalemate black:
-- Black cannot move anywhere
-- There is no check.</string>
-	<string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
+	<string name="stalemate">Tabla</string>
+	<string name="theGameIsADraw">Ang laro ay tabla</string>
+	<string name="stalemateIntro">Kapag ang isang manlalaro ay hindi nacheck at wala ng maigagalaw, ito ay tabla. Ang laro ay tabla: walang nanalo, walang natalo.</string>
+	<string name="stalemateGoal">Upang tablahin ang itim:
+-Ang itim ay hindi na makakagalaw
+-Walang nacheck.</string>
+	<string name="stalemateComplete">Binabati kita! Mas mabuting matabla kaysa matalo!</string>
 	<string name="advanced">Advanced</string>
-	<string name="pieceValue">Piece value</string>
-	<string name="evaluatePieceStrength">Evaluate piece strength</string>
+	<string name="pieceValue">Halaga ng piyesa</string>
+	<string name="evaluatePieceStrength">Suriin ang lakas ng piyesa</string>
 	<string name="pieceValueIntro">Pieces with high mobility have a higher value!
 Queen = 9
 Rook = 5
@@ -165,9 +163,8 @@ Bishop = 3
 Knight = 3
 Pawn = 1
 The king is priceless! Losing it means losing the game.</string>
-	<string name="queenOverBishop">Take the piece
-with the highest value!
-Queen &gt; Bishop</string>
+	<string name="queenOverBishop">Kunin ang piraso na may pinakamataas na halaga!
+Reyna &gt; Bishop</string>
 	<string name="takeThePieceWithTheHighestValue">Take the piece
 with the highest value!</string>
 	<string name="pieceValueComplete">Congratulations! You know the value of material!
@@ -184,7 +181,7 @@ in two moves!</string>
 	<string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
 	<string name="whatNext">What next?</string>
 	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
-	<string name="register">Register</string>
+	<string name="register">I-rehistro</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">Practise</string>
 	<string name="learnCommonChessPositions">Learn common shogi positions</string>

@@ -3,14 +3,14 @@
 	<string name="search">Magsaliksik</string>
 	<string name="advancedSearch">Masusing pagsasaliksik</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">Hanapin sa %s larong shogi</item>
+		<item quantity="other">Hanapin sa %s mga larong shogi</item>
 	</plurals>
 	<plurals name="xGamesFound">
-		<item quantity="one">One game found</item>
-		<item quantity="other">%s games found</item>
+		<item quantity="one">Isang nahanap na laro</item>
+		<item quantity="other">%s mga nahanap na laro</item>
 	</plurals>
-	<string name="opponentName">Opponent name</string>
+	<string name="opponentName">Pangalan ng Kalaban</string>
 	<string name="loser">Talunan</string>
 	<string name="from">Mula</string>
 	<string name="to">Hanggang</string>
@@ -19,9 +19,9 @@
 	<string name="source">Pinagmulan</string>
 	<string name="nbTurns">Bilang ng mga galaw</string>
 	<string name="result">Mga Resulta</string>
-	<string name="winnerColor">Winner color</string>
+	<string name="winnerColor">Panalong kulay</string>
 	<string name="date">Petsa</string>
-	<string name="sortBy">Sort by</string>
+	<string name="sortBy">Ayusin ayon sa</string>
 	<string name="analysis">Pagsusuri</string>
 	<string name="onlyAnalysed">Only games where a computer analysis is available</string>
 </resources>

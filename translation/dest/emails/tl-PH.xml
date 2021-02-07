@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Confirm your lishogi.org account, %s</string>
   <string name="emailConfirm_click">Click the link to enable your Lishogi account:</string>
-  <string name="emailConfirm_ignore">If you did not register with Lishogi you can safely ignore this message.</string>
+  <string name="emailConfirm_ignore">Kung hindi ka nag-register sa Lishogi, maaari mo nang i-ignore ang mensaheng ito.</string>
   <string name="passwordReset_subject">Reset your lishogi.org password, %s</string>
   <string name="passwordReset_intro">We received a request to reset the password for your account.</string>
   <string name="passwordReset_clickOrIgnore">If you made this request, click the link below. If not, you can ignore this email.</string>

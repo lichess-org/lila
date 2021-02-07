@@ -146,7 +146,7 @@
 	<string name="logOut">Sign out</string>
 	<string name="signIn">Sign in</string>
 	<string name="youNeedAnAccountToDoThat">You need an account to do that</string>
-	<string name="signUp">Register</string>
+	<string name="signUp">I-rehistro</string>
 	<string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
 	<string name="games">Mga laro</string>
 	<string name="forum">Forum</string>
@@ -665,7 +665,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Mga torneo sa Lishogi</string>
-	<string name="tournamentFAQ">Arena tournament FAQ</string>
+	<string name="tournamentFAQ">FAQ ng mga torneo sa arena</string>
 	<string name="tournamentOfficial">Official</string>
 	<string name="timeBeforeTournamentStarts">Time before tournament starts</string>
 	<string name="averageCentipawnLoss">Average centipawn loss</string>
@@ -697,7 +697,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
 	<string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
-	<string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
+	<string name="byRegisteringYouAgreeToBeBoundByOur">Sa pagrerehistro, ikaw ay pumapayag sa aming %s.</string>
 	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
 	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
 	<string name="downloadAnnotated">Download annotated</string>
@@ -824,7 +824,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="opening">Opening</string>
 	<string name="middlegame">Middlegame</string>
 	<string name="endgame">Endgame</string>
-	<string name="registerToSendChallenges">Please register to send challenges.</string>
+	<string name="registerToSendChallenges">Magrehistro upang magpadala ng mga hamon.</string>
 	<string name="youCannotChallengeX">You cannot challenge %s.</string>
 	<string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
 	<string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>

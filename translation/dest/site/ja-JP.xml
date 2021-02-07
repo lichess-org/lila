@@ -320,7 +320,7 @@
 	<string name="apply">適用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">ランキング</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">手合割を選択</string>
 	<string name="pasteTheFenStringHere">ここにSFEN形式の局面をペースト</string>
 	<string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
 	<string name="fromPosition">特定の局面から</string>
@@ -414,7 +414,7 @@
 	<string name="setTheBoard">盤面を指定</string>
 	<string name="popularOpenings">人気のオープニング</string>
 	<string name="handicaps">手合割</string>
-	<string name="handicap">Handicap</string>
+	<string name="handicap">手合割</string>
 	<string name="startPosition">開始局面</string>
 	<string name="clearBoard">盤面をクリアする</string>
 	<string name="fillGotesHand">後手番の手を入力する</string>
@@ -731,7 +731,7 @@
 	<string name="directlySupportLishogi">Lishogi を直接支援</string>
 	<string name="playChessInStyle">グッズ購入</string>
 	<string name="chessBasics">将棋の基本</string>
-	<string name="shogiResources">Shogi resources</string>
+	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
 	<string name="invalidPgn">無効な PGN</string>
 	<string name="invalidFen">無効な FEN</string>

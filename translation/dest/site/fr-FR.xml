@@ -343,7 +343,7 @@
 	<string name="apply">Appliquer</string>
 	<string name="save">Enregistrer</string>
 	<string name="leaderboard">Classements</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">Sélectionnez le handicap</string>
 	<string name="pasteTheFenStringHere">Coller le FEN ici</string>
 	<string name="pasteThePgnStringHere">Coller le PGN ici</string>
 	<string name="fromPosition">Depuis une position</string>
@@ -661,7 +661,7 @@
 	<string name="hostColorForEachGame">Host color for each game</string>
 	<string name="onlyMembersOfTeam">Only members of team</string>
 	<string name="simulDescription">Simul description</string>
-	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
+	<string name="anythingTellParticipants">Vous voulez dire quelque chose aux participants ?</string>
 	<string name="lishogiTournaments">Tournois Lishogi</string>
 	<string name="tournamentFAQ">FAQ des tournois</string>
 	<string name="tournamentOfficial">Officiel</string>
