@@ -15,6 +15,11 @@ final class Game(
     apiC: => Api
 ) extends LilaController(env) {
 
+  def bookmark(gameId: String) =
+    Auth { implicit ctx => me =>
+      env.bookmark.api.toggle(gameId, me.id)
+    }
+
   def delete(gameId: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { game =>

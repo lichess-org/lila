@@ -1,9 +1,10 @@
-OPTIONS /                              controllers.Options.root
-OPTIONS /*url                          controllers.Options.all(url: String)
-
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
+
+# Should be handled by nginx mostly
+OPTIONS /                              controllers.Options.root
+OPTIONS /*url                          controllers.Options.all(url: String)
 
 # Timeline
 GET   /timeline                        controllers.Timeline.home
@@ -15,6 +16,9 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: String)
+
+# Bookmark
+POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId: String)
 
 # TV
 GET   /tv                              controllers.Tv.index
@@ -456,9 +460,6 @@ GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /irwin                           controllers.Irwin.dashboard
 POST  /irwin/report                    controllers.Irwin.saveReport
 GET   /api/stream/irwin                controllers.Irwin.eventStream
-
-# Bookmark
-POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
