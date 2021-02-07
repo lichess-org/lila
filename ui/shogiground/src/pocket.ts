@@ -36,10 +36,10 @@ export function makePockets(str?: string | null): Pockets | undefined {
 export function addPocketEl(
   s: State,
   element: HTMLElement,
-  position: string
+  color: string
 ): HTMLElement {
-  const pocket = createEl("div", "pocket is2d pocket-" + position),
-    color = (s.orientation === "white") !== (position == "top") ? "white" : "black";
+  const position = (s.orientation === "white") !== (color == "white") ? "top" : "bottom",
+    pocket = createEl("div", "pocket is2d pocket-" + position);
   element.appendChild(pocket);
   for (const role of droppableRoles) {
     const c1 = createEl("div", "pocket-c1");

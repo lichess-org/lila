@@ -185,7 +185,7 @@ export function render(s: State): void {
       // add pockets if nonexistent yet
       let pocket;
       if (!pockets[i].innerHTML)
-        pocket = addPocketEl(s, pockets[i], i === 0 ? "top" : "bottom");
+        pocket = addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
       else pocket = pockets[i].firstChild;
       for (const pocketPiece of pocket.getElementsByTagName("piece")) {
         const role = pocketPiece.getAttribute("data-role");
