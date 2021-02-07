@@ -29,5 +29,7 @@
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика в първата фаза на играта.</string>
   <string name="pawnEndgame">Пешечен Ендшпил</string>
+  <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
+  <string name="pin">Свръзка</string>
   <string name="sacrifice">Жертване</string>
 </resources>
