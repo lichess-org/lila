@@ -37,12 +37,6 @@ export default function status(ctrl: Ctrl): string {
     case "cheat":
       return "Cheat detected";
     case "variantEnd":
-      switch (d.game.variant.key) {
-        case "kingOfTheHill":
-          return noarg("kingInTheCenter");
-        case "threeCheck":
-          return noarg("threeChecks");
-      }
       return noarg("variantEnding");
     default:
       return d.game.status.name;
