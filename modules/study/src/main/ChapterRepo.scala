@@ -134,18 +134,6 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
 
   def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
 
-  // overrides all children sub-nodes in DB! Make the tree merge beforehand.
-  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
-
-    val set: Bdoc = {
-      (children.nodes.sizeIs > 1) ?? $doc(
-        pathToField(path, Node.BsonFields.order) -> children.nodes.map(_.id)
-      )
-    } ++ $doc(childrenTreeToBsonElements(path, children))
-
-    coll(_.update.one($id(chapter.id), $set(set))).void
-  }
-
   // insert node and its children
   // and sets the parent order field
   def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit = {
@@ -164,6 +152,18 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         path.toDbField -> writeNode(subTree)
       }
     }
+
+  // overrides all children sub-nodes in DB! Make the tree merge beforehand.
+  def setChildren(children: Node.Children)(chapter: Chapter, path: Path): Funit = {
+
+    val set: Bdoc = {
+      (children.nodes.sizeIs > 1) ?? $doc(
+        pathToField(path, Node.BsonFields.order) -> children.nodes.map(_.id)
+      )
+    } ++ $doc(childrenTreeToBsonElements(path, children))
+
+    coll(_.update.one($id(chapter.id), $set(set))).void
+  }
 
   private def childrenTreeToBsonElements(parentPath: Path, children: Node.Children): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
