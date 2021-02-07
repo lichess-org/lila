@@ -74,32 +74,50 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
 
 const renderHistory = (ctrl: StormCtrl): VNode =>
   h('div.storm--end__history.box.box-pad', [
-    h('h2', ctrl.trans('puzzlesPlayed')),
+    h('div.box__top', [
+      h('h2', ctrl.trans('puzzlesPlayed')),
+      h(
+        'div.box__top__actions',
+        h(
+          'button.storm--end__history__filter.button',
+          {
+            class: {
+              active: ctrl.vm.filterFailed,
+              'button-empty': !ctrl.vm.filterFailed,
+            },
+            hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterFailed)),
+          },
+          'View failed puzzles'
+        )
+      ),
+    ]),
     h(
       'div.storm--end__history__rounds',
-      ctrl.vm.history.map(round =>
-        h('div.storm--end__history__round', [
-          h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
-            attrs: {
-              href: `/training/${round.puzzle.id}`,
-              target: '_blank',
-            },
-            hook: onInsert(e => {
-              const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
-              const uci = round.puzzle.line.split(' ')[0];
-              pos.play(parseUci(uci)!);
-              miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+      ctrl.vm.history
+        .filter(r => !r.win || !ctrl.vm.filterFailed)
+        .map(round =>
+          h('div.storm--end__history__round', [
+            h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
+              attrs: {
+                href: `/training/${round.puzzle.id}`,
+                target: '_blank',
+              },
+              hook: onInsert(e => {
+                const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
+                const uci = round.puzzle.line.split(' ')[0];
+                pos.play(parseUci(uci)!);
+                miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+              }),
             }),
-          }),
-          h('span.storm--end__history__round__meta', [
-            h('span.storm--end__history__round__result', [
-              h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
-              h('rating', round.puzzle.rating),
+            h('span.storm--end__history__round__meta', [
+              h('span.storm--end__history__round__result', [
+                h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                h('rating', round.puzzle.rating),
+              ]),
+              h('span.storm--end__history__round__id', '#' + round.puzzle.id),
             ]),
-            h('span.storm--end__history__round__id', '#' + round.puzzle.id),
-          ]),
-        ])
-      )
+          ])
+        )
     ),
   ]);
 

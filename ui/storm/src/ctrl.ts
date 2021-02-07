@@ -44,6 +44,7 @@ export default class StormCtrl {
       },
       signed: prop(undefined),
       lateStart: false,
+      filterFailed: false,
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
@@ -243,6 +244,11 @@ export default class StormCtrl {
     highest: this.vm.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
     signed: this.vm.signed(),
   });
+
+  toggleFilterFailed = () => {
+    this.vm.filterFailed = !this.vm.filterFailed;
+    this.redraw();
+  };
 
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 
