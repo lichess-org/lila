@@ -5,7 +5,7 @@
     color: $c-font;
     flex-wrap: nowrap;
     overflow: hidden;
-    padding: .2em .5em;
+    padding: 0.2em 0.5em;
 
     &:hover {
       background: mix($c-link, $c-bg-box, 15%);
@@ -22,7 +22,7 @@
     img {
       height: 4em;
       width: 4em;
-      margin-right: .8em;
+      margin-right: 0.8em;
     }
 
     time {

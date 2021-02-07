@@ -6,13 +6,13 @@
   .warning {
     @extend %box-radius, %flex-center-nowrap;
 
-    padding: .7em;
+    padding: 0.7em;
     background: mix($c-bad, $c-bg-box, 10%);
     border: 1px solid mix($c-bad, $c-bg-box, 30%);
     color: $c-bad;
 
     span {
-      margin-right: .2em;
+      margin-right: 0.2em;
       font-size: 2.7em;
     }
   }
@@ -44,14 +44,14 @@
 
   .country img {
     vertical-align: text-bottom;
-    margin: 0 .3em;
+    margin: 0 0.3em;
   }
 
   .user-infos {
     @include hoverflow;
 
     flex: 1 1 auto;
-    padding: .8em;
+    padding: 0.8em;
     overflow: auto;
   }
 
@@ -63,9 +63,8 @@
       display: none;
     }
 
-
     flex: 0 0 auto;
-    padding: .3em 1em;
+    padding: 0.3em 1em;
     border-top: $border;
     color: $c-link;
 

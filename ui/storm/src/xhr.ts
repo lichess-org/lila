@@ -7,7 +7,7 @@ export function record(run: StormRun, notAnExploit: string): Promise<RunResponse
     body: xhr.form({
       ...run,
       time: Math.round(run.time),
-      notAnExploit
-    })
+      notAnExploit,
+    }),
   });
 }

@@ -1,5 +1,5 @@
 .tv-channel {
-  padding: .4rem .8rem .4rem 0 !important;
+  padding: 0.4rem 0.8rem 0.4rem 0 !important;
 
   > span {
     @extend %flex-center-nowrap;
@@ -11,7 +11,7 @@
       order: 2;
       color: mix($c-brag, $c-bg-page, 60%);
       font-size: 2.5em;
-      margin-left: .8rem;
+      margin-left: 0.8rem;
     }
 
     > span {
@@ -25,7 +25,7 @@
   }
 
   .champion {
-    font-size: .9em;
+    font-size: 0.9em;
     white-space: nowrap;
     display: block;
   }

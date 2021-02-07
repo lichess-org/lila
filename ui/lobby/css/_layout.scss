@@ -11,7 +11,6 @@ $mq-not-col3: $mq-not-small;
     min-height: 400px;
   }
 
-
   @include breakpoint($mq-col3) {
     height: 600px;
     max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
@@ -34,7 +33,6 @@ $mq-not-col3: $mq-not-small;
     grid-template-areas: 'table  table' 'app    app' 'side   tv' 'side   puzzle' 'blog   blog' 'leader winner' 'tours  tours' 'simuls simuls' 'forum  forum' 'about  support';
   }
 
-
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 12em repeat(2, fit-content(0));
@@ -55,7 +53,6 @@ $mq-not-col3: $mq-not-small;
     }
   }
 
-
   @include breakpoint($mq-col4) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, fit-content(0));
@@ -74,7 +71,6 @@ $mq-not-col3: $mq-not-small;
       margin: 0;
     }
   }
-
 
   &__side {
     grid-area: side;

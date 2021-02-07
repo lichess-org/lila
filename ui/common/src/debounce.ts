@@ -1,8 +1,9 @@
 type Debounced = (...args: any[]) => any;
 
 export default function debounce(func: (...args: any[]) => any, wait: number, immediate = false): Debounced {
-  let timeout: Timeout | undefined, lastBounce = 0;
-  return function(this: any) {
+  let timeout: Timeout | undefined,
+    lastBounce = 0;
+  return function (this: any) {
     let context = this,
       args = arguments,
       elapsed = performance.now() - lastBounce;
@@ -15,4 +16,4 @@ export default function debounce(func: (...args: any[]) => any, wait: number, im
     if (immediate && elapsed > wait) func.apply(context, args);
     else timeout = setTimeout(later, wait);
   };
-};
+}

@@ -1,4 +1,4 @@
-@import "extend";
+@import 'extend';
 
 .tview2 {
   white-space: normal;
@@ -21,7 +21,7 @@
   }
 
   &-inline move {
-    padding: .25em .17em;
+    padding: 0.25em 0.17em;
     white-space: nowrap;
     font-weight: bold;
   }
@@ -92,7 +92,7 @@
   }
 
   &-inline move index {
-    padding-right: .2em;
+    padding-right: 0.2em;
     line-height: 111.11%;
   }
 
@@ -105,7 +105,7 @@
     display: flex;
     font-size: 1.185em;
     line-height: 1.75em;
-    padding: 0 .3em 0 .5em;
+    padding: 0 0.3em 0 0.5em;
   }
 
   &-column > index + move {
@@ -117,14 +117,14 @@
 
     flex: 3 0 auto;
     text-align: right;
-    font-size: .8em;
+    font-size: 0.8em;
     color: $c-font-dim;
   }
 
   glyph {
     @extend %base-font;
 
-    margin-left: .08em;
+    margin-left: 0.08em;
     vertical-align: bottom;
   }
 
@@ -132,7 +132,7 @@
     flex: 0 1 auto;
     text-align: center;
     overflow: hidden;
-    font-size: .82em;
+    font-size: 0.82em;
   }
 
   &-column > index {
@@ -167,18 +167,18 @@
   &-inline comment {
     vertical-align: 45%;
     word-wrap: break-word;
-    margin: 0 .2em 0 .1em;
-    font-size: .9em;
+    margin: 0 0.2em 0 0.1em;
+    font-size: 0.9em;
   }
 
   comment .by {
     @extend %nowrap-ellipsis, %roboto;
 
     display: inline-block;
-    vertical-align: -.3em;
-    font-size: .9em;
+    vertical-align: -0.3em;
+    font-size: 0.9em;
     opacity: 0.8;
-    margin-right: .4em;
+    margin-right: 0.4em;
     max-width: 9em;
   }
 
@@ -192,19 +192,19 @@
   }
 
   &-column comment.inaccuracy {
-    border-color: #56B4E9;
+    border-color: #56b4e9;
   }
 
   &-column comment.mistake {
-    border-color: #E69F00;
+    border-color: #e69f00;
   }
 
   &-column comment.blunder {
-    border-color: #DF5353;
+    border-color: #df5353;
   }
 
   &-column comment.undefined {
-    border-color: #66558C;
+    border-color: #66558c;
   }
 
   line comment {
@@ -228,7 +228,7 @@
     display: block;
     margin-top: 2px;
     margin-left: 6px;
-    margin-bottom: .8em;
+    margin-bottom: 0.8em;
     border-left: 2px solid $c-border;
   }
 
@@ -271,7 +271,7 @@
   }
 
   lines line::before {
-    margin-top: .65em;
+    margin-top: 0.65em;
     margin-left: -8px;
     content: ' ';
     border-top: 2px solid $c-border;
@@ -287,15 +287,15 @@
   inline {
     display: inline;
     font-style: italic;
-    font-size: .9em;
+    font-size: 0.9em;
     opacity: 0.8;
   }
 
   inline::before,
   inline::after {
-    vertical-align: .4em;
+    vertical-align: 0.4em;
     opacity: 0.7;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   inline::before {
@@ -310,7 +310,7 @@
 
   &-inline inline::before,
   &-inline inline::after {
-    vertical-align: .7em;
+    vertical-align: 0.7em;
   }
 
   .conceal {

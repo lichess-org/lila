@@ -73,7 +73,8 @@
     color: $c-good;
   }
 
-  .asmjs, .wasm {
+  .asmjs,
+  .wasm {
     margin-left: 5px;
     text-transform: uppercase;
   }
@@ -108,7 +109,7 @@
   }
 
   &.computing .bar span {
-    background-image: img-url("bar-highlight.png");
+    background-image: img-url('bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
   }
 
@@ -116,8 +117,8 @@
     flex: 0 99 auto;
     line-height: 38px;
     color: $c-font-dim;
-    font-size: .9em;
-    padding-right: .5em;
+    font-size: 0.9em;
+    padding-right: 0.5em;
     overflow: hidden;
     visibility: hidden;
 

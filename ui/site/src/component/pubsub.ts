@@ -15,9 +15,8 @@ const pubsub: Pubsub = {
       }
   },
   emit(name: string, ...args: any[]) {
-    if (subs[name]) 
-      for (let i in subs[name]) subs[name][i].apply(null, args);
-  }
+    if (subs[name]) for (let i in subs[name]) subs[name][i].apply(null, args);
+  },
 };
 
 export default pubsub;

@@ -8,16 +8,18 @@ var promoting = false;
 
 function start(orig, dest, callback) {
   var piece = ground.pieces()[dest];
-  if (piece && piece.role == 'pawn' && (
-    (dest[1] == 1 && piece.color == 'black') ||
-      (dest[1] == 8 && piece.color == 'white'))) {
+  if (
+    piece &&
+    piece.role == 'pawn' &&
+    ((dest[1] == 1 && piece.color == 'black') || (dest[1] == 8 && piece.color == 'white'))
+  ) {
     promoting = {
       orig: orig,
       dest: dest,
-      callback: callback
+      callback: callback,
     };
     m.redraw();
-  return true;
+    return true;
   }
   return false;
 }
@@ -37,16 +39,20 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion-choice.' + vertical, [
-    pieces.map(function(serverRole, i) {
-      return m('square', {
-        style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
-        onclick: function(e) {
-          e.stopPropagation();
-          finish(serverRole);
-        }
-      }, m('piece.' + serverRole + '.' + color));
+    pieces.map(function (serverRole, i) {
+      return m(
+        'square',
+        {
+          style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
+          onclick: function (e) {
+            e.stopPropagation();
+            finish(serverRole);
+          },
+        },
+        m('piece.' + serverRole + '.' + color)
+      );
     }),
-    explain ? renderExplanation(ctrl) : null
+    explain ? renderExplanation(ctrl) : null,
   ]);
 }
 
@@ -55,15 +61,14 @@ function renderExplanation(ctrl) {
     m('h2', ctrl.trans.noarg('pawnPromotion')),
     m('p', ctrl.trans.noarg('yourPawnReachedTheEndOfTheBoard')),
     m('p', ctrl.trans.noarg('itNowPromotesToAStrongerPiece')),
-    m('p', ctrl.trans.noarg('selectThePieceYouWant'))
+    m('p', ctrl.trans.noarg('selectThePieceYouWant')),
   ]);
 }
 
 module.exports = {
-
   start: start,
 
-  view: function(ctrl, stage) {
+  view: function (ctrl, stage) {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
 
@@ -73,10 +78,11 @@ module.exports = {
       pieces,
       opposite(ground.data().turnColor),
       ground.data().orientation,
-      stage.blueprint.explainPromotion);
+      stage.blueprint.explainPromotion
+    );
   },
 
-  reset: function() {
+  reset: function () {
     promoting = false;
-  }
+  },
 };

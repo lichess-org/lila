@@ -9,7 +9,7 @@ import { Chessground } from 'chessground';
 import { init } from 'snabbdom';
 import { main as view } from './view/main';
 import { RoundOpts } from './interfaces';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
@@ -23,7 +23,6 @@ export interface RoundMain {
 const patch = init([klass, attributes]);
 
 export function app(opts: RoundOpts): RoundApi {
-
   let vnode: VNode, ctrl: RoundController;
 
   function redraw() {
@@ -42,9 +41,9 @@ export function app(opts: RoundOpts): RoundApi {
 
   return {
     socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn
+    moveOn: ctrl.moveOn,
   };
-};
+}
 
 export { boot };
 

@@ -1,5 +1,5 @@
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
@@ -12,14 +12,12 @@ const patch = init([klass, attributes]);
 import makeCtrl from './ctrl';
 import view from './view/main';
 
-export default function(opts: TournamentOpts) {
-
+export default function (opts: TournamentOpts) {
   let vnode: VNode, ctrl: TournamentController;
 
   $('body').data('tournament-id', opts.data.id);
-  lichess.socket = new lichess.StrongSocket(
-    `/tournament/${opts.data.id}/socket/v5`, opts.data.socketVersion, {
-    receive: (t: string, d: any) => ctrl.socket.receive(t, d)
+  lichess.socket = new lichess.StrongSocket(`/tournament/${opts.data.id}/socket/v5`, opts.data.socketVersion, {
+    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
   });
   opts.socketSend = lichess.socket.send;
   opts.element = document.querySelector('main.tour') as HTMLElement;
@@ -36,7 +34,7 @@ export default function(opts: TournamentOpts) {
   const blueprint = view(ctrl);
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
-};
+}
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

@@ -22,7 +22,7 @@
   }
 
   &__round {
-    padding: .4em;
+    padding: 0.4em;
 
     &__meta {
       @extend %flex-between;
@@ -38,19 +38,20 @@
     }
   }
 
-  good, bad {
+  good,
+  bad {
     @extend %flex-center;
 
     color: white;
     text-transform: uppercase;
-    padding: 0 .2em;
-    font-size: .9em;
-    opacity: .7;
+    padding: 0 0.2em;
+    font-size: 0.9em;
+    opacity: 0.7;
 
     &::before {
       @extend %data-icon;
 
-      margin-right: .2em;
+      margin-right: 0.2em;
     }
   }
 

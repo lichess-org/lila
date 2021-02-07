@@ -1,5 +1,4 @@
 function lichessOrchestra() {
-
   const load = (instrument, index, filename) =>
     lichess.sound.loadOggOrMp3(
       `orchestra.${instrument}.${index}`,
@@ -9,7 +8,7 @@ function lichessOrchestra() {
   const volumes = {
       celesta: 0.3,
       clav: 0.2,
-      swells: 0.8
+      swells: 0.8,
     },
     noteOverlap = 15,
     noteTimeout = 300,
@@ -42,6 +41,6 @@ function lichessOrchestra() {
   play('swells', 0);
 
   return {
-    play: play
+    play: play,
   };
 }

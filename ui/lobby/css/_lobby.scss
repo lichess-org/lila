@@ -1,14 +1,14 @@
-@import "layout";
-@import "app/app";
-@import "table";
-@import "stream";
-@import "spotlight";
-@import "timeline";
-@import "box";
-@import "forum";
-@import "blog";
-@import "support";
-@import "about";
+@import 'layout';
+@import 'app/app';
+@import 'table';
+@import 'stream';
+@import 'spotlight';
+@import 'timeline';
+@import 'box';
+@import 'forum';
+@import 'blog';
+@import 'support';
+@import 'about';
 
 body {
   /* improves preload */
@@ -22,8 +22,8 @@ body {
 %lobby__side__more {
   @extend %roboto;
 
-  font-size: .9em;
-  margin: .5em 1em .5em 0;
+  font-size: 0.9em;
+  margin: 0.5em 1em 0.5em 0;
   display: block;
   text-align: right;
   color: $c-font-dim;
@@ -53,7 +53,7 @@ body {
   }
 
   ul {
-    margin: .6em auto;
+    margin: 0.6em auto;
     display: inline-block;
     text-align: left;
   }
@@ -75,11 +75,12 @@ body {
 }
 
 @include breakpoint($mq-not-col3) {
-  .about-side, .lobby__streams, .lobby__about {
+  .about-side,
+  .lobby__streams,
+  .lobby__about {
     margin-left: $block-gap;
   }
 }
-
 
 .lobby__tv .mini-game {
   overflow: visible;

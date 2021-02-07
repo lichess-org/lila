@@ -71,9 +71,9 @@ interface OpeningPlayer {
 
 export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
-  wdl: number | null,
-  dtz: number | null,
-  dtm: number | null,
+  wdl: number | null;
+  dtz: number | null;
+  dtm: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;

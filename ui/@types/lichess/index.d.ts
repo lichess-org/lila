@@ -33,7 +33,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
-  trans(i18n: { [key: string]: string | undefined }): Trans
+  trans(i18n: { [key: string]: string | undefined }): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
   socket: any;
@@ -45,17 +45,17 @@ interface Lichess {
   miniGame: {
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
+    update(node: HTMLElement, data: { fen: string; lm: string; wc?: number; bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
   };
   ab?: any;
 
   // socket.js
   StrongSocket: {
-    new(url: string, version: number | false, cfg?: any): any;
-    firstConnect: Promise<(tpe: string, data: any) => void>
+    new (url: string, version: number | false, cfg?: any): any;
+    firstConnect: Promise<(tpe: string, data: any) => void>;
     defaultParams: Record<string, any>;
-  }
+  };
 
   timeago(date: number | Date): string;
   timeagoLocale(a: number, b: number, c: number): any;
@@ -64,25 +64,29 @@ interface Lichess {
   advantageChart: {
     update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
-  }
+  };
   movetimeChart: any;
-  RoundNVUI(redraw: () => void): {
+  RoundNVUI(
+    redraw: () => void
+  ): {
     render(ctrl: any): any;
-  }
-  AnalyseNVUI(redraw: () => void): {
+  };
+  AnalyseNVUI(
+    redraw: () => void
+  ): {
     render(ctrl: any): any;
-  }
+  };
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
 }
 
-type RedirectTo = string | { url: string, cookie: Cookie };
+type RedirectTo = string | { url: string; cookie: Cookie };
 
 type UserComplete = (opts: UserCompleteOpts) => void;
 
 interface UserCompleteOpts {
-  input: HTMLInputElement,
+  input: HTMLInputElement;
   tag?: 'a' | 'span';
   minLength?: number;
   populate?: (result: LightUser) => string;
@@ -189,16 +193,16 @@ interface LichessAnnouncement {
 }
 
 interface Window {
-  lichess: Lichess
+  lichess: Lichess;
 
-  moment: any
-  Mousetrap: any
-  Chessground: any
-  Highcharts: any
+  moment: any;
+  Mousetrap: any;
+  Chessground: any;
+  Highcharts: any;
   InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
-    jump(node: Tree.Node): void
-  }
+    jump(node: Tree.Node): void;
+  };
   hopscotch: any;
   LichessSpeech?: LichessSpeech;
   palantir?: {
@@ -207,7 +211,7 @@ interface Window {
   [key: string]: any; // TODO
 }
 
-interface Study{
+interface Study {
   userId?: string | null;
   isContrib?: boolean;
   isOwner?: boolean;
@@ -215,45 +219,133 @@ interface Study{
 }
 
 interface LightUser {
-  id: string
-  name: string
-  title?: string
-  patron?: boolean
+  id: string;
+  name: string;
+  title?: string;
+  patron?: boolean;
 }
 
 interface Navigator {
   deviceMemory?: number; // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory
 }
 
-declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
+declare type VariantKey =
+  | 'standard'
+  | 'chess960'
+  | 'antichess'
+  | 'fromPosition'
+  | 'kingOfTheHill'
+  | 'threeCheck'
+  | 'atomic'
+  | 'horde'
+  | 'racingKings'
+  | 'crazyhouse';
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 
-declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
+declare type Perf =
+  | 'bullet'
+  | 'blitz'
+  | 'classical'
+  | 'correspondence'
+  | 'chess960'
+  | 'antichess'
+  | 'fromPosition'
+  | 'kingOfTheHill'
+  | 'threeCheck'
+  | 'atomic'
+  | 'horde'
+  | 'racingKings'
+  | 'crazyhouse';
 
 declare type Color = 'white' | 'black';
 
-declare type Key = 'a0' | 'a1' | 'b1' | 'c1' | 'd1' | 'e1' | 'f1' | 'g1' | 'h1' | 'a2' | 'b2' | 'c2' | 'd2' | 'e2' | 'f2' | 'g2' | 'h2' | 'a3' | 'b3' | 'c3' | 'd3' | 'e3' | 'f3' | 'g3' | 'h3' | 'a4' | 'b4' | 'c4' | 'd4' | 'e4' | 'f4' | 'g4' | 'h4' | 'a5' | 'b5' | 'c5' | 'd5' | 'e5' | 'f5' | 'g5' | 'h5' | 'a6' | 'b6' | 'c6' | 'd6' | 'e6' | 'f6' | 'g6' | 'h6' | 'a7' | 'b7' | 'c7' | 'd7' | 'e7' | 'f7' | 'g7' | 'h7' | 'a8' | 'b8' | 'c8' | 'd8' | 'e8' | 'f8' | 'g8' | 'h8';
+declare type Key =
+  | 'a0'
+  | 'a1'
+  | 'b1'
+  | 'c1'
+  | 'd1'
+  | 'e1'
+  | 'f1'
+  | 'g1'
+  | 'h1'
+  | 'a2'
+  | 'b2'
+  | 'c2'
+  | 'd2'
+  | 'e2'
+  | 'f2'
+  | 'g2'
+  | 'h2'
+  | 'a3'
+  | 'b3'
+  | 'c3'
+  | 'd3'
+  | 'e3'
+  | 'f3'
+  | 'g3'
+  | 'h3'
+  | 'a4'
+  | 'b4'
+  | 'c4'
+  | 'd4'
+  | 'e4'
+  | 'f4'
+  | 'g4'
+  | 'h4'
+  | 'a5'
+  | 'b5'
+  | 'c5'
+  | 'd5'
+  | 'e5'
+  | 'f5'
+  | 'g5'
+  | 'h5'
+  | 'a6'
+  | 'b6'
+  | 'c6'
+  | 'd6'
+  | 'e6'
+  | 'f6'
+  | 'g6'
+  | 'h6'
+  | 'a7'
+  | 'b7'
+  | 'c7'
+  | 'd7'
+  | 'e7'
+  | 'f7'
+  | 'g7'
+  | 'h7'
+  | 'a8'
+  | 'b8'
+  | 'c8'
+  | 'd8'
+  | 'e8'
+  | 'f8'
+  | 'g8'
+  | 'h8';
 declare type Uci = string;
 declare type San = string;
 declare type Fen = string;
 declare type Ply = number;
 
 interface Variant {
-  key: VariantKey
-  name: string
-  short: string
-  title?: string
+  key: VariantKey;
+  name: string;
+  short: string;
+  title?: string;
 }
 
 interface Paginator<A> {
-  currentPage: number
-  maxPerPage: number
-  currentPageResults: Array<A>
-  nbResults: number
-  previousPage?: number
-  nextPage?: number
-  nbPages: number
+  currentPage: number;
+  maxPerPage: number;
+  currentPageResults: Array<A>;
+  nbResults: number;
+  previousPage?: number;
+  nextPage?: number;
+  nbPages: number;
 }
 
 declare namespace Tree {
@@ -332,17 +424,19 @@ declare namespace Tree {
 
   export interface Comment {
     id: string;
-    by: string | {
-      id: string;
-      name: string;
-    };
+    by:
+      | string
+      | {
+          id: string;
+          name: string;
+        };
     text: string;
   }
 
   export interface Gamebook {
     deviation?: string;
     hint?: string;
-    shapes?: Shape[]
+    shapes?: Shape[];
   }
 
   type GlyphId = number;
@@ -355,8 +449,7 @@ declare namespace Tree {
 
   export type Clock = number;
 
-  export interface Shape {
-  }
+  export interface Shape {}
 }
 
 interface CashStatic {

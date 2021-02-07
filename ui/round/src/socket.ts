@@ -7,7 +7,7 @@ import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped } from './interfaces';
-import {defined} from 'common';
+import { defined } from 'common';
 
 export interface RoundSocket extends Untyped {
   send: SocketSend;
@@ -15,8 +15,8 @@ export interface RoundSocket extends Untyped {
   moreTime(): void;
   outoftime(): void;
   berserk(): void;
-  sendLoading(typ: string, data?: any): void
-    receive(typ: string, data: any): boolean;
+  sendLoading(typ: string, data?: any): void;
+  receive(typ: string, data: any): boolean;
 }
 
 interface Incoming {
@@ -28,13 +28,13 @@ interface Handlers {
   [key: string]: (data: any) => void;
 }
 
-type Callback = (...args:any[]) => void;
+type Callback = (...args: any[]) => void;
 
 function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
   let lastExec = 0;
 
-  return function(this: any, ...args: any[]): void {
+  return function (this: any, ...args: any[]): void {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 
@@ -49,11 +49,10 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 
     if (elapsed > delay) exec();
     else timer = setTimeout(exec, delay - elapsed);
-  }
+  };
 }
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-
   lichess.socket.sign(ctrl.sign);
 
   function reload(o: Incoming, isRetry?: boolean) {
@@ -61,22 +60,22 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     if (o && o.t) {
       ctrl.setLoading(false);
       handlers[o.t](o.d);
-    }
-    else xhr.reload(ctrl).then(data => {
-      if (lichess.socket.getVersion() > data.player.version) {
-        // race condition! try to reload again
-        if (isRetry) lichess.reload(); // give up and reload the page
-        else reload(o, true);
-      }
-      else ctrl.reload(data);
-    }, lichess.reload);
-  };
+    } else
+      xhr.reload(ctrl).then(data => {
+        if (lichess.socket.getVersion() > data.player.version) {
+          // race condition! try to reload again
+          if (isRetry) lichess.reload();
+          // give up and reload the page
+          else reload(o, true);
+        } else ctrl.reload(data);
+      }, lichess.reload);
+  }
 
   const handlers: Handlers = {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      const fromOp = ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
       if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
@@ -107,7 +106,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     endData: ctrl.endWithData,
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      if (ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color)
+      if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
         notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
@@ -118,7 +117,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      const fromOp = ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
       if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
@@ -139,7 +138,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.opts.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        !isPlayerTurn(ctrl.data)) {
+        !isPlayerTurn(ctrl.data)
+      ) {
         ctrl.setRedirecting();
         sound.move();
         location.href = '/' + gameId;
@@ -147,11 +147,13 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       lichess.loadCssPath('modal');
-      modal($(
-        '<p>Simul complete!</p><br /><br />' +
-        `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
-      ));
-    }
+      modal(
+        $(
+          '<p>Simul complete!</p><br /><br />' +
+            `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
+        )
+      );
+    },
   };
 
   lichess.pubsub.on('ab.rep', n => send('rep', { n }));
@@ -173,6 +175,6 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
       return false;
     },
-    reload
+    reload,
   };
 }

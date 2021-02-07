@@ -6,7 +6,7 @@ $vp-max-width: 1200px;
 
   background: $c-bg-box;
 
-  @include fluid-size("--box-padding", 15px, 60px);
+  @include fluid-size('--box-padding', 15px, 60px);
 
   &-pad {
     @extend %box-padding;
@@ -26,7 +26,9 @@ $vp-max-width: 1200px;
     }
 
     /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-    > h1, > div, > form {
+    > h1,
+    > div,
+    > form {
       margin-top: 1rem;
     }
 

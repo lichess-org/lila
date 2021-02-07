@@ -2,41 +2,39 @@ var m = require('mithril');
 var util = require('./util');
 
 module.exports = {
-  ctrl: function(blueprint) {
-
+  ctrl: function (blueprint) {
     var items = {};
-    util.readKeys(blueprint.apples).forEach(function(key) {
+    util.readKeys(blueprint.apples).forEach(function (key) {
       items[key] = 'apple';
     });
 
-    var get = function(key) {
+    var get = function (key) {
       return items[key];
     };
 
-    var list = function() {
+    var list = function () {
       return Object.keys(items).map(get);
     };
 
     return {
       get: get,
-      withItem: function(key, f) {
+      withItem: function (key, f) {
         if (items[key]) return f(items[key]);
       },
-      remove: function(key) {
+      remove: function (key) {
         delete items[key];
       },
-      hasItem: function(item) {
+      hasItem: function (item) {
         return list().includes(item);
       },
-      appleKeys: function() {
+      appleKeys: function () {
         var keys = [];
-        for (var k in items)
-          if (items[k] === 'apple') keys.push(k);
+        for (var k in items) if (items[k] === 'apple') keys.push(k);
         return keys;
-      }
+      },
     };
   },
-  view: function(item) {
+  view: function (item) {
     return m('item.' + item);
-  }
+  },
 };

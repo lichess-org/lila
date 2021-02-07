@@ -1,5 +1,5 @@
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
@@ -12,13 +12,11 @@ const patch = init([klass, attributes]);
 import view from './view/main';
 
 export function start(opts: SwissOpts) {
-
   const element = document.querySelector('main.swiss') as HTMLElement;
 
-  lichess.socket = new lichess.StrongSocket(
-    '/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
-      receive: (t: string, d: any) => ctrl.socket.receive(t, d)
-    });
+  lichess.socket = new lichess.StrongSocket('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
+    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+  });
   opts.classes = element.getAttribute('class');
   opts.socketSend = lichess.socket.send;
   opts.element = element;
@@ -37,7 +35,7 @@ export function start(opts: SwissOpts) {
   vnode = patch(element, blueprint);
 
   redraw();
-};
+}
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

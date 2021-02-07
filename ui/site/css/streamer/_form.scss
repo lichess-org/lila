@@ -1,6 +1,6 @@
 $mq-picture: $mq-large;
 
-@import "header";
+@import 'header';
 
 .streamer-edit {
   .streamer-header {
@@ -42,7 +42,7 @@ $mq-picture: $mq-large;
 
     &::before {
       font-size: 2em;
-      margin-right: .4em;
+      margin-right: 0.4em;
     }
 
     form {
@@ -62,7 +62,7 @@ $mq-picture: $mq-large;
 }
 
 .streamer-rules li {
-  margin: .9em 0 .9em 2.2em;
+  margin: 0.9em 0 0.9em 2.2em;
   line-height: 1.6em;
   text-indent: -2.2em;
 
@@ -70,7 +70,7 @@ $mq-picture: $mq-large;
     font-family: 'lichess';
     content: 'E';
     font-size: 1.5em;
-    margin-right: .5em;
+    margin-right: 0.5em;
     vertical-align: middle;
     opacity: 0.8;
   }

@@ -143,11 +143,13 @@
   }
 
   &.d3 {
-    $board-files: "Black-White-Aluminium", "Brushed-Aluminium", "China-Blue", "China-Green", "China-Grey", "China-Scarlet", "China-Yellow", "Classic-Blue", "Transparent-Glass", "Gold-Silver", "Green-Glass", "Light-Wood", "Power-Coated", "Purple-Black", "Rosewood", "Wood-Glass", "Wax", "Jade", "Marble", "Woodi";
+    $board-files: 'Black-White-Aluminium', 'Brushed-Aluminium', 'China-Blue', 'China-Green', 'China-Grey',
+      'China-Scarlet', 'China-Yellow', 'Classic-Blue', 'Transparent-Glass', 'Gold-Silver', 'Green-Glass', 'Light-Wood',
+      'Power-Coated', 'Purple-Black', 'Rosewood', 'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
 
     @each $name in $board-files {
       .#{$name} {
-        background-image: img-url("staunton/board/#{$name}.thumbnail.png");
+        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
       }
     }
   }

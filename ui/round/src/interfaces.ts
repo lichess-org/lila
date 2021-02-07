@@ -36,9 +36,11 @@ export interface SocketDrop {
   b?: 1;
 }
 
-export type EncodedDests = string | {
-  [key: string]: string;
-}
+export type EncodedDests =
+  | string
+  | {
+      [key: string]: string;
+    };
 export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
@@ -117,7 +119,7 @@ export interface ApiMove extends Step {
     white: Seconds;
     black: Seconds;
     lag?: Centis;
-  }
+  };
   status: Status;
   winner?: Color;
   check: boolean;
@@ -155,11 +157,10 @@ export interface ApiEnd {
   clock?: {
     wc: Centis;
     bc: Centis;
-  }
+  };
 }
 
-export interface StepCrazy extends Untyped {
-}
+export interface StepCrazy extends Untyped {}
 
 export interface Pref {
   animationDuration: number;

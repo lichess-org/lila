@@ -1,23 +1,22 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-lichess.advantageChart = function(data, trans, el) {
-  lichess.loadScript('javascripts/chart/common.js').then(function() {
-    lichess.loadScript('javascripts/chart/division.js').then(function() {
-      lichess.chartCommon('highchart').then(function() {
-
-        lichess.advantageChart.update = function(d) {
+lichess.advantageChart = function (data, trans, el) {
+  lichess.loadScript('javascripts/chart/common.js').then(function () {
+    lichess.loadScript('javascripts/chart/division.js').then(function () {
+      lichess.chartCommon('highchart').then(function () {
+        lichess.advantageChart.update = function (d) {
           el.highcharts && el.highcharts.series[0].setData(makeSerieData(d));
         };
 
-        var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
+        var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
         if (data.player.color === 'white') blurs.reverse();
 
-        var makeSerieData = function(d) {
+        var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;
-          return d.treeParts.slice(1).map(function(node) {
-
-            var color = node.ply & 1, cp;
+          return d.treeParts.slice(1).map(function (node) {
+            var color = node.ply & 1,
+              cp;
 
             if (node.eval && node.eval.mate) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
@@ -26,15 +25,16 @@ lichess.advantageChart = function(data, trans, el) {
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               cp = node.eval.cp;
-            } else return {
-              y: null
-            };
+            } else
+              return {
+                y: null,
+              };
 
             var turn = Math.floor((node.ply - 1) / 2) + 1;
             var dots = color === 1 ? '.' : '...';
             var point = {
               name: turn + dots + ' ' + node.san,
-              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
+              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === '1') {
               point.marker = {
@@ -42,7 +42,7 @@ lichess.advantageChart = function(data, trans, el) {
                 radius: 3,
                 lineWidth: '1px',
                 lineColor: '#d85000',
-                fillColor: color ? '#fff' : '#333'
+                fillColor: color ? '#fff' : '#333',
               };
               point.name += ' [blur]';
             }
@@ -51,27 +51,29 @@ lichess.advantageChart = function(data, trans, el) {
         };
 
         var disabled = {
-          enabled: false
+          enabled: false,
         };
         var noText = {
-          text: null
+          text: null,
         };
         var serieData = makeSerieData(data);
         el.highcharts = Highcharts.chart(el, {
           credits: disabled,
           legend: disabled,
-          series: [{
-            name: trans('advantage'),
-            data: serieData
-          }],
+          series: [
+            {
+              name: trans('advantage'),
+              data: serieData,
+            },
+          ],
           chart: {
             type: 'area',
             spacing: [3, 0, 3, 0],
-            animation: false
+            animation: false,
           },
           plotOptions: {
             series: {
-              animation: false
+              animation: false,
             },
             area: {
               fillColor: Highcharts.theme.lichess.area.white,
@@ -83,34 +85,34 @@ lichess.advantageChart = function(data, trans, el) {
               cursor: 'pointer',
               states: {
                 hover: {
-                  lineWidth: 1
-                }
+                  lineWidth: 1,
+                },
               },
               events: {
-                click: function(event) {
+                click: function (event) {
                   if (event.point) {
                     event.point.select();
                     lichess.pubsub.emit('analysis.chart.click', event.point.x);
                   }
-                }
+                },
               },
               marker: {
                 radius: 1,
                 states: {
                   hover: {
                     radius: 4,
-                    lineColor: '#d85000'
+                    lineColor: '#d85000',
                   },
                   select: {
                     radius: 4,
-                    lineColor: '#d85000'
-                  }
-                }
-              }
-            }
+                    lineColor: '#d85000',
+                  },
+                },
+              },
+            },
           },
           tooltip: {
-            pointFormatter: function(format) {
+            pointFormatter: function (format) {
               format = format.replace('{series.name}', trans('advantage'));
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
@@ -120,7 +122,7 @@ lichess.advantageChart = function(data, trans, el) {
                 if (e > 0) e = '+' + e;
                 return format.replace('{point.y}', e);
               }
-            }
+            },
           },
           title: noText,
           xAxis: {
@@ -128,7 +130,7 @@ lichess.advantageChart = function(data, trans, el) {
             labels: disabled,
             lineWidth: 0,
             tickWidth: 0,
-            plotLines: lichess.divisionLines(data.game.division, trans)
+            plotLines: lichess.divisionLines(data.game.division, trans),
           },
           yAxis: {
             title: noText,
@@ -139,12 +141,14 @@ lichess.advantageChart = function(data, trans, el) {
             labels: disabled,
             lineWidth: 1,
             gridLineWidth: 0,
-            plotLines: [{
-              color: Highcharts.theme.lichess.text.weak,
-              width: 1,
-              value: 0
-            }]
-          }
+            plotLines: [
+              {
+                color: Highcharts.theme.lichess.text.weak,
+                width: 1,
+                value: 0,
+              },
+            ],
+          },
         });
         lichess.pubsub.emit('analysis.change.trigger');
       });

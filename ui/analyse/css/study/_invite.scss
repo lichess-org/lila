@@ -5,7 +5,6 @@
     overflow: visible !important;
 
     // required by user autocomplete
- 
   }
 
   .info {
@@ -33,7 +32,7 @@
       @extend %ellipsis;
 
       flex: 0 0 48%;
-      margin-bottom: .7em;
+      margin-bottom: 0.7em;
       text-transform: none;
     }
 

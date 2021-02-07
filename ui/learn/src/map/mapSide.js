@@ -6,42 +6,60 @@ var scoring = require('../score');
 function renderInStage(ctrl) {
   return m('div.learn__side-map', [
     m('div.stages', [
-      m('a.back', {
-        href: '/',
-        config: m.route
-      }, [
-        m('img', {
-          src: util.assetUrl + 'images/learn/brutal-helm.svg'
-        }),
-        ctrl.trans.noarg('menu')
-      ]),
-      stages.categs.map(function(categ, categId) {
-        return m('div.categ', {
-          class: categId == ctrl.categId() ? 'active' : ''
-        }, [
-          m('h2', {
-            onclick: function() {
-              ctrl.categId(categId);
-            }
-          }, ctrl.trans.noarg(categ.name)),
-          m('div.categ_stages',
-            categ.stages.map(function(s) {
-              var result = ctrl.data.stages[s.key];
-              var status = s.id === ctrl.active() ? 'active' : (result ? 'done' : 'future')
-              return m('a', {
-                class: 'stage ' + status,
-                href: '/' + s.id,
-                config: m.route
-              }, [
-                m('img', {
-                  src: s.image
-                }),
-                m('span', ctrl.trans.noarg(s.title))
-              ]);
-            }))
-        ]);
-      })
-    ])
+      m(
+        'a.back',
+        {
+          href: '/',
+          config: m.route,
+        },
+        [
+          m('img', {
+            src: util.assetUrl + 'images/learn/brutal-helm.svg',
+          }),
+          ctrl.trans.noarg('menu'),
+        ]
+      ),
+      stages.categs.map(function (categ, categId) {
+        return m(
+          'div.categ',
+          {
+            class: categId == ctrl.categId() ? 'active' : '',
+          },
+          [
+            m(
+              'h2',
+              {
+                onclick: function () {
+                  ctrl.categId(categId);
+                },
+              },
+              ctrl.trans.noarg(categ.name)
+            ),
+            m(
+              'div.categ_stages',
+              categ.stages.map(function (s) {
+                var result = ctrl.data.stages[s.key];
+                var status = s.id === ctrl.active() ? 'active' : result ? 'done' : 'future';
+                return m(
+                  'a',
+                  {
+                    class: 'stage ' + status,
+                    href: '/' + s.id,
+                    config: m.route,
+                  },
+                  [
+                    m('img', {
+                      src: s.image,
+                    }),
+                    m('span', ctrl.trans.noarg(s.title)),
+                  ]
+                );
+              })
+            ),
+          ]
+        );
+      }),
+    ]),
   ]);
 }
 
@@ -55,55 +73,61 @@ function renderHome(ctrl) {
       m('div.text', ctrl.trans('progressX', progress + '%')),
       m('div.bar', {
         style: {
-          width: progress + '%'
-        }
-      })
+          width: progress + '%',
+        },
+      }),
     ]),
     m('div.actions', [
-      progress > 0 ? m('a.confirm', {
-        onclick: function() {
-          if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
-        }
-      }, ctrl.trans.noarg('resetMyProgress')) : null
-    ])
+      progress > 0
+        ? m(
+            'a.confirm',
+            {
+              onclick: function () {
+                if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
+              },
+            },
+            ctrl.trans.noarg('resetMyProgress')
+          )
+        : null,
+    ]),
   ]);
 }
 
-module.exports = function(opts, trans) {
+module.exports = function (opts, trans) {
   return {
-    controller: function() {
+    controller: function () {
       var categId = m.prop(0);
-      m.redraw.strategy("diff");
+      m.redraw.strategy('diff');
       return {
         data: opts.storage.data,
         categId: categId,
-        active: function() {
+        active: function () {
           return opts.stageId;
         },
-        inStage: function() {
+        inStage: function () {
           return opts.route === 'run';
         },
-        setStage: function(stage) {
+        setStage: function (stage) {
           categId(stages.stageIdToCategId(stage.id));
         },
-        progress: function() {
+        progress: function () {
           var max = stages.list.length * 10;
           var data = opts.storage.data.stages;
-          var total = Object.keys(data).reduce(function(t, key) {
+          var total = Object.keys(data).reduce(function (t, key) {
             var rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
             if (rank === 1) return t + 10;
             if (rank === 2) return t + 8;
             return t + 5;
           }, 0);
-          return Math.round(total / max * 100);
+          return Math.round((total / max) * 100);
         },
         reset: opts.storage.reset,
-        trans: trans
+        trans: trans,
       };
     },
-    view: function(ctrl) {
+    view: function (ctrl) {
       if (ctrl.inStage()) return renderInStage(ctrl);
       else return renderHome(ctrl);
-    }
+    },
   };
-}
+};

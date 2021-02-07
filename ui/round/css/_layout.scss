@@ -2,7 +2,9 @@
   --main-max-width: auto;
 
   @include breakpoint($mq-col1) {
-    --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height});
+    --main-max-width: calc(
+      100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}
+    );
   }
 }
 
@@ -47,7 +49,6 @@
     }
   }
 
-
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
     grid-template-rows: fit-content(0);
@@ -55,7 +56,6 @@
 
     @include crosstable-large;
   }
-
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
     .crosstable {

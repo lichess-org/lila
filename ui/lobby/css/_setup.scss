@@ -16,7 +16,7 @@ $c-slider: $c-setup;
   }
 
   form > div {
-    padding: .5em 1em;
+    padding: 0.5em 1em;
   }
 
   group.radio {
@@ -51,7 +51,7 @@ $c-slider: $c-setup;
     @extend %flex-center;
 
     &.variant {
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
 
     label {
@@ -60,7 +60,7 @@ $c-slider: $c-setup;
     }
 
     select {
-      margin-left: .8em;
+      margin-left: 0.8em;
       font-weight: bold;
     }
   }
@@ -71,7 +71,7 @@ $c-slider: $c-setup;
     .board_editor {
       display: block;
       width: 50%;
-      margin: .5em auto 0 auto;
+      margin: 0.5em auto 0 auto;
     }
 
     .fen_form {
@@ -97,7 +97,7 @@ $c-slider: $c-setup;
 
     input {
       font-size: 1.5em;
-      padding: .5em .5em 0 .5em;
+      padding: 0.5em 0.5em 0 0.5em;
       width: 100%;
     }
   }
@@ -105,12 +105,13 @@ $c-slider: $c-setup;
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
-    .rating-min, .rating-max {
+    .rating-min,
+    .rating-max {
       flex: 0 0 7ch;
     }
     input {
       width: 30%;
-      padding: .6em 0;
+      padding: 0.6em 0;
     }
   }
 
@@ -132,7 +133,7 @@ $c-slider: $c-setup;
     text-align: center;
 
     &__button {
-      margin: 0 .5em;
+      margin: 0 0.5em;
       width: 64px;
       height: 64px;
       padding: 7px;
@@ -146,11 +147,11 @@ $c-slider: $c-setup;
       }
 
       &.white i {
-        background-image: img-url("../piece/cburnett/wK.svg");
+        background-image: img-url('../piece/cburnett/wK.svg');
       }
 
       &.black i {
-        background-image: img-url("../piece/cburnett/bK.svg");
+        background-image: img-url('../piece/cburnett/bK.svg');
       }
 
       &.random {
@@ -159,7 +160,7 @@ $c-slider: $c-setup;
         padding: 10px;
 
         i {
-          background-image: img-url("wbK.svg");
+          background-image: img-url('wbK.svg');
           background-size: 65px 65px;
           width: 65px;
           height: 65px;

@@ -5,44 +5,46 @@ import TournamentController from './ctrl';
 // when the tournament no longer exists
 const onFail = () => lichess.reload();
 
-export const join = throttle(
-  1000,
-  (ctrl: TournamentController, password?: string, team?: string) =>
-    xhr.text('/tournament/' + ctrl.data.id + '/join', {
+export const join = throttle(1000, (ctrl: TournamentController, password?: string, team?: string) =>
+  xhr
+    .text('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
       body: JSON.stringify({
         p: password || null,
-        team: team || null
+        team: team || null,
       }),
       headers: { 'Content-Type': 'application/json' },
-    }).catch(onFail));
+    })
+    .catch(onFail)
+);
 
-export const withdraw = throttle(
-  1000,
-  (ctrl: TournamentController) =>
-    xhr.text('/tournament/' + ctrl.data.id + '/withdraw', {
+export const withdraw = throttle(1000, (ctrl: TournamentController) =>
+  xhr
+    .text('/tournament/' + ctrl.data.id + '/withdraw', {
       method: 'POST',
-    }).catch(onFail));
+    })
+    .catch(onFail)
+);
 
-export const loadPage = throttle(
-  1000,
-  (ctrl: TournamentController, p: number) =>
-    xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
-      ctrl.loadPage(data);
-      ctrl.redraw();
-    }, onFail));
+export const loadPage = throttle(1000, (ctrl: TournamentController, p: number) =>
+  xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
+    ctrl.loadPage(data);
+    ctrl.redraw();
+  }, onFail)
+);
 
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
 
 export const reloadNow = (ctrl: TournamentController) =>
-  xhr.json(
-    xhr.url('/tournament/' + ctrl.data.id, {
-      page: ctrl.focusOnMe ? undefined : ctrl.page,
-      playerInfo: ctrl.playerInfo.id,
-      partial: true
-    })
-  )
+  xhr
+    .json(
+      xhr.url('/tournament/' + ctrl.data.id, {
+        page: ctrl.focusOnMe ? undefined : ctrl.page,
+        playerInfo: ctrl.playerInfo.id,
+        partial: true,
+      })
+    )
     .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
@@ -51,15 +53,13 @@ export const reloadNow = (ctrl: TournamentController) =>
 export const reloadSoon = throttle(4000, reloadNow);
 
 export const playerInfo = (ctrl: TournamentController, userId: string) =>
-  xhr.json(`/tournament/${ctrl.data.id}/player/${userId}`)
-    .then(data => {
-      ctrl.setPlayerInfoData(data);
-      ctrl.redraw();
-    }, onFail);
+  xhr.json(`/tournament/${ctrl.data.id}/player/${userId}`).then(data => {
+    ctrl.setPlayerInfoData(data);
+    ctrl.redraw();
+  }, onFail);
 
 export const teamInfo = (ctrl: TournamentController, teamId: string) =>
-  xhr.json(`/tournament/${ctrl.data.id}/team/${teamId}`)
-    .then(data => {
-      ctrl.setTeamInfo(data);
-      ctrl.redraw();
-    }, onFail);
+  xhr.json(`/tournament/${ctrl.data.id}/team/${teamId}`).then(data => {
+    ctrl.setTeamInfo(data);
+    ctrl.redraw();
+  }, onFail);

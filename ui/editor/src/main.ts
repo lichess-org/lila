@@ -29,7 +29,7 @@ export default function LichessEditor(element: HTMLElement, config: EditorConfig
 
   return {
     getFen: ctrl.getFen.bind(ctrl),
-    setOrientation: ctrl.setOrientation.bind(ctrl)
+    setOrientation: ctrl.setOrientation.bind(ctrl),
   };
 }
 

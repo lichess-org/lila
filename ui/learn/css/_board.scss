@@ -37,7 +37,8 @@
 
   .apple {
     background-image: url(../images/learn/star.png);
-    animation: 0.6s ease-in-out 0s 1 forwards apple-appear, 1.7s ease-in-out 0.7s infinite none soft-grow, 0.7s ease-in-out 0.7s infinite none soft-hue;
+    animation: 0.6s ease-in-out 0s 1 forwards apple-appear, 1.7s ease-in-out 0.7s infinite none soft-grow,
+      0.7s ease-in-out 0.7s infinite none soft-hue;
   }
 
   square.has-item.move-dest {

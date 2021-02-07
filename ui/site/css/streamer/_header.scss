@@ -12,7 +12,6 @@
       margin: 20px 10px 0 2em;
     }
 
-
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -31,7 +30,7 @@
     font-size: 2.2rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    margin-bottom: .7em;
+    margin-bottom: 0.7em;
   }
 
   .headline {
@@ -39,21 +38,21 @@
   }
 
   .headline.medium {
-    font-size: .95em;
+    font-size: 0.95em;
   }
 
   .headline.large {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   .services {
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
 
   .services li {
     font-size: 1.2em;
     white-space: nowrap;
-    padding: .3em 0;
+    padding: 0.3em 0;
   }
 
   .service.live {

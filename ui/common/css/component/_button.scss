@@ -3,7 +3,7 @@
 
   background: $c-primary;
   text-transform: uppercase;
-  padding: .8em 1em;
+  padding: 0.8em 1em;
   border: none;
   cursor: pointer;
   text-align: center;
@@ -33,7 +33,7 @@
   }
 
   &-thin {
-    padding: .1em 1em;
+    padding: 0.1em 1em;
     font-size: 90%;
   }
 
@@ -105,7 +105,7 @@
   }
 
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 

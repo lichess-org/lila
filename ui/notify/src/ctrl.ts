@@ -4,7 +4,6 @@ import notify from 'common/notification';
 import { asText } from './view';
 
 export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
-
   let data: NotifyData | undefined,
     initiating = true,
     scrolling = false;
@@ -45,8 +44,10 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   const loadPage = (page: number) =>
-    xhr.json(xhr.url('/notify', { page: page || 1 }))
-      .then(d => update(d, false), _ => lichess.announce({ msg: 'Failed to load notifications' }));
+    xhr.json(xhr.url('/notify', { page: page || 1 })).then(
+      d => update(d, false),
+      _ => lichess.announce({ msg: 'Failed to load notifications' })
+    );
 
   function nextPage() {
     if (!data || !data.pager.nextPage) return;
@@ -67,13 +68,14 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   function setMsgRead(user: string) {
-    if (data) data.pager.currentPageResults.forEach(n => {
-      if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
-        n.read = true;
-        data!.unread = Math.max(0, data!.unread - 1);
-        opts.setCount(data!.unread);
-      }
-    });
+    if (data)
+      data.pager.currentPageResults.forEach(n => {
+        if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
+          n.read = true;
+          data!.unread = Math.max(0, data!.unread - 1);
+          opts.setCount(data!.unread);
+        }
+      });
   }
 
   return {
@@ -85,6 +87,6 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     previousPage,
     loadPage,
     setVisible,
-    setMsgRead
+    setMsgRead,
   };
 }

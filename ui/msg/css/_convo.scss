@@ -1,4 +1,4 @@
-@import "convoMsgs";
+@import 'convoMsgs';
 
 .msg-app {
   &__convo {
@@ -14,7 +14,6 @@
         display: flex;
       }
     }
-
 
     &__head {
       @extend %flex-between-nowrap;
@@ -50,7 +49,7 @@
         font-size: 1.4em;
 
         .utitle {
-          margin-right: .7ch;
+          margin-right: 0.7ch;
         }
 
         .line {
@@ -77,7 +76,7 @@
 
       &__sep {
         color: $c-font-dimmer;
-        margin: 0 .5em;
+        margin: 0 0.5em;
       }
     }
 
@@ -92,7 +91,7 @@
       &__block {
         flex: 1 1 auto;
         text-align: center;
-        margin: .6em;
+        margin: 0.6em;
       }
     }
 
@@ -116,7 +115,8 @@
         border-radius: 99px;
         background: $c-font-dimmer;
 
-        &.connected, &.connected:hover {
+        &.connected,
+        &.connected:hover {
           background: $c-msg;
         }
       }
@@ -124,18 +124,20 @@
 
     @include breakpoint($mq-not-xx-small) {
       &__head__back {
-        padding: 0 .5em;
+        padding: 0 0.5em;
       }
 
       .user-link {
         font-size: 1.2em;
 
-        .line, .utitle {
+        .line,
+        .utitle {
           display: none;
         }
       }
 
-      &__action__sep, .play {
+      &__action__sep,
+      .play {
         display: none;
       }
     }

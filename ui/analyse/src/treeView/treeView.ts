@@ -1,6 +1,6 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
-import { Hooks } from 'snabbdom/hooks'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { Hooks } from 'snabbdom/hooks';
 import { playable } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
@@ -63,13 +63,13 @@ export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
     toggle() {
       set(!inline());
     },
-    inline
+    inline,
   };
 }
 
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  return (ctrl.treeView.inline() || isCol1()) ? inline(ctrl) : column(ctrl, concealOf);
+  return ctrl.treeView.inline() || isCol1() ? inline(ctrl) : column(ctrl, concealOf);
 }
 
 export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
@@ -77,28 +77,34 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
     active: path === ctx.ctrl.path,
     'context-menu': path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
-    nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath
+    nongame:
+      !ctx.currentPath &&
+      !!ctx.ctrl.gamePath &&
+      treePath.contains(path, ctx.ctrl.gamePath) &&
+      path !== ctx.ctrl.gamePath,
   };
 }
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  return (!c.synthetic && playable(c.data) && c.initialPath) || (
-    c.retro && c.retro.current() && c.retro.current().prev.path
-  ) || (
-    c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path
+  return (
+    (!c.synthetic && playable(c.data) && c.initialPath) ||
+    (c.retro && c.retro.current() && c.retro.current().prev.path) ||
+    (c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path)
   );
 }
 
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
-  return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-    truncated = truncateComment(comment.text, 300, ctx);
-    return h('comment', {
-      hook: innerHTML(truncated, text => by + enrichText(text))
-    });
-  }).filter(nonEmpty);
+  return node
+    .comments!.map(comment => {
+      if (comment.by === 'lichess' && !ctx.showComputer) return;
+      const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+        truncated = truncateComment(comment.text, 300, ctx);
+      return h('comment', {
+        hook: innerHTML(truncated, text => by + enrichText(text)),
+      });
+    })
+    .filter(nonEmpty);
 }
 
 export function truncateComment(text: string, len: number, ctx: Ctx) {
@@ -112,10 +118,11 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       if (ctrl.path !== '') autoScroll(ctrl, el);
       el.oncontextmenu = (e: MouseEvent) => {
         const path = eventPath(e);
-        if (path !== null) contextMenu(e, {
-          path,
-          root: ctrl
-        });
+        if (path !== null)
+          contextMenu(e, {
+            path,
+            root: ctrl,
+          });
         ctrl.redraw();
         return false;
       };
@@ -131,18 +138,21 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         autoScroll(ctrl, vnode.elm as HTMLElement);
         ctrl.autoScrollRequested = false;
       }
-    }
+    },
   };
 }
 
 export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefined {
-  return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node, opts.parentPath) ?
-  h('line', ctx.ctrl.trans.noarg('learnFromThisMistake')) : undefined;
+  return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node, opts.parentPath)
+    ? h('line', ctx.ctrl.trans.noarg('learnFromThisMistake'))
+    : undefined;
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {
-  return (e.target as HTMLElement).getAttribute('p') ||
-  ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
+  return (
+    (e.target as HTMLElement).getAttribute('p') ||
+    ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p')
+  );
 }
 
 export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {

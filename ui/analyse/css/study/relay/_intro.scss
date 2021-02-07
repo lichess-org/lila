@@ -11,12 +11,14 @@
   }
 
   h1 {
-    @include fluid-size("font-size", 15px, 27px);
+    @include fluid-size('font-size', 15px, 27px);
 
     margin-bottom: 3vh;
   }
 
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     line-height: 2em;
   }
 
@@ -39,12 +41,12 @@
 
   ul li {
     list-style: disc outside;
-    margin: .5em 0 0 1.5em;
+    margin: 0.5em 0 0 1.5em;
   }
 
   ol li {
     list-style: decimal inside;
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
 
   li {

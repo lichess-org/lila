@@ -1,11 +1,11 @@
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
-import Tagify from '@yaireo/tagify'
+import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
   const tagify = new Tagify(document.getElementById('form3-topics'), {
     pattern: /.{2,}/,
-    maxTags: 30
+    maxTags: 30,
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) => xhr.json(xhr.url('/study/topic/autocomplete', { term })),
@@ -20,6 +20,6 @@ lichess.load.then(() => {
     doFetch(term).then((list: string[]) => {
       tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
       tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
-    })
+    });
   });
 });

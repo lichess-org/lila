@@ -24,7 +24,7 @@
       content: '';
       display: table-cell;
       position: relative;
-      top: .5em;
+      top: 0.5em;
       width: 45%;
     }
 
@@ -71,7 +71,7 @@
 
     a {
       color: $c-font-dim;
-      font-size: .9em;
+      font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;
       text-align: center;
@@ -103,7 +103,7 @@
       white-space: nowrap;
     }
 
-    input[type=range] {
+    input[type='range'] {
       flex: 1 4 auto;
       padding: 0 0 0 1em;
       height: 1.6em;

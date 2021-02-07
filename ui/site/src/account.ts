@@ -1,26 +1,24 @@
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-
   const arrowSnapStore = lichess.storage.make('arrow.snap');
   const courtesyStore = lichess.storage.make('courtesy');
 
-  $('.security table form').on('submit', function(this: HTMLFormElement) {
+  $('.security table form').on('submit', function (this: HTMLFormElement) {
     xhr.text(this.action, { method: 'post' });
     $(this).parent().parent().remove();
     return false;
   });
 
-  $('form.autosubmit').each(function(this: HTMLFormElement) {
+  $('form.autosubmit').each(function (this: HTMLFormElement) {
     const form = this,
       $form = $(form),
       showSaved = () => $form.find('.saved').show();
-    $form.find('input').on('change', function(this: HTMLInputElement) {
+    $form.find('input').on('change', function (this: HTMLInputElement) {
       if (this.name == 'behavior.arrowSnap') {
         arrowSnapStore.set(this.value);
         showSaved();
-      }
-      else if (this.name == 'behavior.courtesy') {
+      } else if (this.name == 'behavior.courtesy') {
         courtesyStore.set(this.value);
         showSaved();
       }

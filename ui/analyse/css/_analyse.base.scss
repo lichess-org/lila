@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 %border-bottom-active {
   border-bottom: $border;
@@ -8,14 +8,14 @@
   }
 }
 
-@import "layout";
-@import "tools";
-@import "action-menu";
-@import "explorer";
-@import "training";
-@import "practice";
-@import "fork";
-@import "side";
-@import "context-menu";
+@import 'layout';
+@import 'tools';
+@import 'action-menu';
+@import 'explorer';
+@import 'training';
+@import 'practice';
+@import 'fork';
+@import 'side';
+@import 'context-menu';
 
 // @import 'side-clock';

@@ -17,7 +17,7 @@
     background: $c-good;
     color: $c-good-over;
     animation: 1.7s soft-bright ease-in-out infinite;
-    opacity: .8;
+    opacity: 0.8;
 
     @include transition;
   }
@@ -42,7 +42,7 @@
   }
 
   .goal {
-    margin-bottom: .8em;
+    margin-bottom: 0.8em;
     text-align: center;
     font-size: 1.2em;
     width: 100%;
@@ -69,7 +69,7 @@
       order: 1;
       flex: 1 0;
       cursor: pointer;
-      margin-left: .8em;
+      margin-left: 0.8em;
     }
   }
 }

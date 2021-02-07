@@ -6,7 +6,7 @@
     &__counter {
       display: flex;
       flex-flow: column;
-      margin-bottom: .25em;
+      margin-bottom: 0.25em;
 
       &__value {
         @extend %flex-center-nowrap;
@@ -14,19 +14,19 @@
         justify-content: center;
         font-family: 'storm';
         font-size: 2.4em;
-        line-height: .9em;
+        line-height: 0.9em;
         width: 2ch;
       }
 
       &__combo {
         @extend %roboto;
 
-        font-size: .8em;
+        font-size: 0.8em;
         letter-spacing: -1px;
         color: $c-font-dim;
       }
 
-      transition: color .1s;
+      transition: color 0.1s;
 
       .storm--mod-move & {
         color: $c-brag;
@@ -64,7 +64,7 @@
       &__in {
         background: $c-in-base;
         box-shadow: 0 0 15px $c-in-base;
-        transition: all .5s ease-in-out;
+        transition: all 0.5s ease-in-out;
 
         .storm--mod-bonus-slow & {
           display: none;
@@ -96,7 +96,7 @@
 
         .storm--mod-bonus-slow & {
           display: block;
-          animation: bar-full .9s ease-in-out;
+          animation: bar-full 0.9s ease-in-out;
         }
       }
     }
@@ -104,7 +104,7 @@
     &__levels {
       @extend %flex-center;
 
-      margin: .3em 0 0 -.6em;
+      margin: 0.3em 0 0 -0.6em;
     }
 
     &__level {
@@ -113,7 +113,7 @@
       transform: skewX(-45deg);
       flex: 21% 0 0;
       margin-right: 4%;
-      font-size: .9em;
+      font-size: 0.9em;
       height: 1.5em;
       line-height: 1.5em;
       border: $border;

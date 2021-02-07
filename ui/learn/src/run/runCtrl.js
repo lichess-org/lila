@@ -4,40 +4,41 @@ var makeLevel = require('../level');
 var makeProgress = require('../progress').ctrl;
 var sound = require('../sound');
 
-module.exports = function(opts, trans) {
-
+module.exports = function (opts, trans) {
   var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
   opts.side.ctrl.setStage(stage);
 
-  var levelId = m.route.param('level') || (function() {
-    var result = opts.storage.data.stages[stage.key];
-    var it = 0;
-    if (result)
-      while (result.scores[it]) it++;
-    if (it >= stage.levels.length) it = 0;
-    return it + 1;
-  })();
+  var levelId =
+    m.route.param('level') ||
+    (function () {
+      var result = opts.storage.data.stages[stage.key];
+      var it = 0;
+      if (result) while (result.scores[it]) it++;
+      if (it >= stage.levels.length) it = 0;
+      return it + 1;
+    })();
 
   var level = makeLevel(stage.levels[levelId - 1], {
     stage: stage,
-    onComplete: function() {
+    onComplete: function () {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
-      if (level.blueprint.id < stage.levels.length)
-        m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
+      if (level.blueprint.id < stage.levels.length) m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
       else {
         vm.stageCompleted(true);
         sound.stageEnd();
       }
       m.redraw();
-    }
+    },
   });
 
-  var stageScore = function() {
+  var stageScore = function () {
     var res = opts.storage.data.stages[stage.key];
-    return res ? res.scores.reduce(function(a, b) {
-      return a + b;
-    }) : 0;
+    return res
+      ? res.scores.reduce(function (a, b) {
+          return a + b;
+        })
+      : 0;
   };
 
   opts.route = 'run';
@@ -45,10 +46,10 @@ module.exports = function(opts, trans) {
 
   var vm = {
     stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0),
-    stageCompleted: m.prop(false)
+    stageCompleted: m.prop(false),
   };
 
-  var getNext = function() {
+  var getNext = function () {
     return stages.byId[stage.id + 1];
   };
   if (vm.stageStarting()) sound.stageStart();
@@ -60,7 +61,7 @@ module.exports = function(opts, trans) {
   //   else if (getNext()) m.route('/' + (getNext().id));
   // }, 1500);
 
-  m.redraw.strategy("diff");
+  m.redraw.strategy('diff');
 
   return {
     opts: opts,
@@ -70,14 +71,14 @@ module.exports = function(opts, trans) {
     progress: makeProgress(stage, level, opts.storage.data),
     stageScore: stageScore,
     getNext: getNext,
-    hideStartingPane: function() {
+    hideStartingPane: function () {
       if (!vm.stageStarting()) return;
       vm.stageStarting(false);
       level.start();
     },
-    restart: function() {
+    restart: function () {
       m.route('/' + stage.id + '/' + level.blueprint.id);
     },
-    trans: trans
+    trans: trans,
   };
 };

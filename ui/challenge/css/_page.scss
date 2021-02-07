@@ -44,7 +44,7 @@
     --c-bg: #{$c-bg};
 
     border-radius: 99px;
-    padding: .5em 1.1em;
+    padding: 0.5em 1.1em;
     margin-bottom: 3rem;
     font-size: 2em;
     background: var(--c-bg);
@@ -56,7 +56,7 @@
       &::before {
         color: var(--c-font);
         font-size: 6rem;
-        margin-right: .2em;
+        margin-right: 0.2em;
       }
 
       div {

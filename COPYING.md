@@ -1,5 +1,4 @@
-Copying Lila
-============
+# Copying Lila
 
 Any file in this project that does not state otherwise and is not listed as an
 exception below is part of lila and copyright (c) 2012-2019 the lila authors.
@@ -17,22 +16,21 @@ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 details.
 
-See the LICENSE file for a copy of the *GNU Affero General Public License*.
+See the LICENSE file for a copy of the _GNU Affero General Public License_.
 
-Additional permission under GNU AGPL version 3 section 7
---------------------------------------------------------
+## Additional permission under GNU AGPL version 3 section 7
 
 If you modify this Program, or any covered work, by linking or combining it
 with Highcharts (or a modified version of that library), containing parts
-covered by the terms of the *Creative Commons (CC) Attribution-NonCommercial*
+covered by the terms of the _Creative Commons (CC) Attribution-NonCommercial_
 licence, the licensors of this Program grant you additional permission to
 convey the resulting work. Corresponding Source for a non-source form of such a
 combination shall include the source code for the parts of Highcharts used as
 well as that of the covered work.
 
-Exceptions (free)
------------------
+## Exceptions (free)
 
+<!-- prettier-ignore -->
 Files | Author(s) | License
 --- | --- | ---
 public/font/lichess.{sfd,woff,woff2} | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the Lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
@@ -70,9 +68,9 @@ public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 
-Exceptions (non-free)
----------------------
+## Exceptions (non-free)
 
+<!-- prettier-ignore -->
 Files | Author(s) | License
 --- | --- | ---
 public/logo, public/favicon.ico, public/apple-touch-icon.png | [sadsnake1](https://github.com/sadsnake1) | Only use to refer to lichess.org
@@ -86,25 +84,24 @@ public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
-* The other sounds in public/sound.
-* The other artwork in public/images.
+- The other sounds in public/sound.
+- The other artwork in public/images.
 
-External services
------------------
+## External services
 
 Lichess as deployed on https://lichess.org/ also uses these external services:
 
-* [Cloudflare](https://www.cloudflare.com/) to serve static assets, DNS lookups for email validation
-* [Mailgun](https://www.mailgun.com/) for transactional email
-* [prismic.io](https://prismic.io/) for help/documentation pages and the blog
-* [twitch](https://www.twitch.tv/) for featured livestreams
-* [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
-* [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
-* [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
-* [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
-* [detectlanguage.com](https://detectlanguage.com/)
-* Fallback to [Google Fonts](https://fonts.google.com/)
-* [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
-* [reCAPTCHA](https://www.google.com/recaptcha/)
-* [PeerJS](https://peerjs.com/) for voice chat
-* [crowdin](https://crowdin.com/project/lichess) for localization
+- [Cloudflare](https://www.cloudflare.com/) to serve static assets, DNS lookups for email validation
+- [Mailgun](https://www.mailgun.com/) for transactional email
+- [prismic.io](https://prismic.io/) for help/documentation pages and the blog
+- [twitch](https://www.twitch.tv/) for featured livestreams
+- [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
+- [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
+- [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
+- [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
+- [detectlanguage.com](https://detectlanguage.com/)
+- Fallback to [Google Fonts](https://fonts.google.com/)
+- [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
+- [reCAPTCHA](https://www.google.com/recaptcha/)
+- [PeerJS](https://peerjs.com/) for voice chat
+- [crowdin](https://crowdin.com/project/lichess) for localization

@@ -25,7 +25,7 @@
 
   .site_notification {
     display: flex;
-    padding: .6rem 1rem;
+    padding: 0.6rem 1rem;
     border-bottom: $border;
     position: relative;
 
@@ -64,7 +64,7 @@
 
   .pager {
     display: block;
-    padding: .5rem;
+    padding: 0.5rem;
     text-align: center;
 
     &.disabled::before {
@@ -90,7 +90,7 @@
 
   .browser-notification {
     display: block;
-    padding: .5em 1em;
+    padding: 0.5em 1em;
     background: $c-brag;
     color: $c-brag-over;
   }

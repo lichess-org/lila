@@ -3,7 +3,7 @@ var util = require('./util');
 const make = (file, volume) => {
   lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
   return () => lichess.sound.play(file, volume);
-}
+};
 
 module.exports = {
   move: () => lichess.sound.play('move'),
@@ -12,5 +12,5 @@ module.exports = {
   levelEnd: make('other/energy3'),
   stageStart: make('other/guitar'),
   stageEnd: make('other/gewonnen'),
-  failure: make('other/no-go')
+  failure: make('other/no-go'),
 };

@@ -18,7 +18,7 @@ $user-list-width: 35ch;
 
     font-size: 1.45em;
     line-height: 2.5em;
-    padding-left: .8rem;
+    padding-left: 0.8rem;
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;
@@ -36,7 +36,7 @@ $user-list-width: 35ch;
   li {
     @extend %flex-between;
 
-    padding: 1.2rem 1.2rem 1.2rem .5rem;
+    padding: 1.2rem 1.2rem 1.2rem 0.5rem;
 
     &:nth-child(even) {
       background: $c-bg-zebra;
@@ -64,9 +64,9 @@ $user-list-width: 35ch;
   left: 15px;
   width: 67px;
   height: 80px;
-  background: img-url("trophy/shield-gold.png") no-repeat;
+  background: img-url('trophy/shield-gold.png') no-repeat;
   background-size: contain;
-  font-family: "lichess" !important;
+  font-family: 'lichess' !important;
   font-size: 40px;
   line-height: 76px;
   text-align: center;

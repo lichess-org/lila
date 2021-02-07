@@ -6,9 +6,9 @@
 
 #zentog {
   position: absolute;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   opacity: 0.5;
-  z-index: z("zen-toggle");
+  z-index: z('zen-toggle');
   display: none;
   border-bottom-right-radius: $box-radius-size;
 
@@ -23,7 +23,7 @@
 
 body.playing.zen {
   .ricons {
-    margin: .5em 0 1em 0;
+    margin: 0.5em 0 1em 0;
   }
 
   #top {

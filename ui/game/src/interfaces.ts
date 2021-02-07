@@ -37,9 +37,18 @@ export interface Status {
   name: StatusName;
 }
 
-export type StatusName = 'started' | 'aborted' | 'mate' | 'resign' |
-                         'stalemate' | 'timeout' | 'draw' | 'outoftime' |
-                         'noStart' | 'cheat' | 'variantEnd';
+export type StatusName =
+  | 'started'
+  | 'aborted'
+  | 'mate'
+  | 'resign'
+  | 'stalemate'
+  | 'timeout'
+  | 'draw'
+  | 'outoftime'
+  | 'noStart'
+  | 'cheat'
+  | 'variantEnd';
 
 export type StatusId = number;
 
@@ -128,7 +137,7 @@ export interface PlayerUser {
   title?: string;
   perfs: {
     [key: string]: Perf;
-  }
+  };
 }
 
 export interface Perf {

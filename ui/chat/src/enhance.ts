@@ -24,7 +24,7 @@ const pawnDropPattern = /^[a-h][2-7]$/;
 
 function userLinkReplace(orig: string, prefix: String, user: string) {
   if (user.length > 20 || user.match(pawnDropPattern)) return orig;
-  return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
+  return prefix + '<a href="/@/' + user + '">@' + user + '</a>';
 }
 
 function autoLink(html: string) {

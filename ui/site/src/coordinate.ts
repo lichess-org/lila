@@ -1,19 +1,15 @@
-import * as xhr from "common/xhr";
-import sparkline from "@fnando/sparkline";
+import * as xhr from 'common/xhr';
+import sparkline from '@fnando/sparkline';
 
 lichess.load.then(() => {
-  $('#trainer').each(function(this: HTMLElement) {
+  $('#trainer').each(function (this: HTMLElement) {
     var $trainer = $(this);
     var $board = $('.coord-trainer__board .cg-wrap');
     var ground;
     var $side = $('.coord-trainer__side');
     var $right = $('.coord-trainer__table');
     var $bar = $trainer.find('.progress_bar');
-    var $coords = [
-      $('#next_coord0'),
-      $('#next_coord1'),
-      $('#next_coord2')
-    ];
+    var $coords = [$('#next_coord0'), $('#next_coord1'), $('#next_coord2')];
     var $start = $right.find('.start');
     var $explanation = $right.find('.explanation');
     var $score = $('.coord-trainer__score');
@@ -24,31 +20,33 @@ lichess.load.then(() => {
     var color;
     var startAt, score;
 
-    var showColor = function() {
+    var showColor = function () {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
-      if (!ground) ground = window.Chessground($board[0], {
-        coordinates: false,
-        drawable: { enabled: false },
-        movable: {
-          free: false,
-          color: null
-        },
-        orientation: color,
-        addPieceZIndex: $('#main-wrap').hasClass('is3d')
-      });
+      if (!ground)
+        ground = window.Chessground($board[0], {
+          coordinates: false,
+          drawable: { enabled: false },
+          movable: {
+            free: false,
+            color: null,
+          },
+          orientation: color,
+          addPieceZIndex: $('#main-wrap').hasClass('is3d'),
+        });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
     };
     showColor();
 
-    $trainer.find('form.color').each(function(this: HTMLFormElement) {
-      const form = this, $form = $(this);
-      $form.find('input').on('change', function() {
+    $trainer.find('form.color').each(function (this: HTMLFormElement) {
+      const form = this,
+        $form = $(this);
+      $form.find('input').on('change', function () {
         var selected = $form.find('input:checked').val() as string;
         var c = {
           1: 'white',
           2: 'random',
-          3: 'black'
+          3: 'black',
         }[selected];
         if (c !== colorPref) xhr.formToXhr(form);
         colorPref = c;
@@ -58,17 +56,16 @@ lichess.load.then(() => {
     });
 
     function showCharts() {
-      $side.find('.user_chart').each(function(this: HTMLElement) {
+      $side.find('.user_chart').each(function (this: HTMLElement) {
         const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
           .attr('width', $(this).width() + 'px')
           .prependTo($(this).empty());
-        sparkline($svg[0] as unknown as SVGSVGElement, $(this).data('points'), {
+        sparkline(($svg[0] as unknown) as SVGSVGElement, $(this).data('points'), {
           interactive: true,
           /* onmousemove(event, datapoint) { */
           /*   var svg = findClosest(event.target, "svg"); */
           /*   var tooltip = svg.nextElementSibling; */
           /*   var date = new Date(datapoint.date).toUTCString().replace(/^.*?, (.*?) \d{2}:\d{2}:\d{2}.*?$/, "$1"); */
-
 
           /*   tooltip.hidden = false; */
           /*   tooltip.textContent = `${date}: $${datapoint.value.toFixed(2)} USD`; */
@@ -88,18 +85,18 @@ lichess.load.then(() => {
     }
     requestAnimationFrame(showCharts);
 
-    var centerRight = function() {
-      $right.css('top', (256 - $right.height() / 2) + 'px');
+    var centerRight = function () {
+      $right.css('top', 256 - $right.height() / 2 + 'px');
     };
     centerRight();
 
-    var clearCoords = function() {
-      $.each($coords, function(_, e) {
+    var clearCoords = function () {
+      $.each($coords, function (_, e) {
         e.text('');
       });
     };
 
-    var newCoord = function(prevCoord) {
+    var newCoord = function (prevCoord) {
       // disallow the previous coordinate's row or file from being selected
       var files = 'abcdefgh';
       var fileIndex = files.indexOf(prevCoord[0]);
@@ -109,42 +106,47 @@ lichess.load.then(() => {
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
 
-      return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
+      return (
+        files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))]
+      );
     };
 
-    var advanceCoords = function() {
+    var advanceCoords = function () {
       $('#next_coord0').removeClass('nope');
       var lastElement = $coords.shift()!;
-      $.each($coords, function(i, e) {
+      $.each($coords, function (i, e) {
         e.attr('id', 'next_coord' + i);
       });
-      lastElement.attr('id', 'next_coord' + ($coords.length));
+      lastElement.attr('id', 'next_coord' + $coords.length);
       lastElement.text(newCoord($coords[$coords.length - 1].text()));
       $coords.push(lastElement);
     };
 
-    var stop = function() {
+    var stop = function () {
       clearCoords();
       $trainer.removeClass('play');
       centerRight();
       $trainer.removeClass('wrong');
       ground.set({
         events: {
-          select: false
-        }
+          select: false,
+        },
       });
-      if (scoreUrl) xhr.text(scoreUrl, {
-        method: 'post',
-        body: xhr.form({ color, score })
-      }).then(charts => {
-        $side.find('.scores').html(charts);
-        showCharts();
-      });
+      if (scoreUrl)
+        xhr
+          .text(scoreUrl, {
+            method: 'post',
+            body: xhr.form({ color, score }),
+          })
+          .then(charts => {
+            $side.find('.scores').html(charts);
+            showCharts();
+          });
     };
 
-    var tick = function() {
-      var spent = Math.min(duration, (new Date().getTime() - startAt));
-      $bar.css('width', (100 * spent / duration) + '%');
+    var tick = function () {
+      var spent = Math.min(duration, new Date().getTime() - startAt);
+      $bar.css('width', (100 * spent) / duration + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
     };
@@ -158,8 +160,7 @@ lichess.load.then(() => {
       score = 0;
       $score.text(score);
       $bar.css('width', 0);
-      setTimeout(function() {
-
+      setTimeout(function () {
         startAt = new Date();
         ground.set({
           events: {
@@ -171,21 +172,19 @@ lichess.load.then(() => {
                 advanceCoords();
               } else {
                 $('#next_coord0').addClass('nope');
-                setTimeout(function() {
+                setTimeout(function () {
                   $('#next_coord0').removeClass('nope');
                 }, 500);
               }
               $trainer.toggleClass('wrong', !hit);
-            }
-          }
+            },
+          },
         });
         $coords[0].text(newCoord('a1'));
         var i;
-        for (i = 1; i < $coords.length; i++)
-          $coords[i].text(newCoord($coords[i - 1].text()));
+        for (i = 1; i < $coords.length; i++) $coords[i].text(newCoord($coords[i - 1].text()));
         tick();
       }, 1000);
     });
   });
-
 });

@@ -4,7 +4,7 @@
   background: $c-bg-box;
   position: absolute;
   display: none;
-  z-index: z("context-menu");
+  z-index: z('context-menu');
   cursor: default;
 
   &.visible {
@@ -14,7 +14,7 @@
   .title {
     @extend %san, %metal;
 
-    padding: .4em;
+    padding: 0.4em;
     text-align: center;
     font-size: 1.2em;
     border-bottom: $border;
@@ -25,7 +25,7 @@
     @extend %flex-center-nowrap;
 
     color: $c-font;
-    padding: .5em .6em .5em .3em;
+    padding: 0.5em 0.6em 0.5em 0.3em;
 
     &::before {
       width: 2em;

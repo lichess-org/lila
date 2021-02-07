@@ -22,7 +22,12 @@
     "yarn": "^1"
   },
   "dependencies": {
-    "xml2js": "^0.4.19"
+    "prettier": "2.2.1",
+    "xml2js": "0.4.19"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   },
   "workspaces": [
     "ui",

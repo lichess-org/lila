@@ -2,15 +2,15 @@ $mq-col1: $mq-col1-uniboard;
 $mq-col2: $mq-small;
 $mq-col3: $mq-col3-uniboard;
 
-@import "layout";
-@import "side";
-@import "boards";
-@import "app-header";
-@import "app-notice";
-@import "app-control";
-@import "app-standing";
-@import "stats";
-@import "player-info";
+@import 'layout';
+@import 'side';
+@import 'boards';
+@import 'app-header';
+@import 'app-notice';
+@import 'app-control';
+@import 'app-standing';
+@import 'stats';
+@import 'player-info';
 
 .swiss {
   .pull-quote {
