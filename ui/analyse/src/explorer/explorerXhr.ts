@@ -39,7 +39,7 @@ export function tablebase(
   fen: Fen
 ): JQueryPromise<TablebaseData> {
   const effectiveVariant =
-    variant === "fromPosition" || variant === "chess960" ? "standard" : variant;
+    variant === "fromPosition" ? "standard" : variant;
   return $.ajax({
     url: endpoint + "/" + effectiveVariant,
     data: { fen },

@@ -2,7 +2,6 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { Hooks } from "snabbdom/hooks";
 import { Attrs } from "snabbdom/modules/attributes";
-import { fixCrazySan } from "chess";
 
 export const emptyRedButton = "button.button.button-red.button-empty";
 
@@ -91,7 +90,7 @@ export function nodeFullName(node: Tree.Node) {
       plyToTurn(node.ply) +
       (node.ply % 2 === 1 ? "." : "...") +
       " " +
-      fixCrazySan(node.san)
+      node.san
     );
   return "Initial position";
 }

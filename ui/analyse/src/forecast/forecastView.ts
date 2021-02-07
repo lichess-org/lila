@@ -4,7 +4,7 @@ import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { bind, dataIcon, spinner } from '../util';
-import { notationStyle } from 'shogiutil/notation';
+import { notationStyle } from 'common/notation';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];

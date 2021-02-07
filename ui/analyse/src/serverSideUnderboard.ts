@@ -2,8 +2,8 @@ import AnalyseCtrl from "./ctrl";
 import { defined } from "common";
 import { baseUrl } from "./util";
 import { AnalyseData } from "./interfaces";
-import {displaySfen} from "shogiutil/util";
-import { notationStyle } from "shogiutil/notation";
+import { makeShogiFen } from "shogiops/compat";
+import { notationStyle } from "common/notation";
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -40,7 +40,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         point,
         $chart = $("#acpl-chart");
       if (fen && fen !== lastFen) {
-        inputFen.value = displaySfen(fen);
+        inputFen.value = makeShogiFen(fen);
         lastFen = fen;
       }
       if ($chart.length) {

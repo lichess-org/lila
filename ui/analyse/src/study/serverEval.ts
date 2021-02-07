@@ -3,7 +3,7 @@ import { VNode } from "snabbdom/vnode";
 import AnalyseCtrl from "../ctrl";
 import { spinner, bind, onInsert } from "../util";
 import { Prop, prop, defined } from "common";
-import { notationStyle } from "shogiutil/notation";
+import { notationStyle } from "common/notation";
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;

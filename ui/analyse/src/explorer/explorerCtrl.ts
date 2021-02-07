@@ -24,11 +24,7 @@ function tablebasePieces(variant: VariantKey) {
   switch (variant) {
     case "standard":
     case "fromPosition":
-    case "chess960":
       return 7;
-    case "atomic":
-    case "antichess":
-      return 6;
     default:
       return 0;
   }

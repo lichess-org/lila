@@ -6,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
-import {notationStyle} from "shogiutil/notation";
+import {notationStyle} from "common/notation";
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -97,7 +97,6 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     notationStyle(ctx.ctrl.data.pref.pieceNotation)({
       san: node.san!,
       uci: node.uci!,
-      orientation: ctx.ctrl.bottomIsWhite() ? "white" : "black",
       fen: node.fen
     })
   ];

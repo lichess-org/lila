@@ -1,11 +1,6 @@
-import {
-  parseUci,
-  makeSquare,
-  shogiToChessUci,
-  promotesTo,
-} from "shogiutil/util";
-import { isDrop } from "shogiutil/types";
-
+import { promote } from "shogiops/util";
+import { assureLishogiUci, parseLishogiUci, makeChessSquare } from "shogiops/compat";
+import { isDrop, PromotableRole } from "shogiops/types";
 import { winningChances } from "ceval";
 import * as cg from "shogiground/types";
 import { opposite } from "shogiground/util";
@@ -31,22 +26,24 @@ export function makeShapesFromUci(
   pieces?: cg.Pieces,
   modifiers?: any
 ): DrawShape[] {
-  uci = shogiToChessUci(uci);
-  const move = parseUci(uci)!;
-  const to = makeSquare(move.to);
+  uci = assureLishogiUci(uci)!;
+  const move = parseLishogiUci(uci)!;
+  const to = makeChessSquare(move.to);
   if (isDrop(move))
     return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
 
   const shapes: DrawShape[] = [
     {
-      orig: makeSquare(move.from),
+      orig: makeChessSquare(move.from),
       dest: to,
       brush,
       modifiers,
     },
   ];
-  if (move.promotion && pieces)
-    shapes.push(pieceDrop(to, promotesTo((pieces.get(uci.slice(0, 2) as Key)!.role)), color));
+  if (move.promotion && pieces && pieces.get(uci.slice(0, 2) as Key)){
+    const pRole = (pieces.get(uci.slice(0, 2) as Key)!.role) as PromotableRole;
+    shapes.push(pieceDrop(to, promote(pRole), color));
+  }
   return shapes;
 }
 

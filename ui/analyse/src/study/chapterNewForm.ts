@@ -9,7 +9,7 @@ import { chapter as chapterTour } from "./studyTour";
 import { StudyChapterMeta } from "./interfaces";
 import { Redraw } from "../interfaces";
 import AnalyseCtrl from "../ctrl";
-import { displaySfen, undisplaySfen } from "shogiutil/util";
+import { makeShogiFen, makeLishogiFen } from "shogiops/compat";
 
 export const modeChoices = [
   ["normal", "normalAnalysis"],
@@ -255,11 +255,11 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             ? h("div.form-group", [
               h("input#chapter-hiddenFen.form-control", {
                 attrs: {
-                  value: displaySfen(ctrl.root.node.fen),
+                  value: makeShogiFen(ctrl.root.node.fen),
                   placeholder: noarg("loadAPositionFromFen"),
                 },
                 hook: bind("keyup", () => {
-                  $("#chapter-fen").val(undisplaySfen($("#chapter-hiddenFen").val()))
+                  $("#chapter-fen").val(makeLishogiFen($("#chapter-hiddenFen").val()))
                 }),
               }),
                 h("input#chapter-fen.form-control", {

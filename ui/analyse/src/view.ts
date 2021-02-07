@@ -1,6 +1,7 @@
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
-import { validFen, displaySfen, undisplaySfen } from "shogiutil/util";
+import { parseFen } from "shogiops/fen";
+import { makeShogiFen, makeLishogiFen } from "shogiops/compat";
 import * as shogiground from "./ground";
 //import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from "./util";
 import { bind, onInsert, spinner, bindMobileMousedown } from "./util";
@@ -132,29 +133,30 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           insert: (vnode) => {
             const el = vnode.elm as HTMLInputElement;
             el.value = defined(ctrl.fenInput)
-              ? displaySfen(ctrl.fenInput)
-              : displaySfen(ctrl.node.fen);
+              ? makeShogiFen(ctrl.fenInput)
+              : makeShogiFen(ctrl.node.fen);
             el.addEventListener("change", (_) => {
               if (
-                undisplaySfen(el.value) !== ctrl.node.fen &&
+                makeLishogiFen(el.value) !== ctrl.node.fen &&
                 el.reportValidity()
               )
-                ctrl.changeFen(undisplaySfen(el.value.trim()));
+                ctrl.changeFen(makeLishogiFen(el.value.trim()));
             });
             el.addEventListener("input", (_) => {
               ctrl.fenInput = el.value;
-              el.setCustomValidity(
-                validFen(undisplaySfen(el.value.trim())) ? "" : "Invalid SFEN"
-              );
+              el.addEventListener('input', _ => {
+                ctrl.fenInput = el.value;
+                el.setCustomValidity(parseFen(makeShogiFen(el.value.trim())).isOk ? '' : 'Invalid FEN');
+              });
             });
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
-              el.value = displaySfen(ctrl.node.fen);
+              el.value = makeShogiFen(ctrl.node.fen);
               el.setCustomValidity("");
-            } else if (el.value != displaySfen(ctrl.fenInput)) {
-              el.value = displaySfen(ctrl.fenInput);
+            } else if (el.value != makeShogiFen(ctrl.fenInput)) {
+              el.value = makeShogiFen(ctrl.fenInput);
             }
           },
         },

@@ -1,15 +1,3 @@
-import { Outcome, isNormal } from "shogiutil/types";
-import {
-  opposite,
-  parseUci,
-  shogiToChessUci,
-  makeSquare,
-  roleToChar,
-} from "shogiutil/util";
-import { GameSituation } from "shogiutil/types";
-// @ts-ignore
-import { Shogi } from "shogiutil/vendor/Shogi.js";
-
 import { Api as ShogigroundApi } from "shogiground/api";
 import { DrawShape } from "shogiground/draw";
 import * as cg from "shogiground/types";
@@ -67,7 +55,13 @@ import {
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
 import { cancelDropMode } from "shogiground/drop";
-//import { init } from 'snabbdom';
+import { lishogiVariantRules, makeShogiFen, assureLishogiUci, parseLishogiUci, makeChessSquare } from "shogiops/compat";
+import { opposite, roleToChar } from 'shogiops/util';
+import { Outcome, isNormal } from 'shogiops/types';
+import { parseFen } from 'shogiops/fen';
+import { Position, PositionError } from 'shogiops/shogi';
+import { Result } from '@badrap/result';
+import { setupPosition } from 'shogiops/variant';
 
 const li = window.lishogi;
 
@@ -271,9 +265,6 @@ export default class AnalyseCtrl {
     this.shogiground.set({
       orientation: this.bottomColor(),
     });
-    if (this.retro && this.data.game.variant.key !== "racingKings") {
-      this.retro = makeRetro(this, this.bottomColor());
-    }
     if (this.practice) this.restartPractice();
     this.redraw();
   };
@@ -520,7 +511,7 @@ export default class AnalyseCtrl {
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this.shogiground, this.node.drops, piece, pos)) {
+    if (crazyValid(this.node.fen, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + "*" + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
@@ -647,7 +638,8 @@ export default class AnalyseCtrl {
   }
 
   encodeNodeFen(): Fen {
-    return this.node.fen.replace(/\s/g, "_");
+    const sfen = makeShogiFen(this.node.fen);
+    return sfen.replace(/\s/g, "_").replace(/\+/, '%2B');
   }
 
   currentEvals() {
@@ -723,12 +715,12 @@ export default class AnalyseCtrl {
   }
 
   outcome(node?: Tree.Node): Outcome | undefined {
-    const res = this.position(node || this.node);
-    return res.winner ? { winner: res.winner } : undefined;
+    return this.position(node || this.node).unwrap(pos => pos.outcome(), _ => undefined);
   }
 
-  position(node: Tree.Node): GameSituation {
-    return Shogi.init(node.fen);
+  position(node: Tree.Node): Result<Position, PositionError> {
+    const setup = parseFen(makeShogiFen(node.fen)).unwrap();
+    return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
@@ -871,13 +863,13 @@ export default class AnalyseCtrl {
   }
 
   playUci(uci: Uci): void {
-    const move = parseUci(shogiToChessUci(uci))!;
-    const to = makeSquare(move.to);
+    const move = parseLishogiUci(assureLishogiUci(uci)!)!;
+    const to = makeChessSquare(move.to);
     if (isNormal(move)) {
-      const piece = this.shogiground.state.pieces.get(makeSquare(move.from));
+      const piece = this.shogiground.state.pieces.get(makeChessSquare(move.from));
       const capture = this.shogiground.state.pieces.get(to);
       this.sendMove(
-        makeSquare(move.from),
+        makeChessSquare(move.from),
         to,
         capture && piece && capture.color !== piece.color ? capture : undefined,
         move.promotion

@@ -196,11 +196,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       jumpToNext();
     },
     flip() {
-      if (root.data.game.variant.key !== 'racingKings') root.flip();
-      else {
-        root.retro = make(root, opposite(color));
-        redraw();
-      }
+      root.retro = make(root, opposite(color));
+      redraw();
     },
     close: root.toggleRetro,
     trans: root.trans,

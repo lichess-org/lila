@@ -17,7 +17,7 @@ import {
 } from "./treeView";
 import { enrichText, innerHTML } from "../util";
 import { Ctx as BaseCtx, Opts as BaseOpts } from "./treeView";
-import { notationStyle } from "shogiutil/notation";
+import { notationStyle } from "common/notation";
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -156,7 +156,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx, node, ctx.ctrl.data.pref.pieceNotation, ctx.ctrl.bottomIsWhite() ? "white" : "black")
+    moveView.renderMove(ctx, node, ctx.ctrl.data.pref.pieceNotation)
   );
 }
 
@@ -167,7 +167,6 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       notationStyle(ctx.ctrl.data.pref.pieceNotation)({
         san: node.san!,
         uci: node.uci!,
-        orientation: ctx.ctrl.bottomIsWhite() ? "white" : "black",
         fen: node.fen
       }),
     ],

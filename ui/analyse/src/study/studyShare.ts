@@ -21,7 +21,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove({
     withDots: true,
     showEval: false
-  }, ctrl.currentNode(), 0, "white"); // todo
+  }, ctrl.currentNode(), 0);
   return h('div.ply-wrap', h('label.ply', [
     h('input', {
       attrs: { type: 'checkbox' },

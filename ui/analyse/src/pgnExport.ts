@@ -2,7 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { initialFen } from 'chess';
 import { MaybeVNodes } from './interfaces';
-import { notationStyle } from 'shogiutil/notation';
+import { notationStyle } from 'common/notation';
 import { ForecastStep } from './forecast/interfaces';
 
 interface PgnNode {

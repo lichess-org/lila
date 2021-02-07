@@ -1,12 +1,11 @@
 import { dragNewPiece } from "shogiground/drag";
 import { setDropMode, cancelDropMode } from "shogiground/drop";
-import { readDrops } from "chess";
 import AnalyseCtrl from "../ctrl";
 import * as cg from "shogiground/types";
-import { Api as ShogigroundApi } from "shogiground/api";
-
-// @ts-ignore
-import { Shogi } from "shogiutil/vendor/Shogi.js";
+import { Shogi } from "shogiops/variant"; 
+import { parseFen } from "shogiops/fen";
+import { makeShogiFen, parseChessSquare } from "shogiops/compat";
+import { PocketRole } from "shogiops/types";
 
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
@@ -55,43 +54,16 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent):
 }
 
 export function valid(
-  shogiground: ShogigroundApi,
-  possibleDrops: string | undefined | null,
+  fen: string,
   piece: cg.Piece,
   pos: Key
 ): boolean {
-  if (piece.color !== shogiground.state.movable.color) return false;
-
-  // You can't place pawn on a file where you already have a pawn
-  if (piece.role === "pawn") {
-    for (const [k, v] of shogiground.state.pieces.entries()) {
-      if (
-        v.role === "pawn" &&
-        v.color === piece.color &&
-        pos[0] === k[0] &&
-        pos != k
-      ) {
-        return false;
-      }
-    }
-  }
-
-  if (
-    (piece.role === "pawn" || piece.role === "lance") &&
-    ((pos[1] === "1" && piece.color === "black") ||
-      (pos[1] === "9" && piece.color === "white"))
-  )
-    return false;
-  if (
-    piece.role === "knight" &&
-    (((pos[1] === "1" || pos[1] === "2") && piece.color === "black") ||
-      ((pos[1] === "9" || pos[1] === "8") && piece.color === "white"))
-  )
-    return false;
-
-  const drops = readDrops(possibleDrops);
-
-  if (drops === null) return true;
-
-  return drops.includes(pos);
+  const sfen = parseFen(makeShogiFen(fen)).unwrap();
+  const shogi = Shogi.fromSetup(sfen);
+  return shogi.unwrap(
+    (s) => {
+      return s.turn !== piece.color && s.isLegal({role: piece.role as PocketRole, to: parseChessSquare(pos)!})
+    },
+    (_) => false
+  );
 }

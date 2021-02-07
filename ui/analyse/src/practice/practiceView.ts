@@ -1,4 +1,4 @@
-import { Outcome } from 'shogiutil/types';
+import { Outcome } from 'shogiops/types';
 import { bind } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
