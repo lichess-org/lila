@@ -13,16 +13,17 @@
   <string name="master">Майсторски Игри</string>
   <string name="mate">Матове</string>
   <string name="mateDescription">Победи със стил.</string>
-  <string name="mateIn1">Мат след 1 ход</string>
+  <string name="mateIn1">Мат в 1 ход</string>
   <string name="mateIn1Description">Матирай с един ход.</string>
-  <string name="mateIn2">Мат след 2 хода</string>
+  <string name="mateIn2">Мат в 2 хода</string>
   <string name="mateIn2Description">Матирай с два хода.</string>
-  <string name="mateIn3">Мат след 3 хода</string>
+  <string name="mateIn3">Мат в 3 хода</string>
   <string name="mateIn3Description">Матирай с три хода.</string>
-  <string name="mateIn4">Мат след 4 хода</string>
+  <string name="mateIn4">Мат в 4 хода</string>
   <string name="mateIn4Description">Матирай с четири хода.</string>
-  <string name="mateIn5">Мат след 5 или повече хода</string>
-  <string name="mateIn5Description">Намерете дълга редица от ходове водеща до мат.</string>
+  <string name="mateIn5">Мат в 5 или повече хода</string>
+  <string name="mateIn5Description">Намерете дълга последователност от ходове водеща до мат.</string>
+  <string name="middlegame">Мителшпил</string>
   <string name="opening">Дебют</string>
   <string name="sacrifice">Жертване</string>
 </resources>
