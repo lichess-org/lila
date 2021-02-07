@@ -156,7 +156,6 @@ const standalonesJs = () =>
         "puzzle.js",
         "user.js",
         "coordinate.js",
-        "captcha.js",
         "embed-analyse.js",
       ].map((f) => `src/standalones/${f}`)
     )
@@ -176,6 +175,7 @@ function singlePackage(file, dest) {
 
 const userMod = singlePackage("./src/user-mod.js", "user-mod.js");
 const clas = singlePackage("./src/clas.js", "clas.js");
+const captcha = singlePackage("./src/standalones/captcha.js", "captcha.js");
 
 const deps = makeDependencies("lishogi.deps.js");
 
@@ -186,6 +186,7 @@ const tasks = [
   standalonesJs,
   userMod,
   clas,
+  captcha,
   deps,
   hopscotch,
   jqueryBarRating,

@@ -1,3 +1,8 @@
+var shogi = require('shogiops');
+var compat = require('shogiops/compat');
+var sfen = require('shogiops/fen');
+var util = require('shogiops/util');
+
 $(function () {
   lishogi.requestIdleCallback(function () {
     $("div.captcha").each(function () {
@@ -33,7 +38,27 @@ $(function () {
           success: function (data) {
             $captcha.toggleClass("success", data == 1);
             $captcha.toggleClass("failure", data != 1);
-            if (data == 1) $board.data("shogiground").stop();
+            if (data == 1) {
+              const key = solution.slice(3, 5);
+              const piece = cg.state.pieces.get(key);
+              const mySetup = sfen.parseFen(compat.makeShogiFen(cg.getFen() + " " + util.opposite(piece.color)[0])).unwrap();
+              const pos = shogi.Shogi.fromSetup(mySetup).unwrap();
+              if(!pos.isCheckmate()) {
+                cg.setPieces(
+                  new Map([
+                    [
+                      key,
+                      {
+                        color: piece.color,
+                        role: util.promote(piece.role),
+                        promoted: true,
+                      },
+                    ],
+                  ])
+                )
+              }
+              $board.data("shogiground").stop();
+            }
             else
               setTimeout(function () {
                 lishogi.parseFen($board);
