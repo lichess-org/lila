@@ -7,6 +7,7 @@
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
   <string name="bodenMate">Мат на Боден</string>
+  <string name="bodenMateDescription">Два офицера използват пресичащите си диагонали за да матират царя обкръжен от собствените си фигури.</string>
   <string name="castling">Рокада</string>
   <string name="castlingDescription">Защити царя си, и приготви топа си за атака.</string>
   <string name="capturingDefender">Премахни защитата</string>
