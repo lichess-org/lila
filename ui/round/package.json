@@ -4,7 +4,7 @@
   "private": true,
   "description": "lishogi.org round",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "play",
     "replay"
@@ -22,7 +22,8 @@
     "nvui": "2.0.0",
     "snabbdom": "^0.7.4",
     "shogiground": "7.8.1",
-    "shogiutil": "1.0.0"
+    "chess": "2.0.0",
+    "shogiops": "^0.1.1"
   },
   "scripts": {
     "dev": "rollup --config",

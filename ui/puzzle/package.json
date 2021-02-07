@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chessops": "^0.6.0",
     "common": "2.0.0",
     "shogiground": "7.8.1",
     "snabbdom": "^0.7.4",
-    "tree": "2.0.0"
+    "tree": "2.0.0",
+    "shogiops": "^0.1.1"
   },
   "scripts": {
     "dev": "rollup --config",
