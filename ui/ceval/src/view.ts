@@ -4,9 +4,16 @@ import * as winningChances from "./winningChances";
 import { defined } from "common";
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
-import { switchUSI } from 'shogiutil/util';
+import { ExtendedMoveInfo, notationStyle } from 'common/notation';
 // @ts-ignore
-import { Shogi } from "shogiutil/vendor/Shogi.js";
+import { Position } from 'shogiops/shogi';
+import { makeLishogiUci, makeShogiFen, lishogiVariantRules, makeLishogiFen } from 'shogiops/compat';
+import { opposite, parseUsi } from 'shogiops/util';
+import { makeFen, parseFen } from 'shogiops/fen';
+import { makeSanAndPlay } from 'shogiops/san';
+import { Move } from 'shogiops/types';
+import {setupPosition} from "shogiops/variant";
+
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map((i) =>
@@ -301,11 +308,38 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   });
 }
 
+function makeExtendedMoveVariation(pos: Position, variation: Move[]): ExtendedMoveInfo[] {
+  pos = pos.clone();
+  const extendedLine = [];
+  for (let i = 0; i < variation.length; i++) {
+    const san = makeSanAndPlay(pos, variation[i]);
+    const fen = makeLishogiFen(makeFen(pos.toSetup()));
+    extendedLine.push({san: san, uci: makeLishogiUci(pos.lastMove!), fen: fen});
+    if (san === '--') return extendedLine;
+    if (i === variation.length - 1 && pos.outcome()?.winner) extendedLine.push({san: '投了', uci: '投了', fen: '投了'});
+  }
+  return extendedLine;
+}
+
+function applyNotationToVariant(start: number, variation: ExtendedMoveInfo[], notation: number): string {
+  const line = [];
+  for(const m of variation){
+    line.push(start++ + '. ');
+    if(m.san === '投了') line.push('投了');
+    else {
+      line.push(notationStyle(notation)(m));
+      line.push(' ');
+    }
+  }
+  return line.join('');
+}
+
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-    node = ctrl.getNode();
+    node = ctrl.getNode(),
+    setup = parseFen(makeShogiFen(node.fen)).unwrap();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {
@@ -313,6 +347,13 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
+  if (threat) {
+    setup.turn = opposite(setup.turn);
+    setup.fullmoves += 1;
+  }
+  const pos = setupPosition(lishogiVariantRules(instance.variant.key), setup);
+  const turn = setup.fullmoves;
+  const notation = ctrl.data.pref.pieceNotation ?? 0;
   return h(
     "div.pv_box",
     {
@@ -353,7 +394,8 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   : renderEval(pvs[i].cp!)
               )
             : null,
-          h("span", pvs[i].moves.map(switchUSI).join(", ")),
+            // Add notation to shogiops?
+            h('span', pos.unwrap(pos => applyNotationToVariant(turn, makeExtendedMoveVariation(pos, pvs[i].moves.slice(0, 10).map(m => parseUsi(m)!)), notation), _ => '--'))
         ]
       );
     })

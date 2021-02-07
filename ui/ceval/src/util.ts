@@ -11,7 +11,7 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   if (variant === "standard") return false;
   if (san.includes("x")) return true; // capture
   if (san.toLowerCase() === san) return true; // pawn move
-  return variant === "threeCheck" && san.includes("+");
+  return san.includes("+");
 }
 
 // making the evalbar a bit more flat, because sente's getting +1.6 right off the bat, which doesn't look good

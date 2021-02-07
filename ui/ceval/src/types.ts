@@ -1,4 +1,4 @@
-import { Outcome } from 'shogiutil/types';
+import { Outcome } from 'shogiops/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
@@ -101,6 +101,7 @@ export interface ParentCtrl {
   getNode(): Tree.Node;
   showComputer(): boolean;
   trans: Trans;
+  data?: any;
 }
 
 export interface NodeEvals {
