@@ -365,12 +365,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="noFriendsOnline">jan pona ala li lon ni</string>
   <string name="findFriends">o lukin e jan pona</string>
   <string name="favoriteOpponents">jan ante musi pi pona tawa sina</string>
-  <string name="follow">tawa poka</string>
+  <string name="follow">o tawa poka</string>
   <string name="following">jan pi tawa poka</string>
-  <string name="unfollow">tawa poka ala</string>
-  <string name="block">pake</string>
+  <string name="unfollow">o tawa poka ala</string>
+  <string name="block">o pake</string>
   <string name="blocked">jan pake</string>
-  <string name="unblock">pakala e pake</string>
+  <string name="unblock">o pake ala</string>
   <string name="followsYou">jan pi tawa poka sina</string>
   <string name="xStartedFollowingY">jan %1$s li kama tawa poka jan %2$s</string>
   <plurals name="nbFollowers">
@@ -553,7 +553,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="listBlockedPlayers">o pana e lipu pi jan ni: sina weka wawa e ona</string>
   <string name="human">jan</string>
   <string name="computer">ilo sona</string>
-  <string name="side">walo anu pimeja</string>
+  <string name="side">kule ijo sina</string>
   <string name="clock">ilo tenpo</string>
   <string name="unauthorizedError">sina ken ala.</string>
   <string name="noInternetConnection">sina jo ala e linja sona. sina ken musi e musi ni: ona li wile ala e linja sona.</string>
