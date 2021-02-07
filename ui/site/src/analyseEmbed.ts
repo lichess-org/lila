@@ -11,4 +11,11 @@ export default function (opts: any) {
   });
 
   window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
+
+  if (opts.study.chapter.gamebook)
+    $('.main-board').append(
+      $(
+        `<a href="/study/${opts.study.id}/${opts.study.chapter.id}" target="_blank" class="button gamebook-embed">Start</a>`
+      )
+    );
 }

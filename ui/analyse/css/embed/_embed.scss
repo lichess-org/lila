@@ -25,3 +25,19 @@ cg-board {
   border-radius: 0;
   box-shadow: none;
 }
+
+.analyse .gamebook {
+  .comment {
+    margin: 0 2vw;
+  }
+
+  &-embed {
+    @extend %popup-shadow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    padding: 2em 4em;
+  }
+}
