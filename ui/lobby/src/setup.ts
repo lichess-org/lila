@@ -1,6 +1,6 @@
 import { FormStore, toFormLines, makeStore } from "./form";
 import LobbyController from "./ctrl";
-import { undisplaySfen, displaySfen } from 'shogiutil/util';
+import { makeLishogiFen, makeShogiFen } from 'shogiops/compat';
 
 const li = window.lishogi;
 
@@ -229,7 +229,7 @@ export default class Setup {
       ;
     // This switches the color in sfen that is being sent to the server, make it better if you can
     $submits.click(() => {
-      $fenInput.val(undisplaySfen($fenInput.val()));
+      $fenInput.val(makeLishogiFen($fenInput.val()));
     })
     const c = this.stores[typ].get();
     if (c) {
@@ -442,7 +442,7 @@ export default class Setup {
 
     var validateFen = li.debounce(function () {
       $fenInput.removeClass("success failure");
-      var fen = undisplaySfen($fenInput.val());
+      var fen = makeLishogiFen($fenInput.val());
       if (fen) {
         $.ajax({
           url: $fenInput.parent().data("validate-url"),
@@ -483,9 +483,9 @@ export default class Setup {
     $fenInput.on("keyup", validateFenWrapper(true));
 
     var setHandicap = function() {
-      const hcSfen = displaySfen($handicapSelect.val());
+      const hcSfen = makeShogiFen($handicapSelect.val());
       if (hcSfen) {
-        $fenInput.val(displaySfen($handicapSelect.val()));
+        $fenInput.val(makeShogiFen($handicapSelect.val()));
         validateFenWrapper(false)();
       }
     }
