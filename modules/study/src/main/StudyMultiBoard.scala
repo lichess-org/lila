@@ -37,7 +37,7 @@ final class StudyMultiBoard(
       .expireAfterAccess(10 minutes)
       .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
-  private val playingSelector = $doc("tags" -> "Result:*", "root.n.0" $exists true)
+  private val playingSelector = $doc("tags" -> "Result:*")
 
   private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
