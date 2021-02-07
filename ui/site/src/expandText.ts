@@ -174,6 +174,7 @@ lichess.load.then(() => {
     'purple-diag',
     'pink',
     'ic',
+    'horsey',
   ];
 
   function configureSrc(url: string) {

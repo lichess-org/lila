@@ -136,6 +136,7 @@ const themes = [
   'purple-diag',
   'pink',
   'ic',
+  'horsey',
 ];
 
 function configureSrc(url: string): string {
