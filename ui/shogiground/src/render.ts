@@ -180,16 +180,14 @@ export function render(s: State): void {
   }
 
   console.log(s.pockets);
-  if (s.pockets && pockets) {
+  if (s.pockets) {
     for (const i of [0, 1]) {
       // add pockets if nonexistent yet
-      let pocket;
-      if (!pockets[i].innerHTML)
-        pocket = addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
-      else pocket = pockets[i].firstChild;
-      for (const pocketPiece of pocket.getElementsByTagName("piece")) {
-        const role = pocketPiece.getAttribute("data-role");
-        pocketPiece.setAttribute("data-nb", s.pockets[i][role])
+      const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
+      const pocketPieces = pocket.getElementsByTagName("piece");
+      for (let j = 0; j < pocketPieces.length; j++) {
+        const role = pocketPieces[i].getAttribute("data-role");
+        pocketPieces[j].setAttribute("data-nb", s.pockets[i][role ? role : ""])
       }
     }
   }

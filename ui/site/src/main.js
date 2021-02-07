@@ -263,6 +263,7 @@
         viewOnly: !playable,
         resizable: resizable,
         fen: $this.data("fen") || lishogi.readServerFen($this.data("z")),
+        pockets: $this.data("pocket"),
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };
