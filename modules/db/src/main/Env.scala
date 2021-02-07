@@ -11,7 +11,7 @@ import lila.common.Lilakka
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext) {
+)(implicit ec: ExecutionContext, scheduler: akka.actor.Scheduler) {
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 

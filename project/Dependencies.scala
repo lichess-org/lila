@@ -42,12 +42,15 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.2"
+    val version        = "1.0.2"
+    val lichessVersion = "1.0.3-SNAPSHOT"
 
-    val driver = "org.reactivemongo" %% "reactivemongo"               % version
+    val driver = "org.reactivemongo" %% "reactivemongo"               % lichessVersion
+    val shaded = "org.reactivemongo" %% "reactivemongo-shaded"        % "1.0.3"
+    val api    = "org.reactivemongo" %% "reactivemongo-bson-api"      % "1.0.3"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val epoll  = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
-    def bundle = Seq(driver, stream)
+    def bundle = Seq(driver, api, stream)
   }
 
   object play {
