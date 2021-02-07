@@ -1,4 +1,4 @@
-import {westernShogiNotation} from 'shogiutil/util';
+import { notationStyle } from 'common/notation';
 
 const roles: { [letter: string]: string } = {
   B: "bishop",
@@ -15,7 +15,7 @@ const roles: { [letter: string]: string } = {
 };
 
 function renderSan(san: San) {
-  let move = westernShogiNotation(san)!;
+  let move = notationStyle(0)({san: san, uci: '', fen: ''}); // todo
   if(move[0] === "+") move = "$" + move.substring(1);
   return move
       .split("")
