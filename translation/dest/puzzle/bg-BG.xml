@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Пъзели</string>
-  <string name="puzzleThemes">Пъзели по теми</string>
+  <string name="puzzles">Задачи</string>
+  <string name="puzzleThemes">Задачи по теми</string>
   <string name="recommended">Препоръчани</string>
   <string name="phases">Етапи</string>
   <string name="motifs">Тактики</string>
@@ -45,4 +45,9 @@
   <string name="addAnotherTheme">Добавяне на нова тема</string>
   <string name="jumpToNextPuzzleImmediately">Веднага продължи към следващата задача</string>
   <string name="puzzleDashboard">Панел на задачите</string>
+  <string name="improvementAreas">Области за подобрение</string>
+  <string name="strengths">Силни страни</string>
+  <string name="history">История на задачите</string>
+  <string name="solved">решени</string>
+  <string name="failed">неуспешни</string>
 </resources>
