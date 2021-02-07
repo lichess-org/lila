@@ -1,16 +1,15 @@
-import Tagify from '@yaireo/tagify'
+import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-
   const input = document.getElementById('form3-leaders') as HTMLInputElement;
 
   const tagify = new Tagify(input, {
     pattern: /.{3,}/,
     maxTags: 10,
     enforceWhitelist: true,
-    whitelist: input.value.trim().split(/\s*,\s*/)
+    whitelist: input.value.trim().split(/\s*,\s*/),
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) => xhr.json(xhr.url('/player/autocomplete', { term, names: 1 })),

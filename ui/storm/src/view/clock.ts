@@ -21,11 +21,11 @@ export default function renderClock(ctrl: StormCtrl): VNode {
         },
         destroy() {
           if (refreshInterval) clearInterval(refreshInterval);
-        }
-      }
+        },
+      },
     }),
     !!malus && malus.at > getNow() - 900 ? h('div.storm__clock__malus', '-' + malus.seconds) : null,
-    !!bonus && bonus.at > getNow() - 900 ? h('div.storm__clock__bonus', '+' + bonus.seconds) : null
+    !!bonus && bonus.at > getNow() - 900 ? h('div.storm__clock__bonus', '+' + bonus.seconds) : null,
   ]);
 }
 
@@ -49,7 +49,7 @@ const formatMs = (millis: number): string => {
     minutes = date.getUTCMinutes(),
     seconds = date.getUTCSeconds();
   return minutes + ':' + pad(seconds);
-}
+};
 
 function computeModifierDiff(now: number, mod?: TimeMod) {
   const millisSince: number | undefined = mod && (now - mod.at < 1000 ? now - mod.at : undefined);

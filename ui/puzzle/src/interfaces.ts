@@ -99,7 +99,7 @@ export interface PuzzleOpts {
   themes?: {
     dynamic: string;
     static: string;
-  }
+  };
 }
 
 export interface PuzzlePrefs {
@@ -192,7 +192,7 @@ export interface Promotion {
 }
 
 export interface MoveTest {
-  move: Move,
+  move: Move;
   fen: Fen;
   path: Tree.Path;
 }

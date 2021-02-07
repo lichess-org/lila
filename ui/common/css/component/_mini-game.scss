@@ -3,7 +3,8 @@
 
   display: block;
 
-  &, &:hover {
+  &,
+  &:hover {
     color: $c-font;
   }
 
@@ -25,7 +26,7 @@
   .rating {
     @extend %roboto;
 
-    font-size: .9em;
+    font-size: 0.9em;
     margin-left: 1ch;
   }
 

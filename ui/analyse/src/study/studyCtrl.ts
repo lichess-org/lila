@@ -27,8 +27,13 @@ import { Req } from '../socket';
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, practiceData?: StudyPracticeData, relayData?: RelayData): StudyCtrl {
-
+export default function (
+  data: StudyData,
+  ctrl: AnalyseCtrl,
+  tagTypes: TagTypes,
+  practiceData?: StudyPracticeData,
+  relayData?: RelayData
+): StudyCtrl {
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
@@ -43,13 +48,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       // path is at ctrl.path
       mode: {
         sticky: sticked,
-        write: true
+        write: true,
       },
       // how many events missed because sync=off
       behind: 0,
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
-      gamebookOverride: undefined
+      gamebookOverride: undefined,
     };
   })();
 
@@ -57,7 +62,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   function startTour() {
     tours.study(ctrl);
-  };
+  }
 
   const members = memberCtrl({
     initDict: data.members,
@@ -72,7 +77,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     admin: data.admin,
     redraw,
-    trans: ctrl.trans
+    trans: ctrl.trans,
   });
 
   const chapters = chapterCtrl(
@@ -80,24 +85,37 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     send,
     () => vm.tab('chapters'),
     chapterId => xhr.chapterConfig(data.id, chapterId),
-    ctrl);
+    ctrl
+  );
 
   function currentChapter(): StudyChapterMeta {
     return chapters.get(vm.chapterId)!;
-  };
+  }
   function isChapterOwner() {
     return ctrl.opts.userId === data.chapter.ownerId;
-  };
+  }
 
   const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
-  const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
-    send("editStudy", d);
-    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
-      chapters.newForm.openInitial();
-  }, () => data, ctrl.trans, redraw, relay);
+  const form: StudyFormCtrl = studyFormCtrl(
+    (d, isNew) => {
+      send('editStudy', d);
+      if (
+        isNew &&
+        data.chapter.setup.variant.key === 'standard' &&
+        ctrl.mainline.length === 1 &&
+        !data.chapter.setup.fromFen &&
+        !relay
+      )
+        chapters.newForm.openInitial();
+    },
+    () => data,
+    ctrl.trans,
+    redraw,
+    relay
+  );
 
   function isWriting(): boolean {
     return vm.mode.write && !isGamebookPlay();
@@ -108,26 +126,37 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       send(t, d);
       return true;
     }
-    return vm.mode.sticky = false;
-  };
+    return (vm.mode.sticky = false);
+  }
 
   const commentForm: CommentForm = commentFormCtrl(ctrl);
   const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
-  const studyDesc = new DescriptionCtrl(data.description, t => {
-    data.description = t;
-    send("descStudy", t);
-  }, redraw);
-  const chapterDesc = new DescriptionCtrl(data.chapter.description, t => {
-    data.chapter.description = t;
-    send("descChapter", { id: vm.chapterId, desc: t });
-  }, redraw);
+  const studyDesc = new DescriptionCtrl(
+    data.description,
+    t => {
+      data.description = t;
+      send('descStudy', t);
+    },
+    redraw
+  );
+  const chapterDesc = new DescriptionCtrl(
+    data.chapter.description,
+    t => {
+      data.chapter.description = t;
+      send('descChapter', { id: vm.chapterId, desc: t });
+    },
+    redraw
+  );
 
   const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
 
   const topics: TopicsCtrl = topicsCtrl(
-    topics => send("setTopics", topics),
-    () => data.topics || [], ctrl.trans, redraw);
+    topics => send('setTopics', topics),
+    () => data.topics || [],
+    ctrl.trans,
+    redraw
+  );
 
   function addChapterId(req: Req) {
     req.ch = vm.chapterId;
@@ -135,8 +164,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }
 
   function isGamebookPlay() {
-    return data.chapter.gamebook && vm.gamebookOverride !== 'analyse' &&
-      (vm.gamebookOverride === 'play' || !members.canContribute());
+    return (
+      data.chapter.gamebook &&
+      vm.gamebookOverride !== 'analyse' &&
+      (vm.gamebookOverride === 'play' || !members.canContribute())
+    );
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
@@ -148,21 +180,21 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
     lichess.pubsub.emit('chat.writeable', data.features.chat);
-    lichess.pubsub.emit('chat.permissions', {local: canContribute});
+    lichess.pubsub.emit('chat.permissions', { local: canContribute });
     lichess.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
     ctrl.explorer.allowed(data.chapter.features.explorer);
-  };
+  }
   configureAnalysis();
 
   function configurePractice() {
     if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
     if (data.chapter.practice) ctrl.restartPractice();
     if (practice) practice.onLoad();
-  };
+  }
 
   function onReload(d: ReloadData) {
     const s = d.study!;
@@ -193,13 +225,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      nextPath = (
-        (vm.justSetChapterId === vm.chapterId) && chapters.localPaths[vm.chapterId]
-      ) || data.position.path;
+      nextPath = (vm.justSetChapterId === vm.chapterId && chapters.localPaths[vm.chapterId]) || data.position.path;
     } else {
-      nextPath = sameChapter ? prevPath : (
-        data.chapter.relay ? data.chapter.relay!.path : (chapters.localPaths[vm.chapterId] || treePath.root)
-      );
+      nextPath = sameChapter
+        ? prevPath
+        : data.chapter.relay
+        ? data.chapter.relay!.path
+        : chapters.localPaths[vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -213,28 +245,30 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     redraw();
     ctrl.startCeval();
-  };
+  }
 
   const xhrReload = throttle(700, () => {
     vm.loading = true;
-    return xhr.reload(
-      practice ? 'practice/load' : 'study',
-      data.id,
-      vm.mode.sticky ? undefined : vm.chapterId
-    ).then(onReload, lichess.reload);
+    return xhr
+      .reload(practice ? 'practice/load' : 'study', data.id, vm.mode.sticky ? undefined : vm.chapterId)
+      .then(onReload, lichess.reload);
   });
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
-    if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
-      path
-    }));
+    if (vm.mode.sticky && path !== data.position.path)
+      makeChange(
+        'setPath',
+        addChapterId({
+          path,
+        })
+      );
   });
 
   if (members.canContribute()) form.openIfNew();
 
   function currentNode() {
     return ctrl.node;
-  };
+  }
 
   const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.trans);
 
@@ -243,7 +277,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   let gamebookPlay: GamebookPlayCtrl | undefined;
 
   function instanciateGamebookPlay() {
-    if (!isGamebookPlay()) return gamebookPlay = undefined;
+    if (!isGamebookPlay()) return (gamebookPlay = undefined);
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
@@ -255,10 +289,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
-        makeChange("shapes", addChapterId({
-          path: ctrl.path,
-          shapes
-        }));
+        makeChange(
+          'shapes',
+          addChapterId({
+            path: ctrl.path,
+            shapes,
+          })
+        );
       }
       gamebookPlay && gamebookPlay.onShapeChange(shapes);
     };
@@ -273,7 +310,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return undefined;
   }
 
-  function setMemberActive(who?: {u: string}) {
+  function setMemberActive(who?: { u: string }) {
     who && members.setActive(who.u);
     vm.updatedAt = Date.now();
   }
@@ -284,7 +321,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return obj;
   }
 
-  const likeToggler = debounce(() => send("like", { liked: data.liked }), 1000);
+  const likeToggler = debounce(() => send('like', { liked: data.liked }), 1000);
 
   const socketHandlers = {
     path(d) {
@@ -295,8 +332,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         vm.behind++;
         return redraw();
       }
-      if (position.chapterId !== data.position.chapterId ||
-        !ctrl.tree.pathExists(position.path)) {
+      if (position.chapterId !== data.position.chapterId || !ctrl.tree.pathExists(position.path)) {
         return xhrReload();
       }
       data.position.path = position.path;
@@ -310,7 +346,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w,
         sticky = d.s;
       setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard' || relay && relay.intro.active) multiBoard.addNode(d.p, d.n);
+      if (vm.toolTab() == 'multiBoard' || (relay && relay.intro.active)) multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -325,10 +361,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (!newPath) return xhrReload();
       ctrl.tree.addDests(d.d, newPath);
       if (sticky) data.position.path = newPath;
-      if ((sticky && vm.mode.sticky) || (
-        position.path === ctrl.path &&
-        position.path === treePath.fromNodeList(ctrl.mainline)
-      )) ctrl.jump(newPath);
+      if (
+        (sticky && vm.mode.sticky) ||
+        (position.path === ctrl.path && position.path === treePath.fromNodeList(ctrl.mainline))
+      )
+        ctrl.jump(newPath);
       redraw();
     },
     deleteNode(d) {
@@ -481,7 +518,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     error(msg: string) {
       alert(msg);
-    }
+    },
   };
 
   return {
@@ -516,10 +553,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     isChapterOwner,
     canJumpTo(path: Tree.Path) {
       if (gamebookPlay) return gamebookPlay.canJumpTo(path);
-      return data.chapter.conceal === undefined ||
+      return (
+        data.chapter.conceal === undefined ||
         isChapterOwner() ||
         treePath.contains(ctrl.path, path) || // can always go back
-        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;
+        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!
+      );
     },
     onJump() {
       if (gamebookPlay) gamebookPlay.onJump();
@@ -532,22 +571,31 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       commentForm.onSetPath(vm.chapterId, path, node, playedMyself);
     },
     deleteNode(path) {
-      makeChange("deleteNode", addChapterId({
-        path,
-        jumpTo: ctrl.path
-      }));
+      makeChange(
+        'deleteNode',
+        addChapterId({
+          path,
+          jumpTo: ctrl.path,
+        })
+      );
     },
     promote(path, toMainline) {
-      makeChange("promote", addChapterId({
-        toMainline,
-        path
-      }));
+      makeChange(
+        'promote',
+        addChapterId({
+          toMainline,
+          path,
+        })
+      );
     },
     forceVariation(path, force) {
-      makeChange("forceVariation", addChapterId({
-        force,
-        path
-      }));
+      makeChange(
+        'forceVariation',
+        addChapterId({
+          force,
+          path,
+        })
+      );
     },
     setChapter(id, force) {
       const alreadySet = id === vm.chapterId && !force;
@@ -556,7 +604,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (alreadySet) redraw();
       }
       if (alreadySet) return;
-      if (!vm.mode.sticky || !makeChange("setChapter", id)) {
+      if (!vm.mode.sticky || !makeChange('setChapter', id)) {
         vm.mode.sticky = false;
         if (!vm.behind) vm.behind = 1;
         vm.chapterId = id;
@@ -585,8 +633,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     nextChapter(): StudyChapterMeta | undefined {
       const chapters = data.chapters,
         currentId = currentChapter().id;
-      for (let i in chapters)
-        if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      for (let i in chapters) if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
       return undefined;
     },
     setGamebookOverride(o) {
@@ -614,4 +661,4 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       return !!relay && relay.socketHandler(t, d);
     },
   };
-};
+}

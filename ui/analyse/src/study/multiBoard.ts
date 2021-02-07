@@ -1,5 +1,5 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 import { opposite } from 'chessground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -8,13 +8,12 @@ import { bind, spinner } from '../util';
 import * as domData from 'common/data';
 
 export class MultiBoardCtrl {
-
   loading: boolean = false;
   page: number = 1;
   pager?: Paginator<ChapterPreview>;
   playing: boolean = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) { }
+  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
 
   addNode(pos: Position, node: Tree.Node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -49,7 +48,9 @@ export class MultiBoardCtrl {
   };
   nextPage = () => this.setPage(this.page + 1);
   prevPage = () => this.setPage(this.page - 1);
-  lastPage = () => { if (this.pager) this.setPage(this.pager.nbPages); };
+  lastPage = () => {
+    if (this.pager) this.setPage(this.pager.nbPages);
+  };
 
   setPlaying = (v: boolean) => {
     this.playing = v;
@@ -58,23 +59,25 @@ export class MultiBoardCtrl {
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
-
-  return h('div.study__multiboard', {
-    class: { loading: ctrl.loading, nopager: !ctrl.pager },
-    hook: {
-      insert() { ctrl.reload(true) }
-    }
-  }, ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]);
+  return h(
+    'div.study__multiboard',
+    {
+      class: { loading: ctrl.loading, nopager: !ctrl.pager },
+      hook: {
+        insert() {
+          ctrl.reload(true);
+        },
+      },
+    },
+    ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]
+  );
 }
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
   return [
-    h('div.top', [
-      renderPagerNav(pager, ctrl),
-      renderPlayingToggle(ctrl)
-    ]),
-    h('div.now-playing', pager.currentPageResults.map(makePreview(study)))
+    h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study))),
   ];
 }
 
@@ -84,9 +87,9 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
       attrs: { type: 'checkbox' },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
-      })
+      }),
     }),
-    ctrl.trans.noarg('playing')
+    ctrl.trans.noarg('playing'),
   ]);
 }
 
@@ -99,7 +102,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton(ctrl.trans.noarg('previous'), 'Y', ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
     pagerButton(ctrl.trans.noarg('next'), 'X', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(ctrl.trans.noarg('last'), 'V', ctrl.lastPage, page < pager.nbPages, ctrl)
+    pagerButton(ctrl.trans.noarg('last'), 'V', ctrl.lastPage, page < pager.nbPages, ctrl),
   ]);
 }
 
@@ -108,41 +111,49 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
     attrs: {
       'data-icon': icon,
       disabled: !enable,
-      title: text
+      title: text,
     },
-    hook: bind('mousedown', click, ctrl.redraw)
+    hook: bind('mousedown', click, ctrl.redraw),
   });
 }
 
 function makePreview(study: StudyCtrl) {
   return (preview: ChapterPreview) => {
-    const contents = preview.players ? [
-      makePlayer(preview.players[opposite(preview.orientation)]),
-      makeCg(preview),
-      makePlayer(preview.players[preview.orientation])
-    ] : [
-        h('div.name', preview.name),
-        makeCg(preview)
-      ];
-    return h('a.' + preview.id, {
-      attrs: { title: preview.name },
-      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
-      hook: bind('mousedown', _ => study.setChapter(preview.id))
-    }, contents);
+    const contents = preview.players
+      ? [
+          makePlayer(preview.players[opposite(preview.orientation)]),
+          makeCg(preview),
+          makePlayer(preview.players[preview.orientation]),
+        ]
+      : [h('div.name', preview.name), makeCg(preview)];
+    return h(
+      'a.' + preview.id,
+      {
+        attrs: { title: preview.name },
+        class: {
+          active:
+            !study.multiBoard.loading &&
+            study.vm.chapterId == preview.id &&
+            (!study.relay || !study.relay.intro.active),
+        },
+        hook: bind('mousedown', _ => study.setChapter(preview.id)),
+      },
+      contents
+    );
   };
 }
 
 function makePlayer(player: ChapterPreviewPlayer): VNode {
   return h('span.player', [
     player.title ? `${player.title} ${player.name}` : player.name,
-    player.rating && h('span', '' + player.rating)
+    player.rating && h('span', '' + player.rating),
   ]);
 }
 
 function makeCg(preview: ChapterPreview): VNode {
   return h('span.mini-board.cg-wrap.is2d', {
     attrs: {
-      'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`
+      'data-state': `${preview.fen},${preview.orientation},${preview.lastMove}`,
     },
     hook: {
       insert(vnode) {
@@ -154,11 +165,11 @@ function makeCg(preview: ChapterPreview): VNode {
           const lm = preview.lastMove!;
           domData.get(vnode.elm as HTMLElement, 'chessground').set({
             fen: preview.fen,
-            lastMove: [lm[0] + lm[1], lm[2] + lm[3]]
+            lastMove: [lm[0] + lm[1], lm[2] + lm[3]],
           });
         }
         vnode.data!.fen = preview.fen;
-      }
-    }
-  })
+      },
+    },
+  });
 }

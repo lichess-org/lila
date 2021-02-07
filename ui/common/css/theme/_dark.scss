@@ -1,6 +1,6 @@
-@import "default";
+@import 'default';
 
-$theme: "dark";
+$theme: 'dark';
 $theme-light: false;
 $theme-dark: true;
 
@@ -105,4 +105,5 @@ $text-shadow: none;
   @include metal-hover;
 }
 
-@mixin theme-style {}
+@mixin theme-style {
+}

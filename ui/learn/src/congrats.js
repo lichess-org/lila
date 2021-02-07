@@ -18,12 +18,12 @@ var list = [
   'yesYesYes',
   'youreGoodAtThis',
   'nailedIt',
-  'rightOn'
+  'rightOn',
 ];
 shuffle(list);
 
 var it = 0;
 
-module.exports = function() {
+module.exports = function () {
   return list[it++ % list.length];
 };

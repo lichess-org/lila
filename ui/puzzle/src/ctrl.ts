@@ -22,10 +22,9 @@ import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest,
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
 
-export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
-
+export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {
-    next: defer<PuzzleData>()
+    next: defer<PuzzleData>(),
   } as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
   const autoNext = storedProp('puzzle.autoNext', false);
@@ -41,7 +40,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const sound = {
     move: throttleSound('move'),
     capture: throttleSound('capture'),
-    check: throttleSound('check')
+    check: throttleSound('check'),
   };
 
   function setPath(path: Tree.Path): void {
@@ -102,25 +101,26 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
     const nextNode = vm.node.children[0];
-    const canMove = vm.mode === 'view' ||
-      (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
-    const movable = canMove ? {
-      color: dests.size > 0 ? color : undefined,
-      dests
-    } : {
-        color: undefined,
-        dests: new Map(),
-      };
+    const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
+    const movable = canMove
+      ? {
+          color: dests.size > 0 ? color : undefined,
+          dests,
+        }
+      : {
+          color: undefined,
+          dests: new Map(),
+        };
     const config = {
       fen: node.fen,
       orientation: vm.pov,
       turnColor: color,
       movable: movable,
       premovable: {
-        enabled: false
+        enabled: false,
       },
       check: !!node.check,
-      lastMove: uciToLastMove(node.uci)
+      lastMove: uciToLastMove(node.uci),
     };
     if (node.ply >= vm.initialNode.ply) {
       if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
@@ -161,15 +161,18 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     move = pos.normalizeMove(move);
     const san = makeSanAndPlay(pos, move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
-    addNode({
-      ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
-      fen: makeFen(pos.toSetup()),
-      id: scalachessCharPair(move),
-      uci: makeUci(move),
-      san,
-      check: defined(check) ? makeSquare(check) : undefined,
-      children: []
-    }, path);
+    addNode(
+      {
+        ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
+        fen: makeFen(pos.toSetup()),
+        id: scalachessCharPair(move),
+        uci: makeUci(move),
+        san,
+        check: defined(check) ? makeSquare(check) : undefined,
+        children: [],
+      },
+      path
+    );
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
@@ -197,9 +200,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       if (p == 'good' || p == 'win') return -1;
       return 0;
     });
-    if (recursive) node.children.forEach(child =>
-      reorderChildren(path + child.id, true)
-    );
+    if (recursive) node.children.forEach(child => reorderChildren(path + child.id, true));
   }
 
   function revertUserMove(): void {
@@ -225,7 +226,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
         vm.mode = 'view';
         withGround(showGround);
-        sent.then(_ => autoNext() ? nextPuzzle() : startCeval());
+        sent.then(_ => (autoNext() ? nextPuzzle() : startCeval()));
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
@@ -246,8 +247,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
         vm.round = res.round;
-        if (res.round?.ratingDiff)
-          session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
+        if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
       }
       if (win) speech.success();
       vm.next.resolve(res.next);
@@ -274,16 +274,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       variant: {
         short: 'Std',
         name: 'Standard',
-        key: 'standard'
+        key: 'standard',
       },
       possible: true,
-      emit: function(ev, work) {
-        tree.updateAt(work.path, function(node) {
+      emit: function (ev, work) {
+        tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
-            if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth)
-              node.threat = ev;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth)
-            node.ceval = ev;
+            if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth) node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -296,13 +294,15 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function setAutoShapes(): void {
     withGround(g => {
-      g.setAutoShapes(computeAutoShapes({
-        vm: vm,
-        ceval: ceval,
-        ground: g,
-        threatMode: threatMode(),
-        nextNodeBest: nextNodeBest()
-      }));
+      g.setAutoShapes(
+        computeAutoShapes({
+          vm: vm,
+          ceval: ceval,
+          ground: g,
+          threatMode: threatMode(),
+          nextNodeBest: nextNodeBest(),
+        })
+      );
     });
   }
 
@@ -314,12 +314,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   }
 
-  const doStartCeval = throttle(800, function() {
+  const doStartCeval = throttle(800, function () {
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
   function nextNodeBest() {
-    return treeOps.withMainlineChild(vm.node, function(n) {
+    return treeOps.withMainlineChild(vm.node, function (n) {
       // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
@@ -359,7 +359,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     withGround(showGround);
     if (pathChanged) {
       if (isForwardStep) {
-        if (!vm.node.uci) sound.move(); // initial position
+        if (!vm.node.uci) sound.move();
+        // initial position
         else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
           if (vm.node.san!.includes('x')) sound.capture();
           else sound.move();
@@ -427,7 +428,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       }
       redraw();
     }
-  }
+  };
 
   initiate(opts.data);
 
@@ -445,15 +446,13 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     toggleCeval,
     toggleThreatMode,
     redraw,
-    playBestMove
+    playBestMove,
   });
 
   // If the page loads while being hidden (like when changing settings),
   // chessground is not displayed, and the first move is not fully applied.
   // Make sure chessground is fully shown when the page goes back to being visible.
-  document.addEventListener('visibilitychange', () =>
-    lichess.requestIdleCallback(() => jump(vm.path), 500)
-  );
+  document.addEventListener('visibilitychange', () => lichess.requestIdleCallback(() => jump(vm.path), 500));
 
   speech.setup();
 
@@ -505,7 +504,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     session,
     allThemes: opts.themes && {
       dynamic: opts.themes.dynamic.split(' '),
-      static: new Set(opts.themes.static.split(' '))
-    }
+      static: new Set(opts.themes.static.split(' ')),
+    },
   };
 }

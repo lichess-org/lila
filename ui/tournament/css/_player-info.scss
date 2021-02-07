@@ -16,8 +16,9 @@
       }
     }
 
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
 
     th {
@@ -46,7 +47,7 @@
 
     td:last-child {
       font-weight: bold;
-      opacity: .8;
+      opacity: 0.8;
     }
 
     tr.win td:last-child {
@@ -61,6 +62,6 @@
   }
 
   .color-icon {
-    opacity: .6;
+    opacity: 0.6;
   }
 }

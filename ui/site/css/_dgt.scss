@@ -1,4 +1,4 @@
-@import "./account";
+@import './account';
 
 .dgt {
   h1 {
@@ -24,16 +24,36 @@
   }
 }
 
-.log-warn { color: orange }
-.log-error { color: red }
-.log-info { color: skyblue }
-.log-log { color: silver }
-.log-table { color: cyan }
-.log-warn, .log-error { font-weight: bold; }    
-.dgt-black-move { color: brown; font-size: xx-large;}
-.dgt-white-move { color: tan; font-size: xx-large;}
+.log-warn {
+  color: orange;
+}
+.log-error {
+  color: red;
+}
+.log-info {
+  color: skyblue;
+}
+.log-log {
+  color: silver;
+}
+.log-table {
+  color: cyan;
+}
+.log-warn,
+.log-error {
+  font-weight: bold;
+}
+.dgt-black-move {
+  color: brown;
+  font-size: xx-large;
+}
+.dgt-white-move {
+  color: tan;
+  font-size: xx-large;
+}
 
-table.dgt-table th, table.dgt-table td {
+table.dgt-table th,
+table.dgt-table td {
   border: 1px solid grey;
   padding: 3px;
 }

@@ -1,4 +1,4 @@
-@import "constants";
+@import 'constants';
 
 .round {
   grid-template-areas: 'nvui' 'side' 'uchat';
@@ -9,7 +9,7 @@
 .nvui {
   h2 {
     font-weight: bold;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 
   .moves {
@@ -24,7 +24,8 @@
     line-height: 32px;
     border-collapse: collapse;
     text-align: center;
-    td, th {
+    td,
+    th {
       width: 32px;
       border: 1px solid black;
       .black {

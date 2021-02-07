@@ -8,7 +8,6 @@ interface Data {
 let watchersData: Data | undefined;
 
 export default function watchers(element: HTMLElement) {
-
   const listEl: HTMLElement | null = element.querySelector('.list');
   const numberEl: HTMLElement | null = element.querySelector('.number');
   lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
@@ -26,7 +25,7 @@ export default function watchers(element: HTMLElement) {
       listEl.innerHTML = tags.join(', ');
     } else if (!numberEl && listEl) listEl.innerHTML = `${data.nb} players in the chat`;
     element.classList.remove('none');
-  }
+  };
 
   if (watchersData) set(watchersData);
 }

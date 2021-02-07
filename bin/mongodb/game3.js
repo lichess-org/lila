@@ -4,7 +4,7 @@ var batchSize = 10000;
 var collection = db.game3;
 var pgnCollection = db.pgn;
 
-print("Migrating " + max + " games");
+print('Migrating ' + max + ' games');
 
 collection.drop();
 pgnCollection.drop();
@@ -23,7 +23,7 @@ function map(arr, key, f) {
 }
 
 function clean(arr, key) {
-  if (typeof arr[key] !== 'undefined' && (arr[key] === null || arr[key] === "")) {
+  if (typeof arr[key] !== 'undefined' && (arr[key] === null || arr[key] === '')) {
     delete arr[key];
   }
 }
@@ -39,18 +39,22 @@ function cleanOrRename(arr, from, to) {
   rename(arr, from, to);
 }
 
-function removeSpace(str) { return str.replace(/ /g, ''); }
+function removeSpace(str) {
+  return str.replace(/ /g, '');
+}
 
-function finishedOrAborted(game) { return game.status >= 25; }
+function finishedOrAborted(game) {
+  return game.status >= 25;
+}
 
 var c, z, pgn;
 var it = 0;
 var dat = new Date().getTime() / 1000;
 var finishedPlayerFieldsToRemove = ['previousMoveTs', 'lastDrawOffer', 'isOfferingDraw', 'isProposingTakeback'];
 
-gamesToMigrate.forEach(function(g) {
+gamesToMigrate.forEach(function (g) {
   cleanOrRename(g, 'castles', 'cs');
-  if (g.cc === 'white') { 
+  if (g.cc === 'white') {
     delete g.cc;
   } else {
     g.cc = false;
@@ -83,7 +87,7 @@ gamesToMigrate.forEach(function(g) {
     cleanOrRename(g, 'positionHashes', 'ph');
   }
   cleanOrRename(g, 'clock', 'c');
-  if (c = g.c) {
+  if ((c = g.c)) {
     if (finishedOrAborted(g)) {
       delete c.timer;
     } else {
@@ -94,7 +98,7 @@ gamesToMigrate.forEach(function(g) {
     }
   }
   rename(g, 'players', 'p');
-  g.p.forEach(function(p) {
+  g.p.forEach(function (p) {
     delete p.c;
     map(p, 'ps', removeSpace);
     if (finishedOrAborted(g) && typeof p.blurs !== 'undefined' && p.blurs < 7) {
@@ -113,8 +117,8 @@ gamesToMigrate.forEach(function(g) {
   pgn = g.pgn;
   delete g.pgn;
   collection.insert(g);
-  if (pgn !== null && pgn !== "") {
-    pgnCollection.insert({_id: g._id, p: pgn});
+  if (pgn !== null && pgn !== '') {
+    pgnCollection.insert({ _id: g._id, p: pgn });
   }
   ++it;
   if (it % batchSize == 0) {
@@ -122,16 +126,16 @@ gamesToMigrate.forEach(function(g) {
     var dat2 = new Date().getTime() / 1000;
     var perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
-    print((it / 1000) + "k " + percent + "% " + perSec + "/s");
+    print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');
   }
 });
 
-print("Building indexes");
-collection.ensureIndex({s: 1});
-collection.ensureIndex({uids: 1}, {sparse: 1});
-collection.ensureIndex({wid: 1}, {sparse: 1});
-collection.ensureIndex({ca: -1});
-collection.ensureIndex({uids: 1, ca: -1});
-collection.ensureIndex({bm: 1}, {sparse: 1});
+print('Building indexes');
+collection.ensureIndex({ s: 1 });
+collection.ensureIndex({ uids: 1 }, { sparse: 1 });
+collection.ensureIndex({ wid: 1 }, { sparse: 1 });
+collection.ensureIndex({ ca: -1 });
+collection.ensureIndex({ uids: 1, ca: -1 });
+collection.ensureIndex({ bm: 1 }, { sparse: 1 });
 
-print("Done!");
+print('Done!');

@@ -4,12 +4,12 @@
   padding: 0 !important;
 
   h2 {
-    margin: .5em 0 0 0;
+    margin: 0.5em 0 0 0;
   }
 
   .scrollable {
     overflow-y: auto;
-    padding: .8em 0;
+    padding: 0.8em 0;
   }
 
   table {
@@ -17,15 +17,15 @@
   }
 
   th p {
-    margin: 1.2em 0 .6em 0;
+    margin: 1.2em 0 0.6em 0;
     background: $c-brag;
     color: $c-brag-over;
     font-weight: bold;
-    padding: .3em 0;
+    padding: 0.3em 0;
   }
 
   td {
-    padding: .2em .5em;
+    padding: 0.2em 0.5em;
     text-align: left;
   }
 
@@ -40,7 +40,7 @@
   }
 
   or {
-    margin-left: .2em;
+    margin-left: 0.2em;
     opacity: 0.5;
   }
 

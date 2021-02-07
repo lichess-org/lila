@@ -8,7 +8,7 @@
 
     position: absolute;
     top: 100%;
-    z-index: z("complete");
+    z-index: z('complete');
     width: 14em;
     min-height: 2em;
     background-color: $c-bg-box;
@@ -22,7 +22,7 @@
 
   &-result {
     color: $c-font;
-    padding: .4em 0 .4em .4em;
+    padding: 0.4em 0 0.4em 0.4em;
     display: block;
     cursor: pointer;
     text-align: left;
@@ -30,7 +30,8 @@
     &:hover,
     &:focus,
     &.complete-selected {
-      &, & i {
+      &,
+      & i {
         color: $c-font-clearer !important;
       }
 

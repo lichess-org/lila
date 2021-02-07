@@ -1,15 +1,12 @@
-export default function(serverKey: string): Promise<string> {
+export default function (serverKey: string): Promise<string> {
   const otp = randomAscii(64);
   lichess.socket.send('sk1', `${serverKey}!${otp}`);
-  return new Promise(solve =>
-    lichess.pubsub.on('socket.in.sk1', encrypted => solve(xor(encrypted, otp)))
-  );
+  return new Promise(solve => lichess.pubsub.on('socket.in.sk1', encrypted => solve(xor(encrypted, otp))));
 }
 
 function xor(a: string, b: string) {
   const result = [];
-  for (let i = 0; i < a.length; i++)
-    result.push(String.fromCharCode(a.charCodeAt(i) ^ b.charCodeAt(i)));
+  for (let i = 0; i < a.length; i++) result.push(String.fromCharCode(a.charCodeAt(i) ^ b.charCodeAt(i)));
   return result.join('');
 }
 

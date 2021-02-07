@@ -1,5 +1,5 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 import { prop, Prop } from 'common';
 import { bind, dataIcon, iconTag, scrollTo } from '../util';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
@@ -26,7 +26,6 @@ export function ctrl(
   chapterConfig: (id: string) => Promise<StudyChapterConfig>,
   root: AnalyseCtrl
 ): StudyChaptersCtrl {
-
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
   const newForm = chapterNewForm(send, list, setTab, root);
@@ -45,16 +44,16 @@ export function ctrl(
       return list().length;
     },
     sort(ids) {
-      send("sortChapters", ids);
+      send('sortChapters', ids);
     },
     firstChapterId() {
       return list()[0].id;
     },
     toggleNewForm() {
       if (newForm.vm.open || list().length < 64) newForm.toggle();
-      else alert("You have reached the limit of 64 chapters per study. Please create a new study.");
+      else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
     },
-    localPaths
+    localPaths,
   };
 }
 
@@ -70,15 +69,18 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
   switch (findTag(tags, 'result')) {
-    case '1-0': return isWhite ? '1' : '0';
-    case '0-1': return isWhite ? '0' : '1';
-    case '1/2-1/2': return '1/2';
-    default: return;
+    case '1-0':
+      return isWhite ? '1' : '0';
+    case '0-1':
+      return isWhite ? '0' : '1';
+    case '1/2-1/2':
+      return '1/2';
+    default:
+      return;
   }
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
 
@@ -96,15 +98,15 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function() {
+      const makeSortable = function () {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort() {
             ctrl.chapters.sort(vData.sortable.toArray());
-          }
+          },
         });
-      }
+      };
       if (window['Sortable']) makeSortable();
       else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
@@ -112,50 +114,64 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const introActive = ctrl.relay && ctrl.relay.intro.active;
 
-  return h('div.study__chapters', {
-    hook: {
-      insert(vnode) {
-        (vnode.elm as HTMLElement).addEventListener('click', e => {
-          const target = e.target as HTMLElement;
-          const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
-          if (!id) return;
-          if (target.tagName === 'ACT') ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
-          else ctrl.setChapter(id);
-        });
-        vnode.data!.li = {};
-        update(vnode);
-        lichess.pubsub.emit('chat.resize');
+  return h(
+    'div.study__chapters',
+    {
+      hook: {
+        insert(vnode) {
+          (vnode.elm as HTMLElement).addEventListener('click', e => {
+            const target = e.target as HTMLElement;
+            const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+            if (!id) return;
+            if (target.tagName === 'ACT') ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
+            else ctrl.setChapter(id);
+          });
+          vnode.data!.li = {};
+          update(vnode);
+          lichess.pubsub.emit('chat.resize');
+        },
+        postpatch(old, vnode) {
+          vnode.data!.li = old.data!.li;
+          update(vnode);
+        },
+        destroy: vnode => {
+          const sortable = vnode.data!.li!.sortable;
+          if (sortable) sortable.destroy();
+        },
       },
-      postpatch(old, vnode) {
-        vnode.data!.li = old.data!.li;
-        update(vnode);
-      },
-      destroy: vnode => {
-        const sortable = vnode.data!.li!.sortable;
-        if (sortable) sortable.destroy()
-      }
-    }
-  }, ctrl.chapters.list().map((chapter, i) => {
-    const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-      loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-      active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
-    return h('div', {
-      key: chapter.id,
-      attrs: { 'data-id': chapter.id },
-      class: { active, editing, loading, draggable: canContribute }
-    }, [
-      h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
-      h('h3', chapter.name),
-      canContribute ? h('act', { attrs: dataIcon('%') }) : null
-    ]);
-  }).concat(
-    ctrl.members.canContribute() ? [
-      h('div.add', {
-        hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
-      }, [
-        h('span', iconTag('O')),
-        h('h3', ctrl.trans.noarg('addNewChapter'))
-      ])
-    ] : []
-  ));
+    },
+    ctrl.chapters
+      .list()
+      .map((chapter, i) => {
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
+          loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+          active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
+        return h(
+          'div',
+          {
+            key: chapter.id,
+            attrs: { 'data-id': chapter.id },
+            class: { active, editing, loading, draggable: canContribute },
+          },
+          [
+            h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
+            h('h3', chapter.name),
+            canContribute ? h('act', { attrs: dataIcon('%') }) : null,
+          ]
+        );
+      })
+      .concat(
+        ctrl.members.canContribute()
+          ? [
+              h(
+                'div.add',
+                {
+                  hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
+                },
+                [h('span', iconTag('O')), h('h3', ctrl.trans.noarg('addNewChapter'))]
+              ),
+            ]
+          : []
+      )
+  );
 }

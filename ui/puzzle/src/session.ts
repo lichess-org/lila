@@ -13,17 +13,15 @@ interface Store {
 }
 
 export default class PuzzleSession {
-
   maxSize = 100;
   maxAge = 1000 * 3600;
 
-  constructor(readonly theme: ThemeKey, readonly userId?: string) {
-  }
+  constructor(readonly theme: ThemeKey, readonly userId?: string) {}
 
   default = () => ({
     theme: this.theme,
     rounds: [],
-    at: Date.now()
+    at: Date.now(),
   });
 
   store = storedJsonProp<Store>(`puzzle.session.${this.userId || 'anon'}`, this.default);
@@ -33,7 +31,7 @@ export default class PuzzleSession {
   get = () => {
     const prev = this.store();
     return prev.theme == this.theme && prev.at > Date.now() - this.maxAge ? prev : this.default();
-  }
+  };
 
   update = (f: (s: Store) => Store): Store => this.store(f(this.get()));
 
@@ -43,8 +41,7 @@ export default class PuzzleSession {
       if (i == -1) {
         s.rounds.push({ id, result });
         if (s.rounds.length > this.maxSize) s.rounds.shift();
-      }
-      else s.rounds[i].result = result;
+      } else s.rounds[i].result = result;
       s.at = Date.now();
       return s;
     });

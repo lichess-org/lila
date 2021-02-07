@@ -16,8 +16,9 @@
       }
     }
 
-    th, td {
-      padding: .3em 1em;
+    th,
+    td {
+      padding: 0.3em 1em;
     }
 
     td:last-child {
@@ -26,13 +27,13 @@
 
     .rating {
       font-style: italic;
-      font-size: .8em;
+      font-size: 0.8em;
     }
 
     .leader {
       &::before {
         color: $c-brag;
-        margin-right: .15em;
+        margin-right: 0.15em;
       }
     }
   }

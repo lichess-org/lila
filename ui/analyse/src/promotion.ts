@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import * as ground from './ground';
 import { bind, onInsert } from './util';
 import * as util from 'chessground/util';
@@ -10,24 +10,32 @@ interface Promoting {
   orig: Key;
   dest: Key;
   capture?: JustCaptured;
-  callback: Callback
+  callback: Callback;
 }
 
 type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: Role) => void;
 
 let promoting: Promoting | undefined;
 
-export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
+export function start(
+  ctrl: AnalyseCtrl,
+  orig: Key,
+  dest: Key,
+  capture: JustCaptured | undefined,
+  callback: Callback
+): boolean {
   const s = ctrl.chessground.state;
   const piece = s.pieces.get(dest);
-  if (piece && piece.role == 'pawn' && (
-    (dest[1] == '8' && s.turnColor == 'black') ||
-    (dest[1] == '1' && s.turnColor == 'white'))) {
+  if (
+    piece &&
+    piece.role == 'pawn' &&
+    ((dest[1] == '8' && s.turnColor == 'black') || (dest[1] == '1' && s.turnColor == 'white'))
+  ) {
     promoting = {
       orig,
       dest,
       capture,
-      callback
+      callback,
     };
     ctrl.redraw();
     return true;
@@ -59,23 +67,31 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
 
   const vertical = color === orientation ? 'top' : 'bottom';
 
-  return h('div#promotion-choice.' + vertical, {
-    hook: onInsert(el => {
-      el.addEventListener('click', _ => cancel(ctrl));
-      el.oncontextmenu = () => false;
+  return h(
+    'div#promotion-choice.' + vertical,
+    {
+      hook: onInsert(el => {
+        el.addEventListener('click', _ => cancel(ctrl));
+        el.oncontextmenu = () => false;
+      }),
+    },
+    pieces.map(function (serverRole: Role, i) {
+      const top = (color === orientation ? i : 7 - i) * 12.5;
+      return h(
+        'square',
+        {
+          attrs: {
+            style: `top:${top}%;left:${left}%`,
+          },
+          hook: bind('click', e => {
+            e.stopPropagation();
+            finish(ctrl, serverRole);
+          }),
+        },
+        [h(`piece.${serverRole}.${color}`)]
+      );
     })
-  }, pieces.map(function(serverRole: Role, i) {
-    const top = (color === orientation ? i : 7 - i) * 12.5;
-    return h('square', {
-      attrs: {
-        style: `top:${top}%;left:${left}%`
-      },
-      hook: bind('click', e => {
-        e.stopPropagation();
-        finish(ctrl, serverRole);
-      })
-    }, [h(`piece.${serverRole}.${color}`)]);
-  }));
+  );
 }
 
 const roles: Role[] = ['queen', 'knight', 'rook', 'bishop'];
@@ -83,8 +99,11 @@ const roles: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
-  return renderPromotion(ctrl, promoting.dest,
+  return renderPromotion(
+    ctrl,
+    promoting.dest,
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     promoting.dest[1] === '8' ? 'white' : 'black',
-    ctrl.chessground.state.orientation);
+    ctrl.chessground.state.orientation
+  );
 }

@@ -5,7 +5,7 @@
 
   h3 {
     font-size: 1.2em;
-    padding: .5em 1em;
+    padding: 0.5em 1em;
   }
 
   table {
@@ -15,7 +15,7 @@
   td {
     @extend %nowrap-ellipsis;
 
-    padding: .2em 1em;
+    padding: 0.2em 1em;
     line-height: 2em;
   }
 

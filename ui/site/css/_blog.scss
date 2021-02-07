@@ -48,7 +48,8 @@
     height: auto;
   }
 
-  twitter-widget, [data-oembed] iframe {
+  twitter-widget,
+  [data-oembed] iframe {
     max-width: calc(100vw - 2 * var(--box-padding)) !important;
     margin: 30px auto !important;
   }
@@ -59,7 +60,7 @@
 
   &.post h1 {
     a {
-      font-size: .6em;
+      font-size: 0.6em;
       vertical-align: middle;
     }
   }
@@ -85,11 +86,12 @@
     .block-img + p > em:first-child {
       margin-top: -20px;
       display: block;
-      font-size: .8em;
+      font-size: 0.8em;
       text-align: center;
     }
 
-    ol, ul {
+    ol,
+    ul {
       margin: 25px;
     }
 
@@ -103,7 +105,7 @@
     }
 
     h3 {
-      @include fluid-size("font-size", 18px, 30px);
+      @include fluid-size('font-size', 18px, 30px);
 
       font-weight: bold;
       margin: 1.6em 0 1em 0;
@@ -202,8 +204,8 @@
 
       a {
         display: inline-block;
-        margin: 0 .5em;
-        font-size: .85em;
+        margin: 0 0.5em;
+        font-size: 0.85em;
       }
     }
   }
@@ -233,7 +235,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      padding: .2em .5em;
+      padding: 0.2em 0.5em;
       background: #111;
       color: #ddd;
       border-radius: 0 0 $box-radius-size 0;

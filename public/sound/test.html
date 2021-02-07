@@ -1,64 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lichess - Sound Test Page</title>
+    <style>
+      html,
+      body {
+        font: 16px monospace;
+        background: #000;
+        color: #ebd488;
+      }
 
-<head>
-  <meta charset="utf-8">
-  <title>lichess - Sound Test Page</title>
-  <style>
-    html,
-    body {
-      font: 16px monospace;
-      background: #000;
-      color: #ebd488
-    }
+      button {
+        width: 100%;
+      }
+    </style>
+    <meta content="noindex, nofollow" name="robots" />
+  </head>
 
-    button {
-      width: 100%;
-    }
-  </style>
-  <meta content="noindex, nofollow" name="robots">
-</head>
-
-<body data-asset-version="_av_">
-  <h1>Sound Test Page</h1>
-  <script>
-    lichess = {
-      load: new Promise(() => {})
-    }
-  document.body.setAttribute('data-asset-url', `${location.protocol}//${location.host}`);
-  </script>
-  <script src="../compiled/deps.min.js"></script>
-  <script src="../compiled/site.js"></script>
-  <table>
-    <thead>
-      <tr id="sets"></tr>
-    </thead>
-    <tbody id="sounds">
-    </tbody>
-  </table>
-  <script>
-    function playSound(set, name) {
-      lichess.sound.changeSet(set);
-      lichess.sound.play(name);
-    }
-    const soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"],
-    basics = ['genericNotify', 'move', 'capture', 'explosion', 'lowTime', 'victory', 'defeat', 'draw', 'berserk', 'check', 'newChallenge', 'newPM', 'confirmation', 'error'];
-/*
+  <body data-asset-version="_av_">
+    <h1>Sound Test Page</h1>
+    <script>
+      lichess = {
+        load: new Promise(() => {}),
+      };
+      document.body.setAttribute('data-asset-url', `${location.protocol}//${location.host}`);
+    </script>
+    <script src="../compiled/deps.min.js"></script>
+    <script src="../compiled/site.js"></script>
+    <table>
+      <thead>
+        <tr id="sets"></tr>
+      </thead>
+      <tbody id="sounds"></tbody>
+    </table>
+    <script>
+      function playSound(set, name) {
+        lichess.sound.changeSet(set);
+        lichess.sound.play(name);
+      }
+      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'],
+        basics = [
+          'genericNotify',
+          'move',
+          'capture',
+          'explosion',
+          'lowTime',
+          'victory',
+          'defeat',
+          'draw',
+          'berserk',
+          'check',
+          'newChallenge',
+          'newPM',
+          'confirmation',
+          'error',
+        ];
+      /*
     for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
     $.each(soundSets, function(i, soundSet) {
       $('#sets').append($('<th>').text(soundSet));
     });
     */
-    for (const name of basics) {
-      var tr = $('<tr>').appendTo($('#sounds'));
-      $.each(soundSets, function(i, soundSet) {
-        var id = "soundSet_" + soundSet;
-        $('<td>').append($("<button>").on('click', function() {
-          playSound(soundSet, name);
-        }).text(name)).appendTo(tr);
-      });
-    }
-    /*
+      for (const name of basics) {
+        var tr = $('<tr>').appendTo($('#sounds'));
+        $.each(soundSets, function (i, soundSet) {
+          var id = 'soundSet_' + soundSet;
+          $('<td>')
+            .append(
+              $('<button>')
+                .on('click', function () {
+                  playSound(soundSet, name);
+                })
+                .text(name)
+            )
+            .appendTo(tr);
+        });
+      }
+      /*
         var tr = $('<tr>');
         $.each(soundSets, function(i, soundSet) {
           $('<td>').append($("<button>").on('click', function() {
@@ -71,7 +90,6 @@
           tr.appendTo($('#sounds'));
         });
         */
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

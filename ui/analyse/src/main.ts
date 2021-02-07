@@ -9,12 +9,11 @@ import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { Chessground } from 'chessground';
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 
 export const patch = init([klass, attributes]);
 
 export function start(opts: AnalyseOpts): AnalyseApi {
-
   opts.element = document.querySelector('main.analyse') as HTMLElement;
   opts.trans = lichess.trans(opts.i18n);
 
@@ -37,8 +36,8 @@ export function start(opts: AnalyseOpts): AnalyseApi {
     path: () => ctrl.path,
     setChapter(id: string) {
       if (ctrl.study) ctrl.study.setChapter(id);
-    }
-  }
+    },
+  };
 }
 
 export { boot };

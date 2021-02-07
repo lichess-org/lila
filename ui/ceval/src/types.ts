@@ -104,8 +104,8 @@ export interface ParentCtrl {
 }
 
 export interface NodeEvals {
-  client?: Tree.ClientEval
-  server?: Tree.ServerEval
+  client?: Tree.ClientEval;
+  server?: Tree.ServerEval;
 }
 
 export interface Step {

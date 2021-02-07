@@ -3,7 +3,9 @@ html {
   min-height: 100%;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
@@ -35,7 +37,8 @@ p {
   margin-bottom: 1em;
 }
 
-em, i {
+em,
+i {
   font-style: normal;
 }
 
@@ -58,10 +61,16 @@ hr {
 }
 
 small {
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
-table, tbody, tfoot, thead, tr, th, td {
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
   border: 0;
   font-size: 100%;
   font: inherit;

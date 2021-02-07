@@ -7,9 +7,8 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 
-
 function is64Bit(): boolean {
-  const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
+  const x64 = ['x86_64', 'x86-64', 'Win64', 'x64', 'amd64', 'AMD64'];
   for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
   return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
 }
@@ -27,7 +26,7 @@ function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory 
   if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
-  const mem = new WebAssembly.Memory({shared: true, initial, maximum} as WebAssembly.MemoryDescriptor);
+  const mem = new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
   if (!(mem.buffer instanceof SharedArrayBuffer)) return;
 
   // Structured cloning
@@ -52,7 +51,7 @@ function enabledAfterDisable() {
   return !disable || enabledAfter === disable;
 }
 
-export default function(opts: CevalOpts): CevalCtrl {
+export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
@@ -69,15 +68,21 @@ export default function(opts: CevalOpts): CevalCtrl {
       try {
         sharedMem.grow(8);
         growableSharedMem = true;
-      } catch (e) { }
+      } catch (e) {}
     }
   }
 
   const initialAllocationMaxThreads = officialStockfish(opts.variant.key) ? 2 : 1;
-  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 32 : initialAllocationMaxThreads);
-  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads));
+  const maxThreads = Math.min(
+    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+    growableSharedMem ? 32 : initialAllocationMaxThreads
+  );
+  const threads = storedProp(
+    storageKey('ceval.threads'),
+    Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
+  );
 
-  const maxHashSize = Math.min((navigator.deviceMemory || 0.25) * 1024 / 8, growableSharedMem ? 1024 : 16);
+  const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const minDepth = 6;
@@ -92,25 +97,34 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const pool = new Pool({
-    technology,
-    asmjs: 'vendor/stockfish.js/stockfish.js',
-    wasm: 'vendor/stockfish.js/stockfish.wasm.js',
-    wasmx: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js',
-  }, {
-    minDepth,
-    variant: opts.variant.key,
-    threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
-    hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
-  });
+  const pool = new Pool(
+    {
+      technology,
+      asmjs: 'vendor/stockfish.js/stockfish.js',
+      wasm: 'vendor/stockfish.js/stockfish.wasm.js',
+      wasmx: officialStockfish(opts.variant.key)
+        ? 'vendor/stockfish.wasm/stockfish.js'
+        : 'vendor/stockfish-mv.wasm/stockfish.js',
+    },
+    {
+      minDepth,
+      variant: opts.variant.key,
+      threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
+      hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
+    }
+  );
 
   // adjusts maxDepth based on nodes per second
   const npsRecorder = (() => {
     const values: number[] = [];
     const applies = (ev: Tree.ClientEval) => {
-      return ev.knps && ev.depth >= 16 &&
-        typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
-        (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
+      return (
+        ev.knps &&
+        ev.depth >= 16 &&
+        typeof ev.cp !== 'undefined' &&
+        Math.abs(ev.cp) < 500 &&
+        ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
+      );
     };
     return (ev: Tree.ClientEval) => {
       if (!applies(ev)) return;
@@ -136,25 +150,25 @@ export default function(opts: CevalOpts): CevalCtrl {
   let lastEmitFen: string | null = null;
 
   const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
-    sortPvsInPlace(ev.pvs, (work.ply % 2 === (work.threatMode ? 1 : 0)) ? 'white' : 'black');
+    sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
-    if (ev.fen !== lastEmitFen && enabledAfterDisable()) { // amnesty while auto disable not processed
+    if (ev.fen !== lastEmitFen && enabledAfterDisable()) {
+      // amnesty while auto disable not processed
       lastEmitFen = ev.fen;
       lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
 
-  const effectiveMaxDepth = () => (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
+  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : parseInt(maxDepth()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort(function(a, b) {
+    pvs.sort(function (a, b) {
       return povChances(color, b) - povChances(color, a);
     });
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
-
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
     isDeeper(deeper);
@@ -167,7 +181,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       lastStarted = {
         path,
         steps,
-        threatMode
+        threatMode,
       };
       return;
     }
@@ -183,7 +197,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       threatMode,
       emit(ev: Tree.ClientEval) {
         if (enabled()) onEmit(ev, work);
-      }
+      },
     };
 
     if (threatMode) {
@@ -211,7 +225,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     started = {
       path,
       steps,
-      threatMode
+      threatMode,
     };
   };
 
@@ -245,10 +259,14 @@ export default function(opts: CevalOpts): CevalCtrl {
     infinite,
     hovering,
     setHovering(fen: Fen, uci?: Uci) {
-      hovering(uci ? {
-        fen,
+      hovering(
         uci
-      } : null);
+          ? {
+              fen,
+              uci,
+            }
+          : null
+      );
       opts.setAutoShapes();
     },
     toggle() {
@@ -263,7 +281,7 @@ export default function(opts: CevalOpts): CevalCtrl {
         enabled(false);
       }
     },
-    curDepth: () => curEval ? curEval.depth : 0,
+    curDepth: () => (curEval ? curEval.depth : 0),
     effectiveMaxDepth,
     variant: opts.variant,
     isDeeper,
@@ -272,6 +290,6 @@ export default function(opts: CevalOpts): CevalCtrl {
     isComputing: () => !!started && pool.isComputing(),
     engineName: pool.engineName,
     destroy: pool.destroy,
-    redraw: opts.redraw
+    redraw: opts.redraw,
   };
 }

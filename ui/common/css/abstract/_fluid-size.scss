@@ -16,15 +16,17 @@ $vp-max-width: 1200px !default;
       #{$prop}: $min-size;
 
       @media (min-width: $min-vw) {
-        #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        #{$prop}: calc(
+          #{$min-size} + #{strip-unit($max-size - $min-size)} *
+            ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+        );
       }
 
       @media (min-width: $max-vw) {
         #{$prop}: $max-size;
       }
     }
-  }
-  @else {
+  } @else {
     @error "fluid-size requires that all values have the same unit";
   }
 }

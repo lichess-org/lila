@@ -2,7 +2,7 @@
   &__form {
     @extend %flex-center;
 
-    font-size: .9em;
+    font-size: 0.9em;
     white-space: nowrap;
     margin: 1em 1em 1em 0;
 
@@ -12,16 +12,16 @@
     }
 
     td {
-      padding: .4em 0;
+      padding: 0.4em 0;
     }
 
-    input[type="text"],
+    input[type='text'],
     select {
       padding: 0.3em 1em !important;
     }
 
     label {
-      margin-right: .5em;
+      margin-right: 0.5em;
       white-space: normal;
     }
 
@@ -38,8 +38,9 @@
         text-align: right;
         justify-content: flex-end;
 
-        select, input {
-          margin-left: .3em;
+        select,
+        input {
+          margin-left: 0.3em;
         }
       }
 

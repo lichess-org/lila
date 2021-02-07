@@ -1,4 +1,4 @@
-@import "constants";
+@import 'constants';
 
 $player-height: 30px;
 
@@ -6,9 +6,9 @@ $player-height: 30px;
   .round__app {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows: $player-height 1fr $material-height $expiration-height $moves-height $controls-height $expiration-height $material-height 1fr $player-height;
-    grid-template-areas: 'user-top .' 'board .' 'board mat-top'  'board expi-top'  'board moves'  'board controls'  'board expi-bot'  'board mat-bot' 'board .'  'user-bot .'  'kb-move .';
+    grid-template-areas: 'user-top .' 'board .' 'board mat-top' 'board expi-top' 'board moves' 'board controls' 'board expi-bot' 'board mat-bot' 'board .' 'user-bot .' 'kb-move .';
 
-    margin-top: -.5em;
+    margin-top: -0.5em;
 
     .rclock-top {
       grid-area: 1 / 1 / 2 / 2;
@@ -46,7 +46,7 @@ $player-height: 30px;
   }
 
   .ruser {
-    padding: 0 .3em;
+    padding: 0 0.3em;
     line-height: $player-height;
 
     a {
@@ -55,6 +55,6 @@ $player-height: 30px;
   }
 }
 
-#top .site-buttons a[title="Moderation"] {
+#top .site-buttons a[title='Moderation'] {
   display: none;
 }

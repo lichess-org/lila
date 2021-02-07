@@ -7,13 +7,13 @@
   background: $c-bg-popup;
   display: none;
   position: absolute;
-  z-index: z("powertip");
+  z-index: z('powertip');
 
   .mini-game__player {
-    padding: 3px .5em .3em .7em;
+    padding: 3px 0.5em 0.3em 0.7em;
 
     &:first-child {
-      padding: .3em .5em 3px .7em;
+      padding: 0.3em 0.5em 3px 0.7em;
     }
   }
 }
@@ -23,7 +23,7 @@
     @extend %flex-column;
 
     height: 83px;
-    padding: .4em .5em .3em .5em;
+    padding: 0.4em 0.5em 0.3em 0.5em;
     border-bottom: $border;
     overflow: hidden;
 
@@ -35,7 +35,7 @@
       }
 
       &__country {
-        margin-left: .5em;
+        margin-left: 0.5em;
       }
 
       .user-link {
@@ -51,10 +51,10 @@
       &__country {
         @extend %flex-center;
 
-        font-size: .9em;
+        font-size: 0.9em;
 
         img {
-          margin-right: .3em;
+          margin-right: 0.3em;
         }
       }
     }
@@ -117,7 +117,7 @@
     }
 
     span {
-      padding: .3em .5em .3em .5em;
+      padding: 0.3em 0.5em 0.3em 0.5em;
       margin: 0;
     }
   }

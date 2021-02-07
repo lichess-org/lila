@@ -10,8 +10,7 @@ import { VNode } from 'snabbdom/vnode';
 
 const patch = init([klass, attributes]);
 
-export default function(opts: PuzzleOpts): void {
-
+export default function (opts: PuzzleOpts): void {
   const element = document.querySelector('main.puzzle') as HTMLElement;
   let vnode: VNode, ctrl: Controller;
 

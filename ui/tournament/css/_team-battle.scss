@@ -1,8 +1,19 @@
-$team-colors: (0: hsl(274, 100%, 59%), 1: hsl(240, 100%, 67%), 2: #008000, 3: #b22222, 4: hsl(16, 80%, 62%), 5: #9acd32, 6: #ff4500, 7: #2e8b57, 8: #daa520, 9: hsl(32, 75%, 47%));
+$team-colors: (
+  0: hsl(274, 100%, 59%),
+  1: hsl(240, 100%, 67%),
+  2: #008000,
+  3: #b22222,
+  4: hsl(16, 80%, 62%),
+  5: #9acd32,
+  6: #ff4500,
+  7: #2e8b57,
+  8: #daa520,
+  9: hsl(32, 75%, 47%),
+);
 
 team {
   padding: 1px 5px;
-  font-size: .8em;
+  font-size: 0.8em;
   font-weight: bold;
   color: $c-brag;
 }
@@ -15,7 +26,7 @@ team {
 
 .tour__player-info team {
   margin: 1rem auto 0 auto;
-  padding: .15rem .8rem;
+  padding: 0.15rem 0.8rem;
   font-size: 1em;
   cursor: pointer;
 }
@@ -82,7 +93,13 @@ team {
   tr.active td:last-child {
     $c-active-border: mix($c-primary, $c-bg-box, 70%);
 
-    background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+      to left,
+      $c-active-border 0px,
+      $c-active-border 5px,
+      rgba(0, 0, 0, 0) 5px,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .tour__main & tr:hover {

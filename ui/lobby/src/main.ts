@@ -1,5 +1,5 @@
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
@@ -12,7 +12,6 @@ import makeCtrl from './ctrl';
 import view from './view/main';
 
 export default function main(opts: LobbyOpts) {
-
   let vnode: VNode, ctrl: LobbyController;
 
   function redraw() {
@@ -36,7 +35,7 @@ export default function main(opts: LobbyOpts) {
     enterPool: ctrl.enterPool,
     leavePool: ctrl.leavePool,
     setup: ctrl.setup,
-    redraw: ctrl.redraw
+    redraw: ctrl.redraw,
   };
 }
 

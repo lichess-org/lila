@@ -10,5 +10,5 @@ export default rollupProject({
     name: 'LichessPuzzleDashboard',
     input: 'src/dashboard.ts',
     output: 'puzzle.dashboard',
-  }
+  },
 });

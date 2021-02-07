@@ -12,19 +12,23 @@ interface Opts<Result> {
 }
 
 export default function <Result>(opts: Opts<Result>) {
-
   const minLength = opts.minLength || 3,
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),
     fetchResults: Fetch<Result> = term => {
       if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
       else if (
-        term.length > 3 && Array.from({
-          length: term.length - 3
-        }, (_, i) => -i - 1).map(i => term.slice(0, i)).some(sub =>
-          cache.has(sub) && !cache.get(sub)!.length
+        term.length > 3 &&
+        Array.from(
+          {
+            length: term.length - 3,
+          },
+          (_, i) => -i - 1
         )
-      ) return Promise.resolve([]);
+          .map(i => term.slice(0, i))
+          .some(sub => cache.has(sub) && !cache.get(sub)!.length)
+      )
+        return Promise.resolve([]);
       return opts.fetch(term).then(results => {
         cache.set(term, results);
         return results;
@@ -58,13 +62,16 @@ export default function <Result>(opts: Opts<Result>) {
     if (term.length >= minLength && (!opts.regex || term.match(opts.regex)))
       fetchResults(term).then(renderResults, console.log);
     else $container.addClass('none');
-  }
+  };
 
   $(opts.input).on({
     input: update,
     focus: update,
     // must be delayed, otherwise the result click event doesn't fire
-    blur() { setTimeout(() => $container.addClass('none'), 100); return true; },
+    blur() {
+      setTimeout(() => $container.addClass('none'), 100);
+      return true;
+    },
     keydown(e: KeyboardEvent) {
       if ($container.hasClass('none')) return;
       if (e.code == 'ArrowDown') {
@@ -77,17 +84,18 @@ export default function <Result>(opts: Opts<Result>) {
       }
       if (e.code == 'Enter') {
         $container.addClass('none');
-        const result = selectedResult() || (
-          renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value ?
-            renderedResults[0] : undefined
-        );
+        const result =
+          selectedResult() ||
+          (renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value
+            ? renderedResults[0]
+            : undefined);
         if (result) {
           if (opts.onSelect) opts.onSelect(result);
           return false;
         }
       }
       return;
-    }
+    },
   });
 
   const renderResults = (results: Result[]) => {

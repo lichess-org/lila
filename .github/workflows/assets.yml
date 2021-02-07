@@ -3,50 +3,50 @@ name: Build assets
 on:
   push:
     paths:
-    - '.github/workflows/assets.yml'
-    - 'public/**'
-    - 'ui/**'
-    - 'package.json'
-    - 'yarn.lock'
+      - '.github/workflows/assets.yml'
+      - 'public/**'
+      - 'ui/**'
+      - 'package.json'
+      - 'yarn.lock'
   pull_request:
     paths:
-    - '.github/workflows/assets.yml'
-    - 'public/**'
-    - 'ui/**'
-    - 'package.json'
-    - 'yarn.lock'
+      - '.github/workflows/assets.yml'
+      - 'public/**'
+      - 'ui/**'
+      - 'package.json'
+      - 'yarn.lock'
 
 jobs:
   assets:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - run: git submodule absorbgitdirs
-    - uses: actions/checkout@v2
-      with:
-        repository: lichess-org/ab
-        ssh-key: ${{ secrets.id_rsa_ab }}
-        ref: master
-        path: ab
-      continue-on-error: true
-      id: ab
-    - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
-      if: steps.ab.outcome == 'success'
-    - run: echo "::set-output name=dir::$(yarn cache dir)"
-      id: yarn-cache
-    - uses: actions/cache@v2
-      with:
-        path: ${{ steps.yarn-cache.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-        restore-keys: ${{ runner.os }}-yarn-
-    - run: ./ui/build prod
-    - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
-    - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
-      env:
-        XZ_OPT: '-0'
-    - uses: actions/upload-artifact@v1
-      with:
-        name: lila-assets
-        path: assets.tar.xz
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - run: git submodule absorbgitdirs
+      - uses: actions/checkout@v2
+        with:
+          repository: lichess-org/ab
+          ssh-key: ${{ secrets.id_rsa_ab }}
+          ref: master
+          path: ab
+        continue-on-error: true
+        id: ab
+      - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
+        if: steps.ab.outcome == 'success'
+      - run: echo "::set-output name=dir::$(yarn cache dir)"
+        id: yarn-cache
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - run: ./ui/build prod
+      - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+      - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
+        env:
+          XZ_OPT: '-0'
+      - uses: actions/upload-artifact@v1
+        with:
+          name: lila-assets
+          path: assets.tar.xz

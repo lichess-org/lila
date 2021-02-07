@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 $pocket-col1-height: auto;
 $pocket-height: 60px;
@@ -25,7 +25,6 @@ $pocket-height: 60px;
     grid-template-rows: $pocket-height auto $pocket-height;
     grid-template-areas: 'board      gauge pocket-top' 'board      gauge tools' 'board      gauge pocket-bot' 'under      .     controls' 'under      .     acpl' 'under      .     side' 'chat       .     side' 'uchat      .     side';
   }
-
 
   @include breakpoint($mq-col3) {
     grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;

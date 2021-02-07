@@ -3,7 +3,7 @@
 
   h2 {
     margin-bottom: 1em;
-    padding-bottom: .3em;
+    padding-bottom: 0.3em;
     border-bottom: $border;
   }
 
@@ -20,9 +20,9 @@
 
   .node .back {
     width: 1em;
-    margin-right: .3em;
+    margin-right: 0.3em;
     display: inline-block;
-    opacity: .6;
+    opacity: 0.6;
 
     &:hover {
       opacity: 1;
@@ -46,7 +46,7 @@
   }
 
   .leaf a {
-    color: #3893E8 !important;
+    color: #3893e8 !important;
   }
 
   .leaf .content {

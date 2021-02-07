@@ -2,12 +2,14 @@ import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
 
-const EVAL_REGEX = new RegExp(''
-  + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
-  + /score (cp|mate) ([-\d]+) /.source
-  + /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source
-  + /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source
-  + /pv (.+)/.source);
+const EVAL_REGEX = new RegExp(
+  '' +
+    /^info depth (\d+) seldepth \d+ multipv (\d+) /.source +
+    /score (cp|mate) ([-\d]+) /.source +
+    /(?:(upper|lower)bound )?nodes (\d+) nps \S+ /.source +
+    /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source +
+    /pv (.+)/.source
+);
 
 export default class Protocol {
   private work: Work | null = null;
@@ -31,7 +33,8 @@ export default class Protocol {
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
+    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway');
+    // for old asmjs fallback
     else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
@@ -70,7 +73,7 @@ export default class Protocol {
     if (depth < this.opts.minDepth) return;
 
     const pivot = this.work.threatMode ? 0 : 1;
-    const ev = (this.work.ply % 2 === pivot) ? -povEv : povEv;
+    const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
@@ -95,7 +98,7 @@ export default class Protocol {
         cp: isMate ? undefined : ev,
         mate: isMate ? ev : undefined,
         pvs: [pvData],
-        millis: elapsedMs
+        millis: elapsedMs,
       };
     } else if (this.curEval) {
       this.curEval.pvs.push(pvData);

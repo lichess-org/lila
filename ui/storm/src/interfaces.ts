@@ -1,6 +1,6 @@
 import { Role } from 'chessground/types';
-import {Prop} from 'common';
-import { VNode } from 'snabbdom/vnode'
+import { Prop } from 'common';
+import { VNode } from 'snabbdom/vnode';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -43,7 +43,7 @@ export interface StormVm {
     moves: number;
     errors: number;
     response?: RunResponse;
-  }
+  };
   dupTab?: boolean;
   signed: Prop<string | undefined>;
   lateStart: boolean;

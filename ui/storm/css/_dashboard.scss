@@ -1,6 +1,6 @@
-@import "font";
-@import "play-again";
-@import "high";
+@import 'font';
+@import 'play-again';
+@import 'high';
 
 .storm-dashboard {
   .storm-play-again {
@@ -30,7 +30,8 @@
     }
 
     @include breakpoint($mq-not-small) {
-      td, th {
+      td,
+      th {
         &:nth-child(3),
         &:nth-child(5),
         &:nth-child(6) {
@@ -40,7 +41,8 @@
     }
 
     @include breakpoint($mq-not-xx-small) {
-      td, th {
+      td,
+      th {
         &:nth-child(3),
         &:nth-child(4),
         &:nth-child(5),

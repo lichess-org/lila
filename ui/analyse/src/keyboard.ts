@@ -1,10 +1,10 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { modal } from './modal';
 import { spinner } from './util';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;
@@ -60,7 +60,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
 
   if (ctrl.studyPractice) return;
 
-  kbd.bind('f', ctrl.flip)
+  kbd
+    .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
@@ -78,7 +79,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
   if (ctrl.study) {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, () => {
-        $(selector).each(function(this: HTMLElement) {
+        $(selector).each(function (this: HTMLElement) {
           this.dispatchEvent(new Event('mousedown'));
         });
       });
@@ -86,7 +87,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     keyToMousedown('d', '.study__buttons .comments');
     keyToMousedown('g', '.study__buttons .glyphs');
   }
-}
+};
 
 export function view(ctrl: AnalyseCtrl): VNode {
   return modal({
@@ -94,15 +95,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
     onInsert(el: HTMLElement) {
       lichess.loadCssPath('analyse.keyboard');
       xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
-        el.querySelector('.scrollable')!.innerHTML = html
+        el.querySelector('.scrollable')!.innerHTML = html;
       });
     },
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [
-      h('div.scrollable', spinner())
-    ]
+    content: [h('div.scrollable', spinner())],
   });
 }

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server error • lichess.org</title>
     <style>
       @font-face {
         font-family: 'PT Serif';
         font-style: italic;
         font-weight: 400;
-        src: local('PT Serif Italic'), local('PTSerif-Italic'), url(https://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        src: local('PT Serif Italic'), local('PTSerif-Italic'),
+          url(https://fonts.gstatic.com/s/ptserif/v8/03aPdn7fFF3H6ngCgAlQzPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212,
+          U+2215, U+E0FF, U+EFFD, U+F000;
       }
-      html, body {
+      html,
+      body {
         font: 16px 'PT Serif';
         background: #000;
         color: #ebd488;
@@ -21,7 +24,8 @@
         margin: 0;
         padding: 0;
       }
-      a, a:visited {
+      a,
+      a:visited {
         color: #ebd488;
       }
       h1 {
@@ -36,7 +40,7 @@
       }
       credit {
         display: block;
-        font-size: .9em;
+        font-size: 0.9em;
         opacity: 0.6;
         margin: 0 0 20px 0;
       }
@@ -58,17 +62,17 @@
         }
       }
     </style>
-    <meta content="noindex, nofollow" name="robots">
+    <meta content="noindex, nofollow" name="robots" />
   </head>
   <body>
     <h1>lichess.org is down</h1>
     <p>We expect to be back very soon. Thanks for your patience.</p>
-    <img id="robot"
-      src="//lichess1.org/assets/images/maintenance.jpg"
-      alt="Lichess maintenance" />
-      <credit>Drawing by <a href="https://www.pixiv.net/member.php?id=34624">Gia</a></credit>
+    <img id="robot" src="//lichess1.org/assets/images/maintenance.jpg" alt="Lichess maintenance" />
+    <credit>Drawing by <a href="https://www.pixiv.net/member.php?id=34624">Gia</a></credit>
     <script>
-      setTimeout(function() { location.reload(); }, 20000);
+      setTimeout(function () {
+        location.reload();
+      }, 20000);
     </script>
   </body>
 </html>

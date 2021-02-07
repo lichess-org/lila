@@ -10,7 +10,6 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
   }
 }
 
-
 .main-board {
   padding-bottom: $td-outer-height-percent;
 
@@ -75,29 +74,43 @@ cg-board::before {
   }
 }
 
-$board-files: "Black-White-Aluminium", "Brushed-Aluminium", "China-Blue", "China-Green", "China-Grey", "China-Scarlet", "China-Yellow", "Classic-Blue", "Transparent-Glass", "Gold-Silver", "Green-Glass", "Light-Wood", "Power-Coated", "Purple-Black", "Rosewood", "Wood-Glass", "Wax", "Jade", "Marble", "Woodi";
+$board-files: 'Black-White-Aluminium', 'Brushed-Aluminium', 'China-Blue', 'China-Green', 'China-Grey', 'China-Scarlet',
+  'China-Yellow', 'Classic-Blue', 'Transparent-Glass', 'Gold-Silver', 'Green-Glass', 'Light-Wood', 'Power-Coated',
+  'Purple-Black', 'Rosewood', 'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
 
 @each $name in $board-files {
   .#{$name} cg-board::before {
-    background-image: img-url("staunton/board/#{$name}.png");
+    background-image: img-url('staunton/board/#{$name}.png');
   }
 }
 
-$piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": true, "Metal": true, "ModernJade": true, "ModernWood": true, "RedVBlue": true, "Trimmed": true, "Wood": true, "CubesAndPi": true);
+$piece-files: (
+  'Staunton': false,
+  'Basic': true,
+  'Experimental': true,
+  'Glass': true,
+  'Metal': true,
+  'ModernJade': true,
+  'ModernWood': true,
+  'RedVBlue': true,
+  'Trimmed': true,
+  'Wood': true,
+  'CubesAndPi': true,
+);
 
 @each $name, $flips in $piece-files {
-  @each $color in "White", "Black" {
-    @each $type in "Pawn", "Bishop", "Knight", "Rook", "Queen", "King" {
+  @each $color in 'White', 'Black' {
+    @each $type in 'Pawn', 'Bishop', 'Knight', 'Rook', 'Queen', 'King' {
       .#{$name} .#{to-lower-case($type)}.#{to-lower-case($color)} {
-        background-image: img-url("staunton/piece/#{$name}/#{$color}-#{$type}.png");
+        background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}.png');
       }
     }
 
     @if $flips {
-      @each $color, $orientation in ("White": "black", "Black": "white") {
-        @each $type in "Bishop", "Knight" {
+      @each $color, $orientation in ('White': 'black', 'Black': 'white') {
+        @each $type in 'Bishop', 'Knight' {
           .#{$name} .main-board .orientation-#{$orientation} .#{to-lower-case($type)}.#{to-lower-case($color)} {
-            background-image: img-url("staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png");
+            background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png');
           }
         }
       }
@@ -114,7 +127,8 @@ $piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": 
   background-position: 0 -6px;
 }
 
-.main-board, .eval-gauge {
+.main-board,
+.eval-gauge {
   margin-top: 4vh;
 }
 
@@ -122,6 +136,6 @@ $piece-files: ("Staunton": false, "Basic": true, "Experimental": true, "Glass": 
   $resize-width: 20px;
 
   @include breakpoint($mq-col2-uniboard) {
-    bottom: #{28px - $resize-width}!important;
+    bottom: #{28px - $resize-width} !important;
   }
 }

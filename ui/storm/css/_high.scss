@@ -27,7 +27,6 @@
       }
     }
 
-
     strong {
       font-family: 'storm';
       font-weight: normal;
@@ -45,7 +44,7 @@
 
         strong {
           font-size: 4em;
-          line-height: .8em;
+          line-height: 0.8em;
 
           @include breakpoint($mq-xx-small) {
             font-size: 9em;

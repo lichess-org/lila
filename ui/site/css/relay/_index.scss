@@ -1,4 +1,4 @@
-@import "widget";
+@import 'widget';
 
 .relay-index {
   .box__top {
@@ -19,7 +19,7 @@
       text-transform: uppercase;
       text-align: center;
       line-height: 2em;
-      letter-spacing: .1em;
+      letter-spacing: 0.1em;
       border-bottom: $border;
     }
   }

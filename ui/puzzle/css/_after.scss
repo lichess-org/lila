@@ -5,7 +5,6 @@
     flex-flow: column;
   }
 
-
   .continue {
     @extend %flex-center-nowrap;
 
@@ -62,7 +61,7 @@
   flex: 1 1 70%;
 
   &__help {
-    margin: .5em 1em 0 0;
+    margin: 0.5em 1em 0 0;
 
     p {
       display: inline;
@@ -81,7 +80,7 @@
   &__buttons {
     @extend %flex-center-nowrap;
 
-    opacity: .1;
+    opacity: 0.1;
 
     &.enabled {
       opacity: 1;

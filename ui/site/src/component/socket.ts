@@ -15,8 +15,7 @@ interface MsgBase {
 interface MsgIn extends MsgBase {
   v?: Version;
 }
-interface MsgOut extends MsgBase {
-}
+interface MsgOut extends MsgBase {}
 interface MsgAck extends MsgOut {
   at: number;
 }
@@ -46,7 +45,6 @@ interface Settings {
 
 // versioned events, acks, retries, resync
 export default class StrongSocket {
-
   pubsub = lichess.pubsub;
   settings: Settings;
   options: Options;
@@ -70,11 +68,11 @@ export default class StrongSocket {
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    isAuth: document.body.hasAttribute('user')
+    isAuth: document.body.hasAttribute('user'),
   };
   static defaultParams: Params = {
-    sri: sri
-  }
+    sri: sri,
+  };
 
   static resolveFirstConnect: (send: Send) => void;
   static firstConnect = new Promise<Send>(r => {
@@ -87,12 +85,12 @@ export default class StrongSocket {
       events: settings.events || {},
       params: {
         ...StrongSocket.defaultParams,
-        ...settings.params || {}
-      }
+        ...(settings.params || {}),
+      },
     };
     this.options = {
       ...StrongSocket.defaultOptions,
-      ...settings.options || {}
+      ...(settings.options || {}),
     };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
@@ -103,21 +101,18 @@ export default class StrongSocket {
   sign = (s: string) => {
     this._sign = s;
     this.ackable.sign(s);
-  }
+  };
 
   connect = () => {
     this.destroy();
     this.autoReconnect = true;
-    const fullUrl = xhr.url(
-      this.options.protocol + '//' + this.baseUrl() + this.url,
-      {
-        ...this.settings.params,
-        v: this.version === false ? undefined : this.version
-      }
-    );
-    this.debug("connection attempt to " + fullUrl);
+    const fullUrl = xhr.url(this.options.protocol + '//' + this.baseUrl() + this.url, {
+      ...this.settings.params,
+      v: this.version === false ? undefined : this.version,
+    });
+    this.debug('connection attempt to ' + fullUrl);
     try {
-      const ws = this.ws = new WebSocket(fullUrl);
+      const ws = (this.ws = new WebSocket(fullUrl));
       ws.onerror = e => this.onError(e);
       ws.onclose = () => {
         this.pubsub.emit('socket.close');
@@ -127,7 +122,7 @@ export default class StrongSocket {
         }
       };
       ws.onopen = () => {
-        this.debug("connected to " + fullUrl);
+        this.debug('connected to ' + fullUrl);
         this.onSuccess();
         const cl = document.body.classList;
         cl.remove('offline');
@@ -165,13 +160,13 @@ export default class StrongSocket {
     if (t == 'move' && o.sign != this._sign) {
       let stack: string;
       try {
-        stack = (new Error).stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
+        stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000)
+      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
     }
-    this.debug("send " + message);
+    this.debug('send ' + message);
     try {
       this.ws!.send(message);
     } catch (e) {
@@ -192,20 +187,23 @@ export default class StrongSocket {
       this.tryOtherUrl = true;
       this.connect();
     }, delay);
-  }
+  };
 
   schedulePing = (delay: number) => {
     clearTimeout(this.pingSchedule);
     this.pingSchedule = setTimeout(this.pingNow, delay);
-  }
+  };
 
   pingNow = () => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
-    const pingData = (this.options.isAuth && this.pongCount % 8 == 2) ? JSON.stringify({
-      t: 'p',
-      l: Math.round(0.1 * this.averageLag)
-    }) : 'null';
+    const pingData =
+      this.options.isAuth && this.pongCount % 8 == 2
+        ? JSON.stringify({
+            t: 'p',
+            l: Math.round(0.1 * this.averageLag),
+          })
+        : 'null';
     try {
       this.ws!.send(pingData);
       this.lastPingTime = performance.now();
@@ -213,7 +211,7 @@ export default class StrongSocket {
       this.debug(e, true);
     }
     this.scheduleConnect(this.options.pingMaxLag);
-  }
+  };
 
   computePingDelay = () => this.options.pingDelay + (this.options.idle ? 1000 : 0);
 
@@ -233,7 +231,7 @@ export default class StrongSocket {
   handle = (m: MsgIn) => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
-        this.debug("already has event " + m.v);
+        this.debug('already has event ' + m.v);
         return;
       }
       // it's impossible but according to previous logging, it happens nonetheless
@@ -253,7 +251,7 @@ export default class StrongSocket {
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           this.pubsub.emit('socket.in.' + m.t, m.d, m);
-          if (this.settings.events[m.t]) this.settings.events[m.t](m.d || null, m)
+          if (this.settings.events[m.t]) this.settings.events[m.t](m.d || null, m);
         }
     }
   };
@@ -272,9 +270,9 @@ export default class StrongSocket {
   disconnect = () => {
     const ws = this.ws;
     if (ws) {
-      this.debug("Disconnect");
+      this.debug('Disconnect');
       this.autoReconnect = false;
-      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => { };
+      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
       ws.close();
     }
   };
@@ -291,16 +289,20 @@ export default class StrongSocket {
     if (this.nbConnects == 1) {
       StrongSocket.resolveFirstConnect(this.send);
       let disconnectTimeout: Timeout | undefined;
-      idleTimer(10 * 60 * 1000, () => {
-        this.options.idle = true;
-        disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);
-      }, () => {
-        this.options.idle = false;
-        if (this.ws) clearTimeout(disconnectTimeout);
-        else location.reload();
-      });
+      idleTimer(
+        10 * 60 * 1000,
+        () => {
+          this.options.idle = true;
+          disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);
+        },
+        () => {
+          this.options.idle = false;
+          if (this.ws) clearTimeout(disconnectTimeout);
+          else location.reload();
+        }
+      );
     }
-  }
+  };
 
   baseUrl = () => {
     const baseUrls = document.body.getAttribute('data-socket-domains')!.split(',');
@@ -317,7 +319,6 @@ export default class StrongSocket {
 }
 
 class Ackable {
-
   currentId = 1; // increment with each ackable message sent
   messages: MsgAck[] = [];
   private _sign: string;
@@ -326,25 +327,25 @@ class Ackable {
     setInterval(this.resend, 1200);
   }
 
-  sign = (s: string) => this._sign = s;
+  sign = (s: string) => (this._sign = s);
 
   resend = () => {
     const resendCutoff = performance.now() - 2500;
     this.messages.forEach(m => {
-      if (m.at < resendCutoff) this.send(m.t, m.d, {sign: this._sign});
+      if (m.at < resendCutoff) this.send(m.t, m.d, { sign: this._sign });
     });
-  }
+  };
 
   register = (t: Tpe, d: Payload) => {
     d.a = this.currentId++;
     this.messages.push({
       t: t,
       d: d,
-      at: performance.now()
+      at: performance.now(),
     });
-  }
+  };
 
   onServerAck = (id: number) => {
     this.messages = this.messages.filter(m => m.d.a !== id);
-  }
+  };
 }

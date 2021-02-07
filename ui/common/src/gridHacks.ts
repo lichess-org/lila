@@ -1,7 +1,6 @@
 import throttle from './throttle';
 
 export const runner = (hacks: () => void, throttleMs: number = 100): void => {
-
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () =>
@@ -17,7 +16,7 @@ export const runner = (hacks: () => void, throttleMs: number = 100): void => {
   }
 
   runHacks();
-}
+};
 
 let boundChessgroundResize = false;
 
@@ -26,4 +25,4 @@ export const bindChessgroundResizeOnce = (f: () => void): void => {
     boundChessgroundResize = true;
     document.body.addEventListener('chessground.resize', f);
   }
-}
+};

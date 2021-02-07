@@ -7,14 +7,13 @@ $mq-col2: $mq-col2-uniboard;
     --main-max-width: auto;
   }
 
-
   user-select: none;
 }
 
-@import "font";
-@import "play";
-@import "end";
-@import "high";
+@import 'font';
+@import 'play';
+@import 'end';
+@import 'high';
 
 .storm {
   &-play-scores {
@@ -24,9 +23,8 @@ $mq-col2: $mq-col2-uniboard;
     margin: 2vh 2vw;
 
     @include breakpoint($mq-col2) {
-      margin: 2vh .5rem;
+      margin: 2vh 0.5rem;
     }
-
 
     span {
       text-transform: uppercase;
@@ -58,6 +56,6 @@ $mq-col2: $mq-col2-uniboard;
   &__about__link {
     margin-top: 2vh;
     text-align: center;
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
