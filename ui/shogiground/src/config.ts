@@ -74,6 +74,10 @@ export interface Config {
     select?: (key: cg.Key) => void; // called when a square is selected
     insert?: (elements: cg.Elements) => void; // when the board DOM has been (re)inserted
   };
+  dropmode?:{
+    active?: boolean;
+    piece?: cg.Piece;
+  },
   drawable?: {
     enabled?: boolean; // can draw
     visible?: boolean; // can view
