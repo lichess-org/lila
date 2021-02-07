@@ -15,6 +15,10 @@
   grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
   grid-template-rows: auto 2.5rem;
   grid-template-areas: 'board tools' 'board controls';
+
+  .gamebook .comment {
+    margin: 0 2vw;
+  }
 }
 
 .pocket {
