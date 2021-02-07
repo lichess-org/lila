@@ -2,23 +2,23 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { MouchEvent, NumberPair, Role } from "shogiground/types";
 import { dragNewPiece } from "shogiground/drag";
-import { eventPosition, opposite } from "shogiground/util";
+import { eventPosition } from "shogiground/util";
 
 import EditorCtrl from "./ctrl";
 import shogiground from "./shogiground";
-import { displaySfen, undisplaySfen, switchColorSfen } from "shogiutil/util";
 import { OpeningPosition, Selected, EditorState } from "./interfaces";
-// @ts-ignore
-import { Shogi } from "shogiutil/vendor/Shogi.js";
-
+import { parseFen } from 'shogiops/fen';
+import { PocketRole } from "shogiops/types";
+import { makeShogiFen } from "shogiops/compat";
+import {opposite} from "shogiops/util";
 
 function pocket(ctrl: EditorCtrl, c: Color): VNode {
   return h(
     `div.editorPocket.${c}`,
     {},
-    Object.keys(ctrl.pockets[c === "white" ? 0 : 1]).map(
+    Object.keys(ctrl.pockets[opposite(c)]).map(
         (r) => {
-          const nb = ctrl.pockets[c === "white" ? 0 : 1][r];
+          const nb = ctrl.pockets[opposite(c)][r as PocketRole];
           return h(
             "div.no-square",
             {
@@ -27,7 +27,7 @@ function pocket(ctrl: EditorCtrl, c: Color): VNode {
                 touchstart: dragFromPocket(ctrl, [c, r as Role], nb, "touchend"),
                 click: (e) => {
                   e.preventDefault();
-                  ctrl.addToPocket(c, r as Role, true);
+                  ctrl.addToPocket(opposite(c), r as Role, true);
                 }
               },
             },
@@ -62,7 +62,7 @@ function dragFromPocket(
   return function(e: MouchEvent): void {
     e.preventDefault();
     if(s !== "pointer" && s !== "trash" && nb > 0){
-      ctrl.removeFromPocket(s[0], s[1]);
+      ctrl.removeFromPocket(opposite(s[0]), s[1]);
       dragNewPiece(
         ctrl.shogiground!.state,
         {
@@ -82,8 +82,8 @@ function dragFromPocket(
           // todo, this is ugly
           else if(eventTarget && (eventTarget.parentElement?.classList.contains("editorPocket") || eventTarget.parentElement?.parentElement?.classList.contains("editorPocket"))){
             if(eventTarget.parentElement?.classList.contains("white") || eventTarget.parentElement?.parentElement?.classList.contains("white"))
-              ctrl.addToPocket("white", s[1]);
-            else ctrl.addToPocket("black", s[1]);
+              ctrl.addToPocket("black", s[1]);
+            else ctrl.addToPocket("white", s[1]);
           }
           else ctrl.selected(s);
           ctrl.redraw();
@@ -115,7 +115,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
           value: ctrl.bottomColor(),
         },
       }),
-      //h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+      h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
       h("input", {
         attrs: { type: "hidden", name: "fen", value: state.legalFen || "" },
       }),
@@ -144,8 +144,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   const position2option = function(pos: OpeningPosition): VNode {
     return h('option', {
       attrs: {
-        value: pos.epd || pos.fen,
-        'data-fen': pos.fen,
+        value: makeShogiFen(pos.epd || pos.fen),
+        'data-fen': makeShogiFen(pos.fen),
       }
     }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
   };
@@ -194,7 +194,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 attrs: {
                   value: key[0] == "w" ? "white" : "black",
-                  selected: ctrl.turn[0] !== key[0], // ===
+                  selected: ctrl.turn[0] === key[0],
                 },
               },
               ctrl.trans(key)
@@ -259,6 +259,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button.button-empty.text",
               {
                 attrs: { "data-icon": "N" },
+                class: {
+                  disabled: !state.standardPieceNumber
+                },
                 on: {
                   click() {
                     ctrl.fillGotesHand();
@@ -318,7 +321,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + switchColorSfen(state.legalFen || "") + "#ai",
+                  href: "/?fen=" + (state.legalFen || "") + "#ai",
                   rel: "nofollow",
                 },
               },
@@ -328,7 +331,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + switchColorSfen(state.legalFen || "") + "#friend",
+                  href: "/?fen=" + (state.legalFen || "") + "#friend",
                   rel: "nofollow",
                 },
               },
@@ -350,22 +353,22 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           spellcheck: false,
         },
         props: {
-          value: displaySfen(fen),
+          value: fen,
         },
         on: {
           change(e) {
             const el = e.target as HTMLInputElement;
-            ctrl.setFen(undisplaySfen(el.value.trim()));
+            ctrl.setFen(el.value.trim());
             el.reportValidity();
           },
           input(e) {
             const el = e.target as HTMLInputElement;
-            const gs = Shogi.init(undisplaySfen(el.value.trim()));
-            el.setCustomValidity(gs.validity ? "" : "Invalid SFEN");
+            const valid = parseFen(el.value.trim()).isOk;
+            el.setCustomValidity(valid ? "" : "Invalid SFEN");
           },
           blur(e) {
             const el = e.target as HTMLInputElement;
-            el.value = displaySfen(ctrl.getFen());
+            el.value = ctrl.getFen();
             el.setCustomValidity("");
           },
         },
@@ -497,8 +500,8 @@ function onSelectSparePiece(
           // todo, this is ugly
           else if(eventTarget && (eventTarget.parentElement?.classList.contains("editorPocket") || eventTarget.parentElement?.parentElement?.classList.contains("editorPocket"))){
             if(eventTarget.parentElement?.classList.contains("white") || eventTarget.parentElement?.parentElement?.classList.contains("white"))
-              ctrl.addToPocket("white", s[1]);
-            else ctrl.addToPocket("black", s[1]);
+              ctrl.addToPocket("black", s[1]);
+            else ctrl.addToPocket("white", s[1]);
           }
           else ctrl.selected(s);
           ctrl.redraw();

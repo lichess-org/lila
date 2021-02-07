@@ -31,10 +31,7 @@ export interface EditorState {
   fen: string;
   legalFen: string | undefined;
   playable: boolean;
-}
-
-export interface Pocket {
-  [role: string]: number;
+  standardPieceNumber: boolean;
 }
 
 export type Redraw = () => void;
