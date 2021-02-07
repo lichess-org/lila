@@ -707,7 +707,7 @@ object Game {
     chess.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.fromFriend
+    game.hasAi || game.fromFriend || game.fromApi
   } && isBotCompatible(game.speed)
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
