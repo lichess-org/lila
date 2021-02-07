@@ -31,7 +31,7 @@ object SetupBulk {
   )
 
   private def timestampInNearFuture = longNumber(
-    min = DateTime.now.minusMinutes(1).getMillis,
+    min = 0,
     max = DateTime.now.plusDays(1).getMillis
   )
 
@@ -139,7 +139,7 @@ object SetupBulk {
 
 }
 
-final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
+final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {

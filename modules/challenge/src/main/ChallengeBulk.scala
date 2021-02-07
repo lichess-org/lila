@@ -47,16 +47,14 @@ final class ChallengeBulkApi(
     coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
-    if (bulk.pairAt.isBeforeNow) makePairings(bulk) inject Right(bulk.copy(pairedAt = DateTime.now.some))
-    else
-      coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
-        val nbGames = bulks.map(_.games.size).sum
-        if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
-        else if (bulks.map(_.games.size).sum >= 1000) fuccess(Left("Already too many games queued"))
-        else if (bulks.exists(_ collidesWith bulk))
-          fuccess(Left("A bulk containing the same players is scheduled at the same time"))
-        else coll.insert.one(bulk) inject Right(bulk)
-      }
+    coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
+      val nbGames = bulks.map(_.games.size).sum
+      if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
+      else if (bulks.map(_.games.size).sum >= 1000) fuccess(Left("Already too many games queued"))
+      else if (bulks.exists(_ collidesWith bulk))
+        fuccess(Left("A bulk containing the same players is scheduled at the same time"))
+      else coll.insert.one(bulk) inject Right(bulk)
+    }
   }
 
   private[challenge] def tick: Funit =

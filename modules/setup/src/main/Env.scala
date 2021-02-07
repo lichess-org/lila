@@ -23,5 +23,5 @@ final class Env(
 
   lazy val processor = wire[Processor]
 
-  lazy val bulk = wire[BulkChallengeApi]
+  lazy val bulk = wire[SetupBulkApi]
 }
