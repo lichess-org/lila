@@ -10,6 +10,11 @@
   <string name="emailChange_intro">Ucele ukuguqula ikheli lakho le-imeyili.</string>
   <string name="emailChange_click">Ukuqinisekisa ukuthi uyakwazi ukufinyelela le imeyili, sicela uchofoze isixhumanisi esingezansi:</string>
   <string name="welcome_subject">Uyemukelwa ku lichess.org, %s</string>
+  <string name="welcome_text">Uyidale ngempumelelo i-akhawunti yakho ku- https://lichess.org.
+
+Nali ikhasi lephrofayela yakho: %1$s. Ungayenza ibe ngeyakho uqubo %2$s.
+
+Kujabulele, futhi kwangathi izingcezu zakho zingathola njalo indlela eya enkosini yomphikisi!</string>
   <string name="logInToLichess">Ngena ngemvume ku-lichess.org, %s</string>
   <string name="common_orPaste">(Ukuchofoza kungasebenzi? Zama ukunamathisela kusiphequluli sakho!)</string>
   <string name="common_note">Le yi-imeyili yesevisi ehlobene nokusebenzisa kwakho %s.</string>
