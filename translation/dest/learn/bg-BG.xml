@@ -11,11 +11,11 @@
   <string name="theRook">Топът</string>
   <string name="itMovesInStraightLines">Движи се в прави линии</string>
   <string name="rookIntro">Топът е силна фигура. Готови ли сте да го командвате?</string>
-  <string name="rookGoal">Натиснете върху топа, за да го преместите върху звездата!</string>
+  <string name="rookGoal">Натиснете топа, за да го преместите върху звездата!</string>
   <string name="grabAllTheStars">Вземете всички звезди!</string>
   <string name="theFewerMoves">Колкото по-малко ходове правите, толкова повече точки ще спечелите!</string>
-  <string name="useTwoRooks">Използвайте двата топа да ускорите нещата!</string>
-  <string name="rookComplete">Поздравления! Вие успешно изучихте топа.</string>
+  <string name="useTwoRooks">Използвайте двата топа за да ускорите нещата!</string>
+  <string name="rookComplete">Поздравления! Успешно изучихте топа.</string>
   <string name="theBishop">Офицерът</string>
   <string name="itMovesDiagonally">Движи се по диагонал</string>
   <string name="bishopIntro">Сега ще се научите как да местите офицера!</string>
@@ -24,7 +24,7 @@
 Трябват ви и двата!</string>
   <string name="bishopComplete">Поздравления! Можете да контролирате офицера.</string>
   <string name="theQueen">Дамата</string>
-  <string name="queenCombinesRookAndBishop">Дама=топ+офицер</string>
+  <string name="queenCombinesRookAndBishop">Дама = топ + офицер</string>
   <string name="queenIntro">Това е най-силната фигура. Нейно Величество - Дамата!</string>
   <string name="queenComplete">Поздравления! Дамата няма тайни от вас.</string>
   <string name="theKing">Царят</string>
