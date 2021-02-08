@@ -8,6 +8,10 @@
   <string name="newAllTimeHighscore">Uusi kaikkien aikojen ennätys!</string>
   <string name="previousHighscoreWasX">Edellinen ennätys oli %s</string>
   <string name="playAgain">Pelaa uudelleen</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 sarja</item>
+    <item quantity="other">%s sarjaa</item>
+  </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Pelasin yhden sarjan %2$s</item>
     <item quantity="other">Pelasi %1$s sarjaa %2$s</item>
