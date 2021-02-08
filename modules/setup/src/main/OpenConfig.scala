@@ -13,8 +13,6 @@ final case class OpenConfig(
     position: Option[FEN] = None
 ) {
 
-  def >> = (variant.key.some, clock, position.map(_.value)).some
-
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
 
   def validFen = ApiConfig.validFen(variant, position)

@@ -15,6 +15,7 @@ import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
+import lila.common.Template
 
 final class Challenge(
     env: Env
@@ -285,7 +286,8 @@ final class Challenge(
                 env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
                   val challenge = makeOauthChallenge(config, me, destUser)
                   (destUser, config.acceptByToken) match {
-                    case (Some(dest), Some(strToken)) => apiChallengeAccept(dest, challenge, strToken)
+                    case (Some(dest), Some(strToken)) =>
+                      apiChallengeAccept(dest, challenge, strToken)(me, config.message)
                     case _ =>
                       destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
                         case Some(denied) =>
@@ -318,7 +320,11 @@ final class Challenge(
               .bindFromRequest()
               .fold(
                 err => BadRequest(apiFormError(err)).fuccess,
-                config => acceptOauthChallenge(dest, makeOauthChallenge(config, orig, dest.some))
+                config =>
+                  acceptOauthChallenge(dest, makeOauthChallenge(config, orig, dest.some))(
+                    admin,
+                    config.message
+                  )
               )
           }
         }
@@ -345,11 +351,14 @@ final class Challenge(
       )
   }
 
-  private def acceptOauthChallenge(dest: UserModel, challenge: ChallengeModel) =
-    env.challenge.api.oauthAccept(dest, challenge) map {
-      case None => BadRequest(jsonError("Couldn't create game"))
+  private def acceptOauthChallenge(
+      dest: UserModel,
+      challenge: ChallengeModel
+  )(managedBy: lila.user.User, template: Option[Template]) =
+    env.challenge.api.oauthAccept(dest, challenge) flatMap {
+      case None => BadRequest(jsonError("Couldn't create game")).fuccess
       case Some(g) =>
-        Ok(
+        env.challenge.msg.onApiPair(challenge)(managedBy, template) inject Ok(
           Json.obj(
             "game" -> {
               env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
@@ -364,7 +373,7 @@ final class Challenge(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
       strToken: String
-  ) =
+  )(managedBy: lila.user.User, message: Option[Template]) =
     env.security.api.oauthScoped(
       lila.oauth.AccessToken.Id(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write)
@@ -372,7 +381,7 @@ final class Challenge(
       _.fold(
         err => BadRequest(jsonError(err.message)).fuccess,
         scoped =>
-          if (scoped.user is dest) acceptOauthChallenge(dest, challenge)
+          if (scoped.user is dest) acceptOauthChallenge(dest, challenge)(managedBy, message)
           else BadRequest(jsonError("dest and accept user don't match")).fuccess
       )
     }

@@ -15,12 +15,14 @@ final class Env(
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
+    msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -50,6 +52,8 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lazy val bulk = wire[ChallengeBulkApi]
+
+  lazy val msg = wire[ChallengeMsg]
 
   val forms = new ChallengeForm
 

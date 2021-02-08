@@ -1,13 +1,20 @@
 import { scroller } from './scroller';
 
-// looks like it has a @mention or a url.tld
-export const isMoreThanText = (str: string) => /(\n|(@|\.)\w{2,})/.test(str);
+// looks like it has a @mention or #gameid or a url.tld
+export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
 
-export const enhance = (str: string) => expandMentions(expandUrls(lichess.escapeHtml(str))).replace(/\n/g, '<br>');
+export const enhance = (str: string) =>
+  expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(/\n/g, '<br>');
 
 const expandMentions = (html: string) =>
   html.replace(/(^|[^\w@#/])@([\w-]{2,})/g, (orig: string, prefix: string, user: string) =>
     user.length > 20 ? orig : `${prefix}${a('/@/' + user, '@' + user)}`
+  );
+
+const expandGameIds = (html: string) =>
+  html.replace(
+    /\s#([\w]{8})($|[^\w-])/g,
+    (_: string, id: string, suffix: string) => ' ' + a('/' + id, '#' + id, 'text') + suffix
   );
 
 // ported from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
@@ -31,10 +38,10 @@ const expandImage = (url: string) => (/\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(u
 
 const expandLink = (url: string) => a(url, url.replace(/^https?:\/\//, ''));
 
-const a = (href: string, body: string) =>
+const a = (href: string, body: string, cls?: string) =>
   `<a target="_blank" rel="noopener nofollow" href="${
     href.startsWith('/') || href.includes('://') ? href : '//' + href
-  }">${body}</a>`;
+  }"${cls ? ` class="${cls}"` : ''}>${body}</a>`;
 
 const img = (src: string) => `<img src="${src}"/>`;
 

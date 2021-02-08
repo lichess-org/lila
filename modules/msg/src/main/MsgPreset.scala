@@ -1,8 +1,12 @@
 package lila.msg
 
+import lila.common.config.BaseUrl
+
 case class MsgPreset(name: String, text: String)
 
 object MsgPreset {
+
+  type Username = String
 
   lazy val sandbagAuto = MsgPreset(
     name = "Warning: possible sandbagging",
@@ -20,7 +24,7 @@ Thank you for your understanding."""
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
   )
 
-  def maxFollow(username: String, max: Int) =
+  def maxFollow(username: Username, max: Int) =
     MsgPreset(
       name = "Follow limit reached!",
       text = s"""Sorry, you can't follow more than $max players on Lichess.

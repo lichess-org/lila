@@ -280,7 +280,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(common, db, hub, setup, game, relation, pref, socket, room),
+  Seq(common, db, hub, setup, game, relation, pref, socket, room, msg),
   Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
 )
 

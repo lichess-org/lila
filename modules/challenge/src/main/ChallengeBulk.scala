@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.LilaStream
+import lila.common.Template
 import lila.db.dsl._
 import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
@@ -20,6 +21,7 @@ import lila.user.User
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
+    msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
@@ -33,6 +35,7 @@ final class ChallengeBulkApi(
   implicit private val gameHandler    = Macros.handler[ScheduledGame]
   implicit private val variantHandler = variantByKeyHandler
   implicit private val clockHandler   = clockConfigHandler
+  implicit private val messageHandler = stringAnyValHandler[Template](_.value, Template.apply)
   implicit private val bulkHandler    = Macros.handler[ScheduledBulk]
 
   private val coll = colls.bulk
@@ -92,8 +95,8 @@ final class ChallengeBulkApi(
         }
       }
       .mapConcat(_.toList)
-      .map[Game] { case (id, white, black) =>
-        Game
+      .map { case (id, white, black) =>
+        val game = Game
           .make(
             chess = chess.Game(situation = Situation(bulk.variant), clock = bulk.clock.toClock.some),
             whitePlayer = Player.make(chess.White, white.some, _(perfType)),
@@ -104,9 +107,15 @@ final class ChallengeBulkApi(
           )
           .withId(id)
           .start
+        (game, white, black)
       }
-      .mapAsyncUnordered(8) { game =>
-        (gameRepo insertDenormalized game) >>- onStart(game.id)
+      .mapAsyncUnordered(8) { case (game, white, black) =>
+        gameRepo.insertDenormalized(game) >>- onStart(game.id) inject {
+          (game, white, black)
+        }
+      }
+      .mapAsyncUnordered(8) { case (game, white, black) =>
+        msgApi.onApiPair(game.id, white.light, black.light)(bulk.by, bulk.message)
       }
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()

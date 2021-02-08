@@ -16,6 +16,7 @@ import lila.oauth.AccessToken
 import lila.oauth.OAuthScope
 import lila.oauth.OAuthServer
 import lila.user.User
+import lila.common.Template
 
 object SetupBulk {
 
@@ -27,7 +28,8 @@ object SetupBulk {
       clock: Clock.Config,
       rated: Boolean,
       pairAt: Option[DateTime],
-      startClocksAt: Option[DateTime]
+      startClocksAt: Option[DateTime],
+      message: Option[Template]
   )
 
   private def timestampInNearFuture = longNumber(
@@ -51,7 +53,8 @@ object SetupBulk {
       "clock"         -> SetupForm.api.clockMapping,
       "rated"         -> boolean,
       "pairAt"        -> optional(timestampInNearFuture),
-      "startClocksAt" -> optional(timestampInNearFuture)
+      "startClocksAt" -> optional(timestampInNearFuture),
+      "message"       -> SetupForm.api.message
     ) {
       (
           tokens: String,
@@ -59,7 +62,8 @@ object SetupBulk {
           clock: Clock.Config,
           rated: Boolean,
           pairTs: Option[Long],
-          clockTs: Option[Long]
+          clockTs: Option[Long],
+          message: Option[String]
       ) =>
         BulkFormData(
           tokens,
@@ -67,7 +71,8 @@ object SetupBulk {
           clock,
           rated,
           pairTs.map { new DateTime(_) },
-          clockTs.map { new DateTime(_) }
+          clockTs.map { new DateTime(_) },
+          message map Template
         )
     }(_ => None)
   )
@@ -99,6 +104,7 @@ object SetupBulk {
       pairAt: DateTime,
       startClocksAt: Option[DateTime],
       scheduledAt: DateTime,
+      message: Option[Template],
       pairedAt: Option[DateTime] = None
   ) {
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
@@ -210,6 +216,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(imp
                     Mode(data.rated),
                     pairAt = data.pairAt | DateTime.now,
                     startClocksAt = data.startClocksAt,
+                    message = data.message,
                     scheduledAt = DateTime.now
                   )
                 }

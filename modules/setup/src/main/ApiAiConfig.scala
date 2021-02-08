@@ -20,8 +20,6 @@ final case class ApiAiConfig(
 
   val strictFen = false
 
-  def >> = (level, variant.key.some, clock, daysO, color.name.some, fen.map(_.value)).some
-
   val days      = ~daysO
   val increment = clock.??(_.increment.roundSeconds)
   val time      = clock.??(_.limit.roundSeconds / 60)

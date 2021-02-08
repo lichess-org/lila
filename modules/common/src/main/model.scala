@@ -130,3 +130,5 @@ case class Ints(value: List[Int])       extends AnyVal
 
 case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal
+
+case class Template(value: String) extends AnyVal

@@ -115,6 +115,13 @@ object SetupForm {
     lazy val variant =
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
+    lazy val message = optional(
+      nonEmptyText.verifying(
+        "The message must contain {game}, which will be replaced with the game URL.",
+        _ contains "{game}"
+      )
+    )
+
     def user(from: User) =
       Form(challengeMapping.verifying("Invalid speed", _ validSpeed from.isBot))
 
@@ -128,8 +135,9 @@ object SetupForm {
         "rated"         -> boolean,
         "color"         -> optional(color),
         "fen"           -> fenField,
-        "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.from)(_.>>)
+        "acceptByToken" -> optional(nonEmptyText),
+        "message"       -> message
+      )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
 
     lazy val ai = Form(
@@ -140,7 +148,7 @@ object SetupForm {
         "days"  -> optional(days),
         "color" -> optional(color),
         "fen"   -> fenField
-      )(ApiAiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiAiConfig.from)(_ => none).verifying("invalidFen", _.validFen)
     )
 
     lazy val open = Form(
@@ -148,7 +156,7 @@ object SetupForm {
         variant,
         clock,
         "fen" -> fenField
-      )(OpenConfig.from)(_.>>).verifying("invalidFen", _.validFen)
+      )(OpenConfig.from)(_ => none).verifying("invalidFen", _.validFen)
     )
   }
 }
