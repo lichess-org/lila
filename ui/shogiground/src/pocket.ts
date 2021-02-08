@@ -12,13 +12,28 @@ const droppableLetters: { [letter: string]: Role } = {
   r: "rook",
 };
 
-export function makePockets(str?: string | null): Pockets | undefined {
+// if str is undefined then no pockets will be seen
+export function makePockets(str?: string): Pockets | undefined {
   if (str === undefined) return undefined;
+
   const pockets = [
     { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 },
     { pawn: 0, lance: 0, knight: 0, silver: 0, gold: 0, bishop: 0, rook: 0 }
   ];
-  if (str) {
+
+  let jsonParsed;
+  console.log(str);
+  try {
+    jsonParsed = JSON.parse(str);
+    console.log(jsonParsed);
+    // if pocket is a json like "[{pawn: 1, gold: 1},{pawn: 3, silver: 1}]
+    for (const i of [0, 1]) {
+      for (const role of droppableRoles) {
+        pockets[i][role] = jsonParsed[i][role] || 0;
+      }
+    }
+  } catch {
+    // if pocket is a string like "PGppps"
     let num = 0;
     for (const c of str) {
       const role = droppableLetters[c.toLowerCase()];
@@ -30,6 +45,7 @@ export function makePockets(str?: string | null): Pockets | undefined {
       }
     }
   }
+
   return pockets;
 }
 
