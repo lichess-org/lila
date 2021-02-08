@@ -57,6 +57,7 @@ Tai voit %s.</string>
   <string name="update">Päivitä</string>
   <string name="changeMonthlyAmount">Muuta kuukausittaista summaa (%s)</string>
   <string name="cancelSupport">peru tukesi</string>
+  <string name="xOrY">%1$s tai %2$s</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
