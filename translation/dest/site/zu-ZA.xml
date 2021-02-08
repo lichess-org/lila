@@ -87,6 +87,7 @@
   <string name="noGameFound">Awukho umdlalo otholakele</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mhlawumbe faka eminye imidlalo kusuka kumenyu yokuncamelayo?</string>
   <string name="openingExplorer">Umhloli wokuvula</string>
+  <string name="xOpeningExplorer">%s ukuvula umhloli</string>
   <string name="winPreventedBy50MoveRule">Ukunqoba kuvinjelwe umthetho wokuhamba wama-50</string>
   <string name="lossSavedBy50MoveRule">Ukulahlekelwa kuvinjelwe umthetho wokuhamba ongu-50</string>
   <string name="allSet">Konke kusethiwe!</string>
@@ -117,7 +118,15 @@
   <string name="claimADraw">Funa umdwebo</string>
   <string name="offerDraw">Umdwebo Wokunikeza</string>
   <string name="draw">Dweba</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s isidlali</item>
+    <item quantity="other">%s abadlali</item>
+  </plurals>
   <string name="currentGames">Imidlalo yamanje</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s umdlalo</item>
+    <item quantity="other">%s imidlalo</item>
+  </plurals>
   <string name="viewInFullSize">Buka ngosayizi ogcwele</string>
   <string name="logOut">Phuma ngemvume</string>
   <string name="signIn">Ngena ngemvume</string>
@@ -126,6 +135,7 @@
   <string name="computersAreNotAllowedToPlay">Amakhompyutha nabadlali abasizwa ngamakhompyutha abavunyelwe ukuthi badlale. Uyacelwa ukuthi ungatholi lusizo kwizinjini ze-chess, imininingwane yolwazi, noma kwabanye abadlali ngenkathi udlala. Futhi qaphela ukuthi ukwenza ama-akhawunti amaningi kudikibile kakhulu futhi ama-accounting amaningi ngokweqile angaholela ekuvinjelweni.</string>
   <string name="games">Imidlalo</string>
   <string name="forum">Iforamu</string>
+  <string name="xPostedInForumY">%1$s kuthunyelwe kusihloko %2$s</string>
   <string name="latestForumPosts">Okuthunyelwe okusha kwenkundla</string>
   <string name="players">Abadlali</string>
   <string name="friends">Bangani</string>
@@ -140,6 +150,14 @@
   <string name="correspondence">Ukuxhumana</string>
   <string name="daysPerTurn">Izinsuku ngakunye</string>
   <string name="oneDay">Usuku olulodwa</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s usuku</item>
+    <item quantity="other">%s izinsuku</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ihora</item>
+    <item quantity="other">%s amahora</item>
+  </plurals>
   <string name="time">Isikhathi</string>
   <string name="rating">Isilinganiso</string>
   <string name="ratingStats">Izibalo zesilinganiso</string>
@@ -155,7 +173,16 @@
   <string name="passwordReset">Ukusetha kabusha kwephasiwedi</string>
   <string name="forgotPassword">Ukhohlwe iphasiwedi?</string>
   <string name="rank">Isikhundla</string>
+  <string name="rankX">Izinga: %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s iphazili</item>
+    <item quantity="other">%s emaphazili</item>
+  </plurals>
   <string name="gamesPlayed">Imidlalo edlaliwe</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s umdlalo nawe</item>
+    <item quantity="other">%s imidlalo nawe</item>
+  </plurals>
   <string name="cancel">Khansela</string>
   <string name="drawOfferSent">Dweba okunikezwayo kuthunyelwe</string>
   <string name="drawOfferDeclined">Ukunikezwa komdwebo kunqatshiwe</string>
