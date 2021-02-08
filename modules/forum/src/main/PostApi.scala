@@ -97,7 +97,7 @@ final class PostApi(
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
         topic.nbPosts == maxPerPage.value ||
-        topic.createdAt.isBefore(DateTime.now minusDays 5)
+        (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
 
