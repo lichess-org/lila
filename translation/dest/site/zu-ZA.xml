@@ -76,8 +76,14 @@
   <string name="unknown">Akwaziwa</string>
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Mhlophe / Dweba / Mnyama</string>
+  <string name="averageRatingX">Isilinganiselwa esijwayelekile: %s</string>
   <string name="recentGames">Imidlalo yakamuva</string>
   <string name="topGames">Best imidlalo</string>
+  <string name="masterDbExplanation">Imidlalo eyizigidi ezimbili ye-OTB yabadlali abalinganiselwa ku-%1$s+ FIDE kusuka ku-%2$s kuye ku-%3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Checkmate ku-%s ukuhambisa uhhafu</item>
+    <item quantity="other">Checkmate ku-%s ukuhamba uhhafu</item>
+  </plurals>
   <string name="noGameFound">Awukho umdlalo otholakele</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mhlawumbe faka eminye imidlalo kusuka kumenyu yokuncamelayo?</string>
   <string name="openingExplorer">Umhloli wokuvula</string>
