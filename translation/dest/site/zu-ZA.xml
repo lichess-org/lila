@@ -229,4 +229,36 @@
   <string name="spectatorRoom">Igumbi lokubuka</string>
   <string name="composeMessage">Qamba umyalezo</string>
   <string name="noNewMessages">Ayikho imilayezo emisha</string>
+  <string name="subject">Isihloko</string>
+  <string name="recipient">Umamukeli</string>
+  <string name="send">Thumela</string>
+  <string name="incrementInSeconds">Ukwanda ngamasekhondi</string>
+  <string name="freeOnlineChess">I-Chess Yamahhala e-Inthanethi</string>
+  <string name="spectators">Izibukeli:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s kulinganiswe</item>
+    <item quantity="other">%s kulinganiswe</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ukunqoba</item>
+    <item quantity="other">%s ukuwina</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ukulahlekelwa</item>
+    <item quantity="other">%s ukulahlekelwa</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ukulingana</item>
+    <item quantity="other">%s ukulingana</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ukudlala</item>
+    <item quantity="other">%s ukudlala</item>
+  </plurals>
+  <string name="exportGames">Thekelisa imidlalo</string>
+  <string name="ratingRange">Ububanzi besilinganiso</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Nikeza i-%s yesibili</item>
+    <item quantity="other">Nikeza i-%s imizuzwana</item>
+  </plurals>
 </resources>
