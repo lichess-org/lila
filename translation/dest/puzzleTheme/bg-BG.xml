@@ -16,6 +16,7 @@
   <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
   <string name="doubleBishopMate">Мат с два офицера</string>
   <string name="doubleBishopMateDescription">Два офицера на съседни диагонали матират цар обкръжен от собствените си фигури.</string>
+  <string name="dovetailMate">Мат на Коцио</string>
   <string name="fork">Вилица</string>
   <string name="long">Дълга задача</string>
   <string name="longDescription">Победа в три хода.</string>
