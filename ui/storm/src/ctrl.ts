@@ -93,11 +93,12 @@ export default class StormCtrl {
     if (!this.vm.run.moves) this.vm.run.startAt = getNow();
     this.vm.run.moves++;
     this.promotion.cancel();
-    const expected = this.line()[this.vm.moveIndex + 1];
+    const line = this.line();
+    const expected = line[this.vm.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
     const pos = this.position();
     const move = parseUci(uci)!;
-    const capture = pos.board.occupied.has(move.to);
+    let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
     if (pos.isCheckmate() || uci == expected) {
       this.vm.moveIndex++;
@@ -110,14 +111,15 @@ export default class StormCtrl {
         this.vm.clock += bonus.seconds * 1000;
         this.sound.bonus();
       }
-      this.sound.move(capture);
-      if (this.vm.moveIndex == this.line().length - 1) {
+      if (this.vm.moveIndex == line.length - 1) {
         this.pushToHistory(true);
         this.vm.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
       } else {
         this.vm.moveIndex++;
+        captureSound = captureSound || pos.board.occupied.has(parseUci(line[this.vm.moveIndex]!)!.to);
       }
+      this.sound.move(captureSound);
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
