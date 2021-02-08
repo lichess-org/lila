@@ -184,6 +184,7 @@
     <item quantity="other">%s imidlalo nawe</item>
   </plurals>
   <string name="cancel">Khansela</string>
+  <string name="whiteTimeOut">Isikhathi siphelili elimhlophe</string>
   <string name="drawOfferSent">Dweba okunikezwayo kuthunyelwe</string>
   <string name="drawOfferDeclined">Ukunikezwa komdwebo kunqatshiwe</string>
   <string name="drawOfferAccepted">Dweba okunikezwayo okwamukelwe</string>
