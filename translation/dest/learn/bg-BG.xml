@@ -86,7 +86,7 @@
   <string name="outOfCheckIntro">В шах сте! Трябва да избягате или да блокирате атаката.</string>
   <string name="escapeWithTheKing">Избягайте с царя!</string>
   <string name="theKingCannotEscapeButBlock">Царят не може да избяга,
-но вие може да блокирате атаката!</string>
+но можете да блокирате атаката!</string>
   <string name="youCanGetOutOfCheckByTaking">Може да се измъкнете от шаха,
 атакувайки противниковата фигура.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Този кон се движи между вашите редици!</string>
