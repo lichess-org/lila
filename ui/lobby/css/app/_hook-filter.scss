@@ -60,6 +60,9 @@
     input {
       padding: .6em 0;
       margin: 0 1ch;
+      @include breakpoint($mq-not-xx-small) {
+        width: 26vw;
+      }
     }
   }
 
