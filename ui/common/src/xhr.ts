@@ -29,13 +29,16 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
+  textRaw(url, init).then(res => {
+    if (res.ok) return res.text();
+    throw res.statusText;
+  });
+
+export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> =>
   fetch(url, {
     ...defaultInit,
     headers: { ...xhrHeader },
     ...init,
-  }).then(res => {
-    if (res.ok) return res.text();
-    throw res.statusText;
   });
 
 /* load a remote script */

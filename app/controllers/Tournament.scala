@@ -100,7 +100,7 @@ final class Tournament(
           html = tourOption
             .fold(tournamentNotFound.fuccess) { tour =>
               for {
-                verdicts <- api.verdicts(tour, ctx.me, getUserTeamIds)
+                verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds)
                 version  <- env.tournament.version(tour.id)
                 json <- jsonView(
                   tour = tour,
@@ -209,13 +209,17 @@ final class Tournament(
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
                 negotiate(
                   html = fuccess {
-                    if (result) Redirect(routes.Tournament.show(id))
-                    else BadRequestWithReason("wrong password maybe?").pp
+                    result.error match {
+                      case None        => Redirect(routes.Tournament.show(id))
+                      case Some(error) => BadRequest(error)
+                    }
                   },
                   api = _ =>
                     fuccess {
-                      if (result) jsonOkResult
-                      else BadRequest(Json.obj("joined" -> false))
+                      result.error match {
+                        case None        => jsonOkResult
+                        case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+                      }
                     }
                 )
               }

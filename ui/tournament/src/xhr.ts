@@ -7,7 +7,7 @@ const onFail = () => lichess.reload();
 
 export const join = throttle(1000, (ctrl: TournamentController, password?: string, team?: string) =>
   xhr
-    .text('/tournament/' + ctrl.data.id + '/join', {
+    .textRaw('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
       body: JSON.stringify({
         p: password || null,
@@ -15,7 +15,9 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
       }),
       headers: { 'Content-Type': 'application/json' },
     })
-    .catch(onFail)
+    .then(res => {
+      if (!res.ok) res.text().then(alert);
+    })
 );
 
 export const withdraw = throttle(1000, (ctrl: TournamentController) =>
