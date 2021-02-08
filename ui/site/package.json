@@ -16,7 +16,7 @@
     "@fnando/sparkline": "^0.3.10",
     "@yaireo/tagify": "^3.22.1",
     "debounce-promise": "^3.1.2",
-    "flatpickr": "^4.6.6",
+    "flatpickr": "^4.6.9",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
