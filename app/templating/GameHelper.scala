@@ -141,6 +141,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             case (_, Some(name))  => name
             case _                => trans.anonymous.txt()
           },
+          player.rating.ifTrue(withRating) map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>

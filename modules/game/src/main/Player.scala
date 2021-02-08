@@ -63,8 +63,6 @@ case class Player(
 
   def isProposingTakeback = proposeTakebackAt != 0
 
-  def withName(name: String) = copy(name = name.some)
-
   def nameSplit: Option[(String, Option[Int])] =
     name map {
       case Player.nameSplitRegex(n, r) => n -> r.toIntOption
@@ -134,6 +132,19 @@ object Player {
     user.fold(make(color)) { u =>
       make(color, (u.id, perfPicker(u.perfs)))
     }
+
+  def makeImported(
+      color: Color,
+      name: Option[String],
+      rating: Option[Int]
+  ): Player =
+    Player(
+      id = IdGenerator.player(color),
+      color = color,
+      aiLevel = none,
+      name = name orElse "?".some,
+      rating = rating
+    )
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
     def suspicious = HoldAlert.suspicious(ply)

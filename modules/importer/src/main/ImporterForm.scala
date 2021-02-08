@@ -90,16 +90,19 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
         val date = parsed.tags.anyDate
 
-        def name(whichName: TagPicker, whichRating: TagPicker): String =
-          parsed.tags(whichName).fold("?") { n =>
-            n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
-          }
-
         val dbGame = Game
           .make(
             chess = game,
-            whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
-            blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
+            whitePlayer = Player.makeImported(
+              chess.White,
+              parsed.tags(_.White),
+              parsed.tags(_.WhiteElo).flatMap(_.toIntOption)
+            ),
+            blackPlayer = Player.makeImported(
+              chess.Black,
+              parsed.tags(_.Black),
+              parsed.tags(_.BlackElo).flatMap(_.toIntOption)
+            ),
             mode = Mode.Casual,
             source = Source.Import,
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
