@@ -51,6 +51,7 @@
   <string name="forkDescription">Хід, при якому фігура атакує дві фігури одночасно.</string>
   <string name="hangingPiece">Незахищена фігура</string>
   <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
+  <string name="hookMate">Hachok mat</string>
   <string name="interference">Перешкода</string>
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Хід у проміжку</string>
