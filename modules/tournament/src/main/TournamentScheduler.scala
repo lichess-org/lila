@@ -371,11 +371,7 @@ Thank you all, you rock!"""
             case 2 => Blitz
             case _ => Rapid
           }
-          List(
-            1500 -> 0,
-            1700 -> 1,
-            2000 -> 2
-          ).flatMap { case (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { case (rating, hourDelay) =>
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(
               nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
