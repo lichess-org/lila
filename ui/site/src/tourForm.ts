@@ -21,6 +21,7 @@ lichess.load.then(() => {
       altInput: true,
       altFormat: 'Y-m-d h:i K',
       monthSelectorType: 'static',
+      disableMobile: true,
     });
   });
 });
