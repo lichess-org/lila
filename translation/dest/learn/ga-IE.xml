@@ -84,7 +84,7 @@ neamhcosanta a tógáil!</string>
   <string name="combatIntro">Bíonn an-eolas ag gach saighdiúir maith ar ionsaí agus ar cosaint araon!</string>
   <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="checkInOne">Sáinn i mbeart amháin</string>
-  <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
+  <string name="attackTheOpponentsKing">Ionsaí ar rí an chéile comhraic</string>
   <string name="checkInOneIntro">Chun do chéile comhraic a cur i sáinn, ionsaigh a rí. Is gá dó é a cosaint!</string>
   <string name="checkInOneGoal">Ionsaigh ar an rí namhaid
 i mbeart amháin!</string>
@@ -103,7 +103,7 @@ trí do chosaint!</string>
 nó an iasacht a blocáil!</string>
   <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i mbeart amháin</string>
-  <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
+  <string name="defeatTheOpponentsKing">Cloígh rí an chéile comhraic</string>
   <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
   <string name="attackYourOpponentsKing">Iasaigh ar an rí namhaid
 gan féidir leis é a cosaint!</string>
