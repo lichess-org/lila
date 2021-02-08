@@ -4,6 +4,7 @@ var status = require("game/status");
 
 function miniPairing(ctrl) {
   return function (pairing) {
+    console.log("simul/pairings miniPairing:", pairing)
     var game = pairing.game;
     var player = pairing.player;
     var result =
@@ -27,6 +28,7 @@ function miniPairing(ctrl) {
             class: "mini-board mini-board-" + game.id + " parse-fen is2d",
             "data-color": game.orient,
             "data-fen": game.fen,
+            "data-pocket": game.pockets,
             "data-lastmove": game.lastMove,
             config: function (el, isUpdate) {
               if (!isUpdate) lishogi.parseFen($(el));
