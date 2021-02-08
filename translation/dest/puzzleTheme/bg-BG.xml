@@ -19,7 +19,12 @@
   <string name="dovetailMate">Мат на Коцио</string>
   <string name="dovetailMateDescription">Дамата матира стоящият до нея цар, чиито единствени две полета за отстъпление са блокирани от собствените му фигури.</string>
   <string name="equality">Изравняване</string>
+  <string name="doubleCheck">Двоен шах</string>
+  <string name="endgame">Ендшпил</string>
+  <string name="endgameDescription">Тактика в последната фаза на играта.</string>
   <string name="fork">Вилица</string>
+  <string name="knightEndgame">Конски ендшпил</string>
+  <string name="knightEndgameDescription">Ендшпил само с коне и пешки.</string>
   <string name="long">Дълга задача</string>
   <string name="longDescription">Победа в три хода.</string>
   <string name="master">Майсторски Игри</string>
@@ -52,4 +57,7 @@
   <string name="rookEndgameDescription">Ендшпил само с топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
   <string name="skewer">Линеен удар</string>
+  <string name="underPromotionDescription">Произвеждане в кон, офицер или топ.</string>
+  <string name="veryLong">Много дълги задачи</string>
+  <string name="veryLongDescription">Четири или повече хода до победа.</string>
 </resources>
