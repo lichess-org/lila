@@ -22,7 +22,9 @@
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>
     <item quantity="other">Estu mallonga: maksimume %s presliteroj</item>
   </plurals>
+  <string name="tellUsAboutTheStream">Diru al ni pri via filmelsendo</string>
   <string name="longDescription">Longa priskribo</string>
+  <string name="xStreamerPicture">%s filmprezentisto-bildo</string>
   <string name="changePicture">Ŝanĝi/forigi vian bildon</string>
   <string name="uploadPicture">Alŝuti bildon</string>
   <string name="deletePicture">Forigi bildon</string>
