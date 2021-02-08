@@ -815,10 +815,10 @@
   <string name="edit">Промени</string>
   <string name="rapid">Скоростен</string>
   <string name="classical">Класически</string>
-  <string name="ultraBulletDesc">Ненормално бързи игри: под 30 секунди</string>
+  <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Скоростни игри: 8 до 25 минути</string>
+  <string name="rapidDesc">Бързи игри: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
