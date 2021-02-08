@@ -39,10 +39,10 @@
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="difficultyLevel">Poziom trudności</string>
   <string name="normal">Normalny</string>
-  <string name="easier">Łatwiejszy</string>
-  <string name="easiest">Najłatwiejszy</string>
-  <string name="harder">Trudniejszy</string>
-  <string name="hardest">Najtrudniejszy</string>
+  <string name="easier">Łatwy</string>
+  <string name="easiest">Bardzo łatwy</string>
+  <string name="harder">Trudny</string>
+  <string name="hardest">Bardzo trudny</string>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>

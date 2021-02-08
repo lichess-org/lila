@@ -8,16 +8,16 @@
   <string name="registerToSendChallenges">Регистрирайте се, за да отправяте предизвикателства.</string>
   <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
-  <string name="yourXRatingIsTooFarFromY">Вашият рейтинг %1$s е предалеч от %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Не можете да отправяте предизвикателтсва с временен рейтинг %s.</string>
+  <string name="yourXRatingIsTooFarFromY">Разликата между вашият рейтинг %1$s и %2$s е твърде голяма.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не можете да отправите предизвикателството поради временен рейтинг %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s приема предизвикателства само от приятели.</string>
   <string name="declineGeneric">Не приемам предизвикателства в момента.</string>
-  <string name="declineLater">Това не е точният момент за мен, моля, опитайте пак по-късно.</string>
-  <string name="declineTooFast">Този път управлението е пребързо за мен, моля, предизвикайте ме пак с по-бавна игра.</string>
-  <string name="declineTooSlow">Този път управлението е твърде бавно за мен, моля, предизвикайте ме пак с по-бърза игра.</string>
+  <string name="declineLater">Не приемам предизвикателства точно сега, моля опитайте пак по-късно.</string>
+  <string name="declineTooFast">Този контрол на времето е прекалено бърз за мен, моля, предизвикайте ме пак с по-бавна игра.</string>
+  <string name="declineTooSlow">Този контрол на времето е твърде бавен за мен, моля, предизвикайте ме пак с по-бърза игра.</string>
   <string name="declineTimeControl">Не приемам предизвикателства с такъв времеви формат.</string>
   <string name="declineRated">Вместо това изпращайте ми рейтингови предизвикателства, моля.</string>
-  <string name="declineCasual">Вместо това изпращайте ми лежерни предизвикателства, моля.</string>
+  <string name="declineCasual">Моля изпратете ми приятелско предизвикателство.</string>
   <string name="declineStandard">Не приемам вариант за партия шах в момента.</string>
   <string name="declineVariant">Не желая да играя този вариант в момента.</string>
 </resources>

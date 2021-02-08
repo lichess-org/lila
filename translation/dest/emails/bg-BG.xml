@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Потвърдете вашият lichess.org акаун, %s</string>
-  <string name="emailConfirm_click">Кликнете на връзката за да активирате вашият Lichess акаунт:</string>
+  <string name="emailConfirm_subject">Потвърдете регистрацията си в lichess.org, %s</string>
+  <string name="emailConfirm_click">Щракнете върху връзката, за да активирате Lichess профила си:</string>
   <string name="emailConfirm_ignore">Ако не сте се регистрирали в Lichess, може спокойно да игнорирате това съобщение.</string>
   <string name="passwordReset_subject">Възстановете паролата си в lichess.org, %s</string>
-  <string name="passwordReset_intro">Получихме заявка за възстановяване на паролата за вашият акаунт.</string>
+  <string name="passwordReset_intro">Получихме заявка за възстановяване на паролата за Вашия акаунт.</string>
   <string name="passwordReset_clickOrIgnore">Ако Вие направихте това искане, щракнете върху връзката по-долу. В противен случай може да игнорирате това съобщение.</string>
   <string name="emailChange_subject">Потвърдете Вашия нов имейл адрес, %s</string>
-  <string name="emailChange_intro">Поискахте да промените вашия имейл адрес.</string>
-  <string name="emailChange_click">За да потвърдите че сте собственик на този имейл, моля кликнете на:</string>
+  <string name="emailChange_intro">Поискахте да промените Вашия имейл адрес.</string>
+  <string name="emailChange_click">За да потвърдите, че сте собственик на този имейл, моля, щракнете на:</string>
   <string name="welcome_subject">Добре дошли в lichess.org, %s</string>
   <string name="welcome_text">Успешно създадохте профила си в https://lichess.org.
 Вашият профил е: %1$s. Може да го персонализирате по ваш вкус на %2$s.
 Забавлявайте се, и нека фигурите ви винаги да достигат до противниковия цар!</string>
   <string name="logInToLichess">Влезте в lichess.org, %s</string>
-  <string name="common_orPaste">(Кликването не работи? Опитайте поставянето на линка в браузъра!)</string>
+  <string name="common_orPaste">(Щракването не работи? Опитайте да поставите линка в браузъра!)</string>
   <string name="common_note">Това е служебен имейл, свързан с използването Ви на %s.</string>
   <string name="common_contact">За да се свържете с нас, посетете %s.</string>
 </resources>

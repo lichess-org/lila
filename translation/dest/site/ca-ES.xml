@@ -775,7 +775,7 @@ en %3$s</string>
   <string name="doItAgain">Fes-ho de nou</string>
   <string name="reviewWhiteMistakes">Revisar errors de les blanques</string>
   <string name="reviewBlackMistakes">Revisar errors de les negres</string>
-  <string name="advantage">Avantatge</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Avantatge</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segon</item>
     <item quantity="other">%s segon</item>

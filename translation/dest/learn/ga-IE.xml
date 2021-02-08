@@ -73,25 +73,25 @@ Agus ná caill do chuid píosaí féin.</string>
   <string name="keepYourPiecesSafe">Coinnigh do phíosaí slán</string>
   <string name="protectionIntro">Aithin na píosaí a bhfuil faoi iasacht, agus cosain iad!</string>
   <string name="protectionComplete">Comhghairdeas! Is é píosa gan cailleadh píosa buaite!</string>
-  <string name="escape">Tá tú faoi iasacht!
-Éalaigh uaidh!</string>
+  <string name="escape">Tá tú faoi ionsaí!
+Éalaigh ó bhaol!</string>
   <string name="noEscape">Ní féidir leat éalú,
 ach is féidir leat cosaint!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ná lig dóibh aon píosa
 neamhcosanta a tógáil!</string>
   <string name="combat">Troid</string>
   <string name="captureAndDefendPieces">Marú agus cosaint píosaí</string>
-  <string name="combatIntro">Tá fhios ag gach saighdiúir faoi ionsaí agus cosaint!</string>
+  <string name="combatIntro">Bíonn an-eolas ag gach saighdiúir maith ar ionsaí agus ar cosaint araon!</string>
   <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="checkInOne">Sáinn i mbeart amháin</string>
-  <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
+  <string name="attackTheOpponentsKing">Ionsaí ar rí an chéile comhraic</string>
   <string name="checkInOneIntro">Chun do chéile comhraic a cur i sáinn, ionsaigh a rí. Is gá dó é a cosaint!</string>
   <string name="checkInOneGoal">Ionsaigh ar an rí namhaid
 i mbeart amháin!</string>
   <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="outOfCheck">Ealú ó sáinn</string>
   <string name="defendYourKing">Cosain do rí</string>
-  <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh duit éalú nó an iasacht a blocáil.</string>
+  <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh tú éalú nó an t-ionsaí a blocáil.</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
   <string name="theKingCannotEscapeButBlock">Ní féidir leis an rí éalú,
 ach is féidir leat an iasacht a blocáil!</string>
@@ -103,7 +103,7 @@ trí do chosaint!</string>
 nó an iasacht a blocáil!</string>
   <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i mbeart amháin</string>
-  <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
+  <string name="defeatTheOpponentsKing">Cloígh rí an chéile comhraic</string>
   <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
   <string name="attackYourOpponentsKing">Iasaigh ar an rí namhaid
 gan féidir leis é a cosaint!</string>

@@ -174,14 +174,14 @@
   <string name="rating">Reytinq</string>
   <string name="ratingStats">Reytinq statistikaları</string>
   <string name="username">İstifadəçi adı</string>
-  <string name="usernameOrEmail">İstifadəçi adı və ya email</string>
+  <string name="usernameOrEmail">İstifadəçi adı və ya e-poçt</string>
   <string name="changeUsername">İstifadəçi adını dəyiş</string>
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adınızı dəyişdirin. Bu prosesi sadəcə 1 (bir) dəfə gərçəkləşdirə bilərsiniz və sadəcə mövcud istifadəçi adınızdakı hərfləri (\"johndoe\", \"JohnDoe\") dəyiştirə bilərsiniz.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Şifrəni dəyiş</string>
-  <string name="changeEmail">Emaili dəyiş</string>
-  <string name="email">Email</string>
+  <string name="changeEmail">E-poçtu dəyiş</string>
+  <string name="email">E-poçt</string>
   <string name="passwordReset">Şifrəni yenilə</string>
   <string name="forgotPassword">Şifrəni unutmusuz?</string>
   <string name="rank">Sıralama</string>
@@ -501,7 +501,7 @@
   <string name="invalidUsernameOrPassword">Yanlış istifadəçi adı və ya şifrə</string>
   <string name="incorrectPassword">Yanlış şifrə</string>
   <string name="invalidAuthenticationCode">Etibarsız kimlik təsdiqləmə kodu</string>
-  <string name="emailMeALink">Email ilə giriş linki göndər</string>
+  <string name="emailMeALink">E-poçt ilə giriş linki göndər</string>
   <string name="currentPassword">Cari şifrə</string>
   <string name="newPassword">Yeni şifrə</string>
   <string name="newPasswordAgain">Yeni şifrə (təkrar)</string>
@@ -574,10 +574,10 @@
   <string name="allowAnalytics">Anonim statistikalara icazə verin</string>
   <string name="shareGameURL">Oyun URL-ni paylaş</string>
   <string name="error.required">Bu xananın doldurulması məcburidir</string>
-  <string name="error.email">Bu email adresində xəta var</string>
-  <string name="error.email_acceptable">Bu email ünvanı qəbul edilmir. Lütfən dəqiqləşdirib yenidən cəhd edin.</string>
-  <string name="error.email_unique">Bu email artıq istifadə edilir</string>
-  <string name="error.email_different">Bu sizin inidiki email ünvanınızdır</string>
+  <string name="error.email">Bu e-poçt adresində xəta var</string>
+  <string name="error.email_acceptable">Bu e-poçt ünvanı qəbul edilmir. Lütfən dəqiqləşdirib yenidən cəhd edin.</string>
+  <string name="error.email_unique">Bu e-poçt artıq istifadə edilir</string>
+  <string name="error.email_different">Bu sizin inidiki e-poçtl ünvanınızdır</string>
   <string name="ifRatingIsPlusMinusX">Əgər reytinq ± %s olarsa</string>
   <string name="onlyFriends">Yalnız dostlar</string>
   <string name="menu">Menyu</string>
@@ -651,10 +651,10 @@
   <string name="yourRating">Sizin reytinq</string>
   <string name="cumulative">Məcmu</string>
   <string name="glicko2Rating">Glicko-2 reytinqi</string>
-  <string name="checkYourEmail">Emailini yoxla</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə email göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər emaili görmürsünzsə, onun ola biləcəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
-  <string name="weHaveSentYouAnEmailTo">Biz %s ünvanına email göndərdik. Şifrəni yeniləmək üçün emailinizdəki linkə klikləyin.</string>
+  <string name="checkYourEmail">E-poçtunu yoxla</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə e-poçt göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər e-poçtu görmürsünzsə, onun ola biləcəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
+  <string name="weHaveSentYouAnEmailTo">Biz %s ünvanına e-poçt göndərdik. Şifrəni yeniləmək üçün e-poçtunuzdakı linkə klikləyin.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Qeydiyyatdan keçməklə siz, bizim %s ilə razılaşırsınız.</string>
   <string name="readAboutOur">%s haqqında oxuyun.</string>
   <string name="networkLagBetweenYouAndLichess">Siz və lichess arasında şəbəkə gecikməsi</string>
@@ -671,7 +671,7 @@
   <string name="withNobody">Heç kim ilə</string>
   <string name="withFriends">Dostlar ilə</string>
   <string name="withEverybody">Hər kəs ilə</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Sən emaili artıq qeydiyyatdan keçirmisən: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Sən e-poçtu artıq qeydiyyatdan keçirmisən: %s</string>
   <string name="kidMode">Uşaq rejimi</string>
   <string name="kidModeExplanation">Bu təhlükəsizliklə bağlıdır. Uşaq rejimində bütün sayt əlaqələri deaktivdir. Uşaqlarınız və məktəb şagirdləriniz üçün, onları digər internet istifadəçilərindən qorumaq üçün bunu aktiv edin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Uşaq rejimində, Lichess loqosu %s işarəsini alır, beləliklə uşaqlarınızın təhlükəsiz olduğunu bilirsiniz.</string>
@@ -773,7 +773,7 @@
   <string name="doItAgain">Təkrar et</string>
   <string name="reviewWhiteMistakes">Ağların səhvlərini nəzərdən keçirin</string>
   <string name="reviewBlackMistakes">Qaraların səhvlərini nəzərdən keçirin</string>
-  <string name="advantage">Üstünlük</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Üstünlük</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s saniyə</item>
     <item quantity="other">%s saniyə</item>

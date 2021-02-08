@@ -4,7 +4,7 @@
   <string name="puzzlesSolved">Aufgaben gelöst</string>
   <string name="newDailyHighscore">Neuer Tagesrekord!</string>
   <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
-  <string name="newMonthlyHighscore">Neuer monatlicher Rekord!</string>
+  <string name="newMonthlyHighscore">Neuer Monatsrekord!</string>
   <string name="newAllTimeHighscore">Neuer Allzeit-Rekord!</string>
   <string name="previousHighscoreWasX">Dein vorheriger Rekord war %s</string>
   <string name="playAgain">Erneut spielen</string>

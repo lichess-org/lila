@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">jan utala li kama wawa</string>
+  <string name="advancedPawnDescription">jan utala li kama ijo musi ante. anu la, ona li wile kama ijo musi ante.</string>
+  <string name="advantage">o wawa e nasin pi ijo musi sina</string>
+  <string name="advantageDescription">ijo musi sina li ken kama lon nasin pona. ona li wawa tawa ijo musi ante.</string>
+  <string name="castling">tawa pi \"tomo awen\"</string>
+  <string name="castlingDescription">o awen e jan lawa sina. o tawa e tomo utala sina tawa ni: ona li ken utala e ijo ante.</string>
+  <string name="capturingDefender">o anpa e ijo pi awen ijo</string>
+  <string name="capturingDefenderDescription">ijo musi li awen e ijo ante. sina anpa e ona la, ijo ante li awen ala. sina ken anpa e ijo ante lon tenpo tawa kama sina.</string>
+  <string name="crushing">tawa ike pi jan ante</string>
+  <string name="crushingDescription">jan ante li pali e tawa ike. sina ken lukin e ona la, sina ken pali e tawa ni: ona li wawa e nasin pi ijo musi sina.</string>
+  <string name="equality">sama wawa pi nasin ijo</string>
+  <string name="equalityDescription">nasin pi ijo musi sina li ike. taso, sina ken sama e ona tawa jan ante.</string>
+  <string name="endgame">pini musi</string>
+  <string name="longDescription">o kama pona lon tenpo tawa tu wan.</string>
+  <string name="mateIn1">moli lon tenpo tawa 1</string>
+  <string name="mateIn1Description">o moli e jan lawa ante lon tenpo tawa wan.</string>
+  <string name="mateIn2">moli lon tenpo tawa 2</string>
+  <string name="mateIn2Description">o moli e jan lawa ante lon tenpo tawa tu.</string>
+  <string name="mateIn3">moli lon tenpo tawa 3</string>
+  <string name="mateIn3Description">o moli e jan lawa ante lon tenpo tawa tu wan.</string>
+  <string name="mateIn4">moli lon tenpo tawa 4</string>
+  <string name="mateIn4Description">o moli e jan lawa ante lon tenpo tawa tu tu.</string>
+  <string name="mateIn5">moli lon tenpo tawa mute</string>
+  <string name="mateIn5Description">o lukin e linja tawa ni: jan lawa ante li moli lon tenpo tawa mute.</string>
+  <string name="middlegame">tenpo insa musi</string>
+  <string name="opening">open musi</string>
+</resources>

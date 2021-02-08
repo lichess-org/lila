@@ -9,6 +9,7 @@
   <string name="lengths">Durada</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectius</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origen</string>
   <string name="specialMoves">Jugades especials</string>
   <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
   <string name="voteToLoadNextOne">Vota per passar al següent!</string>
@@ -40,5 +41,8 @@
   <string name="addAnotherTheme">Afegir un nou tema</string>
   <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
   <string name="puzzleDashboard">Panell de problemes</string>
+  <string name="improvementAreas">Àrees de millora</string>
   <string name="strengths">Fortaleses</string>
+  <string name="solved">resolt</string>
+  <string name="failed">fallit</string>
 </resources>

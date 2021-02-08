@@ -20,13 +20,14 @@
   <string name="score">Poengsum</string>
   <string name="moves">Trekk</string>
   <string name="accuracy">Presisjon</string>
-  <string name="combo">Kombinasjon</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombinasjon</string>
   <string name="time">Tid</string>
   <string name="timePerMove">Tid per trekk</string>
-  <string name="highestSolved">Høgste vanskegrad</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Høgste vanskegrad</string>
   <string name="puzzlesPlayed">Spelte oppgåver</string>
   <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
   <string name="endRun">Avslutt runden (hurtigtast: Enter)</string>
+  <string name="highscores">Rekordar</string>
   <string name="viewBestRuns">Vis beste runde</string>
   <string name="bestRunOfDay">Dagens beste runde</string>
   <string name="runs">Runder</string>

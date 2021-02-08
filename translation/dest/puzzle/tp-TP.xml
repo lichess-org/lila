@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">musi lili</string>
+  <string name="puzzleThemes">nasin pi musi lili</string>
+  <string name="recommended">ni li pona tawa sina</string>
+  <string name="phases">wan musi</string>
+  <string name="motifs">kama ante</string>
+  <string name="advanced">musi pi sona mute</string>
+  <string name="lengths">mute tawa</string>
+  <string name="mates">o moli e jan lawa</string>
+  <string name="goals">pini ante</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">musi tan pi musi lili</string>
+  <string name="specialMoves">tawa suli</string>
+  <string name="didYouLikeThisPuzzle">musi lili ni li pona ala pona tawa sina?</string>
+  <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
+  <string name="yourPuzzleRatingX">nanpa wawa sina pi musi lili li %s</string>
+  <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
+  <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
+  <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la, </string>
+  <string name="puzzleId">musi lili # %s</string>
+  <string name="puzzleOfTheDay">musi lili pi tenpo suni ni</string>
+  <string name="clickToSolve">o pini e musi lili</string>
+  <string name="goodMove">tawa pona</string>
+  <string name="bestMove">tawa pi pona #1!</string>
+  <string name="keepGoing">o pali e tawa sin…</string>
+  <string name="puzzleSuccess">pona a!</string>
+  <string name="puzzleComplete">musi lili li pini pona!</string>
+  <string name="notTheMove">ni li tawa pona ala!</string>
+  <string name="trySomethingElse">o pali e tawa ante.</string>
+  <string name="ratingX">nanpa wawa: %s</string>
+  <string name="hidden">sona len</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">jan li musi e ona lon tenpo %s</item>
+    <item quantity="other">jan li musi e ona lon tenpo %s</item>
+  </plurals>
+  <string name="fromGameLink">tan musi %s</string>
+  <string name="continueTraining">o awen kama sona</string>
+  <string name="difficultyLevel">wawa pi musi lili</string>
+  <string name="normal">insa suli</string>
+  <string name="easier">lili</string>
+  <string name="easiest">lili mute</string>
+  <string name="harder">suli</string>
+  <string name="hardest">suli mute</string>
+  <string name="example">ona li sama ni:</string>
+  <string name="addAnotherTheme">o sin e kulupu ante</string>
+  <string name="jumpToNextPuzzleImmediately">musi lili li pini la, o pana e musi sin lon tenpo sama</string>
+  <string name="puzzleDashboard">lipu sona pi musi lili</string>
+  <string name="improvementAreas">wan musi sina pi wawa lili</string>
+  <string name="strengths">wan musi sina pi wawa suli</string>
+  <string name="history">musi lili pi tenpo pini</string>
+  <string name="solved">pini pona</string>
+  <string name="failed">pini ike</string>
+</resources>

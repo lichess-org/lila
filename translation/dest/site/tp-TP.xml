@@ -191,8 +191,8 @@
     <item quantity="other">nanpa ni li sin lon tenpo Minuta %s</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">musi %s</item>
-    <item quantity="other">musi %s</item>
+    <item quantity="one">musi lili %s</item>
+    <item quantity="other">musi lili %s</item>
   </plurals>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <plurals name="nbGamesWithYou">
@@ -365,12 +365,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="noFriendsOnline">jan pona ala li lon ni</string>
   <string name="findFriends">o lukin e jan pona</string>
   <string name="favoriteOpponents">jan ante musi pi pona tawa sina</string>
-  <string name="follow">tawa poka</string>
+  <string name="follow">o tawa poka</string>
   <string name="following">jan pi tawa poka</string>
-  <string name="unfollow">tawa poka ala</string>
-  <string name="block">pake</string>
+  <string name="unfollow">o tawa poka ala</string>
+  <string name="block">o pake</string>
   <string name="blocked">jan pake</string>
-  <string name="unblock">pakala e pake</string>
+  <string name="unblock">o pake ala</string>
   <string name="followsYou">jan pi tawa poka sina</string>
   <string name="xStartedFollowingY">jan %1$s li kama tawa poka jan %2$s</string>
   <plurals name="nbFollowers">
@@ -464,7 +464,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
-  <string name="puzzles">musi pi pilin lon</string>
+  <string name="puzzles">musi lili pi kama sona</string>
   <string name="latestUpdates">sona sin</string>
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
@@ -553,7 +553,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="listBlockedPlayers">o pana e lipu pi jan ni: sina weka wawa e ona</string>
   <string name="human">jan</string>
   <string name="computer">ilo sona</string>
-  <string name="side">walo anu pimeja</string>
+  <string name="side">kule ijo sina</string>
   <string name="clock">ilo tenpo</string>
   <string name="unauthorizedError">sina ken ala.</string>
   <string name="noInternetConnection">sina jo ala e linja sona. sina ken musi e musi ni: ona li wile ala e linja sona.</string>
@@ -788,9 +788,13 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
   <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
+  <string name="goodPractice">tan ni la, mi wile e ni: jan ale li pona tawa nasin pi musi pona.</string>
+  <string name="potentialProblem">ike li lon la, mi pana lukin e lipu ni.</string>
+  <string name="howToAvoidThis">sina wile ala jo e lipu ni la, o pali e ni:</string>
   <string name="playEveryGame">sina open musi la, o pini e musi.</string>
   <string name="tryToWin">o wile e ni: mi wile pini pona (anu pini pi anpa ala) e musi.</string>
   <string name="resignLostGames">musi li pini ike, o toki \"mi anpa\" (kepeken nena).</string>
+  <string name="temporaryInconvenience"></string>
   <string name="wishYouGreatGames">mi wile e ni: musi sina pi ilo Lichess li pona.</string>
   <string name="thankYouForReading">sina lukin ale e lipu ni la, sina pona!</string>
   <string name="lifetimeScore">nanpa pona pi musi ale</string>
@@ -815,6 +819,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="inTheFAQ">lon lipu \"wile sona pi jan mute\"</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">jan li pali ike, li kepeken e ilo ike la, </string>
   <string name="useTheReportForm">o toki kepeken lipu ni</string>
+  <string name="toRequestSupport">sina wile toki tawa jan lawa pi ilo Lichess la, %1$s</string>
+  <string name="tryTheContactPage">o toki kepeken lipu \"toki tawa jan lawa\"</string>
   <string name="thisTopicIsArchived">toki ni li awen. jan li ken ala toki lon ona lon tenpo ni.</string>
   <string name="joinTheTeamXToPost">sina wile toki lon tomo toki ni la, o kama tawa kulupu \"%1$s\"</string>
   <string name="teamNamedX">kulupu %1$s</string>

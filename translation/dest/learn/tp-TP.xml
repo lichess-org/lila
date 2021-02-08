@@ -99,6 +99,8 @@ anu pini e utala!</string>
   <string name="mateInOneIntro">ijo ante li utala e jan lawa mije la, jan musi ona li ken ala pini e ni la, jan lawa li moli. jan ante li pini pona!</string>
   <string name="attackYourOpponentsKing">o utala e jan lawa mije lon nasin ni:
 jan musi ante li ken ala pini e ona!</string>
+  <string name="mateInOneComplete">pona a! sina ken pini pona e musi lon nasin ni!</string>
+  <string name="intermediate">sona pi insa wawa</string>
   <string name="boardSetup">supa musi</string>
   <string name="howTheGameStarts">nasin pi open musi</string>
   <string name="boardSetupIntro">kulupu utala tu li lon sinpin pi ona ante. ona li wile utala.</string>
@@ -120,12 +122,37 @@ o pali e tawa.</string>
   <string name="boardSetupComplete">pona a! sina sona e ni: nasin pi open musi li seme?</string>
   <string name="castling">tawa pi \"tomo awen\"</string>
   <string name="theSpecialKingMove">jan lawa mije en tomo utala li ken tawa lon tenpo sama</string>
+  <string name="castlingIntro">o awen e jan lawa. o tawa e tomo utala tawa ni: ona li ken utala e ijo ante!</string>
+  <string name="castleKingSide">o tawa e jan lawa sina tawa ma tu pi poka mije!</string>
+  <string name="castleQueenSide">o tawa e jan lawa sina tawa ma tu pi poka meli!</string>
+  <string name="theKnightIsInTheWay">soweli tawa li lon insa nasin!
+o weka e ona tan nasin. o pali e tawa \"tomo awen\" lon poka mije.</string>
+  <string name="castleKingSideMovePiecesFirst">o tawa \"tomo awen\" e jan lawa lon poka mije!
+taso, ijo ante li lon insa nasin sina. o weka e ona.</string>
+  <string name="castleQueenSideMovePiecesFirst">o tawa \"tomo awen\" e jan lawa lon poka meli!
+taso, ijo ante li lon insa nasin sina. o weka e ona.</string>
+  <string name="youCannotCastleIfMoved">jan lawa anu tomo utala li tawa lon tenpo pini la,
+sina ken ala tawa \"tomo awen\".</string>
+  <string name="youCannotCastleIfAttacked">ijo ante li utala e ma lon nasin
+pi jan lawa sina la, sina ken ala tawa \"tomo awen\".
+o awen e ma ni. o tawa \"tomo awen\"!</string>
+  <string name="findAWayToCastleKingSide">o lukin e ni: sina ken tawa \"tomo awen\"
+lon poka mije kepeken tawa seme?</string>
+  <string name="findAWayToCastleQueenSide">o lukin e ni: sina ken tawa \"tomo awen\"
+lon poka meli kepeken tawa seme?</string>
+  <string name="castlingComplete">pona a! tawa \"tomo awen\" li pona lon kama pi mute suli.</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
+  <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
+  <string name="learnCommonChessPositions">o kama sona e nasin supa</string>
   <string name="puzzles">musi pi pilin lon</string>
   <string name="videos">sitelen tawa</string>
+  <string name="playPeople">o musi lon poka jan ante</string>
+  <string name="opponentsFromAroundTheWorld">jan musi pi ma ale</string>
+  <string name="playMachine">o musi kepeken ilo musi</string>
+  <string name="testYourSkillsWithTheComputer">o lukin e wawa sina kepeken ilo musi</string>
   <string name="letsGo">mi o open!</string>
   <string name="stageX">ma %s</string>
   <string name="awesome">pona pona a!</string>
@@ -138,6 +165,7 @@ o pali e tawa.</string>
   <string name="youreGoodAtThis">ni la sina pona a!</string>
   <string name="nailedIt">pona a.</string>
   <string name="rightOn">sina pona a!</string>
+  <string name="stageXComplete">wan #%s li pini</string>
   <string name="yourScore">nanpa sina</string>
   <string name="next">ijo kama</string>
   <string name="backToMenu">o tawa lipu open</string>

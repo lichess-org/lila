@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Задачи</string>
+  <string name="puzzleThemes">Задачи по теми</string>
+  <string name="recommended">Препоръчани</string>
+  <string name="phases">Етапи</string>
+  <string name="motifs">Тактики</string>
+  <string name="advanced">За напреднали</string>
+  <string name="lengths">Дължини</string>
+  <string name="mates">Матове</string>
+  <string name="goals">Цели</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Произход</string>
+  <string name="specialMoves">Специални ходове</string>
+  <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
+  <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
+  <string name="yourPuzzleRatingX">Вашият рейтинг по задачите: %s</string>
+  <string name="findTheBestMoveForWhite">Открийте най-добрият ход за белите.</string>
+  <string name="findTheBestMoveForBlack">Открийте най-добрият ход за черните.</string>
+  <string name="toGetPersonalizedPuzzles">За да получите персонализирани пъзели:</string>
+  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleOfTheDay">Задача на деня</string>
+  <string name="clickToSolve">Щракни, за да решиш</string>
+  <string name="goodMove">Добър ход</string>
+  <string name="bestMove">Най-добър ход!</string>
+  <string name="keepGoing">Продължи…</string>
+  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleComplete">Задачата е решена!</string>
+  <string name="notTheMove">Това не е верният ход!</string>
+  <string name="trySomethingElse">Опитайте нещо друго.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрито</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решавана %s пъти</item>
+    <item quantity="other">Изиграна %s пъти</item>
+  </plurals>
+  <string name="fromGameLink">От игра %s</string>
+  <string name="continueTraining">Продължи упражнението</string>
+  <string name="difficultyLevel">Ниво на трудност</string>
+  <string name="normal">Средно</string>
+  <string name="easier">По-лесно</string>
+  <string name="easiest">Най-лесно</string>
+  <string name="harder">По-трудно</string>
+  <string name="hardest">Най-трудно</string>
+  <string name="example">Пример</string>
+  <string name="addAnotherTheme">Добавяне на нова тема</string>
+  <string name="jumpToNextPuzzleImmediately">Веднага продължи към следващата задача</string>
+  <string name="puzzleDashboard">Панел на задачите</string>
+  <string name="improvementAreas">Области за подобрение</string>
+  <string name="strengths">Силни страни</string>
+  <string name="history">История на задачите</string>
+  <string name="solved">решени</string>
+  <string name="failed">неуспешни</string>
+</resources>

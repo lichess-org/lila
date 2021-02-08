@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="emailConfirm_subject">Qinisekisa i-akhawunti yakho ye- lichess.org, %s</string>
   <string name="emailConfirm_click">Chofoza isixhumanisi ukuze unike amandla i-akhawunti yakho Lichess:</string>
   <string name="emailConfirm_ignore">Uma ungazange ubhalise namaLayisense ungawunaka lo mlayezo ngokuphepha.</string>
+  <string name="passwordReset_subject">Setha kabusha iphasiwedi yakho ye- lichess.org, %s</string>
   <string name="passwordReset_intro">Sithole isicelo sokusetha kabusha iphasiwedi ye-akhawunti yakho.</string>
   <string name="passwordReset_clickOrIgnore">Uma wenze lesi sicelo, chofoza kusixhumanisi esingezansi. Uma kungenjalo, ungayinaka le imeyili.</string>
+  <string name="emailChange_subject">Qinisekisa ikheli le-imeyili elisha, %s</string>
   <string name="emailChange_intro">Ucele ukuguqula ikheli lakho le-imeyili.</string>
   <string name="emailChange_click">Ukuqinisekisa ukuthi uyakwazi ukufinyelela le imeyili, sicela uchofoze isixhumanisi esingezansi:</string>
+  <string name="welcome_subject">Uyemukelwa ku lichess.org, %s</string>
+  <string name="welcome_text">Uyidale ngempumelelo i-akhawunti yakho ku- https://lichess.org.
+
+Nali ikhasi lephrofayela yakho: %1$s. Ungayenza ibe ngeyakho uqubo %2$s.
+
+Kujabulele, futhi kwangathi izingcezu zakho zingathola njalo indlela eya enkosini yomphikisi!</string>
   <string name="logInToLichess">Ngena ngemvume ku-lichess.org, %s</string>
   <string name="common_orPaste">(Ukuchofoza kungasebenzi? Zama ukunamathisela kusiphequluli sakho!)</string>
   <string name="common_note">Le yi-imeyili yesevisi ehlobene nokusebenzisa kwakho %s.</string>

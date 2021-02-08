@@ -569,6 +569,7 @@
   <string name="clockInitialTime">Початковий час годинника</string>
   <string name="clockIncrement">Приріст часу</string>
   <string name="privacy">Конфіденційність</string>
+  <string name="privacyPolicy">Політика конфіденційности</string>
   <string name="letOtherPlayersFollowYou">Дозволити іншим спостерігати за вами</string>
   <string name="letOtherPlayersChallengeYou">Дозволити іншим кидати вам виклик</string>
   <string name="letOtherPlayersInviteYouToStudy">Дозволити іншим гравцям запрошувати Вас на навчання</string>
@@ -722,6 +723,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо Ви не бачите листа, перевірте інші місця, де б він міг бути, наприклад, корзину, спам та інші папки.</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Реєструючись, Ви даєте згоду дотримуватись наших %s.</string>
+  <string name="readAboutOur">Читайте про наш %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мережева затримка між Вами та Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час обробки ходу на сервері Lichess</string>
   <string name="downloadAnnotated">Завантажити з коментарями</string>
@@ -842,7 +844,7 @@
   <string name="doItAgain">Ще раз</string>
   <string name="reviewWhiteMistakes">Розібрати помилки білих</string>
   <string name="reviewBlackMistakes">Розібрати помилки чорних</string>
-  <string name="advantage">Перевага</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Перевага</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="few">%s секунди</item>

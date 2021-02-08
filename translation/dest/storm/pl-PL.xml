@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Wykonaj ruch, aby zacząć</string>
-  <string name="puzzlesSolved">zadania rozwiązane</string>
+  <string name="puzzlesSolved">liczba rozwiązanych zadań</string>
   <string name="newDailyHighscore">Nowy rekord dnia!</string>
   <string name="newWeeklyHighscore">Nowy tygodniowy rekord!</string>
   <string name="newMonthlyHighscore">Nowy miesięczny rekord!</string>

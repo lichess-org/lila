@@ -202,12 +202,12 @@
   <string name="changeUsername">Athraigh ainm an úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit cás na litreacha i d’ainm úsáideora a athrú.</string>
-  <string name="password">Focal faire</string>
+  <string name="password">Pasfhocal</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh ríomhphost</string>
   <string name="email">Ríomhphost</string>
   <string name="passwordReset">Athshocraigh pasfhocal</string>
-  <string name="forgotPassword">Pasfhocal dearmadta</string>
+  <string name="forgotPassword">Pasfhocal dearmadta agat?</string>
   <string name="rank">Céimíocht</string>
   <string name="rankX">Céim: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -586,7 +586,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="questionsAndAnswers">Ceisteanna &amp; Freagraí</string>
   <string name="notes">Nótaí</string>
   <string name="typePrivateNotesHere">Scríobh nótaí príobháideach anseo</string>
-  <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal mícheart</string>
+  <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal neamhbhailí</string>
   <string name="incorrectPassword">Pasfhocal mícheart</string>
   <string name="invalidAuthenticationCode">Cód fíordheimhniú neamhbhailí</string>
   <string name="emailMeALink">Seol nasc chugam trí r-phost</string>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Odštartujte potiahnutím</string>
   <string name="puzzlesSolved">vyriešených úloh</string>
   <string name="newDailyHighscore">Nové najvyššie skóre dňa!</string>
   <string name="newWeeklyHighscore">Nové najvyššie skóre týždňa!</string>
   <string name="newMonthlyHighscore">Nové najvyššie skóre mesiaca!</string>
+  <string name="newAllTimeHighscore">Nové celkové najvyššie skóre!</string>
   <string name="previousHighscoreWasX">Predchádzajúce najvyššie skóre bolo %s</string>
   <string name="playAgain">Hrať znova</string>
   <string name="highscoreX">Najvyššie skóre: %s</string>

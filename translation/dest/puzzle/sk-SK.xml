@@ -9,6 +9,7 @@
   <string name="lengths">Dĺžka</string>
   <string name="mates">Mat</string>
   <string name="goals">Cieľ</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Pôvod</string>
   <string name="specialMoves">Špeciálne ťahy</string>
   <string name="didYouLikeThisPuzzle">Páčila sa vám táto úloha?</string>
   <string name="voteToLoadNextOne">Hlasujte a prejdite k ďalšej úlohe!</string>
@@ -46,6 +47,9 @@
   <string name="addAnotherTheme">Pridať ďalšiu kategóriu</string>
   <string name="jumpToNextPuzzleImmediately">Automaticky prejsť na ďalšiu úlohu</string>
   <string name="puzzleDashboard">Nástenka šachových úloh</string>
+  <string name="improvementAreas">Oblasti zlepšovania</string>
   <string name="strengths">Silné stránky</string>
+  <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
+  <string name="failed">zlyhané</string>
 </resources>
