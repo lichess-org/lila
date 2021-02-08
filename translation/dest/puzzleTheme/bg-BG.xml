@@ -4,6 +4,7 @@
   <string name="advantage">Предимство</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
   <string name="arabianMate">Арабски мат</string>
+  <string name="arabianMateDescription">Кон и топ матират царя в ъгъла на полето.</string>
   <string name="attackingF2F7">Атака на f2 или f7</string>
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
@@ -24,6 +25,7 @@
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
   <string name="fork">Вилица</string>
+  <string name="forkDescription">Ход, в който фигура атакува едновременно поне две противникови фигури.</string>
   <string name="knightEndgame">Конски ендшпил</string>
   <string name="knightEndgameDescription">Ендшпил само с коне и пешки.</string>
   <string name="long">Дълга задача</string>
