@@ -13,6 +13,9 @@
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
   <string name="crushing">Погром</string>
+  <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
+  <string name="doubleBishopMate">Мат с два офицера</string>
+  <string name="doubleBishopMateDescription">Два офицера на съседни диагонали матират цар обкръжен от собствените си фигури.</string>
   <string name="fork">Вилица</string>
   <string name="long">Дълга задача</string>
   <string name="longDescription">Победа в три хода.</string>
