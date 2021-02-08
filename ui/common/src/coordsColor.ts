@@ -24,6 +24,7 @@ const changeColorHandle = (): void => {
     purple: '#9f90b0 #7d4a8d',
     'purple-diag': '#E5DAF0 #957AB0',
     ic: '#ececec #c1c18e',
+    horsey: '#F0D9B5 #946f51',
   };
 
   for (const theme of document.body.className.split(' ')) {

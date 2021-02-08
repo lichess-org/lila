@@ -45,6 +45,11 @@ square {
     background-color: rgba(0, 155, 199, 0.41);
   }
 
+  body.horsey &.last-move {
+    background: url(../images/board/horsey.last-move.png);
+    background-size: cover;
+  }
+
   &.last-move {
     will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
