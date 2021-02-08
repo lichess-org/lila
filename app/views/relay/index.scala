@@ -36,7 +36,7 @@ object index {
         div(cls := "box__top")(
           h1(liveBroadcasts()),
           a(
-            href := routes.Relay.form(),
+            href := routes.Relay.form,
             cls := "new button button-empty",
             title := newBroadcast.txt(),
             dataIcon := "O"

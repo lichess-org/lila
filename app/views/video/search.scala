@@ -23,9 +23,9 @@ object search {
           s""""${~control.query}"""",
           br,
           br,
-          a(href := routes.Video.index(), cls := "button")("Clear search")
+          a(href := routes.Video.index, cls := "button")("Clear search")
         ),
-        pagerNext(videos, np => s"${routes.Video.index()}?${control.queryString}&page=$np")
+        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
     )
 }

@@ -92,7 +92,7 @@ object storm {
             renderHigh(high)
           )
         ),
-        a(cls := "storm-play-again button", href := routes.Storm.home())(trans.storm.playAgain()),
+        a(cls := "storm-play-again button", href := routes.Storm.home)(trans.storm.playAgain()),
         div(cls := "storm-dashboard__history box")(
           table(cls := "slist slist-pad")(
             thead(

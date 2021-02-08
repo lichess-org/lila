@@ -23,7 +23,7 @@ object form {
         h1(trans.reportAUser()),
         postForm(
           cls := "form3",
-          action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}"
+          action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           form3.globalError(form),
           form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
@@ -43,7 +43,7 @@ object form {
           ),
           views.html.base.captcha(form, captcha),
           form3.actions(
-            a(href := routes.Lobby.home())(trans.cancel()),
+            a(href := routes.Lobby.home)(trans.cancel()),
             form3.submit(trans.send())
           )
         )
@@ -51,7 +51,7 @@ object form {
     }
 
   def flag(username: String, resource: String, text: String) =
-    postForm(action := routes.Report.flag(), cls := "comm-flag")(
+    postForm(action := routes.Report.flag, cls := "comm-flag")(
       form3.hidden("username", username),
       form3.hidden("resource", resource),
       form3.hidden("text", text take 140),

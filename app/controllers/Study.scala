@@ -518,10 +518,10 @@ final class Study(
       lila.study.StudyForm.topicsForm
         .bindFromRequest()
         .fold(
-          _ => Redirect(routes.Study.topics()).fuccess,
+          _ => Redirect(routes.Study.topics).fuccess,
           topics =>
             env.study.topicApi.userTopics(me, topics) inject
-              Redirect(routes.Study.topics())
+              Redirect(routes.Study.topics)
         )
     }
 

@@ -50,7 +50,7 @@ object index {
           h1(id := "made")("My OAuth Apps"),
           p(cls := "box__pad")(
             "Want to build something that integrates with and extends Lichess? ",
-            a(href := routes.OAuthApp.create())("Register a new OAuth App"),
+            a(href := routes.OAuthApp.create)("Register a new OAuth App"),
             " to get started developing with the Lichess API.",
             br,
             br,
@@ -59,7 +59,7 @@ object index {
               "Lichess OAuth app example"
             ),
             ", and the ",
-            a(href := routes.Api.index())("API documentation"),
+            a(href := routes.Api.index)("API documentation"),
             "."
           ),
           table(cls := "slist slist-pad")(

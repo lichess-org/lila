@@ -16,7 +16,7 @@ object bits {
         h1("My personal data"),
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
-          a(cls := "button", href := s"${routes.Account.data()}?user=${u.id}&text=1")(trans.downloadRaw())
+          a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1")(trans.downloadRaw())
         ),
         st.section(
           pre(cls := "raw-text")(raw)

@@ -34,7 +34,7 @@ final class Team(
   def home(page: Int) =
     Open { implicit ctx =>
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine())
+        case true  => Redirect(routes.Team.mine)
         case false => Redirect(routes.Team.all(page))
       }
     }
@@ -296,7 +296,7 @@ final class Team(
   def subscribe(teamId: String) = {
     def doSub(req: Request[_], me: UserModel) =
       Form(single("subscribe" -> optional(boolean)))
-        .bindFromRequest()(req)
+        .bindFromRequest()(req, formBinding)
         .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
       auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,

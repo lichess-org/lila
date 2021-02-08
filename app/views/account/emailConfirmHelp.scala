@@ -23,7 +23,7 @@ object emailConfirmHelp {
         main(cls := "page-small box box-pad email-confirm-help")(
           h1(title),
           p("You signed up, but didn't receive your confirmation email?"),
-          st.form(cls := "form3", action := routes.Account.emailConfirmHelp(), method := "get")(
+          st.form(cls := "form3", action := routes.Account.emailConfirmHelp, method := "get")(
             form3.split(
               form3.group(
                 form("username"),
@@ -44,7 +44,7 @@ object emailConfirmHelp {
                   p("We couldn't find any user by this name: ", strong(name), "."),
                   p(
                     "You can use it to ",
-                    a(href := routes.Auth.signup())("create a new account"),
+                    a(href := routes.Auth.signup)("create a new account"),
                     "."
                   )
                 )
@@ -67,7 +67,7 @@ object emailConfirmHelp {
               case Confirmed(name) =>
                 frag(
                   p("The user ", strong(name), " is successfully confirmed."),
-                  p("You can ", a(href := routes.Auth.login())("login right now as ", name), "."),
+                  p("You can ", a(href := routes.Auth.login)("login right now as ", name), "."),
                   p("You do not need a confirmation email.")
                 )
               case Closed(name) =>
@@ -77,7 +77,7 @@ object emailConfirmHelp {
               case NoEmail(name) =>
                 frag(
                   p("The account ", strong(name), " doesn't have an email."),
-                  p("Visit the ", a(href := routes.Main.contact())("contact page"), ".")
+                  p("Visit the ", a(href := routes.Main.contact)("contact page"), ".")
                 )
             }
           )

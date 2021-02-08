@@ -16,7 +16,7 @@ object index {
       div(cls := "account oauth box")(
         div(cls := "box__top")(
           h1(title),
-          st.form(cls := "box-top__actions", action := routes.OAuthToken.create())(
+          st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O")
           )
         ),
@@ -26,7 +26,7 @@ object index {
           br,
           br,
           "Instead, ",
-          a(href := routes.OAuthToken.create())("generate a personal token"),
+          a(href := routes.OAuthToken.create)("generate a personal token"),
           " that you can directly use in API requests.",
           br,
           br,
@@ -40,7 +40,7 @@ object index {
             "personal token app example"
           ),
           " and the ",
-          a(href := routes.Api.index())("API documentation"),
+          a(href := routes.Api.index)("API documentation"),
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>

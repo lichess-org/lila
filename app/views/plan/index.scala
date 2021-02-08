@@ -31,7 +31,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index().url}",
+          url = s"$netBaseUrl${routes.Plan.index.url}",
           description = freeChess.txt()
         )
         .some,
@@ -210,7 +210,7 @@ object index {
                     if (ctx.isAuth)
                       button(cls := "stripe button")(withCreditCard())
                     else
-                      a(cls := "stripe button", href := routes.Auth.login())(withCreditCard()),
+                      a(cls := "stripe button", href := routes.Auth.login)(withCreditCard()),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )
@@ -240,7 +240,7 @@ object index {
         dd(
           serversAndDeveloper(userIdLink("thibault".some)),
           br,
-          a(href := routes.Main.costs(), targetBlank)(costBreakdown()),
+          a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
         ),
         dt(officialNonProfit()),
@@ -254,7 +254,7 @@ object index {
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact(), targetBlank)(contactSupport()))
+          changeOrContact(a(href := routes.Main.contact, targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
@@ -269,7 +269,7 @@ object index {
         dd(
           noPatronFeatures(),
           br,
-          a(href := routes.Plan.features(), targetBlank)(featuresComparison()),
+          a(href := routes.Plan.features, targetBlank)(featuresComparison()),
           "."
         )
       )

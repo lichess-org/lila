@@ -25,7 +25,7 @@ object header {
         h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
           if (u.isPatron)
             frag(
-              a(href := routes.Plan.index())(patronIcon),
+              a(href := routes.Plan.index)(patronIcon),
               userSpan(u, withPowerTip = false, withOnline = false)
             )
           else userSpan(u, withPowerTip = false)
@@ -40,7 +40,7 @@ object header {
           otherTrophies(info),
           u.plan.active option
             a(
-              href := routes.Plan.index(),
+              href := routes.Plan.index,
               cls := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
@@ -78,7 +78,7 @@ object header {
           (ctx is u) option frag(
             a(
               cls := "btn-rack__btn",
-              href := routes.Account.profile(),
+              href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
               dataIcon := "%"
             ),
@@ -120,7 +120,7 @@ object header {
             (ctx.isAuth && ctx.noKid) option a(
               titleOrText(trans.reportXToModerators.txt(u.username)),
               cls := "btn-rack__btn",
-              href := s"${routes.Report.form()}?username=${u.username}",
+              href := s"${routes.Report.form}?username=${u.username}",
               dataIcon := "!"
             )
         )
@@ -239,11 +239,11 @@ It's useful against spambots. These marks are not visible to the public."""
                     p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                   },
                   (ctx is u) option frag(
-                    a(href := routes.Account.profile(), title := trans.editProfile.txt())(
+                    a(href := routes.Account.profile, title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
                     ),
                     br,
-                    a(href := routes.User.opponents())(trans.favoriteOpponents())
+                    a(href := routes.User.opponents)(trans.favoriteOpponents())
                   ),
                   u.playTime.map { playTime =>
                     frag(

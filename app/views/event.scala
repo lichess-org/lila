@@ -16,7 +16,7 @@ object event {
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New event"),
-        postForm(cls := "content_box_content form3", action := routes.Event.create())(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
 
@@ -79,7 +79,7 @@ object event {
         div(cls := "box__top")(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form(), dataIcon := "O")
+            a(cls := "button button-green", href := routes.Event.form, dataIcon := "O")
           )
         ),
         table(cls := "slist slist-pad")(

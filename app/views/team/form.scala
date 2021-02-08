@@ -23,7 +23,7 @@ object form {
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
           h1(newTeam()),
-          postForm(cls := "form3", action := routes.Team.create())(
+          postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
             requestField(form),

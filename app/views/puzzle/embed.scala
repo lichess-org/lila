@@ -26,7 +26,7 @@ object embed {
     )
 
   def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) = a(
-    href := routes.Puzzle.daily(),
+    href := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),

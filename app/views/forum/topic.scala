@@ -30,17 +30,17 @@ object topic {
           h2(dataIcon := "!", cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
-              strong(a(href := routes.Main.faq())(trans.inTheFAQ()))
+              strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
             )
           ),
           p(
             trans.toReportSomeoneForCheatingOrBadBehavior(
-              strong(a(href := routes.Report.form())(trans.useTheReportForm()))
+              strong(a(href := routes.Report.form)(trans.useTheReportForm()))
             )
           ),
           p(
             trans.toRequestSupport(
-              strong(a(href := routes.Main.contact())(trans.tryTheContactPage()))
+              strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
             )
           )
         ),

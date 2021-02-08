@@ -23,7 +23,7 @@ object actions {
           !blocked option frag(
             a(
               titleOrText(trans.challenge.challengeToPlay.txt()),
-              href := s"${routes.Lobby.home()}?user=$userId#friend",
+              href := s"${routes.Lobby.home}?user=$userId#friend",
               cls := "btn-rack__btn",
               dataIcon := "U"
             ),
@@ -71,7 +71,7 @@ object actions {
       } getOrElse {
         signup option frag(
           trans.youNeedAnAccountToDoThat(),
-          a(href := routes.Auth.login(), cls := "signup")(trans.signUp())
+          a(href := routes.Auth.login, cls := "signup")(trans.signUp())
         )
       }
     )

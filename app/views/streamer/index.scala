@@ -26,7 +26,7 @@ object index {
         a(
           cls := "overlay",
           href := {
-            if (requests) s"${routes.Streamer.edit()}?u=${s.user.username}"
+            if (requests) s"${routes.Streamer.edit}?u=${s.user.username}"
             else routes.Streamer.show(s.user.username).url
           }
         ),

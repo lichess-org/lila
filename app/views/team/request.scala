@@ -73,7 +73,7 @@ object request {
                 input(
                   tpe := "hidden",
                   name := "url",
-                  value := t.fold(routes.Team.requests())(te => routes.Team.show(te.id))
+                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
                   trans.decline()

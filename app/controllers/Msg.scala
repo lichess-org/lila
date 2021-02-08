@@ -26,12 +26,12 @@ final class Msg(
 
   def convo(username: String, before: Option[Long] = None) =
     Auth { implicit ctx => me =>
-      if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo(_))).fuccess
+      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).fuccess
       else
         env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
-              html = Redirect(routes.Msg.home()).fuccess,
+              html = Redirect(routes.Msg.home).fuccess,
               api = _ => notFoundJson()
             )
           case Some(c) =>
@@ -74,7 +74,7 @@ final class Msg(
     AuthBody { implicit ctx => me =>
       ctx.noKid ?? {
         env.msg.compat
-          .create(me)(ctx.body)
+          .create(me)(ctx.body, formBinding)
           .fold(
             jsonFormError,
             _ map { id =>
@@ -91,7 +91,7 @@ final class Msg(
       auth = implicit ctx =>
         me =>
           env.msg.compat
-            .reply(me, userId)(ctx.body)
+            .reply(me, userId)(ctx.body, formBinding)
             .fold(
               jsonFormError,
               _ inject Ok(Json.obj("ok" -> true, "id" -> userId))

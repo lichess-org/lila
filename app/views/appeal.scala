@@ -30,7 +30,7 @@ object appeal {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm, action = routes.Appeal.post().url, isNew = true, presets = none)
+        renderForm(textForm, action = routes.Appeal.post.url, isNew = true, presets = none)
       )
     )
 
@@ -160,7 +160,7 @@ object appeal {
           textForm,
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url
-            else routes.Appeal.post().url,
+            else routes.Appeal.post.url,
           isNew = false,
           presets = presets ifTrue asMod
         )
@@ -171,7 +171,7 @@ object appeal {
     div(cls := "appeal__help")(
       p(
         "If your account has been restricted for violation of ",
-        a(href := routes.Page.tos())("the Lichess rules"),
+        a(href := routes.Page.tos)("the Lichess rules"),
         " you may file an appeal here."
       ),
       p(

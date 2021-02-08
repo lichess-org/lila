@@ -219,10 +219,10 @@ Allow: /
   def instantChess =
     Open { implicit ctx =>
       pageHit
-      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home()))
+      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home()}#pool/10+0").withCookies(
+          Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
             env.lilaCookie.withSession { s =>
               s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
             }
@@ -233,7 +233,7 @@ Allow: /
   def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
     Open { _ =>
       MovedPermanently {
-        val faq = routes.Main.faq().url
+        val faq = routes.Main.faq.url
         id match {
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
@@ -242,14 +242,14 @@ Allow: /
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"
-          case 216  => routes.Main.mobile().url
+          case 216  => routes.Main.mobile.url
           case 340  => s"$faq#trophies"
           case 6    => s"$faq#ratings"
           case 207  => s"$faq#hide-ratings"
           case 547  => s"$faq#leaving"
           case 259  => s"$faq#trophies"
           case 342  => s"$faq#provisional"
-          case 50   => routes.Page.help().url
+          case 50   => routes.Page.help.url
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq

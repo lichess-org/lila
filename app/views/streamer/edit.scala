@@ -28,13 +28,13 @@ object edit extends Context.ToLang {
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(targetBlank, href := routes.Streamer.picture(), title := changePicture.txt())(
+                a(targetBlank, href := routes.Streamer.picture, title := changePicture.txt())(
                   bits.pic(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(
                   ctx.is(s.user) option
-                    a(targetBlank, cls := "button", href := routes.Streamer.picture())(
+                    a(targetBlank, cls := "button", href := routes.Streamer.picture)(
                       uploadPicture()
                     )
                 ),
@@ -70,7 +70,7 @@ object edit extends Context.ToLang {
                       frag(
                         if (s.streamer.completeEnough)
                           whenReady(
-                            postForm(action := routes.Streamer.approvalRequest())(
+                            postForm(action := routes.Streamer.approvalRequest)(
                               button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
                                 requestReview()
                               )
@@ -143,7 +143,7 @@ object edit extends Context.ToLang {
               },
               postForm(
                 cls := "form3",
-                action := s"${routes.Streamer.edit()}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+                action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
                   form3.split(

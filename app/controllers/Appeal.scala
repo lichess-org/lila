@@ -26,7 +26,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
             env.appeal.api.mine(me) map { appeal =>
               BadRequest(html.appeal.home(appeal, err))
             },
-          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home()).flashSuccess
+          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
         )
     }
 
@@ -74,7 +74,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.toggleMute(appeal) >>
           env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id) inject
-          Redirect(routes.Appeal.queue())
+          Redirect(routes.Appeal.queue)
       }
     }
 

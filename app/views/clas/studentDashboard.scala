@@ -108,7 +108,7 @@ object studentDashboard {
           dataIcon := "U",
           cls := List("button button-empty text" -> true, "disabled" -> !online),
           title := trans.challenge.challengeToPlay.txt(),
-          href := online option s"${routes.Lobby.home()}?user=${user.username}#friend"
+          href := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
     }

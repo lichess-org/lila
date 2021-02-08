@@ -17,7 +17,7 @@ object username {
       div(cls := "account box box-pad")(
         h1(trans.changeUsername()),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.usernameApply())(
+        postForm(cls := "form3", action := routes.Account.usernameApply)(
           form3.globalError(form),
           form3.group(form("username"), trans.username(), help = trans.changeUsernameDescription().some)(
             form3.input(_)(autofocus, required, autocomplete := "username")

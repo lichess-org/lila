@@ -13,15 +13,15 @@ object bits {
 
   def communityMenu(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := active.active("leaderboard"), href := routes.User.list())(trans.leaderboard()),
+      a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
       a(cls := active.active("ratings"), href := routes.Stat.ratingDistribution("blitz"))(
         trans.ratingStats()
       ),
-      a(cls := active.active("tournament"), href := routes.Tournament.leaderboard())(
+      a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(
         trans.tournamentWinners()
       ),
-      a(cls := active.active("shield"), href := routes.Tournament.shields())("Shields"),
-      a(cls := active.active("bots"), href := routes.PlayApi.botOnline())("Online bots")
+      a(cls := active.active("shield"), href := routes.Tournament.shields)("Shields"),
+      a(cls := active.active("bots"), href := routes.PlayApi.botOnline)("Online bots")
     )
 
   def miniClosed(u: User)(implicit ctx: Context) =
@@ -87,7 +87,7 @@ object bits {
         contactEmailLink,
         "."
       ),
-      postForm(action := routes.Pref.verifyTitle())(
+      postForm(action := routes.Pref.verifyTitle)(
         button(cls := "button text", dataIcon := "E", name := "v", value := true)("Got it, thanks!"),
         button(cls := "button", name := "v", value := false)("I don't have an official title")
       )

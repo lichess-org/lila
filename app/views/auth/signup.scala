@@ -27,14 +27,14 @@ object signup {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.signupPost())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.signupPost)(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
             trans.computersAreNotAllowedToPlay(),
             br,
             small(
-              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos())(trans.termsOfService())),
+              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())),
               br,
               trans.readAboutOur(a(href := routes.Page.menuBookmark("privacy"))(trans.privacyPolicy())),
               br

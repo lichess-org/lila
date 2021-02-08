@@ -14,12 +14,12 @@ private object bits {
   def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index())(routes.Editor.load).url
+    val url = field.value.fold(routes.Editor.index)(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
         div(
           cls := "fen_form",
-          dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}"""
+          dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
         )(
           form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)

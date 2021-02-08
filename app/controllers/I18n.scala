@@ -29,7 +29,7 @@ final class I18n(env: Env) extends LilaController(env) {
             } >> negotiate(
               html = {
                 val redir = Redirect {
-                  HTTPRequest.referer(ctx.req).fold(routes.Lobby.home().url) { str =>
+                  HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
                     try {
                       val pageUrl = new java.net.URL(str)
                       val path    = pageUrl.getPath
@@ -37,7 +37,7 @@ final class I18n(env: Env) extends LilaController(env) {
                       if (query == null) path
                       else path + "?" + query
                     } catch {
-                      case _: java.net.MalformedURLException => routes.Lobby.home().url
+                      case _: java.net.MalformedURLException => routes.Lobby.home.url
                     }
                   }
                 }

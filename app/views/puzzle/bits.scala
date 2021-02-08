@@ -34,10 +34,10 @@ object bits {
 
   def pageMenu(active: String, days: Int = 30)(implicit lang: Lang) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(href := routes.Puzzle.home())(
+      a(href := routes.Puzzle.home)(
         trans.puzzles()
       ),
-      a(cls := active.active("themes"), href := routes.Puzzle.themes())(
+      a(cls := active.active("themes"), href := routes.Puzzle.themes)(
         trans.puzzle.puzzleThemes()
       ),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard"))(

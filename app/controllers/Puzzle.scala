@@ -242,7 +242,7 @@ final class Puzzle(
           themeOrId.toLongOption
             .flatMap(Puz.numericalId.apply)
             .??(env.puzzle.api.puzzle.find) map {
-            case None      => Redirect(routes.Puzzle.home())
+            case None      => Redirect(routes.Puzzle.home)
             case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
           }
       }

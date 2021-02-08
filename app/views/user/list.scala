@@ -26,7 +26,7 @@ object list {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess players and leaderboards",
-          url = s"$netBaseUrl${routes.User.list().url}",
+          url = s"$netBaseUrl${routes.User.list.url}",
           description =
             "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
         )
@@ -71,7 +71,7 @@ object list {
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := "g")(
-        a(href := routes.Tournament.leaderboard())(trans.tournament())
+        a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>
         li(

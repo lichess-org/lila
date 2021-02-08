@@ -74,7 +74,7 @@ object message {
   def challengeDenied(msg: String)(implicit ctx: Context) =
     apply(
       title = trans.challenge.challengeToPlay.txt(),
-      back = routes.Lobby.home().url.some
+      back = routes.Lobby.home.url.some
     )(msg)
 
   def insightNoGames(u: User)(implicit ctx: Context) =

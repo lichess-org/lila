@@ -53,7 +53,7 @@ final class Importer(env: Env) extends LilaController(env) {
                       )
                     )
                   } inject Redirect(routes.Round.watcher(game.id, "white"))
-                case None => Redirect(routes.Importer.importGame()).fuccess
+                case None => Redirect(routes.Importer.importGame).fuccess
               }
             }(rateLimitedFu)
         )
@@ -63,7 +63,7 @@ final class Importer(env: Env) extends LilaController(env) {
     def commonImport(req: Request[_], me: Option[lila.user.User]): Fu[Result] =
       ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = if (me.isDefined) 1 else 2) {
         env.importer.forms.importForm
-          .bindFromRequest()(req)
+          .bindFromRequest()(req, formBinding)
           .fold(
             err => BadRequest(apiFormError(err)).fuccess,
             data =>

@@ -38,7 +38,7 @@ final class Dev(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings())
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
           )
       }
     }

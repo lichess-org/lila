@@ -24,7 +24,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           h1("Search users"),
-          st.form(cls := "search box__pad", action := routes.Mod.search(), method := "GET")(
+          st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
             input(
               name := "q",
               autofocus,

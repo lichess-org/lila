@@ -461,7 +461,7 @@ final class Mod(
       env.chat.panic.set(v)
       env.slack.api.chatPanic(me, v)
       fuccess(().some)
-    }(_ => _ => _ => Redirect(routes.Mod.chatPanic()).fuccess)
+    }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
 
   def presets(group: String) =
     Secure(_.Presets) { implicit ctx => _ =>

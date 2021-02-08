@@ -103,7 +103,7 @@ object timeline {
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
-          a(href := routes.Plan.index())(
+          a(href := routes.Plan.index)(
             trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
           )
         case BlogPost(id, slug, title) =>

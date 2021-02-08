@@ -27,7 +27,7 @@ object index {
         div(cls := "blog index page-menu__content page-small box")(
           div(cls := "box__top")(
             h1("Lichess Official Blog"),
-            a(cls := "atom", href := routes.Blog.atom(), dataIcon := "3")
+            a(cls := "atom", href := routes.Blog.atom, dataIcon := "3")
           ),
           primaryPost map { post =>
             frag(

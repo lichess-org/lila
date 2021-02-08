@@ -21,14 +21,14 @@ object form {
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(trans.hostANewSimul()),
-        postForm(cls := "form3", action := routes.Simul.create())(
+        postForm(cls := "form3", action := routes.Simul.create)(
           br,
           p(trans.whenCreateSimul()),
           br,
           br,
           formContent(form, teams, none),
           form3.actions(
-            a(href := routes.Simul.home())(trans.cancel()),
+            a(href := routes.Simul.home)(trans.cancel()),
             form3.submit(trans.hostANewSimul(), icon = "g".some)
           )
         )

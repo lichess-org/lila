@@ -93,7 +93,7 @@ final class Swiss(
         case false => notFound
         case _ =>
           env.swiss.forms.create
-            .bindFromRequest()(ctx.body)
+            .bindFromRequest()(ctx.body, formBinding)
             .fold(
               err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
               data =>

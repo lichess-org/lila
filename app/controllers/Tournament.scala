@@ -208,7 +208,10 @@ final class Tournament(
             .flatMap { isLeader =>
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
                 negotiate(
-                  html = Redirect(routes.Tournament.show(id)).fuccess,
+                  html = fuccess {
+                    if (result) Redirect(routes.Tournament.show(id))
+                    else BadRequestWithReason("wrong password maybe?").pp
+                  },
                   api = _ =>
                     fuccess {
                       if (result) jsonOkResult
@@ -300,7 +303,7 @@ final class Tournament(
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
-                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home())) {
+                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home)) {
                     api.createTournament(setup, me, teams) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
@@ -498,7 +501,7 @@ final class Tournament(
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
           env.mod.logApi.terminateTournament(me.id, tour.name())
-          Redirect(routes.Tournament.home())
+          Redirect(routes.Tournament.home)
         }
       }
     }

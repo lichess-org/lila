@@ -57,7 +57,7 @@ object forms {
   def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) =
-    layout("ai", trans.playWithTheMachine(), routes.Setup.ai()) {
+    layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), strict = true, validFen),
@@ -131,7 +131,7 @@ object forms {
           frag(
             p(cls := "error")(e),
             br,
-            a(href := routes.Lobby.home(), cls := "button text", dataIcon := "L")(trans.cancel.txt())
+            a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
           )
         }
         .getOrElse {

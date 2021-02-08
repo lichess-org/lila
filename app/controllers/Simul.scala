@@ -105,7 +105,7 @@ final class Simul(env: Env) extends LilaController(env) {
         env.simul.api abort simul.id inject {
           if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id, simul.fullName)
           if (HTTPRequest isXhr ctx.req) jsonOkResult
-          else Redirect(routes.Simul.home())
+          else Redirect(routes.Simul.home)
         }
       }
     }

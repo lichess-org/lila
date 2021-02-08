@@ -45,7 +45,7 @@ object bits {
           fail option span(cls := "is-red", dataIcon := "L"),
           trans.passwordReset()
         ),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.passwordResetApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.passwordResetApply)(
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
           form3.action(
             views.html.base.recaptcha.button(form) {
@@ -119,7 +119,7 @@ object bits {
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.magicLinkApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.magicLinkApply)(
           form3.group(form("email"), trans.email())(
             form3.input(_, typ = "email")(autofocus, autocomplete := "email")
           ),
@@ -150,7 +150,7 @@ object bits {
         h1("Log in as ", userLink(user)),
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
           form3.actions(
-            a(href := routes.Lobby.home())(trans.cancel()),
+            a(href := routes.Lobby.home)(trans.cancel()),
             submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
           )
         )
@@ -186,7 +186,7 @@ body { margin-top: 45px; }
 """),
       div(id := "email-confirm")(
         s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail())("Click here for help")
+        a(href := routes.Auth.checkYourEmail)("Click here for help")
       )
     )
 
@@ -207,7 +207,7 @@ body { margin-top: 45px; }
     ) {
       main(cls := "page-small box box-pad")(
         h1(trans.logOut()),
-        form(action := routes.Auth.logout(), method := "post")(
+        form(action := routes.Auth.logout, method := "post")(
           button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
         )
       )

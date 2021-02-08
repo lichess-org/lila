@@ -127,7 +127,7 @@ final class Practice(
 
   def reset =
     AuthBody { _ => me =>
-      api.progress.reset(me) inject Redirect(routes.Practice.index())
+      api.progress.reset(me) inject Redirect(routes.Practice.index)
     }
 
   def config =
@@ -147,7 +147,7 @@ final class Practice(
         } { text =>
           ~api.config.set(text).toOption >>-
             api.structure.clear() >>
-            env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config())
+            env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
         }
       }
     }

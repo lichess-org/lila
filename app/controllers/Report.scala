@@ -46,8 +46,8 @@ final class Report(
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.unreadById) inject
           next.fold(
             Redirect {
-              if (prev.exists(_.isAppeal)) routes.Appeal.queue()
-              else routes.Report.list()
+              if (prev.exists(_.isAppeal)) routes.Appeal.queue
+              else routes.Report.list
             }
           )(onInquiryStart)
       }
@@ -69,7 +69,7 @@ final class Report(
       case None =>
         inquiry match {
           case None =>
-            goTo.fold(Redirect(routes.Report.list()).fuccess) { s =>
+            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
               userC.modZoneOrRedirect(s.user.username)
             }
           case Some(prev) =>
@@ -86,7 +86,7 @@ final class Report(
               case Some(url) => Redirect(url).fuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(routes.Appeal.queue()).fuccess
+                if (prev.isAppeal) Redirect(routes.Appeal.queue).fuccess
                 else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
                   api.inquiries.toggleNext(AsMod(me), prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
@@ -96,7 +96,7 @@ final class Report(
                   api.inquiries.toggle(AsMod(me), prev.id) map { case (prev, next) =>
                     next
                       .fold(
-                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
+                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue)
                         else redirectToList
                       )(onInquiryStart)
                   }
@@ -115,7 +115,7 @@ final class Report(
 
   def xfiles(id: String) =
     Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id) inject Redirect(routes.Report.list())
+      api.moveToXfiles(id) inject Redirect(routes.Report.list)
     }
 
   def currentCheatInquiry(username: String) =

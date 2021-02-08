@@ -42,7 +42,7 @@ object side {
               span(cls := "swiss__meta__round")(s"${s.round}/${s.settings.nbRounds}"),
               " rounds",
               separator,
-              a(href := routes.Swiss.home())("Swiss"),
+              a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
                 a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))

@@ -315,7 +315,7 @@ final class Round(
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect(
           "%s?fen=%s#%s".format(
-            routes.Lobby.home(),
+            routes.Lobby.home,
             get("fen") | (chess.format.Forsyth >> game.chess).value,
             mode
           )
@@ -328,11 +328,11 @@ final class Round(
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
         if (isTheft(pov)) {
           lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.ipAddress(ctx.req)}")
-          fuccess(routes.Lobby.home())
+          fuccess(routes.Lobby.home)
         } else {
           env.round resign pov
           import scala.concurrent.duration._
-          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home()))
+          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
         }
       }
     }

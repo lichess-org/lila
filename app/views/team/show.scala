@@ -129,7 +129,7 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Tournament.form()}?team=${t.id}",
+                  href := s"${routes.Tournament.form}?team=${t.id}",
                   cls := "button button-empty text",
                   dataIcon := "g"
                 )(

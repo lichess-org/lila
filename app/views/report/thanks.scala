@@ -43,7 +43,7 @@ fetch($button.data('action'), {method:'post'})
         br,
         br,
         p(
-          a(href := routes.Lobby.home())("Return to Lichess homepage")
+          a(href := routes.Lobby.home)("Return to Lichess homepage")
         )
       )
 

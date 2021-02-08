@@ -20,7 +20,7 @@ object atom {
       ),
       tag("id")(s"$baseUrl${routes.Blog.index()}"),
       link(rel := "alternate", tpe := "text/html", href := s"$baseUrl${routes.Blog.index()}"),
-      link(rel := "self", tpe := "application/atom+xml", href := s"$baseUrl${routes.Blog.atom()}"),
+      link(rel := "self", tpe := "application/atom+xml", href := s"$baseUrl${routes.Blog.atom}"),
       tag("title")("lichess.org blog"),
       tag("updated")(pager.currentPageResults.headOption.flatMap(atomDate("blog.date"))),
       pager.currentPageResults.map { doc =>

@@ -20,7 +20,7 @@ object coordinate {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",
-          url = s"$netBaseUrl${routes.Coordinate.home().url}",
+          url = s"$netBaseUrl${routes.Coordinate.home.url}",
           description =
             "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
         )
@@ -31,7 +31,7 @@ object coordinate {
         id := "trainer",
         cls := "coord-trainer training init",
         attr("data-color-pref") := ctx.pref.coordColorName,
-        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score().url)
+        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score.url)
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
@@ -40,7 +40,7 @@ object coordinate {
               div(cls := "scores")(scoreCharts(score))
             }
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color(), method := "post")(
+          form(cls := "color buttons", action := routes.Coordinate.color, method := "post")(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(

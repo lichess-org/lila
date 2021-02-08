@@ -129,8 +129,8 @@ final class Coach(env: Env) extends LilaController(env) {
           case Some(pic) =>
             api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
               BadRequest(html.coach.picture(c, e.message.some))
-            } inject Redirect(routes.Coach.edit())
-          case None => fuccess(Redirect(routes.Coach.edit()))
+            } inject Redirect(routes.Coach.edit)
+          case None => fuccess(Redirect(routes.Coach.edit))
         }
       }
     }
@@ -138,7 +138,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def pictureDelete =
     Secure(_.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        api.deletePicture(c) inject Redirect(routes.Coach.edit())
+        api.deletePicture(c) inject Redirect(routes.Coach.edit)
       }
     }
 }

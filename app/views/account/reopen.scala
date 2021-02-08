@@ -26,7 +26,7 @@ object reopen {
         p(strong("This will only work once.")),
         p("If you close your account a second time, there will be no way of recovering it."),
         hr,
-        postForm(id := form.formId, cls := "form3", action := routes.Account.reopenApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Account.reopenApply)(
           error.map { err =>
             p(cls := "error")(strong(err))
           },

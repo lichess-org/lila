@@ -123,7 +123,7 @@ final class Clas(
     SecureBody(_.Teacher) { implicit ctx => me =>
       WithClass(me, id) { clas =>
         env.clas.forms.clas.wall
-          .bindFromRequest()(ctx.body)
+          .bindFromRequest()(ctx.body, formBinding)
           .fold(
             err =>
               env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -151,7 +151,7 @@ final class Clas(
     SecureBody(_.Teacher) { implicit ctx => me =>
       WithClass(me, id) { clas =>
         env.clas.forms.clas.notifyText
-          .bindFromRequest()(ctx.body)
+          .bindFromRequest()(ctx.body, formBinding)
           .fold(
             err =>
               env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -226,7 +226,7 @@ final class Clas(
       WithClass(me, id) { clas =>
         env.clas.forms.clas
           .edit(clas)
-          .bindFromRequest()(ctx.body)
+          .bindFromRequest()(ctx.body, formBinding)
           .fold(
             err =>
               env.clas.api.student.activeWithUsers(clas) map { students =>
@@ -284,7 +284,7 @@ final class Clas(
         Firewall {
           WithClassAndStudents(me, id) { (clas, students) =>
             env.clas.forms.student.create
-              .bindFromRequest()(ctx.body)
+              .bindFromRequest()(ctx.body, formBinding)
               .fold(
                 err =>
                   env.clas.api.student.count(clas.id) map { nbStudents =>
@@ -344,7 +344,7 @@ final class Clas(
             env.clas.api.student.count(clas.id) flatMap { nbStudents =>
               env.clas.forms.student
                 .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
-                .bindFromRequest()(ctx.body)
+                .bindFromRequest()(ctx.body, formBinding)
                 .fold(
                   err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).fuccess,
                   data =>
@@ -371,7 +371,7 @@ final class Clas(
       WithClassAndStudents(me, id) { (clas, students) =>
         env.clas.forms.student
           .invite(clas)
-          .bindFromRequest()(ctx.body)
+          .bindFromRequest()(ctx.body, formBinding)
           .fold(
             err =>
               env.clas.api.student.count(clas.id) map { nbStudents =>
@@ -432,7 +432,7 @@ final class Clas(
         WithStudent(clas, username) { s =>
           env.clas.forms.student
             .edit(s.student)
-            .bindFromRequest()(ctx.body)
+            .bindFromRequest()(ctx.body, formBinding)
             .fold(
               err => BadRequest(html.clas.student.edit(clas, students, s, err)).fuccess,
               data =>
@@ -494,8 +494,8 @@ final class Clas(
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
-            env.security.forms.preloadEmailDns(ctx.body) >> env.clas.forms.student.release
-              .bindFromRequest()(ctx.body)
+            env.security.forms.preloadEmailDns(ctx.body, formBinding) >> env.clas.forms.student.release
+              .bindFromRequest()(ctx.body, formBinding)
               .fold(
                 err => BadRequest(html.clas.student.release(clas, students, s, err)).fuccess,
                 data => {
@@ -520,7 +520,7 @@ final class Clas(
     AuthBody { _ => me =>
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-        Redirect(routes.Clas.index())
+        Redirect(routes.Clas.index)
     }
 
   def invitation(id: String) =

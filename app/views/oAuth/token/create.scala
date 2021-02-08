@@ -16,7 +16,7 @@ object create {
     views.html.account.layout(title = title, active = "oauth.token")(
       div(cls := "account oauth box box-pad")(
         h1(title),
-        postForm(cls := "form3", action := routes.OAuthToken.create())(
+        postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
             "Personal access tokens function like ordinary Lichess OAuth access tokens. ",
             "They can be used to authenticate to the API over Basic Authentication."
@@ -52,13 +52,13 @@ object create {
             }
           ),
           form3.actions(
-            a(href := routes.OAuthToken.index())("Cancel"),
+            a(href := routes.OAuthToken.index)("Cancel"),
             form3.submit(trans.apply())
           ),
           br,
           div {
             val url =
-              s"${netBaseUrl}${routes.OAuthToken.create()}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
+              s"${netBaseUrl}${routes.OAuthToken.create}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
             frag(
               h2("Note for the attention of developers only:"),
               p(

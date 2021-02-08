@@ -47,7 +47,7 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
       )
     )
 
@@ -91,7 +91,7 @@ object activity {
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
-          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home())("Puzzle Storm"))
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
       )
     )
 

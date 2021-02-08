@@ -20,7 +20,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         .OpenGraph(
           title = "Practice your chess",
           description = "Learn how to master the most common chess positions",
-          url = s"$netBaseUrl${routes.Practice.index()}"
+          url = s"$netBaseUrl${routes.Practice.index}"
         )
         .some
     ) {
@@ -33,9 +33,9 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
             div(cls := "text")("Progress: ", data.progressPercent, "%"),
             div(cls := "bar", style := s"width: ${data.progressPercent}%")
           ),
-          postForm(action := routes.Practice.reset())(
+          postForm(action := routes.Practice.reset)(
             if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
-            else a(href := routes.Auth.signup())("Sign up to save your progress")
+            else a(href := routes.Auth.signup)("Sign up to save your progress")
           )
         ),
         div(cls := "page-menu__content practice-app")(
