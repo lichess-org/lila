@@ -39,7 +39,7 @@ final class SecurityForm(
 
   private val preloadEmailDnsForm = Form(single("email" -> acceptableEmail))
 
-  def preloadEmailDns(implicit req: play.api.mvc.Request[_]): Funit =
+  def preloadEmailDns(implicit req: play.api.mvc.Request[_], formBinding: FormBinding): Funit =
     preloadEmailDnsForm
       .bindFromRequest()
       .fold(

@@ -62,7 +62,9 @@ final class MsgCompat(
       }
     )
 
-  def create(me: User)(implicit req: play.api.mvc.Request[_]): Either[Form[_], Fu[User.ID]] =
+  def create(
+      me: User
+  )(implicit req: play.api.mvc.Request[_], formBinding: FormBinding): Either[Form[_], Fu[User.ID]] =
     Form(
       mapping(
         "username" -> lila.user.UserForm.historicalUsernameField
@@ -87,7 +89,10 @@ final class MsgCompat(
         }
       )
 
-  def reply(me: User, userId: User.ID)(implicit req: play.api.mvc.Request[_]): Either[Form[_], Funit] =
+  def reply(me: User, userId: User.ID)(implicit
+      req: play.api.mvc.Request[_],
+      formBinding: FormBinding
+  ): Either[Form[_], Funit] =
     Form(single("text" -> text(minLength = 3)))
       .bindFromRequest()
       .fold(

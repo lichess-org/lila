@@ -18,7 +18,7 @@ object Dependencies {
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.3.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.9.3"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.6.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.56.Final" classifier "linux-x86_64"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.58.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
@@ -52,7 +52,7 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.5-lila_1.5"
+    val version = "2.8.7-lila_1.6"
     val api     = "com.typesafe.play" %% "play"      % version
     val json    = "com.typesafe.play" %% "play-json" % "2.9.2"
   }

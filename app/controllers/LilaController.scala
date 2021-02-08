@@ -2,6 +2,7 @@ package controllers
 
 import ornicar.scalalib.Zero
 import play.api.data.Form
+import play.api.data.FormBinding
 import play.api.http._
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
@@ -41,6 +42,9 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
 
   implicit protected def makeApiVersion(v: Int) = ApiVersion(v)
+
+  println(s"parse.DefaultMaxTextLength ${parse.DefaultMaxTextLength}")
+  implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
@@ -652,6 +656,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
+
+  protected def BadRequestWithReason(reason: String) = makeCustomResult(BAD_REQUEST, reason).pp
+
+  protected def makeCustomResult(status: Int, reasonPhrase: String) =
+    Result(
+      header = new ResponseHeader(status, reasonPhrase = reasonPhrase.some).pp,
+      body = play.api.http.HttpEntity.NoEntity
+    )
 
   protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 

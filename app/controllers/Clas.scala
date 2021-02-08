@@ -50,7 +50,7 @@ final class Clas(
   def create =
     SecureBody(_.Teacher) { implicit ctx => me =>
       env.clas.forms.clas.create
-        .bindFromRequest()(ctx.body)
+        .bindFromRequest()(ctx.body, formBinding)
         .fold(
           err => BadRequest(html.clas.clas.create(err)).fuccess,
           data =>

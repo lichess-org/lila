@@ -56,7 +56,9 @@ final class Signup(
     }
   }
 
-  def website(blind: Boolean)(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
+  def website(
+      blind: Boolean
+  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.website.form
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
@@ -112,7 +114,7 @@ final class Signup(
 
   def mobile(
       apiVersion: ApiVersion
-  )(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
+  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
