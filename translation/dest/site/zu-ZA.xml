@@ -261,4 +261,6 @@
     <item quantity="one">Nikeza i-%s yesibili</item>
     <item quantity="other">Nikeza i-%s imizuzwana</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Le akhawunti yephule Imigomo Yesevisi ye-Lichess</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Lo mdlali ngokuzenzela ukhuphula/anciphise isilinganiso sabo</string>
 </resources>
