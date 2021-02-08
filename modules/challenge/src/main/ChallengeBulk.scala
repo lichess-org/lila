@@ -50,7 +50,9 @@ final class ChallengeBulkApi(
     coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
 
   def startClocks(id: String, me: User): Fu[Boolean] =
-    coll.updateField($doc("_id" -> id, "by" -> me.id), "startClocksAt", DateTime.now).map(_.n == 1)
+    coll
+      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", DateTime.now)
+      .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
     coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
