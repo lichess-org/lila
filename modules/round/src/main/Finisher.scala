@@ -67,8 +67,9 @@ final private class Finisher(
       status: Status.type => Status,
       winner: Option[Color],
       message: Option[String] = None
-  )(implicit proxy: GameProxy): Fu[Events] =
+  )(implicit proxy: GameProxy): Fu[Events] = game.playable ?? {
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
+  }
 
   private def recordLagStats(game: Game): Unit =
     for {

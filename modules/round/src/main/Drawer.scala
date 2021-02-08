@@ -1,11 +1,11 @@
 package lila.round
 
-import lila.game.{ Event, Game, Pov, Progress }
-import lila.pref.{ Pref, PrefApi }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
-
 import chess.Centis
+
 import lila.common.Bus
+import lila.game.{ Event, Game, Pov, Progress }
+import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(
     messenger: Messenger,
@@ -16,20 +16,23 @@ final private[round] class Drawer(
 
   implicit private val chatLang = defaultLang
 
-  def autoThreefold(game: Game): Fu[Option[Pov]] =
-    Pov(game).map { pov =>
-      import Pref.PrefZero
-      if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
-      else
-        pov.player.userId ?? prefApi.getPref map { pref =>
-          pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
-            pref.autoThreefold == Pref.AutoThreefold.TIME &&
-            game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
-          } || pov.player.userId.exists(isBotSync)
-        } map (_ option pov)
-    }.sequenceFu dmap (_.flatten.headOption)
+  def autoThreefold(game: Game): Fu[Option[Pov]] = game.playable ??
+    Pov(game)
+      .map { pov =>
+        import Pref.PrefZero
+        if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
+        else
+          pov.player.userId ?? prefApi.getPref map { pref =>
+            pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
+              pref.autoThreefold == Pref.AutoThreefold.TIME &&
+              game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
+            } || pov.player.userId.exists(isBotSync)
+          } map (_ option pov)
+      }
+      .sequenceFu
+      .dmap(_.flatten.headOption)
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.playable ?? {
     pov match {
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
@@ -44,8 +47,9 @@ final private[round] class Drawer(
         } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
     }
+  }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.playable ?? {
     pov match {
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy.save {
@@ -63,9 +67,14 @@ final private[round] class Drawer(
         } inject List(Event.DrawOffer(by = none))
       case _ => fuccess(List(Event.ReloadOwner))
     }
+  }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
+    (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(
+      pov.game,
+      _.Draw,
+      None
+    )
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
