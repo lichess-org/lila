@@ -43,7 +43,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   implicit protected def makeApiVersion(v: Int) = ApiVersion(v)
 
-  println(s"parse.DefaultMaxTextLength ${parse.DefaultMaxTextLength}")
   implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
