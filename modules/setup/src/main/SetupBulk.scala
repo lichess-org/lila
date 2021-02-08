@@ -121,26 +121,28 @@ object SetupBulk {
   def toJson(bulk: ScheduledBulk) = {
     import bulk._
     import lila.common.Json.jodaWrites
-    Json.obj(
-      "id" -> _id,
-      "games" -> games.map { g =>
-        Json.obj(
-          "id"    -> g.id,
-          "white" -> g.white,
-          "black" -> g.black
-        )
-      },
-      "variant" -> variant.key,
-      "clock" -> Json.obj(
-        "limit"     -> clock.limitSeconds,
-        "increment" -> clock.incrementSeconds
-      ),
-      "rated"         -> mode.rated,
-      "pairAt"        -> pairAt,
-      "startClocksAt" -> startClocksAt,
-      "scheduledAt"   -> scheduledAt,
-      "pairedAt"      -> pairedAt
-    )
+    Json
+      .obj(
+        "id" -> _id,
+        "games" -> games.map { g =>
+          Json.obj(
+            "id"    -> g.id,
+            "white" -> g.white,
+            "black" -> g.black
+          )
+        },
+        "variant" -> variant.key,
+        "clock" -> Json.obj(
+          "limit"     -> clock.limitSeconds,
+          "increment" -> clock.incrementSeconds
+        ),
+        "rated"         -> mode.rated,
+        "pairAt"        -> pairAt,
+        "startClocksAt" -> startClocksAt,
+        "scheduledAt"   -> scheduledAt,
+        "pairedAt"      -> pairedAt
+      )
+      .add("message" -> message.map(_.value))
   }
 
 }
