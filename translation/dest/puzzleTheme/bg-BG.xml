@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawnDescription">Произвеждането на пешка, или заплахата за произвеждане, е ключова стратегия.</string>
   <string name="advantage">Предимство</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
   <string name="arabianMate">Арабски мат</string>
@@ -48,6 +49,7 @@
   <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
   <string name="pin">Свръзка</string>
   <string name="pinDescription">Тактика, използваща свръзка, където една фигура не може да бъде преместена без да оголи за атака стоящата зад нея по-ценна фигура.</string>
+  <string name="promotion">Произвеждане</string>
   <string name="queenEndgame">Дамски ендшпили</string>
   <string name="queenEndgameDescription">Ендшпил само с дами и пешки.</string>
   <string name="queenRookEndgame">Дама и топ</string>
@@ -57,6 +59,7 @@
   <string name="rookEndgameDescription">Ендшпил само с топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
   <string name="skewer">Линеен удар</string>
+  <string name="underPromotion">Подпроизвеждане на пешка</string>
   <string name="underPromotionDescription">Произвеждане в кон, офицер или топ.</string>
   <string name="veryLong">Много дълги задачи</string>
   <string name="veryLongDescription">Четири или повече хода до победа.</string>
