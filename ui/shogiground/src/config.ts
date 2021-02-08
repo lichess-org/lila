@@ -7,6 +7,7 @@ import * as cg from './types'
 
 export interface Config {
   fen?: cg.FEN; // chess position in Forsyth notation
+  hasPockets?: boolean;
   pockets?: string;
   orientation?: cg.Color; // board orientation. white | black
   turnColor?: cg.Color; // turn to play. white | black
@@ -108,7 +109,9 @@ export function configure(state: State, config: Config): void {
     state.drawable.shapes = [];
   }
 
-  state.pockets = makePockets(config.pockets);
+  if (config.hasPockets) {
+    state.pockets = makePockets(config.pockets);
+  }
 
   // apply config values that could be undefined yet meaningful
   if (config.hasOwnProperty('check')) setCheck(state, config.check || false);

@@ -260,14 +260,12 @@
       var resizable = !!$this.data("resizable");
       var fen = $this.data("fen");
       var pocketFromFen = fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
-      console.log(fen)
-      console.log($this.data("pocket"))
-      console.log(pocketFromFen)
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
         fen: fen || lishogi.readServerFen($this.data("z")),
+        hasPockets: true,
         pockets: $this.data("pocket") || pocketFromFen,
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },

@@ -179,7 +179,7 @@ export function render(s: State): void {
     }
   }
 
-  if (s.pockets) {
+  if (s.pockets && pockets) {
     for (const i of [0, 1]) {
       // add pockets if nonexistent yet
       const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
