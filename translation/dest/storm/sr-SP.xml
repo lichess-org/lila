@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Направите потез да почнете</string>
+  <string name="moveToStart">Направи потез да почнеш</string>
   <string name="puzzlesSolved">проблема решено</string>
   <string name="newDailyHighscore">Нови дневни рекорд!</string>
   <string name="newWeeklyHighscore">Нови седмични рекорд!</string>
@@ -31,4 +31,5 @@
   <string name="highscores">Рекорди</string>
   <string name="viewBestRuns">Погледајте најбоље рунде</string>
   <string name="bestRunOfDay">Најбољи покушај дана</string>
+  <string name="runs">Рунде</string>
 </resources>
