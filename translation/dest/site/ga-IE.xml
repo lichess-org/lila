@@ -84,9 +84,9 @@
   <string name="database">Bunachar</string>
   <string name="whiteDrawBlack">Bán / Comhscór / Dubh</string>
   <string name="averageRatingX">Meán-rátáil: %s</string>
-  <string name="recentGames">Cluichí dheireanacha</string>
+  <string name="recentGames">Cluichí is déanaí</string>
   <string name="topGames">Cluichí is fearr</string>
-  <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s ficheallaithe le rátáil FIDE ó %2$s go %3$s</string>
+  <string name="masterDbExplanation">Dhá mhilliúin cluiche thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Marbhsháinn i %s leath-bheart</item>
     <item quantity="two">Marbhsháinn i %s leath-bheart</item>
