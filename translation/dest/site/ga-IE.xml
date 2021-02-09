@@ -357,8 +357,8 @@
     <item quantity="other">%s staidéir</item>
   </plurals>
   <string name="viewTournament">Féach ar chomórtas</string>
-  <string name="backToTournament">Ar ais go dtí an comórtas</string>
-  <string name="thematic">Le téama</string>
+  <string name="backToTournament">Fill ar an chomórtas</string>
+  <string name="thematic">Téamach</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s cluiche rátáilte</item>
     <item quantity="two">≥ %s cluichí rátáilte</item>
@@ -378,24 +378,24 @@
     <item quantity="two">Caithfidh tú %1$s chluiche rátáilte \"%2$s\" eile a imirt</item>
     <item quantity="few">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
     <item quantity="many">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
-    <item quantity="other">Caithfidh tú %1$s cluiche rátáilte %2$s níos mó a imirt</item>
+    <item quantity="other">Caithfidh tú %1$s cluichí rátáilte %2$s níos mó a imirt</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
     <item quantity="two">Caithfidh tú %s chluiche rátáilte eile a imirt</item>
     <item quantity="few">Caithfidh tú %s gcluiche rátáilte eile a imirt</item>
     <item quantity="many">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
-    <item quantity="other">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+    <item quantity="other">Caithfidh tú %s cluichí rátáilte eile a imirt</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
+  <string name="yourPerfRatingIsProvisional">Tá do rátáil %s sealadach</string>
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá do rátáil seachtainiúil %1$s is fearr (%2$s) ró-ard</string>
   <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="ratedMoreThanInPerf">Rátáil ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rátáil ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
-  <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
-  <string name="backToGame">Ar ais don chluiche</string>
+  <string name="youAreNotInTeam">Níl tú san fhoireann %s</string>
+  <string name="backToGame">Fill ar an chluiche</string>
   <string name="siteDescription">Ficheall saor in aisce. Imir ficheall i gcoimheadán ghlan. Níl aon fógraí agus ní chaithfear clárú nó plugin a úsáid. Imir ficheall leis an ríomhaire, le cairde nó céilí imeartha randamacha.</string>
   <string name="xJoinedTeamY">chuaigh %1$s istigh ar bhfoireann %2$s</string>
   <string name="xCreatedTeamY">Bhunaigh %1$s an fhoireann %2$s</string>
