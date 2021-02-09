@@ -4,8 +4,8 @@
   <string name="advancedSearch">Напредна претрага</string>
   <plurals name="searchInXGames">
     <item quantity="one">Претражи у %s шаховској партији</item>
-    <item quantity="few">Претражи у %s шаховским партијама</item>
-    <item quantity="other">Претражи у %s шаховским партијама</item>
+    <item quantity="few">Претражи у %s шаховске партије</item>
+    <item quantity="other">Претражи у %s шаховских партија</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Једна партија пронађена</item>
