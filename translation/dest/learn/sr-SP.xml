@@ -153,7 +153,7 @@
   <string name="castlingComplete">Честитамо! Скоро увек требате направити рокаду током партије.</string>
   <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Посебан пешаков потез</string>
-  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
+  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете га однети као да се померио за једно поље.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
 за два поља!
 Поједите га ен пасант.</string>
