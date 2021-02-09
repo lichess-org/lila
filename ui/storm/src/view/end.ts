@@ -96,27 +96,33 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
       ctrl.vm.history
         .filter(r => !r.win || !ctrl.vm.filterFailed)
         .map(round =>
-          h('div.storm--end__history__round', [
-            h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
-              attrs: {
-                href: `/training/${round.puzzle.id}`,
-                target: '_blank',
-              },
-              hook: onInsert(e => {
-                const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
-                const uci = round.puzzle.line.split(' ')[0];
-                pos.play(parseUci(uci)!);
-                miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+          h(
+            'div.storm--end__history__round',
+            {
+              key: round.puzzle.id,
+            },
+            [
+              h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
+                attrs: {
+                  href: `/training/${round.puzzle.id}`,
+                  target: '_blank',
+                },
+                hook: onInsert(e => {
+                  const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
+                  const uci = round.puzzle.line.split(' ')[0];
+                  pos.play(parseUci(uci)!);
+                  miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+                }),
               }),
-            }),
-            h('span.storm--end__history__round__meta', [
-              h('span.storm--end__history__round__result', [
-                h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
-                h('rating', round.puzzle.rating),
+              h('span.storm--end__history__round__meta', [
+                h('span.storm--end__history__round__result', [
+                  h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                  h('rating', round.puzzle.rating),
+                ]),
+                h('span.storm--end__history__round__id', '#' + round.puzzle.id),
               ]),
-              h('span.storm--end__history__round__id', '#' + round.puzzle.id),
-            ]),
-          ])
+            ]
+          )
         )
     ),
   ]);
