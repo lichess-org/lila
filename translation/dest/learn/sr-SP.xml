@@ -228,6 +228,6 @@
   <string name="yourScore">Ваш резултат</string>
   <string name="next">Следеће</string>
   <string name="backToMenu">Повратак на мени</string>
-  <string name="puzzleFailed">Вежба неуспшна!</string>
+  <string name="puzzleFailed">Проблем неуспешно решен!</string>
   <string name="retry">Покушајте поново</string>
 </resources>
