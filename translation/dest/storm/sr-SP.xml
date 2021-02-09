@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Направите потез да почнете</string>
+  <string name="puzzlesSolved">проблема решено</string>
+  <string name="newDailyHighscore">Нови дневни рекорд!</string>
+  <string name="newWeeklyHighscore">Нови седмични рекорд!</string>
+  <string name="newMonthlyHighscore">Нови месечни рекорд!</string>
+  <string name="newAllTimeHighscore">Нови рекорд свих времена!</string>
+  <string name="previousHighscoreWasX">Претходни рекорд је био %s</string>
   <string name="playAgain">Играј опет</string>
   <plurals name="xRuns">
     <item quantity="one">1 покушај</item>
