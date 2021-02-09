@@ -89,7 +89,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
 }
 
 function playerName(p: PuzzlePlayer) {
-  return p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
+  return p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
 }
 
 export function userBox(ctrl: Controller): VNode {
