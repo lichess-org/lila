@@ -173,12 +173,12 @@
   <string name="today">Inniu</string>
   <string name="yesterday">Inné</string>
   <string name="minutesPerSide">Nóiméid an taobh</string>
-  <string name="variant">Cineál</string>
-  <string name="variants">Cineáil</string>
-  <string name="timeControl">Maor ama</string>
+  <string name="variant">Athróg</string>
+  <string name="variants">Athróga</string>
+  <string name="timeControl">Smacht ama</string>
   <string name="realTime">Fíor-am</string>
   <string name="correspondence">Comhfhreagras</string>
-  <string name="daysPerTurn">Laethanta do gach beart</string>
+  <string name="daysPerTurn">Laethanta sa bheart</string>
   <string name="oneDay">Lá amháin</string>
   <plurals name="nbDays">
     <item quantity="one">%s lá</item>
@@ -198,7 +198,7 @@
   <string name="rating">Rátáil</string>
   <string name="ratingStats">Staitisticí rátála</string>
   <string name="username">Ainm úsáideora</string>
-  <string name="usernameOrEmail">Ainm úsáideora</string>
+  <string name="usernameOrEmail">Ainm úsáideora nó seoladh ríomphoist</string>
   <string name="changeUsername">Athraigh ainm an úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit cás na litreacha i d’ainm úsáideora a athrú.</string>
