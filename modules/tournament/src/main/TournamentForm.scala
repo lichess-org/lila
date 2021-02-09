@@ -183,6 +183,56 @@ private[tournament] case class TournamentSetup(
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
+  // update all fields and use default values for missing fields
+  // meant for HTML form updates
+  def updateAll(old: Tournament): Tournament = {
+    val newVariant = if (old.isCreated && variant.isDefined) realVariant else old.variant
+    old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = realMode,
+        variant = newVariant,
+        startsAt = startDate | old.startsAt,
+        password = password,
+        position = newVariant.standard ?? {
+          if (old.isCreated || old.position.isDefined) realPosition
+          else old.position
+        },
+        noBerserk = !(~berserkable),
+        noStreak = !(~streakable),
+        teamBattle = old.teamBattle,
+        description = description,
+        hasChat = hasChat | true
+      )
+  }
+
+  // update only fields that are specified
+  // meant for API updates
+  def updatePresent(old: Tournament): Tournament = {
+    val newVariant = if (old.isCreated) realVariant else old.variant
+    old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = if (rated.isDefined) realMode else old.mode,
+        variant = newVariant,
+        startsAt = startDate | old.startsAt,
+        password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
+        position = newVariant.standard ?? {
+          if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
+          else old.position
+        },
+        noBerserk = berserkable.fold(old.noBerserk)(!_),
+        noStreak = streakable.fold(old.noStreak)(!_),
+        teamBattle = old.teamBattle,
+        description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
+        hasChat = hasChat | old.hasChat
+      )
+  }
+
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 
   // There are 2 players, and they don't always use all their time (0.8)

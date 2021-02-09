@@ -100,35 +100,26 @@ final class TournamentApi(
   }
 
   def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
-    import data._
-    val variant = if (old.isCreated) realVariant else old.variant
-    val tour = old
-      .copy(
-        name = name | old.name,
-        clock = if (old.isCreated) clockConfig else old.clock,
-        minutes = minutes,
-        mode = realMode,
-        variant = variant,
-        startsAt = startDate | old.startsAt,
-        password = data.password,
-        position = variant.standard ?? {
-          if (old.isCreated || old.position.isDefined) data.realPosition
-          else old.position
-        },
-        noBerserk = !(~berserkable),
-        noStreak = !(~streakable),
-        teamBattle = old.teamBattle,
-        description = description,
-        hasChat = data.hasChat | true
-      ) pipe { tour =>
-      tour.copy(conditions =
-        conditions
-          .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
-          .copy(teamMember = old.conditions.teamMember) // can't change that
-      )
-    }
+    val tour = postUpdate(old, data, data updateAll old, leaderTeams)
     tournamentRepo update tour inject tour
   }
+
+  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
+    val tour = postUpdate(old, data, data updatePresent old, leaderTeams)
+    tournamentRepo update tour inject tour
+  }
+
+  private def postUpdate(
+      old: Tournament,
+      data: TournamentSetup,
+      tour: Tournament,
+      leaderTeams: List[LeaderTeam]
+  ) =
+    tour.copy(conditions =
+      data.conditions
+        .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
+        .copy(teamMember = old.conditions.teamMember) // can't change that
+    )
 
   def teamBattleUpdate(
       tour: Tournament,

@@ -367,7 +367,7 @@ final class Tournament(
               .fold(
                 newJsonFormError,
                 data =>
-                  api.update(tour, data, teams) flatMap { tour =>
+                  api.apiUpdate(tour, data, teams) flatMap { tour =>
                     jsonView(
                       tour,
                       none,
