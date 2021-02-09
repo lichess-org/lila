@@ -8,6 +8,8 @@
   <string name="registerToSendChallenges">Молимо вас да се региструјете како би послали изазове.</string>
   <string name="youCannotChallengeX">Не можете изазвати %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш %1$s рејтинг је предалек од %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Немогуће изазвати због привременог %s рејтинга.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
   <string name="declineGeneric">Тренутно не прихватам изазове.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
