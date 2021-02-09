@@ -277,16 +277,16 @@
   <string name="youHaveBeenTimedOut">Tá tú curtha ar fionraí ar feadh tréimhse.</string>
   <string name="spectatorRoom">Seomra lucht féachana</string>
   <string name="composeMessage">Cruthaigh teachtaireacht</string>
-  <string name="noNewMessages">Níl aon teachtaireacht nua</string>
+  <string name="noNewMessages">Níl aon teachtaireachtaí nua</string>
   <string name="subject">Ábhar</string>
   <string name="recipient">Faighteoir</string>
   <string name="send">Seol</string>
-  <string name="incrementInSeconds">Méadú i soicindí</string>
-  <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
+  <string name="incrementInSeconds">Incrimint i soicindí</string>
+  <string name="freeOnlineChess">Ficheall Saor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
   <plurals name="nbRated">
     <item quantity="one">%s cluiche rátáilte</item>
-    <item quantity="two">%s chluichí rátáilte</item>
+    <item quantity="two">%s chluiche rátáilte</item>
     <item quantity="few">%s chluichí rátáilte</item>
     <item quantity="many">%s chluichí rátáilte</item>
     <item quantity="other">%s chluichí rátáilte</item>
@@ -301,15 +301,15 @@
   <plurals name="nbLosses">
     <item quantity="one">%s caill</item>
     <item quantity="two">%s chaill</item>
-    <item quantity="few">%s gcaill</item>
+    <item quantity="few">%s chaill</item>
     <item quantity="many">%s caill</item>
     <item quantity="other">%s caill</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s cothrom</item>
-    <item quantity="two">%s chothrom</item>
-    <item quantity="few">%s gcothrom</item>
-    <item quantity="many">%s cothrom</item>
+    <item quantity="one">%s comhscór</item>
+    <item quantity="two">%s chomhscór</item>
+    <item quantity="few">%s gcomhscór</item>
+    <item quantity="many">%s comhscór</item>
     <item quantity="other">%s comhscór</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -319,7 +319,7 @@
     <item quantity="many">%s á imirt</item>
     <item quantity="other">%s á imirt</item>
   </plurals>
-  <string name="exportGames">Easpórtálaigh cluichí</string>
+  <string name="exportGames">Easpórtáil cluichí</string>
   <string name="ratingRange">Réimse rátála</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Tabhair %s soicind</item>
