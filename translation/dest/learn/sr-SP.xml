@@ -157,12 +157,12 @@
   <string name="blackJustMovedThePawnByTwoSquares">Црни је управо померио пешака
 за два поља!
 Однесите га ан пасан.</string>
-  <string name="enPassantOnlyWorksImmediately">Ен пасант једино ради
+  <string name="enPassantOnlyWorksImmediately">Ан пасан је једино могућ
 одмах након што је противник
 померио пешака.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
-ако вам је пешак на петом реду.</string>
-  <string name="takeAllThePawnsEnPassant">Узмите све пешаке ен пасант!</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је једино могућ
+ако вам је пешак на 5. реду.</string>
+  <string name="takeAllThePawnsEnPassant">Однесите све пешаке ан пасан!</string>
   <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партија је нерешена</string>
