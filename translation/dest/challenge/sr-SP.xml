@@ -16,6 +16,10 @@
   <string name="declineTooFast">Ова временска контрола је пребрза за мене, молим вас изазовите опет на спорију партију.</string>
   <string name="declineTooSlow">Ова временска контрола је преспора за мене, молим вас изазовите опет на бржу партију.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
+  <string name="declineRated">Уместо овог, молим вас да ми пошаљете рангиран изазов.</string>
+  <string name="declineCasual">Уместо овог, молим вас да ми пошаљете неформалан изазов.</string>
+  <string name="declineStandard">Тренутно не прихватам изазове у варијантама.</string>
   <string name="declineVariant">Тренутно не желим да играм ову варијанту.</string>
   <string name="declineNoBot">Не прихватам изазове од ботова.</string>
+  <string name="declineOnlyBot">Прихватам само изазове од ботова.</string>
 </resources>
