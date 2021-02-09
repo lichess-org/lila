@@ -154,9 +154,9 @@
   <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Посебан пешаков потез</string>
   <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете га однети као да се померио за једно поље.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
+  <string name="blackJustMovedThePawnByTwoSquares">Црни је управо померио пешака
 за два поља!
-Поједите га ен пасант.</string>
+Однесите га ан пасан.</string>
   <string name="enPassantOnlyWorksImmediately">Ен пасант једино ради
 одмах након што је противник
 померио пешака.</string>
