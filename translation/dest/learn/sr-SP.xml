@@ -37,7 +37,7 @@
   <string name="lastOne">Последњи!</string>
   <string name="kingComplete">Сада можете командовати командиру!</string>
   <string name="theKnight">Скакач</string>
-  <string name="itMovesInAnLShape">Креће се у L облику</string>
+  <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
   <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>
   <string name="knightsHaveAFancyWay">Скакачи имају елегантан начин
 скакања уоколо!</string>
@@ -47,8 +47,10 @@
   <string name="thePawn">Пешак</string>
   <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro">Пешаци су слаби, али имају много потенцијала.</string>
-  <string name="pawnsMoveOneSquareOnly">Пешаци прелазе само на једно поље. Али када стигну на други крај табле, постају јача фигура!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева, промоција за Даму је најбоља. Али понекад је скакач добар!</string>
+  <string name="pawnsMoveOneSquareOnly">Пешаци се крећу за само једно поље.
+Али када стигну на други крај табле, постају јача фигура!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева најбоље је промовисати у даму.
+Али понекад скакач може бити користан!</string>
   <string name="pawnsMoveForward">Пешаци се крећу напред, али једу дијагонално!</string>
   <string name="captureThenPromote">Носи, онда промовиши!</string>
   <string name="useAllThePawns">Искористи све пешаке! Нема потребе за промоцијом.</string>
