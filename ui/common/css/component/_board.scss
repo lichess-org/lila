@@ -22,6 +22,7 @@
   }
   cg-pocket {
     .pocket {
+      margin: 0;
       &-top {
         grid-area: mat-top;
         border-radius: 3px 3px 0px 0px;
