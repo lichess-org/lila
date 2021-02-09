@@ -14,12 +14,12 @@
   <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
   <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
   <string name="yourPuzzleRatingX">Вашият рейтинг по задачите: %s</string>
-  <string name="findTheBestMoveForWhite">Открийте най-добрият ход за белите.</string>
-  <string name="findTheBestMoveForBlack">Открийте най-добрият ход за черните.</string>
-  <string name="toGetPersonalizedPuzzles">За да получите персонализирани пъзели:</string>
+  <string name="findTheBestMoveForWhite">Открийте най-добрия ход за белите.</string>
+  <string name="findTheBestMoveForBlack">Открийте най-добрия ход за черните.</string>
+  <string name="toGetPersonalizedPuzzles">За да получите персонализирани задачи:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача на деня</string>
-  <string name="clickToSolve">Щракни, за да решиш</string>
+  <string name="clickToSolve">Щракнете, за да решите</string>
   <string name="goodMove">Добър ход</string>
   <string name="bestMove">Най-добър ход!</string>
   <string name="keepGoing">Продължи…</string>
