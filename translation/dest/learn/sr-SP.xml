@@ -65,10 +65,10 @@
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
   <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
   <string name="fundamentals">Основе</string>
-  <string name="capture">Узимање фигура</string>
-  <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
-  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и узмите их!</string>
-  <string name="takeTheBlackPieces">Узмите црне фигуре!</string>
+  <string name="capture">Ношење</string>
+  <string name="takeTheEnemyPieces">Носи противничке фигуре</string>
+  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и носите их!</string>
+  <string name="takeTheBlackPieces">Носите црне фигуре!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Узмите црне фигуре! И немојте изгубити своје.</string>
   <string name="captureComplete">Честитамо! Знате како да се борите шаховским фигурама!</string>
   <string name="protection">Заштита</string>
