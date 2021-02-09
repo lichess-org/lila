@@ -24,5 +24,11 @@
   <string name="accuracy">Прецизност</string>
   <string name="time">Време</string>
   <string name="timePerMove">Време по потезу</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Највиши решен</string>
+  <string name="puzzlesPlayed">Проблеми одиграни</string>
+  <string name="newRun">Нова рунда (тастер: Спејс)</string>
+  <string name="endRun">Заврши рунду (тастер: Ентер)</string>
+  <string name="highscores">Рекорди</string>
+  <string name="viewBestRuns">Погледајте најбоље рунде</string>
   <string name="bestRunOfDay">Најбољи покушај дана</string>
 </resources>
