@@ -60,7 +60,7 @@
   <string name="fundamentals">Основи</string>
   <string name="capture">Взимане</string>
   <string name="takeTheEnemyPieces">Вземете противниковите фигури</string>
-  <string name="captureIntro">Разберете кои противникови фигури не се пазят и ги вземете!</string>
+  <string name="captureIntro">Разберете кои противникови фигури не са защитени и ги вземете!</string>
   <string name="takeTheBlackPieces">Вземете черните фигури!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Вземете черните фигури!
 И не губете Вашите.</string>
