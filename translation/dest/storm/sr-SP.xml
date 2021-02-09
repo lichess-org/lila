@@ -13,6 +13,15 @@
     <item quantity="few">%s покушаја</item>
     <item quantity="other">%s покушаја</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Одиграли једну рунду %2$s-а</item>
+    <item quantity="few">Одиграли %1$s рунде %2$s-а</item>
+    <item quantity="other">Одиграли %1$s рунди %2$s-а</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Резултат</string>
+  <string name="moves">Потеза</string>
+  <string name="accuracy">Прецизност</string>
   <string name="time">Време</string>
   <string name="timePerMove">Време по потезу</string>
   <string name="bestRunOfDay">Најбољи покушај дана</string>
