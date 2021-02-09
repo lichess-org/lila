@@ -25,17 +25,17 @@
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
-  <string name="bishopComplete">Честитамо! Можете управљати ловцем.</string>
+  <string name="bishopComplete">Честитамо! Знате управљати ловцем.</string>
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
-  <string name="queenIntro">Најснажнија шаховска фигура улази. Њено величанство, дама!</string>
+  <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
   <string name="queenComplete">Честитамо! Даме немају тајне за тебе.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
-  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, изгубили сте.</string>
+  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, партија је изгубљена.</string>
   <string name="theKingIsSlow">Краљ је спор.</string>
   <string name="lastOne">Последњи!</string>
-  <string name="kingComplete">Сада можеш командовати командиру!</string>
+  <string name="kingComplete">Сада можете командовати командиру!</string>
   <string name="theKnight">Скакач</string>
   <string name="itMovesInAnLShape">Креће се у L облику</string>
   <string name="knightIntro">Ево изазова за тебе. Скакач је... зезнута фигура.</string>
