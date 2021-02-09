@@ -4,7 +4,7 @@
   <string name="byPlaying">като играете!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Напредък: %s</string>
-  <string name="resetMyProgress">Анулирай моя напредък</string>
+  <string name="resetMyProgress">Анулирай напредъка ми</string>
   <string name="youWillLoseAllYourProgress">Ще загубите напредъка си!</string>
   <string name="play">играй!</string>
   <string name="chessPieces">Шахматни фигури</string>
@@ -67,11 +67,11 @@
   <string name="captureComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Пазете си фигурите</string>
-  <string name="protectionIntro">Разберете кои фигури са атакувани от Вашия противник и ги защитете!</string>
+  <string name="protectionIntro">Разберете кои фигури са атакувани от противника и ги защитете!</string>
   <string name="protectionComplete">Поздравления! Всяка неизгубена фигура е спечелена фигура!</string>
   <string name="escape">Под атака сте! Спасете се от заплахата!</string>
   <string name="noEscape">Изход няма, но можете да се защитите!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не им позволявай да ти се отнема незащитена фигура!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не позволявайте да Ви отнемат незащитени фигури!</string>
   <string name="combat">Битка</string>
   <string name="captureAndDefendPieces">Отнемай и защитавай фигури</string>
   <string name="combatIntro">Добрият войн знае както да атакува, така и да се защитава!</string>
