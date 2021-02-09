@@ -12,6 +12,9 @@
   <string name="cannotChallengeDueToProvisionalXRating">Немогуће изазвати због привременог %s рејтинга.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
   <string name="declineGeneric">Тренутно не прихватам изазове.</string>
+  <string name="declineLater">Изазов ми тренутно не одговара, молим вас питајте опет касније.</string>
+  <string name="declineTooFast">Ова временска контрола је пребрза за мене, молим вас изазовите опет на спорију партију.</string>
+  <string name="declineTooSlow">Ова временска контрола је преспора за мене, молим вас изазовите опет на бржу партију.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
   <string name="declineVariant">Тренутно не желим да играм ову варијанту.</string>
   <string name="declineNoBot">Не прихватам изазове од ботова.</string>
