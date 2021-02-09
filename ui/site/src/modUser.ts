@@ -113,15 +113,27 @@ lichess.load.then(() => {
           $(this).parent().parent().toggleClass('blocked');
           return false;
         });
+      let selected: string | undefined;
+      const valueOf = (el: HTMLTableRowElement) => $(el).find('td:first-child').text();
+      const applyFilter = (v?: string) =>
+        v
+          ? $('#mz_others tbody tr').each(function (this: HTMLElement) {
+              $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
+            })
+          : $('#mz_others tbody tr.none').removeClass('none');
       $(el)
         .find('tr')
-        .on('mouseenter', function (this: HTMLElement) {
-          const v = $(this).find('td:first-child').text();
-          $('#mz_others tbody tr').each(function (this: HTMLElement) {
-            $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
-          });
+        .on('click', function (this: HTMLTableRowElement) {
+          const v = valueOf(this);
+          selected = selected == v ? undefined : v;
+          applyFilter(selected);
+          $('.spy_filter tr.selected').removeClass('selected');
+          $(this).toggleClass('selected', !!selected);
+        })
+        .on('mouseenter', function (this: HTMLTableRowElement) {
+          !selected && applyFilter(valueOf(this));
         });
-      $(el).on('mouseleave', () => $('#mz_others tbody tr').removeClass('none'));
+      $(el).on('mouseleave', () => !selected && applyFilter());
     });
     makeReady(
       '#mz_identification .slist--sort',

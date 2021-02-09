@@ -226,8 +226,14 @@
     }
 
     &.spy_filter {
-      tbody tr:hover {
-        background: mix($c-brag, $c-bg-box, 20%);
+      tbody tr {
+        &:hover {
+          background: mix($c-brag, $c-bg-box, 15%);
+          cursor: pointer;
+        }
+        &.selected {
+          background: mix($c-brag, $c-bg-box, 40%);
+        }
       }
     }
   }
