@@ -29,7 +29,7 @@
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
   <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
-  <string name="queenComplete">Честитамо! Даме немају тајне за тебе.</string>
+  <string name="queenComplete">Честитамо! Даме немају тајне за Вас.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
   <string name="kingIntro">Ви сте краљ. Ако паднете у борби, партија је изгубљена.</string>
@@ -51,13 +51,15 @@
 Али када стигну на други крај табле, постају јача фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева најбоље је промовисати у даму.
 Али понекад скакач може бити користан!</string>
-  <string name="pawnsMoveForward">Пешаци се крећу напред, али једу дијагонално!</string>
-  <string name="captureThenPromote">Носи, онда промовиши!</string>
-  <string name="useAllThePawns">Искористи све пешаке! Нема потребе за промоцијом.</string>
-  <string name="aPawnOnTheSecondRank">Други ред пешака може скочити за два поља!</string>
+  <string name="pawnsMoveForward">Пешаци се крећу напред,
+али носе дијагонално!</string>
+  <string name="captureThenPromote">Носите, па онда промовишите!</string>
+  <string name="useAllThePawns">Искористи све пешаке!
+Нема потребе за промоцијом.</string>
+  <string name="aPawnOnTheSecondRank">Пешак у другом реду се може померити за 2 поља одједном!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
 Нема потребе за промоцијом.</string>
-  <string name="pawnComplete">Честитамо! Пешаци немају тајне за тебе.</string>
+  <string name="pawnComplete">Честитамо! Пешаци немају тајне за Вас.</string>
   <string name="pawnPromotion">Промоција пешака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
