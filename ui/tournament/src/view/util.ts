@@ -41,6 +41,7 @@ export function miniBoard(game) {
         "data-color": game.color,
         "data-fen": game.fen,
         "data-lastmove": game.lastMove,
+        "data-pocket": game.pockets,
       },
       hook: {
         insert(vnode) {
