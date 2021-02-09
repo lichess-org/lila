@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Направи потез да почнеш</string>
-  <string name="puzzlesSolved">загонетки решено</string>
+  <string name="puzzlesSolved">проблема решено</string>
   <string name="newDailyHighscore">Нови дневни рекорд!</string>
   <string name="newWeeklyHighscore">Нови седмични рекорд!</string>
   <string name="newMonthlyHighscore">Нови месечни рекорд!</string>
@@ -26,7 +26,7 @@
   <string name="time">Време</string>
   <string name="timePerMove">Време по потезу</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Највиши решен</string>
-  <string name="puzzlesPlayed">Загонетке одигране</string>
+  <string name="puzzlesPlayed">Одиграни проблеми</string>
   <string name="newRun">Нова рунда (тастер: Спејс)</string>
   <string name="endRun">Заврши рунду (тастер: Ентер)</string>
   <string name="highscores">Рекорди</string>
