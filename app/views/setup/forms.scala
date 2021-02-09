@@ -21,7 +21,7 @@ object forms {
     ) {
       frag(
         renderVariant(form, translatedVariantChoicesWithVariants),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = false),
         ctx.isAuth option frag(
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
@@ -61,7 +61,7 @@ object forms {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), strict = true, validFen),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = true),
         if (ctx.blind)
           frag(
             renderLabel(form("level"), trans.strength()),
@@ -104,7 +104,7 @@ object forms {
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
         fenInput(form("fen"), strict = false, validFen),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = true),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)
         ),
