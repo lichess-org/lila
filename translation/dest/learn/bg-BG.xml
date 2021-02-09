@@ -118,18 +118,18 @@
   <string name="theSpecialKingMove">Специалните ходове на царя</string>
   <string name="castlingIntro">Защитете царя си, и пригответе топа си за атака!</string>
   <string name="castleKingSide">Преместете царя си с две полета за царска рокада!</string>
-  <string name="castleQueenSide">Премести царя си с две полета за дамска рокада!</string>
-  <string name="theKnightIsInTheWay">Конят пречи! Премести го, след което направете царска рокада.</string>
+  <string name="castleQueenSide">Преместете царя си с две полета за дамска рокада!</string>
+  <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете царска рокада.</string>
   <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
-Първо трябва да раздвижите фигурите между тях.</string>
+Първо трябва да разместите фигурите между тях.</string>
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
-Първо трябва да раздвижите фигурите между тях.</string>
+Първо трябва да разместите фигурите между тях.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
-  <string name="youCannotCastleIfAttacked">Не можеш да направиш рокада, ако царят е под шах. Първо блокада, после рокада!</string>
-  <string name="findAWayToCastleKingSide">Намери начин да
-направиш царска рокада!</string>
-  <string name="findAWayToCastleQueenSide">Намери начин да
-направиш дамска рокада!</string>
+  <string name="youCannotCastleIfAttacked">Не можете да направите рокада, ако царят Ви е под шах. Първо блокада, после рокада!</string>
+  <string name="findAWayToCastleKingSide">Намерете начин да
+направите царска рокада!</string>
+  <string name="findAWayToCastleQueenSide">Намерете начин да
+направите дамска рокада!</string>
   <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
   <string name="enPassant">Ан-пасан</string>
   <string name="theSpecialPawnMove">Специалният ход на пешката</string>
