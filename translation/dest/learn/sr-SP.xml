@@ -25,7 +25,7 @@
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
-  <string name="bishopComplete">Честитамо! Знате управљати ловцем.</string>
+  <string name="bishopComplete">Честитамо! Сада можете управљати ловцем.</string>
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
   <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
@@ -163,14 +163,14 @@
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је једино могућ
 ако вам је пешак на 5. реду.</string>
   <string name="takeAllThePawnsEnPassant">Однесите све пешаке ан пасан!</string>
-  <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
+  <string name="enPassantComplete">Честитамо! Сада можете носити ан пасан.</string>
   <string name="stalemate">Пат</string>
-  <string name="theGameIsADraw">Партија је нерешена</string>
-  <string name="stalemateIntro">Када играч није у шаху и неможе направити ниједан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
-  <string name="stalemateGoal">Да направите пат:
-- Црни играч не може нигде да се помери
+  <string name="theGameIsADraw">Партија завршава ремијем</string>
+  <string name="stalemateIntro">Када играч није у шаху и нема ниједан легалан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
+  <string name="stalemateGoal">Да патирате црног:
+- Црни не може нигде да се помери
 - Нема шаха.</string>
-  <string name="stalemateComplete">Честитамо! Боље правите пат него да добијете шах мат!</string>
+  <string name="stalemateComplete">Честитамо! Боље бити патиран него матиран!</string>
   <string name="advanced">Напредно</string>
   <string name="pieceValue">Вредност фигура</string>
   <string name="evaluatePieceStrength">Процените снагу фигуре</string>
