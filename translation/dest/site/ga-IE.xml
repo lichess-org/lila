@@ -6,7 +6,7 @@
   <string name="gameOver">Cluiche Thart</string>
   <string name="waitingForOpponent">Ag fanacht ar chéile comhraic</string>
   <string name="waiting">Ag fanacht</string>
-  <string name="yourTurn">Do bheart</string>
+  <string name="yourTurn">Do sheal</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
   <string name="strength">Caighdeán imeartha</string>
@@ -349,7 +349,7 @@
     <item quantity="many">%s pointe comórtais</item>
     <item quantity="other">%s pointe comórtais</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="one">%s staidéar</item>
     <item quantity="two">%s staidéir</item>
     <item quantity="few">%s staidéir</item>
