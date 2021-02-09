@@ -141,6 +141,8 @@ object Challenge {
     val default: DeclineReason = Generic
     val all: List[DeclineReason] =
       List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
+    val allExceptBot: List[DeclineReason] =
+      all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
   }
 

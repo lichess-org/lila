@@ -36,7 +36,7 @@ final class JsonView(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
       "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang),
-      "reasons" -> JsObject(Challenge.DeclineReason.all.map { r =>
+      "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map { r =>
         r.key -> JsString(r.trans.txt())
       })
     )
