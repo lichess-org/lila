@@ -108,7 +108,7 @@
 на начин који се не може одбранити!</string>
   <string name="mateInOneComplete">Честитамо! Тако се добијају шаховске партије!</string>
   <string name="intermediate">Средње</string>
-  <string name="boardSetup">Намештање табле</string>
+  <string name="boardSetup">Поставка табле</string>
   <string name="howTheGameStarts">Како партија почиње</string>
   <string name="boardSetupIntro">Две армије се суочавају, спремне за битку.</string>
   <string name="thisIsTheInitialPosition">Ово је почетна позиција
@@ -118,23 +118,23 @@
 Они иду у ћошкове.</string>
   <string name="thenPlaceTheKnights">Затим поставите скакаче!
 Они иду поред топова.</string>
-  <string name="placeTheBishops">Поставите ловчеве!
+  <string name="placeTheBishops">Поставите ловце!
 Они иду поред скакача.</string>
-  <string name="placeTheQueen">Ставите краљицу!
-Она иде на њену боју.</string>
-  <string name="placeTheKing">Ставите краља!
+  <string name="placeTheQueen">Поставите даму!
+Она иде на своју боју.</string>
+  <string name="placeTheKing">Поставите краља!
 Одмах поред његове краљице.</string>
-  <string name="pawnsFormTheFrontLine">Пешаци формирају предњу линију.
+  <string name="pawnsFormTheFrontLine">Пешаци формирају линију фронта.
 Направите било који потез да наставите.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="castling">Рокада</string>
-  <string name="theSpecialKingMove">Специјалан краљев потез</string>
-  <string name="castlingIntro">Доведите краља у сигурност, и доведите топа да напада!</string>
-  <string name="castleKingSide">Померите краља за два поља
-да урадите малу рокаду!</string>
-  <string name="castleQueenSide">Померите краља за два поља
-да урадите велику рокаду!</string>
-  <string name="theKnightIsInTheWay">Скакач је на путу!
+  <string name="theSpecialKingMove">Посебан краљев потез</string>
+  <string name="castlingIntro">Доведите свог краља на сигурно, и развијте вашег топа у напад!</string>
+  <string name="castleKingSide">Померите свог краља за два поља
+да направите малу рокаду!</string>
+  <string name="castleQueenSide">Померите свог краља за два поља
+да направите велику рокаду!</string>
+  <string name="theKnightIsInTheWay">Скакач Вам смета!
 Померите га, и онда направите малу рокаду.</string>
   <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
 Прво морате развити фигуре.</string>
@@ -152,7 +152,7 @@
 направите велику рокаду!</string>
   <string name="castlingComplete">Честитамо! Требали би скоро увек направити рокаду током партије.</string>
   <string name="enPassant">Ен пасант</string>
-  <string name="theSpecialPawnMove">Специјалан пешаков потез</string>
+  <string name="theSpecialPawnMove">Посебан пешаков потез</string>
   <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
 за два поља!
