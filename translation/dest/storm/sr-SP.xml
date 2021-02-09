@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Направи потез да почнеш</string>
+  <string name="puzzlesSolved">загонетки решено</string>
+  <string name="newDailyHighscore">Нови дневни рекорд!</string>
+  <string name="newWeeklyHighscore">Нови седмични рекорд!</string>
+  <string name="newMonthlyHighscore">Нови месечни рекорд!</string>
+  <string name="newAllTimeHighscore">Нови рекорд свих времена!</string>
+  <string name="previousHighscoreWasX">Претходни рекорд је био %s</string>
   <string name="playAgain">Играј опет</string>
   <plurals name="xRuns">
-    <item quantity="one">1 покушај</item>
-    <item quantity="few">%s покушаја</item>
-    <item quantity="other">%s покушаја</item>
+    <item quantity="one">1 рунда</item>
+    <item quantity="few">%s рунде</item>
+    <item quantity="other">%s рунди</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Одиграли једну рунду %2$s-а</item>
+    <item quantity="few">Одиграли %1$s рунде %2$s-а</item>
+    <item quantity="other">Одиграли %1$s рунди %2$s-а</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Резултат</string>
+  <string name="moves">Потеза</string>
+  <string name="accuracy">Прецизност</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
   <string name="time">Време</string>
   <string name="timePerMove">Време по потезу</string>
-  <string name="bestRunOfDay">Најбољи покушај дана</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Највиши решен</string>
+  <string name="puzzlesPlayed">Загонетке одигране</string>
+  <string name="newRun">Нова рунда (тастер: Спејс)</string>
+  <string name="endRun">Заврши рунду (тастер: Ентер)</string>
+  <string name="highscores">Рекорди</string>
+  <string name="viewBestRuns">Погледајте најбоље рунде</string>
+  <string name="bestRunOfDay">Најбоља рунда дана</string>
+  <string name="runs">Рунде</string>
 </resources>
