@@ -137,21 +137,21 @@
   <string name="theKnightIsInTheWay">Скакач Вам смета!
 Померите га, и онда направите малу рокаду.</string>
   <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
-Прво морате развити фигуре.</string>
+Прво морате померити фигуре.</string>
   <string name="castleQueenSideMovePiecesFirst">Направите велику рокаду!
-Прво морате развити фигуре.</string>
-  <string name="youCannotCastleIfMoved">Неможете направити рокаду ако
+Прво морате померити фигуре.</string>
+  <string name="youCannotCastleIfMoved">Не можете направити рокаду ако
 се краљ већ померио
-или ако се то већ померио.</string>
-  <string name="youCannotCastleIfAttacked">Неможете направити рокаду ако
+или се топ већ померио.</string>
+  <string name="youCannotCastleIfAttacked">Не можете направити рокаду ако
 је краљ нападнут на путу.
 Блокирајте шах па онда направите рокаду!</string>
   <string name="findAWayToCastleKingSide">Нађите начин да
 направите малу рокаду!</string>
   <string name="findAWayToCastleQueenSide">Нађите начин да
 направите велику рокаду!</string>
-  <string name="castlingComplete">Честитамо! Требали би скоро увек направити рокаду током партије.</string>
-  <string name="enPassant">Ен пасант</string>
+  <string name="castlingComplete">Честитамо! Скоро увек требате направити рокаду током партије.</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Посебан пешаков потез</string>
   <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
