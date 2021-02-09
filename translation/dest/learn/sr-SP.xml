@@ -172,20 +172,20 @@
 - Нема шаха.</string>
   <string name="stalemateComplete">Честитамо! Боље бити патиран него матиран!</string>
   <string name="advanced">Напредно</string>
-  <string name="pieceValue">Вредност фигура</string>
+  <string name="pieceValue">Вредност фигуре</string>
   <string name="evaluatePieceStrength">Процените снагу фигуре</string>
-  <string name="pieceValueIntro">Фигуре са више поља на које могу да се помере су вредније!
+  <string name="pieceValueIntro">Фигуре са већом покретљивости имају вишу вредност!
 Дама = 9
 Топ = 5
 Ловац = 3
 Скакач = 3
 Пешак = 1
-Краљ нема вредност! Ако га изгубите, изгубили сте партију.</string>
-  <string name="queenOverBishop">Поједите фигуру
-са највећом вредношћу!
+Краљ је непроцењив! Изгубити га значи изгубити партију.</string>
+  <string name="queenOverBishop">Однесите фигуру
+са највишом вредношћу!
 Дама &gt; Ловац</string>
-  <string name="takeThePieceWithTheHighestValue">Поједите фигуру
-са највећом вредношћу!</string>
+  <string name="takeThePieceWithTheHighestValue">Однесите фигуру
+са највишом вредношћу!</string>
   <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
 Дама = 9
 Топ = 5
@@ -193,19 +193,19 @@
 Скакач = 3
 Пешак = 1</string>
   <string name="checkInTwo">Шах у два</string>
-  <string name="twoMovesToGiveCheck">Два потеза да дате шах</string>
-  <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза која шахира противниковог краља!</string>
-  <string name="checkInTwoGoal">Претите противничком краљу
+  <string name="twoMovesToGiveCheck">Два потеза да се да шах</string>
+  <string name="checkInTwoIntro">Пронађите праву комбинацију два потеза која шахира противниковог краља!</string>
+  <string name="checkInTwoGoal">Запретите противничком краљу
 у два потеза!</string>
   <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
-  <string name="whatNext">Шта је следеће?</string>
-  <string name="youKnowHowToPlayChess">Знате како да играте шах, честитамо! Да ли желите постати бољи играч?</string>
+  <string name="whatNext">Шта даље?</string>
+  <string name="youKnowHowToPlayChess">Знате како играти шах, честитамо! Да ли желите постати јачи играч?</string>
   <string name="register">Региструјте се</string>
-  <string name="getAFreeLichessAccount">Добијте бесплатан Личес налог</string>
-  <string name="practice">Вежбај</string>
+  <string name="getAFreeLichessAccount">Набавите бесплатан Личес налог</string>
+  <string name="practice">Вежбајте</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
-  <string name="puzzles">Тактике</string>
-  <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
+  <string name="puzzles">Проблеми</string>
+  <string name="exerciseYourTacticalSkills">Вежбајте Ваше тактичке вештине</string>
   <string name="videos">Видеи</string>
   <string name="watchInstructiveChessVideos">Гледајте инструктивне шаховске снимке</string>
   <string name="playPeople">Играј против осталих</string>
