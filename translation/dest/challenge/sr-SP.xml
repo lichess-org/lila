@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challenges">Изазови</string>
+  <string name="challengeToPlay">Изазови на партију</string>
+  <string name="challengeDeclined">Изазов одбијен</string>
+  <string name="challengeAccepted">Изазов прихваћен!</string>
+  <string name="challengeCanceled">Изазов отказан.</string>
+  <string name="registerToSendChallenges">Молимо вас да се региструјете како би послали изазове.</string>
   <string name="youCannotChallengeX">Не можете изазвати %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s само прихвата изазове од пријатеља.</string>
+  <string name="declineGeneric">Тренутно не прихватам изазове.</string>
   <string name="declineTimeControl">Не прихватам изазове са овом временском контролом.</string>
 </resources>
