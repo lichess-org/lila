@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">مدربوا الموقع</string>
+  <string name="lichessCoach">مدرب</string>
   <string name="reviewCoach">قيم المدرب</string>
 </resources>
