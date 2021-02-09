@@ -355,6 +355,36 @@ final class Tournament(
         )
     }
 
+  def apiUpdate(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      implicit def lang = reqLang
+      repo byId id flatMap {
+        _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
+          env.team.api.lightsByLeader(me.id) flatMap { teams =>
+            forms
+              .edit(me, teams, tour)
+              .bindFromRequest()
+              .fold(
+                newJsonFormError,
+                data =>
+                  api.update(tour, data, teams) flatMap { tour =>
+                    jsonView(
+                      tour,
+                      none,
+                      none,
+                      getUserTeamIds = _ => fuccess(teams.map(_.id)),
+                      env.team.getTeamName,
+                      none,
+                      none,
+                      partial = false
+                    )(reqLang) map { Ok(_) }
+                  }
+              )
+          }
+        }
+      }
+    }
+
   def teamBattleEdit(id: String) =
     Auth { implicit ctx => me =>
       repo byId id flatMap {

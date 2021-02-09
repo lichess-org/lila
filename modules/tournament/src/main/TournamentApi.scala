@@ -99,7 +99,7 @@ final class TournamentApi(
     } inject tour
   }
 
-  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Funit = {
+  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
     import data._
     val variant = if (old.isCreated) realVariant else old.variant
     val tour = old
@@ -127,7 +127,7 @@ final class TournamentApi(
           .copy(teamMember = old.conditions.teamMember) // can't change that
       )
     }
-    tournamentRepo update tour void
+    tournamentRepo update tour inject tour
   }
 
   def teamBattleUpdate(
