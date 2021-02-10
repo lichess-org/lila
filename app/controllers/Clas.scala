@@ -19,7 +19,7 @@ final class Clas(
       ctx.me match {
         case _ if getBool("home") => renderHome
         case None                 => renderHome
-        case Some(me) if isGranted(_.Teacher) =>
+        case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
           env.clas.api.clas.of(me) map { classes =>
             Ok(views.html.clas.clas.teacherIndex(classes))
           }
@@ -47,15 +47,17 @@ final class Clas(
 
   def create =
     SecureBody(_.Teacher) { implicit ctx => me =>
-      env.clas.forms.clas.create
-        .bindFromRequest()(ctx.body, formBinding)
-        .fold(
-          err => BadRequest(html.clas.clas.create(err)).fuccess,
-          data =>
-            env.clas.api.clas.create(data, me) map { clas =>
-              Redirect(routes.Clas.show(clas.id.value))
-            }
-        )
+      SafeTeacher {
+        env.clas.forms.clas.create
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.clas.clas.create(err)).fuccess,
+            data =>
+              env.clas.api.clas.create(data, me) map { clas =>
+                Redirect(routes.Clas.show(clas.id.value))
+              }
+          )
+      }
     }
 
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
@@ -280,28 +282,30 @@ final class Clas(
     SecureBody(_.Teacher) { implicit ctx => me =>
       NoTor {
         Firewall {
-          WithClassAndStudents(me, id) { (clas, students) =>
-            env.clas.forms.student.create
-              .bindFromRequest()(ctx.body, formBinding)
-              .fold(
-                err =>
-                  env.clas.api.student.count(clas.id) map { nbStudents =>
-                    BadRequest(
-                      html.clas.student.form(
-                        clas,
-                        students,
-                        env.clas.forms.student.invite(clas),
-                        err,
-                        nbStudents
+          SafeTeacher {
+            WithClassAndStudents(me, id) { (clas, students) =>
+              env.clas.forms.student.create
+                .bindFromRequest()(ctx.body, formBinding)
+                .fold(
+                  err =>
+                    env.clas.api.student.count(clas.id) map { nbStudents =>
+                      BadRequest(
+                        html.clas.student.form(
+                          clas,
+                          students,
+                          env.clas.forms.student.invite(clas),
+                          err,
+                          nbStudents
+                        )
                       )
-                    )
-                  },
-                data =>
-                  env.clas.api.student.create(clas, data, me) map { s =>
-                    Redirect(routes.Clas.studentForm(clas.id.value))
-                      .flashing("created" -> s"${s.student.userId} ${s.password.value}")
-                  }
-              )
+                    },
+                  data =>
+                    env.clas.api.student.create(clas, data, me) map { s =>
+                      Redirect(routes.Clas.studentForm(clas.id.value))
+                        .flashing("created" -> s"${s.student.userId} ${s.password.value}")
+                    }
+                )
+            }
           }
         }
       }
@@ -338,26 +342,28 @@ final class Clas(
     SecureBody(_.Teacher) { implicit ctx => me =>
       NoTor {
         Firewall {
-          WithClassAndStudents(me, id) { (clas, students) =>
-            env.clas.api.student.count(clas.id) flatMap { nbStudents =>
-              env.clas.forms.student
-                .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
-                .bindFromRequest()(ctx.body, formBinding)
-                .fold(
-                  err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).fuccess,
-                  data =>
-                    env.clas.api.student.manyCreate(clas, data, me) flatMap { many =>
-                      env.user.lightUserApi.preloadMany(many.map(_.student.userId)) inject
-                        Redirect(routes.Clas.studentManyForm(clas.id.value))
-                          .flashing(
-                            "created" -> many
-                              .map { s =>
-                                s"${s.student.userId} ${s.password.value}"
-                              }
-                              .mkString("/")
-                          )
-                    }
-                )
+          SafeTeacher {
+            WithClassAndStudents(me, id) { (clas, students) =>
+              env.clas.api.student.count(clas.id) flatMap { nbStudents =>
+                env.clas.forms.student
+                  .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
+                  .bindFromRequest()(ctx.body, formBinding)
+                  .fold(
+                    err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).fuccess,
+                    data =>
+                      env.clas.api.student.manyCreate(clas, data, me) flatMap { many =>
+                        env.user.lightUserApi.preloadMany(many.map(_.student.userId)) inject
+                          Redirect(routes.Clas.studentManyForm(clas.id.value))
+                            .flashing(
+                              "created" -> many
+                                .map { s =>
+                                  s"${s.student.userId} ${s.password.value}"
+                                }
+                                .mkString("/")
+                            )
+                      }
+                  )
+              }
             }
           }
         }
@@ -586,4 +592,8 @@ final class Clas(
         env.clas.api.student.get(clas, user) flatMap { _ ?? f }
       }
     }
+
+  private def SafeTeacher(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.exists(!_.lameOrTroll)) f
+    else Redirect(routes.Clas.index).fuccess
 }
