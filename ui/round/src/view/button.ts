@@ -193,9 +193,9 @@ export function cancelDrawOffer(ctrl: RoundController) {
 export function answerOpponentDrawOffer(ctrl: RoundController) {
   return ctrl.data.opponent.offeringDraw
     ? h('div.negotiation.draw', [
+        declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
         h('p', ctrl.noarg('yourOpponentOffersADraw')),
         acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
-        declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
       ])
     : null;
 }
@@ -255,9 +255,9 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: strin
 export function answerOpponentTakebackProposition(ctrl: RoundController) {
   return ctrl.data.opponent.proposingTakeback
     ? h('div.negotiation.takeback', [
+        declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no')),
         h('p', ctrl.noarg('yourOpponentProposesATakeback')),
         acceptButton(ctrl, 'takeback-yes', ctrl.takebackYes),
-        declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no')),
       ])
     : null;
 }

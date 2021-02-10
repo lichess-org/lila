@@ -166,16 +166,6 @@
     }
   }
 
-  .draw {
-    p {
-      order: 2;
-    }
-
-    a {
-      order: 1;
-    }
-  }
-
   .rematch {
     &.fbt {
       @extend %metal;
