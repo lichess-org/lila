@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import { Redraw, Close, bind, header } from './util';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
+import throttle from 'common/throttle';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -43,7 +44,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     list,
     trans,
     get: () => data.current,
-    set(c: string) {
+    set: throttle(700, (c: string) => {
       data.current = c;
       xhr
         .text('/pref/bg', {
@@ -53,7 +54,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
         .then(reloadAllTheThings, announceFail);
       applyBackground(data, list);
       redraw();
-    },
+    }),
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;
