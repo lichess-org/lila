@@ -48,6 +48,11 @@ square {
   &.last-move {
     will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
+
+    body.horsey &:not(.move-dest) {
+      background: url(../images/board/horsey.last-move.png);
+      background-size: cover;
+    }
   }
 
   &.check {
@@ -62,14 +67,29 @@ square {
 
   &.selected {
     background-color: rgba(20, 85, 30, 0.5);
+
+    body.horsey & {
+      background: url(../images/board/horsey.selected.png);
+      background-size: cover;
+    }
   }
 
   &.current-premove {
     background-color: rgba(20, 30, 85, 0.5) !important;
+
+    body.horsey & {
+      background: url(../images/board/horsey.current-premove.png);
+      background-size: cover;
+    }
   }
 
   &.move-dest:hover {
     background: rgba(20, 85, 30, 0.3);
+
+    body.horsey & {
+      background: url(../images/board/horsey.move-dest.png);
+      background-size: cover;
+    }
   }
 
   &.premove-dest:hover {
@@ -78,23 +98,6 @@ square {
 
   &.bh1 piece {
     opacity: 0.98;
-  }
-
-  body.horsey &.last-move {
-    background: url(../images/board/horsey.last-move.png);
-    background-size: cover;
-  }
-  body.horsey &.selected {
-    background: url(../images/board/horsey.selected.png);
-    background-size: cover;
-  }
-  body.horsey &.move-dest:hover {
-    background: url(../images/board/horsey.move-dest.png);
-    background-size: cover;
-  }
-  body.horsey &.current-premove {
-    background: url(../images/board/horsey.current-premove.png);
-    background-size: cover;
   }
 }
 
