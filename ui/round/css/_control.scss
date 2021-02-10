@@ -51,19 +51,30 @@
     }
   }
 
+  @keyframes flash-once {
+    from {
+      background: $c-accent;
+      color: $c-accent-over;
+    }
+
+    to {
+      background: $c-bg-zebra;
+      color: $c-font;
+    }
+  }
+
   .negotiation {
     @extend %flex-center-nowrap;
+    animation: flash-once 1s ease-in;
 
-    background: $c-accent;
-    color: #fff;
     padding: 1px;
 
     p {
-      flex: 1 1 auto;
+      flex: 3 1 auto;
     }
 
     a {
-      flex: 0 0 3rem;
+      flex: 1 0 3rem;
       font-size: 1.5em;
       line-height: 3em;
       background: $c-bg-box;

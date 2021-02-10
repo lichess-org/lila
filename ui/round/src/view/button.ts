@@ -265,9 +265,9 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return ctrl.moveToSubmit || ctrl.dropToSubmit
     ? h('div.negotiation.move-confirm', [
+        declineButton(ctrl, () => ctrl.submitMove(false), 'cancel'),
         h('p', ctrl.noarg('confirmMove')),
         acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
-        declineButton(ctrl, () => ctrl.submitMove(false), 'cancel'),
       ])
     : undefined;
 }
