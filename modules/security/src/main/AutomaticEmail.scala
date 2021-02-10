@@ -9,6 +9,7 @@ import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
+import lila.base.LilaException
 
 final class AutomaticEmail(
     userRepo: UserRepo,
@@ -40,7 +41,7 @@ ${Mailgun.txt.serviceNote}
     )
   }
 
-  def onTitleSet(username: String): Funit =
+  def onTitleSet(username: String): Funit = {
     for {
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
@@ -68,6 +69,9 @@ ${Mailgun.txt.serviceNote}
         )
       }
     } yield ()
+  } recover { case e: LilaException =>
+    logger.info(e.message)
+  }
 
   def onBecomeCoach(user: User): Funit = {
     val body = alsoSendAsPrivateMessage(user) { implicit lang =>
