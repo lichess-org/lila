@@ -457,7 +457,7 @@
   <string name="nextXTournament">Следећи %s турнир:</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="membersOnly">Само за чланове</string>
-  <string name="boardEditor">Уредник табле</string>
+  <string name="boardEditor">Уређивач табле</string>
   <string name="setTheBoard">Постави таблу</string>
   <string name="popularOpenings">Популарна отварања</string>
   <string name="startPosition">Почетна позиција</string>
