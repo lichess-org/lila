@@ -8,9 +8,10 @@
   <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Ако не можете скенирати код, унесите тајни %s у Вашу апликацију.</string>
   <string name="authenticationCode">Аутентификациони код</string>
   <string name="ifYouLoseAccess">Напомена: ако изгубите приступ Вашим двофакторским аутентификационим кодовима, можете ресетовати лозинку преко е-поште.</string>
-  <string name="enableTwoFactor">Омогући дво-факторску аутентикацију</string>
-  <string name="disableTwoFactor">Онемогући дво-факторску аутентикацију</string>
-  <string name="twoFactorEnabled">Дво-факторска аутентикација укључена</string>
-  <string name="twoFactorDisable">Потребна ти је шифра и аутентикациони код из твоје апликације за аутентикацију како би искључио дво-факторску аутентикацију.
-Ако си изгубио приступ аутентикационим кодовима, такође своју лозинку можеш ресетовати путем е-поште.</string>
+  <string name="enableTwoFactor">Омогући двофакторску аутентификацију</string>
+  <string name="disableTwoFactor">Онемогући двофакторску аутентификацију</string>
+  <string name="twoFactorEnabled">Двофакторска аутентификација омогућена</string>
+  <string name="twoFactorDisable">Потребна Вам је Ваша лозинка и аутентификациони код из Ваше апликације за аутентификацију како бисте онемогућили двофакторску аутентификацију.
+Ако сте изгубили приступ Вашим аутентификационим кодовима, можете ресетовати лозинку преко е-поште.</string>
+  <string name="openTwoFactorApp">Отворите апликацију за аутентификацију на Вашем уређају како бисте видели Ваш аутентификациони код и потврдите Ваш идентитет.</string>
 </resources>
