@@ -185,7 +185,8 @@ object header {
       angle match {
         case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
-          val profile = u.profileOrDefault
+          val profile   = u.profileOrDefault
+          val hideTroll = u.marks.troll && !ctx.is(u)
           div(id := "us_profile")(
             if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)))
               div(cls := "rating-history")(spinner)
@@ -209,7 +210,7 @@ prevent a player from ever playing (except against boosters/cheaters).
 It's useful against spambots. These marks are not visible to the public."""
                   )
                 ),
-                (ctx.noKid && (!u.marks.troll || ctx.is(u))) option frag(
+                ctx.noKid && !hideTroll option frag(
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
@@ -221,7 +222,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   profile.officialRating.map { r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating))
                   },
-                  profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
+                  profile.nonEmptyLocation.ifTrue(ctx.noKid && !hideTroll).map { l =>
                     span(cls := "location")(l)
                   },
                   profile.countryInfo.map { c =>
@@ -238,7 +239,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   info.completionRatePercent.map { c =>
                     p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                   },
-                  (ctx is u) option frag(
+                  ctx is u option frag(
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
                     ),
@@ -253,7 +254,7 @@ It's useful against spambots. These marks are not visible to the public."""
                       }
                     )
                   },
-                  (!u.marks.troll || ctx.is(u)) option div(cls := "social_links col2")(
+                  !hideTroll option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
                       a(href := link.url, targetBlank, rel := "nofollow")(link.site.name)
                     }
