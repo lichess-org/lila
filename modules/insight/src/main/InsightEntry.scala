@@ -1,11 +1,12 @@
 package lila.insight
 
+import cats.data.NonEmptyList
 import chess.opening.Ecopening
 import chess.{ Color, Role }
+import org.joda.time.DateTime
+
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
-import org.joda.time.DateTime
-import cats.data.NonEmptyList
 
 case class InsightEntry(
     id: String,  // gameId + w/b
@@ -214,6 +215,13 @@ object MaterialRange {
   val byId = all map { p =>
     (p.id, p)
   } toMap
+  def toRange(mr: MaterialRange): (Int, Int) =
+    if (mr.id == Equal.id) (0, 0)
+    else
+      (
+        byId.get(mr.id - 1).fold(Int.MinValue)(_.imbalance),
+        mr.imbalance
+      )
 }
 
 sealed abstract class Blur(val id: Boolean, val name: String)

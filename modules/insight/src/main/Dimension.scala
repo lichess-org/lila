@@ -293,11 +293,26 @@ object Dimension {
         selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
+      case Dimension.MaterialRange =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map { range =>
+                val intRange = lila.insight.MaterialRange.toRange(range)
+                if (intRange._1 == intRange._2) $doc(d.dbKey -> intRange._1)
+                else if (range.negative)
+                  $doc(d.dbKey $gte intRange._1 $lt intRange._2)
+                else
+                  $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+              }
+            )
+        }
       case _ =>
         selected flatMap d.bson.writeOpt match {
           case Nil     => $empty
           case List(x) => $doc(d.dbKey -> x)
-          case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
+          case xs      => d.dbKey $in xs
         }
     }
   }
