@@ -247,4 +247,11 @@ object TimeVariance {
   } toMap
   def apply(v: Float) = all.find(_.id >= v) | VeryVariable
   val intFactor: Int  = 100_000 // multiply variance by that to get an Int for storage
+  def toRange(tv: TimeVariance): (Int, Int) =
+    if (tv == VeryVariable) (QuiteVariable.intFactored, Int.MaxValue)
+    else
+      (
+        all.indexOf(tv).some.filter(-1 !=).map(_ - 1).flatMap(all.lift).fold(0)(_.intFactored),
+        tv.intFactored
+      )
 }

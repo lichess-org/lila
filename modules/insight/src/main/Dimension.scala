@@ -308,6 +308,16 @@ object Dimension {
               }
             )
         }
+      case Dimension.TimeVariance =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map(lila.insight.TimeVariance.toRange).map { range =>
+                $doc(d.dbKey $gt range._1 $lte range._2)
+              }
+            )
+        }
       case _ =>
         selected flatMap d.bson.writeOpt match {
           case Nil     => $empty
