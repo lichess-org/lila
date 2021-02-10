@@ -4,28 +4,30 @@
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
-    <item quantity="few">%s чланова</item>
+    <item quantity="few">%s члана</item>
     <item quantity="other">%s чланова</item>
   </plurals>
   <string name="allTeams">Сви тимови</string>
   <string name="newTeam">Нови тим</string>
   <string name="myTeams">Моји тимови</string>
   <string name="noTeamFound">Ниједан тим није пронађен</string>
-  <string name="joinTeam">Прикључи се тиму</string>
+  <string name="joinTeam">Придружи се тиму</string>
   <string name="quitTeam">Изађи из тима</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ручно прегледавај захтеве за пријем</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ако је означено, играчи ће морати написати захтев да се придруже тиму, који можете одбити или прихватити.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Вођа тима</item>
     <item quantity="few">Вође тима</item>
     <item quantity="other">Вођа тима</item>
   </plurals>
-  <string name="teamBestPlayers">Најбољи играчи тима</string>
-  <string name="teamRecentMembers">Скорашњи чланови тима</string>
+  <string name="teamBestPlayers">Најбољи играчи</string>
+  <string name="teamRecentMembers">Најновији чланови</string>
   <string name="kickSomeone">Избаци некога из тима</string>
-  <string name="whoToKick">Кога желиш избацити из тима?</string>
+  <string name="whoToKick">Кога желите избацити из тима?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s захтев прикључивања</item>
-    <item quantity="few">%s захтева прикључивања</item>
-    <item quantity="other">%s Захтева прикључивања</item>
+    <item quantity="one">%s захтев за придруживање</item>
+    <item quantity="few">%s захтева за придруживање</item>
+    <item quantity="other">%s захтева за придруживање</item>
   </plurals>
   <string name="willBeReviewed">Твој захтев прикључивања ће проверити вођа тима.</string>
   <string name="beingReviewed">Твој захтев прикључивања тренутно проверава вођа тима.</string>
