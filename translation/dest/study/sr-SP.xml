@@ -75,7 +75,7 @@
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
   <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Само јавне студије могу бити уграђене!</string>
   <string name="open">Отворите</string>
-  <string name="xBroughtToYouByY">%2$s вам доноси %1$s</string>
+  <string name="xBroughtToYouByY">%2$s Вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
   <string name="editChapter">Измени поглавље</string>
   <string name="newChapter">Ново поглавље</string>
@@ -116,21 +116,21 @@
   <string name="public">Јавно</string>
   <string name="unlisted">Неприказано</string>
   <string name="inviteOnly">Само по позиву</string>
-  <string name="allowCloning">Дозволи клонирање</string>
+  <string name="allowCloning">Дозволите клонирање</string>
   <string name="nobody">Нико</string>
   <string name="onlyMe">Само ја</string>
   <string name="contributors">Сарадници</string>
   <string name="members">Чланови</string>
   <string name="everyone">Сви</string>
   <string name="enableSync">Омогући синхронизацију</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Да: остави све на истим позицијама</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Да: задржи све на истој позицији</string>
   <string name="noLetPeopleBrowseFreely">Не: дозволи људима да слободно прегледају</string>
   <string name="pinnedStudyComment">Закачен коментар студије</string>
   <string name="start">Започни</string>
   <string name="save">Сачувај</string>
-  <string name="clearChat">Очисти разговор</string>
-  <string name="deleteTheStudyChatHistory">Избриши историју разговора студије? Нема повратка назад!</string>
+  <string name="clearChat">Очисти ћаскање</string>
+  <string name="deleteTheStudyChatHistory">Избриши историју ћаскања студије? Нема повратка назад!</string>
   <string name="deleteStudy">Избриши студију</string>
   <string name="deleteTheEntireStudy">Избриши целу студију? Нема повратка назад!</string>
-  <string name="whereDoYouWantToStudyThat">Где желите да проучите партију?</string>
+  <string name="whereDoYouWantToStudyThat">Где желите то проучити?</string>
 </resources>
