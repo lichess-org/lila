@@ -8,4 +8,5 @@
   <string name="mateIn3Description">รุกจนให้ได้โดยการเดินสามครั้ง</string>
   <string name="mateIn4">รุกจนใน 4 ตา</string>
   <string name="mateIn4Description">รุกจนให้ได้โดยการเดินสี่ครั้ง</string>
+  <string name="mateIn5">รุกจนใน 5 ตาหรือมากกว่านั้น</string>
 </resources>
