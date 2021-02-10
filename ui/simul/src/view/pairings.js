@@ -4,7 +4,6 @@ var status = require("game/status");
 
 function miniPairing(ctrl) {
   return function (pairing) {
-    console.log("simul/pairings miniPairing:", pairing)
     var game = pairing.game;
     var player = pairing.player;
     var result =
