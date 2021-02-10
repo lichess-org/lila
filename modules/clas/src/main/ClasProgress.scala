@@ -165,10 +165,9 @@ final class ClasProgressApi(
       }
   }
 
-  private[clas] def onFinishGame(game: lila.game.Game): Funit =
-    game.userIds.nonEmpty ?? {
-      getStudentIds() flatMap { studentIds =>
-        game.userIds.exists(studentIds.contains) ?? gameRepo.denormalizePerfType(game)
+  private[clas] def onFinishGame(game: lila.game.Game): Unit =
+    if (game.userIds.nonEmpty)
+      getStudentIds() foreach { studentIds =>
+        if (game.userIds.exists(studentIds.contains)) gameRepo.denormalizePerfType(game)
       }
-    }
 }

@@ -507,8 +507,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .list(nb)
 
   // only for student games, for aggregation
-  def denormalizePerfType(game: Game): Funit =
+  def denormalizePerfType(game: Game): Unit =
     game.perfType ?? { pt =>
-      coll.updateField($id(game.id), F.perfType, pt.id).void
+      coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
     }
 }

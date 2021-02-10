@@ -237,7 +237,7 @@ final class ClasApi(
           fetchNewObject = true
         )
 
-    def allIds = idsCache.getUnit
+    private[clas] def allIds = idsCache.getUnit
 
     def isStudent(userId: User.ID) = idsCache.getUnit.dmap(_ contains userId)
 
