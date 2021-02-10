@@ -246,7 +246,7 @@
       return setTimeout(function () {
         lishogi.parseFen($elem);
       }, 500); // if not loaded yet
-    // sometimes $elem is not a jQuery, can happen when content_loaded is telemriggered with random args
+    // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
     if (!$elem || !$elem.each) $elem = $(".parse-fen");
     $elem.each(function () {
       var $this = $(this).removeClass("parse-fen");
