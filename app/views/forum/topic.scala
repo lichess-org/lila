@@ -127,9 +127,9 @@ object topic {
                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
                 )
               )
-            } getOrElse {
-              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.")
-              else p(trans.youCannotPostYetPlaySomeGames())
+            } orElse {
+              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.").some
+              else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
             },
           div(
             unsub.map { uns =>
