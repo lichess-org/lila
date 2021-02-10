@@ -135,9 +135,9 @@ final class User(
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
-      case None if isGranted(_.UserSpy)                 => modC.searchTerm(username.trim)
-      case None                                         => notFound
-      case Some(u) if u.enabled || isGranted(_.UserSpy) => f(u)
+      case None if isGranted(_.UserModView)                 => modC.searchTerm(username.trim)
+      case None                                             => notFound
+      case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
       case Some(u) =>
         negotiate(
           html = env.user.repo isErased u flatMap { erased =>
@@ -151,7 +151,7 @@ final class User(
   def showMini(username: String) =
     Open { implicit ctx =>
       OptionFuResult(env.user.repo named username) { user =>
-        if (user.enabled || isGranted(_.UserSpy))
+        if (user.enabled || isGranted(_.UserModView))
           ctx.userId.?? { relationApi.fetchBlocks(user.id, _) } zip
             ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
@@ -322,7 +322,7 @@ final class User(
     }
 
   def mod(username: String) =
-    Secure(_.UserSpy) { implicit ctx => _ =>
+    Secure(_.UserModView) { implicit ctx => _ =>
       modZoneOrRedirect(username)
     }
 
@@ -366,19 +366,19 @@ final class User(
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased)
         }
-        val spyFu = env.security.userSpy(user, nbOthers)
-        val others = spyFu flatMap { spy =>
-          val familyUserIds = user.id :: spy.otherUserIds
+        val userLoginsFu = env.security.userLogins(user, nbOthers)
+        val others = userLoginsFu flatMap { userLogins =>
+          val familyUserIds = user.id :: userLogins.otherUserIds
           (isGranted(_.ModNote) ?? env.user.noteApi
             .forMod(familyUserIds)
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
-            lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
+            lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
               case notes ~ bans ~ othersWithEmail =>
-                html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
+                html.user.mod.otherUsers(user, userLogins, othersWithEmail, notes, bans, nbOthers)
             }
         }
-        val identification = spyFu map { spy =>
+        val identification = userLoginsFu map { spy =>
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
             html.user.mod.identification(spy)
         }
@@ -483,7 +483,7 @@ final class User(
   def perfStat(username: String, perfKey: String) =
     Open { implicit ctx =>
       OptionFuResult(env.user.repo named username) { u =>
-        if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
+        if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserModView)) notFound
         else
           PerfType(perfKey).fold(notFound) { perfType =>
             for {

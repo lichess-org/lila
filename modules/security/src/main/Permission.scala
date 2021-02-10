@@ -17,20 +17,20 @@ object Permission {
   case object ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
 
   case object ChatTimeout           extends Permission("CHAT_TIMEOUT", "Chat timeout")
-  case object UserSpy               extends Permission("USER_SPY", "User profile mod view")
+  case object UserModView           extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
-  case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserSpy), "Notify #tavern")
+  case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserModView), "Notify #tavern")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
-  case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
-  case object SetKidMode            extends Permission("SET_KID_MODE", List(UserSpy), "Set Kid Mode")
-  case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
-  case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
-  case object IpBan                 extends Permission("IP_BAN", List(UserSpy), "IP ban")
-  case object PrintBan              extends Permission("PRINT_BAN", List(UserSpy), "Print ban")
+  case object Shadowban             extends Permission("SHADOWBAN", List(UserModView, ChatTimeout), "Shadowban")
+  case object SetKidMode            extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
+  case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
+  case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
+  case object IpBan                 extends Permission("IP_BAN", List(UserModView), "IP ban")
+  case object PrintBan              extends Permission("PRINT_BAN", List(UserModView), "Print ban")
   case object DisableTwoFactor      extends Permission("DISABLE_2FA", "Disable 2FA")
-  case object CloseAccount          extends Permission("CLOSE_ACCOUNT", List(UserSpy), "Close/reopen account")
-  case object SetTitle              extends Permission("SET_TITLE", List(UserSpy), "Set/unset title")
-  case object SetEmail              extends Permission("SET_EMAIL", List(UserSpy), "Set email address")
+  case object CloseAccount          extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
+  case object SetTitle              extends Permission("SET_TITLE", List(UserModView), "Set/unset title")
+  case object SetEmail              extends Permission("SET_EMAIL", List(UserModView), "Set email address")
   case object SeeReport             extends Permission("SEE_REPORT", "See reports")
   case object Appeals               extends Permission("APPEAL", "Handle appeals")
   case object Presets               extends Permission("PRESET", "Edit mod presets")
@@ -84,7 +84,7 @@ object Permission {
           MarkEngine,
           MarkBooster,
           CloseAccount,
-          UserSpy,
+          UserModView,
           UserEvaluate,
           SeeReport,
           ModLog,
@@ -189,7 +189,7 @@ object Permission {
       RemoveRanking
     ),
     "Account mod" -> List(
-      UserSpy,
+      UserModView,
       ViewIpPrint,
       IpBan,
       PrintBan,

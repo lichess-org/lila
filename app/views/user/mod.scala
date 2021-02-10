@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
 import lila.playban.RageSit
-import lila.security.{ Permission, UserSpy }
+import lila.security.{ Permission, UserLogins }
 import lila.user.User
 
 object mod {
@@ -495,8 +495,8 @@ object mod {
 
   def otherUsers(
       u: User,
-      spy: UserSpy,
-      othersWithEmail: UserSpy.WithMeSortedWithEmails,
+      userLogins: UserLogins,
+      othersWithEmail: UserLogins.WithMeSortedWithEmails,
       notes: List[lila.user.Note],
       bans: Map[String, Int],
       max: Int
@@ -506,7 +506,7 @@ object mod {
         thead(
           tr(
             th(
-              pluralize("linked user", spy.otherUsers.size),
+              pluralize("linked user", userLogins.otherUsers.size),
               (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
                 nbsp,
                 a(cls := "more-others")("Load more")
@@ -529,7 +529,7 @@ object mod {
           )
         ),
         tbody(
-          othersWithEmail.others.map { case other @ UserSpy.OtherUser(o, _, _) =>
+          othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
             val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
@@ -584,7 +584,7 @@ object mod {
       )
     )
 
-  def identification(spy: UserSpy)(implicit ctx: Context): Frag = {
+  def identification(spy: UserLogins)(implicit ctx: Context): Frag = {
     val canIpBan = isGranted(_.IpBan)
     val canFpBan = isGranted(_.PrintBan)
     mzSection("identification")(
@@ -711,7 +711,7 @@ object mod {
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
-  private def altMarks(alts: UserSpy.Alts) =
+  private def altMarks(alts: UserLogins.Alts) =
     List[(Int, Frag)](
       alts.boosters -> boosting,
       alts.engines  -> engine,

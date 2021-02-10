@@ -23,10 +23,10 @@ object communication {
       title = u.username + " communications",
       moreCss = frag(
         cssTag("mod.communication"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsModule("mod.user")
+        isGranted(_.UserModView) option jsModule("mod.user")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
@@ -51,7 +51,7 @@ object communication {
             }
           )
         ),
-        isGranted(_.UserSpy) option div(cls := "mod-zone none"),
+        isGranted(_.UserModView) option div(cls := "mod-zone none"),
         history.nonEmpty option frag(
           h2("Moderation history"),
           div(cls := "history")(

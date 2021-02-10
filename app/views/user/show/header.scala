@@ -89,7 +89,7 @@ object header {
               dataIcon := "k"
             )
           ),
-          isGranted(_.UserSpy) option
+          isGranted(_.UserModView) option
             a(
               cls := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
@@ -180,14 +180,14 @@ object header {
       ),
       ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !u.isBot && !ctx.pref.hasSeenVerifyTitle) option
         views.html.user.bits.claimTitle,
-      isGranted(_.UserSpy) option div(cls := "mod-zone none"),
+      isGranted(_.UserModView) option div(cls := "mod-zone none"),
       standardFlash(),
       angle match {
         case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
           val profile = u.profileOrDefault
           div(id := "us_profile")(
-            if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserSpy)))
+            if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)))
               div(cls := "rating-history")(spinner)
             else
               ctx.is(u) option newPlayer(u),

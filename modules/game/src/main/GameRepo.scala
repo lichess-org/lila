@@ -98,8 +98,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .find(Query user user)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
-      .map { _.flatMap(g => Pov(g, user)) }
+      .list(nb)
+      .map { _.flatMap(Pov(_, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
     coll

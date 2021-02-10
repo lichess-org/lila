@@ -36,7 +36,7 @@ object mini {
           ),
           ping map bits.signalBars
         ),
-        if (u.marks.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
+        if (u.marks.engine && !ctx.me.has(u) && !isGranted(_.UserModView))
           div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
           div(cls := "upt__info__ratings")(u.best8Perfs map { showPerfRating(u, _) })
@@ -76,7 +76,7 @@ object mini {
           }
         )
       },
-      isGranted(_.UserSpy) option div(cls := "upt__mod")(
+      isGranted(_.UserModView) option div(cls := "upt__mod")(
         span(
           trans.nbGames.plural(u.count.game, u.count.game.localize),
           " ",

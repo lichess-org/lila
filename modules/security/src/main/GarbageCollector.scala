@@ -9,7 +9,7 @@ import lila.user.User
 
 // codename UGC
 final class GarbageCollector(
-    userSpy: UserSpyApi,
+    userLogins: UserLoginsApi,
     ipTrust: IpTrust,
     slack: lila.slack.SlackApi,
     noteApi: lila.user.NoteApi,
@@ -49,7 +49,7 @@ final class GarbageCollector(
     }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
-    userSpy userHasPrint data.user flatMap {
+    userLogins userHasPrint data.user flatMap {
       case false => fufail("No print available yet")
       case _     => funit
     }
@@ -58,7 +58,7 @@ final class GarbageCollector(
     data match {
       case ApplyData(user, ip, email, req) =>
         for {
-          spy    <- userSpy(user, 300)
+          spy    <- userLogins(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
           _ <- {
             val printOpt = spy.prints.headOption

@@ -25,7 +25,7 @@ final class Env(
     lightUserAsync: lila.common.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
-    userSpyApi: lila.security.UserSpyApi,
+    userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     slackApi: lila.slack.SlackApi,
     captcher: lila.hub.actors.Captcher,

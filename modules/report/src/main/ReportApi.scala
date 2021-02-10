@@ -15,7 +15,7 @@ final class ReportApi(
     userRepo: UserRepo,
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
-    userSpyApi: lila.security.UserSpyApi,
+    userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     slackApi: lila.slack.SlackApi,
     isOnline: lila.socket.IsOnline,
@@ -191,7 +191,7 @@ final class ReportApi(
     }
 
   def maybeAutoPlaybanReport(userId: String): Funit =
-    userSpyApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
+    userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
       playbanApi.bans(ids.toList ::: List(userId)) flatMap { bans =>
         (bans.values.sum >= 80) ?? {
           userRepo.byId(userId) zip

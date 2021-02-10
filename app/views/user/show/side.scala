@@ -61,7 +61,7 @@ object side {
     }
 
     div(cls := "side sub-ratings")(
-      (!u.lame || ctx.is(u) || isGranted(_.UserSpy)) option frag(
+      (!u.lame || ctx.is(u) || isGranted(_.UserModView)) option frag(
         showNonEmptyPerf(u.perfs.ultraBullet, PerfType.UltraBullet),
         showPerf(u.perfs.bullet, PerfType.Bullet),
         showPerf(u.perfs.blitz, PerfType.Blitz),

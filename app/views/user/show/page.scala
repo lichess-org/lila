@@ -34,7 +34,7 @@ object page {
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10
     ) {
@@ -63,7 +63,7 @@ object page {
       moreCss = frag(
         cssTag("user.show"),
         filters.current.name == "search" option cssTag("user.show.search"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       robots = u.count.game >= 10
     ) {
@@ -87,7 +87,7 @@ object page {
         )
       },
       withSearch option jsModule("gameSearch"),
-      isGranted(_.UserSpy) option jsModule("mod.user")
+      isGranted(_.UserModView) option jsModule("mod.user")
     )
 
   def disabled(u: User)(implicit ctx: Context) =

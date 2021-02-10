@@ -10,14 +10,14 @@ import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-case class UserSpy(
-    ips: List[UserSpy.IPData],
-    prints: List[UserSpy.FPData],
-    uas: List[Dated[UserSpy.UaAndClient]],
-    otherUsers: List[UserSpy.OtherUser]
+case class UserLogins(
+    ips: List[UserLogins.IPData],
+    prints: List[UserLogins.FPData],
+    uas: List[Dated[UserLogins.UaAndClient]],
+    otherUsers: List[UserLogins.OtherUser]
 ) {
 
-  import UserSpy.OtherUser
+  import UserLogins.OtherUser
 
   def rawIps = ips map (_.ip.value)
   def rawFps = prints map (_.fp.value)
@@ -29,10 +29,10 @@ case class UserSpy(
       case OtherUser(user, ips, _) if ips.nonEmpty => user
     }
 
-  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
+  def distinctLocations = UserLogins.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
 }
 
-final class UserSpyApi(
+final class UserLoginsApi(
     firewall: Firewall,
     store: Store,
     userRepo: UserRepo,
@@ -41,9 +41,9 @@ final class UserSpyApi(
     printBan: PrintBan
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import UserSpy._
+  import UserLogins._
 
-  def apply(user: User, maxOthers: Int): Fu[UserSpy] =
+  def apply(user: User, maxOthers: Int): Fu[UserLogins] =
     store.chronoInfoByUser(user) flatMap { infos =>
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
@@ -59,7 +59,7 @@ final class UserSpyApi(
               acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
             }
           }
-          UserSpy(
+          UserLogins(
             ips = ips.map { ip =>
               IPData(
                 ip,
@@ -168,7 +168,7 @@ final class UserSpyApi(
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 }
 
-object UserSpy {
+object UserLogins {
 
   case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
     val nbIps = ips.size
@@ -229,11 +229,11 @@ object UserSpy {
   def withMeSortedWithEmails(
       userRepo: UserRepo,
       me: User,
-      spy: UserSpy
+      userLogins: UserLogins
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
-    userRepo.emailMap(me.id :: spy.otherUsers.map(_.user.id)) map { emailMap =>
+    userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
-        (OtherUser(me, spy.rawIps.toSet, spy.rawFps.toSet) :: spy.otherUsers),
+        (OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers),
         emailMap
       )
     }
