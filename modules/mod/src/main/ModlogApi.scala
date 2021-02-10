@@ -223,18 +223,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   def appealPost(mod: User.ID, user: User.ID) =
     add { Modlog(mod, user.some, Modlog.appealPost, details = none) }
 
-  def recent =
-    coll
-      .find(
-        $or(
-          $doc("mod"    -> $ne("lichess")),
-          $doc("action" -> $nin("selfCloseAccount", "modMessage"))
-        )
-      )
-      .sort($sort naturalDesc)
-      .cursor[Modlog]()
-      .gather[List](100)
-
   def wasUnengined(sus: Suspect) =
     coll.exists(
       $doc(

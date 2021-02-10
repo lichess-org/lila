@@ -433,7 +433,6 @@ GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: String, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: String, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
-GET   /mod/log                         controllers.Mod.log
 GET   /mod/table                       controllers.Mod.table
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)

@@ -209,11 +209,6 @@ final class Mod(
       }
     }(actionResult(username))
 
-  def log =
-    Secure(_.ModLog) { implicit ctx => _ =>
-      modLogApi.recent map { html.mod.log(_) }
-    }
-
   def table =
     Secure(_.ModLog) { implicit ctx => _ =>
       modApi.allMods map { html.mod.table(_) }
