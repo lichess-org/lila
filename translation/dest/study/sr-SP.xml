@@ -48,9 +48,9 @@
   <string name="commentThisMove">Прокоментаришите овај потез</string>
   <string name="annotateWithGlyphs">Прибележите глифовима</string>
   <string name="theChapterIsTooShortToBeAnalysed">Поглавље је прекратко за анализу.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Само сарадници у студији могу захтевати компјутерску анализу.</string>
-  <string name="getAFullComputerAnalysis">Добијте потпуну компјутерску анализу главне линије са сервера.</string>
-  <string name="makeSureTheChapterIsComplete">Побрините се да је поглавље завршено. Можете тражити анализу само једном.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Само сарадници у студији могу захтевати рачунарску анализу.</string>
+  <string name="getAFullComputerAnalysis">Добијте потпуну рачунарску анализу главне варијације од стране сервера.</string>
+  <string name="makeSureTheChapterIsComplete">Побрините се да је поглавље завршено. Само једном можете захтевати анализу.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Сви синхронизовани чланови остају у истом положају</string>
   <string name="shareChanges">Делите измене са гледаоцима и чувајте их на серверу</string>
   <string name="playing">У току</string>
