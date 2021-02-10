@@ -458,16 +458,6 @@ final class Clas(
       }
     }
 
-  def studentSetKid(id: String, username: String, v: Boolean) =
-    Secure(_.Teacher) { _ => me =>
-      WithClass(me, id) { clas =>
-        WithStudent(clas, username) { s =>
-          (s.student.managed ?? env.user.repo.setKid(s.user, v)) inject
-            Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
-        }
-      }
-    }
-
   def studentResetPassword(id: String, username: String) =
     Secure(_.Teacher) { _ => me =>
       WithClass(me, id) { clas =>
