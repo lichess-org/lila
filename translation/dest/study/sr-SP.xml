@@ -63,8 +63,8 @@
   <string name="studyPgn">PGN студије</string>
   <string name="downloadAllGames">Преузми све партије</string>
   <string name="chapterPgn">PGN поглавља</string>
-  <string name="downloadGame">Преузми игру</string>
-  <string name="studyUrl">Проучите УРЛ адресу</string>
+  <string name="downloadGame">Преузми партију</string>
+  <string name="studyUrl">Линк студије</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Објави линк</string>
   <string name="currentChapterUrl">УРЛ тренутних поглавља</string>
   <string name="currentGameUrl">Линк тренутних партија</string>
