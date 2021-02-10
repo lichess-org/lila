@@ -67,12 +67,16 @@ final private class FirebasePush(
             )
           )
         )
-      ) flatMap {
-      case res if res.status == 200 => funit
-      case res if res.status == 404 =>
+      ) flatMap { res =>
+      lila.mon.push.firebaseStatus(res.status).increment()
+      if (res.status == 200) funit
+      else if (res.status == 404) {
         logger.info(s"Delete missing firebase device $device")
         deviceApi delete device
-      case res => fufail(s"[push] firebase: ${res.status}")
+      } else {
+        logger.warn(s"[push] firebase: ${res.status}")
+        funit
+      }
     }
 
   // filter out any non string value, otherwise Firebase API silently rejects
