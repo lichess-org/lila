@@ -38,8 +38,8 @@
   <string name="messageAllMembers">Пошаљи поруку свим члановима</string>
   <string name="messageAllMembersOverview">Пошаљите приватну поруку сваком члану тима</string>
   <string name="messageAllMembersLongDescription">Пошаљите приватну поруку СВИМ члановима тима.
-Можете позвати све играче да учествују у турниру или тимској борби.
-Играчи који не желе да примају Ваше поруке могу напустити тим.</string>
+Ово можете користити за позивање свих играча да се придруже турниру или борби тимова.
+Играчи који не воле да примају Ваше поруке можда напусте тим.</string>
   <string name="teamsIlead">Тимови које ја водим</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
   <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
