@@ -444,16 +444,16 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="following">Ag leanúint</string>
   <string name="unfollow">Dílean</string>
   <string name="block">Blocáil</string>
-  <string name="blocked">Cosc ar</string>
-  <string name="unblock">Ná cosc a thuilleadh</string>
-  <string name="followsYou">Do leanacht</string>
-  <string name="xStartedFollowingY">Thosaigh %1$s ag leanacht %2$s</string>
+  <string name="blocked">Blocáilte</string>
+  <string name="unblock">Bain bac de</string>
+  <string name="followsYou">Do leanúint</string>
+  <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">leanúnaí amháin</item>
-    <item quantity="two">beirt leanúnaí</item>
-    <item quantity="few">%s leanúnaí</item>
-    <item quantity="many">%s leanúnaíthe</item>
-    <item quantity="other">%s leanúnaíthe</item>
+    <item quantity="one">%s leantóir amháin</item>
+    <item quantity="two">%s beirt leantóir</item>
+    <item quantity="few">%s leantóir</item>
+    <item quantity="many">%s leantóirí</item>
+    <item quantity="other">%s leantóirí</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">duine amháin ag leanacht</item>
