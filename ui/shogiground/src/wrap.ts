@@ -32,23 +32,24 @@ export function renderWrap(
   element.classList.toggle("manipulable", !s.viewOnly);
 
   const helper = createEl("cg-helper");
+  element.appendChild(helper);
+
+  const container = createEl("cg-container");
+  helper.appendChild(container);
 
   let pockets;
 
-  element.appendChild(helper);
   if (isMiniBoard(element)) {
     if (s.pockets) {
     pockets = [createEl("cg-pocket"), createEl("cg-pocket")];
-    element.insertBefore(pockets[s.orientation === "white" ? 0 : 1], helper);
-    element.insertBefore(pockets[s.orientation === "white" ? 1 : 0], helper.nextSibling);
+    helper.insertBefore(pockets[s.orientation === "white" ? 1 : 0], container);
+    helper.insertBefore(pockets[s.orientation === "white" ? 0 : 1], container.nextSibling);
     } else {
       element.classList.add("no-pockets");
     }
   } else {
     delete s.pockets;
   }
-  const container = createEl("cg-container");
-  helper.appendChild(container);
 
   const board = createEl("cg-board");
   container.appendChild(board);
