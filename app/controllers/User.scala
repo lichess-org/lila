@@ -21,6 +21,7 @@ import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
+import lila.security.UserLogins
 
 final class User(
     env: Env,
@@ -337,6 +338,20 @@ final class User(
         .map(Source.single)
     }
 
+  protected[controllers] def loginsTableData(user: UserModel, userLogins: UserLogins, max: Int)(implicit
+      ctx: Context
+  ): Fu[UserLogins.TableData] = {
+    val familyUserIds = user.id :: userLogins.otherUserIds
+    (isGranted(_.ModNote) ?? env.user.noteApi
+      .forMod(familyUserIds)
+      .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
+      env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
+      lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
+        case notes ~ bans ~ othersWithEmail =>
+          UserLogins.TableData(userLogins, othersWithEmail, notes, bans, max)
+      }
+  }
+
   protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
@@ -368,15 +383,9 @@ final class User(
         }
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = userLoginsFu flatMap { userLogins =>
-          val familyUserIds = user.id :: userLogins.otherUserIds
-          (isGranted(_.ModNote) ?? env.user.noteApi
-            .forMod(familyUserIds)
-            .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
-            env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
-            lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {
-              case notes ~ bans ~ othersWithEmail =>
-                html.user.mod.otherUsers(user, userLogins, othersWithEmail, notes, bans, nbOthers)
-            }
+          loginsTableData(user, userLogins, nbOthers) map {
+            html.user.mod.otherUsers(user, _)
+          }
         }
         val identification = userLoginsFu map { spy =>
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??

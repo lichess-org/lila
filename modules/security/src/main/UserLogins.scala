@@ -237,4 +237,12 @@ object UserLogins {
         emailMap
       )
     }
+
+  case class TableData(
+      userLogins: UserLogins,
+      othersWithEmail: UserLogins.WithMeSortedWithEmails,
+      notes: List[lila.user.Note],
+      bans: Map[String, Int],
+      max: Int
+  )
 }

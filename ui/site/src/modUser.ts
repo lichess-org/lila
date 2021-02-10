@@ -59,8 +59,14 @@ lichess.load.then(() => {
 
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
-  function userMod($zone: Cash) {
-    lichess.contentLoaded($zone[0]);
+  function userMod($inZone: Cash) {
+    lichess.contentLoaded($inZone[0]);
+
+    const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls: string = 'ready') => {
+      $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
+        f($(this).addClass(cls)[0] as HTMLElement, i);
+      });
+    };
 
     $('#mz_menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
       $(this).toggleClass('available', !!$(getLocationHash(this)).length);
@@ -81,7 +87,7 @@ lichess.load.then(() => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {
           $('#mz_actions').replaceWith(html);
-          userMod($zone);
+          userMod($inZone);
         });
         return false;
       });
@@ -152,12 +158,6 @@ lichess.load.then(() => {
     });
   }
 
-  function makeReady(selector: string, f: (el: HTMLElement, i: number) => void, cls: string = 'ready') {
-    $zone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
-      f($(this).addClass(cls)[0] as HTMLElement, i);
-    });
-  }
-
   const onScroll = () =>
     requestAnimationFrame(() => {
       if ($zone.hasClass('none')) return;
@@ -171,4 +171,7 @@ lichess.load.then(() => {
   window.Mousetrap.bind('m', () => $toggle.trigger('click')).bind('i', () =>
     $zone.find('button.inquiry').trigger('click')
   );
+
+  const $comms = $('#communication');
+  if ($comms.length) userMod($comms);
 });

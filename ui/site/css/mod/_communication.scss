@@ -3,6 +3,7 @@
     @extend %flex-between;
 
     font-size: 1.5em;
+    margin-bottom: 2vh;
   }
 
   .user-link {
@@ -119,30 +120,38 @@
   .post {
     margin: 1em 0;
   }
+
+  > #mz_others {
+    font-size: 0.9em;
+    max-height: 30vh;
+
+    .mod-zone + & {
+      display: none;
+    }
+  }
 }
 
-/* for public-chat */
 #communication.public_chat {
   position: relative;
-}
 
-.public_chat #auto_refresh {
-  position: absolute;
-  top: 30px;
-  right: 20px;
+  #auto_refresh {
+    position: absolute;
+    top: 30px;
+    right: 20px;
 
-  @include transition;
-}
+    @include transition;
+  }
 
-.public_chat #auto_refresh.active.hold {
-  opacity: 0.4;
-}
+  #auto_refresh.active.hold {
+    opacity: 0.4;
+  }
 
-#communication.public_chat .player_chats .line,
-#communication.public_chat .threads .post {
-  opacity: 1;
-}
+  .player_chats .line,
+  .threads .post {
+    opacity: 1;
+  }
 
-#communication.public_chat .chat {
-  overflow-y: auto !important;
+  .chat {
+    overflow-y: auto !important;
+  }
 }

@@ -493,14 +493,8 @@ object mod {
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
-  def otherUsers(
-      u: User,
-      userLogins: UserLogins,
-      othersWithEmail: UserLogins.WithMeSortedWithEmails,
-      notes: List[lila.user.Note],
-      bans: Map[String, Int],
-      max: Int
-  )(implicit ctx: Context): Frag =
+  def otherUsers(u: User, data: UserLogins.TableData)(implicit ctx: Context): Tag = {
+    import data._
     mzSection("others")(
       table(cls := "slist")(
         thead(
@@ -583,6 +577,7 @@ object mod {
         )
       )
     )
+  }
 
   def identification(spy: UserLogins)(implicit ctx: Context): Frag = {
     val canIpBan = isGranted(_.IpBan)
