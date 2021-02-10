@@ -1,4 +1,5 @@
 .sbtopts
+.bsp
 conf/application.conf
 conf/version.conf
 
