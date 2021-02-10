@@ -609,11 +609,11 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="slow">Mall</string>
   <string name="insideTheBoard">Laistigh den chlár</string>
   <string name="outsideTheBoard">Lasmuigh den chlár</string>
-  <string name="onSlowGames">I gcluichí mall</string>
+  <string name="onSlowGames">Ar chluichí malla</string>
   <string name="always">I gcónaí</string>
   <string name="never">Ná lig riamh</string>
   <string name="difficultyEasy">Éasca</string>
-  <string name="difficultyNormal">Gnáth</string>
+  <string name="difficultyNormal">Gnách</string>
   <string name="difficultyHard">Deacair</string>
   <string name="xCompetesInY">Glacann %1$s páirt i %2$s</string>
   <string name="xAskedY">D\'iarr %1$s %2$s</string>
@@ -626,22 +626,22 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="drawVsYInZ">%1$s in aghaidh %2$s i %3$s</string>
   <string name="timeline">Amlíne</string>
   <string name="starting">Ag tosú:</string>
-  <string name="allInformationIsPublicAndOptional">Tá an t-eolas ar fad roghnach agus beidh sé infheicthe do chách.</string>
+  <string name="allInformationIsPublicAndOptional">Tá an t-eolas ar fad roghnach agus tá sé infheicthe do chách.</string>
   <string name="yourCityRegionOrDepartment">Do chathair, réigiún nó cúige.</string>
-  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi ficheall, na oscailtí is fearr leat, ficheallaithe, ...</string>
+  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, cad is maith leat i bhficheall, na hoscailtí is fearr leat, imreoirí, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Uasmhéid %s carachtar.</item>
     <item quantity="two">Uasmhéid %s charachtar.</item>
     <item quantity="few">Uasmhéid %s gcarachtar.</item>
     <item quantity="many">Uasmhéid %s carachtar.</item>
-    <item quantity="other">Uasmhéid %s carachtar.</item>
+    <item quantity="other">Uasmhéid %s carachtair.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bac</item>
-    <item quantity="two">%s bloic</item>
+    <item quantity="one">bloc amháin</item>
+    <item quantity="two">%s bhloc</item>
     <item quantity="few">%s bloic</item>
     <item quantity="many">%s bloic</item>
-    <item quantity="other">%s bloc</item>
+    <item quantity="other">%s bloic</item>
   </plurals>
   <string name="listBlockedPlayers">Liostaigh ficheallaithe a chuir tú bac le</string>
   <string name="human">Duine</string>
