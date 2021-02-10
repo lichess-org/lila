@@ -81,7 +81,7 @@ object index {
               div(cls := "content")(
                 div(
                   cls := "plan_checkout",
-                  attr("data-email") := email.map(_.value),
+                  attr("data-email") := email.??(_.value),
                   attr("data-lifetime-usd") := lila.plan.Cents.lifetime.usd.toString,
                   attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
                 )(
