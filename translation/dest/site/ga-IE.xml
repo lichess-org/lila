@@ -185,7 +185,7 @@
     <item quantity="two">%s lá</item>
     <item quantity="few">%s lá</item>
     <item quantity="many">%s lá</item>
-    <item quantity="other">%s lá</item>
+    <item quantity="other">%s laethanta</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s uair</item>
@@ -450,7 +450,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s leantóir amháin</item>
-    <item quantity="two">%s beirt leantóir</item>
+    <item quantity="two">beirt leantóir</item>
     <item quantity="few">%s leantóir</item>
     <item quantity="many">%s leantóirí</item>
     <item quantity="other">%s leantóirí</item>
@@ -484,13 +484,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
   <string name="conditionOfEntry">Riachtanais iontrála:</string>
   <string name="advancedSettings">Ardsocruithe</string>
-  <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
-  <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
-  <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh ficheallaí suntasach.</string>
+  <string name="safeTournamentName">Pioc ainm an-sábháilte don chomórtas.</string>
+  <string name="inappropriateNameWarning">D\'fhéadfadh do chuntas a dhúnadh má roghnaítear aon rud míchuí.</string>
+  <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh imreoir fichille suntasach.</string>
   <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
-  <string name="fewerPlayers">Má shocraíonn tú rialacha a mbaineann le chuir isteach ar an gcomórtas, beidh níos lú ficheallaithe ag do chomórtas.</string>
-  <string name="showAdvancedSettings">Taispeán na socruithe níos casta</string>
-  <string name="makePrivateTournament">Déan an chomórtas príobháideach chun nach féidir fáil isteach ar ach le pasfhocal</string>
+  <string name="fewerPlayers">Má shocraíonn tú riachtanais iontrála don chomórtas, beidh níos lú imreoirí i do chomórtas.</string>
+  <string name="showAdvancedSettings">Taispeáin ardsocruithe</string>
+  <string name="makePrivateTournament">Déan an comórtas príobháideach, agus cuir srian ar rochtain le pasfhocal</string>
   <string name="join">Glac páirt</string>
   <string name="withdraw">Éirigh as</string>
   <string name="points">Pointí</string>
