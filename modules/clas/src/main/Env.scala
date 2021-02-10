@@ -17,17 +17,21 @@ final class Env(
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler,
+    mat: akka.stream.Materializer
+) {
 
-  lazy val nameGenerator = wire[NameGenerator]
+  lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
   lazy val forms = wire[ClasForm]
 
   private val colls = wire[ClasColls]
 
-  lazy val api: ClasApi = wire[ClasApi]
+  lazy val studentCache = wire[ClasStudentCache]
 
-  private def getStudentIds = () => api.student.allIds
+  lazy val api: ClasApi = wire[ClasApi]
 
   lazy val progressApi = wire[ClasProgressApi]
 

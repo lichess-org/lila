@@ -182,7 +182,7 @@ final class ClasApi(
     ): Fu[Student.WithPassword] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
-      lila.mon.clas.studentCreate(teacher.id)
+      lila.mon.clas.student.create(teacher.id).increment()
       userRepo
         .create(
           username = data.username,
@@ -260,7 +260,7 @@ ${clas.desc}""",
       student
         .archive(Student.id(user.id, clas.id), user, v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
-        lila.mon.clas.studentInvite(teacher.id)
+        lila.mon.clas.student.invite(teacher.id).increment()
         val invite = ClasInvite.make(clas, user, realName, teacher)
         colls.invite.insert
           .one(invite)

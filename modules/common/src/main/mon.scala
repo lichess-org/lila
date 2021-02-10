@@ -355,6 +355,10 @@ object mon {
     object student {
       def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
       def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+      object bloomFilter {
+        def count = gauge("clas.student.bloomFilter.count").withoutTags()
+        def fu    = future("clas.student.bloomFilter.future")
+      }
     }
   }
   object tournament {
