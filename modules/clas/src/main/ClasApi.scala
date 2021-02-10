@@ -7,18 +7,17 @@ import scala.concurrent.duration._
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.db.dsl._
-import lila.memo.CacheApi._
 import lila.msg.MsgApi
 import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,
+    studentCache: ClasStudentCache,
     nameGenerator: NameGenerator,
     userRepo: UserRepo,
     msgApi: MsgApi,
     authenticator: Authenticator,
-    cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -77,7 +76,7 @@ final class ClasApi(
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
     def isTeacherOfStudent(teacherId: User.ID, studentId: Student.Id): Fu[Boolean] =
-      student.isStudent(studentId.value) >>&
+      fuccess(studentCache.isStudent(studentId.value)) >>&
         colls.student
           .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
             import framework._
@@ -236,17 +235,6 @@ final class ClasApi(
             else $unset("archived"),
           fetchNewObject = true
         )
-
-    private[clas] def allIds = idsCache.getUnit
-
-    def isStudent(userId: User.ID) = idsCache.getUnit.dmap(_ contains userId)
-
-    private val idsCache = cacheApi.unit[Set[User.ID]] {
-      _.refreshAfterWrite(601 seconds)
-        .buildAsyncFuture { _ =>
-          coll.distinctEasy[User.ID, Set]("userId", $empty, ReadPreference.secondaryPreferred)
-        }
-    }
 
     private[ClasApi] def sendWelcomeMessage(teacherId: User.ID, student: User, clas: Clas): Funit =
       msgApi

@@ -352,8 +352,10 @@ object mon {
     }
   }
   object clas {
-    def studentCreate(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
-    def studentInvite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+    object student {
+      def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
+      def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+    }
   }
   object tournament {
     object pairing {
