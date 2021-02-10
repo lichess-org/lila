@@ -456,16 +456,16 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="other">%s leantóirí</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">duine amháin ag leanacht</item>
-    <item quantity="two">beirt ag leanacht</item>
-    <item quantity="few">%s ag leanacht</item>
-    <item quantity="many">%s ag leanacht</item>
-    <item quantity="other">%s ag leanacht</item>
+    <item quantity="one">duine amháin ag leanúint</item>
+    <item quantity="two">beirt ag leanúint</item>
+    <item quantity="few">%s ag leanúint</item>
+    <item quantity="many">%s ag leanúint</item>
+    <item quantity="other">%s ag leanúint</item>
   </plurals>
-  <string name="more">Níos mó</string>
+  <string name="more">Tuilleadh</string>
   <string name="memberSince">Ball ó</string>
   <string name="lastSeenActive">Gníomhach %s</string>
-  <string name="player">Ficheallaí</string>
+  <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
@@ -473,13 +473,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="two">Níos lú ná %s nóiméad</item>
     <item quantity="few">Níos lú ná %s nóiméad</item>
     <item quantity="many">Níos lú ná %s nóiméad</item>
-    <item quantity="other">Níos lú ná %s nóiméad</item>
+    <item quantity="other">Níos lú ná %s nóiméid</item>
   </plurals>
   <string name="required">Riachtanach.</string>
   <string name="openTournaments">Comórtais Oscailte</string>
   <string name="duration">Fad</string>
   <string name="winner">Buaiteoir</string>
-  <string name="standing">Seasamh</string>
+  <string name="standing">Stádas</string>
   <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
   <string name="conditionOfEntry">Riachtanais iontrála:</string>
