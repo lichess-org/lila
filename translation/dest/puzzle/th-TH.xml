@@ -35,6 +35,7 @@
   <string name="hardest">ยากที่สุด</string>
   <string name="example">ตัวอย่าง</string>
   <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
+  <string name="strengths">จุดแข็ง</string>
   <string name="history">ประวัติการแก้ปริศนา</string>
   <string name="failed">ล้มเหลว</string>
 </resources>
