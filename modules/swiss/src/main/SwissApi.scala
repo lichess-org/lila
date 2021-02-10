@@ -77,7 +77,8 @@ final class SwissApi(
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
-        conditions = data.conditions.all
+        conditions = data.conditions.all,
+        forbiddenPairings = ~data.forbiddenPairings
       )
     )
     colls.swiss.insert.one(addFeaturable(swiss)) >>-
@@ -108,7 +109,8 @@ final class SwissApi(
               if (data.roundInterval.isDefined) data.realRoundInterval
               else old.settings.roundInterval,
             password = data.password,
-            conditions = data.conditions.all
+            conditions = data.conditions.all,
+            forbiddenPairings = ~data.forbiddenPairings
           )
         ) pipe { s =>
           if (

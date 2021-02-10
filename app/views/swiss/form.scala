@@ -36,6 +36,7 @@ object form {
               fields.password
             ),
             condition(form, fields, swiss = none),
+            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -70,6 +71,7 @@ object form {
               fields.password
             ),
             condition(form, fields, swiss = swiss.some),
+            form3.split(fields.forbiddenPairings),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -207,4 +209,14 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       help = trans.makePrivateTournament().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
+
+  def forbiddenPairings =
+    form3.group(
+      form("forbiddenPairings"),
+      frag("Forbidden pairings"),
+      help = frag(
+        "Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space."
+      ).some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
 }
