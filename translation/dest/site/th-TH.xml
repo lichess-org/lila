@@ -773,4 +773,5 @@
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
   <string name="important">สำคัญ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
 </resources>
