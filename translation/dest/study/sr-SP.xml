@@ -73,7 +73,7 @@
   <string name="startAtX">Започни на %s</string>
   <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Само јавне студије се могу уградити!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Само јавне студије могу бити уграђене!</string>
   <string name="open">Отворите</string>
   <string name="xBroughtToYouByY">%2$s вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
