@@ -41,10 +41,13 @@
 Ово можете користити за позивање свих играча да се придруже турниру или борби тимова.
 Играчи који не воле да примају Ваше поруке можда напусте тим.</string>
   <string name="teamsIlead">Тимови које ја водим</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових предстојећих турнира?</string>
   <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
-  <string name="leadersChat">Чет за вође</string>
-  <string name="closeTeam">Угаси тим</string>
-  <string name="closeTeamDescription">Угаси тим заувек.</string>
+  <string name="leadersChat">Ћаскање за вође</string>
+  <string name="closeTeam">Распусти тим</string>
+  <string name="closeTeamDescription">Заувек распушта тим.</string>
+  <string name="teamPassword">Тимска лозинка</string>
+  <string name="teamPasswordDescriptionForLeader">(Опционално) Лозинка коју нови чланови морају знати да би се придружили овом тиму.</string>
+  <string name="incorrectTeamPassword">Нетачна тимска лозинка.</string>
   <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>
