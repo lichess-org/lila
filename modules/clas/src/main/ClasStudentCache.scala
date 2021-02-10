@@ -23,7 +23,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
   private val falsePositiveRate = 0.001
   private var bloomFilter       = BloomFilter[User.ID](expectedElements, falsePositiveRate)
 
-  def isStudent(userId: User.ID) = bloomFilter mightContain userId pp userId
+  def isStudent(userId: User.ID) = bloomFilter mightContain userId
 
   private def rebuildBloomFilter(): Unit = {
     val nextBloom = BloomFilter[User.ID](expectedElements, falsePositiveRate)
