@@ -788,6 +788,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
+  <string name="readAboutOur">اقرأ عن %s.</string>
   <string name="networkLagBetweenYouAndLichess">تأخر الاتصال بينك وبيننا</string>
   <string name="timeToProcessAMoveOnLichessServer">الوفت المطلوب لتنفيذ النقلة على الخادم</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
