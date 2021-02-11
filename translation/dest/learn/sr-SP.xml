@@ -25,64 +25,73 @@
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
-  <string name="bishopComplete">Честитамо! Можете управљати ловцем.</string>
+  <string name="bishopComplete">Честитамо! Сада можете управљати ловцем.</string>
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
-  <string name="queenIntro">Најснажнија шаховска фигура улази. Њено величанство, дама!</string>
-  <string name="queenComplete">Честитамо! Даме немају тајне за тебе.</string>
+  <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
+  <string name="queenComplete">Честитамо! Даме немају тајне за Вас.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
-  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, изгубили сте.</string>
+  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, партија је изгубљена.</string>
   <string name="theKingIsSlow">Краљ је спор.</string>
   <string name="lastOne">Последњи!</string>
-  <string name="kingComplete">Сада можеш командовати командиру!</string>
+  <string name="kingComplete">Сада можете командовати командиру!</string>
   <string name="theKnight">Скакач</string>
-  <string name="itMovesInAnLShape">Креће се у L облику</string>
-  <string name="knightIntro">Ево изазова за тебе. Скакач је... зезнута фигура.</string>
+  <string name="itMovesInAnLShape">Креће се у облику слова Г</string>
+  <string name="knightIntro">Ево изазова за Вас. Скакач је... зезнута фигура.</string>
   <string name="knightsHaveAFancyWay">Скакачи имају елегантан начин
 скакања уоколо!</string>
-  <string name="knightsCanJumpOverObstacles">Скакачи  могу прескочити препреке! Побјегни и савладај звјезде!</string>
+  <string name="knightsCanJumpOverObstacles">Скакачи могу прескакати препреке!
+Побегните и савладајте звезде!</string>
   <string name="knightComplete">Честитамо! Савладали сте скакача.</string>
   <string name="thePawn">Пешак</string>
   <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro">Пешаци су слаби, али имају много потенцијала.</string>
-  <string name="pawnsMoveOneSquareOnly">Пешаци прелазе само на једно поље. Али када стигну на други крај табле, постају јача фигура!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева, промоција за Даму је најбоља. Али понекад је скакач добар!</string>
-  <string name="pawnsMoveForward">Пешаци се крећу напред, али једу дијагонално!</string>
-  <string name="captureThenPromote">Носи, онда промовиши!</string>
-  <string name="useAllThePawns">Искористи све пешаке! Нема потребе за промоцијом.</string>
-  <string name="aPawnOnTheSecondRank">Други ред пешака може скочити за два поља!</string>
+  <string name="pawnsMoveOneSquareOnly">Пешаци се крећу за само једно поље.
+Али када стигну на други крај табле, постају јача фигура!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева најбоље је промовисати у даму.
+Али понекад скакач може бити користан!</string>
+  <string name="pawnsMoveForward">Пешаци се крећу напред,
+али носе дијагонално!</string>
+  <string name="captureThenPromote">Носите, па онда промовишите!</string>
+  <string name="useAllThePawns">Искористи све пешаке!
+Нема потребе за промоцијом.</string>
+  <string name="aPawnOnTheSecondRank">Пешак у другом реду се може померити за 2 поља одједном!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
 Нема потребе за промоцијом.</string>
-  <string name="pawnComplete">Честитамо! Пешаци немају тајне за тебе.</string>
+  <string name="pawnComplete">Честитамо! Пешаци немају тајне за Вас.</string>
   <string name="pawnPromotion">Промоција пешака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
   <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
   <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
   <string name="fundamentals">Основе</string>
-  <string name="capture">Узимање фигура</string>
-  <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
-  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и узмите их!</string>
-  <string name="takeTheBlackPieces">Узмите црне фигуре!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Узмите црне фигуре! И немојте изгубити своје.</string>
+  <string name="capture">Ношење</string>
+  <string name="takeTheEnemyPieces">Однесите противничке фигуре</string>
+  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и носите их!</string>
+  <string name="takeTheBlackPieces">Носите црне фигуре!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Носите црне фигуре!
+И немојте изгубити своје.</string>
   <string name="captureComplete">Честитамо! Знате како да се борите шаховским фигурама!</string>
   <string name="protection">Заштита</string>
   <string name="keepYourPiecesSafe">Заштитите своје фигуре</string>
-  <string name="protectionIntro">Видите које фигуре ваш противник напада, и одбраните их!</string>
+  <string name="protectionIntro">Видите које фигуре Ваш противник напада, и одбраните их!</string>
   <string name="protectionComplete">Честитамо! Фигура коју не изгубите је фигура коју добијете!</string>
-  <string name="escape">Ви сте над нападом! Избегните претњу!</string>
+  <string name="escape">Ви сте под нападом!
+Избегните претњу!</string>
   <string name="noEscape">Нема излаза,
 али можете бранити!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да вам узму ниједну не одбрањену фигуру!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да Вам однесу
+ниједну не одбрањену фигуру!</string>
   <string name="combat">Борба</string>
-  <string name="captureAndDefendPieces">Једи и брани фигуре</string>
+  <string name="captureAndDefendPieces">Однесите и одбраните фигуре</string>
   <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
   <string name="combatComplete">Честитамо! Знате како да се борите са шаховским фигурама!</string>
   <string name="checkInOne">Шах у један</string>
   <string name="attackTheOpponentsKing">Нападните противничког краља</string>
   <string name="checkInOneIntro">Да би дали шах противнику, нападните њиховог краља. Морају га одбранити!</string>
-  <string name="checkInOneGoal">Циљајте на противничког краља у једном потезу!</string>
-  <string name="checkInOneComplete">Честитамо! Да ли сте шах вашем противнику, терајући га да одбране њиховог краља!</string>
+  <string name="checkInOneGoal">Циљајте на противничког краља
+у једном потезу!</string>
+  <string name="checkInOneComplete">Честитамо! Дали сте шах Вашем противнику, терајући га да одбране њиховог краља!</string>
   <string name="outOfCheck">Излазак из шаха</string>
   <string name="defendYourKing">Одбраните вашег краља</string>
   <string name="outOfCheckIntro">У шаху сте! Морате избећи или блокирати напад.</string>
@@ -94,88 +103,89 @@
   <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
-  <string name="mateInOneIntro">Ви сте победник када ваш противник не може да се одбрани од шаха.</string>
-  <string name="attackYourOpponentsKing">Нападните противничког краља на начин који се не може одбранити!</string>
-  <string name="mateInOneComplete">Честитамо! Тако се добијају партије!</string>
+  <string name="mateInOneIntro">Ви побеђујете када ваш противник не може да се одбрани од шаха.</string>
+  <string name="attackYourOpponentsKing">Нападните противничког краља
+на начин који се не може одбранити!</string>
+  <string name="mateInOneComplete">Честитамо! Тако се добијају шаховске партије!</string>
   <string name="intermediate">Средње</string>
-  <string name="boardSetup">Намештање табле</string>
-  <string name="howTheGameStarts">Тако почиње партија</string>
+  <string name="boardSetup">Поставка табле</string>
+  <string name="howTheGameStarts">Како партија почиње</string>
   <string name="boardSetupIntro">Две армије се суочавају, спремне за битку.</string>
   <string name="thisIsTheInitialPosition">Ово је почетна позиција
 сваке шаховске партије!
 Направите било који потез да наставите.</string>
-  <string name="firstPlaceTheRooks">Прво ставите топове!
+  <string name="firstPlaceTheRooks">Прво поставите топове!
 Они иду у ћошкове.</string>
-  <string name="thenPlaceTheKnights">Затим ставите скакаче!
+  <string name="thenPlaceTheKnights">Затим поставите скакаче!
 Они иду поред топова.</string>
-  <string name="placeTheBishops">Ставите ловчеве!
+  <string name="placeTheBishops">Поставите ловце!
 Они иду поред скакача.</string>
-  <string name="placeTheQueen">Ставите краљицу!
-Она иде на њену боју.</string>
-  <string name="placeTheKing">Ставите краља!
+  <string name="placeTheQueen">Поставите даму!
+Она иде на своју боју.</string>
+  <string name="placeTheKing">Поставите краља!
 Одмах поред његове краљице.</string>
-  <string name="pawnsFormTheFrontLine">Пешаци формирају предњу линију.
+  <string name="pawnsFormTheFrontLine">Пешаци формирају линију фронта.
 Направите било који потез да наставите.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="castling">Рокада</string>
-  <string name="theSpecialKingMove">Специјалан краљев потез</string>
-  <string name="castlingIntro">Доведите краља у сигурност, и доведите топа да напада!</string>
-  <string name="castleKingSide">Померите краља за два поља
-да урадите малу рокаду!</string>
-  <string name="castleQueenSide">Померите краља за два поља
-да урадите велику рокаду!</string>
-  <string name="theKnightIsInTheWay">Скакач је на путу!
+  <string name="theSpecialKingMove">Посебан краљев потез</string>
+  <string name="castlingIntro">Доведите свог краља на сигурно, и развијте вашег топа у напад!</string>
+  <string name="castleKingSide">Померите свог краља за два поља
+да направите малу рокаду!</string>
+  <string name="castleQueenSide">Померите свог краља за два поља
+да направите велику рокаду!</string>
+  <string name="theKnightIsInTheWay">Скакач Вам смета!
 Померите га, и онда направите малу рокаду.</string>
   <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
-Прво морате развити фигуре.</string>
+Прво морате померити фигуре.</string>
   <string name="castleQueenSideMovePiecesFirst">Направите велику рокаду!
-Прво морате развити фигуре.</string>
-  <string name="youCannotCastleIfMoved">Неможете направити рокаду ако
+Прво морате померити фигуре.</string>
+  <string name="youCannotCastleIfMoved">Не можете направити рокаду ако
 се краљ већ померио
-или ако се то већ померио.</string>
-  <string name="youCannotCastleIfAttacked">Неможете направити рокаду ако
+или се топ већ померио.</string>
+  <string name="youCannotCastleIfAttacked">Не можете направити рокаду ако
 је краљ нападнут на путу.
 Блокирајте шах па онда направите рокаду!</string>
   <string name="findAWayToCastleKingSide">Нађите начин да
 направите малу рокаду!</string>
   <string name="findAWayToCastleQueenSide">Нађите начин да
 направите велику рокаду!</string>
-  <string name="castlingComplete">Честитамо! Требали би скоро увек направити рокаду током партије.</string>
-  <string name="enPassant">Ен пасант</string>
-  <string name="theSpecialPawnMove">Специјалан пешаков потез</string>
-  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
+  <string name="castlingComplete">Честитамо! Скоро увек требате направити рокаду током партије.</string>
+  <string name="enPassant">Ан пасан</string>
+  <string name="theSpecialPawnMove">Посебан пешаков потез</string>
+  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете га однети као да се померио за једно поље.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Црни је управо померио пешака
 за два поља!
-Поједите га ен пасант.</string>
-  <string name="enPassantOnlyWorksImmediately">Ен пасант једино ради
+Однесите га ан пасан.</string>
+  <string name="enPassantOnlyWorksImmediately">Ан пасан је једино могућ
 одмах након што је противник
 померио пешака.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
-ако вам је пешак на петом реду.</string>
-  <string name="takeAllThePawnsEnPassant">Узмите све пешаке ен пасант!</string>
-  <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је једино могућ
+ако вам је пешак на 5. реду.</string>
+  <string name="takeAllThePawnsEnPassant">Однесите све пешаке ан пасан!</string>
+  <string name="enPassantComplete">Честитамо! Сада можете носити ан пасан.</string>
   <string name="stalemate">Пат</string>
-  <string name="theGameIsADraw">Партија је нерешена</string>
-  <string name="stalemateIntro">Када играч није у шаху и неможе направити ниједан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
-  <string name="stalemateGoal">Да направите пат:
-- Црни играч не може нигде да се помери
+  <string name="theGameIsADraw">Партија завршава ремијем</string>
+  <string name="stalemateIntro">Када играч није у шаху и нема ниједан легалан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
+  <string name="stalemateGoal">Да патирате црног:
+- Црни не може нигде да се помери
 - Нема шаха.</string>
-  <string name="stalemateComplete">Честитамо! Боље правите пат него да добијете шах мат!</string>
+  <string name="stalemateComplete">Честитамо! Боље бити патиран него матиран!</string>
   <string name="advanced">Напредно</string>
-  <string name="pieceValue">Вредност фигура</string>
+  <string name="pieceValue">Вредност фигуре</string>
   <string name="evaluatePieceStrength">Процените снагу фигуре</string>
-  <string name="pieceValueIntro">Фигуре са више поља на које могу да се помере су вредније!
+  <string name="pieceValueIntro">Фигуре са већом покретљивости имају вишу вредност!
 Дама = 9
 Топ = 5
 Ловац = 3
 Скакач = 3
 Пешак = 1
-Краљ нема вредност! Ако га изгубите, изгубили сте партију.</string>
-  <string name="queenOverBishop">Поједите фигуру
-са највећом вредношћу!
+Краљ је непроцењив! Изгубити га значи изгубити партију.</string>
+  <string name="queenOverBishop">Однесите фигуру
+са највишом вредношћу!
 Дама &gt; Ловац</string>
-  <string name="takeThePieceWithTheHighestValue">Поједите фигуру
-са највећом вредношћу!</string>
+  <string name="takeThePieceWithTheHighestValue">Однесите фигуру
+са највишом вредношћу!</string>
   <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
 Дама = 9
 Топ = 5
@@ -183,41 +193,41 @@
 Скакач = 3
 Пешак = 1</string>
   <string name="checkInTwo">Шах у два</string>
-  <string name="twoMovesToGiveCheck">Два потеза да дате шах</string>
-  <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза која шахира противниковог краља!</string>
-  <string name="checkInTwoGoal">Претите противничком краљу
+  <string name="twoMovesToGiveCheck">Два потеза да се да шах</string>
+  <string name="checkInTwoIntro">Пронађите праву комбинацију два потеза која шахира противниковог краља!</string>
+  <string name="checkInTwoGoal">Запретите противничком краљу
 у два потеза!</string>
   <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
-  <string name="whatNext">Шта је следеће?</string>
-  <string name="youKnowHowToPlayChess">Знате како да играте шах, честитамо! Да ли желите постати бољи играч?</string>
+  <string name="whatNext">Шта даље?</string>
+  <string name="youKnowHowToPlayChess">Знате како играти шах, честитамо! Да ли желите постати јачи играч?</string>
   <string name="register">Региструјте се</string>
-  <string name="getAFreeLichessAccount">Добијте бесплатан Личес налог</string>
-  <string name="practice">Вежбај</string>
+  <string name="getAFreeLichessAccount">Набавите бесплатан Личес налог</string>
+  <string name="practice">Вежбајте</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
-  <string name="puzzles">Тактике</string>
-  <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
-  <string name="videos">Видеи</string>
-  <string name="watchInstructiveChessVideos">Гледајте инструктивне шаховске снимке</string>
-  <string name="playPeople">Играј против осталих</string>
+  <string name="puzzles">Проблеми</string>
+  <string name="exerciseYourTacticalSkills">Вежбајте Ваше тактичке вештине</string>
+  <string name="videos">Видео снимци</string>
+  <string name="watchInstructiveChessVideos">Гледајте поучне шаховске видео снимке</string>
+  <string name="playPeople">Играјте против људи</string>
   <string name="opponentsFromAroundTheWorld">Противници из целог света</string>
-  <string name="playMachine">Играј против компјутера</string>
-  <string name="testYourSkillsWithTheComputer">Тестирајте ваше вептине са компјутером</string>
+  <string name="playMachine">Играјте против рачунара</string>
+  <string name="testYourSkillsWithTheComputer">Тестирајте Ваше вештине са рачунаром</string>
   <string name="letsGo">Кренимо!</string>
-  <string name="stageX">Фаза %s</string>
+  <string name="stageX">Ниво %s</string>
   <string name="awesome">Сјајно!</string>
   <string name="excellent">Одлично!</string>
   <string name="greatJob">Одличан посао!</string>
   <string name="perfect">Савршено!</string>
   <string name="outstanding">Изванредно!</string>
-  <string name="wayToGo">Тако треба!</string>
+  <string name="wayToGo">Свака част!</string>
   <string name="yesYesYes">Да, да, да!</string>
   <string name="youreGoodAtThis">Добри сте у овоме!</string>
-  <string name="nailedIt">Погодио.</string>
-  <string name="rightOn">Браво!</string>
-  <string name="stageXComplete">Фаза %s завршена</string>
+  <string name="nailedIt">Тачно тако.</string>
+  <string name="rightOn">Баш тако!</string>
+  <string name="stageXComplete">Ниво %s завршен</string>
   <string name="yourScore">Ваш резултат</string>
   <string name="next">Следеће</string>
   <string name="backToMenu">Повратак на мени</string>
-  <string name="puzzleFailed">Вежба неуспшна!</string>
+  <string name="puzzleFailed">Проблем неуспешно решен!</string>
   <string name="retry">Покушајте поново</string>
 </resources>

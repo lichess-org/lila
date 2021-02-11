@@ -9,6 +9,7 @@
   <string name="yourTurn">دورك</string>
   <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
   <string name="level">مستوى</string>
+  <string name="strength">القوة</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">دردشة</string>
@@ -366,7 +367,7 @@
     <item quantity="many">نقاط المسابقة %s</item>
     <item quantity="other">نقاط المسابقة %s</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="zero">%s دراسة</item>
     <item quantity="one">%s دراسة</item>
     <item quantity="two">%s دراسة</item>
@@ -625,6 +626,7 @@
   <string name="clockInitialTime">الوقت الأولي للساعة</string>
   <string name="clockIncrement">زيادة الساعة</string>
   <string name="privacy">الخصوصية</string>
+  <string name="privacyPolicy">سياسة الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
   <string name="letOtherPlayersInviteYouToStudy">السماح للاعبين الآخرين بدعوتك لدراسة</string>
@@ -786,6 +788,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
+  <string name="readAboutOur">اقرأ عن %s.</string>
   <string name="networkLagBetweenYouAndLichess">تأخر الاتصال بينك وبيننا</string>
   <string name="timeToProcessAMoveOnLichessServer">الوفت المطلوب لتنفيذ النقلة على الخادم</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
@@ -910,7 +913,7 @@
   <string name="doItAgain">قم بذلك مرة اخرى</string>
   <string name="reviewWhiteMistakes">مراجعة أخطاء الأبيض</string>
   <string name="reviewBlackMistakes">مراجعة أخطاء الأسود</string>
-  <string name="advantage">الأفضلية</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">الأفضلية</string>
   <plurals name="nbSeconds">
     <item quantity="zero">%s ثانية</item>
     <item quantity="one">%s ثانية</item>

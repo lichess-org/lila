@@ -4,6 +4,7 @@
   <string name="recommended">แนะนำ</string>
   <string name="phases">ช่วงของเกม</string>
   <string name="mates">การรุกจน</string>
+  <string name="specialMoves">การเดินพิเศษ</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
   <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
   <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
@@ -18,6 +19,7 @@
   <string name="puzzleSuccess">แก้ไขปริศนาสำเร็จ!</string>
   <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>
   <string name="notTheMove">ไม่ใช่การเดินที่ถูกต้อง!</string>
+  <string name="trySomethingElse">ลองเดินอย่างอื่น</string>
   <string name="ratingX">ระดับคะแนน: %s</string>
   <string name="hidden">ถูกซ่อน</string>
   <plurals name="playedXTimes">
@@ -32,4 +34,8 @@
   <string name="harder">ยาก</string>
   <string name="hardest">ยากที่สุด</string>
   <string name="example">ตัวอย่าง</string>
+  <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
+  <string name="strengths">จุดแข็ง</string>
+  <string name="history">ประวัติการแก้ปริศนา</string>
+  <string name="failed">ล้มเหลว</string>
 </resources>

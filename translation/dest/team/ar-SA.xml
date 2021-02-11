@@ -16,9 +16,12 @@
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
   <string name="quitTeam">انسحب من الفريق</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">مراجعة طلبات القبول يدويًا</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">إذا تم تحديده، سيحتاج اللاعبون إلى كتابة طلب للانضمام إلى الفريق، والذي يمكنك رفضه أو قبوله.</string>
   <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
+  <string name="whoToKick">من تريد طرده من الفريق؟</string>
   <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
   <string name="teamBattle">مسابقة الفرق</string>
@@ -31,8 +34,13 @@
 يمكنك استخدام هذا لاستدعاء اللاعبين للانضمام إلى مسابقة للفريق أو مسابقة الفرق.
 اللاعبين الذين لا يحبون تلقي رسائلك قد يغادرون الفريق.</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="usersWhoCanManageThisTeam">المستخدمين الذين يمكنهم إدارة هذا الفريق</string>
   <string name="leadersChat">محادثة القادة</string>
   <string name="closeTeam">إغلاق الفريق</string>
   <string name="closeTeamDescription">اغلق الفريق إلى الأبد.</string>
+  <string name="teamPassword">كلمة مرور الفريق</string>
+  <string name="teamPasswordDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
+  <string name="incorrectTeamPassword">كلمة مرور الفريق غير صحيحة.</string>
+  <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
 </resources>

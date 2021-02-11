@@ -313,7 +313,7 @@
     <item quantity="few">%s поена на турнирима</item>
     <item quantity="other">%s поена на турнирима</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="one">%s студија</item>
     <item quantity="few">%s студије</item>
     <item quantity="other">%s студија</item>
@@ -457,7 +457,7 @@
   <string name="nextXTournament">Следећи %s турнир:</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="membersOnly">Само за чланове</string>
-  <string name="boardEditor">Уредник табле</string>
+  <string name="boardEditor">Уређивач табле</string>
   <string name="setTheBoard">Постави таблу</string>
   <string name="popularOpenings">Популарна отварања</string>
   <string name="startPosition">Почетна позиција</string>
@@ -493,7 +493,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
   <string name="autoSwitch">Аутоматско пребацивање</string>
-  <string name="puzzles">Загонетке</string>
+  <string name="puzzles">Проблеми</string>
   <string name="latestUpdates">Задње обавјести</string>
   <string name="tournamentWinners">Победници турнира</string>
   <string name="name">Назив</string>
@@ -636,7 +636,7 @@
   <string name="contribute">Допринос</string>
   <string name="termsOfService">Услови коришћења услуге</string>
   <string name="sourceCode">Изворни код</string>
-  <string name="simultaneousExhibitions">Симултанка</string>
+  <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
   <string name="hostColorX">Боја приређивача: %s</string>
   <string name="createdSimuls">Недавно креиране симултанке</string>

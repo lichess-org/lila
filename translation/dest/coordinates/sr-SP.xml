@@ -8,6 +8,6 @@
   <string name="mostChessCourses">Већина шаховских курсева и вежби интензивно користе алгебарску нотацију.</string>
   <string name="talkToYourChessFriends">Олакшава вам причање о шаху са вашим пријатељима, јер обоје разумете \"језик шаха\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Можете ефективније анализирати партије ако можете брзо препознати координате.</string>
-  <string name="aSquareNameAppears">Координата се појављује на табли и ви морате кликнути на одговарајући квадрат. Имате 30 секунди да исправно изаберете што више квадрата!</string>
+  <string name="aSquareNameAppears">Координата се појављује на табли и ви морате кликнути на одговарајуће поље. Имате 30 секунди да исправно изаберете што више поља!</string>
   <string name="startTraining">Започни тренинг</string>
 </resources>

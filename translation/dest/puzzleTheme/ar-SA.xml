@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">الأخذ بالتجاوز</string>
+  <string name="advancedPawnDescription">و يُعتبر ترقية البيدق أو التهديد بترقيته هو مفتاح التكتيك.</string>
+  <string name="advantage">أفضلية</string>
+  <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
+  <string name="anastasiaMate">أنماط كش مات</string>
+</resources>

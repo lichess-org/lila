@@ -4,45 +4,50 @@
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
-    <item quantity="few">%s чланова</item>
+    <item quantity="few">%s члана</item>
     <item quantity="other">%s чланова</item>
   </plurals>
   <string name="allTeams">Сви тимови</string>
   <string name="newTeam">Нови тим</string>
   <string name="myTeams">Моји тимови</string>
   <string name="noTeamFound">Ниједан тим није пронађен</string>
-  <string name="joinTeam">Прикључи се тиму</string>
+  <string name="joinTeam">Придружи се тиму</string>
   <string name="quitTeam">Изађи из тима</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ручно прегледавај захтеве за пријем</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ако је означено, играчи ће морати написати захтев да се придруже тиму, који можете одбити или прихватити.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Вођа тима</item>
     <item quantity="few">Вође тима</item>
     <item quantity="other">Вођа тима</item>
   </plurals>
-  <string name="teamBestPlayers">Најбољи играчи тима</string>
-  <string name="teamRecentMembers">Скорашњи чланови тима</string>
+  <string name="teamBestPlayers">Најбољи играчи</string>
+  <string name="teamRecentMembers">Најновији чланови</string>
   <string name="kickSomeone">Избаци некога из тима</string>
-  <string name="whoToKick">Кога желиш избацити из тима?</string>
+  <string name="whoToKick">Кога желите избацити из тима?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s захтев прикључивања</item>
-    <item quantity="few">%s захтева прикључивања</item>
-    <item quantity="other">%s Захтева прикључивања</item>
+    <item quantity="one">%s захтев за придруживање</item>
+    <item quantity="few">%s захтева за придруживање</item>
+    <item quantity="other">%s захтева за придруживање</item>
   </plurals>
-  <string name="willBeReviewed">Твој захтев прикључивања ће проверити вођа тима.</string>
-  <string name="beingReviewed">Твој захтев прикључивања тренутно проверава вођа тима.</string>
-  <string name="teamBattle">Борба тимова</string>
-  <string name="teamBattleOverview">Борба више тимова, сваки играч свом тиму доноси бодове</string>
-  <string name="teamTournament">Турнир тимова</string>
-  <string name="teamTournamentOverview">Арена турнир којем се могу прикључити само чланови твог тима</string>
+  <string name="willBeReviewed">Вођа тима ће прегледати Ваш захтев за придруживање.</string>
+  <string name="beingReviewed">Вођа тима прегледава Ваш захтев за придруживање.</string>
+  <string name="teamBattle">Борба Тимова</string>
+  <string name="teamBattleOverview">Борба више тимова, сваки играч доноси бодове свом тиму</string>
+  <string name="teamTournament">Тимски турнир</string>
+  <string name="teamTournamentOverview">Арена турнир којем се само чланови Вашег тима могу придружити</string>
   <string name="messageAllMembers">Пошаљи поруку свим члановима</string>
-  <string name="messageAllMembersOverview">Пошаљи приватну поруку сваком члану тима</string>
+  <string name="messageAllMembersOverview">Пошаљите приватну поруку сваком члану тима</string>
   <string name="messageAllMembersLongDescription">Пошаљите приватну поруку СВИМ члановима тима.
-Можете позвати све играче да учествују у турниру или тимској борби.
-Играчи који не желе да примају Ваше поруке могу напустити тим.</string>
+Ово можете користити за позивање свих играча да се придруже турниру или борби тимова.
+Играчи који не воле да примају Ваше поруке можда напусте тим.</string>
   <string name="teamsIlead">Тимови које ја водим</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових предстојећих турнира?</string>
   <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
-  <string name="leadersChat">Чет за вође</string>
-  <string name="closeTeam">Угаси тим</string>
-  <string name="closeTeamDescription">Угаси тим заувек.</string>
+  <string name="leadersChat">Ћаскање за вође</string>
+  <string name="closeTeam">Распусти тим</string>
+  <string name="closeTeamDescription">Заувек распушта тим.</string>
+  <string name="teamPassword">Тимска лозинка</string>
+  <string name="teamPasswordDescriptionForLeader">(Опционално) Лозинка коју нови чланови морају знати да би се придружили овом тиму.</string>
+  <string name="incorrectTeamPassword">Нетачна тимска лозинка.</string>
   <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>
