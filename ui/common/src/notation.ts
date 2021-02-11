@@ -75,6 +75,7 @@ const WESTERN_ROLE_SYMBOLS: RoleMap = {
 
 const NUMBER_FILE_RANKS = ['9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
 const JAPANESE_NUMBER_RANKS = ["九", '八',　'七',　'六',　'五',　'四',　'三',　'二', '一'] as const;
+const FULL_WIDTH_NUMBER_FILE_RANKS = ['９', '８', '７', '６', '５', '４', '３', '２', '１'] as const;
 
 function parseMove(san: string, uci: string): ParsedMove {
     return {
@@ -143,7 +144,7 @@ function japaneseShogiNotation(move: ExtendedMoveInfo): string {
     const dropped = parsed.drop && isDropAmbiguos(move.fen, parsed.role, parsed.dest) ? "打" : "";
     const color = fenColor(move.fen);
     const ambiguity = sanContainsOrigin(move.san) ? resolveAmbiguity(move.fen, parsed.role, parsed.orig, parsed.dest) : "";
-    const dest = `${JAPANESE_NUMBER_RANKS[squareFile(parsed.dest)]}${JAPANESE_NUMBER_RANKS[squareRank(parsed.dest)]}`;
+    const dest = `${FULL_WIDTH_NUMBER_FILE_RANKS[squareFile(parsed.dest)]}${JAPANESE_NUMBER_RANKS[squareRank(parsed.dest)]}`;
     const promotion = parsed.promotion === "+" ? "成" : parsed.promotion === "=" ? "不成" : "";
     // hackish solution, requires refresh if you change dark/light theme
     let colorSymbol;
@@ -264,7 +265,7 @@ function relativeVerticalPosition(sq: Square, dest: Square): vertical {
 
 function getAmbiguousPieces(fen: string, role: Role, dest: Square, orig?: Square): SquareSet {
     fen = undoMove(fen, dest, orig); 
-    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap()).unwrap();
+    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false).unwrap();
 
     let ambiguous: SquareSet = SquareSet.empty();
     for(const p of pos.board.pieces(pos.turn, role))
@@ -276,7 +277,7 @@ function getAmbiguousPieces(fen: string, role: Role, dest: Square, orig?: Square
 }
 
 function undoMove(fen: string, dest: Square, orig?: Square): string {
-    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap()).unwrap();
+    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false).unwrap();
     const piece = pos.board.take(dest);
     if(orig) pos.board.set(orig, piece!);
     pos.turn = opposite(pos.turn);
