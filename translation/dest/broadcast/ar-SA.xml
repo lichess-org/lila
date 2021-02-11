@@ -9,6 +9,8 @@
   <string name="eventName">إسم الحدث</string>
   <string name="eventDescription">وصف مختصر</string>
   <string name="fullDescription">الوصف الكامل</string>
-  <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
+  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
   <string name="sourceUrl">المصدر :</string>
+  <string name="roundNumber">رقم الجولة (الشوط)</string>
+  <string name="resetBroadcast">إعادة تعيين البث</string>
 </resources>
