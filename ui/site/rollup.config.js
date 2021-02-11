@@ -61,6 +61,15 @@ export default rollupProject({
             ].map(require.resolve),
             dest: '../../public/vendor/stockfish-mv.wasm',
           },
+          // stockfish-nnue.wasm
+          {
+            src: [
+              'stockfish-nnue.wasm/stockfish.js',
+              'stockfish-nnue.wasm/stockfish.wasm',
+              'stockfish-nnue.wasm/stockfish.worker.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/stockfish-nnue.wasm',
+          },
         ],
       }),
       replace({

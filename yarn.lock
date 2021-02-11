@@ -4137,6 +4137,11 @@ stockfish-mv.wasm@^0.5.2:
   resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.5.2.tgz#08faca73ae2f5b69fb28bd04c20074e443cdaa7e"
   integrity sha512-MujfrAVAzDkRoVEiYMkGaiAw9wei2hRR8sxD5l7emHDyCbmc0KdlqoIZtS+coQ9CVNaZa1o5JokTKJVv8wJhUQ==
 
+stockfish-nnue.wasm@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/stockfish-nnue.wasm/-/stockfish-nnue.wasm-0.0.1.tgz#945a9904c5a1152bab98b9fdde7c517b1342e83f"
+  integrity sha512-ePulPKbGimjJEtTUYECh4986JnZv1rYVDsSlBOXu+1tvjWKjJSzoHhKpmtdGDG59iVtIBRamix593rfYqMqK2Q==
+
 stockfish.js@^10.0.2:
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-10.0.2.tgz#c8206aa3b0290171ace52b463a74112ea1f83989"
