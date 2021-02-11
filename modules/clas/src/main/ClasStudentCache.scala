@@ -19,7 +19,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
     mat: Materializer
 ) {
 
-  private val expectedElements  = 200_000
+  private val expectedElements  = 300_000
   private val falsePositiveRate = 0.001
   private var bloomFilter       = BloomFilter[User.ID](expectedElements, falsePositiveRate)
 
