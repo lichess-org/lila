@@ -31,6 +31,7 @@ export interface EditorState {
   fen: string;
   legalFen: string | undefined;
   playable: boolean;
+  tsumeFen: string | undefined;
   standardPieceNumber: boolean;
 }
 

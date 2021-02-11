@@ -12,6 +12,7 @@ import { Rules, PocketRole } from 'shogiops/types';
 import { Board } from 'shogiops/board';
 import { Setup, Material, MaterialSide } from 'shogiops/setup';
 import { setupPosition } from 'shogiops/variant';
+import { Shogi } from 'shogiops/shogi';
 import { makeFen, parseFen, INITIAL_FEN, INITIAL_EPD, EMPTY_FEN } from 'shogiops/fen';
 import { lishogiBoardToShogiBoard, makeShogiFen, makeLishogiFen } from "shogiops/compat";
 
@@ -105,11 +106,19 @@ export default class EditorCtrl {
     return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
   }
 
+  private tsumeFen(): string | undefined {
+    return Shogi.fromSetup(this.getSetup(), false).unwrap(
+      pos => {if(pos.board.king.size() > 0) return this.getFen(); else return undefined; },
+      _ => undefined
+    );
+  }
+
   getState(): EditorState {
     return {
       fen: this.getFen(),
       legalFen: this.getLegalFen(),
       playable: this.rules == 'shogi' && this.isPlayable(),
+      tsumeFen: this.tsumeFen(),
       standardPieceNumber: this.standardNumberOfPiecesOrLess()
     };
   }

@@ -117,7 +117,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
       }),
       h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
       h("input", {
-        attrs: { type: "hidden", name: "fen", value: state.legalFen || "" },
+        attrs: { type: "hidden", name: "fen", value: state.tsumeFen || "" },
       }),
       h(
         "button",
@@ -125,13 +125,13 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
           attrs: {
             type: "submit",
             "data-icon": "4",
-            disabled: !state.legalFen,
+            disabled: !state.tsumeFen,
           },
           class: {
             button: true,
             "button-empty": true,
             text: true,
-            disabled: !state.legalFen,
+            disabled: !state.tsumeFen,
           },
         },
         ctrl.trans.noarg("toStudy")
