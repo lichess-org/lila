@@ -195,6 +195,7 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
+          studentCache addStudent user.id
           val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
           userRepo.setKid(user, v = true) >>
             userRepo.setManagedUserInitialPerfs(user.id) >>
@@ -287,6 +288,7 @@ ${clas.desc}""",
         _ ?? { invite =>
           colls.clas.one[Clas]($id(invite.clasId)) flatMap {
             _ ?? { clas =>
+              studentCache addStudent user.id
               val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
               colls.student.insert.one(stu) >>
                 colls.invite.updateField($id(id), "accepted", true) >>
