@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playAgain">إلعب مرة أخرى</string>
+  <string name="time">الوقت</string>
+  <string name="timePerMove">الوقت لكل نقلة</string>
+</resources>
