@@ -367,7 +367,7 @@ final class User(
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
 
-        val reportLog = env.report.api
+        val reportLog = isGranted(_.SeeReport) ?? env.report.api
           .byAndAbout(user, 20)
           .flatMap { rs =>
             env.user.lightUserApi.preloadMany(rs.userIds) inject rs
@@ -391,12 +391,14 @@ final class User(
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
             html.user.mod.identification(spy)
         }
-        val irwin = env.irwin.api.reports.withPovs(user) map {
+        val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
           _ ?? { reps =>
             html.irwin.report(reps)
           }
         }
-        val assess = env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
+        val assess = isGranted(_.MarkEngine) ?? env.mod.assessApi.getPlayerAggregateAssessmentWithGames(
+          user.id
+        ) flatMap {
           _ ?? { as =>
             env.user.lightUserApi
               .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as)

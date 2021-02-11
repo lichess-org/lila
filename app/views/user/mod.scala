@@ -294,7 +294,7 @@ object mod {
       }
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
+  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := "!")(
