@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame, StartingPosition }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -79,6 +79,9 @@ case class Game(
     (players contains player) option s"$id${player.id}"
 
   def fullIdOf(color: Color): String = s"$id${player(color).id}"
+
+  def isHandicap(initialFen: Option[FEN]): Boolean =
+    if (variant == Standard) false else StartingPosition isFENHandicap initialFen
 
   def tournamentId = metadata.tournamentId
   def simulId      = metadata.simulId

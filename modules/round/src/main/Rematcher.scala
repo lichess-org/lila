@@ -1,8 +1,8 @@
 package lila.round
 
-import chess.format.Forsyth
+import chess.format.{ FEN, Forsyth }
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data, StartingPosition }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -66,14 +66,16 @@ final private class Rematcher(
 
   private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
     gameRepo game nextId flatMap {
-      _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
+      _.fold(rematchJoin(pov))(g => isHandicapOptimized(g) map { redirectEvents(g, _) })
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] =
     rematches.of(pov.gameId) match {
       case None =>
         for {
-          nextGame <- returnGame(pov) map (_.start)
+          initialFen <- gameRepo initialFen pov.game
+          isHandicap = pov.game isHandicap initialFen
+          nextGame <- returnGame(pov, initialFen, isHandicap) map (_.start)
           _ = offers invalidate pov.game.id
           _ = rematches.cache.put(pov.gameId, nextGame.id)
           _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
@@ -81,9 +83,11 @@ final private class Rematcher(
         } yield {
           messenger.system(pov.game, trans.rematchOfferAccepted.txt())
           onStart(nextGame.id)
-          redirectEvents(nextGame)
+          redirectEvents(nextGame, isHandicap)
         }
-      case Some(rematchId) => gameRepo game rematchId map { _ ?? redirectEvents }
+      case Some(rematchId) => gameRepo game rematchId flatMap {
+        _ ?? (g => isHandicapOptimized(g) map { redirectEvents(g, _) })
+      }
     }
 
   private def rematchCreate(pov: Pov): Events = {
@@ -95,10 +99,9 @@ final private class Rematcher(
     List(Event.RematchOffer(by = pov.color.some))
   }
 
-  private def returnGame(pov: Pov): Fu[Game] =
+  private def returnGame(pov: Pov, initialFen: Option[FEN], isHandicap: Boolean): Fu[Game] =
     for {
-      initialFen <- gameRepo initialFen pov.game
-      isHandicap = if (pov.game.variant == Standard) false else StartingPosition isFENHandicap initialFen
+      users <- userRepo byIds pov.game.userIds
       situation = initialFen flatMap { fen =>
         Forsyth <<< fen.value
       }
@@ -106,7 +109,6 @@ final private class Rematcher(
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       }
-      users <- userRepo byIds pov.game.userIds
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
@@ -145,16 +147,22 @@ final private class Rematcher(
         )
     }
 
-  private def redirectEvents(game: Game): Events = {
+  private def redirectEvents(game: Game, isHandicap: Boolean = false): Events = {
     val whiteId = game fullIdOf White
     val blackId = game fullIdOf Black
     List(
-      Event.RedirectOwner(White, blackId, AnonCookie.json(game pov Black)),
-      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game pov White)),
+      Event.RedirectOwner(if (isHandicap) Black else White, blackId, AnonCookie.json(game pov Black)),
+      Event.RedirectOwner(if (isHandicap) White else Black, whiteId, AnonCookie.json(game pov White)),
       // tell spectators about the rematch
       Event.RematchTaken(game.id)
     )
   }
+
+  private def isHandicapOptimized(game: Game): Fu[Boolean] =
+    if (game.variant == Standard)
+      fuccess(false)
+    else
+      gameRepo initialFen game fallbackTo fuccess(None) map { game isHandicap _ }
 }
 
 private object Rematcher {
