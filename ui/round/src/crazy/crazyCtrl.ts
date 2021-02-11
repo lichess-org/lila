@@ -4,7 +4,7 @@ import { setDropMode, cancelDropMode } from "shogiground/drop";
 import RoundController from "../ctrl";
 import * as cg from "shogiground/types";
 import { RoundData } from "../interfaces";
-import { Shogi } from "shogiops/variant"; 
+import { Shogi } from "shogiops/shogi"; 
 import { parseFen } from "shogiops/fen";
 import { makeShogiFen, parseChessSquare } from "shogiops/compat";
 import { PocketRole } from 'shogiops/types'
@@ -77,7 +77,8 @@ let mouseIconsLoaded = false;
 export function valid(
   ctrl: RoundController,
   role: cg.Role,
-  key: cg.Key
+  key: cg.Key,
+  checkmateCheck = false,
 ): boolean {
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
@@ -95,12 +96,15 @@ export function valid(
 
   if (!isPlayerTurn(data)) return false;
 
-  const shogi = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap()).unwrap();
-  const l = shogi.isLegal(move!);
-  if(role === 'pawn'){
-    shogi.play(move!);
-    if(shogi.isCheckmate()) alert("Checkmating with a pawn drop is an illegal move.");
-      }
+  const shogi = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false);
+  const l = shogi.unwrap(
+    (s) => s.isLegal(move!),
+    _ => true // for weird positions
+  );
+  if(checkmateCheck && role === 'pawn' && shogi.isOk){
+    shogi.unwrap().play(move!);
+    if(shogi.unwrap().isCheckmate()) alert("Checkmating with a pawn drop is an illegal move.");
+  }
   return l;
 }
 

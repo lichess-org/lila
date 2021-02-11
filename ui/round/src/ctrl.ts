@@ -189,7 +189,7 @@ export default class RoundController {
     key: cg.Key,
     meta: cg.MoveMetadata
   ) => {
-    if (!this.replaying() && crazyValid(this, role, key)) {
+    if (!this.replaying() && crazyValid(this, role, key, true)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
     cancelDropMode(this.shogiground.state);

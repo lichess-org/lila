@@ -42,8 +42,8 @@ $(function () {
               const key = solution.slice(3, 5);
               const piece = cg.state.pieces.get(key);
               const mySetup = sfen.parseFen(compat.makeShogiFen(cg.getFen() + " " + util.opposite(piece.color)[0])).unwrap();
-              const pos = shogi.Shogi.fromSetup(mySetup).unwrap();
-              if(!pos.isCheckmate()) {
+              const pos = shogi.Shogi.fromSetup(mySetup, false);
+              if(pos.isOk && !pos.unwrap().isCheckmate()) {
                 cg.setPieces(
                   new Map([
                     [

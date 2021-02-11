@@ -2,7 +2,7 @@ import { dragNewPiece } from "shogiground/drag";
 import { setDropMode, cancelDropMode } from "shogiground/drop";
 import AnalyseCtrl from "../ctrl";
 import * as cg from "shogiground/types";
-import { Shogi } from "shogiops/variant"; 
+import { Shogi } from "shogiops/shogi"; 
 import { parseFen } from "shogiops/fen";
 import { makeShogiFen, parseChessSquare } from "shogiops/compat";
 import { PocketRole } from "shogiops/types";
@@ -59,11 +59,11 @@ export function valid(
   pos: Key
 ): boolean {
   const sfen = parseFen(makeShogiFen(fen)).unwrap();
-  const shogi = Shogi.fromSetup(sfen);
+  const shogi = Shogi.fromSetup(sfen, false);
   return shogi.unwrap(
     (s) => {
       return s.turn !== piece.color && s.isLegal({role: piece.role as PocketRole, to: parseChessSquare(pos)!})
     },
-    (_) => false
+    (_) => true // for weird positions
   );
 }
