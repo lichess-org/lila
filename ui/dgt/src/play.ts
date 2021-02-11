@@ -45,7 +45,7 @@ export default function (token: string) {
     if (JSON.parse(localStorage.getItem('dgt-speech-keywords')!).K.length > 0) {
       keywords = JSON.parse(localStorage.getItem('dgt-speech-keywords')!);
     } else {
-      console.warn('JSON Object for Speech Keywords seems incompelte. Using English default.');
+      console.warn('JSON Object for Speech Keywords seems incomplete. Using English default.');
     }
   } catch (error) {
     console.error('Invalid JSON Object for Speech Keywords. Using English default. ' + Error(error).message);
@@ -54,16 +54,16 @@ export default function (token: string) {
   //Lichess Integration with Board API
 
   /**
-   * GLOBAL VATIABLES - Lichess Connectivity
+   * GLOBAL VARIABLES - Lichess Connectivity
    */
   var time = new Date(); //A Global time object
   var currentGameId = ''; //Track which is the current Game, in case there are several open games
   var currentGameColor = ''; //Track which color is being currently played by the player. 'white' or 'black'
   var me: { id: string; username: string }; //Track my information
-  var gameInfoMap = new Map(); //A collection of key values to store game inmutable information of all open games
+  var gameInfoMap = new Map(); //A collection of key values to store game immutable information of all open games
   var gameStateMap = new Map(); //A collection of key values to store the changing state of all open games
   var gameConnectionMap = new Map<string, { connected: boolean; lastEvent: number }>(); //A collection of key values to store the network status of a game
-  var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boads representing the current board of the games
+  var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boards representing the current board of the games
   var eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
   const keywordsBase = [
     'white',
@@ -86,7 +86,7 @@ export default function (token: string) {
     'illegal',
     'move',
   ];
-  var lastSanMove: { player: string; move: string; by: string }; //Track last move in SAN format . This is because there is no easy way to keep history of san moves
+  var lastSanMove: { player: string; move: string; by: string }; //Track last move in SAN format. This is because there is no easy way to keep history of san moves
   /**
    * Global Variables for DGT Board Connection (JACM)
    */
@@ -151,7 +151,7 @@ export default function (token: string) {
           try {
             console['old' + name].apply(undefined, arguments);
           } catch {
-            console['olderror'].apply(undefined, ['Error when loggin']);
+            console['olderror'].apply(undefined, ['Error when logging']);
           }
           resolve();
         });
@@ -631,7 +631,7 @@ export default function (token: string) {
       'Last Move': string;
     }> = [];
     var keys = Array.from(gameConnectionMap.keys());
-    //The for each iterator is not used since we don't want to continue execution. We want a syncrhonous result
+    //The for each iterator is not used since we don't want to continue execution. We want a synchronous result
     //for (let [gameId, networkState] of gameConnectionMap) {
     //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {
     for (var i = 0; i < keys.length; i++) {
@@ -763,7 +763,7 @@ export default function (token: string) {
   }
 
   /**
-   * Fedback the user about the detected moved
+   * Feedback the user about the detected move
    *
    * @param lastMove JSON object with the move information
    * @param wtime Remaining time for white
@@ -970,16 +970,16 @@ export default function (token: string) {
               if (verbose) console.info('onmessage - Move is NOT legal');
               if (lastMove.move == SANMove) {
                 //This is fine, the same last move was received again and seems illegal
-                if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove);
+                if (verbose) console.warn('onmessage - Move received is the same as the last move played: ' + SANMove);
               } else if (SANMove.startsWith('O-')) {
                 //This is may be fine, sometimes castling triggers twice and second time is invalid
                 if (verbose)
-                  console.warn('onmessage - Caslting may be duplicated as the last moved played: ' + SANMove);
+                  console.warn('onmessage - Castling may be duplicated as the last move played: ' + SANMove);
               } else {
-                //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-sycnhronization
+                //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-synchronization
                 if (verbose)
                   console.error(
-                    'onmessage - invalidMove - Position Mismatch between DGT Board and internal in memory Board . SAN: ' +
+                    'onmessage - invalidMove - Position Mismatch between DGT Board and internal in-memory Board. SAN: ' +
                       SANMove
                   );
                 announceInvalidMove();
@@ -1019,11 +1019,11 @@ export default function (token: string) {
         liveChessConnection.send('{"id":1,"call":"eboards"}');
       }
     }
-    console.error('No connection to DGT Live Chess after maximum number of attempts 20. Reload page to start again.');
+    console.error('No connection to DGT Live Chess after maximum number of attempts (20). Reload page to start again.');
   }
 
   /**
-   * Syncrhonizes the position on Lichess with the position on the board
+   * Synchronizes the position on Lichess with the position on the board
    * If the position does not match, no moves will be received from LiveChess
    * @param chess - The chessops Chess object with the position on Lichess
    */
@@ -1059,14 +1059,14 @@ export default function (token: string) {
   }
 
   /**
-   * This functions hanldes the sending the move to the right lichess game.
+   * This function handles sending the move to the right lichess game.
    * If more than one game is being played, it will ask which game to connect to,
-   * thus waiting for user input and so, it becomes async
+   * waiting for user input. This block causes the method to become async
    *
    * @param {Object} boardMove - The move in chessops format or string if in lichess format
    */
   async function validateAndSendBoardMove(boardMove: NormalMove) {
-    //While there is not and active game, keep trying to find one so the move is not lost
+    //While there is not an active game, keep trying to find one so the move is not lost
     while (
       !(
         gameStateMap.has(currentGameId) &&
@@ -1160,10 +1160,10 @@ export default function (token: string) {
   }
 
   /**
-   * GLOBAL VATIABLES
+   * GLOBAL VARIABLES
    */
   async function ttsSay(text: string) {
-    //Check Voice is disables
+    //Check if Voice is disabled
     if (verbose) console.log('TTS - for text: ' + text);
     if (!speechSynthesisOn) return;
     var utterThis = new SpeechSynthesisUtterance(text);
@@ -1196,10 +1196,10 @@ export default function (token: string) {
       var uciMove = makeUci(moveObject);
       if (verbose) console.log(`Comparing ${lastMove} with ${uciMove}`);
       if (lastMove == uciMove) {
-        //its the same move
+        //it's the same move
         return true;
       }
-      if (verbose) console.log('Moves look diffrent. Check if this is a castling mismatch.');
+      if (verbose) console.log('Moves look different. Check if this is a castling mismatch.');
       var castlingSide = localBoard.castlingSide(moveObject);
       if (lastMove.length > 2 && castlingSide) {
         //It was a castling so it still may be the same move
