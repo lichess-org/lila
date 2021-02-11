@@ -78,8 +78,8 @@
   <string name="combatComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
   <string name="checkInOne">Шах в един ход</string>
   <string name="attackTheOpponentsKing">Атакувай противниковия цар</string>
-  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Те са длъжни да го защитят!</string>
-  <string name="checkInOneGoal">Прицели се в краля в един ход!</string>
+  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Той е длъжен да го защити!</string>
+  <string name="checkInOneGoal">Прицели се в краля за един ход!</string>
   <string name="checkInOneComplete">Поздравления! Вие поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="outOfCheck">Извън шах</string>
   <string name="defendYourKing">Защитете царя си</string>
