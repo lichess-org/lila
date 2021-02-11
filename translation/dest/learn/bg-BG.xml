@@ -96,7 +96,7 @@
   <string name="defeatTheOpponentsKing">Надвийте противниковия цар</string>
   <string name="mateInOneIntro">Печелите, когато противникът Ви не може да се защити от шах.</string>
   <string name="attackYourOpponentsKing">Атакувайте противниковия цар
-по начин, който не може да бъде избегнат!</string>
+така, че да не може да се защити!</string>
   <string name="mateInOneComplete">Поздравления! Така се печелят игри на шах!</string>
   <string name="intermediate">Средно ниво</string>
   <string name="boardSetup">Подредба на дъската</string>
@@ -121,9 +121,9 @@
   <string name="castleQueenSide">Преместете царя си с две полета за дамска рокада!</string>
   <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете царска рокада.</string>
   <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
-Първо трябва да разместите фигурите между тях.</string>
+Първо трябва да разместите някои от фигурите.</string>
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
-Първо трябва да разместите фигурите между тях.</string>
+Първо трябва да раздвижите фигурите между тях.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
   <string name="youCannotCastleIfAttacked">Не можете да направите рокада, ако царят Ви е под шах. Първо блокада, после рокада!</string>
   <string name="findAWayToCastleKingSide">Намерете начин да
@@ -201,7 +201,7 @@
   <string name="nailedIt">Невероятно.</string>
   <string name="rightOn">Чудесно!</string>
   <string name="stageXComplete">Етап %s завършен</string>
-  <string name="yourScore">Резултатът ви</string>
+  <string name="yourScore">Резултатът Ви е</string>
   <string name="next">Следващ</string>
   <string name="backToMenu">Обратно към менюто</string>
   <string name="puzzleFailed">Неуспешно!</string>
