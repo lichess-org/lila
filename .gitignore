@@ -1,5 +1,8 @@
 .sbtopts
 .bsp
+.bloop/
+.metals/
+project/.bloop/
 conf/application.conf
 conf/version.conf
 
@@ -38,3 +41,6 @@ RUNNING_PID
 /modules/*/.classpath
 /modules/*/.project
 /modules/*/.settings/
+
+# VSCode auto-generated files
+.vscode/
