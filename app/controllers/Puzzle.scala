@@ -235,8 +235,12 @@ final class Puzzle(
           }
         case None if themeOrId.size == Puz.idSize =>
           OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
-            ctx.me foreach { env.puzzle.api.casual.set(_, puz.id) }
-            renderShow(puz, PuzzleTheme.mix)
+            ctx.me.?? { me =>
+              !env.puzzle.api.round.exists(me, puz.id) map {
+                _ ?? env.puzzle.api.casual.set(me, puz.id)
+              }
+            } >>
+              renderShow(puz, PuzzleTheme.mix)
           }
         case None =>
           themeOrId.toLongOption

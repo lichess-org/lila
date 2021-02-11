@@ -49,6 +49,9 @@ final class PuzzleApi(
     def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
 
+    def exists(user: User, puzzleId: Puzzle.Id): Fu[Boolean] =
+      colls.round(_.exists($id(PuzzleRound.Id(user.id, puzzleId).toString)))
+
     def upsert(r: PuzzleRound, theme: PuzzleTheme.Key): Funit = {
       val roundDoc = RoundHandler.write(r) ++
         $doc(
