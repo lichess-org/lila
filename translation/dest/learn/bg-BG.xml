@@ -175,8 +175,8 @@
   <string name="checkInTwoGoal">Заплашете противниковия цар в два хода!</string>
   <string name="checkInTwoComplete">Поздравления! Поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="whatNext">А сега какво?</string>
-  <string name="youKnowHowToPlayChess">Вие знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
-  <string name="register">Регистрирай се</string>
+  <string name="youKnowHowToPlayChess">Знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
+  <string name="register">Регистрирайте се</string>
   <string name="getAFreeLichessAccount">Създайте безплатна регистрация в Lichess</string>
   <string name="practice">Упражнявайте се</string>
   <string name="learnCommonChessPositions">Научете основните позиции в шахмата</string>
@@ -184,9 +184,9 @@
   <string name="exerciseYourTacticalSkills">Упражнявайте тактическите си умения</string>
   <string name="videos">Видеа</string>
   <string name="watchInstructiveChessVideos">Гледайте поучителни шахматни видеа</string>
-  <string name="playPeople">Играй срещу хора</string>
+  <string name="playPeople">Играйте срещу хора</string>
   <string name="opponentsFromAroundTheWorld">Противници от целия свят</string>
-  <string name="playMachine">Играй срещу машина</string>
+  <string name="playMachine">Играйте срещу машина</string>
   <string name="testYourSkillsWithTheComputer">Тествайте уменията си срещу компютър</string>
   <string name="letsGo">Да започваме!</string>
   <string name="stageX">Етап %s</string>
