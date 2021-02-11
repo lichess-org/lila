@@ -4,4 +4,5 @@
   <string name="puzzlesSolved">ปริศนาที่ถูกแก้แล้ว</string>
   <string name="playAgain">เล่นอีกครั้ง</string>
   <string name="highscoreX">คะแนนสูงสุด: %s</string>
+  <string name="accuracy">ความแม่นยำ</string>
 </resources>
