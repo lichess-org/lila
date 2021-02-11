@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">التحديات</string>
+  <string name="challengeDeclined">تم رفض التحدي</string>
+  <string name="challengeAccepted">تم قبول التحدي!</string>
+  <string name="challengeCanceled">تم إلغاء التحدي.</string>
+</resources>
