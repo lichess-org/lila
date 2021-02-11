@@ -20,7 +20,8 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     scheduler: akka.actor.Scheduler,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
 ) {
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]

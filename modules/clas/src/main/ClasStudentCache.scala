@@ -4,6 +4,7 @@ import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl._
 import bloomfilter.mutable.BloomFilter
+import play.api.Mode
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
@@ -16,10 +17,11 @@ import lila.user.User
 final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
     ec: ExecutionContext,
     scheduler: Scheduler,
-    mat: Materializer
+    mat: Materializer,
+    mode: Mode
 ) {
 
-  private val expectedElements  = 300_000
+  private val expectedElements  = if (mode == Mode.Prod) 300_000 else 10_000
   private val falsePositiveRate = 0.0001
   private var bloomFilter       = BloomFilter[User.ID](10, 0.1) // temporary empty filter
 
