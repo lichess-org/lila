@@ -20,8 +20,8 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
 ) {
 
   private val expectedElements  = 300_000
-  private val falsePositiveRate = 0.001
-  private var bloomFilter       = BloomFilter[User.ID](expectedElements, falsePositiveRate)
+  private val falsePositiveRate = 0.0001
+  private var bloomFilter       = BloomFilter[User.ID](10, 0.1) // temporary empty filter
 
   def isStudent(userId: User.ID) = bloomFilter mightContain userId
 
@@ -45,7 +45,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
       }
       .monSuccess(_.clas.student.bloomFilter.fu)
       .addEffectAnyway {
-        scheduler.scheduleOnce(10 minutes) { rebuildBloomFilter() }.unit
+        scheduler.scheduleOnce(1 hour) { rebuildBloomFilter() }.unit
       }
       .unit
   }
