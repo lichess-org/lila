@@ -100,7 +100,7 @@ object activities {
   implicit val StudiesZero = Zero.instance(Studies(Nil))
 
   case class Teams(value: List[String]) extends AnyVal {
-    def +(s: String) = copy(value = (s :: value) take maxSubEntries)
+    def +(s: String) = copy(value = (s :: value).distinct take maxSubEntries)
   }
   implicit val TeamsZero = Zero.instance(Teams(Nil))
 }
