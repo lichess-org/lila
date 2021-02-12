@@ -208,7 +208,7 @@
   <string name="email">Ríomhphost</string>
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">An ndearna tú dearmad ar do phasfhocal?</string>
-  <string name="rank">Rangú</string>
+  <string name="rank">Rang</string>
   <string name="rankX">Rangú: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Uasdátaítear rangú gach %s nóimead</item>
@@ -788,7 +788,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="zeroAdvertisement">Gan fógraíocht</string>
   <string name="fullFeatured">Uirlisí iomlána le feiceáil</string>
   <string name="phoneAndTablet">Fón agus taibléad</string>
-  <string name="bulletBlitzClassical">Gasta, tapa, clasaiceach</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, clasaiceach</string>
   <string name="correspondenceChess">Comhfhreagrais fichille</string>
   <string name="onlineAndOfflinePlay">Imir ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
