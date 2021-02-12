@@ -831,8 +831,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="coaches">Cóitseálaithe</string>
   <string name="invalidPgn">PGN neamhbhailí</string>
   <string name="invalidFen">FEN neamhbhailí</string>
-  <string name="error.minLength">\'Sé %s an fad íosta</string>
-  <string name="error.maxLength">\'Sé %s an fad uasta</string>
+  <string name="error.minLength">\'Sé %s an íosfhaid</string>
+  <string name="error.maxLength">\'Sé %s an t-uasfhaid</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="error.unknown">Earráid</string>
