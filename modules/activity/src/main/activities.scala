@@ -72,12 +72,6 @@ object activities {
   implicit val CorresZero = Zero.instance(Corres(0, Nil, Nil))
 
   case class Patron(months: Int) extends AnyVal
-
-  case class Follows(in: Option[FollowList], out: Option[FollowList]) {
-    def addIn(id: User.ID)  = copy(in = Some(~in + id))
-    def addOut(id: User.ID) = copy(out = Some(~out + id))
-    def isEmpty             = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
-  }
   case class FollowList(ids: List[User.ID], nb: Option[Int]) {
     def actualNb = nb | ids.size
     def +(id: User.ID) =
@@ -93,6 +87,12 @@ object activities {
   }
   implicit val FollowListZero = Zero.instance(FollowList(Nil, None))
   implicit val FollowsZero    = Zero.instance(Follows(None, None))
+
+  case class Follows(in: Option[FollowList], out: Option[FollowList]) {
+    def addIn(id: User.ID)  = copy(in = Some(~in + id))
+    def addOut(id: User.ID) = copy(out = Some(~out + id))
+    def isEmpty             = in.fold(true)(_.isEmpty) && out.fold(true)(_.isEmpty)
+  }
 
   case class Studies(value: List[Study.Id]) extends AnyVal {
     def +(s: Study.Id) = copy(value = (s :: value) take maxSubEntries)
