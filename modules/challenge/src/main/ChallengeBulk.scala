@@ -81,12 +81,12 @@ final class ChallengeBulkApi(
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte DateTime.now, "pairedAt" $exists true)) flatMap {
       _ ?? { bulk =>
         workQueue(bulk.by) {
-          startClocks(bulk)
+          startClocksNow(bulk)
         }
       }
     }
 
-  private def startClocks(bulk: ScheduledBulk): Funit = workQueue(bulk.by) {
+  private def startClocksNow(bulk: ScheduledBulk): Funit = {
     Bus.publish(TellMany(bulk.games.map(_.id), lila.round.actorApi.round.StartClock), "roundSocket")
     coll.delete.one($id(bulk._id)).void
   }
