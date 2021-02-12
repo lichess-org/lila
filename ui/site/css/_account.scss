@@ -80,6 +80,11 @@
         margin-left: 1rem;
         cursor: pointer;
       }
+      em {
+        @extend %roboto;
+        margin-left: 1rem;
+        color: $c-font-dimmer;
+      }
     }
   }
 

@@ -47,7 +47,10 @@ object create {
                     disabled = disabled
                   )
                 ),
-                label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)
+                label(`for` := id, st.title := disabled.option("You already have played games!"))(
+                  scope.name,
+                  em(scope.key)
+                )
               )
             }
           ),
