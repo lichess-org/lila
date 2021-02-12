@@ -158,7 +158,7 @@ final class SecurityApi(
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
+    store.ipsAndFps(List(u1, u2), max = 300) map { ipsAndFps =>
       val u1s: Set[String] = ipsAndFps
         .filter(_.user == u1)
         .flatMap { x =>

@@ -17,6 +17,13 @@ Losing rated games on purpose is called "sandbagging", and is not allowed on Lic
 Thank you for your understanding."""
   )
 
+  lazy val boostAuto = MsgPreset(
+    name = "Warning: possible boosting",
+    """In your game history, you have several games where the opponent clearly has intentionally lost against you. Attempts to artificially manipulate your own or someone else's rating are unacceptable.
+
+If this behaviour continues to happen, your account will be restricted."""
+  )
+
   lazy val sittingAuto = MsgPreset(
     name = "Warning: leaving games / stalling on time",
     text =

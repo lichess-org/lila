@@ -48,6 +48,7 @@ package report {
   case class Cheater(userId: String, text: String)
   case class Shutup(userId: String, text: String)
   case class Booster(winnerId: String, loserId: String)
+  case class Sandbagger(winnerId: String, loserId: String)
   case class AutoFlag(suspectId: String, resource: String, text: String)
   case class CheatReportCreated(userId: String)
 }

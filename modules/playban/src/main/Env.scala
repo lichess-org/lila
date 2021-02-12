@@ -9,6 +9,7 @@ import lila.common.config.CollName
 final class Env(
     appConfig: Configuration,
     messenger: lila.msg.MsgApi,
+    reporter: lila.hub.actors.Report,
     chatApi: lila.chat.ChatApi,
     userRepo: lila.user.UserRepo,
     lightUser: lila.common.LightUser.Getter,

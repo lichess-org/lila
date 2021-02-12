@@ -9,7 +9,6 @@ final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
-    reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
@@ -70,12 +69,6 @@ final class ModApi(
         }
         sus
       }
-
-  def autoBoost(winnerId: User.ID, loserId: User.ID): Funit =
-    logApi.wasUnbooster(loserId) map {
-      case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
-      case true  => ()
-    }
 
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
     val changed = value != prev.user.marks.troll

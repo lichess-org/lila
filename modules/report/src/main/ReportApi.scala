@@ -235,20 +235,35 @@ final class ReportApi(
 
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
-      userRepo.byId(winnerId) zip userRepo.byId(loserId) zip getLichessReporter flatMap {
-        case isSame ~ Some(winner) ~ Some(loser) ~ reporter if !winner.lame && !loser.lame =>
+      userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
+        case isSame ~ Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
+          val loginsText =
+            if (isSame) "Found matching IP/print"
+            else "No IP/print match found"
           create(
             Candidate(
               reporter = reporter,
-              suspect = Suspect(if (isSame) winner else loser),
+              suspect = Suspect(winner),
               reason = Reason.Boost,
-              text =
-                if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-                else s"Sandbagging - the winning player @${winner.username} has different IPs & prints"
+              text = s"Boosting: farms rating points from @${loser.username} ($loginsText)"
             )
           )
         case _ => funit
       }
+
+  def autoSandbagReport(winnerId: User.ID, loserId: User.ID): Funit =
+    userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
+      case Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
+        create(
+          Candidate(
+            reporter = reporter,
+            suspect = Suspect(loser),
+            reason = Reason.Boost,
+            text = s"Sandbagging: throws games to @${loser.username}"
+          )
+        )
+      case _ => funit
+    }
 
   def byId(id: Report.ID) = coll.byId[Report](id)
 

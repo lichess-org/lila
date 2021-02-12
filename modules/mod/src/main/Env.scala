@@ -11,7 +11,6 @@ import lila.user.User
 @Module
 private class ModConfig(
     @ConfigName("collection.player_assessment") val assessmentColl: CollName,
-    @ConfigName("collection.boosting") val boostingColl: CollName,
     @ConfigName("collection.modlog") val modlogColl: CollName,
     @ConfigName("collection.gaming_history") val gamingHistoryColl: CollName,
     @ConfigName("actor.name") val actorName: String,
@@ -67,13 +66,6 @@ final class Env(
 
   lazy val api: ModApi = wire[ModApi]
 
-  private lazy val boosting = new BoostingApi(
-    modApi = api,
-    collBoosting = db(config.boostingColl),
-    nbGamesToMark = config.boostingNbGamesToMark,
-    ratioGamesToMark = config.boostingRatioToMark
-  )
-
   lazy val assessApi = wire[AssessApi]
 
   lazy val gamify = wire[Gamify]
@@ -96,8 +88,7 @@ final class Env(
           case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
             import cats.implicits._
             (whiteUserOption, blackUserOption) mapN { (whiteUser, blackUser) =>
-              boosting.check(game, whiteUser, blackUser) >>
-                assessApi.onGameReady(game, whiteUser, blackUser)
+              assessApi.onGameReady(game, whiteUser, blackUser)
             }
             if (game.status == chess.Status.Cheat)
               game.loserUserId foreach { userId =>
