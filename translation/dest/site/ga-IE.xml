@@ -758,7 +758,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Trí chlárú, aontaíonn tú leis na %s.</string>
   <string name="readAboutOur">Léigh faoin ár %s.</string>
   <string name="networkLagBetweenYouAndLichess">Moill gréasáin idir tú féin agus Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Am beart a phróiseáil ar fhreastalaí Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Am le beart a phróiseáil ar fhreastalaí Lichess</string>
   <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
   <string name="downloadRaw">Ioslódáil sonraí loma</string>
   <string name="downloadImported">Ioslódáil sonraí iompórtáilte</string>
