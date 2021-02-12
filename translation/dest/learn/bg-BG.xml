@@ -140,7 +140,7 @@
   <string name="enPassantOnlyWorksImmediately">Ан-пасан работи само когато
 пешката е била току-що преместена.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан-пасан работи само когато
-пешката ти е на петия ред.</string>
+пешката Ви е на петия ред.</string>
   <string name="takeAllThePawnsEnPassant">Вземете всички пешки с ан-пасан!</string>
   <string name="enPassantComplete">Поздравления! Сега вече знаете какво е ан-пасан.</string>
   <string name="stalemate">Пат</string>
