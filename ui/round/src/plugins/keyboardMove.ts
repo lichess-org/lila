@@ -13,8 +13,8 @@ interface Opts {
   ctrl: KeyboardMove;
 }
 interface SubmitOpts {
+  isTrusted: boolean;
   force?: boolean;
-  server?: boolean;
   yourMove?: boolean;
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
@@ -27,6 +27,7 @@ lichess.keyboardMove = function (opts: Opts) {
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
+    if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
@@ -78,13 +79,13 @@ lichess.keyboardMove = function (opts: Opts) {
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
-      server: true,
+      isTrusted: true,
       yourMove: yourMove,
     });
   };
 };
 
-function makeBindings(opts: any, submit: Submit, clear: Function) {
+function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.Mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
@@ -101,12 +102,13 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
     else
       submit(v, {
         force: e.which === 13,
+        isTrusted: e.isTrusted
       });
   });
   opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
   opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
   // prevent default on arrow keys: they only replay moves
-  opts.input.addEventListener('keydown', function (e: KeyboardEvent) {
+  opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.which > 36 && e.which < 41) {
       if (e.which == 37) opts.ctrl.jump(-1);
       else if (e.which == 38) opts.ctrl.jump(-999);
