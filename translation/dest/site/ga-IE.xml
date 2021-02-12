@@ -723,12 +723,12 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentFAQ">Ceisteanna Coitianta Comórtais Airéine</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula dtosnaíonn an comórtas</string>
-  <string name="averageCentipawnLoss">Meánchaillteanas ceithearnach sa lár</string>
-  <string name="keyboardShortcuts">Aicearraí méarchlár</string>
-  <string name="keyMoveBackwardOrForward">bogadh siar/ar aghaidh</string>
-  <string name="keyGoToStartOrEnd">téigh chun tús/deireadh</string>
+  <string name="averageCentipawnLoss">Meán chaillteanas ceithearnach sa lár</string>
+  <string name="keyboardShortcuts">Aicearraí méarchláir</string>
+  <string name="keyMoveBackwardOrForward">bog siar/ar aghaidh</string>
+  <string name="keyGoToStartOrEnd">téigh chuig tús/deireadh</string>
   <string name="keyShowOrHideComments">taispeáin/folaigh nótaí tráchta</string>
-  <string name="keyEnterOrExitVariation">iontráil/scor athrúchán</string>
+  <string name="keyEnterOrExitVariation">iontráil/scor comhathrú</string>
   <string name="newTournament">Comórtas Nua</string>
   <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil leagann ama agus athraitheach éagsúla</string>
   <string name="tournamentHomeDescription">Imir comortais fichille ar luas tapaigh! Bí ar chamchuairt sceidealta oifigiúil, nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Ficheall 960 (Chess960), Rí an Chnoic (King of the Hill), Sáinn faoi thrí (Threecheck), agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan deireadh.</string>
