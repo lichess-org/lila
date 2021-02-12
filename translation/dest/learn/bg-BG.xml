@@ -75,7 +75,7 @@
   <string name="combat">Битка</string>
   <string name="captureAndDefendPieces">Отнемай и защитавай фигури</string>
   <string name="combatIntro">Добрият войн знае както да атакува, така и да се защитава!</string>
-  <string name="combatComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
+  <string name="combatComplete">Поздравления! Знаете как да се сражавате с шахматните фигури!</string>
   <string name="checkInOne">Шах в един ход</string>
   <string name="attackTheOpponentsKing">Атакувай противниковия цар</string>
   <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Той е длъжен да го защити!</string>
