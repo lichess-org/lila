@@ -973,8 +973,7 @@ export default function (token: string) {
                 if (verbose) console.warn('onmessage - Move received is the same as the last move played: ' + SANMove);
               } else if (SANMove.startsWith('O-')) {
                 //This is may be fine, sometimes castling triggers twice and second time is invalid
-                if (verbose)
-                  console.warn('onmessage - Castling may be duplicated as the last move played: ' + SANMove);
+                if (verbose) console.warn('onmessage - Castling may be duplicated as the last move played: ' + SANMove);
               } else {
                 //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-synchronization
                 if (verbose)

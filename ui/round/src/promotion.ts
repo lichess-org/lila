@@ -47,9 +47,7 @@ export function start(
     if (
       !meta.ctrlKey &&
       !promoting &&
-      (d.pref.autoQueen === 3 ||
-        (d.pref.autoQueen === 2 && premovePiece) ||
-        ctrl.keyboardMove?.justSelected())
+      (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece) || ctrl.keyboardMove?.justSelected())
     ) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else sendPromotion(ctrl, orig, dest, 'queen', meta);

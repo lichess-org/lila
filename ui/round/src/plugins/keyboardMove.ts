@@ -102,7 +102,7 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
     else
       submit(v, {
         force: e.which === 13,
-        isTrusted: e.isTrusted
+        isTrusted: e.isTrusted,
       });
   });
   opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
