@@ -746,18 +746,18 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Is é do rátáil %1$s %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s. imreoir.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as ficheallaithe %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoir.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Níl rátáil %s bunaithe agat.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
-  <string name="checkYourEmail">Seiceáil ar do r-phost</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Tá ríomhphost seolta againn. Cliceáil ar an nasc sa ríomhphost chun do chuntas a ghníomhachtú.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura bhfeiceann tú an ríomhphost, seiceáil áiteanna eile a d’fhéadfadh é a bheith ann, mar i do bhruscar, spam, sóisialta nó fillteáin eile.</string>
+  <string name="checkYourEmail">Seiceáil do ríomphoist</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Seoladh ríomhphost chugat. Cliceáil ar an nasc sa ríomhphost chun do chuntas a ghníomhachtú.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura bhfeiceann tú an ríomhphost, seiceáil áiteanna eile a d’fhéadfadh sé a bheith ann, cosúil le junk, spam, sóisialta nó fillteáin eile.</string>
   <string name="weHaveSentYouAnEmailTo">Tá ríomhphost seolta againn chuig %s. Cliceáil ar an nasc sa ríomhphost chun do phasfhocal a athshocrú.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Trí chlárú, aontaíonn tú leis na %s.</string>
   <string name="readAboutOur">Léigh faoin ár %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Moill líonra idir tú féin agus Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Moill gréasáin idir tú féin agus Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Am beart a phróiseáil ar fhreastalaí Lichess</string>
   <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
   <string name="downloadRaw">Ioslódáil sonraí loma</string>
