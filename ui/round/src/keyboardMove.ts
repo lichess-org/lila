@@ -40,13 +40,13 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
-  let lastSelect = Date.now();
+  let lastSelect = performance.now();
   const cgState = root.chessground.state;
-  const select = function (key: cg.Key): void {
+  const select = (key: cg.Key): void => {
     if (cgState.selected === key) root.chessground.cancelMove();
     else {
       root.chessground.selectSquare(key, true);
-      lastSelect = Date.now();
+      lastSelect = performance.now();
     }
   };
   let usedSan = false;
@@ -100,7 +100,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       redraw();
     },
     justSelected() {
-      return Date.now() - lastSelect < 500;
+      return performance.now() - lastSelect < 500;
     },
     clock: () => root.clock,
     resign: root.resign,
