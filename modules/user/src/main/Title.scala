@@ -37,7 +37,7 @@ object Title {
     Title("女流２級") -> "Ladies 2nd kyu",
     Title("女流３級") -> "Ladies 3rd kyu",
     LM           -> "Lishogi Master",
-    BOT          -> "Chess Robot"
+    BOT          -> "Shogi Robot"
   )
 
   val names          = all.toMap
