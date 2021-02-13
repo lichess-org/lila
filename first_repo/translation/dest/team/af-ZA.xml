@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Span</string>
+  <string name="teams">Spanne</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s lede</item>
+    <item quantity="other">%s lede</item>
+  </plurals>
+  <string name="allTeams">Alle spanne</string>
+  <string name="newTeam">Nuwe span</string>
+  <string name="myTeams">My spanne</string>
+  <string name="noTeamFound">Geen span gevind nie</string>
+  <string name="joinTeam">Sluit aan by die span</string>
+  <string name="quitTeam">Verlaat die span</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gaan aansluit versoeke met die hand na</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Indien gemerk gaan spelers nodig hê om \'n versoek te skryf om by die span aan te sluit, wat jy kan afkeer of aanvaar.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Spanleier</item>
+    <item quantity="other">Spanleiers</item>
+  </plurals>
+  <string name="teamBestPlayers">Beste spanlede</string>
+  <string name="teamRecentMembers">Onlangse spanlede</string>
+  <string name="kickSomeone">Skop iemand uit die span uit</string>
+  <string name="whoToKick">Wie wil jy uit die span uit skop?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Aansluitingsversoek</item>
+    <item quantity="other">%s Aansluitingsversoeke</item>
+  </plurals>
+  <string name="willBeReviewed">Jou aansluitingsversoek sal deur die spanleier geëvalueer word.</string>
+  <string name="beingReviewed">Jou aansluitingsversoek word tans deur die spanleier geëvalueer.</string>
+  <string name="teamBattle">Span Stryd</string>
+  <string name="teamBattleOverview">\'n Geveg tussen verskeie spanne, elke speler kry punte vir hulle span</string>
+  <string name="teamTournament">Span toernooi</string>
+  <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
+  <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
+  <string name="messageAllMembersOverview">Stuur \'n private boodskap na elke lid van die span</string>
+  <string name="messageAllMembersLongDescription">Stuur \'n privaat boodskap aan AL die lede van die span.
+U kan dit gebruik om spelers te roep om deel te neem aan \'n toernooi of \'n spanstryd.
+Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat.</string>
+  <string name="teamsIlead">Spanne wat ek lei</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Wil u dalk een van hierdie komende toernooie koppel?</string>
+  <string name="usersWhoCanManageThisTeam">Gebruikers wat hierdie span kan bestuur</string>
+  <string name="leadersChat">Leiers gesels</string>
+  <string name="closeTeam">Naby span</string>
+  <string name="closeTeamDescription">Sluit die span vir altyd.</string>
+  <string name="teamPassword">Span wagwoord</string>
+  <string name="teamPasswordDescriptionForLeader">(Optioneel) \'n Wagwoord wat nuwe lede moet ken om by die span aan te sluit.</string>
+  <string name="incorrectTeamPassword">Verkeerde span wagwoord.</string>
+  <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
+</resources>

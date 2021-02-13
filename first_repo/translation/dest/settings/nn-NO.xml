@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Innstillingar</string>
+  <string name="closeAccount">Steng konto</string>
+  <string name="closingIsDefinitive">Å stenge kontoen er ei avgjerd som ikkje kan reverseras. Er du heilt sikker?</string>
+  <string name="cantOpenSimilarAccount">Du kan ikkje oppretta ein ny konto med det same brukarnamnet, sjølv om du endrar bokstavstorleiken (små bokstaver til STORE eller STORE bokstavar til små).</string>
+  <string name="changedMindDoNotCloseAccount">Eg ombestemte meg, ikkje steng kontoen min</string>
+  <string name="closeAccountExplanation">Er du heilt sikker på at du vil lukke denne kontoen? Det er ei permanent avgjerd. Du vil aldri bli i stand til å logg inn att.</string>
+  <string name="thisAccountIsClosed">Denne kontoen er stengd.</string>
+</resources>

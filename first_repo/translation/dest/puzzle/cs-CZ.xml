@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Úlohy</string>
+  <string name="puzzleThemes">Motivy úloh</string>
+  <string name="recommended">Doporučené</string>
+  <string name="phases">Fáze</string>
+  <string name="motifs">Techniky</string>
+</resources>

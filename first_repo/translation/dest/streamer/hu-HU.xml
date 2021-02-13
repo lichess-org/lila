@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Lichess közvetítők</string>
+  <string name="lichessStreamer">Lichess közvetítő</string>
+  <string name="live">ÉLŐ!</string>
+  <string name="offline">NINCS ADÁS</string>
+  <string name="currentlyStreaming">Jelenlegi közvetítés: %s</string>
+  <string name="lastStream">Utolsó közvetítés %s</string>
+  <string name="becomeStreamer">Legyél Te is Lichess közvetítő</string>
+  <string name="doYouHaveStream">Van már Twitch vagy YouTube csatornád?</string>
+  <string name="hereWeGo">Lássunk neki!</string>
+  <string name="allStreamers">Összes közvetítő</string>
+  <string name="editPage">Közvetítői oldal szerkesztése</string>
+  <string name="yourPage">Saját közvetítői oldalad</string>
+  <string name="downloadKit">Közvetítői csomag letöltése</string>
+  <string name="xIsStreaming">%s éppen közvetít</string>
+  <string name="rules">Közvetítés szabályai</string>
+  <string name="rule1">A \"lichess.org\" kulcsszó hozzáadása a közvetítés címéhez és \"Sakk\" kategória használata mikor a Lichess-en közvetítesz.</string>
+  <string name="rule2">Távolítsd el a kulcsszót ha nem Lichess-hez kapcsolódót közvetítesz.</string>
+  <string name="rule3">A Lichess automatikusan észleli ha közvetítesz és az alábbiakkal élénkíti:</string>
+  <string name="perks">A kulcsszóval történő közvetítés előnyei</string>
+  <string name="perk1">Egy lángoló közvetítői ikon a Lichess profilodon.</string>
+  <string name="perk2">A közvetítők listájának tetejére dobása.</string>
+  <string name="perk3">Lichess követőid értesítése.</string>
+  <string name="perk4">A közvetítésed mutatása a játszmáid, versenyeid és tanulmányaidnál.</string>
+  <string name="approved">A közvetítés jóváhagyva.</string>
+  <string name="pendingReview">A közvetítésed épp moderátoraink vizsgálják.</string>
+  <string name="pleaseFillIn">Kérjük add meg a közvetítői adataid és tölts fel egy képet.</string>
+  <string name="whenReady">Mikor készen állsz a Lichess közvetítői között felsorolva, %s</string>
+  <string name="requestReview">kérj jóváhagyást egy moderátortól</string>
+  <string name="anotherLanguage">Ha a közvetítésed nem angol nyelven tartod, add hozzá a megfelelő országkódot (%s), szögletes zárójelek között, a közvetítés címe elé.
+Például add hozzá \"[HU]\"-t a magyarhoz, \"[RU]\"-t az oroszhoz, illetve \"[FR]\"-t a franciához, stb.
+Ezt a Twitch és YouTube közvetítés címéhez add, ne a Lichess közvetítés beállításaihoz.
+Ha a közvetítés angol nyelvű, akkor nem szükséges feltüntetni az országkódot.</string>
+  <string name="twitchUsername">Twitch felhasználóneved vagy URL</string>
+  <string name="optionalOrEmpty">Nem kötelező. Hagyd üresen, ha nincs</string>
+  <string name="youtubeChannel">YouTube csatornád ID-ja vagy URL</string>
+  <string name="streamerName">Közvetítői neved a Lichess-en</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
+    <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
+  </plurals>
+  <string name="visibility">Látható a közvetítők oldalán</string>
+  <string name="whenApproved">Ha a moderátorok jóvá hagyták</string>
+  <string name="headline">Főcím</string>
+  <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
+  <string name="longDescription">Bővebb leírás</string>
+  <string name="xStreamerPicture">%s közvetítői képe</string>
+  <string name="changePicture">Kép szerkesztése/törlése</string>
+  <string name="uploadPicture">Kép feltöltése</string>
+  <string name="deletePicture">Kép törlése</string>
+  <string name="maxSize">Maximális méret: %s</string>
+  <string name="installBlocker">Telepíts reklámblokkolót!</string>
+  <string name="beSafe">Tartsd távol a reklámokat és követőket
+amik ellepik a Twitch-et és YouTube-ot.
+A Lichess a uBlock Origin-t ajánlja
+ami ingyenes és nyílt forrású.</string>
+</resources>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="learnChess">Tanulj sakkozni</string>
+  <string name="byPlaying">játszva!</string>
+  <string name="menu">Menü</string>
+  <string name="progressX">Haladás: %s</string>
+  <string name="resetMyProgress">Haladásom nullázása</string>
+  <string name="youWillLoseAllYourProgress">Az összes eddigi haladásod el fog veszni!</string>
+  <string name="play">játssz!</string>
+  <string name="chessPieces">Sakkfigurák</string>
+  <string name="theRook">A bástya</string>
+  <string name="itMovesInStraightLines">Egyenes vonalban mozog</string>
+  <string name="rookIntro">A bástya erős figura. Felkészültél az irányítására?</string>
+  <string name="rookGoal">Kattints a bástyára
+és mozgasd a csillagokhoz!</string>
+  <string name="grabAllTheStars">Szedd fel az összes csillagot!</string>
+  <string name="theFewerMoves">Minél kevesebbszer lépsz,
+annál több pontot kapsz!</string>
+  <string name="useTwoRooks">Használd mindkét bástyát
+és gyorsítsd fel a dolgokat!</string>
+  <string name="rookComplete">Gratulálunk! Sikeresen elsajátítottad a bástya mozgását.</string>
+  <string name="theBishop">A futó</string>
+  <string name="itMovesDiagonally">Átlósan mozog</string>
+  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell manőverezni a futóval!</string>
+  <string name="youNeedBothBishops">Egyik világos mezős futó,
+másik sötét mezős futó.
+Mindkettőre szükséged van!</string>
+  <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
+  <string name="theQueen">A vezér</string>
+  <string name="queenCombinesRookAndBishop">Vezér = bástya + futó</string>
+  <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
+  <string name="queenComplete">Gratulálunk! Kiismerted a vezér rejtelmeit.</string>
+  <string name="theKing">A király</string>
+  <string name="theMostImportantPiece">A legfontosabb figura</string>
+  <string name="kingIntro">Te vagy a király. Ha elesel a csatában, elveszted a játszmát.</string>
+  <string name="theKingIsSlow">A király lassú.</string>
+  <string name="lastOne">Az utolsó!</string>
+  <string name="kingComplete">Most már parancsolhatsz a parancsnoknak!</string>
+  <string name="theKnight">A huszár</string>
+  <string name="itMovesInAnLShape">L alakban mozog</string>
+  <string name="knightIntro">Itt van egy kihívás számodra.
+A huszár... trükkös figura.</string>
+  <string name="knightsHaveAFancyWay">A huszároknak megvan az a
+különös szokásuk hogy ugrálnak!</string>
+  <string name="knightsCanJumpOverObstacles">A huszárok átugorhatják az akadályokat!
+Szökj ki és szerezd meg a csillagokat!</string>
+  <string name="knightComplete">Gratulálunk! Elsajátítottad a huszár mozgását.</string>
+  <string name="thePawn">A gyalog</string>
+  <string name="itMovesForwardOnly">Csak előre tud lépni</string>
+  <string name="pawnIntro">A gyalogok gyengék, de nagy lehetőséget rejtenek.</string>
+  <string name="pawnsMoveOneSquareOnly">A gyalogok csak egy mezőt léphetnek.
+Viszont amikor elérik a tábla túlsó felét, erősebb figurává változnak!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Többnyire a királynővé változtatás a legjobb.
+De néha egy huszár is jól jöhet!</string>
+  <string name="pawnsMoveForward">A gyalogok előre lépnek,
+de átlósan ütnek!</string>
+  <string name="captureThenPromote">Üsd ki, és változtasd át!</string>
+  <string name="useAllThePawns">Használd az összes gyalogot!
+Nem kell átváltoztatni.</string>
+  <string name="aPawnOnTheSecondRank">A második sorban levő gyalogok kettőt is léphetnek!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Szedd fel az összes csillagot!
+Nem kell átváltoztatni.</string>
+  <string name="pawnComplete">Gratulálunk! Kiismerted a gyalogok rejtelmeit.</string>
+  <string name="pawnPromotion">Gyalog átváltozás</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">A gyalogod elérte a tábla szélét!</string>
+  <string name="itNowPromotesToAStrongerPiece">És most átváltozik egy erősebb figurává.</string>
+  <string name="selectThePieceYouWant">Válaszd ki a kívánt figurát!</string>
+  <string name="fundamentals">Alapfok</string>
+  <string name="capture">Ütés</string>
+  <string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
+  <string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
+  <string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le sötét figuráit!
+És ne veszítsd el a sajátaidat.</string>
+  <string name="captureComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
+  <string name="protection">Védelem</string>
+  <string name="keepYourPiecesSafe">Védd meg a figuráidat</string>
+  <string name="protectionIntro">Keresd meg az ellenfeled által megtámadott figurákat, és védd meg őket!</string>
+  <string name="protectionComplete">Gratulálunk! Egy figura amit nem veszítesz el kész nyereség!</string>
+  <string name="escape">Megtámadtak!
+Menekülj a fenyegtéstől!</string>
+  <string name="noEscape">Nincs menekvés,
+de meg tudod védeni!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne engedd kiütni
+a védtelen figuráidat!</string>
+  <string name="combat">Harc</string>
+  <string name="captureAndDefendPieces">Figurák kiütése és védelme</string>
+  <string name="combatIntro">Egy jó harcos egyaránt ismeri a támadást és a védekezést!</string>
+  <string name="combatComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
+  <string name="checkInOne">Egy lépéses sakk</string>
+  <string name="attackTheOpponentsKing">Támadd meg az ellenfél királyát</string>
+  <string name="checkInOneIntro">Hogy sakkot adj az ellenfelednek, támadd meg a királyát. Meg kell védenie!</string>
+  <string name="checkInOneGoal">Támadd meg az ellenfél királyát egy lépésben!</string>
+  <string name="checkInOneComplete">Gratulálunk! Sakkban tartottad az ellenfeled, kénytelen volt védeni a királyát!</string>
+  <string name="outOfCheck">Sakk elhárítása</string>
+  <string name="defendYourKing">Védd a királyod</string>
+  <string name="outOfCheckIntro">Sakkban vagy! El kell menekülnöd vagy hárítanod a támadást.</string>
+  <string name="escapeWithTheKing">Menekülj a királlyal!</string>
+  <string name="theKingCannotEscapeButBlock">A királyod nem menekülhet,
+de elháríthatod a támadást!</string>
+  <string name="youCanGetOutOfCheckByTaking">Hárítsd el a sakkot
+az ellenfél figurájának leütésével.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ez a huszár a védelmeden
+keresztül is sakkot ad!</string>
+  <string name="escapeOrBlock">Menekülj el a királlyal
+vagy hárítsd el a támadást!</string>
+  <string name="outOfCheckComplete">Gratulálunk! A királyt nem lehet leütni, de figyelj hogy mindig megvédhesd a sakktól!</string>
+  <string name="mateInOne">Egy lépéses matt</string>
+  <string name="defeatTheOpponentsKing">Győzd le az ellenfél királyát</string>
+  <string name="mateInOneIntro">Győzöl ha az ellenfeled nem tudja elhárítani a sakkot.</string>
+  <string name="attackYourOpponentsKing">Támadd meg az ellenfeled királyát úgy,
+hogy ne tudja kivédeni!</string>
+  <string name="mateInOneComplete">Gratulálunk! Most már tudod hogyan nyerhetsz meg egy játszmát!</string>
+  <string name="intermediate">Középfok</string>
+  <string name="boardSetup">Tábla felállítása</string>
+  <string name="howTheGameStarts">Hogyan kezdődik a játék</string>
+  <string name="boardSetupIntro">A két hadsereg egymással szemben, készen a harcra.</string>
+  <string name="thisIsTheInitialPosition">Ez minden sakkjátszma
+kezdő állása!
+Lépj akármit a folytatáshoz.</string>
+  <string name="firstPlaceTheRooks">Először a bástyákat helyezd el!
+A sarokban van a helyük.</string>
+  <string name="thenPlaceTheKnights">Ezután a huszárokat tedd a helyükre!
+A bástyák mellett állnak.</string>
+  <string name="placeTheBishops">Majd a futókat!
+Ők a huszárok mellett állnak.</string>
+  <string name="placeTheQueen">Majd a vezért!
+Sajátmagával azonos színű mezőn áll.</string>
+  <string name="placeTheKing">Helyezd el a királyt!
+A vezér mellett áll.</string>
+  <string name="pawnsFormTheFrontLine">A gyalogok alkotják a frontvonalat.
+A folytatáshoz lépj bármit.</string>
+  <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
+  <string name="castling">Sáncolás</string>
+  <string name="theSpecialKingMove">A király speciális lépése</string>
+  <string name="castlingIntro">Helyezd a királyod biztonságba, és mozgósítsd a bástyádat!</string>
+  <string name="castleKingSide">Lépj a királyoddal két mezőt,
+a király-szárnyra sáncoláshoz!</string>
+  <string name="castleQueenSide">Lépj a királyoddal két mezőt,
+a vezér-szárnyra sáncoláshoz!</string>
+  <string name="theKnightIsInTheWay">A huszár útban van!
+Vidd odébb, és sáncolj a király szárnyra.</string>
+  <string name="castleKingSideMovePiecesFirst">Sáncolj a király-szárnyra!
+Először el kell lépned a figuráiddal.</string>
+  <string name="castleQueenSideMovePiecesFirst">Sáncolj a vezér-szárnyra!
+Először el kell lépned a figuráiddal.</string>
+  <string name="youCannotCastleIfMoved">Nem sáncolhatsz ha a király
+vagy a bástya már lépett.</string>
+  <string name="youCannotCastleIfAttacked">Nem sáncolhtasz ha
+a királyt menet közben támadás éri.
+Blokkold a sakkot és azután sáncolj!</string>
+  <string name="findAWayToCastleKingSide">Találd meg a módját hogy
+a király-szárnyra sáncolj!</string>
+  <string name="findAWayToCastleQueenSide">Találd meg a módját hogy
+a vezér-szárnyra sáncolj!</string>
+  <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">A gyalog egyik speciális lépése</string>
+  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, ugyanúgy kiütheted mintha csak egyet lépett volna.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett
+két mezőt a gyaloggal
+Üsd ki en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant ütés csak közvetlenül
+az ellenfél gyalog lépése
+után lehetséges.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant csak akkor lehetséges
+amikor a gyalogod az 5. sorban van.</string>
+  <string name="takeAllThePawnsEnPassant">Üsd ki az összes gyalogot en passant!</string>
+  <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
+  <string name="stalemate">Patt</string>
+  <string name="theGameIsADraw">A döntetlen játszma</string>
+  <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
+A játszma döntetlen: senki sem győzött vagy vesztett.</string>
+  <string name="stalemateGoal">Hogy bepattoljuk sötétet:
+- Sötétnek nem lehet lépése
+- Nincs sakkban.</string>
+  <string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
+  <string name="advanced">Haladó</string>
+  <string name="pieceValue">Figura érték</string>
+  <string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>
+  <string name="pieceValueIntro">A mozgékonyabb figuráknak nagyobb az értéke!
+Királynő = 9
+Bástya = 5
+Futó = 3
+Huszár = 3
+Gyalog = 1
+A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
+  <string name="queenOverBishop">Üsd ki a legértékesebb figurát!
+Vezér &gt; Futó</string>
+  <string name="takeThePieceWithTheHighestValue">Üsd ki a legértékesebb figurát!</string>
+  <string name="pieceValueComplete">Gratulálunk! Most már ismered a figurák anyagi értékét!
+Vezér = 9
+Bástya = 5
+Futó = 3
+Huszár = 3
+Gyalog = 1</string>
+  <string name="checkInTwo">Sakk két lépésben</string>
+  <string name="twoMovesToGiveCheck">Adj sakkot két lépésből</string>
+  <string name="checkInTwoIntro">Találd meg azt a kombinációt, ami két lépésben sakkot ad az ellenfél királyának!</string>
+  <string name="checkInTwoGoal">Támadd meg az ellenfél királyát két lépésből!</string>
+  <string name="checkInTwoComplete">Gratulálunk! Sakkban tartottad az ellenfeled, kénytelen volt védeni a királyát!</string>
+  <string name="whatNext">Mi következik?</string>
+  <string name="youKnowHowToPlayChess">Gratulálunk, már tudod hogyan sakkoz! Szeretnél erősebben játszani?</string>
+  <string name="register">Regisztráció</string>
+  <string name="getAFreeLichessAccount">Szerezz ingyenes Lichess fiókot</string>
+  <string name="practice">Gyakorolj</string>
+  <string name="learnCommonChessPositions">Tanulj meg gyakori sakk állásokat</string>
+  <string name="puzzles">Feladványok</string>
+  <string name="exerciseYourTacticalSkills">Fejleszd a taktikai készséged</string>
+  <string name="videos">Videók</string>
+  <string name="watchInstructiveChessVideos">Nézz tanulságos sakk videókat</string>
+  <string name="playPeople">Játssz emberekkel</string>
+  <string name="opponentsFromAroundTheWorld">Ellenfelek a világ minden tájáról</string>
+  <string name="playMachine">Játssz a géppel</string>
+  <string name="testYourSkillsWithTheComputer">Tedd próbára magad a számítógéppel</string>
+  <string name="letsGo">Rajta!</string>
+  <string name="stageX">%s. szint</string>
+  <string name="awesome">Klassz!</string>
+  <string name="excellent">Kiváló!</string>
+  <string name="greatJob">Szép munka!</string>
+  <string name="perfect">Tökéletes!</string>
+  <string name="outstanding">Kiváló!</string>
+  <string name="wayToGo">Ez a beszéd!</string>
+  <string name="yesYesYes">Igen, igen, igen!</string>
+  <string name="youreGoodAtThis">Megy ez neked!</string>
+  <string name="nailedIt">Megcsináltad.</string>
+  <string name="rightOn">Csont nélkül!</string>
+  <string name="stageXComplete">%s. szint teljesítve</string>
+  <string name="yourScore">Pontszámod</string>
+  <string name="next">Következő</string>
+  <string name="backToMenu">Vissza a menübe</string>
+  <string name="puzzleFailed">A megoldás sikertelen!</string>
+  <string name="retry">Újra</string>
+</resources>

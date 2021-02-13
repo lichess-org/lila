@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Lichess實況主</string>
+  <string name="lichessStreamer">Lichess實況主</string>
+  <string name="live">直播</string>
+  <string name="offline">離線</string>
+  <string name="currentlyStreaming">正在直播: %s</string>
+  <string name="lastStream">上次直播 %s</string>
+  <string name="becomeStreamer">成為Lichess實況主</string>
+  <string name="doYouHaveStream">您有Twitch或是Youtube的頻道嗎?</string>
+  <string name="hereWeGo">我們開始吧 ！</string>
+  <string name="allStreamers">所有的實況主</string>
+  <string name="editPage">編輯實況頁面</string>
+  <string name="yourPage">您的實況頁面</string>
+  <string name="downloadKit">下載實況工具</string>
+  <string name="xIsStreaming">%s正在實況</string>
+  <string name="rules">實況規則</string>
+  <string name="rule1">當您在Lichess直播時,請在您的直播關鍵詞上標記\"Lichess\"和分類\"Chess\"</string>
+  <string name="rule2">當您在直播與Lichess不相關的東西時,請移除這些關鍵詞</string>
+  <string name="rule3">Lichess將會自動檢測您的直播並啟用以下特權：</string>
+  <string name="perks">使用關鍵詞直播的好處</string>
+  <string name="perk1">在您的Lichess個人資料頁面上獲得一個燃燒的實況主圖示</string>
+  <string name="perk2">快速到達實況主列表頂部</string>
+  <string name="perk3">通知您的Lichess追蹤者</string>
+  <string name="perk4">在您的遊戲, 比賽與研究中顯示直播</string>
+  <string name="approved">您已通過直播審核</string>
+  <string name="pendingReview">您的直播正在被版主審核</string>
+  <string name="pleaseFillIn">請填入您的直播資訊並上傳一張圖片</string>
+  <string name="whenReady">當您準備好要成為Lichess實況主時, %s</string>
+  <string name="requestReview">請由版主複審</string>
+  <string name="anotherLanguage">如果您的直播是英語以外的語言,請在您的直播標題的開頭括號內包含正確的語言標籤 (%s) 
+例如 : 您可以用\"[RU]\"表示俄語、\"[TR]\"表示土耳其語、\"[FR]\"表示法語等等
+將此放入Twitch或YouTube頁面的直播標題，而不是Lichess直播設置
+如果您的直播是英語，無需包含語言標籤。</string>
+  <string name="twitchUsername">您的Twitch用戶名或是網址</string>
+  <string name="optionalOrEmpty">可選，如果沒有，請留空</string>
+  <string name="youtubeChannel">你的YouTube頻道名稱或網址</string>
+  <string name="streamerName">您在Lichess上的直播名稱</string>
+  <plurals name="keepItShort">
+    <item quantity="other">請保持簡短: 最多%s個字</item>
+  </plurals>
+  <string name="visibility">可見於實況主頁面上</string>
+  <string name="whenApproved">當通過版主審核時</string>
+  <string name="headline">標題</string>
+  <string name="tellUsAboutTheStream">請用一句話形容您的直播</string>
+  <string name="longDescription">詳細說明</string>
+  <string name="xStreamerPicture">%s實況主圖片</string>
+  <string name="changePicture">更換/刪除您的圖片</string>
+  <string name="uploadPicture">上傳一張圖片</string>
+  <string name="deletePicture">删除圖片</string>
+  <string name="maxSize">檔案大小限制：%s</string>
+  <string name="installBlocker">安裝惡意軟件攔截器！</string>
+  <string name="beSafe">遠離Twitch和Youtube上廣告和追踪器的騷擾
+Lichess 推薦免費且開放的 uBlock Origin</string>
+</resources>

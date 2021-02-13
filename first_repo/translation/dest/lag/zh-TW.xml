@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLichessLagging">Lichess伺服器Lag了嗎?</string>
+  <string name="measurementInProgressThreeDot">正在檢查連線</string>
+  <string name="noAndYourNetworkIsGood">沒有，而且您的網路是正常的</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">沒有，但是您的網路不穩</string>
+  <string name="yesItWillBeFixedSoon">是的，我會盡快被修復!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">棋局因為以下條件而lag(這些數字越小越好):</string>
+  <string name="lichessServerLatency">Lichess 伺服器延遲數據</string>
+  <string name="lichessServerLatencyExplanation">每個人在服務器上處理移動所花費的時間都一樣，取決於服務器負載。玩家越多，伺服器的負擔就越高。
+但是我們的開發者會盡力將其保持在較低水平，它很少超過10ms的延遲</string>
+  <string name="networkBetweenLichessAndYou">在您和Lichess之間的網路延遲數據</string>
+  <string name="networkBetweenLichessAndYouExplanation">從您的電腦向Lichess服務器發送移動信息並得到回復所花費的時間取決於您到Lichess (法國)的距離以及網路連接的質量。
+Lichess開發人員無法修復您的wifi或使網速變快。</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">您可以在任何時間找到延遲數據，只要在您的使用者名稱上點一下</string>
+  <string name="lagCompensation">延遲補償</string>
+  <string name="lagCompensationExplanation">我們彌補了網路延遲，這包括持續的延遲和偶爾的延遲尖峰。
+到目前為止，基於時間控制和補償延遲存在一些限制和啟發，因此，對於兩個玩家來說，結果都應該是公平的。
+所以，比對手高的網路延遲並不是一個障礙！</string>
+</resources>

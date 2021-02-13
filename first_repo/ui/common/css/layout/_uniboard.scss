@@ -1,0 +1,18 @@
+body {
+  --board-scale: 1;
+
+  @include breakpoint($mq-zoom-enabled) {
+    // --zoom: 80; defined in the HTML, loaded from server
+    --board-scale: calc((var(--zoom) / 100) * 0.7 + 0.3);
+  }
+}
+
+@include breakpoint($mq-col1-uniboard) {
+  body {
+    --col1: 1;
+  }
+
+  .main-board cg-board {
+    border-radius: 0;
+  }
+}

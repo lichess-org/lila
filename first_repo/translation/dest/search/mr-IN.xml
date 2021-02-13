@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Shodha</string>
+  <string name="advancedSearch">प्रगत शोध</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">%s बुद्धिबळ खेळात शोधा</item>
+    <item quantity="other">%s बुद्धिबळ खेळात शोधा</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">एक खेळ सापडला</item>
+    <item quantity="other">%s खेळ सापडले</item>
+  </plurals>
+  <string name="opponentName">प्रतिस्पर्ध्याचे नाव</string>
+  <string name="loser">अपयशी</string>
+  <string name="from">पासून</string>
+  <string name="to">ते</string>
+  <string name="humanOrComputer">प्रतिस्पर्धी मनुष्य आहे की कॉम्प्युटर</string>
+  <string name="aiLevel">A.I. श्रेणी</string>
+  <string name="source">स्त्रोत</string>
+  <string name="nbTurns">चाली</string>
+  <string name="result">परिणाम</string>
+  <string name="winnerColor">विजेत्याचा रंग</string>
+  <string name="date">दिनांक</string>
+  <string name="sortBy">या क्रमानुसार लावा</string>
+  <string name="analysis">विश्लेषण</string>
+  <string name="onlyAnalysed">खेळात कॉम्प्युटर विश्लेषण उपलब्ध आहे</string>
+</resources>

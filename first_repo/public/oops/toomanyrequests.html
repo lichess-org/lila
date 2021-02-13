@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Too many requests • lichess.org</title>
+    <style>
+      html,
+      body,
+      a {
+        font: 16px monospace;
+        background: #000;
+        color: #ebd488;
+        text-align: center;
+        line-height: 1.6em;
+      }
+
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      @media (max-width: 767px) {
+        .game {
+          display: none;
+        }
+
+        .hide-for-mobile {
+          display: none;
+        }
+
+        body {
+          padding: 0 10px;
+          box-sizing: border-box;
+        }
+      }
+    </style>
+    <meta content="noindex, nofollow" name="robots" />
+  </head>
+  <body>
+    <h1>lichess.org - too many requests</h1>
+    <p>
+      Your network has sent too many requests! Try again later.<br />
+      <span class="hide-for-mobile">In the meantime, try out that fun little game:</span>
+    </p>
+    <div class="game">
+      <iframe
+        src="//lichess1.org/assets/vendor/ChessPursuit/bin-release/index.html"
+        frameborder="0"
+        width="400"
+        height="500"
+      >
+      </iframe>
+    </div>
+    <p>
+      If you are connecting from a school or a chess club,<br />
+      you can contact us at <a href="mailto:contact@lichess.org">contact@lichess.org</a><br />
+      and ask us to lift the limitation for your IP address.
+    </p>
+    <p>
+      Please mention your IP address in the email;<br />
+      you can <a href="http://whatismyip.host/" target="_blank" rel="noopener noreferrer">find it on this page</a>.
+    </p>
+  </body>
+</html>

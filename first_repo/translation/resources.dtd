@@ -1,0 +1,7 @@
+<!ELEMENT resources (string|plurals)*>
+<!ELEMENT string (#PCDATA)>
+<!ATTLIST string name ID #REQUIRED>
+<!ELEMENT plurals (item+)>
+<!ATTLIST plurals name ID #REQUIRED>
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST item quantity (zero|one|two|few|many|other) #REQUIRED>

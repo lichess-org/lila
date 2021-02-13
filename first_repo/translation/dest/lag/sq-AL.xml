@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLichessLagging">A ka ngecje në Lichess?</string>
+  <string name="measurementInProgressThreeDot">Duke u bërë matjet...</string>
+  <string name="noAndYourNetworkIsGood">Jo. Dhe rrjeti juaj është në rregull.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Jo. Dhe rrjeti juaj nuk është në rregull.</string>
+  <string name="yesItWillBeFixedSoon">Po. Do të ndreqet së shpejti!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Dhe tani, përgjigjja e gjatë! Ngecja e lojës përbëhet nga dy vlera që nuk ndërlidhen (sa më e ultë aq më mirë):</string>
+  <string name="lichessServerLatency">Lidhja me serverin e Lichess</string>
+  <string name="lichessServerLatencyExplanation">Koha që nevojitet për tu procesuar një lëvizje në server. Është e njejtë për të gjithë, dhe varet vetëm nga ngarkesa e serverit. Sa më shumë lojtarë, aq më shumë ngritet, por developerat e Lichess e bëjnë të pamundurën për ta mbajtur sa më të ultë. Rrallë e kalon 10ms.</string>
+  <string name="networkBetweenLichessAndYou">Rrjeti mes ju dhe Lichess</string>
+  <string name="networkBetweenLichessAndYouExplanation">Koha e nevojshme për tu dërguar një lëvizje nga kompjuteri juaj deri te serveri i Lichess, dhe koha e nevojshme për të marrë përgjigjje nga serveri. Është specifike për distancën tuaj nga Lichess (Francë), dhe nga kualiteti i shpejtësisë së internetit tuaj. Developerat e Lichess nuk mund t\'ua ndreqin wifi-n tuaj e as ta bëjnë dritën të lëvizë më shpejtë.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Ju mund ti shikoni të dy këto vlera në çdo kohë, duke klikuar në emrin tuaj të përdoruesit në shiritin e sipërm.</string>
+  <string name="lagCompensation">Kompensimi i ngecjes</string>
+  <string name="lagCompensationExplanation">Lichess kompenson ngecjen e rrjetit. Kjo përfshin ngecjen e mbajtur dhe ngritjet e rastësishme të ngecjeve. Ekzistojnë limite dhe hyristika të bazuara në kontrollin e kohës dhe ngecjes së kompensuar deri atëherë, ashtu që rezultati të jetë i arsyshëm për të dy lojtarët. Si rezultat, nëse keni ngecje më të madhe se kundërshtari juaj, prapë nuk do të jeni të hendikepuar!</string>
+</resources>

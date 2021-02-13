@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">بثوث ليشس</string>
+  <string name="lichessStreamer">بثوث ليشس</string>
+  <string name="live">مباشر!</string>
+  <string name="offline">غير متصل</string>
+  <string name="currentlyStreaming">يبث حاليا: %s</string>
+  <string name="lastStream">آخر بث %s</string>
+  <string name="becomeStreamer">اصبح ستريمرز لموقع الليتش</string>
+  <string name="doYouHaveStream">هل لديك قناة تويتش أو يوتيوب؟</string>
+  <string name="hereWeGo">فلنبدأ!</string>
+  <string name="allStreamers">جميع الستريمرز</string>
+  <string name="editPage">تعديل صفحة البث</string>
+  <string name="yourPage">صفحة البث الخاصة بك</string>
+  <string name="downloadKit">تحميل streamer kit</string>
+  <string name="xIsStreaming">%s يقوم بعمل بث</string>
+  <string name="rules">قواعد البث</string>
+  <string name="rule1">قم بإدراج الكلمة المفتاحية \"lichess.org\" في عنوان البث الخاص بك ولا تنسى كذلك تصنيفه تحت فئة \"Chess\".</string>
+  <string name="rule2">قم بنزع الكلمة المفتاحية عندما تبث أمور غير متعلقة بليشيس.</string>
+  <string name="rule3">سيقوم ليشيس بالتعرف على بثك بصورة آلية ويمنحه الإمتيازات التالية:</string>
+  <string name="perks">فوائد البث باستعمال الكلمة المفتاحية</string>
+  <string name="perk1">احصل على أيقونة بث مشتعلة على ملفك الشخصي \"Lichess\".</string>
+  <string name="perk2">احجز مكانك مباشرة في أعلى القائمة الخاصة بالستريمرز.</string>
+  <string name="perk3">أعلِم متابعيك على Lichess.</string>
+  <string name="perk4">أظهر البث الخاص بك في المباريات والبطولات التي تلعبها إضافة إلى الدراسات.</string>
+  <string name="approved">لقد تمت الموافقة على البث الخاص بك.</string>
+  <string name="pendingReview">تتم حاليا مراجعة البث الخاص بك من قبل المشرفين.</string>
+  <string name="pleaseFillIn">الرجاء ملء معلومات البث الخاصة بك، و قم برفع صورة.</string>
+  <string name="whenReady">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
+  <string name="requestReview">أطلب مراجعة مشرف</string>
+  <string name="anotherLanguage">إذا كنت تقوم بالبث بلغة غير الإنجليزية، قم بإدراج الوسم المناسب (%s) بين معقّفين وهذا في بداية عنوان البث الخاص بك.
+على سبيل المثال، تستطيع إدراج \"[AR]\" من أجل اللغة العربية، و \"[FR]\" من أجل الفرنسية، و \"[TR]\" من أجل التركية، إذا كان البث باللغة الإنجليزية فلا حاجة إلى إضافة الوسم.
+لا تقم بوضع الوسم في إعدادات بث Lichess الخاصة بك، بل قم بوضعه في عنوان البث الخاص باليوتيوب أو تويتش.</string>
+  <string name="twitchUsername">اسم مستخدم تويتش أو عنوان URL الخاص بك</string>
+  <string name="optionalOrEmpty">اختياري. اتركه فارغاً إذا لم يكن هناك</string>
+  <string name="youtubeChannel">معرف قناة اليوتيوب أو عنوان URL الخاص بك</string>
+  <string name="streamerName">اسم البث الخاص بك على Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="zero">ابقه قصيرًا: %s حرف أقصى</item>
+    <item quantity="one">ابقه قصيرًا: حرف واحد كحد أقصى</item>
+    <item quantity="two">ابقه قصيرًا: حرفان كحد أقصى</item>
+    <item quantity="few">ابقه قصيرًا: %s حروف كحد أقصى</item>
+    <item quantity="many">ابقه قصيرًا: %s حرف أقصى</item>
+    <item quantity="other">ابقه قصيرًا: %s حرف كحد أقصى</item>
+  </plurals>
+  <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
+  <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
+  <string name="headline">العنوان</string>
+  <string name="tellUsAboutTheStream">أخبرنا عن البث الخاص بك في جملة واحدة</string>
+  <string name="longDescription">وصف مطول</string>
+  <string name="xStreamerPicture">%s صورة الستريمر</string>
+  <string name="changePicture">تغيير/حذف صورتك</string>
+  <string name="uploadPicture">رفع صورة</string>
+  <string name="deletePicture">حذف الصورة</string>
+  <string name="maxSize">الحجم الأقصى: %s</string>
+  <string name="installBlocker">قم بتثبيت مضاد البرمجيات الخبيثة!</string>
+  <string name="beSafe">ابقى آمناً من الإعلانات والمتعقبين
+بينما تنشر على تويتش ويوتيوب.
+يوصي موقع Lichess باستخدام إضافة uBlock Origin
+المجانية والمفتوحة المصدر.</string>
+</resources>

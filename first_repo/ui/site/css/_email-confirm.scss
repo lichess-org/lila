@@ -1,0 +1,86 @@
+.email-confirm {
+  h2 {
+    font-size: 1.7em;
+    margin-top: 2em;
+  }
+
+  h3 {
+    @extend %base-font;
+
+    font-size: 1.2em;
+    display: inline;
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+
+    30% {
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  ol li {
+    margin: 2em 0;
+    list-style: decimal inside;
+  }
+
+  &.anim {
+    h2,
+    ol li {
+      opacity: 0;
+      transform: translateY(100px);
+      animation: appear 3s forwards;
+      animation-delay: 2s;
+    }
+
+    ol li:nth-child(2) {
+      animation-delay: 6s;
+    }
+
+    ol li:nth-child(3) {
+      animation-delay: 10s;
+    }
+
+    ol li:nth-child(4) {
+      animation-delay: 14s;
+    }
+
+    ol li:nth-child(5) {
+      animation-delay: 18s;
+    }
+  }
+}
+
+.email-confirm-help {
+  form {
+    margin-top: 2em;
+  }
+
+  .form-split {
+    justify-content: flex-start;
+  }
+
+  .form-group:last-child {
+    display: flex;
+    align-items: center;
+  }
+
+  .button {
+    margin-left: 1em;
+  }
+
+  .replies {
+    font-size: 1.2em;
+  }
+
+  .replies p {
+    margin-bottom: 1em;
+  }
+}

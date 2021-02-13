@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s статистикасы</string>
+  <string name="viewTheGames">Ойындарын көру</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">болжамалы</string>
+  <string name="notEnoughRatedGames">Тұрақты рейтингке ие болу үшін бағаламалы ойын саны жеткіліксіз.</string>
+  <string name="progressOverLastXGames">Кейінгі %s ойын нәтижесіндегі жетістігі:</string>
+  <string name="ratingDeviation">Рейтинг ауытқуы: %s.</string>
+  <string name="ratingDeviationHelp">Аз мәндер рейтингтің тұрақтырақ екенін білдіреді. %s-ден жоғары болса, рейтинг болжамалы деген сөз.</string>
+  <string name="totalGames">Барлық ойындар</string>
+  <string name="ratedGames">Бағаланатын ойындар</string>
+  <string name="tournamentGames">Жарыс ойындары</string>
+  <string name="berserkedGames">Берсерк ойындары</string>
+  <string name="timeSpentPlaying">Ойынмен өткен уақыт</string>
+  <string name="averageOpponent">Орташа қарсылас</string>
+  <string name="victories">Жеңістер</string>
+  <string name="defeats">Жеңілістер</string>
+  <string name="disconnections">Байланыс үзілуі</string>
+  <string name="notEnoughGames">Ойындар саны жеткіліксіз</string>
+  <string name="highestRating">Ең үлкен рейтинг: %s</string>
+  <string name="lowestRating">Ең төмен рейтинг: %s</string>
+  <string name="fromXToY">%1$s-ден %2$s-ке дейін</string>
+  <string name="winningStreak">Жеңістер тізбегі</string>
+  <string name="losingStreak">Жеңілістер тізбегі</string>
+  <string name="longestStreak">Ең ұзақ тізбек: %s</string>
+  <string name="currentStreak">Ағымдағы тізбек: %s</string>
+  <string name="bestRated">Үздік бағаламалы жеңістер</string>
+  <string name="worstRated">Ең төмен бағаламалы жеңілістер</string>
+  <string name="gamesInARow">Қатарынан ойналған ойындар</string>
+  <string name="lessThanOneHour">Ойындар арасы бір сағаттан кем</string>
+  <string name="maxTimePlaying">Ойынмен өткен ең ұзақ уақыт</string>
+  <string name="now">қазір</string>
+</resources>

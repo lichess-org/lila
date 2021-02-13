@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Ziehe, um zu beginnen</string>
+  <string name="puzzlesSolved">Aufgaben gelöst</string>
+  <string name="newDailyHighscore">Neuer Tagesrekord!</string>
+  <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
+  <string name="newMonthlyHighscore">Neuer Monatsrekord!</string>
+  <string name="newAllTimeHighscore">Neuer Allzeit-Rekord!</string>
+  <string name="previousHighscoreWasX">Dein vorheriger Rekord war %s</string>
+  <string name="playAgain">Erneut spielen</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 Durchlauf</item>
+    <item quantity="other">%s Durchläufe</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Hat einen Durchlauf von %2$s gespielt</item>
+    <item quantity="other">Hat %1$s Durchläufe von %2$s gespielt</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Punktestand</string>
+  <string name="moves">Züge</string>
+  <string name="accuracy">Genauigkeit</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombination</string>
+  <string name="time">Zeit</string>
+  <string name="timePerMove">Zeit pro Zug</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Schwierigste, gelöste Aufgabe</string>
+  <string name="puzzlesPlayed">Gespielte Aufgaben</string>
+  <string name="newRun">Neuer Durchlauf (drücke: Leertaste)</string>
+  <string name="endRun">Beende den Durchlauf (drücke: Eingabetaste)</string>
+  <string name="highscores">Rekorde</string>
+  <string name="viewBestRuns">Beste Durchläufe anzeigen</string>
+  <string name="bestRunOfDay">Bester Durchlauf des Tages</string>
+  <string name="runs">Durchläufe</string>
+</resources>

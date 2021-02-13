@@ -1,0 +1,251 @@
+<configuration>
+
+  <!-- STDOUT that accepts WARN and ERROR -->
+  <!-- Exceptions yes, stacktraces no -->
+  <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
+    <encoder><pattern>%-5level %logger{30} - %message%n%xException{0}</pattern></encoder>
+  </appender>
+
+  <!-- STDOUT that accepts INFO and above -->
+  <appender name="STDOUT_INFO" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
+    <encoder><pattern>%-5level %logger{30} - %message%n%xException{0}</pattern></encoder>
+  </appender>
+
+  <!-- File where every INFO and above is written -->
+  <appender name="ALL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>INFO</level></filter>
+    <file>/var/log/lichess/all.log</file>
+    <encoder><pattern>%date %-5level %logger{30} %message%n%xException{50}</pattern></encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/var/log/lichess/all-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>14</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <!-- Asynchronously write to the above file -->
+  <appender name="ASYNC_ALL_FILE" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="ALL_FILE" />
+  </appender>
+
+  <!-- uncapped stacktraces for error logs - looking for stack overflows -->
+  <!-- requires -XX:MaxJavaStackTraceDepth=100000 -->
+  <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+    <file>/var/log/lichess/error.log</file>
+    <encoder><pattern>%date %-5level %logger %message%n%xException</pattern></encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/var/log/lichess/error-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>14</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <appender name="ERRORLINE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+    <file>/var/log/lichess/errorline.log</file>
+    <encoder><pattern>%date %-5level %logger{40} %message%n%xException{0}</pattern></encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/var/log/lichess/errorline-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+      <maxHistory>14</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <!-- By default, write WARNs in STDOUT, and INFOs in the ALL file -->
+  <root level="INFO">
+    <appender-ref ref="ASYNC_ALL_FILE" />
+    <appender-ref ref="STDOUT_WARN" />
+    <appender-ref ref="ERROR_FILE" />
+    <appender-ref ref="ERRORLINE_FILE" />
+  </root>
+
+  <logger name="boot" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="play" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="akka" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+  <logger name="reactivemongo" level="INFO"><appender-ref ref="STDOUT_INFO" /></logger>
+
+  <logger name="puzzle" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/puzzle.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/puzzle-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="swiss" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/swiss.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/swiss-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="relay" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/relay.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/relay-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="lobby" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/lobby.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/lobby-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="pool" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/pool.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/pool-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="tournament" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/tournament.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/tournament-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="ratelimit" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/ratelimit.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/ratelimit-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="round" level="WARN">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/round.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException{3}</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/round-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="cheat" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/cheat.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/cheat-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="fishnet" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/fishnet.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/fishnet-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="plan" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/plan.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/plan-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>365</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="csrf" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/csrf.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/csrf-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="http" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/http.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/http-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="auth" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/auth.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/auth-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="report" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/report.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/report-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="sandbag" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/sandbag.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/sandbag-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+  <logger name="security" level="INFO">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/security.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/security-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
+
+  <!-- Avoid "HTTP header is larger than 4096 bytes." warnings -->
+  <logger name="play.core.server.netty.PlayDefaultUpstreamHandler" level="ERROR" />
+  <!-- Cookie failed message authentication check warning !-->
+  <logger name="play.api.mvc.LegacySessionCookieBaker" level="ERROR" />
+  <!-- Invalid URL query parameters warning !-->
+  <logger name="play.core.server.netty.NettyModelConversion" level="ERROR" />
+  <!-- TolerantText body parser tried to parse request 108654561 as text body with charset UTF-8, but it contains invalid characters! -->
+  <logger name="play.api.mvc.PlayBodyParsers" level="ERROR" />
+  <!-- allows failing async computations instead of returning null, without seeing the WARN -->
+  <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
+    <appender-ref ref="STDOUT" />
+  </logger>
+
+</configuration>

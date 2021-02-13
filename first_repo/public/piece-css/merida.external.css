@@ -1,0 +1,12 @@
+.is2d .pawn.white {background-image:url('/assets/piece/merida/wP.svg')}
+.is2d .knight.white {background-image:url('/assets/piece/merida/wN.svg')}
+.is2d .bishop.white {background-image:url('/assets/piece/merida/wB.svg')}
+.is2d .rook.white {background-image:url('/assets/piece/merida/wR.svg')}
+.is2d .queen.white {background-image:url('/assets/piece/merida/wQ.svg')}
+.is2d .king.white {background-image:url('/assets/piece/merida/wK.svg')}
+.is2d .pawn.black {background-image:url('/assets/piece/merida/bP.svg')}
+.is2d .knight.black {background-image:url('/assets/piece/merida/bN.svg')}
+.is2d .bishop.black {background-image:url('/assets/piece/merida/bB.svg')}
+.is2d .rook.black {background-image:url('/assets/piece/merida/bR.svg')}
+.is2d .queen.black {background-image:url('/assets/piece/merida/bQ.svg')}
+.is2d .king.black {background-image:url('/assets/piece/merida/bK.svg')}

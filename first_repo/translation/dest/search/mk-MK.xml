@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Барајте</string>
+  <string name="advancedSearch">Напредно пребарување</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Пребарување во %s партија</item>
+    <item quantity="other">Пребарување во %s партии</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Пронајдена е една партија</item>
+    <item quantity="other">Пронајдени се %s партии</item>
+  </plurals>
+  <string name="opponentName">Име на противникот</string>
+  <string name="loser">Губитник</string>
+  <string name="from">Од</string>
+  <string name="to">До</string>
+  <string name="humanOrComputer">Покажува дали играчот е човек или компјутер</string>
+  <string name="aiLevel">Ниво на В.И.</string>
+  <string name="source">Извор</string>
+  <string name="nbTurns">Број на потези</string>
+  <string name="result">Резултат</string>
+  <string name="winnerColor">Победничка боја</string>
+  <string name="date">Датум</string>
+  <string name="sortBy">Подреди по</string>
+  <string name="analysis">Анализа</string>
+  <string name="onlyAnalysed">Само партии со достапна компјутерска анализа</string>
+</resources>

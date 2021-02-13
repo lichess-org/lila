@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Ομάδα</string>
+  <string name="teams">Ομάδες</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s μέλος</item>
+    <item quantity="other">%s μέλη</item>
+  </plurals>
+  <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="newTeam">Νέα ομάδα</string>
+  <string name="myTeams">Οι ομάδες μου</string>
+  <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
+  <string name="joinTeam">Συμμετοχή στην ομάδα</string>
+  <string name="quitTeam">Αποχώρηση από την ομάδα</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Χειροκίνητη εξέταση αιτήσεων εισαγωγής</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιηθεί, οι παίκτες θα πρέπει να γράψουν μια αίτηση για να συμμετάσχουν στην ομάδα, την οποία μπορείτε να απορρίψετε ή να αποδεχτείτε.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Αρχηγός ομάδας</item>
+    <item quantity="other">Αρχηγοί ομάδας</item>
+  </plurals>
+  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
+  <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
+  <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
+  <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s αίτημα ένταξης</item>
+    <item quantity="other">%s αιτήματα ένταξης</item>
+  </plurals>
+  <string name="willBeReviewed">Το αίτημα ένταξη σας θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
+  <string name="beingReviewed">Το αίτημά σας για ένταξη στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
+  <string name="teamBattle">Μάχη ομάδας</string>
+  <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
+  <string name="teamTournament">Τουρνουά ομάδας</string>
+  <string name="teamTournamentOverview">Ένα Αρένα τουρνουά στο οποίο μπορούν να συμμετέχουν μόνο παίκτες της ομάδας σου</string>
+  <string name="messageAllMembers">Στείλτε μήνυμα σε όλα τα μέλη</string>
+  <string name="messageAllMembersOverview">Στείλτε προσωπικό μήνυμα σε κάθε μέλος της ομάδας</string>
+  <string name="messageAllMembersLongDescription">Στείλτε ένα προσωπικό μήνυμα σε όλα τα μέλη της ομάδας σας.
+Μπορείτε να χρησιμοποιήσετε αυτή τη δυνατότητα για να καλέσετε τους παίκτες να συμμετέχουν σε ένα τουρνουά ή σε μια ομαδική μάχη.
+Οι παίκτες που πιθανόν δεν θέλουν να λαμβάνουν τα μηνύματά σας μπορεί να αποχωρήσουν από την ομάδα.</string>
+  <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Μήπως θα θέλατε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
+  <string name="usersWhoCanManageThisTeam">Χρήστες που μπορούν να διαχειριστούν αυτή την ομάδα</string>
+  <string name="leadersChat">Chat αρχηγών</string>
+  <string name="closeTeam">Κλείστε την ομάδα</string>
+  <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="teamPassword">Κωδικός ομάδας</string>
+  <string name="teamPasswordDescriptionForLeader">(Προαιρετικό) Ένας κωδικός πρόσβασης που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
+  <string name="incorrectTeamPassword">Εσφαλμένος κωδικός ομάδας.</string>
+  <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
+</resources>

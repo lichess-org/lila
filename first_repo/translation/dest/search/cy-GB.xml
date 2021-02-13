@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Chwilio</string>
+  <string name="advancedSearch">Chwilio uwch</string>
+  <string name="loser">Colledwr</string>
+  <string name="from">O</string>
+  <string name="to">I</string>
+  <string name="aiLevel">Safon y AI</string>
+  <string name="result">Canlyniad</string>
+  <string name="date">Dyddiad</string>
+  <string name="analysis">Dadansoddi</string>
+</resources>

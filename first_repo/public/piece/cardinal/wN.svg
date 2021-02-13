@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient5283" x1="-455.39" x2="-419.41" y1="-338.23" y2="-338.23" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fcfcf8" offset="0"/>
+   <stop stop-color="#e7e7e3" offset="1"/>
+  </linearGradient>
+  <filter id="filter883" color-interpolation-filters="sRGB">
+   <feFlood flood-color="rgb(0,0,0)" flood-opacity=".49804" result="flood"/>
+   <feComposite in="flood" in2="SourceGraphic" operator="in" result="composite1"/>
+   <feGaussianBlur in="composite1" result="blur" stdDeviation="0.6"/>
+   <feOffset dx="1.6" dy="1.4" result="offset"/>
+   <feComposite in="SourceGraphic" in2="offset" result="composite2"/>
+  </filter>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <path transform="matrix(1.0008 0 0 1.0001 462.75 363.26)" d="m-443.92-332.95c2.1009-1.1978 3.3224-1.1829 5.4627-2.1989 0.22422 7.4244-9.9007 7.4558-8.0862 15.359l26.405 3e-3s3.0953-32.271-16.782-33.622c0 0-1.9141-3.6047-3.9255-3.2494 0 0-1.0646 0.83736-0.45698 3.2062l-2.3043 0.74586s-3.2138-2.0715-4.1238-1.27c-0.85792 0.3693 1.0982 3.2795 1.8764 3.9859-0.78861 1.1422-8.5424 12.108-8.9603 15.68-0.26637 2.277 2.0214 3.5181 3.7159 4.1189 0.96421 0.34185 1.7364 0.47635 1.7364 0.47635 1.4243-0.25593 3.3422-2.0372 5.4431-3.235z" clip-rule="evenodd" fill="url(#linearGradient5283)" fill-rule="evenodd" filter="url(#filter883)" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-width="1.0995"/>
+ <path d="m23.941 28.086s4.4334-1.8669 4.2241-5.8348" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1.1"/>
+ <g>
+  <path d="m19.104 18.473s0.59407-1.8464 3.4529-2.2941" stroke="#000" stroke-linecap="round" stroke-width="1.4"/>
+  <ellipse cx="21.027" cy="18.001" rx="1.2415" ry="1.1681" style="paint-order:markers fill stroke"/>
+  <path d="m9.1691 29.241s0.25452-0.68232 0.92457-1.1184" fill="#fff" stroke="#000" stroke-linecap="round" stroke-width="1.4"/>
+  <path d="m11.64 32.283c0.69051-0.8867 1.5832-1.3188 2.3844-1.9567" fill="#fff" stroke="#000" stroke-linecap="round" stroke-width="1.2"/>
+ </g>
+ <path d="m30.806 14.872c4.3051 2.6334 8.4595 9.2509 8.1094 26.08" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="1.4"/>
+</svg>

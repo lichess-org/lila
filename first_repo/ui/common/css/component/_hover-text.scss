@@ -1,0 +1,9 @@
+.hover-text {
+  &::after {
+    content: attr(title);
+  }
+
+  &:hover::after {
+    content: attr(data-hover-text);
+  }
+}

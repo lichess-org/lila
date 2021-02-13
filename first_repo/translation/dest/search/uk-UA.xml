@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Пошук</string>
+  <string name="advancedSearch">Розширений пошук</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Шукати у %s партії</item>
+    <item quantity="few">Шукати у %s партіях</item>
+    <item quantity="many">Шукати у %s партіях</item>
+    <item quantity="other">Шукати у %s партіях</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Знайдено одну партію</item>
+    <item quantity="few">%s партії знайдено</item>
+    <item quantity="many">%s партій знайдено</item>
+    <item quantity="other">%s партій знайдено</item>
+  </plurals>
+  <string name="opponentName">Ім\'я суперника</string>
+  <string name="loser">Той, хто програв</string>
+  <string name="from">З</string>
+  <string name="to">До</string>
+  <string name="humanOrComputer">Чи суперник гравця був людиною чи комп\'ютером</string>
+  <string name="aiLevel">Рівень A. I</string>
+  <string name="source">Джерело</string>
+  <string name="nbTurns">Кількість ходів</string>
+  <string name="result">Результат</string>
+  <string name="winnerColor">Колір переможця</string>
+  <string name="date">Дата</string>
+  <string name="sortBy">Підбирати за</string>
+  <string name="analysis">Аналіз</string>
+  <string name="onlyAnalysed">Лише ігри з комп\'ютерним аналізом</string>
+</resources>

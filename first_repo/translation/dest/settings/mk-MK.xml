@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Поставки</string>
+  <string name="closeAccount">Затвори го профилот</string>
+  <string name="closingIsDefinitive">Затворањето на сметката е трајно. Неповратно. Сигурни сте?</string>
+  <string name="cantOpenSimilarAccount">Нема да ви биде дозволено да отворите нова сметка со истото име, дури и со различна големина на буквите.</string>
+  <string name="changedMindDoNotCloseAccount">Се предомислив, не го затварај мојот профил</string>
+  <string name="closeAccountExplanation">Сигурни сте дека сакате да ја затворите вашата сметка? Тоа е трајна одлука. НИКОГАШ ПОВЕЌЕ нема да можете да се најавите.</string>
+  <string name="thisAccountIsClosed">Овој профил е затворен.</string>
+</resources>

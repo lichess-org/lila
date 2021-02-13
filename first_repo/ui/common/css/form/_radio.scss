@@ -1,0 +1,38 @@
+group.radio {
+  @extend %box-neat, %flex-wrap;
+
+  overflow: hidden;
+
+  div {
+    flex: 1 1 auto;
+    position: relative;
+  }
+
+  input {
+    position: absolute;
+    left: -99999px;
+  }
+
+  label {
+    @extend %metal, %flex-center;
+
+    justify-content: center;
+    padding: 10px;
+    height: 100%;
+    cursor: pointer;
+    border-right: $border;
+    user-select: none;
+
+    &:hover {
+      @extend %metal-hover;
+    }
+  }
+
+  div:last-child label {
+    border-right: 0;
+  }
+
+  input:checked + label {
+    @extend %active;
+  }
+}

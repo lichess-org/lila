@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Hľadať</string>
+  <string name="advancedSearch">Pokročilé vyhľadávanie</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Hľadať v %s šachovej partii</item>
+    <item quantity="few">Hľadať v %s šachových partiách</item>
+    <item quantity="many">Hľadať v %s šachových partiách</item>
+    <item quantity="other">Hľadať v %s šachových partiách</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Nájdená 1 partia</item>
+    <item quantity="few">Nájdené %s partie</item>
+    <item quantity="many">Nájdených %s hier</item>
+    <item quantity="other">Nájdených %s hier</item>
+  </plurals>
+  <string name="opponentName">Meno súpera</string>
+  <string name="loser">Porazený</string>
+  <string name="from">Z</string>
+  <string name="to">Do</string>
+  <string name="humanOrComputer">Súper bol človek alebo počítač</string>
+  <string name="aiLevel">Úroveň umelej inteligencie (AI)</string>
+  <string name="source">Zdroj</string>
+  <string name="nbTurns">Počet ťahov</string>
+  <string name="result">Výsledok</string>
+  <string name="winnerColor">Farba výťaza</string>
+  <string name="date">Dátum</string>
+  <string name="sortBy">Zoradiť podľa</string>
+  <string name="analysis">Analýza</string>
+  <string name="onlyAnalysed">Iba hry, kde je k dispozícii počítačová analýza</string>
+</resources>

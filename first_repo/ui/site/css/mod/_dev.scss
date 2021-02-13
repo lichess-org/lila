@@ -1,0 +1,43 @@
+#settings form {
+  margin-top: 1rem;
+  border-top: 1px dotted $c-border;
+  padding-top: 1rem;
+  display: flex;
+
+  p,
+  input,
+  > div {
+    flex: 1 1 40%;
+    margin-right: 1rem;
+  }
+
+  .button {
+    color: $c-font-dim;
+  }
+}
+
+#dev-cli {
+  form {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  form input {
+    font-size: 1.3em;
+    width: 100%;
+    font-family: monospace;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  pre {
+    margin: 1em 0;
+    padding: 1em;
+    display: block;
+    font-size: 1.3em;
+    background: #000;
+    color: #759900;
+  }
+}

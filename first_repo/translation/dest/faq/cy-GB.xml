@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="positions">safleoedd</string>
+  <string name="configure">ffurfweddu</string>
+  <string name="accounts">Cyfrifau</string>
+  <string name="noUpperCaseDot">Na.</string>
+  <string name="guidelines">canllawiau</string>
+  <string name="howToThreeDots">Sut i...</string>
+</resources>

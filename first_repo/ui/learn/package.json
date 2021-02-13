@@ -1,0 +1,27 @@
+{
+  "name": "learn",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org chess performance statistics",
+  "main": "src/main.js",
+  "keywords": [
+    "chess",
+    "lichess",
+    "learn"
+  ],
+  "author": "ornicar",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0"
+  },
+  "dependencies": {
+    "chess.js": "github:ornicar/chess.js#learn",
+    "chessground": "^4.4",
+    "common": "2.0.0",
+    "mithril": "github:ornicar/mithril.js#lila-1"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

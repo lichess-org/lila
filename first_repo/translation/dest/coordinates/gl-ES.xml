@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">Coordenadas</string>
+  <string name="coordinateTraining">Adestramento de coordenadas</string>
+  <string name="averageScoreAsWhiteX">Puntuación media con brancas: %s</string>
+  <string name="averageScoreAsBlackX">Puntuación media con negras: %s</string>
+  <string name="knowingTheChessBoard">Coñecer as coordenadas do taboleiro é unha importante habilidade no xadrez:</string>
+  <string name="mostChessCourses">A maioría dos cursos e exercicios de xadrez empregan a notación alxebraica extensivamente.</string>
+  <string name="talkToYourChessFriends">Fai que sexa máis doado falar cos teus amigos xadrecistas, xa que ambos entendedes a \"linguaxe do xadrez\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Podes analizar unha partida máis efectivamente se non precisas buscar o nome das casas.</string>
+  <string name="aSquareNameAppears">O nome dunha casa aparece no taboleiro e debes pinchar na casa correcta. Tés 30 segundos para recoñecer tantas casas como podas!</string>
+  <string name="startTraining">Comezar adestramento</string>
+</resources>

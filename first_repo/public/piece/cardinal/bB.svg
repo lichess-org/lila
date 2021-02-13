@@ -1,0 +1,26 @@
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="linearGradient2720-5" x1="13197" x2="13341" y1="-9591.1" y2="-9591.1" gradientTransform="matrix(.26458 0 0 .26458 -3485.7 2562.6)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#3c3c3c" offset="0"/>
+   <stop offset="1"/>
+  </linearGradient>
+  <filter id="filter2809-5-8-5-1-4-7-5" color-interpolation-filters="sRGB">
+   <feGaussianBlur result="blur" stdDeviation="0.01 0.01"/>
+  </filter>
+  <filter id="filter845" color-interpolation-filters="sRGB">
+   <feFlood flood-color="rgb(0,0,0)" flood-opacity=".49804" result="flood"/>
+   <feComposite in="flood" in2="SourceGraphic" operator="in" result="composite1"/>
+   <feGaussianBlur in="composite1" result="blur" stdDeviation="0.3"/>
+   <feOffset dx="1" dy="1" result="offset"/>
+   <feComposite in="SourceGraphic" in2="offset" result="composite2"/>
+  </filter>
+ </defs>
+ <g clip-rule="evenodd" shape-rendering="geometricPrecision">
+  <g fill-rule="evenodd">
+   <path d="m25 6.55c-0.8776 0-1.6536 0.2905-2.2614 0.9028-0.641 0.6123-0.9456 1.3212-0.9456 2.159 0 1.2248 0.5739 2.127 1.7555 2.7394-2.9691 3.2861-8.7077 5.8222-8.8109 10.828 0.01 2.6744 1.4661 4.7641 3.3084 6.7996l-1.1142 5.8332c1.6971 0.5416 3.0898 0.9417 4.8276 1.1281-3.8819 4.5762-10.787-1.7402-15.209 2.9326l2.3302 3.5771c5.5928-3.962 13.374 3.6729 16.12-3.9621 2.7459 7.6351 10.527 0 16.12 3.9621l2.3297-3.5771c-4.422-4.6728-11.327 1.6436-15.209-2.9326 1.7377-0.1864 3.1302-0.5865 4.8273-1.1281l-1.1142-5.8332c1.8423-2.0355 3.3012-4.1252 3.3084-6.7996-0.1032-5.0062-5.8418-7.5422-8.8109-10.828 1.1816-0.6124 1.7555-1.5146 1.7555-2.7394 0-0.8378-0.304-1.5467-0.9454-2.159-0.6077-0.6123-1.3837-0.9028-2.2614-0.9028z" fill="url(#linearGradient2720-5)" filter="url(#filter845)" image-rendering="optimizeQuality" stroke="#e6e6e6" stroke-linejoin="round" stroke-width="1.1"/>
+   <ellipse class="st15" transform="matrix(.33232 0 0 .24998 -879.01 102.47)" cx="2720.3" cy="-271.4" rx="16.3" ry="2.5" fill="#e6e6e6" filter="url(#filter2809-5-8-5-1-4-7-5)" image-rendering="optimizeQuality" stroke-width=".91798"/>
+   <ellipse class="st15" cx="25" cy="9.6117" rx="1.1401" ry="1.1474" fill="#e6e6e6" image-rendering="optimizeQuality" stroke-width=".26458"/>
+  </g>
+  <path d="m21.333 23.266h7.333m-3.6663-3.3339v6.7524" fill="none" image-rendering="optimizeQuality" stroke="#e6e6e6" stroke-width="1.4"/>
+ </g>
+</svg>

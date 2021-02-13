@@ -1,0 +1,68 @@
+{
+  "name": "lila",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org: the forever free, adless and open source chess server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila.git"
+  },
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis and the gang",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://lichess.org",
+  "engines": {
+    "node": ">=10",
+    "yarn": "^1"
+  },
+  "dependencies": {
+    "prettier": "2.2.1",
+    "xml2js": "0.4.19"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
+  },
+  "workspaces": [
+    "ui",
+    "ui/analyse",
+    "ui/ceval",
+    "ui/challenge",
+    "ui/chat",
+    "ui/chess",
+    "ui/cli",
+    "ui/common",
+    "ui/dasher",
+    "ui/editor",
+    "ui/game",
+    "ui/nvui",
+    "ui/speech",
+    "ui/palantir",
+    "ui/insight",
+    "ui/learn",
+    "ui/lobby",
+    "ui/notify",
+    "ui/puzzle",
+    "ui/round",
+    "ui/serviceWorker",
+    "ui/simul",
+    "ui/site",
+    "ui/swiss",
+    "ui/tournament",
+    "ui/tournamentSchedule",
+    "ui/tournamentCalendar",
+    "ui/tree",
+    "ui/msg",
+    "ui/dgt",
+    "ui/storm",
+    "ui/@build/rollupProject",
+    "ui/@types/lichess",
+    "ui/@types/cash"
+  ]
+}
