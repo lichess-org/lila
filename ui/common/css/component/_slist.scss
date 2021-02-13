@@ -1,0 +1,58 @@
+.slist {
+  width: 100%;
+  border-bottom: $border;
+
+  thead {
+    @extend %metal, %roboto;
+
+    th {
+      border-top: $border;
+      border-bottom: $border;
+      padding: .5rem .8rem;
+    }
+
+    th.large {
+      font-size: 1.2rem;
+    }
+  }
+
+  td {
+    padding: 1rem;
+
+    .label {
+      font-family: monospace;
+      font-size: .8rem;
+    }
+  }
+
+  tbody tr:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+
+  td:first-child,
+  th:first-child {
+    padding-left: 1.5rem;
+  }
+
+  &-pad {
+    td:first-child,
+    th:first-child {
+      padding-left: var(--box-padding);
+    }
+
+    td:last-child,
+    th:last-child {
+      padding-right: var(--box-padding);
+    }
+  }
+
+  &-invert {
+    tbody tr:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
+
+    tbody tr:nth-child(even) {
+      background: none;
+    }
+  }
+}

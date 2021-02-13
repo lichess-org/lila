@@ -1,0 +1,200 @@
+@import "link";
+@import "board";
+@import "piece";
+
+#dasher_app {
+  @extend %box-radius-left;
+
+  width: 225px;
+
+  .spinner {
+    margin: 20px auto;
+  }
+
+  .status {
+    display: block;
+    position: relative;
+    padding: .8rem;
+    border-top: $border;
+
+    signal {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.7rem;
+    }
+
+    .ping,
+    .server {
+      @extend %roboto;
+
+      display: block;
+    }
+
+    strong {
+      padding: 0 5px;
+    }
+  }
+
+  .head {
+    display: block;
+    padding: 1rem;
+    border-bottom: $border;
+  }
+
+  .head::before {
+    color: $c-dasher;
+    opacity: 0.8;
+  }
+
+  .head:hover::before {
+    opacity: 1;
+  }
+
+  .langs {
+    form {
+      max-height: 400px;
+      overflow: auto;
+    }
+
+    button {
+      display: block;
+      padding: .7rem .7rem .7rem 1rem;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+
+      &:hover {
+        background: $c-dasher-light;
+      }
+    }
+
+    .accepted {
+      border-left: 4px solid $c-dasher;
+    }
+
+    .current {
+      background: $c-dasher !important;
+      color: $c-dasher-over !important;
+      border-left: none;
+    }
+
+    .help {
+      color: $c-link;
+      display: block;
+      padding: .7rem .7rem .7rem 1rem;
+
+      &:hover {
+        background: $c-link;
+        color: $c-link-over;
+      }
+    }
+  }
+
+  .selector {
+    flex: 1 1 100%;
+    margin: .5rem 0;
+
+    a {
+      display: block;
+      padding: .7rem 1rem;
+
+      @include transition(background);
+
+      &:hover {
+        background: $c-dasher-light;
+      }
+
+      &.active {
+        background: $c-dasher !important;
+        color: $c-dasher-over !important;
+      }
+
+      &::before {
+        margin-right: 8px;
+        font-size: 19px;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+
+        @include transition(opacity);
+      }
+
+      &:hover::before {
+        opacity: 1;
+        color: $c-dasher;
+      }
+
+      &.active::before {
+        opacity: 1;
+        color: $c-dasher-over !important;
+      }
+    }
+
+    &.large a {
+      padding: 1rem 1rem;
+    }
+  }
+
+  .zen {
+    a::before {
+      opacity: .5;
+    }
+
+    &:hover a::before {
+      opacity: 1;
+    }
+  }
+
+  .sound {
+    .content {
+      display: flex;
+      margin: 5px 0 5px 5px;
+    }
+
+    .selector a {
+      border-radius: $box-radius-size 0 0 $box-radius-size;
+    }
+
+    .slider {
+      flex: 0 0 $slider-width;
+      margin: 1rem 1.3rem 1rem 1rem;
+    }
+
+    &.silent .slider {
+      opacity: 0.2;
+    }
+  }
+
+  .background {
+    .image p {
+      font-size: .9em;
+      padding: 5px;
+    }
+
+    input {
+      padding: 5px;
+      border: 1px solid #444;
+      width: 100%;
+      background-color: #3e3e3e;
+      color: #fff;
+    }
+  }
+
+  .board .zoom {
+    display: none;
+
+    @include breakpoint($mq-board-resizable) {
+      display: block;
+    }
+
+
+    border-top: $border;
+    padding: 1.5rem;
+  }
+
+  .board .slider {
+    margin-top: 1rem;
+  }
+}

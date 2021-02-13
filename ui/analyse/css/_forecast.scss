@@ -1,0 +1,159 @@
+.forecast {
+  user-select: none;
+
+  @include transition;
+
+  position: relative;
+
+  &.loading .box,
+  &.loading .add {
+    opacity: .5;
+  }
+
+  .overlay {
+    @extend %link-overlay, %flex-center;
+  }
+
+  .box {
+    @extend %box-neat-force;
+  }
+
+  .top {
+    @extend %metal;
+
+    border-bottom: $border;
+    padding: .5em .7em;
+  }
+
+  .entry {
+    @extend %flex-center-nowrap;
+
+    padding: .7em .1em .7em .6em;
+    margin-left: -.1em;
+
+    @include transition;
+
+    position: relative;
+    border-bottom: $border;
+
+    &::before {
+      margin-left: -.6em;
+      opacity: .4;
+    }
+
+    .del {
+      @extend %button-shadow;
+
+      position: absolute;
+      right: 5px;
+      top: 8px;
+      width: 1.5em;
+      height: 1.5em;
+      line-height: .8em;
+      text-align: center;
+      display: block;
+      font-size: .9em;
+      opacity: 0;
+
+      @include transition;
+
+      background: $c-bad;
+      color: $c-bad-over;
+      padding: .25em;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    &:hover .del {
+      opacity: .6;
+    }
+
+    .del:hover {
+      opacity: 1;
+    }
+  }
+
+  .add {
+    @extend %button-none, %flex-center-nowrap;
+
+    width: 100%;
+    padding: .7em;
+    text-align: left;
+    color: $c-font-dim;
+    cursor: inherit;
+
+    &::before {
+      font-size: 2.2em;
+      opacity: .6;
+    }
+
+    &.enabled {
+      @extend %metal;
+
+      cursor: pointer;
+      color: $c-font;
+
+      @include transition;
+
+      &::before {
+        opacity: .7;
+        color: $c-good;
+      }
+
+      &:hover {
+        @extend %metal-hover;
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+
+    > span {
+      font-size: .9em;
+
+      > span {
+        color: $c-font-dim;
+      }
+    }
+  }
+
+  sans {
+    @extend %roboto, %flex-center;
+  }
+
+  san {
+    @extend %san;
+  }
+
+  sans > * {
+    display: inline-block;
+    margin-right: .2em;
+  }
+
+  .add sans {
+    @extend %flex-wrap;
+  }
+
+  .on-my-turn {
+    @extend %flex-center-nowrap;
+
+    margin-top: 1.3em;
+    text-transform: none;
+    text-align: left;
+    font-weight: normal;
+    width: 100%;
+
+    &::before {
+      font-size: 2.2em;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    > span {
+      @extend %flex-column;
+    }
+  }
+}

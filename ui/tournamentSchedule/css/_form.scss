@@ -1,0 +1,72 @@
+.tour__form {
+  #form3-name {
+    width: 48% !important;
+    display: inline-block;
+  }
+
+  .conditions {
+    margin: 1.5em 0;
+    border-color: rgba(128, 128, 128, 0.3);
+
+    legend {
+      text-align: center;
+    }
+
+    p {
+      margin: 20px;
+    }
+
+    .form {
+      display: none;
+    }
+
+    &.visible {
+      margin: 0;
+      padding: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+
+      .form {
+        display: block;
+      }
+    }
+  }
+}
+
+.tour__faq {
+  margin-top: $block-gap;
+
+  h2 {
+    margin: 1.2em 0 .5em 0;
+  }
+}
+
+.textcomplete-dropdown {
+  @extend %popup-shadow;
+
+  background: $c-bg-popup;
+
+  li {
+    list-style: none;
+    border-top: $border;
+    padding: .5em;
+    min-width: 100px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  li.textcomplete-header,
+  li.textcomplete-footer {
+    display: none;
+  }
+
+  li:hover,
+  .active {
+    background-color: mix($c-accent, $c-bg-popup, 10%);
+  }
+
+  a {
+    color: $c-font;
+  }
+}

@@ -1,0 +1,332 @@
+.explorer-box {
+  position: relative;
+  flex: 2.5 1 0px;
+  white-space: nowrap;
+
+  @include transition;
+
+  transition-delay: 0.3s;
+  overflow-y: scroll;
+  font-size: .9em;
+
+  &.reduced {
+    flex: 0.3 3 0px;
+
+    &:hover {
+      flex: 1 2 0px;
+    }
+  }
+
+  .overlay {
+    @extend %link-overlay;
+
+    display: none;
+  }
+
+  &.loading .overlay {
+    display: block;
+  }
+
+  tbody {
+    @include transition;
+  }
+
+  &.loading tbody {
+    opacity: 0.4;
+  }
+
+  .title span {
+    display: block;
+    margin-right: 1.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: text;
+  }
+
+  .empty {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .message {
+      text-align: center;
+    }
+  }
+
+  tr {
+    @include transition;
+
+    &:nth-child(even) {
+      background: $c-bg-zebra;
+    }
+
+    &:hover {
+      background: mix($c-secondary, $c-bg-box, 20%);
+    }
+  }
+
+  td {
+    cursor: pointer;
+    padding-left: 7px;
+  }
+
+  .moves td:first-child {
+    @extend %san;
+
+    line-height: 30px;
+    padding-left: 7px;
+  }
+
+  .moves td:nth-child(2) {
+    font-size: .75em;
+    text-align: right;
+  }
+
+  .moves td:last-child {
+    width: 100%;
+    padding-right: 7px;
+  }
+
+  .bar span {
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    border: 0 solid $c-border;
+    border-width: 1px 0;
+    height: 16px;
+    line-height: 14px;
+    font-size: .9em;
+  }
+
+  .white {
+    background: if($theme-light, #fff, #ccc);
+    box-shadow: 0 -5px 7px rgba(0, 0, 0, if($theme-light, 0.1, 0.25)) inset;
+
+    @if $theme-dark {
+      color: #222;
+    }
+  }
+
+  .draws,
+  .black {
+    color: if($theme-light, #fff, #ddd);
+    box-shadow: 0 5px 7px rgba(255, 255, 255, if($theme-light, 0.2, 0.1)) inset;
+  }
+
+  .draws {
+    background: if($theme-light, #a0a0a0, #666);
+  }
+
+  .black {
+    background: if($theme-light, #555, #333);
+    color: #ddd;
+  }
+
+  .bar span:first-child {
+    @extend %box-radius-left;
+
+    border-left-width: 1px;
+  }
+
+  .bar span:last-child {
+    @extend %box-radius-right;
+
+    border-right-width: 1px;
+  }
+
+  .games {
+    width: 100%;
+  }
+
+  .games td {
+    padding: 5px 0 5px 7px;
+    max-width: 110px;
+  }
+
+  .games td span {
+    @extend %ellipsis;
+
+    display: block;
+  }
+
+  .games result {
+    display: block;
+    text-align: center;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-size: .9em;
+  }
+
+  .game_menu {
+    background: $c-secondary;
+    cursor: default;
+    padding: 0;
+
+    .game_title {
+      text-align: center;
+      color: $c-secondary-over;
+      margin: 3px 0 1px 0;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+
+      a {
+        color: #fff;
+        padding: 4px 8px;
+      }
+
+      a:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .tablebase {
+    width: 100%;
+
+    td:first-child {
+      @extend %san;
+
+      font-size: 14px;
+      line-height: 30px;
+      padding-left: 7px;
+    }
+
+    td:last-child {
+      padding-right: 7px;
+      text-align: right;
+    }
+
+    result {
+      padding: 3px 5px;
+      margin-left: 5px;
+      border-radius: 3px;
+      font-size: .9em;
+    }
+  }
+
+  .toconf {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2em;
+    width: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .message {
+    text-align: center;
+    font-style: italic;
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+  &.reduced .message {
+    justify-content: flex-start;
+  }
+
+  .message strong {
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  &:not(.reduced) .message h3,
+  &.reduced:hover .message h3 {
+    font-weight: bold;
+  }
+
+  .message p {
+    white-space: normal;
+    padding: 0 8px;
+    margin: 0 0 8px 0;
+  }
+
+  &.reduced .message p,
+  &.reduced .message button {
+    display: none;
+  }
+
+  &.reduced:hover .message p,
+  &.reduced:hover .message button {
+    display: block;
+  }
+
+  .message button {
+    margin: 0 30px;
+  }
+
+  .message.masters i {
+    font-size: 40px;
+    margin: 10px 0;
+  }
+
+  .config {
+    section {
+      margin: 0.4em $block-gap 0 $block-gap;
+    }
+
+    section.save {
+      text-align: center;
+      padding: 15px 0 10px 0;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      line-height: 2em;
+    }
+
+    .choices {
+      display: flex;
+
+      span {
+        flex-grow: 1;
+        padding: 5px 0;
+        text-align: center;
+        cursor: pointer;
+
+        @include transition;
+
+        border: $border;
+        border-width: 1px 0 1px 1px;
+        text-transform: capitalize;
+
+        &:first-child {
+          @extend %box-radius-left;
+        }
+
+        &:last-child {
+          @extend %box-radius-right;
+
+          border-right-width: 1px;
+        }
+
+        &:hover {
+          background: #fff;
+        }
+
+        &.selected {
+          background: $c-secondary;
+          color: $c-secondary-over;
+          text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
+          font-weight: bold;
+          box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;
+        }
+      }
+    }
+  }
+}

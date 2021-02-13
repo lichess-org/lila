@@ -1,0 +1,23 @@
+.context-streamers {
+  max-height: 20vh;
+  overflow-y: auto;
+}
+
+.context-streamer {
+  @extend %nowrap-hidden, %box-radius-bottom, %box-shadow, %flex-center-nowrap;
+
+  height: 2.2em;
+  color: $c-secondary-over !important;
+  background: mix($c-secondary, $c-bg-page, 60%);
+
+  @include transition;
+
+  &::before {
+    font-size: 1.3em;
+    margin-left: .4em;
+  }
+
+  &:hover {
+    background: mix($c-secondary, $c-bg-page, 80%);
+  }
+}

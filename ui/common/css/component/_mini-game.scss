@@ -1,0 +1,46 @@
+.mini-game {
+  @extend %nowrap-hidden;
+
+  display: block;
+
+  &, &:hover {
+    color: $c-font;
+  }
+
+  &__player {
+    @extend %flex-between-nowrap;
+
+    padding: 3px 2px 0 2px;
+
+    &:first-child {
+      padding: 0 2px 2px 2px;
+    }
+  }
+
+  &__user {
+    overflow: hidden;
+  }
+
+  .rating {
+    @extend %roboto;
+
+    font-size: .9em;
+    margin-left: 1ch;
+  }
+
+  &__clock {
+    @extend %roboto;
+
+    padding: 0 1ch;
+
+    &.clock--run {
+      color: $c-accent;
+      font-weight: bold;
+    }
+  }
+
+  &__result {
+    font-weight: bold;
+    margin-right: 1ch;
+  }
+}

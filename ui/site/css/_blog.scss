@@ -1,0 +1,265 @@
+.blog {
+  .atom {
+    font-size: 2.6em;
+    color: $c-accent;
+  }
+
+  .meta-headline {
+    @extend %box-shadow;
+
+    background: $c-bg-zebra;
+    padding: 1.4rem var(--box-padding) 0.4rem var(--box-padding);
+    text-align: center;
+  }
+
+  .meta {
+    span {
+      display: inline-block;
+      margin-right: 2em;
+    }
+
+    margin-bottom: 1.4rem;
+  }
+
+  .headline {
+    display: block;
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  .illustration,
+  [data-oembed] {
+    text-align: center;
+  }
+
+  .illustration img {
+    max-height: 24em;
+    margin: 3em 0;
+  }
+
+  img,
+  .block-img {
+    max-width: 100%;
+  }
+
+  .block-img img {
+    width: auto;
+    height: auto;
+  }
+
+  twitter-widget, [data-oembed] iframe {
+    max-width: calc(100vw - 2 * var(--box-padding)) !important;
+    margin: 30px auto !important;
+  }
+
+  &.post.no-icon .illustration {
+    display: none;
+  }
+
+  &.post h1 {
+    a {
+      font-size: .6em;
+      vertical-align: middle;
+    }
+  }
+
+  .body {
+    font-size: 1.2em;
+    margin: 0 var(--box-padding) 4em var(--box-padding);
+    cursor: initial;
+    line-height: 1.8;
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    .block-img {
+      text-align: center;
+    }
+
+    .block-img + p > em:first-child {
+      margin-top: -20px;
+      display: block;
+      font-size: .8em;
+      text-align: center;
+    }
+
+    ol, ul {
+      margin: 25px;
+    }
+
+    li {
+      list-style: disc outside;
+    }
+
+    h2 {
+      border-bottom: 1px solid $c-border;
+      margin: 1.6em 0 1em 0;
+    }
+
+    h3 {
+      @include fluid-size("font-size", 18px, 30px);
+
+      font-weight: bold;
+      margin: 1.6em 0 1em 0;
+    }
+
+    h4 {
+      font-size: 1.4em;
+    }
+
+    img {
+      padding: 5px;
+      border: 1px solid $c-border;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-size: 0.9em;
+      line-height: 1.2;
+      border: 1px solid $c-border;
+      padding: 1em;
+    }
+
+    .embed {
+      @extend %video;
+
+      margin: $block-gap auto;
+    }
+  }
+
+  &.index {
+    @extend %flex-column;
+
+    h2 {
+      @extend %box-padding-horiz;
+
+      margin: 2rem 0;
+    }
+
+    article {
+      h2 {
+        text-align: center;
+      }
+
+      margin-bottom: 2em;
+    }
+
+    .meta {
+      text-align: center;
+    }
+
+    .parts {
+      @extend %box-padding-horiz;
+
+      margin-top: 3em;
+
+      .illustration {
+        float: left;
+        max-width: 40%;
+        margin: 0 3em 2em 0;
+
+        img {
+          margin: 0;
+        }
+      }
+
+      .body {
+        font-size: 1.15em;
+        line-height: 1.7;
+      }
+    }
+
+    .more {
+      margin-top: 2em;
+      text-align: center;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 40px;
+
+    .button {
+      margin: 0 var(--box-padding);
+      text-transform: none;
+      white-space: normal;
+      display: block;
+
+      &::before {
+        vertical-align: bottom;
+      }
+    }
+
+    .connect-links {
+      margin-top: 2em;
+
+      a {
+        display: inline-block;
+        margin: 0 .5em;
+        font-size: .85em;
+      }
+    }
+  }
+}
+
+.blog-cards {
+  @extend %box-padding;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  grid-gap: 3vmin;
+
+  > a {
+    @extend %box-neat-force;
+
+    @include transition;
+
+    background: $c-bg-zebra;
+    color: $c-font;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
+    }
+
+    time {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: .2em .5em;
+      background: #111;
+      color: #ddd;
+      border-radius: 0 0 $box-radius-size 0;
+      opacity: 1;
+    }
+
+    img {
+      width: 100%;
+      background: $c-bg-zebra;
+    }
+
+    .content {
+      padding: 2vmin;
+    }
+
+    .title {
+      font-size: 1.3em;
+      color: $c-font-clear;
+      display: block;
+    }
+
+    span {
+      @extend %roboto;
+
+      margin-top: 2vmin;
+      display: block;
+    }
+  }
+}

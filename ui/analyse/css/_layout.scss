@@ -1,0 +1,112 @@
+body {
+  /* prevents scroll bar flicker on page height changes */
+  overflow-y: scroll;
+}
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+.analyse {
+  grid-area: main;
+  display: grid;
+
+  &__side {
+    grid-area: side;
+    justify-content: start;
+    margin: $block-gap;
+  }
+
+  &__board,
+  .intro {
+    grid-area: board;
+  }
+
+  &__tools {
+    grid-area: tools;
+  }
+
+  &__controls {
+    grid-area: controls;
+  }
+
+  &__underboard {
+    grid-area: under;
+
+    @include breakpoint($mq-col1-uniboard) {
+      overflow: hidden;
+
+      // helps truncating long study names
+    }
+  }
+
+  &__acpl {
+    grid-area: acpl;
+  }
+
+  .chat__members {
+    grid-area: uchat;
+  }
+
+  .eval-gauge {
+    grid-area: gauge;
+    display: none;
+  }
+
+  --meta-height: auto;
+
+  @include proper-grid {
+    --meta-height: max-content;
+  }
+
+
+  grid-template-rows: auto auto minmax(20em, 30vh);
+  grid-template-areas: 'board' 'controls' 'tools' 'side' 'acpl' 'under' 'chat' 'uchat';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'board      gauge tools' 'under      .     controls' 'under      .     acpl' 'under      .     side' 'chat       .     side' 'uchat      .     side';
+    grid-row-gap: 0;
+
+    &__side,
+    .chat__members,
+    .mchat {
+      margin: $block-gap 0 0 0;
+    }
+
+    &__underboard {
+      margin-top: $block-gap;
+    }
+
+    .eval-gauge {
+      display: block;
+    }
+  }
+
+
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
+  }
+
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
+    grid-template-rows: $meta-height $chat-height 2.5em auto;
+    grid-template-areas: 'side    . board gauge tools' 'chat    . board gauge tools' 'uchat   . under .     controls' 'uchat   . under .     acpl';
+
+    &__side {
+      margin-top: 0;
+    }
+
+    .mchat {
+      min-height: 10em;
+    }
+
+    @include crosstable-large;
+  }
+}

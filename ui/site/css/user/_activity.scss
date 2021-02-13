@@ -1,0 +1,136 @@
+$c-contours: mix($c-brag, $c-shade, 80%);
+
+.activity {
+  section {
+    font-size: 1.2em;
+    margin-left: 1rem;
+    padding-top: 1rem;
+  }
+
+  section h2 {
+    @extend %base-font;
+
+    color: $c-brag;
+    font-size: 1.2em;
+
+    time {
+      font-weight: bold;
+      text-transform: uppercase;
+      background: $c-bg-box;
+    }
+  }
+
+  .entries {
+    margin-top: 0;
+    padding-top: 10px;
+    position: relative;
+  }
+
+  .entry {
+    padding: 1em 0 1em;
+
+    > i {
+      font-size: 24px;
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin-top: -10px;
+      margin-left: -72px;
+      line-height: 39px;
+      text-align: center;
+      background-color: $c-contours;
+      border: 3px solid $c-bg-box;
+      border-radius: 50%;
+      color: #fff;
+    }
+  }
+
+  @include breakpoint($mq-xx-small) {
+    .entries {
+      margin: 30px 50px 0 50px;
+      border-left: 3px solid $c-contours;
+    }
+
+    .entry {
+      padding-left: 45px;
+    }
+  }
+
+
+  .sub {
+    margin: 3px 0;
+    font-size: 1rem;
+  }
+
+  .sub:last-child {
+    margin-bottom: -7px;
+  }
+
+  .sub > div {
+    overflow: hidden;
+  }
+
+  .line {
+    @extend %nowrap-ellipsis;
+
+    .more {
+      flex: 0 1 auto;
+    }
+
+    a {
+      color: $c-font;
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+  }
+
+  rating {
+    @extend %roboto;
+
+    margin-left: .7em;
+
+    .rp {
+      margin-left: .2em;
+    }
+  }
+
+  score {
+    float: right;
+    font-size: .7em;
+    margin-top: 2px;
+
+    > * {
+      margin-left: 8px;
+    }
+
+    strong {
+      @extend %box-radius;
+
+      color: #fff;
+      font-size: 1.2em;
+      padding: 1px 6px;
+      display: inline-block;
+      text-align: center;
+      opacity: .7;
+    }
+  }
+
+  .sub score strong {
+    line-height: 1.6em;
+    padding: 1px 4px;
+  }
+
+  win strong {
+    background: $c-good;
+  }
+
+  draw strong {
+    background: $c-brag;
+  }
+
+  loss strong {
+    background: $c-bad;
+  }
+}

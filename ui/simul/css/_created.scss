@@ -1,0 +1,46 @@
+.simul {
+  .halves {
+    @extend %flex-center-nowrap;
+
+    align-items: stretch;
+  }
+
+  .half {
+    flex: 0 0 50%;
+    margin-bottom: 20px;
+
+    &:first-child {
+      border-right: $border;
+    }
+
+    .variant::before {
+      font-size: 1.6em;
+      opacity: 0.8;
+    }
+
+    tr.help th {
+      padding: 4em 1.5em;
+    }
+
+    td.action {
+      text-align: right;
+    }
+
+    &.candidates tr.me {
+      border-left: 10px solid $c-brag;
+    }
+
+    &.accepted tr.me {
+      border-right: 10px solid $c-brag;
+    }
+  }
+
+  .pull-quote {
+    margin: 2em auto;
+    max-width: 400px;
+  }
+
+  .instructions {
+    text-align: center;
+  }
+}

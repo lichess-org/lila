@@ -1,0 +1,117 @@
+@include crosstable-small;
+
+.crosstable {
+  @extend %box-neat-force;
+
+  width: 100%;
+  line-height: 1.9em;
+  display: flex;
+
+  fill,
+  povs {
+    background: $c-bg-box;
+    flex: 1 1 auto;
+  }
+
+  povs,
+  &__users,
+  &__score,
+  &__matchup {
+    @extend %flex-column;
+
+    text-align: center;
+  }
+
+  &__users,
+  &__score {
+    @extend %metal;
+  }
+
+  &__users {
+    @extend %ellipsis;
+
+    max-width: 40vw;
+    text-align: left;
+
+    a {
+      padding-left: $block-gap;
+    }
+  }
+
+  &__score {
+    flex: 0 0 auto;
+    font-weight: bold;
+
+    span {
+      padding: 0 $block-gap;
+    }
+  }
+
+  &__matchup {
+    flex: 1 1 auto;
+    font-weight: bold;
+    background: mix($c-primary, $c-bg-box, 20%);
+  }
+
+  povs {
+    a {
+      color: $c-font-dim;
+      flex: 0 0 50%;
+    }
+
+    &:hover {
+      @extend %metal;
+
+      a {
+        opacity: 1 !important;
+      }
+    }
+
+    a.loss {
+      opacity: .2;
+    }
+
+    &.current a {
+      background: mix($c-accent, $c-bg-box, 70%);
+      color: #fff;
+      opacity: 1 !important;
+    }
+
+    &.new {
+      border: $c-border;
+    }
+
+    a.loss {
+      opacity: .2;
+    }
+
+    @include breakpoint($mq-not-x-small) {
+      display: none;
+
+      &:nth-last-child(-n+12) {
+        display: flex;
+      }
+    }
+  }
+
+  .sep {
+    @extend %box-radius-left;
+
+    border-left: $border;
+    margin-left: .3em;
+  }
+
+  .win {
+    font-weight: bold;
+    color: $c-good;
+  }
+
+  .loss {
+    color: $c-bad;
+  }
+
+  .unavailable {
+    margin-top: 40px;
+    opacity: 0.7;
+  }
+}

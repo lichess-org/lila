@@ -1,0 +1,59 @@
+#clinput {
+  display: flex;
+  height: $site-header-height;
+
+  input {
+    @extend %page-text;
+
+    line-height: $site-header-height;
+    background: none;
+    padding: 0;
+    border: 0;
+    width: 0;
+
+    @include breakpoint($mq-x-large) {
+      @include transition(width);
+    }
+
+
+    body.clinput & {
+      width: 20ch;
+    }
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .tt-menu {
+    .empty, .spinner {
+      display: none;
+    }
+  }
+}
+
+body.clinput #top {
+  @include breakpoint($mq-not-x-large) {
+    #topnav {
+      display: none;
+    }
+  }
+
+
+  @include breakpoint($mq-not-x-small) {
+    .site-title {
+      display: none;
+    }
+  }
+
+
+  @include breakpoint($mq-not-xx-small) {
+    .site-buttons > *:not(#clinput) {
+      display: none;
+    }
+
+    #clinput {
+      width: 75vw;
+    }
+  }
+}

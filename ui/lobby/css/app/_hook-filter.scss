@@ -1,0 +1,67 @@
+.hook__filters {
+  padding: $block-gap 1.5em;
+  background: fade-out($c-bg-high, 0.5);
+  height: 100%;
+  white-space: nowrap;
+
+  td {
+    padding: 1em 0;
+  }
+
+  td:first-child {
+    font-size: 1.1em;
+    padding-right: 2rem;
+    width: 25%;
+    white-space: normal;
+  }
+
+  .checkable {
+    padding: 4.3px 0;
+  }
+
+  .checkable {
+    @extend %nowrap-ellipsis;
+
+    label, input {
+      vertical-align: middle;
+      cursor: pointer;
+    }
+  }
+
+  .regular-checkbox {
+    @extend %checkbox;
+  }
+
+  tr.variant td:last-child {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  tr.variant .checkable {
+    width: 33.3%;
+  }
+
+  tr.inline .checkable {
+    display: inline-block;
+    padding: 4.3px 20px 4.3px 0;
+  }
+
+  input {
+    margin-right: .3em;
+  }
+
+  .range {
+    display: block;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .actions {
+    margin-top: 1.5em;
+    text-align: right;
+
+    button {
+      margin-left: .3em;
+    }
+  }
+}

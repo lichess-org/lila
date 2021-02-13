@@ -1,0 +1,184 @@
+$col1-panel-height: 30vh;
+$col2-panel-height: 240px;
+
+.comp-off .computer-analysis {
+  display: none !important;
+}
+
+.analyse__underboard {
+  &__menu {
+    @extend %flex-center-nowrap;
+
+    justify-content: center;
+    align-items: flex-start;
+    border-top: 2px solid $c-border;
+
+    > span {
+      @extend %roboto, %box-radius-bottom;
+
+      flex: 1 1 0;
+      text-align: center;
+      font-size: .9em;
+      padding: .4em .1em;
+      cursor: pointer;
+      position: relative;
+
+      @include transition(color, 0.25s);
+
+      &::after {
+        content: "";
+        background: fade-out($c-accent, 0.4);
+        height: 2px;
+        position: absolute;
+        width: 96%;
+        left: 2%;
+        top: -2px;
+
+        @include transition(all, 0.25s);
+
+        transform: scale(0);
+      }
+
+      &.active,
+      &:hover::after {
+        transform: scale(1);
+      }
+
+      &.active {
+        color: $c-accent;
+      }
+    }
+
+    .analyse-hunter & {
+      display: none;
+    }
+  }
+
+  &__panels {
+    --panel-height: #{$col1-panel-height};
+
+    @include breakpoint($mq-col2) {
+      --panel-height: #{$col2-panel-height};
+    }
+
+
+    > div {
+      height: var(--panel-height);
+      display: none;
+      text-align: left;
+
+      &.active {
+        display: block;
+      }
+    }
+
+    .crosstable table {
+      margin-top: 60px;
+    }
+
+    .analyse-hunter & > div {
+      display: block;
+    }
+  }
+
+  .computer-analysis,
+  .ctable {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &.active {
+      display: flex;
+    }
+  }
+
+  .future-game-analysis {
+    text-align: center;
+  }
+
+  .fen-pgn {
+    overflow-x: visible;
+    overflow-y: auto;
+    font-size: .9em;
+
+    > div {
+      @extend %flex-center-nowrap;
+
+      margin-bottom: 1em;
+    }
+
+    .pgn {
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+
+    strong {
+      display: inline-block;
+      margin-right: 1em;
+    }
+
+    .pgn-options {
+      div {
+        @extend %flex-wrap;
+      }
+
+      a {
+        flex: 0 0 50%;
+        line-height: 1.6em;
+      }
+    }
+  }
+
+  &__fen {
+    width: 100%;
+    border: 0;
+    background: none;
+    padding: .3em;
+    margin-right: .5em;
+  }
+}
+
+#acpl-chart,
+#movetimes-chart {
+  width: 100%;
+  height: var(--panel-height);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
+  overflow: hidden;
+}
+
+#acpl-chart-loader {
+  font-size: .9em;
+  position: absolute;
+  top: 91px;
+  left: -1px;
+  background: $c-bg-box;
+  padding: 7px 10px 7px 0;
+  line-height: 20px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  border: $border;
+  border-radius: 0 99px 99px 0;
+
+  span {
+    @extend %nowrap-hidden;
+
+    margin-left: 7px;
+    opacity: 1;
+    transition: 0.5s;
+    width: 100px;
+    display: block;
+
+    .analyse__underboard:hover & {
+      margin-left: 0;
+      width: 0;
+      opacity: 0;
+    }
+  }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+}

@@ -1,0 +1,182 @@
+@import "layout";
+@import "bar-rating";
+
+.coach-edit,
+.coach-picture {
+  .top {
+    display: flex;
+
+    h1 {
+      @extend %roboto;
+
+      margin: 0;
+      padding: 0 !important;
+      font-size: 2rem;
+      line-height: 2;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .picture_wrap img {
+      margin-right: 10px;
+      width: 100px !important;
+      height: 100px !important;
+
+      @include breakpoint($mq-picture) {
+        margin-right: 30px;
+        width: 250px !important;
+        height: 250px !important;
+      }
+    }
+  }
+}
+
+.coach-edit {
+  .top .upload_picture {
+    text-align: center;
+    margin-top: 80px;
+  }
+
+  .overview {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    flex-flow: column;
+  }
+
+  .overview .todo {
+    display: none;
+  }
+
+  .overview.with-todo .todo {
+    @extend %box-radius;
+
+    display: block;
+    border-radius: 20px;
+    padding: 1rem;
+    background: mix($c-error, $c-bg-box, 15%);
+    border: 1px solid $c-error;
+    margin-bottom: 2rem;
+  }
+
+  .overview .todo h3 {
+    margin: 0;
+    color: $c-bad;
+    font-weight: bold;
+  }
+
+  .overview .todo li {
+    list-style: disc inside;
+  }
+
+  .tabs {
+    display: flex;
+    cursor: pointer;
+    margin: 40px 0;
+    text-transform: uppercase;
+
+    > div {
+      flex: 1 1 100%;
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    > div.data-count::after {
+      padding: 2px 6px;
+      font-size: 1.2em;
+      height: auto;
+      line-height: 1.2em;
+      top: 6px;
+    }
+
+    > div:hover {
+      color: $c-primary;
+    }
+
+    > .active {
+      color: $c-primary;
+      border-bottom: 3px solid $c-primary;
+    }
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  .tagify {
+    margin: 0;
+  }
+
+  .status {
+    opacity: 0;
+    transition: 0.5s;
+    text-align: center;
+    color: $c-good;
+  }
+
+  .status.saved {
+    opacity: 1;
+  }
+
+  .reviews {
+    .help {
+      text-align: center;
+    }
+
+    .review {
+      @extend %flex-center;
+
+      justify-content: space-between;
+      padding-top: 40px;
+      border-top: $border;
+      margin-top: 40px;
+
+      .br-readonly a {
+        font-size: 1.5em;
+      }
+    }
+
+    .modded {
+      background: $c-bad;
+      color: $c-bad-over;
+      padding: 8px 10px;
+      margin-bottom: 1em;
+    }
+
+    .content {
+      @extend %break-word;
+
+      margin: 0 20px;
+    }
+
+    .actions {
+      font-size: 1.4em;
+
+      a {
+        padding: .5em .7em;
+      }
+
+      .yes {
+        color: $c-good;
+      }
+
+      .no {
+        color: $c-bad;
+      }
+
+      a:hover {
+        color: $c-good-over;
+        background: $c-good;
+      }
+
+      a.no:hover {
+        background: $c-bad;
+      }
+    }
+  }
+}

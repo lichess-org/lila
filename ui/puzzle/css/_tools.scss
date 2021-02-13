@@ -1,0 +1,156 @@
+.puzzle__tools {
+  @extend %box-neat-force, %flex-column;
+
+  max-height: 90vh;
+
+  /* hack to mitigate safari 10 disaster */
+  background: $c-bg-box;
+
+  .ceval-wrap {
+    flex: 0 0 38px;
+  }
+
+  .ceval {
+    height: 38px;
+  }
+}
+
+.puzzle__moves {
+  flex: 2 1 auto;
+  overflow: auto;
+  border: $border;
+  border-width: 1px 0;
+  position: relative;
+
+  /* required by line::before */
+
+  .tview2 > move {
+    justify-content: space-between;
+
+    glyph {
+      font-size: 1.6em;
+    }
+  }
+
+  move {
+    glyph {
+      vertical-align: middle;
+    }
+
+    &.fail glyph {
+      color: $c-bad;
+    }
+
+    &.good glyph,
+    &.win glyph {
+      color: $c-good;
+    }
+
+    &:hover glyph {
+      color: #fff;
+    }
+  }
+}
+
+.puzzle__feedback {
+  @extend %flex-column;
+
+  flex: 1 0 9rem;
+
+  @include breakpoint($mq-tall) {
+    flex: 1 0 11rem;
+  }
+
+
+  background: $c-bg-high;
+  justify-content: center;
+
+  &:not(.after) {
+    padding: 1em 2em;
+  }
+
+  .player {
+    display: flex;
+    align-items: center;
+  }
+
+  .no-square {
+    flex: 0 0 64px;
+    height: 64px;
+    margin-right: 10px;
+  }
+
+  .is3d & div.no-square {
+    height: 82px;
+  }
+
+  piece {
+    position: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon {
+    display: block;
+    width: 64px;
+    height: 64px;
+    font-size: 50px;
+    line-height: 64px;
+    text-align: center;
+  }
+
+  &.good .icon,
+  .win .icon {
+    color: $c-good;
+  }
+
+  &.fail .icon {
+    color: $c-bad;
+  }
+
+  .instruction > * {
+    display: block;
+  }
+
+  .instruction strong {
+    font-size: 1.5em;
+  }
+
+  @keyframes reveal {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0.8;
+    }
+  }
+
+  .view_solution {
+    margin-top: 1.5em;
+    text-align: center;
+    visibility: hidden;
+  }
+
+  .view_solution.show {
+    visibility: visible;
+    animation: reveal 1.5s;
+  }
+}
+
+.puzzle__controls {
+  @extend %flex-center;
+
+  height: $puzzle-history-height;
+  margin-top: #{-$block-gap};
+
+  // height: calc(#{$puzzle-history-height} + #{$block-gap});
+  .jumps {
+    flex: 1 1 auto;
+  }
+
+  .fbt {
+    @extend %page-text;
+  }
+}

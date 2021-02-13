@@ -1,0 +1,59 @@
+/* free analysis on /analysis */
+@import "analyse.base";
+
+.copyables {
+  .pair {
+    @extend %flex-center;
+
+    position: relative;
+
+    .action {
+      @extend %box-radius-bottom;
+
+      position: absolute;
+      right: 0;
+      top: 100%;
+      text-align: right;
+      opacity: 0;
+
+      @include transition;
+    }
+
+    textarea:focus ~ .action {
+      opacity: 1;
+    }
+  }
+
+  .name {
+    flex: 0 0 5ch;
+    font-weight: bold;
+    color: $c-font-dim;
+  }
+
+  .copyable {
+    flex: 1 1 auto;
+  }
+
+  .pgn {
+    margin: 1em 0;
+
+    textarea {
+      min-height: 6em;
+      white-space: pre-wrap;
+      overflow-x: hidden;
+    }
+  }
+}
+
+.mselect {
+  font-size: 1.5em;
+
+  label span,
+  a {
+    @extend %flex-center-nowrap;
+
+    &::before {
+      line-height: 0;
+    }
+  }
+}

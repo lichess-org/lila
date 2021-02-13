@@ -44,3 +44,7 @@ RUNNING_PID
 
 # VSCode auto-generated files
 .vscode/
+.metals/
+.bloop/
+.ammonite/
+metals.sbt

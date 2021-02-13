@@ -1,0 +1,22 @@
+.keyboard-move {
+  @extend %flex-center-nowrap;
+
+  input {
+    width: 4.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-right: 1rem;
+    border: $border;
+
+    @include transition;
+
+    &.wrong {
+      background: $c-bad;
+      color: $c-bad-over;
+    }
+  }
+
+  em {
+    color: $c-font-dim;
+  }
+}

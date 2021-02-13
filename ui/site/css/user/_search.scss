@@ -1,0 +1,63 @@
+.search {
+  &__form {
+    @extend %flex-center;
+
+    font-size: .9em;
+    white-space: nowrap;
+    margin: 1em 1em 1em 0;
+
+    table {
+      flex: 0 1 48%;
+      margin-left: 2%;
+    }
+
+    td {
+      padding: .4em 0;
+    }
+
+    input[type="text"],
+    select {
+      padding: 0.3em 1em !important;
+    }
+
+    label {
+      margin-right: .5em;
+      white-space: normal;
+    }
+
+    .single select {
+      width: 100%;
+    }
+
+    table {
+      .half {
+        @extend %flex-center;
+
+        float: left;
+        width: 50%;
+        text-align: right;
+        justify-content: flex-end;
+
+        select, input {
+          margin-left: .3em;
+        }
+      }
+
+      .date {
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .action {
+      text-align: right;
+    }
+  }
+
+  &__status {
+    text-align: right;
+    padding: 1.5em;
+    border-bottom: $border;
+  }
+}

@@ -1,0 +1,47 @@
+@import "../../../editor/css/spare";
+@import "../../../editor/css/tools";
+
+.board-editor-wrap {
+  min-height: 280px;
+  margin-bottom: 2em;
+
+  .spinner {
+    padding-top: 90px;
+  }
+}
+
+.board-editor {
+  display: grid;
+  grid-template-columns: 280px 2vmin 210px;
+  grid-template-rows: min-content auto min-content;
+  grid-template-areas: '.            . e-tools' 'spare-top    . e-tools' 'e-board      . e-tools' 'spare-bottom . e-tools' '.            . e-tools';
+  user-select: none;
+
+  .main-board {
+    grid-area: e-board;
+  }
+
+  cg-board {
+    cursor: inherit;
+  }
+
+  &__tools {
+    grid-area: e-tools;
+  }
+
+  .spare {
+    &-top {
+      margin-bottom: 1vh;
+    }
+
+    &-bottom {
+      grid-area: spare-bottom;
+      margin-top: 1vh;
+    }
+  }
+
+  .metadata {
+    background: $c-bg-zebra;
+    font-size: .9em;
+  }
+}

@@ -1,0 +1,55 @@
+$c-support: $c-brag;
+
+.lobby__support {
+  a {
+    @extend %flex-center-nowrap, %box-neat;
+
+    background: $c-bg-box;
+    font-size: 1.3em;
+    margin-bottom: $block-gap;
+    padding: .2em .5em;
+
+    @include transition;
+
+    &:hover {
+      background: $c-support;
+    }
+
+    &:hover .lobby__support__text,
+    &:hover i::before {
+      color: #fff;
+    }
+  }
+
+  i {
+    flex: 0 0 auto;
+    margin: 0 .5em;
+
+    &::before {
+      margin-right: .15em;
+      color: $c-support;
+      font-size: 2.6em;
+
+      @include transition;
+    }
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    color: $c-support;
+
+    @include transition;
+
+    strong {
+      font-weight: normal;
+      display: block;
+    }
+
+    span {
+      @extend %nowrap-ellipsis;
+
+      display: block;
+      font-size: .8em;
+    }
+  }
+}

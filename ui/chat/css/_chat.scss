@@ -1,0 +1,33 @@
+@import "../../../common/css/base/scrollbar";
+
+@import "tab";
+@import "members";
+@import "discussion";
+@import "palantir";
+
+.mchat {
+  @extend %box-neat-force, %flex-column;
+
+  grid-area: chat;
+  justify-content: stretch;
+
+  &__content {
+    @extend %flex-column;
+
+    background: $c-bg-box;
+    flex: 1 1 auto;
+    overflow: hidden;
+
+    &.note textarea {
+      font-size: .9em;
+      flex-grow: 1;
+      border: none;
+      background-color: transparent;
+      line-height: 1.7em;
+      outline: none;
+      resize: none;
+    }
+  }
+
+  min-height: 15em;
+}

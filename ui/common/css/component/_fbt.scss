@@ -1,0 +1,26 @@
+.fbt {
+  @extend %button-none;
+
+  text-transform: uppercase;
+  line-height: 1.5;
+
+  @include transition;
+
+  @media (hover: hover) {
+    &:hover:not(.disabled):not([disabled]) {
+      background: mix($c-secondary, $c-bg-box, 75%);
+      color: #fff;
+    }
+  }
+
+  &.active {
+    background: $c-secondary !important;
+    color: #fff;
+  }
+
+  &.disabled,
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

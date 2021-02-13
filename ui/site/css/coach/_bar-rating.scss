@@ -1,0 +1,37 @@
+.br-widget {
+  white-space: nowrap;
+}
+
+.br-widget a {
+  font: 2em 'lichess';
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  display: inline-block;
+}
+
+.br-widget a:after {
+  content: 't';
+  color: $c-shade;
+}
+
+.br-widget a.br-active:after,
+.br-widget a.br-selected:after {
+  color: $c-brag;
+}
+
+.br-widget .br-current-rating {
+  display: none;
+}
+
+.br-readonly a {
+  font-size: 10px;
+  margin-right: 0;
+  cursor: default;
+}
+
+.br-readonly a.br-selected:after {
+  margin-right: 0;
+  color: $c-font-dim;
+}

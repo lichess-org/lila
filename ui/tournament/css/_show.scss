@@ -1,0 +1,43 @@
+$mq-col1: $mq-col1-uniboard;
+$mq-col2: $mq-small;
+$mq-col3: $mq-col3-uniboard;
+
+@import "layout";
+@import "side";
+@import "featured";
+@import "app-header";
+@import "app-notice";
+@import "app-control";
+@import "app-standing";
+@import "stats";
+@import "duel";
+@import "actor-info";
+@import "player-info";
+@import "team-info";
+
+.tour {
+  .pull-quote {
+    margin-top: 30px;
+    width: 300px;
+  }
+
+  .box.created {
+    padding-bottom: 2em;
+
+    /* as quote margin */
+  }
+}
+
+.tour__faq {
+  padding: 4em var(--box-padding);
+  display: none;
+
+  @include breakpoint($mq-col2) {
+    display: block;
+  }
+
+
+  h2 {
+    margin: 1.5em 0 .5em 0;
+  }
+}

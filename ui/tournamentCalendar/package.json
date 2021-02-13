@@ -1,0 +1,27 @@
+{
+  "name": "tournamentCalendar",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org tournament calendar",
+  "keywords": [
+    "chess",
+    "lichess",
+    "tournament",
+    "calendar"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.14.0",
+    "snabbdom": "^0.7.4"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

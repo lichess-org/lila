@@ -1,0 +1,76 @@
+#!/bin/bash -ea
+
+target=${1-dev}
+mode=${2-build} # build | upgrade | css | js
+echo "building ui modules with target=$target and mode=$mode"
+
+echo "node: $(node --version)"
+echo "yarn: $(yarn --version)"
+
+cd "$(git rev-parse --show-toplevel)"
+
+ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yarn/link/ || true
+
+mkdir -p public/compiled
+
+apps1="common"
+apps2="chess ceval game tree chat nvui"
+apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachForm challengePage checkout login teamBattleForm dgt gameSearch"
+round_plugins="keyboardMove nvui"
+analyse_plugins="nvui"
+
+if [ $mode == "upgrade" ]; then
+  yarn upgrade --non-interactive
+else
+  yarn install --non-interactive
+fi
+
+build() {
+  echo
+  echo "### ui/$@ ###"
+  set -ev
+  if [[ $1 == "css" ]]; then
+    cd ui
+    gulp "css-$target"
+  else
+    cd ui/$1
+    yarn run $target
+  fi
+}
+
+build_plugin() {
+  echo
+  echo "### ui/$1 plugin $2 ###"
+  set -ev
+  cd ui/$1
+  yarn run plugin-$target $2
+}
+
+if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
+  apps3="css $apps3"
+fi
+
+if [ $mode == "css" ]; then
+  (build css)
+else
+  if type -p parallel; then # parallel execution!
+    if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
+      P_OPTS="-j+4 --halt 2"
+      [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
+    fi
+    set -x
+    parallel --gnu $P_OPTS build ::: $apps1
+    parallel --gnu $P_OPTS build ::: $apps2
+    parallel --gnu $P_OPTS build ::: $apps3
+    parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
+    parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
+    parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
+  else # sequential execution
+    echo "For faster builds, install GNU parallel."
+    for app in $apps1 $apps2 $apps3; do (build $app); done
+    for plugin in $site_plugins; do (build_plugin site $plugin); done
+    for plugin in $round_plugins; do (build_plugin round $plugin); done
+    for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
+  fi
+fi

@@ -1,0 +1,29 @@
+.pv_box {
+  background: $c-bg-box;
+  font-size: 13px;
+
+  .pv {
+    @extend %nowrap-ellipsis;
+
+    height: 2em;
+    line-height: 2em;
+    border-top: $border;
+
+    &[data-uci]:hover {
+      background: mix($c-secondary, $c-bg-box, 20%);
+      cursor: pointer;
+    }
+
+    strong {
+      display: inline-block;
+      width: 34px;
+      text-align: center;
+    }
+
+    span {
+      @extend %san;
+
+      margin-left: 4px;
+    }
+  }
+}

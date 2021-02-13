@@ -1,0 +1,29 @@
+.study-topics {
+  h2 {
+    margin: 1em 0;
+  }
+}
+
+.topic-list {
+  @extend %flex-wrap;
+
+  line-height: 2em;
+
+  a {
+    @extend %box-radius;
+
+    background: mix($c-primary, $c-bg-box, 12%);
+    padding: .2em .6em;
+    margin: .2em;
+
+    &:hover {
+      background: mix($c-primary, $c-bg-box, 15%);
+    }
+
+    white-space: nowrap;
+  }
+
+  .box__pad & {
+    margin-bottom: 2em;
+  }
+}

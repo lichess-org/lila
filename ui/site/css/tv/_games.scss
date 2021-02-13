@@ -1,0 +1,10 @@
+@import "side";
+
+.tv-games {
+  .page-menu__content {
+    @extend %box-radius-force;
+
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    align-content: start;
+  }
+}

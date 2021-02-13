@@ -1,0 +1,194 @@
+$c-tour: #303E43;
+$c-tour-user: #888;
+$c-tour-hourly: #3D9333;
+$c-tour-daily: #0072B2;
+$c-tour-weekly: #D55E00;
+$c-tour-monthly: #C93D3D;
+$c-tour-yearly: $c-brag;
+$c-tour-weekend: $c-brag;
+$c-tour-marathon: #66558C;
+$c-tour-unique: $c-brag;
+$c-tour-max-rating: #8572ff;
+
+.tour-chart {
+  min-height: 400px;
+  position: relative;
+  user-select: none;
+
+  .spinner {
+    width: 120px;
+    height: 120px;
+    padding-top: 120px;
+    opacity: 0.7;
+  }
+
+  &__inner {
+    position: relative;
+    overflow-x: scroll;
+    padding-top: 2.3em;
+    border-top: $border;
+    cursor: move;
+  }
+
+  .timeline {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+
+  .tournamentline {
+    position: relative;
+    height: 4em;
+  }
+
+  .timeheader {
+    position: absolute;
+    display: inline;
+    height: 100%;
+    border-left: 1px dashed $c-border;
+    padding: 3px 6px;
+
+    &.hour {
+      font-weight: bold;
+      border-left-style: solid;
+    }
+
+    &.now {
+      top: 1.6em;
+      height: calc(100% - 1.6em);
+      margin-left: 1px;
+      border-left: 3px dashed $c-accent;
+    }
+  }
+}
+
+.tsht {
+  @extend %box-neat, %flex-center;
+
+  position: absolute;
+  padding: 4px 0;
+  background-color: $c-tour;
+  white-space: nowrap;
+  color: #fff;
+
+  &:hover, &:focus {
+    color: #fff;
+  }
+
+  &-joinable:hover {
+    filter: brightness(1.08);
+  }
+
+  &-finished {
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
+  }
+
+  &-user-created {
+    background-color: $c-tour-user;
+  }
+
+  &-hourly {
+    background-color: $c-tour-hourly;
+  }
+
+  &-daily,
+  &-eastern {
+    background-color: $c-tour-daily;
+  }
+
+  @keyframes tour-bg-up {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: 0 1000%;
+    }
+  }
+
+  &-weekly,
+  &-weekend,
+  &-monthly,
+  &-marathon,
+  &-yearly {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+    background-image: url(../images/grain.png);
+  }
+
+  &-weekly {
+    background-color: $c-tour-weekly;
+  }
+
+  &-monthly {
+    background-color: $c-tour-monthly;
+  }
+
+  &-yearly {
+    background-color: $c-tour-yearly;
+  }
+
+  &-weekend {
+    background-color: $c-tour-weekend;
+  }
+
+  &-marathon {
+    background-color: $c-tour-marathon;
+  }
+
+  &-unique {
+    background-color: $c-tour-unique;
+  }
+
+  &-max-rating {
+    background-color: $c-tour-max-rating;
+  }
+
+  &-short.tsht-thematic {
+    letter-spacing: -1px;
+  }
+
+  span {
+    margin-right: 4px;
+  }
+
+  .icon {
+    font-size: 2.4em;
+    line-height: 1;
+    margin: 0 .2em 0 .2em;
+
+    &::before {
+      vertical-align: middle;
+    }
+  }
+
+  .name, .body {
+    @extend %nowrap-ellipsis;
+  }
+
+  .name {
+    display: flex;
+    max-width: none;
+    vertical-align: top;
+  }
+
+  .body {
+    flex: 1 0;
+    margin-right: 0;
+  }
+
+  .infos {
+    display: inline-flex;
+  }
+
+  .infos .text {
+    @extend %ellipsis;
+
+    flex: 1 1;
+  }
+
+  .infos .nb-players {
+    flex: 0 0 auto;
+  }
+}

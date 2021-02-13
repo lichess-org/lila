@@ -1,0 +1,21 @@
+// layout
+$mq-col1: $mq-col1-uniboard;
+$mq-col2: $mq-col2-uniboard;
+$mq-col3: $mq-col3-uniboard;
+
+$col1-player-clock-height: 50px;
+$col1-moves-height: 2.5em;
+$move-tag: "u8t";
+$rmoves-tag: "rm6";
+$moves-tag: "x2n";
+$index-tag: "i5z";
+$active-class: "a1t";
+
+// app-layout
+$col1-pocket-height: auto;
+$material-height: auto;
+$clock-height: auto;
+$expiration-height: min-content;
+$user-height: auto;
+$moves-height: auto;
+$controls-height: auto;

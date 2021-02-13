@@ -1,0 +1,33 @@
+.study__share {
+  @extend %box-neat;
+
+  background: $c-bg-box;
+  padding: 1.5em 1.2em;
+
+  input[type="text"] {
+    font-family: monospace;
+    width: 100%;
+    font-size: .9em;
+  }
+
+  .ply-wrap {
+    color: $c-font-dim;
+    text-align: left;
+    font-size: .9em;
+  }
+
+  .ply {
+    cursor: pointer;
+
+    input {
+      margin-right: .3em;
+      vertical-align: middle;
+    }
+  }
+
+  .downloads {
+    @extend %flex-around;
+
+    margin-bottom: 2em;
+  }
+}

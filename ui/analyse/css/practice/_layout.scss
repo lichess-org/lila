@@ -1,0 +1,27 @@
+.analyse {
+  .practice__side {
+    grid-area: side;
+    margin-top: $block-gap;
+  }
+
+  &__acpl {
+    display: none;
+  }
+
+  grid-template-rows: auto;
+  grid-template-areas: 'board' 'controls' 'under' 'tools' 'side';
+
+  @include breakpoint($mq-col2) {
+    grid-template-areas: 'board gauge tools' 'under .     controls' 'side  .     .';
+  }
+
+
+  @include breakpoint($mq-col3) {
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'side    . board gauge tools' '.       . under .     controls';
+
+    .practice__side {
+      margin-top: 0;
+    }
+  }
+}

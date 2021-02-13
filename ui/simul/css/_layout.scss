@@ -1,0 +1,42 @@
+@include breakpoint($mq-col2) {
+  #main-wrap {
+    --main-max-width: auto;
+  }
+}
+
+
+.simul {
+  display: grid;
+
+  &__side {
+    grid-area: side;
+  }
+
+  &__main {
+    grid-area: main;
+  }
+
+  .chat__members {
+    grid-area: uchat;
+  }
+
+  grid-template-areas: 'main' 'side' 'uchat';
+  grid-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+    &:not(.simul-created) {
+      grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
+      grid-template-rows: auto max-content;
+      grid-template-areas: 'main side' 'main uchat' '.    uchat';
+    }
+  }
+
+
+  @include breakpoint($mq-col3) {
+    &.simul {
+      grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
+      grid-template-rows: auto fit-content(0);
+      grid-template-areas: 'side  main main' 'uchat main main' 'uchat .    .';
+    }
+  }
+}

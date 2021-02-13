@@ -1,0 +1,190 @@
+.security {
+  .revoke-all,
+  .revoke-all button {
+    display: inline;
+  }
+
+  .ua {
+    font-size: .9em;
+  }
+
+  .icon span {
+    font-size: 3.5em;
+  }
+
+  .ip {
+    font-weight: bold;
+    font-family: monospace;
+  }
+
+  .current {
+    color: $c-brag;
+    margin-left: 1em;
+    font-weight: bold;
+  }
+
+  .slist {
+    @extend %break-word;
+  }
+}
+
+.twofactor ol li {
+  list-style: decimal;
+}
+
+.oauth {
+  table em,
+  table .date {
+    font-size: 90%;
+  }
+
+  table .action {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .codes {
+    display: block;
+    margin: 10px 0 20px 0;
+    padding: 10px 20px;
+    background: rgba(128, 128, 128, 0.1);
+
+    td {
+      padding: .5em 1em;
+      font-family: monospace;
+    }
+  }
+
+  .scopes,
+  .brand {
+    @extend %box-neat;
+
+    background: mix($c-accent, $c-bg-box, 10);
+    padding: 1em 1.5em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    margin: -1em 0 .5em 0;
+  }
+
+  .scopes {
+    margin-bottom: 4em;
+
+    div {
+      @extend %flex-center;
+
+      margin: 1rem 0;
+
+      label {
+        margin-left: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .brand {
+    margin: 20px;
+    display: flex;
+
+    i {
+      font-size: 45px;
+      margin-right: 15px;
+    }
+
+    code {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-top: 10px;
+      display: block;
+    }
+  }
+
+  &-used {
+    margin-bottom: 4em;
+  }
+}
+
+.account {
+  @include breakpoint($mq-subnav-side) {
+    min-height: 100%;
+  }
+
+
+  h1 {
+    color: $c-accent;
+  }
+
+  form section {
+    margin-bottom: 4rem;
+  }
+
+  h2 {
+    margin-bottom: 1.3rem;
+    font-size: 1.3em;
+
+    @include breakpoint($mq-x-small) {
+      overflow: hidden;
+      white-space: nowrap;
+
+      &::after {
+        margin-left: 1em;
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, fade-out($c-accent, 0.5), $c-bg-box 80%);
+      }
+    }
+  }
+
+  .saved {
+    @extend %box-radius;
+
+    width: 100%;
+    text-align: center;
+    color: $c-good;
+    border: 1px solid $c-good;
+    background: mix($c-good, $c-bg-box, 10);
+    padding: 2rem;
+  }
+
+  group.radio {
+    input:checked + label {
+      @extend %active-soft;
+    }
+  }
+
+  @include breakpoint($mq-not-xx-small) {
+    td.icon {
+      display: none;
+    }
+  }
+
+
+  .kiddo {
+    color: $c-font-dim;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+}
+
+.personal-data {
+  &__header {
+    @extend %flex-between;
+    margin-bottom: 3em;
+  }
+  .raw-text {
+    @extend %box-radius, %break-word;
+    font-family: monospace;
+    background: $c-bg-page;
+    padding: 1em 2em;
+    overflow: hidden;
+    white-space: pre-wrap;
+  }
+}
+
+.page-menu__content {
+  overflow: hidden; // prevents pre overflow (personal-data)
+}

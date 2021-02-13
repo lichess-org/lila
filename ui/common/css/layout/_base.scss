@@ -1,0 +1,93 @@
+$vp-min-width: 320px;
+$vp-max-width: 1200px;
+
+body {
+  --site-header-height: #{$site-header-short-height};
+
+  @include breakpoint($mq-site-header-tall) {
+    --site-header-height: #{$site-header-tall-height};
+  }
+
+
+  --site-header-margin: 0px;
+
+  &.header-margin {
+    --site-header-margin: 1em;
+  }
+
+  --main-margin: 0;
+
+  @include breakpoint($mq-main-margin) {
+    --main-margin: 1vw;
+    margin-bottom: $block-gap;
+  }
+
+
+  /* Feature detection for JS to read */
+  @media (hover: hover) {
+    --hoverable: 1;
+  }
+
+  @supports (display: grid) {
+    --grid: 1;
+  }
+}
+
+#main-wrap {
+  display: grid;
+  grid-template-areas: '. . main . .';
+  --main-max-width: #{$main-max-width};
+  grid-template-columns: $main-margin 1fr minmax(auto, var(--main-max-width)) 1fr $main-margin;
+
+  &.full-screen {
+    --main-max-width: auto;
+  }
+
+  &.full-screen-force {
+    --main-max-width: 100%;
+  }
+
+  margin-top: $site-header-margin;
+
+  @media (hover: none) {
+    body.clinput & {
+      display: none;
+    }
+  }
+}
+
+@if $debug {
+  #main-wrap::before {
+    position: absolute;
+    z-index: 9999;
+    background: $c-accent;
+    color: #fff;
+    font-weight: bold;
+    padding: 1em;
+    content: 'COL 1';
+
+    @include breakpoint($mq-col2-uniboard) {
+      content: 'COL 2';
+    }
+
+
+    @include breakpoint($mq-col2-uniboard-squeeze) {
+      content: 'COL 2 squeezed';
+    }
+
+
+    @include breakpoint($mq-col3-uniboard) {
+      content: 'COL 3';
+    }
+  }
+}
+
+main {
+  grid-area: main;
+
+  &.page-small {
+    max-width: 1000px;
+    margin: auto;
+    width: 100%;
+  }
+}

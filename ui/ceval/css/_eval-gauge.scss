@@ -1,0 +1,53 @@
+main {
+  @include fluid-size("--gauge-gap", 8px, 17px);
+}
+
+.eval-gauge {
+  width: var(--gauge-gap);
+  position: relative;
+  background: if($theme-light, #fff, #a0a0a0);
+  overflow: hidden;
+
+  @include breakpoint($mq-col1-uniboard) {
+    display: none;
+  }
+
+
+  &.reverse {
+    transform: rotateX(180deg);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
+  }
+
+  tick {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px ridge if($theme-light, #eee, #a0a0a0);
+    opacity: 0.4;
+  }
+
+  tick.zero {
+    top: 6px;
+    opacity: 1;
+    border-bottom: 7px solid fade-out($c-accent, 0.6);
+    margin-top: -3px;
+  }
+
+  .black {
+    width: 100%;
+    height: 50%;
+    background: if($theme-light, #888, #666);
+    transition: height 1s;
+  }
+}

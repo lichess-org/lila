@@ -1,0 +1,38 @@
+.round__app {
+  &__table {
+    @extend %box-radius-right, %box-shadow;
+
+    background: $c-bg-box;
+  }
+
+  .draw-yes span {
+    font-size: 1.2em;
+  }
+}
+
+.expiration {
+  @extend %flex-center;
+
+  font-size: .9rem;
+  justify-content: center;
+  line-height: 2;
+  background: $c-good;
+  color: #fff;
+
+  &-top {
+    border-top-right-radius: $box-radius-size;
+  }
+
+  &-bottom {
+    border-bottom-right-radius: $box-radius-size;
+  }
+
+  &.emerg {
+    background: $c-bad;
+  }
+
+  strong {
+    font-size: 1rem;
+    margin-right: .3em;
+  }
+}

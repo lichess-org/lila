@@ -1,0 +1,96 @@
+.study__multiboard {
+  @extend %box-neat;
+
+  background: $c-bg-box;
+
+  &.loading {
+    opacity: 0.7;
+  }
+
+  &.nopager {
+    padding: 2em;
+  }
+
+  .top {
+    @extend %flex-between;
+
+    padding: .4em 1.5em;
+  }
+
+  .pager {
+    @extend %flex-center;
+
+    .page {
+      margin: 0 .4em;
+    }
+  }
+
+  .fbt {
+    @extend %box-radius;
+
+    padding: .6em 1em;
+  }
+
+  .playing {
+    cursor: pointer;
+  }
+
+  .playing input {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+
+  .now-playing {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+
+    a {
+      @extend %box-radius;
+
+      color: $c-font;
+      padding: .4em;
+
+      @include transition(background);
+
+      background: fade-out($c-bg-box, 0.6);
+      overflow: hidden;
+
+      &:nth-child(even) {
+        background: $c-bg-zebra2;
+      }
+
+      &:hover {
+        background: fade-out($c-link, 0.6);
+        color: $c-font-clear;
+      }
+
+      &.active,
+      &:active {
+        background: $c-secondary;
+        color: $c-secondary-over;
+      }
+
+      cg-board {
+        box-shadow: none;
+      }
+    }
+
+    .player {
+      @extend %flex-between-nowrap;
+
+      height: 1.5em;
+      white-space: nowrap;
+
+      span {
+        margin-left: .5em;
+      }
+    }
+
+    .name {
+      @extend %flex-center;
+
+      justify-content: center;
+      height: 3em;
+    }
+  }
+}

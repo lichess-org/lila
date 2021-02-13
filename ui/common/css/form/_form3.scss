@@ -1,0 +1,102 @@
+@import "cmn-toggle";
+@import "../component/flash";
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-split {
+  @extend %flex-between;
+
+  align-items: inherit;
+}
+
+.form-half {
+  flex: 1 1 48%;
+  min-width: 200px;
+}
+
+.form-third {
+  flex: 1 1 31%;
+}
+
+@include breakpoint($mq-xx-small) {
+  .form-half,
+  .form-third {
+    flex-grow: 0;
+  }
+}
+
+
+.form-label {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(2.7em + 2px);
+  background-clip: padding-box;
+}
+
+textarea.form-control {
+  height: auto;
+}
+
+.form-control:invalid,
+.form-group.is-invalid .form-control {
+  border-color: $c-error;
+}
+
+.form3 .error,
+.form-help {
+  font-size: 90%;
+  margin-top: .25rem;
+}
+
+.form3 .error {
+  color: $c-error;
+}
+
+.form-help {
+  color: $c-font-dim;
+}
+
+.form-check div {
+  display: flex;
+}
+
+.form-check-input {
+  margin-right: .5rem;
+}
+
+.form-check .form-label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.form-actions {
+  @extend %flex-between;
+
+  margin: 1.5rem 0;
+  padding-top: 1.5rem;
+  border-top: $border;
+}
+
+.form-actions.single {
+  justify-content: flex-end;
+}
+
+.form3 hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: $border;
+}
+
+/* VENDORS */
+.form3 .twitter-typeahead {
+  width: 100%;
+}

@@ -1,0 +1,51 @@
+.study__glyphs {
+  @extend %box-neat, %flex-center;
+
+  background: $c-bg-box;
+  white-space: nowrap;
+  user-select: none;
+
+  > div {
+    flex: 1 0 30%;
+  }
+
+  a {
+    @extend %flex-center-nowrap;
+
+    @include transition;
+
+    color: $c-font;
+    height: 2.3em;
+    line-height: 2.3em;
+    align-items: stretch;
+
+    &::before {
+      @extend %flex-center;
+
+      justify-content: center;
+      content: attr(data-symbol);
+      font-size: 1.2em;
+      font-weight: bold;
+      width: 2em;
+      background: $c-bg-low;
+      margin-right: .5em;
+
+      @include transition;
+    }
+
+    &:hover,
+    &.active {
+      background: $c-bg-zebra;
+      color: $c-secondary;
+    }
+
+    &:hover::before {
+      background: $c-bg-zebra;
+    }
+
+    &.active::before {
+      background: $c-secondary;
+      color: $c-secondary-over;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.lobby__blog {
+  .post {
+    @extend %flex-between;
+
+    color: $c-font;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding: .2em .5em;
+
+    &:hover {
+      background: mix($c-link, $c-bg-box, 15%);
+    }
+
+    .text {
+      flex: 1 1 100%;
+    }
+
+    strong {
+      display: block;
+    }
+
+    img {
+      height: 4em;
+      width: 4em;
+      margin-right: .8em;
+    }
+
+    time {
+      color: $c-font-dim;
+      white-space: nowrap;
+    }
+  }
+}

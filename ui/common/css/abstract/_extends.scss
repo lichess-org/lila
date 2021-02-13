@@ -1,0 +1,239 @@
+%base-font-fallback {
+  font-family: 'Noto Sans', Sans-Serif;
+}
+
+%base-font {
+  font-family: 'Noto Sans';
+}
+
+%roboto {
+  font-family: 'Roboto';
+}
+
+%roboto-fat {
+  font-family: 'Roboto';
+  font-weight: 600;
+}
+
+%chess-font {
+  font-family: 'Noto Chess', 'Noto Sans';
+}
+
+%san {
+  @extend %chess-font;
+
+  .piece-letter & {
+    @extend %base-font;
+  }
+}
+
+/* text printed directly on the page background deserves special treatment (transp theme) */
+%page-font {
+  color: $c-font-page;
+}
+
+%page-text {
+  @extend %page-font, %page-text-shadow !optional;
+}
+
+%page-link {
+  @extend %page-link-font !optional;
+
+  @extend %page-text-shadow !optional;
+}
+
+%metal {
+  @include metal;
+}
+
+%metal-hover {
+  @include metal-hover;
+}
+
+%page-metal {
+  @include page-metal;
+}
+
+%page-metal-hover {
+  @include page-metal;
+}
+
+%metal-bg {
+  @include metal-bg;
+}
+
+%active-inset-shadow {
+  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+}
+
+%active {
+  @extend %active-inset-shadow;
+
+  background: $c-accent;
+  color: #fff;
+  text-shadow: 0 1px 1px black !important;
+}
+
+%active-hover {
+  background: mix(white, $c-accent, 20%);
+}
+
+%active-soft {
+  @extend %active-inset-shadow;
+
+  background: $c-shade;
+  color: $c-font-clearer;
+  text-shadow: 1px 1px 1px $c-font-shadow !important;
+  font-weight: bold;
+}
+
+%dropdown-shadow {
+  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
+%popup-shadow {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+%button-shadow {
+  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
+}
+
+%button-raised-shadow {
+  box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
+}
+
+%button-none {
+  background: none;
+  border: none;
+  outline: none;
+  color: $c-font;
+}
+
+%checkbox {
+  @extend %box-radius;
+
+  -webkit-appearance: none;
+  background: $c-bg-page;
+  border: 1px solid $c-bg-low;
+  display: inline-block;
+  padding: .5em;
+
+  &:checked {
+    background: $c-secondary-dimmer;
+    border-color: $c-secondary-dim;
+  }
+}
+
+%focus-shadow {
+  box-shadow: 0 0 12px $c-font-dim;
+}
+
+%nowrap-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%nowrap-ellipsis {
+  @extend %ellipsis;
+
+  white-space: nowrap;
+}
+
+%box-padding {
+  padding: 5vh var(--box-padding);
+}
+
+%box-padding-horiz {
+  padding: 0 var(--box-padding);
+}
+
+%break-word {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+%break-word-hard {
+  overflow-wrap: break-word;
+  word-break: break-all;
+
+  /* support: firefox */
+  word-break: break-word;
+}
+
+%break-nope {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+%ellipsis {
+  @include ellipsis;
+}
+
+%square {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 100%;
+  width: 100%;
+}
+
+%video {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;
+
+  /* 16/9 */
+  // padding-bottom: 75%; /* 4/3 */
+  width: 100%;
+
+  > * {
+    @extend %abs-100;
+
+    border: none;
+  }
+}
+
+%data-icon {
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: 'lichess';
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  content: attr(data-icon);
+  opacity: 0.9;
+}
+
+%data-icon-top {
+  &::before {
+    vertical-align: text-top;
+  }
+}
+
+%fullscreen-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: $c-page-mask;
+  z-index: z("fullscreen-mask");
+}
+
+%link-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: z("link-overlay");
+}
+
+%abs-100 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

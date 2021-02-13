@@ -1,0 +1,102 @@
+.search {
+  &__form {
+    margin-bottom: 2em;
+
+    table {
+      width: 100%;
+    }
+
+    td {
+      padding: .4em 0;
+      text-align: right;
+    }
+
+    .half {
+      float: left;
+      width: 50%;
+    }
+
+    label {
+      margin-right: .8em;
+    }
+
+    input[type="text"],
+    select {
+      padding: 0.3em 1em !important;
+    }
+
+    input[type="text"] {
+      width: 86%;
+    }
+
+    select {
+      text-transform: capitalize;
+    }
+
+    .user_row select {
+      text-transform: none;
+    }
+
+    .single select {
+      width: 99%;
+    }
+
+    .half select {
+      width: 78%;
+    }
+
+    input.submit {
+      width: 99%;
+    }
+
+    div.level {
+      display: inline;
+    }
+
+    span.help {
+      color: $c-secondary;
+      text-decoration: underline $c-secondary;
+    }
+
+    .error {
+      margin-left: 160px;
+      color: red;
+    }
+
+    .action {
+      text-align: center;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .wait {
+      display: none;
+    }
+
+    &.searching {
+      .spinner {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+      .wait {
+        display: block;
+      }
+
+      .button {
+        display: none;
+      }
+    }
+  }
+
+  &__status {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    background: $c-bg-zebra;
+    border: $border;
+    border-width: 1px 0;
+  }
+}

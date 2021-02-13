@@ -1,0 +1,71 @@
+.lobby {
+  &__table {
+    @extend %flex-column;
+
+    position: relative;
+  }
+
+  &__start {
+    @extend %flex-column;
+
+    justify-content: stretch;
+    flex: 1 1 auto;
+    margin: 0 1em 0 1em;
+
+    @include breakpoint($mq-col2) {
+      margin: 2em 0 0 0;
+    }
+
+
+    a {
+      font-size: 1.1em;
+      text-align: center;
+      margin: .2em 0;
+      padding: .5em;
+
+      &.disabled {
+        opacity: 0.2;
+      }
+    }
+
+    @include breakpoint($mq-col4) {
+      justify-content: center;
+
+      a {
+        margin: 1.2em 0;
+        padding: 1em;
+      }
+    }
+  }
+
+  &__counters {
+    @extend %flex-between, %page-text;
+
+    background: $c-bg-zebra;
+    padding: $block-gap #{$block-gap * 2};
+
+    @include breakpoint($mq-col3) {
+      background: none;
+      padding: 0;
+    }
+
+
+    @include breakpoint($mq-col4) {
+      flex-flow: column;
+      align-items: flex-start;
+      position: absolute;
+      bottom: 0;
+    }
+
+
+    a {
+      color: $c-font-page;
+
+      @include transition(color);
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+  }
+}

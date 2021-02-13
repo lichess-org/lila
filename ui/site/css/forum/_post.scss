@@ -1,0 +1,103 @@
+.forum-post {
+  font-size: 1.1em;
+  border-top: $border;
+  padding: 2rem 0 .5rem 0;
+
+  &__metas {
+    @extend %flex-between;
+
+    margin-bottom: 1.5rem;
+
+    > div {
+      @extend %flex-center;
+    }
+
+    .author {
+      color: $c-font-dim;
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-right: 1rem;
+    }
+
+    .anchor {
+      @extend %break-nope;
+
+      color: $c-link-dim;
+      font-weight: bold;
+    }
+  }
+
+  .mod {
+    @media (hover: hover) {
+      visibility: hidden;
+    }
+
+    font-size: .9em;
+
+    &.postip {
+      margin-left: 1rem;
+      max-width: 50vw;
+      overflow: hidden;
+      display: none;
+
+      @include breakpoint($mq-small) {
+        display: block;
+      }
+    }
+  }
+
+  &:hover .mod {
+    visibility: visible;
+  }
+
+  &:last-child {
+    border-bottom: $border;
+    margin-bottom: 3rem;
+  }
+
+  &.erased {
+    background: $c-shade;
+    opacity: 0.6;
+  }
+
+  &.erased .forum-post__message {
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__message {
+    @extend %break-word;
+
+    margin-bottom: .5em;
+
+    .embed:not(img) {
+      @extend %video;
+
+      margin: $block-gap auto;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .edit-buttons {
+    text-align: right;
+    margin-top: .5em;
+  }
+
+  .edit-buttons a {
+    margin-right: 1em;
+  }
+
+  .edit-post-form {
+    display: none;
+    margin-top: 1.5em;
+
+    textarea {
+      width: 100%;
+      height: 20em;
+    }
+  }
+}

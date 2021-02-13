@@ -1,0 +1,62 @@
+.streamer-header {
+  display: flex;
+
+  .picture {
+    flex: 0 0 300px;
+  }
+
+  .overview {
+    margin: 20px var(--box-padding) 0 var(--box-padding);
+
+    @include breakpoint($mq-picture) {
+      margin: 20px 10px 0 2em;
+    }
+
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .metas {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  }
+
+  h1 {
+    @extend %roboto;
+
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: .7em;
+  }
+
+  .headline {
+    font-style: italic;
+  }
+
+  .headline.medium {
+    font-size: .95em;
+  }
+
+  .headline.large {
+    font-size: .9em;
+  }
+
+  .services {
+    margin: .5em 0;
+  }
+
+  .services li {
+    font-size: 1.2em;
+    white-space: nowrap;
+    padding: .3em 0;
+  }
+
+  .service.live {
+    color: $c-brag;
+  }
+}

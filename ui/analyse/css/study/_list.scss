@@ -1,0 +1,55 @@
+%study-list {
+  @extend %box-neat;
+
+  @include hoverflow;
+
+  max-height: 18em;
+  background: $c-bg-box;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  user-select: none;
+
+  > div {
+    @extend %flex-between-nowrap;
+
+    align-items: stretch;
+
+    @include transition;
+
+    &:hover,
+    &.active {
+      color: $c-font-clear;
+      background: mix($c-link, $c-bg-box, 10%);
+    }
+  }
+
+  act {
+    @extend %flex-center;
+
+    cursor: pointer;
+    border-radius: 99px;
+    align-self: center;
+    justify-content: center;
+    font-size: .9em;
+    opacity: 0.15;
+    padding: .4em;
+
+    @include transition;
+  }
+
+  > div:hover act {
+    opacity: .7;
+
+    &:hover {
+      background: $c-primary;
+      color: $c-primary-over;
+      opacity: 1;
+    }
+  }
+
+  .add {
+    border-top: 1px solid $c-border;
+    cursor: pointer;
+  }
+}

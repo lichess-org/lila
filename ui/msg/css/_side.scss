@@ -1,0 +1,125 @@
+.msg-app {
+  &__side {
+    @extend %flex-column;
+
+    flex: 0 0 50ch;
+
+    @include breakpoint($mq-not-medium) {
+      flex: 0 0 40ch;
+    }
+
+
+    @include breakpoint($mq-not-small) {
+      flex: 1 0 100%;
+      display: none;
+
+      .pane-side & {
+        display: flex;
+      }
+    }
+
+
+    background: $c-bg-zebra;
+    overflow: hidden;
+    user-select: none;
+    border-right: $border;
+
+    ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+      background: $c-bg-zebra;
+    }
+
+    &__search {
+      @extend %flex-center;
+
+      flex: 0 0 $msg-top-height;
+      background: $c-bg-zebra2;
+      border-bottom: $border;
+      overflow-y: auto;
+
+      input {
+        @extend %msg-input-focus;
+
+        width: 100%;
+        margin: auto 2em;
+        border-radius: 99px;
+        background: $c-bg-box;
+        padding: .6em 1.2em;
+      }
+    }
+
+    &__content {
+      overflow-y: auto;
+    }
+
+    &__contact {
+      @extend %flex-center-nowrap;
+
+      cursor: pointer;
+
+      &:hover {
+        background: mix($c-msg, $c-bg-box, 15%);
+      }
+
+      &:active,
+      &.active {
+        background: mix($c-msg, $c-bg-box, 30%);
+      }
+
+      &__icon {
+        flex: 0 0 auto;
+        font-size: 2.3em;
+      }
+
+      &__user {
+        @extend %nowrap-ellipsis;
+
+        flex: 1 1 auto;
+        padding: .8em 1.5em .8em 0;
+      }
+
+      &__head {
+        @extend %flex-between-nowrap;
+      }
+
+      &__date {
+        flex: 0 0 auto;
+
+        time {
+          opacity: 1;
+          color: $c-font-dim;
+          letter-spacing: -.5px;
+        }
+      }
+
+      &__name {
+        @extend %nowrap-ellipsis;
+
+        flex: 1 1 auto;
+        color: $c-font-clear;
+        font-size: 1.2em;
+      }
+
+      &__body {
+        @extend %flex-between-nowrap;
+
+        height: 1.4em;
+      }
+
+      &__msg {
+        @extend %roboto, %nowrap-ellipsis;
+
+        color: $c-font-dim;
+
+        &--new {
+          font-weight: bold;
+          color: $c-primary;
+        }
+      }
+
+      &__new {
+        color: $c-primary;
+        margin-left: .3em;
+      }
+    }
+  }
+}

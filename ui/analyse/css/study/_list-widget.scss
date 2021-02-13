@@ -1,0 +1,98 @@
+$c-study: $c-primary;
+
+.studies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($viewport-min-width, 1fr));
+
+  @include breakpoint($mq-medium) {
+    grid-template-columns: repeat(auto-fill, minmax(45ch, 1fr));
+  }
+
+
+  .study {
+    position: relative;
+    border: $border;
+    border-width: 0 1px 1px 0;
+    padding: 1em .6em 1em 1.3em;
+    overflow: hidden;
+
+    @include transition;
+
+    .overlay {
+      @extend %link-overlay;
+    }
+
+    .body {
+      display: flex;
+      font-size: .9em;
+    }
+
+    .chapters {
+      flex: 0 0 58%;
+      max-width: 58%;
+    }
+
+    .members {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-left: 2%;
+    }
+
+    li {
+      @extend %nowrap-ellipsis;
+
+      color: $c-font-dim;
+
+      &::before {
+        color: $c-font-dimmer;
+      }
+    }
+
+    .top {
+      @extend %flex-center-nowrap, %break-word, %roboto;
+
+      .study-name {
+        @extend %nowrap-ellipsis;
+
+        font-size: 1.5em;
+        font-weight: normal;
+        color: $c-study;
+        display: block;
+        margin: 0;
+      }
+
+      div {
+        overflow: hidden;
+      }
+
+      span {
+        font-size: .9rem;
+        display: block;
+        color: $c-font-dim;
+      }
+
+      &::before {
+        color: mix($c-link, $c-bg-box, 80%);
+        font-size: 4em;
+        margin-right: .2em;
+
+        @include transition;
+        @include breakpoint($mq-not-xx-small) {
+          display: none;
+        }
+      }
+
+      .private {
+        color: $c-brag;
+      }
+    }
+
+    &:hover {
+      background: mix($c-study, $c-bg-box, 10%);
+
+      .top::before {
+        color: mix($c-link, $c-bg-box, 100%);
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+$mq-col2: $mq-xx-small;
+$mq-col3: $mq-small;
+$mq-col4: $mq-x-large;
+
+$mq-not-col3: $mq-not-small;
+
+@mixin lobby-app-size {
+  min-height: 300px;
+
+  @include breakpoint($mq-col2) {
+    min-height: 400px;
+  }
+
+
+  @include breakpoint($mq-col3) {
+    height: 600px;
+    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
+  }
+}
+
+.lobby {
+  grid-area: main;
+  display: grid;
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'simuls' 'forum' 'support' 'about' '.';
+  grid-gap: $block-gap;
+
+  &__counters {
+    margin-top: $block-gap;
+  }
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(3, fit-content(0));
+    grid-template-areas: 'table  table' 'app    app' 'side   tv' 'side   puzzle' 'blog   blog' 'leader winner' 'tours  tours' 'simuls simuls' 'forum  forum' 'about  support';
+  }
+
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 12em repeat(2, fit-content(0));
+    grid-template-areas: 'table   app     app' 'side    app     app' 'tv      leader  winner' 'puzzle  tours   tours' 'support blog    blog ' 'about   simuls  simuls' '. forum forum ';
+
+    &__start {
+      flex-flow: column;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    &__counters {
+      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
+    }
+
+    .timeline {
+      margin-left: 0;
+    }
+  }
+
+
+  @include breakpoint($mq-col4) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, fit-content(0));
+    grid-template-areas: 'side   app     app    table' 'tv     leader  winner puzzle' 'about  blog    blog   support' '.      tours   tours  .' '.      simuls  simuls .' '.      forum   forum  .';
+
+    &__tournaments,
+    &__simuls {
+      max-height: 20em;
+    }
+
+    &__side {
+      margin-top: 2em;
+    }
+
+    &__counters {
+      margin: 0;
+    }
+  }
+
+
+  &__side {
+    grid-area: side;
+  }
+
+  &__app,
+  &__nope {
+    grid-area: app;
+  }
+
+  &__table {
+    grid-area: table;
+  }
+
+  &__tv {
+    grid-area: tv;
+  }
+
+  &__leaderboard {
+    grid-area: leader;
+  }
+
+  &__winners {
+    grid-area: winner;
+  }
+
+  &__puzzle {
+    grid-area: puzzle;
+  }
+
+  &__tournaments {
+    grid-area: tours;
+  }
+
+  &__simuls {
+    grid-area: simuls;
+  }
+
+  &__forum {
+    grid-area: forum;
+  }
+
+  &__blog {
+    grid-area: blog;
+  }
+
+  &__support {
+    grid-area: support;
+  }
+
+  &__about {
+    grid-area: about;
+  }
+}

@@ -1,0 +1,59 @@
+.user-link {
+  @extend %nowrap-hidden;
+
+  color: $c-font;
+
+  &.online .line {
+    &::before {
+      content: '';
+    }
+
+    color: $c-good;
+    opacity: .9;
+
+    &.patron {
+      opacity: 1;
+    }
+  }
+
+  .line {
+    @extend %data-icon;
+
+    color: $c-font;
+    opacity: 0.5;
+    display: inline-block;
+    width: 1.5em;
+    text-align: center;
+    vertical-align: text-top;
+
+    /* not sure about that */
+    &.patron {
+      opacity: 0.8;
+    }
+
+    &::before {
+      content: 'Ò';
+    }
+
+    &.patron::before {
+      content: '' !important;
+    }
+
+    &.moderator::before {
+      content: '';
+    }
+  }
+}
+
+a.user-link:hover {
+  color: $c-link;
+}
+
+.utitle {
+  color: $c-brag;
+  font-weight: bold;
+
+  &[data-bot] {
+    color: $c-bot;
+  }
+}

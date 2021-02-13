@@ -1,0 +1,11 @@
+table td {
+  @extend %ellipsis;
+
+  max-width: 50vw;
+
+  @include breakpoint($mq-not-x-small) {
+    &:last-child {
+      display: none;
+    }
+  }
+}

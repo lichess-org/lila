@@ -1,0 +1,40 @@
+#announce {
+  @extend %flex-between, %popup-shadow;
+
+  font-size: 1.4em;
+  position: fixed;
+  background: $c-primary;
+  color: $c-primary-over;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: .7rem 1rem;
+  z-index: z("tour-reminder");
+  width: 100%;
+
+  @include breakpoint($mq-xx-small) {
+    width: auto;
+    border-top-right-radius: 3px;
+  }
+
+
+  a {
+    color: $c-primary-over;
+  }
+
+  time {
+    margin-left: 1rem;
+  }
+
+  .actions {
+    a {
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+  }
+
+  &.announce {
+    flex-flow: row nowrap;
+    background: $c-accent;
+  }
+}

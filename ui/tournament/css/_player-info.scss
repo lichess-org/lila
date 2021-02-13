@@ -1,0 +1,66 @@
+.tour__player-info {
+  .pairings {
+    width: 100%;
+
+    tr {
+      cursor: pointer;
+
+      @include transition(background-color);
+
+      &:nth-child(odd) {
+        background: $c-bg-zebra;
+      }
+
+      &:hover {
+        background: mix($c-link, $c-bg-box, 10%);
+      }
+    }
+
+    th, td {
+      padding: .3em;
+    }
+
+    th {
+      border-left: 3px solid transparent;
+
+      @include transition;
+    }
+
+    tr:hover th {
+      border-color: $c-font;
+    }
+
+    tr.win:hover th {
+      border-color: $c-good;
+    }
+
+    tr.loss:hover th {
+      border-color: $c-bad;
+    }
+
+    td:nth-child(2) {
+      @extend %nowrap-ellipsis;
+
+      max-width: 200px;
+    }
+
+    td:last-child {
+      font-weight: bold;
+      opacity: .8;
+    }
+
+    tr.win td:last-child {
+      color: $c-good;
+      opacity: 1;
+    }
+
+    tr.loss td:last-child {
+      color: $c-bad;
+      opacity: 1;
+    }
+  }
+
+  .color-icon {
+    opacity: .6;
+  }
+}

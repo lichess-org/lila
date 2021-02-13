@@ -1,0 +1,42 @@
+.relay-widget {
+  @extend %flex-center-nowrap, %break-word;
+
+  border-bottom: $border;
+  padding: 2em var(--box-padding);
+  position: relative;
+
+  @include transition;
+
+  &::before {
+    color: mix($c-link, $c-bg-box, 80%);
+    font-size: 5em;
+    margin-right: .4em;
+
+    @include transition;
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
+  }
+
+  &:hover {
+    background: mix($c-link, $c-bg-box, 10%);
+
+    &::before {
+      color: mix($c-link, $c-bg-box, 100%);
+    }
+  }
+
+  .overlay {
+    @extend %link-overlay;
+  }
+
+  h3 {
+    @include fluid-size("font-size", 23px, 35px);
+
+    color: $c-link;
+  }
+
+  p {
+    margin: .5em 0 0 0;
+  }
+}

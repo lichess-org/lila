@@ -1,0 +1,24 @@
+{
+  "name": "game",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org game",
+  "main": "game.js",
+  "keywords": [
+    "chess",
+    "lichess",
+    "play",
+    "replay"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc --incremental",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
+  },
+  "devDependencies": {
+    "@types/lichess": "2.0.0",
+    "typescript": "^4.0.2"
+  }
+}

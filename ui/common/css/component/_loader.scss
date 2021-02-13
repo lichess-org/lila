@@ -1,0 +1,88 @@
+/* circular loader */
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-dash {
+  0%,10% {
+    stroke-dasharray: 1,270;
+    stroke-dashoffset: 0;
+  }
+
+  40% {
+    stroke-dasharray: 89,240;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dasharray: 1,240;
+    stroke-dashoffset: -110;
+  }
+}
+
+@keyframes spinner-color {
+  0%,20%,100% {
+    stroke: #42a5f5;
+  }
+
+  30%,45% {
+    stroke: #f44336;
+  }
+
+  50%,70% {
+    stroke: #fdd835;
+  }
+
+  75%,95% {
+    stroke: #4caf50;
+  }
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+
+  svg {
+    animation: spinner-rotate 1.5s linear infinite;
+  }
+
+  circle {
+    stroke: #42a5f5;
+    stroke-width: 4;
+    animation: spinner-dash 1.275s ease-in-out infinite, spinner-color 5.1s linear infinite;
+  }
+
+  .white & circle {
+    animation: spinner-dash 1.275s ease-in-out infinite;
+    stroke: #fff;
+  }
+}
+
+/* small horizontal loader */
+@keyframes ddloader {
+  0% {
+    background-position: left;
+  }
+
+  100% {
+    background-position: right;
+  }
+}
+
+.ddloader {
+  @if $theme-light {
+    background: img-url("loader/blackx1.png") no-repeat;
+  }
+  @else {
+    background: img-url("loader/whitex1.png") no-repeat;
+  }
+
+  animation: ddloader 0.5s steps(15) infinite;
+  vertical-align: middle;
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+}

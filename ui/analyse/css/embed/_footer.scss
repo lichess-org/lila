@@ -1,0 +1,28 @@
+footer {
+  @extend %flex-center-nowrap, %metal;
+
+  font-size: .9em;
+  border: $border;
+  border-top: none;
+  height: 2.5rem;
+  padding: 0 1vw;
+
+  .left {
+    @extend %nowrap-ellipsis;
+
+    flex: 1 1 100%;
+  }
+
+  h1 {
+    @extend %base-font;
+
+    display: inline;
+    font-size: 1em;
+    margin-left: 1vw;
+  }
+
+  .open {
+    flex: 0 0 auto;
+    font-size: 1.5em;
+  }
+}

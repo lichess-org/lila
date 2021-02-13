@@ -1,0 +1,116 @@
+#us_profile {
+  @extend %flex-center;
+
+  border-top: $border;
+
+  .warning {
+    @extend %box-radius, %flex-center-nowrap;
+
+    padding: .7em;
+    background: mix($c-bad, $c-bg-box, 10%);
+    border: 1px solid mix($c-bad, $c-bg-box, 30%);
+    color: $c-bad;
+
+    span {
+      margin-right: .2em;
+      font-size: 2.7em;
+    }
+  }
+
+  .engine_warning {
+    margin: 10px 0;
+  }
+
+  .rating-history {
+    flex: 1 1 58%;
+    margin: -10px 0 -14px -8px;
+    height: 350px;
+
+    .spinner {
+      width: 90px;
+      height: 90px;
+      margin: 120px auto 0 auto;
+    }
+  }
+
+  .profile-side {
+    @extend %flex-column;
+
+    flex: 1 0 300px;
+    height: 332px;
+    border-left: $border;
+    overflow: hidden;
+  }
+
+  .country img {
+    vertical-align: text-bottom;
+    margin: 0 .3em;
+  }
+
+  .user-infos {
+    @include hoverflow;
+
+    flex: 1 1 auto;
+    padding: .8em;
+    overflow: auto;
+  }
+
+  .insight {
+    @extend %flex-center-nowrap;
+
+    /* no point linking to insights on devices that can't properly display it */
+    @include breakpoint($mq-not-medium) {
+      display: none;
+    }
+
+
+    flex: 0 0 auto;
+    padding: .3em 1em;
+    border-top: $border;
+    color: $c-link;
+
+    strong {
+      display: block;
+      font-weight: normal;
+      font-size: 1.5em;
+    }
+
+    em {
+      display: block;
+    }
+
+    &::before {
+      font-size: 2.5em;
+      margin-right: 1rem;
+    }
+
+    &:hover,
+    &:hover::before {
+      @include transition;
+
+      background: $c-primary;
+      color: $c-primary-over;
+    }
+  }
+
+  .col2 {
+    display: flex;
+    flex-flow: row wrap;
+
+    > a {
+      @extend %nowrap-ellipsis;
+
+      flex: 0 0 50%;
+    }
+  }
+
+  .bio {
+    @extend %break-word;
+
+    font-style: italic;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+.tour-home__side {
+  h2 {
+    font-size: 1.5em;
+    margin-top: 30px;
+    margin-bottom: 6px;
+    border-bottom: $border;
+
+    a {
+      color: $c-font;
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+  }
+}
+
+.leaderboard {
+  li {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    white-space: nowrap;
+    padding: .2em 0;
+    line-height: 1.5;
+
+    @include transition;
+
+    &:hover a {
+      color: $c-link;
+    }
+  }
+
+  a {
+    color: $c-font;
+  }
+
+  .user-link {
+    @extend %ellipsis;
+
+    margin: 0 5px 0 -3px;
+  }
+}
+
+.tour__links {
+  margin-top: 1em;
+
+  a {
+    color: $c-font;
+
+    @include transition;
+
+    &:hover {
+      color: $c-link;
+    }
+  }
+}
+
+.scheduled {
+  a {
+    color: $c-font;
+    padding: .5em 0 .5em 2.7em;
+    display: block;
+    position: relative;
+    line-height: 1.2;
+
+    @include transition;
+
+    &:hover {
+      @extend %box-radius;
+
+      padding-left: 3.2rem;
+      background: mix($c-brag, $c-bg-page, 20%);
+
+      &::before {
+        left: .5rem;
+      }
+    }
+  }
+
+  strong {
+    color: $c-font-dim;
+    display: block;
+  }
+
+  a::before {
+    @include transition;
+
+    position: absolute;
+    top: .3rem;
+    left: 0;
+    font-size: 2.2em;
+    opacity: 0.6;
+    color: $c-brag;
+  }
+
+  a:hover::before {
+    opacity: 1;
+  }
+}

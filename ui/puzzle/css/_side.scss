@@ -1,0 +1,85 @@
+.puzzle__side {
+  &__metas {
+    @extend %box-neat-force;
+
+    align-self: start;
+    background: $c-bg-box;
+
+    .spinner {
+      margin: 4rem auto;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    padding: 2vmin;
+
+    .infos {
+      @extend %flex-center;
+
+      overflow: hidden;
+
+      &::before {
+        font-size: 3rem;
+        margin-right: 1vw;
+      }
+
+      &.puzzle {
+        padding-bottom: 2vh;
+        border-bottom: $border;
+        margin-bottom: 2vh;
+
+        a {
+          font-size: 1.2em;
+        }
+
+        .hidden {
+          opacity: 0.7;
+        }
+      }
+
+      .players {
+        margin-top: .3rem;
+        font-size: 90%;
+      }
+    }
+  }
+
+  &__user {
+    @extend %box-neat;
+
+    align-self: start;
+    background: $c-bg-box;
+
+    // overflow: hidden;
+    h2 {
+      padding: 2vmin;
+      font-size: 1.2rem;
+    }
+
+    .rp {
+      /* font-size: 1.2em; */
+    }
+
+    .rp.up {
+      color: $c-good;
+    }
+
+    .rp.down {
+      color: $c-bad;
+    }
+
+    canvas {
+      width: 100%;
+
+      @if $theme == "transp" {
+        opacity: .5;
+      }
+    }
+  }
+}
+
+#jqstooltip {
+  box-sizing: content-box;
+}

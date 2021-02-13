@@ -1,0 +1,98 @@
+%top-icon {
+  display: block;
+  height: $site-header-height;
+  line-height: $site-header-height;
+}
+
+.site-buttons {
+  @extend %flex-center-nowrap;
+
+  .link {
+    @extend %top-icon;
+
+    /* we don't want a lighter dark font in the top gradient */
+    @if $theme == "transp" {
+      @extend %page-text;
+    }
+    @else {
+      color: $c-font;
+    }
+
+    font-size: 1.1rem;
+    padding: 0 .7rem;
+
+    &:hover {
+      color: $c-font-clearer;
+    }
+
+    span::before {
+      vertical-align: middle;
+    }
+  }
+
+  .toggle {
+    @extend %top-icon;
+  }
+
+  .initiating {
+    @extend %flex-center;
+
+    justify-content: center;
+    height: 300px;
+    width: 225px;
+  }
+
+  .dropdown {
+    @extend %dropdown-shadow;
+
+    display: none;
+    position: absolute;
+    right: 0;
+    top: var(--dropdown-top);
+    background: $c-bg-header-dropdown;
+    z-index: z("dropdown");
+
+    a,
+    button {
+      color: $c-header-dropdown;
+    }
+  }
+
+  .shown {
+    .toggle {
+      background: $c-bg-header-dropdown;
+      color: $c-header-dropdown;
+    }
+
+    .dropdown {
+      display: block;
+    }
+  }
+
+  .signin {
+    margin: 0 1rem;
+
+    @if $theme == "transp" {
+      &.button-empty {
+        @extend %metal;
+
+        color: $c-font-clear;
+      }
+    }
+  }
+
+  .link-center {
+    margin-top: 5px;
+    height: inherit;
+    line-height: inherit;
+  }
+}
+
+#user_tag {
+  padding-right: 1rem;
+  white-space: nowrap;
+}
+
+#notify-app .initiating {
+  width: 25rem;
+}

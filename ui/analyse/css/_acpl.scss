@@ -1,0 +1,60 @@
+.advice-summary {
+  @extend %flex-column;
+
+  color: $c-font-page;
+  font-size: .9em;
+  align-items: flex-start;
+  line-height: 1.15em;
+  margin-top: 1em;
+
+  td {
+    text-align: center;
+
+    &:first-child {
+      width: 5ch;
+    }
+  }
+
+  table {
+    overflow: hidden;
+  }
+
+  tbody td {
+    font-weight: bold;
+  }
+
+  .color-icon::before {
+    vertical-align: text-bottom;
+  }
+
+  tr {
+    &.symbol {
+      cursor: pointer;
+    }
+
+    &.symbol:hover {
+      color: #3893E8;
+    }
+  }
+
+  .button {
+    margin: .6em 0;
+  }
+
+  @include breakpoint($mq-col1) {
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-bottom: $block-gap;
+    border-bottom: $border;
+    margin: 0;
+
+    table {
+      flex: 0 0 calc(50% - #{$block-gap});
+      margin-left: $block-gap;
+    }
+
+    > a {
+      order: 1;
+    }
+  }
+}

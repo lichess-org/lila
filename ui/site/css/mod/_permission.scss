@@ -1,0 +1,48 @@
+.mod-permissions {
+  form {
+    text-align: center;
+  }
+
+  .permission-list {
+    // @extend %flex-wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    grid-gap: 1em;
+    text-align: left;
+
+    section {
+      white-space: nowrap;
+      margin: 1em;
+    }
+
+    h2 {
+      @extend %roboto;
+
+      font-size: 1.4em;
+      text-transform: uppercase;
+    }
+
+    div {
+      @extend %flex-center-nowrap;
+
+      padding: .5em 0;
+    }
+
+    label {
+      cursor: pointer;
+      margin-left: .5em;
+    }
+  }
+
+  .granted {
+    background: mix($c-good, $c-bg-box, 10%);
+    color: $c-good;
+    padding: .5em 0;
+  }
+
+  .cmn-toggle:not(:checked) + label::before {
+    right: 1px;
+    background-color: transparent;
+    border-radius: 24px;
+  }
+}

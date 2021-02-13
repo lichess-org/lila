@@ -1,0 +1,114 @@
+$team-colors: (0: hsl(274, 100%, 59%), 1: hsl(240, 100%, 67%), 2: #008000, 3: #b22222, 4: hsl(16, 80%, 62%), 5: #9acd32, 6: #ff4500, 7: #2e8b57, 8: #daa520, 9: hsl(32, 75%, 47%));
+
+@each $index, $color in $team-colors {
+  team.ttc-#{$index} {
+    color: #{$color};
+  }
+}
+
+team {
+  padding: 1px 5px;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+.tour__player-info team {
+  margin: 1rem auto 0 auto;
+  padding: .15rem .8rem;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.tour__standing {
+  .rating {
+    padding-right: 5px;
+  }
+}
+
+.tour__team-standing {
+  tbody tr:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+
+  tbody tr:nth-child(even) {
+    background: $c-bg-box;
+  }
+
+  .team {
+    cursor: pointer;
+
+    &:hover {
+      color: $c-link;
+    }
+
+    team {
+      font-size: 1rem;
+    }
+  }
+
+  .players {
+    @extend %break-word;
+
+    color: $c-font-dim;
+  }
+
+  score {
+    font-weight: bold;
+    padding: 0 2px;
+    cursor: pointer;
+
+    &:hover {
+      color: $c-brag;
+    }
+
+    &.top {
+      username {
+        font-weight: normal;
+      }
+    }
+  }
+
+  .total {
+    text-align: right;
+    font-weight: bold;
+    padding-right: $block-gap;
+  }
+
+  tr.active td:last-child {
+    $c-active-border: mix($c-primary, $c-bg-box, 70%);
+
+    background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  }
+
+  tr:hover {
+    background: mix($c-primary, $c-bg-box, 30%) !important;
+  }
+}
+
+.team-battle {
+  &__title {}
+
+  &__list {
+    a {
+      display: block;
+    }
+  }
+}
+
+.team-battle__choice {
+  a {
+    display: block;
+    margin-top: 1rem;
+  }
+}
+
+.tour__duels team {
+  line-height: normal;
+}
+
+.team-picker {
+  ul {
+    text-align: left;
+    font-size: 1.1em;
+  }
+}

@@ -1,0 +1,51 @@
+.study__invite {
+  max-width: 50em;
+
+  > div {
+    overflow: visible !important;
+
+    // required by user autocomplete
+ 
+  }
+
+  .info {
+    @extend %box-radius, %flex-center-nowrap;
+
+    background: $c-accent;
+    color: $c-primary-over;
+    padding: 1em;
+    margin-bottom: 2em;
+    text-align: left;
+
+    &::before {
+      font-size: 3.6em;
+      margin-right: 1rem;
+    }
+  }
+
+  .users {
+    @extend %flex-between;
+
+    max-width: 100ch;
+    margin-top: 2em;
+
+    .button {
+      @extend %ellipsis;
+
+      flex: 0 0 48%;
+      margin-bottom: .7em;
+      text-transform: none;
+    }
+
+    overflow-y: auto;
+    max-height: 30vh;
+  }
+
+  .input-wrapper {
+    overflow: visible !important;
+  }
+
+  .tt-menu {
+    text-align: left;
+  }
+}

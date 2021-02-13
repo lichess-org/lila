@@ -1,0 +1,32 @@
+@import "layout";
+@import "spare";
+@import "tools";
+
+@include body-fixed-scroll;
+
+.board-editor {
+  user-select: none;
+
+  .main-board {
+    grid-area: board;
+  }
+
+  cg-board {
+    cursor: inherit;
+  }
+
+  .copyables {
+    grid-area: copyables;
+    margin: 2rem 0 0 1rem;
+
+    p {
+      display: flex;
+      align-items: center;
+
+      input {
+        margin-left: 1rem;
+        flex: 1 1 100%;
+      }
+    }
+  }
+}

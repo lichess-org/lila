@@ -1,0 +1,94 @@
+.practice-box {
+  flex: 0 0 135px;
+  user-select: none;
+
+  .comment {
+    flex: 0 0 30px;
+    display: flex;
+    align-items: stretch;
+    background: $c-bg-zebra;
+    border-top: 1px solid $border;
+    white-space: nowrap;
+    line-height: 30px;
+  }
+
+  .progress div {
+    background: $c-shade;
+  }
+
+  &.goodMove .progress div {
+    background: $c-good;
+    color: #fff;
+  }
+
+  &.inaccuracy .title,
+  &.inaccuracy .progress div {
+    background: $c-brag;
+    color: #fff;
+  }
+
+  &.mistake .title,
+  &.blunder .title,
+  &.mistake .progress div,
+  &.blunder .progress div {
+    background: $c-bad;
+    color: #fff;
+  }
+
+  .comment .wait {
+    padding-left: 15px;
+  }
+
+  .verdict {
+    font-weight: bold;
+    margin-right: 10px;
+    display: flex;
+  }
+
+  .verdict::before {
+    width: 30px;
+    height: 100%;
+    color: #fff;
+    margin-right: 7px;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: normal;
+  }
+
+  &.goodMove .verdict {
+    color: $c-good;
+  }
+
+  &.goodMove .verdict::before {
+    background: $c-good;
+    content: '✓';
+    font-size: 1.7em;
+  }
+
+  &.inaccuracy .verdict {
+    color: $c-brag;
+  }
+
+  &.inaccuracy .verdict::before {
+    background: $c-brag;
+    content: '?';
+  }
+
+  &.mistake .verdict,
+  &.blunder .verdict {
+    color: $c-bad;
+  }
+
+  &.mistake .verdict::before,
+  &.blunder .verdict::before {
+    background: $c-bad;
+    content: '✗';
+  }
+
+  .comment move {
+    cursor: pointer;
+    margin-left: 5px;
+    color: $c-link;
+    transition: 0.3s;
+  }
+}

@@ -1,0 +1,46 @@
+#main-wrap {
+  min-height: calc(95vh - #{$site-header-outer-height} - 4em);
+}
+
+.auth {
+  width: 100%;
+  margin: auto;
+
+  @include breakpoint($mq-x-small) {
+    width: 40em;
+  }
+
+
+  .button {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .alternative {
+    margin-top: 2rem;
+    font-size: .9em;
+
+    @extend %flex-between;
+  }
+
+  &-login {
+    @include breakpoint($mq-xx-small) {
+      width: 30em;
+    }
+  }
+
+  .agreement label {
+    font-weight: normal;
+  }
+}
+
+/* presumably the keyboard is up */
+@include breakpoint($mq-not-x-short) {
+  #top {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}

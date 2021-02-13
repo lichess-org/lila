@@ -1,0 +1,156 @@
+$c-report-bg: $c-bg-high;
+$c-report-high: $c-brag;
+$c-report-high-over: white;
+
+#report_list {
+  .header {
+    @extend %flex-between-stretch;
+
+    height: 4rem;
+
+    .icon {
+      flex: 1 1 auto;
+      margin: .4rem .8rem;
+      background: no-repeat url(../images/icons/octopus.svg) left center;
+      opacity: 0.6;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    margin-right: 15px;
+    font-size: 1.2em;
+
+    a {
+      @extend %roboto, %flex-column;
+
+      color: $c-font-dim;
+      text-transform: uppercase;
+      padding: .5rem 1.4rem;
+      align-items: center;
+      justify-content: center;
+
+      &.new {
+        color: $c-font-clear;
+      }
+
+      &:hover {
+        background: fade-out($c-report-high, 0.5);
+      }
+
+      &.active {
+        background: $c-report-high;
+        color: $c-report-high-over;
+      }
+
+      count {
+        font-size: .8em;
+        display: block;
+        height: 1.2em;
+      }
+    }
+  }
+
+  .score {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: .3em .5em;
+    border-radius: .3em;
+  }
+
+  .score.green {
+    /* actually blue */
+    background-color: rgba(32, 119, 192, 0.4);
+  }
+
+  .score.yellow {
+    background-color: rgba(221, 207, 63, 0.4);
+  }
+
+  .score.orange {
+    background-color: rgba(231, 155, 100, 0.4);
+  }
+
+  .score.red {
+    background-color: rgba(231, 59, 56, 0.4);
+  }
+
+  table.see {
+    @extend %break-word;
+
+    border-top: 4px solid $c-report-high;
+
+    .button {
+      width: 8rem;
+    }
+
+    .button-metal {
+      box-shadow: none;
+      border: $border;
+    }
+
+    .inquiry .button {
+      padding: 1rem 1.2rem;
+      font-size: 1.4em;
+    }
+
+    .button-thin {
+      font-size: .8em;
+    }
+  }
+
+  .atoms .atom {
+    font-size: .9em;
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .head {
+      display: block;
+    }
+
+    .score {
+      font-size: .9em;
+      padding: .1em .4em;
+    }
+  }
+
+  table.see {
+    .perfs {
+      font-size: .9em;
+      white-space: nowrap;
+    }
+
+    .text {
+      max-height: 100px;
+      overflow: hidden;
+      font-size: .9em;
+    }
+
+    .text.large {
+      font-size: .8em;
+    }
+  }
+
+  tr.new td:first-child {
+    border-left: 4px solid $c-report-high;
+  }
+
+  .user_marks i {
+    font-size: .9em;
+    background: #dc322f70;
+    padding: .1em .4em;
+    border-radius: .3em;
+    margin: 0 .2em;
+  }
+
+  .appeal-queue {
+    td p {
+      margin: .5em 0 0 0;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+.btn-rack {
+  @extend %box-radius;
+
+  display: inline-flex;
+  align-items: center;
+  border: $border;
+  user-select: none;
+
+  .btn-rack {
+    /* embedded racks */
+    border: none;
+  }
+
+  &__btn,
+  form {
+    @extend %flex-center-nowrap, %metal;
+
+    justify-content: center;
+    text-align: center;
+    line-height: 2rem;
+    cursor: pointer;
+    border-right: $border;
+    color: $c-font;
+
+    &:hover {
+      @extend %metal-hover;
+
+      color: $c-font;
+    }
+
+    &:first-child {
+      @extend %box-radius-left;
+    }
+
+    &:last-child {
+      @extend %box-radius-right;
+
+      border: 0;
+    }
+
+    i {
+      @extend %roboto;
+
+      letter-spacing: -1px;
+    }
+  }
+
+  &__btn {
+    padding: 0 .6em;
+
+    &.active {
+      @extend %active;
+
+      color: #fff;
+    }
+  }
+}

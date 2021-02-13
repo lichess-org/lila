@@ -1,0 +1,18 @@
+.analyse__side {
+  align-self: start;
+
+  .back-to-game {
+    margin-top: 2em;
+
+    @include breakpoint($mq-col3) {
+      margin-top: 10vh;
+    }
+
+
+    text-align: center;
+
+    .button {
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+.game-row {
+  display: flex;
+  align-items: stretch;
+  height: 17rem;
+  padding: .5em 1em;
+  border-bottom: $border;
+  position: relative;
+
+  @include transition(background);
+
+  &:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+
+  &:hover {
+    background: mix($c-link, $c-bg-box, 20%);
+  }
+
+  &__overlay {
+    @extend %link-overlay;
+  }
+
+  &__board {
+    flex: 0 0 16rem;
+    margin-right: 1em;
+
+    @include breakpoint($mq-not-small) {
+      display: none;
+    }
+  }
+
+  &__infos {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    margin: .5em 0;
+  }
+
+  .header {
+    @extend %flex-center;
+
+    &::before {
+      font-size: 3em;
+      opacity: 0.7;
+      margin-right: .7rem;
+    }
+
+    &__text {
+      strong {
+        @extend %roboto;
+
+        font-weight: normal;
+        font-size: 1.4em;
+        text-transform: uppercase;
+        display: block;
+      }
+    }
+  }
+
+  .versus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .swords {
+      width: 2.5em;
+      text-align: center;
+      font-size: 2em;
+      opacity: 0.7;
+    }
+
+    .player {
+      font-size: 1.3em;
+      text-align: right;
+    }
+
+    .player.black {
+      text-align: left;
+    }
+
+    a {
+      font-weight: bold;
+      position: relative;
+      z-index: z("above-link-overlay");
+    }
+
+    .anon {
+      line-height: 2em;
+    }
+  }
+
+  .result {
+    display: block;
+    text-align: center;
+  }
+
+  .win {
+    color: $c-good;
+  }
+
+  .loss {
+    color: $c-bad;
+  }
+}
