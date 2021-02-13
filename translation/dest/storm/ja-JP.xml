@@ -27,6 +27,6 @@
   <string name="endRun">ストーム終了（Enter キー）</string>
   <string name="highscores">ハイスコア</string>
   <string name="viewBestRuns">最高記録を表示</string>
-  <string name="bestRunOfDay">日別最高成績</string>
+  <string name="bestRunOfDay">日別最高</string>
   <string name="runs">回数</string>
 </resources>
