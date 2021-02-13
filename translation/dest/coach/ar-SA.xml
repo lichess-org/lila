@@ -3,5 +3,8 @@
   <string name="lichessCoaches">مدربوا الموقع</string>
   <string name="lichessCoach">مدرب</string>
   <string name="areYouCoach">هل أنت مدرب شطرنج رائع و %s؟</string>
+  <string name="location">الموقع</string>
+  <string name="languages">اللغات</string>
+  <string name="rating">التقييم (التصنيف)</string>
   <string name="reviewCoach">قيم المدرب</string>
 </resources>
