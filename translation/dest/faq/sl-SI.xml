@@ -47,6 +47,12 @@ To vrednost lahko uporabimo kot pokazatelj kakovosti igre. Manj kot stotin kmeta
 
 Računalniško analizo lichess poganja Stockfish.</string>
   <string name="insufficientMaterial">Izguba po času, remi in premalo figur</string>
+  <string name="lichessFollowFIDErules">V primeru, da enemu igralcu zmanjka časa, ta igralec običajno izgubi igro. Vendar je igra remizirana, če je položaj tak, da nasprotnik z nobeno možno serijo zakonitih potez (%1$s) ne more matirati kralja igralca.
+
+V redkih primerih je težko samodejno odločiti (prisilne črte, trdnjave). Privzeto smo vedno na strani igralca, ki mu ni zmanjkalo časa.
+
+Upoštevajte, da se lahko pari z enim skakačem ali lovcem, če ima nasprotnik figuro, ki bi lahko blokirala kralja.</string>
+  <string name="fideHandbookX">Priročnik FIDE %s</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
