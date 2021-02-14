@@ -75,6 +75,16 @@ Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="configure">nastavi</string>
   <string name="accounts">Računi</string>
   <string name="titlesAvailableOnLichess">Kakšni nazivi so na Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess prepozna vse naslove FIDE, pridobljene z igro OTB (čez ploščo), pa tudi %1$s. Tu je seznam naslovov FIDE:</string>
+  <string name="showYourTitle">Če imate naslov OTB, se lahko prijavite, da se to prikaže na vašem računu, tako da izpolnite %1$s, vključno z jasno sliko identifikacijskega dokumenta / kartice in selfiejem, na katerem imate dokument / kartico.
+
+Preverjanje, da je naslovni igralec na Lichessu, omogoča dostop do iger na dogodkih Titled Arena.
+
+Končno je tu še častni naslov %2$s.</string>
+  <string name="asWellAsManyNMtitles">veliko državnih mojstrskih naslovov</string>
+  <string name="verificationForm">obrazec za preverjanje</string>
+  <string name="canIbecomeLM">Ali lahko dobim Lichess Master (LM) naslov?</string>
+  <string name="noUpperCaseDot">Ne.</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
