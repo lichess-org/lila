@@ -61,6 +61,13 @@ Opisano je v oddelku 3.7 (d) %2$s:
 \"Kmet, ki zaseda polje na enakem mestu kot in na sosednji koloni nasprotnikov kmet, ki je pravkar napredoval za dva polj v eni potezi od prvotnega polja, lahko vzame nasprotnikovega kmeta, kot da bi bil slednji premaknjen samo eno polje. zajemanje je po poteku le zakonito na poti in se imenuje \"en passant\" zajemanje. \"
 
 Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
+  <string name="goodIntroduction">dober uvod</string>
+  <string name="officialRulesPDF">uradna pravila (PDF)</string>
+  <string name="lichessTraining">Lichess usposabljanje</string>
+  <string name="threefoldRepetition">Trikratna ponovitev</string>
+  <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">trikratna ponovitev</string>
+  <string name="notRepeatedMoves">Potez nismo ponavljali. Zakaj je bila igra še vedno remizirana s ponavljanjem?</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
