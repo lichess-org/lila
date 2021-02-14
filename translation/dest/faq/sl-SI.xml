@@ -111,4 +111,6 @@ V bistvu je sistem 90% prepričan, da je vaš rating nekje med 800 in 2200. Je n
 Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. To vam omogoča, da hitreje pridobivate / izgubljate točke, da se ujemate s kakršnimi koli spremembami vaše spretnosti v tem času.</string>
   <string name="whatIsProvisionalRating">Zakaj je poleg ratinga vprašaj (?)?</string>
   <string name="provisionalRatingExplanation">Vprašaj pomeni, da je rating začasen. Razlogi vključujejo:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Igralec še ni zaključil dovolj rangiranih iger proti %1$s v kategoriji rangiranja.</string>
+  <string name="similarOpponents">nasprotniki podobnih moči</string>
 </resources>
