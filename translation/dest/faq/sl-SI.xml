@@ -71,6 +71,10 @@ Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="repeatedPositionsThatMatters">Trikratno ponavljanje je ponovitev %1$s in ne premiki. Ni nujno, da se ponavljanje ponavlja.</string>
   <string name="positions">pozicije</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Trikrat smo ponovili položaj. Zakaj igra ni bila remizirana?</string>
+  <string name="threeFoldHasToBeClaimed">Ponovitev mora zahtevati eden od igralcev. To lahko storite tako, da pritisnete gumb, ki je prikazan, ali tako, da pred zadnjo ponavljajočo se potezo ponudite remi, ne bo pomembno, ali bo nasprotnik zavrnil ponudbo remija, vseeno bo zahtevana trikratna ponovitev. Lahko tudi nastavite %1$s Lichess, da samodejno zahteva ponovitve za vas. Poleg tega petkratno ponavljanje vedno takoj konča igro.</string>
+  <string name="configure">nastavi</string>
+  <string name="accounts">Računi</string>
+  <string name="titlesAvailableOnLichess">Kakšni nazivi so na Lichess?</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
