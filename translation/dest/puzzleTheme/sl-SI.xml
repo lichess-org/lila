@@ -14,6 +14,8 @@
   <string name="clearance">Potrditev</string>
   <string name="clearanceDescription">Poteza, pogosto s tempom, ki počisti polje, kolono ali diagonalo za nadaljnjo taktično idejo.</string>
   <string name="defensiveMove">Obrambna poteza</string>
+  <string name="defensiveMoveDescription">Natančna poteza ali zaporedje potez, ki je potrebno, da se izognete izgubi materiala ali drugi prednosti.</string>
+  <string name="deflection">Odklon</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
   <string name="masterVsMaster">Igre mojster proti mojstru</string>
