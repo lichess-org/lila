@@ -37,6 +37,16 @@ Na primer, predvideno trajanje igre 5 + 3 je 5 × 60 + 40 × 3 = 420 sekund.</st
   <string name="superiorThanXsEqualYtimeControl">&amp;gt %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Katere različice lahko igram na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess podpira standardni šah in %1$s.</string>
+  <string name="eightVariants">6 šahovskih različic</string>
+  <string name="whatIsACPL">Kakšna je povprečna izguba stotine kmeta (ACPL)?</string>
+  <string name="acplExplanation">Stotina kmeta je merska enota, ki se v šahu uporablja kot prikaz prednosti. Stotina kmeta je enak 1/100 kmeta. Torej 100 stotin kmeta = 1 kmet. Te vrednote nimajo formalne vloge v igri, so pa uporabne za igrače in so bistvene za računalniški šah za ocenjevanje položajev.
+
+Zgornja poteza računalnika bo izgubila nič stotin kmeta, manjše poteze pa bodo poslabšale položaj, merjeno v stotinah kmeta.
+
+To vrednost lahko uporabimo kot pokazatelj kakovosti igre. Manj kot stotin kmeta izgubimo na potezo, močnejša je igra.
+
+Računalniško analizo lichess poganja Stockfish.</string>
+  <string name="insufficientMaterial">Izguba po času, remi in premalo figur</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
