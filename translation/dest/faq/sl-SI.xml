@@ -102,4 +102,13 @@ Ne zahtevajte naslova LM.</string>
   <string name="goldenZeeExplanation">ZugAddict je pretakal in zadnji dve uri je poskušal premagati A.I. stopnja 8 v igri 1 + 0, brez uspeha. Thibault mu je rekel, da bo, če bo to uspešno opravil v toku, dobil edinstven pokal. Eno uro kasneje je razbil Stockfish in obljuba je bila izpolnjena.</string>
   <string name="lichessRatings">Lichess ratingi</string>
   <string name="whichRatingSystemUsedByLichess">Kakšen rating sistem uporablja Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ratingi se izračunajo po metodi rangiranja Glicko-2, ki jo je razvil Mark Glickman. To je zelo priljubljena metoda rangiranja, ki jo uporablja veliko število šahovskih organizacij (FIDE je izjemen primer, saj še vedno uporabljajo datiran sistem rangiranja Elo).
+
+V osnovi ratingi Glicko pri izračunu in predstavitvi vašega ratinga uporabljajo \"intervale zaupanja\". Ko prvič začnete uporabljati spletno mesto, se vaš rating začne pri 1500 ± 700. 1500 predstavlja vaš rating, 700 pa interval zaupanja.
+
+V bistvu je sistem 90% prepričan, da je vaš rating nekje med 800 in 2200. Je neverjetno negotova. Zaradi tega se bo, ko igralec šele začne, njegov rating zelo drastično spremenil, potencialno nekaj sto točk hkrati. Toda po nekaterih igrah z uveljavljenimi igralci se bo interval zaupanja zožil in količina pridobljenih / izgubljenih točk po vsaki tekmi se bo zmanjšala.
+
+Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. To vam omogoča, da hitreje pridobivate / izgubljate točke, da se ujemate s kakršnimi koli spremembami vaše spretnosti v tem času.</string>
+  <string name="whatIsProvisionalRating">Zakaj je poleg ratinga vprašaj (?)?</string>
+  <string name="provisionalRatingExplanation">Vprašaj pomeni, da je rating začasen. Razlogi vključujejo:</string>
 </resources>
