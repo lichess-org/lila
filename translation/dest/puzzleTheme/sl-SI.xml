@@ -20,6 +20,8 @@
   <string name="discoveredAttack">Odkrit napad</string>
   <string name="discoveredAttackDescription">Premikanje figure (na primer skakača), ki je prej blokiral napad s figure velikega dosega (na primer trdnjava), stran od te figure.</string>
   <string name="doubleCheck">Dvojni šah</string>
+  <string name="doubleCheckDescription">Napad na kralja z dvema figurama naenkrat, kot rezultat odkritega napada, kjer tako premikajoča se figura kot tudi razkrita figura napadata nasprotnikovega kralja.</string>
+  <string name="endgame">Končnica</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
   <string name="masterVsMaster">Igre mojster proti mojstru</string>
