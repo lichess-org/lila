@@ -85,6 +85,15 @@ Končno je tu še častni naslov %2$s.</string>
   <string name="verificationForm">obrazec za preverjanje</string>
   <string name="canIbecomeLM">Ali lahko dobim Lichess Master (LM) naslov?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ta častni naslov je neuraden in obstaja samo na Lichessu.
+
+Po lastni presoji ga redko podelimo izjemnim igralcem, ki so dobri državljani Lichessa. Ne dobiš naslova LM, naslov LM pride do tebe. Če izpolnjujete pogoje, boste od nas prejeli sporočilo v zvezi s tem in izbiro, da sprejmete ali zavrnete.
+
+Ne zahtevajte naslova LM.</string>
+  <string name="whatUsernameCanIchoose">Kakšno je lahko moje uporabniško ime?</string>
+  <string name="usernamesNotOffensive">Na splošno uporabniška imena ne smejo biti žaljiva, lažna predstavitev nekoga drugega ali oglaševanje. Več o %1$s lahko preberete.</string>
+  <string name="guidelines">smernice</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
+  <string name="uniqueTrophies">Edinstvene trofeje</string>
 </resources>
