@@ -53,6 +53,14 @@ V redkih primerih je težko samodejno odločiti (prisilne črte, trdnjave). Priv
 
 Upoštevajte, da se lahko pari z enim skakačem ali lovcem, če ima nasprotnik figuro, ki bi lahko blokirala kralja.</string>
   <string name="fideHandbookX">Priročnik FIDE %s</string>
+  <string name="discoveringEnPassant">Zakaj lahko kmet vzame drugega kmeta, ko je že ob njem? (en passant)</string>
+  <string name="explainingEnPassant">To je pravilna poteza, znana kot \"en passant\". Članek v Wikipediji vsebuje %1$s.
+
+Opisano je v oddelku 3.7 (d) %2$s:
+
+\"Kmet, ki zaseda polje na enakem mestu kot in na sosednji koloni nasprotnikov kmet, ki je pravkar napredoval za dva polj v eni potezi od prvotnega polja, lahko vzame nasprotnikovega kmeta, kot da bi bil slednji premaknjen samo eno polje. zajemanje je po poteku le zakonito na poti in se imenuje \"en passant\" zajemanje. \"
+
+Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>
