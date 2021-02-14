@@ -96,4 +96,6 @@ Ne zahtevajte naslova LM.</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
   <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
   <string name="uniqueTrophies">Edinstvene trofeje</string>
+  <string name="ownerUniqueTrophies">Ta pokal je edinstven v zgodovini Lichessa, nihče drug kot %1$s ga ne bo imel nikoli.</string>
+  <string name="wayOfBerserkExplanation">Da bi ga dobil, se je hiimgosu izzval, da se znori in zmaga v 100%% igrah %s.</string>
 </resources>
