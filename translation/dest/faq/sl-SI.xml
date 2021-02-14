@@ -98,4 +98,8 @@ Ne zahtevajte naslova LM.</string>
   <string name="uniqueTrophies">Edinstvene trofeje</string>
   <string name="ownerUniqueTrophies">Ta pokal je edinstven v zgodovini Lichessa, nihče drug kot %1$s ga ne bo imel nikoli.</string>
   <string name="wayOfBerserkExplanation">Da bi ga dobil, se je hiimgosu izzval, da se znori in zmaga v 100%% igrah %s.</string>
+  <string name="aHourlyBulletTournament">urni Bullet turnir</string>
+  <string name="goldenZeeExplanation">ZugAddict je pretakal in zadnji dve uri je poskušal premagati A.I. stopnja 8 v igri 1 + 0, brez uspeha. Thibault mu je rekel, da bo, če bo to uspešno opravil v toku, dobil edinstven pokal. Eno uro kasneje je razbil Stockfish in obljuba je bila izpolnjena.</string>
+  <string name="lichessRatings">Lichess ratingi</string>
+  <string name="whichRatingSystemUsedByLichess">Kakšen rating sistem uporablja Lichess?</string>
 </resources>
