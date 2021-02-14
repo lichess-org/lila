@@ -30,7 +30,7 @@ final private class RoundNotifier(
             Notification.make(
               Notification.Notifies(userId),
               GameEnd(
-                GameEnd.GameId(game.id),
+                GameEnd.GameId(game fullIdOf color),
                 game.opponent(color).userId map GameEnd.OpponentId.apply,
                 game.wonBy(color) map GameEnd.Win.apply
               )
