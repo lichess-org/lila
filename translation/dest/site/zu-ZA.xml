@@ -288,6 +288,20 @@
   <string name="thematic">Izingqikithi</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s kukalwe umdlalo</item>
-    <item quantity="other">%s Imidlallo ekaliwe</item>
+    <item quantity="other">%s imidlallo ekaliwe</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">%1$s %2$s kukalwe umdlalo</item>
+    <item quantity="other">%1$s %2$s imidlalo ekaliwe</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Udinga ukudlala %1$s okuningi %2$s umdlalo ukalwe</item>
+    <item quantity="other">Udinga ukudlala %1$s okuningi %2$s imidlalo ukalwe</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Udinga ukudlala %s okuningi umdlalo ukalwe</item>
+    <item quantity="other">Udinga ukudlala %s okuningi imidlalo ukalwe</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Isilinganiso sakho se-%s esesikhashana</string>
+  <string name="yourPerfRatingIsTooHigh">Isilinganiso sakho se-%1$s (%2$s) siphezulu kakhulu</string>
 </resources>
