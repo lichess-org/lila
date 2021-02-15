@@ -5,7 +5,7 @@
   <string name="twoFactorApp">下载一个双重认证 app，例如谷歌身份验证器 (%1$s 或 %2$s)。</string>
   <string name="scanTheCode">用 app 扫描 QR 码。</string>
   <string name="enterPassword">请输入您的账号密码和由 app 生成的验证码而完成设置。您将在每次登录时都需要新的验证码。</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">如果您不能扫描代码，请在您的应用程序中输入密码 %s。</string>
+  <string name="ifYouCannotScanEnterX">如果您不能扫描代码，请在您的应用程序中输入密码 %s。</string>
   <string name="authenticationCode">授权码</string>
   <string name="ifYouLoseAccess">注意：如果您无法访问您的双重验证码，您可以通过电邮请求重置密码。</string>
   <string name="enableTwoFactor">启用双重认证</string>
