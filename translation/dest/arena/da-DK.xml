@@ -2,8 +2,8 @@
 <resources>
   <string name="arenaTournaments">Arena-turneringer</string>
   <string name="isItRated">Er det ratet?</string>
-  <string name="willBeNotified">Du får besked, når turneringen starter, så det er sikkert at spille i en anden fane mens du venter.</string>
-  <string name="isRated">Denne turnering rates og vil påvirke din rating.</string>
+  <string name="willBeNotified">Du får besked, når turneringen starter, derfor er det sikkert at spille i en anden fane imens du venter.</string>
+  <string name="isRated">Denne turnering er rated og vil påvirke din rating.</string>
   <string name="isNotRated">Denne turnering er *ikke* ratet og vil *ikke* påvirke din rating.</string>
   <string name="someRated">Nogle turneringer er ratede og vil påvirke din rating.</string>
   <string name="howAreScoresCalculated">Hvordan beregnes scorerne?</string>
@@ -24,7 +24,7 @@ Bersærk giver kun ekstra point, hvis du laver mindst 7 træk i partiet.</string
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren (eller spillerne) med flest point, når turneringens fastsatte tidsgrænse nås, erklæres for vinder(e).</string>
   <string name="howDoesPairingWork">Hvordan foretages pardannelse?</string>
-  <string name="howDoesPairingWorkAnswer">Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din ranking. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
+  <string name="howDoesPairingWorkAnswer">Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din score. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
 Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde flere point.</string>
   <string name="howDoesItEnd">Hvordan afsluttes det?</string>
   <string name="howDoesItEndAnswer">Turneringen har et nedtællingsur. Når det rammer nul fastfryses turneringsplaceringer, og en vinder kåres. Igangværende partier skal spilles færdig, men de tæller ikke med i turneringen.</string>

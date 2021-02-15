@@ -9,7 +9,7 @@
   <string name="previousHighscoreWasX">النتيجة العالية السابقة كانت٪ s</string>
   <string name="playAgain">إلعب مرة أخرى</string>
   <string name="highscoreX">أعلى نتيجة: %s</string>
-  <string name="score">نتيجة</string>
+  <string name="score">النتيجة</string>
   <string name="moves">نقلة</string>
   <string name="accuracy">الدقة</string>
   <string name="time">الوقت</string>

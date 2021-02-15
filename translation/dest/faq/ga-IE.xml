@@ -21,6 +21,7 @@
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
   <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
+  <string name="howBulletBlitzEtcDecided">Conas a chinntear Bullet, Blitz agus rialuithe ama eile?</string>
   <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>

@@ -24,7 +24,7 @@
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ejercicio de mayor dificultad resuelto</string>
-  <string name="puzzlesPlayed">Ejercicios hechos</string>
+  <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
   <string name="highscores">Puntuaciones más altas</string>

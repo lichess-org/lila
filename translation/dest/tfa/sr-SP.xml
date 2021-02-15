@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Преузмите апликацију за двофакторску аутентификацију, на пример „Google Authenticator” за %1$s или %2$s.</string>
   <string name="scanTheCode">Скенирајte QR код уз помоћ апликације.</string>
   <string name="enterPassword">Унесите своју лозинку и аутентификациони код који је генерисала апликација да бисте завршили подешавање. Аутентификациони код ће Вам бити потребан при сваком пријављивању.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Ако не можете скенирати код, унесите тајни %s у Вашу апликацију.</string>
+  <string name="ifYouCannotScanEnterX">Ако не можете скенирати код, унесите тајни %s у Вашу апликацију.</string>
   <string name="authenticationCode">Аутентификациони код</string>
   <string name="ifYouLoseAccess">Напомена: ако изгубите приступ Вашим двофакторским аутентификационим кодовима, можете ресетовати лозинку преко е-поште.</string>
   <string name="enableTwoFactor">Омогући двофакторску аутентификацију</string>

@@ -75,12 +75,12 @@
   <string name="combat">Битка</string>
   <string name="captureAndDefendPieces">Отнемай и защитавай фигури</string>
   <string name="combatIntro">Добрият войн знае както да атакува, така и да се защитава!</string>
-  <string name="combatComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
+  <string name="combatComplete">Поздравления! Знаете как да се сражавате с шахматните фигури!</string>
   <string name="checkInOne">Шах в един ход</string>
   <string name="attackTheOpponentsKing">Атакувай противниковия цар</string>
-  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Те са длъжни да го защитят!</string>
-  <string name="checkInOneGoal">Прицели се в краля в един ход!</string>
-  <string name="checkInOneComplete">Поздравления! Вие поставихте противника си в шах, принуждавайки го да защити царя си!</string>
+  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Той е длъжен да го защити!</string>
+  <string name="checkInOneGoal">Поставете царя в шах с един ход!</string>
+  <string name="checkInOneComplete">Поздравления! Поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="outOfCheck">Извън шах</string>
   <string name="defendYourKing">Защитете царя си</string>
   <string name="outOfCheckIntro">В шах сте! Трябва да избягате или да блокирате атаката.</string>
@@ -96,7 +96,7 @@
   <string name="defeatTheOpponentsKing">Надвийте противниковия цар</string>
   <string name="mateInOneIntro">Печелите, когато противникът Ви не може да се защити от шах.</string>
   <string name="attackYourOpponentsKing">Атакувайте противниковия цар
-по начин, който не може да бъде избегнат!</string>
+така, че да не може да се защити!</string>
   <string name="mateInOneComplete">Поздравления! Така се печелят игри на шах!</string>
   <string name="intermediate">Средно ниво</string>
   <string name="boardSetup">Подредба на дъската</string>
@@ -121,9 +121,9 @@
   <string name="castleQueenSide">Преместете царя си с две полета за дамска рокада!</string>
   <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете царска рокада.</string>
   <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
-Първо трябва да разместите фигурите между тях.</string>
+Първо трябва да разместите някои от фигурите.</string>
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
-Първо трябва да разместите фигурите между тях.</string>
+Първо трябва да разместите някои от фигурите.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
   <string name="youCannotCastleIfAttacked">Не можете да направите рокада, ако царят Ви е под шах. Първо блокада, после рокада!</string>
   <string name="findAWayToCastleKingSide">Намерете начин да
@@ -140,7 +140,7 @@
   <string name="enPassantOnlyWorksImmediately">Ан-пасан работи само когато
 пешката е била току-що преместена.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан-пасан работи само когато
-пешката ти е на петия ред.</string>
+пешката Ви е на петия ред.</string>
   <string name="takeAllThePawnsEnPassant">Вземете всички пешки с ан-пасан!</string>
   <string name="enPassantComplete">Поздравления! Сега вече знаете какво е ан-пасан.</string>
   <string name="stalemate">Пат</string>
@@ -175,8 +175,8 @@
   <string name="checkInTwoGoal">Заплашете противниковия цар в два хода!</string>
   <string name="checkInTwoComplete">Поздравления! Поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="whatNext">А сега какво?</string>
-  <string name="youKnowHowToPlayChess">Вие знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
-  <string name="register">Регистрирай се</string>
+  <string name="youKnowHowToPlayChess">Знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
+  <string name="register">Регистрирайте се</string>
   <string name="getAFreeLichessAccount">Създайте безплатна регистрация в Lichess</string>
   <string name="practice">Упражнявайте се</string>
   <string name="learnCommonChessPositions">Научете основните позиции в шахмата</string>
@@ -184,9 +184,9 @@
   <string name="exerciseYourTacticalSkills">Упражнявайте тактическите си умения</string>
   <string name="videos">Видеа</string>
   <string name="watchInstructiveChessVideos">Гледайте поучителни шахматни видеа</string>
-  <string name="playPeople">Играй срещу хора</string>
+  <string name="playPeople">Играйте срещу хора</string>
   <string name="opponentsFromAroundTheWorld">Противници от целия свят</string>
-  <string name="playMachine">Играй срещу машина</string>
+  <string name="playMachine">Играйте срещу машина</string>
   <string name="testYourSkillsWithTheComputer">Тествайте уменията си срещу компютър</string>
   <string name="letsGo">Да започваме!</string>
   <string name="stageX">Етап %s</string>
@@ -201,7 +201,7 @@
   <string name="nailedIt">Невероятно.</string>
   <string name="rightOn">Чудесно!</string>
   <string name="stageXComplete">Етап %s завършен</string>
-  <string name="yourScore">Резултатът ви</string>
+  <string name="yourScore">Резултатът Ви е</string>
   <string name="next">Следващ</string>
   <string name="backToMenu">Обратно към менюто</string>
   <string name="puzzleFailed">Неуспешно!</string>

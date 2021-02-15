@@ -183,6 +183,7 @@
     <item quantity="other">నీతో ఆడిన మొత్తం %s ఆటలు</item>
   </plurals>
   <string name="cancel">రద్దు చేయండి</string>
+  <string name="whiteTimeOut">thella samayam aipoyindi</string>
   <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
   <string name="drawOfferDeclined">సంధి ప్రతిపాదన తిరస్కరించబడింది</string>
   <string name="drawOfferAccepted">సంధి ప్రతిపాదన ఆమోదించబడింది</string>
