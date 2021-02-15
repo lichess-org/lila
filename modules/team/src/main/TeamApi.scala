@@ -205,13 +205,9 @@ final class TeamApi(
     }
 
   private def doQuit(team: Team, userId: User.ID): Funit =
-    belongsTo(team.id, userId) flatMap {
-      _ ?? {
-        memberRepo.remove(team.id, userId) map { res =>
-          if (res.n == 1) teamRepo.incMembers(team.id, -1)
-          cached.invalidateTeamIds(userId)
-        }
-      }
+    memberRepo.remove(team.id, userId) map { res =>
+      if (res.n == 1) teamRepo.incMembers(team.id, -1)
+      cached.invalidateTeamIds(userId)
     }
 
   def quitAll(userId: User.ID): Fu[List[Team.ID]] =
@@ -286,7 +282,7 @@ final class TeamApi(
     cached.syncTeamIds(userId) contains teamId
 
   def belongsTo(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    cached.teamIds(userId) dmap (_ contains teamId)
+    cached.teamIds(userId).dmap(_ contains teamId)
 
   def leads(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     teamRepo.leads(teamId, userId)
