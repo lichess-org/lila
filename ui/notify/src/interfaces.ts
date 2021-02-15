@@ -15,8 +15,19 @@ export interface NotifyData {
   unread: number;
 }
 
+interface NotificationUser {
+  id: string;
+  name: string;
+  patron?: boolean;
+}
+
+interface NotificationContent {
+  text: string;
+  user: NotificationUser;
+}
+
 export interface Notification {
-  content: any;
+  content: NotificationContent;
   type: string;
   read: boolean;
   date: number;

@@ -1,4 +1,5 @@
 import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+
 import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { asText } from './view';
@@ -37,7 +38,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!lichess.quietMode) lichess.sound.play('newPM');
+    if (!lichess.quietMode || notif.content.user.id == 'lichess') lichess.sound.play('newPM');
     const text = asText(notif);
     const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
