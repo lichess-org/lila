@@ -32,7 +32,7 @@ case class Team(
 
 object Team {
 
-  val maxJoin = 100
+  val maxJoin = 32
 
   type ID = String
 
