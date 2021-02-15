@@ -22,9 +22,9 @@ final private class PlaybanFeedback(
   def sandbag(pov: Pov): Unit = tell(pov, s"Warning, {user}. Losing games on purpose will result in a ban.")
 
   private def tell(pov: Pov, template: String): Unit =
-    pov.player.userId foreach { userId =>
-      lightUser(userId) foreach { light =>
-        val message = template.replace("{user}", light.fold(userId)(_.name))
+    pov.player.userId.pp foreach { userId =>
+      lightUser(userId).thenPp foreach { light =>
+        val message = template.replace("{user}", light.fold(userId)(_.name)).pp
         chatApi.userChat.volatile(Chat.Id(pov.gameId), message, _.Round)
       }
     }

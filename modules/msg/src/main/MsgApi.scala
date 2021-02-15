@@ -148,8 +148,8 @@ final class MsgApi(
       }
   }
 
-  def postPreset(dest: User, preset: MsgPreset): Fu[PostResult] =
-    systemPost(dest.id, preset.text)
+  def postPreset(destId: User.ID, preset: MsgPreset): Fu[PostResult] =
+    systemPost(destId, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, multi = true)

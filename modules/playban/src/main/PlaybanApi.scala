@@ -42,7 +42,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    Uptime.startedSinceMinutes(10) ?? {
+    Uptime.startedSinceMinutes(0) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
@@ -125,6 +125,7 @@ final class PlaybanApi(
           loser = game.player(!w)
           loserId <- loser.userId
         } yield {
+          println(status(Status))
           if (Status.NoStart is status)
             save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
           else
@@ -245,18 +246,13 @@ final class PlaybanApi(
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0) ?? {
           if (record.rageSit.isTerrible) funit
-          else if (record.rageSit.isVeryBad)
-            userRepo byId record.userId flatMap {
-              _ ?? { u =>
-                lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-                Bus.publish(
-                  lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name),
-                  "autoWarning"
-                )
-                messenger.postPreset(u, MsgPreset.sittingAuto).void
-              }
-            }
-          else funit
+          else if (record.rageSit.isVeryBad) {
+            Bus.publish(
+              lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
+              "autoWarning"
+            )
+            messenger.postPreset(record.userId, MsgPreset.sittingAuto).void
+          } else funit
         }
       case _ => funit
     }

@@ -246,13 +246,13 @@ final class ReportApi(
               suspect = Suspect(winner),
               reason = Reason.Boost,
               text = s"Boosting: farms rating points from @${loser.username} ($loginsText)"
-            )
+            ).pp
           )
         case _ => funit
       }
 
   def autoSandbagReport(winnerId: User.ID, loserId: User.ID): Funit =
-    userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
+    userRepo.pair(winnerId, loserId).thenPp zip getLichessReporter flatMap {
       case Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
         create(
           Candidate(
@@ -260,7 +260,7 @@ final class ReportApi(
             suspect = Suspect(loser),
             reason = Reason.Boost,
             text = s"Sandbagging: throws games to @${loser.username}"
-          )
+          ).pp
         )
       case _ => funit
     }
