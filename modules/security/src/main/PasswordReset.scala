@@ -45,7 +45,9 @@ ${Mailgun.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId }
+    tokener read token flatMap { _ ?? userRepo.byId } map {
+      _.filter(_.canLogin)
+    }
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,

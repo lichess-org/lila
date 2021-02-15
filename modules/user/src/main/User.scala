@@ -79,6 +79,8 @@ case class User(
   def lameOrAlt        = lame || marks.alt
   def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
+  def canLogin = enabled || !lameOrTrollOrAlt
+
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
   def lightPerf(key: String) =
