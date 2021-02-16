@@ -1,5 +1,5 @@
 import { State } from "./state";
-import { setVisible, createEl } from "./util";
+import { setVisible, createEl, isMiniBoard } from "./util";
 //import { colors, files, ranks } from "./types";
 import { colors, Notation } from "./types";
 import { createElement as createSVG } from "./svg";
@@ -33,8 +33,23 @@ export function renderWrap(
 
   const helper = createEl("cg-helper");
   element.appendChild(helper);
+
   const container = createEl("cg-container");
   helper.appendChild(container);
+
+  let pockets;
+
+  if (isMiniBoard(element)) {
+    if (s.pockets) {
+    pockets = [createEl("cg-pocket"), createEl("cg-pocket")];
+    helper.insertBefore(pockets[s.orientation === "white" ? 1 : 0], container);
+    helper.insertBefore(pockets[s.orientation === "white" ? 0 : 1], container.nextSibling);
+    } else {
+      element.classList.add("no-pockets");
+    }
+  } else {
+    delete s.pockets;
+  }
 
   const board = createEl("cg-board");
   container.appendChild(board);
@@ -90,8 +105,10 @@ export function renderWrap(
   return {
     board,
     container,
+    boardSpan: element,
     ghost,
     svg,
+    pockets,
   };
 }
 

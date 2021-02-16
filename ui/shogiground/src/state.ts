@@ -7,6 +7,7 @@ import * as cg from "./types";
 
 export interface State {
   pieces: cg.Pieces;
+  pockets?: cg.Pockets;
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
   check?: cg.Key; // square currently in check "a2"

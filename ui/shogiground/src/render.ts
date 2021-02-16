@@ -4,6 +4,7 @@ import { whitePov } from "./board";
 import * as util from "./util";
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from "./anim";
 import { DragCurrent } from "./drag";
+import { addPocketEl } from "./pocket";
 import * as cg from "./types";
 
 type PieceName = string; // `$color $role`
@@ -19,6 +20,7 @@ export function render(s: State): void {
       : util.posToTranslateAbs(s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
+    pockets: HTMLElement[] = s.dom.elements.pockets,
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
     anims: AnimVectors = curAnim ? curAnim.plan.anims : new Map(),
@@ -173,6 +175,18 @@ export function render(s: State): void {
 
         if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asWhite);
         boardEl.appendChild(pieceNode);
+      }
+    }
+  }
+
+  if (s.pockets && pockets) {
+    for (const i of [0, 1]) {
+      // add pockets if nonexistent yet
+      const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
+      const pocketPieces = pocket.getElementsByTagName("piece");
+      for (let j = 0; j < pocketPieces.length; j++) {
+        const role = pocketPieces[j].getAttribute("data-role");
+        pocketPieces[j].setAttribute("data-nb", s.pockets[i][role ? role : ""])
       }
     }
   }

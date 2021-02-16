@@ -258,11 +258,15 @@
       var ground = $this.data("shogiground");
       var playable = !!$this.data("playable");
       var resizable = !!$this.data("resizable");
+      var fen = $this.data("fen");
+      var pocketFromFen = fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        fen: $this.data("fen") || lishogi.readServerFen($this.data("z")),
+        fen: fen || lishogi.readServerFen($this.data("z")),
+        hasPockets: true,
+        pockets: $this.data("pocket") || pocketFromFen,
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };

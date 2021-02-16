@@ -137,3 +137,11 @@ export const createEl = (tagName: string, className?: string): HTMLElement => {
   if (className) el.className = className;
   return el;
 };
+
+export const isMiniBoard = (el: HTMLElement): boolean => {
+  return Array.from(el.classList).includes("mini-board");
+}
+
+export const droppableRoles: readonly cg.Role[] = [
+  "pawn", "lance", "knight", "silver", "gold", "bishop", "rook"
+];

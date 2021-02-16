@@ -41,7 +41,7 @@ $(function () {
       $featured.html(data.d.html).find('a').attr('target', '_blank');
       parseFen(board());
     } else if (data.t == "fen") {
-      parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm));
+      parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm).data("pocket", data.d.pocket));
     }
   }, false);
   resize();

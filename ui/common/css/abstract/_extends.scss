@@ -148,6 +148,11 @@
   width: 100%;
 }
 
+%mini-board-square {
+  @extend %square;
+  padding-bottom: calc(100% * 11/9);
+}
+
 %video {
   position: relative;
   display: block;
