@@ -25,7 +25,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
     });
   }
 }
-  
+
 export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
   let longPressCountdown;
 
