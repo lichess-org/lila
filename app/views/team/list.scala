@@ -26,13 +26,18 @@ object list {
       nextPageUrl = n => routes.Team.all(n).url
     )
 
-  def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
+  def mine(teams: List[lila.team.Team], tooMany: Boolean = false)(implicit ctx: Context) =
     bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
           h1(myTeams()),
           standardFlash(),
+          ctx.me.ifTrue(tooMany) map { me =>
+            flashMessage(cls := "flash-failure")(
+              s"You have joined ${teams.size} out of ${lila.team.Team.maxJoin(me)} teams. Leave some teams before you can join others."
+            )
+          },
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()

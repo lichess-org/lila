@@ -95,6 +95,9 @@ final class TeamApi(
   def countTeamsOf(me: User) =
     cached teamIdsList me.id dmap (_.size)
 
+  def hasJoinedTooManyTeams(me: User) =
+    countTeamsOf(me).dmap(_ > Team.maxJoin(me))
+
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
   def countCreatedRecently(me: User): Fu[Int] =

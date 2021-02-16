@@ -198,9 +198,8 @@ final class Team(
 
   def create =
     AuthBody { implicit ctx => implicit me =>
-      api countTeamsOf me flatMap { nb =>
-        if (nb >= TeamModel.maxJoin)
-          BadRequest(views.html.site.message.teamJoinLimit).fuccess
+      api hasJoinedTooManyTeams me flatMap { tooMany =>
+        if (tooMany) tooManyTeams(me)
         else
           LimitPerWeek(me) {
             implicit val req = ctx.body
@@ -227,6 +226,11 @@ final class Team(
       }
     }
 
+  private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
+    api mine me map {
+      html.team.list.mine(_, tooMany = true)
+    } map { BadRequest(_) }
+
   def leader =
     Auth { implicit ctx => me =>
       env.team.teamRepo enabledTeamsByLeader me.id map {
@@ -240,10 +244,10 @@ final class Team(
         me =>
           api.team(id) flatMap {
             _ ?? { team =>
-              api countTeamsOf me flatMap { nb =>
-                if (nb >= TeamModel.maxJoin)
+              api hasJoinedTooManyTeams me flatMap { tooMany =>
+                if (tooMany)
                   negotiate(
-                    html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
+                    html = tooManyTeams(me),
                     api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
                   )
                 else

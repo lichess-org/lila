@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.util.chaining._
 
 import lila.user.User
+import org.joda.time.Days
 
 case class Team(
     _id: Team.ID, // also the url slug
@@ -32,7 +33,9 @@ case class Team(
 
 object Team {
 
-  val maxJoin = 32
+  def maxJoin(u: User) = {
+    15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+  } atMost 50
 
   type ID = String
 
