@@ -111,14 +111,10 @@ object EvalCacheEntry {
   object SmallFen {
     private[evalCache] def raw(str: String) = new SmallFen(str)
     def make(variant: Variant, fen: FEN): SmallFen = {
-      val base = fen.value.split(' ').take(4).mkString("").filter { c =>
+      val base = fen.value.split(' ').take(3).mkString("").filter { c =>
         c != '/' && c != '-' && c != 'w'
       }
-      val str = variant match {
-        case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _                        => base
-      }
-      new SmallFen(str)
+      new SmallFen(base)
     }
     def validate(variant: Variant, fen: FEN): Option[SmallFen] =
       Forsyth.<<@(variant, fen.value).exists(_ playable false) option make(variant, fen)

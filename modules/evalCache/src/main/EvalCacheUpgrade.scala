@@ -35,11 +35,11 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     expirableSris put sri.value
   }
 
-  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = {
+  def onEval(input: EvalCacheEntry.Input, sri: Option[Socket.Sri]): Unit = {
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { sris =>
-      val wms = sris.filter(sri.value !=) flatMap members.get
+      val wms = sris.filter{ s => sri.map(s != _.value).getOrElse(true) } flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>
