@@ -24,5 +24,11 @@
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo por lance</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Problema mais difícil resolvido</string>
+  <string name="puzzlesPlayed">Problemas jogados</string>
+  <string name="newRun">Nova partida (tecla: espaço)</string>
+  <string name="endRun">Terminar partida (tecla: Enter)</string>
   <string name="highscores">Recorde</string>
+  <string name="viewBestRuns">Ver as melhores partidas</string>
+  <string name="bestRunOfDay">Melhor partida do dia</string>
+  <string name="runs">Partidas</string>
 </resources>
