@@ -18,7 +18,7 @@ final private class GameStarter(
 
   import PoolApi._
 
-  private val workQueue = new lila.hub.DuctSequencer(maxSize = 16, timeout = 10 seconds, name = "gameStarter")
+  private val workQueue = new lila.hub.DuctSequencer(maxSize = 32, timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty ?? {
