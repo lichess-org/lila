@@ -198,20 +198,25 @@ final class Team(
 
   def create =
     AuthBody { implicit ctx => implicit me =>
-      LimitPerWeek(me) {
-        implicit val req = ctx.body
-        forms.create
-          .bindFromRequest()
-          .fold(
-            err =>
-              forms.anyCaptcha map { captcha =>
-                BadRequest(html.team.form.create(err, captcha))
-              },
-            data =>
-              api.create(data, me) map { team =>
-                Redirect(routes.Team.show(team.id)).flashSuccess
-              }
-          )
+      api countTeamsOf me flatMap { nb =>
+        if (nb >= TeamModel.maxJoin)
+          BadRequest(views.html.site.message.teamJoinLimit).fuccess
+        else
+          LimitPerWeek(me) {
+            implicit val req = ctx.body
+            forms.create
+              .bindFromRequest()
+              .fold(
+                err =>
+                  forms.anyCaptcha map { captcha =>
+                    BadRequest(html.team.form.create(err, captcha))
+                  },
+                data =>
+                  api.create(data, me) map { team =>
+                    Redirect(routes.Team.show(team.id)).flashSuccess
+                  }
+              )
+          }
       }
     }
 
@@ -369,7 +374,7 @@ final class Team(
         me =>
           OptionFuResult(api.cancelRequest(id, me) orElse api.quit(id, me)) { team =>
             negotiate(
-              html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
+              html = Redirect(routes.Team.mine).flashSuccess.fuccess,
               api = _ => jsonOkResult.fuccess
             )
           }(ctx),
