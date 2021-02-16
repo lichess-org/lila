@@ -521,7 +521,7 @@ You received this because you are subscribed to messages of the team $url."""
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1, 3.minutes),
-    ("slow", 6, 24.hours)
+    ("slow", 4, 24.hours)
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
