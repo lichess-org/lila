@@ -27,6 +27,7 @@
   <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="dovetailMate">Mate cauda-de-andorinha</string>
+  <string name="dovetailMateDescription">Uma dama dá mate ao rei inimigo cujas jogadas de escape estão bloqueadas por peças aliadas.</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no lado do rei</string>
@@ -50,6 +51,8 @@
   <string name="forkDescription">Uma jogada em que uma peça ataca duas peças do adversário simultaneamente.</string>
   <string name="hangingPiece">Peça desprotegida</string>
   <string name="hangingPieceDescription">Uma tática que envolve uma peça do adversário que não está suficientemente defendida e por isso pode ser capturada.</string>
+  <string name="hookMate">Mate gancho</string>
+  <string name="hookMateDescription">Mate com uma torre, cavalo e peão em que o rei inimigo tem as jogadas de escape bloqueadas por um peão aliado.</string>
   <string name="interference">Interferência</string>
   <string name="interferenceDescription">Jogar uma peça para uma casa entre duas peças do adversário deixando pelo menos uma delas desprotegia, como por exemplo um cavalo numa casa defendida entre duas torres.</string>
   <string name="intermezzo">Intermezzo</string>
