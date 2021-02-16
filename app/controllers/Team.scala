@@ -227,9 +227,7 @@ final class Team(
     }
 
   private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
-    api mine me map {
-      html.team.list.mine(_, tooMany = true)
-    } map { BadRequest(_) }
+    api mine me map html.team.list.mine map { BadRequest(_) }
 
   def leader =
     Auth { implicit ctx => me =>
