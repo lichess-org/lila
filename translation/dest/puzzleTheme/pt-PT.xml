@@ -4,6 +4,9 @@
   <string name="advancedPawnDescription">A chave do tático é um peão a promover ou a ameaçar promover.</string>
   <string name="advantage">Vantagem</string>
   <string name="advantageDescription">Aproveita a oportunidade de obter uma vantagem decisiva. (200cp ≤ aval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mate Anastasia</string>
+  <string name="anastasiaMateDescription">Um cavalo e uma torre ou dama cooperam de forma a prender o rei inimigo entre o canto do tabuleiro e outra peça inimiga.</string>
+  <string name="arabianMate">Mate Árabe</string>
   <string name="attackingF2F7">Atacar f2 ou f7</string>
   <string name="attackingF2F7Description">Um ataque ao peão de f2 ou f7, como a abertura \"Fried Liver\".</string>
   <string name="attraction">Atração</string>
@@ -12,12 +15,14 @@
   <string name="backRankMateDescription">Dá mate ao rei na fila inicial, quando está preso pelas suas próprias peças.</string>
   <string name="bishopEndgame">Final de bispos</string>
   <string name="bishopEndgameDescription">Um final apenas com bispos e peões.</string>
+  <string name="bodenMate">Mate Boden</string>
   <string name="castling">Roque</string>
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
   <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
+  <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no lado do rei</string>
