@@ -15,11 +15,9 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
-  <string name="yourPuzzleRatingX">ریتینگ پازل شما</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
-  <string name="puzzleId">گیج شده</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
   <string name="clickToSolve">برای جل کردن کلیک کنید</string>
   <string name="goodMove">حرکتی خوب</string>
@@ -29,7 +27,6 @@
   <string name="puzzleComplete">پازل تمام شد!</string>
   <string name="notTheMove">ابن حرکت صحیح نیست</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
-  <string name="ratingX">ریتینگ</string>
   <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s بار بازی شده است</item>
