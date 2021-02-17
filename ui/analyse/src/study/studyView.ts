@@ -66,7 +66,7 @@ function buttons(root: AnalyseCtrl): VNode {
         attrs: { title: noarg('shareChanges') },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
-      }, [ h('i.is'), 'REC' ]) : null,
+      }, [h('i.is'), 'REC']) : null,
       toolButton({
         ctrl,
         tab: 'tags',
@@ -83,7 +83,7 @@ function buttons(root: AnalyseCtrl): VNode {
         },
         count: (root.node.comments || []).length
       }),
-      canContribute ?  toolButton({
+      canContribute ? toolButton({
         ctrl,
         tab: 'glyphs',
         hint: noarg('annotateWithGlyphs'),
@@ -128,7 +128,7 @@ function metadata(ctrl: StudyCtrl): VNode {
     h('h2', [
       h('span.name', { attrs: { title } }, [
         title,
-        credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
+        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
       h('span.liking.text', {
         class: { liked: d.liked },
@@ -149,7 +149,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
     intro = ctrl.relay && ctrl.relay.intro;
 
-  const makeTab = function(key: Tab, name: string) {
+  const makeTab = function (key: Tab, name: string) {
     return h('span.' + key, {
       class: { active: (!intro || !intro.active) && activeTab === key },
       hook: bind('mousedown', () => {
@@ -170,7 +170,7 @@ export function side(ctrl: StudyCtrl): VNode {
     makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size())),
     ctrl.members.isOwner() ? h('span.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
-    }, [ iconTag('[') ]) : null
+    }, [iconTag('[')]) : null
   ]);
 
   return h('div.study__side', [
@@ -217,7 +217,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     metadata(study)
   ];
   let panel;
-  switch(toolTab) {
+  switch (toolTab) {
     case 'tags':
       panel = metadata(study);
       break;
@@ -232,8 +232,8 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     case 'glyphs':
       panel = ctrl.path ? (
         study.vm.mode.write ?
-        glyphForm.view(study.glyphForm) :
-        glyphForm.viewDisabled('Press REC to annotate moves')
+          glyphForm.view(study.glyphForm) :
+          glyphForm.viewDisabled('Press REC to annotate moves')
       ) : glyphForm.viewDisabled('Select a move to annotate');
       break;
     case 'serverEval':

@@ -184,12 +184,12 @@ export default class AnalyseCtrl {
     this.explorer.setNode();
     this.study = opts.study
       ? makeStudy(
-          opts.study,
-          this,
-          (opts.tagTypes || "").split(","),
-          opts.practice,
-          opts.relay
-        )
+        opts.study,
+        this,
+        (opts.tagTypes || "").split(","),
+        opts.practice,
+        opts.relay
+      )
       : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
@@ -334,20 +334,20 @@ export default class AnalyseCtrl {
           ? this.bottomColor()
           : !this.embed &&
             ((dests && dests.size > 0) || drops === null || drops.length)
-          ? color
-          : undefined,
+            ? color
+            : undefined,
       config: ShogigroundConfig = {
         fen: node.fen,
         turnColor: color,
         movable: this.embed
           ? {
-              color: undefined,
-              dests: new Map(),
-            }
+            color: undefined,
+            dests: new Map(),
+          }
           : {
-              color: movableColor,
-              dests: (movableColor === color && dests) || new Map(),
-            },
+            color: movableColor,
+            dests: (movableColor === color && dests) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci),
       };
@@ -367,15 +367,15 @@ export default class AnalyseCtrl {
 
   private sound = li.sound
     ? {
-        move: throttle(50, li.sound.move),
-        capture: throttle(50, li.sound.capture),
-        check: throttle(50, li.sound.check),
-      }
+      move: throttle(50, li.sound.move),
+      capture: throttle(50, li.sound.capture),
+      check: throttle(50, li.sound.check),
+    }
     : {
-        move: $.noop,
-        capture: $.noop,
-        check: $.noop,
-      };
+      move: $.noop,
+      capture: $.noop,
+      check: $.noop,
+    };
 
   private onChange: () => void = throttle(300, () => {
     li.pubsub.emit(
@@ -606,11 +606,11 @@ export default class AnalyseCtrl {
       (count.nodes >= 10 || count.comments > 0) &&
       !confirm(
         "Delete " +
-          util.plural("move", count.nodes) +
-          (count.comments
-            ? " and " + util.plural("comment", count.comments)
-            : "") +
-          "?"
+        util.plural("move", count.nodes) +
+        (count.comments
+          ? " and " + util.plural("comment", count.comments)
+          : "") +
+        "?"
       )
     )
       return;

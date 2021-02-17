@@ -130,11 +130,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const mode = currentChapter.practice
     ? "practice"
     : defined(currentChapter.conceal)
-    ? "conceal"
-    : currentChapter.gamebook
-    ? "gamebook"
-    : "normal";
+      ? "conceal"
+      : currentChapter.gamebook
+        ? "gamebook"
+        : "normal";
   const noarg = trans.noarg;
+  let isDefaultName = true;
 
   return modal.modal({
     class: "chapter-new",
@@ -146,12 +147,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       activeTab === "edit"
         ? null
         : h("h2", [
-            noarg("newChapter"),
-            h("i.help", {
-              attrs: { "data-icon": "" },
-              hook: bind("click", ctrl.startTour),
-            }),
-          ]),
+          noarg("newChapter"),
+          h("i.help", {
+            attrs: { "data-icon": "" },
+            hook: bind("click", ctrl.startTour),
+          }),
+        ]),
       h(
         "form.form3",
         {
@@ -160,6 +161,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               fen:
                 fieldValue(e, "fen") ||
                 (ctrl.vm.tab() === "edit" ? ctrl.vm.editorFen() : null),
+                isDefaultName: isDefaultName
             };
             "name game variant pgn orientation mode"
               .split(" ")
@@ -189,6 +191,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     "chapterX",
                     ctrl.vm.initial() ? 1 : ctrl.chapters().length + 1
                   );
+                  el.onchange = function() {
+                    isDefaultName = false;
+                  };
                   el.select();
                   el.focus();
                 }
@@ -204,52 +209,52 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           ]),
           activeTab === "edit"
             ? h(
-                "div.board-editor-wrap",
-                {
-                  hook: {
-                    insert: (vnode) => {
-                      $.when(
-                        window.lishogi.loadScript(
+              "div.board-editor-wrap",
+              {
+                hook: {
+                  insert: (vnode) => {
+                    $.when(
+                      window.lishogi.loadScript(
                           "compiled/lishogi.editor" + ($("body").data("dev") ? "" : ".min") + ".js"
-                        ),
-                        $.get("/editor.json", {
-                          fen: ctrl.root.node.fen,
-                        })
-                      ).then(function (_, b) {
-                        const data = b[0];
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = window["LishogiEditor"](
-                          vnode.elm as HTMLElement,
-                          data
-                        );
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
-                    },
-                    destroy: (_) => {
-                      ctrl.vm.editor = null;
-                    },
+                      ),
+                      $.get("/editor.json", {
+                        fen: ctrl.root.node.fen,
+                      })
+                    ).then(function (_, b) {
+                      const data = b[0];
+                      data.embed = true;
+                      data.options = {
+                        inlineCastling: true,
+                        onChange: ctrl.vm.editorFen,
+                      };
+                      ctrl.vm.editor = window["LishogiEditor"](
+                        vnode.elm as HTMLElement,
+                        data
+                      );
+                      ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                    });
+                  },
+                  destroy: (_) => {
+                    ctrl.vm.editor = null;
                   },
                 },
-                [spinner()]
-              )
+              },
+              [spinner()]
+            )
             : null,
           activeTab === "game"
             ? h("div.form-group", [
-                h(
-                  "label.form-label",
-                  {
-                    attrs: { for: "chapter-game" },
-                  },
-                  trans("loadAGameFromXOrY", "lishogi.org", "chessgames.com")
-                ),
-                h("textarea#chapter-game.form-control", {
-                  attrs: { placeholder: noarg("urlOfTheGame") },
-                }),
-              ])
+              h(
+                "label.form-label",
+                {
+                  attrs: { for: "chapter-game" },
+                },
+                trans("loadAGameFromXOrY", "lishogi.org", "chessgames.com")
+              ),
+              h("textarea#chapter-game.form-control", {
+                attrs: { placeholder: noarg("urlOfTheGame") },
+              }),
+            ])
             : null,
           activeTab === "fen"
             ? h("div.form-group", [
@@ -262,45 +267,45 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   $("#chapter-fen").val(makeLishogiFen($("#chapter-hiddenFen").val()))
                 }),
               }),
-                h("input#chapter-fen.form-control", {
-                  attrs: {
-                    type: "hidden",
-                    value: ctrl.root.node.fen,
-                    placeholder: noarg("loadAPositionFromFen"),
-                  },
-                }),
-              ])
+              h("input#chapter-fen.form-control", {
+                attrs: {
+                  type: "hidden",
+                  value: ctrl.root.node.fen,
+                  placeholder: noarg("loadAPositionFromFen"),
+                },
+              }),
+            ])
             : null,
           activeTab === "pgn"
             ? h("div.form-groupabel", [
-                h("textarea#chapter-pgn.form-control", {
+              h("textarea#chapter-pgn.form-control", {
+                attrs: {
+                  placeholder: trans.plural(
+                    "pasteYourPgnTextHereUpToNbGames",
+                    ctrl.multiPgnMax
+                  ),
+                },
+              }),
+              window.FileReader
+                ? h("input#chapter-pgn-file.form-control", {
                   attrs: {
-                    placeholder: trans.plural(
-                      "pasteYourPgnTextHereUpToNbGames",
-                      ctrl.multiPgnMax
-                    ),
+                    type: "file",
+                    accept: ".pgn",
                   },
-                }),
-                window.FileReader
-                  ? h("input#chapter-pgn-file.form-control", {
-                      attrs: {
-                        type: "file",
-                        accept: ".pgn",
-                      },
-                      hook: bind("change", (e) => {
-                        const file = (e.target as HTMLInputElement).files![0];
-                        if (!file) return;
-                        const reader = new FileReader();
-                        reader.onload = function () {
-                          (document.getElementById(
-                            "chapter-pgn"
-                          ) as HTMLTextAreaElement).value = reader.result as string;
-                        };
-                        reader.readAsText(file);
-                      }),
-                    })
-                  : null,
-              ])
+                  hook: bind("change", (e) => {
+                    const file = (e.target as HTMLInputElement).files![0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function () {
+                      (document.getElementById(
+                        "chapter-pgn"
+                      ) as HTMLTextAreaElement).value = reader.result as string;
+                    };
+                    reader.readAsText(file);
+                  }),
+                })
+                : null,
+            ])
             : null,
           h("div.form-split", [
             h("div.form-group.form-half", []),

@@ -9,7 +9,7 @@ import shogiground from "./shogiground";
 import { OpeningPosition, Selected, EditorState } from "./interfaces";
 import { parseFen } from 'shogiops/fen';
 import { PocketRole } from "shogiops/types";
-import { makeShogiFen } from "shogiops/compat";
+import { makeLishogiFen, makeShogiFen } from "shogiops/compat";
 import {opposite} from "shogiops/util";
 
 function pocket(ctrl: EditorCtrl, c: Color): VNode {
@@ -117,7 +117,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
       }),
       h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
       h("input", {
-        attrs: { type: "hidden", name: "fen", value: state.tsumeFen || "" },
+        attrs: { type: "hidden", name: "fen", value: makeLishogiFen(state.tsumeFen ?? "") || "" },
       }),
       h(
         "button",
@@ -249,7 +249,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { "data-icon": "q" },
                 on: {
                   click() {
-                    ctrl.setFen("9/9/9/9/9/9/9/9/9");
+                    ctrl.clearBoard();
                   },
                 },
               },

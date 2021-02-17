@@ -219,7 +219,7 @@ export default class EditorCtrl {
   addToPocket(c: Color, r: Role, reload: boolean = false): void {
     if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r))
       this.pockets[c][r as PocketRole]++;
-      if(reload) this.onChange();
+    if(reload) this.onChange();
   }
   removeFromPocket(c: Color, r: Role, reload: boolean = false): void {
     if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r) &&

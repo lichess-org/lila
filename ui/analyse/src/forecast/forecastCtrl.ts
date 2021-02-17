@@ -104,13 +104,17 @@ export function make(
     });
   }
 
+  function encodeUci(uci: string): string {
+    return uci.replace(/\+/, '%2B');
+  }
+
   function playAndSave(node: ForecastStep) {
     if (!cfg.onMyTurn) return;
     loading(true);
     redraw();
     $.ajax({
       method: "POST",
-      url: saveUrl + "/" + node.uci,
+      url: saveUrl + "/" + encodeUci(node.uci),
       data: JSON.stringify(
         findStartingWithNode(node)
           .filter(function (fc) {

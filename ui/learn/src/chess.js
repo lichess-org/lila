@@ -43,7 +43,7 @@ module.exports = function (fen, appleKeys) {
     return allCaptures;
   };
 
-  // This might be moved to shogiops later
+  // This will be moved to shogiops later
   var illegalMoves = function () {
     const result = new Map();
     const illegalDests = shogi.allDests({

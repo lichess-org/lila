@@ -198,7 +198,7 @@ export function init(ctrl: RoundController) {
     { capture: true }
   );
 
-  if (li.storage.get("crazyKeyHist") !== "0") preloadMouseIcons(ctrl.data);
+  if (li.storage.get("crazyKeyHist") !== "0") preloadMouseIcons(ctrl.data); // todo
 }
 
 // zh keys has unacceptable jank when cursors need to dl,

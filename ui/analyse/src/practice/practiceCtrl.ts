@@ -7,6 +7,8 @@ import AnalyseCtrl from "../ctrl";
 import { Redraw } from "../interfaces";
 import { defined, prop, Prop } from "common";
 import { altCastles } from "chess";
+import { makeSan } from "shogiops/san";
+import { parseLishogiUci } from "shogiops/compat";
 
 declare type Verdict = "goodMove" | "inaccuracy" | "mistake" | "blunder";
 
@@ -142,7 +144,10 @@ export function make(
       best: best
         ? {
             uci: best,
-            san: "Pe3", //todo
+            san: root.position(prev).unwrap(
+              pos => makeSan(pos, parseLishogiUci(best)!),
+              _ => "--"
+            ),
           }
         : undefined,
     };

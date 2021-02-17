@@ -82,7 +82,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
             {
               hook: onInsert((elm) => setupTagify(elm, userId)),
             },
-            ctrl.getTopics().join(", ")
+            ctrl.getTopics().join(", ").replace(/[<>]/g, '')
           ),
           h(
             "button.button",
