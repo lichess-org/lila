@@ -34,7 +34,7 @@ object Condition {
   case object Titled extends Condition with FlatCond {
     def name(implicit lang: Lang) = "Only titled players"
     def apply(user: User) =
-      if (user.title.exists(_ != Title.LM)) Accepted
+      if (user.title.exists(_ != Title.LM) && user.noBot) Accepted
       else Refused(name(_))
   }
 
