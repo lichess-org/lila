@@ -39,11 +39,11 @@
   <string name="deflection">Отвлечение</string>
   <string name="deflectionDescription">Ход, отвлекающий фигуру противника от важной задачи, например, от защиты ключевого поля.</string>
   <string name="discoveredAttack">Вскрытое нападение</string>
-  <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём освобождает линию для стоящей за ним ладьи.</string>
+  <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>
   <string name="doubleCheck">Двойной шах</string>
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
   <string name="endgame">Эндшпиль</string>
-  <string name="endgameDescription">Тактика на последней стадии игры.</string>
+  <string name="endgameDescription">Тактика в эндшпиле.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где пешка может взять пешку противника, сделавшую первоначальный ход с перемещением на два поля, при котором пересекаемое поле находится под боем пешки, которая может взять пешку противника.</string>
   <string name="exposedKing">Голый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
