@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Продвинутая пешка</string>
-  <string name="advancedPawnDescription">Пешка, готовая к превращению, имеет важное тактическое значение.</string>
+  <string name="advancedPawnDescription">Тактика связанная с превращением пешки или угрозой превращения пешки.</string>
   <string name="advantage">Преимущество</string>
   <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
   <string name="anastasiaMate">Мат Анастасии</string>
