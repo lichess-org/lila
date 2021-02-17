@@ -88,7 +88,7 @@
   <string name="pin">Связка</string>
   <string name="pinDescription">Тактика, использующая связку, когда фигура не может сделать ход, иначе под атаку попадёт стоящая за ней более ценная фигура.</string>
   <string name="promotion">Превращение</string>
-  <string name="promotionDescription">Тактика связанная с превращением пешки или угрозой превращения пешки.</string>
+  <string name="promotionDescription">Ход при котором пешка ходит на последнюю горизонталь и заменяется по выбору игрока на любую другую фигуру того же цвета, кроме короля.</string>
   <string name="queenEndgame">Ферзевый эндшпиль</string>
   <string name="queenEndgameDescription">Эндшпиль с ферзями и пешками.</string>
   <string name="queenRookEndgame">Ферзево-ладейный эндшпиль</string>
