@@ -251,6 +251,14 @@ object mod {
       )
     }
 
+  def student(managed: lila.clas.Student.ManagedInfo)(implicit ctx: Context): Frag =
+    mzSection("student")(
+      "Created by ",
+      userLink(managed.createdBy),
+      " for class ",
+      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
+    )
+
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(

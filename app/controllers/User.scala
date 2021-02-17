@@ -367,6 +367,8 @@ final class User(
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
 
+        val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
+
         val reportLog = isGranted(_.SeeReport) ?? env.report.api
           .byAndAbout(user, 20)
           .flatMap { rs =>
@@ -410,6 +412,7 @@ final class User(
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
             modZoneSegment(plan, "plan", user) merge
+            modZoneSegment(student, "student", user) merge
             modZoneSegment(reportLog, "reportLog", user) merge
             modZoneSegment(prefs, "prefs", user) merge
             modZoneSegment(rageSit, "rageSit", user) merge

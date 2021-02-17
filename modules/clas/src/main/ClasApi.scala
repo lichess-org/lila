@@ -164,6 +164,16 @@ final class ClasApi(
     def release(user: User): Funit =
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
 
+    def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
+      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student] flatMap {
+        _ ?? { student =>
+          userRepo.byId(student.created.by) zip clas.byId(student.clasId) map {
+            case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
+            case _                           => none
+          }
+        }
+      }
+
     def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
       coll.one[Student]($id(Student.id(userId, clas.id)))
 
