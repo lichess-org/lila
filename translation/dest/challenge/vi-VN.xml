@@ -11,4 +11,13 @@
   <string name="yourXRatingIsTooFarFromY">Chỉ số %1$s của bạn quá xa so với %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
+  <string name="declineGeneric">Hiện tại tôi đang không chấp nhận thách đấu.</string>
+  <string name="declineLater">Đây không phải thời điểm đúng cho tôi, hãy hỏi lại sau.</string>
+  <string name="declineTooFast">Tùy chọn thời gian quá nhanh cho tôi, hãy thách đấu lại với một tùy chọn chậm hơn.</string>
+  <string name="declineTooSlow">Tùy chọn thời gian quá chậm cho tôi, hãy thách đấu lại với một tùy chọn nhanh hơn.</string>
+  <string name="declineTimeControl">Tôi không chấp nhận thách đấu với tùy chọn thời gian này.</string>
+  <string name="declineRated">Hãy gửi yêu cầu thách đấu có tính elo cho tôi.</string>
+  <string name="declineCasual">Hãy gửi tôi yêu cầu thách đấu không tính elo.</string>
+  <string name="declineNoBot">Tôi không chấp nhận thách đấu từ bot.</string>
+  <string name="declineOnlyBot">Tôi chỉ chấp nhận thách đấu từ bot.</string>
 </resources>
