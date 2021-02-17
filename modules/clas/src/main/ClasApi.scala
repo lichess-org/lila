@@ -130,11 +130,34 @@ final class ClasApi(
     def activeOf(clas: Clas): Fu[List[Student]] =
       of($doc("clasId" -> clas.id) ++ selectArchived(false))
 
-    def allWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
-      of($doc("clasId" -> clas.id)) flatMap withUsers
+    def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
+      colls.student
+        .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match($doc("clasId" -> clas.id)) -> List(
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from"         -> userRepo.coll.name,
+                  "as"           -> "user",
+                  "localField"   -> "userId",
+                  "foreignField" -> "_id"
+                )
+              )
+            ),
+            UnwindField("user")
+          )
+        }
+        .map { docs =>
+          for {
+            doc     <- docs
+            student <- doc.asOpt[Student]
+            user    <- doc.getAsOpt[User]("user")
+          } yield Student.WithUser(student, user)
+        }
 
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
-      of($doc("clasId" -> clas.id) ++ selectArchived(false)) flatMap withUsers
+      allWithUsers(clas, selectArchived(false))
 
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll
@@ -146,16 +169,6 @@ final class ClasApi(
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
       coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
 
-    def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
-      userRepo.coll.idsMap[User, User.ID](
-        students.map(_.userId),
-        ReadPreference.secondaryPreferred
-      )(_.id) map { users =>
-        students.flatMap { s =>
-          users.get(s.userId) map { Student.WithUser(s, _) }
-        }
-      }
-
     def count(clasId: Clas.Id): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
     def isManaged(user: User): Fu[Boolean] =
@@ -163,6 +176,16 @@ final class ClasApi(
 
     def release(user: User): Funit =
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
+
+    def findManaged(user: User): Fu[Option[Student.ManagedInfo]] =
+      coll.find($doc("userId" -> user.id, "managed" -> true)).one[Student] flatMap {
+        _ ?? { student =>
+          userRepo.byId(student.created.by) zip clas.byId(student.clasId) map {
+            case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
+            case _                           => none
+          }
+        }
+      }
 
     def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
       coll.one[Student]($id(Student.id(userId, clas.id)))

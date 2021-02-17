@@ -18,15 +18,15 @@
   <string name="score">スコア</string>
   <string name="moves">総手数</string>
   <string name="accuracy">正解率</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">連続正解手</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">連続正解</string>
   <string name="time">経過時間</string>
-  <string name="timePerMove">１手あたりの時間</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">正解問題の最高レート</string>
+  <string name="timePerMove">１手あたり時間</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">正解最高レート</string>
   <string name="puzzlesPlayed">プレイした問題</string>
   <string name="newRun">新たなストーム（スペースキー）</string>
   <string name="endRun">ストーム終了（Enter キー）</string>
   <string name="highscores">ハイスコア</string>
   <string name="viewBestRuns">最高記録を表示</string>
-  <string name="bestRunOfDay">今日の最高</string>
+  <string name="bestRunOfDay">日別最高</string>
   <string name="runs">回数</string>
 </resources>

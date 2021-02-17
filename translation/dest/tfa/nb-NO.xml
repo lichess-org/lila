@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Tofaktorautentisering</string>
   <string name="twoFactorHelp">Tofaktorautentisering er et ekstra lag med sikkerhet for Lichess-kontoen din.</string>
-  <string name="twoFactorApp">Skaff deg en tofaktorautentiseringsapp, for eksempel Google Authenticator for %1$s eller %2$s.</string>
+  <string name="twoFactorApp">Skaff deg en tofaktorautentiseringsapp, for eksempel andOTP for %1$s eller Google Authenticator for %2$s.</string>
   <string name="scanTheCode">Skann QR-koden med appen.</string>
   <string name="enterPassword">Skriv inn passordet ditt og autentiseringskoden generert av appen for å fullføre oppsettet. Du må bruke en ny autentiseringskode hver gang du logger inn.</string>
   <string name="ifYouCannotScanEnterX">Hvis du ikke får til å skanne koden, kan du taste inn hemmeligheten %s i appen din.</string>

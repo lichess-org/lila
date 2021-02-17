@@ -75,7 +75,12 @@ object show {
                 fragList(t.leaders.toList.map { l =>
                   userIdLink(l.some)
                 })
-              )
+              ),
+              info.ledByMe option a(
+                dataIcon := "",
+                href := routes.Page.loneBookmark("team-etiquette"),
+                cls := "text team-show__meta__etiquette"
+              )("Team Etiquette")
             ),
             (t.enabled && chatOption.isDefined) option frag(
               views.html.chat.frag,

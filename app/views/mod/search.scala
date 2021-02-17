@@ -112,6 +112,28 @@ object search {
       )
     }
 
+  def clas(
+      c: lila.clas.Clas,
+      users: List[lila.user.User.WithEmails]
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "IP address",
+      moreCss = cssTag("mod.misc")
+    ) {
+      main(cls := "page-menu")(
+        views.html.mod.menu("search"),
+        div(cls := "mod-search page-menu__content box")(
+          div(cls := "box__top")(
+            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
+            p("Teachers: ", c.teachers.toList.map(id => userIdLink(id.some)))
+          ),
+          br,
+          br,
+          userTable(users)
+        )
+      )
+    }
+
   private def userTable(users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(

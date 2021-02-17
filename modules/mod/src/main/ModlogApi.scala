@@ -170,10 +170,23 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
     }
 
-  def setPermissions(mod: Mod, user: User.ID, permissions: List[Permission]) =
+  def setPermissions(mod: Mod, user: User.ID, permissions: Map[Permission, Boolean]) =
     add {
-      Modlog(mod.id.value, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
+      Modlog(
+        mod.id.value,
+        user.some,
+        Modlog.permissions,
+        details = permissions
+          .map { case (p, dir) =>
+            s"${if (dir) "+" else "-"}${p}"
+          }
+          .mkString(", ")
+          .some
+      )
     }
+
+  def wasUnteachered(user: User.ID): Fu[Boolean] =
+    coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) =
     add {

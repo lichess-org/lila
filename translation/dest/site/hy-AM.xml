@@ -34,6 +34,10 @@
   <string name="joinTheGame">Միանալ խաղին</string>
   <string name="whitePlays">Խաղում են սպիտակները</string>
   <string name="blackPlays">Խաղում են սևերը</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ %s վարկյանից։</item>
+    <item quantity="other">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ %s վարկյանից։</item>
+  </plurals>
   <string name="opponentLeftChoices">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ, ոչ-ոքի կամ սպասել։</string>
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Պահանջել հաղթանակ</string>
@@ -343,7 +347,10 @@
   <string name="winRate">Հաղթանակի տոկոս</string>
   <string name="berserkRate">Բերսերկի տոկոս</string>
   <string name="performance">Արտադրողականություն</string>
+  <string name="tournamentComplete">Մրցաշարն ավարտված է</string>
   <string name="movesPlayed">Խաղացած քայլեր</string>
+  <string name="whiteWins">Սպիտակները հաղթել են</string>
+  <string name="blackWins">Սևերն հաղթել են</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="membersOnly">Միայն անդամները</string>
@@ -354,6 +361,7 @@
   <string name="loadPosition">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
+  <string name="xRating">%s վարկանիշ</string>
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
@@ -474,14 +482,20 @@
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
+  <string name="mobileApp">Բջջային հավելված</string>
   <string name="webmasters">Վեբմաստեր</string>
+  <string name="about">Մեր մասին</string>
+  <string name="aboutX">%s մասին</string>
+  <string name="really">իսկապեց</string>
   <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
   <string name="host">Ընդունող</string>
   <string name="create">Ստեղծել</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
+  <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="newTournament">Նոր մրցաշար</string>
+  <string name="yourRating">Ձեր վարկանիշը</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
@@ -492,6 +506,7 @@
   <string name="lobby">Լոբբի</string>
   <string name="anonymous">Անանուն</string>
   <string name="language">Լեզու</string>
+  <string name="background">Ֆոն</string>
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
@@ -505,11 +520,14 @@
   <string name="next">Հաջորդ</string>
   <string name="resumeLearning">Շարունակել սովորել</string>
   <string name="solution">Լուծում</string>
-  <string name="advantage">Առավելություն</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Առավելություն</string>
+  <string name="opening">Սկզբնախաղ</string>
+  <string name="endgame">Վերջնախաղ</string>
   <string name="sorry">Ներողություն :(</string>
   <string name="why">Ինչու՞</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
+  <string name="edit">Խմբագրել</string>
   <string name="classical">Դասական</string>
   <string name="important">Կարևոր</string>
   <string name="subscribe">Բաժանորդագրվել</string>

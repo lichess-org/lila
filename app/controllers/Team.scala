@@ -198,20 +198,24 @@ final class Team(
 
   def create =
     AuthBody { implicit ctx => implicit me =>
-      LimitPerWeek(me) {
-        implicit val req = ctx.body
-        forms.create
-          .bindFromRequest()
-          .fold(
-            err =>
-              forms.anyCaptcha map { captcha =>
-                BadRequest(html.team.form.create(err, captcha))
-              },
-            data =>
-              api.create(data, me) map { team =>
-                Redirect(routes.Team.show(team.id)).flashSuccess
-              }
-          )
+      api hasJoinedTooManyTeams me flatMap { tooMany =>
+        if (tooMany) tooManyTeams(me)
+        else
+          LimitPerWeek(me) {
+            implicit val req = ctx.body
+            forms.create
+              .bindFromRequest()
+              .fold(
+                err =>
+                  forms.anyCaptcha map { captcha =>
+                    BadRequest(html.team.form.create(err, captcha))
+                  },
+                data =>
+                  api.create(data, me) map { team =>
+                    Redirect(routes.Team.show(team.id)).flashSuccess
+                  }
+              )
+          }
       }
     }
 
@@ -221,6 +225,9 @@ final class Team(
         html.team.list.mine(_)
       }
     }
+
+  private def tooManyTeams(me: UserModel)(implicit ctx: Context) =
+    api mine me map html.team.list.mine map { BadRequest(_) }
 
   def leader =
     Auth { implicit ctx => me =>
@@ -235,10 +242,10 @@ final class Team(
         me =>
           api.team(id) flatMap {
             _ ?? { team =>
-              api countTeamsOf me flatMap { nb =>
-                if (nb >= TeamModel.maxJoin)
+              api hasJoinedTooManyTeams me flatMap { tooMany =>
+                if (tooMany)
                   negotiate(
-                    html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
+                    html = tooManyTeams(me),
                     api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
                   )
                 else
@@ -369,7 +376,7 @@ final class Team(
         me =>
           OptionFuResult(api.cancelRequest(id, me) orElse api.quit(id, me)) { team =>
             negotiate(
-              html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
+              html = Redirect(routes.Team.mine).flashSuccess.fuccess,
               api = _ => jsonOkResult.fuccess
             )
           }(ctx),
@@ -521,7 +528,7 @@ You received this because you are subscribed to messages of the team $url."""
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1, 3.minutes),
-    ("slow", 6, 24.hours)
+    ("slow", 4, 24.hours)
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

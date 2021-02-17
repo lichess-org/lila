@@ -30,7 +30,7 @@ final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll foreach { count =>
-      val nextBloom = BloomFilter[User.ID](count * 6 / 5, falsePositiveRate)
+      val nextBloom = BloomFilter[User.ID](count * 6 / 5 + 1, falsePositiveRate)
       colls.student
         .find($empty, $doc("userId" -> true).some)
         .cursor[Bdoc](ReadPreference.secondaryPreferred)

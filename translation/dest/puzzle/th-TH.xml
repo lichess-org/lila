@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">ปริศนา</string>
+  <string name="puzzleThemes">ธีมปริศนา</string>
   <string name="recommended">แนะนำ</string>
   <string name="phases">ช่วงของเกม</string>
+  <string name="lengths">จำนวนตาเดิน</string>
   <string name="mates">การรุกจน</string>
+  <string name="goals">เป้าหมาย</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">ต้นกำเนิดเกม</string>
   <string name="specialMoves">การเดินพิเศษ</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
   <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
@@ -34,8 +38,11 @@
   <string name="harder">ยาก</string>
   <string name="hardest">ยากที่สุด</string>
   <string name="example">ตัวอย่าง</string>
+  <string name="addAnotherTheme">เพิ่มธีมใหม่</string>
   <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
+  <string name="improvementAreas">จุดอ่อน</string>
   <string name="strengths">จุดแข็ง</string>
   <string name="history">ประวัติการแก้ปริศนา</string>
+  <string name="solved">แก้แล้ว</string>
   <string name="failed">ล้มเหลว</string>
 </resources>

@@ -22,7 +22,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
         }
       }
     },
-    mod = ctrl.moderation();
+    hasMod = !!ctrl.moderation();
   const vnodes = [
     h(
       'ol.mchat__messages.chat-v-' + ctrl.data.domVersion,
@@ -37,8 +37,10 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
               lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
-            if (mod)
-              $el.on('click', '.mod', (e: Event) => mod.open((e.target as HTMLElement).parentNode as HTMLElement));
+            if (hasMod)
+              $el.on('click', '.mod', (e: Event) =>
+                ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement)
+              );
             else
               $el.on('click', '.flag', (e: Event) => report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement));
             scrollCb(vnode);

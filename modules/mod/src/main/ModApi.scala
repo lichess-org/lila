@@ -146,7 +146,7 @@ final class ModApi(
           lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),
           "setPermissions"
         )
-        logApi.setPermissions(mod, user.id, permissions.toList)
+        logApi.setPermissions(mod, user.id, Permission.diff(Permission(user.roles), permissions))
       }
     }
 

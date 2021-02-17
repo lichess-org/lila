@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Faigh aip le haghaidh fíordheimhnithe dhá fhachtóir, mar shampla Google Authenticator do %1$s nó %2$s.</string>
   <string name="scanTheCode">Scan an cód QR leis an aip.</string>
   <string name="enterPassword">Iontráil do phasfhocal agus an cód fíordheimhnithe a ghineann an aip chun an socrú a chur i gcrích. Teastóidh cód fíordheimhnithe uait gach uair a logálfaidh tú isteach.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Mura féidir leat an cód a scanadh, cuir %s rúnda isteach i d’aip.</string>
+  <string name="ifYouCannotScanEnterX">Mura féidir leat an cód a scanadh, cuir %s rúnda isteach i d’aip.</string>
   <string name="authenticationCode">Cód fíordheimhnithe</string>
   <string name="ifYouLoseAccess">Nóta: Má chailleann tú rochtain ar do chóid fíordheimhnithe dhá fhachtóir, is féidir leat do phasfhocal a athshocrú trí ríomhphost.</string>
   <string name="enableTwoFactor">Fíordheimhniú dhá fhachtóir a chumasú</string>

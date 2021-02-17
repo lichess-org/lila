@@ -33,6 +33,11 @@ object list {
         div(cls := "page-menu__content box")(
           h1(myTeams()),
           standardFlash(),
+          ctx.me.filter(me => teams.size > lila.team.Team.maxJoin(me)) map { me =>
+            flashMessage(cls := "flash-failure")(
+              s"You have joined ${teams.size} out of ${lila.team.Team.maxJoin(me)} teams. Leave some teams before you can join others."
+            )
+          },
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()

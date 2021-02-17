@@ -275,4 +275,33 @@
   <string name="tournament">Umqhudelwano</string>
   <string name="tournaments">Imiqhudelwano</string>
   <string name="tournamentPoints">Amaphuzu okuncintisana</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s amaphuzu Iomqhudelwano</item>
+    <item quantity="other">%s amaphuzu omqhudelwano</item>
+  </plurals>
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+    <item quantity="one">%s funda</item>
+    <item quantity="other">%s izifundo</item>
+  </plurals>
+  <string name="viewTournament">Buka umqhudelwano</string>
+  <string name="backToTournament">Buyela kumqhudelwano</string>
+  <string name="thematic">Izingqikithi</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s kukalwe umdlalo</item>
+    <item quantity="other">%s imidlallo ekaliwe</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">%1$s %2$s kukalwe umdlalo</item>
+    <item quantity="other">%1$s %2$s imidlalo ekaliwe</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Udinga ukudlala %1$s okuningi %2$s umdlalo ukalwe</item>
+    <item quantity="other">Udinga ukudlala %1$s okuningi %2$s imidlalo ukalwe</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Udinga ukudlala %s okuningi umdlalo ukalwe</item>
+    <item quantity="other">Udinga ukudlala %s okuningi imidlalo ukalwe</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Isilinganiso sakho se-%s esesikhashana</string>
+  <string name="yourPerfRatingIsTooHigh">Isilinganiso sakho se-%1$s (%2$s) siphezulu kakhulu</string>
 </resources>

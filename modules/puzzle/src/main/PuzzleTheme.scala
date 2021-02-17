@@ -121,6 +121,7 @@ object PuzzleTheme {
       zugzwang
     ),
     trans.puzzle.mates -> List(
+      mate,
       mateIn1,
       mateIn2,
       mateIn3,

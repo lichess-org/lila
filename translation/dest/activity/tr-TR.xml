@@ -12,7 +12,7 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s bulmaca çözdü</item>
-    <item quantity="other">%s bulmacalar çözdü</item>
+    <item quantity="other">%s bulmaca çözdü</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s kez %2$s oynadı</item>

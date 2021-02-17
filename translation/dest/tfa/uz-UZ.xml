@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Ikki faktorli autentifikatsiya uchun app ni oling, masalan Google Authenticator %1$s yoki %2$s lar uchun.</string>
   <string name="scanTheCode">QR kodni app yordamida skanerdan oʻtkazing.</string>
   <string name="enterPassword">Sozlashlarni yakunlash uchun app tomonidan generatsiya qilingan autentifikatsiya kodi va parolni kiriting. Siz har safar (login) kirishni amalga oshirganingizda autentifikatsiya kodini kiritishingiz kerak boʻladi.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Agar siz kodni skanerdan oʻtkazmasangiz, sirli %s ni appga kiriting.</string>
+  <string name="ifYouCannotScanEnterX">Agar siz kodni skanerdan oʻtkazmasangiz, sirli %s ni appga kiriting.</string>
   <string name="authenticationCode">Autentifikatsiya kodi</string>
   <string name="ifYouLoseAccess">Izoh: Agar siz ikki faktorli autentifikatsiyangizga huquqni yoʻqotsangiz, siz parolingizni email orqali tiklashingiz mumkin.</string>
   <string name="enableTwoFactor">Ikki faktorli autentifikatsiyani yoqish</string>

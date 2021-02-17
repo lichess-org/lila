@@ -59,7 +59,7 @@ final class Authenticator(
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
     userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll
       .one[User](select) map {
-      case (Some(authData), Some(user)) if user.enabled || !user.lameOrTroll =>
+      case (Some(authData), Some(user)) if user.canLogin =>
         User.LoginCandidate(user, authWithBenefits(authData)).some
       case _ => none
     }
