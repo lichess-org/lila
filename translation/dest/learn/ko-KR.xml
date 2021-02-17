@@ -185,6 +185,8 @@ Make any move to continue.</string>
 	<string name="learnCommonChessPositions">Learn common shogi positions</string>
 	<string name="puzzles">퍼즐</string>
 	<string name="exerciseYourTacticalSkills">대처능력 기르기</string>
+	<string name="shogiResources">Shogi resources</string>
+	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">동영상</string>
 	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">다른 사람들과 플레이</string>

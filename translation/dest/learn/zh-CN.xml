@@ -171,6 +171,8 @@
 	<string name="learnCommonChessPositions">学习常见的将棋局面</string>
 	<string name="puzzles">训练题</string>
 	<string name="exerciseYourTacticalSkills">练习您的国际象棋战术</string>
+	<string name="shogiResources">Shogi resources</string>
+	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">观看视频</string>
 	<string name="watchInstructiveChessVideos">收看将棋教学视频</string>
 	<string name="playPeople">和人类下棋</string>

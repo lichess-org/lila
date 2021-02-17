@@ -188,6 +188,8 @@
 	<string name="learnCommonChessPositions">将棋のよくある局面を知る</string>
 	<string name="puzzles">タクティクス問題</string>
 	<string name="exerciseYourTacticalSkills">戦術の技を磨く</string>
+	<string name="shogiResources">英語圏向けの将棋資料</string>
+	<string name="curatedShogiResources">厳選された将棋資料一覧をご覧ください</string>
 	<string name="videos">動画</string>
 	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>
 	<string name="playPeople">対人戦</string>

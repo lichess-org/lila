@@ -183,6 +183,8 @@ Make any move to continue.</string>
 	<string name="learnCommonChessPositions">Learn common shogi positions</string>
 	<string name="puzzles">Завдання</string>
 	<string name="exerciseYourTacticalSkills">Тренуйте свої тактичні навички</string>
+	<string name="shogiResources">Shogi resources</string>
+	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Відео</string>
 	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Гра онлайн</string>

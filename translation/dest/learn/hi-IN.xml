@@ -190,6 +190,8 @@ in two moves!</string>
 	<string name="learnCommonChessPositions">Learn common shogi positions</string>
 	<string name="puzzles">Puzzles</string>
 	<string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
+	<string name="shogiResources">Shogi resources</string>
+	<string name="curatedShogiResources">See our curated list of shogi resources</string>
 	<string name="videos">Videos</string>
 	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
 	<string name="playPeople">Play people</string>
