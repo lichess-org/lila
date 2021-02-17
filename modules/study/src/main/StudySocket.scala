@@ -1,11 +1,11 @@
 package lila.study
 
-import play.api.libs.json._
-import scala.concurrent.duration._
-
 import actorApi.Who
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -313,10 +313,9 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def reloadMembers(members: StudyMembers)(studyId: Study.Id) = {
-    version("members", members)
-    send(RP.Out.tellRoomUsers(studyId, members.ids, makeMessage("reload")))
-  }
+  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: Study.Id) =
+    send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
+
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
     version(
       "setComment",

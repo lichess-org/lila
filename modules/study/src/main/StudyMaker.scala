@@ -79,7 +79,7 @@ final private class StudyMaker(
 object StudyMaker {
 
   case class ImportGame(
-      form: DataForm.importGame.Data = DataForm.importGame.Data(),
+      form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,

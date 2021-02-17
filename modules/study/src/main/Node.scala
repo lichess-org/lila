@@ -3,7 +3,6 @@ package lila.study
 import chess.{ Data => ChessData}
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.Standard
 
 import chess.Centis
 import lila.tree.Eval.Score
@@ -23,7 +22,7 @@ sealed trait RootOrNode {
   val score: Option[Score]
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
-  def mainline: List[Node]
+  def mainline: Vector[Node]
   def color = chess.Color(ply % 2 == 0)
   def moveOption: Option[Uci.WithSan]
 }
@@ -71,7 +70,7 @@ case class Node(
 
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
-  def mainline: List[Node] = this :: children.first.??(_.mainline)
+  def mainline: Vector[Node] = this +: children.first.??(_.mainline)
 
   def updateMainlineLast(f: Node => Node): Node =
     children.first.fold(f(this)) { main =>
@@ -95,8 +94,8 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
-      children = n.children.nodes.foldLeft(children) {
-        case (cs, c) => cs addNode c
+      children = n.children.nodes.foldLeft(children) { case (cs, c) =>
+        cs addNode c
       },
       forceVariation = n.forceVariation || forceVariation
     )
@@ -121,12 +120,12 @@ object Node {
         case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
       }
 
-    def nodesOn(path: Path): List[(Node, Path)] =
-      path.split ?? {
-        case (head, tail) =>
+    // select all nodes on that path
+    def nodesOn(path: Path): Vector[(Node, Path)] =
+      path.split ?? { case (head, tail) =>
           get(head) ?? { first =>
-            (first, Path(List(head))) :: first.children.nodesOn(tail).map {
-              case (n, p) => (n, p prepend head)
+          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
+            (n, p prepend head)
             }
           }
       }
@@ -218,18 +217,9 @@ object Node {
         case x => x
       })
 
-    // List(0, 0, 1, 0, 2)
-    def pathToIndexes(path: Path): Option[List[Int]] =
-      path.split.fold(List.empty[Int].some) {
-        case (head, tail) =>
-          getNodeAndIndex(head) flatMap {
-            case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
-          }
-      }
-
     def countRecursive: Int =
-      nodes.foldLeft(nodes.size) {
-        case (count, n) => count + n.children.countRecursive
+      nodes.foldLeft(nodes.size) { case (count, n) =>
+        count + n.children.countRecursive
       }
 
     def lastMainlineNode: Option[Node] =
@@ -305,7 +295,7 @@ object Node {
         copy(children = children.update(main updateMainlineLast f))
       }
 
-    lazy val mainline: List[Node] = children.first.??(_.mainline)
+    lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 
     def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
 
@@ -313,12 +303,12 @@ object Node {
       Chapter.Ply {
         mainline
           .zip(path.ids)
-          .takeWhile {
-            case (node, id) => node.id == id
+          .takeWhile { case (node, id) =>
+            node.id == id
           }
           .lastOption
-          .?? {
-            case (node, _) => node.ply
+          .?? { case (node, _) =>
+            node.ply
           }
       }
 
@@ -366,4 +356,21 @@ object Node {
       children = Children(b.children.view.map(fromBranch).toVector),
       forceVariation = false
     )
+
+  object BsonFields {
+    val ply            = "p"
+    val uci            = "u"
+    val san            = "s"
+    val fen            = "f"
+    val check          = "c"
+    val shapes         = "h"
+    val comments       = "co"
+    val gamebook       = "ga"
+    val glyphs         = "g"
+    val score          = "e"
+    val clock          = "l"
+    val crazy          = "z"
+    val forceVariation = "fv"
+    val order          = "o"
+  }
 }

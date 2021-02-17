@@ -13,7 +13,7 @@ object create {
     submitButton(name := "as", value := s.id.value, cls := "submit button")(s.name.value)
 
   def apply(
-      data: lila.study.DataForm.importGame.Data,
+      data: lila.study.StudyForm.importGame.Data,
       owner: List[Study.IdName],
       contrib: List[Study.IdName]
   )(implicit ctx: Context) =

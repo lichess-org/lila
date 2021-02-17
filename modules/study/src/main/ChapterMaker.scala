@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.Tags
 import chess.{ Data => ChessData }
 import chess.format.{ FEN, Forsyth }
-import chess.variant.{ Standard, Variant }
+import chess.variant.Variant
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
@@ -40,8 +40,8 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith {
-        case e: Exception => fufail(ValidationException(e.getMessage))
+      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith { case e: Exception =>
+        fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
       studyId = study.id,
@@ -49,7 +49,7 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+            data.name.value.isEmpty || data.isDefaultName
           }
           .map { black =>
             Chapter.Name(s"$white - $black")
@@ -126,7 +126,7 @@ final private class ChapterMaker(
       root <- game2root(game, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
       name <- {
-        if (Chapter isDefaultName data.name)
+        if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
         else fuccess(data.name)
       }
@@ -169,12 +169,13 @@ final private class ChapterMaker(
     s"""$escapedDomain/(\\w{8,12})"""
   }.r.unanchored
 
+  @scala.annotation.tailrec
   private def parseGame(str: String): Fu[Option[Game]] =
     str match {
-      case s if s.size == Game.gameIdSize => gameRepo game s
-      case s if s.size == Game.fullIdSize => gameRepo game Game.takeGameId(s)
-      case UrlRegex(id)                   => parseGame(id)
-      case _                              => fuccess(none)
+      case s if s.lengthIs == Game.gameIdSize => gameRepo game s
+      case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.takeGameId(s)
+      case UrlRegex(id)                       => parseGame(id)
+      case _                                  => fuccess(none)
     }
 }
 
@@ -211,7 +212,8 @@ private[study] object ChapterMaker {
       pgn: Option[String] = None,
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
-      initial: Boolean = false
+      initial: Boolean = false,
+      isDefaultName: Boolean = true
   ) extends ChapterData {
 
     def manyGames =
@@ -221,7 +223,7 @@ private[study] object ChapterMaker {
         .filter(_.nonEmpty)
         .map { g => copy(game = g.some) }
         .some
-        .filter(_.size > 1)
+        .filter(_.sizeIs > 1)
   }
 
   case class EditData(

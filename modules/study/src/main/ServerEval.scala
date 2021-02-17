@@ -1,14 +1,15 @@
 package lila.study
 
-import play.api.libs.json._
-
 import chess.format.pgn.Glyphs
 import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.{ tree => T }
 import lila.tree.Node.Comment
 import lila.user.User
+import lila.{ tree => T }
 
 object ServerEval {
 
@@ -17,8 +18,12 @@ object ServerEval {
       chapterRepo: ChapterRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
+    private val onceEvery = lila.memo.OnceEvery(5 minutes)
+
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
-      chapter.serverEval.isEmpty ?? {
+      chapter.serverEval.fold(true) { eval =>
+        !eval.done && onceEvery(chapter.id.value)
+      } ?? {
         chapterRepo.startServerEval(chapter) >>- {
           fishnet ! StudyChapterRequest(
             studyId = study.id.value,
@@ -32,7 +37,7 @@ object ServerEval {
                 variant = chapter.setup.variant
               )
               .toOption
-              .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+              .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
             userId = userId
           )
         }
@@ -52,35 +57,47 @@ object ServerEval {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
-                .fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
+                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
-                    info.eval.score
+                    chapter.root.nodeAt(path).flatMap { parent =>
+                      analysisLine(parent, chapter.setup.variant, info) map { subTree =>
+                        parent.addChild(subTree) -> subTree
+                      }
+                    } ?? { case (newParent, subTree) =>
+                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+                    } >> {
+                      import BSONHandlers._
+                      import Node.{ BsonFields => F }
+                      ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLishogiComment)) ??
+                        chapterRepo
+                          .setNodeValues(
+                            chapter,
+                            path + node,
+                            List(
+                              F.score -> info.eval.score
                       .ifTrue {
                         node.score.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
+                                  advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
                       }
-                      .?? { score =>
-                        chapterRepo.setScore(score.some)(chapter, path + node) >>
-                          advOpt.?? { adv =>
-                            chapterRepo.setComments(
-                              node.comments + Comment(
-                                Comment.Id.make,
-                                Comment.Text(adv.makeComment(false, true)),
-                                Comment.Author.Lishogi
+                                .flatMap(EvalScoreBSONHandler.writeOpt),
+                              F.comments -> advOpt
+                                .map { adv =>
+                                  node.comments + Comment(
+                                    Comment.Id.make,
+                                    Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
+                                    Comment.Author.Lishogi
                               )
-                            )(chapter, path + node) >>
-                              chapterRepo.setGlyphs(
-                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                              )(chapter, path + node) >> {
-                              chapter.root.nodeAt(path).flatMap { parent =>
-                                analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                  parent.addChild(child).children.get(child.id)
                                 }
-                              } ?? { chapterRepo.setChild(chapter, path, _) }
-                          }
-                        }
+                                .flatMap(CommentsBSONHandler.writeOpt),
+                              F.glyphs -> advOpt
+                                .map { adv =>
+                                  node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                                }
+                                .flatMap(GlyphsBSONHandler.writeOpt)
+                            )
+                          )
                     } inject path + node
-              } void
+                } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
                 _ ?? { chapter =>
@@ -114,26 +131,25 @@ object ServerEval {
           games.reverse match {
             case Nil => none
             case (g, m) :: rest =>
-              rest.foldLeft(makeBranch(g, m)) {
-                case (node, (g, m)) => makeBranch(g, m) addChild node
-              } some
+              rest
+                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                  makeBranch(g, m) addChild node
+                } some
           }
       }
 
-    private def makeBranch(g: chess.Game, m: Uci.WithSan) = {
-      val fen = FEN(Forsyth >> g)
+    private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
-        fen = fen,
+        fen = FEN(Forsyth >> g),
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
         children = Node.emptyChildren,
         forceVariation = false
       )
-    }
   }
 
   case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)

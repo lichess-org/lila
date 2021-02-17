@@ -60,9 +60,10 @@ case class Chapter(
   def forceVariation(force: Boolean, path: Path): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
 
-  def opening: Option[FullOpening] =
-    if (!Variant.openingSensibleVariants(setup.variant)) none
-    else FullOpeningDB searchInFens root.mainline.map(_.fen)
+  def opening: Option[FullOpening] = None
+  // no openings in lishogi right now
+    //if (!Variant.openingSensibleVariants(setup.variant)) none
+    //else FullOpeningDB searchInFens root.mainline.map(_.fen) 
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 

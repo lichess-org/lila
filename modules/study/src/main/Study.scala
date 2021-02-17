@@ -109,7 +109,7 @@ object Study {
 
   case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
-  val emptyLiking = Liking(Likes(0), false)
+  val emptyLiking = Liking(Likes(0), me = false)
 
   case class Rank(value: DateTime) extends AnyVal
   object Rank {
@@ -141,7 +141,7 @@ object Study {
       description: String
   ) {
     import Settings._
-    def vis = Visibility.byKey get visibility getOrElse Visibility.Public
+    def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
       for {
         comp <- UserSelection.byKey get computer
