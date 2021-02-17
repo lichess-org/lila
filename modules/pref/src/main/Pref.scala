@@ -369,7 +369,7 @@ object Pref {
     val ALWAYS = 3
 
     val choices = Seq(
-      NEVER  -> "Never",
+      NEVER  -> "Only existing conversations",
       FRIEND -> "Only friends",
       ALWAYS -> "Always"
     )
