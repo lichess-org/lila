@@ -291,7 +291,7 @@
     <item quantity="one">مجموع امتیازات مسابقات:%s</item>
     <item quantity="other">مجموع امتیازات مسابقات:%s</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="one">%s درس</item>
     <item quantity="other">%s درس ها</item>
   </plurals>
@@ -652,7 +652,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
-  <string name="readAboutOur">\"درباره ما\".</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و لیچس</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">دانلود محتوا</string>
@@ -769,7 +768,7 @@
   <string name="doItAgain">دوباره</string>
   <string name="reviewWhiteMistakes">بررسی اشتباهات سفید</string>
   <string name="reviewBlackMistakes">بررسی اشتباهات سیاه</string>
-  <string name="advantage">برتری</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">برتری</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s ثانیه</item>
     <item quantity="other">%s ثانیه</item>
