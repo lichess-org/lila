@@ -38,15 +38,23 @@ object UciCharPair {
     def toChar(pos: Pos) = pos2charMap.getOrElse(pos, voidChar)
 
     def toChar(pos: Pos, prom: Boolean) : Char = {
-      (toChar(pos) + 128).toChar
+      if(prom) (toChar(pos) + 128).toChar else toChar(pos)
     }
 
     val dropRole2charMap: Map[Role, Char] =
       Role.all
-        .filterNot(King ==)
+        .filterNot(r =>
+          r == King ||
+          r == Tokin ||
+          r == PromotedLance ||
+          r == PromotedKnight ||
+          r == PromotedSilver ||
+          r == Horse ||
+          r == Dragon
+        ) // todo nicer - res size -> 7
         .zipWithIndex
         .map {
-          case (role, index) => role -> (charShift + pos2charMap.size + 1 + index).toChar
+          case (role, index) => role -> (charShift + pos2charMap.size + 128 + index).toChar
         }
         .to(Map)
   }
