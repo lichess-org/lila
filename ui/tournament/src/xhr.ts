@@ -16,7 +16,11 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
       headers: { 'Content-Type': 'application/json' },
     })
     .then(res => {
-      if (!res.ok) res.text().then(alert);
+      if (!res.ok)
+        res.text().then(t => {
+          if (t.startsWith('<!DOCTYPE html>')) lichess.reload();
+          else alert(t);
+        });
     })
 );
 
