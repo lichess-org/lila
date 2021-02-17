@@ -216,7 +216,8 @@ final class TeamApi(
   def quitAll(userId: User.ID): Fu[List[Team.ID]] =
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
-        teamIds.map { teamRepo.incMembers(_, -1) }.sequenceFu.void inject teamIds
+        teamIds.map { teamRepo.incMembers(_, -1) }.sequenceFu.void >>-
+        cached.invalidateTeamIds(userId) inject teamIds
     }
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
