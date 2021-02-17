@@ -74,7 +74,7 @@ object Info {
       case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
       case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
       case Array(cp, ma, va, be) =>
-        Info(ply, Eval(strCp(cp), strMate(ma), Uci.Move piotr be), va.split(' ').toList).some
+        Info(ply, Eval(strCp(cp), strMate(ma), Uci piotr be), va.split(' ').toList).some
       case _ => none
     }
 
