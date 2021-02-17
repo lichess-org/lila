@@ -133,8 +133,19 @@ object index {
   <input type="hidden" name="lc" value="US">
   <input type="hidden" name="currency_code" value="USD">
 </form>"""),
-                  patron.exists(_.isLifetime) option
-                    p(style := "text-align:center;margin-bottom:1em")(makeExtraDonation()),
+                  ctx.me map { me =>
+                    p(style := "text-align:center;margin-bottom:1em")(
+                      if (patron.exists(_.isLifetime))
+                        makeExtraDonation()
+                      else
+                        frag(
+                          "Donating ",
+                          strong("publicly"),
+                          " as ",
+                          userSpan(me)
+                        )
+                    )
+                  },
                   st.group(cls := "radio buttons freq")(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
