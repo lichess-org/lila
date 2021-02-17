@@ -22,7 +22,8 @@ final private[puzzle] class Selector(
       _.ext
         .find($doc(F.voteNb $gte 100), $id(true))
         .sort($sort desc F.voteRatio)
-        .vector[Bdoc](anonPuzzles, ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .vector(anonPuzzles)
         .map(_.flatMap(_ int "_id"))
     }
 

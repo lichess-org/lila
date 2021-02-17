@@ -78,7 +78,8 @@ final private class SwissCache(
           )
         )
         .sort($sort desc "nbPlayers")
-        .list[Swiss](5)
+        .cursor[Swiss]()
+        .list(5)
 
     def get = cache.getUnit
   }

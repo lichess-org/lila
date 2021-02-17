@@ -69,7 +69,7 @@ final class GameApiV2(
   private val fileR = """[\s,]""".r
   def filename(game: Game, format: Format): Fu[String] =
     gameLightUsers(game) map {
-      case List(wu, bu) =>
+      case (wu, bu) =>
         fileR.replaceAllIn(
           "lishogi_pgn_%s_%s_vs_%s.%s.%s".format(
             Tag.UTCDate.format.print(game.createdAt),
@@ -260,7 +260,7 @@ final class GameApiV2(
       teams: Option[GameTeams] = None
   ): Fu[JsObject] =
     for {
-      lightUsers <- gameLightUsers(g)
+      lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
       pgn <-
         withFlags.pgnInJson ?? pgnDump
           .apply(g, initialFen, analysisOption, withFlags)
@@ -309,10 +309,8 @@ final class GameApiV2(
         )
       })
 
-  private def gameLightUsers(game: Game): Fu[List[Option[LightUser]]] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser) map {
-      case (wu, bu) => List(wu, bu)
-    }
+  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 }
 
 object GameApiV2 {

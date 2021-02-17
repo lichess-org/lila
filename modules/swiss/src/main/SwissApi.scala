@@ -170,13 +170,15 @@ final class SwissApi(
       colls.swiss.ext
         .find($doc("teamId" -> teamId, "finishedAt" $exists true))
         .sort($sort desc "startsAt")
-        .list[Swiss](nbPast)
+        .cursor[Swiss]()
+        .list(nbPast)
     } zip
       (nbSoon > 0).?? {
         colls.swiss.ext
           .find($doc("teamId" -> teamId, "finishedAt" $exists false))
           .sort($sort asc "startsAt")
-          .list[Swiss](nbSoon)
+          .cursor[Swiss]()
+          .list(nbSoon)
       } map
       (Swiss.PastAndNext.apply _).tupled
 
@@ -189,7 +191,8 @@ final class SwissApi(
               colls.pairing.ext
                 .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
                 .sort($sort asc f.round)
-                .list[SwissPairing]()
+                .cursor[SwissPairing]()
+                .list()
             } flatMap {
               pairingViews(_, player)
             } flatMap { pairings =>
@@ -217,9 +220,10 @@ final class SwissApi(
 
   def pairingViews(pairings: Seq[SwissPairing], player: SwissPlayer): Fu[Seq[SwissPairing.View]] =
     pairings.headOption ?? { first =>
-      colls.player.ext
-        .find($inIds(pairings.map(_ opponentOf player.userId).map { SwissPlayer.makeId(first.swissId, _) }))
-        .list[SwissPlayer]()
+      colls.player
+        .list[SwissPlayer]($inIds(pairings.map(_ opponentOf player.userId).map {
+          SwissPlayer.makeId(first.swissId, _)
+        }))
         .flatMap { opponents =>
           lightUserApi asyncMany opponents.map(_.userId) map { users =>
             opponents.zip(users) map {
@@ -431,7 +435,8 @@ final class SwissApi(
     }
 
   def kill(swiss: Swiss): Funit = {
-    if (swiss.isStarted) finish(swiss)
+    if (swiss.isStarted)
+      finish(swiss) >>- systemChat(swiss.id, s"Tournament forcefully terminated by the director.")
     else if (swiss.isCreated) destroy(swiss)
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
@@ -449,9 +454,10 @@ final class SwissApi(
     }
 
   private[swiss] def startPendingRounds: Funit =
-    colls.swiss.ext
+    colls.swiss
       .find($doc("nextRoundAt" $lt DateTime.now), $id(true))
-      .list[Bdoc](10)
+      .cursor[Bdoc]()
+      .list(10)
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>

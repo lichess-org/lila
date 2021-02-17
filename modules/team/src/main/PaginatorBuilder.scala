@@ -46,7 +46,8 @@ final private[team] class PaginatorBuilder(
             .find(selector, $doc("user" -> true, "_id" -> false))
             .sort(sorting)
             .skip(offset)
-            .list[Bdoc](length)
+            .cursor[Bdoc]()
+            .list(length)
         userIds = docs.flatMap(_ string "user")
         users <- lightUserApi asyncMany userIds
       } yield users.flatten

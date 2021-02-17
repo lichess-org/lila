@@ -31,7 +31,7 @@ final class EntryApi(
   def moreUserEntries(userId: User.ID, nb: Max, langCode: String): Fu[Vector[Entry]] =
     userEntries(userId, nb) flatMap broadcast.interleaveWithLang(langCode)
 
-  private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] = {
+  private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
     (max.value > 0) ?? coll
       .find(
         $doc(
@@ -41,8 +41,8 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
-  }
+      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .vector(max.value)
 
   def findRecent(typ: String, since: DateTime, max: Max) =
     coll
@@ -51,7 +51,8 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
+      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .vector(max.value)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
     coll.countSel(
@@ -97,7 +98,8 @@ final class EntryApi(
           )
         )
         .sort($sort desc "date")
-        .vector[Entry](3 * BlogLangs.langs.size, ReadPreference.primary) // must be on primary for cache refresh to work
+        .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
+        .vector(3 * BlogLangs.langs.size)
 
     private[EntryApi] def interleaveWithLang(langCode: String)(entries: Vector[Entry]) = interleave(entries, langCode)
 

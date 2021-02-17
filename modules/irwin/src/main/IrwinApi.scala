@@ -27,7 +27,11 @@ final class IrwinApi(
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
-    reportColl.ext.find($empty).sort($sort desc "date").list[IrwinReport](20) dmap IrwinDashboard.apply
+    reportColl.ext
+      .find($empty)
+      .sort($sort desc "date")
+      .cursor[IrwinReport]()
+      .list(20) dmap IrwinDashboard.apply
 
   object reports {
 
@@ -131,7 +135,8 @@ final class IrwinApi(
       gameRepo.coll.ext
         .find(baseQuery(suspect) ++ Query.analysed(true))
         .sort(Query.sortCreated)
-        .list[Game](nb, ReadPreference.secondaryPreferred)
+        .cursor[Game](ReadPreference.secondaryPreferred)
+        .list(nb)
         .flatMap(analysisRepo.associateToGames)
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] =
@@ -139,7 +144,8 @@ final class IrwinApi(
         gameRepo.coll.ext
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
-          .list[Game](nb, ReadPreference.secondaryPreferred)
+          .cursor[Game](ReadPreference.secondaryPreferred)
+          .list(nb)
   }
 
   object notification {

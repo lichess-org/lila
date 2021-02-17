@@ -2,7 +2,7 @@ package lila.msg
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import reactivemongo.api._
+
 import scala.concurrent.duration._
 import scala.util.Try
 
@@ -35,7 +35,8 @@ final class MsgApi(
     colls.thread.ext
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](50)
+      .cursor[MsgThread]()
+      .list(50)
       .map(prioritize)
 
   private def prioritize(threads: List[MsgThread]) =
@@ -171,13 +172,15 @@ final class MsgApi(
     colls.thread.ext
       .find($doc("users" -> user.id))
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](nb)
+      .cursor[MsgThread]()
+      .list(nb)
       .flatMap {
         _.map { thread =>
           colls.msg.ext
             .find($doc("tid" -> thread.id), msgProjection)
             .sort($sort desc "date")
-            .list[Msg](10)
+            .cursor[Msg]()
+            .list(10)
             .flatMap { msgs =>
               lightUserApi async thread.other(user) map { contact =>
                 MsgConvo(
@@ -218,7 +221,8 @@ final class MsgApi(
         msgProjection
       )
       .sort($sort desc "date")
-      .list[Msg](msgsPerPage.value)
+      .cursor[Msg]()
+      .list(msgsPerPage.value)
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
     colls.thread.updateField(

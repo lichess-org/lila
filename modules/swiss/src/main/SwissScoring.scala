@@ -89,14 +89,13 @@ final private class SwissScoring(
       colls.player.ext
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
-        .list[SwissPlayer]()
+        .cursor[SwissPlayer]()
+        .list()
     }
 
   private def fetchPairings(swiss: Swiss) =
     !swiss.isCreated ?? SwissPairing.fields { f =>
-      colls.pairing.ext
-        .find($doc(f.swissId -> swiss.id))
-        .list[SwissPairing]()
+      colls.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
     }
 }
 

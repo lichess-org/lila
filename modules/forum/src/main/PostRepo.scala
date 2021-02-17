@@ -54,13 +54,15 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
         selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
       )
       .sort($sort.createdDesc)
-      .list[Post](nb)
+      .cursor[Post]()
+      .list(nb)
 
   def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
     coll.ext
       .find(selectCateg(categId))
       .sort($sort.createdDesc)
-      .list[Post](nb)
+      .cursor[Post]()
+      .list(nb)
 
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))

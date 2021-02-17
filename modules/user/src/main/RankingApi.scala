@@ -66,7 +66,8 @@ final class RankingApi(
       coll.ext
         .find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .list[Ranking](nb, readPreference = ReadPreference.secondaryPreferred)
+        .cursor[Ranking](ReadPreference.secondaryPreferred)
+        .list(nb)
         .flatMap {
           _.map { r =>
             lightUser(r.user).map {

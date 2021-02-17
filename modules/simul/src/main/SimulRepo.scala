@@ -71,7 +71,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     find(id) map (_ filter (_.isCreated))
 
   def findPending(hostId: String): Fu[List[Simul]] =
-    simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
+    simulColl.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
   private val featurableSelect = $doc("featurable" -> true)
 
@@ -84,7 +84,8 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         )
       )
       .sort(createdSort)
-      .list[Simul]() map {
+      .cursor[Simul]()
+      .list() map {
       _.foldLeft(List.empty[Simul]) {
         case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
         case (acc, sim)                                       => sim :: acc
@@ -95,16 +96,18 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     simulColl.ext
       .find(startedSelect)
       .sort(createdSort)
-      .list[Simul]()
+      .cursor[Simul]()
+      .list()
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     simulColl.ext
       .find(finishedSelect ++ featurableSelect)
       .sort($sort desc "finishedAt")
-      .list[Simul](max)
+      .cursor[Simul]()
+      .list(max)
 
   def allNotFinished =
-    simulColl.ext.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
+    simulColl.list[Simul]($doc("status" $ne SimulStatus.Finished.id))
 
   def create(simul: Simul, featurable: Boolean): Funit =
     simulColl.insert one {

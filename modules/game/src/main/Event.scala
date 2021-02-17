@@ -92,7 +92,7 @@ object Event {
       MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
-            "uci" -> s"${orig.key}${dest.key}",
+            "uci" -> s"${orig.key}${dest.key}$promS",
             "san" -> san
           )
           .add("promotion" -> promotion)
@@ -150,7 +150,7 @@ object Event {
       MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json.obj(
           "role" -> role.name,
-          "uci"  -> s"${role.pgn}@${pos.key}",
+          "uci"  -> s"${role.pgn}*${pos.key}",
           "san"  -> san
         )
       }

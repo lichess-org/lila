@@ -38,49 +38,9 @@ final class Adapter[A: BSONDocumentReader](
       .pipe { query =>
         hint match {
           case None    => query
-          case Some(h) => query hint h
+          case Some(h) => query.hint(collection hint h)
         }
       }
-      .list[A](length, readPreference)
-}
-
-/*
- * because mongodb mapReduce doesn't support `skip`, slice requires two queries.
- * The first one gets the IDs with `skip`.
- * The second one runs the mapReduce on these IDs.
- * This avoid running mapReduce on many unnecessary docs.
- * NOTE: Requires string ID.
- */
-final class MapReduceAdapter[A: BSONDocumentReader](
-    collection: Coll,
-    selector: Bdoc,
-    sort: Bdoc,
-    runCommand: RunCommand,
-    command: Bdoc,
-    readPreference: ReadPreference = ReadPreference.primary
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends AdapterLike[A] {
-
-  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
-
-  def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection
-      .find(selector, $id(true).some)
-      .sort(sort)
-      .skip(offset)
-      .list[Bdoc](length, readPreference)
-      .dmap { _ flatMap { _.getAsOpt[BSONString]("_id") } }
-      .flatMap { ids =>
-        runCommand(
-          $doc(
-            "mapreduce" -> collection.name,
-            "query"     -> $inIds(ids),
-            "sort"      -> sort,
-            "out"       -> $doc("inline" -> true)
-          ) ++ command,
-          readPreference
-        ) map { res =>
-          res.getAsOpt[List[Bdoc]]("results").??(_ flatMap implicitly[BSONDocumentReader[A]].readOpt)
-        }
-      }
+      .cursor[A](readPreference)
+      .list(length)
 }

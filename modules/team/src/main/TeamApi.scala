@@ -277,7 +277,8 @@ final class TeamApi(
         )
       )
       .sort($sort desc "nbMembers")
-      .list[Team](max, ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPreference.secondaryPreferred)
+      .list(max)
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 

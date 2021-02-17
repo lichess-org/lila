@@ -47,14 +47,12 @@ final class RelayApi(
     }
 
   private[relay] def toSync =
-    repo.coll.ext
-      .find(
-        $doc(
-          "sync.until" $exists true,
-          "sync.nextAt" $lt DateTime.now
-        )
+    repo.coll.list[Relay](
+      $doc(
+        "sync.until" $exists true,
+        "sync.nextAt" $lt DateTime.now
       )
-      .list[Relay]()
+    )
 
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     repo.coll.updateField($id(id), "likes", likes).void
@@ -125,16 +123,14 @@ final class RelayApi(
       .map(jsonView.public)
 
   private[relay] def autoStart: Funit =
-    repo.coll.ext
-      .find(
-        $doc(
-          "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-            $gt DateTime.now.minusDays(1),            // bit late now
-          "startedAt" $exists false,
-          "sync.until" $exists false
-        )
+    repo.coll.list[Relay](
+      $doc(
+        "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
+          $gt DateTime.now.minusDays(1),            // bit late now
+        "startedAt" $exists false,
+        "sync.until" $exists false
       )
-      .list[Relay]() flatMap {
+    ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, true)
@@ -142,19 +138,17 @@ final class RelayApi(
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
-    repo.coll.ext
-      .find(
-        $doc(
-          "sync.until" $exists false,
-          "finished" -> false,
-          "startedAt" $lt DateTime.now.minusHours(3),
-          $or(
-            "startsAt" $exists false,
-            "startsAt" $lt DateTime.now
-          )
+    repo.coll.list[Relay](
+      $doc(
+        "sync.until" $exists false,
+        "finished" -> false,
+        "startedAt" $lt DateTime.now.minusHours(3),
+        $or(
+          "startsAt" $exists false,
+          "startsAt" $lt DateTime.now
         )
       )
-      .list[Relay]() flatMap {
+    ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)

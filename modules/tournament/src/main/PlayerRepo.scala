@@ -26,7 +26,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
+    coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
 
   private[tournament] def bestByTourWithRank(
       tourId: Tournament.ID,
@@ -113,21 +113,20 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
+        List(
+          Match(selectTour(tourId) ++ $doc("t" -> teamId)),
           Sort(Descending("m")),
           Facet(
             List(
-              "agg" -> {
+              "agg" -> List(
                 Group(BSONNull)(
                   "nb"     -> SumAll,
                   "rating" -> AvgField("r"),
                   "perf"   -> AvgField("e"),
                   "score"  -> AvgField("s")
-                ) -> Nil
-              },
-              "topPlayers" -> {
-                Limit(50) -> Nil
-              }
+                )
+              ),
+              "topPlayers" -> List(Limit(50))
             )
           )
         )
@@ -149,7 +148,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   }
 
   def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamID, nb: Int): Fu[List[Player]] =
-    coll.ext.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
+    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").cursor[Player]().list(nb)
 
   def countTeamPlayers(tourId: Tournament.ID, teamId: TeamID): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
@@ -157,7 +156,8 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def teamsOfPlayers(tourId: Tournament.ID, userIds: Seq[User.ID]): Fu[List[(User.ID, TeamID)]] =
     coll.ext
       .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
-      .list[Bdoc]()
+      .cursor[Bdoc]()
+      .list()
       .map {
         _.flatMap { doc =>
           doc.getAsOpt[User.ID]("uid") flatMap { userId =>
@@ -220,11 +220,9 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
-    coll.ext
-      .find(
-        selectTour(tourId) ++ $doc("m" $gt 0)
-      )
-      .list[Player]()
+    coll.list[Player](
+      selectTour(tourId) ++ $doc("m" $gt 0)
+    )
 
   private[tournament] def nbActiveUserIds(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
@@ -237,10 +235,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match(selectTour(tourId)) -> List(
-          Sort(Descending("m")),
-          Group(BSONNull)("uids" -> PushField("uid"))
-        )
+        List(Match(selectTour(tourId)), Sort(Descending("m")), Group(BSONNull)("uids" -> PushField("uid")))
       }
       .headOption map {
       _ ?? {
@@ -267,18 +262,15 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match(selectTour(tourId)) -> List(
-          Group(BSONNull)("rating" -> AvgField("r"))
-        )
+        List(Match(selectTour(tourId)), Group(BSONNull)("rating" -> AvgField("r")))
       }
       .headOption map {
       ~_.flatMap(_.double("rating").map(_.toInt))
     }
 
   def byTourAndUserIds(tourId: Tournament.ID, userIds: Iterable[User.ID]): Fu[List[Player]] =
-    coll.ext
-      .find(selectTour(tourId) ++ $doc("uid" $in userIds))
-      .list[Player]()
+    coll
+      .list[Player](selectTour(tourId) ++ $doc("uid" $in userIds))
       .chronometer
       .logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"

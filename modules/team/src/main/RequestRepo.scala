@@ -28,7 +28,7 @@ final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
   def teamsQuery(teamIds: List[ID])    = $doc("team" $in teamIds)
 
   def getByUserId(userId: lila.user.User.ID) =
-    coll.ext.find($doc("user" -> userId)).list[Request]()
+    coll.list[Request]($doc("user" -> userId))
 
   def remove(id: ID) = coll.delete.one($id(id))
 }

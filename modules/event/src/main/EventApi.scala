@@ -38,12 +38,13 @@ final class EventApi(
         )
       )
       .sort($sort asc "startsAt")
-      .list[Event](10)
+      .cursor[Event]()
+      .list(10)
       .dmap {
         _.filter(_.featureNow) take 3
       }
 
-  def list = coll.ext.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
+  def list = coll.ext.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
 
   def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
 
@@ -54,8 +55,8 @@ final class EventApi(
       EventForm.Data make event
     }
 
-  def update(old: Event, data: EventForm.Data) =
-    coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit()
+  def update(old: Event, data: EventForm.Data): Fu[Int] =
+    (coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit()).map(_.n)
 
   def createForm = EventForm.form
 

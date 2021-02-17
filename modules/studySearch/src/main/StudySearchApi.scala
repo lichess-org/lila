@@ -105,7 +105,8 @@ final class StudySearchApi(
 
   def reset(sinceStr: String) =
     client match {
-      case c: ESClientHttp => {
+      case c: ESClientHttp =>
+        {
           val sinceOption: Either[Unit, Option[DateTime]] =
             if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match {
@@ -121,12 +122,15 @@ final class StudySearchApi(
           logger.info(s"Index to ${c.index.name} since $since")
           val retryLogger = logger.branch("index")
           import lila.db.dsl._
-          studyRepo
-            .sortedCursor(
-              $doc("createdAt" $gte since),
-              sort = $sort asc "createdAt"
-            )
-            .documentSource()
+          Source
+            .futureSource {
+              studyRepo
+                .sortedCursor(
+                  $doc("createdAt" $gte since),
+                  sort = $sort asc "createdAt"
+                )
+                .map(_.documentSource())
+            }
             .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
             .mapAsyncUnordered(8) { study =>
               lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)

@@ -40,7 +40,7 @@ bull?shit
 cancer
 cawk
 cheat(er|)
-chess(|-|_)bot(.?com)?
+shogi(|-|_)bot(.?com)?
 chicken
 chink
 choad

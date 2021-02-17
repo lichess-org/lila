@@ -25,14 +25,14 @@ private[tournament] case class WaitingUsers(
       clock.estimateTotalSeconds / 10 + 6
     } atMost 50 atLeast 15
 
-  lazy val all  = hash.keys.toList
+  lazy val all  = hash.keySet
   lazy val size = hash.size
 
   def isOdd = size % 2 == 1
 
   // skips the most recent user if odd
-  def evenNumber: List[User.ID] = {
-    if (isOdd) hash.toList.sortBy(-_._2.getMillis).drop(1).map(_._1)
+  def evenNumber: Set[User.ID] = {
+    if (isOdd) all - hash.maxBy(_._2.getMillis)._1
     else all
   }
 

@@ -47,12 +47,13 @@ final class RelationApi(
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
-        Match(
-          $doc(
-            "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-            "r"   -> Follow
-          )
-        ) -> List(
+        List(
+          Match(
+            $doc(
+              "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
+              "r"   -> Follow
+            )
+          ),
           Group(BSONNull)(
             "u1" -> AddFieldToSet("u1"),
             "u2" -> AddFieldToSet("u2")

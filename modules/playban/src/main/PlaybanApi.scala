@@ -196,7 +196,8 @@ final class PlaybanApi(
         $inIds(userIds),
         $doc("b" -> true)
       )
-      .list[Bdoc]()
+      .cursor[Bdoc]()
+      .list()
       .map {
         _.flatMap { obj =>
           obj.getAsOpt[User.ID]("_id") flatMap { id =>

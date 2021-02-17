@@ -250,11 +250,10 @@ final private[round] class RoundDuct(
     case p: BotPlay =>
       val res = proxy.withPov(PlayerId(p.playerId)) {
         _ ?? { pov => {
-            if (pov.game.nextPeriodClock(withGrace = true)) {
+            if (pov.game.nextPeriodClock(withGrace = true))
               pov.game.moveToNextPeriod ?? { g =>
                 proxy save g inject List(Event.Reload)
               }
-            }
             else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
             else player.bot(p.uci, this)(pov)
           }
@@ -265,12 +264,8 @@ final private[round] class RoundDuct(
 
     case FishnetPlay(uci, ply) =>
       handle { game =>
-        if (game.nextPeriodClock(withGrace = false)) {
-          game.moveToNextPeriod ?? { p => {
-            player.fishnet(p.game, ply, uci)
-            }
-          }
-        }
+        if (game.nextPeriodClock(withGrace = false))
+          game.moveToNextPeriod ?? { p => player.fishnet(p.game, ply, uci) }
         else if (game.outoftime(withGrace = false)) finisher.outOfTime(game)
         else player.fishnet(game, ply, uci)
       }.mon(_.round.move.time)
@@ -324,11 +319,10 @@ final private[round] class RoundDuct(
     // checks if any player can safely (grace) be flagged
     case QuietFlag =>
       handle { game => {
-          if (game.nextPeriodClock(withGrace = true)) {
+          if (game.nextPeriodClock(withGrace = true))
             game.moveToNextPeriod ?? { g =>
               proxy save g inject List(Event.Reload)
             }
-          }
           else game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
         }
       }

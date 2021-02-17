@@ -38,7 +38,8 @@ final private class RatingRefund(
                 .createdSince(DateTime.now minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
-            .list[Game](40, readPreference = ReadPreference.secondaryPreferred)
+            .cursor[Game](ReadPreference.secondaryPreferred)
+            .list(40)
 
         def makeRefunds(games: List[Game]) =
           games.foldLeft(Refunds(List.empty)) {

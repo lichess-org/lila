@@ -80,7 +80,8 @@ final class SwissStandingApi(
         colls.pairing.ext
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
           .sort($sort asc f.round)
-          .list[SwissPairing]()
+          .cursor[SwissPairing]()
+          .list()
           .map(SwissPairing.toMap)
       }
       sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
@@ -119,6 +120,11 @@ final class SwissStandingApi(
 
   private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
-      colls.player.ext.find($doc(f.swissId -> id)).sort($sort desc f.score).skip(skip).list[SwissPlayer](nb)
+      colls.player.ext
+        .find($doc(f.swissId -> id))
+        .sort($sort desc f.score)
+        .skip(skip)
+        .cursor[SwissPlayer]()
+        .list(nb)
     }
 }

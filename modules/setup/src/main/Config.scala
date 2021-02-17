@@ -18,7 +18,7 @@ private[setup] trait Config {
   // Clock increment in seconds
   val increment: Int
 
-  // Correspondence days per turn
+  // Clock byoyomi in seconds
   val byoyomi: Int
 
   // Clock periods

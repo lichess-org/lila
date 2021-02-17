@@ -17,7 +17,6 @@
 package lila.db
 
 import ornicar.scalalib.Zero
-import reactivemongo.api._
 import reactivemongo.api.bson._
 
 trait dsl {

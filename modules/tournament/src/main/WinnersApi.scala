@@ -77,7 +77,8 @@ final class WinnersApi(
         )
       )
       .sort($sort desc "startsAt")
-      .list[Tournament](Int.MaxValue, ReadPreference.secondaryPreferred)
+      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .list(Int.MaxValue)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours

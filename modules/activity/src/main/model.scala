@@ -7,8 +7,8 @@ object model {
   case class Rating(value: Int) extends AnyVal
   case class RatingProg(before: Rating, after: Rating) {
     def add(o: RatingProg) = copy(after = o.after)
-    def diff             = after.value - before.value
-    def isEmpty          = diff == 0
+    def diff               = after.value - before.value
+    def isEmpty            = diff == 0
   }
   object RatingProg {
     def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]) =

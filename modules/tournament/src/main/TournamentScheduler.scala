@@ -261,15 +261,16 @@ Thank you all, you rock!"""
       //    // Because berserking lowers the player rating
       //    _ map { _.copy(noBerserk = true) }
       //  },
-    ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
+    ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
-    newTourns.foldLeft(List[Tournament]()) {
-      case (tourns, t) =>
-        if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
-        else t :: tourns
-    } reverse
+    newTourns
+      .foldLeft(List[Tournament]()) {
+        case (tourns, t) =>
+          if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
+          else t :: tourns
+      } reverse
   }
 
   private case class ScheduleNowWith(dbScheds: List[Tournament])

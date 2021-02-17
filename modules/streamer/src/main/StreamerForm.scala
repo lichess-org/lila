@@ -92,7 +92,7 @@ object StreamerForm {
               chatEnabled = m.chat,
               lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
             )
-          case None => streamer.approval
+          case _ => streamer.approval
         }
       )
     }

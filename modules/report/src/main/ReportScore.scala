@@ -19,7 +19,7 @@ final private class ReportScore(
   private object impl {
 
     val baseScore               = 20
-    val baseScoreAboveThreshold = 50
+    val baseScoreAboveThreshold = 20
 
     def accuracyScore(a: Option[Accuracy]): Double =
       a ?? { accuracy =>

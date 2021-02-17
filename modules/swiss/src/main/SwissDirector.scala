@@ -29,9 +29,7 @@ final private class SwissDirector(
           val swiss = from.startRound
           for {
             players <- SwissPlayer.fields { f =>
-              colls.player.ext
-                .find($doc(f.swissId -> swiss.id))
-                .list[SwissPlayer]()
+              colls.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map {

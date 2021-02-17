@@ -117,7 +117,8 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
         $doc("u1" -> userId, "r" -> relation),
         $doc("_id" -> true).some
       )
-      .list[Bdoc](nb)
+      .cursor[Bdoc]()
+      .list(nb)
       .dmap {
         _.flatMap { _.string("_id") }
       } flatMap { ids =>

@@ -1,7 +1,7 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+
 import scala.concurrent.duration._
 
 import lila.db.dsl._

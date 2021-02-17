@@ -23,13 +23,15 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.ext
       .find($inIds(ids))
       .sort(sortPopular)
-      .list[Team](100, ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPreference.secondaryPreferred)
+      .list(100)
 
   def enabledTeamsByLeader(userId: User.ID): Fu[List[Team]] =
     coll.ext
       .find($doc("leaders" -> userId) ++ enabledSelect)
       .sort(sortPopular)
-      .list[Team](100, ReadPreference.secondaryPreferred)
+      .cursor[Team](ReadPreference.secondaryPreferred)
+      .list(100)
 
   def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
     coll.ext
@@ -42,8 +44,8 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
 
-  def setLeaders(teamId: String, leaders: Set[User.ID]) =
-    coll.updateField($id(teamId), "leaders", leaders)
+  def setLeaders(teamId: String, leaders: Set[User.ID]): Funit =
+    coll.updateField($id(teamId), "leaders", leaders).void
 
   def leads(teamId: String, userId: User.ID) =
     coll.exists($id(teamId) ++ $doc("leaders" -> userId))
@@ -62,9 +64,11 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def incMembers(teamId: String, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
-  def enable(team: Team) = coll.updateField($id(team.id), "enabled", true)
+  def enable(team: Team): Funit =
+    coll.updateField($id(team.id), "enabled", true).void
 
-  def disable(team: Team) = coll.updateField($id(team.id), "enabled", false)
+  def disable(team: Team): Funit =
+    coll.updateField($id(team.id), "enabled", false).void
 
   def addRequest(teamId: String, request: Request): Funit =
     coll.update

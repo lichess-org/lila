@@ -35,7 +35,8 @@ final class LeaderboardApi(
         )
       )
       .sort($sort desc "d")
-      .list[Entry]()
+      .cursor[Entry]()
+      .list()
 
   def chart(user: User): Fu[ChartData] = {
     repo.coll
@@ -69,14 +70,12 @@ final class LeaderboardApi(
   }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
-    repo.coll.ext
-      .find(
-        $doc(
-          "u" -> userId,
-          "d" $gt since
-        )
+    repo.coll.list[Entry](
+      $doc(
+        "u" -> userId,
+        "d" $gt since
       )
-      .list[Entry]() flatMap { entries =>
+    ) flatMap { entries =>
       (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 

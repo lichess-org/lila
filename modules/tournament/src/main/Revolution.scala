@@ -34,7 +34,8 @@ final class RevolutionApi(
             ),
             $doc("winner" -> true, "variant" -> true)
           )
-          .list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
+          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .list() map { docOpt =>
           val awards =
             for {
               doc     <- docOpt

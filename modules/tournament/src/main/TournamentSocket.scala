@@ -97,17 +97,20 @@ final private class TournamentSocket(
 
       val tourReader: P.In.Reader = raw =>
         raw.path match {
-          case "tour/waiting" =>
+          case "tour/waiting" => {
             raw.get(2) {
               case Array(roomId, users) =>
                 WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
             }
+          }
           case _ => none
         }
     }
 
     object Out {
-      def getWaitingUsers(roomId: RoomId, name: String) = s"tour/get/waiting $roomId $name"
+      def getWaitingUsers(roomId: RoomId, name: String) = {
+        s"tour/get/waiting $roomId $name"
+      }
     }
   }
 }

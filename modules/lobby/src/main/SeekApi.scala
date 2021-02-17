@@ -79,7 +79,8 @@ final class SeekApi(
     coll.ext
       .find($doc("user.id" -> userId))
       .sort($sort desc "createdAt")
-      .list[Seek]()
+      .cursor[Seek]()
+      .list()
 
   def remove(seek: Seek) =
     coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear()

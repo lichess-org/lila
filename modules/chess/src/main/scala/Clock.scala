@@ -301,7 +301,7 @@ object Clock {
         } yield Config(init, inc, byo, per)
       case _ => none
     }
-  //def apply(limit: Int, increment: Int): Clock = apply(Config(limit, increment))
+
   def apply(limit: Int, increment: Int, byoyomi: Int, periods: Int): Clock = {
     apply(Config(limit, increment, byoyomi, periods))
   }

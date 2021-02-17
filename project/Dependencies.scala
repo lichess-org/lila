@@ -16,8 +16,6 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "6.8"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
-  //val chess       = "org.lichess"          %% "scalachess"                      % "9.3.1"
-  //val compression = "org.lichess"          %% "compression"                     % "1.5"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.5"
@@ -46,9 +44,9 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val versionFix = "0.20.12-fix1"
-    val version    = "0.20.12"
-    val driver     = "org.reactivemongo" %% "reactivemongo"               % versionFix
+    val version = "1.0.3"
+
+    val driver     = "org.reactivemongo" %% "reactivemongo"               % version
     val stream     = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val epoll      = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
     def bundle     = Seq(driver, stream)

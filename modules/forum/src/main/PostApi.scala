@@ -239,11 +239,13 @@ final class PostApi(
         ReadPreference.secondaryPreferred
       )
 
-  def erase(user: User) =
-    env.postRepo.coll.update.one(
-      $doc("userId" -> user.id),
-      $unset("userId", "editHistory", "lang", "ip") ++
-        $set("text" -> "", "erasedAt" -> DateTime.now),
-      multi = true
-    )
+  def erase(user: User): Funit =
+    env.postRepo.coll.update
+      .one(
+        $doc("userId" -> user.id),
+        $unset("userId", "editHistory", "lang", "ip") ++
+          $set("text" -> "", "erasedAt" -> DateTime.now),
+        multi = true
+      )
+      .void
 }

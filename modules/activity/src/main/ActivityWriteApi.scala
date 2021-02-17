@@ -32,7 +32,11 @@ final class ActivityWriteApi(
             ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), false, true)
           )
           setters = setGames ++ setCorres
-          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters), upsert = true).recover(ignoreDuplicateKey).void
+          _ <-
+            (!setters.isEmpty) ?? coll.update
+              .one($id(a.id), $set(setters), upsert = true)
+              .recover(ignoreDuplicateKey)
+              .void
         } yield ()
       }
       .sequenceFu
@@ -66,7 +70,7 @@ final class ActivityWriteApi(
           upsert = true
         )
         .void
-          .recover(ignoreDuplicateKey)
+        .recover(ignoreDuplicateKey)
     }
 
   def learn(userId: User.ID, stage: String) =
@@ -147,7 +151,8 @@ final class ActivityWriteApi(
 
   private def get(userId: User.ID)         = coll.byId[Activity, Id](Id today userId)
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
-  private def save(activity: Activity)     = coll.update.one($id(activity.id), activity, upsert = true).void.recover(ignoreDuplicateKey)
+  private def save(activity: Activity) =
+    coll.update.one($id(activity.id), activity, upsert = true).void.recover(ignoreDuplicateKey)
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =
     getOrCreate(userId) flatMap { old =>
       f(old) ?? save
