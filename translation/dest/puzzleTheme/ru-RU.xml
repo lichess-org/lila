@@ -111,7 +111,7 @@
   <string name="superGMDescription">Задачи из партий, сыгранных лучшими шахматистами в мире.</string>
   <string name="trappedPiece">Ловля фигуры</string>
   <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>
-  <string name="underPromotion">Превращение в слабую фигуру</string>
+  <string name="underPromotion">Слабое превращение</string>
   <string name="underPromotionDescription">Превращение пешки не в ферзя, а в коня, слона или ладью.</string>
   <string name="veryLong">Многоходовая задача</string>
   <string name="veryLongDescription">Четыре или более ходов для победы.</string>
