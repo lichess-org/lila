@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.3"
+  val globalScalaVersion = "2.13.4"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -14,7 +14,7 @@ object BuildSettings {
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
       version := lilaVersion,
-      organization := "org.lichess",
+      organization := "org.lishogi",
       scalaVersion := globalScalaVersion,
       resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
@@ -82,7 +82,7 @@ object BuildSettings {
     "-Wdead-code",
     "-Wextra-implicit",
     // "-Wnumeric-widen",
-    "-Wunused:imports",
+    //"-Wunused:imports",
     "-Wunused:locals",
     "-Wunused:patvars"
     // "-Wunused:privates", // unfortunately doesn't work with macros
