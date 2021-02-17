@@ -66,7 +66,7 @@ window.onload = function () {
       try {
         lishogi.socket.send("ping");
       } catch (e) {}
-      setTimeout(pingNow, 2000);
+      setTimeout(pingNow, 9000);
     }
   }
 
