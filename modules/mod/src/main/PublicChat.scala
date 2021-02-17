@@ -54,5 +54,7 @@ final class PublicChat(
   /** Sort the tournaments by the tournaments most likely to require moderation attention
     */
   private def sortTournamentsByRelevance(tournaments: List[(Tournament, UserChat)]) =
-    tournaments.sortBy(-_._1.nbPlayers)
+    tournaments.sortBy { t =>
+      (t._1.isFinished, -t._1.nbPlayers)
+    }
 }
