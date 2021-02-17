@@ -9,6 +9,7 @@ import lila.app._
 import lila.security.SecurityForm.Reopen
 import lila.user.{ User => UserModel, TotpSecret }
 import views.html
+import lila.api.AnnounceStore
 
 final class Account(
     env: Env,
@@ -73,6 +74,7 @@ final class Account(
                     .add("kid" -> me.kid)
                     .add("troll" -> me.marks.troll)
                     .add("playban" -> playban)
+                    .add("announce" -> AnnounceStore.get.map(_.json))
                 }.withHeaders(CACHE_CONTROL -> s"max-age=15")
             }
         }
