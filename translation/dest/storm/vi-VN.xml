@@ -4,6 +4,8 @@
   <string name="puzzlesSolved">thế cờ đã giải</string>
   <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
   <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
+  <string name="newMonthlyHighscore">Điểm cao hàng tháng mới!</string>
+  <string name="newAllTimeHighscore">Điểm cao mới!</string>
   <string name="score">Điểm</string>
   <string name="moves">Các nước đi</string>
   <string name="accuracy">Độ chính xác</string>
