@@ -79,13 +79,26 @@ final class Clas(
             preloadStudentUsers(students)
             val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
             Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
-          }
+          },
+        orDefault = _ =>
+          if (isGranted(_.UserModView))
+            env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
+              _ ?? { clas =>
+                env.clas.api.student.allWithUsers(clas) flatMap { students =>
+                  env.user.repo.withEmailsU(students.map(_.user)) map { users =>
+                    Ok(html.mod.search.clas(clas, users))
+                  }
+                }
+              }
+            }
+          else notFound
       )
     }
 
   private def WithClassAny(id: String, me: lila.user.User)(
       forTeacher: => Fu[Result],
-      forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result]
+      forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
+      orDefault: Context => Fu[Result] = notFound(_)
   )(implicit ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
       case true => forTeacher
@@ -93,7 +106,8 @@ final class Clas(
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
             env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-              students.exists(_.student is me) ?? forStudent(clas, students)
+              if (students.exists(_.student is me)) forStudent(clas, students)
+              else orDefault(ctx)
             }
           }
         }
