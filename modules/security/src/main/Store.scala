@@ -87,7 +87,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .void >>- uncache(sessionId)
 
   def definitelyEraseAllUserInfo(user: User): Funit =
-    coll.delete.one($doc("user" -> user)).void
+    coll.delete.one($doc("user" -> user.id)).void
 
   def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
     coll.update
