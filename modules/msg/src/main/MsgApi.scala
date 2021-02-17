@@ -86,6 +86,7 @@ final class MsgApi(
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
         verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
+        _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
         res <- verdict match {
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)

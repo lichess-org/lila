@@ -420,8 +420,12 @@ object mon {
     }
     def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
   }
-  object team {
-    def massPm(teamId: String) = histogram("team.mass-pm").withTag("from", teamId)
+  object msg {
+    def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
+      Map("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
+    )
+    def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
+    def clasBulk(clasId: String) = histogram("msg.bulk.clas").withTag("id", clasId)
   }
   object puzzle {
     object selector {

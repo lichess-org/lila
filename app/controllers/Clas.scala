@@ -178,8 +178,14 @@ final class Clas(
                 Reasonable(clas, students, "notify") {
                   val url  = routes.Clas.show(clas.id.value).url
                   val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
-                  env.msg.api.multiPost(me, Source(students.map(_.user.id)), full) inject
-                    Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+                  env.msg.api
+                    .multiPost(me, Source(students.map(_.user.id)), full)
+                    .addEffect { nb =>
+                      lila.mon.msg.clasBulk(clas.id.value).record(nb).unit
+                    }
+                    .inject {
+                      Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+                    }
                 }
               }
           )
