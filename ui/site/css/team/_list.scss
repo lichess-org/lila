@@ -27,19 +27,19 @@
       background: $c-primary;
       color: $c-primary-over;
       text-transform: uppercase;
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-left: 1em;
     }
   }
 
   .team__quit {
     opacity: 0;
-    @include transition(.1s);
+    @include transition(0.1s);
   }
 
   tr:hover .team__quit {
     opacity: 1;
-    @include transition(.6s);
+    @include transition(0.6s);
   }
 
   .info {
