@@ -274,7 +274,9 @@ object mod {
                 " ",
                 b(e.showAction),
                 " ",
-                e.details,
+                e.gameId.fold[Frag](~e.details) { gameId =>
+                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${~e.user}")(~e.details)
+                },
                 " ",
                 momentFromNowServer(e.date)
               )
