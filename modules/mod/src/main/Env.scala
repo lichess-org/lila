@@ -40,7 +40,8 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi
+    slackApi: lila.slack.SlackApi,
+    msgApi: lila.msg.MsgApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -78,13 +79,14 @@ final class Env(
 
   lazy val presets = wire[ModPresetsApi]
 
-  private lazy val sandbag = wire[SandbagWatch]
+  private lazy val sandbagWatch = wire[SandbagWatch]
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         import cats.implicits._
         (whiteUserOption, blackUserOption) mapN { (whiteUser, blackUser) =>
+          sandbagWatch(game)
           assessApi.onGameReady(game, whiteUser, blackUser)
         }
         if (game.status == chess.Status.Cheat)

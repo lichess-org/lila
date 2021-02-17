@@ -14,7 +14,6 @@ import org.joda.time.DateTime
 
 final class PlaybanApi(
     coll: Coll,
-    sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
@@ -61,7 +60,7 @@ final class PlaybanApi(
     }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
-    sandbag(game, quitterColor) >> IfBlameable(game) {
+    IfBlameable(game) {
       game.player(quitterColor).userId ?? { userId =>
         save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor)) >>-
           feedback.rageQuit(Pov(game, quitterColor))
@@ -101,12 +100,10 @@ final class PlaybanApi(
           propagateSitting(game, userId)
       }
 
-    sandbag(game, flaggerColor) flatMap { isSandbag =>
-      IfBlameable(game) {
-        sitting orElse
-          sitMoving getOrElse
-          goodOrSandbag(game, flaggerColor, isSandbag)
-      }
+    IfBlameable(game) {
+      sitting orElse
+        sitMoving getOrElse
+        good(game, flaggerColor)
     }
   }
 
@@ -116,48 +113,39 @@ final class PlaybanApi(
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
-    winner.?? { w =>
-      sandbag(game, !w)
-    } flatMap { isSandbag =>
-      IfBlameable(game) {
-        ~(for {
-          w <- winner
-          loser = game.player(!w)
-          loserId <- loser.userId
-        } yield {
-          println(status(Status))
-          if (Status.NoStart is status)
-            save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
-          else
-            game.clock
-              .filter {
-                _.remainingTime(loser.color) < Centis(1000) &&
-                game.turnOf(loser) &&
-                Status.Resign.is(status)
-              }
-              .map { c =>
-                (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
-              }
-              .exists(_ < nowSeconds - game.movedAt.getSeconds)
-              .option {
-                save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
-                  feedback.sitting(Pov(game, loser.color)) >>
-                  propagateSitting(game, loserId)
-              }
-              .getOrElse {
-                goodOrSandbag(game, !w, isSandbag)
-              }
-        })
-      }
+    IfBlameable(game) {
+      ~(for {
+        w <- winner
+        loser = game.player(!w)
+        loserId <- loser.userId
+      } yield {
+        if (Status.NoStart is status)
+          save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
+        else
+          game.clock
+            .filter {
+              _.remainingTime(loser.color) < Centis(1000) &&
+              game.turnOf(loser) &&
+              Status.Resign.is(status)
+            }
+            .map { c =>
+              (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
+            }
+            .exists(_ < nowSeconds - game.movedAt.getSeconds)
+            .option {
+              save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
+                feedback.sitting(Pov(game, loser.color)) >>
+                propagateSitting(game, loserId)
+            }
+            .getOrElse {
+              good(game, !w)
+            }
+      })
     }
 
-  private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
-    game.player(loserColor).userId ?? { userId =>
-      if (isSandbag) feedback.sandbag(Pov(game, loserColor))
-      val rageSitDelta =
-        if (isSandbag) RageSit.Reset
-        else RageSit.redeem(game)
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
+  private def good(game: Game, loserColor: Color): Funit =
+    game.player(loserColor).userId ?? {
+      save(Outcome.Good, _, RageSit.redeem(game))
     }
 
   // memorize users without any ban to save DB reads

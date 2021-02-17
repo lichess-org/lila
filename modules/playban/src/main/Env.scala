@@ -23,7 +23,5 @@ final class Env(
 
   private lazy val feedback = wire[PlaybanFeedback]
 
-  private lazy val sandbag = wire[SandbagWatch]
-
   lazy val api = wire[PlaybanApi]
 }

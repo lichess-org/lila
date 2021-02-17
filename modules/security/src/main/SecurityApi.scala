@@ -157,20 +157,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    store.ipsAndFps(List(u1, u2), max = 300) map { ipsAndFps =>
-      val u1s: Set[String] = ipsAndFps
-        .filter(_.user == u1)
-        .flatMap { x =>
-          List(x.ip.value, ~x.fp)
-        }
-        .toSet
-      ipsAndFps.exists { x =>
-        x.user == u2 && {
-          u1s(x.ip.value) || x.fp.??(u1s.contains)
-        }
-      }
-    }
+  def shareAnIpOrFp = store.shareAnIpOrFp _
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)

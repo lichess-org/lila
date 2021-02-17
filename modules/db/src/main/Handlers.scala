@@ -108,6 +108,10 @@ trait Handlers {
     )
   }
 
+  implicit object BSONNullWriter extends BSONWriter[BSONNull.type] {
+    def writeTry(n: BSONNull.type) = Success(BSONNull)
+  }
+
   implicit val ipAddressHandler = isoHandler[IpAddress, String](ipAddressIso)
 
   implicit val emailAddressHandler = isoHandler[EmailAddress, String](emailAddressIso)

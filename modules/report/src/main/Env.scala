@@ -66,10 +66,6 @@ final class Env(
           api.autoCheatReport(userId, text).unit
         case lila.hub.actorApi.report.Shutup(userId, text) =>
           api.autoInsultReport(userId, text).unit
-        case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
-          api.autoBoostReport(winnerId, loserId).unit
-        case lila.hub.actorApi.report.Sandbagger(winnerId, loserId) =>
-          api.autoSandbagReport(winnerId, loserId).unit
       }
     }),
     name = config.actorName

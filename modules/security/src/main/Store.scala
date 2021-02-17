@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
+import reactivemongo.api.bson.BSONNull
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -189,8 +190,29 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   implicit private val IpAndFpReader = Macros.reader[IpAndFp]
 
-  def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.secondary.list[IpAndFp]($doc("user" $in userIds), max)
+  def shareAnIpOrFp(u1: User.ID, u2: User.ID): Fu[Boolean] =
+    coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($doc("user" $in List(u1, u2))) -> List(
+        Limit(500),
+        Project(
+          $doc(
+            "_id"  -> false,
+            "user" -> true,
+            "x"    -> $arr("$ip", "$fp")
+          )
+        ),
+        UnwindField("x"),
+        GroupField("x")("users" -> AddFieldToSet("user")),
+        Match(
+          $doc(
+            "_id" $ne BSONNull,
+            "users.1" $exists true
+          )
+        ),
+        Limit(1)
+      )
+    }
 
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))

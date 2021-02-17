@@ -234,7 +234,7 @@ final class ReportApi(
     } yield ()
 
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
-    securityApi.shareIpOrPrint(winnerId, loserId) zip
+    securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
         case isSame ~ Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
           val loginsText =
@@ -246,21 +246,21 @@ final class ReportApi(
               suspect = Suspect(winner),
               reason = Reason.Boost,
               text = s"Boosting: farms rating points from @${loser.username} ($loginsText)"
-            ).pp
+            )
           )
         case _ => funit
       }
 
   def autoSandbagReport(winnerId: User.ID, loserId: User.ID): Funit =
-    userRepo.pair(winnerId, loserId).thenPp zip getLichessReporter flatMap {
+    userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
       case Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
         create(
           Candidate(
             reporter = reporter,
             suspect = Suspect(loser),
             reason = Reason.Boost,
-            text = s"Sandbagging: throws games to @${loser.username}"
-          ).pp
+            text = s"Sandbagging: throws games to @${winner.username}"
+          )
         )
       case _ => funit
     }

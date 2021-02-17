@@ -48,7 +48,7 @@ final class Relation(
         case true =>
           env.msg.api
             .postPreset(
-              me,
+              me.id,
               lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
             )
             .void
