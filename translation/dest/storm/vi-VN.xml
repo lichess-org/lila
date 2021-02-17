@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Đi quân để bắt đầu</string>
+  <string name="puzzlesSolved">thế cờ đã giải</string>
+  <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
+  <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
+  <string name="newMonthlyHighscore">Điểm cao hàng tháng mới!</string>
+  <string name="newAllTimeHighscore">Điểm cao mới!</string>
+  <string name="previousHighscoreWasX">Điểm cao trước là %s</string>
+  <string name="playAgain">Chơi lại</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s lần chơi</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">Đã chơi %1$s lượt %2$s</item>
+  </plurals>
+  <string name="highscoreX">Điểm cao: %s</string>
   <string name="score">Điểm</string>
   <string name="moves">Các nước đi</string>
   <string name="accuracy">Độ chính xác</string>
@@ -10,6 +25,7 @@
   <string name="puzzlesPlayed">Câu đố đã chơi</string>
   <string name="newRun">Chạy mới (phím nóng: Dấu cách)</string>
   <string name="endRun">Kết thúc chạy (phím nóng: Enter)</string>
+  <string name="highscores">Điểm cao</string>
   <string name="viewBestRuns">Xem các bài chạy tốt nhất</string>
   <string name="bestRunOfDay">Hoạt động tốt nhất trong ngày</string>
   <string name="runs">Chạy</string>

@@ -38,9 +38,9 @@
   <string name="difficultyLevel">Nível de dificuldade</string>
   <string name="normal">Normal</string>
   <string name="easier">Mais fáceis</string>
-  <string name="easiest">Os mais fáceis</string>
+  <string name="easiest">Muito mais fáceis</string>
   <string name="harder">Mais difíceis</string>
-  <string name="hardest">Os mais difíceis</string>
+  <string name="hardest">Muito mais difíceis</string>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar outro tema</string>
   <string name="jumpToNextPuzzleImmediately">Saltar imediatamente para o próximo problema</string>

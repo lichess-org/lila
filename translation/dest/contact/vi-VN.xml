@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số</string>
   <string name="cantClearHistory">Bạn không thể xóa lịch sử các ván đấu, giải đố hay hệ số.</string>
   <string name="wantReport">Tôi muốn gửi báo cáo về một người chơi</string>
+  <string name="toReportAPlayerUseForm">Để báo cáo một người chơi, dùng mẫu báo cáo</string>
   <string name="youCanAlsoReachReportPage">Bạn cũng có thể truy cập trang đó bằng cách bấm vào nút báo báo %s trên một trang cá nhân.</string>
   <string name="doNotReportInForum">Vui lòng không báo cáo người chơi trong diên đàn.</string>
   <string name="doNotSendReportEmails">Vui lòng không gửi cho chúng tôi email báo cáo.</string>

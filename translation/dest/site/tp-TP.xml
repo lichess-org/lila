@@ -295,7 +295,7 @@
     <item quantity="one">nanpa pona %s pi utala suli musi</item>
     <item quantity="other">nanpa pona %s pi utala suli musi</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="one">ma sona %s</item>
     <item quantity="other">ma sona %s</item>
   </plurals>
@@ -315,8 +315,8 @@
     <item quantity="other">sina wile musi e musi %1$s sin pi nasin %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">sina wile musi e musi %1$s sin</item>
-    <item quantity="other">sina wile musi e musi %1$s sin</item>
+    <item quantity="one">sina wile musi e musi %s sin</item>
+    <item quantity="other">sina wile musi e musi %s sin</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">nanpa wawa sina pi nasin %s li pini ala</string>
   <string name="yourPerfRatingIsTooHigh">nanpa wawa sina pi nasin %1$s (%2$s) li suli ike</string>
@@ -794,7 +794,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="playEveryGame">sina open musi la, o pini e musi.</string>
   <string name="tryToWin">o wile e ni: mi wile pini pona (anu pini pi anpa ala) e musi.</string>
   <string name="resignLostGames">musi li pini ike, o toki \"mi anpa\" (kepeken nena).</string>
-  <string name="temporaryInconvenience"></string>
   <string name="wishYouGreatGames">mi wile e ni: musi sina pi ilo Lichess li pona.</string>
   <string name="thankYouForReading">sina lukin ale e lipu ni la, sina pona!</string>
   <string name="lifetimeScore">nanpa pona pi musi ale</string>
@@ -817,7 +816,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="important">suli</string>
   <string name="yourQuestionMayHaveBeenAnswered">ken la, sona pi wile sina li %1$s</string>
   <string name="inTheFAQ">lon lipu \"wile sona pi jan mute\"</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">jan li pali ike, li kepeken e ilo ike la, </string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">jan li pali ike, li kepeken e ilo ike la, %1$s</string>
   <string name="useTheReportForm">o toki kepeken lipu ni</string>
   <string name="toRequestSupport">sina wile toki tawa jan lawa pi ilo Lichess la, %1$s</string>
   <string name="tryTheContactPage">o toki kepeken lipu \"toki tawa jan lawa\"</string>

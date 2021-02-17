@@ -9,6 +9,7 @@
   <string name="yourTurn">தங்கள் முறை</string>
   <string name="aiNameLevelAiLevel">%1$s நிலைமட்டம் %2$s</string>
   <string name="level">நிலைமட்டம்</string>
+  <string name="strength">வலிமை</string>
   <string name="toggleTheChat">உரையாடலை மாற்று</string>
   <string name="toggleSound">ஒலியை மாற்று</string>
   <string name="chat">உரையாடு</string>
@@ -199,6 +200,8 @@
     <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
   </plurals>
   <string name="cancel">கழி</string>
+  <string name="whiteTimeOut">வெள்ளை நேரம் முடிந்தது</string>
+  <string name="blackTimeOut">கருப்பு நேரம் முடிந்தது</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
   <string name="drawOfferDeclined">இழுபறி முன்வரவு மறுப்பு</string>
   <string name="drawOfferAccepted">இழுபறி முன்வரவு எற்பு</string>
@@ -292,7 +295,7 @@
     <item quantity="one">%s போட்டி மதிப்பெண்</item>
     <item quantity="other">%s போட்டி மதிப்பெண்கள்</item>
   </plurals>
-  <plurals name="nbStudies">
+  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
     <item quantity="one">%s ஆராய்ச்சி கோல்</item>
     <item quantity="other">%s ஆராய்ச்சி கோல்கள்</item>
   </plurals>
@@ -308,6 +311,8 @@
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
+  <string name="yourPerfRatingIsTooHigh">உங்களின் வீத அறுதிப்பாடு அதிகமாக உள்ளது</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்களின்%1$s வீத அறுதிப்பாடு %2$sஅதிகமாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>

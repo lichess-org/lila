@@ -649,7 +649,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="side">Taobh</string>
   <string name="clock">Clog</string>
   <string name="unauthorizedError">Rochtain neamhcheadaithe.</string>
-  <string name="noInternetConnection">Gan aon ceangal idirlín. Is féidir fós imirt as líne ón roghchlár.</string>
+  <string name="noInternetConnection">Gan aon cheangal idirlín. Is féidir fós imirt as líne ón roghchlár.</string>
   <string name="connectedToLichess">Tá tú ceangailte anois le lichess.org</string>
   <string name="signedOut">Tá tú logáilte amach</string>
   <string name="loginSuccessful">Tá tú logáilte isteach anois</string>
