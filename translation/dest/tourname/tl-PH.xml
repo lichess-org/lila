@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Paligsahang Pangmabilisang Pang-oras-orasan%s</string>
   <string name="hourlyXArena">Pang-oras-orasan%sPaligsahan</string>
   <string name="hourlyX">Pang-oras-orasan%s</string>
-  <string name="dailyClassical">Klasikal na Pang-araw-araw%s</string>
   <string name="dailyXArena">%sPaligsahang Pang-araw-araw</string>
   <string name="dailyX">Pang-araw-araw%s</string>
-  <string name="easternRapid">Silangang Pangmabilisan%s</string>
-  <string name="easternClassical">Silangang Klasikal%s</string>
   <string name="easternXArena">Silangan%sPaligsahan</string>
   <string name="easternX">Silangan%s</string>
-  <string name="weeklyRapid">Lingguhang Pangmabilisan%s</string>
-  <string name="weeklyClassical">Lingguhang Klasikal%s</string>
   <string name="weeklyXArena">Lingguhan%sPaligsahan</string>
   <string name="weeklyX">Lingguhan%s</string>
   <string name="monthlyRapid">Buwanang Pangmabilisan</string>
-  <string name="monthlyClassical">Buwanang Klasikal%s</string>
   <string name="monthlyXArena">Buwanan%sPaligsahan</string>
   <string name="monthlyX">Buwanan%s</string>
   <string name="yearlyRapidArena">Taunang Paligsahang Pangmabilisan</string>
-  <string name="yearlyRapid">Taunang Pangmabilisan%s</string>
-  <string name="yearlyClassical">Taunang Klasikal%s</string>
   <string name="yearlyXArena">Taunan%sPaligsahan</string>
   <string name="yearlyX">Taunan%s</string>
   <string name="rapidShieldArena">Paligsahang Pangmabilisang Kalasag</string>
   <string name="rapidShield">Pangmabilisang Kalasag</string>
-  <string name="classicalShield">Kalasag na Klasikal%s</string>
+  <string name="classicalShield">Kalasag na Klasikal</string>
   <string name="xShieldArena">Paligsahang Kalasag%s</string>
   <string name="xShield">%s Kalasag</string>
   <string name="openingRapidArena">Paligsahang Pangmabilisan%s</string>
