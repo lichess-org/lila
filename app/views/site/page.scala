@@ -182,16 +182,6 @@ $('#asset-version-message').text(lichess.info.message);"""
               """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
             )
           )
-        ),
-        br,
-        div(cls := "box box-pad developers body")(
-          h1(id := "widgets")("Lichess Widgets"),
-          p("Let your website/blog visitors know that you're playing on lichess!"),
-          p(
-            raw(
-              """See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""
-            )
-          )
         )
       )
     )
