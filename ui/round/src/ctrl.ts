@@ -204,7 +204,7 @@ export default class RoundController {
   };
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key) => {
-    if (crazyValid(this, piece.role, key))
+    if (piece.color !== this.data.player.color || crazyValid(this, piece.role, key))
       sound.move();
   };
 
@@ -384,7 +384,7 @@ export default class RoundController {
         else {
           const m_step = d.steps[d.steps.length - 1],
             move = this.ply + "." + " " +
-              notationStyle(this.data.pref.pieceNotation ?? 0)({san: m_step.san, uci: m_step.uci, fen: m_step.fen});
+              notationStyle(this.data.pref.pieceNotation ?? 0)({ san: m_step.san, uci: m_step.uci, fen: m_step.fen });
           txt = opponent + "\nplayed " + move + ".\n" + txt;
         }
         return txt;
