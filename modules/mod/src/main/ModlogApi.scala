@@ -185,6 +185,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       )
     }
 
+  def wasUnteachered(user: User.ID): Fu[Boolean] =
+    coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
+
   def reportban(mod: Mod, sus: Suspect, v: Boolean) =
     add {
       Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)

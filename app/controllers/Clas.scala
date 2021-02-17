@@ -24,13 +24,15 @@ final class Clas(
             Ok(views.html.clas.clas.teacherIndex(classes))
           }
         case Some(me) =>
-          if (env.clas.studentCache.isStudent(me.id))
-            env.clas.api.student.clasIdsOfUser(me.id) flatMap
-              env.clas.api.clas.byIds map {
-                case List(single) => Redirect(routes.Clas.show(single.id.value))
-                case many         => Ok(views.html.clas.clas.studentIndex(many))
-              }
-          else renderHome
+          (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
+            case true =>
+              env.clas.api.student.clasIdsOfUser(me.id) flatMap
+                env.clas.api.clas.byIds map {
+                  case List(single) => Redirect(routes.Clas.show(single.id.value))
+                  case many         => Ok(views.html.clas.clas.studentIndex(many))
+                }
+            case _ => renderHome
+          }
       }
     }
 
@@ -511,10 +513,21 @@ final class Clas(
     }
 
   def becomeTeacher =
-    AuthBody { _ => me =>
-      val perm = lila.security.Permission.Teacher.dbKey
-      (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-        Redirect(routes.Clas.index)
+    AuthBody { implicit ctx => me =>
+      couldBeTeacher flatMap {
+        case true =>
+          val perm = lila.security.Permission.Teacher.dbKey
+          (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+            Redirect(routes.Clas.index)
+        case _ => notFound
+      }
+    }
+
+  private def couldBeTeacher(implicit ctx: Context) =
+    ctx.me match {
+      case None             => fuTrue
+      case _ if ctx.hasClas => fuTrue
+      case Some(me)         => !env.mod.logApi.wasUnteachered(me.id)
     }
 
   def invitation(id: String) =
