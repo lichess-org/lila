@@ -101,6 +101,15 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls = "page"
     )(
       frag(
+        div(cls := "box box-pad developers body")(
+          h1("HTTP API"),
+          p(
+            raw(
+              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+            )
+          )
+        ),
+        br,
         div(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
@@ -173,16 +182,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             parameters,
             p("The text is automatically translated to your visitor's language.")
           )
-        },
-        br,
-        div(cls := "box box-pad developers body")(
-          h1("HTTP API"),
-          p(
-            raw(
-              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
-            )
-          )
-        )
+        }
       )
     )
   }
