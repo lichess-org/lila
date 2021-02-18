@@ -579,6 +579,7 @@
   <string name="error.email_unique">Cette adresse email est déjà utilisée</string>
   <string name="error.email_different">C’est déjà votre adresse e-mail</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
@@ -639,7 +640,7 @@
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
   <string name="tournamentMayHaveBeenCanceled">Il a peut-être été annulé, si tous les joueurs l\'ont quitté avant le début.</string>
   <string name="returnToTournamentsHomepage">Retour à la page des tournois</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des cotes en %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des classements en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
