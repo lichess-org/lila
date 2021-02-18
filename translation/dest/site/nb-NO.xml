@@ -773,7 +773,7 @@
   <string name="doItAgain">Gjenta</string>
   <string name="reviewWhiteMistakes">Gå gjennom hvits feil</string>
   <string name="reviewBlackMistakes">Gå gjennom svarts feil</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Fordel</string>
+  <string name="advantage">Fordel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>
