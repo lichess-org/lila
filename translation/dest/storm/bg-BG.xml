@@ -8,6 +8,10 @@
   <string name="newAllTimeHighscore">Нов рекорд за всички времена!</string>
   <string name="previousHighscoreWasX">Предишният рекорд беше %s</string>
   <string name="playAgain">Играйте отново</string>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Изигран един опит от %2$s</item>
+    <item quantity="other">Изиграни %1$s опита от %2$s</item>
+  </plurals>
   <string name="highscoreX">Рекорд: %s</string>
   <string name="score">Резултат</string>
   <string name="moves">Ходове</string>
@@ -15,7 +19,10 @@
   <string name="timePerMove">Време на ход</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Най-сложната решена</string>
   <string name="puzzlesPlayed">Изиграни задачи</string>
+  <string name="newRun">Нов опит (натисни: Интервал)</string>
+  <string name="endRun">Приключване на опита (натисни: Enter)</string>
   <string name="highscores">Рекорди</string>
   <string name="viewBestRuns">Вижте най-добрите опити</string>
   <string name="bestRunOfDay">Най-добрият опит за деня</string>
+  <string name="runs">Опити</string>
 </resources>
