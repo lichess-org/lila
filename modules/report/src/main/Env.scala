@@ -27,7 +27,7 @@ final class Env(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.irc.SlackApi,
+    discordApi: lila.irc.DiscordApi,
     captcher: lila.hub.actors.Captcher,
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
@@ -43,11 +43,11 @@ final class Env(
 
   lazy val scoreThresholdsSetting = ReportThresholds makeScoreSetting settingStore
 
-  lazy val slackScoreThresholdSetting = ReportThresholds makeSlackSetting settingStore
+  lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
 
   private val thresholds = Thresholds(
     score = scoreThresholdsSetting.get _,
-    slack = slackScoreThresholdSetting.get _
+    discord = discordScoreThresholdSetting.get _
   )
 
   lazy val forms = wire[ReportForm]

@@ -8,7 +8,7 @@ import lila.memo.SettingStore.{ Formable, StringReader }
 
 case class ScoreThresholds(mid: Int, high: Int)
 
-private case class Thresholds(score: () => ScoreThresholds, slack: () => Int)
+private case class Thresholds(score: () => ScoreThresholds, discord: () => Int)
 
 private object ReportThresholds {
 
@@ -36,10 +36,10 @@ private object ReportThresholds {
       text = "Report score mid and high thresholds, separated with a comma.".some
     )
 
-  def makeSlackSetting(store: lila.memo.SettingStore.Builder) =
+  def makeDiscordSetting(store: lila.memo.SettingStore.Builder) =
     store[Int](
-      "slackScoreThreshold",
+      "discordScoreThreshold",
       default = 80,
-      text = "Slack score threshold. Comm reports with higher scores are notified in slack".some
+      text = "Discord score threshold. Comm reports with higher scores are notified in discord".some
     )
 }

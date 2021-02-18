@@ -17,7 +17,7 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.irc.SlackApi,
+    discordApi: lila.irc.DiscordApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     thresholds: Thresholds
@@ -65,9 +65,9 @@ final class ReportApi(
             lila.mon.mod.report.create(report.reason.key).increment()
             if (
               report.isRecentComm &&
-              report.score.value >= thresholds.slack() &&
-              prev.exists(_.score.value < thresholds.slack())
-            ) slackApi.commReportBurst(c.suspect.user)
+              report.score.value >= thresholds.discord() &&
+              prev.exists(_.score.value < thresholds.discord())
+            ) discordApi.commReportBurst(c.suspect.user)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>- {
                 if (report.isCheat)

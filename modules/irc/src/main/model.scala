@@ -9,3 +9,11 @@ private case class SlackMessage(
 
   override def toString = s"[$channel] :$icon: @$username: $text"
 }
+
+private case class DiscordMessage(
+    text: String,
+    channel: Double
+) {
+
+  override def toString = s"[$channel] $text"
+}

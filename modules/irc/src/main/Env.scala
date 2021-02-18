@@ -20,20 +20,22 @@ final class Env(
     mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val incomingUrl = appConfig.get[Secret]("slack.incoming.url")
+  private lazy val slackClient = new SlackClient(ws, appConfig.get[Secret]("slack.incoming.url"))
 
-  private lazy val client = wire[SlackClient]
+  private lazy val discordClient = new DiscordClient(ws, appConfig.get[Secret]("discord.webhook.url"))
 
-  lazy val api: SlackApi = wire[SlackApi]
+  lazy val slack: SlackApi = wire[SlackApi]
+
+  lazy val discord: DiscordApi = wire[DiscordApi]
 
   if (mode == Mode.Prod) {
-    api.publishInfo("Lichess has started!")
-    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell slack")(api.stop _)
+    slack.publishInfo("Lichess has started!")
+    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell slack")(slack.stop _)
   }
 
   lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
-    case d: ChargeEvent                                => api.charge(d).unit
-    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text).unit
-    case e: Event                                      => api.publishEvent(e).unit
+    case d: ChargeEvent                                => slack.charge(d).unit
+    case Note(from, to, text, true) if from != "Irwin" => slack.userModNote(from, to, text).unit
+    case e: Event                                      => slack.publishEvent(e).unit
   }
 }

@@ -57,7 +57,7 @@ final class Env(
     val insight: lila.insight.Env,
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
-    val slack: lila.irc.Env,
+    val irc: lila.irc.Env,
     val challenge: lila.challenge.Env,
     val explorer: lila.explorer.Env,
     val fishnet: lila.fishnet.Env,

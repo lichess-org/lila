@@ -13,7 +13,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.irwin.irwinThresholdsSetting,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdsSetting,
-    env.report.slackScoreThresholdSetting,
+    env.report.discordScoreThresholdSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.streamer.twitchCredentialsSetting,

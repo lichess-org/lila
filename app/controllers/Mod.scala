@@ -205,7 +205,7 @@ final class Mod(
   def notifySlack(username: String) =
     OAuthMod(_.NotifySlack) { _ => me =>
       withSuspect(username) { sus =>
-        env.slack.api.userMod(user = sus.user, mod = me) map some
+        env.irc.slack.userMod(user = sus.user, mod = me) map some
       }
     }(actionResult(username))
 
@@ -249,9 +249,9 @@ final class Mod(
               } map { case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry ~ logins =>
                 if (priv) {
                   if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
-                    env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                    env.irc.slack.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
                     if (isGranted(_.MonitoredMod))
-                      env.slack.api.monitorMod(
+                      env.irc.slack.monitorMod(
                         me.id,
                         "eyes",
                         s"spontaneously checked out @${user.username}'s private comms"
@@ -457,7 +457,7 @@ final class Mod(
     OAuthMod(_.Shadowban) { req => me =>
       val v = getBool("v", req)
       env.chat.panic.set(v)
-      env.slack.api.chatPanic(me, v)
+      env.irc.slack.chatPanic(me, v)
       fuccess(().some)
     }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
 
