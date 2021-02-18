@@ -549,6 +549,7 @@
   <string name="error.email_unique">このメールアドレスはすでに使用されています</string>
   <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
