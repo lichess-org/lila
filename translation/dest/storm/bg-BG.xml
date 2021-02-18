@@ -7,4 +7,9 @@
   <string name="newMonthlyHighscore">Нов месечен рекорд!</string>
   <string name="newAllTimeHighscore">Нов рекорд за всички времена!</string>
   <string name="previousHighscoreWasX">Предишният рекорд беше %s</string>
+  <string name="playAgain">Играйте отново</string>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Резултат</string>
+  <string name="moves">Ходове</string>
+  <string name="time">Време</string>
 </resources>
