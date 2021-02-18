@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">ЧЗВ</string>
+  <string name="frequentlyAskedQuestions">Често Задавани Въпроси</string>
+  <string name="whyIsLichessCalledLichess">Защо Lichess се нарича Lichess?</string>
+  <string name="leechess">ли-чес</string>
+  <string name="noUpperCaseDot">Не.</string>
+  <string name="canIChangeMyUsername">Мога ли да променя потребителското ми име?</string>
+  <string name="howToThreeDots">Как да...</string>
+</resources>
