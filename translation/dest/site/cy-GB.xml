@@ -642,7 +642,7 @@
   <string name="doItAgain">Ailwneud</string>
   <string name="reviewWhiteMistakes">Adolygu camgymeriadau gwyn</string>
   <string name="reviewBlackMistakes">Adolygu camgymeriadau du</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Mantais</string>
+  <string name="advantage">Mantais</string>
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
