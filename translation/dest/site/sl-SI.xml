@@ -846,7 +846,7 @@ v %3$s</string>
   <string name="doItAgain">Naredi še enkrat</string>
   <string name="reviewWhiteMistakes">Pregled napak belega</string>
   <string name="reviewBlackMistakes">Pregled napak črnega</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Prednost</string>
+  <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
     <item quantity="two">%s sekundi</item>
