@@ -66,7 +66,7 @@
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
   <string name="forceVariation">强制变着</string>
-  <string name="move">走棋</string>
+  <string name="move">着法</string>
   <string name="variantLoss">变体输了</string>
   <string name="variantWin">变体胜利</string>
   <string name="insufficientMaterial">棋子不足</string>
@@ -548,6 +548,7 @@
   <string name="error.email_unique">该电子邮件地址已被使用。</string>
   <string name="error.email_different">这是你当前的电子邮件地址</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
