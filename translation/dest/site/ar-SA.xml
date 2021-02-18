@@ -367,7 +367,7 @@
     <item quantity="many">نقاط المسابقة %s</item>
     <item quantity="other">نقاط المسابقة %s</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="zero">%s دراسة</item>
     <item quantity="one">%s دراسة</item>
     <item quantity="two">%s دراسة</item>
@@ -703,6 +703,7 @@
   <string name="error.email_unique">هذا البريد الإلكتروني مستعمل من قبل</string>
   <string name="error.email_different">هذا بريدك الإلكتروني بالفعل</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
@@ -913,7 +914,7 @@
   <string name="doItAgain">قم بذلك مرة اخرى</string>
   <string name="reviewWhiteMistakes">مراجعة أخطاء الأبيض</string>
   <string name="reviewBlackMistakes">مراجعة أخطاء الأسود</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">الأفضلية</string>
+  <string name="advantage">الأفضلية</string>
   <plurals name="nbSeconds">
     <item quantity="zero">%s ثانية</item>
     <item quantity="one">%s ثانية</item>
