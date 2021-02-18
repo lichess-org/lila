@@ -580,6 +580,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="error.email_unique">Questo indirizzo email è già utilizzato</string>
   <string name="error.email_different">Questo è già il tuo indirizzo mail</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Solo conversazioni esistenti</string>
   <string name="onlyFriends">Solo amici</string>
   <string name="menu">Menù</string>
   <string name="castling">Arrocco</string>
