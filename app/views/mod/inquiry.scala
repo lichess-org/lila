@@ -219,7 +219,7 @@ object inquiry {
         ),
         postForm(
           action := routes.Report.process(in.report.id),
-          title := "Dismiss this report as processed.",
+          title := "Dismiss this report as processed. (Hotkey: d)",
           cls := "process"
         )(
           submitButton(dataIcon := "E", cls := "fbt"),

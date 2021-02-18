@@ -7,7 +7,7 @@ $(function () {
     $('body').toggleClass('no-inquiry');
   });
 
-  var nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
+  const nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);
@@ -18,4 +18,6 @@ $(function () {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });
+
+  Mousetrap.bind('d', () => $('#inquiry .actions.close form.process button[type="submit"]').trigger('click'));
 });
