@@ -47,7 +47,7 @@
   <string name="whiteResigned">Vit har gett upp</string>
   <string name="blackResigned">Svart har gett upp</string>
   <string name="whiteLeftTheGame">Vit har lämnat partiet</string>
-  <string name="blackLeftTheGame">Svartspelaren har lämnat partiet</string>
+  <string name="blackLeftTheGame">Svart har lämnat partiet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Dela länken till åskådare som vill se partiet</string>
   <string name="theComputerAnalysisHasFailed">Datoranalysen misslyckades</string>
   <string name="viewTheComputerAnalysis">Visa datoranalys</string>
@@ -579,6 +579,7 @@
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
   <string name="error.email_different">Detta är redan din registrerade e-postadress</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Endast befintliga konversationer</string>
   <string name="onlyFriends">Bara vänner</string>
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Gör det igen</string>
   <string name="reviewWhiteMistakes">Granska vits misstag</string>
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Fördel</string>
+  <string name="advantage">Fördel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>
