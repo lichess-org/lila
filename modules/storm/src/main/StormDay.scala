@@ -12,6 +12,7 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.user.UserRepo
+import reactivemongo.api.ReadPreference
 
 // stores data of the best run of the day
 // plus the number of runs
@@ -113,6 +114,13 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
 
   def eraseAllFor(user: User) =
     coll.delete.one(idRegexFor(user.id)).void
+
+  def apiHistory(userId: User.ID, days: Int): Fu[List[StormDay]] =
+    coll
+      .find(idRegexFor(userId))
+      .sort($sort desc "_id")
+      .cursor[StormDay](ReadPreference.secondaryPreferred)
+      .list(days)
 
   private def idRegexFor(userId: User.ID) = $doc("_id" $startsWith s"${userId}:")
 }

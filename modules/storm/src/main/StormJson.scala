@@ -4,10 +4,11 @@ import play.api.libs.json._
 
 import lila.common.Json._
 import lila.user.User
+import org.joda.time.format.DateTimeFormat
 
 final class StormJson(sign: StormSign) {
 
-  import StormJson.puzzleWrites
+  import StormJson._
 
   def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
     .obj(
@@ -35,11 +36,26 @@ final class StormJson(sign: StormSign) {
           "prev" -> nh.previous
         )
       })
+
+  def apiDashboard(high: StormHigh, days: List[StormDay]) = Json.obj(
+    "high" -> high,
+    "days" -> days
+  )
+
 }
 
 object StormJson {
 
   import lila.puzzle.JsonView.puzzleIdWrites
+
+  implicit val highWrites: OWrites[StormHigh] = Json.writes[StormHigh]
+
+  private val dateFormat = DateTimeFormat forPattern "Y/M/d"
+
+  implicit val dayIdWrites: Writes[StormDay.Id] = Writes { id =>
+    JsString(dateFormat print id.day.toDate)
+  }
+  implicit val dayWrites: OWrites[StormDay] = Json.writes[StormDay]
 
   implicit val puzzleWrites: OWrites[StormPuzzle] = OWrites { p =>
     Json.obj(

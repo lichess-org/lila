@@ -113,6 +113,7 @@ GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: String, page: Int ?= 1)
+GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username: String, days: Int ?= 30)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
