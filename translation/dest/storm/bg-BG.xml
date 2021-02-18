@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Направете ход за да започнете</string>
+  <string name="puzzlesSolved">решени пъзели</string>
+  <string name="newDailyHighscore">Нов дневен рекорд!</string>
+  <string name="newWeeklyHighscore">Нов седмичен рекорд!</string>
+  <string name="newMonthlyHighscore">Нов месечен рекорд!</string>
+  <string name="newAllTimeHighscore">Нов рекорд за всички времена!</string>
+  <string name="previousHighscoreWasX">Предишният рекорд беше %s</string>
+</resources>
