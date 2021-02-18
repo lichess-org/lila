@@ -12,4 +12,7 @@
   <string name="score">Резултат</string>
   <string name="moves">Ходове</string>
   <string name="time">Време</string>
+  <string name="timePerMove">Време на ход</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Най-сложната решена</string>
+  <string name="highscores">Рекорди</string>
 </resources>
