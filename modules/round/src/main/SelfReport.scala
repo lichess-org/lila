@@ -10,7 +10,7 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     proxyRepo: GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 

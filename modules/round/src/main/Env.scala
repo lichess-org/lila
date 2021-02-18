@@ -49,7 +49,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     lightUserSync: lila.common.LightUser.GetterSync,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit

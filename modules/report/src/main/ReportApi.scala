@@ -17,7 +17,7 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     thresholds: Thresholds

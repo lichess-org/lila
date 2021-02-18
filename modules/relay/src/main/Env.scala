@@ -13,7 +13,7 @@ final class Env(
     studyApi: lila.study.StudyApi,
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     baseUrl: BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,

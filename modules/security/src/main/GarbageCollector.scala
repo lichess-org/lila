@@ -11,7 +11,7 @@ import lila.user.User
 final class GarbageCollector(
     userLogins: UserLoginsApi,
     ipTrust: IpTrust,
-    slack: lila.slack.SlackApi,
+    slack: lila.irc.SlackApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
 )(implicit

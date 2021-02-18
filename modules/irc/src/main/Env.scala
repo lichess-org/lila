@@ -1,4 +1,4 @@
-package lila.slack
+package lila.irc
 
 import com.softwaremill.macwire._
 import play.api.{ Configuration, Mode }

@@ -18,7 +18,7 @@ import lila.tree.Node.Comments
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     formatApi: RelayFormatApi,
     ws: StandaloneWSClient
 ) extends Actor {

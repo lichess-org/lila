@@ -1,4 +1,4 @@
-package lila.slack
+package lila.irc
 
 import org.joda.time.DateTime
 

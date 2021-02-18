@@ -1,4 +1,4 @@
-package lila.slack
+package lila.irc
 
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._

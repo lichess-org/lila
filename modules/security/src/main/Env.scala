@@ -20,7 +20,7 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,
     authenticator: Authenticator,
-    slack: lila.slack.SlackApi,
+    slack: lila.irc.SlackApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,

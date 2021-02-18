@@ -35,7 +35,7 @@ lazy val modules = Seq(
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
-  playban, insight, perfStat, slack, quote, challenge,
+  playban, insight, perfStat, irc, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm
@@ -170,7 +170,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat, slack),
+  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat, irc),
   reactivemongo.bundle
 )
 
@@ -205,7 +205,7 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(common, db, memo, hub, socket, game, user, i18n, fishnet, pref, chat, history, playban, room),
+  Seq(common, db, memo, hub, socket, game, user, i18n, fishnet, pref, chat, history, playban, room, irc),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
 )
 
@@ -270,7 +270,7 @@ lazy val oauth = smallModule("oauth",
 )
 
 lazy val security = module("security",
-  Seq(common, hub, db, user, i18n, slack, oauth),
+  Seq(common, hub, db, user, i18n, irc, oauth),
   Seq(scalatags, maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
 )
 
@@ -324,7 +324,7 @@ lazy val push = module("push",
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
-lazy val slack = smallModule("slack",
+lazy val irc = smallModule("irc",
   Seq(common, hub, user),
   reactivemongo.bundle ++ macwire.bundle
 )

@@ -57,7 +57,7 @@ final class Env(
     val insight: lila.insight.Env,
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
-    val slack: lila.slack.Env,
+    val slack: lila.irc.Env,
     val challenge: lila.challenge.Env,
     val explorer: lila.explorer.Env,
     val fishnet: lila.fishnet.Env,
@@ -240,7 +240,7 @@ final class EnvBoot(
   lazy val insight: lila.insight.Env         = wire[lila.insight.Env]
   lazy val push: lila.push.Env               = wire[lila.push.Env]
   lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
-  lazy val slack: lila.slack.Env             = wire[lila.slack.Env]
+  lazy val irc: lila.irc.Env                 = wire[lila.irc.Env]
   lazy val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
   lazy val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   lazy val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
