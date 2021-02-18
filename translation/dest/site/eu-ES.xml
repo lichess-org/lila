@@ -579,6 +579,7 @@
   <string name="error.email_unique">Posta hau beste inork erabili du</string>
   <string name="error.email_different">Hau jada bada zure eposta helbidea</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
+  <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Egin berriz</string>
   <string name="reviewWhiteMistakes">Zurien akatsak bilatu</string>
   <string name="reviewBlackMistakes">Beltzen akatsak bilatu</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Abantaila</string>
+  <string name="advantage">Abantaila</string>
   <plurals name="nbSeconds">
     <item quantity="one">Segundo %s</item>
     <item quantity="other">%s segundo</item>
