@@ -176,35 +176,35 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         optgroup("Handicaps", ctrl.cfg.positions.map(position2option))
       ])
     ])]),
-    h("div.metadata", [
-      h(
-        "div.color",
-        h(
-          "select",
-          {
-            on: {
-              change(e) {
-                ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
-              },
-            },
-          },
-          ["blackPlays", "whitePlays"].map(function (key) {
-            return h(
-              "option",
-              {
-                attrs: {
-                  value: key[0] == "w" ? "white" : "black",
-                  selected: ctrl.turn[0] === key[0],
-                },
-              },
-              ctrl.trans(key)
-            );
-          })
-        )
-      ),
-    ]),
     ...(ctrl.cfg.embed
       ? [
+          h("div.metadata", [
+            h(
+              "div.color",
+              h(
+                "select",
+                {
+                  on: {
+                    change(e) {
+                      ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
+                    },
+                  },
+                },
+                ["blackPlays", "whitePlays"].map(function (key) {
+                  return h(
+                    "option",
+                    {
+                      attrs: {
+                        value: key[0] == "w" ? "white" : "black",
+                        selected: ctrl.turn[0] !== key[0],
+                      },
+                    },
+                    ctrl.trans(key)
+                  );
+                })
+              )
+            ),
+          ]),
           h("div.actions", [
             h(
               "a.button.button-empty",
@@ -242,6 +242,33 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
         ]
       : [
+          h("div.metadata", [
+            h(
+              "div.color",
+              h(
+                "select",
+                {
+                  on: {
+                    change(e) {
+                      ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
+                    },
+                  },
+                },
+                ["blackPlays", "whitePlays"].map(function (key) {
+                  return h(
+                    "option",
+                    {
+                      attrs: {
+                        value: key[0] == "w" ? "white" : "black",
+                        selected: ctrl.turn[0] === key[0],
+                      },
+                    },
+                    ctrl.trans(key)
+                  );
+                })
+              )
+            ),
+          ]),
           h("div.actions", [
             h(
               "a.button.button-empty.text",
@@ -321,7 +348,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + (state.legalFen || "") + "#ai",
+                  href: "/?fen=" + (ctrl.encodeFen(state.legalFen || "")) + "#ai",
                   rel: "nofollow",
                 },
               },
@@ -331,7 +358,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + (state.legalFen || "") + "#friend",
+                  href: "/?fen=" + (ctrl.encodeFen(state.legalFen || "")) + "#friend",
                   rel: "nofollow",
                 },
               },

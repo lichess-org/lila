@@ -127,10 +127,14 @@ export default class EditorCtrl {
     return this.makeUrl(`/analysis/`, makeLishogiFen(legalFen));
   }
 
+  encodeFen(fen: string): string {
+    return encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/");
+  }
+
   makeUrl(baseUrl: string, fen: string): string {
     return (
       baseUrl +
-      encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/")
+      this.encodeFen(fen)
     );
   }
 
