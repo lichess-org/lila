@@ -5,6 +5,7 @@
   <string name="twoFactorApp">احصل على تطبيق للمصادقة الثنائية ، على سبيل المثال Google Authenticator لـ %1$s أو %2$s.</string>
   <string name="scanTheCode">أمسح رمز ال QR باستخدام التطبيق.</string>
   <string name="enterPassword">أدخل كلمة المرور الخاصة بك ورمز المصادقة الذي تم إنشاؤه بواسطة التطبيق لإكمال الإعداد. سوف تحتاج إلى رمز المصادقة في كل مرة تقوم بتسجيل الدخول.</string>
+  <string name="ifYouCannotScanEnterX">إذا لم تتمكن من مسح الرمز ، قم بإدخال السر %s في التطبيق الخاص بك.</string>
   <string name="authenticationCode">رمز التحقق</string>
   <string name="ifYouLoseAccess">ملاحظة: إذا فقدت الوصول إلى رموز المصادقة الثنائية الخاصة بك، يمكنك إعادة تعيين كلمة المرور عن طريق البريد الإلكتروني.</string>
   <string name="enableTwoFactor">تفعيل المصادقة الثنائية</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">المصادقة الثنائية مفعلة</string>
   <string name="twoFactorDisable">تحتاج إلى كلمة المرور الخاصة بك ورمز المصادقة من تطبيق المصادقة الخاص بك لتعطيل المصادقة الثنائية.
 إذا فقدت الوصول إلى رموز المصادقة الخاصة بك، يمكنك أيضًا إعادة تعيين كلمة المرور عبر البريد الإلكتروني.</string>
+  <string name="openTwoFactorApp">افتح تطبيق المصادقة الثنائية على جهازك لعرض رمز المصادقة الخاص بك والتحقق من هويتك.</string>
 </resources>
