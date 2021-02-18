@@ -176,5 +176,5 @@ object Report {
 
   private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
   private val sandbagWithRegex =
-    s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+    s""". throws games to @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
 }
