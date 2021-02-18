@@ -10,7 +10,15 @@
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn of færni, eru margir %3$s.</string>
   <string name="otherWaysToHelp">aðrar leiðir til að hjálpa</string>
+  <string name="howCanIBecomeModerator">Hvernig get ég orðið starfsmaður?</string>
+  <string name="youCannotApply">Það er ekki hægt að sækja um að vera starfsmaður. Ef við sjáum einhvern sem okkur finnst geta verið góður starfsmaður, munum við hafa samband við hann/hana.</string>
   <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>
   <string name="youCanUseOpeningBookNoEngine">Á Lichess er aðal munurinn í bréfskákreglum að byrjunabók er leyfð. Notkun skákforrita er samt bannað og mun leiða til þess að þú verður flaggaður fyrir skákforritaaðstoð. Þótt ICCF leyfa notkun véla í bréfaskiptum gerir Lichess það ekki.</string>
+  <string name="eightVariants">8 skákafbrigðir</string>
+  <string name="fideHandbookX">FIDE handbókin %s</string>
   <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
+  <string name="threefoldRepetitionLowerCase">þreföld endurtekning</string>
+  <string name="accounts">Reikningar</string>
+  <string name="canIbecomeLM">Get ég fengið titillinn „Lichess Meistari (LM)\"?</string>
+  <string name="noUpperCaseDot">Nei.</string>
 </resources>
