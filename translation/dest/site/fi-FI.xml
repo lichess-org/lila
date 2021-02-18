@@ -773,7 +773,7 @@
   <string name="doItAgain">Sama uudelleen</string>
   <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
   <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Etu</string>
+  <string name="advantage">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
     <item quantity="other">%s sekuntia</item>
