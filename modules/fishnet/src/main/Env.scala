@@ -87,8 +87,6 @@ final class Env(
 
   wire[Cleaner]
 
-  wire[MainWatcher]
-
   // api actor
   system.actorOf(
     Props(new Actor {
