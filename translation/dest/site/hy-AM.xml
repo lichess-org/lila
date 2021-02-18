@@ -520,7 +520,7 @@
   <string name="next">Հաջորդ</string>
   <string name="resumeLearning">Շարունակել սովորել</string>
   <string name="solution">Լուծում</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Առավելություն</string>
+  <string name="advantage">Առավելություն</string>
   <string name="opening">Սկզբնախաղ</string>
   <string name="endgame">Վերջնախաղ</string>
   <string name="sorry">Ներողություն :(</string>
