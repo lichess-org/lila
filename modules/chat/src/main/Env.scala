@@ -26,7 +26,6 @@ final class Env(
     flood: lila.security.Flood,
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
-    mod: lila.hub.actors.Mod,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -49,7 +48,6 @@ final class Env(
     flood = flood,
     spam = spam,
     shutup = shutup,
-    modActor = mod,
     cacheApi = cacheApi,
     maxLinesPerChat = maxLines,
     netDomain = netDomain

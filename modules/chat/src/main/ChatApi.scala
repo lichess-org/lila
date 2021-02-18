@@ -19,7 +19,6 @@ final class ChatApi(
     flood: lila.security.Flood,
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
-    modActor: lila.hub.actors.Mod,
     cacheApi: lila.memo.CacheApi,
     maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
@@ -182,11 +181,14 @@ final class ChatApi(
             publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
           }
           if (isMod(mod))
-            modActor ! lila.hub.actorApi.mod.ChatTimeout(
-              mod = mod.id,
-              user = user.id,
-              reason = reason.key,
-              text = text
+            lila.common.Bus.publish(
+              lila.hub.actorApi.mod.ChatTimeout(
+                mod = mod.id,
+                user = user.id,
+                reason = reason.key,
+                text = text
+              ),
+              "chatTimeout"
             )
           else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }

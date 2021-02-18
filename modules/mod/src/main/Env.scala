@@ -13,7 +13,6 @@ private class ModConfig(
     @ConfigName("collection.player_assessment") val assessmentColl: CollName,
     @ConfigName("collection.modlog") val modlogColl: CollName,
     @ConfigName("collection.gaming_history") val gamingHistoryColl: CollName,
-    @ConfigName("actor.name") val actorName: String,
     @ConfigName("boosting.nb_games_to_mark") val boostingNbGamesToMark: Int,
     @ConfigName("boosting.ratio_games_to_mark") val boostingRatioToMark: Int
 )
@@ -114,6 +113,9 @@ final class Env(
     },
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(User.lichessId, userId, subject).unit
+    },
+    "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
+      logApi.chatTimeout(mod, user, reason, text).unit
     }
   )
 }
