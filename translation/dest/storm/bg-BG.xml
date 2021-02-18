@@ -14,5 +14,8 @@
   <string name="time">Време</string>
   <string name="timePerMove">Време на ход</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Най-сложната решена</string>
+  <string name="puzzlesPlayed">Изиграни задачи</string>
   <string name="highscores">Рекорди</string>
+  <string name="viewBestRuns">Вижте най-добрите опити</string>
+  <string name="bestRunOfDay">Най-добрият опит за деня</string>
 </resources>
