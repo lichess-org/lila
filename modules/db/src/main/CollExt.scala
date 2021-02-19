@@ -111,7 +111,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         readPreference: ReadPreference = ReadPreference.primary
     )(docId: D => I): Fu[Map[I, D]] =
       byIds[D, I](ids, readPreference) map { docs =>
-        docs.view.map(u => docId(u) -> u).to(Map)
+        docs.view.map(u => docId(u) -> u).toMap
       }
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =

@@ -439,9 +439,8 @@ object mod {
               tr(
                 td(
                   a(href := routes.Round.watcher(result.gameId, result.color.name))(
-                    pag.pov(result) match {
-                      case None    => result.gameId
-                      case Some(p) => playerUsername(p.opponent)
+                    pag.pov(result).fold[Frag](result.gameId) { p =>
+                      playerUsername(p.opponent)
                     }
                   )
                 ),

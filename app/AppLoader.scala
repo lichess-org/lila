@@ -120,6 +120,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val main: Main                     = wire[Main]
   lazy val msg: Msg                       = wire[Msg]
   lazy val mod: Mod                       = wire[Mod]
+  lazy val gameMod: GameMod               = wire[GameMod]
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuthApp: OAuthApp             = wire[OAuthApp]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]

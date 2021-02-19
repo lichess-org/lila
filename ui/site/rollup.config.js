@@ -93,6 +93,10 @@ export default rollupProject({
     input: 'src/modUser.ts',
     output: 'mod.user',
   },
+  modGames: {
+    input: 'src/modGames.ts',
+    output: 'mod.games',
+  },
   clas: {
     input: 'src/clas.ts',
     output: 'clas',

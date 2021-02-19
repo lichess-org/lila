@@ -69,6 +69,18 @@ final class AssessApi(
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
+  def ofPovs(povs: List[Pov]): Fu[List[(Pov, Option[PlayerAssessment])]] =
+    assessRepo.coll
+      .idsMap[PlayerAssessment, String](
+        povs.map(p => s"${p.gameId}/${p.color.name}"),
+        ReadPreference.secondaryPreferred
+      )(_.gameId)
+      .map { ass =>
+        povs.map { pov =>
+          (pov, ass get pov.gameId)
+        }
+      }
+
   def getPlayerAggregateAssessmentWithGames(
       userId: User.ID,
       nb: Int = 100
