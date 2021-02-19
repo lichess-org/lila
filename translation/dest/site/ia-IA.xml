@@ -200,6 +200,8 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
+  <string name="whiteTimeOut">Le tempore del blanco ha finite</string>
+  <string name="blackTimeOut">Le tempore del nigro ha finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferDeclined">Proposition de partita nulle declinate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
@@ -234,6 +236,7 @@
   <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
   <string name="cancelRematchOffer">Cancellar proposition de vindicantia</string>
   <string name="viewRematch">Vider le vindicantia a iste partita</string>
+  <string name="confirmMove">Confirmar movimento</string>
   <string name="play">Jocar</string>
   <string name="inbox">Cassa de entrata</string>
   <string name="chatRoom">Sala de conversation</string>
