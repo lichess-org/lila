@@ -197,6 +197,8 @@ private object DisposableEmailDomain {
     "cabletv.on.ca",
     "live.ca",
     "unitybox.de",
-    "volki.at"
+    "volki.at",
+    /* others */
+    "skole.hr"
   )
 }
