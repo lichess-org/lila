@@ -138,7 +138,10 @@ object UserInfo {
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip
         revolutionApi.active(user).mon(_.user segment "revolutions") zip
-        teamCached.teamIdsList(user.id).mon(_.user segment "teamIds") zip
+        teamCached
+          .teamIdsList(user.id)
+          .map(_.take(lila.team.Team.maxJoinCeiling))
+          .mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
