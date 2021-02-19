@@ -84,18 +84,11 @@ object EmailAddress {
   private val gmailLikeNormalizedDomains =
     Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
-  private def hasDotAt(str: String)           = str contains ".@"  // mailgun will reject it
-  private def hasConsecutiveDots(str: String) = str contains ".."  // mailgun will reject it
-  private def startsWithDot(str: String)      = str startsWith "." // mailgun will reject it
-
-  def matches(str: String): Boolean =
-    regex.find(str) &&
-      !hasDotAt(str) &&
-      !hasConsecutiveDots(str) &&
-      !startsWithDot(str)
+  def isValid(str: String) =
+    regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
   def from(str: String): Option[EmailAddress] =
-    matches(str) option EmailAddress(str)
+    isValid(str) option EmailAddress(str)
 
   private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
 }

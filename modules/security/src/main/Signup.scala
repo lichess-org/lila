@@ -190,7 +190,7 @@ final class Signup(
     } {
       if (
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
-        err("email").value.exists(EmailAddress.matches)
+        err("email").value.exists(EmailAddress.isValid)
       )
         authLog(username, email, s"Signup with unacceptable email")
     }
