@@ -299,11 +299,14 @@ object RoundSocket {
               for {
                 mean <- meanS.toIntOption
                 sd   <- sdS.toIntOption
-              } yield HoldAlert(FullId(fullId), IpAddress(ip), mean, sd)
+                ip   <- IpAddress.from(ip)
+              } yield HoldAlert(FullId(fullId), ip, mean, sd)
             }
           case "r/report" =>
             raw.get(4) { case Array(fullId, ip, user, name) =>
-              SelfReport(FullId(fullId), IpAddress(ip), P.In.optional(user), name).some
+              IpAddress.from(ip) map { ip =>
+                SelfReport(FullId(fullId), ip, P.In.optional(user), name)
+              }
             }
           case "r/flag" =>
             raw.get(3) { case Array(gameId, color, playerId) =>

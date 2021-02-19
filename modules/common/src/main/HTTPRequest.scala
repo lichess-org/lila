@@ -53,7 +53,7 @@ object HTTPRequest {
 
   def ipAddress(req: RequestHeader) =
     IpAddress {
-      req.remoteAddress.split(", ").lastOption | req.remoteAddress
+      req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
     }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId

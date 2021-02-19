@@ -19,17 +19,18 @@ object AssetVersion {
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
-case class IpAddress(value: String) extends AnyVal with StringValue
+case class IpAddress(value: String) extends AnyVal with StringValue {
+  def blockable =
+    value != "127.0.0.1" && value != "0:0:0:0:0:0:0:1" && // loopback
+      value != "0.0.0.0" && value != "0:0:0:0:0:0:0:0"    // unspecified
+}
 
 object IpAddress {
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
   private val ipv4Regex =
     """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
-  // ipv6 address in standard form (no compression, no leading zeros)
+  // ipv6 address in standard form (no compression, no leading zeros!)
   private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}+):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
-
-  def isv4(a: IpAddress) = ipv4Regex matches a.value
-  def isv6(a: IpAddress) = ipv6Regex matches a.value
 
   def from(str: String): Option[IpAddress] = {
     ipv4Regex.matches(str) || ipv6Regex.matches(str)

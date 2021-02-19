@@ -361,22 +361,22 @@ final class Mod(
 
   def singleIp(ip: String) =
     SecureBody(_.IpBan) { implicit ctx => _ =>
-      val address = IpAddress(ip)
-      for {
-        uids       <- env.security.api recentUserIdsByIp address
-        users      <- env.user.repo usersFromSecondary uids.reverse
-        withEmails <- env.user.repo withEmailsU users
-        uas        <- env.security.api.ipUas(address)
-      } yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+      IpAddress.from(ip) ?? { address =>
+        for {
+          uids       <- env.security.api recentUserIdsByIp address
+          users      <- env.user.repo usersFromSecondary uids.reverse
+          withEmails <- env.user.repo withEmailsU users
+          uas        <- env.security.api.ipUas(address)
+        } yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+      }
     }
 
   def singleIpBan(v: Boolean, ip: String) =
     Secure(_.IpBan) { ctx => _ =>
-      val address = IpAddress(ip)
       val op =
         if (v) env.security.firewall.blockIps _
         else env.security.firewall.unblockIps _
-      op(List(address)) inject {
+      op(IpAddress from ip) inject {
         if (HTTPRequest isXhr ctx.req) jsonOkResult
         else Redirect(routes.Mod.singleIp(ip))
       }
