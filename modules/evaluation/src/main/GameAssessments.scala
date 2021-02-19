@@ -2,17 +2,6 @@ package lila.evaluation
 
 import chess.Color
 
-case class PlayerAssessments(
-    white: Option[PlayerAssessment],
-    black: Option[PlayerAssessment]
-) {
-  def color(c: Color) =
-    c match {
-      case Color.White => white
-      case _           => black
-    }
-}
-
 sealed trait GameAssessment {
   val id: Int
   val description: String

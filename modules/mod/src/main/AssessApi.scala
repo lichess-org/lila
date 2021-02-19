@@ -10,7 +10,6 @@ import lila.evaluation.{
   Assessible,
   PlayerAggregateAssessment,
   PlayerAssessment,
-  PlayerAssessments,
   PlayerFlags
 }
 import lila.game.{ Game, Player, Pov, Source }
@@ -55,12 +54,6 @@ final class AssessApi(
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
     getPlayerAssessmentById(gameId + "/" + color.name)
-
-  def getGameResultsById(gameId: String) =
-    getResultsByGameIdAndColor(gameId, Color.White) zip
-      getResultsByGameIdAndColor(gameId, Color.Black) map { a =>
-        PlayerAssessments(a._1, a._2)
-      }
 
   private def getPlayerAggregateAssessment(
       userId: String,
