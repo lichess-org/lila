@@ -614,7 +614,7 @@ final class StudyApi(
       val newStudy = study withChapter chapter
       (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
         sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
-    } >>-
+    } >>
       studyRepo.updateNow(study) >>-
       indexStudy(study)
 
