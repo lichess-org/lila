@@ -134,7 +134,7 @@ final class ClasApi(
       colls.student
         .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
           import framework._
-          Match($doc("clasId" -> clas.id)) -> List(
+          Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
               $doc(
                 "$lookup" -> $doc(
