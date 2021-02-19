@@ -34,6 +34,10 @@
   <string name="joinTheGame">Entrar in le partita</string>
   <string name="whitePlays">Le blanco debe jocar</string>
   <string name="blackPlays">Le nigro debe jocar</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Tu opponente ha abandonate le partita. Tu pote declarar victoria in %s secunda.</item>
+    <item quantity="other">Tu opponente ha abandonate le partita. Tu pote declarar victoria in %s secundas.</item>
+  </plurals>
   <string name="opponentLeftChoices">Le altere jocator pote haber abandonate le partita. Tu pote declarar victoria, considerar le partita como nulle o attender.</string>
   <string name="makeYourOpponentResign">Obligar tu adversario a resignar</string>
   <string name="forceResignation">Declarar victoria</string>
@@ -286,6 +290,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s puncto ab torneo</item>
     <item quantity="other">%s punctos ab torneos</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studio</item>
+    <item quantity="other">%s studios</item>
   </plurals>
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
