@@ -40,11 +40,12 @@ final private class SandbagWatch(
         if (record.count(Sandbag) == 3) sendMessage(userId, MsgPreset.sandbagAuto)
         else if (record.count(Sandbag) == 4) withWinnerAndLoser(game)(reportApi.autoSandbagReport)
         else funit
-      } else if (record.latest has Boost) {
-        if (record.count(Boost) == 3) sendMessage(userId, MsgPreset.boostAuto)
-        else if (record.count(Boost) == 4) withWinnerAndLoser(game)(reportApi.autoBoostReport)
+      } else {
+        val boostCount = record.samePlayerBoostCount
+        if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
+        else if (boostCount == 4) withWinnerAndLoser(game)(reportApi.autoBoostReport)
         else funit
-      } else funit
+      }
     }
 
   private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =
@@ -69,7 +70,7 @@ final private class SandbagWatch(
       .playerByUserId(userId)
       .ifTrue(isSandbag(game))
       .fold[Outcome](Good) { player =>
-        if (player.color == loser) Sandbag else Boost
+        if (player.color == loser) Sandbag else game.loserUserId.fold[Outcome](Good)(Boost.apply)
       }
 
   private def isSandbag(game: Game): Boolean =
@@ -82,9 +83,9 @@ final private class SandbagWatch(
 private object SandbagWatch {
 
   sealed trait Outcome
-  case object Good    extends Outcome
-  case object Sandbag extends Outcome
-  case object Boost   extends Outcome
+  case object Good                    extends Outcome
+  case object Sandbag                 extends Outcome
+  case class Boost(opponent: User.ID) extends Outcome
 
   val maxOutcomes = 7
 
@@ -97,6 +98,15 @@ private object SandbagWatch {
     def latest = outcomes.headOption
 
     def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Good ==)
+
+    def samePlayerBoostCount = latest ?? {
+      case Boost(opponent) =>
+        outcomes.count {
+          case Boost(o) if o == opponent => true
+          case _                         => false
+        }
+      case _ => 0
+    }
   }
 
   val emptyRecord = Record(Nil)
