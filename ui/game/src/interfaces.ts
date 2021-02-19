@@ -48,7 +48,8 @@ export type StatusName =
   | 'outoftime'
   | 'noStart'
   | 'cheat'
-  | 'variantEnd';
+  | 'variantEnd'
+  | 'unknownFinish';
 
 export type StatusId = number;
 
