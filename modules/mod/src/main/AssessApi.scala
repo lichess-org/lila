@@ -42,21 +42,18 @@ final class AssessApi(
   def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
-  def getPlayerAssessmentById(id: String) =
+  def getPlayerAssessmentById(id: User.ID) =
     assessRepo.coll.byId[PlayerAssessment](id)
 
-  private def getPlayerAssessmentsByUserId(userId: String, nb: Int) =
+  private def getPlayerAssessmentsByUserId(userId: User.ID, nb: Int) =
     assessRepo.coll
       .find($doc("userId" -> userId))
-      .sort($doc("date" -> -1))
+      .sort($sort desc "date")
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
-
-  def getResultsByGameIdAndColor(gameId: String, color: Color) =
-    getPlayerAssessmentById(gameId + "/" + color.name)
+      .list(nb)
 
   private def getPlayerAggregateAssessment(
-      userId: String,
+      userId: User.ID,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
     userRepo byId userId flatMap {
@@ -73,25 +70,24 @@ final class AssessApi(
     }
 
   def getPlayerAggregateAssessmentWithGames(
-      userId: String,
+      userId: User.ID,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
     getPlayerAggregateAssessment(userId, nb) flatMap {
-      case None      => fuccess(none)
-      case Some(pag) => withGames(pag).map(_.some)
+      _ ?? { pag =>
+        withGames(pag) dmap some
+      }
     }
 
-  def refreshAssessByUsername(username: String): Funit =
-    withUser(username) { user =>
-      !user.isBot ??
-        (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-          (gs map { g =>
-            analysisRepo.byGame(g) flatMap {
-              _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
-            }
-          }).sequenceFu.void
-        }) >> assessUser(user.id)
-    }
+  def refreshAssessOf(user: User): Funit =
+    !user.isBot ??
+      (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+        (gs map { g =>
+          analysisRepo.byGame(g) flatMap {
+            _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
+          }
+        }).sequenceFu.void
+      }) >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
     gameRepo holdAlerts game flatMap { holdAlerts =>
@@ -117,7 +113,7 @@ final class AssessApi(
       })
     }
 
-  def assessUser(userId: String): Funit = {
+  def assessUser(userId: User.ID): Funit = {
     getPlayerAggregateAssessment(userId) flatMap {
       case Some(playerAggregateAssessment) =>
         playerAggregateAssessment.action match {
@@ -219,8 +215,4 @@ final class AssessApi(
       }
     }
   }
-
-  private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    userRepo named username orFail s"[mod] missing user $username" flatMap op
-
 }
