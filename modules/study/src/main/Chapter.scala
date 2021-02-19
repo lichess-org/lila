@@ -64,7 +64,7 @@ case class Chapter(
     if (!Variant.openingSensibleVariants(setup.variant)) none
     else FullOpeningDB searchInFens root.mainline.map(_.fen)
 
-  def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
+  def isEmptyInitial = order == 0 && root.children.nodes.isEmpty
 
   def cloneFor(study: Study) =
     copy(

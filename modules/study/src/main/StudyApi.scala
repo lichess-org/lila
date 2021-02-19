@@ -92,7 +92,7 @@ final class StudyApi(
           chapterMaker.fromFenOrPgnOrBlank(
             study,
             ChapterMaker.Data(Chapter.Name("Chapter 1")),
-            order = 1,
+            order = 0,
             userId = study.ownerId
           ) flatMap chapterRepo.insert
       }

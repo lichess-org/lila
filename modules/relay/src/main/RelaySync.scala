@@ -24,7 +24,7 @@ final private class RelaySync(
                 case Some(chapter) => updateChapter(study, chapter, game)
                 case None =>
                   createChapter(study, game) flatMap { chapter =>
-                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 1).?? { initial =>
                       studyApi.deleteChapter(study.id, initial.id) {
                         actorApi.Who(study.ownerId, sri)
                       }

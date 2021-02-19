@@ -34,7 +34,7 @@ final private class StudyMaker(
         mode = ChapterMaker.Mode.Normal.key,
         initial = true
       ),
-      order = 1,
+      order = 0,
       userId = user.id
     ) map { chapter =>
       Study.WithChapter(study withChapter chapter, chapter)
@@ -62,7 +62,7 @@ final private class StudyMaker(
         ),
         root = root,
         tags = PgnTags(tags),
-        order = 1,
+        order = 0,
         ownerId = user.id,
         practice = false,
         gamebook = false,
