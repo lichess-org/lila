@@ -34,6 +34,8 @@
   <string name="next">Sequente</string>
   <string name="last">Ultime</string>
   <string name="cloneStudy">Duplicar</string>
+  <string name="studyPgn">PGN del studio</string>
+  <string name="downloadAllGames">Discargar tote le partitas</string>
   <string name="open">Aperir</string>
   <string name="studyNotFound">Studio non trovate</string>
   <string name="editChapter">Modificar capitulo</string>
@@ -43,8 +45,15 @@
   <string name="saveChapter">Salveguardar capitulo</string>
   <string name="clearAnnotations">Rader annotationes</string>
   <string name="deleteChapter">Deler capitulo</string>
+  <string name="noPinnedComment">Nulle</string>
   <string name="normalAnalysis">Analyse normal</string>
+  <string name="hideNextMoves">Celar le proxime movimentos</string>
+  <string name="interactiveLesson">Lection interactive</string>
+  <string name="chapterX">Capitulo %s</string>
   <string name="empty">Vacue</string>
+  <string name="startFromInitialPosition">Comenciar in le position initial</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Comenciar ab un position personalisate</string>
   <string name="automatic">Automatic</string>
   <string name="urlOfTheGame">URL del joco</string>
   <string name="loadAGameFromXOrY">Cargar partitas ab %1$s o %2$s</string>
@@ -67,5 +76,8 @@
   <string name="start">Initiar</string>
   <string name="save">Salveguardar</string>
   <string name="clearChat">Rader le chat</string>
+  <string name="deleteTheStudyChatHistory">Deler le chronologia del chat in le studio? Iste action es irreversibile!</string>
   <string name="deleteStudy">Deler studio</string>
+  <string name="deleteTheEntireStudy">Deler le integre studio? Iste action es irreversibile!</string>
+  <string name="whereDoYouWantToStudyThat">Ubi tu vole studiar isto?</string>
 </resources>
