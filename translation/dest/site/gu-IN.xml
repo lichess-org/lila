@@ -7,14 +7,14 @@
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
   <string name="waiting">રાહ જુએ છે</string>
   <string name="yourTurn">તમરો વારો</string>
-  <string name="aiNameLevelAiLevel">%1$sધોરણ%2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s સ્તર %2$s</string>
   <string name="level">ધોરણ</string>
   <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
   <string name="toggleSound">અવાજ ટૉગલ કરો</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
-  <string name="checkmate">શેહમાત</string>
+  <string name="checkmate">ચેકમેટ</string>
   <string name="stalemate">સ્ટેલમેટ</string>
   <string name="white">સફેદ</string>
   <string name="black">કાળુ</string>
@@ -139,8 +139,17 @@
   <string name="discussions">સંવાદો</string>
   <string name="today">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
-  <string name="variant">ભિન્નતા</string>
+  <string name="variant">પ્રકાર</string>
+  <string name="variants">પ્રકારો</string>
+  <string name="timeControl">સમય નિયંત્રણ</string>
+  <string name="realTime">હાલમાં</string>
+  <string name="correspondence">પત્રવ્યવહાર</string>
+  <string name="daysPerTurn">દિવસો પ્રતિ વારો</string>
   <string name="oneDay">એક દિવસ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s દિવસ</item>
+    <item quantity="other">%s દિવસો</item>
+  </plurals>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
