@@ -9,7 +9,7 @@
   <string name="eventName">Event name</string>
   <string name="eventDescription">Short event description</string>
   <string name="fullDescription">Full event description</string>
-  <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
+  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
   <string name="sourceUrl">Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will poll to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="roundNumber">Round number</string>
