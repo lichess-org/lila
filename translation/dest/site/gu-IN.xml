@@ -9,6 +9,7 @@
   <string name="yourTurn">તમરો વારો</string>
   <string name="aiNameLevelAiLevel">%1$sધોરણ%2$s</string>
   <string name="level">ધોરણ</string>
+  <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
   <string name="toggleSound">અવાજ ટૉગલ કરો</string>
   <string name="chat">વાત ચીત</string>
