@@ -108,8 +108,11 @@ function imageInput(ctrl: BackgroundCtrl) {
           $(vnode.elm as HTMLElement).on(
             'change keyup paste',
             debounce(function (this: HTMLInputElement) {
-              ctrl.setImage(this.value as string);
-            }, 200)
+              const url = (this.value as string).trim();
+              // modules/pref/src/main/PrefForm.scala
+              if ((url.startsWith('https://') || url.startsWith('//')) && url.length >= 10 && url.length <= 400)
+                ctrl.setImage(url);
+            }, 300)
           );
         },
       },
