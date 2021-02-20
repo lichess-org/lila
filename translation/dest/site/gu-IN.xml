@@ -119,6 +119,10 @@
   <string name="moveTimes">ચાલ સમય</string>
   <string name="flipBoard">બોર્ડ ફેરવો</string>
   <string name="threefoldRepetition">ત્રણગણું નકલ</string>
+  <string name="claimADraw">ડ્રો માગણું</string>
+  <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
+  <string name="draw">ડ્રો</string>
+  <string name="currentGames">વર્તમાન રમતો</string>
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
   <string name="today">આજે</string>
