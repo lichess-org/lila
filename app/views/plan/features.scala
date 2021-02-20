@@ -43,7 +43,7 @@ object features {
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom("30 per day"))(
-              "Deep Stockfish 12+ server analysis"
+              "Deep Stockfish 13+ server analysis"
             ),
             tr(unlimited)(
               "Instant local Stockfish 12+ analysis"
