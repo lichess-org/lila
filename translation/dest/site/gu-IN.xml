@@ -104,6 +104,11 @@
   <string name="openStudy">અભ્યાસ ખોલો</string>
   <string name="enable">સક્ષમ કરો</string>
   <string name="bestMoveArrow">શ્રેષ્ઠ ચાલ નિર્દેશ</string>
+  <string name="evaluationGauge">મૂલ્યાંકન ગેજ</string>
+  <string name="multipleLines">બહુવિધ લીટી</string>
+  <string name="cpus">સીપીયુ</string>
+  <string name="memory">મેમરી</string>
+  <string name="infiniteAnalysis">અનંત વિશ્લેષણ</string>
   <string name="blunder">મોટી ભૂલ</string>
   <string name="blunders">મોટી ભૂલો</string>
   <string name="mistake">ભૂલ</string>
