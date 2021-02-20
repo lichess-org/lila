@@ -105,7 +105,7 @@ final private class RelayFetch(
   def continueRelay(r: Relay): Relay =
     r.sync.upstream.fold(r) { upstream =>
       val seconds =
-        if (r.sync.log.alwaysFails && !upstream.isLocal) {
+        if (r.sync.log.alwaysFails && !upstream.local) {
           r.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)

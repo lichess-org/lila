@@ -66,8 +66,11 @@ object JsonView {
   implicit private val syncWrites: OWrites[Relay.Sync] = OWrites[Relay.Sync] { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
-      "log"     -> s.log.events,
-      "url"     -> s.upstream.map(_.url)
-    )
+      "log"     -> s.log.events
+    ) ++
+      s.upstream.?? {
+        case Relay.Sync.UpstreamUrl(url) => Json.obj("url" -> url)
+        case Relay.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
+      }
   }
 }

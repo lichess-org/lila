@@ -79,7 +79,7 @@ final class RelayApi(
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit =
     WithRelay(id) { relay =>
-      relay.sync.upstream.map(_.withRound) foreach formatApi.refresh
+      relay.sync.upstream.flatMap(_.asUrl).map(_.withRound) foreach formatApi.refresh
       update(relay) { r =>
         if (v) r.withSync(_.play) else r.withSync(_.pause)
       } void

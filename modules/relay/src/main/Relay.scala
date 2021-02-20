@@ -111,16 +111,26 @@ object Relay {
   }
 
   object Sync {
-    case class Upstream(url: String) extends AnyVal {
+    sealed trait Upstream {
+      def asUrl: Option[UpstreamUrl] = this match {
+        case url: UpstreamUrl => url.some
+        case _                => none
+      }
+      def local = asUrl.fold(true)(_.isLocal)
+    }
+    case class UpstreamUrl(url: String) extends Upstream {
       def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
       def withRound =
         url.split(" ", 2) match {
-          case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
-          case _               => UpstreamWithRound(url, none)
+          case Array(u, round) => UpstreamUrl.WithRound(u, round.toIntOption)
+          case _               => UpstreamUrl.WithRound(url, none)
         }
     }
-    case class UpstreamWithRound(url: String, round: Option[Int])
-    val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
+    object UpstreamUrl {
+      case class WithRound(url: String, round: Option[Int])
+      val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
+    }
+    case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
   }
 
   case class WithStudy(relay: Relay, study: Study)
