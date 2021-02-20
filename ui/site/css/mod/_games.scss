@@ -1,6 +1,26 @@
 .game-list {
+  user-select: none;
   .result {
+    @extend %box-radius;
     font-weight: bold;
+    color: white;
     margin-right: 1ch;
+    padding: 2px 1em;
+  }
+  good.result {
+    background: mix($c-good, $c-bg-box, 50%);
+  }
+  bad.result {
+    background: mix($c-bad, $c-bg-box, 50%);
+  }
+
+  td:first-child {
+    cursor: pointer;
+    &:hover {
+      background: $c-bg-zebra2;
+    }
+  }
+  input {
+    cursor: pointer;
   }
 }

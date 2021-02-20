@@ -29,30 +29,38 @@ object games {
           table(cls := "mod-games game-list slist")(
             thead(
               tr(
-                th("Game"),
-                th("Perf"),
-                td,
-                th("Moves"),
-                th("Result"),
-                th("ACPL", br, "(Avg ± SD)"),
-                th("Times", br, "(Avg ± SD)"),
-                th("Blur"),
-                th("Date")
+                th,
+                sortNumberTh("Opponent"),
+                sortNumberTh("Perf"),
+                th(iconTag('g')),
+                sortNumberTh("Moves"),
+                sortNumberTh("Result"),
+                sortNumberTh("ACPL", br, "(Avg ± SD)"),
+                sortNumberTh("Times", br, "(Avg ± SD)"),
+                sortNumberTh("Blur"),
+                sortNumberTh("Date")
               )
             ),
             tbody(
               games.map { case (pov, assessment) =>
                 tr(
                   td(
-                    a(href := routes.Round.watcher(pov.gameId, pov.color.name))(playerUsername(pov.opponent))
+                    input(
+                      tpe := "checkbox",
+                      name := s"game[]",
+                      st.value := pov.gameId
+                    )
                   ),
-                  td(
+                  td(dataSort := ~pov.opponent.rating)(
+                    playerLink(pov.opponent, withDiff = false)
+                  ),
+                  td(dataSort := pov.game.clock.??(_.config.estimateTotalSeconds))(
                     pov.game.perfType.map { pt =>
                       iconTag(pt.iconChar)
                     },
                     shortClockName(pov.game.clock.map(_.config))
                   ),
-                  td(
+                  td(dataSort := ~pov.game.tournamentId)(
                     pov.game.tournamentId map { tourId =>
                       a(
                         dataIcon := "g",
@@ -61,8 +69,8 @@ object games {
                       )
                     }
                   ),
-                  sortNumberTh(dataSort := pov.game.playedTurns)(pov.game.playedTurns),
-                  sortNumberTh(dataSort := ~pov.player.ratingDiff)(
+                  td(dataSort := pov.game.playedTurns)(pov.game.playedTurns),
+                  td(dataSort := ~pov.player.ratingDiff)(
                     pov.win match {
                       case Some(true)  => goodTag(cls := "result")("1")
                       case Some(false) => badTag(cls := "result")("0")
@@ -77,12 +85,12 @@ object games {
                   assessment match {
                     case Some(ass) =>
                       frag(
-                        td(s"${ass.sfAvg} ± ${ass.sfSd}"),
-                        td(
+                        td(dataSort := ass.sfAvg)(s"${ass.sfAvg} ± ${ass.sfSd}"),
+                        td(dataSort := ass.mtAvg)(
                           s"${ass.mtAvg / 10} ± ${ass.mtSd / 10}",
                           ~ass.mtStreak ?? frag(br, "STREAK")
                         ),
-                        td(
+                        td(dataSort := ass.blurs)(
                           s"${ass.blurs}%",
                           ass.blurStreak.filter(8 <=) map { s =>
                             frag(br, s"STREAK $s/12")
@@ -91,7 +99,11 @@ object games {
                       )
                     case _ => td(colspan := 3)
                   },
-                  td(dataSort := pov.game.movedAt.getMillis.toString)(momentFromNowServer(pov.game.movedAt))
+                  td(dataSort := pov.game.movedAt.getMillis.toString)(
+                    a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
+                      momentFromNowServer(pov.game.movedAt)
+                    )
+                  )
                 )
               }
             )
