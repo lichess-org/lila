@@ -123,6 +123,15 @@
   <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
   <string name="draw">ડ્રો</string>
   <string name="currentGames">વર્તમાન રમતો</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s રમત</item>
+    <item quantity="other">%s રમતો</item>
+  </plurals>
+  <string name="viewInFullSize">પૂર્ણ કદ જુઓ</string>
+  <string name="logOut">સાઇન આઉટ કરો</string>
+  <string name="signIn">સાઇન ઇન કરો</string>
+  <string name="youNeedAnAccountToDoThat">તમારે તે કરવા માટે એક ખાતાનિ જરૂર છે</string>
+  <string name="signUp">નોંધણી</string>
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
   <string name="today">આજે</string>
