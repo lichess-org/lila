@@ -39,7 +39,7 @@ final class AssessApi(
 
   implicit private val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
-  def createPlayerAssessment(assessed: PlayerAssessment) =
+  private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: User.ID) =
@@ -125,7 +125,20 @@ final class AssessApi(
       })
     }
 
-  def assessUser(userId: User.ID): Funit = {
+  def ensurePlayerAssess(userId: User.ID, games: List[Game]): Funit =
+    analysisRepo.associateToGames(games take 100) flatMap {
+      _.map { case Analysis.Analyzed(game, analysis) =>
+        game.playerByUserId(userId) ?? { player =>
+          gameRepo holdAlerts game flatMap { holdAlerts =>
+            createPlayerAssessment(
+              Assessible(Analysed(game, analysis, holdAlerts), player.color).playerAssessment
+            )
+          }
+        }
+      }.sequenceFu.void
+    }
+
+  def assessUser(userId: User.ID): Funit =
     getPlayerAggregateAssessment(userId) flatMap {
       case Some(playerAggregateAssessment) =>
         playerAggregateAssessment.action match {
@@ -147,9 +160,9 @@ final class AssessApi(
         }
       case _ => funit
     }
-  }
 
-  private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
+  private val assessableSources: Set[Source] =
+    Set(Source.Lobby, Source.Pool, Source.Tournament, Source.Swiss, Source.Simul)
 
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent

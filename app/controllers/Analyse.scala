@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.mvc._
-
-import chess.White
 import chess.format.FEN
+import chess.White
+import play.api.mvc._
+import views._
+
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
-import views._
 
 final class Analyse(
     env: Env,
@@ -32,6 +32,35 @@ final class Analyse(
           case true  => NoContent
           case false => Unauthorized
         }
+      }
+    }
+
+  def multipleAnalysis(username: String) =
+    SecureBody(_.Hunter) { implicit ctx => me =>
+      OptionFuResult(env.user.repo named username) { user =>
+        implicit val body = ctx.body
+        import play.api.data._
+        import play.api.data.Forms._
+        Form(single("game" -> list(nonEmptyText)))
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(err.toString).fuccess,
+            gameIds =>
+              env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
+                games.map { game =>
+                  env.fishnet.analyser(
+                    game,
+                    lila.fishnet.Work.Sender(
+                      userId = me.id,
+                      ip = HTTPRequest.ipAddress(ctx.req).some,
+                      mod = true,
+                      system = false
+                    )
+                  )
+                }.sequenceFu >>
+                  env.mod.assessApi.ensurePlayerAssess(user.id, games)
+              } inject NoContent
+          )
       }
     }
 

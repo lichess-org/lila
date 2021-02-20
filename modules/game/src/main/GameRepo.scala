@@ -23,8 +23,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, ID](gameIds)(_.id)
-
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
     coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
 
@@ -128,6 +126,12 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($sort asc F.createdAt)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
+
+  def unanalysedGames(gameIds: Seq[ID]): Fu[List[Game]] =
+    coll
+      .find($inIds(gameIds) ++ Query.analysed(false))
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(100)
 
   def cursor(
       selector: Bdoc,

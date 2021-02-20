@@ -338,6 +338,7 @@ GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: Strin
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
+POST  /mod/multiple-analysis/:username        controllers.Analyse.multipleAnalysis(username: String)
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: String)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)

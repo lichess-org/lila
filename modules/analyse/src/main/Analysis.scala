@@ -3,14 +3,15 @@ package lila.analyse
 import chess.Color
 
 import org.joda.time.DateTime
+import lila.user.User
 
 case class Analysis(
-    id: String, // game ID, or chapter ID if studyId is set
+    id: Analysis.ID, // game ID, or chapter ID if studyId is set
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    uid: Option[String], // requester lichess ID
-    by: Option[String],  // analyser lichess ID
+    uid: Option[User.ID], // requester lichess ID
+    by: Option[User.ID],  // analyser lichess ID
     date: DateTime
 ) {
 
