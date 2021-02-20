@@ -151,7 +151,7 @@
   <string name="latestForumPosts">Forumdakı sonuncu mesajlar</string>
   <string name="players">Oyunçular</string>
   <string name="friends">Dostlar</string>
-  <string name="discussions">Mübahisələr</string>
+  <string name="discussions">Söhbətlərlər</string>
   <string name="today">Bu gün</string>
   <string name="yesterday">Dünən</string>
   <string name="minutesPerSide">Oyunçu başına dəqiqə</string>
@@ -295,7 +295,7 @@
     <item quantity="one">%s turnir xalı</item>
     <item quantity="other">%s turnir xalı</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="one">%s çalışma</item>
     <item quantity="other">%s çalışma</item>
   </plurals>
@@ -579,6 +579,7 @@
   <string name="error.email_unique">Bu e-poçt artıq istifadə edilir</string>
   <string name="error.email_different">Bu sizin inidiki e-poçtl ünvanınızdır</string>
   <string name="ifRatingIsPlusMinusX">Əgər reytinq ± %s olarsa</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Yalnız mövcud söhbətlər</string>
   <string name="onlyFriends">Yalnız dostlar</string>
   <string name="menu">Menyu</string>
   <string name="castling">Qalaqurma</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Təkrar et</string>
   <string name="reviewWhiteMistakes">Ağların səhvlərini nəzərdən keçirin</string>
   <string name="reviewBlackMistakes">Qaraların səhvlərini nəzərdən keçirin</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Üstünlük</string>
+  <string name="advantage">Üstünlük</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s saniyə</item>
     <item quantity="other">%s saniyə</item>
