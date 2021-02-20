@@ -132,10 +132,14 @@
   <string name="signIn">સાઇન ઇન કરો</string>
   <string name="youNeedAnAccountToDoThat">તમારે તે કરવા માટે એક ખાતાનિ જરૂર છે</string>
   <string name="signUp">નોંધણી</string>
+  <string name="games">રમતો</string>
+  <string name="forum">મંચ</string>
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
+  <string name="discussions">સંવાદો</string>
   <string name="today">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
+  <string name="variant">ભિન્નતા</string>
   <string name="oneDay">એક દિવસ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
