@@ -9,7 +9,7 @@ export interface Eval {
   mate?: number;
 }
 
-export interface WorkerOpts {
+export interface ProtocolOpts {
   variant: VariantKey;
   threads: false | (() => number | string);
   hashSize: false | (() => number | string);
@@ -26,14 +26,7 @@ export interface Work {
   currentFen: string;
   moves: string[];
   emit: (ev: Tree.ClientEval) => void;
-}
-
-export interface PoolOpts {
-  technology: CevalTechnology;
-  wasm: string;
-  wasmx: string;
-  asmjs: string;
-  nnue: string;
+  stopRequested: boolean;
 }
 
 export interface CevalOpts {

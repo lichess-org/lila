@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { Pool, officialStockfish } from './pool';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, officialStockfish } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -66,8 +66,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     if (sharedMem) {
       technology = 'wasmx';
       // prettier-ignore
-      const source_with_simd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]);
-      if (officialStockfish(opts.variant.key) && WebAssembly.validate(source_with_simd)) {
+      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]);
+      if (officialStockfish(opts.variant.key) && WebAssembly.validate(sourceWithSimd)) {
         technology = 'nnue';
       }
       try {
@@ -102,23 +102,14 @@ export default function (opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const pool = new Pool(
-    {
-      technology,
-      asmjs: 'vendor/stockfish.js/stockfish.js',
-      wasm: 'vendor/stockfish.js/stockfish.wasm.js',
-      wasmx: officialStockfish(opts.variant.key)
-        ? 'vendor/stockfish.wasm/stockfish.js'
-        : 'vendor/stockfish-mv.wasm/stockfish.js',
-      nnue: 'vendor/stockfish-nnue.wasm/stockfish.js',
-    },
-    {
-      minDepth,
-      variant: opts.variant.key,
-      threads: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
-      hashSize: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
-    }
-  );
+  const workerOpts = {
+    minDepth,
+    variant: opts.variant.key,
+    threads: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
+    hashSize: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
+  };
+
+  let worker: AbstractWorker<unknown> | undefined;
 
   // adjusts maxDepth based on nodes per second
   const npsRecorder = (() => {
@@ -206,6 +197,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       emit(ev: Tree.ClientEval) {
         if (enabled()) onEmit(ev, work);
       },
+      stopRequested: false,
     };
 
     if (threatMode) {
@@ -228,7 +220,29 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.storage.fire('ceval.disable');
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
-    pool.start(work);
+    if (!worker) {
+      if (technology == 'nnue')
+        worker = new ThreadedWasmWorker(workerOpts, {
+          url: 'vendor/stockfish-nnue.wasm/stockfish.js',
+          module: 'Stockfish',
+        });
+      else if (technology == 'wasmx')
+        worker = new ThreadedWasmWorker(
+          workerOpts,
+          officialStockfish(opts.variant.key)
+            ? { url: 'vendor/stockfish.wasm/stockfish.js', module: 'Stockfish' }
+            : { url: 'vendor/stockfish-mv.wasm/stockfish.js', module: 'StockfishMv' }
+        );
+      else
+        worker = new WebWorker(
+          workerOpts,
+          technology == 'wasm'
+            ? { url: 'vendor/stockfish.js/stockfish.wasm.js' }
+            : { url: 'vendor/stockfish.js/stockfish.js' }
+        );
+    }
+
+    worker.start(work);
 
     started = {
       path,
@@ -247,7 +261,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   function stop() {
     if (!enabled() || !started) return;
-    pool.stop();
+    worker?.stop();
     lastStarted = started;
     started = false;
   }
@@ -294,10 +308,10 @@ export default function (opts: CevalOpts): CevalCtrl {
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper: () => !isDeeper() && !infinite() && !pool.isComputing(),
-    isComputing: () => !!started && pool.isComputing(),
-    engineName: pool.engineName,
-    destroy: pool.destroy,
+    canGoDeeper: () => !isDeeper() && !infinite() && !worker?.isComputing(),
+    isComputing: () => !!started && !!worker?.isComputing(),
+    engineName: () => worker?.engineName(),
+    destroy: () => worker?.destroy(),
     redraw: opts.redraw,
   };
 }

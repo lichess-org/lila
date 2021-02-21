@@ -1,6 +1,7 @@
 import { lichessVariantRules } from 'chessops/compat';
-import { WorkerOpts, Work } from './types';
+import { ProtocolOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
+import { Sync, sync } from 'common/sync';
 
 const EVAL_REGEX = new RegExp(
   '' +
@@ -12,29 +13,28 @@ const EVAL_REGEX = new RegExp(
 );
 
 export default class Protocol {
-  private work: Work | null = null;
-  private curEval: Tree.ClientEval | null = null;
+  private engineNameDeferred: Deferred<string> = defer();
+  public engineName: Sync<string> = sync(this.engineNameDeferred.promise);
+
+  private work: Work | undefined;
+  private currentEval: Tree.ClientEval | undefined;
   private expectedPvs = 1;
-  private stopped: Deferred<void> | null;
 
-  public engineName: string | undefined;
+  private nextWork: Work | undefined;
 
-  constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
-    this.stopped = defer<void>();
-    this.stopped.resolve();
-  }
+  constructor(private send: (cmd: string) => void, private opts: ProtocolOpts) {}
 
   init(): void {
-    // get engine name/version
+    // Get engine name/version.
     this.send('uci');
 
-    // analyse without contempt
-    this.setOption('UCI_Chess960', 'true');
+    // Analyse without contempt.
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
+    // Handle variants ("giveaway" is antichess in old asmjs fallback).
+    this.setOption('UCI_Chess960', 'true');
     if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway');
-    // for old asmjs fallback
     else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
@@ -43,14 +43,14 @@ export default class Protocol {
   }
 
   received(text: string): void {
-    if (text.startsWith('id name ')) this.engineName = text.substring('id name '.length);
+    if (text.startsWith('id name ')) this.engineNameDeferred.resolve(text.substring('id name '.length));
     else if (text.startsWith('bestmove ')) {
-      if (!this.stopped) this.stopped = defer<void>();
-      this.stopped.resolve();
-      if (this.work && this.curEval) this.work.emit(this.curEval);
+      if (this.work && this.currentEval) this.work.emit(this.currentEval);
+      this.work = undefined;
+      this.swapWork();
       return;
     }
-    if (!this.work) return;
+    if (!this.work || this.work.stopRequested) return;
 
     const matches = text.match(EVAL_REGEX);
     if (!matches) return;
@@ -89,7 +89,7 @@ export default class Protocol {
     };
 
     if (multiPv === 1) {
-      this.curEval = {
+      this.currentEval = {
         fen: this.work.currentFen,
         maxDepth: this.work.maxDepth,
         depth,
@@ -100,51 +100,49 @@ export default class Protocol {
         pvs: [pvData],
         millis: elapsedMs,
       };
-    } else if (this.curEval) {
-      this.curEval.pvs.push(pvData);
-      this.curEval.depth = Math.min(this.curEval.depth, depth);
+    } else if (this.currentEval) {
+      this.currentEval.pvs.push(pvData);
+      this.currentEval.depth = Math.min(this.currentEval.depth, depth);
     }
 
-    if (multiPv === this.expectedPvs && this.curEval) {
-      this.work.emit(this.curEval);
+    if (multiPv === this.expectedPvs && this.currentEval) {
+      this.work.emit(this.currentEval);
     }
   }
 
-  start(w: Work): void {
-    if (!this.stopped) {
-      // TODO: Work is started by basically doing stop().then(() => start(w)).
-      // There is a race condition where multiple callers are waiting for
-      // completion of the same stop future, and so they will start work at
-      // the same time.
-      // This can lead to all kinds of issues, including deadlocks. Instead
-      // we ignore all but the first request. The engine will show as loading
-      // indefinitely. Until this is fixed, it is still better than a
-      // possible deadlock.
-      console.log('ceval: tried to start analysing before requesting stop');
-      return;
+  private swapWork(): void {
+    this.stop();
+
+    if (!this.work) {
+      this.work = this.nextWork;
+      this.nextWork = undefined;
+
+      if (this.work) {
+        this.currentEval = undefined;
+        this.expectedPvs = 1;
+        if (this.opts.threads) this.setOption('Threads', this.opts.threads());
+        if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
+        this.setOption('MultiPV', this.work.multiPv);
+        this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
+        if (this.work.maxDepth >= 99) this.send('go depth 99');
+        else this.send('go movetime 90000 depth ' + this.work.maxDepth);
+      }
     }
-    this.work = w;
-    this.curEval = null;
-    this.stopped = null;
-    this.expectedPvs = 1;
-    if (this.opts.threads) this.setOption('Threads', this.opts.threads());
-    if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
-    this.setOption('MultiPV', this.work.multiPv);
-    this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-    if (this.work.maxDepth >= 99) this.send('go depth 99');
-    else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }
 
-  stop(): Promise<void> {
-    if (!this.stopped) {
-      this.work = null;
-      this.stopped = defer<void>();
+  start(nextWork: Work): void {
+    this.nextWork = nextWork;
+    this.swapWork();
+  }
+
+  stop(): void {
+    if (this.work && !this.work.stopRequested) {
+      this.work.stopRequested = true;
       this.send('stop');
     }
-    return this.stopped.promise;
   }
 
   isComputing(): boolean {
-    return !this.stopped;
+    return !!this.work && !this.work.stopRequested;
   }
 }
