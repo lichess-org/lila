@@ -2,4 +2,16 @@
 <resources>
   <string name="search">Փնտրել</string>
   <string name="advancedSearch">Ընդլայնված որոնում</string>
+  <plurals name="xGamesFound">
+    <item quantity="one">Գտնվել է մեկ խաղ</item>
+    <item quantity="other">Գտնվել են %s խաղեր</item>
+  </plurals>
+  <string name="from">Սկսած</string>
+  <string name="to">Մինչը</string>
+  <string name="result">Արդյունք</string>
+  <string name="winnerColor">Հաղթող գույնը</string>
+  <string name="date">Ամսաթիվ</string>
+  <string name="sortBy">Դասակարգել ըստ</string>
+  <string name="analysis">Վերլուծություն</string>
+  <string name="onlyAnalysed">Միայն այն խաղերը․ որտեղ առկա է համակարգչային վերլուծություն</string>
 </resources>
