@@ -277,6 +277,7 @@
     <item quantity="one">Dona %s secundas</item>
     <item quantity="other">Dona %s secundas</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Iste conto ha violate le Terminos de servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
   <string name="openingExplorerAndTablebase">Explorator de initio de joco e tabula de finales</string>
   <string name="takeback">Retornar</string>
