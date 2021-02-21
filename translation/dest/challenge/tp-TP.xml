@@ -13,4 +13,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">jan pona li ken utala musi e jan %s. sina li jan pona ala.</string>
   <string name="declineGeneric">mi wile ala musi lon tenpo ni.</string>
   <string name="declineLater">mi ken ala musi lon tenpo ni. toki tawa mi lon tenpo ante.</string>
+  <string name="declineTooFast">tenpo musi ni li lili mute tawa mi. musi pi tenpo mute la o utala musi e mi.</string>
+  <string name="declineTooSlow">tenpo musi ni li suli mute tawa mi. musi pi tenpo lili la o utala musi e mi.</string>
+  <string name="declineTimeControl">tenpo li ni la mi wile ala musi.</string>
 </resources>
