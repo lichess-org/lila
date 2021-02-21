@@ -60,7 +60,7 @@ final class Msg(
   def unreadCount =
     Auth { ctx => me =>
       JsonOk {
-        env.msg.api unreadCount me
+        env.msg.compat unreadCount me
       }
     }
 

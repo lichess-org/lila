@@ -15,7 +15,6 @@ import lila.user.{ User, UserRepo }
 final class MsgApi(
     colls: MsgColls,
     userRepo: UserRepo,
-    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
     json: MsgJson,
@@ -202,15 +201,6 @@ final class MsgApi(
         colls.msg.delete.one($doc("tid" $in threads.map(_.id))) >>
         notifier.deleteAllBy(threads, user)
     }
-
-  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
-
-  private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
-    _.expireAfterWrite(10 seconds)
-      .buildAsyncFuture[User.ID, Int] { userId =>
-        colls.thread.countSel($doc("users" -> userId, "lastMsg.read" -> false, "lastMsg.user" $ne userId))
-      }
-  }
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false).some
 
