@@ -28,7 +28,7 @@ object games {
         div(cls := "mod-games page-menu__content box")(
           postForm(action := routes.Analyse.multipleAnalysis(user.id), cls := "mod-games__form")(
             div(cls := "box__top")(
-              h1(userLink(user), " games"),
+              h1(userLink(user), " games (WIP)"),
               div(cls := "box__top__actions")(
                 submitButton(cls := "button")("Analyse")
               )
