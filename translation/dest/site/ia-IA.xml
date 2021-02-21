@@ -404,6 +404,7 @@
   <string name="recommendNotTouching">Nos recommenda non modificar isto.</string>
   <string name="fewerPlayers">Si tu impone conditiones de entrata, tu torneo habera minus jocatores.</string>
   <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
+  <string name="makePrivateTournament">Facer le torneo esser private, e restringer le accesso con un contrasigno</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
   <string name="points">Punctos</string>
@@ -446,6 +447,7 @@
   <string name="biography">Biographia</string>
   <string name="country">Pais</string>
   <string name="thankYou">Gratias!</string>
+  <string name="socialMediaLinks">Ligamines de medios social</string>
   <string name="inlineNotation">Notation in lineas</string>
   <string name="watchLichessTV">Spectar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previemente in Lichess TV</string>
@@ -502,8 +504,10 @@
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
   <string name="newPasswordAgain">Confirmar nove contrasigno</string>
+  <string name="newPasswordsDontMatch">Le nove contrasignos non corresponde</string>
   <string name="newPasswordStrength">Fortia del contrasigno</string>
   <string name="privacy">Confidentialitate</string>
+  <string name="privacyPolicy">Politica de confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitter a altere jocatores invitar te a studiar</string>
@@ -572,6 +576,7 @@
   <string name="error.email_unique">Iste adresse de e-posta es ja prendite</string>
   <string name="error.email_different">Iste ja es tu adresse de e-posta</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Solmente conversationes existente</string>
   <string name="onlyFriends">Solmente amicos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
