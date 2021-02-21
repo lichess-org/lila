@@ -63,6 +63,7 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
 export interface ThreadedWasmWorkerOpts {
   baseUrl: string;
   module: 'Stockfish' | 'StockfishMv';
+  version?: string;
   downloadProgress?: (mb: number) => void;
 }
 
@@ -71,15 +72,16 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   private static sf: { Stockfish?: any; StockfishMv?: any } = {};
 
   boot(): Promise<Protocol> {
+    const version = this.opts.version;
     const progress = this.opts.downloadProgress;
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: true })
+      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: true, version })
       .then(
         _ =>
           progress &&
           new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
-            req.open('GET', lichess.assetUrl(this.opts.baseUrl + 'stockfish.wasm'), true);
+            req.open('GET', lichess.assetUrl(this.opts.baseUrl + 'stockfish.wasm', { version }), true);
             req.responseType = 'arraybuffer';
             req.onerror = event => reject(event);
             req.onprogress = event => progress(event.loaded);

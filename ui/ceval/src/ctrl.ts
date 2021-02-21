@@ -225,6 +225,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
+          version: '2732f2',
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker(
