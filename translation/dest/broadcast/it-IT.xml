@@ -9,8 +9,7 @@
   <string name="eventName">Nome dell\'evento</string>
   <string name="eventDescription">Breve descrizione dell\'evento</string>
   <string name="fullDescription">Descrizione completa dell\'evento</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
-  <string name="sourceUrl">URL di origine</string>
+  <string name="fullDescriptionHelp">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
   <string name="roundNumber">Turno numero</string>
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
