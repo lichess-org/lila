@@ -225,6 +225,7 @@ export default function (opts: CevalOpts): CevalCtrl {
         worker = new ThreadedWasmWorker(workerOpts, {
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
+          supportsLocateFile: true,
         });
       else if (technology == 'wasmx')
         worker = new ThreadedWasmWorker(

@@ -63,6 +63,7 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
 export interface ThreadedWasmWorkerOpts {
   baseUrl: string;
   module: 'Stockfish' | 'StockfishMv';
+  supportsLocateFile?: boolean;
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
@@ -71,14 +72,13 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
   boot(): Promise<Protocol> {
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.baseUrl + 'stockfish.js')
+      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: !this.opts.supportsLocateFile })
       .then(_ =>
         window[this.opts.module]({
-          locateFile: (path: string) => {
-            return lichess.assetUrl(this.opts.baseUrl + path, {
+          locateFile: (path: string) =>
+            lichess.assetUrl(this.opts.baseUrl + path, {
               sameDomain: path.endsWith('.worker.js'),
-            });
-          },
+            }),
         })
       )
       .then((sf: any) => {
