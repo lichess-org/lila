@@ -2,6 +2,8 @@
 <resources>
   <string name="coordinates">Կոորդինատներ</string>
   <string name="coordinateTraining">Շարունակել մարզվել</string>
+  <string name="averageScoreAsWhiteX">Միջին հաշիվը սպիտակներով՝ %s</string>
+  <string name="averageScoreAsBlackX">Միջին հաշիվը սևերով՝ %s</string>
   <string name="knowingTheChessBoard">Շախմատի կոորդինատները իմանալը շատ կարևոր հմտություն է:</string>
   <string name="mostChessCourses">Շախմատի դասընթացների ժամանակ այն լայնորեն կիրառվում է:</string>
   <string name="talkToYourChessFriends">Հեշտանում է ընկերների հետ խոսելը, երբ երկուսն էլ հասկանում են &lt;&lt;շախմատի լեզուն&gt;&gt;:</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Играй с приятел</string>
-  <string name="playWithTheMachine">Игра с компютъра</string>
+  <string name="playWithTheMachine">Играй с компютъра</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканиш някого на игра, дай му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -295,7 +295,7 @@
     <item quantity="one">%s точка от турнира</item>
     <item quantity="other">%s точки от турнира</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="one">%s казус</item>
     <item quantity="other">%s изследвания</item>
   </plurals>
@@ -580,6 +580,7 @@
   <string name="error.email_unique">Тази ел. поща е вече заета</string>
   <string name="error.email_different">Това е текущият ви имейл адрес</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокада</string>
@@ -774,7 +775,7 @@
   <string name="doItAgain">Направете го пак</string>
   <string name="reviewWhiteMistakes">Преглед на грешки при белите</string>
   <string name="reviewBlackMistakes">Преглед на грешки при черните</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Предимство</string>
+  <string name="advantage">Предимство</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="other">%s секунди</item>

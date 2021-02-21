@@ -10,8 +10,9 @@
   <string name="eventDescription">Kort beskrivelse av arrangementet</string>
   <string name="fullDescription">Hele beskrivelsen av arrangementet</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse av overføringen. %1$s er tilgjengelig. Beskrivelsen må være kortere enn %2$s tegn.</string>
-  <string name="sourceUrl">Kildelenke</string>
+  <string name="sourceUrlOrGameIds">Kilde-URL eller parti-ID-er</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringer fra. Den må være offentlig tilgjengelig på internett.</string>
+  <string name="gameIdsHelp">Du kan ellers skrive inn opptil 64 ID-er for partier hos Lichess. De må være adskilt med mellomrom.</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="startDate">Startdato i din egen tidssone</string>
   <string name="startDateHelp">Valgfritt, hvis du vet når arrangementet starter</string>

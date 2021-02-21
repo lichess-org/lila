@@ -10,8 +10,9 @@
   <string name="eventDescription">Kort beskrivelse af begivenheden</string>
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse af transmissionen. %1$s er tilgængelig. Længde skal være mindre end %2$s tegn.</string>
-  <string name="sourceUrl">Kilde URL</string>
+  <string name="sourceUrlOrGameIds">Kilde URL, eller spil-ID\'er</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
+  <string name="gameIdsHelp">Alternativt kan du indtaste op til 64 Lichess spil-ID\'er, adskilt af mellemrum.</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>

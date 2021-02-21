@@ -10,7 +10,6 @@
   <string name="eventDescription">Kort beskrivning av evenemanget</string>
   <string name="fullDescription">Fullständig beskrivning</string>
   <string name="fullDescriptionHelp">Valfri längre beskrivning av sändningen. %1$s är tillgänglig. Längden måste vara mindre än %2$s tecken.</string>
-  <string name="sourceUrl">Källans URL</string>
   <string name="sourceUrlHelp">URL som Lichess kan använda för att få PGN-uppdateringar. Den måste vara publikt tillgänglig från Internet.</string>
   <string name="roundNumber">Omgångens nummer</string>
   <string name="startDate">Startdatum i din egen tidszon</string>

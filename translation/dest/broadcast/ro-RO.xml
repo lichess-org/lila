@@ -10,7 +10,6 @@
   <string name="eventDescription">O descriere scurtă a evenimentului</string>
   <string name="fullDescription">Întreaga descriere a evenimentului</string>
   <string name="fullDescriptionHelp">Descriere lungă, opțională, a difuzării. %1$s este disponibil. Lungimea trebuie să fie mai mică decât %2$s caractere.</string>
-  <string name="sourceUrl">Sursă URL</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="roundNumber">Număr rotund</string>
   <string name="startDate">Data de începere conform fusului tău orar</string>

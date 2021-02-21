@@ -579,6 +579,7 @@
   <string name="error.email_unique">Bu e-posta adresi zaten alınmış</string>
   <string name="error.email_different">Şu anda zaten bu e-posta adresini kullanıyorsun</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Tekrarlayın</string>
   <string name="reviewWhiteMistakes">Beyazın hatalarını gözden geçirin</string>
   <string name="reviewBlackMistakes">Siyahın hatalarını gözden geçirin</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Avantaj</string>
+  <string name="advantage">Avantaj</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s saniye</item>
     <item quantity="other">%s saniye</item>

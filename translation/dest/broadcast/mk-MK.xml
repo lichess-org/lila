@@ -10,7 +10,6 @@
   <string name="eventDescription">Краток опис на настанот</string>
   <string name="fullDescription">Цел опис на настанот</string>
   <string name="fullDescriptionHelp">Незадолжителен, долг опис на емитуваниот настан. %1$s е достапен. Должината мора да е пократка од %2$s знаци.</string>
-  <string name="sourceUrl">Изворно URL</string>
   <string name="sourceUrlHelp">URL кое Lichess ќе го користи за ажурирање на PGN датотеката. Мора да биде јавно достапно на интернет.</string>
   <string name="roundNumber">Заокружен број</string>
   <string name="startDate">Почетен датум во вашата временска зона</string>

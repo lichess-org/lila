@@ -10,7 +10,6 @@
   <string name="eventDescription">संक्षिप्त वर्णन</string>
   <string name="fullDescription">संक्षिप्त वर्णन</string>
   <string name="fullDescriptionHelp">प्रसारण का वैकल्पिक लंबा विवरण. %1$s उपलब्ध है. लंबाई %2$s से कम होना चाहिए</string>
-  <string name="sourceUrl">सॉःस URL</string>
   <string name="sourceUrlHelp">URL जो Lichess PGN अपडेट प्राप्त करने के लिए जाँच करेगा। यह सार्वजनिक रूप से इंटरनेट पर सुलभ होना चाहिए।</string>
   <string name="roundNumber">राउंड नंबर</string>
   <string name="startDate">अपने स्वयं के समयक्षेत्र में प्रारंभ दिनांक</string>

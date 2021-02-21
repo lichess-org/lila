@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Zverejnením tejto adresy môžete niekoho pozvať k partii</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
@@ -450,7 +450,7 @@
   <string name="openTournaments">Otvorené turnaje</string>
   <string name="duration">Dĺžka</string>
   <string name="winner">Víťaz</string>
-  <string name="standing">Pozícia</string>
+  <string name="standing">Poradie</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
   <string name="tournamentCalendar">Kalendár turnajov</string>
   <string name="conditionOfEntry">Podmienka vstupu:</string>
@@ -641,6 +641,7 @@
   <string name="error.email_unique">tento email sa už používa</string>
   <string name="error.email_different">Táto emailová adresa je už Vaša</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
@@ -843,7 +844,7 @@
   <string name="doItAgain">Urob to znovu</string>
   <string name="reviewWhiteMistakes">Preskúmať chyby bieleho</string>
   <string name="reviewBlackMistakes">Preskúmať chyby čierneho</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Výhoda</string>
+  <string name="advantage">Výhoda</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
     <item quantity="few">%s sekúnd</item>

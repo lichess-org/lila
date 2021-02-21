@@ -644,6 +644,7 @@ v %3$s</string>
   <string name="error.email_unique">Ta elektronski naslov je že uporabljen</string>
   <string name="error.email_different">To je že vaš e-poštni naslov</string>
   <string name="ifRatingIsPlusMinusX">Če je rating ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Samo obstoječi pogovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
   <string name="castling">Rokada</string>
@@ -846,7 +847,7 @@ v %3$s</string>
   <string name="doItAgain">Naredi še enkrat</string>
   <string name="reviewWhiteMistakes">Pregled napak belega</string>
   <string name="reviewBlackMistakes">Pregled napak črnega</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Prednost</string>
+  <string name="advantage">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
     <item quantity="two">%s sekundi</item>

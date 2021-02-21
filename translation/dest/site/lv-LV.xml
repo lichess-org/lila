@@ -610,6 +610,7 @@
   <string name="error.email_unique">Šī e-pasta adrese jau tiek lietota</string>
   <string name="error.email_different">Šī jau ir jūsu e-pasta adrese</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Tikai iesāktajās sarunās</string>
   <string name="onlyFriends">Tikai draugi</string>
   <string name="menu">Izvēlne</string>
   <string name="castling">Rokāde</string>

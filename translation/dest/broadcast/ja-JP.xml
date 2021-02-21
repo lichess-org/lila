@@ -10,7 +10,6 @@
   <string name="eventDescription">短い説明</string>
   <string name="fullDescription">長い説明</string>
   <string name="fullDescriptionHelp">内容の詳しい説明（オプション）。%1$s が利用できます。長さは [欧文換算で] %2$s 字まで。</string>
-  <string name="sourceUrl">ソース URL</string>
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
   <string name="roundNumber">ラウンド</string>
   <string name="startDate">開始日付（あなたの現地時間）</string>

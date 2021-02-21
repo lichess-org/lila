@@ -10,8 +10,9 @@
   <string name="eventDescription">Kratak opis događaja</string>
   <string name="fullDescription">Potpuni opis događaja</string>
   <string name="fullDescriptionHelp">Neobavezni dugi opis događaja koji se emituje. %1$s je dostupan. Dužina mora biti manja od %2$s slova.</string>
-  <string name="sourceUrl">Izvorni link</string>
+  <string name="sourceUrlOrGameIds">URL izvora ili identifikacijski broj partije</string>
   <string name="sourceUrlHelp">Link koji će Lichess koristiti kako bi redovno ažurirao PGN. Mora biti javno dostupan na internetu.</string>
+  <string name="gameIdsHelp">Alternativno, možete unijeti do 64 identifikacijska broja partija na Lichessu, odvojena razmacima.</string>
   <string name="roundNumber">Zaokružen broj</string>
   <string name="startDate">Datum početka po Vašoj vremenskoj zoni</string>
   <string name="startDateHelp">Neobavezno, ukoliko znate kada počinje događaj</string>

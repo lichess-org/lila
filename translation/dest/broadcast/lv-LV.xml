@@ -10,8 +10,9 @@
   <string name="eventDescription">Īss pasākuma apraksts</string>
   <string name="fullDescription">Pilns pasākuma apraksts</string>
   <string name="fullDescriptionHelp">Neobligāts garš raidījuma apraksts. Pieejams %1$s. Garumam jābūt mazāk kā %2$s rakstzīmēm.</string>
-  <string name="sourceUrl">Avota URL</string>
+  <string name="sourceUrlOrGameIds">Avota URL, vai spēļu ID</string>
   <string name="sourceUrlHelp">URL, ko Lichess aptaujās, lai iegūtu PGN atjauninājumus. Tam jābūt publiski piekļūstamam no interneta.</string>
+  <string name="gameIdsHelp">Varat arī ievadīt līdz pat 64 Lichess spēļu ID, atdalītus ar atstarpēm.</string>
   <string name="roundNumber">Raunda skaitlis</string>
   <string name="startDate">Sākuma datums jūsu laika joslā</string>
   <string name="startDateHelp">Neobligāts, ja zināt, kad pasākums sākas</string>

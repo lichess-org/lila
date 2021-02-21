@@ -579,6 +579,7 @@
   <string name="error.email_unique">Denne e-postadressen er allerede registrert</string>
   <string name="error.email_different">Dette er allerede mailadressen din</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Gjenta</string>
   <string name="reviewWhiteMistakes">Gå gjennom hvits feil</string>
   <string name="reviewBlackMistakes">Gå gjennom svarts feil</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Fordel</string>
+  <string name="advantage">Fordel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>

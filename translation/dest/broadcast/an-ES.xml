@@ -10,7 +10,6 @@
   <string name="eventDescription">Descripción curta de l\'evento</string>
   <string name="fullDescription">Descripción completa de l\'evento</string>
   <string name="fullDescriptionHelp">Descripción larga opcional d\'a emisión. %1$s ye disponible. La largaria ha d\'estar inferior a %2$s caracters.</string>
-  <string name="sourceUrl">URL d\'orichen</string>
   <string name="sourceUrlHelp">URL que Lichess comprebará pa obtener actualizacions PGN. Ha d\'estar publicament accesible dende Internet.</string>
   <string name="roundNumber">Numero de ronda</string>
   <string name="startDate">Data d\'inicio en a tuya zona horaria</string>

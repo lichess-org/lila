@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Направете ход за да започнете</string>
+  <string name="puzzlesSolved">решени пъзели</string>
+  <string name="newDailyHighscore">Нов дневен рекорд!</string>
+  <string name="newWeeklyHighscore">Нов седмичен рекорд!</string>
+  <string name="newMonthlyHighscore">Нов месечен рекорд!</string>
+  <string name="newAllTimeHighscore">Нов рекорд за всички времена!</string>
+  <string name="previousHighscoreWasX">Предишният рекорд беше %s</string>
+  <string name="playAgain">Играйте отново</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 опит</item>
+    <item quantity="other">%s опита</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Изигран един опит от %2$s</item>
+    <item quantity="other">Изиграни %1$s опита от %2$s</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Резултат</string>
+  <string name="moves">Ходове</string>
+  <string name="accuracy">Точност</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="time">Време</string>
+  <string name="timePerMove">Време на ход</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Най-сложната решена</string>
+  <string name="puzzlesPlayed">Изиграни задачи</string>
+  <string name="newRun">Нов опит (натисни: Интервал)</string>
+  <string name="endRun">Приключване на опита (натисни: Enter)</string>
+  <string name="highscores">Рекорди</string>
+  <string name="viewBestRuns">Вижте най-добрите опити</string>
+  <string name="bestRunOfDay">Най-добрият опит за деня</string>
+  <string name="runs">Опити</string>
+</resources>

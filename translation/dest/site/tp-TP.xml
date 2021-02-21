@@ -295,7 +295,7 @@
     <item quantity="one">nanpa pona %s pi utala suli musi</item>
     <item quantity="other">nanpa pona %s pi utala suli musi</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="one">ma sona %s</item>
     <item quantity="other">ma sona %s</item>
   </plurals>
@@ -580,6 +580,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="error.email_unique">jan ante li kepeken e poki e-mail ni</string>
   <string name="error.email_different">nimi nasin e-mail ni li ante ala</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
   <string name="castling">tawa pi tomo utala en lawa mije lon tenpo sama</string>
@@ -774,7 +775,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="doItAgain">o pali sin</string>
   <string name="reviewWhiteMistakes">o lukin e tawa ike pi jan walo</string>
   <string name="reviewBlackMistakes">o lukin e tawa ike pi jan pimeja</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">ante pi suli pona pi jan musi tu</string>
+  <string name="advantage">ante pi suli pona pi jan musi tu</string>
   <plurals name="nbSeconds">
     <item quantity="one">tenpo lili %s</item>
     <item quantity="other">tenpo lili %s</item>
@@ -782,7 +783,16 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="opening">tenpo lon la kama open</string>
   <string name="middlegame">musi insa</string>
   <string name="endgame">musi pi pini kama</string>
+  <string name="conditionalPremoves">tawa pi tenpo kama ken</string>
+  <string name="addCurrentVariation">o sin e kulupu tawa ni</string>
+  <string name="playVariationToCreateConditionalPremoves">sina ken pali e tawa pi tenpo kama ken.
+sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
+  <string name="noConditionalPremoves">tawa ala pi tenpo kama ken</string>
   <string name="playX">o pali e %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">sina pali e ni la, tawa %s pi tenpo kama ken li awen</item>
+    <item quantity="other">sina pali e ni la, tawa %s pi tenpo kama ken li awen</item>
+  </plurals>
   <string name="sorry">pakala a :(</string>
   <string name="weHadToTimeYouOutForAWhile">sina wile awen lon tenpo lili.</string>
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
@@ -794,6 +804,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="playEveryGame">sina open musi la, o pini e musi.</string>
   <string name="tryToWin">o wile e ni: mi wile pini pona (anu pini pi anpa ala) e musi.</string>
   <string name="resignLostGames">musi li pini ike, o toki \"mi anpa\" (kepeken nena).</string>
+  <string name="temporaryInconvenience">mi pilin ike tan ni,</string>
   <string name="wishYouGreatGames">mi wile e ni: musi sina pi ilo Lichess li pona.</string>
   <string name="thankYouForReading">sina lukin ale e lipu ni la, sina pona!</string>
   <string name="lifetimeScore">nanpa pona pi musi ale</string>

@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">ЧЗВ</string>
+  <string name="frequentlyAskedQuestions">Често Задавани Въпроси</string>
+  <string name="whyIsLichessCalledLichess">Защо Lichess се нарича Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess е комбинация от думите live/light/libre (на живо/леко/свободно) и chess (шахмат). Произнася се %1$s.</string>
+  <string name="leechess">ли-чес</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Чуйте го произнесено от експерт.</string>
+  <string name="noUpperCaseDot">Не.</string>
+  <string name="canIChangeMyUsername">Мога ли да променя потребителското ми име?</string>
+  <string name="howToThreeDots">Как да...</string>
+</resources>

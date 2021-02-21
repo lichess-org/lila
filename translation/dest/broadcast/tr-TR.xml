@@ -9,9 +9,10 @@
   <string name="eventName">Etkinliğin adı</string>
   <string name="eventDescription">Etkinliğin kısa tanıtımı</string>
   <string name="fullDescription">Etkinliğin detaylıca açıklaması</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Etkinliğin isteğe bağlı detaylı açıklaması. %1$s seçeneği mevcuttur. Metnin uzunluğu azami %2$s karakter olmalıdır.</string>
-  <string name="sourceUrl">Kaynak URL</string>
-  <string name="sourceUrlHelp">Lichess, sağladığınız URL aracılığıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
+  <string name="fullDescriptionHelp">Etkinliğin isteğe bağlı detaylı açıklaması. %1$s seçeneği mevcuttur. Metnin uzunluğu azami %2$s karakter olmalıdır.</string>
+  <string name="sourceUrlOrGameIds">Kaynağın URL\'si veya oyunun adı</string>
+  <string name="sourceUrlHelp">Lichess, sağladığınız URL yardımıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
+  <string name="gameIdsHelp">Alternatif olarak, 64 ayrı Lichess oyununa erişebilirsiniz.</string>
   <string name="roundNumber">Tur sayısı</string>
   <string name="startDate">Kendi saat diliminizdeki başlangıç zamanı</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>

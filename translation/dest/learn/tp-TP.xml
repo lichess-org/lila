@@ -141,14 +141,62 @@ lon poka mije kepeken tawa seme?</string>
   <string name="findAWayToCastleQueenSide">o lukin e ni: sina ken tawa \"tomo awen\"
 lon poka meli kepeken tawa seme?</string>
   <string name="castlingComplete">pona a! tawa \"tomo awen\" li pona lon kama pi mute suli.</string>
+  <string name="enPassant">tawa la o anpa</string>
+  <string name="theSpecialPawnMove">tawa sewi pi jan utala</string>
+  <string name="enPassantIntro">jan utala pi jan ante li tawa lon poki pi weka tu la sina ken anpa e ona sama ni: ona li tawa lon poki pi weka wan.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">pimeja li tawa e ijo
+lon poki pi weka tu!
+tawa la o anpa e ona.</string>
+  <string name="enPassantOnlyWorksImmediately">jan ante li tawa e ijo
+lon tenpo pini poka la
+sina ken anpa tawa e ijo.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">ijo sina li lon linja poki
+nanpa luka la sina ken
+anpa tawa e ijo.</string>
+  <string name="takeAllThePawnsEnPassant">tawa la o anpa e ijo ale!</string>
+  <string name="enPassantComplete">sina pona! sina sona anpa tawa e ijo.</string>
   <string name="stalemate">ken ala tawa</string>
+  <string name="theGameIsADraw">jan musi ala li anpa</string>
+  <string name="stalemateIntro">jan musi li ken ala pali e tawa la, jan lawa ona li ken ala moli la, musi li pini. taso, jan ala li anpa.</string>
+  <string name="stalemateGoal">sina wile pini e pi anpa ala la, o pali e ni:
+ - jan musi pimeja li ken ala pali e tawa
+ - jan lawa pimeja li ken ala moli</string>
+  <string name="stalemateComplete">pona a! sina anpa la, ni li ike. jan ala li anpa la, ni li pona.</string>
   <string name="advanced">pi sona mute</string>
+  <string name="pieceValue">suli pi ijo musi</string>
+  <string name="evaluatePieceStrength">o sona e ni: suli pi ijo musi ni li seme?</string>
+  <string name="pieceValueIntro">ilo musi li ken tawa mute la, ona li suli!
+jan lawa meli = nanpa suli 9
+tomo utala = nanpa suli 5
+jan lawa sewi = nanpa suli 3
+soweli tawa = nanpa suli 3
+jan utala = nanpa suli 1
+jan lawa li suli ale! sina kama jo ala e ona la, sina anpa.</string>
+  <string name="queenOverBishop">o anpa e ijo musi suli!
+jan lawa meli li suli mute. jan lawa sewi li suli lili.</string>
+  <string name="takeThePieceWithTheHighestValue">o anpa e ijo musi suli!</string>
+  <string name="pieceValueComplete">pona a! sina sona e suli pi ijo musi.
+jan lawa meli = nanpa suli 9
+tomo utala = nanpa suli 5
+jan lawa sewi = nanpa suli 3
+soweli tawa = nanpa suli 3
+jan utala = nanpa suli 1</string>
+  <string name="checkInTwo">jan lawa li ken moli</string>
+  <string name="twoMovesToGiveCheck">sina tawa pi tenpo tu</string>
+  <string name="checkInTwoIntro">sina o sona e tawa tu pona la jan lawa li ken moli!</string>
+  <string name="checkInTwoGoal">o utala lukin e jan lawa ante!
+o pali e tawa tu.</string>
+  <string name="checkInTwoComplete">sina pona! jan lawa li ken moli! ni la jan ante li wile awen e ijo ni!</string>
+  <string name="whatNext">seme li kama?</string>
+  <string name="youKnowHowToPlayChess">sina sona e musi ni. pona tawa sina! sina wile ala wile kama jo e wawa mute?</string>
   <string name="register">kama tawa</string>
   <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
   <string name="learnCommonChessPositions">o kama sona e nasin supa</string>
   <string name="puzzles">musi pi pilin lon</string>
+  <string name="exerciseYourTacticalSkills">o kama sona pali e pilin nasin pi tenpo kama</string>
   <string name="videos">sitelen tawa</string>
+  <string name="watchInstructiveChessVideos">o lukin e sitelen tawa pi pana sona</string>
   <string name="playPeople">o musi lon poka jan ante</string>
   <string name="opponentsFromAroundTheWorld">jan musi pi ma ale</string>
   <string name="playMachine">o musi kepeken ilo musi</string>

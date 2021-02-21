@@ -10,7 +10,6 @@
   <string name="eventDescription">Krótki opis wydarzenia</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
-  <string name="sourceUrl">Źródłowy URL</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="roundNumber">Numer rundy</string>
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>

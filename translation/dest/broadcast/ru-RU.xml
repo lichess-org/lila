@@ -10,8 +10,9 @@
   <string name="eventDescription">Краткое описание события</string>
   <string name="fullDescription">Полное описание события</string>
   <string name="fullDescriptionHelp">Необязательное полное описание трансляции. Доступна разметка %1$s. Длина должна быть меньше %2$s символов.</string>
-  <string name="sourceUrl">URL источника</string>
+  <string name="sourceUrlOrGameIds">Исходный URL или идентификатор партии</string>
   <string name="sourceUrlHelp">URL-адрес, с которого Lichess будет получать обновление PGN. Он должен быть доступен для получения из Интернета.</string>
+  <string name="gameIdsHelp">Кроме того, вы можете ввести до 64 идентификаторов партий, разделённых пробелами.</string>
   <string name="roundNumber">Номер тура</string>
   <string name="startDate">Дата начала в вашем часовом поясе</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>

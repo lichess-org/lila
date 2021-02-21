@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">musi pi jan utala</string>
+  <string name="isItRated">ni li ante e nanpa wawa jan?</string>
+  <string name="willBeNotified">sina li sona e open musi. sina awen la sina ken musi e musi ante.</string>
+  <string name="isRated">utala musi ni li ante e nanpa wawa sina.</string>
+  <string name="isNotRated">utala musi ni li ante ala e nanpa wawa sina.</string>
+  <string name="someRated">utala musi ale ala li ante e nanpa wawa sina.</string>
+  <string name="howAreScoresCalculated">nanpa li kama lon kepeken nasin seme?</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>

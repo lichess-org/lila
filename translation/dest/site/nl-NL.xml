@@ -579,6 +579,7 @@
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
   <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokeren</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Probeer het opnieuw</string>
   <string name="reviewWhiteMistakes">Bekijk fouten van wit</string>
   <string name="reviewBlackMistakes">Bekijk fouten van zwart</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Voordeel</string>
+  <string name="advantage">Voordeel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s seconde</item>
     <item quantity="other">%s seconden</item>

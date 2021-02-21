@@ -34,6 +34,10 @@
   <string name="joinTheGame">Entrar in le partita</string>
   <string name="whitePlays">Le blanco debe jocar</string>
   <string name="blackPlays">Le nigro debe jocar</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Tu opponente ha abandonate le partita. Tu pote declarar victoria in %s secunda.</item>
+    <item quantity="other">Tu opponente ha abandonate le partita. Tu pote declarar victoria in %s secundas.</item>
+  </plurals>
   <string name="opponentLeftChoices">Le altere jocator pote haber abandonate le partita. Tu pote declarar victoria, considerar le partita como nulle o attender.</string>
   <string name="makeYourOpponentResign">Obligar tu adversario a resignar</string>
   <string name="forceResignation">Declarar victoria</string>
@@ -196,6 +200,8 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
+  <string name="whiteTimeOut">Le tempore del blanco ha finite</string>
+  <string name="blackTimeOut">Le tempore del nigro ha finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferDeclined">Proposition de partita nulle declinate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
@@ -230,6 +236,7 @@
   <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
   <string name="cancelRematchOffer">Cancellar proposition de vindicantia</string>
   <string name="viewRematch">Vider le vindicantia a iste partita</string>
+  <string name="confirmMove">Confirmar movimento</string>
   <string name="play">Jocar</string>
   <string name="inbox">Cassa de entrata</string>
   <string name="chatRoom">Sala de conversation</string>
@@ -270,6 +277,7 @@
     <item quantity="one">Dona %s secundas</item>
     <item quantity="other">Dona %s secundas</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Iste conto ha violate le Terminos de servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
   <string name="openingExplorerAndTablebase">Explorator de initio de joco e tabula de finales</string>
   <string name="takeback">Retornar</string>
@@ -286,6 +294,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s puncto ab torneo</item>
     <item quantity="other">%s punctos ab torneos</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studio</item>
+    <item quantity="other">%s studios</item>
   </plurals>
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
@@ -392,6 +404,7 @@
   <string name="recommendNotTouching">Nos recommenda non modificar isto.</string>
   <string name="fewerPlayers">Si tu impone conditiones de entrata, tu torneo habera minus jocatores.</string>
   <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
+  <string name="makePrivateTournament">Facer le torneo esser private, e restringer le accesso con un contrasigno</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
   <string name="points">Punctos</string>
@@ -434,6 +447,7 @@
   <string name="biography">Biographia</string>
   <string name="country">Pais</string>
   <string name="thankYou">Gratias!</string>
+  <string name="socialMediaLinks">Ligamines de medios social</string>
   <string name="inlineNotation">Notation in lineas</string>
   <string name="watchLichessTV">Spectar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previemente in Lichess TV</string>
@@ -490,8 +504,10 @@
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
   <string name="newPasswordAgain">Confirmar nove contrasigno</string>
+  <string name="newPasswordsDontMatch">Le nove contrasignos non corresponde</string>
   <string name="newPasswordStrength">Fortia del contrasigno</string>
   <string name="privacy">Confidentialitate</string>
+  <string name="privacyPolicy">Politica de confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitter a altere jocatores invitar te a studiar</string>
@@ -560,6 +576,7 @@
   <string name="error.email_unique">Iste adresse de e-posta es ja prendite</string>
   <string name="error.email_different">Iste ja es tu adresse de e-posta</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Solmente conversationes existente</string>
   <string name="onlyFriends">Solmente amicos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>

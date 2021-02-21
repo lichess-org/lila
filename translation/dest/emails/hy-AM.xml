@@ -10,7 +10,13 @@
   <string name="emailChange_intro">Դուք ցանկացել եք փոխել Ձեր էլեկտրոնային հասցեն:</string>
   <string name="emailChange_click">Որպեսզի հաստատեք այս էլ. փոստը, անցեք ստորև բերված հղումով:</string>
   <string name="welcome_subject">Բարի գալուստ lichess.org, %s</string>
+  <string name="welcome_text">Դուք հաջողությամբ ստեղծեցիք հաշիվ https://lichess.org կայքում։
+
+Այստեղ ձեր անձական հաշիվն Է՝  %1$s․ Դուք կարող եք անհատականացնել այն այսեղ՝  %2$s․
+
+Լավ ժամանց, և թող Ձեր խաղաքարերը միշտ գտնեն հակառակորդի թագավորին։</string>
   <string name="logInToLichess">Մուտք գործել lichess.org, %s</string>
   <string name="common_orPaste">Քլիքը չի աշխատում? Փորձում ենք նորից դնել այն քո բրաուզերում:</string>
-  <string name="common_note">Սա ծառայության էլփոստ է, որը վերաբերում է ձեր կողմից %sի օգտագործմանը.</string>
+  <string name="common_note">Սա ծառայողական նամակ է, որը վերաբերում է ձեր կողմից %sի օգտագործմանը։</string>
+  <string name="common_contact">Կոնտակտային հղում՝ %s</string>
 </resources>

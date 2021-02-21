@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Pelaa ystävää vastaan</string>
+  <string name="playWithAFriend">Pelaa kaveria vastaan</string>
   <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Anna tämä linkki hänelle, jonka kanssa haluat pelata</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
   <string name="waiting">Odotetaan</string>
@@ -43,7 +43,7 @@
   <string name="forceResignation">Ota luovutusvoitto</string>
   <string name="forceDraw">Pakota tasapeli</string>
   <string name="talkInChat">Kirjoita keskusteluun. Ole kohtelias!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Peli aukeaa henkilölle, joka avaa tämän linkin ensimmäiseksi.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pelaat sen kaverin kanssa, joka ensimmäisenä avaa linkin.</string>
   <string name="whiteResigned">Valkea luovutti</string>
   <string name="blackResigned">Musta luovutti</string>
   <string name="whiteLeftTheGame">Valkea lähti pelistä</string>
@@ -327,7 +327,7 @@
   <string name="mustBeInTeam">Tulee olla joukkueessa %s</string>
   <string name="youAreNotInTeam">Et ole joukkueessa %s</string>
   <string name="backToGame">Takaisin peliin</string>
-  <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
+  <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia selkeällä käyttöliittymällä. Ei rekisteröitymistä, ei mainoksia eikä selaimen lisäosia. Pelaa shakkia kavereita, satunnaisia vastustajia tai tekoälyä vastaan.</string>
   <string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
   <string name="xStartedStreaming">%s alkoi striimata</string>
@@ -579,7 +579,8 @@
   <string name="error.email_unique">Tämä sähköpostiosoite on jo käytössä</string>
   <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
-  <string name="onlyFriends">Vain ystäville</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
+  <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
   <string name="castling">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
@@ -692,7 +693,7 @@
   <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
-  <string name="followAndChallengeFriends">Seuraa ja haasta ystäviäsi</string>
+  <string name="followAndChallengeFriends">Seuraa ja haasta kavereitasi</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Sama uudelleen</string>
   <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
   <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Etu</string>
+  <string name="advantage">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
     <item quantity="other">%s sekuntia</item>

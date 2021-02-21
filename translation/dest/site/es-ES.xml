@@ -579,6 +579,7 @@
   <string name="error.email_unique">Este correo ya está en uso</string>
   <string name="error.email_different">Esta es el mismo correo que tiene actualmente</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Solo conversaciones existentes</string>
   <string name="onlyFriends">Sólo amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
@@ -773,7 +774,7 @@
   <string name="doItAgain">Volver a revisar los errores</string>
   <string name="reviewWhiteMistakes">Revisar los errores del blanco</string>
   <string name="reviewBlackMistakes">Revisar los errores del negro</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Ventaja</string>
+  <string name="advantage">Ventaja</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segundo</item>
     <item quantity="other">%s segundos</item>

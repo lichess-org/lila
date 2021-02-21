@@ -495,7 +495,10 @@
   <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="newTournament">Նոր մրցաշար</string>
+  <string name="tournamentDoesNotExist">Այս մրցաշարը գոյություն չունի։</string>
   <string name="yourRating">Ձեր վարկանիշը</string>
+  <string name="cumulative">Կոմուլյատիվ</string>
+  <string name="glicko2Rating">Գլիկո-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
@@ -503,6 +506,7 @@
   <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
+  <string name="quickPairing">Արագ զուգավորում</string>
   <string name="lobby">Լոբբի</string>
   <string name="anonymous">Անանուն</string>
   <string name="language">Լեզու</string>
@@ -520,15 +524,31 @@
   <string name="next">Հաջորդ</string>
   <string name="resumeLearning">Շարունակել սովորել</string>
   <string name="solution">Լուծում</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Առավելություն</string>
+  <string name="reviewBlackMistakes">Վերանայել սևերի սխալները</string>
+  <string name="advantage">Առավելություն</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s վարկյան</item>
+    <item quantity="other">%s վարկյաններ</item>
+  </plurals>
   <string name="opening">Սկզբնախաղ</string>
   <string name="endgame">Վերջնախաղ</string>
+  <string name="playX">Խաղացեք %s</string>
   <string name="sorry">Ներողություն :(</string>
   <string name="why">Ինչու՞</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
+  <string name="playEveryGame">Հասցրե՛ք ավարտին սկսված բոլոր խաղերը։</string>
+  <string name="tryToWin">Փորձեք հաղթել (կամ գոնե ոչ-ոքի խաղալ) յուրաքանչյուր խաղ։</string>
+  <string name="resignLostGames">Հանձնվե՛ք պարտված խաղերում (մի\' թողեք ժամանակը սպառվի)։</string>
+  <string name="temporaryInconvenience">Մենք հայցում ենք Ձեր ներողամտությունը անհարմարության համար,</string>
+  <string name="wishYouGreatGames">և մաղթում հաճելի հաղեր lichess.org-ում։</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
   <string name="edit">Խմբագրել</string>
+  <string name="rapid">Արագ</string>
   <string name="classical">Դասական</string>
   <string name="important">Կարևոր</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior"> Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
+  <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
+  <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
+  <string name="unsubscribe">Ապաբաժանորդագրվել</string>
 </resources>

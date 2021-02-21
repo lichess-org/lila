@@ -9,9 +9,10 @@
   <string name="eventName">Ime dogodka</string>
   <string name="eventDescription">Kratek opis dogodka</string>
   <string name="fullDescription">Polni opis dogodka</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
-  <string name="sourceUrl">URL vira</string>
+  <string name="fullDescriptionHelp">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
+  <string name="sourceUrlOrGameIds">Izvorni URL ali ID igre</string>
   <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
+  <string name="gameIdsHelp">Lahko pa vnesete do 64 ID-jev lichess iger, ločene s presledki.</string>
   <string name="roundNumber">Številka kroga</string>
   <string name="startDate">Datum začetka v vaše časovnem pasu</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>

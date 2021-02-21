@@ -9,9 +9,10 @@
   <string name="eventName">Ereignisname</string>
   <string name="eventDescription">Kurze Ereignisbeschreibung</string>
   <string name="fullDescription">Vollständige Ereignisbeschreibung</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Optionale, ausführliche Beschreibung der Übertragung. %1$s ist verfügbar. Die Beschreibung muss kürzer als %2$s Zeichen sein.</string>
-  <string name="sourceUrl">Quell-URL</string>
+  <string name="fullDescriptionHelp">Optionale, ausführliche Beschreibung der Übertragung. %1$s ist verfügbar. Die Beschreibung muss kürzer als %2$s Zeichen sein.</string>
+  <string name="sourceUrlOrGameIds">Quell-URL oder Partie-IDs</string>
   <string name="sourceUrlHelp">URL die Lichess abfragt um PGN Aktualisierungen zu erhalten. Sie muss öffentlich aus dem Internet zugänglich sein.</string>
+  <string name="gameIdsHelp">Alternativ kannst du bis zu 64 durch Leerzeichen getrennte Lichess-Partie-IDs eingeben.</string>
   <string name="roundNumber">Rundennummer</string>
   <string name="startDate">Startdatum in deiner eigenen Zeitzone</string>
   <string name="startDateHelp">Optional, falls du weißt wann das Ereignis beginnt</string>

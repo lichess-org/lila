@@ -10,7 +10,6 @@
   <string name="eventDescription">Trumpas renginio aprašymas</string>
   <string name="fullDescription">Pilnas renginio aprašymas</string>
   <string name="fullDescriptionHelp">Neprivalomas pilnas transliacijos aprašymas. Galima naudoti %1$s. Ilgis negali viršyti %2$s simbolių.</string>
-  <string name="sourceUrl">Šaltinio URL</string>
   <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="roundNumber">Raundo numeris</string>
   <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>

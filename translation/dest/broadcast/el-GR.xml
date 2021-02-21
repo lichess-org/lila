@@ -10,8 +10,8 @@
   <string name="eventDescription">Σύντομη περιγραφή εκδήλωσης</string>
   <string name="fullDescription">Πλήρης περιγραφή εκδήλωσης</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή αναμετάδοσης. %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
-  <string name="sourceUrl">Πηγαίο URL</string>
   <string name="sourceUrlHelp">URL για λήξη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
+  <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 Lichess game IDs, με κενά μεταξύ τους.</string>
   <string name="roundNumber">Αριθμός Γύρου</string>
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>

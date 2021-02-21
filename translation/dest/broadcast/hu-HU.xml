@@ -10,8 +10,9 @@
   <string name="eventDescription">Esemény rövid leírása</string>
   <string name="fullDescription">Esemény teljes leírása</string>
   <string name="fullDescriptionHelp">Opcionális a közvetítés még bővebb leírása. %1$s használható. A hossz nem lehet több, mint %2$s karakter.</string>
-  <string name="sourceUrl">Forrás URL</string>
+  <string name="sourceUrlOrGameIds">Forráslink, vagy játszmaazonosítók</string>
   <string name="sourceUrlHelp">URL amit a Lichess időnként frissítésekért ellenőriz. Ennek nyilvános internetcímnek kell lennie.</string>
+  <string name="gameIdsHelp">Illetve megadhatsz legfeljebb 64 Lichess játszmaazonosítót, szóközökkel elválasztva.</string>
   <string name="roundNumber">Forduló száma</string>
   <string name="startDate">Kezdés időpontja a saját időzónádban</string>
   <string name="startDateHelp">Opcionális, csak ha tudod mikor kezdődik az esemény</string>

@@ -2,4 +2,26 @@
 <resources>
   <string name="search">Փնտրել</string>
   <string name="advancedSearch">Ընդլայնված որոնում</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Փնտրել %s շախմատային խաղում</item>
+    <item quantity="other">Փնտրել %s շախմատային խաղերում</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Գտնվել է մեկ խաղ</item>
+    <item quantity="other">Գտնվել են %s խաղեր</item>
+  </plurals>
+  <string name="opponentName">Հակառակորդի անունը</string>
+  <string name="loser">Պարտվող</string>
+  <string name="from">Սկսած</string>
+  <string name="to">Մինչը</string>
+  <string name="humanOrComputer">Արդյոք խաղացողի հակառակորդը մարդ էր թե համակարգիչ</string>
+  <string name="aiLevel">ԱԲ-յան մակարդակ</string>
+  <string name="source">Աղբյուր</string>
+  <string name="nbTurns">Քայլերի քանակ</string>
+  <string name="result">Արդյունք</string>
+  <string name="winnerColor">Հաղթող գույնը</string>
+  <string name="date">Ամսաթիվ</string>
+  <string name="sortBy">Դասակարգել ըստ</string>
+  <string name="analysis">Վերլուծություն</string>
+  <string name="onlyAnalysed">Միայն այն խաղերը․ որտեղ առկա է համակարգչային վերլուծություն</string>
 </resources>

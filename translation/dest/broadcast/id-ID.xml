@@ -10,7 +10,6 @@
   <string name="eventDescription">Keterangan acara secara singkat</string>
   <string name="fullDescription">Keterangan acara secara penuh</string>
   <string name="fullDescriptionHelp">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
-  <string name="sourceUrl">Sumber URL</string>
   <string name="sourceUrlHelp">URL yang akan di-polling oleh Lichess untuk mendapatkan pembaruan PGN. Itu harus dapat diakses publik dari Internet.</string>
   <string name="roundNumber">Babak ronde</string>
   <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
