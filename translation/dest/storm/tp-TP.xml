@@ -25,4 +25,10 @@
   <string name="timePerMove">tenpo pi tawa wan</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">musi pi kepeken sona sewi</string>
   <string name="puzzlesPlayed">musi</string>
+  <string name="newRun">musi sin (nena ilo: sitelen pi lukin ala)</string>
+  <string name="endRun">pini (nena ilo: open)</string>
+  <string name="highscores">nanpa sewi</string>
+  <string name="viewBestRuns">o lukin e musi sewi</string>
+  <string name="bestRunOfDay">musi sewi pi tenpo suno ni</string>
+  <string name="runs">musi</string>
 </resources>
