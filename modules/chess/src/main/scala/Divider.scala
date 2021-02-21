@@ -37,8 +37,6 @@ object Divider {
       case (found: Found, _) => found
       case (NotFound(lastWhiteInvaders, lastBlackInvaders), (board, index)) => {
         val (currWhiteInvaders, currBlackInvaders) = countInvaders(board)
-        println((board, index))
-        println((majorsAndMinors(board), backrankSparse(board), mixedness(board), currWhiteInvaders, lastWhiteInvaders, currBlackInvaders, lastBlackInvaders))
         if (
           // 20 is the number of non-pawn or non-king pieces
           majorsAndMinors(board) <= 20 - 3 ||
@@ -64,8 +62,6 @@ object Divider {
         case (found: Found, _) => found
         case (NotFound(lastWhiteInvaders, lastBlackInvaders), (board, index)) => {
           val (currWhiteInvaders, currBlackInvaders) = countInvaders(board)
-          println((board, index))
-          println((mixedness(board), currWhiteInvaders, lastWhiteInvaders, currBlackInvaders, lastBlackInvaders))
           if (
             (currWhiteInvaders >= 2 && lastWhiteInvaders >= 2) ||
             (currBlackInvaders >= 2 && lastBlackInvaders >= 2)
