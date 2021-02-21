@@ -25,5 +25,6 @@ export default function (ctrl: KeyboardController): void {
         if (ctrl.getCeval().enabled()) ctrl.playBestMove();
         else ctrl.toggleCeval();
       }
-    });
+    })
+    .bind('z', () => lichess.pubsub.emit('zen'));
 }

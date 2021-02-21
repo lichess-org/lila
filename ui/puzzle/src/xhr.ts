@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { defined } from 'common';
+import throttle from 'common/throttle';
 
 export function complete(
   puzzleId: string,
@@ -30,3 +31,10 @@ export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | und
     body: defined(vote) ? xhr.form({ vote }) : undefined,
   });
 }
+
+export const setZen = throttle(1000, zen =>
+  xhr.text('/pref/zen', {
+    method: 'post',
+    body: xhr.form({ zen: zen ? 1 : 0 }),
+  })
+);

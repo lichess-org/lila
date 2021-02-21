@@ -1,16 +1,16 @@
 %zen {
-  body.playing.zen & {
+  .zen & {
     display: none;
   }
 }
 
 body.playing.zen {
-  .ricons {
-    margin: 0.5em 0 1em 0;
-  }
-
   #top {
     justify-content: center;
+  }
+
+  .puzzle__moves.areplay {
+    display: none;
   }
 }
 

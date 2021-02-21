@@ -49,7 +49,8 @@ object show {
             .txt() + s" Played by ${puzzle.plays} players."
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      playing = true
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(

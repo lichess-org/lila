@@ -456,6 +456,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   speech.setup();
 
+  lichess.pubsub.on('zen', () => {
+    const zen = !$('body').hasClass('zen');
+    $('body').toggleClass('zen', zen);
+    window.dispatchEvent(new Event('resize'));
+    xhr.setZen(zen);
+  });
+  $('body').addClass('playing'); // for zen
+  $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
+
   return {
     vm,
     getData() {
