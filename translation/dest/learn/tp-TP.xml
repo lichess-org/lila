@@ -186,6 +186,8 @@ jan utala = nanpa suli 1</string>
   <string name="checkInTwoIntro">sina o sona e tawa tu pona la jan lawa li ken moli!</string>
   <string name="checkInTwoGoal">o utala lukin e jan lawa ante!
 o pali e tawa tu.</string>
+  <string name="checkInTwoComplete">sina pona! jan lawa li ken moli! ni la jan ante li wile awen e ijo ni!</string>
+  <string name="whatNext">seme li kama?</string>
   <string name="register">kama tawa</string>
   <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
