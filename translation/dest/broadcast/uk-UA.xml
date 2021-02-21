@@ -10,7 +10,6 @@
   <string name="eventDescription">Короткий опис події</string>
   <string name="fullDescription">Повний опис події</string>
   <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
-  <string name="sourceUrl">URL джерела</string>
   <string name="sourceUrlHelp">URL-адреса, яку Lichess перевірятиме, щоб отримати оновлення PGN. Вона повинна бути загальнодоступною з Інтернету.</string>
   <string name="roundNumber">Номер раунда</string>
   <string name="startDate">Дата початку у Вашому часовому поясі</string>
