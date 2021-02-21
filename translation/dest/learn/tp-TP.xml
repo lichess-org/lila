@@ -183,6 +183,9 @@ soweli tawa = nanpa suli 3
 jan utala = nanpa suli 1</string>
   <string name="checkInTwo">jan lawa li ken moli</string>
   <string name="twoMovesToGiveCheck">sina tawa pi tenpo tu</string>
+  <string name="checkInTwoIntro">sina o sona e tawa tu pona la jan lawa li ken moli!</string>
+  <string name="checkInTwoGoal">o utala lukin e jan lawa ante!
+o pali e tawa tu.</string>
   <string name="register">kama tawa</string>
   <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
