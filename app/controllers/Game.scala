@@ -47,7 +47,6 @@ final class Game(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),
           flags = requestPgnFlags(req, extended = true),
-          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
           playerFile = get("players", req)
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
@@ -156,7 +155,8 @@ final class Game(
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
-      pgnInJson = getBoolOpt("pgnInJson", req) | false
+      pgnInJson = getBoolOpt("pgnInJson", req) | false,
+      delayMoves = !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
     )
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =

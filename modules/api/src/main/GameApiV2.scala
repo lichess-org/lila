@@ -40,14 +40,7 @@ final class GameApiV2(
 
   private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
 
-  def exportOne(game: Game, configInput: OneConfig): Fu[String] = {
-    val config = configInput.copy(
-      flags = configInput.flags
-        .copy(
-          evals = configInput.flags.evals && !game.playable,
-          delayMoves = !configInput.noDelay
-        )
-    )
+  def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport ifTrue config.imported match {
       case Some(imported) => fuccess(imported.pgn)
       case None =>
@@ -68,7 +61,6 @@ final class GameApiV2(
           }
         } yield export
     }
-  }
 
   private val fileR = """[\s,]""".r
   def filename(game: Game, format: Format): Fu[String] =
@@ -340,7 +332,6 @@ object GameApiV2 {
       format: Format,
       imported: Boolean,
       flags: WithFlags,
-      noDelay: Boolean,
       playerFile: Option[String]
   ) extends Config
 
