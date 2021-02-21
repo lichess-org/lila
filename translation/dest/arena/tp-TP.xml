@@ -7,5 +7,12 @@
   <string name="isNotRated">utala musi ni li ante ala e nanpa wawa sina.</string>
   <string name="someRated">utala musi ale ala li ante e nanpa wawa sina.</string>
   <string name="howAreScoresCalculated">nanpa li kama lon kepeken nasin seme?</string>
+  <string name="howAreScoresCalculatedAnswer">pini pona li pana e nanpa tu. pini sama li pana e nanpa wan. pini ike li pana e nanpa ala.
+sina pini pona e musi tu poka la nanpa sina li kama pi tenpo tu. ni la sitelen seli li lon.
+musi pi tenpo kama li pana e nanpa pi tenpo tu. 
+pini pona li pana e nanpa tu tu. pini sama li pana e nanpa tu. awen la pini ike li pana e nanpa ala.
+sina pini ike e musi la ni li pini.
+
+pana lukin la pini pona tu en pini sama li pana e nanpa luka wan: 2 + 2 + (2 × 1)</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>
