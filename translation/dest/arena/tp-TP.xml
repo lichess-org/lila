@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">musi pi jan utala</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>
