@@ -16,4 +16,10 @@
   <string name="declineTooFast">tenpo musi ni li lili mute tawa mi. musi pi tenpo mute la o utala musi e mi.</string>
   <string name="declineTooSlow">tenpo musi ni li suli mute tawa mi. musi pi tenpo lili la o utala musi e mi.</string>
   <string name="declineTimeControl">tenpo li ni la mi wile ala musi.</string>
+  <string name="declineRated">mi wile kama jo e nanpa wawa. sina wile e ni la o utala musi e mi.</string>
+  <string name="declineCasual">mi wile ala kama jo e nanpa wawa. sina wile ala e ni la o utala musi e mi.</string>
+  <string name="declineStandard">mi wile ala musi kepeken nasin ante lon tenpo ni.</string>
+  <string name="declineVariant">mi wile ala musi kepeken nasin ni lon tenpo ni.</string>
+  <string name="declineNoBot">mi wile ala e ni: jan ilo li utala musi e mi.</string>
+  <string name="declineOnlyBot">mi wile e ni: jan ilo li utala musi e mi.</string>
 </resources>
