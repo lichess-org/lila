@@ -8,6 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.common.{ ContentSecurityPolicy, Nonce }
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 object layout {
 
@@ -225,7 +226,9 @@ object layout {
           ),
           ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
-              s"""<style id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
+              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(
+                img
+              )}");}</style>"""
             )
           },
           fontPreload,
