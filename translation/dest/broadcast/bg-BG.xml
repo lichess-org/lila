@@ -9,8 +9,7 @@
   <string name="eventName">Име на събитието</string>
   <string name="eventDescription">Кратко описание на събитието</string>
   <string name="fullDescription">Пълно описание на събитието</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Незадължително дълго описание на излъчването. %1$s е налично. Дължината трябва да по-малка от %2$s знака.</string>
-  <string name="sourceUrl">Уебадрес на източника</string>
+  <string name="fullDescriptionHelp">Незадължително дълго описание на излъчването. %1$s е налично. Дължината трябва да по-малка от %2$s знака.</string>
   <string name="sourceUrlHelp">Уебадресът, който Lichess ще проверява, за да получи осъвременявания на PGN. Той трябва да е публично достъпен от интернет.</string>
   <string name="roundNumber">Номер на рунда</string>
   <string name="startDate">Дата на започване във вашата часова зона</string>
