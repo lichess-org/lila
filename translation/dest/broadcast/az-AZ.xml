@@ -9,8 +9,7 @@
   <string name="eventName">Tədbir adı</string>
   <string name="eventDescription">Tədbirin qısa açıqlaması</string>
   <string name="fullDescription">Tədbirin tam açıqlaması</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Tədbirin istəyə bağlı təfsilatlı açıqlaması. %1$s seçimi mövcuddur. Mətnin uzunluğu %2$s simvoldan az olmalıdır.</string>
-  <string name="sourceUrl">Mənbə URL</string>
+  <string name="fullDescriptionHelp">Tədbirin istəyə bağlı təfsilatlı açıqlaması. %1$s seçimi mövcuddur. Mətnin uzunluğu %2$s simvoldan az olmalıdır.</string>
   <string name="sourceUrlHelp">Lichess, verdiyiniz URL ilə PGN-i yeniləyəcək. URL, internetdə hamı tərəfindən əldə edilə bilən olmalıdır.</string>
   <string name="roundNumber">Tur sayı</string>
   <string name="startDate">Öz saat qurşağınızdakı başlama tarixi</string>
