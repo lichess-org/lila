@@ -10,7 +10,6 @@
   <string name="eventDescription">Deskrivadur an abadenn a berr gomzoù</string>
   <string name="fullDescription">Deskrivadur an abadenn a-bezh</string>
   <string name="fullDescriptionHelp">Deskrivadur hir ar skignañ war-eeun ma fell deoc\'h.%1$s zo dijabl. Ne vo ket hiroc\'h evit %2$s sin.</string>
-  <string name="sourceUrl">Mammenn URL</string>
   <string name="sourceUrlHelp">An URL a ray Lichess ganti evit kaout hizivadurioù ar PGN. Ret eo dezhi bezañ digor d\'an holl war Internet.</string>
   <string name="roundNumber">Niverenn ar batalm</string>
   <string name="startDate">Eur kregiñ en ho kwerzhid-eur</string>
