@@ -77,11 +77,11 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h(
       'span',
       { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'wasmx' ? 'Stockfish 12+' : 'Stockfish 10+'
+      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'hce' ? 'Stockfish 12+' : 'Stockfish 10+'
     ),
     ctrl.technology == 'nnue'
       ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly NNUE (strongest)' } }, 'NNUE')
-      : ctrl.technology == 'wasmx'
+      : ctrl.technology == 'hce'
       ? h(
           'span.technology.good',
           { attrs: { title: 'Multi-threaded WebAssembly Classical (hand crafted evaluation)' } },

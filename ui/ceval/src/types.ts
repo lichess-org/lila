@@ -2,7 +2,7 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx' | 'nnue';
+export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue';
 
 export interface Eval {
   cp?: number;

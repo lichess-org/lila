@@ -15,8 +15,8 @@ function is64Bit(): boolean {
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // TODO: In theory 32 bit should be supported just the same, but some 32 bit
-  // browser builds seem to have trouble with WASMX. So for now detect and
-  // require a 64 bit platform.
+  // browser builds seem to have trouble with multi-threaded WebAssembly.
+  // So for now detect and require a 64 bit platform.
   if (!is64Bit()) return;
 
   // Atomics
@@ -56,7 +56,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
 
-  // select nnue > wasmx > wasm > asmjs
+  // select nnue > hce > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
@@ -64,7 +64,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     technology = 'wasm'; // WebAssembly 1.0
     const sharedMem = sharedWasmMemory(8, 16);
     if (sharedMem) {
-      technology = 'wasmx';
+      technology = 'hce';
 
       // prettier-ignore
       const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]);
@@ -111,8 +111,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const workerOpts = {
     minDepth,
     variant: opts.variant.key,
-    threads: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
-    hashSize: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
+    threads: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
+    hashSize: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
   };
 
   let worker: AbstractWorker<unknown> | undefined;
@@ -233,7 +233,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           module: 'Stockfish',
           supportsLocateFile: true,
         });
-      else if (technology == 'wasmx')
+      else if (technology == 'hce')
         worker = new ThreadedWasmWorker(
           workerOpts,
           officialStockfish(opts.variant.key)
@@ -278,8 +278,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads: technology == 'wasmx' || technology == 'nnue' ? threads : undefined,
-    hashSize: technology == 'wasmx' || technology == 'nnue' ? hashSize : undefined,
+    threads: technology == 'hce' || technology == 'nnue' ? threads : undefined,
+    hashSize: technology == 'hce' || technology == 'nnue' ? hashSize : undefined,
     maxThreads,
     maxHashSize,
     infinite,
