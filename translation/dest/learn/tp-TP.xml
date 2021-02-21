@@ -141,6 +141,7 @@ lon poka mije kepeken tawa seme?</string>
   <string name="findAWayToCastleQueenSide">o lukin e ni: sina ken tawa \"tomo awen\"
 lon poka meli kepeken tawa seme?</string>
   <string name="castlingComplete">pona a! tawa \"tomo awen\" li pona lon kama pi mute suli.</string>
+  <string name="enPassant">tawa la o anpa</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="theGameIsADraw">jan musi ala li anpa</string>
   <string name="stalemateIntro">jan musi li ken ala pali e tawa la, jan lawa ona li ken ala moli la, musi li pini. taso, jan ala li anpa.</string>
