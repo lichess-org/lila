@@ -188,12 +188,15 @@ jan utala = nanpa suli 1</string>
 o pali e tawa tu.</string>
   <string name="checkInTwoComplete">sina pona! jan lawa li ken moli! ni la jan ante li wile awen e ijo ni!</string>
   <string name="whatNext">seme li kama?</string>
+  <string name="youKnowHowToPlayChess">sina sona e musi ni. pona tawa sina! sina wile ala wile kama jo e wawa mute?</string>
   <string name="register">kama tawa</string>
   <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
   <string name="learnCommonChessPositions">o kama sona e nasin supa</string>
   <string name="puzzles">musi pi pilin lon</string>
+  <string name="exerciseYourTacticalSkills">o kama sona pali e pilin nasin pi tenpo kama</string>
   <string name="videos">sitelen tawa</string>
+  <string name="watchInstructiveChessVideos">o lukin e sitelen tawa pi pana sona</string>
   <string name="playPeople">o musi lon poka jan ante</string>
   <string name="opponentsFromAroundTheWorld">jan musi pi ma ale</string>
   <string name="playMachine">o musi kepeken ilo musi</string>
