@@ -76,7 +76,7 @@ ken ala anpa e ijo musi sina!</string>
   <string name="captureAndDefendPieces">o anpa en awen e ijo musi</string>
   <string name="combatIntro">jan utala pona li sona e utala, e awen!</string>
   <string name="combatComplete">pona a! sina sona e nasin utala pi ijo musi!</string>
-  <string name="checkInOne">jan lawa li ken moli lon tawa wan</string>
+  <string name="checkInOne">jan lawa li ken moli</string>
   <string name="attackTheOpponentsKing">o utala e jan lawa pi jan musi ante</string>
   <string name="checkInOneIntro">ijo sina li utala e jan lawa pi jan ante la, jan lawa li ken moli. ona li wile awen e jan lawa!</string>
   <string name="checkInOneGoal">o utala e jan lawa pi jan ante
@@ -147,6 +147,14 @@ lon poka meli kepeken tawa seme?</string>
   <string name="blackJustMovedThePawnByTwoSquares">pimeja li tawa e ijo
 lon poki pi weka tu!
 tawa la o anpa e ona.</string>
+  <string name="enPassantOnlyWorksImmediately">jan ante li tawa e ijo
+lon tenpo pini poka la
+sina ken anpa tawa e ijo.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">ijo sina li lon linja poki
+nanpa luka la sina ken
+anpa tawa e ijo.</string>
+  <string name="takeAllThePawnsEnPassant">tawa la o anpa e ijo ale!</string>
+  <string name="enPassantComplete">sina pona! sina sona anpa tawa e ijo.</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="theGameIsADraw">jan musi ala li anpa</string>
   <string name="stalemateIntro">jan musi li ken ala pali e tawa la, jan lawa ona li ken ala moli la, musi li pini. taso, jan ala li anpa.</string>
@@ -173,6 +181,8 @@ tomo utala = nanpa suli 5
 jan lawa sewi = nanpa suli 3
 soweli tawa = nanpa suli 3
 jan utala = nanpa suli 1</string>
+  <string name="checkInTwo">jan lawa li ken moli</string>
+  <string name="twoMovesToGiveCheck">sina tawa pi tenpo tu</string>
   <string name="register">kama tawa</string>
   <string name="getAFreeLichessAccount">o open e lipu lawa lon ilo Lichess</string>
   <string name="practice">kama sona</string>
