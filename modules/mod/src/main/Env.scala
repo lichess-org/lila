@@ -114,6 +114,9 @@ final class Env(
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(User.lichessId, userId, subject).unit
     },
+    "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId) =>
+      api.autoMark(lila.report.SuspectId(suspectId), lila.report.ModId.lichess).unit
+    },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(mod, user, reason, text).unit
     }
