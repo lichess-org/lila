@@ -76,16 +76,20 @@ function engineName(ctrl: CevalCtrl): VNode[] {
   return [
     h(
       'span',
-      version ? { attrs: { title: `${version} (classical eval)` } } : {},
-      ctrl.technology == 'wasmx' || ctrl.technology == 'nnue' ? 'Stockfish 12+' : 'Stockfish 10+'
+      { attrs: { title: version || '' } },
+      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'wasmx' ? 'Stockfish 12+' : 'Stockfish 10+'
     ),
     ctrl.technology == 'nnue'
-      ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly NNUE (strongest)' } }, 'nnue')
+      ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly NNUE (strongest)' } }, 'NNUE')
       : ctrl.technology == 'wasmx'
-      ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly (fastest)' } }, 'wasmx')
+      ? h(
+          'span.technology.good',
+          { attrs: { title: 'Multi-threaded WebAssembly Classical (hand crafted evaluation)' } },
+          'HCE'
+        )
       : ctrl.technology == 'wasm'
-      ? h('span.wasm', { attrs: { title: 'Single-threaded WebAssembly fallback (second fastest)' } }, 'wasm')
-      : h('span.asmjs', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'asmjs'),
+      ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly fallback (slow)' } }, 'WASM')
+      : h('span.technology', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'ASMJS'),
   ];
 }
 

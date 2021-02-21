@@ -67,16 +67,11 @@
     }
   }
 
-  .wasmx {
+  .technology {
     margin-left: 5px;
-    text-transform: uppercase;
-    color: $c-good;
-  }
-
-  .asmjs,
-  .wasm {
-    margin-left: 5px;
-    text-transform: uppercase;
+    &.good {
+      color: $c-good;
+    }
   }
 
   .bar {
