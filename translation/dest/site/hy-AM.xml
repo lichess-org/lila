@@ -531,8 +531,11 @@
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
   <string name="edit">Խմբագրել</string>
+  <string name="rapid">Արագ</string>
   <string name="classical">Դասական</string>
   <string name="important">Կարևոր</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior"> Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
+  <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
   <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
