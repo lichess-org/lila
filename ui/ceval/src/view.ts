@@ -23,7 +23,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
     return [
       evs.server && ctrl.nextNodeBest()
         ? trans.noarg('usingServerAnalysis')
-        : trans.noarg('loadingEngine') + (mb ? ` (${mb.toFixed(1)} MiB)` : ''),
+        : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : ''),
     ];
   }
 
