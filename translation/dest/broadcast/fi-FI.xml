@@ -10,7 +10,6 @@
   <string name="eventDescription">Lyhyt kuvaus tapahtumasta</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
   <string name="fullDescriptionHelp">Ei-pakollinen pitkä kuvaus lähetyksestä. %1$s-muotoiluja voi käyttää. Pituus voi olla enintään %2$s merkkiä.</string>
-  <string name="sourceUrl">Lähteen URL</string>
   <string name="sourceUrlHelp">URL, josta Lichess hakee PGN-päivitykset. Sen täytyy olla julkisesti saatavilla internetissä.</string>
   <string name="roundNumber">Kierroksen numero</string>
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
