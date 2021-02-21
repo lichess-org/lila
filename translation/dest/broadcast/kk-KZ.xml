@@ -10,7 +10,6 @@
   <string name="eventDescription">Оқиғаның қысқа сипаттамасы</string>
   <string name="fullDescription">Оқиғаның толық сипаттамасы</string>
   <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
-  <string name="sourceUrl">URL сілтеме</string>
   <string name="sourceUrlHelp">PGN жаңартуларын алу үшін Личес тексеретін сілтеме. Ол интернетте баршалыққа ашық болуы керек.</string>
   <string name="roundNumber">Раунд нөмірі</string>
   <string name="startDate">Басталу күні (өз уақыт белдеуіңізде)</string>
