@@ -15,6 +15,7 @@ import lila.memo.CacheApi
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 import lila.game.{ Game, GameRepo, PgnDump }
+import lila.round.GameProxyRepo
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -23,6 +24,7 @@ final private class RelayFetch(
     formatApi: RelayFormatApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
+    gameProxy: GameProxyRepo,
     ws: StandaloneWSClient
 ) extends Actor {
 
@@ -143,11 +145,13 @@ final private class RelayFetch(
   private def fetchGames(relay: Relay): Fu[RelayGames] =
     relay.sync.upstream ?? {
       case UpstreamIds(ids) =>
-        gameRepo.gamesFromSecondary(ids) flatMap gameRepo.withInitialFens flatMap {
-          _.map { case (game, fen) =>
-            pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
-          }.sequenceFu dmap MultiPgn.apply
-        } flatMap RelayFetch.multiPgnToGames.apply
+        gameRepo.gamesFromSecondary(ids) flatMap
+          gameProxy.upgradeIfPresent flatMap
+          gameRepo.withInitialFens flatMap {
+            _.map { case (game, fen) =>
+              pgnDump(game, fen, gameIdsUpstreamPgnFlags).dmap(_.render)
+            }.sequenceFu dmap MultiPgn.apply
+          } flatMap RelayFetch.multiPgnToGames.apply
       case url: UpstreamUrl =>
         cache.asMap
           .compute(

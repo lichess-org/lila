@@ -74,8 +74,12 @@ object form {
       else form3.hidden(form("official")),
       form3.group(
         form("syncUrl"),
-        sourceUrl(),
-        help = sourceUrlHelp().some
+        sourceUrlOrGameIds(),
+        help = frag(
+          sourceUrlHelp(),
+          br,
+          gameIdsHelp()
+        ).some
       )(form3.input(_)),
       form("syncUrl").value.exists(LccRegex.matches) option {
         form3.group(form("syncUrlRound"), roundNumber())(

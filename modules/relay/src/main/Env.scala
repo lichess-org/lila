@@ -14,6 +14,7 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
+    gameProxy: lila.round.GameProxyRepo,
     cacheApi: lila.memo.CacheApi,
     slackApi: lila.irc.SlackApi,
     baseUrl: BaseUrl

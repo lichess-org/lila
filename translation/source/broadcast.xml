@@ -10,8 +10,9 @@
   <string name="eventDescription">Short event description</string>
   <string name="fullDescription">Full event description</string>
   <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
-  <string name="sourceUrl">Source URL</string>
+  <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
+  <string name="gameIdsHelp">Alternatively, you can enter up to 64 lichess game IDs, separated by spaces.</string>
   <string name="roundNumber">Round number</string>
   <string name="startDate">Start date in your own timezone</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
