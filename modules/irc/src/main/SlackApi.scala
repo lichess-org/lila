@@ -251,6 +251,17 @@ final class SlackApi(
       )
     )
 
+  def userAppeal(user: User, mod: User): Funit =
+    client(
+      SlackMessage(
+        username = mod.username,
+        icon = "eyes",
+        text =
+          s"Let's have a look at the appeal of _*${lichessLink(s"/appeal/${user.username}", user.username)}*_",
+        channel = rooms.tavernAppeal
+      )
+    )
+
   def stop(): Funit =
     client(
       SlackMessage(
@@ -289,13 +300,14 @@ final class SlackApi(
 private object SlackApi {
 
   object rooms {
-    val general     = "team"
-    val tavern      = "tavern"
-    val tavernBots  = "tavern-bots"
-    val tavernNotes = "tavern-notes"
-    val signups     = "signups"
-    val broadcast   = "broadcast"
-    val devNoise    = "dev-noise"
+    val general      = "team"
+    val tavern       = "tavern"
+    val tavernBots   = "tavern-bots"
+    val tavernNotes  = "tavern-notes"
+    val tavernAppeal = "tavern-appeal"
+    val signups      = "signups"
+    val broadcast    = "broadcast"
+    val devNoise     = "dev-noise"
   }
 
   object stage {

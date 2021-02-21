@@ -78,6 +78,13 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
       }
     }
 
+  def notifySlack(username: String) =
+    Secure(_.NotifySlack) { implicit ctx => me =>
+      asMod(username) { (appeal, suspect) =>
+        env.irc.slack.userAppeal(user = suspect.user, mod = me) inject NoContent
+      }
+    }
+
   private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(

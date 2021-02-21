@@ -72,7 +72,10 @@ object appeal {
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
-          }
+          },
+          postForm(action := routes.Appeal.notifySlack(suspect.user.id), cls := "appeal__actions__slack")(
+            submitButton(cls := "button button-thin")("Send to slack")
+          )
         )
       )
     }
@@ -126,9 +129,7 @@ object appeal {
         cssTag("form3"),
         cssTag("appeal")
       ),
-      moreJs = embedJsUnsafeLoadThen(
-        """$('select.appeal-presets').on('change', e => $('#form3-text').val(e.target.value))"""
-      )
+      moreJs = jsModule("appeal")
     )(body)
 
   private def renderAppeal(
@@ -137,9 +138,7 @@ object appeal {
       asMod: Boolean,
       inquiry: Boolean = false,
       presets: Option[ModPresets]
-  )(implicit
-      ctx: Context
-  ) =
+  )(implicit ctx: Context) =
     frag(
       h1(
         "Appeal",
