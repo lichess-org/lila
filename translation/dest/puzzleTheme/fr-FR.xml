@@ -100,7 +100,7 @@
   <string name="rookEndgame">Finale de Tours</string>
   <string name="rookEndgameDescription">Une finale avec seulement des Tours et des pions.</string>
   <string name="sacrifice">Sacrifice</string>
-  <string name="sacrificeDescription">Une tactique constant à donner du matériel à court terme, pour gagner un avantage après une séquence de coups forcés.</string>
+  <string name="sacrificeDescription">Une tactique consistant à donner du matériel à court terme, pour gagner un avantage après une séquence de coups forcés.</string>
   <string name="short">Court problème</string>
   <string name="shortDescription">Victoire en deux coups.</string>
   <string name="skewer">Enfilade</string>
