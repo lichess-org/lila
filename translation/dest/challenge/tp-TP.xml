@@ -12,4 +12,5 @@
   <string name="cannotChallengeDueToProvisionalXRating">sina ken ala utala musi e jan. nasin %s la nanpa wawa sina li ken pini.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">jan pona li ken utala musi e jan %s. sina li jan pona ala.</string>
   <string name="declineGeneric">mi wile ala musi lon tenpo ni.</string>
+  <string name="declineLater">mi ken ala musi lon tenpo ni. toki tawa mi lon tenpo ante.</string>
 </resources>
