@@ -131,9 +131,11 @@ export class Pool {
   warmup(): void {
     if (this.workers.length) return;
 
-    if (this.poolOpts.technology == 'wasmx')
+    if (this.poolOpts.technology == 'nnue') {
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.nnue, this.poolOpts, this.protocolOpts));
+    } else if (this.poolOpts.technology == 'wasmx') {
       this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
-    else {
+    } else {
       for (let i = 1; i <= 2; i++)
         this.workers.push(
           new WebWorker(

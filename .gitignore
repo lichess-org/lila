@@ -16,6 +16,7 @@ public/vendor/highcharts-4.2.5
 public/vendor/hopscotch
 public/vendor/tagify
 public/vendor/stockfish.wasm
+public/vendor/stockfish-nnue.wasm
 public/vendor/stockfish-mv.wasm
 public/vendor/stockfish.js
 public/css/

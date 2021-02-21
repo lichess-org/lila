@@ -65,6 +65,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     const sharedMem = sharedWasmMemory(8, 16);
     if (sharedMem) {
       technology = 'wasmx';
+      // prettier-ignore
+      const source_with_simd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]);
+      if (officialStockfish(opts.variant.key) && WebAssembly.validate(source_with_simd)) {
+        technology = 'nnue';
+      }
       try {
         sharedMem.grow(8);
         growableSharedMem = true;
@@ -105,12 +110,13 @@ export default function (opts: CevalOpts): CevalCtrl {
       wasmx: officialStockfish(opts.variant.key)
         ? 'vendor/stockfish.wasm/stockfish.js'
         : 'vendor/stockfish-mv.wasm/stockfish.js',
+      nnue: 'vendor/stockfish-nnue.wasm/stockfish.js',
     },
     {
       minDepth,
       variant: opts.variant.key,
-      threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
-      hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
+      threads: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
+      hashSize: (technology == 'wasmx' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
     }
   );
 
@@ -141,6 +147,8 @@ export default function (opts: CevalOpts): CevalCtrl {
         if (knps > 3500) depth = 25;
         if (knps > 5000) depth = 26;
         if (knps > 7000) depth = 27;
+        // TODO: Maybe we want to get deeper for slow NNUE?
+        depth += 2 * Number(technology === 'nnue');
         maxDepth(depth);
         if (values.length > 40) values.shift();
       }
@@ -252,8 +260,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads: technology == 'wasmx' ? threads : undefined,
-    hashSize: technology == 'wasmx' ? hashSize : undefined,
+    threads: technology == 'wasmx' || technology == 'nnue' ? threads : undefined,
+    hashSize: technology == 'wasmx' || technology == 'nnue' ? hashSize : undefined,
     maxThreads,
     maxHashSize,
     infinite,

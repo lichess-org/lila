@@ -77,9 +77,11 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h(
       'span',
       version ? { attrs: { title: `${version} (classical eval)` } } : {},
-      ctrl.technology == 'wasmx' ? 'Stockfish 12+' : 'Stockfish 10+'
+      ctrl.technology == 'wasmx' || ctrl.technology == 'nnue' ? 'Stockfish 12+' : 'Stockfish 10+'
     ),
-    ctrl.technology == 'wasmx'
+    ctrl.technology == 'nnue'
+      ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly NNUE (strongest)' } }, 'nnue')
+      : ctrl.technology == 'wasmx'
       ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly (fastest)' } }, 'wasmx')
       : ctrl.technology == 'wasm'
       ? h('span.wasm', { attrs: { title: 'Single-threaded WebAssembly fallback (second fastest)' } }, 'wasm')
