@@ -223,23 +223,20 @@ export default function (opts: CevalOpts): CevalCtrl {
     if (!worker) {
       if (technology == 'nnue')
         worker = new ThreadedWasmWorker(workerOpts, {
-          url: 'vendor/stockfish-nnue.wasm/stockfish.js',
+          baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
         });
       else if (technology == 'wasmx')
         worker = new ThreadedWasmWorker(
           workerOpts,
           officialStockfish(opts.variant.key)
-            ? { url: 'vendor/stockfish.wasm/stockfish.js', module: 'Stockfish' }
-            : { url: 'vendor/stockfish-mv.wasm/stockfish.js', module: 'StockfishMv' }
+            ? { baseUrl: 'vendor/stockfish.wasm/', module: 'Stockfish' }
+            : { baseUrl: 'vendor/stockfish-mv.wasm/', module: 'StockfishMv' }
         );
       else
-        worker = new WebWorker(
-          workerOpts,
-          technology == 'wasm'
-            ? { url: 'vendor/stockfish.js/stockfish.wasm.js' }
-            : { url: 'vendor/stockfish.js/stockfish.js' }
-        );
+        worker = new WebWorker(workerOpts, {
+          url: technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
+        });
     }
 
     worker.start(work);

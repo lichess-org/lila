@@ -61,7 +61,7 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
 }
 
 export interface ThreadedWasmWorkerOpts {
-  url: string;
+  baseUrl: string;
   module: 'Stockfish' | 'StockfishMv';
 }
 
@@ -71,8 +71,16 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
   boot(): Promise<Protocol> {
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.url, { sameDomain: true })
-      .then(_ => window[this.opts.module]())
+      .loadScript(this.opts.baseUrl + 'stockfish.js')
+      .then(_ =>
+        window[this.opts.module]({
+          locateFile: (path: string) => {
+            return lichess.assetUrl(this.opts.baseUrl + path, {
+              sameDomain: path.endsWith('.worker.js'),
+            });
+          },
+        })
+      )
       .then((sf: any) => {
         ThreadedWasmWorker.sf[this.opts.module] = sf;
         const protocol = new Protocol(this.send.bind(this), this.protocolOpts);
