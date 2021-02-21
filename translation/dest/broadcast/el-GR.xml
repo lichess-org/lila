@@ -9,8 +9,7 @@
   <string name="eventName">Όνομα εκδήλωσης</string>
   <string name="eventDescription">Σύντομη περιγραφή εκδήλωσης</string>
   <string name="fullDescription">Πλήρης περιγραφή εκδήλωσης</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Προαιρετική αναλυτική περιγραφή αναμετάδοσης. %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
-  <string name="sourceUrl">Πηγαίο URL</string>
+  <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή αναμετάδοσης. %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
   <string name="sourceUrlHelp">URL για λήξη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="roundNumber">Αριθμός Γύρου</string>
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
