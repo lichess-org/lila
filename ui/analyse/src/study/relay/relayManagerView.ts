@@ -21,7 +21,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
             },
           }),
         ]),
-        ctrl.data.sync.url ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
+        ctrl.data.sync.url || ctrl.data.sync.ids ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
         renderLog(ctrl),
       ]
     );
@@ -34,6 +34,7 @@ function logSuccess(e: LogEvent) {
 
 function renderLog(ctrl: RelayCtrl) {
   const dateFormatter = getDateFormatter();
+  const url = ctrl.data.sync.url;
   const logLines = ctrl.data.sync.log
     .slice(0)
     .reverse()
@@ -42,13 +43,15 @@ function renderLog(ctrl: RelayCtrl) {
         e.error &&
         h(
           'a',
-          {
-            attrs: {
-              href: ctrl.data.sync.url,
-              target: '_blank',
-              rel: 'noopener nofollow',
-            },
-          },
+          url
+            ? {
+                attrs: {
+                  href: url,
+                  target: '_blank',
+                  rel: 'noopener nofollow',
+                },
+              }
+            : {},
           e.error
         );
       return h(
@@ -65,13 +68,24 @@ function renderLog(ctrl: RelayCtrl) {
 }
 
 function stateOn(ctrl: RelayCtrl) {
+  const url = ctrl.data.sync.url;
+  const ids = ctrl.data.sync.ids;
   return h(
     'div.state.on.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(false)),
       attrs: dataIcon('B'),
     },
-    [h('div', ['Connected to source', h('br'), ctrl.data.sync.url.replace(/https?:\/\//, '')])]
+    [
+      h(
+        'div',
+        url
+          ? ['Connected to source', h('br'), url.replace(/https?:\/\//, '')]
+          : ids
+          ? ['Connected to', h('br'), ids.length, ' game(s)']
+          : []
+      ),
+    ]
   );
 }
 

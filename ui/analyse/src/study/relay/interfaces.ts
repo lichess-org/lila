@@ -9,7 +9,8 @@ export interface RelayData {
 
 export interface RelaySync {
   ongoing: boolean;
-  url: string;
+  url?: string;
+  ids?: string;
   log: LogEvent[];
 }
 

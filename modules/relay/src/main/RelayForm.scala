@@ -8,6 +8,8 @@ import io.lemonlabs.uri.AbsoluteUrl
 import lila.security.Granter
 import lila.user.User
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.game.Game
+import lila.study.Study
 
 final class RelayForm {
 
@@ -21,7 +23,7 @@ final class RelayForm {
       "markup"      -> optional(cleanText(maxLength = 20000)),
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
-        nonEmptyText.verifying("Invalid source", validSource _)
+        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource _)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(cleanNonEmptyText),
@@ -38,21 +40,27 @@ final class RelayForm {
 
 object RelayForm {
 
-  private def validSource(url: String) =
-    try {
-      AbsoluteUrl
-        .parse(url)
-        .hostOption
+  case class GameIds(ids: List[Game.ID])
+
+  private def toGameIds(ids: String): Option[GameIds] = {
+    val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(_.sizeIs == Game.gameIdSize).toList
+    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
+  }
+
+  private def validSource(source: String): Boolean =
+    validUrl(source) || toGameIds(source).isDefined
+
+  private def validUrl(source: String): Boolean =
+    AbsoluteUrl.parseOption(source).exists { url =>
+      url.hostOption
         .exists { host =>
           host.apexDomain.fold(true) { apex =>
             !blocklist.contains(apex) && (
               // only allow public API, not arbitrary URLs
-              apex != "chess.com" || url.startsWith("https://api.chess.com/pub")
+              apex != "chess.com" || url.toString.startsWith("https://api.chess.com/pub")
             )
           }
         }
-    } catch {
-      case _: io.lemonlabs.uri.parsing.UriParsingException => false
     }
 
   private val blocklist = List(
@@ -80,16 +88,17 @@ object RelayForm {
       throttle: Option[Int]
   ) {
 
-    def requiresRound = syncUrl exists Relay.Sync.LccRegex.matches
+    def requiresRound = syncUrl exists Relay.Sync.UpstreamUrl.LccRegex.matches
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
     def cleanUrl: Option[String] =
-      syncUrl.map { u =>
-        val trimmed = u.trim
-        if (trimmed endsWith "/") trimmed.take(trimmed.length - 1)
-        else trimmed
+      syncUrl.filter(validUrl).map { u =>
+        if (u endsWith "/") u drop 1
+        else u
       }
+
+    def gameIds = syncUrl flatMap toGameIds
 
     def update(relay: Relay, user: User) =
       relay.copy(
@@ -105,8 +114,10 @@ object RelayForm {
 
     def makeSync(user: User) =
       Relay.Sync(
-        upstream = cleanUrl map { u =>
-          Relay.Sync.Upstream(s"$u${syncUrlRound.??(" " +)}")
+        upstream = cleanUrl.map { u =>
+          Relay.Sync.UpstreamUrl(s"$u${syncUrlRound.??(" " +)}")
+        } orElse gameIds.map { ids =>
+          Relay.Sync.UpstreamIds(ids.ids)
         },
         until = none,
         nextAt = none,
@@ -140,8 +151,11 @@ object RelayForm {
         description = relay.description,
         markup = relay.markup,
         official = relay.official option true,
-        syncUrl = relay.sync.upstream.map(_.withRound.url),
-        syncUrlRound = relay.sync.upstream.flatMap(_.withRound.round),
+        syncUrl = relay.sync.upstream map {
+          case url: Relay.Sync.UpstreamUrl => url.withRound.url
+          case Relay.Sync.UpstreamIds(ids) => ids mkString " "
+        },
+        syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         credit = relay.credit,
         startsAt = relay.startsAt,
         throttle = relay.sync.delay
