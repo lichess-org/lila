@@ -182,19 +182,24 @@ object RelativeStrength {
     }
 }
 
-sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: NonEmptyList[Int])
+sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: Int)
 object MovetimeRange {
-  case object MTR1   extends MovetimeRange(1, "0 to 1 second", NonEmptyList.of(1, 5, 10))
-  case object MTR3   extends MovetimeRange(3, "1 to 3 seconds", NonEmptyList.of(15, 20, 30))
-  case object MTR5   extends MovetimeRange(5, "3 to 5 seconds", NonEmptyList.of(40, 50))
-  case object MTR10  extends MovetimeRange(10, "5 to 10 seconds", NonEmptyList.of(60, 80, 100))
-  case object MTR30  extends MovetimeRange(30, "10 to 30 seconds", NonEmptyList.of(150, 200, 300))
-  case object MTRInf extends MovetimeRange(60, "More than 30 seconds", NonEmptyList.of(400, 600))
+  case object MTR1   extends MovetimeRange(1, "0 to 1 second", 10)
+  case object MTR3   extends MovetimeRange(3, "1 to 3 seconds", 30)
+  case object MTR5   extends MovetimeRange(5, "3 to 5 seconds", 50)
+  case object MTR10  extends MovetimeRange(10, "5 to 10 seconds", 100)
+  case object MTR30  extends MovetimeRange(30, "10 to 30 seconds", 300)
+  case object MTRInf extends MovetimeRange(60, "More than 30 seconds", Int.MaxValue)
   val all           = List(MTR1, MTR3, MTR5, MTR10, MTR30, MTRInf)
   def reversedNoInf = all.reverse drop 1
   val byId = all map { p =>
     (p.id, p)
   } toMap
+  def toRange(mr: MovetimeRange): (Int, Int) =
+    (
+      all.indexOf(mr).some.filter(-1 !=).map(_ - 1).flatMap(all.lift).fold(0)(_.tenths),
+      mr.tenths
+    )
 }
 
 sealed abstract class MaterialRange(val id: Int, val name: String, val imbalance: Int) {

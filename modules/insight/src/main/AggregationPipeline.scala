@@ -37,7 +37,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case (acc, mtr) =>
               $doc(
                 "$cond" -> $arr(
-                  $doc("$lte" -> $arr("$" + F.moves("t"), mtr.tenths.last)),
+                  $doc("$lt" -> $arr("$" + F.moves("t"), mtr.tenths)),
                   mtr.id,
                   acc
                 )

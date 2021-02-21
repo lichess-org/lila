@@ -287,7 +287,12 @@ object Dimension {
       case Dimension.MovetimeRange =>
         selected match {
           case Nil => $empty
-          case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
+          case many =>
+            $doc(
+              "$or" -> many.map(lila.insight.MovetimeRange.toRange).map { range =>
+                $doc(d.dbKey $gte range._1 $lt range._2)
+              }
+            )
         }
       case Dimension.Period =>
         selected.maximumByOption(_.days).fold($empty) { period =>
