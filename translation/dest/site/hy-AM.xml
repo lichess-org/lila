@@ -529,6 +529,10 @@
   <string name="sorry">Ներողություն :(</string>
   <string name="why">Ինչու՞</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
+  <string name="playEveryGame">Հասցրե՛ք ավարտին սկսված բոլոր խաղերը։</string>
+  <string name="tryToWin">Փորձեք հաղթել (կամ գոնե ոչ-ոքի խաղալ) յուրաքանչյուր խաղ։</string>
+  <string name="resignLostGames">Հանձնվե՛ք պարտված խաղերում (մի\' թողեք ժամանակը սպառվի)։</string>
+  <string name="temporaryInconvenience">Մենք հայցում ենք Ձեր ներողամտությունը անհարմարության համար,</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
   <string name="edit">Խմբագրել</string>
   <string name="rapid">Արագ</string>
