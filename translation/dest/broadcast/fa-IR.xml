@@ -9,7 +9,6 @@
   <string name="eventName">نام رخداد</string>
   <string name="eventDescription">شرح کوتاه رویداد</string>
   <string name="fullDescription">شرح کامل رویداد</string>
-  <string name="sourceUrl">منبع لینک</string>
   <string name="sourceUrlHelp">لینکی که Lichess برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
   <string name="roundNumber">عدد گرد شده</string>
   <string name="startDate">تاریخ را در منطقه‌ی زمانی خود شروع کنید</string>
