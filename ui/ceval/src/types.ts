@@ -55,6 +55,7 @@ export interface CevalCtrl {
   canGoDeeper(): boolean;
   effectiveMaxDepth(): number;
   technology: CevalTechnology;
+  downloadProgress: Prop<number>;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;

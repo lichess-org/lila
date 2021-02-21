@@ -18,8 +18,14 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
-  if (!evs.client)
-    return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine')];
+  if (!evs.client) {
+    const mb = ceval.downloadProgress() / 1024 / 1024;
+    return [
+      evs.server && ctrl.nextNodeBest()
+        ? trans.noarg('usingServerAnalysis')
+        : trans.noarg('loadingEngine') + (mb ? ` (${mb.toFixed(1)} MiB)` : ''),
+    ];
+  }
 
   const t: Array<VNode | string> = evs.client.cloud
     ? [

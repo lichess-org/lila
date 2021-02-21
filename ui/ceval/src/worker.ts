@@ -63,7 +63,7 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
 export interface ThreadedWasmWorkerOpts {
   baseUrl: string;
   module: 'Stockfish' | 'StockfishMv';
-  supportsLocateFile?: boolean;
+  downloadProgress?: (mb: number) => void;
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
@@ -71,16 +71,26 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   private static sf: { Stockfish?: any; StockfishMv?: any } = {};
 
   boot(): Promise<Protocol> {
+    const progress = this.opts.downloadProgress;
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: !this.opts.supportsLocateFile })
-      .then(_ =>
-        window[this.opts.module]({
-          locateFile: (path: string) =>
-            lichess.assetUrl(this.opts.baseUrl + path, {
-              sameDomain: path.endsWith('.worker.js'),
-            }),
-        })
+      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: true })
+      .then(
+        _ =>
+          progress &&
+          new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+            req.open('GET', lichess.assetUrl(this.opts.baseUrl + 'stockfish.wasm'), true);
+            req.responseType = 'arraybuffer';
+            req.onerror = event => reject(event);
+            req.onprogress = event => progress(event.loaded);
+            req.onload = _ => {
+              progress(0);
+              resolve(req.response);
+            };
+            req.send();
+          })
       )
+      .then(wasmBinary => window[this.opts.module]({ wasmBinary }))
       .then((sf: any) => {
         ThreadedWasmWorker.sf[this.opts.module] = sf;
         const protocol = new Protocol(this.send.bind(this), this.protocolOpts);

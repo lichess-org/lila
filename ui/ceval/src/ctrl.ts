@@ -103,6 +103,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
   const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
+  const downloadProgress = prop(0);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -231,7 +232,10 @@ export default function (opts: CevalOpts): CevalCtrl {
         worker = new ThreadedWasmWorker(workerOpts, {
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
-          supportsLocateFile: true,
+          downloadProgress: throttle(200, mb => {
+            downloadProgress(mb);
+            opts.redraw();
+          }),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker(
@@ -277,6 +281,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     allowed,
     possible: opts.possible,
     enabled,
+    downloadProgress,
     multiPv,
     threads: technology == 'hce' || technology == 'nnue' ? threads : undefined,
     hashSize: technology == 'hce' || technology == 'nnue' ? hashSize : undefined,
