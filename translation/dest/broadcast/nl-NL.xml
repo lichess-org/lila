@@ -10,7 +10,6 @@
   <string name="eventDescription">Korte beschrijving evenement</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
   <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
-  <string name="sourceUrl">Bron link</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
   <string name="roundNumber">Ronde</string>
   <string name="startDate">Aanvangsdatum in je eigen tijdzone</string>
