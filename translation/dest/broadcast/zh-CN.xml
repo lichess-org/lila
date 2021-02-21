@@ -10,7 +10,6 @@
   <string name="eventDescription">简短比赛说明</string>
   <string name="fullDescription">详细比赛说明</string>
   <string name="fullDescriptionHelp">直播内容的详细描述 (可选项目)。可以利用 %1$s。字数限于%2$s个字。</string>
-  <string name="sourceUrl">来源网址</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="roundNumber">轮数</string>
   <string name="startDate">开始日期 (在您的时区)</string>
