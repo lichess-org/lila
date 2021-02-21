@@ -9,7 +9,7 @@ const renderVote = (ctrl: Controller): VNode =>
     ctrl.autoNexting()
       ? []
       : [
-          ctrl.session.isNew()
+          ctrl.session.isNew() && ctrl.getData().user?.provisional
             ? h('div.puzzle__vote__help', [
                 h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
                 h('p', ctrl.trans.noarg('voteToLoadNextOne')),
