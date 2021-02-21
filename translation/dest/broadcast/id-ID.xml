@@ -9,8 +9,7 @@
   <string name="eventName">Nama acara</string>
   <string name="eventDescription">Keterangan acara secara singkat</string>
   <string name="fullDescription">Keterangan acara secara penuh</string>
-  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
-  <string name="sourceUrl">Sumber URL</string>
+  <string name="fullDescriptionHelp">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
   <string name="sourceUrlHelp">URL yang akan di-polling oleh Lichess untuk mendapatkan pembaruan PGN. Itu harus dapat diakses publik dari Internet.</string>
   <string name="roundNumber">Babak ronde</string>
   <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
