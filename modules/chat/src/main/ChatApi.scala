@@ -85,7 +85,8 @@ final class ChatApi(
         userId: User.ID,
         text: String,
         publicSource: Option[PublicSource],
-        busChan: BusChan.Select
+        busChan: BusChan.Select,
+        persist: Boolean = true
     ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
@@ -94,16 +95,21 @@ final class ChatApi(
               logger.info(s"Link check rejected $line in $publicSource")
               funit
             case true =>
-              pushLine(chatId, line) >>- {
-                if (publicSource.isDefined) cached invalidate chatId
-                shutup ! {
-                  publicSource match {
-                    case Some(source) => RecordPublicChat(userId, text, source)
-                    case _            => RecordPrivateChat(chatId.value, userId, text)
+              (persist ?? persistLine(chatId, line)) >>- {
+                if (persist) {
+                  if (publicSource.isDefined) cached invalidate chatId
+                  shutup ! {
+                    publicSource match {
+                      case Some(source) => RecordPublicChat(userId, text, source)
+                      case _            => RecordPrivateChat(chatId.value, userId, text)
+                    }
                   }
+                  lila.mon.chat
+                    .message(publicSource.fold("player")(_.parentName), line.troll)
+                    .increment()
+                    .unit
                 }
                 publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-                lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment().unit
               }
           }
         }
@@ -118,7 +124,7 @@ final class ChatApi(
 
     def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      pushLine(chatId, line) >>- {
+      persistLine(chatId, line) >>- {
         cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
       }
@@ -259,7 +265,7 @@ final class ChatApi(
 
     def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        pushLine(chatId, line) >>- {
+        persistLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit
         }
@@ -281,7 +287,7 @@ final class ChatApi(
 
   def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
 
-  private def pushLine(chatId: Chat.Id, line: Line): Funit =
+  private def persistLine(chatId: Chat.Id, line: Line): Funit =
     coll.update
       .one(
         $id(chatId),
