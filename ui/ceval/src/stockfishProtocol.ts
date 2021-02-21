@@ -20,6 +20,9 @@ export default class Protocol {
   private currentEval: Tree.ClientEval | undefined;
   private expectedPvs = 1;
 
+  private threads: string | number = 1;
+  private hashSize: string | number = 16;
+
   private nextWork: Work | undefined;
 
   constructor(private send: (cmd: string) => void, private opts: ProtocolOpts) {}
@@ -120,9 +123,19 @@ export default class Protocol {
       if (this.work) {
         this.currentEval = undefined;
         this.expectedPvs = 1;
-        if (this.opts.threads) this.setOption('Threads', this.opts.threads());
-        if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
+
+        const threads = this.opts.threads ? this.opts.threads() : 1;
+        if (this.threads != threads) {
+          this.threads = threads;
+          this.setOption('Threads', threads);
+        }
+        const hashSize = this.opts.hashSize ? this.opts.hashSize() : 16;
+        if (this.hashSize != hashSize) {
+          this.hashSize = hashSize;
+          this.setOption('Hash', hashSize);
+        }
         this.setOption('MultiPV', this.work.multiPv);
+
         this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
         if (this.work.maxDepth >= 99) this.send('go depth 99');
         else this.send('go movetime 90000 depth ' + this.work.maxDepth);
