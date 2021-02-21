@@ -18,6 +18,7 @@ import lila.game.{ Game, PerfPicker, Query }
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
+import lila.round.GameProxyRepo
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -28,7 +29,8 @@ final class GameApiV2(
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter,
-    realPlayerApi: RealPlayerApi
+    realPlayerApi: RealPlayerApi,
+    gameProxy: GameProxyRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -119,6 +121,7 @@ final class GameApiV2(
           .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
           .mapConcat(_.toList)
           .take(config.max | Int.MaxValue)
+          .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
           .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
       }
@@ -135,6 +138,7 @@ final class GameApiV2(
           )
           .documentSource()
           .throttle(config.perSecond.value, 1 second)
+          .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
       }
     }
@@ -215,6 +219,9 @@ final class GameApiV2(
             }
         }
       }
+
+  private val upgradeOngoingGame =
+    Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
