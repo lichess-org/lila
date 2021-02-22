@@ -26,4 +26,5 @@ Pan fydd dau chwaraewr ar yr un sgor, bydd perfformiad gradd y chwaraewyr dros y
   <string name="otherRules">Rheolau pwysig eraill</string>
   <string name="thisIsPrivate">Mae hwn yn dalwrn preifat</string>
   <string name="shareUrl">Rhannu URL hwn i wahodd pobl: %s</string>
+  <string name="history">Hanes Arena</string>
 </resources>
