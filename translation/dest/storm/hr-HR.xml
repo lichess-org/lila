@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Povucite potez da biste počeli</string>
+  <string name="puzzlesSolved">riješeni problemi</string>
+  <string name="newDailyHighscore">Novi najbolji dnevni rezultat!</string>
+  <string name="newWeeklyHighscore">Novi tjedni najbolji rezultat!</string>
+  <string name="newMonthlyHighscore">Novi mjesečni najbolji rezultat!</string>
+  <string name="newAllTimeHighscore">Novi najbolji rezultat svih vremena!</string>
+  <string name="previousHighscoreWasX">Prethodni najbolji rezultat bio je %s</string>
   <string name="playAgain">Ponovno igraj</string>
+  <plurals name="xRuns">
+    <item quantity="one">Jedna runda</item>
+    <item quantity="few">%s rundi</item>
+    <item quantity="other">%s rundi</item>
+  </plurals>
   <string name="score">Bodovi</string>
 </resources>
