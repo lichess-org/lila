@@ -89,6 +89,7 @@ export default class AnalyseCtrl {
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
+  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', false);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
@@ -726,7 +727,7 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes()) this.setAutoShapes();
+    if (this.showAutoShapes() || this.showMoveAnnotation()) this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }
 
@@ -737,6 +738,11 @@ export default class AnalyseCtrl {
 
   toggleGauge = () => {
     this.showGauge(!this.showGauge());
+  };
+
+  toggleMoveAnnotation = (v: boolean): void => {
+    this.showMoveAnnotation(v);
+    this.resetAutoShapes();
   };
 
   private onToggleComputer() {

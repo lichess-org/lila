@@ -101,11 +101,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (true) {
-    // TODO: Maybe option to switch off? Especially for manually annotated glyph in the study?
+  if (ctrl.showMoveAnnotation()) {
     const { uci, glyphs } = ctrl.node;
     if (glyphs && glyphs.length > 0) {
-      const glyph = glyphs[0]; // TODO: Can there be more than one glyph?
+      const glyph = glyphs[0];
       const svg = glyphToSvg[glyph.symbol];
       if (svg) {
         const move = parseUci(uci!)!;
