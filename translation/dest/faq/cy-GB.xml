@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="whyIsLichessCalledLichess">Pam mae Lichess yn cael ei alw\'n Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Mae Lichess yn gyfuniad o \"live/light/libre\" a \"chess\". Mae\'n cael ei ddatganu fel %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Clywed fe\'n cael ei ddweud gan arbenigwr.</string>
   <string name="positions">safleoedd</string>
   <string name="configure">ffurfweddu</string>
   <string name="accounts">Cyfrifau</string>
