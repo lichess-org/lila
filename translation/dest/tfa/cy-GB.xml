@@ -2,9 +2,16 @@
 <resources>
   <string name="twoFactorAuth">Dilysu dau gam</string>
   <string name="twoFactorHelp">Mae dilysu dau gam yn ychwanegu haen arall o ddiogelwch i\'ch cyfrif.</string>
-  <string name="ifYouCannotScanEnterX">Os nad ydych yn gallu sganio côd, rhowch eich %s cudd i mewn i\'ch ap.</string>
+  <string name="twoFactorApp">Cewch ap am ddilysu dau gam, er enghraifft andOTP am %1$s neu Google Authenticator am %2$s.</string>
+  <string name="scanTheCode">Sganiwch y cod QR yn yr ap.</string>
+  <string name="enterPassword">Mewnbynnwch eich cyfrinair a\'r cod ddilysu sydd wedi cael ei gynhyrchu gan yr ap i gwblhau\'r gosodiad. Bydd rhaid cael cod ddilysu pob tro rydych yn mewngofnodi.</string>
+  <string name="ifYouCannotScanEnterX">Os nad ydych yn gallu sganio cod, rhowch eich %s cudd i mewn i\'ch ap.</string>
   <string name="authenticationCode">Cod dilysu</string>
+  <string name="ifYouLoseAccess">Nodyn: Os ydych yn colli mynediad i\'ch cods dilysu dau gam, gallwch ailosod eich cyfrinair trwy e-bost.</string>
   <string name="enableTwoFactor">Galluogi dilysu dau gam</string>
   <string name="disableTwoFactor">Analluogi dilysu dau gam</string>
   <string name="twoFactorEnabled">Dilysu dau gam wedi\'i alluogi</string>
+  <string name="twoFactorDisable">Mae rhaid cael cyfrinair a chod ddilysu wrth eich ap dilysu i analluogi dilysu dau gam.
+Os ydych wedi colli mynediad i\'w eich cods dilysu, gallwch hefyd ailosod eich cyfrinair trwy e-bost.</string>
+  <string name="openTwoFactorApp">Agorwch yr ap dilysu dau gam arno eich dyfais i\'w weld y cod dilysu a gwireddu eich hunaniaeth.</string>
 </resources>
