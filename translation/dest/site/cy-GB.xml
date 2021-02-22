@@ -683,7 +683,9 @@
   <string name="playEveryGame">Chwaraewch bob gêm rydych yn dechrau.</string>
   <string name="thankYouForReading">Diolch am darllen!</string>
   <string name="lifetimeScore">Sgôr hyd oes</string>
+  <string name="agreementAccount">Rwy\'n cytuno byddai ddim creu cyfrifau lluosol.</string>
   <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Edrych am neu ddechrau sgwrs newydd</string>
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>
   <string name="classical">Clasurol</string>
