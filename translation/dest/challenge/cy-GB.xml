@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Heriau</string>
+  <string name="challengeToPlay">Herio i chwarae</string>
+  <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
+  <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
+  <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
+  <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
+  <string name="declineLater">Nid nawr yw amser da i fi, gofynnwch fi tro arall.</string>
+</resources>
