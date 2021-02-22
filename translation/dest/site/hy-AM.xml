@@ -423,6 +423,7 @@
   <string name="newPasswordAgain">նոր գաղտնաբառը  (նորից)</string>
   <string name="newPasswordStrength">Գաղտնաբառի բարդություն</string>
   <string name="privacy">ԳԱՂՏՆԻՈՒԹՅՈՒՆ</string>
+  <string name="privacyPolicy">Գաղտնիության քաղաքականություն</string>
   <string name="letOtherPlayersFollowYou">Թույլ տալ ուրիշ խաղացողներին ձեզ հետևել</string>
   <string name="letOtherPlayersChallengeYou">Թույլ տալ ուրիշ խաղացողներին ձեզ մարտահրավեր նետել</string>
   <string name="sound">Ձայն</string>
