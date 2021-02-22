@@ -23,11 +23,9 @@ function wasmInfo() {
   info.mvp = WebAssembly.validate(source);
   if (!info.mvp) return info;
 
-  var sourceWithSimd = Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11);
-  info.simd = WebAssembly.validate(sourceWithSimd);
-
-  var sourceWithSimdPostMvp = Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11);
-  info.simdPostMvp = WebAssembly.validate(sourceWithSimdPostMvp);
+  info.simd = {
+    'i32x4.dot_i16x8_s': WebAssembly.validate(Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11))
+  };
 
   if (info.SharedArrayBuffer !== 'function') return info;
   var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
