@@ -44,7 +44,7 @@ final private[forum] class ForumForm(
   private def userTextMapping(user: User, inOwnTeam: Boolean) =
     cleanText(minLength = 3)
       .verifying(
-        "You have reached the maximum amount of links per day, which you can post to the forum",
+        "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(user)(t)
       )
 }
