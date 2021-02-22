@@ -27,5 +27,10 @@ sina pali e tawa luka tu wan lon musi la musi pi tenpo lili li pana e nanpa poka
 
 jan mute li jo e nanpa sama la utala musi li kama sama.</string>
   <string name="howDoesPairingWork">jan li poka kepeken nasin seme</string>
+  <string name="howDoesPairingWorkAnswer">nanpa wawa jan li sama la jan ni li poka lon open pi utala musi.
+sina pini e musi la o tawa tawa tomo awen. ilo li poka e sina e jan pi nanpa wawa sama. tan ni la sina awen lon tenpo lili. ken la sina li utala musi e jan ale ala.
+o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li ken kama jo e nanpa mute.</string>
+  <string name="howDoesItEnd">tenpo seme la pini li kama</string>
+  <string name="otherRules">nasin suli ante</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>
