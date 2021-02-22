@@ -118,7 +118,10 @@ final private class RelayFetch(
             slackApi.broadcastError(r.id.value, r.name, error)
           }
           60
-        } else r.sync.delay getOrElse 7
+        } else
+          r.sync.delay getOrElse {
+            if (upstream.local) 3 else 6
+          }
       r.withSync {
         _.copy(
           nextAt = DateTime.now plusSeconds {
