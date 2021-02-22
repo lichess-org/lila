@@ -691,8 +691,13 @@
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>
   <string name="classical">Clasurol</string>
+  <string name="bulletDesc">Gemau gyflym iawn: llai na 3 munud</string>
+  <string name="blitzDesc">Gemau gyflym: 3 i 8 munud</string>
+  <string name="rapidDesc">Gemau chwim: 8 i 25 munud</string>
+  <string name="classicalDesc">Gemau clasurol: 25 munud a fwy</string>
   <string name="important">Pwysig</string>
   <string name="tryTheContactPage">ceisiwch y tudalen cyswllt</string>
+  <string name="thisTopicIsArchived">Mae\'r pwnc hwn wedi cael ei archifo, dydw e ddim yn derbyn fwy o atebiadau.</string>
   <string name="joinTheTeamXToPost">Ymuno\'r %1$s, i bostio mewn fforwm hyn</string>
   <string name="youCannotPostYetPlaySomeGames">Ni allwch bostio yn y fforymau eto. Chwarae ychydig o gemau!</string>
   <string name="subscribe">Tanysgrifio</string>
