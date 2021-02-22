@@ -425,7 +425,7 @@
   <string name="privacy">ԳԱՂՏՆԻՈՒԹՅՈՒՆ</string>
   <string name="letOtherPlayersFollowYou">Թույլ տալ ուրիշ խաղացողներին ձեզ հետևել</string>
   <string name="letOtherPlayersChallengeYou">Թույլ տալ ուրիշ խաղացողներին ձեզ մարտահրավեր նետել</string>
-  <string name="sound">ձայն</string>
+  <string name="sound">Ձայն</string>
   <string name="none">Ոչ մեկը</string>
   <string name="fast">Արագ</string>
   <string name="normal">Նորմալ</string>
@@ -506,7 +506,7 @@
   <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
-  <string name="quickPairing">Արագ զուգավորում</string>
+  <string name="quickPairing">Արագ սկիզբ</string>
   <string name="lobby">Լոբբի</string>
   <string name="anonymous">Անանուն</string>
   <string name="language">Լեզու</string>
