@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
   <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
-  <string name="zenMode">禅意模式</string>
-  <string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
+  <string name="displayBoardResizeHandle">允许调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">当剩余时间小于10秒</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">当剩余时间小于10秒</string>
   <string name="horizontalGreenProgressBars">显示绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
   <string name="giveMoreTime">给对方更多时间</string>
-  <string name="gameBehavior">对局行为</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">对局行为</string>
   <string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
   <string name="clickTwoSquares">点起始位置和终止位置</string>
   <string name="dragPiece">拖棋子</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">将王移动两格</string>
   <string name="castleByMovingOntoTheRook">将王移到车上</string>
   <string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">对齐箭头到有效移动</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">赢棋或和棋后自动发送：”精彩的一局，下得不错！”</string>
   <string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>
 </resources>

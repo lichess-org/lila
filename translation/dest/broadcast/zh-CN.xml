@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">比赛直播</string>
+  <string name="broadcasts">直播</string>
   <string name="liveBroadcasts">比赛直播</string>
   <string name="newBroadcast">新比赛直播</string>
   <string name="ongoing">进行中</string>
-  <string name="upcoming">预定</string>
+  <string name="upcoming">即将举行</string>
   <string name="completed">完成</string>
   <string name="eventName">赛名</string>
   <string name="eventDescription">简短比赛说明</string>
   <string name="fullDescription">详细比赛说明</string>
   <string name="fullDescriptionHelp">直播内容的详细描述 (可选项目)。可以利用 %1$s。字数限于%2$s个字。</string>
+  <string name="sourceUrlOrGameIds">对局的 URL 链接或 ID</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
+  <string name="gameIdsHelp">或者，您可以输入最长 64 个字符的 Lichess 游戏 ID，用空格隔开。</string>
   <string name="roundNumber">轮数</string>
   <string name="startDate">开始日期 (在您的时区)</string>
   <string name="startDateHelp">如果您知道比赛开始时间 (可选项目)</string>

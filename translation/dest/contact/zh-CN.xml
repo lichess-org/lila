@@ -27,6 +27,7 @@
   <string name="wantClearHistory">我想要清除我的历史或积分</string>
   <string name="cantClearHistory">清除您的对局历史，训练题历史，或积分是不可能的。</string>
   <string name="wantReport">我想要举报一个用户</string>
+  <string name="toReportAPlayerUseForm">点击此处举报玩家</string>
   <string name="youCanAlsoReachReportPage">您也可以在该用户的个人资料页单击 %s 举报按钮。</string>
   <string name="doNotReportInForum">请不要在论坛举报。</string>
   <string name="doNotSendReportEmails">请不要向我们发送电邮举报。</string>
