@@ -26,6 +26,10 @@
   <string name="theKnight">Y marchog</string>
   <string name="itMovesInAnLShape">Mae\'n symud mewn siap L</string>
   <string name="thePawn">Y gwerinwr</string>
+  <string name="itMovesForwardOnly">Mae\'n symud ymlaen yn unig</string>
+  <string name="pawnIntro">Mae\'r gwerinwr yn gwan, ond maen nhw\'n cael llawer o botensial.</string>
+  <string name="pawnsMoveOneSquareOnly">Gall gwerinwr symud dim ond un sgwâr yn unig.
+Ond pan fod nhw\'n cyrraedd pen arall o\'r ffwrdd, maent yn troi mewn i ddarn cryfach!</string>
   <string name="captureThenPromote">Cipiwch, ac enillwch ddyrchafiad!</string>
   <string name="useAllThePawns">Defnyddiwch pob gwerinwr! Nid oes angen eu dyrchafu.</string>
   <string name="fundamentals">Pethau sylfaenol</string>
@@ -36,6 +40,8 @@
   <string name="takeTheBlackPiecesAndDontLoseYours">Cymryd y darnau du!
 A pheidio colli eich darnau chi.</string>
   <string name="captureComplete">Llongyfarchiadau! Rydych yn gwybod sut i frwydro gyda darnau gwyddbwyll!</string>
+  <string name="protection">Amddiffyniad</string>
+  <string name="keepYourPiecesSafe">Cadwch eich darnau yn saff</string>
   <string name="combat">Brwydro</string>
   <string name="attackTheOpponentsKing">Ymosod ar frenin y gwrthwynebydd</string>
   <string name="defendYourKing">Amddiffyna\'r teyrn</string>
