@@ -14,4 +14,6 @@
   <string name="declineGeneric">Nac ydw i\'n derbyn heriau ar hyn o bryd.</string>
   <string name="declineLater">Nid nawr yw amser da i fi, gofynnwch fi tro arall.</string>
   <string name="declineVariant">Dydw i ddim yn fodlon chwarae\'r amryw hyn ar hyn o bryd.</string>
+  <string name="declineNoBot">Dydw i ddim yn derbyn heriau wrth bots.</string>
+  <string name="declineOnlyBot">Rwy\'n ddim ond yn derbyn heriau wrth bots.</string>
 </resources>
