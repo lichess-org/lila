@@ -117,6 +117,9 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
+  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和等级分制（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
+
+相反地，你应该将等级分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的等级分可以帮助你预估出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
   <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
   <string name="displayPreferences">显示偏好</string>
