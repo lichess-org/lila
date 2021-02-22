@@ -18,4 +18,8 @@
   <string name="quitTeam">Gadael tîm</string>
   <string name="teamBestPlayers">Chwaraewyr gorau</string>
   <string name="teamRecentMembers">Aelodau a ymunodd yn ddiweddarach</string>
+  <string name="teamsIlead">Timau rwy\'n arwain</string>
+  <string name="teamPassword">Cyfrinair tîm</string>
+  <string name="incorrectTeamPassword">Cyfrinair tîm anghywir.</string>
+  <string name="teamAlreadyExists">Mae\'r tîm hwn yn bodoli yn barod.</string>
 </resources>
