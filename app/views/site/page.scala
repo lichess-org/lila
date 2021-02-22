@@ -114,13 +114,13 @@ $('#asset-version-message').text(lichess.info.message);"""
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lichess TV in your site"),
-            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood&bg=dark" $args></iframe>""")),
+            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
                 id := "tv-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=wood&bg=dark" $args></iframe>"""
+                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
             ),
@@ -133,14 +133,14 @@ $('#asset-version-message').text(lichess.info.message);"""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(
-              raw(s"""<iframe src="/training/frame?theme=wood&bg=dark" $args></iframe>""")
+              raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
             ),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
                 id := "puzzle-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/training/frame?theme=wood&bg=dark" $args></iframe>"""
+                value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
                 title := "Copy code",
