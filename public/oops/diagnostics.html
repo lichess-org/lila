@@ -23,6 +23,12 @@ function wasmInfo() {
   info.mvp = WebAssembly.validate(source);
   if (!info.mvp) return info;
 
+  var sourceWithSimd = Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11);
+  info.simd = WebAssembly.validate(sourceWithSimd);
+
+  var sourceWithSimdPostMvp = Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11);
+  info.simdPostMvp = WebAssembly.validate(sourceWithSimdPostMvp);
+
   if (info.SharedArrayBuffer !== 'function') return info;
   var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
   info.sharedMem = mem.buffer instanceof SharedArrayBuffer;
@@ -44,16 +50,9 @@ function wasmInfo() {
   return info;
 }
 
-function pnaclInfo() {
-  return {
-    mimeType: 'application/x-pnacl' in navigator.mimeTypes
-  };
-}
-
 function localStorageInfo() {
   var intresting = [
     'client-eval-enabled',
-    'analyse.ceval.watchdog3.pnacl',
     'analyse.ceval.max-depth',
     'analyse.ceval.multipv',
     'analyse.ceval.threads',
@@ -89,17 +88,19 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 5,
+  diagnosticsVersion: 6,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
     chrome: !!window.chrome,
     is64Bit: is64Bit(),
     hardwareConcurrency: navigator.hardwareConcurrency,
-    deviceMemory: navigator.deviceMemory
+    deviceMemory: navigator.deviceMemory,
+    connection: navigator.connection && {
+      saveData: navigator.connection.saveData
+    }
   },
   wasm: wasmInfo(),
-  pnacl: pnaclInfo(),
   hasTouchEvents: 'ontouchstart' in window,
   animate: typeof document.createElement('div').animate,
   localStorage: localStorageInfo(),
