@@ -5,5 +5,6 @@
   <string name="accounts">Cyfrifau</string>
   <string name="noUpperCaseDot">Na.</string>
   <string name="guidelines">canllawiau</string>
+  <string name="lichessRatings">Gradd Lichess</string>
   <string name="howToThreeDots">Sut i...</string>
 </resources>
