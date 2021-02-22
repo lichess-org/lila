@@ -2,6 +2,7 @@
 <resources>
   <string name="bestMove">Symudiad gorau!</string>
   <string name="keepGoing">Dalia ati…</string>
+  <string name="example">Enghraifft</string>
   <string name="history">Hanes Posau</string>
   <string name="failed">colli</string>
 </resources>
