@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">toki awen sona</string>
+  <string name="teachClassesOfChessStudents">o pana e sona tawa kulupa jan pi kama sona kepeken ilo lon lipu ni.</string>
   <string name="features">ken</string>
+  <string name="quicklyGenerateSafeUsernames">o pali e nimi awen tawa jan pi kama sona</string>
+  <string name="trackStudentProgress">o lukin e pali lon jan pi kama sona</string>
+  <string name="messageAllStudents">o toki pi sona sin tawa jan ale pi kama sona</string>
   <string name="closeClass">o pini e kulupu</string>
   <string name="reopen">kama sin</string>
   <string name="removedStudents">tenpo pini la weka</string>
