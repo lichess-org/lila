@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Dilysu dau gam</string>
+  <string name="twoFactorHelp">Mae dilysu dau gam yn ychwanegu haen arall o ddiogelwch i\'ch cyfrif.</string>
+  <string name="ifYouCannotScanEnterX">Os nad ydych yn gallu sganio côd, rhowch eich %s cudd i mewn i\'ch ap.</string>
+  <string name="authenticationCode">Cod dilysu</string>
+  <string name="enableTwoFactor">Galluogi dilysu dau gam</string>
+  <string name="disableTwoFactor">Analluogi dilysu dau gam</string>
+  <string name="twoFactorEnabled">Dilysu dau gam wedi\'i alluogi</string>
+</resources>
