@@ -353,6 +353,7 @@
   <string name="country">Gwlad</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
+  <string name="inlineNotation">Nodiant mewnlin</string>
   <string name="watchLichessTV">Gwylio ar lichess TV</string>
   <string name="previouslyOnLichessTV">Ar Lichess TV yn barod</string>
   <string name="onlinePlayers">Chwarewyr ar-lein</string>
@@ -432,6 +433,9 @@
   <string name="xCommentedY">Gadaweodd %1$s sylw %2$s</string>
   <string name="victory">Buddugoliaeth</string>
   <string name="defeat">Colled</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s mewn %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s mewn %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s mewn %3$s</string>
   <string name="timeline">Llinell amser</string>
   <string name="starting">Cychwyn:</string>
   <string name="allInformationIsPublicAndOptional">Mae pob gwybodaeth yn gyhoeddus ac yn ddewisol.</string>
@@ -524,8 +528,17 @@
   <string name="tournamentMayHaveBeenCanceled">Efallai erthylwyd y cystadleuaeth os gadawodd pob chwaraewr cyn iddo gychwyn.</string>
   <string name="returnToTournamentsHomepage">Nôl at dudalen cystadleuaethau</string>
   <string name="weeklyPerfTypeRatingDistribution">Dosbarthiad graddfa misol: %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="zero">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="one">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="two">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="few">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+    <item quantity="many">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+    <item quantity="other">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Dy raddfa %1$s di: %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Mae %1$s yn well na %2$s o chwaraewyr %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
   <string name="yourRating">Eich gradd</string>
   <string name="cumulative">Cronnus</string>
@@ -642,7 +655,7 @@
   <string name="doItAgain">Ailwneud</string>
   <string name="reviewWhiteMistakes">Adolygu camgymeriadau gwyn</string>
   <string name="reviewBlackMistakes">Adolygu camgymeriadau du</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Mantais</string>
+  <string name="advantage">Mantais</string>
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
