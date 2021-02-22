@@ -22,5 +22,10 @@ tenpo tawa poka li weka. wan poka tu li kama wan poka ala.
 musi li jo e tenpo open ala la musi pi lili tenpo li lon ala. (tenpo pi ala poka wan en tenpo pi ala poka tu li musi pi tenpo lili).
 
 sina pali e tawa luka tu wan lon musi la musi pi tenpo lili li pana e nanpa poka.</string>
+  <string name="howIsTheWinnerDecided">jan pi pini pona li jan seme?</string>
+  <string name="howIsTheWinnerDecidedAnswer">jan li jo e nanpa sewi lon pini tenpo la jan ni li kama jan pi pini pona.
+
+jan mute li jo e nanpa sama la utala musi li kama sama.</string>
+  <string name="howDoesPairingWork">jan li poka kepeken nasin seme</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>
