@@ -12,8 +12,6 @@ final private class DiscordClient(ws: StandaloneWSClient, url: Secret)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  private val defaultChannel = "webhook"
-
   private val limiter = new RateLimit[DiscordMessage](
     credits = 1,
     duration = 15 minutes,
