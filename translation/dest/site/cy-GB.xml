@@ -146,6 +146,14 @@
   <string name="correspondence">Drwy\'r post</string>
   <string name="daysPerTurn">Dyddiau y tro</string>
   <string name="oneDay">Un dydd</string>
+  <plurals name="nbDays">
+    <item quantity="zero">%s o ddyddiau</item>
+    <item quantity="one">%s diwrnod</item>
+    <item quantity="two">%s ddiwrnod</item>
+    <item quantity="few">%s ddiwrnod</item>
+    <item quantity="many">%s ddiwrnod</item>
+    <item quantity="other">%s ddiwrnod</item>
+  </plurals>
   <string name="time">Amser chwarae</string>
   <string name="rating">Graddfa</string>
   <string name="ratingStats">Ystadegau graddfa</string>
@@ -215,6 +223,14 @@
   <string name="incrementInSeconds">Cynyddiad (eiliadau)</string>
   <string name="freeOnlineChess">Gwyddbwyll ar-lein am ddim</string>
   <string name="spectators">Ymwelwyr</string>
+  <plurals name="nbWins">
+    <item quantity="zero">Enillodd %s gêmau</item>
+    <item quantity="one">Enillodd %s gêm</item>
+    <item quantity="two">Enillodd %s gêm</item>
+    <item quantity="few">Enillodd %s gêmau</item>
+    <item quantity="many">Enillodd %s gêmau</item>
+    <item quantity="other">Enillodd %s gêmau</item>
+  </plurals>
   <string name="exportGames">Allforio</string>
   <string name="ratingRange">Graddfa rhwng</string>
   <string name="thisAccountViolatedTos">Mae\'r defnyddiwr y cyfrif yma wedi torri termau defnyddio Lichess</string>
@@ -626,6 +642,7 @@
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>
   <string name="bestWasX">%s oedd orau</string>
+  <string name="youBrowsedAway">Wnaethoch chi bori i fwrdd</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="theGameIsADraw">Canlyniad gem gyfartal.</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
