@@ -39,5 +39,6 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
     <item quantity="other">musi li pini sama lon tawa pi nanpa %s la jan ala li kama jo e nanpa.</item>
   </plurals>
   <string name="thisIsPrivate">jan pona taso li ken musi e utala musi ni</string>
+  <string name="shareUrl">o pana e nimi open tawa jan la jan li ken kama: %s</string>
   <string name="history">ma utala pi tenpo pini</string>
 </resources>
