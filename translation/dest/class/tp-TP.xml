@@ -20,7 +20,15 @@
   <string name="sendAMessage">o toki tawa jan pi kama sona ale.</string>
   <string name="aLinkToTheClassWillBeAdded">nimi open pi lipu sona li lon pini pi toki sina. sina wile ala pana e ona.</string>
   <string name="className">nimi kulupu</string>
+  <string name="classDescription">kulupu ni li seme</string>
   <string name="visibleByBothStudentsAndTeachers">jan pi kama sona en jan pi pana sona li ken lukin e ni</string>
+  <string name="teachersOfTheClass">jan pi pana sona lon kulupu ni</string>
+  <string name="addLichessUsernames">o pana e nimi jan la sina pana e jan ni. linja wan li jo e nimi wan.</string>
+  <string name="theyMustFirstApply">ona li wile wile kama jan pi pana sona.</string>
+  <string name="resetPassword">nimi awen sin</string>
+  <string name="makeSureToCopy">o sitelen e nimi awen lon tenpo ni. tenpo kama la sina ken ala lukin e ni!</string>
+  <string name="passwordX">nimi awen: %s</string>
+  <string name="generateANewPassword">o pana e nimi awen sin tawa jan pi kama sona</string>
   <string name="realName">nimi lon</string>
   <string name="addStudent">poka e jan pi kama sona</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
