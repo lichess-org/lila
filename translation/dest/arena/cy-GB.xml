@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Cystadlaethau Arena</string>
   <string name="isItRated">Ydi o\'n cael ei raddio?</string>
   <string name="willBeNotified">Cewch eich hysbysu pan fydd y talwrn yn dechrau, felly mae\'n saff i chwarae mewn tab arall tra\'n aros.</string>
   <string name="isRated">Mae\'r talwrn yma yn un swyddogol ac mi fydd yn effeithio\'ch gradd.</string>
