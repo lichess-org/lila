@@ -459,12 +459,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ajakontrollita!</string>
   <string name="success">Edukas</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s mängitud mängu</item>
-    <item quantity="other">%s mängitud mängu</item>
+    <item quantity="one">%s mängu pooleli</item>
+    <item quantity="other">%s mängu pooleli</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Pärast käiku avab järgmise mängu</string>
-  <string name="autoSwitch">Vaheta automaatselt</string>
-  <string name="puzzles">Pusle</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Liigu automaatselt järgmise mängu juurde pärast käiku</string>
+  <string name="autoSwitch">Automaatne siirdumine</string>
+  <string name="puzzles">Pusled</string>
   <string name="latestUpdates">Viimased uuendused</string>
   <string name="tournamentWinners">Turniiri võitjad</string>
   <string name="name">Nimi</string>
@@ -473,7 +473,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yes">Jah</string>
   <string name="help">Abi:</string>
   <string name="createANewTopic">Loo uus teema</string>
-  <string name="topics">Teemasid</string>
+  <string name="topics">Teemad</string>
   <string name="posts">Postitused</string>
   <string name="lastPost">Viimane postitus</string>
   <string name="views">vaatamisi</string>
