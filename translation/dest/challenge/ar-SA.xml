@@ -6,4 +6,7 @@
   <string name="challengeAccepted">تم قبول التحدي!</string>
   <string name="challengeCanceled">تم إلغاء التحدي.</string>
   <string name="registerToSendChallenges">الرجاء التسجيل لإرسال تحديات.</string>
+  <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
+  <string name="yourXRatingIsTooFarFromY">تقييمك %1$s أعلى من %2$s.</string>
 </resources>
