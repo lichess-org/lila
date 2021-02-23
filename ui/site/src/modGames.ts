@@ -21,10 +21,19 @@ lichess.load.then(() => {
 });
 
 const bindForm = (form: HTMLFormElement) => {
-  $(form).on(
-    'submit',
-    debounce(() => formToXhr(form).then(() => alert('Analysis started.')), 1000)
+  const debouncedSubmit = debounce(
+    () =>
+      formToXhr(form).then(() => {
+        const reload = confirm('Analysis completed. Reload the page?');
+        if (reload) lichess.reload();
+      }),
+    1000
   );
+  $(form).on('submit', () => {
+    $(form).find('button').text('Sent').prop('disabled', true);
+    debouncedSubmit();
+    return false;
+  });
 };
 
 const shiftClickCheckboxRange = (table: HTMLTableElement): OnSelect => {

@@ -3,6 +3,7 @@ package controllers
 import chess.format.FEN
 import chess.White
 import play.api.mvc._
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
@@ -58,6 +59,7 @@ final class Analyse(
                     )
                   )
                 }.sequenceFu >>
+                  env.fishnet.awaiter(games.map(_.id), 2 minutes) >>
                   env.mod.assessApi.ensurePlayerAssess(user.id, games)
               } inject NoContent
           )

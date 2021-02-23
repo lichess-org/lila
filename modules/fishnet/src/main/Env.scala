@@ -83,6 +83,8 @@ final class Env(
 
   lazy val analyser = wire[Analyser]
 
+  lazy val awaiter = wire[FishnetAwaiter]
+
   lazy val aiPerfApi = wire[AiPerfApi]
 
   wire[Cleaner]
