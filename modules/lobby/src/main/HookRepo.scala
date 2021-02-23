@@ -41,7 +41,7 @@ final private class HookRepo {
 
   // O(n)
   // invoked when a hook is added
-  def bySid(sid: String) = hooks.values.find(_.sid == sid.some)
+  def bySid(sid: String) = hooks.values.find(_.sid has sid)
 
   // O(n)
   def notInSris(sris: Set[Sri]): Set[Hook] = hooks.values.filterNot(h => sris(h.sri))
