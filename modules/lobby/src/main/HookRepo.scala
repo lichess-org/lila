@@ -18,6 +18,8 @@ final private class HookRepo {
 
   implicit private val creationOrdering = Ordering.by[Hook, Long](_.createdAt.getMillis)
 
+  def size = hooks.size
+
   // O(n)
   def filter(f: Hook => Boolean): View[Hook] = hooks.values.view.filter(f)
 
