@@ -612,18 +612,18 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s người chơi tuần này.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Điểm hệ số thứ hạng %1$s của bạn là %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s trong số %2$s người chơi.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s tốt hơn %2$s người chơi %3$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Điểm hệ số thứ hạng %s của bạn chưa xác lập.</string>
-  <string name="yourRating">Chỉ số của bạn</string>
+  <string name="yourPerfTypeRatingIsRating">Xếp hạng %1$s của bạn là %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
+  <string name="yourRating">Xếp hạng của bạn</string>
   <string name="cumulative">Tích luỹ</string>
   <string name="glicko2Rating">Chỉ số Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi đã gửi cho bạn một email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác.</string>
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý bị ràng buộc bởi chúng tôi %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý tuân thủ %s của chúng tôi.</string>
   <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
   <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ lichess</string>
