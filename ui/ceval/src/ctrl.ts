@@ -48,15 +48,15 @@ export default function (opts: CevalOpts): CevalCtrl {
   // select nnue > hce > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
-  const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
+  const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
     const sharedMem = sharedWasmMemory(8, 16);
     if (sharedMem) {
       technology = 'hce';
 
-      // prettier-ignore
-      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]);
+      // i32x4.dot_i16x8_s
+      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]); // prettier-ignore
       if (
         !(navigator as any).connection?.saveData &&
         officialStockfish(opts.variant.key) &&

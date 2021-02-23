@@ -46,7 +46,7 @@ object features {
               "Deep Stockfish 13+ server analysis"
             ),
             tr(unlimited)(
-              "Instant local Stockfish 12+ analysis"
+              "Instant local Stockfish 13+ analysis"
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(

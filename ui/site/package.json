@@ -20,10 +20,10 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
-    "stockfish-mv.wasm": "^0.5.2",
+    "stockfish-mv.wasm": "^0.6.0",
     "stockfish-nnue.wasm": "0.0.1",
     "stockfish.js": "^10.0.2",
-    "stockfish.wasm": "^0.9.1",
+    "stockfish.wasm": "^0.10.0",
     "tablesort": "^5.1",
     "zxcvbn": "^4.4.2"
   },
