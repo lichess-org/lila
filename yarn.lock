@@ -770,7 +770,7 @@ chessground@^7.9.2:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.9.3.tgz#dec20a45afe439fe9ed961836a7e5a9157087141"
   integrity sha512-6vU1q3u/69aHt/Y/UwNk9h9BxPhOuJl+xTQH/taicVZcVY7VcUEUpt+yvVGgglooPgOzM/uj2Rzv5Pcaj/R2/A==
 
-"chessground@git+https://github.com/hi-ogawa/chessground.git#custom-drawable":
+"chessground@git+https://github.com/hi-ogawa/chessground.git#dce6cbd29c91e499862671f7ba7db5be6ba4e46e":
   version "7.9.3"
   resolved "git+https://github.com/hi-ogawa/chessground.git#dce6cbd29c91e499862671f7ba7db5be6ba4e46e"
 
