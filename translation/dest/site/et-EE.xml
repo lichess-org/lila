@@ -541,14 +541,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
   <string name="yourCityRegionOrDepartment">Linn, maakond või regioon.</string>
-  <string name="biographyDescription">Rääkige endast, mis teile meeldib male juures, teie lemmikud avangud, mängijad, jne…</string>
+  <string name="biographyDescription">Räägi endast, oma huvidest, mis meeldib male juures, lemmikavangud, mängijad, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s märki.</item>
     <item quantity="other">Maksimum: %s märki.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blokeeritud kasutajad</item>
-    <item quantity="other">%s blokeeritud kasutajad</item>
+    <item quantity="one">%s blokeeritud kasutaja</item>
+    <item quantity="other">%s blokeeritud kasutajat</item>
   </plurals>
   <string name="listBlockedPlayers">Näita blokeeritud kasutajad</string>
   <string name="human">Inimene</string>
