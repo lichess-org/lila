@@ -5,8 +5,13 @@
   <string name="arabianMate">Arabský mat</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="capturingDefender">Odstranění obránce</string>
+  <string name="defensiveMove">Obranný tah</string>
   <string name="doubleCheck">Dvojný šach</string>
   <string name="endgame">Koncovka</string>
+  <string name="exposedKing">Ohrožený král</string>
+  <string name="fork">Vidlička</string>
+  <string name="hangingPiece">Visící figura</string>
+  <string name="intermezzo">Intermezzo</string>
   <string name="queenRookEndgame">Královna a věž</string>
   <string name="queenRookEndgameDescription">Konec hry jen s královnami, věžemi a pěšci.</string>
   <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
