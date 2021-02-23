@@ -2,11 +2,11 @@
 <resources>
   <string name="moveToStart">Đi quân để bắt đầu</string>
   <string name="puzzlesSolved">thế cờ đã giải</string>
-  <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
-  <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
-  <string name="newMonthlyHighscore">Điểm cao hàng tháng mới!</string>
+  <string name="newDailyHighscore">Điểm cao mới hàng ngày!</string>
+  <string name="newWeeklyHighscore">Điểm cao mới hàng tuần!</string>
+  <string name="newMonthlyHighscore">Điểm cao mới hàng tháng!</string>
   <string name="newAllTimeHighscore">Điểm cao mới!</string>
-  <string name="previousHighscoreWasX">Điểm cao trước là %s</string>
+  <string name="previousHighscoreWasX">Điểm cao trước đây là %s</string>
   <string name="playAgain">Chơi lại</string>
   <plurals name="xRuns">
     <item quantity="other">%s lần chơi</item>
