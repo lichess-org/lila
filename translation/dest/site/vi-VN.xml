@@ -548,6 +548,7 @@
   <string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
   <string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
   <string name="menu">Trình đơn</string>
   <string name="castling">Nhập thành</string>
