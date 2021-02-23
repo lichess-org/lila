@@ -692,14 +692,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="phoneAndTablet">Telefon ja tahvelarvuti</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klassikaline</string>
   <string name="correspondenceChess">Kirimale</string>
-  <string name="onlineAndOfflinePlay">Online ja offline mängida</string>
+  <string name="onlineAndOfflinePlay">Online ja offline mängud</string>
   <string name="viewTheSolution">Vaata lahendus</string>
-  <string name="followAndChallengeFriends">Jälgi ja sõpradele väljakutse</string>
+  <string name="followAndChallengeFriends">Jälgi sõpru ja esita väljakutseid</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saadaval %s keeles!</item>
     <item quantity="other">Saadaval %s keeles!</item>
   </plurals>
-  <string name="gameAnalysis">Mäng analüüs</string>
+  <string name="gameAnalysis">Mängu analüüs</string>
   <string name="xHostsY">%1$s liitub %2$s</string>
   <string name="xJoinsY">%1$s liitub %2$s</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
