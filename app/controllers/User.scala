@@ -403,7 +403,7 @@ final class User(
         ) flatMap {
           _ ?? { as =>
             env.user.lightUserApi
-              .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as)
+              .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(user, as)
           }
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)

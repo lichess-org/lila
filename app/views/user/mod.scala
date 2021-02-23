@@ -351,7 +351,9 @@ object mod {
       )
     )
 
-  def assessments(pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit ctx: Context): Frag =
+  def assessments(u: User, pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit
+      ctx: Context
+  ): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "j")(
@@ -422,7 +424,7 @@ object mod {
       table(cls := "slist")(
         thead(
           tr(
-            th("Opponent"),
+            th(a(href := routes.GameMod.index(u.username))("Games view")),
             th("Game"),
             th("Centi-Pawn", br, "(Avg ± SD)"),
             th("Move Times", br, "(Avg ± SD)"),
