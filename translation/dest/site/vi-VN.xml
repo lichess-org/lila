@@ -397,11 +397,11 @@
   <string name="whiteWins">Trắng thắng</string>
   <string name="blackWins">Đen thắng</string>
   <string name="draws">Hoà</string>
-  <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
-  <string name="averageOpponent">Rate đối thủ (trung bình)</string>
-  <string name="membersOnly">Chỉ có thành viên</string>
+  <string name="nextXTournament">Giải đấu %s tiếp theo:</string>
+  <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
+  <string name="membersOnly">Chỉ dành cho thành viên</string>
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
-  <string name="setTheBoard">Thiết lập bàn</string>
+  <string name="setTheBoard">Thiết lập bàn cờ</string>
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
