@@ -3,8 +3,8 @@
   <string name="settings">Cài đặt</string>
   <string name="closeAccount">Đóng tài khoản</string>
   <string name="closingIsDefinitive">Việc đóng là dứt điểm. Không có cách nào có thể quay lại. Bạn có chắc không?</string>
-  <string name="cantOpenSimilarAccount">Bạn không được phép tạo tài khoản trùng tên, kể cả trường hợp khác chữ cái.</string>
+  <string name="cantOpenSimilarAccount">Bạn không được phép tạo tài khoản trùng tên, kể cả trường hợp khác chữ hoa, thường.</string>
   <string name="changedMindDoNotCloseAccount">Tôi đã đổi ý, đừng đóng tài khoản của tôi</string>
-  <string name="closeAccountExplanation">Bạn có chắc muốn đóng tài khoản? Việc đóng tài khoản là quyết định vĩnh viễn. Bạn sẽ KHÔNG BAO GIỜ có thể đăng nhập lại.</string>
+  <string name="closeAccountExplanation">Bạn có chắc muốn đóng tài khoản? Việc đóng tài khoản là quyết định vĩnh viễn. Bạn sẽ KHÔNG BAO GIỜ có thể ĐĂNG NHẬP LẠI.</string>
   <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
 </resources>
