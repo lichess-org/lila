@@ -654,12 +654,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cumulative">Kumulatiivne</string>
   <string name="glicko2Rating">Glicko-2 reiting</string>
   <string name="checkYourEmail">Kontrolli oma e-posti</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Saatsime sulle emaili. Konto aktiveerimiseks klikki emailis olevale lingile.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-posti, vaadata teistes kohtades võib olla, nagu oma Rämpspost, sotsiaal- või muid kaustu.</string>
-  <string name="weHaveSentYouAnEmailTo">Saatsime e %s. Kliki lingile e-posti salasõna uuendamise.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute olema seotud meie %s.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Saatsime sulle e-maili. Konto aktiveerimiseks kliki e-mailis olevale lingile.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-maili, vaata ka teised kohad üle nagu rämpspost ja muud kaustad.</string>
+  <string name="weHaveSentYouAnEmailTo">Saatsime e-maili %s. Parooli uuendamiseks kliki e-mailis olevale lingile.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute %s.</string>
   <string name="readAboutOur">Lugege rohkem: %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Võrgu lag vahel teid ja Lichessi</string>
+  <string name="networkLagBetweenYouAndLichess">Võrguviivitus sinu ja Lichessi vahel</string>
   <string name="timeToProcessAMoveOnLichessServer">Käigu töötlemise aeg lichess serveril</string>
   <string name="downloadAnnotated">Lae selgitustega</string>
   <string name="downloadRaw">Lae toores</string>
