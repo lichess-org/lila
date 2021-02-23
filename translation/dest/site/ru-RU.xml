@@ -641,7 +641,7 @@
   <string name="error.email_unique">Этот адрес электронной почты уже занят</string>
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
-  <string name="onlyExistingConversations">Только существующие обсуждения</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Только существующие обсуждения</string>
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
