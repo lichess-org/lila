@@ -313,7 +313,7 @@
     <item quantity="few">%s поена на турнирима</item>
     <item quantity="other">%s поена на турнирима</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="one">%s студија</item>
     <item quantity="few">%s студије</item>
     <item quantity="other">%s студија</item>
@@ -809,7 +809,7 @@
   <string name="doItAgain">Урадите поново</string>
   <string name="reviewWhiteMistakes">Пронађите грешке белог</string>
   <string name="reviewBlackMistakes">Пронађите грешке црног</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Предност</string>
+  <string name="advantage">Предност</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
     <item quantity="few">%s секунде</item>
