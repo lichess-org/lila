@@ -9,4 +9,5 @@
   <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
   <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
   <string name="yourXRatingIsTooFarFromY">تقييمك %1$s أعلى من %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">لا يمكن ارسال التحدي بسبب تقييم %s المبدئي.</string>
 </resources>
