@@ -24,7 +24,7 @@
   <string name="blackIsVictorious">Võitis must</string>
   <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
   <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
-  <string name="itsYourTurn">Teie Käik!</string>
+  <string name="itsYourTurn">Sinu käik!</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
@@ -66,7 +66,7 @@
   <string name="promoteVariation">Edenda varient</string>
   <string name="makeMainLine">Tee põhiliiniks</string>
   <string name="deleteFromHere">Kustuta alates siit</string>
-  <string name="forceVariation">Sunni varitatsiooni</string>
+  <string name="forceVariation">Sunni variatsiooni</string>
   <string name="move">Käik</string>
   <string name="variantLoss">Variandi kaotus</string>
   <string name="variantWin">Variant võidab</string>
@@ -151,7 +151,7 @@
   <string name="latestForumPosts">Viimased foorumi postitused</string>
   <string name="players">Maletajad</string>
   <string name="friends">Sõbrad</string>
-  <string name="discussions">Arutlused</string>
+  <string name="discussions">Vestlused</string>
   <string name="today">Täna</string>
   <string name="yesterday">Eile</string>
   <string name="minutesPerSide">Minutit poole kohta</string>
@@ -159,7 +159,7 @@
   <string name="variants">variandid</string>
   <string name="timeControl">Aja kontroll</string>
   <string name="realTime">Reaalajas</string>
-  <string name="correspondence">Pikad mängud</string>
+  <string name="correspondence">Kirimale</string>
   <string name="daysPerTurn">Päevi käiguks</string>
   <string name="oneDay">Üks päev</string>
   <plurals name="nbDays">
@@ -580,6 +580,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.email_unique">See e-posti aadress on juba võetud</string>
   <string name="error.email_different">See on juba teie e-posti aadress</string>
   <string name="ifRatingIsPlusMinusX">Kui Reiting on ±%s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Ainult olemasolevad vestlused</string>
   <string name="onlyFriends">Ainult sõbrad</string>
   <string name="menu">Menüü</string>
   <string name="castling">Vangerdus</string>
