@@ -176,8 +176,8 @@
   <string name="username">Kasutaja nimi</string>
   <string name="usernameOrEmail">Kasutajanimi või email</string>
   <string name="changeUsername">Muuda kasutajanime</string>
-  <string name="changeUsernameNotSame">Muuta saab ainult tähe rõhku. Näiteks \"karlsuur\" \"KarlSuur\"\'ks.</string>
-  <string name="changeUsernameDescription">Muuda oma kasutajanime, seda saad teha ainult 1 korra ning muuta on võimalik ainult kasutajanime tõstutundlikkust.</string>
+  <string name="changeUsernameNotSame">Muuta saab ainult tähe suurust. Näiteks \"karlsuur\" ja \"KarlSuur\".</string>
+  <string name="changeUsernameDescription">Muuda kasutajanime. Seda saad teha ainult korra ning muuta on võimalik ainult kasutajanimes leiduvate tähtede suurust.</string>
   <string name="password">Salasõna</string>
   <string name="changePassword">Muuda salasõna</string>
   <string name="changeEmail">Muuda email</string>
@@ -200,8 +200,8 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
-  <string name="whiteTimeOut">Valgete aeg on läbi</string>
-  <string name="blackTimeOut">Mustade aeg on läbi</string>
+  <string name="whiteTimeOut">Valge aeg on läbi</string>
+  <string name="blackTimeOut">Musta aeg on läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
@@ -236,7 +236,7 @@
   <string name="rematchOfferDeclined">Kordusmäng tagasilükatud</string>
   <string name="cancelRematchOffer">Tühista kordusmängu pakkumine</string>
   <string name="viewRematch">Vaata kordusmängu</string>
-  <string name="confirmMove">Kinnitage käik</string>
+  <string name="confirmMove">Kinnita käik</string>
   <string name="play">Mängi</string>
   <string name="inbox">Postkast</string>
   <string name="chatRoom">Jututuba</string>
