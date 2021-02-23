@@ -587,18 +587,18 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="whiteCastlingKingside">Valge O-O</string>
   <string name="blackCastlingKingside">Must O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Foorumi postitused</item>
-    <item quantity="other">%s Foorumi postitused</item>
+    <item quantity="one">%s foorumipostitus</item>
+    <item quantity="other">%s foorumipostitust</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Aeg kulutatud mängimiseks: %s</string>
+  <string name="tpTimeSpentPlaying">Mängimiseks kulutatud aeg: %s</string>
   <string name="watchGames">Vaata mänge</string>
-  <string name="tpTimeSpentOnTV">Aeg kulutatud TV: %s</string>
+  <string name="tpTimeSpentOnTV">Aeg Lichess TV-s: %s</string>
   <string name="watch">Vaata</string>
   <string name="videoLibrary">Videod</string>
   <string name="streamersMenu">Striimijad</string>
-  <string name="mobileApp">Mobiili App</string>
-  <string name="webmasters">Administraator</string>
-  <string name="about">Rakenduse info</string>
+  <string name="mobileApp">Mobiilirakendus</string>
+  <string name="webmasters">Administraatorid</string>
+  <string name="about">Info</string>
   <string name="aboutX">Info %s kohta</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud koodiga male server.</string>
   <string name="really">päriselt</string>
