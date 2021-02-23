@@ -15,26 +15,26 @@ final class MultiKeyMap[K1, K2, V](val values: Set[V], index1: Map[K1, V], index
 
   def key1s: Iterable[K1] = index1.keys
 
-  def updated(value: V): MultiKeyMap[K1, K2, V] = {
-    val (k1, k2) = (toK1(value), toK2(value))
+  def updated(toAdd: V): MultiKeyMap[K1, K2, V] = {
+    val (k1, k2) = (toK1(toAdd), toK2(toAdd))
     copy(
-      values = values -- Set(get1(k1), get2(k2)).flatten + value,
-      index1 = index1.removed(k1).updated(k1, value),
-      index2 = index2.removed(k2).updated(k2, value)
+      values = values -- Set(get1(k1), get2(k2)).flatten + toAdd,
+      index1 = index1.removed(k1).updated(k1, toAdd),
+      index2 = index2.removed(k2).updated(k2, toAdd)
     )
   }
 
-  def removed(value: V): MultiKeyMap[K1, K2, V] = {
-    val (k1, k2) = (toK1(value), toK2(value))
+  def removed(toRemove: V): MultiKeyMap[K1, K2, V] = {
+    val (k1, k2) = (toK1(toRemove), toK2(toRemove))
     copy(
-      values = values -- Set(get1(k1), get2(k2)).flatten + value,
+      values = values -- Set(get1(k1), get2(k2)).flatten,
       index1 = index1.removed(k1),
       index2 = index2.removed(k2)
     )
   }
 
-  def removed(values: Set[V]): MultiKeyMap[K1, K2, V] = {
-    val (k1s, k2s) = (values map toK1, values map toK2)
+  def removed(toRemove: Set[V]): MultiKeyMap[K1, K2, V] = {
+    val (k1s, k2s) = (toRemove map toK1, toRemove map toK2)
     copy(
       values = values -- k1s.flatMap(get1) -- k2s.flatMap(get2),
       index1 = index1 -- k1s,
@@ -42,13 +42,11 @@ final class MultiKeyMap[K1, K2, V](val values: Set[V], index1: Map[K1, V], index
     )
   }
 
-  // def filter(f: V => Boolean) = new MultiKeyMap(values filter f)(toK1, toK2)
-
   def size = values.size
 
   def reset(newValues: Set[V]) = if (newValues == values) this else MultiKeyMap(newValues)(toK1, toK2)
 
-  def copy(values: Set[V], index1: Map[K1, V], index2: Map[K2, V]) =
+  private def copy(values: Set[V], index1: Map[K1, V], index2: Map[K2, V]) =
     new MultiKeyMap(values, index1, index2)(toK1, toK2)
 }
 
