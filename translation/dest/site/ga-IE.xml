@@ -349,7 +349,7 @@
     <item quantity="many">%s pointe comórtais</item>
     <item quantity="other">%s pointí comórtais</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="one">%s staidéar</item>
     <item quantity="two">%s staidéir</item>
     <item quantity="few">%s staidéir</item>
@@ -879,7 +879,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="doItAgain">Déan arís é</string>
   <string name="reviewWhiteMistakes">Athbhreithniú botúin bhána</string>
   <string name="reviewBlackMistakes">Athbhreithniú botúin dhubh</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
+  <string name="advantage">Buntáiste</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s soicind</item>
     <item quantity="two">%s soicind</item>
