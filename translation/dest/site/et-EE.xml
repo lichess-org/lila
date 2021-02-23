@@ -534,9 +534,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
   <string name="victory">Võit</string>
   <string name="defeat">Kaotus</string>
-  <string name="victoryVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
-  <string name="defeatVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
-  <string name="drawVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s kategoorias %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s kategoorias %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s kategoorias %3$s</string>
   <string name="timeline">Ajatelg</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
