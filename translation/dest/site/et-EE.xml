@@ -368,18 +368,18 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="follow">Jälgi</string>
   <string name="following">Jälgitakse</string>
   <string name="unfollow">Lõpeta jälgimine</string>
-  <string name="block">Bloki</string>
+  <string name="block">Blokeeri</string>
   <string name="blocked">Blokeeritud</string>
   <string name="unblock">Tühista blokeering</string>
-  <string name="followsYou">Jälgivad sind</string>
-  <string name="xStartedFollowingY">%1$s hakkas jälgima%2$s</string>
+  <string name="followsYou">Jälgib sind</string>
+  <string name="xStartedFollowingY">%1$s hakkas jälgima %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jälgija</item>
     <item quantity="other">%s jälgijat</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s jälgib</item>
-    <item quantity="other">%s jälgib</item>
+    <item quantity="one">%s jälgimine</item>
+    <item quantity="other">%s jälgimist</item>
   </plurals>
   <string name="more">Rohkem</string>
   <string name="memberSince">Liige alates</string>
