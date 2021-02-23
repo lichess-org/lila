@@ -508,10 +508,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="newPasswordAgain">Uus parool (uuesti)</string>
   <string name="newPasswordsDontMatch">Uued paroolid ei ühti</string>
   <string name="newPasswordStrength">Salasõna tugevus</string>
-  <string name="clockInitialTime">Kella algne aeg</string>
+  <string name="clockInitialTime">Põhiaeg</string>
   <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>
-  <string name="privacyPolicy">Privaatsus</string>
+  <string name="privacyPolicy">Privaatsuspolitiika</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
