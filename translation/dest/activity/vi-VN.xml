@@ -6,7 +6,7 @@
     <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng như một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Đã luyện tập %1$s vị trí ở %2$s</item>
+    <item quantity="other">Đã tập %1$s thế cờ ở %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="other">Đã giải %s bài chiến thuật</item>
@@ -33,19 +33,19 @@
     <item quantity="other">Có %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Làm chủ %s đồng đa ván đa kỳ thủ</item>
+    <item quantity="other">Làm chủ %s ván cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Tham gia %s đồng đa ván đa kỳ thủ</item>
+    <item quantity="other">Tham gia %s ván cờ đồng loạt</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">Đã tạo %s bài học mới</item>
+    <item quantity="other">Đã tạo %s nghiên cứu mới</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="other">Hoàn thành %s giải đấu</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="other">Hạng #%1$s (tốp %2$s%%) với %3$s ván ở %4$s</item>
+    <item quantity="other">Hạng #%1$s (top %2$s%%) với %3$s ván ở %4$s</item>
   </plurals>
   <string name="signedUp">Đã ghi danh ở lichess.org</string>
   <plurals name="joinedNbTeams">
