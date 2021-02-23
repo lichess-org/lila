@@ -540,7 +540,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="timeline">Ajatelg</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
-  <string name="yourCityRegionOrDepartment">Teie asukoht. Linn, maakond või muu.</string>
+  <string name="yourCityRegionOrDepartment">Linn, maakond või regioon.</string>
   <string name="biographyDescription">Rääkige endast, mis teile meeldib male juures, teie lemmikud avangud, mängijad, jne…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s märki.</item>
