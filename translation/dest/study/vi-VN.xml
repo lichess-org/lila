@@ -26,11 +26,13 @@
   <plurals name="nbMembers">
     <item quantity="other">%s thành viên</item>
   </plurals>
+  <string name="inviteToTheStudy">Mời vào học</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
   <string name="searchByUsername">Tìm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
   <string name="kick">Đá</string>
+  <string name="leaveTheStudy">Rời bài học</string>
   <string name="youAreNowAContributor">Bây giờ bạn là một người đóng góp</string>
   <string name="youAreNowASpectator">Bây giờ bạn là người xem</string>
   <string name="pgnTags">Nhãn PGN</string>
@@ -52,7 +54,17 @@
   <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Tạo bản sao</string>
+  <string name="studyPgn">PNG bài học</string>
+  <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
+  <string name="chapterPgn">PNG chương</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
+  <string name="studyUrl">URL bài học</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL phát sóng</string>
+  <string name="currentChapterUrl">URL chương hiện tại</string>
+  <string name="currentGameUrl">URL ván đấu hiện tại</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Bạn có thể dán cái này vào diễn đàn để nhúng</string>
+  <string name="startAtInitialPosition">Bắt đầu từ thế trận ban đầu</string>
+  <string name="startAtX">Bắt đầu tại nước %s</string>
   <string name="embedInYourWebsite">Nhúng vào website hoặc blog của bạn</string>
   <string name="readMoreAboutEmbedding">Đọc thêm về việc nhúng</string>
   <string name="open">Mở</string>
