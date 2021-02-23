@@ -453,7 +453,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="inlineNotation">Tekstisisene märge</string>
   <string name="watchLichessTV">Vaata Lichess TV-d</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
-  <string name="onlinePlayers">Kohal olevad mängijad</string>
+  <string name="onlinePlayers">Mängijad kohal</string>
   <string name="activeToday">Aktiivne täna</string>
   <string name="activePlayers">Aktiivsed mängijad</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ajakontrollita!</string>
@@ -503,9 +503,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="incorrectPassword">Vale parool</string>
   <string name="invalidAuthenticationCode">Väär autentimise kood</string>
   <string name="emailMeALink">Saada mulle link</string>
-  <string name="currentPassword">Praegune salasõna</string>
-  <string name="newPassword">Uus salasõna</string>
-  <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
+  <string name="currentPassword">Praegune parool</string>
+  <string name="newPassword">Uus parool</string>
+  <string name="newPasswordAgain">Uus parool (uuesti)</string>
   <string name="newPasswordsDontMatch">Uued paroolid ei ühti</string>
   <string name="newPasswordStrength">Salasõna tugevus</string>
   <string name="clockInitialTime">Kella algne aeg</string>
