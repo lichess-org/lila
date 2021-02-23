@@ -382,8 +382,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">%s jälgimist</item>
   </plurals>
   <string name="more">Rohkem</string>
-  <string name="memberSince">Liige alates</string>
-  <string name="lastSeenActive">Viimane sisenemine %s</string>
+  <string name="memberSince">Liitunud</string>
+  <string name="lastSeenActive">Nähtud viimati %s</string>
   <string name="player">Mängija</string>
   <string name="list">Nimekiri</string>
   <string name="graph">Graafik</string>
@@ -435,13 +435,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="savePosition">Salvesta seis</string>
-  <string name="loadPosition">Lae positsioon</string>
+  <string name="loadPosition">Lae seis</string>
   <string name="isPrivate">Privaatne</string>
   <string name="reportXToModerators">Teata kasutajast %s moderaatoritele</string>
-  <string name="profileCompletion">Profiili täitmine: %s</string>
+  <string name="profileCompletion">Profiili täidetud: %s</string>
   <string name="xRating">%s reiting</string>
-  <string name="ifNoneLeaveEmpty">Kui pole, jätke tühjaks</string>
-  <string name="gameCompletionRate">Mängu lõpuni mängimise protsent: %s</string>
+  <string name="ifNoneLeaveEmpty">Kui pole, jäta tühjaks</string>
+  <string name="gameCompletionRate">Lõpuni mängimise protsent: %s</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
   <string name="firstName">Eesnimi</string>
