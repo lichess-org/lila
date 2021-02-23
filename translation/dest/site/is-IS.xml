@@ -738,7 +738,7 @@
   <string name="doItAgain">Gera aftur</string>
   <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
   <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Yfirhönd</string>
+  <string name="advantage">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>
