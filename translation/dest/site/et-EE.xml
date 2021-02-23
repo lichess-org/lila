@@ -357,17 +357,17 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="whiteCheckmatesInOneMove">Valge teeb mati ühe käiguga</string>
   <string name="blackCheckmatesInOneMove">Must teeb mati ühe käiguga</string>
   <string name="retry">Proovi uuesti</string>
-  <string name="reconnecting">Taasühendumine</string>
+  <string name="reconnecting">Taasühendamine</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s sõber on sees</item>
     <item quantity="other">%s sõpra on sees</item>
   </plurals>
-  <string name="noFriendsOnline">Pole sõpru sees</string>
-  <string name="findFriends">Leia sõpru</string>
+  <string name="noFriendsOnline">Sõpru pole kohal</string>
+  <string name="findFriends">Otsi sõpru</string>
   <string name="favoriteOpponents">Lemmikvastased</string>
   <string name="follow">Jälgi</string>
-  <string name="following">Jälgimine</string>
-  <string name="unfollow">Katkesta jälgimine</string>
+  <string name="following">Jälgitakse</string>
+  <string name="unfollow">Lõpeta jälgimine</string>
   <string name="block">Bloki</string>
   <string name="blocked">Blokeeritud</string>
   <string name="unblock">Tühista blokeering</string>
