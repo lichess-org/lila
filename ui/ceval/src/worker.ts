@@ -75,7 +75,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     const version = this.opts.version;
     const progress = this.opts.downloadProgress;
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.baseUrl + 'stockfish.js', { sameDomain: true, version })
+      .loadScript(this.opts.baseUrl + 'stockfish.js', { version })
       .then(
         _ =>
           progress &&
@@ -92,7 +92,13 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
             req.send();
           })
       )
-      .then(wasmBinary => window[this.opts.module]({ wasmBinary }))
+      .then(wasmBinary =>
+        window[this.opts.module]({
+          wasmBinary,
+          locateFile: (path: string) =>
+            lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
+        })
+      )
       .then((sf: any) => {
         ThreadedWasmWorker.sf[this.opts.module] = sf;
         const protocol = new Protocol(this.send.bind(this), this.protocolOpts);
