@@ -147,7 +147,8 @@ cg-container {
   bottom: 0;
 }
 
-.cg-wrap svg {
+// NOTE: Only direct descendent so that it won't affect nested svg used for analysis board annotation.
+cg-container > svg {
   overflow: hidden;
   position: absolute;
   top: 0px;

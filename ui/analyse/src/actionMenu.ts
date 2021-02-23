@@ -250,6 +250,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
+                      name: 'Move annotation',
+                      id: 'move-annotation',
+                      checked: ctrl.showMoveAnnotation(),
+                      change: ctrl.toggleMoveAnnotation,
+                    },
+                    ctrl
+                  ),
+                  ctrlBoolSetting(
+                    {
                       name: 'infiniteAnalysis',
                       title: 'removesTheDepthLimit',
                       id: 'infinite',
