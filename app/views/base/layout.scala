@@ -129,6 +129,10 @@ object layout {
       )
     )
 
+  private def current2dTheme(implicit ctx: Context) =
+    if (ctx.pref.is3d && ctx.pref.theme == "horsey") lila.pref.Theme.default
+    else ctx.currentTheme
+
   private def botImage =
     img(
       src := assetUrl("images/icons/bot.png"),
@@ -237,14 +241,14 @@ object layout {
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
-            "dark-board"                                                                                                                                     -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
-            "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
-            "zen"                                                                                                                                            -> ctx.pref.isZen,
-            "blind-mode"                                                                                                                                     -> ctx.blind,
-            "kid"                                                                                                                                            -> ctx.kid,
-            "mobile"                                                                                                                                         -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                                                                                                           -> playing
+            s"${ctx.currentBg} ${current2dTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
+            "dark-board"                                                                                                                                   -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
+            "piece-letter"                                                                                                                                 -> ctx.pref.pieceNotationIsLetter,
+            "zen"                                                                                                                                          -> ctx.pref.isZen,
+            "blind-mode"                                                                                                                                   -> ctx.blind,
+            "kid"                                                                                                                                          -> ctx.kid,
+            "mobile"                                                                                                                                       -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                                                                                                         -> playing
           ),
           dataDev := (!netConfig.minifiedAssets).option("true"),
           dataVapid := vapidPublicKey,
