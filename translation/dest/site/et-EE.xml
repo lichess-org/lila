@@ -556,19 +556,19 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="side">Pool</string>
   <string name="clock">Kell</string>
   <string name="unauthorizedError">Juurdepääs on keelatud.</string>
-  <string name="noInternetConnection">Puudub internetiühendus. Saate siiski mängida ühenduseta olevast menüüst.</string>
+  <string name="noInternetConnection">Puudub internetiühendus. Vali menüüst offline mäng.</string>
   <string name="connectedToLichess">Oled nüüd ühendatud lichess.org</string>
-  <string name="signedOut">Olete välja logitud</string>
+  <string name="signedOut">Oled välja logitud</string>
   <string name="loginSuccessful">Oled sisse logitud</string>
-  <string name="playOnTheBoardOffline">Reaalelumäng</string>
+  <string name="playOnTheBoardOffline">Mängi kahekesi</string>
   <string name="playOfflineComputer">Arvuti</string>
   <string name="opponent">Vastane</string>
   <string name="learnMenu">Õpi</string>
-  <string name="studyMenu">Õpi</string>
+  <string name="studyMenu">Uuri</string>
   <string name="practice">Harjuta</string>
   <string name="community">Kogukond</string>
   <string name="tools">Tööriistad</string>
-  <string name="increment">lisa sek</string>
+  <string name="increment">Lisaaeg</string>
   <string name="sharePGN">Jaga PGN</string>
   <string name="playOnline">Mängi online</string>
   <string name="playOffline">Mängi offline</string>
@@ -576,10 +576,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="shareGameURL">Jaga mängu URL</string>
   <string name="error.required">See väli on kohustuslik</string>
   <string name="error.email">See e-posti aadress on vigane</string>
-  <string name="error.email_acceptable">See e-posti aadress ei ole vastuvõetav</string>
+  <string name="error.email_acceptable">See e-maili aadress ei ole vastuvõetav. Palun vaata üle ja proovi uuesti.</string>
   <string name="error.email_unique">See e-posti aadress on juba võetud</string>
   <string name="error.email_different">See on juba teie e-posti aadress</string>
-  <string name="ifRatingIsPlusMinusX">Kui Reiting on ±%s</string>
+  <string name="ifRatingIsPlusMinusX">Kui reiting on ± %s</string>
   <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Ainult olemasolevad vestlused</string>
   <string name="onlyFriends">Ainult sõbrad</string>
   <string name="menu">Menüü</string>
