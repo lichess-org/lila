@@ -284,30 +284,30 @@
   <string name="backToTournament">Quay lại giải</string>
   <string name="thematic">Theo chủ đề</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s ván có rate</item>
+    <item quantity="other">≥ %s ván xếp hạng</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s ván rated</item>
+    <item quantity="other">≥ %1$s %2$s ván xếp hạng</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">Bạn cần chơi %1$s %2$s ván rated</item>
+    <item quantity="other">Bạn cần chơi %1$s %2$s ván xếp hạng</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">Bạn cần chơi %s ván nữa</item>
+    <item quantity="other">Bạn cần chơi %s ván xếp hạng nữa</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Rate của bạn %s là tạm thời</string>
-  <string name="yourPerfRatingIsTooHigh">Rate của bạn %1$s (%2$s) quá cao</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Rate theo tuần %1$s (%2$s) của bạn quá cao</string>
-  <string name="yourPerfRatingIsTooLow">Rate của bạn %1$s (%2$s) quá thấp</string>
-  <string name="ratedMoreThanInPerf">Rate ≥ %1$s trong %2$s</string>
-  <string name="ratedLessThanInPerf">Rate ≤ %1$s trong %2$s</string>
+  <string name="yourPerfRatingIsProvisional">Xếp hạng của bạn %s là tạm thời</string>
+  <string name="yourPerfRatingIsTooHigh">Xếp hạng %1$s của bạn (%2$s) quá cao</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Xếp hạng %1$s theo tuần của bạn (%2$s) quá cao</string>
+  <string name="yourPerfRatingIsTooLow">Xếp hạng %1$s của bạn (%2$s) quá thấp</string>
+  <string name="ratedMoreThanInPerf">Xếp hạng %2$s ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">Rate %2$s ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
-  <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
+  <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
   <string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
-  <string name="xStartedStreaming">%s bắt đầu phát trực tuyến</string>
+  <string name="xStartedStreaming">%s đã bắt đầu phát trực tuyến</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
   <string name="filterGames">Lọc game</string>
@@ -325,10 +325,10 @@
   <plurals name="nbImportedGames">
     <item quantity="other">%s các ván cờ đã nhập</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua</string>
-  <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
-  <string name="captcha.fail">Hãy giải đố captcha.</string>
-  <string name="notACheckmate">Không phải là một nước chiếu hết</string>
+  <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người.</string>
+  <string name="captcha.fail">Hãy giải captcha cờ vua.</string>
+  <string name="notACheckmate">Không phải một nước chiếu hết</string>
   <string name="whiteCheckmatesInOneMove">Trắng chiếu chiếu hết trong một nước đi</string>
   <string name="blackCheckmatesInOneMove">Đen chiếu chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
