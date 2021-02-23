@@ -609,7 +609,7 @@
   <string name="error.email_unique">Această adresă de email este deja folosită</string>
   <string name="error.email_different">Aceasta este deja adresa dvs. de email</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
-  <string name="onlyExistingConversations">Doar conversații existente</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
