@@ -2,65 +2,65 @@ package lila.lobby
 
 import org.joda.time.DateTime
 
-import lila.common.{ Heapsort, MultiKeyMap }
+import lila.common.Heapsort
 import lila.socket.Socket.Sri
-import scala.collection.View
 
-// NOT thread safe.
-// control concurrency from LobbyTrouper
-final private class HookRepo {
+private object HookRepo {
 
-  type ID = String
-
-  private var hooks = MultiKeyMap[ID, Sri, Hook](Set.empty[Hook])(_.id, _.sri)
+  private var hooks = Vector[Hook]()
 
   private val hardLimit = 200
 
   implicit private val creationOrdering = Ordering.by[Hook, Long](_.createdAt.getMillis)
 
-  // O(n)
-  def filter(f: Hook => Boolean): View[Hook] = hooks.values.view.filter(f)
+  def size = hooks.size
 
-  // O(n + nb * log(n))
+  def findCompatible(hook: Hook): Vector[Hook] = hooks.filter(_ compatibleWith hook)
+
   def truncateIfNeeded() =
-    if (hooks.size >= hardLimit) {
-      logger.warn(s"Found ${hooks.size} hooks, cleaning up!")
-      hooks = hooks reset Heapsort.topN(hooks.values, hardLimit * 2 / 3, creationOrdering)
+    if (size >= hardLimit) {
+      logger.warn(s"Found $size hooks, cleaning up!")
+      hooks = Heapsort.topN(hooks, hardLimit * 2 / 3, creationOrdering)
       logger.warn(s"Kept ${hooks.size} hooks")
     }
 
-  def ids = hooks.key1s
+  def vector = hooks
 
-  def byId(id: ID) = hooks get1 id
+  def byId(id: String) = hooks find (_.id == id)
 
-  def byIds(ids: Set[ID]) = ids.flatten(hooks.get1)
+  def byIds(ids: Set[String]) =
+    hooks filter { h =>
+      ids contains h.id
+    }
 
-  def bySri(sri: Sri) = hooks get2 sri
+  def bySri(sri: Sri) = hooks find (_.sri == sri)
 
-  // O(n)
-  // invoked when a hook is added
-  def bySid(sid: String) = hooks.values.find(_.sid == sid.some)
+  def bySid(sid: String) = hooks find (_.sid == sid.some)
 
-  // O(n)
-  def notInSris(sris: Set[Sri]): Set[Hook] = hooks.values.filterNot(h => sris(h.sri))
+  def notInSris(sris: Set[Sri]): Vector[Hook] = hooks.filterNot(h => sris(h.sri))
 
   def save(hook: Hook): Unit = {
-    hooks = hooks updated hook
+    hooks = hooks.filterNot(_.id == hook.id) :+ hook
   }
 
   def remove(hook: Hook): Unit = {
-    hooks = hooks removed hook
+    hooks = hooks.filterNot(_.id == hook.id)
   }
 
   // returns removed hooks
-  def cleanupOld: Set[Hook] = {
-    val limit   = DateTime.now minusMinutes 15
-    val removed = hooks.values.filter(_.createdAt isBefore limit)
-    hooks = hooks removed removed
-    removed
+  def cleanupOld = {
+    val limit = DateTime.now minusMinutes 15
+    partition(_.createdAt isAfter limit)
   }
 
-  // O(n)
   def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
-    hooks.values.withFilter(_ compatibleWithPool clock).map(_.toPool).toVector
+    hooks.withFilter(_ compatibleWithPool clock).map(_.toPool)
+
+  // keeps hooks that hold true
+  // returns removed hooks
+  private def partition(f: Hook => Boolean): Vector[Hook] = {
+    val (kept, removed) = hooks partition f
+    hooks = kept
+    removed
+  }
 }
