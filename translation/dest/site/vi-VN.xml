@@ -658,13 +658,13 @@
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
   <string name="bulletBlitzClassical">Cờ siêu chớp. cờ chớp, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
-  <string name="onlineAndOfflinePlay">Chơi online và ofline</string>
+  <string name="onlineAndOfflinePlay">Chơi online và offline</string>
   <string name="viewTheSolution">Xem lời giải</string>
-  <string name="followAndChallengeFriends">Theo dõi và thách thức bạn bè</string>
+  <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
-  <string name="gameAnalysis">Phân tích trận đấu</string>
+  <string name="gameAnalysis">Phân tích ván đấu</string>
   <string name="xHostsY">%1$s tạo %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>
