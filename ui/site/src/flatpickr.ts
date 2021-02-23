@@ -10,7 +10,7 @@ lichess.load.then(() => {
           altFormat: 'Y-m-d h:i K',
         };
     flatpickr(this, {
-      minDate: 'today',
+      minDate: new Date(),
       maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 3),
       monthSelectorType: 'static',
       disableMobile: true, // https://flatpickr.js.org/mobile-support/ https://github.com/ornicar/lila/issues/8110
