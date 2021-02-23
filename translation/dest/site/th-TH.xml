@@ -276,7 +276,7 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s แต้มทัวร์นาเมนต์</item>
   </plurals>
-  <plurals name="nbStudies" comment="nbStudies [one] [other]&#10;&#10;%s is the number of studies. This string appears on the user's profile page, indicating how many studies they have made.&#10;&#10;Read about what studies are here: https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way&#10;&#10;Example:&#10;1 study,&#10;3 studies">
+  <plurals name="nbStudies">
     <item quantity="other">%s กรณีศึกษา</item>
   </plurals>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
@@ -733,7 +733,7 @@
   <string name="doItAgain">ทำอีกครั้ง</string>
   <string name="reviewWhiteMistakes">ทบทวนความผิดพลาดของขาว</string>
   <string name="reviewBlackMistakes">ทบทวนความผิดพลาดของดำ</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">ความได้เปรียบ</string>
+  <string name="advantage">ความได้เปรียบ</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s วินาที</item>
   </plurals>
