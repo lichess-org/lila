@@ -84,10 +84,10 @@
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Hai triệu ván đấu OTB của các kỳ thủ có hệ số Elo %1$s + do FIDE xếp hạng từ năm %2$s đến năm %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">Chiếu hết trong %s nước đi</item>
+    <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Bộ đếm 50 nước đi sẽ trở về 0)</item>
+    <item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Luật 50 nước sẽ bắt đầu lại từ 0)</item>
   </plurals>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
