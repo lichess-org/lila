@@ -200,8 +200,8 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
-  <string name="whiteTimeOut">Valge aeg on läbi</string>
-  <string name="blackTimeOut">Musta aeg on läbi</string>
+  <string name="whiteTimeOut">Valge aeg sai läbi</string>
+  <string name="blackTimeOut">Musta aeg sai läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
@@ -296,7 +296,7 @@
     <item quantity="other">%s turniiri punkti</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s õping</item>
+    <item quantity="one">%s uuring</item>
     <item quantity="other">%s õpingut</item>
   </plurals>
   <string name="viewTournament">Vaata turniiri</string>
@@ -333,7 +333,7 @@
   <string name="xStartedStreaming">%s alustas otseülekannet</string>
   <string name="averageElo">Keskmine Elo</string>
   <string name="location">Asukoht</string>
-  <string name="filterGames">Mängu filter</string>
+  <string name="filterGames">Filtreeri mänge</string>
   <string name="reset">Lähtesta</string>
   <string name="apply">Rakenda</string>
   <string name="save">Salvesta</string>
@@ -342,7 +342,7 @@
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
-  <string name="toStudy">Õping</string>
+  <string name="toStudy">Uuri</string>
   <string name="importGame">Impordi mäng</string>
   <string name="importGameExplanation">Mängu PGN-i kleepimisel saate vaadeldava korduse,
 arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
@@ -353,10 +353,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="thisIsAChessCaptcha">See on male CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene.</string>
   <string name="captcha.fail">Palun lahendage male robotilõks.</string>
-  <string name="notACheckmate">Pole matt</string>
+  <string name="notACheckmate">See pole matt</string>
   <string name="whiteCheckmatesInOneMove">Valge teeb mati ühe käiguga</string>
   <string name="blackCheckmatesInOneMove">Must teeb mati ühe käiguga</string>
-  <string name="retry">Uuesti</string>
+  <string name="retry">Proovi uuesti</string>
   <string name="reconnecting">Taasühendumine</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s sõber on sees</item>
