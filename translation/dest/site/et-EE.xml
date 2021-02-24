@@ -722,8 +722,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
   <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
   <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
-  <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse.</string>
-  <string name="usernameUnacceptable">Selline kasutajanimi ei ole lubatud.</string>
+  <string name="usernameCharsInvalid">Kasutajanimi peab sisaldama ainult tähti, numbreid, allkriipse ja sidekriipse. Järjest allkriipsud ja sidekriipsud ei ole lubatud.</string>
+  <string name="usernameUnacceptable">See kasutajanimi ei ole lubatud.</string>
   <string name="directlySupportLichess">Toeta Lichess-i</string>
   <string name="playChessInStyle">Mängi malet stiiliga</string>
   <string name="chessBasics">Male põhitõed</string>
@@ -732,10 +732,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="error.minLength">Minimaalne pikkus on %s</string>
   <string name="error.maxLength">Maksimaalne pikkus on %s</string>
-  <string name="error.min">Peab olema suurem või võrdne %s</string>
-  <string name="error.max">Peab olema väiksem või võrdne %s</string>
+  <string name="error.min">Peab olema vähemalt %s</string>
+  <string name="error.max">Peab olema kõige rohkem %s</string>
   <string name="error.unknown">Viga</string>
-  <string name="custom">Muu</string>
+  <string name="custom">Kohandatud</string>
   <string name="notifications">Teated</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -743,14 +743,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">%s sekundit, et teha esimene käik</item>
   </plurals>
   <string name="practiceWithComputer">Harjuta arvutiga</string>
-  <string name="anotherWasX">Samuti oleks hea %s</string>
+  <string name="anotherWasX">Samuti on hea %s</string>
   <string name="bestWasX">Parim oli %s</string>
   <string name="youBrowsedAway">Sa lahkusid eemale</string>
   <string name="resumePractice">Jätka harjutamist</string>
   <string name="theGameIsADraw">See mäng on viik.</string>
   <string name="computerThinking">Arvuti mõtleb ...</string>
   <string name="seeBestMove">Vaata parimat käiku</string>
-  <string name="hideBestMove">Varja parim käik</string>
+  <string name="hideBestMove">Peida parim käik</string>
   <string name="getAHint">Vaata vihjet</string>
   <string name="evaluatingYourMove">Sinu käigu hindamine ...</string>
   <string name="whiteWinsGame">Valge võitis</string>
@@ -759,10 +759,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="learnFromThisMistake">Õpi sellest veast</string>
   <string name="skipThisMove">Jäta see käik vahele</string>
   <string name="next">Järgmine</string>
-  <string name="xWasPlayed">%s mängis</string>
+  <string name="xWasPlayed">%s mängiti</string>
   <string name="findBetterMoveForWhite">Leia parem käik valgele</string>
   <string name="findBetterMoveForBlack">Leia parem käik mustale</string>
-  <string name="resumeLearning">Jätkake õppimist</string>
+  <string name="resumeLearning">Jätka õppimist</string>
   <string name="youCanDoBetter">Te suudate paremini</string>
   <string name="tryAnotherMoveForWhite">Proovige mingisugust teist käiku valgele</string>
   <string name="tryAnotherMoveForBlack">Proovige mingisugust teist käiku mustale</string>
