@@ -23,7 +23,7 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^7.10.0",
+    "chessground": "git+https://github.com/hi-ogawa/chessground.git#c47a8d23ef00ec22e40f5212700d83178be80320",
     "chessops": "^0.8.1",
     "common": "2.0.0",
     "game": "2.0.0",
