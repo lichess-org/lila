@@ -251,6 +251,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ctrlBoolSetting(
                     {
                       name: 'Move annotation',
+                      title: 'Display analysis symbols on the board',
                       id: 'move-annotation',
                       checked: ctrl.showMoveAnnotation(),
                       change: ctrl.toggleMoveAnnotation,
