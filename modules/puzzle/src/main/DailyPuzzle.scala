@@ -19,7 +19,7 @@ final private[puzzle] class DailyPuzzle(
 
   private val cache =
     cacheApi.unit[Option[DailyPuzzle.Html]] {
-      _.refreshAfterWrite(30 minutes)
+      _.refreshAfterWrite(5 minutes)
         .buildAsyncFuture(_ => find)
     }
 
