@@ -130,6 +130,9 @@ final class TournamentApi(
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
+  def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
+    tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
+
   private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
 
   private[tournament] def makePairings(forTour: Tournament, users: WaitingUsers): Funit =

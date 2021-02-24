@@ -33,6 +33,8 @@ case class Team(
 
 object Team {
 
+  case class Mini(id: Team.ID, name: String)
+
   val maxJoinCeiling = 50
 
   def maxJoin(u: User) =

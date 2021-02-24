@@ -171,7 +171,7 @@ final class Tournament(
 
   def player(tourId: String, userId: String) =
     Action.async {
-      env.tournament.tournamentRepo byId tourId flatMap {
+      repo byId tourId flatMap {
         _ ?? { tour =>
           JsonOk {
             api.playerInfo(tour, userId) flatMap {
@@ -183,12 +183,21 @@ final class Tournament(
     }
 
   def teamInfo(tourId: String, teamId: TeamID) =
-    Open { ctx =>
+    Open { implicit ctx =>
       repo byId tourId flatMap {
         _ ?? { tour =>
-          if (HTTPRequest isXhr ctx.req)
-            jsonView.teamInfo(tour, teamId) map { _ ?? JsonOk }
-          else ???
+          env.team.teamRepo mini teamId flatMap {
+            _ ?? { team =>
+              if (HTTPRequest isXhr ctx.req)
+                jsonView.teamInfo(tour, teamId) map { _ ?? JsonOk }
+              else
+                api.teamBattleTeamInfo(tour, teamId) map {
+                  _ ?? { info =>
+                    Ok(views.html.tournament.teamBattle.teamInfo(tour, team, info))
+                  }
+                }
+            }
+          }
         }
       }
     }
@@ -542,7 +551,7 @@ final class Tournament(
     Action.async { implicit req =>
       implicit val lang = reqLang
       apiC.jsonStream {
-        env.tournament.tournamentRepo
+        repo
           .byTeamCursor(id)
           .documentSource(getInt("max", req) | 100)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
@@ -554,14 +563,13 @@ final class Tournament(
     Open { implicit ctx =>
       repo byId id flatMap {
         _ ?? { tour =>
-          tour.teamBattle ?? { battle =>
+          tour.isTeamBattle ?? {
             env.tournament.cached.battle.teamStanding.get(tour.id) map { standing =>
-              Ok(views.html.tournament.teamBattle.standing(tour, battle, standing))
+              Ok(views.html.tournament.teamBattle.standing(tour, standing))
             }
           }
         }
       }
-
     }
 
   private def WithEditableTournament(id: String, me: UserModel)(
@@ -578,7 +586,7 @@ final class Tournament(
     _.refreshAfterWrite(15.seconds)
       .maximumSize(64)
       .buildAsyncFuture { tourId =>
-        env.tournament.tournamentRepo.isUnfinished(tourId) flatMap {
+        repo.isUnfinished(tourId) flatMap {
           _ ?? {
             env.streamer.liveStreamApi.all.flatMap {
               _.streams
