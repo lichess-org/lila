@@ -230,9 +230,8 @@ object layout {
           ),
           ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
-              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(
-                img
-              )}");}</style>"""
+              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
+                .replace("&amp;", "&")}");}</style>"""
             )
           },
           fontPreload,
