@@ -700,12 +700,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="other">Saadaval %s keeles!</item>
   </plurals>
   <string name="gameAnalysis">Mängu analüüs</string>
-  <string name="xHostsY">%1$s liitub %2$s</string>
-  <string name="xJoinsY">%1$s liitub %2$s</string>
+  <string name="xHostsY">%1$s korraldab %2$s</string>
+  <string name="xJoinsY">%1$s liitus %2$s</string>
   <string name="xLikesY">Mängijale %1$s meeldib %2$s</string>
-  <string name="xCreatesStudyY">%1$s tegi tiimi %2$s</string>
+  <string name="xCreatesStudyY">%1$s tegi uuringu %2$s</string>
   <string name="quickPairing">Kiirelt mängu</string>
-  <string name="lobby">Puhketuba</string>
+  <string name="lobby">Ooteruum</string>
   <string name="anonymous">Anonüümne</string>
   <string name="yourScore">Sinu skoor: %s</string>
   <string name="language">Keel</string>
@@ -718,7 +718,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="boardTheme">Laua kujundus</string>
   <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
-  <string name="embedInYourWebsite">Lubad oma veebilehel</string>
+  <string name="embedInYourWebsite">Sängita oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovige midagi muud.</string>
   <string name="usernamePrefixInvalid">Kasutajanimi peab algama tähega.</string>
   <string name="usernameSuffixInvalid">Kasutajanimi peab lõppema numbriga või tähega.</string>
