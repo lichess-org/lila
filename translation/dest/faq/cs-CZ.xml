@@ -69,5 +69,6 @@ Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdc
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="ratingLeaderboards">žebříček podle ratingu</string>
   <string name="howToThreeDots">Jak...</string>
 </resources>
