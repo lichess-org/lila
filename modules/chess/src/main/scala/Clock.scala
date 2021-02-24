@@ -83,11 +83,10 @@ case class Clock(
 
         val clockActive = gameActive && (player.hasPeriodsLeft || moveTime <= player.remaining)
         val inc         = clockActive ?? player.increment
-        val byo         = clockActive ?? player.byoyomi
 
         val newC = if (gameActive && player.isUsingByoyomi) {
           updatePlayer(color){
-            _.setRemaining(byo)
+            _.setRemaining(player.byoyomi)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
