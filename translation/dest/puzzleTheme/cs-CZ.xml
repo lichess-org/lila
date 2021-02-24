@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Postouplý pěšec</string>
   <string name="advantage">Výhoda</string>
+  <string name="advantageDescription">Využijte své šance získat rozhodující výhodu. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastáziin mat</string>
   <string name="arabianMate">Arabský mat</string>
+  <string name="arabianMateDescription">Jezdec a věž dají mat soupěrovu králi na kraji šachovnice.</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="defensiveMove">Obranný tah</string>
