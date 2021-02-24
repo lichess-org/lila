@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Framskutt bonde</string>
-  <string name="advancedPawnDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
+  <string name="advancedPawnDescription">En bonde står dypt inne i motstanderens stilling, muligens med trussel om bondeforvandling.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
