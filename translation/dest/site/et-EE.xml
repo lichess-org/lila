@@ -359,8 +359,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="retry">Proovi uuesti</string>
   <string name="reconnecting">Taasühendamine</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s sõber on sees</item>
-    <item quantity="other">%s sõpra on sees</item>
+    <item quantity="one">%s sõber on kohal</item>
+    <item quantity="other">%s sõpra on kohal</item>
   </plurals>
   <string name="noFriendsOnline">Sõpru pole kohal</string>
   <string name="findFriends">Otsi sõpru</string>
