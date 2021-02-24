@@ -259,7 +259,7 @@
       var playable = !!$this.data("playable");
       var resizable = !!$this.data("resizable");
       var fen = $this.data("fen");
-      var pocketFromFen = fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
+      var pocketFromFen = fen && fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
       var config = {
         coordinates: false,
         viewOnly: !playable,
