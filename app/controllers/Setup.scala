@@ -148,12 +148,12 @@ final class Setup(
   private def hookResponse(res: HookResult) =
     res match {
       case HookResult.Created(id) =>
-        Ok(
+        JsonOk(
           Json.obj(
             "ok"   -> true,
             "hook" -> Json.obj("id" -> id)
           )
-        ) as JSON
+        )
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
 

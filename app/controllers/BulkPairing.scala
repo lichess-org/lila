@@ -10,7 +10,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
   def list =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
       env.challenge.bulk.scheduledBy(me) map { list =>
-        Ok(Json.obj("bulks" -> list.map(SetupBulk.toJson))) as JSON
+        JsonOk(Json.obj("bulks" -> list.map(SetupBulk.toJson)))
       }
     }
 
@@ -61,7 +61,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
               case Right(bulk) =>
                 env.challenge.bulk.schedule(bulk) map {
                   case Left(error) => BadRequest(jsonError(error))
-                  case Right(bulk) => Ok(SetupBulk toJson bulk) as JSON
+                  case Right(bulk) => JsonOk(SetupBulk toJson bulk)
                 }
             }
         )

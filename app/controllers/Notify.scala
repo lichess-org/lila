@@ -13,9 +13,7 @@ final class Notify(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       XhrOrRedirectHome {
         val notifies = Notifies(me.id)
-        env.notifyM.api.getNotificationsAndCount(notifies, page) map { res =>
-          Ok(Json toJson res) as JSON
-        }
+        env.notifyM.api.getNotificationsAndCount(notifies, page) map { JsonOk(_) }
       }
     }
 }

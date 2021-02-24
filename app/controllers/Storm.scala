@@ -36,9 +36,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
           .fold(
             _ => fuccess(none),
             data => env.storm.dayApi.addRun(data, ctx.me)
-          ) map env.storm.json.newHigh map { json =>
-          Ok(json) as JSON
-        }
+          ) map env.storm.json.newHigh map JsonOk
       }
     }
 

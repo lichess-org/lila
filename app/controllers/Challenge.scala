@@ -26,9 +26,7 @@ final class Challenge(
   def all =
     Auth { implicit ctx => me =>
       XhrOrRedirectHome {
-        api allFor me.id map { all =>
-          Ok(env.challenge.jsonView(all)) as JSON
-        }
+        api allFor me.id map env.challenge.jsonView.apply map JsonOk
       }
     }
 
@@ -420,7 +418,7 @@ final class Challenge(
                 case false =>
                   BadRequest(jsonError("Challenge not created"))
               }
-            }(rateLimitedFu) dmap (_ as JSON)
+            }(rateLimitedFu).dmap(_ as JSON)
         )
     }
 

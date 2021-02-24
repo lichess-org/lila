@@ -150,13 +150,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           checkout
         )
       )
-      .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))) as JSON)
+      .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
       .recover(badStripeApiCall)
 
   def switchStripePlan(user: UserModel, cents: Cents) = {
     env.plan.api
       .switch(user, cents)
-      .inject(Ok(Json.obj("switch" -> Json.obj("cents" -> cents.value))) as JSON)
+      .inject(JsonOk(Json.obj("switch" -> Json.obj("cents" -> cents.value))))
       .recover(badStripeApiCall)
   }
 

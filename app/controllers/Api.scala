@@ -35,7 +35,7 @@ final class Api(
   val status = Action { req =>
     val appVersion  = get("v", req)
     val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade
-    Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
+    JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
   }
 
   def index =
@@ -401,7 +401,7 @@ final class Api(
       case Limited        => tooManyRequests
       case NoData         => NotFound
       case Custom(result) => result
-      case Data(json)     => Ok(json) as JSON
+      case Data(json)     => JsonOk(json)
     }
 
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =

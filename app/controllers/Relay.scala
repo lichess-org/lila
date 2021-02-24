@@ -53,10 +53,7 @@ final class Relay(
             .bindFromRequest()(req, formBinding)
             .fold(
               err => BadRequest(apiFormError(err)).fuccess,
-              setup =>
-                env.relay.api.create(setup, me) map { relay =>
-                  Ok(env.relay.jsonView.admin(relay)) as JSON
-                }
+              setup => env.relay.api.create(setup, me) map env.relay.jsonView.admin map JsonOk
             )
     )
 
@@ -88,7 +85,7 @@ final class Relay(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                relay => Ok(env.relay.jsonView.admin(relay)) as JSON
+                relay => JsonOk(env.relay.jsonView.admin(relay))
               )
           }
     )
@@ -136,7 +133,7 @@ final class Relay(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None        => NotFound(jsonError("No such broadcast"))
-            case Some(relay) => Ok(env.relay.jsonView.admin(relay)) as JSON
+            case Some(relay) => JsonOk(env.relay.jsonView.admin(relay))
           }
     )
 

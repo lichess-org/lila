@@ -395,7 +395,7 @@ final class Team(
           for {
             teams <- api.autocomplete(term, 10)
             _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
-          } yield Ok {
+          } yield JsonOk {
             JsArray(teams map { team =>
               Json.obj(
                 "id"      -> team.id,
@@ -404,7 +404,7 @@ final class Team(
                 "members" -> team.nbMembers
               )
             })
-          } as JSON
+          }
       }
     }
 

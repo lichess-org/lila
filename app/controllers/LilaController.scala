@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http._
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
+import play.api.libs.json.{ JsArray, JsObject, JsString, JsValue, Json, Writes }
 import play.api.mvc._
 import scala.annotation.nowarn
 import scalatags.Text.Frag
@@ -44,9 +44,6 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit protected def makeApiVersion(v: Int) = ApiVersion(v)
 
   implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
-
-  protected val jsonOkBody   = Json.obj("ok" -> true)
-  protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
   protected val keyPages       = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
@@ -342,15 +339,16 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
-  protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] =
-    fua map { a =>
-      Ok(Json toJson a) as JSON
-    }
-  protected def JsonOk[A: Writes](a: A): Result = Ok(Json toJson a) as JSON
+  protected def JsonOk(body: JsValue): Result             = Ok(body) as JSON
+  protected def JsonOk[A: Writes](body: A): Result        = Ok(Json toJson body) as JSON
+  protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] = fua dmap { JsonOk(_) }
+
+  protected val jsonOkBody   = Json.obj("ok" -> true)
+  protected val jsonOkResult = JsonOk(jsonOkBody)
 
   protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) =
     fua flatMap {
-      _.fold(notFoundJson())(a => fuccess(Ok(Json toJson a) as JSON))
+      _.fold(notFoundJson())(a => fuccess(JsonOk(a)))
     }
 
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
@@ -487,7 +485,7 @@ abstract private[controllers] class LilaController(val env: Env)
     lila.api.Mobile.Api
       .requestVersion(req)
       .fold(html) { v =>
-        api(v) dmap (_ as JSON)
+        api(v).dmap(_ as JSON)
       }
       .dmap(_.withHeaders("Vary" -> "Accept"))
 

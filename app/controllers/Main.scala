@@ -108,13 +108,13 @@ final class Main(
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
-    Ok(
+    JsonOk(
       Json.obj(
         "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
         "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
         "observation" -> (Glyph.Observation.display: List[Glyph])
       )
-    ) as JSON
+    )
   }
   val glyphs = Action(glyphsResult)
 
@@ -149,7 +149,7 @@ Allow: /
 
   def manifest =
     Action {
-      Ok {
+      JsonOk {
         Json.obj(
           "name"             -> env.net.domain.value,
           "short_name"       -> "Lichess",
@@ -176,7 +176,7 @@ Allow: /
             )
           )
         )
-      } as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
+      } withHeaders (CACHE_CONTROL -> "max-age=1209600")
     }
 
   def getFishnet =

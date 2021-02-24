@@ -484,9 +484,7 @@ final class Study(
     Open { implicit ctx =>
       OptionFuResult(env.study.api byId id) { study =>
         CanViewResult(study) {
-          env.study.multiBoard.json(study.id, page, getBool("playing")) map { json =>
-            Ok(json) as JSON
-          }
+          env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
         }
       }
     }
@@ -497,9 +495,7 @@ final class Study(
         case None => BadRequest("No search term provided").fuccess
         case Some(term) =>
           import lila.study.JsonView._
-          env.study.topicApi.findLike(term, get("user", req)) map { topics =>
-            Ok(Json.toJson(topics)) as JSON
-          }
+          env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
       }
     }
 

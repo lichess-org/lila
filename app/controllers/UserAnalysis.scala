@@ -141,7 +141,7 @@ final class UserAnalysis(
             env.importer.importer
               .inMemory(data)
               .fold(
-                err => BadRequest(jsonError(err)).fuccess,
+                err => BadRequest(jsonError(err)).as(JSON).fuccess,
                 { case (game, fen) =>
                   val pov = Pov(game, chess.White)
                   env.api.roundApi.userAnalysisJson(
@@ -151,13 +151,10 @@ final class UserAnalysis(
                     pov.color,
                     owner = false,
                     me = ctx.me
-                  ) map { data =>
-                    Ok(data)
-                  }
+                  ) map JsonOk
                 }
               )
         )
-        .map(_ as JSON)
     }
 
   def forecasts(fullId: String) =
@@ -173,10 +170,9 @@ final class UserAnalysis(
               forecasts =>
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
-                    case None     => Ok(Json.obj("none" -> true))
-                    case Some(fc) => Ok(Json toJson fc) as JSON
+                    _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
                   } recover { case Forecast.OutOfSync =>
-                    Ok(Json.obj("reload" -> true))
+                    JsonOk(Json.obj("reload" -> true))
                   }
             )
       }

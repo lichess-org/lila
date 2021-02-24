@@ -85,12 +85,12 @@ final class Practice(
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
         analysisJson(us) map { case (analysisJson, studyJson) =>
-          Ok(
+          JsonOk(
             Json.obj(
               "study"    -> studyJson,
               "analysis" -> analysisJson
             )
-          ) as JSON
+          )
         }
       } map NoCache
     }

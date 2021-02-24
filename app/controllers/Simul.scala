@@ -25,9 +25,7 @@ final class Simul(env: Env) extends LilaController(env) {
 
   val apiList = Action.async {
     fetchSimuls(none) flatMap { case pending ~ created ~ started ~ finished =>
-      env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
-        Ok(json) as JSON
-      }
+      env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
   }
 
@@ -172,7 +170,7 @@ final class Simul(env: Env) extends LilaController(env) {
     Auth { implicit ctx => implicit me =>
       NoLameOrBot {
         env.simul.api.addApplicant(id, me, variant) inject {
-          if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+          if (HTTPRequest isXhr ctx.req) jsonOkResult
           else Redirect(routes.Simul.show(id))
         }
       }
@@ -181,7 +179,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def withdraw(id: String) =
     Auth { implicit ctx => me =>
       env.simul.api.removeApplicant(id, me) inject {
-        if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+        if (HTTPRequest isXhr ctx.req) jsonOkResult
         else Redirect(routes.Simul.show(id))
       }
     }

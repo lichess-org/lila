@@ -183,14 +183,12 @@ final class Tournament(
     }
 
   def teamInfo(tourId: String, teamId: TeamID) =
-    Open { _ =>
-      env.tournament.tournamentRepo byId tourId flatMap {
+    Open { ctx =>
+      repo byId tourId flatMap {
         _ ?? { tour =>
-          jsonView.teamInfo(tour, teamId) map {
-            _ ?? { json =>
-              Ok(json) as JSON
-            }
-          }
+          if (HTTPRequest isXhr ctx.req)
+            jsonView.teamInfo(tour, teamId) map { _ ?? JsonOk }
+          else ???
         }
       }
     }

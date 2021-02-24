@@ -173,7 +173,7 @@ final class Puzzle(
                     Json.obj("next" -> json)
                   }
             }
-          } dmap { json => Ok(json) as JSON }
+          } dmap JsonOk
       )
   }
 
@@ -358,7 +358,7 @@ final class Puzzle(
             val theme = PuzzleTheme.mix
             nextPuzzleForMe(theme.key) flatMap { puzzle =>
               renderJson(puzzle, theme, apiVersion = v.some)
-            } dmap { Ok(_) }
+            } dmap JsonOk
           }
         )
       }
