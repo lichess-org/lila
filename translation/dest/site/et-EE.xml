@@ -625,7 +625,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>
   <string name="simulHostExtraTime">Sinultaani korraldaja lisaaeg</string>
   <string name="lichessTournaments">Lichessi turniirid</string>
-  <string name="tournamentFAQ">Korduma kippuvad küsimused</string>
+  <string name="tournamentFAQ">Areena turniiride KKK</string>
   <string name="tournamentOfficial">Ametlik</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
   <string name="averageCentipawnLoss">Keskmine kaotus käigu kohta sajandiketturites</string>
@@ -828,12 +828,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="inTheFAQ">KKK-s.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Et teatada sohitegijast või halvast käitumisest, %1$s</string>
   <string name="useTheReportForm">kasuta selleks nähtud vormi</string>
-  <string name="toRequestSupport">Et taotleda tuge %1$s</string>
+  <string name="toRequestSupport">Abi saamiseks, %1$s</string>
   <string name="tryTheContactPage">kasutage kontakti lehte</string>
   <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
   <string name="joinTheTeamXToPost">Ühine %1$s-ga et sellesse foorumisse postitada</string>
-  <string name="teamNamedX">%1$s tiim</string>
+  <string name="teamNamedX">%1$s võistkond</string>
   <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
-  <string name="unsubscribe">Eemalda</string>
+  <string name="unsubscribe">Tühista tellimus</string>
 </resources>
