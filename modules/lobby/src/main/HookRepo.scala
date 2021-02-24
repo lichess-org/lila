@@ -27,7 +27,7 @@ final private class HookRepo {
   def truncateIfNeeded() =
     if (hooks.size >= hardLimit) {
       logger.warn(s"Found ${hooks.size} hooks, cleaning up!")
-      hooks = hooks reset Heapsort.topN(hooks.values, hardLimit * 2 / 3, creationOrdering)
+      hooks = hooks reset Heapsort.topN(hooks.values, hardLimit * 2 / 3, creationOrdering).toSet
       logger.warn(s"Kept ${hooks.size} hooks")
     }
 
@@ -44,7 +44,7 @@ final private class HookRepo {
   def bySid(sid: String) = hooks.values.find(_.sid has sid)
 
   // O(n)
-  def notInSris(sris: Set[Sri]): Set[Hook] = hooks.values.filterNot(h => sris(h.sri))
+  def notInSris(sris: Set[Sri]): Iterable[Hook] = hooks.values.filterNot(h => sris(h.sri))
 
   def save(hook: Hook): Unit = {
     hooks = hooks updated hook
@@ -57,7 +57,7 @@ final private class HookRepo {
   // returns removed hooks
   def cleanupOld: Set[Hook] = {
     val limit   = DateTime.now minusMinutes 15
-    val removed = hooks.values.filter(_.createdAt isBefore limit)
+    val removed = hooks.values.view.filter(_.createdAt isBefore limit).toSet
     hooks = hooks removed removed
     removed
   }
