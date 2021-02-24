@@ -117,9 +117,12 @@ final private class LobbyTrouper(
       poolApi socketIds Sris(sris)
       val fewSecondsAgo = DateTime.now minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
-        hookRepo.notInSris(sris).filter { h =>
-          !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
-        } ++ hookRepo.cleanupOld
+        hookRepo
+          .notInSris(sris)
+          .filter { h =>
+            !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
+          }
+          .toSet ++ hookRepo.cleanupOld
       }
       lila.mon.lobby.socket.member.update(sris.size)
       lila.mon.lobby.hook.size.record(hookRepo.size)

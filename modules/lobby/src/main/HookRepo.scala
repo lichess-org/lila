@@ -44,6 +44,7 @@ final private class HookRepo {
   def bySid(sid: String) = hooks.values.find(_.sid has sid)
 
   // O(n)
+  // invoked regularly when cleaning up socket sris
   def notInSris(sris: Set[Sri]): Iterable[Hook] = hooks.values.filterNot(h => sris(h.sri))
 
   def save(hook: Hook): Unit = {
@@ -63,6 +64,7 @@ final private class HookRepo {
   }
 
   // O(n)
+  // invoked regularly when stealing hooks for pools
   def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
     hooks.values.withFilter(_ compatibleWithPool clock).map(_.toPool).toVector
 }
