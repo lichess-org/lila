@@ -1579,6 +1579,7 @@ object Quote {
       "John Bartholomew"
     ),
     new Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
+    new Quote("Chess makes me a better person", "Albert Badosa"),
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),
     new Quote("We will never display ads.", "lichess.org"),
