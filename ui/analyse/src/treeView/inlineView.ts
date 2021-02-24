@@ -123,7 +123,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     'move',
     {
       attrs: { p: path },
-      class: nodeClasses(ctx, path),
+      class: nodeClasses(ctx, node, path),
     },
     content
   );

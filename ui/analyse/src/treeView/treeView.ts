@@ -1,19 +1,19 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
-import { playable } from 'game';
 import AnalyseCtrl from '../ctrl';
+import column from './columnView';
 import contextMenu from './contextMenu';
-import { MaybeVNodes, ConcealOf } from '../interfaces';
+import inline from './inlineView';
+import isCol1 from 'common/isCol1';
+import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { enrichText, innerHTML, bindMobileTapHold, clearSelection } from '../util';
-import { path as treePath } from 'tree';
-import column from './columnView';
-import inline from './inlineView';
+import { h } from 'snabbdom';
+import { Hooks } from 'snabbdom/hooks';
 import { isEmpty, defined } from 'common';
-import throttle from 'common/throttle';
-import isCol1 from 'common/isCol1';
+import { MaybeVNodes, ConcealOf } from '../interfaces';
+import { path as treePath } from 'tree';
+import { playable } from 'game';
 import { storedProp, StoredProp } from 'common/storage';
+import { VNode } from 'snabbdom/vnode';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;
@@ -72,7 +72,8 @@ export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   return ctrl.treeView.inline() || isCol1() ? inline(ctrl) : column(ctrl, concealOf);
 }
 
-export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
+export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeClasses {
+  const glyphIds = ctx.showGlyphs && node.glyphs ? node.glyphs.map(g => g.id) : [];
   return {
     active: path === ctx.ctrl.path,
     'context-menu': path === ctx.ctrl.contextMenuPath,
@@ -82,6 +83,9 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
       !!ctx.ctrl.gamePath &&
       treePath.contains(path, ctx.ctrl.gamePath) &&
       path !== ctx.ctrl.gamePath,
+    inaccuracy: glyphIds.includes(6),
+    mistake: glyphIds.includes(2),
+    blunder: glyphIds.includes(4),
   };
 }
 

@@ -1,5 +1,9 @@
 @import 'extend';
 
+$c-inaccuracy: #56b4e9;
+$c-mistake: #e69f00;
+$c-blunder: #df5353;
+
 .tview2 {
   white-space: normal;
 
@@ -13,6 +17,16 @@
 
   move {
     @extend %move;
+
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
   }
 
   &-column move {
@@ -192,15 +206,15 @@
   }
 
   &-column comment.inaccuracy {
-    border-color: #56b4e9;
+    border-color: $c-inaccuracy;
   }
 
   &-column comment.mistake {
-    border-color: #e69f00;
+    border-color: $c-mistake;
   }
 
   &-column comment.blunder {
-    border-color: #df5353;
+    border-color: $c-blunder;
   }
 
   &-column comment.undefined {
