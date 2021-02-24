@@ -5054,10 +5054,10 @@ shell-quote@^1.4.2, shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
-shogiops@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.1.1.tgz#6a5cf8e69760861dc62d6f4dc9e2402b4269ade1"
-  integrity sha512-uRJeuZpS4EaVR9T2FyDH8pXWDIELivzgESx4xLe1z5VyZffeCIDytYIDv31xdY8xPMPUpCmkpCD03pdfbE01uA==
+shogiops@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.1.5.tgz#9e4322fd35bb3c1c603f98b9a5dc822449ee5595"
+  integrity sha512-6UX86ctzan2wnTuVHz83nHEeceWYCvRLGd2bysoxgbcD3vHq8l+CvjGwQzvjEZoO60IVewtS7u1T/OWjoYSXNg==
   dependencies:
     "@badrap/result" "^0.2.6"
 

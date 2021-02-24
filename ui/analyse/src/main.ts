@@ -27,6 +27,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   }
 
   ctrl = new makeCtrl(opts, redraw);
+  console.log(ctrl);
 
   const blueprint = view(ctrl);
   opts.element.innerHTML = "";

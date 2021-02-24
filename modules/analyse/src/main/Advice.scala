@@ -60,7 +60,7 @@ private[analyse] case class CpAdvice(
 
 private[analyse] object CpAdvice {
 
-  private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.004 * cp)) - 1
+  private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.0007 * cp)) - 1
 
   private val winningChanceJudgements = List(
     .4 -> Advice.Judgement.Blunder,
@@ -119,11 +119,11 @@ private[analyse] object MateAdvice {
     MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>
       import Advice.Judgement._
       val judgment: Option[Advice.Judgement] = sequence match {
-        case MateCreated if prevCp < -999 => Option(Inaccuracy)
-        case MateCreated if prevCp < -700 => Option(Mistake)
+        case MateCreated if prevCp < -4000 => Option(Inaccuracy)
+        case MateCreated if prevCp < -1000 => Option(Mistake)
         case MateCreated                  => Option(Blunder)
-        case MateLost if nextCp > 999     => Option(Inaccuracy)
-        case MateLost if nextCp > 700     => Option(Mistake)
+        case MateLost if nextCp > 4000     => Option(Inaccuracy)
+        case MateLost if nextCp > 1000     => Option(Mistake)
         case MateLost                     => Option(Blunder)
         case MateDelayed                  => None
       }

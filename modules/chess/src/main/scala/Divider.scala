@@ -22,32 +22,81 @@ object Division {
   val empty = Division(None, None, 0)
 }
 
+sealed trait DividerData
+final case class NotFound(whiteInvadersInBlackCamp: Int = 0, blackInvadersInWhitesCamp: Int = 0) extends DividerData
+final case class Found(index: Int) extends DividerData
+
+
 object Divider {
 
   def apply(boards: List[Board]): Division = {
 
     val indexedBoards: List[(Board, Int)] = boards.zipWithIndex
 
-    val midGame = indexedBoards.foldLeft(none[Int]) {
-      case (found: Some[_], _) => found
-      case (_, (board, index)) =>
-        (majorsAndMinors(board) <= 10 ||
+    val midGame = indexedBoards.foldLeft(NotFound(): DividerData) {
+      case (found: Found, _) => found
+      case (NotFound(lastWhiteInvaders, lastBlackInvaders), (board, index)) => {
+        val (currWhiteInvaders, currBlackInvaders) = countInvaders(board)
+        if (
+          // 20 is the number of non-pawn or non-king pieces
+          majorsAndMinors(board) <= 20 - 3 ||
           backrankSparse(board) ||
-          mixedness(board) > 150) option index
+          mixedness(board) > 150 ||
+          // if one piece invades the opposing camp and is not immediately captured
+          (currWhiteInvaders >= 1 && lastWhiteInvaders >= 1) ||
+          (currBlackInvaders >= 1 && lastBlackInvaders >= 1)
+          ) Found(index)
+        else
+          // store the current # of Invaders
+          NotFound(currWhiteInvaders, currBlackInvaders)
+      }
+    }
+
+    val midGameOption = midGame match {
+      case Found(index) => Some(index)
+      case _ => None
     }
 
     val endGame =
-      if (midGame.isDefined) indexedBoards.foldLeft(none[Int]) {
-        case (found: Some[_], _) => found
-        case (_, (board, index)) => (majorsAndMinors(board) <= 6) option index
+      if (midGameOption.isDefined) indexedBoards.foldLeft(NotFound(): DividerData) {
+        case (found: Found, _) => found
+        case (NotFound(lastWhiteInvaders, lastBlackInvaders), (board, index)) => {
+          val (currWhiteInvaders, currBlackInvaders) = countInvaders(board)
+          if (
+            (currWhiteInvaders >= 2 && lastWhiteInvaders >= 2) ||
+            (currBlackInvaders >= 2 && lastBlackInvaders >= 2)
+            ) Found(index)
+          else
+            NotFound(currWhiteInvaders, currBlackInvaders)
+        }
       }
-      else None
+      else NotFound()
+
+    val endGameOption = endGame match {
+      case Found(index) => Some(index)
+      case _ => None
+    }
 
     Division(
-      midGame.filter(m => endGame.fold(true)(m <)),
-      endGame,
+      midGameOption.filter(m => endGameOption.fold(true)(m <)),
+      endGameOption,
       boards.size
     )
+  }
+
+  private def countInvaders(board: Board): (Int, Int) = {
+    def isPieceAtBackRank(pos: Pos, piece: Piece): Boolean =
+      if (piece.color == Color.White) (7 <= pos.y && pos.y <= 9) else (1 <= pos.y && pos.y <= 3)
+    board.pieces.foldLeft((0, 0)) {
+      case ((whiteInvaders, blackInvaders), (pos, piece)) =>
+        if (isPieceAtBackRank(pos, piece))
+          if (piece.color == Color.White)
+            (whiteInvaders + 1, blackInvaders)
+          else
+            (whiteInvaders, blackInvaders + 1)
+        else
+          (whiteInvaders, blackInvaders)
+    }
   }
 
   private def majorsAndMinors(board: Board): Int =
@@ -63,7 +112,7 @@ object Divider {
       case (backrank, color) =>
         backrank.count { pos =>
           board(pos).fold(false)(_ is color)
-        } < 4
+        } < 2
     }
 
   private def score(white: Int, black: Int, y: Int): Int =

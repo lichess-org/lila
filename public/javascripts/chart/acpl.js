@@ -35,7 +35,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
                 node.ply +
                 ". " +
                 notation({ san: node.san, uci: node.uci, fen: node.fen }),
-              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+              y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === "1") {
               point.marker = {
@@ -117,8 +117,11 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               format = format.replace("{series.name}", trans("advantage"));
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
-              else if (eval.mate)
+              else if (eval.mate) {
+                console.log(eval);
+                console.log(eval.mate);
                 return format.replace("{point.y}", "#" + eval.mate);
+              }
               else if (typeof eval.cp !== "undefined") {
                 var e = Math.max(
                   Math.min(Math.round(eval.cp / 10) / 10, 99),
