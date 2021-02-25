@@ -106,6 +106,13 @@ object games {
                         href := routes.Tournament.show(tourId).url,
                         title := tournamentIdToName(tourId)
                       )
+                    },
+                    pov.game.swissId map { swissId =>
+                      a(
+                        dataIcon := "g",
+                        href := routes.Swiss.show(swissId).url,
+                        title := s"Swiss #${swissId}"
+                      )
                     }
                   ),
                   td(dataSort := pov.game.playedTurns)(pov.game.playedTurns),
