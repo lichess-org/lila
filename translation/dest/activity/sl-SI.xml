@@ -98,6 +98,12 @@
     <item quantity="few">Končal %s švicarske turnirje</item>
     <item quantity="other">Končal %s švicarskih turnirjev</item>
   </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Uvrščen #%1$s v %2$s</item>
+    <item quantity="two">Uvrščen #%1$s v %2$s</item>
+    <item quantity="few">Uvrščen #%1$s v %2$s</item>
+    <item quantity="other">Uvrščen #%1$s v %2$s</item>
+  </plurals>
   <string name="signedUp">Prijavljen na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružen %s ekipi</item>
