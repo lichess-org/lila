@@ -62,6 +62,14 @@
     <item quantity="one">Classificado #%1$s (top %2$s%%) com %3$s jogo em %4$s</item>
     <item quantity="other">Classificado #%1$s (top %2$s%%) com %3$s jogos em %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Competiu em %s torneio suíço</item>
+    <item quantity="other">Competiu em %s torneios suíços</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Classificado #%1$s em %2$s</item>
+    <item quantity="other">Classificado #%1$s em %2$s</item>
+  </plurals>
   <string name="signedUp">Registrou-se no lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Juntou-se a %s equipe</item>
