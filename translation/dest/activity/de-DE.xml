@@ -66,6 +66,10 @@
     <item quantity="one">Hat an %s Turnier nach Schweizer System teilgenommen</item>
     <item quantity="other">Hat an %s Turnieren nach Schweizer System teilgenommen</item>
   </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Hat Platz #%1$s im Turnier %2$s belegt</item>
+    <item quantity="other">Hat Platz #%1$s im Turnier %2$s belegt</item>
+  </plurals>
   <string name="signedUp">Hat sich bei Lichess angemeldet</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ist %s Team beigetreten</item>
