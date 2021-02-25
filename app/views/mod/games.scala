@@ -93,7 +93,7 @@ object games {
                   td(dataSort := ~pov.opponent.rating)(
                     playerLink(pov.opponent, withDiff = false)
                   ),
-                  td(dataSort := pov.game.clock.??(_.config.estimateTotalSeconds))(
+                  td(dataSort := pov.game.clock.fold(Int.MaxValue)(_.config.estimateTotalSeconds))(
                     pov.game.perfType.map { pt =>
                       iconTag(pt.iconChar)(cls := "text")
                     },
