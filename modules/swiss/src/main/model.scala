@@ -26,3 +26,5 @@ case class FeaturedSwisses(
     created: List[Swiss],
     started: List[Swiss]
 )
+
+case class SwissFinish(id: Swiss.Id, ranking: Ranking)

@@ -966,6 +966,8 @@ val `joinedNbSimuls` = new I18nKey("activity:joinedNbSimuls")
 val `createdNbStudies` = new I18nKey("activity:createdNbStudies")
 val `competedInNbTournaments` = new I18nKey("activity:competedInNbTournaments")
 val `rankedInTournament` = new I18nKey("activity:rankedInTournament")
+val `competedInNbSwissTournaments` = new I18nKey("activity:competedInNbSwissTournaments")
+val `rankedInSwissTournament` = new I18nKey("activity:rankedInSwissTournament")
 val `joinedNbTeams` = new I18nKey("activity:joinedNbTeams")
 }
 

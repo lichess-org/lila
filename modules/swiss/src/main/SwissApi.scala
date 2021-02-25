@@ -430,9 +430,9 @@ final class SwissApi(
 
   private[swiss] def finish(oldSwiss: Swiss): Funit =
     Sequencing(oldSwiss.id)(startedById) { swiss =>
-      colls.pairing.countSel($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
-        case 0 => destroy(swiss)
-        case _ => doFinish(swiss)
+      colls.pairing.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
+        if (_) doFinish(swiss)
+        else destroy(swiss)
       }
     }
   private def doFinish(swiss: Swiss): Funit =
@@ -459,6 +459,15 @@ final class SwissApi(
       } >>- {
       systemChat(swiss.id, s"Tournament completed!")
       socket.reload(swiss.id)
+      system.scheduler
+        .scheduleOnce(10 seconds) {
+          // we're delaying this to make sure the ranking has been recomputed
+          // since doFinish is called by finishGame before that
+          rankingApi(swiss) foreach { ranking =>
+            Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
+          }
+        }
+        .unit
     }
 
   def kill(swiss: Swiss): Funit = {
@@ -638,6 +647,11 @@ final class SwissApi(
         .throttle(perSecond.value, 1 second)
         .zipWithIndex
     }
+
+  private val idNameProjection = $doc("name" -> true)
+
+  def idNames(ids: List[Swiss.Id]): Fu[List[Swiss.IdName]] =
+    colls.swiss.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().list()
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

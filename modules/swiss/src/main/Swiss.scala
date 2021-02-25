@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
@@ -8,7 +9,6 @@ import scala.concurrent.duration._
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
-import chess.format.FEN
 
 case class Swiss(
     _id: Swiss.Id,
@@ -92,6 +92,10 @@ object Swiss {
   case class TieBreak(value: Double)   extends AnyVal
   case class Performance(value: Float) extends AnyVal
   case class Score(value: Int)         extends AnyVal
+
+  case class IdName(_id: Id, name: String) {
+    def id = _id
+  }
 
   case class Settings(
       nbRounds: Int,

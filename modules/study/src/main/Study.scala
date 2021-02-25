@@ -89,7 +89,6 @@ object Study {
   implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
 
   case class IdName(_id: Id, name: Name) {
-
     def id = _id
   }
 

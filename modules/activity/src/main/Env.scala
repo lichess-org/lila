@@ -16,7 +16,8 @@ final class Env(
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
-    getTeamName: lila.team.GetTeamName
+    getTeamName: lila.team.GetTeamName,
+    swissApi: lila.swiss.SwissApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -52,7 +53,8 @@ final class Env(
     "relation",
     "startStudy",
     "streamStart",
-    "gdprErase"
+    "gdprErase",
+    "swissFinish"
   ) {
     case lila.forum.actorApi.CreatePost(post)             => write.forumPost(post).unit
     case prog: lila.practice.PracticeProgress.OnComplete  => write.practice(prog).unit
@@ -67,5 +69,6 @@ final class Env(
     case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
     case lila.user.User.GDPRErase(user)                   => write.erase(user).unit
+    case lila.swiss.SwissFinish(swissId, ranking)         => write.swiss(swissId, ranking)
   }
 }

@@ -17,7 +17,8 @@ final class ActivityReadApi(
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi
+    tourLeaderApi: lila.tournament.LeaderboardApi,
+    swissApi: lila.swiss.SwissApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -83,13 +84,13 @@ final class ActivityReadApi(
           .?? { simuls =>
             simulApi byIds simuls.value.map(_.value) dmap some
           }
-          .map(_ filter (_.nonEmpty))
+          .dmap(_.filter(_.nonEmpty))
       studies <-
         a.studies
           .?? { studies =>
             studyApi publicIdNames studies.value dmap some
           }
-          .map(_ filter (_.nonEmpty))
+          .dmap(_.filter(_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
         val dateRange = a.date -> a.date.plusDays(1)
         tourLeaderApi
@@ -106,6 +107,21 @@ final class ActivityReadApi(
           }
           .mon(_.user segment "activity.tours")
       }
+      swisses <-
+        a.swisses
+          .?? { swisses =>
+            swissApi
+              .idNames(swisses.value.map(_.id))
+              .map {
+                _.flatMap { idName =>
+                  swisses.value.find(_.id == idName.id) map { s =>
+                    (idName, s.rank)
+                  }
+                }
+              }
+              .dmap(_.some.filter(_.nonEmpty))
+          }
+
     } yield ActivityView(
       interval = a.interval,
       games = a.games,
@@ -121,6 +137,7 @@ final class ActivityReadApi(
       studies = studies,
       teams = a.teams,
       tours = tours,
+      swisses = swisses,
       stream = a.stream
     )
 

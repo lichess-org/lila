@@ -10,7 +10,7 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
 
-private object BsonHandlers {
+object BsonHandlers {
 
   implicit val variantHandler       = variantByKeyHandler
   implicit val clockHandler         = clockConfigHandler
@@ -130,4 +130,7 @@ private object BsonHandlers {
         "garbage"    -> s.unrealisticSettings.option(true)
       )
     }
+
+  import Swiss.IdName
+  implicit val SwissIdNameBSONHandler = Macros.handler[IdName]
 }

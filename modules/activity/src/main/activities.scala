@@ -1,11 +1,12 @@
 package lila.activity
 
+import model._
 import ornicar.scalalib.Zero
 
 import lila.rating.PerfType
 import lila.study.Study
+import lila.swiss.Swiss
 import lila.user.User
-import model._
 
 object activities {
 
@@ -103,4 +104,10 @@ object activities {
     def +(s: String) = copy(value = (s :: value).distinct take maxSubEntries)
   }
   implicit val TeamsZero = Zero.instance(Teams(Nil))
+
+  case class SwissRank(id: Swiss.Id, rank: Int)
+  case class Swisses(value: List[SwissRank]) extends AnyVal {
+    def +(s: SwissRank) = copy(value = (s :: value) take maxSubEntries)
+  }
+  implicit val SwissesZero = Zero.instance(Swisses(Nil))
 }

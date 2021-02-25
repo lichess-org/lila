@@ -7,8 +7,10 @@ import lila.common.{ Day, Iso }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
-import lila.study.BSONHandlers._
+import lila.study.BSONHandlers.StudyIdBSONHandler
 import lila.study.Study
+import lila.swiss.BsonHandlers.swissIdHandler
+import lila.swiss.Swiss
 import lila.user.User
 
 private object BSONHandlers {
@@ -117,6 +119,13 @@ private object BSONHandlers {
   implicit private lazy val teamsHandler =
     isoHandler[Teams, List[String]]((s: Teams) => s.value, Teams.apply _)
 
+  implicit lazy val swissRankHandler = new lila.db.BSON[SwissRank] {
+    def reads(r: lila.db.BSON.Reader)                = SwissRank(Swiss.Id(r.str("i")), r.intD("r"))
+    def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
+  }
+  implicit private lazy val swissesHandler =
+    isoHandler[Swisses, List[SwissRank]]((s: Swisses) => s.value, Swisses.apply _)
+
   object ActivityFields {
     val id       = "_id"
     val games    = "g"
@@ -131,6 +140,7 @@ private object BSONHandlers {
     val follows  = "f"
     val studies  = "t"
     val teams    = "e"
+    val swisses  = "w"
     val stream   = "st"
   }
 
@@ -153,6 +163,7 @@ private object BSONHandlers {
         follows = r.getO[Follows](follows).filterNot(_.isEmpty),
         studies = r.getO[Studies](studies),
         teams = r.getO[Teams](teams),
+        swisses = r.getO[Swisses](swisses),
         stream = r.getD[Boolean](stream)
       )
 
@@ -171,6 +182,7 @@ private object BSONHandlers {
         follows  -> o.follows,
         studies  -> o.studies,
         teams    -> o.teams,
+        swisses  -> o.swisses,
         stream   -> o.stream.option(true)
       )
   }

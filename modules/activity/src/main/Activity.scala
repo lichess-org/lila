@@ -5,6 +5,7 @@ import org.joda.time.Interval
 
 import lila.common.Day
 import lila.user.User
+import lila.swiss.Swiss
 
 case class Activity(
     id: Activity.Id,
@@ -20,6 +21,7 @@ case class Activity(
     follows: Option[Follows] = None,
     studies: Option[Studies] = None,
     teams: Option[Teams] = None,
+    swisses: Option[Swisses] = None,
     stream: Boolean = false
 ) {
 
@@ -40,7 +42,8 @@ case class Activity(
       patron,
       follows,
       studies,
-      teams
+      teams,
+      swisses
     )
       .forall(_.isEmpty)
 }

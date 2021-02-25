@@ -8,6 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
+import lila.swiss.Swiss
 
 object activity {
 
@@ -33,6 +34,7 @@ object activity {
             a.simuls map renderSimuls(u),
             a.studies map renderStudies,
             a.tours map renderTours,
+            a.swisses map renderSwisses,
             a.teams map renderTeams,
             a.stream option renderStream(u),
             a.signup option renderSignup
@@ -245,7 +247,6 @@ object activity {
         trans.activity.competedInNbTournaments.pluralSame(tours.nb),
         subTag(
           tours.best.map { t =>
-            val link = a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
             div(
               cls := List(
                 "is-gold" -> (t.rank == 1),
@@ -258,7 +259,32 @@ object activity {
                 strong(t.rank),
                 t.rankRatio.percent,
                 t.nbGames,
-                link
+                a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
+              ),
+              br
+            )
+          }
+        )
+      )
+    )
+
+  private def renderSwisses(swisses: List[(Swiss.IdName, Int)])(implicit ctx: Context) =
+    entryTag(
+      iconTag("g"),
+      div(
+        trans.activity.competedInNbSwissTournaments.pluralSame(swisses.size),
+        subTag(
+          swisses.map { case (swiss, rank) =>
+            div(
+              cls := List(
+                "is-gold" -> (rank == 1),
+                "text"    -> (rank <= 3)
+              ),
+              dataIcon := (rank <= 3).option("g")
+            )(
+              trans.activity.rankedInSwissTournament(
+                strong(rank),
+                a(href := routes.Swiss.show(swiss.id.value))(swiss.name)
               ),
               br
             )
