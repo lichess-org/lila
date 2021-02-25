@@ -45,14 +45,27 @@ A pheidio colli eich darnau chi.</string>
   <string name="combat">Brwydro</string>
   <string name="attackTheOpponentsKing">Ymosod ar frenin y gwrthwynebydd</string>
   <string name="defendYourKing">Amddiffyna\'r teyrn</string>
+  <string name="intermediate">Canolradd</string>
+  <string name="castling">Castellu</string>
   <string name="stalemate">Methmat</string>
+  <string name="advanced">Uwch</string>
+  <string name="pieceValue">Gwerth y darnau</string>
+  <string name="whatNext">Beth sy\'n nesaf?</string>
+  <string name="register">Cofrestru</string>
+  <string name="practice">Ymarfer</string>
   <string name="puzzles">Posau</string>
   <string name="videos">Fideos</string>
   <string name="letsGo">Ffwrdd a ni!</string>
+  <string name="stageX">Cyfnod %s</string>
+  <string name="awesome">Ardderchog!</string>
   <string name="excellent">Ardderchog!</string>
+  <string name="greatJob">Da iawn!</string>
   <string name="perfect">Perffaith!</string>
+  <string name="outstanding">Gwych!</string>
+  <string name="wayToGo">Dynna chi!</string>
   <string name="rightOn">Dyna ni!</string>
   <string name="yourScore">Eich sgor</string>
   <string name="next">Nesaf</string>
+  <string name="backToMenu">Nôl i\'r ddewislen</string>
   <string name="retry">Ceisio eto</string>
 </resources>
