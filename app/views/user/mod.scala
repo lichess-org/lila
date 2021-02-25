@@ -464,13 +464,13 @@ object mod {
                 td(
                   span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := "J"),
                   s" ${result.basics.moveTimes / 10}",
-                  (~result.basics.mtStreak) ?? frag(br, "STREAK")
+                  result.basics.mtStreak ?? frag(br, "streak")
                 ),
                 td(
                   span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := "J"),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=) map { s =>
-                    frag(br, s"STREAK $s/12")
+                    frag(br, s"streak $s/12")
                   }
                 ),
                 td(

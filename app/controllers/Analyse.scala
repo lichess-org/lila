@@ -58,9 +58,7 @@ final class Analyse(
                       system = false
                     )
                   )
-                }.sequenceFu >>
-                  env.fishnet.awaiter(games.map(_.id), 2 minutes) >>
-                  env.mod.assessApi.ensurePlayerAssess(user.id, games)
+                }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
               } inject NoContent
           )
       }

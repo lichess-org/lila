@@ -1,9 +1,10 @@
 package lila.evaluation
 
 import chess.{ Color, Speed }
+import org.joda.time.DateTime
+
 import lila.analyse.{ Accuracy, Analysis }
 import lila.game.{ Game, Player, Pov }
-import org.joda.time.DateTime
 import lila.user.User
 
 case class PlayerAssessment(
@@ -27,12 +28,54 @@ object PlayerAssessment {
       hold: Boolean,
       blurs: Int,
       blurStreak: Option[Int],
-      mtStreak: Option[Boolean]
+      mtStreak: Boolean
   )
 
-  def make(pov: Pov, analysis: Analysis, holdAlerts: Player.HoldAlert.Map): PlayerAssessment = {
+  private def highestChunkBlursOf(pov: Pov) =
+    pov.player.blurs.booleans.sliding(12).map(_.count(identity)).max
+
+  private def highlyConsistentMoveTimeStreaksOf(pov: Pov): Boolean =
+    pov.game.clock.exists(_.estimateTotalSeconds > 60) && {
+      Statistics.slidingMoveTimesCvs(pov) ?? {
+        _ exists Statistics.cvIndicatesHighlyFlatTimesForStreaks
+      }
+    }
+
+  def makeBasics(pov: Pov, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment.Basics = {
     import Statistics._
     import pov.{ color, game }
+
+    Basics(
+      moveTimes = intAvgSd(~game.moveTimes(color) map (_.roundTenths)),
+      blurs = game playerBlurPercent color,
+      hold = holdAlerts.exists(_.suspicious),
+      blurStreak = highestChunkBlursOf(pov).some.filter(0 <),
+      mtStreak = highlyConsistentMoveTimeStreaksOf(pov)
+    )
+  }
+
+  def make(pov: Pov, analysis: Analysis, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment = {
+    import Statistics._
+    import pov.{ color, game }
+
+    val basics = makeBasics(pov, holdAlerts)
+
+    lazy val highBlurRate: Boolean =
+      !game.isSimul && game.playerBlurPercent(color) > 90
+
+    lazy val moderateBlurRate: Boolean =
+      !game.isSimul && game.playerBlurPercent(color) > 70
+
+    val highestChunkBlurs = highestChunkBlursOf(pov)
+
+    val highChunkBlurRate: Boolean = highestChunkBlurs >= 11
+
+    val moderateChunkBlurRate: Boolean = highestChunkBlurs >= 8
+
+    lazy val highlyConsistentMoveTimes: Boolean =
+      game.clock.exists(_.estimateTotalSeconds > 60) && {
+        moveTimeCoefVariation(pov) ?? cvIndicatesHighlyFlatTimes
+      }
 
     lazy val suspiciousErrorRate: Boolean =
       listAverage(Accuracy.diffsList(pov, analysis)) < (game.speed match {
@@ -50,47 +93,15 @@ object PlayerAssessment {
         }
       }
 
-    lazy val highBlurRate: Boolean =
-      !game.isSimul && game.playerBlurPercent(color) > 90
-
-    lazy val moderateBlurRate: Boolean =
-      !game.isSimul && game.playerBlurPercent(color) > 70
-
-    lazy val suspiciousHoldAlert: Boolean =
-      holdAlerts(color).exists(_.suspicious)
-
-    lazy val highestChunkBlurs: Int =
-      game.player(color).blurs.booleans.sliding(12).map(_.count(identity)).max
-
-    lazy val highChunkBlurRate: Boolean =
-      highestChunkBlurs >= 11
-
-    lazy val moderateChunkBlurRate: Boolean =
-      highestChunkBlurs >= 8
-
-    lazy val highlyConsistentMoveTimes: Boolean =
-      game.clock.exists(_.estimateTotalSeconds > 60) && {
-        moveTimeCoefVariation(pov) ?? cvIndicatesHighlyFlatTimes
-      }
-
-    // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
-
-    lazy val highlyConsistentMoveTimeStreaks: Boolean =
-      game.clock.exists(_.estimateTotalSeconds > 60) && {
-        slidingMoveTimesCvs(pov) ?? {
-          _ exists cvIndicatesHighlyFlatTimesForStreaks
-        }
-      }
-
     lazy val flags: PlayerFlags = PlayerFlags(
       suspiciousErrorRate,
       alwaysHasAdvantage,
       highBlurRate || highChunkBlurRate,
       moderateBlurRate || moderateChunkBlurRate,
-      highlyConsistentMoveTimes || highlyConsistentMoveTimeStreaks,
+      highlyConsistentMoveTimes || highlyConsistentMoveTimeStreaksOf(pov),
       moderatelyConsistentMoveTimes(pov),
       noFastMoves(pov),
-      suspiciousHoldAlert
+      basics.hold
     )
 
     val T = true
@@ -136,7 +147,6 @@ object PlayerAssessment {
       case Speed.Classical            => 0.6
       case _                          => 1.0
     }
-
     PlayerAssessment(
       _id = s"${game.id}/${color.name}",
       gameId = game.id,
@@ -144,14 +154,8 @@ object PlayerAssessment {
       color = color,
       assessment = assessment,
       date = DateTime.now,
-      Basics(
-        moveTimes = Statistics.intAvgSd(~game.moveTimes(color) map (_.roundTenths)),
-        blurs = game playerBlurPercent color,
-        hold = suspiciousHoldAlert,
-        blurStreak = highestChunkBlurs.some.filter(0 <),
-        mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
-      ),
-      analysis = Statistics.intAvgSd(Accuracy.diffsList(pov, analysis)),
+      basics = basics,
+      analysis = intAvgSd(Accuracy.diffsList(pov, analysis)),
       flags = flags,
       tcFactor = tcFactor.some
     )

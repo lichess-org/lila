@@ -3,7 +3,7 @@ package lila.analyse
 import lila.db.dsl._
 import lila.game.Game
 
-final class AnalysisRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Analysis.analysisBSONHandler
 

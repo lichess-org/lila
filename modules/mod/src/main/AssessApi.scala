@@ -1,6 +1,12 @@
 package lila.mod
 
+import chess.{ Black, Color, White }
+import org.joda.time.DateTime
+import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
+
 import lila.analyse.{ Analysis, AnalysisRepo }
+import lila.common.ThreadLocalRandom
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
@@ -8,13 +14,6 @@ import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessm
 import lila.game.{ Game, Player, Pov, Source }
 import lila.report.{ ModId, SuspectId }
 import lila.user.User
-
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
-import reactivemongo.api.bson._
-import lila.common.ThreadLocalRandom
-
-import chess.Color
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
@@ -29,6 +28,7 @@ final class AssessApi(
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import lila.evaluation.EvaluationBsonHandlers._
+  import Analysis.analysisBSONHandler
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
@@ -60,17 +60,53 @@ final class AssessApi(
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
-  def ofPovs(povs: List[Pov]): Fu[List[(Pov, Option[PlayerAssessment])]] =
+  private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
-      .idsMap[PlayerAssessment, String](
-        povs.map(p => s"${p.gameId}/${p.color.name}"),
-        ReadPreference.secondaryPreferred
-      )(_.gameId)
-      .map { ass =>
-        povs.map { pov =>
-          (pov, ass get pov.gameId)
+      .distinctEasy[Game.ID, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}"))) flatMap {
+      existingIds =>
+        val missing = povs collect {
+          case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
         }
-      }
+        missing.nonEmpty ??
+          analysisRepo.coll
+            .idsMap[Analysis, Game.ID](missing)(_.id)
+            .flatMap { ans =>
+              povs
+                .flatMap { pov =>
+                  ans get pov.gameId map { pov -> _ }
+                }
+                .map { case (pov, analysis) =>
+                  gameRepo.holdAlert game pov.game flatMap { holdAlerts =>
+                    createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
+                  }
+                }
+                .sequenceFu
+                .void
+            }
+    }
+
+  def makeAndGetFullOrBasicsFor(
+      povs: List[Pov]
+  ): Fu[List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]] =
+    buildMissing(povs) >>
+      assessRepo.coll
+        .idsMap[PlayerAssessment, Game.ID](
+          ids = povs.map(p => s"${p.gameId}/${p.color.name}"),
+          readPreference = ReadPreference.secondaryPreferred
+        )(_.gameId)
+        .flatMap { fulls =>
+          val basicsPovs = povs.filterNot(p => fulls.exists(_._1 == p.gameId))
+          gameRepo.holdAlert.povs(basicsPovs) map { holds =>
+            povs map { pov =>
+              pov -> {
+                fulls.get(pov.gameId) match {
+                  case Some(full) => Left(full)
+                  case None       => Right(PlayerAssessment.makeBasics(pov, holds get pov.gameId))
+                }
+              }
+            }
+          }
+        }
 
   def getPlayerAggregateAssessmentWithGames(
       userId: User.ID,
@@ -93,7 +129,7 @@ final class AssessApi(
       }) >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
-    gameRepo holdAlerts game flatMap { holdAlerts =>
+    gameRepo.holdAlert game game flatMap { holdAlerts =>
       def consistentMoveTimes(game: Game)(player: Player) =
         Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
@@ -106,24 +142,13 @@ final class AssessApi(
         else if (game.createdAt isBefore bottomDate) false
         else true
       shouldAssess.?? {
-        createPlayerAssessment(PlayerAssessment.make(game pov chess.White, analysis, holdAlerts)) >>
-          createPlayerAssessment(PlayerAssessment.make(game pov chess.Black, analysis, holdAlerts))
-      } >> ((shouldAssess && thenAssessUser) ?? {
-        game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
-      })
-    }
-
-  def ensurePlayerAssess(userId: User.ID, games: List[Game]): Funit =
-    analysisRepo.associateToGames(games take 100) flatMap {
-      _.map { case (game, analysis) =>
-        game.playerByUserId(userId) ?? { player =>
-          gameRepo holdAlerts game flatMap { holdAlerts =>
-            createPlayerAssessment(
-              PlayerAssessment.make(game pov player.color, analysis, holdAlerts)
-            )
-          }
+        createPlayerAssessment(PlayerAssessment.make(game pov White, analysis, holdAlerts.white)) >>
+          createPlayerAssessment(PlayerAssessment.make(game pov Black, analysis, holdAlerts.black))
+      } >> {
+        (shouldAssess && thenAssessUser) ?? {
+          game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
         }
-      }.sequenceFu.void
+      }
     }
 
   def assessUser(userId: User.ID): Funit =
@@ -200,7 +225,7 @@ final class AssessApi(
       else if (game.createdAt isBefore bottomDate) fuccess(none)
       // someone is using a bot
       else
-        gameRepo holdAlerts game map { holdAlerts =>
+        gameRepo.holdAlert game game map { holdAlerts =>
           if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
           // white has consistent move times
           else if (whiteSuspCoefVariation.isDefined && randomPercent(70))

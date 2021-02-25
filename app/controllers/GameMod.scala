@@ -23,7 +23,7 @@ final class GameMod(env: Env) extends LilaController(env) {
           env.activity.read.recentSwissRanks(user.id) zip
           env.game.gameRepo.recentPovsByUserFromSecondary(user, 100, toDbSelect(filter)) flatMap {
             case ((arenas, swisses), povs) =>
-              env.mod.assessApi.ofPovs(povs) map { games =>
+              env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map { games =>
                 Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
               }
           }

@@ -270,30 +270,48 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
-  def holdAlerts(game: Game): Fu[Player.HoldAlert.Map] =
-    coll.one[Bdoc](
-      $doc(
-        F.id -> game.id,
-        $or(
-          holdAlertField(chess.White) $exists true,
-          holdAlertField(chess.Black) $exists true
-        )
-      ),
-      $doc(
-        F.id                        -> false,
-        holdAlertField(chess.White) -> true,
-        holdAlertField(chess.Black) -> true
-      )
-    ) map {
-      _.fold(Player.HoldAlert.emptyMap) { doc =>
-        def holdAlertOf(playerField: String) =
-          doc.child(playerField).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
-        Color.Map(
-          white = holdAlertOf("p0"),
-          black = holdAlertOf("p1")
-        )
+  object holdAlert {
+    private val holdAlertSelector = $or(
+      holdAlertField(chess.White) $exists true,
+      holdAlertField(chess.Black) $exists true
+    )
+    private val holdAlertProjection = $doc(
+      holdAlertField(chess.White) -> true,
+      holdAlertField(chess.Black) -> true
+    )
+    private def holdAlertOf(doc: Bdoc, color: Color): Option[Player.HoldAlert] =
+      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
+
+    def game(game: Game): Fu[Player.HoldAlert.Map] =
+      coll.one[Bdoc](
+        $doc(F.id -> game.id, holdAlertSelector),
+        holdAlertProjection
+      ) map {
+        _.fold(Player.HoldAlert.emptyMap) { doc =>
+          Color.Map(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
+        }
       }
-    }
+
+    def povs(povs: Seq[Pov]): Fu[Map[Game.ID, Player.HoldAlert]] =
+      coll
+        .find(
+          $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
+          holdAlertProjection.some
+        )
+        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .list() map { docs =>
+        val idColors = povs.view.map { p =>
+          p.gameId -> p.color
+        }.toMap
+        val holds = for {
+          doc   <- docs
+          id    <- doc string "_id"
+          color <- idColors get id
+          holds <- holdAlertOf(doc, color)
+        } yield id -> holds
+        holds.toMap
+      }
+  }
 
   def hasHoldAlert(pov: Pov): Fu[Boolean] =
     coll.exists(

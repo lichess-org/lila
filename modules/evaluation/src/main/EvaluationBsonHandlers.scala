@@ -54,7 +54,7 @@ object EvaluationBsonHandlers {
         hold = r bool "hold",
         blurs = r int "blurs",
         blurStreak = r intO "blurStreak",
-        mtStreak = r boolO "mtStreak"
+        mtStreak = r boolD "mtStreak"
       ),
       analysis = Statistics.IntAvgSd(
         avg = r int "sfAvg",
@@ -80,7 +80,7 @@ object EvaluationBsonHandlers {
         "blurs"      -> o.basics.blurs,
         "hold"       -> o.basics.hold,
         "blurStreak" -> o.basics.blurStreak,
-        "mtStreak"   -> o.basics.mtStreak,
+        "mtStreak"   -> w.boolO(o.basics.mtStreak),
         "tcFactor"   -> o.tcFactor
       )
   }
