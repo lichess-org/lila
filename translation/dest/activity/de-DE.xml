@@ -63,7 +63,7 @@
     <item quantity="other">Hat Platz #%1$s (obere %2$s%%) mit %3$s Spielen in %4$s erreicht</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Hat an einem Turnier nach Schweizer System teilgenommen</item>
+    <item quantity="one">Hat an %s Turnier nach Schweizer System teilgenommen</item>
     <item quantity="other">Hat an %s Turnieren nach Schweizer System teilgenommen</item>
   </plurals>
   <string name="signedUp">Hat sich bei Lichess angemeldet</string>
