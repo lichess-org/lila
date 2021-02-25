@@ -66,6 +66,10 @@
     <item quantity="one">Har deltatt i %s sveitserturnering</item>
     <item quantity="other">Har deltatt i %s sveitserturneringer</item>
   </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Ble nummer %1$s i %2$s</item>
+    <item quantity="other">Ble nummer %1$s i %2$s</item>
+  </plurals>
   <string name="signedUp">Er registrert hos Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Er medlem av %s lag</item>
