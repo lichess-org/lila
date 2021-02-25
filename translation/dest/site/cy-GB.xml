@@ -483,7 +483,7 @@
   <string name="shareGameURL">Rhannu dolen y gêm</string>
   <string name="error.required">Maes gofynnol</string>
   <string name="error.email">Cyfeiriad e-bost annilys</string>
-  <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
+  <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol. Os gwelwch yn dda, ail gwiriwch yr e-bost a cheisiwch eto.</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
