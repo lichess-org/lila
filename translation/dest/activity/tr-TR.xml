@@ -62,6 +62,10 @@
     <item quantity="one">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi%2$s%% içinde)</item>
     <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s turnuvasında mücadele etti</item>
+    <item quantity="other">%s turnuvasında mücadele etti</item>
+  </plurals>
   <string name="signedUp">lichess.org\'a üye oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s takıma katıldı</item>
