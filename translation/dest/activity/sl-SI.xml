@@ -92,6 +92,12 @@
     <item quantity="few">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
     <item quantity="other">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Končal %s švicarski turnir</item>
+    <item quantity="two">Končal %s švicarska turnirja</item>
+    <item quantity="few">Končal %s švicarske turnirje</item>
+    <item quantity="other">Končal %s švicarskih turnirjev</item>
+  </plurals>
   <string name="signedUp">Prijavljen na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružen %s ekipi</item>
