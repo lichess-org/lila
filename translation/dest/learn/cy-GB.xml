@@ -32,6 +32,7 @@
 Ond pan fod nhw\'n cyrraedd pen arall o\'r ffwrdd, maent yn troi mewn i ddarn cryfach!</string>
   <string name="captureThenPromote">Cipiwch, ac enillwch ddyrchafiad!</string>
   <string name="useAllThePawns">Defnyddiwch pob gwerinwr! Nid oes angen eu dyrchafu.</string>
+  <string name="pawnPromotion">Dyrchafiad gwerinwr</string>
   <string name="fundamentals">Pethau sylfaenol</string>
   <string name="capture">Cymryd</string>
   <string name="takeTheEnemyPieces">Cymryd darnau\'r gelyn</string>
@@ -45,9 +46,12 @@ A pheidio colli eich darnau chi.</string>
   <string name="combat">Brwydro</string>
   <string name="attackTheOpponentsKing">Ymosod ar frenin y gwrthwynebydd</string>
   <string name="defendYourKing">Amddiffyna\'r teyrn</string>
+  <string name="escapeWithTheKing">Dianc gyda\'r teyrn!</string>
   <string name="intermediate">Canolradd</string>
+  <string name="howTheGameStarts">Sut mae\'r gêm yn dechrau</string>
   <string name="castling">Castellu</string>
   <string name="stalemate">Methmat</string>
+  <string name="theGameIsADraw">Mae\'r gêm yn gyfartal</string>
   <string name="advanced">Uwch</string>
   <string name="pieceValue">Gwerth y darnau</string>
   <string name="whatNext">Beth sy\'n nesaf?</string>
@@ -64,8 +68,10 @@ A pheidio colli eich darnau chi.</string>
   <string name="outstanding">Gwych!</string>
   <string name="wayToGo">Dynna chi!</string>
   <string name="rightOn">Dyna ni!</string>
+  <string name="stageXComplete">Cyfnod %s wedi cwblhau</string>
   <string name="yourScore">Eich sgor</string>
   <string name="next">Nesaf</string>
   <string name="backToMenu">Nôl i\'r ddewislen</string>
+  <string name="puzzleFailed">Wedi methu\'r pos!</string>
   <string name="retry">Ceisio eto</string>
 </resources>
