@@ -279,7 +279,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
   def password =
     !isTeamBattle option
       form3.group(
-        form("password"),
+        form("tournament_password"),
         trans.password(),
         help = trans.makePrivateTournament().some,
         half = true

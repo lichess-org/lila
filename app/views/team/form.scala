@@ -103,7 +103,7 @@ object form {
 
   private def passwordField(form: Form[_])(implicit ctx: Context) =
     form3.group(
-      form("password"),
+      form("team_password"),
       trans.team.teamPassword(),
       help = trans.team.teamPasswordDescriptionForLeader().some
     )(

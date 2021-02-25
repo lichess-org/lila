@@ -204,7 +204,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
 
   def password =
     form3.group(
-      form("password"),
+      form("swiss_password"),
       trans.password(),
       help = trans.makePrivateTournament().some,
       half = true
