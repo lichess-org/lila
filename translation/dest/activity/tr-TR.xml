@@ -66,6 +66,10 @@
     <item quantity="one">%s turnuvasında mücadele etti</item>
     <item quantity="other">%s turnuvasında mücadele etti</item>
   </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">%2$s turnuvasında %1$s. oldu</item>
+    <item quantity="other">%2$s turnuvasında %1$s. oldu</item>
+  </plurals>
   <string name="signedUp">lichess.org\'a üye oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s takıma katıldı</item>
