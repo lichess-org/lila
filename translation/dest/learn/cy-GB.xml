@@ -50,6 +50,8 @@ A pheidio colli eich darnau chi.</string>
   <string name="intermediate">Canolradd</string>
   <string name="howTheGameStarts">Sut mae\'r gêm yn dechrau</string>
   <string name="castling">Castellu</string>
+  <string name="theSpecialKingMove">Symudiad arbennig y teyrn</string>
+  <string name="theSpecialPawnMove">Symudiad arbennig y gwerinwr</string>
   <string name="stalemate">Methmat</string>
   <string name="theGameIsADraw">Mae\'r gêm yn gyfartal</string>
   <string name="advanced">Uwch</string>
