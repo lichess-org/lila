@@ -62,6 +62,10 @@
     <item quantity="one">Eindigde #%1$s (top %2$s%%) met %3$s partij in %4$s</item>
     <item quantity="other">Eindigde #%1$s (top %2$s%%) met %3$s partijen in %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Nam deel aan %s Zwitsers toernooi</item>
+    <item quantity="other">Nam deel aan %s Zwitserse toernooien</item>
+  </plurals>
   <string name="signedUp">Geregistreerd op lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Sloot zich aan bij %s team</item>
