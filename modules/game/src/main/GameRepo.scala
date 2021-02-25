@@ -91,9 +91,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       _.flatMap(g => Pov(g, user))
     }
 
-  def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
+  def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
     coll
-      .find(Query user user)
+      .find(Query.user(user) ++ select)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)

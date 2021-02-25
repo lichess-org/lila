@@ -1,13 +1,17 @@
 package views.html.mod
 
+import controllers.GameMod
+import controllers.routes
+import play.api.data.Form
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
-import lila.game.Pov
-import lila.user.User
 import lila.evaluation.PlayerAssessment
+import lila.game.Pov
+import lila.tournament.Tournament
+import lila.user.User
+import lila.tournament.LeaderboardApi.TourEntry
 
 object games {
 
@@ -15,20 +19,42 @@ object games {
   private val sortNoneTh   = th(attr("data-sort-method") := "none")
   private val dataSort     = attr("data-sort")
 
-  def apply(user: User, games: List[(Pov, Option[PlayerAssessment])])(implicit ctx: Context) =
+  def apply(
+      user: User,
+      filterForm: Form[GameMod.Filter],
+      games: List[(Pov, Option[PlayerAssessment])],
+      tours: Seq[TourEntry]
+  )(implicit
+      ctx: Context
+  ) =
     views.html.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
       moreJs = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
-        postForm(action := routes.Analyse.multipleAnalysis(user.id), cls := "mod-games__form")(
-          div(cls := "box__top")(
-            h1(userLink(user), " games (WIP)"),
-            div(cls := "box__top__actions")(
-              submitButton(cls := "button")("Analyse")
+        div(cls := "box__top")(
+          h1(userLink(user), " games (WIP)"),
+          div(cls := "box__top__actions")(
+            form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
+              form3.select(
+                filterForm("tournament"),
+                tours.map(t =>
+                  t.tour.id -> List(
+                    s"games ${t.entry.nbGames}",
+                    s"rank ${t.entry.rank}",
+                    s"top ${t.entry.rankRatio.percent}%",
+                    t.tour.name()
+                  ).mkString(" / ")
+                ),
+                pluralize("Recent arena tournament", tours.size).some,
+                disabled = tours.isEmpty
+              )
             )
-          ),
+          )
+        ),
+        postForm(action := routes.Analyse.multipleAnalysis(user.id), cls := "mod-games__analysis-form")(
+          submitButton(cls := "button button-empty button-thin")("Analyse selected"),
           table(cls := "mod-games game-list slist")(
             thead(
               tr(

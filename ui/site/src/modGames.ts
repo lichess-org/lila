@@ -6,7 +6,19 @@ import { formToXhr } from 'common/xhr';
 type OnSelect = (input: HTMLInputElement, shift: boolean) => void;
 
 lichess.load.then(() => {
-  const form = document.querySelector('.mod-games__form') as HTMLFormElement;
+  setupTable();
+  setupFilter();
+  setupAnalysisForm();
+});
+
+const setupFilter = () => {
+  const form = document.querySelector('.mod-games__filter-form') as HTMLFormElement;
+  $(form)
+    .find('select')
+    .on('change', () => form.submit());
+};
+
+const setupTable = () => {
   const table = document.querySelector('table.game-list') as HTMLTableElement;
   extendTablesortNumber();
   tablesort(table, { descending: true });
@@ -16,11 +28,10 @@ lichess.load.then(() => {
   expandCheckboxZone(table, onSelect);
 
   checkBoxAll(table);
+};
 
-  bindForm(form);
-});
-
-const bindForm = (form: HTMLFormElement) => {
+const setupAnalysisForm = () => {
+  const form = document.querySelector('.mod-games__analysis-form') as HTMLFormElement;
   const debouncedSubmit = debounce(
     () =>
       formToXhr(form).then(() => {

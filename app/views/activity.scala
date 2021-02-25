@@ -256,7 +256,7 @@ object activity {
               trans.activity.rankedInTournament.plural(
                 t.nbGames,
                 strong(t.rank),
-                (t.rankRatio.value * 100).toInt atLeast 1,
+                t.rankRatio.percent,
                 t.nbGames,
                 link
               ),
