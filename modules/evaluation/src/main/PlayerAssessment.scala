@@ -84,14 +84,14 @@ object PlayerAssessment {
 
     lazy val highlyConsistentMoveTimes: Boolean =
       game.clock.exists(_.estimateTotalSeconds > 60) && {
-        moveTimeCoefVariation(game pov color) ?? cvIndicatesHighlyFlatTimes
+        moveTimeCoefVariation(pov) ?? cvIndicatesHighlyFlatTimes
       }
 
     // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
 
     lazy val highlyConsistentMoveTimeStreaks: Boolean =
       game.clock.exists(_.estimateTotalSeconds > 60) && {
-        slidingMoveTimesCvs(game pov color) ?? {
+        slidingMoveTimesCvs(pov) ?? {
           _ exists cvIndicatesHighlyFlatTimesForStreaks
         }
       }
@@ -102,8 +102,8 @@ object PlayerAssessment {
       highBlurRate || highChunkBlurRate,
       moderateBlurRate || moderateChunkBlurRate,
       highlyConsistentMoveTimes || highlyConsistentMoveTimeStreaks,
-      moderatelyConsistentMoveTimes(Pov(game, color)),
-      noFastMoves(Pov(game, color)),
+      moderatelyConsistentMoveTimes(pov),
+      noFastMoves(pov),
       suspiciousHoldAlert
     )
 
@@ -159,7 +159,7 @@ object PlayerAssessment {
     }
 
     PlayerAssessment(
-      _id = game.id + "/" + color.name,
+      _id = s"${game.id}/${color.name}",
       gameId = game.id,
       userId = ~game.player(color).userId,
       color = color,
