@@ -62,6 +62,10 @@
     <item quantity="one">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
     <item quantity="other">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s svájci rendszerű versenyen vett részt</item>
+    <item quantity="other">%s svájci rendszerű versenyen vett részt</item>
+  </plurals>
   <string name="signedUp">Regisztrált a lichess.org-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>
