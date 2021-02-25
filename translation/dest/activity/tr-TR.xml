@@ -62,7 +62,7 @@
     <item quantity="one">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi%2$s%% içinde)</item>
     <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
   </plurals>
-  <plurals name="competedInNbSwissTournaments">
+  <plurals name="competedInNbSwissTournaments" comment="competedInNbSwissTournaments [one] [other]&#10;&#10;%s is the number of tournaments.">
     <item quantity="one">%s turnuvasında mücadele etti</item>
     <item quantity="other">%s turnuvasında mücadele etti</item>
   </plurals>
