@@ -41,6 +41,8 @@ const setupAnalysisForm = () => {
     1000
   );
   $(form).on('submit', () => {
+    const nbToAnalyse = form.querySelectorAll('input:checked').length;
+    if (nbToAnalyse >= 20 && !confirm(`Analyse ${nbToAnalyse} games?`)) return;
     $(form).find('button').text('Sent').prop('disabled', true);
     debouncedSubmit();
     return false;
