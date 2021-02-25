@@ -4,7 +4,7 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
-import lila.evaluation.{ AccountAction, Assessible, PlayerAggregateAssessment, PlayerAssessment, PlayerFlags }
+import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.report.{ ModId, SuspectId }
 import lila.user.User
@@ -28,9 +28,7 @@ final class AssessApi(
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
-  import PlayerFlags.playerFlagsBSONHandler
-
-  implicit private val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
+  import lila.evaluation.EvaluationBsonHandlers._
 
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
@@ -108,8 +106,8 @@ final class AssessApi(
         else if (game.createdAt isBefore bottomDate) false
         else true
       shouldAssess.?? {
-        createPlayerAssessment(Assessible(game pov chess.White, analysis, holdAlerts).playerAssessment) >>
-          createPlayerAssessment(Assessible(game pov chess.Black, analysis, holdAlerts).playerAssessment)
+        createPlayerAssessment(PlayerAssessment.make(game pov chess.White, analysis, holdAlerts)) >>
+          createPlayerAssessment(PlayerAssessment.make(game pov chess.Black, analysis, holdAlerts))
       } >> ((shouldAssess && thenAssessUser) ?? {
         game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
       })
@@ -121,7 +119,7 @@ final class AssessApi(
         game.playerByUserId(userId) ?? { player =>
           gameRepo holdAlerts game flatMap { holdAlerts =>
             createPlayerAssessment(
-              Assessible(game pov player.color, analysis, holdAlerts).playerAssessment
+              PlayerAssessment.make(game pov player.color, analysis, holdAlerts)
             )
           }
         }

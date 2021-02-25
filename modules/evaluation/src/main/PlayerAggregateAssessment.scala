@@ -88,7 +88,7 @@ case class PlayerAggregateAssessment(
     val n                   = filteredAssessments.size
     if (n < 2) none
     else {
-      val filteredSfAvg = filteredAssessments.map(_.sfAvg)
+      val filteredSfAvg = filteredAssessments.map(_.analysis.avg)
       val avg           = listAverage(filteredSfAvg)
       // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
       val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
@@ -97,16 +97,16 @@ case class PlayerAggregateAssessment(
   }
 
   // Average SF Avg and CI given blur rate
-  val sfAvgBlurs   = sfAvgGiven(_.blurs > 70)
-  val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
+  val sfAvgBlurs   = sfAvgGiven(_.basics.blurs > 70)
+  val sfAvgNoBlurs = sfAvgGiven(_.basics.blurs <= 70)
 
   // Average SF Avg and CI given move time coef of variance
-  val sfAvgLowVar  = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
-  val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
+  val sfAvgLowVar  = sfAvgGiven(a => a.basics.moveTimes.sd.toDouble / a.basics.moveTimes.avg < 0.5)
+  val sfAvgHighVar = sfAvgGiven(a => a.basics.moveTimes.sd.toDouble / a.basics.moveTimes.avg >= 0.5)
 
   // Average SF Avg and CI given bot
-  val sfAvgHold   = sfAvgGiven(_.hold)
-  val sfAvgNoHold = sfAvgGiven(!_.hold)
+  val sfAvgHold   = sfAvgGiven(_.basics.hold)
+  val sfAvgNoHold = sfAvgGiven(!_.basics.hold)
 
   def isGreatUser = user.perfs.bestRating > 2500 && user.count.rated >= 100
 
@@ -133,49 +133,5 @@ object PlayerAggregateAssessment {
 
   case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]) {
     def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lila.game.Pov(_, pa.color) }
-  }
-}
-
-case class PlayerFlags(
-    suspiciousErrorRate: Boolean,
-    alwaysHasAdvantage: Boolean,
-    highBlurRate: Boolean,
-    moderateBlurRate: Boolean,
-    highlyConsistentMoveTimes: Boolean,
-    moderatelyConsistentMoveTimes: Boolean,
-    noFastMoves: Boolean,
-    suspiciousHoldAlert: Boolean
-)
-
-object PlayerFlags {
-
-  import reactivemongo.api.bson._
-  import lila.db.BSON
-
-  implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
-
-    def reads(r: BSON.Reader): PlayerFlags =
-      PlayerFlags(
-        suspiciousErrorRate = r boolD "ser",
-        alwaysHasAdvantage = r boolD "aha",
-        highBlurRate = r boolD "hbr",
-        moderateBlurRate = r boolD "mbr",
-        highlyConsistentMoveTimes = r boolD "hcmt",
-        moderatelyConsistentMoveTimes = r boolD "cmt",
-        noFastMoves = r boolD "nfm",
-        suspiciousHoldAlert = r boolD "sha"
-      )
-
-    def writes(w: BSON.Writer, o: PlayerFlags) =
-      BSONDocument(
-        "ser"  -> w.boolO(o.suspiciousErrorRate),
-        "aha"  -> w.boolO(o.alwaysHasAdvantage),
-        "hbr"  -> w.boolO(o.highBlurRate),
-        "mbr"  -> w.boolO(o.moderateBlurRate),
-        "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
-        "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
-        "nfm"  -> w.boolO(o.noFastMoves),
-        "sha"  -> w.boolO(o.suspiciousHoldAlert)
-      )
   }
 }

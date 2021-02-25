@@ -459,23 +459,23 @@ object mod {
                 ),
                 td(
                   span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := "J"),
-                  s" ${result.sfAvg} ± ${result.sfSd}"
+                  s" ${result.analysis}"
                 ),
                 td(
                   span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := "J"),
-                  s" ${result.mtAvg / 10} ± ${result.mtSd / 10}",
-                  (~result.mtStreak) ?? frag(br, "STREAK")
+                  s" ${result.basics.moveTimes / 10}",
+                  (~result.basics.mtStreak) ?? frag(br, "STREAK")
                 ),
                 td(
                   span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := "J"),
-                  s" ${result.blurs}%",
-                  result.blurStreak.filter(8.<=) map { s =>
+                  s" ${result.basics.blurs}%",
+                  result.basics.blurStreak.filter(8.<=) map { s =>
                     frag(br, s"STREAK $s/12")
                   }
                 ),
                 td(
                   span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := "J"),
-                  if (result.hold) "Yes" else "No"
+                  if (result.basics.hold) "Yes" else "No"
                 ),
                 td(
                   div(cls := "aggregate")(

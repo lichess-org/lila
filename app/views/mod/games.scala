@@ -131,14 +131,14 @@ object games {
                   assessment match {
                     case Some(ass) =>
                       frag(
-                        td(dataSort := ass.sfAvg)(s"${ass.sfAvg} ± ${ass.sfSd}"),
-                        td(dataSort := ass.mtAvg)(
-                          s"${ass.mtAvg / 10} ± ${ass.mtSd / 10}",
-                          ~ass.mtStreak ?? frag(br, "STREAK")
+                        td(dataSort := ass.analysis.avg)(ass.analysis.toString),
+                        td(dataSort := ass.basics.moveTimes.avg)(
+                          s"${ass.basics.moveTimes / 10}",
+                          ~ass.basics.mtStreak ?? frag(br, "STREAK")
                         ),
-                        td(dataSort := ass.blurs)(
-                          s"${ass.blurs}%",
-                          ass.blurStreak.filter(8 <=) map { s =>
+                        td(dataSort := ass.basics.blurs)(
+                          s"${ass.basics.blurs}%",
+                          ass.basics.blurStreak.filter(8 <=) map { s =>
                             frag(br, s"STREAK $s/12")
                           }
                         )

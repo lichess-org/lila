@@ -13,35 +13,21 @@ case class PlayerAssessment(
     color: Color,
     assessment: GameAssessment,
     date: DateTime,
-    // meta
+    basics: PlayerAssessment.Basics,
+    analysis: Statistics.IntAvgSd,
     flags: PlayerFlags,
-    sfAvg: Int,
-    sfSd: Int,
-    mtAvg: Int,
-    mtSd: Int,
-    blurs: Int,
-    hold: Boolean,
-    blurStreak: Option[Int],
-    mtStreak: Option[Boolean],
     tcFactor: Option[Double]
 )
 
 object PlayerAssessment {
 
-  case class Basic(
-      gameId: Game.ID,
-      userId: User.ID,
-      color: Color,
-      date: DateTime,
-      // meta
-      flags: PlayerFlags,
-      mtAvg: Int,
-      mtSd: Int,
-      blurs: Int,
+  // when you don't have computer analysis
+  case class Basics(
+      moveTimes: Statistics.IntAvgSd,
       hold: Boolean,
+      blurs: Int,
       blurStreak: Option[Int],
-      mtStreak: Option[Boolean],
-      tcFactor: Option[Double]
+      mtStreak: Option[Boolean]
   )
 
   def make(pov: Pov, analysis: Analysis, holdAlerts: Player.HoldAlert.Map): PlayerAssessment = {
@@ -49,7 +35,7 @@ object PlayerAssessment {
     import pov.{ color, game }
 
     lazy val suspiciousErrorRate: Boolean =
-      listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
+      listAverage(Accuracy.diffsList(pov, analysis)) < (game.speed match {
         case Speed.Bullet => 25
         case Speed.Blitz  => 20
         case _            => 15
@@ -96,7 +82,7 @@ object PlayerAssessment {
         }
       }
 
-    lazy val mkFlags: PlayerFlags = PlayerFlags(
+    lazy val flags: PlayerFlags = PlayerFlags(
       suspiciousErrorRate,
       alwaysHasAdvantage,
       highBlurRate || highChunkBlurRate,
@@ -110,9 +96,8 @@ object PlayerAssessment {
     val T = true
     val F = false
 
-    def rankCheating: GameAssessment = {
+    def assessment: GameAssessment = {
       import GameAssessment._
-      val flags = mkFlags
       val assessment = flags match {
         //               SF1 SF2 BLR1 BLR2 HCMT MCMT NFM Holds
         case PlayerFlags(T, _, T, _, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
@@ -145,13 +130,7 @@ object PlayerAssessment {
       else assessment
     }
 
-    lazy val sfAvg: Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-    lazy val sfSd: Int  = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-    lazy val mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
-    lazy val mtSd: Int  = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
-    lazy val blurs: Int = game.playerBlurPercent(color)
-
-    lazy val tcFactor: Double = game.speed match {
+    val tcFactor: Double = game.speed match {
       case Speed.Bullet | Speed.Blitz => 1.25
       case Speed.Rapid                => 1.0
       case Speed.Classical            => 0.6
@@ -163,18 +142,17 @@ object PlayerAssessment {
       gameId = game.id,
       userId = ~game.player(color).userId,
       color = color,
-      assessment = rankCheating,
+      assessment = assessment,
       date = DateTime.now,
-      // meta
-      flags = mkFlags,
-      sfAvg = sfAvg,
-      sfSd = sfSd,
-      mtAvg = mtAvg,
-      mtSd = mtSd,
-      blurs = blurs,
-      hold = suspiciousHoldAlert,
-      blurStreak = highestChunkBlurs.some.filter(0 <),
-      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity),
+      Basics(
+        moveTimes = Statistics.intAvgSd(~game.moveTimes(color) map (_.roundTenths)),
+        blurs = game playerBlurPercent color,
+        hold = suspiciousHoldAlert,
+        blurStreak = highestChunkBlurs.some.filter(0 <),
+        mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
+      ),
+      analysis = Statistics.intAvgSd(Accuracy.diffsList(pov, analysis)),
+      flags = flags,
       tcFactor = tcFactor.some
     )
   }
