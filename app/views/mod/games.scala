@@ -143,9 +143,9 @@ object games {
                           }
                         )
                       )
-                    case _ => td(colspan := 3)
+                    case _ => frag(td, td, td) // don't use colspan, it breaks the tablesorter
                   },
-                  td(dataSort := pov.game.movedAt.getMillis.toString)(
+                  td(dataSort := pov.game.movedAt.getSeconds.toString)(
                     a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                       momentFromNowServer(pov.game.movedAt)
                     )

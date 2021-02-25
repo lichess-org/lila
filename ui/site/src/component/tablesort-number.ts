@@ -3,10 +3,8 @@ import tablesort from 'tablesort';
 export default function extendTablesortNumber() {
   tablesort.extend(
     'number',
-    function (item) {
-      return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
-    },
-    (a, b) => compareNumber(cleanNumber(b), cleanNumber(a))
+    (item: string) => item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/),
+    (a: string, b: string) => compareNumber(cleanNumber(b), cleanNumber(a))
   );
 }
 
