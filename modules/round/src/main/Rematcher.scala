@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation, History }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -108,12 +108,16 @@ final private class Rematcher(
         case variant      => variant.pieces
       }
       users <- userRepo byIds pov.game.userIds
+      board = Board(pieces, variant = pov.game.variant).withHistory(
+        History(
+          lastMove = situation ?? (_.situation.board.history.lastMove),
+          castles = situation.fold(Castles.init)(_.situation.board.history.castles)
+        )
+      )
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withCastles {
-              situation.fold(Castles.init)(_.situation.board.history.castles)
-            },
+            board = board,
             color = situation.fold[chess.Color](White)(_.situation.color)
           ),
           clock = pov.game.clock map { c =>
