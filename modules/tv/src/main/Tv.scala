@@ -83,7 +83,7 @@ object Tv {
           name = "Top Rated",
           icon = "C",
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(standard) // rated(1400), standard)
+          filters = Seq(rated(1400), standard, noBot)
         )
     case object Bullet
         extends Channel(
