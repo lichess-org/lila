@@ -62,6 +62,14 @@
     <item quantity="one">Rangeret #%1$s (top %2$s%%) med %3$s parti i %4$s</item>
     <item quantity="other">Rangeret #%1$s (top %2$s%%) med %3$s partier i %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Deltog i %s monradturnering</item>
+    <item quantity="other">Deltog i %s monradturneringer</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Rangeret #%1$s i %2$s</item>
+    <item quantity="other">Rangeret #%1$s i %2$s</item>
+  </plurals>
   <string name="signedUp">Tilmeldte sig lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Blev medlem af %s hold</item>
