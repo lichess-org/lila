@@ -9,6 +9,7 @@ import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.user.User
 import lila.tournament.LeaderboardApi
+import lila.swiss.Swiss
 
 final class ActivityReadApi(
     coll: Coll,
@@ -110,16 +111,7 @@ final class ActivityReadApi(
       swisses <-
         a.swisses
           .?? { swisses =>
-            swissApi
-              .idNames(swisses.value.map(_.id))
-              .map {
-                _.flatMap { idName =>
-                  swisses.value.find(_.id == idName.id) map { s =>
-                    (idName, s.rank)
-                  }
-                }
-              }
-              .dmap(_.some.filter(_.nonEmpty))
+            toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
           }
 
     } yield ActivityView(
@@ -140,6 +132,27 @@ final class ActivityReadApi(
       swisses = swisses,
       stream = a.stream
     )
+
+  def recentSwissRanks(userId: User.ID): Fu[List[(Swiss.IdName, Int)]] =
+    coll
+      .find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
+      .sort($sort desc "_id")
+      .cursor[Activity](ReadPreference.secondaryPreferred)
+      .list(10)
+      .flatMap { activities =>
+        toSwissesView(activities.flatMap(_.swisses.??(_.value)))
+      }
+
+  private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Int)]] =
+    swissApi
+      .idNames(swisses.map(_.id))
+      .map {
+        _.flatMap { idName =>
+          swisses.find(_.id == idName.id) map { s =>
+            (idName, s.rank)
+          }
+        }
+      }
 
   private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {

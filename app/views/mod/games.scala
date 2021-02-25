@@ -25,7 +25,7 @@ object games {
       filterForm: Form[GameMod.Filter],
       games: List[(Pov, Option[PlayerAssessment])],
       arenas: Seq[TourEntry],
-      swisses: Seq[Swiss]
+      swisses: Seq[(Swiss.IdName, Int)]
   )(implicit
       ctx: Context
   ) =
@@ -49,8 +49,16 @@ object games {
                     t.tour.name()
                   ).mkString(" / ")
                 ),
-                pluralize("Recent arenas", arenas.size).some,
+                pluralize("recent arena", arenas.size).some,
                 disabled = arenas.isEmpty
+              ),
+              form3.select(
+                filterForm("swiss"),
+                swisses.map { case (swiss, rank) =>
+                  swiss.id.value -> s"rank ${rank} / ${swiss.name}"
+                },
+                s"${swisses.size} recent swiss".some,
+                disabled = swisses.isEmpty
               )
             )
           )

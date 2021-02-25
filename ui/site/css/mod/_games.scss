@@ -24,3 +24,12 @@
     cursor: pointer;
   }
 }
+
+.mod-games {
+  &__filter-form {
+    select {
+      max-width: 30ch;
+      margin-left: 1em;
+    }
+  }
+}

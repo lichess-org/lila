@@ -20,7 +20,7 @@ final class GameMod(env: Env) extends LilaController(env) {
         val form         = filterForm.bindFromRequest()
         val filter       = form.fold(_ => emptyFilter, identity)
         env.tournament.leaderboardApi.recentByUser(user, 1) zip
-          guessSwisses(user) zip
+          env.activity.read.recentSwissRanks(user.id) zip
           env.game.gameRepo.recentPovsByUserFromSecondary(user, 100, toDbSelect(filter)) flatMap {
             case ((arenas, swisses), povs) =>
               env.mod.assessApi.ofPovs(povs) map { games =>
