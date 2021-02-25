@@ -195,7 +195,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                     "option",
                     {
                       attrs: {
-                        value: key[0] == "w" ? "white" : "black",
+                        value: key[0] == "b" ? "white" : "black",
                         selected: ctrl.turn[0] !== key[0],
                       },
                     },
@@ -211,7 +211,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 on: {
                   click() {
-                    ctrl.startPosition();
+                    ctrl.setFen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1");
                   },
                 },
               },
@@ -222,7 +222,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 on: {
                   click() {
-                    ctrl.clearBoard();
+                    ctrl.setFen("9/9/9/9/9/9/9/9/9 w - 1");
                   },
                 },
               },
