@@ -18,30 +18,38 @@ final class GameMod(env: Env) extends LilaController(env) {
       OptionFuResult(env.user.repo named username) { user =>
         implicit def req = ctx.body
         val form         = filterForm.bindFromRequest()
-        val filter       = form.fold(_ => Filter(none), identity)
-        env.tournament.leaderboardApi.recentByUser(user, 1) flatMap { tours =>
-          env.game.gameRepo.recentPovsByUserFromSecondary(user, 100, toDbSelect(filter)) flatMap { povs =>
-            env.mod.assessApi.ofPovs(povs) map { games =>
-              Ok(views.html.mod.games(user, form, games, tours.currentPageResults))
-            }
+        val filter       = form.fold(_ => emptyFilter, identity)
+        env.tournament.leaderboardApi.recentByUser(user, 1) zip
+          guessSwisses(user) zip
+          env.game.gameRepo.recentPovsByUserFromSecondary(user, 100, toDbSelect(filter)) flatMap {
+            case ((arenas, swisses), povs) =>
+              env.mod.assessApi.ofPovs(povs) map { games =>
+                Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
+              }
           }
-        }
       }
     }
+
+  private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
 }
 
 object GameMod {
 
-  case class Filter(tournament: Option[String])
+  case class Filter(arena: Option[String], swiss: Option[String])
 
-  def toDbSelect(filter: Filter): Bdoc = filter.tournament ?? { tid =>
-    $doc(lila.game.Game.BSONFields.tournamentId -> tid)
+  val emptyFilter = Filter(none, none)
+
+  def toDbSelect(filter: Filter): Bdoc = filter.arena.?? { id =>
+    $doc(lila.game.Game.BSONFields.tournamentId -> id)
+  } ++ filter.swiss.?? { id =>
+    $doc(lila.game.Game.BSONFields.swissId -> id)
   }
 
   val filterForm =
     Form(
       mapping(
-        "tournament" -> optional(nonEmptyText)
+        "arena" -> optional(nonEmptyText),
+        "swiss" -> optional(nonEmptyText)
       )(Filter.apply)(Filter.unapply _)
     )
 }

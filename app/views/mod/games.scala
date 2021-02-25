@@ -12,6 +12,7 @@ import lila.game.Pov
 import lila.tournament.Tournament
 import lila.user.User
 import lila.tournament.LeaderboardApi.TourEntry
+import lila.swiss.Swiss
 
 object games {
 
@@ -23,7 +24,8 @@ object games {
       user: User,
       filterForm: Form[GameMod.Filter],
       games: List[(Pov, Option[PlayerAssessment])],
-      tours: Seq[TourEntry]
+      arenas: Seq[TourEntry],
+      swisses: Seq[Swiss]
   )(implicit
       ctx: Context
   ) =
@@ -38,8 +40,8 @@ object games {
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
               form3.select(
-                filterForm("tournament"),
-                tours.map(t =>
+                filterForm("arena"),
+                arenas.map(t =>
                   t.tour.id -> List(
                     s"games ${t.entry.nbGames}",
                     s"rank ${t.entry.rank}",
@@ -47,8 +49,8 @@ object games {
                     t.tour.name()
                   ).mkString(" / ")
                 ),
-                pluralize("Recent arena tournament", tours.size).some,
-                disabled = tours.isEmpty
+                pluralize("Recent arenas", arenas.size).some,
+                disabled = arenas.isEmpty
               )
             )
           )
