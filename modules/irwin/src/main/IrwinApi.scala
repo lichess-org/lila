@@ -12,6 +12,7 @@ import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
 import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, UserRepo }
+import lila.analyse.Analysis
 
 final class IrwinApi(
     reportColl: Coll,
@@ -94,8 +95,8 @@ final class IrwinApi(
       for {
         analyzed <- getAnalyzedGames(suspect, 15)
         more     <- getMoreGames(suspect, 20 - analyzed.size)
-        all = analyzed.map { a =>
-          a.game -> a.analysis.some
+        all = analyzed.map { case (game, analysis) =>
+          game -> analysis.some
         } ::: more.map(_ -> none)
       } yield Bus.publish(
         IrwinRequest(
@@ -133,7 +134,7 @@ final class IrwinApi(
         Query.turnsGt(20) ++
         Query.createdSince(DateTime.now minusMonths 6)
 
-    private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =
+    private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[(Game, Analysis)]] =
       gameRepo.coll
         .find(baseQuery(suspect) ++ Query.analysed(true))
         .sort(Query.sortCreated)

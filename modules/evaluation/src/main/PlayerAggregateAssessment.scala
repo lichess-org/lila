@@ -6,29 +6,7 @@ import org.joda.time.DateTime
 import scala.math.sqrt
 
 import lila.user.User
-
-case class PlayerAssessment(
-    _id: String,
-    gameId: String,
-    userId: String,
-    white: Boolean,
-    assessment: GameAssessment,
-    date: DateTime,
-    // meta
-    flags: PlayerFlags,
-    sfAvg: Int,
-    sfSd: Int,
-    mtAvg: Int,
-    mtSd: Int,
-    blurs: Int,
-    hold: Boolean,
-    blurStreak: Option[Int],
-    mtStreak: Option[Boolean],
-    tcFactor: Option[Double]
-) {
-
-  val color = Color.fromWhite(white)
-}
+import lila.game.Game
 
 case class PlayerAggregateAssessment(
     user: User,

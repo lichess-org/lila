@@ -4,14 +4,7 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
-import lila.evaluation.{
-  AccountAction,
-  Analysed,
-  Assessible,
-  PlayerAggregateAssessment,
-  PlayerAssessment,
-  PlayerFlags
-}
+import lila.evaluation.{ AccountAction, Assessible, PlayerAggregateAssessment, PlayerAssessment, PlayerFlags }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.report.{ ModId, SuspectId }
 import lila.user.User
@@ -115,11 +108,8 @@ final class AssessApi(
         else if (game.createdAt isBefore bottomDate) false
         else true
       shouldAssess.?? {
-        val analysed        = Analysed(game, analysis, holdAlerts)
-        val assessibleWhite = Assessible(analysed, chess.White)
-        val assessibleBlack = Assessible(analysed, chess.Black)
-        createPlayerAssessment(assessibleWhite playerAssessment) >>
-          createPlayerAssessment(assessibleBlack playerAssessment)
+        createPlayerAssessment(Assessible(game pov chess.White, analysis, holdAlerts).playerAssessment) >>
+          createPlayerAssessment(Assessible(game pov chess.Black, analysis, holdAlerts).playerAssessment)
       } >> ((shouldAssess && thenAssessUser) ?? {
         game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
       })
@@ -127,11 +117,11 @@ final class AssessApi(
 
   def ensurePlayerAssess(userId: User.ID, games: List[Game]): Funit =
     analysisRepo.associateToGames(games take 100) flatMap {
-      _.map { case Analysis.Analyzed(game, analysis) =>
+      _.map { case (game, analysis) =>
         game.playerByUserId(userId) ?? { player =>
           gameRepo holdAlerts game flatMap { holdAlerts =>
             createPlayerAssessment(
-              Assessible(Analysed(game, analysis, holdAlerts), player.color).playerAssessment
+              Assessible(game pov player.color, analysis, holdAlerts).playerAssessment
             )
           }
         }

@@ -5,11 +5,9 @@ import lila.analyse.{ Accuracy, Analysis }
 import lila.game.{ Game, Player, Pov }
 import org.joda.time.DateTime
 
-case class Analysed(game: Game, analysis: Analysis, holdAlerts: Player.HoldAlert.Map)
-
-case class Assessible(analysed: Analysed, color: Color) {
+case class Assessible(pov: Pov, analysis: Analysis, holdAlerts: Player.HoldAlert.Map) {
   import Statistics._
-  import analysed._
+  import pov.{ color, game }
 
   lazy val suspiciousErrorRate: Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
@@ -34,7 +32,7 @@ case class Assessible(analysed: Analysed, color: Color) {
     !game.isSimul && game.playerBlurPercent(color) > 70
 
   lazy val suspiciousHoldAlert: Boolean =
-    analysed.holdAlerts(color).exists(_.suspicious)
+    holdAlerts(color).exists(_.suspicious)
 
   lazy val highestChunkBlurs: Int =
     game.player(color).blurs.booleans.sliding(12).map(_.count(identity)).max
@@ -128,7 +126,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       _id = game.id + "/" + color.name,
       gameId = game.id,
       userId = ~game.player(color).userId,
-      white = color == Color.White,
+      color = color,
       assessment = rankCheating,
       date = DateTime.now,
       // meta
