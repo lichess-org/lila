@@ -580,6 +580,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.email_unique">This email address is already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Only existing conversations</string>
   <string name="onlyFriends">Only friends</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
