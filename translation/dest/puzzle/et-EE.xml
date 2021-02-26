@@ -5,7 +5,7 @@
   <string name="recommended">Soovitatav</string>
   <string name="phases">Etapid</string>
   <string name="motifs">Motiivid</string>
-  <string name="advanced">Lisavalikud</string>
+  <string name="advanced">Edasijõudnutele</string>
   <string name="lengths">Pikkused</string>
   <string name="mates">Matid</string>
   <string name="goals">Eesmärgid</string>
@@ -22,7 +22,7 @@
   <string name="clickToSolve">Lahendamiseks vajuta</string>
   <string name="goodMove">Hea käik</string>
   <string name="bestMove">Parim käik!</string>
-  <string name="keepGoing">Liigu edasi…</string>
+  <string name="keepGoing">Jätka samas vaimus…</string>
   <string name="puzzleSuccess">Edukas!</string>
   <string name="puzzleComplete">Pusle lahendatud!</string>
   <string name="notTheMove">See ei ole õige käik!</string>
@@ -33,8 +33,8 @@
     <item quantity="one">Mängitud %s kord</item>
     <item quantity="other">Mängitud %s korda</item>
   </plurals>
-  <string name="fromGameLink">%s mängudest</string>
-  <string name="continueTraining">Jätka treeningut</string>
+  <string name="fromGameLink">%s mängust</string>
+  <string name="continueTraining">Jätka harjutamist</string>
   <string name="difficultyLevel">Raskusaste</string>
   <string name="normal">Tavaline</string>
   <string name="easier">Kerge</string>
@@ -45,6 +45,9 @@
   <string name="addAnotherTheme">Lisa teine teema</string>
   <string name="jumpToNextPuzzleImmediately">Mine kohe järgmise pusle juurde</string>
   <string name="puzzleDashboard">Puslepaneel</string>
+  <string name="improvementAreas">Paranda neid</string>
+  <string name="strengths">Tugevused</string>
+  <string name="history">Puslede ajalugu</string>
   <string name="solved">lahendatud</string>
   <string name="failed">ebaõnnestus</string>
 </resources>
