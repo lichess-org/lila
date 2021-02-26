@@ -14,8 +14,8 @@
   <string name="loser">Kaotaja</string>
   <string name="from">Alates</string>
   <string name="to">Kuni</string>
-  <string name="humanOrComputer">Vastane oli inimene või arvuti</string>
-  <string name="aiLevel">A.I. tase</string>
+  <string name="humanOrComputer">Kas mängija vastane oli inimene või arvuti</string>
+  <string name="aiLevel">Tehisintellekti tase</string>
   <string name="source">Allikas</string>
   <string name="nbTurns">Käikude arv</string>
   <string name="result">Tulemus</string>
