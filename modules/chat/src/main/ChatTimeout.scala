@@ -70,9 +70,10 @@ object ChatTimeout {
 
   object Reason {
     case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
-    case object Insult        extends Reason("insult", "disrespecting other players")
-    case object Spam          extends Reason("spam", "spamming the chat")
-    case object Other         extends Reason("other", "inappropriate behavior")
+    case object Insult
+        extends Reason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
+    case object Spam  extends Reason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
+    case object Other extends Reason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
     val all: List[Reason]  = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
