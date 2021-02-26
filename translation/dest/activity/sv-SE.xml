@@ -62,6 +62,7 @@
     <item quantity="one">Rankad #%1$s (topp %2$s%%) med %3$s partier i %4$s</item>
     <item quantity="other">Rankad #%1$s (topp %2$s%%) med %3$s partier i %4$s</item>
   </plurals>
+  <string name="rankedInSwissTournament">Rankad #%1$s i %2$s</string>
   <string name="signedUp">Registrerade sig på lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Gick med i %s lag</item>
