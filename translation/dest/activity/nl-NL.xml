@@ -66,6 +66,7 @@
     <item quantity="one">Nam deel aan %s Zwitsers toernooi</item>
     <item quantity="other">Nam deel aan %s Zwitserse toernooien</item>
   </plurals>
+  <string name="rankedInSwissTournament">Eindigde #%1$s in %2$s</string>
   <string name="signedUp">Geregistreerd op lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Sloot zich aan bij %s team</item>
