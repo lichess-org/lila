@@ -750,7 +750,7 @@
   <string name="addCurrentVariation">添加当前变着</string>
   <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
   <string name="noConditionalPremoves">没有条件预先走棋</string>
-  <string name="playX">走%s</string>
+  <string name="playX">走 %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
