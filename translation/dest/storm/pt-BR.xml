@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mova para começar</string>
-  <string name="puzzlesSolved">quebra-cabeça resolvido</string>
+  <string name="puzzlesSolved">quebra-cabeças resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
   <string name="newMonthlyHighscore">Novo recorde mensal!</string>
@@ -10,7 +10,7 @@
   <string name="playAgain">Jogar novamente</string>
   <plurals name="xRuns">
     <item quantity="one">1 tentativa</item>
-    <item quantity="other">%s tentativas</item>
+    <item quantity="other">%s séries</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Jogou uma tentativa de %2$s</item>
