@@ -3,11 +3,15 @@ package controllers
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
+import scala.concurrent.duration._
 import views._
 
-import lila.db.dsl._
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
+import lila.db.dsl._
+import lila.api.GameApiV2
+import lila.common.config
 
 final class GameMod(env: Env) extends LilaController(env) {
 
@@ -33,6 +37,52 @@ final class GameMod(env: Env) extends LilaController(env) {
       }
     }
 
+  def post(username: String) =
+    SecureBody(_.Hunter) { implicit ctx => me =>
+      OptionFuResult(env.user.repo named username) { user =>
+        implicit val body = ctx.body
+        actionForm
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(err.toString).fuccess,
+            {
+              case (gameIds, "analyse") => multipleAnalysis(me, gameIds)
+              case (gameIds, "pgn")     => downloadPgn(gameIds).fuccess
+              case _                    => notFound
+            }
+          )
+      }
+    }
+
+  private def multipleAnalysis(me: lila.user.User, gameIds: Seq[lila.game.Game.ID])(implicit ctx: Context) =
+    env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
+      games.map { game =>
+        env.fishnet.analyser(
+          game,
+          lila.fishnet.Work.Sender(
+            userId = me.id,
+            ip = HTTPRequest.ipAddress(ctx.req).some,
+            mod = true,
+            system = false
+          )
+        )
+      }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+    } inject NoContent
+
+  private def downloadPgn(gameIds: Seq[lila.game.Game.ID]) =
+    Ok.chunked {
+      env.api.gameApiV2.exportByIds(
+        GameApiV2.ByIdsConfig(
+          ids = gameIds,
+          format = GameApiV2.Format.PGN,
+          flags = lila.game.PgnDump.WithFlags(),
+          perSecond = config.MaxPerSecond(100),
+          playerFile = none
+        )
+      )
+    }.withHeaders(noProxyBufferHeader)
+      .as(pgnContentType)
+
   private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
 }
 
@@ -54,5 +104,13 @@ object GameMod {
         "arena" -> optional(nonEmptyText),
         "swiss" -> optional(nonEmptyText)
       )(Filter.apply)(Filter.unapply _)
+    )
+
+  val actionForm =
+    Form(
+      tuple(
+        "game"   -> list(nonEmptyText),
+        "action" -> lila.common.Form.stringIn(Set("download", "analyse"))
+      )
     )
 }

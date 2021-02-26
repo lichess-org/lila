@@ -338,7 +338,6 @@ GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: Strin
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
-POST  /mod/multiple-analysis/:username        controllers.Analyse.multipleAnalysis(username: String)
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: String)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
@@ -436,6 +435,7 @@ POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: String,
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: String, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
 GET   /mod/:username/games             controllers.GameMod.index(username: String)
+POST  /mod/:username/games             controllers.GameMod.post(username: String)
 GET   /mod/table                       controllers.Mod.table
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)

@@ -36,34 +36,6 @@ final class Analyse(
       }
     }
 
-  def multipleAnalysis(username: String) =
-    SecureBody(_.Hunter) { implicit ctx => me =>
-      OptionFuResult(env.user.repo named username) { user =>
-        implicit val body = ctx.body
-        import play.api.data._
-        import play.api.data.Forms._
-        Form(single("game" -> list(nonEmptyText)))
-          .bindFromRequest()
-          .fold(
-            err => BadRequest(err.toString).fuccess,
-            gameIds =>
-              env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
-                games.map { game =>
-                  env.fishnet.analyser(
-                    game,
-                    lila.fishnet.Work.Sender(
-                      userId = me.id,
-                      ip = HTTPRequest.ipAddress(ctx.req).some,
-                      mod = true,
-                      system = false
-                    )
-                  )
-                }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
-              } inject NoContent
-          )
-      }
-    }
-
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) replayBot(pov)
     else

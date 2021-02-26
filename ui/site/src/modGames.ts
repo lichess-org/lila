@@ -8,7 +8,7 @@ type OnSelect = (input: HTMLInputElement, shift: boolean) => void;
 lichess.load.then(() => {
   setupTable();
   setupFilter();
-  setupAnalysisForm();
+  setupActionForm();
 });
 
 const setupFilter = () => {
@@ -30,7 +30,7 @@ const setupTable = () => {
   checkBoxAll(table);
 };
 
-const setupAnalysisForm = () => {
+const setupActionForm = () => {
   const form = document.querySelector('.mod-games__analysis-form') as HTMLFormElement;
   const debouncedSubmit = debounce(
     () =>
@@ -40,8 +40,12 @@ const setupAnalysisForm = () => {
       }),
     1000
   );
-  $(form).on('submit', () => {
+  $(form).on('click', 'button', e => {
+    const button = e.target as HTMLButtonElement;
+    const action = button.getAttribute('value');
+    debugger;
     const nbToAnalyse = form.querySelectorAll('input:checked').length;
+    if (nbToAnalyse < 1) return;
     if (nbToAnalyse >= 20 && !confirm(`Analyse ${nbToAnalyse} games?`)) return;
     $(form).find('button').text('Sent').prop('disabled', true);
     debouncedSubmit();

@@ -64,8 +64,13 @@ object games {
             )
           )
         ),
-        postForm(action := routes.Analyse.multipleAnalysis(user.id), cls := "mod-games__analysis-form")(
-          submitButton(cls := "button button-empty button-thin")("Analyse selected"),
+        postForm(action := routes.GameMod.post(user.id), cls := "mod-games__analysis-form")(
+          submitButton(cls := "button button-empty button-thin", name := "action", value := "analyse")(
+            "Analyse selected"
+          ),
+          submitButton(cls := "button button-empty button-thin", name := "action", value := "pgn")(
+            "Download PGN"
+          ),
           table(cls := "mod-games game-list slist")(
             thead(
               tr(

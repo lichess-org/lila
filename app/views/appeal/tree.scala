@@ -207,15 +207,16 @@ object tree {
 
   def apply(me: User, playban: Boolean)(implicit ctx: Context) =
     bits.layout("Appeal a moderation decision") {
+      val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       main(cls := "page page-small box box-pad appeal")(
         h1("Appeal"),
         div(cls := "nav-tree")(
           renderNode(
             {
-              if (playban || ctx.req.queryString.contains("playban")) playbanMenu
-              else if (me.marks.engine || ctx.req.queryString.contains("engine")) engineMenu
-              else if (me.marks.boost || ctx.req.queryString.contains("boost")) boostMenu
-              else if (me.marks.troll || ctx.req.queryString.contains("shadowban")) muteMenu
+              if (playban || query.contains("playban")) playbanMenu
+              else if (me.marks.engine || query.contains("engine")) engineMenu
+              else if (me.marks.boost || query.contains("boost")) boostMenu
+              else if (me.marks.troll || query.contains("shadowban")) muteMenu
               else cleanMenu
             },
             none
