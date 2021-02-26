@@ -4,8 +4,16 @@
   <string name="advancedPawnDescription">Üks etturitest on sügaval vastase poolel, võib-olla kohe valmis muunduma.</string>
   <string name="advantage">Eelis</string>
   <string name="arabianMate">Araabia matt</string>
+  <string name="arabianMateDescription">Ratsu ja vanker teevad koostööd vastase kuninga lõksu saamiseks laua nurgas.</string>
+  <string name="attackingF2F7">Rünnak f2 või f7</string>
   <string name="attraction">Ahvatlus</string>
   <string name="castling">Vangerdus</string>
+  <string name="kingsideAttack">Kuningapoolne rünnak</string>
+  <string name="kingsideAttackDescription">Rünnak vastase kuningale pärast vastase vangerdamist kuningapoolele.</string>
+  <string name="endgame">Lõppmäng</string>
+  <string name="endgameDescription">Taktika mängu viimases faasis.</string>
+  <string name="exposedKing">Paljas kuningas</string>
+  <string name="exposedKingDescription">Taktika seoses kuningaga kellel on vähe kaitsjaid enda ümber, lõpeb tihti mattiga.</string>
   <string name="fork">Kahvel</string>
   <string name="forkDescription">Käik, millega mängija ründab oma malendiga korraga mitut vastase malendit.</string>
   <string name="long">Pikk ülesanne</string>
