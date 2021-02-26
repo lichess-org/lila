@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Võistkond</string>
   <string name="teams">Võistkonnad</string>
   <plurals name="nbMembers">
     <item quantity="one">%s liiget</item>
