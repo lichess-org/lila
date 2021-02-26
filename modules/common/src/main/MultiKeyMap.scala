@@ -11,6 +11,8 @@ final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
 
   def values: Iterable[V] = index1.values
 
+  def size: Int = index1.size
+
   def get1(k1: K1): Option[V] = index1 get k1
 
   def get2(k2: K2): Option[V] = index2 get k2
@@ -40,8 +42,6 @@ final class MultiKeyMap[K1, K2, V](index1: Map[K1, V], index2: Map[K2, V])(
       index2 = index2 -- k2s
     )
   }
-
-  def size = values.size
 
   def reset(newValues: Set[V]) = if (newValues == values) this else MultiKeyMap(newValues)(toK1, toK2)
 
