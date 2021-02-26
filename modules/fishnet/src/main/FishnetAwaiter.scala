@@ -20,7 +20,7 @@ final class FishnetAwaiter(implicit ec: ExecutionContext, system: ActorSystem) {
       val listener = Bus.subscribeFun(busChannel) {
         case lila.analyse.actorApi.AnalysisReady(game, _) if remainingIds(game.id) =>
           remainingIds = remainingIds - game.id
-          if (remainingIds.pp.isEmpty) promise.success {}
+          if (remainingIds.isEmpty) promise.success {}
       }
       promise.future.withTimeoutDefault(atMost, {}) addEffectAnyway {
         Bus.unsubscribe(listener, busChannel)
