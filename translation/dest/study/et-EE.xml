@@ -9,4 +9,5 @@
   <string name="whatAreStudies">Mis on uuringud?</string>
   <string name="allStudies">Kõik uuringud</string>
   <string name="studiesCreatedByX">%s loodud uuringud</string>
+  <string name="noneYet">Veel mitte ühtegi.</string>
 </resources>
