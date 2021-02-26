@@ -12,7 +12,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
   def home =
     Auth { implicit ctx => me =>
       env.appeal.api.mine(me) map { appeal =>
-        Ok(html.appeal.home(appeal, env.appeal.forms.text))
+        Ok(html.appeal.discussion(appeal, env.appeal.forms.text))
       }
     }
 
@@ -24,7 +24,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
         .fold(
           err =>
             env.appeal.api.mine(me) map { appeal =>
-              BadRequest(html.appeal.home(appeal, err))
+              BadRequest(html.appeal.discussion(appeal, err))
             },
           text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
         )
@@ -43,7 +43,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text, getPresets))
+          Ok(html.appeal.discussion.show(appeal, suspect, inquiry, env.appeal.forms.text, getPresets))
         }
       }
     }
@@ -57,7 +57,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
           .fold(
             err =>
               env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-                BadRequest(html.appeal.show(appeal, suspect, inquiry, err, getPresets))
+                BadRequest(html.appeal.discussion.show(appeal, suspect, inquiry, err, getPresets))
               },
             text =>
               for {

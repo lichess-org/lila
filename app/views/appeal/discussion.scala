@@ -1,4 +1,5 @@
 package views.html
+package appeal
 
 import controllers.routes
 import play.api.data.Form
@@ -13,9 +14,9 @@ import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.User
 
-object appeal {
+object discussion {
 
-  def home(appeal: Option[Appeal], textForm: Form[_])(implicit ctx: Context) =
+  def apply(appeal: Option[Appeal], textForm: Form[_])(implicit ctx: Context) =
     layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
         appeal match {
@@ -25,7 +26,7 @@ object appeal {
       )
     }
 
-  def newAppeal(textForm: Form[_])(implicit ctx: Context) =
+  private def newAppeal(textForm: Form[_])(implicit ctx: Context) =
     frag(
       h1("Appeal a moderation decision"),
       renderHelp,
@@ -79,48 +80,6 @@ object appeal {
         )
       )
     }
-
-  def queue(
-      appeals: List[Appeal],
-      inquiries: Map[User.ID, Inquiry],
-      scores: lila.report.Room.Scores,
-      streamers: Int,
-      nbAppeals: Int
-  )(implicit ctx: Context) =
-    views.html.report.list.layout("appeal", scores, streamers, nbAppeals)(
-      table(cls := "slist slist-pad see appeal-queue")(
-        thead(
-          tr(
-            th("By"),
-            th("Last message"),
-            th(isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Presets"))
-          )
-        ),
-        tbody(
-          appeals.map { appeal =>
-            tr(cls := List("new" -> appeal.isUnread))(
-              td(
-                userIdLink(appeal.id.some)
-              ),
-              td(appeal.msgs.lastOption map { msg =>
-                frag(
-                  userIdLink(msg.by.some),
-                  " ",
-                  momentFromNowOnce(msg.at),
-                  p(shorten(msg.text, 200))
-                )
-              }),
-              td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
-                inquiries.get(appeal.id) map { i =>
-                  frag(userIdLink(i.mod.some), nbsp, "is handling this")
-                }
-              )
-            )
-          }
-        )
-      )
-    )
 
   private def layout(title: String)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
