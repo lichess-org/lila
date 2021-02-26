@@ -17,6 +17,13 @@
   <string name="wantReopen">Ma tahan oma konto taasavada</string>
   <string name="reopenOnThisPage">Sa saad taasavada oma konto sellel lehel. See töötab ainult ühe korra.</string>
   <string name="wantChangeUsername">Ma tahan muuta oma kasutajanime</string>
+  <string name="cantChangeMore">Me ei saa vahetada peale suurte ja väikeste tähtede midagi muud. Tehnilistel põhjustel see on otseselt võimatu.</string>
+  <string name="orCloseAccount">Sul on ikkagi võimalus sulgeda praegune konto ja luua uus kasutaja.</string>
+  <string name="wantClearHistory">Ma tahan puhastada oma ajaloo või reitingu</string>
+  <string name="cantClearHistory">Mängu ajalugu, ülesannete ajalugu ja reitingut ei ole võimalik tühjendada.</string>
+  <string name="wantReport">Tahan teatada mängijast</string>
+  <string name="doNotReportInForum">Ära teavita mängijatest foorumil.</string>
+  <string name="doNotSendReportEmails">Ära saada meile teavitusi meilitsi.</string>
   <string name="wantReportBug">Tahan teatada veast</string>
   <string name="reportBugInDiscord">Lichessi Discord-serveril</string>
   <string name="illegalPawnCapture">Ebaseaduslik etturi löömine</string>
