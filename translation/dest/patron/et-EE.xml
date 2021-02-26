@@ -3,4 +3,25 @@
   <string name="donate">Anneta</string>
   <string name="lichessPatron">Lichessi toetaja</string>
   <string name="freeAccount">Tasuta konto</string>
+  <string name="becomePatron">Hakka Lichessi toetajaks</string>
+  <string name="xBecamePatron">%s hakkas Lichessi toetajaks</string>
+  <string name="newPatrons">Uued toetajad</string>
+  <string name="freeChess">Tasuta malet kõigile, igavesti!</string>
+  <string name="noAdsNoSubs">Ei reklaame, ei tellimist; vaid avatud lähtekoodi ja kirge.</string>
+  <string name="thankYou">Aitäh annetuse eest!</string>
+  <string name="youHaveLifetime">Sinul on eluaegne toetuskonto. See on väga lahe!</string>
+  <string name="patronUntil">Sul on toetuskonto kuni %s.</string>
+  <string name="lifetime">Eluaegne</string>
+  <string name="lifetimePatron">Eluaegne Lichessi toetaja</string>
+  <string name="makeExtraDonation">Tee lisaannetus?</string>
+  <string name="monthly">Igakuiselt</string>
+  <string name="onetime">Ühekordne</string>
+  <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
+  <string name="otherAmount">Muu</string>
+  <string name="pleaseEnterAmount">Palun sisesta summa Ühendriikide dollarites</string>
+  <string name="withCreditCard">Krediitkaart</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
+  <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
+  <string name="whereMoneyGoes">Kuhu raha läheb?</string>
 </resources>
