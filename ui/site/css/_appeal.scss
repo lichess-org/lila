@@ -52,4 +52,11 @@
   .appeal-presets {
     margin-right: 1em;
   }
+
+  &__moderators {
+    @extend %box-radius;
+    margin-top: 3em;
+    padding: 2em 3em;
+    background: $c-bg-zebra;
+  }
 }

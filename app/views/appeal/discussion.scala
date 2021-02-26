@@ -16,35 +16,21 @@ import lila.user.User
 
 object discussion {
 
-  def apply(appeal: Option[Appeal], textForm: Form[_])(implicit ctx: Context) =
-    layout("Appeal") {
+  def apply(appeal: Appeal, textForm: Form[String])(implicit ctx: Context) =
+    bits.layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
-        appeal match {
-          case Some(a) => renderAppeal(a, textForm, asMod = false, presets = none)
-          case None    => newAppeal(textForm)
-        }
+        renderAppeal(appeal, textForm, asMod = false, presets = none)
       )
     }
-
-  private def newAppeal(textForm: Form[_])(implicit ctx: Context) =
-    frag(
-      h1("Appeal a moderation decision"),
-      renderHelp,
-      div(cls := "body")(
-        renderForm(textForm, action = routes.Appeal.post.url, isNew = true, presets = none)
-      )
-    )
 
   def show(
       appeal: Appeal,
       suspect: Suspect,
       inquiry: Option[Inquiry],
-      textForm: Form[_],
+      textForm: Form[String],
       presets: ModPresets
-  )(implicit
-      ctx: Context
-  ) =
-    layout(s"Appeal by ${suspect.user.username}") {
+  )(implicit ctx: Context) =
+    bits.layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
         renderAppeal(
           appeal,
@@ -81,19 +67,9 @@ object discussion {
       )
     }
 
-  private def layout(title: String)(body: Frag)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = frag(
-        cssTag("form3"),
-        cssTag("appeal")
-      ),
-      moreJs = jsModule("appeal")
-    )(body)
-
   private def renderAppeal(
       appeal: Appeal,
-      textForm: Form[_],
+      textForm: Form[String],
       asMod: Boolean,
       inquiry: Boolean = false,
       presets: Option[ModPresets]
@@ -125,19 +101,6 @@ object discussion {
       )
     )
 
-  private def renderHelp =
-    div(cls := "appeal__help")(
-      p(
-        "If your account has been restricted for violation of ",
-        a(href := routes.Page.tos)("the Lichess rules"),
-        " you may file an appeal here."
-      ),
-      p(
-        "You can read more about the appeal process ",
-        a(href := routes.Page.loneBookmark("appeal"))("here.")
-      )
-    )
-
   private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some)
     else
@@ -150,7 +113,7 @@ object discussion {
         )
       )
 
-  private def renderForm(form: Form[_], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+  def renderForm(form: Form[String], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
       ctx: Context
   ) =
     postForm(st.action := action)(

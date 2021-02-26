@@ -12,7 +12,5 @@ final class Env(
 
   private val coll = db(CollName("appeal"))
 
-  lazy val forms = wire[AppealForm]
-
   lazy val api: AppealApi = wire[AppealApi]
 }

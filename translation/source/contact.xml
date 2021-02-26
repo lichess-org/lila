@@ -31,7 +31,7 @@
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
   <string name="doNotSendReportEmails">Do not send us report emails.</string>
-  <string name="doNotMessageModerators">Do not send direct messages to moderators.</string>
+  <string name="doNotMessageModerators">Please do not send direct messages to moderators.</string>
   <string name="onlyReports">Only reporting players through the report form is effective.</string>
   <string name="wantReportBug">I want to report a bug</string>
   <string name="reportBugInForum">In the Lichess Feedback section of the forum</string>

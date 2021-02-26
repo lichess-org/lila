@@ -6,26 +6,32 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.report.Suspect
+import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
+  import lila.appeal.Appeal.form
+
   def home =
     Auth { implicit ctx => me =>
-      env.appeal.api.mine(me) map { appeal =>
-        Ok(html.appeal.discussion(appeal, env.appeal.forms.text))
-      }
+      renderAppealOrTree(me) map { Ok(_) }
     }
+
+  private def renderAppealOrTree(
+      me: lila.user.User,
+      err: Option[Form[String]] = None
+  )(implicit ctx: Context) = env.appeal.api.mine(me) map {
+    case None    => html.appeal.tree(me)
+    case Some(a) => html.appeal.discussion(a, err | form)
+  }
 
   def post =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      env.appeal.forms.text
+      form
         .bindFromRequest()
         .fold(
-          err =>
-            env.appeal.api.mine(me) map { appeal =>
-              BadRequest(html.appeal.discussion(appeal, err))
-            },
+          err => renderAppealOrTree(me, err.some) map { BadRequest(_) },
           text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
         )
     }
@@ -43,7 +49,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal.discussion.show(appeal, suspect, inquiry, env.appeal.forms.text, getPresets))
+          Ok(html.appeal.discussion.show(appeal, suspect, inquiry, form, getPresets))
         }
       }
     }
@@ -52,7 +58,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     SecureBody(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         implicit val req = ctx.body
-        env.appeal.forms.text
+        form
           .bindFromRequest()
           .fold(
             err =>
