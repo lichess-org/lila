@@ -10,7 +10,9 @@
   <string name="eventDescription">Krótki opis wydarzenia</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
+  <string name="sourceUrlOrGameIds">Źródłowy URL, lub ID\'y gier</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
+  <string name="gameIdsHelp">Alternatywnie, możesz wprowadzić do 64 ID\'ów gier Lichess, oddzielonych spacjami.</string>
   <string name="roundNumber">Numer rundy</string>
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
