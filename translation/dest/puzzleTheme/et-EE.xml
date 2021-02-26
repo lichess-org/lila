@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Arenenud ettur</string>
-  <string name="advancedPawnDescription">Üks su etturitest on sügaval vastase poolel, võib-olla kohe valmis muunduma.</string>
+  <string name="advancedPawnDescription">Üks etturitest on sügaval vastase poolel, võib-olla kohe valmis muunduma.</string>
   <string name="advantage">Eelis</string>
-  <string name="attraction">Vaatamisväärsus</string>
+  <string name="attraction">Ahvatlus</string>
   <string name="castling">Vangerdus</string>
   <string name="fork">Kahvel</string>
   <string name="forkDescription">Käik, millega mängija ründab oma malendiga korraga mitut vastase malendit.</string>
+  <string name="long">Pikk ülesanne</string>
+  <string name="longDescription">Kolm käiku võiduni.</string>
+  <string name="master">Meistrite mängud</string>
+  <string name="masterDescription">Ülesanded mängudest, mida on mänginud tiitlitega mängijad.</string>
+  <string name="masterVsMaster">Meister meistri vastu</string>
+  <string name="masterVsMasterDescription">Ülesanded kahe tiitli saanud mängija vahelistest mängudest.</string>
+  <string name="mate">Matt</string>
   <string name="pin">Sidumine</string>
+  <string name="pinDescription">Taktika, kus malendi tulejoonel oleva vastaspoole malend ei saa liikuda, sest ära liikumise korral satub tulejoone alla väärtuslikum malend.</string>
+  <string name="promotion">Muundamine</string>
+  <string name="promotionDescription">Muunda oma ettur lipuks või teiseks viguriks.</string>
   <string name="skewer">Tagurpidisidumine</string>
   <string name="smotheredMate">Umbmatt</string>
   <string name="trappedPiece">Lõksus malend</string>
+  <string name="healthyMix">Tervislik segu</string>
+  <string name="healthyMixDescription">Natuke kõike. Kunagi ei tea mida oodata ehk ole valmis kõigeks! Täpselt nagu päris mängudes.</string>
 </resources>
