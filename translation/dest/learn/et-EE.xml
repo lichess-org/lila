@@ -85,18 +85,21 @@ kuid sul on võimalik kaitsta!</string>
   <string name="combat">Võitlus</string>
   <string name="captureAndDefendPieces">Löö ning kaitse malendeid</string>
   <string name="combatIntro">Hea mängija oskab rünnata ja kaitsta üheaegselt!</string>
-  <string name="combatComplete">Õnnitlused! Olete osav võitleja!</string>
-  <string name="checkInOne">Kabe ühes</string>
+  <string name="combatComplete">Õnnitlused! Tead kuidas võidelda malenditega!</string>
+  <string name="checkInOne">Tuli ühe käiguga</string>
   <string name="attackTheOpponentsKing">Ründa vastase kuningat</string>
-  <string name="checkInOneIntro">Et võita oma vastast, ründa nende kuningat. Nad peavad seda kaitsma!</string>
-  <string name="checkInOneGoal">Sihi vastase kuningat ühe liigutusega!</string>
-  <string name="checkInOneComplete">Õnnitlused! Sa kontrollisid oma vastast, sündides nad oma kuningat kaitsma!</string>
-  <string name="outOfCheck">Ruudud on otsas</string>
+  <string name="checkInOneIntro">Et anda tuld vastasele, ründa nende kuningat. Nad peavad seda kaitsma!</string>
+  <string name="checkInOneGoal">Sihi vastase kuningat 
+ühe liigutusega!</string>
+  <string name="checkInOneComplete">Õnnitlused! Sa andsid tuld vastasele, sundides nad oma kuningat kaitsma!</string>
+  <string name="outOfCheck">Tule alt väljumine</string>
   <string name="defendYourKing">Kaitse oma kuningat</string>
-  <string name="outOfCheckIntro">Sa oled ruudus! Sa pead põgenema või blokeerima rünnaku.</string>
+  <string name="outOfCheckIntro">Sa oled tule all! Sa pead põgenema või blokeerima rünnaku.</string>
   <string name="escapeWithTheKing">Põgene kuningaga!</string>
-  <string name="theKingCannotEscapeButBlock">Kuningas ei saa põgeneda, sa pead rünnaku blokeerima!</string>
-  <string name="youCanGetOutOfCheckByTaking">Sa saad ruudust välja kui ründad malendit.</string>
+  <string name="theKingCannotEscapeButBlock">Kuningas ei saa põgeneda, 
+aga sa saad rünnaku blokeerida!</string>
+  <string name="youCanGetOutOfCheckByTaking">Sa saad tule alt välja
+kui lööd ründava malendi.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Kuningas tuleb läbi sinu kaitse!</string>
   <string name="escapeOrBlock">Põgene kuningaga või blokeeri rünnak!</string>
   <string name="outOfCheckComplete">Õnnitlused! Sinu kuningat ei saa rünnata, veendu, et sa suudad teda malendi vastu kaitsta!</string>
