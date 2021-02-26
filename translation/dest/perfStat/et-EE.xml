@@ -3,6 +3,7 @@
   <string name="perfStats">%s statistika</string>
   <string name="viewTheGames">Vaata mängud</string>
   <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">ajutine</string>
+  <string name="notEnoughRatedGames">Pole mängitud piisavalt reitinguga mänge, et luua usaldusväärset reitingut.</string>
   <string name="progressOverLastXGames">Areng viimase %s mängu jooksul:</string>
   <string name="ratingDeviation">Reitingunihe: %s.</string>
   <string name="ratingDeviationHelp">Väiksem arv tähendab stabiilsemat reitingut. Üle %s tähendab, et reiting on ajutine.</string>
@@ -21,10 +22,12 @@
   <string name="fromXToY">ajavahemikus %1$s - %2$s</string>
   <string name="winningStreak">Võitude seeria</string>
   <string name="losingStreak">Kaotuste seeria</string>
-  <string name="longestStreak">Pikim sessioon: %s</string>
-  <string name="currentStreak">Praegune sessioon: %s</string>
+  <string name="longestStreak">Pikim seeria: %s</string>
+  <string name="currentStreak">Praegune seeria: %s</string>
   <string name="bestRated">Parimad reitinguga võidud</string>
   <string name="worstRated">Halvimad reitinguga kaotused</string>
   <string name="gamesInARow">Järjestikusi mänge</string>
+  <string name="lessThanOneHour">Mängude vahel vähem kui tund</string>
+  <string name="maxTimePlaying">Pikim aeg mängimas</string>
   <string name="now">nüüd</string>
 </resources>
