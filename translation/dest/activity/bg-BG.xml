@@ -66,6 +66,7 @@
     <item quantity="one">Участва в %s шведски турнир</item>
     <item quantity="other">Участва в %s шведски турнира</item>
   </plurals>
+  <string name="rankedInSwissTournament">Рейтинг #%1$s от %2$s</string>
   <string name="signedUp">Регистрира се в lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присъедини се в %s отбор</item>
