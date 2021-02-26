@@ -66,6 +66,7 @@
     <item quantity="one">Ha competido en %s torneo suizo</item>
     <item quantity="other">Ha competido en %s torneos suizos</item>
   </plurals>
+  <string name="rankedInSwissTournament">Clasificado %1$sº en %2$s</string>
   <string name="signedUp">Registrado en Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Miembro de %s equipo</item>
