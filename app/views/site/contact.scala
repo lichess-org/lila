@@ -386,7 +386,7 @@ object contact {
     )(
       frag(
         h1(contactLichess()),
-        div(cls := "contact")(renderNode(menu, none))
+        div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
 }
