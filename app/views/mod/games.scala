@@ -71,7 +71,7 @@ object games {
               tr(
                 sortNoneTh(input(tpe := "checkbox", name := s"game[]", st.value := "all")),
                 sortNumberTh("Opponent"),
-                sortNumberTh("Perf"),
+                sortNumberTh("Speed"),
                 th(iconTag('g')),
                 sortNumberTh("Moves"),
                 sortNumberTh("Result"),
@@ -94,11 +94,15 @@ object games {
                   td(dataSort := ~pov.opponent.rating)(
                     playerLink(pov.opponent, withDiff = false)
                   ),
-                  td(dataSort := pov.game.clock.fold(Int.MaxValue)(_.config.estimateTotalSeconds))(
+                  td(
+                    dataSort := pov.game.clock.fold(
+                      pov.game.correspondenceClock.fold(Int.MaxValue)(_.daysPerTurn * 3600 * 24)
+                    )(_.config.estimateTotalSeconds)
+                  )(
                     pov.game.perfType.map { pt =>
                       iconTag(pt.iconChar)(cls := "text")
                     },
-                    shortClockName(pov.game.clock.map(_.config))
+                    shortClockName(pov.game)
                   ),
                   td(dataSort := ~pov.game.tournamentId)(
                     pov.game.tournamentId map { tourId =>

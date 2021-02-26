@@ -84,6 +84,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
+  def shortClockName(game: Game)(implicit lang: Lang): Frag =
+    game.correspondenceClock
+      .map(c => trans.nbDays(c.daysPerTurn)) orElse
+      game.clock.map(_.config).map(shortClockName) getOrElse
+      trans.unlimited()
+
   def modeName(mode: Mode)(implicit lang: Lang): String =
     mode match {
       case Mode.Casual => trans.casual.txt()
