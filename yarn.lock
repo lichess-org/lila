@@ -770,10 +770,6 @@ chessground@^7.11.0:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.11.0.tgz#57628b4f9d4e1e2137e182801b16c90c28fba139"
   integrity sha512-W50zZpARwwLwKo26mES+VzA8xvrMyLtjpaqz6umOX8ZkaZ+GPeEDeVj2f75scPVo1wRu7c8HR+gCSJtt9Vl38Q==
 
-chessground@^7.9.2:
-  version "7.9.3"
-  resolved "git+https://github.com/hi-ogawa/chessground.git#dce6cbd29c91e499862671f7ba7db5be6ba4e46e"
-
 chessops@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.8.1.tgz#23f420692264319a73de4ad8535f1c5e4be488c4"

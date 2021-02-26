@@ -18,7 +18,7 @@
   "dependencies": {
     "ab": "https://github.com/lichess-org/ab-stub",
     "chat": "2.0.0",
-    "chessground": "^7.9.2",
+    "chessground": "^7.11.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",

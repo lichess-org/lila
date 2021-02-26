@@ -19,7 +19,7 @@
   "dependencies": {
     "ceval": "2.0.0",
     "chart.js": "^2.9",
-    "chessground": "^7.9.2",
+    "chessground": "^7.11.0",
     "chessops": "^0.8.1",
     "common": "2.0.0",
     "snabbdom": "^0.7.4",
