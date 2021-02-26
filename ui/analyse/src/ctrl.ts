@@ -89,7 +89,7 @@ export default class AnalyseCtrl {
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
-  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', false); // change it to default to true later
+  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
