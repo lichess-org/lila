@@ -66,10 +66,7 @@
     <item quantity="one">Competed in %s swiss tournament</item>
     <item quantity="other">Competed in %s swiss tournaments</item>
   </plurals>
-  <plurals name="rankedInSwissTournament">
-    <item quantity="one">Ranked #%1$s in %2$s</item>
-    <item quantity="other">Ranked #%1$s in %2$s</item>
-  </plurals>
+  <string name="rankedInSwissTournament">Ranked #%1$s in %2$s</string>
   <string name="signedUp">Signed up to lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Joined %s team</item>
