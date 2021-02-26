@@ -82,6 +82,7 @@
     <item quantity="few">Takmičili se u %s turnirima po švicarskom sistemu</item>
     <item quantity="other">Takmičili se u %s turnirima po švicarskom sistemu</item>
   </plurals>
+  <string name="rankedInSwissTournament">#%1$s u %2$s</string>
   <string name="signedUp">Registrovao/la se na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se %s timu</item>
