@@ -11,7 +11,11 @@
   <string name="thankYou">Aitäh annetuse eest!</string>
   <string name="youHaveLifetime">Sinul on eluaegne toetuskonto. See on väga lahe!</string>
   <string name="patronUntil">Sul on toetuskonto kuni %s.</string>
+  <string name="ifNotRenewed">Kui ei uuendata, siis konto muutub tagasi tasuta kontoks.</string>
+  <string name="weAreNonProfit">Me oleme mittetulundusühing, sest me usume, et igal ühel on õigus tasuta ja kvaliteetsele male platvormile.</string>
+  <string name="weRelyOnSupport">Me vajame abi inimestelt nagu sina, et teha seda võimalikuks. Kui sa naudid Lichessi siis palun kaalu meie toetamist annetades ja saades toetajaks!</string>
   <string name="lifetime">Eluaegne</string>
+  <string name="payLifetimeOnce">Maksa %s ühe korra. Ole Lichessi toetaja elu lõpuni!</string>
   <string name="lifetimePatron">Eluaegne Lichessi toetaja</string>
   <string name="makeExtraDonation">Tee lisaannetus?</string>
   <string name="monthly">Igakuiselt</string>
@@ -47,5 +51,17 @@ Võimalik on ka %s.</string>
   <string name="tyvm">Suured tänud su abi eest. Sa oled parim!</string>
   <string name="currentStatus">Praegune olek</string>
   <string name="nextPayment">Järgmine makse</string>
+  <string name="makeAdditionalDonation">Tee lisaannetus nüüd</string>
   <string name="update">Uuenda</string>
+  <string name="changeMonthlyAmount">Muuda igakuist summat (%s)</string>
+  <string name="cancelSupport">tühista toetus</string>
+  <string name="xOrY">%1$s või %2$s</string>
+  <string name="decideHowMuch">Otsusta kui kallis Lichess on sinule:</string>
+  <string name="stopPayments">Tühjenda krediitkaardiinfo ja lõpeta maksed:</string>
+  <string name="noLongerSupport">Ei toeta enam Lichessi</string>
+  <string name="paymentHistory">Maksete ajalugu</string>
+  <string name="paid">Makstud</string>
+  <string name="viewOthers">Vaata teisi Lichessi toetajaid</string>
+  <string name="date">Kuupäev</string>
+  <string name="amount">Summa</string>
 </resources>
