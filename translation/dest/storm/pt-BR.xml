@@ -25,10 +25,10 @@
   <string name="timePerMove">Tempo por lance</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Classificação mais alta</string>
   <string name="puzzlesPlayed">Quebra-cabeças jogados</string>
-  <string name="newRun">Nova rodada (hotkey: espaço)</string>
-  <string name="endRun">Finalizar execução (hotkey: Enter)</string>
+  <string name="newRun">Nova série (tecla de atalho: espaço)</string>
+  <string name="endRun">Finalizar série (tecla de atalho: Enter)</string>
   <string name="highscores">Melhores pontuações</string>
-  <string name="viewBestRuns">Ver melhores sequências</string>
-  <string name="bestRunOfDay">Melhor sequência do dia</string>
-  <string name="runs">Sequências</string>
+  <string name="viewBestRuns">Ver melhores séries</string>
+  <string name="bestRunOfDay">Melhor série do dia</string>
+  <string name="runs">Séries</string>
 </resources>
