@@ -2,4 +2,23 @@
 <resources>
   <string name="lichessCoaches">Lichess treenerid</string>
   <string name="lichessCoach">Lichess treener</string>
+  <string name="location">Asukoht</string>
+  <string name="languages">Keeled</string>
+  <string name="rating">Reiting</string>
+  <string name="availability">Saadavus</string>
+  <string name="accepting">Võtan vastu õpilasi</string>
+  <string name="notAccepting">Ei võta tudengeid hetkel</string>
+  <string name="xCoachesStudents">%s treenib maleõpilasi</string>
+  <string name="viewXProfile">Vaata %s Lichess profiil</string>
+  <string name="sendPM">Saada privaatsõnum</string>
+  <string name="aboutMe">Minust</string>
+  <string name="playingExperience">Mängukogemus</string>
+  <string name="teachingExperience">Õpetuskogemus</string>
+  <string name="otherExperiences">Muud kogemused</string>
+  <string name="bestSkills">Parimad oskused</string>
+  <string name="teachingMethod">Õpetusmeetodid</string>
+  <string name="publicStudies">Avalikud uuringud</string>
+  <string name="youtubeVideos">YouTube videod</string>
+  <string name="thankYouForReview">Aitäh tagasiside eest!</string>
+  <string name="reviewCoach">Hinda treenerit</string>
 </resources>
