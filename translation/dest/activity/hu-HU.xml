@@ -66,6 +66,7 @@
     <item quantity="one">%s svájci rendszerű versenyen vett részt</item>
     <item quantity="other">%s svájci rendszerű versenyen vett részt</item>
   </plurals>
+  <string name="rankedInSwissTournament">Helyezés: %1$s / %2$s</string>
   <string name="signedUp">Regisztrált a lichess.org-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>
