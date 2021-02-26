@@ -132,8 +132,8 @@
   </plurals>
   <string name="currentGames">Partidas atuais</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Jogos</item>
-    <item quantity="other">%s Jogos</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoritos</item>
