@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichessi klassid</string>
-  <string name="teachClassesOfChessStudents">Õpeta male klassi õpilase Lichessi klassi tööriistadega.</string>
+  <string name="lichessClasses">Klassid</string>
+  <string name="teachClassesOfChessStudents">Õpeta klassitäit maleõpilasi Lichessi Klassid tööriistaga.</string>
   <string name="features">Funktsioonid</string>
-  <string name="quicklyGenerateSafeUsernames">Genereeri kiiresti turvalised kasutaja nimed ja salasõnad oma õpilastele</string>
-  <string name="trackStudentProgress">Jälgi õpilaste edenemist mängudes ja treeningute</string>
-  <string name="messageAllStudents">Teavita kõiki õpilasi uuest klassi materjalist</string>
+  <string name="quicklyGenerateSafeUsernames">Loo kiiresti turvalised kasutajanimed ja salasõnad oma õpilastele</string>
+  <string name="trackStudentProgress">Jälgi õpilaste edenemist mängudes ja ülesannetes</string>
+  <string name="messageAllStudents">Teavita kõiki õpilasi uuest materjalist klassis</string>
   <string name="freeForAllForever">100% kõigile tasuta, igavesti, reklaamivaba ja jälitamiseta</string>
-  <string name="applyToBeLichessTeacher">Kandideeri Lichessis õpetajaks</string>
+  <string name="applyToBeLichessTeacher">Kandideeri Lichessi õpetajaks</string>
   <string name="noClassesYet">Hetkel pole ühtegi klassi.</string>
   <string name="teachersX">Õpetajad: %s</string>
   <string name="newClass">Uus klass</string>
@@ -18,17 +18,17 @@
   <string name="removedStudents">Eemaldatud</string>
   <string name="inviteTheStudentBack">Kutsu õpilane tagasi</string>
   <string name="sendAMessage">Saada kiri kõigitele õpilastele.</string>
-  <string name="aLinkToTheClassWillBeAdded">Link sinu klassi lisatakse automaatselt kirja lõppu, sa ei pea seda ise lisama.</string>
+  <string name="aLinkToTheClassWillBeAdded">Link sinu klassi juurde lisatakse automaatselt kirja lõppu, sa ei pea seda ise lisama.</string>
   <string name="className">Klassi nimi</string>
   <string name="classDescription">Klassi kirjeldus</string>
-  <string name="visibleByBothStudentsAndTeachers">Nähtav õpetajate kui ka selle klassi õpilaste poolt</string>
-  <string name="teachersOfTheClass">Selle klassi õpetajad</string>
-  <string name="addLichessUsernames">Lisa Lichessi kasutajanimed, et neid kutsuda õpetajaks. ainult üks rea kohta.</string>
+  <string name="visibleByBothStudentsAndTeachers">Nähtav õpetajatele kui ka selle klassi õpilastele</string>
+  <string name="teachersOfTheClass">Klassi õpetajad</string>
+  <string name="addLichessUsernames">Lisa Lichessi kasutajanimed, et neid kutsuda õpetajaks. Ainult üks rea kohta.</string>
   <string name="theyMustFirstApply">Nad peavad kõigepealt kandideerima Lichessi õpetajateks.</string>
   <string name="resetPassword">Uus parool</string>
   <string name="makeSureToCopy">Kopeeri või kirjuta oma parool kuhugi ülesse. Seda ei saa uuesti vaadata!</string>
   <string name="passwordX">Parool: %s</string>
-  <string name="generateANewPassword">Genereeri õpilasele uus parool</string>
+  <string name="generateANewPassword">Loo õpilasele uus parool</string>
   <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Kutsutud %1$s %2$s poolt</string>
   <string name="realName">Päris nimi</string>
   <string name="privateWillNeverBeShown">Privaatne. Pole nähtav väljaspool klassi. Aitab jätta meelde kes see õpilane on.</string>
@@ -39,7 +39,7 @@ Kasutajanimi: %2$s
 Parool: %3$s</string>
   <string name="inviteALichessAccount">Kutsu Lichessi kasutaja</string>
   <string name="inviteDesc1">Kui õpilasel on juba Lichessi kasutaja siis sa saad neid kutsuda klassi.</string>
-  <string name="inviteDesc2">Nad saavad Lichessis kirja klassi lingiga.</string>
+  <string name="inviteDesc2">Nad saavad Lichessis kirja, kus on link klassi juurde.</string>
   <string name="inviteDesc3">Tähtis: ainult kutsu õpilasi keda sa tunned ja aktiivselt tahavad ühineda klassiga.</string>
   <string name="inviteDesc4">Ära saada soovimatuid kutseid suvalistele mängijatele.</string>
   <string name="createANewLichessAccount">Loo uus Lichessi konto</string>
