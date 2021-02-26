@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessCoaches">Lichess treenerid</string>
   <string name="lichessCoach">Lichess treener</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Saada meile email %s ja me vaatame sinu taotlust.</string>
   <string name="location">Asukoht</string>
   <string name="languages">Keeled</string>
   <string name="rating">Reiting</string>
@@ -19,6 +20,10 @@
   <string name="teachingMethod">Õpetusmeetodid</string>
   <string name="publicStudies">Avalikud uuringud</string>
   <string name="youtubeVideos">YouTube videod</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Üks õpilase tagasiside</item>
+    <item quantity="other">%s õpilase tagasisidet</item>
+  </plurals>
   <string name="thankYouForReview">Aitäh tagasiside eest!</string>
   <string name="reviewCoach">Hinda treenerit</string>
 </resources>
