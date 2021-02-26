@@ -122,22 +122,22 @@ Tee käik, et jätkata.</string>
 Nad lähevad nurkadesse.</string>
   <string name="thenPlaceTheKnights">Siis paigalda ratsud! 
 Nad lähevad vankrite kõrvale.</string>
-  <string name="placeTheBishops">Paigalda piiskopid! 
-Nad lähevad kuningate kõrvale.</string>
-  <string name="placeTheQueen">Paigalda kuninganna! 
+  <string name="placeTheBishops">Paigalda odad! 
+Nad lähevad ratsude kõrvale.</string>
+  <string name="placeTheQueen">Paigalda lipp! 
 Ta läheb oma värvile.</string>
   <string name="placeTheKing">Paigalda kuningas! 
-Kohe kuninga kõrvale.</string>
-  <string name="pawnsFormTheFrontLine">Etturid ette ritta. 
-Tee mõni käik, et jätkata.</string>
-  <string name="boardSetupComplete">Õnnitlused! Olete osav võitleja.</string>
+Kohe lipu kõrvale.</string>
+  <string name="pawnsFormTheFrontLine">Etturid on eesliinis. 
+Tee käik, et jätkata.</string>
+  <string name="boardSetupComplete">Õnnitlused! Tead kuidas seadistada malelauda.</string>
   <string name="castling">Vangerdus</string>
-  <string name="theSpecialKingMove">Eriline kuninga liigutus</string>
-  <string name="castlingIntro">Too oma kuningas tagasi ohutusse kohta, ja kasuta oma ettureid rünnakuks!</string>
-  <string name="castleKingSide">Liiguta oma kuningat kahe ruudu võrra 
-lossi kuninga poolele!</string>
-  <string name="castleQueenSide">Liiguta oma kuningat kahe ruudu võrra 
-lossi kuninganna poolele!</string>
+  <string name="theSpecialKingMove">Kuninga eriline käik</string>
+  <string name="castlingIntro">Too oma kuningas turvalisse kohta, ja kasuta oma vankreid rünnakuks!</string>
+  <string name="castleKingSide">Liiguta oma kuningat kahe ruudu võrra,
+et vangerdada kuninga poolele!</string>
+  <string name="castleQueenSide">Liiguta oma kuningat kahe ruudu võrra, 
+et vangerdada lipu poolele!</string>
   <string name="theKnightIsInTheWay">Rüütel on tulekul! 
 Liiguta seda lossi kuninga poolele.</string>
   <string name="castleKingSideMovePiecesFirst">Lossi kuninga poolel! 
