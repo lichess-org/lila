@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">o musi lon poka pi jan pona</string>
+  <string name="playWithAFriend">o utala e jan pona</string>
   <string name="playWithTheMachine">o musi lon poka ilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile musi la o pana e ni tawa jan pona sina</string>
   <string name="gameOver">musi li pini</string>
-  <string name="waitingForOpponent">o awen e jan ante...</string>
+  <string name="waitingForOpponent">o awen tawa jan ante</string>
   <string name="waiting">awen</string>
   <string name="yourTurn">sina o musi</string>
   <string name="aiNameLevelAiLevel">musi %1$s pi nanpa pona %2$s</string>
   <string name="level">mute pona</string>
-  <string name="strength">wawa pi toki insa</string>
+  <string name="strength">wawa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
   <string name="toggleSound">kalama</string>
   <string name="chat">tomo toki</string>
@@ -18,7 +18,7 @@
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
   <string name="black">pimeja</string>
-  <string name="randomColor">kule pi sona ala</string>
+  <string name="randomColor">kule tan ken</string>
   <string name="createAGame">o pali e musi</string>
   <string name="whiteIsVictorious">walo li moli e pimeja</string>
   <string name="blackIsVictorious">pimeja li moli e walo</string>
@@ -38,7 +38,7 @@
     <item quantity="one">jan ante li weka tan musi. musi li %s kama pini.</item>
     <item quantity="other">jan ante li weka tan musi. sina awen la sina ken %s kama pini.</item>
   </plurals>
-  <string name="opponentLeftChoices">jan ante li tawa. sina wile ala wile pini e musi ni?</string>
+  <string name="opponentLeftChoices">jan ante li weka tan musi. sina ken pini sewi anu pini sama anu awen.</string>
   <string name="makeYourOpponentResign">jan ante, o toki e \"mi anpa\"</string>
   <string name="forceResignation">o pini e musi</string>
   <string name="forceDraw">o pini sama</string>

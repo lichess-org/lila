@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Framskutt bonde</string>
-  <string name="advancedPawnDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
+  <string name="advancedPawnDescription">En bonde står dypt inne i motstanderens stilling, muligens med trussel om bondeforvandling.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
@@ -88,7 +88,7 @@
   <string name="pin">Binding</string>
   <string name="pinDescription">En taktikk som utnytter bindinger, der en brikke ikke kan flyttes uten at en brikke med høyere verdi trues.</string>
   <string name="promotion">Bondeforvandling</string>
-  <string name="promotionDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
+  <string name="promotionDescription">Bytt ut bonde med dronning, tårn, løper eller springer.</string>
   <string name="queenEndgame">Dronningsluttspill</string>
   <string name="queenEndgameDescription">Et sluttspill med kun dronninger og bønder.</string>
   <string name="queenRookEndgame">Dronning- og tårnsluttspill</string>

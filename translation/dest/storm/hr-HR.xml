@@ -7,7 +7,7 @@
   <string name="newMonthlyHighscore">Novi mjesečni najbolji rezultat!</string>
   <string name="newAllTimeHighscore">Novi najbolji rezultat svih vremena!</string>
   <string name="previousHighscoreWasX">Prethodni najbolji rezultat bio je %s</string>
-  <string name="playAgain">Ponovno igraj</string>
+  <string name="playAgain">Igraj ponovno</string>
   <plurals name="xRuns">
     <item quantity="one">Jedna runda</item>
     <item quantity="few">%s rundi</item>

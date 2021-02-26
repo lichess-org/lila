@@ -77,6 +77,16 @@
     <item quantity="one">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēli %4$s</item>
     <item quantity="other">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēles %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="zero">Sacentās %s Šveices turnīros</item>
+    <item quantity="one">Sacentās %s Šveices turnīrā</item>
+    <item quantity="other">Sacentās %s Šveices turnīros</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="zero">Ieguva %1$s. vietu turnīrā %2$s</item>
+    <item quantity="one">Ieguva %1$s. vietu turnīrā %2$s</item>
+    <item quantity="other">Ieguva %1$s. vietu turnīrā %2$s</item>
+  </plurals>
   <string name="signedUp">Reģistrējās lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">Pievienojās %s komandām</item>

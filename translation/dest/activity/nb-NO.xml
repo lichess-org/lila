@@ -55,12 +55,20 @@
     <item quantity="other">Har laget %s nye studier</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Har deltatt i %s turnering</item>
-    <item quantity="other">Har deltatt i %s turneringer</item>
+    <item quantity="one">Har deltatt i %s arenaturnering</item>
+    <item quantity="other">Har deltatt i %s arenaturneringer</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Ble nummer %1$s (øverste %2$s%%) med %3$s parti i %4$s</item>
     <item quantity="other">Ble nummer %1$s (øverste %2$s%%) med %3$s partier i %4$s</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments" comment="competedInNbSwissTournaments [one] [other]&#10;&#10;%s is the number of tournaments.">
+    <item quantity="one">Har deltatt i %s sveitserturnering</item>
+    <item quantity="other">Har deltatt i %s sveitserturneringer</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Ble nummer %1$s i %2$s</item>
+    <item quantity="other">Ble nummer %1$s i %2$s</item>
   </plurals>
   <string name="signedUp">Er registrert hos Lichess</string>
   <plurals name="joinedNbTeams">

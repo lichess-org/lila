@@ -92,6 +92,18 @@
     <item quantity="many">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
     <item quantity="other">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Dalyvavo %s šveicariškame turnyre</item>
+    <item quantity="few">Dalyvavo %s šveicariškuose turnyruose</item>
+    <item quantity="many">Dalyvavo %s šveicariško turnyro</item>
+    <item quantity="other">Dalyvavo %s šveicariškų turnyrų</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Reitinguotas #%1$s iš %2$s</item>
+    <item quantity="few">Reitinguotas #%1$s iš %2$s</item>
+    <item quantity="many">Reitinguotas #%1$s iš %2$s</item>
+    <item quantity="other">Reitinguotas #%1$s iš %2$s</item>
+  </plurals>
   <string name="signedUp">Užsiregistravo „Lichess“</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Prisijungė prie %s komandos</item>

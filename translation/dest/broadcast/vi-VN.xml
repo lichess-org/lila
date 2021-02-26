@@ -10,7 +10,9 @@
   <string name="eventDescription">Miêu tả ngắn sự kiện</string>
   <string name="fullDescription">Mô tả đầy đủ sự kiện</string>
   <string name="fullDescriptionHelp">Mô tả dài tùy chọn của buổi phát sóng. %1$s có thể sử dụng. Chiều dài phải nhỏ hơn %2$s ký tự.</string>
+  <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID game</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ mạng Internet.</string>
+  <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, cách nhau bởi dấu cách.</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="startDate">Ngày bắt đầu trong múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>

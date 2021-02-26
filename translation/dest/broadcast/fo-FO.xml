@@ -10,7 +10,9 @@
   <string name="eventDescription">Stutt lýsing av tiltaki</string>
   <string name="fullDescription">Fullfíggjað lýsing av tiltaki</string>
   <string name="fullDescriptionHelp">Valfrí long lýsing av sending. %1$s er tøkt. Longdin má vera styttri enn %2$s bókstavir.</string>
+  <string name="sourceUrlOrGameIds">Keldu-URL ella talvsamleikar</string>
   <string name="sourceUrlHelp">URL-leinki, ið Lichess fer at kanna til tess at fáa PGN dagføringar. Leinkið nýtist at vera alment atkomiligt á alnetinum.</string>
+  <string name="gameIdsHelp">Til ber eisini ístaðin at skriva 64 Lichess-samleikar upp. Teir noyðast at vera skildir sundur við millumrúmum.</string>
   <string name="roundNumber">Nummar á umfari</string>
   <string name="startDate">Byrjanardagfesting í tínum egna tíðarøki</string>
   <string name="startDateHelp">Valfrítt, um tú veitst, nær tiltakið byrjar</string>

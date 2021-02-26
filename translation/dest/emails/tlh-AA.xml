@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">lichess.org QumpInlIj yIchov</string>
+  <string name="emailConfirm_click">suvwI\'pu\' Qup ghotpu\', qeylIS potlh ghOtpu\', qeylIS QanwI\'pu\'lI\' DayajlaH ghotpu\'bogh SunaDmeH ghotpu\'vaD Hoch.</string>
+  <string name="emailConfirm_ignore">jIvumtaHvIS bIrInmoHmeH jIvumtaHvIS.</string>
+  <string name="passwordReset_subject">lichess.org wejpuH, SoSloDnI\' je, DaH\'chugh, %s</string>
+  <string name="passwordReset_intro">wo\'maj ngabchu\' wIchavtaHvIS, joH.\"</string>
+  <string name="passwordReset_clickOrIgnore">QongDaqdaj DavoqmoHchugh, vaj QongDaq qatlhobQo\', bImuSHa\'choHbe\'chugh.</string>
+  <string name="emailChange_subject">jIsIvHa\'wI\', %s</string>
+  <string name="emailChange_intro">bItlhobqu\' \'e\' DachIDqangchu\'.</string>
+  <string name="emailChange_click">qogh DaSoppu\'DI\' vay\' DamuSHa\'chugh:</string>
+  <string name="welcome_subject">yI\'el lichess.org %s</string>
+</resources>

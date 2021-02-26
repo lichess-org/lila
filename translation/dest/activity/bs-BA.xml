@@ -77,6 +77,16 @@
     <item quantity="few">Rangiran/a #%1$s (prvih %2$s%%) sa %3$s odigrane partijeu turniru %4$s</item>
     <item quantity="other">Rangiran/a #%1$s (prvih %2$s%%) sa %3$s odigranih partija u turniru %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Takmičio se u %s turnirima po švicarskom sistemu</item>
+    <item quantity="few">Takmičili se u %s turnirima po švicarskom sistemu</item>
+    <item quantity="other">Takmičili se u %s turnirima po švicarskom sistemu</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">#%1$s u %2$s</item>
+    <item quantity="few">#%1$s u %2$s</item>
+    <item quantity="other">#%1$s u %2$s</item>
+  </plurals>
   <string name="signedUp">Registrovao/la se na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se %s timu</item>

@@ -47,6 +47,12 @@
   <plurals name="rankedInTournament">
     <item quantity="other">在 %4$s 里下了 %3$s 盘棋，排名 #%1$s 位（前 %2$s%% ）</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments" comment="competedInNbSwissTournaments [one] [other]&#10;&#10;%s is the number of tournaments.">
+    <item quantity="other">参加了 %s 场 swiss 锦标赛</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="other">在 %2$s 获得排名 #%1$s</item>
+  </plurals>
   <string name="signedUp">在lichess.org上注册帐户</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">加入了 %s 个团队</item>

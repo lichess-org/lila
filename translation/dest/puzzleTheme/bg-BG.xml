@@ -68,5 +68,7 @@
   <string name="underPromotionDescription">Произвеждане в кон, офицер или топ.</string>
   <string name="veryLong">Много дълги задачи</string>
   <string name="veryLongDescription">Четири или повече хода до победа.</string>
+  <string name="zugzwang">Цугцванг</string>
+  <string name="zugzwangDescription">Опонентът има малко възможни ходове и всеки един от тях води до влошаване на положението му.</string>
   <string name="healthyMixDescription">По малко от всичко. Не знаете какво да очаквате, така че бъдете готови за всичко! Точно като в истинските игри.</string>
 </resources>

@@ -10,7 +10,9 @@
   <string name="eventDescription">Ekitaldiaren deskribapen laburra</string>
   <string name="fullDescription">Ekitaldiaren deskribapen osoa</string>
   <string name="fullDescriptionHelp">Emanaldiaren azalpen luzea, hautazkoa da. %1$s badago. Luzera %2$s karaktere edo laburragoa izan behar da.</string>
+  <string name="sourceUrlOrGameIds">Iturburu URLa edo partiden IDak</string>
   <string name="sourceUrlHelp">Lichessek PGNaren eguneraketak jasoko dituen URLa. Interneteko helbide bat izan behar da.</string>
+  <string name="gameIdsHelp">Bestela, Lichess partiden 64 id sartu ditzakezu, espazioarekin banatuta.</string>
   <string name="roundNumber">Txanda zenbaki</string>
   <string name="startDate">Zure ordu-zonako hasiera data</string>
   <string name="startDateHelp">Hautazkoa, ekitaldia noiz hasten den baldin badakizu</string>

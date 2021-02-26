@@ -92,6 +92,18 @@
     <item quantity="few">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
     <item quantity="other">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Tekmoval na %s švicarskem turnirju</item>
+    <item quantity="two">Tekmoval na %s švicarskih turnirjih</item>
+    <item quantity="few">Tekmoval na %s švicarskih turnirjih</item>
+    <item quantity="other">Tekmoval na %s švicarskih turnirjih</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">Uvrščen #%1$s v %2$s</item>
+    <item quantity="two">Uvrščen #%1$s v %2$s</item>
+    <item quantity="few">Uvrščen #%1$s v %2$s</item>
+    <item quantity="other">Uvrščen #%1$s v %2$s</item>
+  </plurals>
   <string name="signedUp">Prijavljen na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružen %s ekipi</item>

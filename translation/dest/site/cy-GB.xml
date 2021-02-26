@@ -146,6 +146,14 @@
   <string name="correspondence">Drwy\'r post</string>
   <string name="daysPerTurn">Dyddiau y tro</string>
   <string name="oneDay">Un dydd</string>
+  <plurals name="nbDays">
+    <item quantity="zero">%s o ddyddiau</item>
+    <item quantity="one">%s diwrnod</item>
+    <item quantity="two">%s ddiwrnod</item>
+    <item quantity="few">%s ddiwrnod</item>
+    <item quantity="many">%s ddiwrnod</item>
+    <item quantity="other">%s ddiwrnod</item>
+  </plurals>
   <string name="time">Amser chwarae</string>
   <string name="rating">Graddfa</string>
   <string name="ratingStats">Ystadegau graddfa</string>
@@ -215,6 +223,14 @@
   <string name="incrementInSeconds">Cynyddiad (eiliadau)</string>
   <string name="freeOnlineChess">Gwyddbwyll ar-lein am ddim</string>
   <string name="spectators">Ymwelwyr</string>
+  <plurals name="nbWins">
+    <item quantity="zero">Enillodd %s gêmau</item>
+    <item quantity="one">Enillodd %s gêm</item>
+    <item quantity="two">Enillodd %s gêm</item>
+    <item quantity="few">Enillodd %s gêmau</item>
+    <item quantity="many">Enillodd %s gêmau</item>
+    <item quantity="other">Enillodd %s gêmau</item>
+  </plurals>
   <string name="exportGames">Allforio</string>
   <string name="ratingRange">Graddfa rhwng</string>
   <string name="thisAccountViolatedTos">Mae\'r defnyddiwr y cyfrif yma wedi torri termau defnyddio Lichess</string>
@@ -353,6 +369,7 @@
   <string name="country">Gwlad</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
+  <string name="inlineNotation">Nodiant mewnlin</string>
   <string name="watchLichessTV">Gwylio ar lichess TV</string>
   <string name="previouslyOnLichessTV">Ar Lichess TV yn barod</string>
   <string name="onlinePlayers">Chwarewyr ar-lein</string>
@@ -432,6 +449,9 @@
   <string name="xCommentedY">Gadaweodd %1$s sylw %2$s</string>
   <string name="victory">Buddugoliaeth</string>
   <string name="defeat">Colled</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s mewn %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s mewn %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s mewn %3$s</string>
   <string name="timeline">Llinell amser</string>
   <string name="starting">Cychwyn:</string>
   <string name="allInformationIsPublicAndOptional">Mae pob gwybodaeth yn gyhoeddus ac yn ddewisol.</string>
@@ -463,7 +483,7 @@
   <string name="shareGameURL">Rhannu dolen y gêm</string>
   <string name="error.required">Maes gofynnol</string>
   <string name="error.email">Cyfeiriad e-bost annilys</string>
-  <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol</string>
+  <string name="error.email_acceptable">Cyfeiriad e-bost annerbyniol. Os gwelwch yn dda, ail gwiriwch yr e-bost a cheisiwch eto.</string>
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
@@ -524,8 +544,17 @@
   <string name="tournamentMayHaveBeenCanceled">Efallai erthylwyd y cystadleuaeth os gadawodd pob chwaraewr cyn iddo gychwyn.</string>
   <string name="returnToTournamentsHomepage">Nôl at dudalen cystadleuaethau</string>
   <string name="weeklyPerfTypeRatingDistribution">Dosbarthiad graddfa misol: %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="zero">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="one">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="two">%1$s chwaraewr %2$s yr wythnos hon.</item>
+    <item quantity="few">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+    <item quantity="many">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+    <item quantity="other">%1$s chwaraewyr %2$s yr wythnos hon.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Dy raddfa %1$s di: %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Mae %1$s yn well na %2$s o chwaraewyr %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
   <string name="yourRating">Eich gradd</string>
   <string name="cumulative">Cronnus</string>
@@ -595,6 +624,7 @@
   <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>
   <string name="usernamePrefixInvalid">Rhaid i enw defnyddiwr dechrau gyda llythyren.</string>
   <string name="usernameSuffixInvalid">Rhaid i\'r enw defnyddiwr orffen efo rhif neu lythyren.</string>
+  <string name="usernameCharsInvalid">Gall enw\'r defnyddiwr dim ond cynnwys llythrennu, rhifau, tanlinellai, a chysylltnodau. Ni chaniatáu cael tanlinellai neu gysylltnodau dilynol.</string>
   <string name="usernameUnacceptable">Nid yw enw defnyddiwr hwn yn dderbyniol.</string>
   <string name="directlySupportLichess">Cefnogwch Lichess yn uniongyrchol</string>
   <string name="playChessInStyle">Edrychwch yn swanc efo Lichess</string>
@@ -613,6 +643,7 @@
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>
   <string name="bestWasX">%s oedd orau</string>
+  <string name="youBrowsedAway">Wnaethoch chi bori i fwrdd</string>
   <string name="resumePractice">Ailddechrau ymarfer</string>
   <string name="theGameIsADraw">Canlyniad gem gyfartal.</string>
   <string name="computerThinking">Cyfrifiadur yn meddwl...</string>
@@ -642,7 +673,7 @@
   <string name="doItAgain">Ailwneud</string>
   <string name="reviewWhiteMistakes">Adolygu camgymeriadau gwyn</string>
   <string name="reviewBlackMistakes">Adolygu camgymeriadau du</string>
-  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Mantais</string>
+  <string name="advantage">Mantais</string>
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
@@ -653,12 +684,23 @@
   <string name="playEveryGame">Chwaraewch bob gêm rydych yn dechrau.</string>
   <string name="thankYouForReading">Diolch am darllen!</string>
   <string name="lifetimeScore">Sgôr hyd oes</string>
+  <string name="agreementAssistance">Rwy\'n cytuno byddai\'n byth cael unrhyw cymorth yn ystod chwarae gem (wrth gyfrifiadur gwyddbwyll, llyfr, cronfa ddata neu berson arall).</string>
+  <string name="agreementNice">Rwy\'n cytuno byddai\'n wastad yn barchus i chwaraewyr eraill.</string>
+  <string name="agreementAccount">Rwy\'n cytuno byddai ddim creu cyfrifau lluosol.</string>
+  <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Edrych am neu ddechrau sgwrs newydd</string>
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>
   <string name="classical">Clasurol</string>
+  <string name="bulletDesc">Gemau gyflym iawn: llai na 3 munud</string>
+  <string name="blitzDesc">Gemau gyflym: 3 i 8 munud</string>
+  <string name="rapidDesc">Gemau chwim: 8 i 25 munud</string>
+  <string name="classicalDesc">Gemau clasurol: 25 munud a fwy</string>
   <string name="important">Pwysig</string>
   <string name="tryTheContactPage">ceisiwch y tudalen cyswllt</string>
+  <string name="thisTopicIsArchived">Mae\'r pwnc hwn wedi cael ei archifo, dydw e ddim yn derbyn fwy o atebiadau.</string>
   <string name="joinTheTeamXToPost">Ymuno\'r %1$s, i bostio mewn fforwm hyn</string>
+  <string name="youCannotPostYetPlaySomeGames">Ni allwch bostio yn y fforymau eto. Chwarae ychydig o gemau!</string>
   <string name="subscribe">Tanysgrifio</string>
   <string name="unsubscribe">Dad-danysgrifio</string>
 </resources>

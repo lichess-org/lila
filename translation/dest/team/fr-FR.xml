@@ -28,9 +28,9 @@
   </plurals>
   <string name="willBeReviewed">Votre requête d\'adhésion sera examinée par le chef d\'équipe.</string>
   <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examination par le chef d\'équipe.</string>
-  <string name="teamBattle">Bataille d\'équipes</string>
+  <string name="teamBattle">Tournoi entre équipes</string>
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
-  <string name="teamTournament">Tournoi pour l\'équipe</string>
+  <string name="teamTournament">Tournoi arène pour l\'équipe</string>
   <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
   <string name="messageAllMembers">Contacter tous les membres</string>
   <string name="messageAllMembersOverview">Envoyer un message privé à tous les membres de l\'équipe</string>

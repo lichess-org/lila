@@ -579,7 +579,7 @@
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
   <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Nur bestehende Unterhaltungen</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Nur bestehende Konversationen</string>
   <string name="onlyFriends">Nur Freunde</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Vorgerückter Bauer</string>
-  <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
+  <string name="advancedPawnDescription">Ein tief in die gegnerische Stellung vorgerückter Bauer, der vielleicht umzuwandeln droht.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="anastasiaMate">Anastasia-Matt</string>

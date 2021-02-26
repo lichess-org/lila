@@ -62,6 +62,14 @@
     <item quantity="one">%1$sº en la clasificación (dentro del %2$s%% mejor) con %3$s partida en %4$s</item>
     <item quantity="other">%1$sº en la clasificación (dentro del %2$s%% mejor) con %3$s partidas en %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Ha competido en %s torneo suizo</item>
+    <item quantity="other">Ha competido en %s torneos suizos</item>
+  </plurals>
+  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
+    <item quantity="one">%1$sº en la clasificación en %2$s</item>
+    <item quantity="other">%1$sº en la clasificación en %2$s</item>
+  </plurals>
   <string name="signedUp">Registrado en Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Miembro de %s equipo</item>

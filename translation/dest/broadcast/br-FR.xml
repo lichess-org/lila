@@ -11,6 +11,7 @@
   <string name="fullDescription">Deskrivadur an abadenn a-bezh</string>
   <string name="fullDescriptionHelp">Deskrivadur hir ar skignañ war-eeun ma fell deoc\'h.%1$s zo dijabl. Ne vo ket hiroc\'h evit %2$s sin.</string>
   <string name="sourceUrlHelp">An URL a ray Lichess ganti evit kaout hizivadurioù ar PGN. Ret eo dezhi bezañ digor d\'an holl war Internet.</string>
+  <string name="gameIdsHelp">A-hend all e c\'hallit lakaat betek 64 ID partienn Lichess, dispartiet gant spasoù.</string>
   <string name="roundNumber">Niverenn ar batalm</string>
   <string name="startDate">Eur kregiñ en ho kwerzhid-eur</string>
   <string name="startDateHelp">Diret eo, ma ouzit pegoulz e krogo</string>

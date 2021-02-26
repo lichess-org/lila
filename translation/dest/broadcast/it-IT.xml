@@ -10,7 +10,9 @@
   <string name="eventDescription">Breve descrizione dell\'evento</string>
   <string name="fullDescription">Descrizione completa dell\'evento</string>
   <string name="fullDescriptionHelp">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
+  <string name="sourceUrlOrGameIds">URL di origine o ID della partita</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="gameIdsHelp">In alternativa è possibile inserire sino a 64 ID di partite su Lichess separandoli con degli spazi.</string>
   <string name="roundNumber">Turno numero</string>
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
