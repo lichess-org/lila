@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Väljakutsed</string>
+  <string name="challengeToPlay">Väljakutse mängule</string>
+  <string name="challengeDeclined">Väljakutse tagasi lükatud</string>
+  <string name="challengeAccepted">Väljakutse vastu võetud!</string>
+  <string name="challengeCanceled">Väljakutse tühistatud.</string>
+  <string name="registerToSendChallenges">Palun registreeri, et väljakutseid saata.</string>
+</resources>
