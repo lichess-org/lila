@@ -29,6 +29,7 @@
   <string name="makeSureToCopy">o sitelen e nimi awen lon tenpo ni. tenpo kama la sina ken ala lukin e ni!</string>
   <string name="passwordX">nimi awen: %s</string>
   <string name="generateANewPassword">o pana e nimi awen sin tawa jan pi kama sona</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">wile pi jan %2$s la jan ni li kama tawa %1$s</string>
   <string name="realName">nimi lon</string>
   <string name="addStudent">poka e jan pi kama sona</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
