@@ -950,6 +950,7 @@ val `retry` = new I18nKey("learn:retry")
 object activity {
 val `activity` = new I18nKey("activity:activity")
 val `hostedALiveStream` = new I18nKey("activity:hostedALiveStream")
+val `rankedInSwissTournament` = new I18nKey("activity:rankedInSwissTournament")
 val `signedUp` = new I18nKey("activity:signedUp")
 val `supportedNbMonths` = new I18nKey("activity:supportedNbMonths")
 val `practicedNbPositions` = new I18nKey("activity:practicedNbPositions")
@@ -967,7 +968,6 @@ val `createdNbStudies` = new I18nKey("activity:createdNbStudies")
 val `competedInNbTournaments` = new I18nKey("activity:competedInNbTournaments")
 val `rankedInTournament` = new I18nKey("activity:rankedInTournament")
 val `competedInNbSwissTournaments` = new I18nKey("activity:competedInNbSwissTournaments")
-val `rankedInSwissTournament` = new I18nKey("activity:rankedInSwissTournament")
 val `joinedNbTeams` = new I18nKey("activity:joinedNbTeams")
 }
 
