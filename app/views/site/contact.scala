@@ -189,7 +189,7 @@ object contact {
               frag(
                 p(castlingPrevented()),
                 p(a(href := "https://en.wikipedia.org/wiki/Castling#Requirements")(castlingRules()), "."),
-                p(a(href := "/learn#/15")(tryCastling()), "."),
+                p(a(href := "/learn#/14")(tryCastling()), "."),
                 p(castlingImported())
               )
             ),
