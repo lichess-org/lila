@@ -18,8 +18,8 @@
   <string name="declineTimeControl">Não estou aceitando desafios com estes controles de tempo.</string>
   <string name="declineRated">Por favor, envie-me um desafio ranqueado.</string>
   <string name="declineCasual">Por favor, envie-me um desafio amigável.</string>
-  <string name="declineStandard">Eu não estou aceitando desafios de variantes no momento.</string>
-  <string name="declineVariant">Não estou disposto a jogar esta variante no momento.</string>
+  <string name="declineStandard">Não estou aceitando desafios de variantes no momento.</string>
+  <string name="declineVariant">Não estou a fim de jogar esta variante no momento.</string>
   <string name="declineNoBot">Não estou aceitando desafios de robôs.</string>
   <string name="declineOnlyBot">Estou aceitando apenas desafios de robôs.</string>
 </resources>
