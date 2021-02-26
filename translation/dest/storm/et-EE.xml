@@ -8,4 +8,13 @@
   <string name="newAllTimeHighscore">Uus kõikide aegade rekord!</string>
   <string name="previousHighscoreWasX">Eelmine rekord oli %s</string>
   <string name="playAgain">Mängi uuesti</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 mäng</item>
+    <item quantity="other">%s mängu</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Mängis ühe mängu %2$si</item>
+    <item quantity="other">Mängis %1$s mängu %2$si</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
 </resources>
