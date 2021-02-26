@@ -20,9 +20,12 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
   private def renderAppealOrTree(
       me: lila.user.User,
       err: Option[Form[String]] = None
-  )(implicit ctx: Context) = env.appeal.api.mine(me) map {
-    case None    => html.appeal.tree(me)
-    case Some(a) => html.appeal.discussion(a, err | form)
+  )(implicit ctx: Context) = env.appeal.api mine me flatMap {
+    case None =>
+      env.playban.api.currentBan(me.id).dmap(_.isDefined) map {
+        html.appeal.tree(me, _)
+      }
+    case Some(a) => fuccess(html.appeal.discussion(a, err | form))
   }
 
   def post =
