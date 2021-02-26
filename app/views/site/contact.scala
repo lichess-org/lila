@@ -370,8 +370,6 @@ object contact {
         )
     }
 
-  private def renderedMenu(implicit ctx: Context) = renderNode(menu, none)
-
   private def makeId(id: String)   = st.id := s"help-$id"
   private def makeLink(id: String) = href := s"#help-$id"
 
@@ -388,9 +386,7 @@ object contact {
     )(
       frag(
         h1(contactLichess()),
-        div(cls := "contact")(
-          renderedMenu
-        )
+        div(cls := "contact")(renderNode(menu, none))
       )
     )
 }

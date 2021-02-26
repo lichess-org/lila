@@ -8,14 +8,17 @@
   }
 
   .node {
-    display: none;
+    transition: 1s all;
+    height: 0;
     opacity: 0;
-    transition: 1s opacity;
+    overflow: hidden;
+    transform: translateX(30px);
   }
 
   .node:target {
-    display: block;
+    height: auto;
     opacity: 1;
+    transform: translateX(0px);
   }
 
   .node .back {
