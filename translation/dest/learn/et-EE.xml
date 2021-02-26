@@ -4,31 +4,31 @@
   <string name="byPlaying">mängides!</string>
   <string name="menu">Menüü</string>
   <string name="progressX">Edenemine: %s</string>
-  <string name="resetMyProgress">Lähtesta mu saavutused</string>
-  <string name="youWillLoseAllYourProgress">Kaotate kõik oma saavutused!</string>
+  <string name="resetMyProgress">Lähtesta saavutused</string>
+  <string name="youWillLoseAllYourProgress">Kaotad kõik oma saavutused!</string>
   <string name="play">mängi!</string>
   <string name="chessPieces">Malendid</string>
   <string name="theRook">Vanker</string>
-  <string name="itMovesInStraightLines">Liigub sirgjooneliselt</string>
+  <string name="itMovesInStraightLines">Ta liigub sirgejooneliselt</string>
   <string name="rookIntro">Vanker on võimas nupp. Kas olete selle käsutamiseks valmis?</string>
   <string name="rookGoal">Vajutage vankri peale,
-et seda tähekeseni viia!</string>
-  <string name="grabAllTheStars">Haarake kõik tähekesed!</string>
-  <string name="theFewerMoves">Mida vähem liigutusi teete,
-seda rohkem punkte saate!</string>
+et viia see tähekeseni!</string>
+  <string name="grabAllTheStars">Haara kõik tähekesed!</string>
+  <string name="theFewerMoves">Mida vähem liigutusi teed,
+seda rohkem punkte saad!</string>
   <string name="useTwoRooks">Kasutage kahte vankrit,
 et kiirust lisada!</string>
-  <string name="rookComplete">Õnnitleme! Olete edukalt vankrit valitsema õppinud.</string>
+  <string name="rookComplete">Õnnitlused! Oled õppinud edukalt vankrit valitsema.</string>
   <string name="theBishop">Oda</string>
-  <string name="itMovesDiagonally">Liigub diagonaalselt</string>
+  <string name="itMovesDiagonally">Ta liigub diagonaalselt</string>
   <string name="bishopIntro">Järgmiseks õpime, kuidas oda liigutada!</string>
   <string name="youNeedBothBishops">Üks oda heledatel ruutudel,
-üks oda tumedatel ruutudel.
-Vajate mõlemat!</string>
+teine oda tumedatel ruutudel.
+Vajad mõlemat!</string>
   <string name="bishopComplete">Õnnitlused! Te valdate nüüd oda.</string>
   <string name="theQueen">Lipp</string>
   <string name="queenCombinesRookAndBishop">Lipp = vanker + oda</string>
-  <string name="queenIntro">Kõige tugevam male siseneb. Teie maiasteedi kuninganna!</string>
+  <string name="queenIntro">Kõige tugevam malend astub mängu. Tema majesteet kuninganna!</string>
   <string name="queenComplete">Õnnitlused! Kuningannal pole sulle saladusi.</string>
   <string name="theKing">Kuningas</string>
   <string name="theMostImportantPiece">Kõige tähtsam malend</string>
