@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Kaheastmeline autentimine</string>
+  <string name="authenticationCode">Autentimise kood</string>
+  <string name="enableTwoFactor">Luba kaheastmeline autentimine</string>
+  <string name="disableTwoFactor">Keela kaheastmeline autentimine</string>
+  <string name="twoFactorEnabled">Kaheastmeline autentimine on sisse lülitatud</string>
+</resources>
