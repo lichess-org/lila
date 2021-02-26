@@ -64,7 +64,7 @@
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">%s turnuvasında mücadele etti</item>
-    <item quantity="other">%s tane İsviçre sistemi turnuvasında mücadele etti</item>
+    <item quantity="other">%s İsviçre sistemi turnuvasında mücadele etti</item>
   </plurals>
   <string name="rankedInSwissTournament">%2$s turnuvasında %1$s. oldu</string>
   <string name="signedUp">lichess.org\'a üye oldu</string>
