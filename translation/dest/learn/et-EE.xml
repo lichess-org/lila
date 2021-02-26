@@ -100,24 +100,28 @@ kuid sul on võimalik kaitsta!</string>
 aga sa saad rünnaku blokeerida!</string>
   <string name="youCanGetOutOfCheckByTaking">Sa saad tule alt välja
 kui lööd ründava malendi.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Kuningas tuleb läbi sinu kaitse!</string>
-  <string name="escapeOrBlock">Põgene kuningaga või blokeeri rünnak!</string>
-  <string name="outOfCheckComplete">Õnnitlused! Sinu kuningat ei saa rünnata, veendu, et sa suudad teda malendi vastu kaitsta!</string>
-  <string name="mateInOne">Sõber esimeses</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ratsu annab tuld
+läbi sinu kaitse!</string>
+  <string name="escapeOrBlock">Põgene kuningaga 
+või blokeeri rünnak!</string>
+  <string name="outOfCheckComplete">Õnnitlused! Sinu kuningat ei saa rünnata, veendu, et sa suudad teda tule vastu kaitsta!</string>
+  <string name="mateInOne">Matt ühe käiguga</string>
   <string name="defeatTheOpponentsKing">Alista vastase kuningas</string>
-  <string name="mateInOneIntro">Sina võidad kui su vastane ei saa malendi vastu kaitsa.</string>
-  <string name="attackYourOpponentsKing">Ründa oma vastase kuningat nii, et seda ei saa kaitsta!</string>
-  <string name="mateInOneComplete">Õnnitlused! Nii võidad sa male mänge!</string>
-  <string name="intermediate">Vaheühend</string>
+  <string name="mateInOneIntro">Sa võidad kui su vastane ei saa tule vastu kaitsta.</string>
+  <string name="attackYourOpponentsKing">Ründa vastase kuningat nii, 
+et seda ei saa kaitsta!</string>
+  <string name="mateInOneComplete">Õnnitlused! Nii võidetakse malemänge!</string>
+  <string name="intermediate">Kesktase</string>
   <string name="boardSetup">Laua ülesehitus</string>
   <string name="howTheGameStarts">Kuidas mäng algab</string>
-  <string name="boardSetupIntro">Kaks sõjaväge seisavad vastamisi, valmis lahinguks.</string>
-  <string name="thisIsTheInitialPosition">See on iga malemängu esialgne positsioon! 
-Tee mõni käik, et jätkata.</string>
-  <string name="firstPlaceTheRooks">Kõigepealt paigalda ratsanikud! 
+  <string name="boardSetupIntro">Kaks sõjaväge seisavad vastamisi, ole valmis lahinguks.</string>
+  <string name="thisIsTheInitialPosition">See on iga malemängu 
+esialgne positsioon! 
+Tee käik, et jätkata.</string>
+  <string name="firstPlaceTheRooks">Kõigepealt paigalda vankrid! 
 Nad lähevad nurkadesse.</string>
-  <string name="thenPlaceTheKnights">Siis paigalda kuningad! 
-Nad lähevad hobuste kõrvale.</string>
+  <string name="thenPlaceTheKnights">Siis paigalda ratsud! 
+Nad lähevad vankrite kõrvale.</string>
   <string name="placeTheBishops">Paigalda piiskopid! 
 Nad lähevad kuningate kõrvale.</string>
   <string name="placeTheQueen">Paigalda kuninganna! 
