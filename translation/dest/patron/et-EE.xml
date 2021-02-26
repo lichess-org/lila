@@ -24,4 +24,28 @@
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
   <string name="celebratedPatrons">Auväärsed toetajad tänu kellele Lichess on olemas</string>
   <string name="whereMoneyGoes">Kuhu raha läheb?</string>
+  <string name="serversAndDeveloper">Esmaselt võimsatesse serveritesse.
+Siis me maksame täiskohaga arendajale: %s, Lichessi asutajale.</string>
+  <string name="costBreakdown">Vaata detailne kulude ülevaade</string>
+  <string name="officialNonProfit">Kas Lichess on ametlikult mittetulundusühing?</string>
+  <string name="actOfCreation">Jah, siin on põhikiri (prantsuse keeles)</string>
+  <string name="changeMonthlySupport">Kas ma saan muuta/tühistada mu igakuiset toetust?</string>
+  <string name="changeOrContact">Jah, millal iganes, sellel leheküljel.
+Võimalik on ka %s.</string>
+  <string name="contactSupport">võta ühendust Lichessi abiga</string>
+  <string name="otherMethods">Teised annetusviisid?</string>
+  <string name="bankTransfers">Me võtame vastu ka pangaülekandeid</string>
+  <string name="bitcoin">Ja siin on meie bitcoini aadress: %s</string>
+  <string name="patronFeatures">Kas osa funktsioonidest on mõeldud ainult toetajatele?</string>
+  <string name="noPatronFeatures">Ei, sest Lichess on täiesti tasuta, igavesti ja kõigile. See on lubadus. Ikkagi, toetajad saavad käia uhkelt ringi uue laheda profiilipildiga.</string>
+  <string name="featuresComparison">Vaata üksikasjaline funktsioonide võrdlus</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichessi toetaja üheks kuuks</item>
+    <item quantity="other">Lichessi toetaja %s kuuks</item>
+  </plurals>
+  <string name="youSupportWith">Sa toetad lichess.org-i %s kuus.</string>
+  <string name="tyvm">Suured tänud su abi eest. Sa oled parim!</string>
+  <string name="currentStatus">Praegune olek</string>
+  <string name="nextPayment">Järgmine makse</string>
+  <string name="update">Uuenda</string>
 </resources>
