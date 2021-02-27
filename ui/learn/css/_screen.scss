@@ -3,17 +3,20 @@
 
   background: rgba(79, 195, 247, 0.9);
   cursor: pointer;
+  display: grid;
 }
 
 .learn__screen {
   @extend %popup-shadow, %box-radius;
 
-  margin: 150px auto;
+  margin: auto;
   background-color: #fff;
   width: 350px;
   overflow: hidden;
   text-align: center;
   padding-top: 36px;
+  max-height: 100%;
+  overflow: auto;
 
   > :nth-child(1) {
     animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
