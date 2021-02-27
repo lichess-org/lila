@@ -254,11 +254,11 @@ public class RatingCalculator {
     for ( Result result: results ) {
       v = v + (
           ( Math.pow( g(result.getOpponent(player).getGlicko2RatingDeviation()), 2) )
-          * E(player.getGlicko2Rating(),
-            result.getOpponent(player).getGlicko2Rating(),
+          * E(player.getGlicko2RatingWithAdvantage(),
+            result.getOpponent(player).getGlicko2RatingWithAdvantage(),
             result.getOpponent(player).getGlicko2RatingDeviation())
-          * ( 1.0 - E(player.getGlicko2Rating(),
-              result.getOpponent(player).getGlicko2Rating(),
+          * ( 1.0 - E(player.getGlicko2RatingWithAdvantage(),
+              result.getOpponent(player).getGlicko2RatingWithAdvantage(),
               result.getOpponent(player).getGlicko2RatingDeviation())
             ));
     }
@@ -293,8 +293,8 @@ public class RatingCalculator {
       outcomeBasedRating = outcomeBasedRating
         + ( g(result.getOpponent(player).getGlicko2RatingDeviation())
             * ( result.getScore(player) - E(
-                player.getGlicko2Rating(),
-                result.getOpponent(player).getGlicko2Rating(),
+                player.getGlicko2RatingWithAdvantage(),
+                result.getOpponent(player).getGlicko2RatingWithAdvantage(),
                 result.getOpponent(player).getGlicko2RatingDeviation() ))
           );
     }
