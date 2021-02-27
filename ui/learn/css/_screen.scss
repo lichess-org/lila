@@ -3,12 +3,13 @@
 
   background: rgba(79, 195, 247, 0.9);
   cursor: pointer;
+  display: grid;
 }
 
 .learn__screen {
   @extend %popup-shadow, %box-radius;
 
-  margin: 150px auto;
+  margin: auto;
   background-color: #fff;
   width: 350px;
   overflow: hidden;
