@@ -62,6 +62,11 @@
     <item quantity="one">Styrkismettur #%1$s (top %2$s%%) við %3$s talvi í %4$s</item>
     <item quantity="other">Styrkismettur #%1$s (top %2$s%%) við %3$s talvum í %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Kappaðist í %s swisskapping</item>
+    <item quantity="other">Kappaðist í %s swisskappingum</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Styrkismettur ≤ %1$s í %2$s</string>
   <string name="signedUp">Innritaður í lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Fór upp í %s lið</item>
