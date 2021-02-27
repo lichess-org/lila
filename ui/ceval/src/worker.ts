@@ -95,6 +95,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       .then(wasmBinary =>
         window[this.opts.module]({
           wasmBinary,
+          wasmMemory: new WebAssembly.Memory({ initial: 2048, maximum: 2048, shared: true } as any),
           locateFile: (path: string) =>
             lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
         })
