@@ -4132,10 +4132,10 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-stockfish-mv.wasm@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.6.0.tgz#83c02f4ac08a3976b7c57c215d9f7a90a3b3a09d"
-  integrity sha512-eO9iP9iCf8N341wY7w6AfbdC1VLZvc/UawXn3lkJaZm1stL2Kvqyik3G6NGt0z1z1v967L5dg2MmfZivuNk8Sg==
+stockfish-mv.wasm@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.6.1.tgz#cd160b01b25ff64794cb44fe55b6791c3fb297f8"
+  integrity sha512-6QE1LeWbv9NNMABHCjDGyjgob+1CfMpIszxUKCUcCH0znreWPXz48G09rhKTUpRzC8YsOTHPQL/s74gDcqXJGw==
 
 stockfish-nnue.wasm@0.0.1:
   version "0.0.1"
