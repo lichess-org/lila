@@ -382,8 +382,9 @@ export default class Setup {
     var validateFen = debounce(() => {
       $fenInput.removeClass('success failure');
       var fen = $fenInput.val() as string;
-      if (fen)
-        xhr.text(xhr.url($fenInput.parent().data('validate-url'), { fen })).then(
+      if (fen) {
+        var [path, params] = $fenInput.parent().data('validate-url').split('?'); // Separate "strict=1" for AI match
+        xhr.text(xhr.url(path, { fen }) + (params ? `&${params}` : '')).then(
           data => {
             $fenInput.addClass('success');
             $fenPosition.find('.preview').html(data);
@@ -399,6 +400,7 @@ export default class Setup {
             $submits.addClass('nope');
           }
         );
+      }
     }, 200);
     $fenInput.on('keyup', validateFen);
 
