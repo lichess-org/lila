@@ -20,8 +20,8 @@ export default class Protocol {
   private currentEval: Tree.ClientEval | undefined;
   private expectedPvs = 1;
 
-  private threads: string | number = 1;
   private hashSize: string | number = 16;
+  private threads: string | number = 1;
 
   private nextWork: Work | undefined;
 
@@ -124,15 +124,15 @@ export default class Protocol {
         this.currentEval = undefined;
         this.expectedPvs = 1;
 
-        const threads = this.opts.threads ? this.opts.threads() : 1;
-        if (this.threads != threads) {
-          this.threads = threads;
-          this.setOption('Threads', threads);
-        }
         const hashSize = this.opts.hashSize ? this.opts.hashSize() : 16;
         if (this.hashSize != hashSize) {
           this.hashSize = hashSize;
           this.setOption('Hash', hashSize);
+        }
+        const threads = this.opts.threads ? this.opts.threads() : 1;
+        if (this.threads != threads) {
+          this.threads = threads;
+          this.setOption('Threads', threads);
         }
         this.setOption('MultiPV', this.work.multiPv);
 
