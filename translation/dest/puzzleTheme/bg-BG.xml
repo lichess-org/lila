@@ -26,8 +26,11 @@
   <string name="kingsideAttack">Атака на царския фланг</string>
   <string name="defensiveMove">Защитен ход</string>
   <string name="defensiveMoveDescription">Точен ход или поредица от ходове, за да се избегне загуба на материал или друго предимство за опонента.</string>
+  <string name="deflection">Отвличане</string>
   <string name="discoveredAttack">Открита атака</string>
+  <string name="discoveredAttackDescription">Преместване на фигура (например кон), която е блокирала пътя на далекобойна фигура (например топ), така че вече да не го блокира.</string>
   <string name="doubleCheck">Двоен шах</string>
+  <string name="doubleCheckDescription">Шах с две фигури едновременно. Получава се, когато преместената фигура дава шах заедно с далекобойна, която досега е била блокирана.</string>
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
   <string name="exposedKing">Незащитен цар</string>
@@ -93,6 +96,7 @@
   <string name="veryLong">Много дълги задачи</string>
   <string name="veryLongDescription">Четири или повече хода до победа.</string>
   <string name="xRayAttack">Рентгенова атака</string>
+  <string name="xRayAttackDescription">Фигура атакува или защитава поле зад противникова фигура.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Опонентът има малко възможни ходове и всеки един от тях води до влошаване на положението му.</string>
   <string name="healthyMix">От всичко по малко</string>
