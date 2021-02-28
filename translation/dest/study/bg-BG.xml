@@ -9,9 +9,31 @@
   <string name="whatAreStudies">Какво представляват казусите?</string>
   <string name="allStudies">Всички казуси</string>
   <string name="studiesCreatedByX">Казуси от %s</string>
+  <string name="dateAddedNewest">Дата на добавяне (най-нови)</string>
+  <string name="dateAddedOldest">Дата на добавяне (най-стари)</string>
+  <string name="recentlyUpdated">Скоро обновени</string>
+  <string name="mostPopular">Най-популярни</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
   <plurals name="nbGames">
     <item quantity="one">%s Игра</item>
     <item quantity="other">%s Игри</item>
   </plurals>
+  <string name="addMembers">Добави членове</string>
+  <string name="inviteToTheStudy">Покани към казуса</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Моля канете само хора, които познавате и които биха искали да се присъединят.</string>
+  <string name="searchByUsername">Търсене по потребителско име</string>
+  <string name="spectator">Зрител</string>
+  <string name="contributor">Сътрудник</string>
+  <string name="kick">Изгонване</string>
+  <string name="leaveTheStudy">Напусни казуса</string>
+  <string name="youAreNowAContributor">Вие сте сътрудник</string>
+  <string name="youAreNowASpectator">Вие сте зрител</string>
+  <string name="pgnTags">PGN тагове</string>
+  <string name="like">Харесай</string>
+  <string name="newTag">Нов таг</string>
+  <string name="commentThisPosition">Коментирай позицията</string>
+  <string name="commentThisMove">Коментирай хода</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Тази глава е твърде къса и не може да бъде анализирана.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
+  <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
 </resources>
