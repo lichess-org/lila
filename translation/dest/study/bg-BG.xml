@@ -9,11 +9,17 @@
   <string name="whatAreStudies">Какво представляват казусите?</string>
   <string name="allStudies">Всички казуси</string>
   <string name="studiesCreatedByX">Казуси от %s</string>
+  <string name="noneYet">Все още няма.</string>
+  <string name="hot">Популярни</string>
   <string name="dateAddedNewest">Дата на добавяне (най-нови)</string>
   <string name="dateAddedOldest">Дата на добавяне (най-стари)</string>
   <string name="recentlyUpdated">Скоро обновени</string>
   <string name="mostPopular">Най-популярни</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Глава</item>
+    <item quantity="other">%s Глави</item>
+  </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s Игра</item>
     <item quantity="other">%s Игри</item>
@@ -37,9 +43,12 @@
   <string name="newTag">Нов таг</string>
   <string name="commentThisPosition">Коментирай позицията</string>
   <string name="commentThisMove">Коментирай хода</string>
+  <string name="annotateWithGlyphs">Анотация със специални символи</string>
   <string name="theChapterIsTooShortToBeAnalysed">Тази глава е твърде къса и не може да бъде анализирана.</string>
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
+  <string name="getAFullComputerAnalysis">Вземи пълен сървърен анализ на основна линия.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Всички синхронизирани членове остават на същата позиция</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
   <string name="playing">Играе се</string>
   <string name="first">Първа</string>
@@ -53,6 +62,7 @@
   <string name="chapterPgn">PGN на главата</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL на предаването</string>
   <string name="currentChapterUrl">URL на настоящата глава</string>
   <string name="currentGameUrl">URL на настоящата партия</string>
   <string name="startAtInitialPosition">Започни от начална позиция</string>
@@ -67,10 +77,12 @@
   <string name="newChapter">Нова глава</string>
   <string name="orientation">Ориентация</string>
   <string name="analysisMode">Режим на анализ</string>
+  <string name="pinnedChapterComment">Коментар на главата</string>
   <string name="saveChapter">Запази глава</string>
   <string name="clearAnnotations">Изтрий анотациите</string>
   <string name="deleteChapter">Изтрий глава</string>
   <string name="deleteThisChapter">Изтриване на главата? Това е необратимо!</string>
+  <string name="clearAllCommentsInThisChapter">Изтрий всички коментари, специални символи и нарисувани форми в главата?</string>
   <string name="rightUnderTheBoard">Точно под дъската</string>
   <string name="noPinnedComment">Никакви</string>
   <string name="normalAnalysis">Нормален анализ</string>
@@ -108,6 +120,7 @@
   <string name="enableSync">Разреши синхронизиране</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Да: дръж всички на същата позиция</string>
   <string name="noLetPeopleBrowseFreely">Не: позволи свободно разглеждане</string>
+  <string name="pinnedStudyComment">Коментар на казуса</string>
   <string name="start">Начало</string>
   <string name="save">Запази</string>
   <string name="clearChat">Изтрий чат съобщенията</string>
