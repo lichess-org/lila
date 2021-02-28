@@ -77,7 +77,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
             } else if (d.opponent.onGame) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
-            } else if (!(e.target as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
+            } else if (!(e.currentTarget as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
           },
           ctrl.redraw
         ),
