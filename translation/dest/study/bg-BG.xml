@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Лични</string>
+  <string name="myStudies">Моите казуси</string>
+  <string name="studiesIContributeTo">Казуси, към които допринасям</string>
+  <string name="myPublicStudies">Моите публични казуси</string>
+  <string name="myPrivateStudies">Моите лични казуси</string>
+  <string name="myFavoriteStudies">Моите любими казуси</string>
+  <string name="whatAreStudies">Какво представляват казусите?</string>
+  <string name="allStudies">Всички казуси</string>
+  <string name="studiesCreatedByX">Казуси от %s</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
   <plurals name="nbGames">
     <item quantity="one">%s Игра</item>
