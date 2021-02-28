@@ -117,7 +117,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋桂香",
           "Dragonfly + NL",
-          "ln2k2ln/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -125,7 +125,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋香",
           "Dragonfly + L",
-          "l3k3n/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
