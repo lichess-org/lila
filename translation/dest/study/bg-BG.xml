@@ -37,6 +37,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Само сътрудници към казуса могат да пускат компютърен анализ.</string>
   <string name="makeSureTheChapterIsComplete">Уверете се, че главата е завършена. Можете да пуснете анализ само веднъж.</string>
   <string name="shareChanges">Споделете промените със зрителите и ги запазете на сървъра</string>
+  <string name="playing">Играе се</string>
   <string name="first">Първа</string>
   <string name="previous">Предишна</string>
   <string name="next">Следваща</string>
@@ -48,6 +49,21 @@
   <string name="chapterPgn">PGN на главата</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>
+  <string name="currentChapterUrl">URL на настоящата глава</string>
+  <string name="currentGameUrl">URL на настоящата партия</string>
+  <string name="startAtInitialPosition">Започни от начална позиция</string>
+  <string name="startAtX">Започни от %s</string>
+  <string name="embedInYourWebsite">Вгради в твоя сайт или блог</string>
+  <string name="readMoreAboutEmbedding">Прочети повече за вграждането</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Само публични казуси могат да бъдат вграждани!</string>
+  <string name="open">Отвори</string>
+  <string name="xBroughtToYouByY">%1$s, предоставени от %2$s</string>
+  <string name="studyNotFound">Казусът не бе открит</string>
+  <string name="editChapter">Промени глава</string>
+  <string name="newChapter">Нова глава</string>
+  <string name="orientation">Ориентация</string>
+  <string name="analysisMode">Режим на анализ</string>
+  <string name="saveChapter">Запази глава</string>
   <string name="visibility">Видимост</string>
   <string name="public">Публични</string>
   <string name="unlisted">Несподелени</string>
