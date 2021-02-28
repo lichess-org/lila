@@ -27,6 +27,7 @@
   <string name="defensiveMove">Защитен ход</string>
   <string name="defensiveMoveDescription">Точен ход или поредица от ходове, за да се избегне загуба на материал или друго предимство за опонента.</string>
   <string name="deflection">Отвличане</string>
+  <string name="deflectionDescription">Ход, с който се отвлича фигура от задължението й - например да пази друга фигура. Също познато като \"претоварване\".</string>
   <string name="discoveredAttack">Открита атака</string>
   <string name="discoveredAttackDescription">Преместване на фигура (например кон), която е блокирала пътя на далекобойна фигура (например топ), така че вече да не го блокира.</string>
   <string name="doubleCheck">Двоен шах</string>
@@ -80,6 +81,7 @@
   <string name="queenRookEndgameDescription">Ендшпил само с дами, топове и пешки.</string>
   <string name="queensideAttack">Атака на дамския фланг</string>
   <string name="quietMove">Тих ход</string>
+  <string name="quietMoveDescription">Ход, с който не се дава шах и не се залавя фигура, но осигурява неизбежна опасност при последващ ход.</string>
   <string name="rookEndgame">Топовен ендшпил</string>
   <string name="rookEndgameDescription">Ендшпил само с топове и пешки.</string>
   <string name="sacrifice">Жертване</string>
