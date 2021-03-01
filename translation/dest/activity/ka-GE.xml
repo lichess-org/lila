@@ -2,6 +2,10 @@
 <resources>
   <string name="activity">აქტიურობა</string>
   <string name="hostedALiveStream">იყო პირდაპირ ეთერში</string>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">მიიღო მონაწილეობა %s სვის ტურნირში</item>
+    <item quantity="other">მიიღო მონაწილეობა %s სვის ტურნირში</item>
+  </plurals>
   <string name="signedUp">დარეგისტრირდა lichess.org-ზე</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">შეუერთდა ჯგუფს %s</item>
