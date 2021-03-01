@@ -16,7 +16,6 @@ final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
     val web: WebPush.Config,
-    val onesignal: OneSignalPush.Config,
     val firebase: FirebasePush.Config
 )
 
@@ -41,8 +40,6 @@ final class Env(
 
   def registerDevice    = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
-
-  private lazy val oneSignalPush = wire[OneSignalPush]
 
   private lazy val googleCredentials: Option[GoogleCredentials] =
     try {

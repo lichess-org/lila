@@ -13,7 +13,6 @@ import lila.user.User
 
 final private class PushApi(
     firebasePush: FirebasePush,
-    oneSignalPush: OneSignalPush,
     webPush: WebPush,
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
@@ -257,9 +256,6 @@ final private class PushApi(
     webPush(userId, data).addEffects { res =>
       monitor(lila.mon.push.send)("web", res.isSuccess)
     } zip
-      oneSignalPush(userId, data).addEffects { res =>
-        monitor(lila.mon.push.send)("onesignal", res.isSuccess)
-      } zip
       firebasePush(userId, data).addEffects { res =>
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
       } void
