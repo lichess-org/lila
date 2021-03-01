@@ -62,6 +62,10 @@
     <item quantity="one">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partita in %4$s</item>
     <item quantity="other">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partite in %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Ha gareggiato in %s torneo Svizzero</item>
+    <item quantity="other">Ha gareggiato in %s tornei Svizzeri</item>
+  </plurals>
   <string name="signedUp">Si è registrato su lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Si è unito ad %s gruppo</item>
