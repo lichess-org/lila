@@ -26,7 +26,7 @@
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
-  <string name="dovetailMate">Duehale mat</string>
+  <string name="dovetailMate">Duehale-mat</string>
   <string name="dovetailMateDescription">En dronning sætter en tilstødende konge mat, da dennes eneste to felter til flugt er blokeret af egne brikker.</string>
   <string name="equality">Udligning</string>
   <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Afledning</string>
   <string name="deflectionDescription">Et træk der distraherer en modstanders brik fra at udføre en anden funktion, såsom bevogtning af et vigtigt felt.</string>
   <string name="discoveredAttack">Afdækkertræk</string>
-  <string name="discoveredAttackDescription">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en ridder flyttet for et tårn.</string>
+  <string name="discoveredAttackDescription">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en springer flyttet for et tårn.</string>
   <string name="doubleCheck">Dobbeltskak</string>
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
   <string name="endgame">Slutspil</string>
