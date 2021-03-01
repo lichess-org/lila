@@ -3,7 +3,8 @@
   <string name="advancedPawn">Пешак пред промоцијом</string>
   <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
-  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
+  <string name="anastasiaMate">Анастазијин мат</string>
   <string name="arabianMate">Арапски мат</string>
   <string name="attackingF2F7">Напад на f2 или на f7</string>
   <string name="deflection">Дефлекција</string>
