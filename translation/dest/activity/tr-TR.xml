@@ -63,8 +63,8 @@
     <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">%s turnuvasında mücadele etti</item>
-    <item quantity="other">%s İsviçre sistemi turnuvasında mücadele etti</item>
+    <item quantity="one">%s İsviçre Sistemi turnuvasına katıldı</item>
+    <item quantity="other">%s İsviçre Sistemi turnuvasına katıldı</item>
   </plurals>
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">%2$s katılımcıları arasında #%1$s. oldu</string>
   <string name="signedUp">lichess.org\'a üye oldu</string>
