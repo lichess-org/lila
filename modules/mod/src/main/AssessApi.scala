@@ -187,11 +187,10 @@ final class AssessApi(
     def manyBlurs(player: Player) =
       game.playerBlurPercent(player.color) >= 70
 
-    def winnerGreatProgress(player: Player): Boolean = {
-      game.winner ?? (player ==)
-    } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 100
-    }
+    def winnerGreatProgress(player: Player): Boolean =
+      game.winner.has(player) && game.perfType ?? { perfType =>
+        player.color.fold(white, black).perfs(perfType).progress >= 90
+      }
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
@@ -218,7 +217,7 @@ final class AssessApi(
       // stop here for short games
       else if (game.playedTurns < 36) fuccess(none)
       // stop here for long games
-      else if (game.playedTurns > 90) fuccess(none)
+      else if (game.playedTurns > 95) fuccess(none)
       // stop here for casual games
       else if (!game.mode.rated) fuccess(none)
       // discard old games
@@ -228,13 +227,13 @@ final class AssessApi(
         gameRepo.holdAlert game game map { holdAlerts =>
           if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
           // white has consistent move times
-          else if (whiteSuspCoefVariation.isDefined && randomPercent(70))
+          else if (whiteSuspCoefVariation.isDefined)
             whiteSuspCoefVariation.map(_ => WhiteMoveTime)
           // black has consistent move times
-          else if (blackSuspCoefVariation.isDefined && randomPercent(70))
+          else if (blackSuspCoefVariation.isDefined)
             blackSuspCoefVariation.map(_ => BlackMoveTime)
-          // don't analyse half of other bullet games
-          else if (game.speed == chess.Speed.Bullet && randomPercent(50)) none
+          // don't analyse most of other bullet games
+          else if (game.speed == chess.Speed.Bullet && randomPercent(70)) none
           // someone blurs a lot
           else if (game.players exists manyBlurs) Blurs.some
           // the winner shows a great rating progress
@@ -242,7 +241,7 @@ final class AssessApi(
           // analyse some tourney games
           // else if (game.isTournament) randomPercent(20) option "Tourney random"
           /// analyse new player games
-          else if (winnerNbGames.??(30 >) && randomPercent(75)) NewPlayerWin.some
+          else if (winnerNbGames.??(40 >) && randomPercent(75)) NewPlayerWin.some
           else none
         }
 
