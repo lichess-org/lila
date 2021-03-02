@@ -1,5 +1,7 @@
 package lila.report
 
+import lila.user.User
+
 sealed trait Room {
 
   def key = toString.toLowerCase
@@ -48,5 +50,16 @@ object Room {
   case class Scores(value: Map[Room, Int]) {
     def get     = value.get _
     def highest = ~value.values.maxOption
+  }
+
+  def isGrantedFor(mod: User)(room: Room) = {
+    import lila.security.Granter
+    room match {
+      case Room.Cheat  => Granter(_.MarkEngine)(mod)
+      case Room.Print  => Granter(_.ViewIpPrint)(mod)
+      case Room.Comm   => Granter(_.Shadowban)(mod)
+      case Room.Other  => Granter(_.MarkBooster)(mod)
+      case Room.Xfiles => Granter(_.MarkEngine)(mod)
+    }
   }
 }

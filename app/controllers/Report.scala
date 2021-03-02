@@ -27,7 +27,8 @@ final class Report(
   def listWithFilter(room: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       env.report.modFilters.set(me, Room(room))
-      renderList(room)
+      if (Room(room).fold(true)(Room.isGrantedFor(me))) renderList(room)
+      else notFound
     }
 
   protected[controllers] def getScores =
