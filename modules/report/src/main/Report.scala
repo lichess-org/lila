@@ -75,14 +75,6 @@ case class Report(
   def isRecentComm                 = room == Room.Comm && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
-  def boostWith: Option[User.ID] =
-    (reason == Reason.Boost) ?? {
-      atoms.toList.withFilter(_.byLichess).flatMap(_.text.linesIterator).collectFirst {
-        case Report.farmWithRegex(userId)    => userId
-        case Report.sandbagWithRegex(userId) => userId
-      }
-    }
-
   def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
 }
 
@@ -173,8 +165,4 @@ object Report {
           )
         )(_ add c.atom)
     }
-
-  private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
-  private val sandbagWithRegex =
-    s""". throws games to @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
 }
