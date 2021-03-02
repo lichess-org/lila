@@ -5,6 +5,7 @@
   <string name="advantage">Предност</string>
   <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
   <string name="anastasiaMate">Анастазијин мат</string>
+  <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују како би заробили противничког краља између ивице табле и пријатељске фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
   <string name="attackingF2F7">Напад на f2 или на f7</string>
   <string name="deflection">Дефлекција</string>
