@@ -11,8 +11,6 @@ import lila.user.User
 
 object teacherDashboard {
 
-  import bits.{ dataSort, sortNumberTh }
-
   private[clas] def layout(
       c: Clas,
       students: List[Student.WithUser],
@@ -140,13 +138,13 @@ object teacherDashboard {
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(
+              th(dataSortDefault)(
                 trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
-                sortNumberTh(trans.rating()),
-                sortNumberTh(trans.clas.progress()),
-                sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
-                if (progress.isPuzzle) sortNumberTh(trans.clas.winrate())
-                else sortNumberTh(trans.clas.timePlaying())
+                dataSortNumberTh(trans.rating()),
+                dataSortNumberTh(trans.clas.progress()),
+                dataSortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
+                if (progress.isPuzzle) dataSortNumberTh(trans.clas.winrate())
+                else dataSortNumberTh(trans.clas.timePlaying())
               )
             ),
             tbody(
@@ -184,11 +182,11 @@ object teacherDashboard {
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(
+              th(dataSortDefault)(
                 trans.clas.nbStudents.pluralSame(students.size),
-                sortNumberTh(trans.chessBasics()),
-                sortNumberTh(trans.practice()),
-                sortNumberTh(trans.coordinates.coordinates())
+                dataSortNumberTh(trans.chessBasics()),
+                dataSortNumberTh(trans.practice()),
+                dataSortNumberTh(trans.coordinates.coordinates())
               )
             ),
             tbody(
@@ -259,11 +257,11 @@ object teacherDashboard {
       table(cls := "slist slist-pad sortable")(
         thead(
           tr(
-            th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
-            sortNumberTh(trans.rating()),
-            sortNumberTh(trans.games()),
-            sortNumberTh(trans.puzzles()),
-            sortNumberTh(trans.clas.lastActiveDate()),
+            th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+            dataSortNumberTh(trans.rating()),
+            dataSortNumberTh(trans.games()),
+            dataSortNumberTh(trans.puzzles()),
+            dataSortNumberTh(trans.clas.lastActiveDate()),
             th(iconTag("5")(title := trans.clas.managed.txt()))
           )
         ),

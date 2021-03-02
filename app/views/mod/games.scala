@@ -17,9 +17,7 @@ import lila.swiss.Swiss
 
 object games {
 
-  private val sortNumberTh = th(attr("data-sort-method") := "number")
-  private val sortNoneTh   = th(attr("data-sort-method") := "none")
-  private val dataSort     = attr("data-sort")
+  private val sortNoneTh = th(attr("data-sort-method") := "none")
 
   def apply(
       user: User,
@@ -82,15 +80,15 @@ object games {
                     st.value := "all"
                   )
                 ),
-                sortNumberTh("Opponent"),
-                sortNumberTh("Speed"),
+                dataSortNumberTh("Opponent"),
+                dataSortNumberTh("Speed"),
                 th(iconTag('g')),
-                sortNumberTh("Moves"),
-                sortNumberTh("Result"),
-                sortNumberTh("ACPL", br, "(Avg ± SD)"),
-                sortNumberTh("Times", br, "(Avg ± SD)"),
-                sortNumberTh("Blur"),
-                sortNumberTh("Date")
+                dataSortNumberTh("Moves"),
+                dataSortNumberTh("Result"),
+                dataSortNumberTh("ACPL", br, "(Avg ± SD)"),
+                dataSortNumberTh("Times", br, "(Avg ± SD)"),
+                dataSortNumberTh("Blur"),
+                dataSortNumberTh(dataSortDefault)("Date")
               )
             ),
             tbody(

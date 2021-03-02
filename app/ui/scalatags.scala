@@ -28,6 +28,10 @@ trait ScalatagsAttrs {
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
   }
+
+  val dataSortNumberTh = th(attr("data-sort-method") := "number")
+  val dataSort         = attr("data-sort")
+  val dataSortDefault  = attr("data-sort-default") := "1"
 }
 
 // collection of lila snippets

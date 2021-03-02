@@ -54,7 +54,4 @@ object bits {
       " ",
       momentFromNowOnce(archived.at)
     )
-
-  val sortNumberTh = th(attr("data-sort-method") := "number")
-  val dataSort     = attr("data-sort")
 }
