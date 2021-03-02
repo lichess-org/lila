@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Lichess 卡了吗？</string>
+  <string name="isLichessLagging">延迟测试</string>
   <string name="measurementInProgressThreeDot">测量进行中...</string>
   <string name="noAndYourNetworkIsGood">不。而且您的网络很好。</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">不。但是您的网络不好。</string>
