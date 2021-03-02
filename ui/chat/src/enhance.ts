@@ -31,7 +31,7 @@ function autoLink(html: string) {
   return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
 }
 
-const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK])?)\+?\#?[!\?=]{0,5}/gi;
+const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?\#?[!\?=]{0,5}/gi;
 function moveReplacer(match: string, turn: number, dots: string) {
   if (turn < 1 || turn > 200) return match;
   const ply = turn * 2 - (dots.length > 1 ? 0 : 1);
