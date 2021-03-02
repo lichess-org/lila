@@ -9,7 +9,7 @@
   <string name="arabianMate">Арапски мат</string>
   <string name="arabianMateDescription">Скакач и топ се удружују како би заробили противничког краља на ћошку табле.</string>
   <string name="attackingF2F7">Нападање f2 или f7</string>
-  <string name="attackingF2F7Description">Напад фокусиран на f2 или f7 пешака, као у Фегатело отварању.</string>
+  <string name="attackingF2F7Description">Напад фокусиран на f2 или f7 пешака, као у фегатело отварању.</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
