@@ -55,11 +55,11 @@ object Room {
   def isGrantedFor(mod: User)(room: Room) = {
     import lila.security.Granter
     room match {
-      case Room.Cheat  => Granter(_.MarkEngine)(mod)
-      case Room.Print  => Granter(_.ViewIpPrint)(mod)
-      case Room.Comm   => Granter(_.Shadowban)(mod)
-      case Room.Other  => Granter(_.MarkBooster)(mod)
-      case Room.Xfiles => Granter(_.MarkEngine)(mod)
+      case Cheat  => Granter(_.MarkEngine)(mod)
+      case Print  => Granter(_.ViewIpPrint)(mod)
+      case Comm   => Granter(_.Shadowban)(mod)
+      case Other  => Granter(_.MarkBooster)(mod)
+      case Xfiles => Granter(_.MarkEngine)(mod)
     }
   }
 }
