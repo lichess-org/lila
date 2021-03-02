@@ -43,9 +43,9 @@
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
-  <string name="puzzleDashboard">谜题仪表板</string>
+  <string name="puzzleDashboard">数据统计</string>
   <string name="improvementAreas">待提升</string>
-  <string name="strengths">强项</string>
+  <string name="strengths">我的强项</string>
   <string name="history">解题历史</string>
   <string name="solved">已解决</string>
   <string name="failed">失败</string>
