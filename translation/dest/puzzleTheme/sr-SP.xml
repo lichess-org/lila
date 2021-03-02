@@ -7,7 +7,8 @@
   <string name="anastasiaMate">Анастазијин мат</string>
   <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују како би заробили противничког краља између ивице табле и пријатељске фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
-  <string name="attackingF2F7">Напад на f2 или на f7</string>
+  <string name="arabianMateDescription">Скакач и топ се удружују како би заробили противничког краља на ћошку табле.</string>
+  <string name="attackingF2F7">Нападање f2 или f7</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
