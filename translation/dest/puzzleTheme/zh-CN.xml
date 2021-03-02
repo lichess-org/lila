@@ -20,7 +20,7 @@
   <string name="bodenMateDescription">双象在交错的斜线上将杀被同一方子力阻挡的王。</string>
   <string name="castling">王车易位</string>
   <string name="castlingDescription">将王转移到安全的地方，同时将车投入进攻。</string>
-  <string name="capturingDefender">消除保护子</string>
+  <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以便在接下来的着法中吃掉现在未保护的棋子。</string>
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">发现对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
