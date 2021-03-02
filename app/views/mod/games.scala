@@ -40,6 +40,7 @@ object games {
           h1(userLink(user), " games (WIP)"),
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
+              form3.input(filterForm("opponents"))(placeholder := "Opponents"),
               form3.select(
                 filterForm("arena"),
                 arenas.map(t =>

@@ -123,6 +123,7 @@ object BsonHandlers {
 
   implicit val swissHandler = Macros.handler[Swiss]
 
+  // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss) =
     swissHandler.writeTry(s).get ++ {
       s.isNotFinished ?? $doc(
