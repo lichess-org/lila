@@ -17,7 +17,6 @@ final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCon
           $doc("team" $in teams)
         )
       )
-      .sort($sort asc "pos")
       .cursor[Categ](ReadPreference.secondaryPreferred)
       .list()
 
