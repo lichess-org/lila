@@ -6,6 +6,7 @@ object AutoAnalysis {
 
   object Reason {
 
+    case object Upset                extends Reason
     case object HoldAlert            extends Reason
     case object WhiteMoveTime        extends Reason
     case object BlackMoveTime        extends Reason

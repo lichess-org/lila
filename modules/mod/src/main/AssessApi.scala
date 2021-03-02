@@ -196,6 +196,7 @@ final class AssessApi(
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
     def winnerUserOption = game.winnerColor.map(_.fold(white, black))
+    def loserUserOption  = game.winnerColor.map(_.fold(black, white))
     def winnerNbGames =
       for {
         user     <- winnerUserOption
@@ -208,6 +209,13 @@ final class AssessApi(
     }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
+
+    def isUpset = ~(for {
+      winner <- game.winner
+      loser  <- game.loser
+      wR     <- winner.stableRating
+      lR     <- loser.stableRating
+    } yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)
@@ -222,16 +230,15 @@ final class AssessApi(
       else if (!game.mode.rated) fuccess(none)
       // discard old games
       else if (game.createdAt isBefore bottomDate) fuccess(none)
-      // someone is using a bot
+      else if (isUpset) fuccess(Upset.some)
+      // white has consistent move times
+      else if (whiteSuspCoefVariation.isDefined) fuccess(WhiteMoveTime.some)
+      // black has consistent move times
+      else if (blackSuspCoefVariation.isDefined) fuccess(BlackMoveTime.some)
       else
+        // someone is using a bot
         gameRepo.holdAlert game game map { holdAlerts =>
           if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
-          // white has consistent move times
-          else if (whiteSuspCoefVariation.isDefined)
-            whiteSuspCoefVariation.map(_ => WhiteMoveTime)
-          // black has consistent move times
-          else if (blackSuspCoefVariation.isDefined)
-            blackSuspCoefVariation.map(_ => BlackMoveTime)
           // don't analyse most of other bullet games
           else if (game.speed == chess.Speed.Bullet && randomPercent(70)) none
           // someone blurs a lot
