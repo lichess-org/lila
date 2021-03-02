@@ -6,10 +6,10 @@
     <item quantity="other">该用户作为%2$s已赞助lichess.org%1$s个月</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">在 %2$s 里练习了 %1$s 个局面</item>
+    <item quantity="other">在 %2$s 中完成了 %1$s 个练习</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">解答了%s道训练题</item>
+    <item quantity="other">解答了 %s 道谜题</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">下了%1$s局%2$s象棋</item>
