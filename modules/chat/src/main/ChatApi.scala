@@ -173,7 +173,7 @@ final class ChatApi(
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
-        text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
+        text = s"${user.username} was timed out 15 minutes for ${reason.name}.",
         troll = false,
         deleted = false
       )
