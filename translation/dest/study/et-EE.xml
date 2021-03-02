@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Privaatne</string>
+  <string name="myStudies">Minu uuringud</string>
+  <string name="studiesIContributeTo">Uuringud, milles osalen</string>
+  <string name="myPublicStudies">Minu avalikud uuringud</string>
+  <string name="myPrivateStudies">Minu privaatsed uuringud</string>
+  <string name="myFavoriteStudies">Minu lemmikuuringud</string>
+  <string name="whatAreStudies">Mis on uuringud?</string>
+  <string name="allStudies">Kõik uuringud</string>
+  <string name="studiesCreatedByX">%s loodud uuringud</string>
+  <string name="noneYet">Veel mitte ühtegi.</string>
+</resources>

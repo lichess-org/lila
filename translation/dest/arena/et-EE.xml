@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena turniirid</string>
+  <string name="arenaTournaments">Areena turniirid</string>
   <string name="isItRated">Kas see mõjutab reitingut?</string>
   <string name="willBeNotified">Teid teavitatakse, kui turniir algab, seega võite seni, kuni ootate, julgelt teisel vahelehel mängida.</string>
   <string name="isRated">See on reitinguga turniir ning mõjutab Teie reitingut.</string>
@@ -37,6 +37,6 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   </plurals>
   <string name="thisIsPrivate">See on privaatne turniir</string>
   <string name="shareUrl">Jagage seda URL\'i, et inimesed liituda saaks: %s</string>
-  <string name="drawStreak">Viigiseeria: kui mängijal on Arenas mitu järjestikust viiki, arvestatakse punkti ainult esimese viigi või enam kui %s käiku kestva viigi eest. Viigiseeria võib katkestada ainult võit, kuid mitte kaotus või veel üks viik.</string>
-  <string name="history">Arena ajalugu</string>
+  <string name="drawStreak">Viigiseeria: kui mängijal on areenas mitu järjestikust viiki, ainult esimene viik annab punkti või viigid enam kui %s käiguga. Viigiseeria võib katkestada ainult võit, kuid mitte kaotus või veel üks viik.</string>
+  <string name="history">Areena ajalugu</string>
 </resources>

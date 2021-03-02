@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jogar contra um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este endereço</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="waiting">Aguardando</string>
@@ -93,7 +93,7 @@
     <item quantity="other">Próxima captura ou movimento de peão em %s meios-lances (distância até zerar o contador de 50 lances)</item>
   </plurals>
   <string name="noGameFound">Nenhuma partida encontrada</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos através do menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
@@ -132,8 +132,8 @@
   </plurals>
   <string name="currentGames">Partidas atuais</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Jogos</item>
-    <item quantity="other">%s Jogos</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoritos</item>

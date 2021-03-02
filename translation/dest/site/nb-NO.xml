@@ -399,7 +399,7 @@
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelse for å delta:</string>
   <string name="advancedSettings">Avanserte innstillinger</string>
-  <string name="safeTournamentName">Velge et svært trygt navn for turneringa.</string>
+  <string name="safeTournamentName">Velg et veldig trygt navn for turneringen.</string>
   <string name="inappropriateNameWarning">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
   <string name="emptyTournamentName">La stå tomt for at turneringa skal få navn etter en tilfeldig stormester.</string>
   <string name="recommendNotTouching">Vi anbefaler å ikke endre disse.</string>

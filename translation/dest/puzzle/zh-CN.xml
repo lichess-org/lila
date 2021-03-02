@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">训练题</string>
-  <string name="puzzleThemes">训练主题</string>
+  <string name="puzzles">谜题</string>
+  <string name="puzzleThemes">主题</string>
   <string name="recommended">我们推荐：</string>
   <string name="phases">阶段</string>
   <string name="motifs">主题</string>
@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化训练题</string>
-  <string name="puzzleId">%s号题</string>
+  <string name="puzzleId">谜题编号：%s</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
@@ -30,9 +30,9 @@
   <string name="ratingX">积分：%s</string>
   <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
-    <item quantity="other">已被尝试%s次</item>
+    <item quantity="other">已被尝试 %s 次</item>
   </plurals>
-  <string name="fromGameLink">来自 %s 号赛</string>
+  <string name="fromGameLink">来自对局： %s</string>
   <string name="continueTraining">继续训练</string>
   <string name="difficultyLevel">难易级别</string>
   <string name="normal">正常</string>
@@ -42,10 +42,10 @@
   <string name="hardest">最难</string>
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
-  <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
-  <string name="puzzleDashboard">谜题仪表板</string>
-  <string name="improvementAreas">提升区</string>
-  <string name="strengths">优势</string>
+  <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
+  <string name="puzzleDashboard">数据统计</string>
+  <string name="improvementAreas">待提升</string>
+  <string name="strengths">我的强项</string>
   <string name="history">解题历史</string>
   <string name="solved">已解决</string>
   <string name="failed">失败</string>

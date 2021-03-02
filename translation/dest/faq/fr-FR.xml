@@ -9,8 +9,8 @@
   <string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lichess est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
   <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, étant donné que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
   <string name="howCanIContributeToLichess">Comment puis-je contribuer à Lichess ?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est alimenté par les dons de mécènes et les efforts d\'une équipe de bénévoles.</string>
-  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur les %1$s (dont un %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreux %3$s.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est financée par des dons de mécènes et maintenue par une équipe de bénévoles.</string>
+  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur comment %1$s (dont une %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreuses %3$s.</string>
   <string name="beingAPatron">devenir un mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres façons d\'aider</string>
@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3$s.</string>
   <string name="fairPlay">Le fair-play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Pourquoi suis-je signalé pour une manipulation artificielle du classement (défaites intentionnelles ou augmentation artificielle) ou pour assistance informatique ?</string>
-  <string name="cheatDetectionMethods">Lichess dispose de solides méthodes de détection et d\'un processus très complet pour examiner toutes les preuves et prendre une décision. Le processus implique souvent de nombreux modérateurs et peut prendre beaucoup de temps. À part la marque elle-même, nous n\'entrerons pas dans les détails des preuves ou du processus de décision pour les cas individuels. Cela permettrait d\'éviter plus facilement la détection à l\'avenir, et serait une invitation à des débats improductifs. Ce temps et ces efforts seraient mieux utilisés pour d\'autres affaires importantes. Les utilisateurs peuvent faire appel en envoyant un courriel à %1$s, mais les décisions sont rarement annulées.</string>
+  <string name="cheatDetectionMethods">Lichess dispose de solides méthodes de détection et d\'un processus très complet pour examiner toutes les preuves et prendre une décision. Le processus implique souvent de nombreux modérateurs et peut prendre beaucoup de temps. À part la marque elle-même, nous n\'entrerons pas dans les détails des preuves ou du processus de décision pour les cas individuels. Si nous le faisions cela faciliterait le contournement de la détection à l\'avenir, et serait une invitation à des débats improductifs. Ce temps et ces efforts sont mieux utilisés pour d\'autres affaires importantes. Les utilisateurs peuvent faire appel en envoyant un courriel à %1$s, mais les décisions sont rarement annulées.</string>
   <string name="whenAmIEligibleRatinRefund">Quand puis-je bénéficier du remboursement automatique de points de classement perdus contre des tricheurs ?</string>
   <string name="ratingRefundExplanation">Une minute après qu\'un joueur a été reconnu comme tricheur, ses 40 derniers jeux classés au cours des 3 derniers jours sont pris. Si vous êtes son adversaire dans ces parties, que vous avez perdu votre classement (en raison d\'une perte ou d\'un match nul) et que votre classement n\'était pas provisoire, vous obtenez un remboursement de votre classement. Le remboursement est plafonné en fonction de votre meilleur classement et de la progression de votre classement après le match.
   (Par exemple, si votre classement a fortement augmenté après ces matchs, vous pourriez ne pas être remboursé ou ne l\'être que partiellement). Un remboursement n\'excédera jamais 150 points.</string>
@@ -53,8 +53,8 @@ Dans de rares cas, il peut être difficile de prendre une décision automatique 
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
   <string name="fideHandbookX">manuel de la FIDE %s</string>
-  <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (en passant)</string>
-  <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"en passant\". L\'article de Wikipedia donne un %1$s.
+  <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
+  <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
 
 Il est décrit dans la section 3.7 (d) des %2$s :
 

@@ -311,6 +311,8 @@
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
+  <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
+  <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>

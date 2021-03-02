@@ -31,8 +31,8 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Existe um tempo limite para a sua primeira jogada. Não realizá-la no período determinado significará uma vitória para o seu oponente.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Empatar o jogo na %sª jogada não garantirá pontos a nenhum dos jogadores.</item>
-    <item quantity="other">Empatar o jogo nas primeiras %s jogadas não garantirá pontos a nenhum dos jogadores.</item>
+    <item quantity="one">Empatar o jogo no primeiro %s lance não dará ponto a nenhum dos jogadores.</item>
+    <item quantity="other">Empatar o jogo nos primeiros %s lances não dará ponto a nenhum dos jogadores.</item>
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>

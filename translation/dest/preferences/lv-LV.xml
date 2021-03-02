@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
+  <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen režīms</string>
   <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>

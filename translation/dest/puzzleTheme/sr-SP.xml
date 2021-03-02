@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Пешак пред промоцијом</string>
-  <string name="advancedPawnDescription">Пешак који се промовише или прети да се промовише је кључни мотив тактике.</string>
+  <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
-  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
+  <string name="anastasiaMate">Анастазијин мат</string>
+  <string name="anastasiaMateDescription">Скакач и топ или краљица се удружују како би заробили противничког краља између ивице табле и пријатељске фигуре.</string>
   <string name="arabianMate">Арапски мат</string>
-  <string name="attackingF2F7">Напад на f2 или на f7</string>
+  <string name="arabianMateDescription">Скакач и топ се удружују како би заробили противничког краља на ћошку табле.</string>
+  <string name="attackingF2F7">Нападање f2 или f7</string>
+  <string name="attackingF2F7Description">Напад фокусиран на f2 или f7 пешака, као у фегатело отварању.</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>

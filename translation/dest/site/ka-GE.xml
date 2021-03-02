@@ -9,6 +9,7 @@
   <string name="yourTurn">თქვენი სვლაა</string>
   <string name="aiNameLevelAiLevel">%1$s, სირთულის დონე: %2$s</string>
   <string name="level">სირთულის დონე</string>
+  <string name="strength">თამაშის დონე</string>
   <string name="toggleTheChat">სასაუბროს გამოჩენა</string>
   <string name="toggleSound">ხმის ჩართვა</string>
   <string name="chat">სასაუბრო</string>

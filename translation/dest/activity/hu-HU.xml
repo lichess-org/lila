@@ -66,10 +66,7 @@
     <item quantity="one">%s svájci rendszerű versenyen vett részt</item>
     <item quantity="other">%s svájci rendszerű versenyen vett részt</item>
   </plurals>
-  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
-    <item quantity="one">Helyezés: %1$s / %2$s</item>
-    <item quantity="other">Helyezés: %1$s / %2$s</item>
-  </plurals>
+  <string name="rankedInSwissTournament">Helyezés: %1$s / %2$s</string>
   <string name="signedUp">Regisztrált a lichess.org-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>

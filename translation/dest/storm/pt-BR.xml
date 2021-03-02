@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mova para começar</string>
-  <string name="puzzlesSolved">quebra-cabeça resolvido</string>
+  <string name="puzzlesSolved">quebra-cabeças resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
   <string name="newMonthlyHighscore">Novo recorde mensal!</string>
@@ -10,7 +10,7 @@
   <string name="playAgain">Jogar novamente</string>
   <plurals name="xRuns">
     <item quantity="one">1 tentativa</item>
-    <item quantity="other">%s tentativas</item>
+    <item quantity="other">%s séries</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Jogou uma tentativa de %2$s</item>
@@ -18,17 +18,17 @@
   </plurals>
   <string name="highscoreX">Recorde: %s</string>
   <string name="score">Pontuação</string>
-  <string name="moves">Movimentos</string>
+  <string name="moves">Lances</string>
   <string name="accuracy">Precisão</string>
   <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo por lance</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Classificação mais alta</string>
   <string name="puzzlesPlayed">Quebra-cabeças jogados</string>
-  <string name="newRun">Nova rodada (hotkey: espaço)</string>
-  <string name="endRun">Finalizar execução (hotkey: Enter)</string>
+  <string name="newRun">Nova série (tecla de atalho: espaço)</string>
+  <string name="endRun">Finalizar série (tecla de atalho: Enter)</string>
   <string name="highscores">Melhores pontuações</string>
-  <string name="viewBestRuns">Ver melhores sequências</string>
-  <string name="bestRunOfDay">Melhor sequência do dia</string>
-  <string name="runs">Sequências</string>
+  <string name="viewBestRuns">Ver melhores séries</string>
+  <string name="bestRunOfDay">Melhor série do dia</string>
+  <string name="runs">Séries</string>
 </resources>

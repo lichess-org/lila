@@ -98,12 +98,7 @@
     <item quantity="many">Завершено %s турниров по швейцарской системе</item>
     <item quantity="other">Завершено %s турниров по швейцарской системе</item>
   </plurals>
-  <plurals name="rankedInSwissTournament" comment="rankedInSwissTournament [one] [other]&#10;&#10;%1$s is the rank the user got.&#10;&#10;%2$s is the name of (and a link to) the tournament.">
-    <item quantity="one">%1$s место в %2$s</item>
-    <item quantity="few">%1$s место в %2$s</item>
-    <item quantity="many">%1$s место в %2$s</item>
-    <item quantity="other">%1$s место в %2$s</item>
-  </plurals>
+  <string name="rankedInSwissTournament">Занято %1$s место в %2$s</string>
   <string name="signedUp">Регистрация на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Принят в %s клуб</item>
