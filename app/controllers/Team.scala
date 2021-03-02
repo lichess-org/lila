@@ -136,7 +136,7 @@ final class Team(
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
         forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
-          routes.Team.show(team.id)
+          routes.Team.kickForm(team.id)
         ).flashSuccess
       }
     }
