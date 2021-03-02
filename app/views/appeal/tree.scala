@@ -85,7 +85,10 @@ object tree {
             newAppeal(deny)
           )
         )
-      )
+      ),
+      content = p(
+        "We define this as using any external assistance to strengthen your knowledge and, or, calculation ability to gain an unfair advantage over your opponent. Some examples would include computer engine assistance, opening books (except for correspondence games), endgame tablebases, and asking another player for help, although these aren’t the only things we would consider cheating."
+      ).some
     )
   }
 
@@ -117,7 +120,10 @@ object tree {
             newAppeal(deny)
           )
         )
-      )
+      ),
+      content = p(
+        "We define this as deliberately manipulating rating by losing games on purpose, or by playing against another account that is deliberately losing games."
+      ).some
     )
   }
 
@@ -154,7 +160,12 @@ object tree {
             newAppeal(deny)
           )
         )
-      )
+      ),
+      content = p(
+        "Read our ",
+        a(href := routes.Page.loneBookmark("chat-etiquette"))("chat etiquette"),
+        ". Failure to follow the chat etiquette can result in accounts being muted."
+      ).some
     )
   }
 
