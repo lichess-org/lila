@@ -14,7 +14,7 @@
     background: mix($c-bad, $c-bg-box, 50%);
   }
 
-  td:first-child {
+  td.input {
     cursor: pointer;
     &:hover {
       background: $c-bg-zebra2;

@@ -70,7 +70,13 @@ object games {
           table(cls := "mod-games game-list slist")(
             thead(
               tr(
-                sortNoneTh(input(tpe := "checkbox", name := s"game[]", st.value := "all")),
+                sortNoneTh(
+                  input(
+                    tpe := "checkbox",
+                    name := s"game[]",
+                    st.value := "all"
+                  )
+                ),
                 sortNumberTh("Opponent"),
                 sortNumberTh("Speed"),
                 th(iconTag('g')),
@@ -85,8 +91,8 @@ object games {
             tbody(
               games.map { case (pov, assessment) =>
                 tr(
-                  td(
-                    input(
+                  td(cls := pov.game.analysable.option("input"))(
+                    pov.game.analysable option input(
                       tpe := "checkbox",
                       name := s"game[]",
                       st.value := pov.gameId
