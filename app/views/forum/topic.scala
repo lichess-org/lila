@@ -42,6 +42,10 @@ object topic {
             trans.toRequestSupport(
               strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
             )
+          ),
+          p(
+            "Make sure to read ",
+            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))("the forum etiquette"))
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
@@ -171,7 +175,13 @@ object topic {
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
-            form3.group(form("text"), trans.message()) { f =>
+            form3.group(
+              form("text"),
+              trans.message(),
+              help = a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+                "Forum etiquette"
+              ).some
+            ) { f =>
               form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
             },
             views.html.base.captcha(form, captcha),

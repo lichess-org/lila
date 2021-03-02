@@ -101,7 +101,7 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - Fallback to [Google Fonts](https://fonts.google.com/)
-- [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
+- [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
 - [reCAPTCHA](https://www.google.com/recaptcha/)
 - [PeerJS](https://peerjs.com/) for voice chat
 - [crowdin](https://crowdin.com/project/lichess) for localization

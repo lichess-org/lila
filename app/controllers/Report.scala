@@ -21,23 +21,33 @@ final class Report(
     Secure(_.SeeReport) { implicit ctx => me =>
       if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
         fuccess(Forbidden(html.site.message.streamingMod))
-      else renderList(env.report.modFilters.get(me).fold("all")(_.key))
+      else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
     }
 
   def listWithFilter(room: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       env.report.modFilters.set(me, Room(room))
-      renderList(room)
+      if (Room(room).fold(true)(Room.isGrantedFor(me))) renderList(me, room)
+      else notFound
     }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(room: String)(implicit ctx: Context) =
+  private def renderList(me: UserModel, room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(12, Room(room)) zip
       getScores flatMap { case (reports, scores ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
-          Ok(html.report.list(reports, room, scores, streamers, appeals))
+          Ok(
+            html.report
+              .list(
+                reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason)),
+                room,
+                scores,
+                streamers,
+                appeals
+              )
+          )
       }
 
   def inquiry(id: String) =

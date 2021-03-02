@@ -19,6 +19,7 @@ import org.joda.time.DateTime;
  */
 public class Rating {
 
+	private final double advantage;
 	private double rating;
 	private double ratingDeviation;
 	private double volatility;
@@ -31,15 +32,33 @@ public class Rating {
 	private double workingVolatility;
 
 	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults) {
-		this(initRating, initRatingDeviation, initVolatility, nbResults, null);
+		this(0.0d, initRating, initRatingDeviation, initVolatility, nbResults, null);
 	}
 
 	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults, DateTime lastRatingPeriodEndDate) {
+		this(0.0d, initRating, initRatingDeviation, initVolatility, nbResults, lastRatingPeriodEndDate);
+	}
+
+	public Rating(double advantage, double initRating, double initRatingDeviation, double initVolatility, int nbResults, DateTime lastRatingPeriodEndDate) {
+		this.advantage = advantage;
 		this.rating = initRating;
 		this.ratingDeviation = initRatingDeviation;
 		this.volatility = initVolatility;
 		this.numberOfResults = nbResults;
 		this.lastRatingPeriodEndDate = lastRatingPeriodEndDate;
+	}
+
+	public Rating withAdvantage(double advantage) {
+        return new Rating(advantage, rating, ratingDeviation, volatility, numberOfResults, lastRatingPeriodEndDate);
+	}
+
+	/**
+	 * Return the skill advantage (first-player handicap) value.
+	 *
+	 * @return double
+	 */
+	public double getAdvantage() {
+		return this.advantage;
 	}
 
 	/**
@@ -61,6 +80,16 @@ public class Rating {
 	 *
 	 * @return double
 	 */
+	public double getGlicko2RatingWithAdvantage() {
+		return RatingCalculator.convertRatingToGlicko2Scale(this.rating + advantage);
+	}
+
+	/**
+	 * Return the average skill value of the player scaled down
+	 * to the scale used by the algorithm's internal workings.
+	 *
+	 * @return double
+	 */
 	public double getGlicko2Rating() {
 		return RatingCalculator.convertRatingToGlicko2Scale(this.rating);
 	}
@@ -70,7 +99,7 @@ public class Rating {
 	 *
 	 * @param double
 	 */
-	public void setGlicko2Rating(double rating) {
+	private void setGlicko2Rating(double rating) {
 		this.rating = RatingCalculator.convertRatingToOriginalGlickoScale(rating);
 	}
 

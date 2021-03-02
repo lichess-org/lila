@@ -25,7 +25,7 @@ public class RatingCalculator {
   private final static double DEFAULT_TAU =  0.75;
   private final static double MULTIPLIER =  173.7178;
   private final static double CONVERGENCE_TOLERANCE =  0.000001;
-  private final static int ITERATION_MAX =  3000;
+  private final static int ITERATION_MAX =  1000;
   private final static double DAYS_PER_MILLI =  1.0 / (1000 * 60 * 60 * 24);
 
   private final double tau; // constrains volatility over time
@@ -254,11 +254,11 @@ public class RatingCalculator {
     for ( Result result: results ) {
       v = v + (
           ( Math.pow( g(result.getOpponent(player).getGlicko2RatingDeviation()), 2) )
-          * E(player.getGlicko2Rating(),
-            result.getOpponent(player).getGlicko2Rating(),
+          * E(player.getGlicko2RatingWithAdvantage(),
+            result.getOpponent(player).getGlicko2RatingWithAdvantage(),
             result.getOpponent(player).getGlicko2RatingDeviation())
-          * ( 1.0 - E(player.getGlicko2Rating(),
-              result.getOpponent(player).getGlicko2Rating(),
+          * ( 1.0 - E(player.getGlicko2RatingWithAdvantage(),
+              result.getOpponent(player).getGlicko2RatingWithAdvantage(),
               result.getOpponent(player).getGlicko2RatingDeviation())
             ));
     }
@@ -293,8 +293,8 @@ public class RatingCalculator {
       outcomeBasedRating = outcomeBasedRating
         + ( g(result.getOpponent(player).getGlicko2RatingDeviation())
             * ( result.getScore(player) - E(
-                player.getGlicko2Rating(),
-                result.getOpponent(player).getGlicko2Rating(),
+                player.getGlicko2RatingWithAdvantage(),
+                result.getOpponent(player).getGlicko2RatingWithAdvantage(),
                 result.getOpponent(player).getGlicko2RatingDeviation() ))
           );
     }

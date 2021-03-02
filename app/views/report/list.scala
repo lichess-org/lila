@@ -110,17 +110,19 @@ object list {
                 "All",
                 scoreTag(scores.highest)
               ),
-              lila.report.Room.all.map { room =>
-                a(
-                  href := routes.Report.listWithFilter(room.key),
-                  cls := List(
-                    "active"            -> (filter == room.key),
-                    s"room-${room.key}" -> true
+              ctx.me ?? { me =>
+                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(me)).map { room =>
+                  a(
+                    href := routes.Report.listWithFilter(room.key),
+                    cls := List(
+                      "active"            -> (filter == room.key),
+                      s"room-${room.key}" -> true
+                    )
+                  )(
+                    room.name,
+                    scoreTag(scores get room)
                   )
-                )(
-                  room.name,
-                  scoreTag(scores get room)
-                )
+                }
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
                 href := routes.Appeal.queue,

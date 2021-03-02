@@ -88,21 +88,38 @@ final class GameMod(env: Env) extends LilaController(env) {
 
 object GameMod {
 
-  case class Filter(arena: Option[String], swiss: Option[String])
+  case class Filter(arena: Option[String], swiss: Option[String], opponents: Option[String]) {
+    def opponentIds: List[lila.user.User.ID] =
+      (~opponents)
+        .take(800)
+        .replace(",", " ")
+        .split(' ')
+        .view
+        .flatMap(_.trim.some.filter(_.nonEmpty))
+        .filter(lila.user.User.couldBeUsername)
+        .map(lila.user.User.normalize)
+        .toList
+        .distinct
+  }
 
-  val emptyFilter = Filter(none, none)
+  val emptyFilter = Filter(none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc = filter.arena.?? { id =>
     $doc(lila.game.Game.BSONFields.tournamentId -> id)
   } ++ filter.swiss.?? { id =>
     $doc(lila.game.Game.BSONFields.swissId -> id)
-  }
+  } ++ (filter.opponentIds match {
+    case Nil      => $empty
+    case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
+    case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
+  })
 
   val filterForm =
     Form(
       mapping(
-        "arena" -> optional(nonEmptyText),
-        "swiss" -> optional(nonEmptyText)
+        "arena"     -> optional(nonEmptyText),
+        "swiss"     -> optional(nonEmptyText),
+        "opponents" -> optional(nonEmptyText)
       )(Filter.apply)(Filter.unapply _)
     )
 

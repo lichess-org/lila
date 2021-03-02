@@ -1,13 +1,16 @@
 package views.html.mod
 
+import cats.data.NonEmptyList
+import controllers.routes
 import scala.util.matching.Regex
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
+import lila.report.Reason
+import lila.report.Report
+import lila.user.User
 
 object inquiry {
 
@@ -124,19 +127,13 @@ object inquiry {
         )
       ),
       div(cls := "links")(
-        in.report.boostWith
-          .map { userId =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=$userId")("View", br, "Games")
-          }
-          .getOrElse {
-            in.report.bestAtomByHuman.map { atom =>
-              a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")(
-                "View",
-                br,
-                "Games"
-              )
-            }
-          },
+        boostOpponents(in.report) map { opponents =>
+          a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
+            "View",
+            br,
+            "Games"
+          )
+        },
         isGranted(_.Shadowban) option
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
       ),
@@ -235,6 +232,23 @@ object inquiry {
       )
     )
   }
+
+  private def boostOpponents(report: Report): Option[NonEmptyList[User.ID]] =
+    (report.reason == Reason.Boost) ?? {
+      report.atoms.toList
+        .withFilter(_.byLichess)
+        .flatMap(_.text.linesIterator)
+        .collect {
+          case farmWithRegex(userId)    => userId
+          case sandbagWithRegex(userId) => userId
+        }
+        .toNel
+    }
+
+  private val farmWithRegex =
+    ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+  private val sandbagWithRegex =
+    ("^Sandbagging: throws games to @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
 
   private def thenForms(url: String, button: Tag) =
     div(

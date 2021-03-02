@@ -101,7 +101,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotation()) {
+  if (ctrl.showMoveAnnotation() && ctrl.showComputer()) {
     const { uci, glyphs } = ctrl.node;
     if (glyphs && glyphs.length > 0) {
       const glyph = glyphs[0];

@@ -65,6 +65,7 @@ export interface ThreadedWasmWorkerOpts {
   module: 'Stockfish' | 'StockfishMv';
   version?: string;
   downloadProgress?: (mb: number) => void;
+  wasmMemory: WebAssembly.Memory;
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
@@ -97,6 +98,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
           wasmBinary,
           locateFile: (path: string) =>
             lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
+          wasmMemory: this.opts.wasmMemory,
         })
       )
       .then((sf: any) => {

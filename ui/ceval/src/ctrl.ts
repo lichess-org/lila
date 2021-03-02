@@ -7,7 +7,11 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 
-function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
+function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
+  return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
+}
+
+function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // Atomics
   if (typeof Atomics !== 'object') return;
 
@@ -15,7 +19,7 @@ function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory 
   if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
-  const mem = new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
+  const mem = sharedWasmMemory(initial, maximum);
   if (!(mem.buffer instanceof SharedArrayBuffer)) return;
 
   // Structured cloning
@@ -51,7 +55,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
-    const sharedMem = sharedWasmMemory(8, 16);
+    const sharedMem = sendableSharedWasmMemory(8, 16);
     if (sharedMem) {
       technology = 'hce';
 
@@ -98,7 +102,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const workerOpts = {
+  const protocolOpts = {
     minDepth,
     variant: opts.variant.key,
     threads: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
@@ -218,7 +222,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     if (!worker) {
       if (technology == 'nnue')
-        worker = new ThreadedWasmWorker(workerOpts, {
+        worker = new ThreadedWasmWorker(protocolOpts, {
           baseUrl: 'vendor/stockfish-nnue.wasm/',
           module: 'Stockfish',
           downloadProgress: throttle(200, mb => {
@@ -226,16 +230,16 @@ export default function (opts: CevalOpts): CevalCtrl {
             opts.redraw();
           }),
           version: '2732f2',
+          wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
         });
       else if (technology == 'hce')
-        worker = new ThreadedWasmWorker(
-          workerOpts,
-          officialStockfish(opts.variant.key)
-            ? { baseUrl: 'vendor/stockfish.wasm/', module: 'Stockfish' }
-            : { baseUrl: 'vendor/stockfish-mv.wasm/', module: 'StockfishMv' }
-        );
+        worker = new ThreadedWasmWorker(protocolOpts, {
+          baseUrl: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+          module: officialStockfish(opts.variant.key) ? 'Stockfish' : 'StockfishMv',
+          wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
+        });
       else
-        worker = new WebWorker(workerOpts, {
+        worker = new WebWorker(protocolOpts, {
           url: technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
         });
     }

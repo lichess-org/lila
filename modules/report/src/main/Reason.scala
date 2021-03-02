@@ -1,5 +1,7 @@
 package lila.report
 
+import lila.user.User
+
 sealed trait Reason {
 
   def key = toString.toLowerCase
@@ -40,5 +42,15 @@ object Reason {
     def isPrint    = reason == CheatPrint
     def isComm     = reason == Comm
     def isPlaybans = reason == Playbans
+  }
+
+  def isGrantedFor(mod: User)(reason: Reason) = {
+    import lila.security.Granter
+    reason match {
+      case Cheat                    => Granter(_.MarkEngine)(mod)
+      case CheatPrint               => Granter(_.ViewIpPrint)(mod)
+      case Comm                     => Granter(_.Shadowban)(mod)
+      case Boost | Playbans | Other => Granter(_.MarkBooster)(mod)
+    }
   }
 }
