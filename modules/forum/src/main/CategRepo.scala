@@ -1,6 +1,7 @@
 package lila.forum
 
 import lila.db.dsl._
+import reactivemongo.api.ReadPreference
 
 final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -17,12 +18,9 @@ final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCon
         )
       )
       .sort($sort asc "pos")
-      .cursor[Categ]()
+      .cursor[Categ](ReadPreference.secondaryPreferred)
       .list()
 
-  def nextPosition: Fu[Int] =
-    coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") dmap (~_ + 1)
-
   def nbPosts(id: String): Fu[Int] =
-    coll.primitiveOne[Int]($id(id), "nbPosts") dmap (~_)
+    coll.primitiveOne[Int]($id(id), "nbPosts").dmap(~_)
 }

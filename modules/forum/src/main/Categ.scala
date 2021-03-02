@@ -7,7 +7,6 @@ case class Categ(
     _id: String, // slug
     name: String,
     desc: String,
-    pos: Int,
     team: Option[TeamID] = None,
     nbTopics: Int,
     nbPosts: Int,
