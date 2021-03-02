@@ -78,16 +78,19 @@ final class EmailAddressValidator(
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
-    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(
-      90.millis,
-      "dns", {
-        logger.warn(
-          s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
+    if (
+      EmailAddress.from(e).exists { email =>
+        hasAcceptableDns(email).awaitOrElse(
+          90.millis,
+          "dns", {
+            logger.warn(
+              s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
+            )
+            false
+          }
         )
-        false
       }
-    )
-    if (ok) Valid
+    ) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 }

@@ -85,7 +85,8 @@ object EmailAddress {
     Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
   def isValid(str: String) =
-    regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
+    str.sizeIs < 320 &&
+      regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
   def from(str: String): Option[EmailAddress] =
     isValid(str) option EmailAddress(str)

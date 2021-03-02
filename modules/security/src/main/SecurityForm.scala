@@ -29,7 +29,8 @@ final class SecurityForm(
     mapping(recaptchaField)(Empty.apply)(_ => None)
   )
 
-  private val anyEmail        = LilaForm.cleanNonEmptyText.verifying(Constraints.emailAddress)
+  private val anyEmail =
+    LilaForm.cleanNonEmptyText(minLength = 6, maxLength = 320).verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
