@@ -673,6 +673,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.email_unique">Tá an seoladh ríomhphoist in úsáid cheana féin</string>
   <string name="error.email_different">Seo do sheoladh ríomhphoist cheana féin</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
   <string name="castling">Caisleáil</string>
