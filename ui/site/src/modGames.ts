@@ -43,13 +43,14 @@ const setupActionForm = () => {
   $(form).on('click', 'button', e => {
     const button = e.target as HTMLButtonElement;
     const action = button.getAttribute('value');
-    debugger;
-    const nbToAnalyse = form.querySelectorAll('input:checked').length;
-    if (nbToAnalyse < 1) return;
-    if (nbToAnalyse >= 20 && !confirm(`Analyse ${nbToAnalyse} games?`)) return;
-    $(form).find('button').text('Sent').prop('disabled', true);
-    debouncedSubmit();
-    return false;
+    const nbSelected = form.querySelectorAll('input:checked').length;
+    if (nbSelected < 1) return false;
+    if (action == 'analyse') {
+      if (nbSelected >= 20 && !confirm(`Analyse ${nbSelected} games?`)) return;
+      $(form).find('button[value="analyse"]').text('Sent').prop('disabled', true);
+      debouncedSubmit();
+      return false;
+    }
   });
 };
 

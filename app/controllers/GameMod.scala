@@ -46,9 +46,9 @@ final class GameMod(env: Env) extends LilaController(env) {
           .fold(
             err => BadRequest(err.toString).fuccess,
             {
-              case (gameIds, "analyse") => multipleAnalysis(me, gameIds)
-              case (gameIds, "pgn")     => downloadPgn(gameIds).fuccess
-              case _                    => notFound
+              case (gameIds, Some("pgn"))            => downloadPgn(user, gameIds).fuccess
+              case (gameIds, Some("analyse") | None) => multipleAnalysis(me, gameIds)
+              case _                                 => notFound
             }
           )
       }
@@ -69,7 +69,7 @@ final class GameMod(env: Env) extends LilaController(env) {
       }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
-  private def downloadPgn(gameIds: Seq[lila.game.Game.ID]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[lila.game.Game.ID]) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
@@ -80,8 +80,10 @@ final class GameMod(env: Env) extends LilaController(env) {
           playerFile = none
         )
       )
-    }.withHeaders(noProxyBufferHeader)
-      .as(pgnContentType)
+    }.withHeaders(
+      noProxyBufferHeader,
+      CONTENT_DISPOSITION -> s"attachment; filename=lichess_mod_${user.username}_${gameIds.size}_games.pgn"
+    ).as(pgnContentType)
 
   private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
 }
@@ -127,7 +129,7 @@ object GameMod {
     Form(
       tuple(
         "game"   -> list(nonEmptyText),
-        "action" -> lila.common.Form.stringIn(Set("download", "analyse"))
+        "action" -> optional(lila.common.Form.stringIn(Set("pgn", "analyse")))
       )
     )
 }

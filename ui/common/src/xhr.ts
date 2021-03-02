@@ -69,8 +69,12 @@ export const url = (path: string, params: { [k: string]: string | number | boole
 };
 
 /* submit a form with XHR */
-export const formToXhr = (el: HTMLFormElement): Promise<string> =>
-  text(el.action, {
-    method: el.method,
-    body: new FormData(el),
-  });
+export const formToXhr = (el: HTMLFormElement): Promise<string> => {
+  const action = el.getAttribute('action');
+  return action
+    ? text(action, {
+        method: el.method,
+        body: new FormData(el),
+      })
+    : Promise.reject(`Form has no action: ${el}`);
+};
