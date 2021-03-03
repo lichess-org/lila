@@ -89,10 +89,10 @@ final class GameStateStream(
         Bus.unsubscribe(self, classifiers)
         // hang around if game is over
         // so the opponent has a chance to rematch
-        if (!newConnectionDetected)
-          context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+        context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+          if (!newConnectionDetected)
             Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
-          }
+        }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment().unit
       }
