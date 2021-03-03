@@ -31,6 +31,8 @@ ui/game/**/*.js
 ui/game/**/*.d.ts
 ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
+ui/puz/**/*.js
+ui/puz/**/*.d.ts
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
