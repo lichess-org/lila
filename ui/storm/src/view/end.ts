@@ -19,7 +19,7 @@ const newHighI18n = {
 
 const renderSummary = (ctrl: StormCtrl): VNode[] => {
   const run = ctrl.runStats();
-  const high = ctrl.vm.run.response?.newHigh;
+  const high = ctrl.vm.response?.newHigh;
   const accuracy = (100 * (run.moves - run.errors)) / run.moves;
   const noarg = ctrl.trans.noarg;
   const scoreSteps = Math.min(run.score, 50);
@@ -52,7 +52,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
         h('tbody', [
           h('tr', [h('th', noarg('moves')), h('td', h('number', run.moves))]),
           h('tr', [h('th', noarg('accuracy')), h('td', [h('number', Number(accuracy).toFixed(1)), '%'])]),
-          h('tr', [h('th', noarg('combo')), h('td', h('number', ctrl.vm.combo.best))]),
+          h('tr', [h('th', noarg('combo')), h('td', h('number', ctrl.run.combo.best))]),
           h('tr', [h('th', noarg('time')), h('td', [h('number', Math.round(run.time)), 's'])]),
           h('tr', [
             h('th', noarg('timePerMove')),
@@ -65,7 +65,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
     h(
       'a.storm-play-again.button',
       {
-        attrs: ctrl.vm.run.endAt! < getNow() - 900 ? { href: '/storm' } : {},
+        attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {},
       },
       noarg('playAgain')
     ),
@@ -93,7 +93,7 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
     ]),
     h(
       'div.storm--end__history__rounds',
-      ctrl.vm.history
+      ctrl.run.history
         .filter(r => !r.win || !ctrl.vm.filterFailed)
         .map(round =>
           h(

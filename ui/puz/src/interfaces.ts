@@ -35,9 +35,22 @@ export interface Combo {
 }
 
 export interface Run {
-  startAt: number;
+  startAt?: number;
   endAt?: number;
   moves: number;
+  puzzleIndex: number;
+  moveIndex: number;
+  puzzleStartAt?: number;
+  clockMs: number;
+  history: Round[];
+  combo: Combo;
+  modifier: Modifier;
+}
+
+export interface Round {
+  puzzle: Puzzle;
+  win: boolean;
+  millis: number;
 }
 
 export interface Modifier {

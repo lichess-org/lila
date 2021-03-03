@@ -9,14 +9,14 @@ let refreshInterval: Timeout;
 let lastText: string;
 
 export default function renderClock(ctrl: StormCtrl): VNode {
-  const malus = ctrl.vm.modifier.malus;
-  const bonus = ctrl.vm.modifier.bonus;
+  const malus = ctrl.run.modifier.malus;
+  const bonus = ctrl.run.modifier.bonus;
   return h('div.storm__clock', [
     h('div.storm__clock__time', {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(ctrl.vm.clockMs);
+          el.innerText = formatMs(ctrl.run.clockMs);
           refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
         },
         destroy() {
@@ -30,16 +30,16 @@ export default function renderClock(ctrl: StormCtrl): VNode {
 }
 
 function renderIn(ctrl: StormCtrl, el: HTMLElement) {
-  if (!ctrl.vm.run.startAt) return;
-  const clock = ctrl.vm.clockMs;
-  const mods = ctrl.vm.modifier;
+  if (!ctrl.run.startAt) return;
+  const clock = ctrl.run.clockMs;
+  const mods = ctrl.run.modifier;
   const now = getNow();
-  const millis = ctrl.vm.run.startAt + clock - getNow();
+  const millis = ctrl.run.startAt + clock - getNow();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
   const text = formatMs(millis - diffs);
   if (text != lastText) el.innerText = text;
   lastText = text;
-  if (millis < 1 && !ctrl.vm.run.endAt) ctrl.naturalFlag();
+  if (millis < 1 && !ctrl.run.endAt) ctrl.naturalFlag();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;

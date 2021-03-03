@@ -11,7 +11,7 @@ import { VNode } from 'snabbdom/vnode';
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
   if (ctrl.vm.lateStart) return renderReload('This run has expired!');
-  if (!ctrl.vm.run.endAt)
+  if (!ctrl.run.endAt)
     return h(
       'div.storm.storm-app.storm--play',
       {
@@ -24,11 +24,11 @@ export default function (ctrl: StormCtrl): VNode {
 
 const playModifiers = (ctrl: StormCtrl) => {
   const now = getNow();
-  const malus = ctrl.vm.modifier.malus;
-  const bonus = ctrl.vm.modifier.bonus;
+  const malus = ctrl.run.modifier.malus;
+  const bonus = ctrl.run.modifier.bonus;
   return {
-    'storm--mod-puzzle': !!ctrl.vm.puzzleStartAt && ctrl.vm.puzzleStartAt > now - 90,
-    'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90,
+    'storm--mod-puzzle': !!ctrl.run.puzzleStartAt && ctrl.run.puzzleStartAt > now - 90,
+    'storm--mod-move': ctrl.run.modifier.moveAt > now - 90,
     'storm--mod-malus-slow': !!malus && malus.at > now - 950,
     'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950,
   };
@@ -46,7 +46,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
   h('div.storm__side', [
-    ctrl.vm.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
+    ctrl.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl),
     h('div.storm__table', [renderControls(ctrl), renderCombo(ctrl)]),
   ]),
@@ -74,7 +74,7 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
   const level = ctrl.comboLevel();
   return h('div.storm__combo', [
     h('div.storm__combo__counter', [
-      h('span.storm__combo__counter__value', ctrl.vm.combo),
+      h('span.storm__combo__counter__value', ctrl.run.combo),
       h('span.storm__combo__counter__combo', 'COMBO'),
     ]),
     h('div.storm__combo__bars', [

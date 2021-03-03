@@ -12,12 +12,13 @@ import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Promotion, Puzzle, TimeMod } from 'puz/interfaces';
+import { Promotion, Puzzle, Run, TimeMod } from 'puz/interfaces';
 
 export default class StormCtrl {
   private data: StormData;
   private redraw: () => void;
   pref: StormPrefs;
+  run: Run;
   vm: StormVm;
   trans: Trans;
   promotion: Promotion;
@@ -28,7 +29,8 @@ export default class StormCtrl {
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
-    this.vm = {
+    this.run = {
+      moves: 0,
       puzzleIndex: 0,
       moveIndex: 0,
       clockMs: config.clock.initial * 1000,
@@ -40,10 +42,8 @@ export default class StormCtrl {
       modifier: {
         moveAt: 0,
       },
-      run: {
-        startAt: 0,
-        moves: 0,
-      },
+    };
+    this.vm = {
       signed: prop(undefined),
       lateStart: false,
       filterFailed: false,
@@ -53,7 +53,7 @@ export default class StormCtrl {
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     setTimeout(() => {
-      if (!this.vm.run.startAt) {
+      if (!this.run.startAt) {
         this.vm.lateStart = true;
         this.redraw();
       }
@@ -61,17 +61,17 @@ export default class StormCtrl {
   }
 
   clockMillis = (): number | undefined =>
-    this.vm.run.startAt && Math.max(0, this.vm.run.startAt + this.vm.clockMs - getNow());
+    this.run.startAt && Math.max(0, this.run.startAt + this.run.clockMs - getNow());
 
   end = (): void => {
-    if (!this.vm.puzzleStartAt) return;
-    this.vm.history.reverse();
-    this.vm.run.endAt = getNow();
+    if (!this.run.puzzleStartAt) return;
+    this.run.history.reverse();
+    this.run.endAt = getNow();
     this.ground(false);
     this.redraw();
     this.sound.end();
     xhr.record(this.runStats(), this.data.notAnExploit).then(res => {
-      this.vm.run.response = res;
+      this.vm.response = res;
       this.redraw();
     });
     this.redrawSlow();
@@ -92,48 +92,48 @@ export default class StormCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    if (!this.vm.run.moves) this.vm.run.startAt = getNow();
-    this.vm.run.moves++;
+    if (!this.run.moves) this.run.startAt = getNow();
+    this.run.moves++;
     this.promotion.cancel();
     const line = this.line();
-    const expected = line[this.vm.moveIndex + 1];
+    const expected = line[this.run.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
     const pos = this.position();
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
     if (pos.isCheckmate() || uci == expected) {
-      this.vm.moveIndex++;
-      this.vm.combo.current++;
-      this.vm.combo.best = Math.max(this.vm.combo.best, this.vm.combo.current);
-      this.vm.modifier.moveAt = getNow();
+      this.run.moveIndex++;
+      this.run.combo.current++;
+      this.run.combo.best = Math.max(this.run.combo.best, this.run.combo.current);
+      this.run.modifier.moveAt = getNow();
       const bonus = this.computeComboBonus();
       if (bonus) {
-        this.vm.modifier.bonus = bonus;
-        this.vm.clockMs += bonus.seconds * 1000;
+        this.run.modifier.bonus = bonus;
+        this.run.clockMs += bonus.seconds * 1000;
         this.sound.bonus();
       }
-      if (this.vm.moveIndex == line.length - 1) {
+      if (this.run.moveIndex == line.length - 1) {
         this.pushToHistory(true);
-        this.vm.moveIndex = 0;
+        this.run.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
       } else {
-        this.vm.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(line[this.vm.moveIndex]!)!.to);
+        this.run.moveIndex++;
+        captureSound = captureSound || pos.board.occupied.has(parseUci(line[this.run.moveIndex]!)!.to);
       }
       this.sound.move(captureSound);
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      this.vm.combo.current = 0;
-      this.vm.clockMs -= config.clock.malus * 1000;
-      this.vm.modifier.malus = {
+      this.run.combo.current = 0;
+      this.run.clockMs -= config.clock.malus * 1000;
+      this.run.modifier.malus = {
         seconds: config.clock.malus,
         at: getNow(),
       };
       if (!this.boundedClockMillis()) this.end();
       else {
-        this.vm.moveIndex = 0;
+        this.run.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
       }
     }
@@ -141,7 +141,7 @@ export default class StormCtrl {
     this.redrawQuick();
     this.redrawSlow();
     this.withGround(this.showGround);
-    lichess.pubsub.emit('ply', this.vm.run.moves);
+    lichess.pubsub.emit('ply', this.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
@@ -160,34 +160,34 @@ export default class StormCtrl {
   };
 
   boundedClockMillis = () =>
-    this.vm.run.startAt ? Math.max(0, this.vm.run.startAt + this.vm.clockMs - getNow()) : this.vm.clockMs;
+    this.run.startAt ? Math.max(0, this.run.startAt + this.run.clockMs - getNow()) : this.run.clockMs;
 
   private pushToHistory = (win: boolean) => {
     const now = getNow();
-    this.vm.history.push({
+    this.run.history.push({
       puzzle: this.puzzle(),
       win,
-      millis: this.vm.puzzleStartAt ? now - this.vm.puzzleStartAt : 0,
+      millis: this.run.puzzleStartAt ? now - this.run.puzzleStartAt : 0,
     });
-    this.vm.puzzleStartAt = now;
+    this.run.puzzleStartAt = now;
   };
 
   private incPuzzle = (): boolean => {
-    if (this.vm.puzzleIndex < this.data.puzzles.length - 1) {
-      this.vm.puzzleIndex++;
+    if (this.run.puzzleIndex < this.data.puzzles.length - 1) {
+      this.run.puzzleIndex++;
       return true;
     }
     return false;
   };
 
-  puzzle = (): Puzzle => this.data.puzzles[this.vm.puzzleIndex];
+  puzzle = (): Puzzle => this.data.puzzles[this.run.puzzleIndex];
 
   line = (): Uci[] => this.puzzle().line.split(' ');
 
   position = (): Chess => {
     const pos = Chess.fromSetup(parseFen(this.puzzle().fen).unwrap()).unwrap();
     this.line()
-      .slice(0, this.vm.moveIndex + 1)
+      .slice(0, this.run.moveIndex + 1)
       .forEach(uci => pos.play(parseUci(uci)!));
     return pos;
   };
@@ -196,7 +196,7 @@ export default class StormCtrl {
     const puzzle = this.puzzle();
     const pos = this.position();
     const pov = opposite(parseFen(puzzle.fen).unwrap().turn);
-    const canMove = !this.vm.run.endAt;
+    const canMove = !this.run.endAt;
     return {
       fen: makeFen(pos.toSetup()),
       orientation: pov,
@@ -208,12 +208,12 @@ export default class StormCtrl {
           }
         : undefined,
       check: !!pos.isCheck(),
-      lastMove: this.uciToLastMove(this.line()[this.vm.moveIndex]),
+      lastMove: this.uciToLastMove(this.line()[this.run.moveIndex]),
     };
   };
 
   comboLevel = () =>
-    config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.vm.combo.current ? index : lvl), 0);
+    config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.run.combo.current ? index : lvl), 0);
 
   comboPercent = () => {
     const lvl = this.comboLevel();
@@ -221,13 +221,13 @@ export default class StormCtrl {
     const lastLevel = levels[levels.length - 1];
     if (lvl >= levels.length - 1) {
       const range = lastLevel[0] - levels[levels.length - 2][0];
-      return (((this.vm.combo.current - lastLevel[0]) / range) * 100) % 100;
+      return (((this.run.combo.current - lastLevel[0]) / range) * 100) % 100;
     }
     const bounds = [levels[lvl][0], levels[lvl + 1][0]];
-    return Math.floor(((this.vm.combo.current - bounds[0]) / (bounds[1] - bounds[0])) * 100);
+    return Math.floor(((this.run.combo.current - bounds[0]) / (bounds[1] - bounds[0])) * 100);
   };
 
-  countWins = (): number => this.vm.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
+  countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();
@@ -235,13 +235,13 @@ export default class StormCtrl {
   };
 
   runStats = (): StormRecap => ({
-    puzzles: this.vm.history.length,
+    puzzles: this.run.history.length,
     score: this.countWins(),
-    moves: this.vm.run.moves,
-    errors: this.vm.history.filter(r => !r.win).length,
-    combo: this.vm.combo.best,
-    time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
-    highest: this.vm.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
+    moves: this.run.moves,
+    errors: this.run.history.filter(r => !r.win).length,
+    combo: this.run.combo.best,
+    time: (this.run.endAt! - this.run.startAt!) / 1000,
+    highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
     signed: this.vm.signed(),
   });
 
@@ -269,7 +269,7 @@ export default class StormCtrl {
     const dupTabMsg = lichess.storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
-      if (!this.vm.run.startAt && ev.value == this.data.puzzles[0].id) {
+      if (!this.run.startAt && ev.value == this.data.puzzles[0].id) {
         this.vm.dupTab = true;
         this.redraw();
       }
