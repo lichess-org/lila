@@ -3,7 +3,7 @@ import { defined } from 'common';
 import { getNow } from 'puz/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { TimeMod } from '../interfaces';
+import { TimeMod } from 'puz/interfaces';
 
 let refreshInterval: Timeout;
 let lastText: string;
@@ -16,7 +16,7 @@ export default function renderClock(ctrl: StormCtrl): VNode {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(ctrl.vm.clock);
+          el.innerText = formatMs(ctrl.vm.clockMs);
           refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
         },
         destroy() {
@@ -31,7 +31,7 @@ export default function renderClock(ctrl: StormCtrl): VNode {
 
 function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   if (!ctrl.vm.run.startAt) return;
-  const clock = ctrl.vm.clock;
+  const clock = ctrl.vm.clockMs;
   const mods = ctrl.vm.modifier;
   const now = getNow();
   const millis = ctrl.vm.run.startAt + clock - getNow();

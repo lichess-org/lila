@@ -52,7 +52,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
         h('tbody', [
           h('tr', [h('th', noarg('moves')), h('td', h('number', run.moves))]),
           h('tr', [h('th', noarg('accuracy')), h('td', [h('number', Number(accuracy).toFixed(1)), '%'])]),
-          h('tr', [h('th', noarg('combo')), h('td', h('number', ctrl.vm.comboBest))]),
+          h('tr', [h('th', noarg('combo')), h('td', h('number', ctrl.vm.combo.best))]),
           h('tr', [h('th', noarg('time')), h('td', [h('number', Math.round(run.time)), 's'])]),
           h('tr', [
             h('th', noarg('timePerMove')),

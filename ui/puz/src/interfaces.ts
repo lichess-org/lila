@@ -21,3 +21,32 @@ export interface Prefs {
 }
 
 export type UserMove = (orig: Key, dest: Key) => void;
+
+export interface Puzzle {
+  id: string;
+  fen: string;
+  line: string;
+  rating: number;
+}
+
+export interface Combo {
+  current: number;
+  best: number;
+}
+
+export interface Run {
+  startAt: number;
+  endAt?: number;
+  moves: number;
+}
+
+export interface Modifier {
+  moveAt: number;
+  malus?: TimeMod;
+  bonus?: TimeMod;
+}
+
+export interface TimeMod {
+  seconds: number;
+  at: number;
+}

@@ -1,4 +1,5 @@
 import { Prop } from 'common';
+import { Combo, Modifier, Puzzle, Run } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;
@@ -16,7 +17,7 @@ export interface StormPrefs {
 }
 
 export interface StormData {
-  puzzles: StormPuzzle[];
+  puzzles: Puzzle[];
   notAnExploit: string;
   key?: string;
   signed?: string;
@@ -25,47 +26,26 @@ export interface StormData {
 export interface StormVm {
   puzzleIndex: number;
   moveIndex: number;
-  clock: number;
+  clockMs: number;
   history: Round[];
   puzzleStartAt?: number;
-  combo: number;
-  comboBest: number;
-  modifier: StormModifier;
-  run: {
-    startAt: number;
-    endAt?: number;
-    moves: number;
-    errors: number;
-    response?: RunResponse;
-  };
+  combo: Combo;
+  modifier: Modifier;
+  run: StormRun;
   dupTab?: boolean;
   signed: Prop<string | undefined>;
   lateStart: boolean;
   filterFailed: boolean;
 }
 
+export interface StormRun extends Run {
+  response?: RunResponse;
+}
+
 export interface Round {
-  puzzle: StormPuzzle;
+  puzzle: Puzzle;
   win: boolean;
   millis: number;
-}
-
-export interface StormModifier {
-  moveAt: number;
-  malus?: TimeMod;
-  bonus?: TimeMod;
-}
-
-export interface TimeMod {
-  seconds: number;
-  at: number;
-}
-
-export interface StormPuzzle {
-  id: string;
-  fen: string;
-  line: string;
-  rating: number;
 }
 
 export interface DailyBest {
@@ -74,7 +54,7 @@ export interface DailyBest {
   at: number;
 }
 
-export interface StormRun {
+export interface StormRecap {
   puzzles: number;
   score: number;
   moves: number;

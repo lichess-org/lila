@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
-import { RunResponse, StormRun } from './interfaces';
+import { RunResponse, StormRecap } from './interfaces';
 
-export function record(run: StormRun, notAnExploit: string): Promise<RunResponse> {
+export function record(run: StormRecap, notAnExploit: string): Promise<RunResponse> {
   return xhr.json('/storm', {
     method: 'POST',
     body: xhr.form({
