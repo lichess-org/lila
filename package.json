@@ -60,6 +60,7 @@
     "ui/tree",
     "ui/msg",
     "ui/dgt",
+    "ui/puz",
     "ui/storm",
     "ui/@build/rollupProject",
     "ui/@types/lichess",

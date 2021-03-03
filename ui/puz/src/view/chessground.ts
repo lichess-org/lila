@@ -1,23 +1,11 @@
-import StormCtrl from '../ctrl';
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
-import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
+import { Prefs, UserMove } from '../interfaces';
 
-export default function (ctrl: StormCtrl): VNode {
-  return h('div.cg-wrap', {
-    hook: {
-      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      destroy: _ => ctrl.withGround(g => g.destroy()),
-    },
-  });
-}
-
-function makeConfig(ctrl: StormCtrl): CgConfig {
-  const opts = ctrl.makeCgOpts();
-  const pref = ctrl.pref;
+export function makeConfig(opts: CgConfig, pref: Prefs, userMove: UserMove): CgConfig {
   return {
     fen: opts.fen,
     orientation: opts.orientation,
@@ -41,7 +29,7 @@ function makeConfig(ctrl: StormCtrl): CgConfig {
       enabled: pref.moveEvent !== 1,
     },
     events: {
-      move: ctrl.userMove,
+      move: userMove,
       insert(elements) {
         resizeHandle(elements, 1, 0, p => p == 0);
         if (pref.coords == 1) changeColorHandle();

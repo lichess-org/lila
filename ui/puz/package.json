@@ -13,7 +13,9 @@
     "prod": "yarn run compile"
   },
   "dependencies": {
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^0.7.4",
+    "chessground": "^7.11.0",
+    "common": "2.0.0"
   },
   "devDependencies": {
     "@types/cash": "8.0.0",

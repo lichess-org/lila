@@ -1,4 +1,5 @@
-import chessground from './chessground';
+import { Chessground } from 'chessground';
+import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import config from '../config';
 import renderClock from './clock';
 import renderEnd from './end';
@@ -32,6 +33,14 @@ const playModifiers = (ctrl: StormCtrl) => {
     'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950,
   };
 };
+
+const chessground = (ctrl: StormCtrl): VNode =>
+  h('div.cg-wrap', {
+    hook: {
+      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
+      destroy: _ => ctrl.withGround(g => g.destroy()),
+    },
+  });
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
