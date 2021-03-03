@@ -115,6 +115,11 @@ GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?=
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: String, page: Int ?= 1)
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username: String, days: Int ?= 30)
 
+# Puzzle Racer
+GET   /racer                            controllers.Racer.home
+POST  /racer/:sri                       controllers.Racer.create(sri: String)
+GET   /racer/:id                        controllers.Racer.show(id: String)
+
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
