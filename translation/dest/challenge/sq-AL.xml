@@ -16,5 +16,10 @@
   <string name="declineTooFast">Kjo koha e lojës është shumë e shpejt per mua, të lutem me sfido përsëri me një sfide me te ngadaltë.</string>
   <string name="declineTooSlow">Kjo koha e lojës është shumë e ngadaltë per mua, të lutem me sfido përsëri me një sfide me te shpejtë.</string>
   <string name="declineTimeControl">Nuk pranoj sfida për momentin në këtë kontroll kohe.</string>
-  <string name="declineRated">Të lutem më dërgo një sfide te vlerësuar.</string>
+  <string name="declineRated">Të lutem më dërgo një sfide të vlerësuar.</string>
+  <string name="declineCasual">Të lutem më dërgo një sfide të pa vlerësuar.</string>
+  <string name="declineStandard">Nuk pranoj sfida të variantave per momentin.</string>
+  <string name="declineVariant">Nuk dua te luaj këtë variant.</string>
+  <string name="declineNoBot">Nuk pranoj sfida prej bots.</string>
+  <string name="declineOnlyBot">Pranoj vëtëm sfida prej bots.</string>
 </resources>
