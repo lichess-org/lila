@@ -50,9 +50,10 @@ final private[round] class RoundDuct(
 
     private var offlineSince: Option[Long] = nowMillis.some
     // wether the player closed the window intentionally
-    private var bye: Boolean = false
-    // connected as a bot
-    private var botConnected: Boolean = false
+    private var bye: Boolean        = false
+    private var botConnections: Int = 0
+
+    def botConnected = botConnections > 0
 
     var userId     = none[User.ID]
     var goneWeight = 1f
@@ -99,9 +100,7 @@ final private[round] class RoundDuct(
       }
 
     def setBotConnected(v: Boolean) =
-      botConnected = v
-
-    def isBotConnected = botConnected
+      botConnections = Math.max(0, botConnections + (if (v) 1 else -1))
   }
 
   private val whitePlayer = new Player(White)
