@@ -25,7 +25,8 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
             description = "DGT board automatic token",
             scopes = dgtScopes.toList.map(_.key)
           ) make me
-          env.oAuth.tokenApi.create(token)
+          env.oAuth.tokenApi.create(token) >>
+            env.pref.api.saveTag(me, _.dgt, true)
         } inject Redirect(routes.DgtCtrl.config)
       }
     }
