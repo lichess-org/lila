@@ -93,8 +93,16 @@ lichess.load.then(() => {
       });
     });
 
-    makeReady('form.fide_title select', el =>
+    makeReady('form.fide-title select', el =>
       $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit())
+    );
+
+    makeReady('form.pm-preset select', (el: HTMLSelectElement) =>
+      $(el).on('change', () => {
+        const form = $(el).parent('form')[0] as HTMLFormElement;
+        xhr.text(form.getAttribute('action') + encodeURIComponent(el.value), { method: 'post' });
+        $(form).html('Sent!');
+      })
     );
 
     makeReady('#mz_others', el => {

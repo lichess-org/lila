@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
+import lila.mod.ModPresets
 import lila.playban.RageSit
 import lila.security.{ Permission, UserLogins }
 import lila.user.User
@@ -24,7 +25,9 @@ object mod {
       a(href := "#identification_screen")("Identification")
     )
 
-  def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
+  def actions(u: User, emails: User.Emails, erased: User.Erased, pmPresets: ModPresets)(implicit
+      ctx: Context
+  ): Frag =
     mzSection("actions")(
       div(cls := "btn-rack")(
         isGranted(_.ModMessage) option {
@@ -169,12 +172,21 @@ object mod {
           )
         }
       ),
+      isGranted(_.ModMessage) option
+        postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
+          st.select(
+            option(value := "")("Send PM"),
+            pmPresets.value.map { preset =>
+              option(st.value := preset.name, title := preset.text)(preset.name)
+            }
+          )
+        ),
       isGranted(_.SetTitle) option {
-        postForm(cls := "fide_title", action := routes.Mod.setTitle(u.username))(
+        postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
             lila.user.UserForm.title.fill(u.title.map(_.value))("title"),
             lila.user.Title.acronyms.map(t => t -> t),
-            "".some
+            "No title".some
           )
         )
       },
