@@ -2,4 +2,14 @@
 <resources>
   <string name="challenges">Sfidat</string>
   <string name="challengeDeclined">Sfida u refuzua</string>
+  <string name="challengeAccepted">Sfida u pranua!</string>
+  <string name="challengeCanceled">Sfida u anulua.</string>
+  <string name="registerToSendChallenges">Ju lutemi regjistrohuni për të sfiduar.</string>
+  <string name="youCannotChallengeX">Nuk mund te sfidoni %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nuk pranon sfida.</string>
+  <string name="yourXRatingIsTooFarFromY">Vlerësimi juaj %1$s është shumë larg %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nuk mund të sfidoni për shkak të vlerësimit të përkohshëm %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s vetëm pranon sfida nga miqtë.</string>
+  <string name="declineGeneric">Nuk pranoj sfida për momentin.</string>
+  <string name="declineLater">Nuk është koha e duhur per mua, të lutem provo me vonë.</string>
 </resources>
