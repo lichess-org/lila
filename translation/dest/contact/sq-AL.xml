@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Dua të fshij historinë time ose rating-un</string>
   <string name="cantClearHistory">Nuk është e mundur të fshini historinë e lojëve, historinë e taktikave, dhe as rating-ut.</string>
   <string name="wantReport">Dua të raportoj një lojtar</string>
+  <string name="toReportAPlayerUseForm">Për të raportuar një lojtar, përdoreni formularin e raportimit</string>
   <string name="youCanAlsoReachReportPage">Ju mund të shkoni në atë faqe edhe duke klikuar butonin e raportimit %s në një faqe profili.</string>
   <string name="doNotReportInForum">Mos raportoni lojtarët në forum.</string>
   <string name="doNotSendReportEmails">Mos na dërgoni email-a për raportim.</string>
