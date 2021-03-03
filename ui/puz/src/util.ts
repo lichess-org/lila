@@ -16,6 +16,6 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
   };
 }
 
-export function getNow(): number {
-  return Math.round(performance.now());
-}
+export const getNow = (): number => Math.round(performance.now());
+
+export const uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];

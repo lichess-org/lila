@@ -3,17 +3,15 @@ import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
-import { Chess } from 'chessops/chess';
-import { chessgroundDests } from 'chessops/compat';
-import { Config as CgConfig } from 'chessground/config';
 import { getNow } from 'puz/util';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseUci, opposite } from 'chessops/util';
+import { boundedClockMillis, makeCgOpts } from 'puz/run';
+import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Promotion, Puzzle, Run } from 'puz/interfaces';
+import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
+import CurrentPuzzle from 'puz/current';
 
 export default class StormCtrl {
   private data: StormData;
@@ -32,8 +30,7 @@ export default class StormCtrl {
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       moves: 0,
-      puzzleIndex: 0,
-      moveIndex: 0,
+      current: new CurrentPuzzle(0, this.data.puzzles[0]),
       clockMs: config.clock.initial * 1000,
       history: [],
       combo: new Combo(),
@@ -46,7 +43,7 @@ export default class StormCtrl {
       lateStart: false,
       filterFailed: false,
     };
-    this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
+    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run), this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
@@ -62,7 +59,6 @@ export default class StormCtrl {
     this.run.startAt && Math.max(0, this.run.startAt + this.run.clockMs - getNow());
 
   end = (): void => {
-    if (!this.run.puzzleStartAt) return;
     this.run.history.reverse();
     this.run.endAt = getNow();
     this.ground(false);
@@ -93,15 +89,14 @@ export default class StormCtrl {
     if (!this.run.moves) this.run.startAt = getNow();
     this.run.moves++;
     this.promotion.cancel();
-    const line = this.line();
-    const expected = line[this.run.moveIndex + 1];
+    const cur = this.run.current;
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
-    const pos = this.position();
+    const pos = cur.position();
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
-    if (pos.isCheckmate() || uci == expected) {
-      this.run.moveIndex++;
+    if (pos.isCheckmate() || uci == cur.expectedMove()) {
+      cur.moveIndex++;
       this.run.combo.inc();
       this.run.modifier.moveAt = getNow();
       const bonus = this.run.combo.bonus();
@@ -110,13 +105,12 @@ export default class StormCtrl {
         this.run.clockMs += bonus.seconds * 1000;
         this.sound.bonus();
       }
-      if (this.run.moveIndex == line.length - 1) {
+      if (cur.isOver()) {
         this.pushToHistory(true);
-        this.run.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
       } else {
-        this.run.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(line[this.run.moveIndex]!)!.to);
+        cur.moveIndex++;
+        captureSound = captureSound || pos.board.occupied.has(parseUci(cur.line[cur.moveIndex]!)!.to);
       }
       this.sound.move(captureSound);
     } else {
@@ -128,11 +122,8 @@ export default class StormCtrl {
         seconds: config.clock.malus,
         at: getNow(),
       };
-      if (!this.boundedClockMillis()) this.end();
-      else {
-        this.run.moveIndex = 0;
-        if (!this.incPuzzle()) this.end();
-      }
+      if (!boundedClockMillis(this.run)) this.end();
+      else if (!this.incPuzzle()) this.end();
     }
     this.redraw();
     this.redrawQuick();
@@ -144,57 +135,20 @@ export default class StormCtrl {
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
 
-  boundedClockMillis = () =>
-    this.run.startAt ? Math.max(0, this.run.startAt + this.run.clockMs - getNow()) : this.run.clockMs;
-
-  private pushToHistory = (win: boolean) => {
-    const now = getNow();
+  private pushToHistory = (win: boolean) =>
     this.run.history.push({
-      puzzle: this.puzzle(),
+      puzzle: this.run.current.puzzle,
       win,
-      millis: this.run.puzzleStartAt ? now - this.run.puzzleStartAt : 0,
+      millis: this.run.history.length ? getNow() - this.run.current.startAt : 0, // first one is free
     });
-    this.run.puzzleStartAt = now;
-  };
 
   private incPuzzle = (): boolean => {
-    if (this.run.puzzleIndex < this.data.puzzles.length - 1) {
-      this.run.puzzleIndex++;
+    const index = this.run.current.index;
+    if (index < this.data.puzzles.length - 1) {
+      this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
       return true;
     }
     return false;
-  };
-
-  puzzle = (): Puzzle => this.data.puzzles[this.run.puzzleIndex];
-
-  line = (): Uci[] => this.puzzle().line.split(' ');
-
-  position = (): Chess => {
-    const pos = Chess.fromSetup(parseFen(this.puzzle().fen).unwrap()).unwrap();
-    this.line()
-      .slice(0, this.run.moveIndex + 1)
-      .forEach(uci => pos.play(parseUci(uci)!));
-    return pos;
-  };
-
-  makeCgOpts = (): CgConfig => {
-    const puzzle = this.puzzle();
-    const pos = this.position();
-    const pov = opposite(parseFen(puzzle.fen).unwrap().turn);
-    const canMove = !this.run.endAt;
-    return {
-      fen: makeFen(pos.toSetup()),
-      orientation: pov,
-      turnColor: pos.turn,
-      movable: canMove
-        ? {
-            color: pov,
-            dests: chessgroundDests(pos),
-          }
-        : undefined,
-      check: !!pos.isCheck(),
-      lastMove: this.uciToLastMove(this.line()[this.run.moveIndex]),
-    };
   };
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
@@ -220,9 +174,7 @@ export default class StormCtrl {
     this.redraw();
   };
 
-  private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
-
-  private uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+  private showGround = (g: CgApi): void => g.set(makeCgOpts(this.run));
 
   private loadSound = (file: string, volume?: number, delay?: number) => {
     setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);

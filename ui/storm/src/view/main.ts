@@ -7,6 +7,7 @@ import StormCtrl from '../ctrl';
 import { getNow, onInsert } from 'puz/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
+import { makeCgOpts } from 'puz/run';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -27,7 +28,7 @@ const playModifiers = (ctrl: StormCtrl) => {
   const malus = ctrl.run.modifier.malus;
   const bonus = ctrl.run.modifier.bonus;
   return {
-    'storm--mod-puzzle': !!ctrl.run.puzzleStartAt && ctrl.run.puzzleStartAt > now - 90,
+    'storm--mod-puzzle': ctrl.run.current.startAt > now - 90,
     'storm--mod-move': ctrl.run.modifier.moveAt > now - 90,
     'storm--mod-malus-slow': !!malus && malus.at > now - 950,
     'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950,
@@ -38,7 +39,9 @@ const chessground = (ctrl: StormCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
       insert: vnode =>
-        ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl.makeCgOpts(), ctrl.pref, ctrl.userMove))),
+        ctrl.ground(
+          Chessground(vnode.elm as HTMLElement, makeCgConfig(makeCgOpts(ctrl.run), ctrl.pref, ctrl.userMove))
+        ),
       destroy: _ => ctrl.withGround(g => g.destroy()),
     },
   });

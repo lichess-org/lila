@@ -1,5 +1,7 @@
 import { Role } from 'chessground/types';
 import { VNode } from 'snabbdom/vnode';
+import { Combo } from './combo';
+import CurrentPuzzle from './current';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -33,9 +35,7 @@ export interface Run {
   startAt?: number;
   endAt?: number;
   moves: number;
-  puzzleIndex: number;
-  moveIndex: number;
-  puzzleStartAt?: number;
+  current: CurrentPuzzle;
   clockMs: number;
   history: Round[];
   combo: Combo;
