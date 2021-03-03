@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Enigmat</string>
+  <string name="puzzleThemes">Temat e ushtrimeve</string>
   <string name="recommended">Të rekomanduara</string>
+  <string name="phases">Fazat</string>
+  <string name="motifs">Motivet</string>
+  <string name="advanced">Te avancuarat</string>
   <string name="lengths">Gjatësia</string>
+  <string name="mates">Mat</string>
+  <string name="goals">Qëllimet</string>
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origjina</string>
+  <string name="specialMoves">Lëvizjet speciale</string>
+  <string name="didYouLikeThisPuzzle">Te pëlqeu ky ushtrimi?</string>
+  <string name="voteToLoadNextOne">Voto për të vazhduar!</string>
+  <string name="yourPuzzleRatingX">Vlerësimi juaj i ushtrimeve: %s</string>
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
   <string name="puzzleId">Ushtrimi %s</string>
