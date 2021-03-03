@@ -19,3 +19,8 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
 export const getNow = (): number => Math.round(performance.now());
 
 export const uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+
+export const loadSound = (file: string, volume?: number, delay?: number) => {
+  setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
+  return () => lichess.sound.play(file, volume);
+};

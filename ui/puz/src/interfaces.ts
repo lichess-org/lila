@@ -35,6 +35,7 @@ export interface Run {
   startAt?: number;
   endAt?: number;
   moves: number;
+  errors: number;
   current: CurrentPuzzle;
   clockMs: number;
   history: Round[];

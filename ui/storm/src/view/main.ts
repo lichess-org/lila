@@ -1,7 +1,7 @@
 import { Chessground } from 'chessground';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import config from 'puz/config';
-import renderClock from './clock';
+import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
 import { getNow, onInsert } from 'puz/util';
@@ -50,7 +50,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
   h('div.storm__side', [
     ctrl.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
-    renderClock(ctrl),
+    renderClock(ctrl.run, ctrl.endNow),
     h('div.storm__table', [renderControls(ctrl), renderCombo(ctrl)]),
   ]),
 ];

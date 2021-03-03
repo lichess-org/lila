@@ -1,23 +1,24 @@
-import StormCtrl from '../ctrl';
 import { defined } from 'common';
-import { getNow } from 'puz/util';
+import { getNow } from '../util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { TimeMod } from 'puz/interfaces';
+import { Run, TimeMod } from '../interfaces';
+
+type OnFlag = () => void;
 
 let refreshInterval: Timeout;
 let lastText: string;
 
-export default function renderClock(ctrl: StormCtrl): VNode {
-  const malus = ctrl.run.modifier.malus;
-  const bonus = ctrl.run.modifier.bonus;
+export default function renderClock(run: Run, onFlag: OnFlag): VNode {
+  const malus = run.modifier.malus;
+  const bonus = run.modifier.bonus;
   return h('div.storm__clock', [
     h('div.storm__clock__time', {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(ctrl.run.clockMs);
-          refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
+          el.innerText = formatMs(run.clockMs);
+          refreshInterval = setInterval(() => renderIn(run, onFlag, el), 100);
         },
         destroy() {
           if (refreshInterval) clearInterval(refreshInterval);
@@ -29,17 +30,17 @@ export default function renderClock(ctrl: StormCtrl): VNode {
   ]);
 }
 
-function renderIn(ctrl: StormCtrl, el: HTMLElement) {
-  if (!ctrl.run.startAt) return;
-  const clock = ctrl.run.clockMs;
-  const mods = ctrl.run.modifier;
+function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement) {
+  if (!run.startAt) return;
+  const clock = run.clockMs;
+  const mods = run.modifier;
   const now = getNow();
-  const millis = ctrl.run.startAt + clock - getNow();
+  const millis = run.startAt + clock - getNow();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
   const text = formatMs(millis - diffs);
   if (text != lastText) el.innerText = text;
   lastText = text;
-  if (millis < 1 && !ctrl.run.endAt) ctrl.naturalFlag();
+  if (millis < 1 && !run.endAt) onFlag();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;

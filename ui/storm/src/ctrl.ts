@@ -3,7 +3,7 @@ import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
-import { getNow } from 'puz/util';
+import { getNow, loadSound } from 'puz/util';
 import { boundedClockMillis, makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
@@ -30,6 +30,7 @@ export default class StormCtrl {
     this.trans = lichess.trans(opts.i18n);
     this.run = {
       moves: 0,
+      errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
       clockMs: config.clock.initial * 1000,
       history: [],
@@ -76,11 +77,6 @@ export default class StormCtrl {
     this.end();
   };
 
-  naturalFlag = (): void => {
-    this.pushToHistory(false);
-    this.end();
-  };
-
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   };
@@ -116,6 +112,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
+      this.run.errors++;
       this.run.combo.reset();
       this.run.clockMs -= config.clock.malus * 1000;
       this.run.modifier.malus = {
@@ -128,7 +125,7 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(this.showGround);
+    this.withGround(g => g.set(makeCgOpts(this.run)));
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -162,7 +159,7 @@ export default class StormCtrl {
     puzzles: this.run.history.length,
     score: this.countWins(),
     moves: this.run.moves,
-    errors: this.run.history.filter(r => !r.win).length,
+    errors: this.run.errors,
     combo: this.run.combo.best,
     time: (this.run.endAt! - this.run.startAt!) / 1000,
     highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
@@ -174,17 +171,10 @@ export default class StormCtrl {
     this.redraw();
   };
 
-  private showGround = (g: CgApi): void => g.set(makeCgOpts(this.run));
-
-  private loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
-    return () => lichess.sound.play(file, volume);
-  };
-
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: this.loadSound('other/ping', 0.8, 1000),
-    end: this.loadSound('other/gewonnen', 0.6, 5000),
+    bonus: loadSound('other/ping', 0.8, 1000),
+    end: loadSound('other/gewonnen', 0.6, 5000),
   };
 
   private checkDupTab = () => {
