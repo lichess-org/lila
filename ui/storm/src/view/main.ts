@@ -1,6 +1,6 @@
 import { Chessground } from 'chessground';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import config from '../config';
+import config from 'puz/config';
 import renderClock from './clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
@@ -71,7 +71,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
   ]);
 
 const renderCombo = (ctrl: StormCtrl): VNode => {
-  const level = ctrl.comboLevel();
+  const level = ctrl.run.combo.level();
   return h('div.storm__combo', [
     h('div.storm__combo__counter', [
       h('span.storm__combo__counter__value', ctrl.run.combo),
@@ -80,7 +80,7 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
     h('div.storm__combo__bars', [
       h('div.storm__combo__bar', [
         h('div.storm__combo__bar__in', {
-          attrs: { style: `width:${ctrl.comboPercent()}%` },
+          attrs: { style: `width:${ctrl.run.combo.percent()}%` },
         }),
         h('div.storm__combo__bar__in-full'),
       ]),

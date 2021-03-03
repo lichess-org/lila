@@ -1,5 +1,5 @@
 import * as xhr from './xhr';
-import config from './config';
+import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
@@ -12,7 +12,8 @@ import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
-import { Promotion, Puzzle, Run, TimeMod } from 'puz/interfaces';
+import { Promotion, Puzzle, Run } from 'puz/interfaces';
+import { Combo } from 'puz/combo';
 
 export default class StormCtrl {
   private data: StormData;
@@ -35,10 +36,7 @@ export default class StormCtrl {
       moveIndex: 0,
       clockMs: config.clock.initial * 1000,
       history: [],
-      combo: {
-        current: 0,
-        best: 0,
-      },
+      combo: new Combo(),
       modifier: {
         moveAt: 0,
       },
@@ -104,10 +102,9 @@ export default class StormCtrl {
     pos.play(move);
     if (pos.isCheckmate() || uci == expected) {
       this.run.moveIndex++;
-      this.run.combo.current++;
-      this.run.combo.best = Math.max(this.run.combo.best, this.run.combo.current);
+      this.run.combo.inc();
       this.run.modifier.moveAt = getNow();
-      const bonus = this.computeComboBonus();
+      const bonus = this.run.combo.bonus();
       if (bonus) {
         this.run.modifier.bonus = bonus;
         this.run.clockMs += bonus.seconds * 1000;
@@ -125,7 +122,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      this.run.combo.current = 0;
+      this.run.combo.reset();
       this.run.clockMs -= config.clock.malus * 1000;
       this.run.modifier.malus = {
         seconds: config.clock.malus,
@@ -146,18 +143,6 @@ export default class StormCtrl {
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
-
-  private computeComboBonus = (): TimeMod | undefined => {
-    if (this.comboPercent() == 0) {
-      const level = this.comboLevel();
-      if (level > 0)
-        return {
-          seconds: config.combo.levels[level][1],
-          at: getNow(),
-        };
-    }
-    return;
-  };
 
   boundedClockMillis = () =>
     this.run.startAt ? Math.max(0, this.run.startAt + this.run.clockMs - getNow()) : this.run.clockMs;
@@ -210,21 +195,6 @@ export default class StormCtrl {
       check: !!pos.isCheck(),
       lastMove: this.uciToLastMove(this.line()[this.run.moveIndex]),
     };
-  };
-
-  comboLevel = () =>
-    config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.run.combo.current ? index : lvl), 0);
-
-  comboPercent = () => {
-    const lvl = this.comboLevel();
-    const levels = config.combo.levels;
-    const lastLevel = levels[levels.length - 1];
-    if (lvl >= levels.length - 1) {
-      const range = lastLevel[0] - levels[levels.length - 2][0];
-      return (((this.run.combo.current - lastLevel[0]) / range) * 100) % 100;
-    }
-    const bounds = [levels[lvl][0], levels[lvl + 1][0]];
-    return Math.floor(((this.run.combo.current - bounds[0]) / (bounds[1] - bounds[0])) * 100);
   };
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);

@@ -29,11 +29,6 @@ export interface Puzzle {
   rating: number;
 }
 
-export interface Combo {
-  current: number;
-  best: number;
-}
-
 export interface Run {
   startAt?: number;
   endAt?: number;
