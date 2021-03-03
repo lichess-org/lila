@@ -1,10 +1,4 @@
-import { Role } from 'chessground/types';
 import { Prop } from 'common';
-import { VNode } from 'snabbdom/vnode';
-
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-export type Redraw = () => void;
 
 export interface StormOpts {
   data: StormData;
@@ -72,12 +66,6 @@ export interface StormPuzzle {
   fen: string;
   line: string;
   rating: number;
-}
-
-export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
-  cancel(): void;
-  view(): MaybeVNode;
 }
 
 export interface DailyBest {

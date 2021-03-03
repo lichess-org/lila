@@ -17,8 +17,9 @@
   },
   "dependencies": {
     "chessground": "^7.11.0",
+    "snabbdom": "^0.7.4",
     "common": "2.0.0",
-    "snabbdom": "^0.7.4"
+    "puz": "2.0.0"
   },
   "scripts": {
     "dev": "rollup --config",

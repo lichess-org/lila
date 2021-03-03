@@ -1,17 +1,18 @@
 import * as xhr from './xhr';
 import config from './config';
-import makePromotion from './promotion';
+import makePromotion from 'puz/promotion';
 import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { getNow } from './util';
+import { getNow } from 'puz/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun, StormPrefs } from './interfaces';
+import { StormOpts, StormData, StormPuzzle, StormVm, TimeMod, StormRun, StormPrefs } from './interfaces';
+import { Promotion } from 'puz/interfaces';
 
 export default class StormCtrl {
   private data: StormData;
@@ -206,9 +207,6 @@ export default class StormCtrl {
             dests: chessgroundDests(pos),
           }
         : undefined,
-      premovable: {
-        enabled: false,
-      },
       check: !!pos.isCheck(),
       lastMove: this.uciToLastMove(this.line()[this.vm.moveIndex]),
     };

@@ -1,6 +1,6 @@
 import StormCtrl from '../ctrl';
 import { defined } from 'common';
-import { getNow } from '../util';
+import { getNow } from 'puz/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { TimeMod } from '../interfaces';

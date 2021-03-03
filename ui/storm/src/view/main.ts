@@ -4,7 +4,7 @@ import config from '../config';
 import renderClock from './clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
-import { getNow, onInsert } from '../util';
+import { getNow, onInsert } from 'puz/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
@@ -37,7 +37,8 @@ const playModifiers = (ctrl: StormCtrl) => {
 const chessground = (ctrl: StormCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl))),
+      insert: vnode =>
+        ctrl.ground(Chessground(vnode.elm as HTMLElement, makeCgConfig(ctrl.makeCgOpts(), ctrl.pref, ctrl.userMove))),
       destroy: _ => ctrl.withGround(g => g.destroy()),
     },
   });

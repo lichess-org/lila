@@ -1,7 +1,7 @@
 import * as miniBoard from 'common/mini-board';
 import StormCtrl from '../ctrl';
 import { Chess } from 'chessops/chess';
-import { getNow, onInsert } from '../util';
+import { getNow, onInsert } from 'puz/util';
 import { h } from 'snabbdom';
 import { numberSpread } from 'common/number';
 import { parseFen, makeFen } from 'chessops/fen';

@@ -1,8 +1,6 @@
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
 import { Prefs, UserMove } from '../interfaces';
 
 export function makeConfig(opts: CgConfig, pref: Prefs, userMove: UserMove): CgConfig {
