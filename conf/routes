@@ -117,7 +117,7 @@ GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(usernam
 
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
-POST  /racer/:sri                       controllers.Racer.create(sri: String)
+POST  /racer                            controllers.Racer.create
 GET   /racer/:id                        controllers.Racer.show(id: String)
 
 # User Analysis

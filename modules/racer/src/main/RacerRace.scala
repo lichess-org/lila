@@ -3,9 +3,18 @@ package lila.racer
 import org.joda.time.DateTime
 
 import lila.user.User
-import lila.socket.Socket
+import lila.puzzle.Puzzle
+import lila.storm.StormPuzzle
 
-case class RacerRace(_id: RacerRace.Id, owner: RacerRace.Owner, createdAt: DateTime) {
+case class RacerRace(
+    _id: RacerRace.Id,
+    owner: RacerPlayer.Id,
+    players: List[RacerPlayer],
+    puzzleIds: List[Puzzle.Id],
+    createdAt: DateTime,
+    startsAt: Option[DateTime],
+    finishedAt: Option[DateTime]
+) {
 
   def id = _id
 }
@@ -14,15 +23,20 @@ object RacerRace {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  sealed trait Owner
-  object Owner {
-    case class User(userId: lila.user.User.ID) extends Owner
-    case class Anon(sri: Socket.Sri)           extends Owner
-  }
+  case class WithPuzzles(race: RacerRace, puzzles: List[StormPuzzle])
 
-  def make(owner: Owner) = RacerRace(
+  def make(owner: RacerPlayer.Id, puzzleIds: List[Puzzle.Id]) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 8),
     owner = owner,
-    createdAt = DateTime.now
+    players = List(
+      RacerPlayer(
+        id = owner,
+        createdAt = DateTime.now
+      )
+    ),
+    puzzleIds = puzzleIds,
+    createdAt = DateTime.now,
+    startsAt = none,
+    finishedAt = none
   )
 }

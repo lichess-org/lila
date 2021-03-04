@@ -16,12 +16,6 @@ private class PuzzleConfig(
     @ConfigName("collection.path") val pathColl: CollName
 )
 
-case class PuzzleColls(
-    puzzle: AsyncColl,
-    round: AsyncColl,
-    path: AsyncColl
-)
-
 @Module
 final class Env(
     appConfig: Configuration,
@@ -42,7 +36,7 @@ final class Env(
 
   private lazy val db = mongo.asyncDb("puzzle", config.mongoUri)
 
-  lazy val colls = PuzzleColls(
+  lazy val colls = new PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
     path = db(config.pathColl)
@@ -87,3 +81,9 @@ final class Env(
       }
     }
 }
+
+final class PuzzleColls(
+    val puzzle: AsyncColl,
+    val round: AsyncColl,
+    val path: AsyncColl
+)

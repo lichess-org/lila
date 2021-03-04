@@ -69,7 +69,7 @@ final class Challenge(
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
-    } dmap env.lilaCookie.ensure(ctx.req)
+    } map env.lilaCookie.ensure(ctx.req)
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.challenger match {

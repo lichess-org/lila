@@ -30,7 +30,7 @@ object racer {
       )
     }
 
-  def show(race: RacerRace)(implicit ctx: Context) =
+  def show(race: RacerRace, data: JsObject, pref: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("racer")),
       title = "Puzzle Racer",

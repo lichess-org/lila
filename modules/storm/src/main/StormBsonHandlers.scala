@@ -8,7 +8,7 @@ import lila.puzzle.Puzzle
 import scala.util.Success
 import lila.common.Day
 
-private object StormBsonHandlers {
+object StormBsonHandlers {
 
   import lila.puzzle.BsonHandlers.{ PuzzleIdBSONHandler }
 

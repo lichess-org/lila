@@ -13,15 +13,19 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def home =
     Open { implicit ctx =>
       NoBot {
-        Ok(html.racer.home).fuccess
+        Ok(html.racer.home).fuccess map env.lilaCookie.ensure(ctx.req)
       }
     }
 
-  def create(sri: String) =
+  def create =
     Open { implicit ctx =>
       NoBot {
-        env.racer.api.create(Socket.Sri(sri), ctx.me) map { race =>
-          Redirect(routes.Racer.show(race.id.value))
+        HTTPRequest sid ctx.req match {
+          case None => Redirect(routes.Racer.home).fuccess
+          case Some(sid) =>
+            env.racer.api.create(sid, ctx.me) map { race =>
+              Redirect(routes.Racer.show(race.id.value))
+            }
         }
       }
     }
@@ -29,9 +33,16 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def show(id: String) =
     Open { implicit ctx =>
       NoBot {
-        env.racer.api.get(RacerRace.Id(id)) flatMap {
-          _ ?? { race =>
-            Ok(html.racer.show(race)).fuccess
+        env.racer.api.withPuzzles(RacerRace.Id(id)) flatMap {
+          _ ?? { case RacerRace.WithPuzzles(race, puzzles) =>
+            Ok(
+              ???
+              // html.racer.show(
+              //   race,
+              //   env.racer.json(racer, puzzles),
+              //   env.storm.json.pref(ctx.pref.copy(coords = lila.pref.Pref.Coords.NONE))
+              // )
+            ).fuccess
           }
         }
       }
