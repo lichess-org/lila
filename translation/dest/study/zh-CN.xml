@@ -42,7 +42,7 @@
   <string name="commentThisMove">评论这步走法</string>
   <string name="annotateWithGlyphs">用图形标注</string>
   <string name="theChapterIsTooShortToBeAnalysed">本章节太短，无法进行分析。</string>
-  <string name="onlyContributorsCanRequestAnalysis">只有研究贡献者可以请求进行计算机分析。</string>
+  <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
@@ -54,7 +54,7 @@
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
-  <string name="studyPgn">研究PGN</string>
+  <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="downloadGame">下载棋局</string>
