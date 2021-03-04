@@ -1,4 +1,5 @@
 import { notationStyle } from 'common/notation';
+import { Notation } from 'common/notation';
 
 const roles: { [letter: string]: string } = {
   B: "bishop",
@@ -14,8 +15,8 @@ const roles: { [letter: string]: string } = {
   T: "tokin",
 };
 
-function renderSan(san: San) {
-  let move = notationStyle(0)({san: san, uci: '', fen: ''}); // todo
+function renderSan(san: San, uci: Uci) {
+  let move = notationStyle(Notation.WesternEngine)({san: san, uci: uci, fen: ''});
   if(move[0] === "+") move = "$" + move.substring(1);
   return move
       .split("")
@@ -47,6 +48,6 @@ export function say(text: string, cut: boolean) {
   window.lishogi.sound.say(msg);
 }
 
-export function step(s: { san?: San }, cut: boolean) {
-  say(s.san ? renderSan(s.san) : "Game start", cut);
+export function step(s: { san?: San, uci?: Uci }, cut: boolean) {
+  say(s.san ? renderSan(s.san, s.uci || "") : "Game start", cut);
 }
