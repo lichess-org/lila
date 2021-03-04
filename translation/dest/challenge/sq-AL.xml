@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Sfidat</string>
+  <string name="challengeToPlay">Sfidoni në një lojë</string>
+  <string name="challengeDeclined">Sfida u refuzua</string>
+  <string name="challengeAccepted">Sfida u pranua!</string>
+  <string name="challengeCanceled">Sfida u anulua.</string>
+  <string name="registerToSendChallenges">Ju lutemi regjistrohuni për të sfiduar.</string>
+  <string name="youCannotChallengeX">Nuk mund te sfidoni %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nuk pranon sfida.</string>
+  <string name="yourXRatingIsTooFarFromY">Vlerësimi juaj %1$s është shumë larg %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nuk mund të sfidoni për shkak të vlerësimit të përkohshëm %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s vetëm pranon sfida nga miqtë.</string>
+  <string name="declineGeneric">Nuk pranoj sfida për momentin.</string>
+  <string name="declineLater">Nuk është koha e duhur per mua, të lutem provo me vonë.</string>
+  <string name="declineTooFast">Kjo koha e lojës është shumë e shpejt per mua, të lutem me sfido përsëri me një sfide me te ngadaltë.</string>
+  <string name="declineTooSlow">Kjo koha e lojës është shumë e ngadaltë per mua, të lutem me sfido përsëri me një sfide me te shpejtë.</string>
+  <string name="declineTimeControl">Nuk pranoj sfida për momentin në këtë kontroll kohe.</string>
+  <string name="declineRated">Të lutem më dërgo një sfide të vlerësuar.</string>
+  <string name="declineCasual">Të lutem më dërgo një sfide të pa vlerësuar.</string>
+  <string name="declineStandard">Nuk pranoj sfida të variantave per momentin.</string>
+  <string name="declineVariant">Nuk dua te luaj këtë variant.</string>
+  <string name="declineNoBot">Nuk pranoj sfida prej bots.</string>
+  <string name="declineOnlyBot">Pranoj vëtëm sfida prej bots.</string>
+</resources>

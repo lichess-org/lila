@@ -107,6 +107,14 @@
     <item quantity="many">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
     <item quantity="other">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">San iomaíocht i gcomórtais swiss amháín</item>
+    <item quantity="two">San iomaíocht i %s chomórtas swiss</item>
+    <item quantity="few">San iomaíocht i %s gcomórtas swiss</item>
+    <item quantity="many">San iomaíocht i %s comórtas swiss</item>
+    <item quantity="other">San iomaíocht i %s comórtas swiss</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Céim #%1$s as %2$s</string>
   <string name="signedUp">Sínithe suas le lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Isteach i %s foireann</item>

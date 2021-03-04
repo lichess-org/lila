@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Enigmat</string>
+  <string name="puzzleThemes">Temat e ushtrimeve</string>
   <string name="recommended">Të rekomanduara</string>
+  <string name="phases">Fazat</string>
+  <string name="motifs">Motivet</string>
+  <string name="advanced">Te avancuarat</string>
   <string name="lengths">Gjatësia</string>
+  <string name="mates">Mat</string>
+  <string name="goals">Qëllimet</string>
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origjina</string>
+  <string name="specialMoves">Lëvizjet speciale</string>
+  <string name="didYouLikeThisPuzzle">Te pëlqeu ky ushtrimi?</string>
+  <string name="voteToLoadNextOne">Voto për të vazhduar!</string>
+  <string name="yourPuzzleRatingX">Vlerësimi juaj i ushtrimeve: %s</string>
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
+  <string name="toGetPersonalizedPuzzles">Për te marrë ushtrime te personalizuara:</string>
   <string name="puzzleId">Ushtrimi %s</string>
   <string name="puzzleOfTheDay">Ushtrimi i ditës</string>
   <string name="clickToSolve">Kliko për t\'a zgjidhur</string>
@@ -13,6 +24,9 @@
   <string name="bestMove">Lëvizja më e mirë!</string>
   <string name="keepGoing">Vazhdo…</string>
   <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleComplete">Ushtrimi u kompletua!</string>
+  <string name="notTheMove">Nuk është lëvizja e duhur!</string>
+  <string name="trySomethingElse">Provo diçka tjetër.</string>
   <string name="ratingX">Vlerësimi: %s</string>
   <string name="hidden">i fshehur</string>
   <plurals name="playedXTimes">
@@ -23,10 +37,17 @@
   <string name="continueTraining">Vazhdo trajnimin</string>
   <string name="difficultyLevel">Niveli i vështirsisë</string>
   <string name="normal">Normal</string>
+  <string name="easier">Më lehtë</string>
   <string name="easiest">Më e lehta</string>
+  <string name="harder">Më vështirë</string>
   <string name="hardest">Më e vështira</string>
   <string name="example">Shembull</string>
+  <string name="addAnotherTheme">Shto temë të re</string>
+  <string name="jumpToNextPuzzleImmediately">Vazhdo në ushtrimin tjetër menjëherë</string>
+  <string name="puzzleDashboard">Kaptinat e ushtrimeve</string>
+  <string name="improvementAreas">Temat per tu përmirsuar</string>
   <string name="strengths">Niveli i vështirësisë</string>
+  <string name="history">Ushtrimet e kaluara</string>
   <string name="solved">zgjidhur</string>
   <string name="failed">dështoj</string>
 </resources>
