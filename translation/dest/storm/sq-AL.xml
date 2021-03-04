@@ -25,4 +25,6 @@
   <string name="endRun">Mbylle raundin (shtype: Enter)</string>
   <string name="highscores">Rekordet</string>
   <string name="viewBestRuns">Shiko raundet më të mira</string>
+  <string name="bestRunOfDay">Raundi më i mire i ditës</string>
+  <string name="runs">Raunde</string>
 </resources>
