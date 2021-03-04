@@ -47,4 +47,9 @@ Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =42
   <string name="repeatedPositionsThatMatters">Përsëritja e trefishtë është për %1$s, e jo lëvizje. Përsëritja nuk duhet te ndodh patjetër rradhazi.</string>
   <string name="positions">pozicione</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Përsëritem pozicionin tri herë. Përse nuk u barazua loja?</string>
+  <string name="threeFoldHasToBeClaimed">Përsëritja duhet te reklamohet nga njëri prej lojëtareve. Ketë mund ta besh duke shtypur butonin, ose duke ofruar barazim para përseritjes se fundit, nuk ka rendësi nese kundërshtari e refuzon, barazimi prej përsëritjes se trefishtë do te reklamohet. Ju mundeni edhe ta %1$s Lichess-in ta reklamoj përsëritjen për ju. Për më tepër, përsëritja e pesëfishtë e mbyll lojë automatikisht.</string>
+  <string name="configure">konfiguroni</string>
+  <string name="accounts">Llogaritë</string>
+  <string name="titlesAvailableOnLichess">Çfarë tituj ka ne Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichessi i pranon të gjithë titujt prej FIDE qe jan fituar përmes luajtjes OTB (over the board, \"mbi dërrasë\"), poashtu edhe %1$s. Kjo është nje listë e titujeve të FIDE:</string>
 </resources>
