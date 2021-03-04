@@ -24,16 +24,28 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 
   def get(id: Id): Option[RacerRace] = store getIfPresent id
 
-  def create(sessionId: String, user: Option[User]): Fu[RacerRace] =
+  def playerId(sessionId: String, user: Option[User]) = user match {
+    case Some(u) => RacerPlayer.Id.User(u.id)
+    case None    => RacerPlayer.Id.Anon(sessionId)
+  }
+
+  def create(player: RacerPlayer.Id): Fu[RacerRace] =
     selector.apply map { puzzles =>
       val race = RacerRace.make(
-        owner = user match {
-          case Some(u) => RacerPlayer.Id.User(u.id)
-          case None    => RacerPlayer.Id.Anon(sessionId)
-        },
+        owner = player,
         puzzles = puzzles.grouped(2).flatMap(_.headOption).toList
       )
       store.put(race.id, race)
       race
+    }
+
+  def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
+    get(id) map { race =>
+      race.join(player) match {
+        case Some(joined) =>
+          store.put(joined.id, joined)
+          joined
+        case None => race
+      }
     }
 }

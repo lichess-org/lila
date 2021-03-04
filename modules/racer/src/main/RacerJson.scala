@@ -16,20 +16,17 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
 
   import StormJson._
 
-  def raceJson(race: RacerRace, me: Either[String, User]) =
+  def raceJson(race: RacerRace, playerId: RacerPlayer.Id) =
     Json.obj(
-      "id" -> race.id.value,
-      "owner" -> {
-        (race.owner, me) match {
-          case (RacerPlayer.Id.User(id), Right(u)) => id == u.id
-          case (RacerPlayer.Id.Anon(a), Left(b))   => a == b
-          case _                                   => false
-        }
-      },
+      "race" -> Json.obj(
+        "id"       -> race.id.value,
+        "isPlayer" -> race.has(playerId),
+        "isOwner"  -> (race.owner == playerId)
+      ),
       "puzzles" -> race.puzzles,
       "players" -> race.players.zipWithIndex.map { case (player, index) =>
         Json
-          .obj("index" -> index)
+          .obj("index" -> (index + 1), "score" -> player.score)
           .add("user" -> player.userId.flatMap(lightUserSync))
       }
     )

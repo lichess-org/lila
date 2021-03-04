@@ -3,11 +3,11 @@ import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
 import { getNow, loadSound } from 'puz/util';
-import { makeCgOpts } from 'puz/run';
+import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
@@ -16,6 +16,7 @@ import { Clock } from 'puz/clock';
 export default class StormCtrl {
   private data: RacerData;
   private redraw: () => void;
+  race: Race;
   pref: RacerPrefs;
   run: Run;
   vm: RacerVm;
@@ -25,6 +26,7 @@ export default class StormCtrl {
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
     this.data = opts.data;
+    this.race = this.data.race;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
@@ -46,6 +48,8 @@ export default class StormCtrl {
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
   }
 
+  players = () => this.data.players;
+
   end = (): void => {
     this.run.history.reverse();
     this.run.endAt = getNow();
@@ -65,7 +69,7 @@ export default class StormCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    if (!this.run.moves) this.run.startAt = getNow();
+    this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
     const cur = this.run.current;
@@ -76,14 +80,7 @@ export default class StormCtrl {
     pos.play(move);
     if (pos.isCheckmate() || uci == cur.expectedMove()) {
       cur.moveIndex++;
-      this.run.combo.inc();
-      this.run.modifier.moveAt = getNow();
-      const bonus = this.run.combo.bonus();
-      if (bonus) {
-        this.run.modifier.bonus = bonus;
-        this.run.clock.addSeconds(bonus.seconds);
-        this.sound.bonus();
-      }
+      if (onGoodMove(this.run)) this.sound.bonus();
       if (cur.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -95,13 +92,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      this.run.errors++;
-      this.run.combo.reset();
-      this.run.clock.addSeconds(-config.clock.malus);
-      this.run.modifier.malus = {
-        seconds: config.clock.malus,
-        at: getNow(),
-      };
+      onBadMove(this.run);
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }

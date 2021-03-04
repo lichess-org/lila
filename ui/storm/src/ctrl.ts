@@ -4,7 +4,7 @@ import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
 import { getNow, loadSound } from 'puz/util';
-import { makeCgOpts } from 'puz/run';
+import { countWins, makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
@@ -50,7 +50,7 @@ export default class StormCtrl {
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     setTimeout(() => {
-      if (!this.run.startAt) {
+      if (!this.run.clock.startAt) {
         this.vm.lateStart = true;
         this.redraw();
       }
@@ -80,7 +80,7 @@ export default class StormCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    if (!this.run.moves) this.run.startAt = getNow();
+    this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
     const cur = this.run.current;
@@ -91,14 +91,7 @@ export default class StormCtrl {
     pos.play(move);
     if (pos.isCheckmate() || uci == cur.expectedMove()) {
       cur.moveIndex++;
-      this.run.combo.inc();
-      this.run.modifier.moveAt = getNow();
-      const bonus = this.run.combo.bonus();
-      if (bonus) {
-        this.run.modifier.bonus = bonus;
-        this.run.clock.addSeconds(bonus.seconds);
-        this.sound.bonus();
-      }
+      if (onGoodMove(this.run)) this.sound.bonus();
       if (cur.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -110,13 +103,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      this.run.errors++;
-      this.run.combo.reset();
-      this.run.clock.addSeconds(-config.clock.malus);
-      this.run.modifier.malus = {
-        seconds: config.clock.malus,
-        at: getNow(),
-      };
+      onBadMove(this.run);
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }
@@ -146,8 +133,6 @@ export default class StormCtrl {
     return false;
   };
 
-  countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
-
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();
     return g && f(g);
@@ -155,11 +140,11 @@ export default class StormCtrl {
 
   runStats = (): StormRecap => ({
     puzzles: this.run.history.length,
-    score: this.countWins(),
+    score: countWins(this.run),
     moves: this.run.moves,
     errors: this.run.errors,
     combo: this.run.combo.best,
-    time: (this.run.endAt! - this.run.startAt!) / 1000,
+    time: (this.run.endAt! - this.run.clock.startAt!) / 1000,
     highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
     signed: this.vm.signed(),
   });
@@ -179,7 +164,7 @@ export default class StormCtrl {
     const dupTabMsg = lichess.storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
-      if (!this.run.startAt && ev.value == this.data.puzzles[0].id) {
+      if (!this.run.clock.startAt && ev.value == this.data.puzzles[0].id) {
         this.vm.dupTab = true;
         this.redraw();
       }

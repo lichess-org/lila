@@ -6,7 +6,7 @@ export class Clock {
   initialMillis = config.clock.initial * 1000;
 
   start = () => {
-    this.startAt = getNow();
+    if (!this.startAt) this.startAt = getNow();
   };
 
   millis = (): number =>

@@ -4,7 +4,7 @@ import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
 import { onInsert } from 'puz/util';
-import { playModifiers, renderCombo } from 'puz/view/util';
+import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { makeCgOpts } from 'puz/run';
@@ -35,9 +35,9 @@ const chessground = (ctrl: StormCtrl): VNode =>
   });
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
-  h('div.storm__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
-  h('div.storm__side.puz-side', [
-    ctrl.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
+  h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
+  h('div.puz-side', [
+    ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(ctrl),
     renderClock(ctrl.run, ctrl.endNow),
     h('div.puz-side__table', [renderControls(ctrl), renderCombo(ctrl.run)]),
   ]),
@@ -60,9 +60,6 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
     }),
   ]);
-
-const renderSolved = (ctrl: StormCtrl): VNode =>
-  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.countWins())]);
 
 const renderStart = (ctrl: StormCtrl) =>
   h(

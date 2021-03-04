@@ -119,6 +119,7 @@ GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(usernam
 GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
 GET   /racer/:id                        controllers.Racer.show(id: String)
+POST  /racer/:id                        controllers.Racer.join(id: String)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help

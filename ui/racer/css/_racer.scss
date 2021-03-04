@@ -1,23 +1,20 @@
+@import 'race';
+
 .racer {
-  &--play {
-    display: grid;
+  &__race {
+    grid-area: race;
+  }
 
-    &__side {
-      grid-area: side;
-    }
+  display: grid;
+  grid-row-gap: $block-gap;
+  grid-column-gap: $block-gap;
+  grid-template-areas: 'race' 'board' 'side';
 
-    &__board {
-      grid-area: board;
-    }
-
-    grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
-    grid-template-areas: 'board' 'side';
-
-    @include breakpoint($mq-col2) {
-      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-      grid-template-rows: fit-content(0);
-      grid-template-areas: 'board   side';
-    }
+  @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+    grid-template-rows: auto fit-content(0);
+    grid-template-areas:
+      'race  race'
+      'board side';
   }
 }

@@ -17,9 +17,17 @@ case class RacerRace(
 ) {
 
   def id = _id
+
+  def has(id: RacerPlayer.Id) = players.exists(_.id == id)
+
+  def join(id: RacerPlayer.Id): Option[RacerRace] =
+    !has(id) && players.sizeIs <= RacerRace.maxPlayers option
+      copy(players = players :+ RacerPlayer.make(id))
 }
 
 object RacerRace {
+
+  val maxPlayers = 10
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -27,10 +35,7 @@ object RacerRace {
     _id = Id(lila.common.ThreadLocalRandom nextString 8),
     owner = owner,
     players = List(
-      RacerPlayer(
-        id = owner,
-        createdAt = DateTime.now
-      )
+      RacerPlayer.make(owner)
     ),
     puzzles = puzzles,
     createdAt = DateTime.now,

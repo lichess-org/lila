@@ -11,11 +11,7 @@ export interface Contact {
   user: User;
   lastMsg: LastMsg;
 }
-export interface User {
-  id: string;
-  name: string;
-  title?: string;
-  patron: boolean;
+export interface User extends LightUser {
   online: boolean;
 }
 export interface Me extends User {

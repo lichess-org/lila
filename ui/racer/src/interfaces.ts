@@ -12,19 +12,22 @@ export interface RacerPrefs extends PuzPrefs {}
 export interface RacerData {
   race: Race;
   puzzles: Puzzle[];
+  players: Player[];
   owner: boolean;
   key?: string;
 }
 
 export interface Race {
   id: string;
-  players: Player[];
+  isPlayer: boolean;
+  isOwner: boolean;
   startRel?: number;
 }
 
 export interface Player {
   index: number;
   user?: LightUser;
+  score: number;
 }
 
 export interface RacerVm {

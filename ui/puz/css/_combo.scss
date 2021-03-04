@@ -27,7 +27,7 @@
 
     transition: color 0.1s;
 
-    .storm--mod-move & {
+    .puz-mod-move & {
       color: $c-brag;
     }
   }
@@ -65,11 +65,11 @@
       box-shadow: 0 0 15px $c-in-base;
       transition: all 0.5s ease-in-out;
 
-      .storm--mod-bonus-slow & {
+      .puz-mod-bonus-slow & {
         display: none;
       }
 
-      .storm--mod-malus-slow & {
+      .puz-mod-malus-slow & {
         transition-property: width;
         background: $c-bad;
         box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
@@ -93,7 +93,7 @@
         }
       }
 
-      .storm--mod-bonus-slow & {
+      .puz-mod-bonus-slow & {
         display: block;
         animation: bar-full 0.9s ease-in-out;
       }

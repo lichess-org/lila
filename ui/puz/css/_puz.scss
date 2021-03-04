@@ -1,0 +1,24 @@
+@import 'font';
+@import 'side';
+@import 'combo';
+@import 'clock';
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+
+  user-select: none;
+}
+
+.puz {
+  &-side {
+    grid-area: side;
+  }
+
+  &-board {
+    grid-area: board;
+  }
+}

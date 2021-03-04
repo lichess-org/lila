@@ -1,15 +1,5 @@
 $mq-col2: $mq-col2-uniboard;
 
-#main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
-
-  @include breakpoint($mq-col2) {
-    --main-max-width: auto;
-  }
-
-  user-select: none;
-}
-
 @import 'play';
 @import 'end';
 @import 'high';

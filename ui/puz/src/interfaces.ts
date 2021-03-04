@@ -33,7 +33,6 @@ export interface Puzzle {
 }
 
 export interface Run {
-  startAt?: number;
   endAt?: number;
   moves: number;
   errors: number;

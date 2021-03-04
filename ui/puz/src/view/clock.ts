@@ -31,7 +31,7 @@ export default function renderClock(run: Run, onFlag: OnFlag): VNode {
 }
 
 function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement) {
-  if (!run.startAt) return;
+  if (!run.clock.startAt) return;
   const mods = run.modifier;
   const now = getNow();
   const millis = run.clock.millis();

@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import config from '../config';
 import { Run } from '../interfaces';
+import { countWins } from '../run';
 import { getNow } from '../util';
 
 export const playModifiers = (run: Run) => {
@@ -9,10 +10,10 @@ export const playModifiers = (run: Run) => {
   const malus = run.modifier.malus;
   const bonus = run.modifier.bonus;
   return {
-    'storm--mod-puzzle': run.current.startAt > now - 90,
-    'storm--mod-move': run.modifier.moveAt > now - 90,
-    'storm--mod-malus-slow': !!malus && malus.at > now - 950,
-    'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950,
+    'puz-mod-puzzle': run.current.startAt > now - 90,
+    'puz-mod-move': run.modifier.moveAt > now - 90,
+    'puz-mod-malus-slow': !!malus && malus.at > now - 950,
+    'puz-mod-bonus-slow': !!bonus && bonus.at > now - 950,
   };
 };
 
@@ -47,3 +48,6 @@ export const renderCombo = (run: Run): VNode => {
     ]),
   ]);
 };
+
+export const renderSolved = (run: Run): VNode =>
+  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', countWins(run))]);

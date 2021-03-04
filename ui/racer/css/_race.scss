@@ -1,0 +1,5 @@
+.racer__race {
+  @extend %box-neat;
+  background: $c-bg-box;
+  padding: 2vh 2vw;
+}

@@ -2,14 +2,6 @@
   &--play {
     display: grid;
 
-    &__side {
-      grid-area: side;
-    }
-
-    &__board {
-      grid-area: board;
-    }
-
     grid-row-gap: $block-gap;
     grid-column-gap: $block-gap;
     grid-template-areas: 'board' 'side';
