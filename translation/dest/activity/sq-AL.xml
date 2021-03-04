@@ -62,6 +62,7 @@
     <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
     <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
   </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">I rreshtuar #%1$s in %2$s</string>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Iu bashkua %s ekipi</item>

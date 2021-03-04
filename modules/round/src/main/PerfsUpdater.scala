@@ -124,9 +124,9 @@ final class PerfsUpdater(
   private def updateRatings(white: Rating, black: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
-      case Glicko.Result.Draw => results.addDraw(white.withAdvantage(5), black.withAdvantage(-5))
-      case Glicko.Result.Win  => results.addResult(white.withAdvantage(5), black.withAdvantage(-5))
-      case Glicko.Result.Loss => results.addResult(black.withAdvantage(-5), white.withAdvantage(5))
+      case Glicko.Result.Draw => results.addDraw(white, black)
+      case Glicko.Result.Win  => results.addResult(white, black)
+      case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
       Glicko.system.updateRatings(results, true)

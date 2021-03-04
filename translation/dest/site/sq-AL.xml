@@ -9,6 +9,7 @@
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
   <string name="level">Niveli</string>
+  <string name="strength">Vështirësia</string>
   <string name="toggleTheChat">Hapni bisedën</string>
   <string name="toggleSound">Aktivizo / çaktivizo zërin</string>
   <string name="chat">Bisedo</string>
@@ -509,6 +510,7 @@
   <string name="clockInitialTime">Koha fillestare e orës</string>
   <string name="clockIncrement">Rritja e orës</string>
   <string name="privacy">Privatësia</string>
+  <string name="privacyPolicy">Rregullorja e privatësisë</string>
   <string name="letOtherPlayersFollowYou">Lejo lojtarët e tjerë të të ndjekin.</string>
   <string name="letOtherPlayersChallengeYou">Lejo lojtarë të tjerë të të sfidojnë</string>
   <string name="letOtherPlayersInviteYouToStudy">Lejo lojtaret e tjere te te ftojne te studimi</string>
@@ -577,6 +579,7 @@
   <string name="error.email_unique">Kjo adresë email është përdorur</string>
   <string name="error.email_different">Kjo eshte tashme adresa juaj e emailit</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm miqtë</string>
   <string name="menu">Menu</string>
   <string name="castling">Rrokada</string>
@@ -654,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shini letrën elektronike, kontrolloni në vendet e tjera ku mund të jetë, si junk, spam, social ose dosje të tjera.</string>
   <string name="weHaveSentYouAnEmailTo">Kemi dërguar një e-letër te %s. Klikoni lidhjen brenda në e-letër për të rivendosur fjalëkalimin tuaj.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Duke u regjistruar, ju pranoni të jeni të lidhur me %s.</string>
+  <string name="readAboutOur">Informohuni rreth %s.</string>
   <string name="networkLagBetweenYouAndLichess">Vonesë rrjeti ndërmjet juve dhe lichess.</string>
   <string name="timeToProcessAMoveOnLichessServer">Koha për të përpunuar një lëvizje në serverin e lichess</string>
   <string name="downloadAnnotated">Shkarko bashkë me shënimet.</string>
