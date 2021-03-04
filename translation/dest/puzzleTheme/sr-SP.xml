@@ -17,6 +17,9 @@
   <string name="bishopEndgame">Ловачка завршница</string>
   <string name="bishopEndgameDescription">Завршница са само ловцима и пешацима.</string>
   <string name="bodenMate">Боденов мат</string>
+  <string name="bodenMateDescription">Два нападајућа ловца на унакрсним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
+  <string name="castling">Рокада</string>
+  <string name="castlingDescription">Доведите краља на сигурно и развијте топа за напад.</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
