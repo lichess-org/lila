@@ -63,9 +63,9 @@ private[analyse] object CpAdvice {
   private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.004 * cp)) - 1
 
   private val winningChanceJudgements = List(
-    .4 -> Advice.Judgement.Blunder,
-    .3 -> Advice.Judgement.Mistake,
-    .2 -> Advice.Judgement.Inaccuracy
+    .3 -> Advice.Judgement.Blunder,
+    .2 -> Advice.Judgement.Mistake,
+    .1 -> Advice.Judgement.Inaccuracy
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] =
