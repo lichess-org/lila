@@ -1,4 +1,3 @@
-import * as xhr from './xhr';
 import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
@@ -8,23 +7,23 @@ import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
 
 export default class StormCtrl {
-  private data: StormData;
+  private data: RacerData;
   private redraw: () => void;
-  pref: StormPrefs;
+  pref: RacerPrefs;
   run: Run;
-  vm: StormVm;
+  vm: RacerVm;
   trans: Trans;
   promotion: Promotion;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
-  constructor(opts: StormOpts, redraw: (data: StormData) => void) {
+  constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
     this.data = opts.data;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
@@ -42,19 +41,9 @@ export default class StormCtrl {
     };
     this.vm = {
       signed: prop(undefined),
-      lateStart: false,
-      filterFailed: false,
     };
     this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run), this.redraw);
-    this.checkDupTab();
-    setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
-    setTimeout(() => {
-      if (!this.run.startAt) {
-        this.vm.lateStart = true;
-        this.redraw();
-      }
-    }, config.timeToStart + 1000);
   }
 
   end = (): void => {
@@ -63,10 +52,6 @@ export default class StormCtrl {
     this.ground(false);
     this.redraw();
     this.sound.end();
-    xhr.record(this.runStats(), this.data.notAnExploit).then(res => {
-      this.vm.response = res;
-      this.redraw();
-    });
     this.redrawSlow();
   };
 
@@ -153,38 +138,9 @@ export default class StormCtrl {
     return g && f(g);
   };
 
-  runStats = (): StormRecap => ({
-    puzzles: this.run.history.length,
-    score: this.countWins(),
-    moves: this.run.moves,
-    errors: this.run.errors,
-    combo: this.run.combo.best,
-    time: (this.run.endAt! - this.run.startAt!) / 1000,
-    highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
-    signed: this.vm.signed(),
-  });
-
-  toggleFilterFailed = () => {
-    this.vm.filterFailed = !this.vm.filterFailed;
-    this.redraw();
-  };
-
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
     bonus: loadSound('other/ping', 0.8, 1000),
     end: loadSound('other/gewonnen', 0.6, 5000),
   };
-
-  private checkDupTab = () => {
-    const dupTabMsg = lichess.storage.make('storm.tab');
-    dupTabMsg.fire(this.data.puzzles[0].id);
-    dupTabMsg.listen(ev => {
-      if (!this.run.startAt && ev.value == this.data.puzzles[0].id) {
-        this.vm.dupTab = true;
-        this.redraw();
-      }
-    });
-  };
-
-  private hotkeys = () => window.Mousetrap.bind('space', () => location.reload()).bind('return', this.end);
 }

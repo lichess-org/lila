@@ -1,9 +1,9 @@
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
-import { Prefs, UserMove } from '../interfaces';
+import { PuzPrefs, UserMove } from '../interfaces';
 
-export function makeConfig(opts: CgConfig, pref: Prefs, userMove: UserMove): CgConfig {
+export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): CgConfig {
   return {
     fen: opts.fen,
     orientation: opts.orientation,

@@ -137,26 +137,26 @@ object storm {
     )
 
   private val i18nKeys = {
-    import lila.i18n.I18nKeys.{ storm => t }
+    import lila.i18n.I18nKeys.{ storm => s }
     List(
-      t.moveToStart,
-      t.puzzlesSolved,
-      t.newDailyHighscore,
-      t.newWeeklyHighscore,
-      t.newMonthlyHighscore,
-      t.newAllTimeHighscore,
-      t.previousHighscoreWasX,
-      t.playAgain,
-      t.score,
-      t.moves,
-      t.accuracy,
-      t.combo,
-      t.time,
-      t.timePerMove,
-      t.highestSolved,
-      t.puzzlesPlayed,
-      t.newRun,
-      t.endRun
+      s.moveToStart,
+      s.puzzlesSolved,
+      s.newDailyHighscore,
+      s.newWeeklyHighscore,
+      s.newMonthlyHighscore,
+      s.newAllTimeHighscore,
+      s.previousHighscoreWasX,
+      s.playAgain,
+      s.score,
+      s.moves,
+      s.accuracy,
+      s.combo,
+      s.time,
+      s.timePerMove,
+      s.highestSolved,
+      s.puzzlesPlayed,
+      s.newRun,
+      s.endRun
     ).map(_.key)
   }
 }

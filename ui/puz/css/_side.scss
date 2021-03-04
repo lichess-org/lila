@@ -1,17 +1,17 @@
-.storm {
-  &__side {
-    @extend %box-neat;
+$mq-col2: $mq-col2-uniboard;
 
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    background: $c-bg-box;
-    margin: 0;
-    padding: 2vh 2vw;
+.puz-side {
+  @extend %box-neat;
 
-    @include breakpoint($mq-col2) {
-      padding: 3vh 2vw;
-    }
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  background: $c-bg-box;
+  margin: 0;
+  padding: 2vh 2vw;
+
+  @include breakpoint($mq-col2) {
+    padding: 3vh 2vw;
   }
 
   &__top {

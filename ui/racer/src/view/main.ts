@@ -1,29 +1,24 @@
 import { Chessground } from 'chessground';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import renderClock from 'puz/view/clock';
-import renderEnd from './end';
-import StormCtrl from '../ctrl';
+import RacerCtrl from '../ctrl';
 import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { makeCgOpts } from 'puz/run';
 
-export default function (ctrl: StormCtrl): VNode {
-  if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
-  if (ctrl.vm.lateStart) return renderReload('This run has expired!');
-  if (!ctrl.run.endAt)
-    return h(
-      'div.storm.storm-app.storm--play',
-      {
-        class: playModifiers(ctrl.run),
-      },
-      renderPlay(ctrl)
-    );
-  return h('main.storm.storm--end', renderEnd(ctrl));
+export default function (ctrl: RacerCtrl): VNode {
+  return h(
+    'div.racer.racer-app.racer--play',
+    {
+      class: playModifiers(ctrl.run),
+    },
+    renderPlay(ctrl)
+  );
 }
 
-const chessground = (ctrl: StormCtrl): VNode =>
+const chessground = (ctrl: RacerCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
       insert: vnode =>
@@ -34,25 +29,25 @@ const chessground = (ctrl: StormCtrl): VNode =>
     },
   });
 
-const renderPlay = (ctrl: StormCtrl): VNode[] => [
+const renderPlay = (ctrl: RacerCtrl): VNode[] => [
   h('div.storm__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
-  h('div.storm__side.puz-side', [
+  h('div.storm__side', [
     ctrl.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl.run, ctrl.endNow),
-    h('div.puz-side__table', [renderControls(ctrl), renderCombo(ctrl.run)]),
+    h('div.storm__table', [renderControls(ctrl), renderCombo(ctrl.run)]),
   ]),
 ];
 
-const renderControls = (ctrl: StormCtrl): VNode =>
-  h('div.puz-side__control', [
-    h('a.puz-side__control__reload.button.button-empty', {
+const renderControls = (ctrl: RacerCtrl): VNode =>
+  h('div.storm__control', [
+    h('a.storm__control__reload.button.button-empty', {
       attrs: {
         href: '/storm',
         'data-icon': 'B',
         title: ctrl.trans('newRun'),
       },
     }),
-    h('a.puz-side__control__end.button.button-empty', {
+    h('a.storm__control__end.button.button-empty', {
       attrs: {
         'data-icon': 'b',
         title: ctrl.trans('endRun'),
@@ -61,13 +56,13 @@ const renderControls = (ctrl: StormCtrl): VNode =>
     }),
   ]);
 
-const renderSolved = (ctrl: StormCtrl): VNode =>
-  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.countWins())]);
+const renderSolved = (ctrl: RacerCtrl): VNode =>
+  h('div.storm__top.storm__solved', [h('div.storm__solved__text', ctrl.countWins())]);
 
-const renderStart = (ctrl: StormCtrl) =>
+const renderStart = (ctrl: RacerCtrl) =>
   h(
-    'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))])
+    'div.storm__top.storm__start',
+    h('div.storm__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))])
   );
 
 const renderReload = (msg: string) =>

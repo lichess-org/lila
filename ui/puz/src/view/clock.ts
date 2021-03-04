@@ -12,12 +12,12 @@ let lastText: string;
 export default function renderClock(run: Run, onFlag: OnFlag): VNode {
   const malus = run.modifier.malus;
   const bonus = run.modifier.bonus;
-  return h('div.storm__clock', [
-    h('div.storm__clock__time', {
+  return h('div.puz-clock', [
+    h('div.puz-clock__time', {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(run.clockMs);
+          el.innerText = formatMs(run.clock.millis());
           refreshInterval = setInterval(() => renderIn(run, onFlag, el), 100);
         },
         destroy() {
@@ -25,17 +25,16 @@ export default function renderClock(run: Run, onFlag: OnFlag): VNode {
         },
       },
     }),
-    !!malus && malus.at > getNow() - 900 ? h('div.storm__clock__malus', '-' + malus.seconds) : null,
-    !!bonus && bonus.at > getNow() - 900 ? h('div.storm__clock__bonus', '+' + bonus.seconds) : null,
+    !!malus && malus.at > getNow() - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
+    !!bonus && bonus.at > getNow() - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
   ]);
 }
 
 function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement) {
   if (!run.startAt) return;
-  const clock = run.clockMs;
   const mods = run.modifier;
   const now = getNow();
-  const millis = run.startAt + clock - getNow();
+  const millis = run.clock.millis();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
   const text = formatMs(millis - diffs);
   if (text != lastText) el.innerText = text;

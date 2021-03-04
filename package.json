@@ -62,6 +62,7 @@
     "ui/dgt",
     "ui/puz",
     "ui/storm",
+    "ui/racer",
     "ui/@build/rollupProject",
     "ui/@types/lichess",
     "ui/@types/cash"

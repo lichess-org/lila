@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { Puzzle } from 'puz/interfaces';
+import { PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;
@@ -7,14 +7,7 @@ export interface StormOpts {
   i18n: any;
 }
 
-export interface StormPrefs {
-  coords: 0 | 1 | 2;
-  is3d: boolean;
-  destination: boolean;
-  rookCastle: boolean;
-  moveEvent: number;
-  highlight: boolean;
-}
+export interface StormPrefs extends PuzPrefs {}
 
 export interface StormData {
   puzzles: Puzzle[];

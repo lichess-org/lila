@@ -1,5 +1,6 @@
 import { Role } from 'chessground/types';
 import { VNode } from 'snabbdom/vnode';
+import { Clock } from './clock';
 import { Combo } from './combo';
 import CurrentPuzzle from './current';
 
@@ -13,7 +14,7 @@ export interface Promotion {
   view(): MaybeVNode;
 }
 
-export interface Prefs {
+export interface PuzPrefs {
   coords: 0 | 1 | 2;
   is3d: boolean;
   destination: boolean;
@@ -37,7 +38,7 @@ export interface Run {
   moves: number;
   errors: number;
   current: CurrentPuzzle;
-  clockMs: number;
+  clock: Clock;
   history: Round[];
   combo: Combo;
   modifier: Modifier;

@@ -1,0 +1,29 @@
+{
+  "name": "racer",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org puzzle racer",
+  "keywords": [
+    "chess",
+    "lichess",
+    "puzzle",
+    "racer"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "chessops": "^0.8.1",
+    "chessground": "^7.11.0",
+    "snabbdom": "^0.7.4",
+    "common": "2.0.0",
+    "puz": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

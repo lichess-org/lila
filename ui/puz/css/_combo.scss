@@ -1,0 +1,160 @@
+.puz-combo {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &__counter {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 0.25em;
+
+    &__value {
+      @extend %flex-center-nowrap;
+
+      justify-content: center;
+      font-family: 'storm';
+      font-size: 2.4em;
+      line-height: 0.9em;
+      width: 2ch;
+    }
+
+    &__combo {
+      @extend %roboto;
+
+      font-size: 0.8em;
+      letter-spacing: -1px;
+      color: $c-font-dim;
+    }
+
+    transition: color 0.1s;
+
+    .storm--mod-move & {
+      color: $c-brag;
+    }
+  }
+
+  &__bars {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 100%;
+    margin-left: 1em;
+  }
+
+  &__bar {
+    @extend %box-radius;
+
+    $c-bar-base: $c-bg-zebra2;
+    $c-in-base: $c-brag;
+
+    flex: 0 0 2.2em;
+    background: $c-bar-base;
+    border: $border;
+    position: relative;
+
+    &__in,
+    &__in-full {
+      @extend %box-radius;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    &__in {
+      background: $c-in-base;
+      box-shadow: 0 0 15px $c-in-base;
+      transition: all 0.5s ease-in-out;
+
+      .storm--mod-bonus-slow & {
+        display: none;
+      }
+
+      .storm--mod-malus-slow & {
+        transition-property: width;
+        background: $c-bad;
+        box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
+      }
+    }
+
+    &__in-full {
+      background: $c-primary;
+      box-shadow: 0 0 10px $c-primary, 0 0 20px $c-primary;
+      width: 100%;
+      display: none;
+      opacity: 0;
+
+      @keyframes bar-full {
+        from {
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      .storm--mod-bonus-slow & {
+        display: block;
+        animation: bar-full 0.9s ease-in-out;
+      }
+    }
+  }
+
+  &__levels {
+    @extend %flex-center;
+
+    margin: 0.3em 0 0 -0.6em;
+  }
+
+  &__level {
+    $c-level: $c-primary;
+
+    transform: skewX(-45deg);
+    flex: 21% 0 0;
+    margin-right: 4%;
+    font-size: 0.9em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border: $border;
+    background: $c-bg-zebra;
+    text-align: center;
+    color: $c-font-dimmer;
+    font-weight: bold;
+
+    span {
+      transform: skewX(45deg);
+      display: block;
+    }
+
+    @keyframes level-fade-in {
+      from {
+        background: white;
+        box-shadow: 0 0 15px white, 0 0 25px white;
+      }
+
+      to {
+        box-shadow: 0 0 10px $c-level;
+      }
+    }
+
+    &.active {
+      animation: level-fade-in 1s ease-out;
+      background: mix($c-level, black, 80%);
+      border: 1px solid $c-level;
+      box-shadow: 0 0 10px $c-level;
+      color: white;
+
+      &:nth-child(2) {
+        background: $c-level;
+      }
+
+      &:nth-child(3) {
+        background: mix($c-level, white, 60%);
+      }
+
+      &:nth-child(4) {
+        background: mix($c-level, white, 40%);
+      }
+    }
+  }
+}
