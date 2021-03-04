@@ -13,8 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="declineGeneric">V tuto chvíli nepřijímám výzvy.</string>
   <string name="declineLater">Teď nemohu, požádejte prosím později.</string>
+  <string name="declineTooFast">Tato časová kontrola je na mně příliš rychlá, vyzvi mně prosím s pomalejší.</string>
+  <string name="declineTimeControl">V tuto chvíli nepřijímám výzvy s touto časovou kontrolou.</string>
   <string name="declineRated">Vyzvěte mě raději k hodnocené partii.</string>
   <string name="declineCasual">Vyzvěte mě raději k nehodnocené partii.</string>
+  <string name="declineVariant">Tuto variantu momentálně nechci hrát.</string>
   <string name="declineNoBot">Nepřijímám výzvy od botů.</string>
   <string name="declineOnlyBot">Přijímám výzvy pouze od botů.</string>
 </resources>
