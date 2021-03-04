@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Lëviz për të filluar</string>
+  <string name="puzzlesSolved">Ushtrimet e zgjidhura</string>
+  <string name="newDailyHighscore">Rekord i ri ditor!</string>
+  <string name="newWeeklyHighscore">Rekord i ri javor!</string>
+  <string name="newMonthlyHighscore">Rekord i ri mujor!</string>
+  <string name="newAllTimeHighscore">Rekord i ri i pergjithshëm!</string>
+  <string name="previousHighscoreWasX">Rekordi i mëhershëm ishte %s</string>
+  <string name="playAgain">Luaj përsëri</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 përpjekje</item>
+    <item quantity="other">%s përpjekje</item>
+  </plurals>
+</resources>
