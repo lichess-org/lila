@@ -132,6 +132,8 @@ object Query {
       case _                          => $empty
     }
 
+  val notSimul = F.simulId $exists false
+
   val sortCreated: Bdoc           = $sort desc F.createdAt
   val sortChronological: Bdoc     = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
