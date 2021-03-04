@@ -92,7 +92,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
 
-  def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
+  def enabledNameds(usernames: List[String]): Fu[List[User]] =
+    coll
+      .find($inIds(usernames map normalize) ++ enabledSelect)
+      .cursor[User](ReadPreference.secondaryPreferred)
+      .list()
 
   def enabledNamed(username: String): Fu[Option[User]] = enabledById(normalize(username))
 
