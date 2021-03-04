@@ -128,7 +128,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 
 相反地，你应该将等级分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
-  <string name="enableZenMode">在 %1$s 中开启极简模式或在游戏中按 %2$s。</string>
+  <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
   <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的等级分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
