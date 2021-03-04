@@ -106,15 +106,16 @@ object GameMod {
 
   val emptyFilter = Filter(none, none, none)
 
-  def toDbSelect(filter: Filter): Bdoc = filter.arena.?? { id =>
-    $doc(lila.game.Game.BSONFields.tournamentId -> id)
-  } ++ filter.swiss.?? { id =>
-    $doc(lila.game.Game.BSONFields.swissId -> id)
-  } ++ (filter.opponentIds match {
-    case Nil      => $empty
-    case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
-    case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
-  })
+  def toDbSelect(filter: Filter): Bdoc =
+    lila.game.Query.notSimul ++ filter.arena.?? { id =>
+      $doc(lila.game.Game.BSONFields.tournamentId -> id)
+    } ++ filter.swiss.?? { id =>
+      $doc(lila.game.Game.BSONFields.swissId -> id)
+    } ++ (filter.opponentIds match {
+      case Nil      => $empty
+      case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
+      case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
+    })
 
   val filterForm =
     Form(
