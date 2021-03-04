@@ -3,4 +3,7 @@
   <string name="twoFactorAuth">Vërtetim me dy faktorë</string>
   <string name="twoFactorHelp">Vërtetimi me dy faktorë i shton llogarisë tuaj edhe një shtresë sigurie.</string>
   <string name="authenticationCode">Kodi i identifikimit</string>
+  <string name="enableTwoFactor">Aktivizo identifikimin e dyfishtë</string>
+  <string name="disableTwoFactor">Deaktivizo identifikimin e dyfishtë</string>
+  <string name="twoFactorEnabled">Identifikimi i dyfishtë u aktivizua</string>
 </resources>
