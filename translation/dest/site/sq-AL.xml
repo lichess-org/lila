@@ -716,7 +716,7 @@
   <string name="boardGeometry">Gjeometria e fushes</string>
   <string name="boardTheme">Tema e fushes</string>
   <string name="boardSize">Madhesia e fushes</string>
-  <string name="pieceSet">Vendosja e figurave</string>
+  <string name="pieceSet">Figurat</string>
   <string name="embedInYourWebsite">Fut ne faqen tuaj te webit</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi ekziston tashmë, ju lutem zgjidhni një tjetër.</string>
   <string name="usernamePrefixInvalid">Emri i perdoruesit nuk duhet te filloje me numer.</string>
