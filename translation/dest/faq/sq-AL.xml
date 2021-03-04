@@ -52,4 +52,12 @@ Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =42
   <string name="accounts">Llogaritë</string>
   <string name="titlesAvailableOnLichess">Çfarë tituj ka ne Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichessi i pranon të gjithë titujt prej FIDE qe jan fituar përmes luajtjes OTB (over the board, \"mbi dërrasë\"), poashtu edhe %1$s. Kjo është nje listë e titujeve të FIDE:</string>
+  <string name="uniqueTrophies">Trofe unike</string>
+  <string name="ownerUniqueTrophies">Kjo trofe është unike në historinë e Lichess, askush përveç se %1$s nuk do ta ket ketë.</string>
+  <string name="lichessRatings">Vlerësimi i Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Çfarë sistemi të vlerësimit perdorë Lichess?</string>
+  <string name="whatIsProvisionalRating">Pse është një pikëpyetje (?) pas vlerësimit tim?</string>
+  <string name="provisionalRatingExplanation">Pikëpyetja do te thotë që vlerësimi juaj është i përkohshëm. Disa arsyje mund të jen:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Lojtari nuk ka luajtur ende mjaftushëm lojëra të vlerësuara kundër %1$s në ketë kategori.</string>
+  <string name="similarOpponents">kundërshtar të vlerësimit të ngjashëm</string>
 </resources>
