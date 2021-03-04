@@ -58,12 +58,12 @@ final class Api(
 
   def usersByIds =
     Action.async(parse.tolerantText) { req =>
-      val usernames = req.body.split(',').take(300).toList
+      val usernames = req.body.replace("\n", "").split(',').take(300).map(_.trim).toList
       val ip        = HTTPRequest ipAddress req
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
-        env.user.repo nameds usernames map {
+        env.user.repo enabledNameds usernames map {
           _.map { env.user.jsonView(_, none) }
         } map toApiResult map toHttp
       }(rateLimitedFu)
