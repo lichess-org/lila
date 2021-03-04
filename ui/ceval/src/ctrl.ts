@@ -1,4 +1,4 @@
-import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
+import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
 
 import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
 import { prop } from 'common';
@@ -99,6 +99,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
+  const pvBoard = prop<PvBoard | null>(null);
   const isDeeper = prop(false);
 
   const protocolOpts = {
@@ -294,6 +295,11 @@ export default function (opts: CevalOpts): CevalCtrl {
           : null
       );
       opts.setAutoShapes();
+    },
+    pvBoard,
+    setPvBoard(_pvBoard: PvBoard | null) {
+      pvBoard(_pvBoard);
+      opts.redraw();
     },
     toggle() {
       if (!opts.possible || !allowed()) return;

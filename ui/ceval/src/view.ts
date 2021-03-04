@@ -2,10 +2,11 @@ import * as winningChances from './winningChances';
 import { defined } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h } from 'snabbdom';
+import { Position } from 'chessops/chess';
 import { lichessVariantRules } from 'chessops/compat';
-import { makeSanVariation } from 'chessops/san';
+import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
-import { parseFen } from 'chessops/fen';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
 import { VNode } from 'snabbdom/vnode';
@@ -300,35 +301,93 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             const uci = getElUci(e);
             if (uci) ctrl.playUci(uci);
           });
+          el.addEventListener('mouseleave', () => instance.setPvBoard(null));
           checkHover(el, instance);
         },
         postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance),
       },
     },
-    [...Array(multiPv).keys()].map(function (i) {
-      if (!pvs[i]) return h('div.pv');
-      return h(
-        'div.pv',
-        threat
-          ? {}
-          : {
-              attrs: { 'data-uci': pvs[i].moves[0] },
-            },
-        [
-          multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
-          h(
-            'span',
-            pos.unwrap(
-              pos =>
-                makeSanVariation(
-                  pos,
-                  pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)
-                ),
-              _ => '--'
-            )
-          ),
-        ]
-      );
-    })
+    [...Array(multiPv).keys()]
+      .map(function (i) {
+        if (!pvs[i]) return h('div.pv');
+        return h(
+          'div.pv',
+          threat
+            ? {}
+            : {
+                attrs: { 'data-uci': pvs[i].moves[0] },
+              },
+          [
+            multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
+            ...pos.unwrap(
+              pos => renderPv(instance, pos.clone(), pvs[i].moves.slice(0, 12)),
+              _ => ['--']
+            ),
+          ]
+        );
+      })
+      .concat([renderPvBoard(ctrl) as VNode])
   );
+}
+
+function renderPv(instance: CevalCtrl, pos: Position, pv: Uci[]): VNode[] {
+  const vnodes: VNode[] = [];
+  let key = makeBoardFen(pos.board);
+  for (let i = 0; i < pv.length; i++) {
+    let text;
+    if (pos.turn === 'white') {
+      text = `${pos.fullmoves}.`;
+    } else if (i === 0) {
+      text = `${pos.fullmoves}...`;
+    }
+    if (text) {
+      vnodes.push(h('span', { key: text }, text));
+    }
+    const uci = pv[i];
+    const san = makeSanAndPlay(pos, parseUci(uci)!);
+    const fen = makeBoardFen(pos.board); // Chessground uses only board fen
+    if (san === '--') {
+      break;
+    }
+    key += '|' + uci;
+    const hook = {
+      insert: (vnode: VNode) => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('mouseover', () => instance.setPvBoard({ fen, uci }));
+      },
+    };
+    vnodes.push(h('span.pv-san', { key, hook }, san));
+  }
+  return vnodes;
+}
+
+function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
+  const instance = ctrl.getCeval();
+  const pvBoard = instance.pvBoard();
+  if (!pvBoard) {
+    return;
+  }
+  const { fen, uci } = pvBoard;
+  const lastMove = uci[1] === '@' ? [uci.slice(2)] : [uci.slice(0, 2), uci.slice(2, 4)];
+  const orientation = ctrl.getOrientation();
+  const cgConfig = {
+    fen,
+    lastMove,
+    orientation,
+    coordinates: false,
+    viewOnly: true,
+    resizable: false,
+    drawable: {
+      enabled: false,
+      visible: false,
+    },
+  };
+  const cgVNode = h('div.cg-wrap.is2d', {
+    hook: {
+      insert: (vnode: any) => (vnode.elm._cg = window.Chessground(vnode.elm, cgConfig)),
+      update: (vnode: any) => vnode.elm._cg.set(cgConfig),
+      destroy: (vnode: any) => vnode.elm._cg.destroy(),
+    },
+  });
+  return h('div.pv-board', h('div.pv-board-square', cgVNode));
 }

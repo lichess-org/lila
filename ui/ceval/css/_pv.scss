@@ -1,4 +1,5 @@
 .pv_box {
+  position: relative;
   background: $c-bg-box;
   font-size: 13px;
 
@@ -24,6 +25,25 @@
       @extend %san;
 
       margin-left: 4px;
+    }
+
+    &[data-uci] .pv-san:hover {
+      color: $c-primary;
+    }
+  }
+
+  .pv-board {
+    position: absolute;
+    width: 80%;
+    max-width: 240px;
+    z-index: 1;
+
+    .pv-board-square {
+      @extend %square;
+
+      .cg-wrap {
+        @extend %abs-100;
+      }
     }
   }
 }
