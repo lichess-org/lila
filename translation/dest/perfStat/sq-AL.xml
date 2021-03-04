@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">%s statistikat</string>
   <string name="viewTheGames">Shiko lojërat</string>
   <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">i përkohshëm</string>
   <string name="notEnoughRatedGames">Nuk jan luajtur mjaftueshëm lojëra per një vlerësim korrekt.</string>
@@ -24,4 +25,9 @@
   <string name="longestStreak">Më e gjatë: %s</string>
   <string name="currentStreak">Aktuale: %s</string>
   <string name="bestRated">Fitoret më te mira</string>
+  <string name="worstRated">Humbjet më të dobëta</string>
+  <string name="gamesInARow">Lojëra radhazi</string>
+  <string name="lessThanOneHour">Më pak se një orë mes lojërave</string>
+  <string name="maxTimePlaying">Koha më gjatë luajtur</string>
+  <string name="now">tani</string>
 </resources>
