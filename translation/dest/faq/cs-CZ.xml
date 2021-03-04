@@ -68,7 +68,13 @@ Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdc
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
+  <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="howDoLeaderoardsWork">Jak fungují žebříčky?</string>
+  <string name="inOrderToAppearsYouMust">Chcete-li se dostat na %1$s , musíte:</string>
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">odehrát alespoň 30 hodnocených partií v dané časové kontrole,</string>
+  <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
   <string name="howToThreeDots">Jak...</string>
+  <string name="enableDisableNotificationPopUps">Povolit nebo zakázat oznámení?</string>
 </resources>
