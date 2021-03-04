@@ -57,6 +57,16 @@ final class CacheApi(
     cache
   }
 
+  def notLoadingSync[K, V](initialCapacity: Int, name: String)(
+      build: Builder => Cache[K, V]
+  ): Cache[K, V] = {
+    val cache = build {
+      scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
+    }
+    monitor(name, cache)
+    cache
+  }
+
   def monitor(name: String, cache: AsyncCache[_, _]): Unit =
     monitor(name, cache.underlying.synchronous)
 

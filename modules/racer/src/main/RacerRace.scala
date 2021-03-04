@@ -10,7 +10,7 @@ case class RacerRace(
     _id: RacerRace.Id,
     owner: RacerPlayer.Id,
     players: List[RacerPlayer],
-    puzzleIds: List[Puzzle.Id],
+    puzzles: List[StormPuzzle],
     createdAt: DateTime,
     startsAt: Option[DateTime],
     finishedAt: Option[DateTime]
@@ -23,9 +23,7 @@ object RacerRace {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class WithPuzzles(race: RacerRace, puzzles: List[StormPuzzle])
-
-  def make(owner: RacerPlayer.Id, puzzleIds: List[Puzzle.Id]) = RacerRace(
+  def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle]) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 8),
     owner = owner,
     players = List(
@@ -34,7 +32,7 @@ object RacerRace {
         createdAt = DateTime.now
       )
     ),
-    puzzleIds = puzzleIds,
+    puzzles = puzzles,
     createdAt = DateTime.now,
     startsAt = none,
     finishedAt = none

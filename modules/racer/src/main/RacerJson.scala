@@ -16,9 +16,6 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
 
   import StormJson._
 
-  // implicit val playerIdWrites: OWrites[RacerPlayer.Id] = OWrites {
-  //   case RacerPlayer.Id.Anon(
-
   def raceJson(race: RacerRace, me: Either[String, User]) =
     Json.obj(
       "id" -> race.id.value,
@@ -29,17 +26,11 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
           case _                                   => false
         }
       },
+      "puzzles" -> race.puzzles,
       "players" -> race.players.zipWithIndex.map { case (player, index) =>
         Json
           .obj("index" -> index)
           .add("user" -> player.userId.flatMap(lightUserSync))
       }
     )
-
-  // def apply(race: RacerRace, puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
-  //   .obj(
-  //     "race"    -> race,
-  //     "puzzles" -> puzzles
-  //   )
-  //   .add("key" -> user.map(sign.getPrev))
 }
