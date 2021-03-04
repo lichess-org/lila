@@ -736,7 +736,7 @@
   <string name="error.unknown">Gabim</string>
   <string name="custom">te zakonshme</string>
   <string name="notifications">Njoftime</string>
-  <string name="perfRatingX">Vleresimi: %s</string>
+  <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonda te besh levizjen e pare</item>
     <item quantity="other">%s sekonda për të luajtur lëvizjen e parë</item>
