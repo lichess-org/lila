@@ -408,7 +408,7 @@ object Quote {
       "What is the object of playing a gambit opening?... To acquire a reputation of being a dashing player at the cost of losing a game.",
       "Siegbert Tarrasch"
     ),
-    new Quote("Pawns; they are the soul of this game, they alone form the attack and defense.", "Philidor"),
+    new Quote("Pawns; they are the soul of this game, they alone form the attack and defense.", "Francois-Andre Danican Philidor"),
     new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis"),
     new Quote(
       "There are two classes of men; those who are content to yield to circumstances and who play whist; those who aim to control circumstances, and who play chess.",
