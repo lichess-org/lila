@@ -24,10 +24,14 @@ export interface Race {
   startRel?: number;
 }
 
+export interface ServerState {
+  players: Player[];
+}
+
 export interface Player {
   index: number;
   user?: LightUser;
-  score: number;
+  moves: number;
 }
 
 export interface RacerVm {

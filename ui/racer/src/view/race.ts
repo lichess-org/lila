@@ -8,7 +8,7 @@ export const renderRace = (ctrl: RacerCtrl) => h('div.racer__race', ctrl.players
 const renderPlayer = (player: Player) =>
   h('div.racer__race__player', [
     h('div.racer__race__player__name', player.user ? userName(player.user) : ['Anon', ' ', player.index]),
-    h(`div.racer__race__player__car.car-${player.index}`, [player.score]),
+    h(`div.racer__race__player__car.car-${player.index}`, [player.moves]),
   ]);
 
 export const userName = (user: LightUser): Array<string | VNode> =>

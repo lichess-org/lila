@@ -77,7 +77,7 @@ lazy val storm = module("storm",
 )
 
 lazy val racer = module("racer",
-  Seq(common, memo, hub, puzzle, storm, db, user, pref, tree),
+  Seq(common, memo, hub, puzzle, storm, db, user, pref, tree, room),
   reactivemongo.bundle
 )
 

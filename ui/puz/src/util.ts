@@ -24,3 +24,9 @@ export const loadSound = (file: string, volume?: number, delay?: number) => {
   setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
   return () => lichess.sound.play(file, volume);
 };
+
+export const sound = {
+  move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
+  bonus: loadSound('other/ping', 0.8, 1000),
+  end: loadSound('other/gewonnen', 0.5, 5000),
+};

@@ -24,10 +24,18 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
         "isOwner"  -> (race.owner == playerId)
       ),
       "puzzles" -> race.puzzles,
-      "players" -> race.players.zipWithIndex.map { case (player, index) =>
-        Json
-          .obj("index" -> (index + 1), "score" -> player.score)
-          .add("user" -> player.userId.flatMap(lightUserSync))
-      }
+      "players" -> playersJson(race)
     )
+
+  def state(race: RacerRace) = Json.obj(
+    "players" -> playersJson(race)
+  )
+
+  private def playersJson(race: RacerRace) = JsArray {
+    race.players.zipWithIndex.map { case (player, index) =>
+      Json
+        .obj("index" -> (index + 1), "moves" -> player.moves)
+        .add("user" -> player.userId.flatMap(lightUserSync))
+    }
+  }
 }

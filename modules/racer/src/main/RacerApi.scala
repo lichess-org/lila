@@ -43,9 +43,27 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     get(id) map { race =>
       race.join(player) match {
         case Some(joined) =>
-          store.put(joined.id, joined)
+          saveAndPublish(joined)
           joined
         case None => race
       }
     }
+
+  def registerPlayerMoves(id: RacerRace.Id, player: RacerPlayer.Id, moves: Int): Unit =
+    get(id) foreach { prev =>
+      val race = prev.registerMoves(player, moves)
+      saveAndPublish(race)
+    }
+
+  private def save(race: RacerRace): Unit =
+    store.put(race.id, race)
+
+  private def saveAndPublish(race: RacerRace): Unit = {
+    save(race)
+    socket.foreach(_ publishState race)
+  }
+
+  // work around circular dependency
+  private var socket: Option[RacerSocket] = None
+  private[racer] def registerSocket(s: RacerSocket) = { socket = s.some }
 }

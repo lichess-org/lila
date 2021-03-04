@@ -1,5 +1,6 @@
 package lila.racer
 
+
 import org.joda.time.DateTime
 
 import lila.user.User
@@ -23,6 +24,14 @@ case class RacerRace(
   def join(id: RacerPlayer.Id): Option[RacerRace] =
     !has(id) && players.sizeIs <= RacerRace.maxPlayers option
       copy(players = players :+ RacerPlayer.make(id))
+
+  def registerMoves(playerId: RacerPlayer.Id, moves: Int): RacerRace =
+    copy(
+      players = players map {
+        case p if p.id == playerId => p.copy(moves = moves)
+        case p                     => p
+      }
+    )
 }
 
 object RacerRace {

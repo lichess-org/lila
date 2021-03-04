@@ -3,7 +3,7 @@ import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
-import { getNow, loadSound } from 'puz/util';
+import { getNow, sound } from 'puz/util';
 import { countWins, makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
@@ -62,7 +62,7 @@ export default class StormCtrl {
     this.run.endAt = getNow();
     this.ground(false);
     this.redraw();
-    this.sound.end();
+    sound.end();
     xhr.record(this.runStats(), this.data.notAnExploit).then(res => {
       this.vm.response = res;
       this.redraw();
@@ -83,23 +83,23 @@ export default class StormCtrl {
     this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
-    const cur = this.run.current;
+    const puzzle = this.run.current;
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
-    const pos = cur.position();
+    const pos = puzzle.position();
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
-    if (pos.isCheckmate() || uci == cur.expectedMove()) {
-      cur.moveIndex++;
-      if (onGoodMove(this.run)) this.sound.bonus();
-      if (cur.isOver()) {
+    if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+      puzzle.moveIndex++;
+      onGoodMove(this.run);
+      if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
       } else {
-        cur.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(cur.line[cur.moveIndex]!)!.to);
+        puzzle.moveIndex++;
+        captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
       }
-      this.sound.move(captureSound);
+      sound.move(captureSound);
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
@@ -152,12 +152,6 @@ export default class StormCtrl {
   toggleFilterFailed = () => {
     this.vm.filterFailed = !this.vm.filterFailed;
     this.redraw();
-  };
-
-  private sound = {
-    move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: loadSound('other/ping', 0.8, 1000),
-    end: loadSound('other/gewonnen', 0.6, 5000),
   };
 
   private checkDupTab = () => {

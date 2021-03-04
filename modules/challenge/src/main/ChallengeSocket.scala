@@ -18,9 +18,9 @@ final private class ChallengeSocket(
   def reload(challengeId: Challenge.ID): Unit =
     rooms.tell(challengeId, NotifyVersion("reload", JsNull))
 
-  lazy val rooms = makeRoomMap(send)
-
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
+
+  lazy val rooms = makeRoomMap(send)
 
   private lazy val challengeHandler: Handler = { case Protocol.In.OwnerPings(ids) =>
     ids foreach api.ping

@@ -20,9 +20,11 @@ final class Env(
     stormJson: StormJson,
     stormSign: StormSign,
     lightUserGetter: LightUser.GetterSync,
+    remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
 ) {
 
   private lazy val colls = new RacerColls(puzzle = puzzleColls.puzzle)
@@ -30,6 +32,8 @@ final class Env(
   lazy val api = wire[RacerApi]
 
   lazy val json = wire[RacerJson]
+
+  private val socket = wire[RacerSocket] // requires eager eval
 }
 
 final private class RacerColls(val puzzle: AsyncColl)

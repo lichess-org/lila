@@ -2,12 +2,12 @@ import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
-import { getNow, loadSound } from 'puz/util';
+import { getNow, sound } from 'puz/util';
 import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, ServerState } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
@@ -46,6 +46,11 @@ export default class StormCtrl {
     };
     this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run), this.redraw);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
+    lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
+    lichess.pubsub.on('socket.in.racerState', (state: ServerState) => {
+      this.data.players = state.players;
+      this.redraw();
+    });
   }
 
   players = () => this.data.players;
@@ -55,7 +60,7 @@ export default class StormCtrl {
     this.run.endAt = getNow();
     this.ground(false);
     this.redraw();
-    this.sound.end();
+    sound.end();
     this.redrawSlow();
   };
 
@@ -72,23 +77,24 @@ export default class StormCtrl {
     this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
-    const cur = this.run.current;
+    const puzzle = this.run.current;
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
-    const pos = cur.position();
+    const pos = puzzle.position();
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
-    if (pos.isCheckmate() || uci == cur.expectedMove()) {
-      cur.moveIndex++;
-      if (onGoodMove(this.run)) this.sound.bonus();
-      if (cur.isOver()) {
+    if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+      puzzle.moveIndex++;
+      onGoodMove(this.run);
+      lichess.pubsub.emit('socket.send', 'racerMoves', this.run.moves);
+      if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
       } else {
-        cur.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(cur.line[cur.moveIndex]!)!.to);
+        puzzle.moveIndex++;
+        captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
       }
-      this.sound.move(captureSound);
+      sound.move(captureSound);
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
@@ -127,11 +133,5 @@ export default class StormCtrl {
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();
     return g && f(g);
-  };
-
-  private sound = {
-    move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: loadSound('other/ping', 0.8, 1000),
-    end: loadSound('other/gewonnen', 0.6, 5000),
   };
 }
