@@ -29,8 +29,9 @@ export interface ServerState {
 }
 
 export interface Player {
-  index: number;
-  user?: LightUser;
+  name: string;
+  userId?: string;
+  title?: string;
   moves: number;
 }
 

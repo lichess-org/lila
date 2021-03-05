@@ -5,8 +5,6 @@ import play.api.libs.json._
 
 import lila.common.Json._
 import lila.common.LightUser
-import lila.common.LightUser.lightUserWrites
-import lila.storm
 import lila.storm.StormJson
 import lila.storm.StormPuzzle
 import lila.storm.StormSign
@@ -32,10 +30,12 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
   )
 
   private def playersJson(race: RacerRace) = JsArray {
-    race.players.zipWithIndex.map { case (player, index) =>
+    race.players.map { case player =>
+      val user = player.userId flatMap lightUserSync
       Json
-        .obj("index" -> (index + 1), "moves" -> player.moves)
-        .add("user" -> player.userId.flatMap(lightUserSync))
+        .obj("name" -> player.name, "moves" -> player.moves)
+        .add("userId" -> player.userId)
+        .add("title" -> user.map(_.title))
     }
   }
 }

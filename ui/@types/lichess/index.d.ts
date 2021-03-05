@@ -218,11 +218,14 @@ interface Study {
   setTab(tab: string): void;
 }
 
-interface LightUser {
-  id: string;
+interface LightUserNoId {
   name: string;
   title?: string;
   patron?: boolean;
+}
+
+interface LightUser extends LightUserNoId {
+  id: string;
 }
 
 interface Navigator {
