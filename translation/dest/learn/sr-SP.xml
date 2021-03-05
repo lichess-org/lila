@@ -81,7 +81,7 @@
   <string name="noEscape">Нема излаза,
 али можете бранити!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да Вам однесу
-ниједну не одбрањену фигуру!</string>
+ниједну небрањену фигуру!</string>
   <string name="combat">Борба</string>
   <string name="captureAndDefendPieces">Однесите и одбраните фигуре</string>
   <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
