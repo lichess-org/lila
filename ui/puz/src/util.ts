@@ -1,4 +1,7 @@
 import { Hooks } from 'snabbdom/hooks';
+import { Puzzle } from './interfaces';
+import { opposite } from 'chessops';
+import { parseFen } from 'chessops/fen';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -19,6 +22,8 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
 export const getNow = (): number => Math.round(performance.now());
 
 export const uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+
+export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
 
 export const loadSound = (file: string, volume?: number, delay?: number) => {
   setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);

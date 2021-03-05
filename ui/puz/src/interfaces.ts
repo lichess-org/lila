@@ -33,7 +33,7 @@ export interface Puzzle {
 }
 
 export interface Run {
-  endAt?: number;
+  pov: Color;
   moves: number;
   errors: number;
   current: CurrentPuzzle;
@@ -41,6 +41,7 @@ export interface Run {
   history: Round[];
   combo: Combo;
   modifier: Modifier;
+  endAt?: number;
 }
 
 export interface Round {

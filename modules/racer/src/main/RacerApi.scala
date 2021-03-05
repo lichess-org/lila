@@ -39,21 +39,11 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
       race
     }
 
-  def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
-    get(id) map { race =>
-      race.join(player) match {
-        case Some(joined) =>
-          saveAndPublish(joined)
-          joined
-        case None => race
-      }
-    }
+  def join(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
+    get(id).flatMap(_ join player) foreach saveAndPublish
 
   def registerPlayerMoves(id: RacerRace.Id, player: RacerPlayer.Id, moves: Int): Unit =
-    get(id) foreach { prev =>
-      val race = prev.registerMoves(player, moves)
-      saveAndPublish(race)
-    }
+    get(id).map(_.registerMoves(player, moves)) foreach saveAndPublish
 
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)

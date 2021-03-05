@@ -1,26 +1,21 @@
 import { Run, TimeMod } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
 import { getNow, uciToLastMove } from './util';
-import { opposite } from 'chessops';
-import { makeFen, parseFen } from 'chessops/fen';
+import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 import config from './config';
 
-export const makeCgOpts = (run: Run): CgConfig => {
+export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
   const cur = run.current;
   const pos = cur.position();
-  const pov = opposite(parseFen(cur.puzzle.fen).unwrap().turn);
-  const canMove = !run.endAt;
   return {
     fen: makeFen(pos.toSetup()),
-    orientation: pov,
+    orientation: run.pov,
     turnColor: pos.turn,
-    movable: canMove
-      ? {
-          color: pov,
-          dests: chessgroundDests(pos),
-        }
-      : undefined,
+    movable: {
+      color: run.pov,
+      dests: canMove ? chessgroundDests(pos) : undefined,
+    },
     check: !!pos.isCheck(),
     lastMove: uciToLastMove(cur.lastMove()),
   };

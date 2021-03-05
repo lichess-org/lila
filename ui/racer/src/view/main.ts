@@ -7,7 +7,8 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { makeCgOpts } from 'puz/run';
 import { renderRace } from './race';
-import { Race } from '../interfaces';
+import { bind } from 'puz/util';
+import { INITIAL_BOARD_FEN } from 'chessops/fen';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(
@@ -24,7 +25,20 @@ const chessground = (ctrl: RacerCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          Chessground(vnode.elm as HTMLElement, makeCgConfig(makeCgOpts(ctrl.run), ctrl.pref, ctrl.userMove))
+          Chessground(
+            vnode.elm as HTMLElement,
+            makeCgConfig(
+              ctrl.isRacing()
+                ? makeCgOpts(ctrl.run, ctrl.isRacing())
+                : {
+                    fen: INITIAL_BOARD_FEN,
+                    orientation: ctrl.run.pov,
+                    movable: { color: ctrl.run.pov },
+                  },
+              ctrl.pref,
+              ctrl.userMove
+            )
+          )
         ),
       destroy: _ => ctrl.withGround(g => g.destroy()),
     },
@@ -32,33 +46,47 @@ const chessground = (ctrl: RacerCtrl): VNode =>
 
 const renderPlay = (ctrl: RacerCtrl): VNode[] => [
   renderRace(ctrl),
-  h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
+  h('div.puz-board.main-board', [
+    chessground(ctrl),
+    ctrl.promotion.view(),
+    ctrl.countdownSeconds() ? renderCountdown(ctrl.countdownSeconds()) : undefined,
+  ]),
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
-    ctrl.race.isPlayer ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl.race),
+    ctrl.isPlayer() ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl),
     h('div.puz-side__table', [renderCombo(ctrl.run)]),
   ]),
 ];
 
-const renderJoin = (race: Race) =>
-  h(
-    'form.puz-side__join',
-    {
-      attrs: {
-        action: `/racer/${race.id}`,
-        method: 'post',
-      },
-    },
-    h(
-      'button.button.button-fat',
-      {
-        attrs: {
-          type: 'submit',
-        },
-      },
-      'Join the race!'
-    )
-  );
+const renderCountdown = (seconds: number) =>
+  h('div.racer__countdown', [
+    h('div.racer__countdown__lights', [
+      h('light.red', {
+        class: { active: seconds > 4 },
+      }),
+      h('light.orange', {
+        class: { active: seconds == 3 || seconds == 4 },
+      }),
+      h('light.green', {
+        class: { active: seconds <= 2 },
+      }),
+    ]),
+    h('div.racer__countdown__seconds', seconds),
+  ]);
+
+const renderJoin = (ctrl: RacerCtrl) =>
+  ctrl.canJoin()
+    ? h(
+        'div.puz-side__join',
+        h(
+          'button.button.button-fat',
+          {
+            hook: bind('click', ctrl.join),
+          },
+          'Join the race!'
+        )
+      )
+    : undefined;
 
 const renderStart = () =>
   h(

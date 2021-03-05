@@ -20,9 +20,11 @@ case class RacerRace(
 
   def has(id: RacerPlayer.Id) = players.exists(_.id == id)
 
+  def player(id: RacerPlayer.Id) = players.find(_.id == id)
+
   def join(id: RacerPlayer.Id): Option[RacerRace] =
     !has(id) && players.sizeIs <= RacerRace.maxPlayers option
-      copy(players = players :+ RacerPlayer.make(id))
+      copy(players = players :+ RacerPlayer.make(id)).startCountdown
 
   def registerMoves(playerId: RacerPlayer.Id, moves: Int): RacerRace =
     copy(
@@ -31,6 +33,12 @@ case class RacerRace(
         case p                     => p
       }
     )
+
+  def startCountdown =
+    if (startsAt.isEmpty) copy(startsAt = DateTime.now.plusSeconds(10).some)
+    else this
+
+  def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 
   lazy val moves = puzzles.foldLeft(0) { case (m, p) =>
     m + p.line.size / 2

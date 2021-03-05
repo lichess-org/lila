@@ -1,17 +1,17 @@
-import config from 'puz/config';
+import CurrentPuzzle from 'puz/current';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
+import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
-import { getNow, sound } from 'puz/util';
+import { Clock } from 'puz/clock';
+import { Combo } from 'puz/combo';
+import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { prop, Prop } from 'common';
-import { Role } from 'chessground/types';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, ServerState } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
-import { Combo } from 'puz/combo';
-import CurrentPuzzle from 'puz/current';
-import { Clock } from 'puz/clock';
+import { prop, Prop } from 'common';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData } from './interfaces';
+import { Role } from 'chessground/types';
 
 export default class StormCtrl {
   private data: RacerData;
@@ -37,6 +37,7 @@ export default class StormCtrl {
     this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
+      pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
@@ -50,16 +51,48 @@ export default class StormCtrl {
     this.vm = {
       signed: prop(undefined),
     };
-    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run), this.redraw);
+    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, this.isRacing()), this.redraw);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
-    lichess.pubsub.on('socket.in.racerState', (state: ServerState) => {
-      this.data.players = state.players;
-      this.redraw();
-    });
+    lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
+    this.startCountdown(this.data.startsIn);
   }
 
+  serverUpdate = (data: UpdatableData) => {
+    this.data.players = data.players;
+    this.startCountdown(data.startsIn);
+    this.redraw();
+  };
+
   players = () => this.data.players;
+
+  isPlayer = () => this.data.players.filter(p => p.name == this.data.player.name).length > 0;
+
+  canJoin = () => this.data.players.length < 10;
+
+  isRacing = () => !this.data.finished && this.data.startsIn && this.data.startsIn <= 0;
+
+  join = throttle(1000, () => {
+    if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
+  });
+
+  private startCountdown = (startsIn: number | undefined) => {
+    if (startsIn) {
+      this.vm.startsAt = new Date(Date.now() + startsIn);
+      const countdown = () => {
+        const diff = this.vm.startsAt.getTime() - Date.now();
+        if (diff > 0) setTimeout(countdown, diff % 1000);
+        else this.run.clock.start();
+        this.redraw();
+      };
+      setTimeout(countdown);
+    }
+  };
+
+  countdownSeconds = (): number | undefined =>
+    this.vm.startsAt && this.vm.startsAt > new Date()
+      ? Math.min(9, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
+      : undefined;
 
   end = (): void => {
     this.run.history.reverse();
@@ -80,7 +113,6 @@ export default class StormCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
     const puzzle = this.run.current;
@@ -111,7 +143,7 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g => g.set(makeCgOpts(this.run)));
+    this.withGround(g => g.set(makeCgOpts(this.run, this.isRacing())));
     lichess.pubsub.emit('ply', this.run.moves);
   };
 

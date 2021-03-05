@@ -9,24 +9,22 @@ export interface RacerOpts {
 
 export interface RacerPrefs extends PuzPrefs {}
 
-export interface RacerData {
+export interface UpdatableData {
+  players: Player[];
+  startsIn?: number;
+  finished?: boolean;
+}
+
+export interface RacerData extends UpdatableData {
   race: Race;
   puzzles: Puzzle[];
-  players: Player[];
-  owner: boolean;
+  player: Player;
   key?: string;
 }
 
 export interface Race {
   id: string;
-  isPlayer: boolean;
-  isOwner: boolean;
   moves: number;
-  startRel?: number;
-}
-
-export interface ServerState {
-  players: Player[];
 }
 
 export interface Player {
@@ -37,5 +35,6 @@ export interface Player {
 }
 
 export interface RacerVm {
+  startsAt?: Date;
   signed: Prop<string | undefined>;
 }

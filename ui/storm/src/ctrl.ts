@@ -3,7 +3,7 @@ import config from 'puz/config';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
-import { getNow, sound } from 'puz/util';
+import { getNow, puzzlePov, sound } from 'puz/util';
 import { countWins, makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
@@ -30,6 +30,7 @@ export default class StormCtrl {
     this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
     this.run = {
+      pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
@@ -45,7 +46,7 @@ export default class StormCtrl {
       lateStart: false,
       filterFailed: false,
     };
-    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run), this.redraw);
+    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, !this.run.endAt), this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
@@ -110,7 +111,7 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g => g.set(makeCgOpts(this.run)));
+    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt)));
     lichess.pubsub.emit('ply', this.run.moves);
   };
 

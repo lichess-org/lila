@@ -23,8 +23,11 @@ final private class RacerSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  private lazy val racerHandler: Handler = { case Protocol.In.PlayerMoves(raceId, playerId, moves) =>
-    api.registerPlayerMoves(raceId, playerId, moves)
+  private lazy val racerHandler: Handler = {
+    case Protocol.In.PlayerJoin(raceId, playerId) =>
+      api.join(raceId, playerId)
+    case Protocol.In.PlayerMoves(raceId, playerId, moves) =>
+      api.registerPlayerMoves(raceId, playerId, moves)
   }
 
   remoteSocketApi.subscribe("racer-in", Protocol.In.reader)(
@@ -40,15 +43,22 @@ object RacerSocket {
 
     object In {
 
+      case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id)              extends P.In
       case class PlayerMoves(race: RacerRace.Id, player: RacerPlayer.Id, moves: Int) extends P.In
 
-      val reader: P.In.Reader = raw =>
+      val reader: P.In.Reader = raw => raceReader(raw) orElse RP.In.reader(raw)
+
+      val raceReader: P.In.Reader = raw =>
         raw.path match {
+          case "racer/join" =>
+            raw.get(2) { case Array(raceId, playerId) =>
+              PlayerJoin(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
+            }
           case "racer/moves" =>
             raw.get(3) { case Array(raceId, playerId, moveStr) =>
               moveStr.toIntOption map { PlayerMoves(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
             }
-          case _ => P.In.baseReader(raw)
+          case _ => none
         }
     }
 

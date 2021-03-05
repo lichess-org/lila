@@ -21,7 +21,7 @@ object CuteNameGenerator {
     vec(lila.common.ThreadLocalRandom.nextInt(vec.size))
 
   private def seedOf[A](seed: Int)(vec: Vector[A]): A =
-    vec(seed % vec.size)
+    vec(Math.abs(seed) % vec.size)
 
   lazy val combinations: Vector[List[Vector[String]]] = Vector(
     List(adjectives, nouns)

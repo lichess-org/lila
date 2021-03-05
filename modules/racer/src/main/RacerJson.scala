@@ -14,29 +14,30 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
 
   import StormJson._
 
-  def raceJson(race: RacerRace, playerId: RacerPlayer.Id) =
+  implicit private val playerWrites = OWrites[RacerPlayer] { p =>
+    val user = p.userId flatMap lightUserSync
+    Json
+      .obj("name" -> p.name, "moves" -> p.moves)
+      .add("userId" -> p.userId)
+      .add("title" -> user.map(_.title))
+  }
+
+  // full race data
+  def data(race: RacerRace, player: RacerPlayer) =
     Json.obj(
       "race" -> Json.obj(
-        "id"       -> race.id.value,
-        "isPlayer" -> race.has(playerId),
-        "isOwner"  -> (race.owner == playerId),
-        "moves"    -> race.moves
+        "id"    -> race.id.value,
+        "moves" -> race.moves
       ),
-      "puzzles" -> race.puzzles,
-      "players" -> playersJson(race)
+      "player"  -> player,
+      "puzzles" -> race.puzzles
+    ) ++ state(race)
+
+  // socket updates
+  def state(race: RacerRace) = Json
+    .obj(
+      "players" -> race.players
     )
-
-  def state(race: RacerRace) = Json.obj(
-    "players" -> playersJson(race)
-  )
-
-  private def playersJson(race: RacerRace) = JsArray {
-    race.players.map { case player =>
-      val user = player.userId flatMap lightUserSync
-      Json
-        .obj("name" -> player.name, "moves" -> player.moves)
-        .add("userId" -> player.userId)
-        .add("title" -> user.map(_.title))
-    }
-  }
+    .add("startsIn" -> race.startsInMillis)
+    .add("finished" -> race.finishedAt.isDefined)
 }

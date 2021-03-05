@@ -28,7 +28,10 @@ const chessground = (ctrl: StormCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          Chessground(vnode.elm as HTMLElement, makeCgConfig(makeCgOpts(ctrl.run), ctrl.pref, ctrl.userMove))
+          Chessground(
+            vnode.elm as HTMLElement,
+            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove)
+          )
         ),
       destroy: _ => ctrl.withGround(g => g.destroy()),
     },
