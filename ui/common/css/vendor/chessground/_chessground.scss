@@ -169,4 +169,9 @@ cg-container .cg-shapes {
 
 cg-container .cg-custom-svgs {
   z-index: z('cg__svg.cg-custom-svgs');
+  overflow: overlay;
+}
+
+cg-container .cg-custom-svgs svg {
+  overflow: overlay;
 }
