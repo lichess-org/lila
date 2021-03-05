@@ -268,6 +268,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
+                  ctrlBoolSetting(
+                    {
+                      name: 'Enable NNUE',
+                      title: 'Enable NNUE (page reload required after change)',
+                      id: 'enable-nnue',
+                      checked: ceval.enableNNUE(),
+                      change: ctrl.cevalEnableNNUE,
+                    },
+                    ctrl
+                  ),
                   (id => {
                     const max = 5;
                     return h('div.setting', [

@@ -714,6 +714,12 @@ export default class AnalyseCtrl {
     this.cevalReset();
   };
 
+  cevalEnableNNUE = (v: boolean): void => {
+    // TODO: Actually page reload is required to apply change
+    this.ceval.enableNNUE(v);
+    this.cevalReset();
+  };
+
   showEvalGauge(): boolean {
     return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
   }
