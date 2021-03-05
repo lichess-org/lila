@@ -111,7 +111,6 @@ final private class Rematcher(
       }
       wPlayer = returnPlayer(pov.game, White, users)
       bPlayer = returnPlayer(pov.game, Black, users)
-      _ = println(isHandicap)
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(

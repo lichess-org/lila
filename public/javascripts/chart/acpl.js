@@ -118,8 +118,6 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
               else if (eval.mate) {
-                console.log(eval);
-                console.log(eval.mate);
                 return format.replace("{point.y}", "#" + eval.mate);
               }
               else if (typeof eval.cp !== "undefined") {

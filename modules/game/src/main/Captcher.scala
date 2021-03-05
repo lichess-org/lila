@@ -12,7 +12,6 @@ import scalaz.NonEmptyList
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
 
-// only works with standard chess (not chess960)
 final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext)
     extends Actor {
 
