@@ -10,7 +10,7 @@ import {
   CASTLING_TOGGLES,
 } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { Rules, Square } from 'chessops/types';
+import { COLORS, Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
@@ -133,6 +133,40 @@ export default class EditorCtrl {
     );
   }
 
+  private isLikelyStandard(legalFen: string): boolean {
+    const setup = parseFen(legalFen).unwrap();
+    const board = setup.board;
+
+    if (
+      setup.unmovedRooks
+        .without(0)
+        .without(7)
+        .without(7 * 8)
+        .without(7 * 8 + 7)
+        .nonEmpty()
+    )
+      return false;
+
+    for (const color of COLORS) {
+      const pieces = board[color];
+      const canCastle = setup.unmovedRooks.intersect(SquareSet.backrank(color)).nonEmpty();
+      const expectedKingSquare = color === 'white' ? 4 : 7 * 8 + 4;
+
+      if (canCastle && board.king.intersect(pieces).singleSquare() !== expectedKingSquare) return false;
+
+      const promotedPieces =
+        Math.max(board.queen.intersect(pieces).size() - 2, 0) +
+        Math.max(board.rook.intersect(pieces).size() - 2, 0) +
+        Math.max(board.knight.intersect(pieces).size() - 2, 0) +
+        Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
+        Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
+
+      if (board.pawn.intersect(pieces).size() + promotedPieces > 8) return false;
+    }
+
+    return true;
+  }
+
   getState(): EditorState {
     return {
       fen: this.getFen(),
@@ -144,7 +178,8 @@ export default class EditorCtrl {
   makeAnalysisUrl(legalFen: string): string {
     switch (this.rules) {
       case 'chess':
-        return this.makeUrl('/analysis/', legalFen);
+        if (this.isLikelyStandard(legalFen)) return this.makeUrl('/analysis/standard/', legalFen);
+        else return this.makeUrl('/analysis/', legalFen);
       case '3check':
         return this.makeUrl('/analysis/threeCheck/', legalFen);
       case 'kingofthehill':
