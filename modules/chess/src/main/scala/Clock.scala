@@ -81,16 +81,20 @@ case class Clock(
 
         val moveTime = (elapsed - lagComp) nonNeg
 
-        val clockActive = gameActive && (player.hasPeriodsLeft || moveTime <= player.remaining)
-        val inc         = clockActive ?? player.increment
+        val clockActive  = gameActive && (player.hasPeriodsLeft || moveTime <= player.remaining)
+        val updatePeriod = clockActive && moveTime > player.remaining
+        val usingByo     = player.isUsingByoyomi || updatePeriod
 
-        val newC = if (gameActive && player.isUsingByoyomi) {
+        val inc          = clockActive ?? player.increment
+        val curRemaining = player.remaining - moveTime
+
+        val newC = if (clockActive && usingByo) {
           updatePlayer(color){
-            _.setRemaining(player.byoyomi)
+            _.setRemaining(curRemaining atLeast player.byoyomi)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
-        else if (player.isUsingByoyomi) {
+        else if (usingByo) {
           updatePlayer(color){
             _.takeTime(moveTime)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
@@ -103,7 +107,7 @@ case class Clock(
           }
         }
 
-        if (clockActive) newC else newC.hardStop
+        if (updatePeriod) newC.removePeriod(color) else if (clockActive) newC else newC.hardStop
       }
     }).switch
 
@@ -118,6 +122,12 @@ case class Clock(
   def addPeriod(c: Color) = {
     updatePlayer(c) {
       _.addPeriod
+    }
+  }
+
+  def removePeriod(c: Color) = {
+    updatePlayer(c) {
+      _.removePeriod
     }
   }
 
@@ -181,6 +191,8 @@ case class ClockPlayer(
   def nextPeriod = copy(elapsed = elapsed - byoyomi, curPeriod = curPeriod + 1)
 
   def addPeriod = copy(curPeriod = curPeriod - 1)
+
+  def removePeriod = copy(curPeriod = curPeriod + 1)
 
   def hasPeriodsLeft = periods > curPeriod && config.hasByoyomi
 

@@ -133,23 +133,14 @@ final private class Player(
           case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if (ncg.clock.exists(
-        c => {
-          c.outOfTime(game.turnColor, false) &&
-          !c.hasPeriodsLeft(game.turnColor)
-        })) => Flagged
-      case (newChessGame, moveOrDrop) => {
-        val cg = {
-          if(newChessGame.clock.exists(c => c.outOfTime(game.turnColor, false) && c.hasPeriodsLeft(game.turnColor))){
-            newChessGame.copy(clock = newChessGame.clock.map(c => c.nextPeriod(game.turnColor)))
-          }
-          else newChessGame
-        }
+      case (ncg, _) if ncg.clock.exists(c => 
+        c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
+        ) => Flagged
+      case (newChessGame, moveOrDrop) =>
         MoveApplied(
-          game.update(cg, moveOrDrop, blur),
+          game.update(newChessGame, moveOrDrop, blur),
           moveOrDrop
         )
-      }
     }
   }
 
