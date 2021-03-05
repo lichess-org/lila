@@ -155,7 +155,7 @@ export default class EditorCtrl {
       if (canCastle && board.king.intersect(pieces).singleSquare() !== expectedKingSquare) return false;
 
       const promotedPieces =
-        Math.max(board.queen.intersect(pieces).size() - 2, 0) +
+        Math.max(board.queen.intersect(pieces).size() - 1, 0) +
         Math.max(board.rook.intersect(pieces).size() - 2, 0) +
         Math.max(board.knight.intersect(pieces).size() - 2, 0) +
         Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
