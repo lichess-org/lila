@@ -29,10 +29,6 @@
         padding: 0 0.7rem;
         text-transform: uppercase;
         border-left: 2px solid transparent;
-
-        @media (hover: none) {
-          pointer-events: none;
-        }
       }
 
       .home {
