@@ -134,7 +134,7 @@ object RoomSocket {
 
       val reader: P.In.Reader = raw =>
         raw.path match {
-          case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
+          case "room/alives" => KeepAlives(P.In.commas(raw.args) map RoomId.apply).some
           case "chat/say" =>
             raw.get(3) { case Array(roomId, userId, msg) =>
               ChatSay(RoomId(roomId), userId, msg).some
