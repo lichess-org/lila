@@ -48,6 +48,7 @@ object RacerSocket {
             raw.get(3) { case Array(raceId, playerId, moveStr) =>
               moveStr.toIntOption map { PlayerMoves(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
             }
+          case _ => P.In.baseReader(raw)
         }
     }
 
