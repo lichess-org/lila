@@ -26,6 +26,12 @@ export default class StormCtrl {
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
     this.data = opts.data;
+    // this.data.players = [];
+    // for (let i = 0; i < 10; i++)
+    //   this.data.players.push({
+    //     name: `Player${i}`,
+    //     moves: Math.round((this.data.race.moves / 9) * i),
+    //   });
     this.race = this.data.race;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);

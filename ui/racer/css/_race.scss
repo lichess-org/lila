@@ -1,5 +1,70 @@
+$car-width: 4rem;
+$car-ratio: 0.328;
+
 .racer__race {
   @extend %box-neat;
+
   background: $c-bg-box;
   padding: 2vh 2vw;
+  font-size: 0.9em;
+
+  &__track {
+    display: flex;
+    border-bottom: 2px solid $c-border;
+    margin-right: 10ch;
+    margin-top: 0.5rem;
+  }
+
+  &__player {
+    @extend %flex-center-nowrap;
+
+    flex: 0 0 auto;
+    transition: padding 1s;
+    margin-left: -0.5rem;
+
+    &__name {
+      margin-left: 1ch;
+      color: $c-font-dim;
+    }
+
+    &__car {
+      flex: 0 0 $car-width;
+      height: #{$car-width * $car-ratio};
+      background-image: img-url('racer/race-car2.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: bottom right;
+      animation: lightSpeedInLeft 0.8s ease-out;
+    }
+  }
+}
+
+@keyframes lightSpeedInLeft {
+  from {
+    transform: translateX(-100%) skewX(30deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: skewX(-20deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(0), skewX(5deg);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@for $i from 0 through 9 {
+  .car-#{$i} {
+    @if $theme-dark {
+      filter: hue-rotate(#{$i * 36 * 7 % 360}deg) brightness(2);
+    } @else {
+      filter: hue-rotate(#{$i * 36 * 7 % 360}deg);
+    }
+  }
 }

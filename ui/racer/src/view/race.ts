@@ -1,15 +1,22 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
 import RacerCtrl from '../ctrl';
-import { Player } from '../interfaces';
+import { Player, Race } from '../interfaces';
 
-export const renderRace = (ctrl: RacerCtrl) => h('div.racer__race', ctrl.players().map(renderPlayer));
+export const renderRace = (ctrl: RacerCtrl) => h('div.racer__race', ctrl.players().map(renderTrack(ctrl.race)));
 
-const renderPlayer = (player: Player, index: number) =>
-  h('div.racer__race__player', [
-    h('div.racer__race__player__name', playerLink(player)),
-    h(`div.racer__race__player__car.car-${index}`, [player.moves]),
-  ]);
+const renderTrack = (race: Race) => (player: Player, index: number) =>
+  h(
+    'div.racer__race__track',
+    h(
+      'div.racer__race__player',
+      {
+        attrs: {
+          style: `padding-left:${(95 * player.moves) / race.moves}%`,
+        },
+      },
+      [h(`div.racer__race__player__car.car-${index}`), h('span.racer__race__player__name', playerLink(player))]
+    )
+  );
 
 export const playerLink = (player: Player) =>
   player.userId

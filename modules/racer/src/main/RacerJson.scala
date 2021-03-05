@@ -19,7 +19,8 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
       "race" -> Json.obj(
         "id"       -> race.id.value,
         "isPlayer" -> race.has(playerId),
-        "isOwner"  -> (race.owner == playerId)
+        "isOwner"  -> (race.owner == playerId),
+        "moves"    -> race.moves
       ),
       "puzzles" -> race.puzzles,
       "players" -> playersJson(race)

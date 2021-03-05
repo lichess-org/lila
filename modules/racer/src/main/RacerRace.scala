@@ -1,6 +1,5 @@
 package lila.racer
 
-
 import org.joda.time.DateTime
 
 import lila.user.User
@@ -32,6 +31,10 @@ case class RacerRace(
         case p                     => p
       }
     )
+
+  lazy val moves = puzzles.foldLeft(0) { case (m, p) =>
+    m + p.line.size / 2
+  }
 }
 
 object RacerRace {

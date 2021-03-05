@@ -21,6 +21,7 @@ export interface Race {
   id: string;
   isPlayer: boolean;
   isOwner: boolean;
+  moves: number;
   startRel?: number;
 }
 
