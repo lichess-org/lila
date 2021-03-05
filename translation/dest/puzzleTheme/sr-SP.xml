@@ -22,6 +22,7 @@
   <string name="castlingDescription">Доведите краља на сигурно и развијте топа за напад.</string>
   <string name="capturingDefender">Однесите браниоца</string>
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
+  <string name="doubleBishopMate">Мат ловачким паром</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
