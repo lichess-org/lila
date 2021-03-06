@@ -71,7 +71,8 @@ export interface CevalCtrl {
   maxThreads: number;
   maxHashSize: number;
   infinite: StoredBooleanProp;
-  enableNNUE: StoredBooleanProp;
+  supportsNnue: boolean;
+  enableNnue: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
   toggle(): void;
   curDepth(): number;

@@ -268,16 +268,18 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ctrlBoolSetting(
-                    {
-                      name: 'Use NNUE',
-                      title: 'Downloads large neural network evaluation file (page reload required after change)',
-                      id: 'enable-nnue',
-                      checked: ceval.enableNNUE(),
-                      change: ctrl.cevalEnableNNUE,
-                    },
-                    ctrl
-                  ),
+                  ceval.supportsNnue
+                    ? ctrlBoolSetting(
+                        {
+                          name: 'Use NNUE',
+                          title: 'Downloads 10 MB neural network evaluation file (page reload required after change)',
+                          id: 'enable-nnue',
+                          checked: ceval.enableNnue(),
+                          change: ceval.enableNnue,
+                        },
+                        ctrl
+                      )
+                    : undefined,
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -310,7 +312,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           h('div.range_value', `${ceval.threads()} / ${ceval.maxThreads}`),
                         ]);
                       })('analyse-threads')
-                    : null,
+                    : undefined,
                   ceval.hashSize
                     ? (id =>
                         h('div.setting', [
@@ -329,7 +331,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           }),
                           h('div.range_value', formatHashSize(parseInt(ceval.hashSize()))),
                         ]))('analyse-memory')
-                    : null,
+                    : undefined,
                 ]
               : []
           )
