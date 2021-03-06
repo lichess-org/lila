@@ -94,7 +94,7 @@ object Work {
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
 
-    def isOutOfTries = tries >= 3
+    def isOutOfTries = tries > 3
 
     def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
 
