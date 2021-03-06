@@ -251,11 +251,12 @@ export default class Setup {
         case "1":
         case "3":
           if (timeMode == "1") {
-            const time = $timeInput.val() * 60 + $incrementInput.val() * 40 + $byoyomiInput.val() * 25 * $periodsInput.filter(":checked").val();
-            if (time < 30) key = "ultraBullet";
-            else if (time < 180) key = "bullet";
-            else if (time < 480) key = "blitz";
-            else if (time < 1500) key = "rapid";
+            // Estimate 90 moves (per player) per game
+            const time = 60 * $timeInput.val() + 90 * $incrementInput.val() + 25 * $byoyomiInput.val() * $periodsInput.filter(":checked").val();
+            if (time < 60) key = "ultraBullet";
+            else if (time < 300) key = "bullet";
+            else if (time < 900) key = "blitz";
+            else if (time < 2700) key = "rapid";
             else key = "classical";
           } else key = "correspondence";
           break;
