@@ -8,4 +8,7 @@
   </plurals>
   <string name="opponentName">Името на противника</string>
   <string name="loser">Победен</string>
+  <string name="from">От</string>
+  <string name="to">До</string>
+  <string name="humanOrComputer">Дали съперникът е бил човек или компютър</string>
 </resources>
