@@ -2,9 +2,9 @@
 <resources>
   <string name="challenges">Предизвикателства</string>
   <string name="challengeToPlay">Предизвикайте на партия</string>
-  <string name="challengeDeclined">Предизвикателството отказано</string>
-  <string name="challengeAccepted">Предизвикателството прието!</string>
-  <string name="challengeCanceled">Предизвикателството отменено.</string>
+  <string name="challengeDeclined">Предизвикателството е отказано</string>
+  <string name="challengeAccepted">Предизвикателството е прието!</string>
+  <string name="challengeCanceled">Предизвикателството е отменено.</string>
   <string name="registerToSendChallenges">Регистрирайте се, за да отправяте предизвикателства.</string>
   <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
