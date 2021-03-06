@@ -33,6 +33,10 @@
   <string name="joinTheGame">Oýuna goşul</string>
   <string name="whitePlays">Aklaryñ göçümi</string>
   <string name="blackPlays">Garalaryñ göçümi</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Siziň garşydaşyňyz oýuny terk etdi. Siz ýeňişiňizi %s sekuntdan alyp bilersiňiz.</item>
+    <item quantity="other">Siziň garşydaşyňyz oýuny terk etdi. Siz ýeňişiňizi %s sekuntdan alyp bilersiňiz.</item>
+  </plurals>
   <string name="opponentLeftChoices">Garşydaş oýuny terk eden ýaly. Ýeñiş ýa-da yglan edip bilersiñiz, isleseñiz garaşyp bilersiñiz.</string>
   <string name="makeYourOpponentResign">Tehniki ýeñiş yglan et</string>
   <string name="forceResignation">Ýeñiş yglan et</string>
