@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Играй с приятел</string>
   <string name="playWithTheMachine">Играй с компютъра</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканиш някого на игра, дай му този адрес</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
   <string name="waiting">Изчакване</string>
