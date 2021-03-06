@@ -170,6 +170,15 @@ private object bits {
           )
         )
 
+      def clockByoyomi =
+        tr(
+          th(label(trans.clockByoyomi())),
+          td(
+            div(cls := "half")(from(), " ", form3.select(form("clock")("byoMin"), Query.clockByos, "".some)),
+            div(cls := "half")(to(), " ", form3.select(form("clock")("byoMax"), Query.clockByos, "".some))
+          )
+        )
+
       def status =
         tr(
           th(label(`for` := form3.id(form("status")))(result())),

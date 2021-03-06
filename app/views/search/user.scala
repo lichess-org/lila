@@ -29,6 +29,7 @@ object user {
         duration,
         clockTime,
         clockIncrement,
+        clockByoyomi,
         source,
         perf,
         mode
