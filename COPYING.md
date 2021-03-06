@@ -67,6 +67,7 @@ public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
+public/sounds/lisp | [EdinburghCollective](http://lichess.org/@/EdinburghCollective) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## Exceptions (non-free)
 
