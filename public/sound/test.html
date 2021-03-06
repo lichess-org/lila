@@ -26,11 +26,13 @@
       };
       document.body.setAttribute('data-asset-url', `${location.protocol}//${location.host}`);
     </script>
-    <script src="../compiled/deps.min.js"></script>
-    <script src="../compiled/site.js"></script>
+    <script src="https://lichess1.org/assets/compiled/deps.min.js"></script>
+    <script src="https://lichess1.org/assets/compiled/site.min.js"></script>
     <table>
       <thead>
-        <tr id="sets"></tr>
+        <tr id="sets">
+
+        </tr>
       </thead>
       <tbody id="sounds"></tbody>
     </table>
@@ -39,23 +41,27 @@
         lichess.sound.changeSet(set);
         lichess.sound.play(name);
       }
-      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'],
-        basics = [
-          'genericNotify',
-          'move',
-          'capture',
-          'explosion',
-          'lowTime',
-          'victory',
-          'defeat',
-          'draw',
-          'berserk',
-          'check',
-          'newChallenge',
-          'newPM',
-          'confirmation',
-          'error',
-        ];
+      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'];
+      const basics = [
+        'genericNotify',
+        'move',
+        'capture',
+        'explosion',
+        'lowTime',
+        'victory',
+        'defeat',
+        'draw',
+        'berserk',
+        'check',
+        'newChallenge',
+        'newPM',
+        'confirmation',
+        'error',
+      ];
+
+      soundSets.forEach(s => {
+        document.querySelector('thead tr').innerHTML += `<th>${s}</th>`;
+      });
       /*
     for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
     $.each(soundSets, function(i, soundSet) {
