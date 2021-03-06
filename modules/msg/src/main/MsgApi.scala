@@ -259,7 +259,7 @@ final class MsgApi(
             )
           ),
           Unwind("msg"),
-          Project($doc("id" -> false, "msg.text" -> true, "msg.date" -> true))
+          Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
       }
       .collect[Vector](maxDocs = 9000)
