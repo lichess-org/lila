@@ -28,20 +28,18 @@
     </script>
     <script src="https://lichess1.org/assets/compiled/deps.min.js"></script>
     <script src="https://lichess1.org/assets/compiled/site.min.js"></script>
-    <table>
+    <table class="common">
       <thead>
-        <tr id="sets">
-
-        </tr>
+        <tr></tr>
       </thead>
-      <tbody id="sounds"></tbody>
+      <tbody></tbody>
     </table>
     <script>
       function playSound(set, name) {
         lichess.sound.changeSet(set);
         lichess.sound.play(name);
       }
-      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'];
+      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot', 'lisp'];
       const basics = [
         'genericNotify',
         'move',
@@ -60,16 +58,11 @@
       ];
 
       soundSets.forEach(s => {
-        document.querySelector('thead tr').innerHTML += `<th>${s}</th>`;
+        $('<th>').text(s).appendTo($('table.common thead tr'));
       });
-      /*
-    for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
-    $.each(soundSets, function(i, soundSet) {
-      $('#sets').append($('<th>').text(soundSet));
-    });
-    */
+
       for (const name of basics) {
-        var tr = $('<tr>').appendTo($('#sounds'));
+        var tr = $('<tr>').appendTo($('table.common tbody'));
         $.each(soundSets, function (i, soundSet) {
           var id = 'soundSet_' + soundSet;
           $('<td>')
@@ -83,19 +76,6 @@
             .appendTo(tr);
         });
       }
-      /*
-        var tr = $('<tr>');
-        $.each(soundSets, function(i, soundSet) {
-          $('<td>').append($("<button>").on('click', function() {
-            var i = 10;
-            var tId = setInterval(function() {
-              playSound(soundSet, "CountDown" + i);
-              i-- || clearInterval(tId);
-            }, 1000);
-          }).text("CountDown10 --1> 0")).appendTo(tr);
-          tr.appendTo($('#sounds'));
-        });
-        */
     </script>
   </body>
 </html>
