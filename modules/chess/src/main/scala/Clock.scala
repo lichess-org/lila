@@ -231,7 +231,8 @@ object Clock {
     
     def berserkable = incrementSeconds == 0 || limitSeconds > 0
 
-    def emergSeconds = math.min(60, math.max(10, limitSeconds / 6))
+    // Activate low time warning when between 10 and 90 seconds remain
+    def emergSeconds = math.min(90, math.max(10, limitSeconds / 6))
 
     // Estimate 90 moves (per player) per game
     def estimateTotalSeconds = limitSeconds + 90 * incrementSeconds + 25 * periods * byoyomiSeconds
@@ -255,9 +256,10 @@ object Clock {
     def limitString: String =
       limitSeconds match {
         case l if l % 60 == 0 => (l / 60).toString
+        case 15 => "¼"
         case 30 => "½"
+        case 45 => "¾"
         case 90 => "1.5"
-        case 150 => "2.5"
         case _  => limitFormatter.format(limitSeconds / 60d)
       }
 

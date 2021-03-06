@@ -218,9 +218,9 @@ object Schedule {
       else if (time < 180)  HyperBullet
       else if (time < 300)  Bullet
       else if (time < 600)  HyperBlitz
-      else if (time < 1200) Blitz
+      else if (time < 900)  Blitz
       else if (time < 1800) HyperRapid
-      else if (time < 3600) Rapid
+      else if (time < 2700) Rapid
       else Classical
     }
     def toPerfType(speed: Speed) =

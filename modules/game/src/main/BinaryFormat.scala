@@ -170,14 +170,14 @@ object BinaryFormat {
       // The database expects a byte for a limit, and this is limit / 60.
       // For 0.5+0, this does not give a round number, so there needs to be
       // an alternative way to describe 0.5.
-      // The max classical limit where limit % 60 == 0, returns 180 (minutes).
+      // The max limit where limit % 60 == 0, returns 180 for limit / 60
       // So, for the limits where limit % 30 == 0, we can use the space
-      // from 181-255, where 181 represents 0.5 and 183 represents 1.5.
-      (if (limit % 60 == 0) limit / 60 else limit / 30 + 180).toByte
+      // from 181-255, where 181 represents 0.25 and 182 represents 0.50...
+      (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
     }
 
     private def readClockLimit(i: Int) = {
-      if (i < 181) i * 60 else (i - 180) * 30
+      if (i < 181) i * 60 else (i - 180) * 15
     }
   }
 
