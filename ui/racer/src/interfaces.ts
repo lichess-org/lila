@@ -25,6 +25,7 @@ export interface RacerData extends UpdatableData {
 export interface Race {
   id: string;
   moves: number;
+  alreadyStarted?: boolean;
 }
 
 export interface Player {

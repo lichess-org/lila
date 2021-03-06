@@ -40,6 +40,8 @@ case class RacerRace(
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 
+  def hasStarted = startsInMillis.pp.exists(_ <= 0)
+
   lazy val moves = puzzles.foldLeft(0) { case (m, p) =>
     m + p.line.size / 2
   }

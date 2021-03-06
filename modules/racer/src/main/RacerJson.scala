@@ -24,14 +24,17 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
 
   // full race data
   def data(race: RacerRace, player: RacerPlayer) =
-    Json.obj(
-      "race" -> Json.obj(
-        "id"    -> race.id.value,
-        "moves" -> race.moves
-      ),
-      "player"  -> player,
-      "puzzles" -> race.puzzles
-    ) ++ state(race)
+    Json
+      .obj(
+        "race" -> Json
+          .obj(
+            "id"    -> race.id.value,
+            "moves" -> race.moves
+          )
+          .add("alreadyStarted" -> race.hasStarted),
+        "player"  -> player,
+        "puzzles" -> race.puzzles
+      ) ++ state(race)
 
   // socket updates
   def state(race: RacerRace) = Json

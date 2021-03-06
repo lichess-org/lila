@@ -57,6 +57,7 @@ export default class StormCtrl {
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     this.startCountdown();
+    console.log(this.race);
   }
 
   serverUpdate = (data: UpdatableData) => {

@@ -47,16 +47,20 @@ const chessground = (ctrl: RacerCtrl): VNode =>
 
 const renderPlay = (ctrl: RacerCtrl): VNode[] => [
   renderRace(ctrl),
-  h('div.puz-board.main-board', [
-    chessground(ctrl),
-    ctrl.promotion.view(),
-    ctrl.countdownSeconds() ? renderCountdown(ctrl.countdownSeconds()) : undefined,
-  ]),
-  h('div.puz-side', [
-    ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
-    ctrl.isPlayer() ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl),
-    h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
-  ]),
+  ...(ctrl.race.alreadyStarted
+    ? [renderStarted()]
+    : [
+        h('div.puz-board.main-board', [
+          chessground(ctrl),
+          ctrl.promotion.view(),
+          ctrl.countdownSeconds() ? renderCountdown(ctrl.countdownSeconds()) : undefined,
+        ]),
+        h('div.puz-side', [
+          ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
+          ctrl.isPlayer() ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl),
+          h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
+        ]),
+      ]),
 ];
 
 const renderCountdown = (seconds: number) =>
@@ -94,3 +98,16 @@ const renderStart = () =>
     'div.puz-side__top.puz-side__start',
     h('div.puz-side__start__text', [h('strong', 'Puzzle Racer'), h('span', 'Waiting to start')])
   );
+
+const renderStarted = () =>
+  h('div.racer__started.box.box-pad', [
+    h('i', { attrs: { 'data-icon': '~' } }),
+    h('p', 'This race has already started!'),
+    h(
+      'a.storm--dup__reload.button',
+      {
+        attrs: { href: '/racer' },
+      },
+      'New race'
+    ),
+  ]);
