@@ -9,6 +9,7 @@
   <string name="yourTurn">Gezegiñiz</string>
   <string name="aiNameLevelAiLevel">%1$s derejesi %2$s</string>
   <string name="level">Dereje</string>
+  <string name="strength">Güýç</string>
   <string name="toggleTheChat">Çäti aç/ýap</string>
   <string name="toggleSound">Sesi aç/ýap</string>
   <string name="chat">Çät</string>
@@ -148,6 +149,10 @@
   <string name="xPostedInForumY">%1$s agza %2$s mowzuga ýazgy ýazdy</string>
   <string name="latestForumPosts">Forumdaky iň täze neşirler</string>
   <string name="players">Küştçiler</string>
+  <string name="friends">Dostlaryň</string>
+  <string name="discussions">Gürrüňdeşlik</string>
+  <string name="today">Şu gün</string>
+  <string name="yesterday">Düýn</string>
   <string name="minutesPerSide">Her tarapyň minuty</string>
   <string name="variant">Wariant</string>
   <string name="variants">Wariantlar</string>
