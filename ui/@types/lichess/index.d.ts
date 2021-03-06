@@ -61,17 +61,17 @@ interface Lichess {
   timeagoLocale(a: number, b: number, c: number): any;
 
   // misc
-  advantageChart: {
+  advantageChart?: {
     update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
-  RoundNVUI(
+  RoundNVUI?(
     redraw: () => void
   ): {
     render(ctrl: any): any;
   };
-  AnalyseNVUI(
+  AnalyseNVUI?(
     redraw: () => void
   ): {
     render(ctrl: any): any;
