@@ -563,7 +563,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
   <string name="videoLibrary">Wideolar ambary</string>
-  <string name="streamersMenu">Streamerlar</string>
+  <string name="streamersMenu">Streamerler</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>
   <string name="about">Barada</string>
@@ -617,6 +617,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="yourPerfTypeRatingIsRating">%1$s reýtingiňiz %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oýunçynyň %1$s sanysyndan öňdesiňiz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Esaslandyrylan %s reýtingiňiz ýok.</string>
+  <string name="yourRating">Siziň reýtiňyňyz</string>
   <string name="checkYourEmail">Emailiňizi barlaň</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size email iberdik. Aktiwasiýa üçin emaildäki çelgä tyklaň.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email ýok bolsa bolup biljek spam, sosial, zyňyndy ýaly bukjalara serediň.</string>
@@ -755,4 +756,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
     <item quantity="one">we %s öň-göçüm liniýasyny huşda sakla</item>
     <item quantity="other">we %s öň-göçüm liniýasyny huşda sakla</item>
   </plurals>
+  <string name="sorry">Bagyşlaň :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Biz sizi wagtlaýyn oýnamaz ýaly etmeli bolduk.</string>
 </resources>
