@@ -128,7 +128,6 @@ function westernShogiNotation(move: ExtendedMoveInfo): string {
 }
 
 function westernShogiNotation2(move: ExtendedMoveInfo): string {
-
     const parsed = parseMove(move.san, move.uci);
     const piece = WESTERN_ROLE_SYMBOLS[parsed.role];
     const origin = sanContainsOrigin(move.san) ? (`${makeSquare(parsed.orig)}`) : "";

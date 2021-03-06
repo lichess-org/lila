@@ -92,7 +92,7 @@ interface Lishogi {
 
 interface LishogiSpeech {
   say(t: string, cut: boolean): void;
-  step(s: { san?: San }, cut: boolean): void;
+  step(s: { san?: San, uci?: Uci }, cut: boolean): void;
 }
 
 interface PalantirOpts {
