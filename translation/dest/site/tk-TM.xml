@@ -150,7 +150,7 @@
   <string name="latestForumPosts">Forumdaky iň täze neşirler</string>
   <string name="players">Küştçiler</string>
   <string name="friends">Dostlaryň</string>
-  <string name="discussions">Gürrüňdeşlik</string>
+  <string name="discussions">Söhbetdeşlik</string>
   <string name="today">Şu gün</string>
   <string name="yesterday">Düýn</string>
   <string name="minutesPerSide">Her tarapyň minuty</string>
@@ -195,6 +195,8 @@
     <item quantity="other">Size garşy %s oýun</item>
   </plurals>
   <string name="cancel">Goýbolsun et</string>
+  <string name="whiteTimeOut">Ak wagty gutardy</string>
+  <string name="blackTimeOut">Gara wagty gutardy</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferDeclined">Deňlik teklibi ret edildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>
@@ -209,6 +211,7 @@
   <string name="playingRightNow">Häzir oýnalýar</string>
   <string name="eventInProgress">Progressiýada</string>
   <string name="finished">Tamamlanan</string>
+  <string name="finishesX">gutarýar %s</string>
   <string name="abortGame">Oýny abort et</string>
   <string name="gameAborted">Oýun abort edildi</string>
   <string name="standard">Standart</string>
@@ -228,6 +231,7 @@
   <string name="rematchOfferDeclined">Ýene oýnamak teklibi ret edildi</string>
   <string name="cancelRematchOffer">Ýene oýnamak teklibini ýatyr</string>
   <string name="viewRematch">Ýene oýnama seret</string>
+  <string name="confirmMove">Göçümiňizi tassyklan</string>
   <string name="play">Oýna</string>
   <string name="inbox">Gelen gutusy</string>
   <string name="chatRoom">Çät otagy</string>
@@ -559,6 +563,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
   <string name="videoLibrary">Wideolar ambary</string>
+  <string name="streamersMenu">Streamerlar</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>
   <string name="about">Barada</string>
