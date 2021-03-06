@@ -27,6 +27,9 @@
   <string name="doubleBishopMate">Мат ловачким паром</string>
   <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
   <string name="dovetailMate">Коциов мат</string>
+  <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
+  <string name="equality">Изједначење</string>
+  <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
