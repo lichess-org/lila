@@ -1,9 +1,13 @@
+import { Config } from './interfaces';
 import { getNow } from './util';
-import config from './config';
 
 export class Clock {
   startAt: number | undefined;
-  initialMillis = config.clock.initial * 1000;
+  initialMillis: number;
+
+  public constructor(readonly config: Config) {
+    this.initialMillis = config.clock.initial * 1000;
+  }
 
   start = () => {
     if (!this.startAt) this.startAt = getNow();

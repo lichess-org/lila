@@ -1,3 +1,4 @@
+import config from './config';
 import CurrentPuzzle from 'puz/current';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
@@ -41,9 +42,9 @@ export default class StormCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(),
+      clock: new Clock(config),
       history: [],
-      combo: new Combo(),
+      combo: new Combo(config),
       modifier: {
         moveAt: 0,
       },
@@ -71,7 +72,7 @@ export default class StormCtrl {
 
   canJoin = () => this.data.players.length < 10;
 
-  isRacing = () => !this.data.finished && this.data.startsIn && this.data.startsIn <= 0;
+  isRacing = () => !this.data.finished && this.vm.startsAt && this.vm.startsAt < new Date();
 
   join = throttle(1000, () => {
     if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
@@ -82,7 +83,7 @@ export default class StormCtrl {
       this.vm.startsAt = new Date(Date.now() + this.data.startsIn);
       const countdown = () => {
         const diff = this.vm.startsAt.getTime() - Date.now();
-        if (diff > 0) setTimeout(countdown, diff % 1000);
+        if (diff > 0) setTimeout(countdown, (diff % 1000) + 100);
         else {
           this.run.clock.start();
           this.withGround(g => g.set(this.cgOpts()));
@@ -140,7 +141,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      onBadMove(this.run);
+      onBadMove(config)(this.run);
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }

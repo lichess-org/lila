@@ -7,7 +7,6 @@ import { numberSpread } from 'common/number';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { VNode } from 'snabbdom/vnode';
-import { StormVm } from '../interfaces';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 
@@ -74,7 +73,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
 };
 
 const renderHistory = (ctrl: StormCtrl): VNode => {
-  const slowIds = slowPuzzleIds(ctrl.vm);
+  const slowIds = slowPuzzleIds(ctrl);
   return h('div.storm--end__history.box.box-pad', [
     h('div.box__top', [
       h('h2', ctrl.trans('puzzlesPlayed')),
@@ -105,7 +104,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
     ]),
     h(
       'div.storm--end__history__rounds',
-      ctrl.vm.history
+      ctrl.run.history
         .filter(r => (!r.win || !ctrl.vm.filterFailed) && (!slowIds || slowIds.has(r.puzzle.id)))
         .map(round =>
           h(
@@ -140,11 +139,11 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
   ]);
 };
 
-const slowPuzzleIds = (vm: StormVm): Set<string> | undefined => {
-  if (!vm.filterSlow || !vm.history.length) return undefined;
-  const mean = vm.history.reduce((a, r) => a + r.millis, 0) / vm.history.length;
+const slowPuzzleIds = (ctrl: StormCtrl): Set<string> | undefined => {
+  if (!ctrl.vm.filterSlow || !ctrl.run.history.length) return undefined;
+  const mean = ctrl.run.history.reduce((a, r) => a + r.millis, 0) / ctrl.run.history.length;
   const threshold = mean * 1.5;
-  return new Set(vm.history.filter(r => r.millis > threshold).map(r => r.puzzle.id));
+  return new Set(ctrl.run.history.filter(r => r.millis > threshold).map(r => r.puzzle.id));
 };
 
 export default renderEnd;

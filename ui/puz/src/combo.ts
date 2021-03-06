@@ -1,10 +1,11 @@
-import config from './config';
-import { TimeMod } from './interfaces';
+import { Config, TimeMod } from './interfaces';
 import { getNow } from './util';
 
 export class Combo {
   current = 0;
   best = 0;
+
+  public constructor(readonly config: Config) {}
 
   inc = () => {
     this.current++;
@@ -16,11 +17,11 @@ export class Combo {
   };
 
   level = () =>
-    config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl), 0);
+    this.config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl), 0);
 
   percent = () => {
     const lvl = this.level();
-    const levels = config.combo.levels;
+    const levels = this.config.combo.levels;
     const lastLevel = levels[levels.length - 1];
     if (lvl >= levels.length - 1) {
       const range = lastLevel[0] - levels[levels.length - 2][0];
@@ -35,7 +36,7 @@ export class Combo {
       const level = this.level();
       if (level > 0)
         return {
-          seconds: config.combo.levels[level][1],
+          seconds: this.config.combo.levels[level][1],
           at: getNow(),
         };
     }

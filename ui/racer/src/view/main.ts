@@ -1,14 +1,15 @@
-import { Chessground } from 'chessground';
-import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import renderClock from 'puz/view/clock';
+import config from '../config';
 import RacerCtrl from '../ctrl';
-import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { makeCgOpts } from 'puz/run';
-import { renderRace } from './race';
+import renderClock from 'puz/view/clock';
 import { bind } from 'puz/util';
+import { Chessground } from 'chessground';
+import { h } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
+import { makeCgOpts } from 'puz/run';
+import { makeConfig as makeCgConfig } from 'puz/view/chessground';
+import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
+import { renderRace } from './race';
+import { VNode } from 'snabbdom/vnode';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(
@@ -54,7 +55,7 @@ const renderPlay = (ctrl: RacerCtrl): VNode[] => [
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
     ctrl.isPlayer() ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl),
-    h('div.puz-side__table', [renderCombo(ctrl.run)]),
+    h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
   ]),
 ];
 

@@ -1,5 +1,5 @@
 import * as xhr from './xhr';
-import config from 'puz/config';
+import config from './config';
 import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
@@ -34,9 +34,9 @@ export default class StormCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(),
+      clock: new Clock(config),
       history: [],
-      combo: new Combo(),
+      combo: new Combo(config),
       modifier: {
         moveAt: 0,
       },
@@ -45,6 +45,7 @@ export default class StormCtrl {
       signed: prop(undefined),
       lateStart: false,
       filterFailed: false,
+      filterSlow: false,
     };
     this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, !this.run.endAt), this.redraw);
     this.checkDupTab();
@@ -104,7 +105,7 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      onBadMove(this.run);
+      onBadMove(config)(this.run);
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }
@@ -149,6 +150,11 @@ export default class StormCtrl {
     highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
     signed: this.vm.signed(),
   });
+
+  toggleFilterSlow = () => {
+    this.vm.filterSlow = !this.vm.filterSlow;
+    this.redraw();
+  };
 
   toggleFilterFailed = () => {
     this.vm.filterFailed = !this.vm.filterFailed;

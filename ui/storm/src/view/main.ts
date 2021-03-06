@@ -1,13 +1,14 @@
-import { Chessground } from 'chessground';
-import { makeConfig as makeCgConfig } from 'puz/view/chessground';
+import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
 import StormCtrl from '../ctrl';
+import { Chessground } from 'chessground';
+import { h } from 'snabbdom';
+import { makeCgOpts } from 'puz/run';
+import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
-import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { makeCgOpts } from 'puz/run';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -42,7 +43,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(ctrl),
     renderClock(ctrl.run, ctrl.endNow),
-    h('div.puz-side__table', [renderControls(ctrl), renderCombo(ctrl.run)]),
+    h('div.puz-side__table', [renderControls(ctrl), renderCombo(config)(ctrl.run)]),
   ]),
 ];
 

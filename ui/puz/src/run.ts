@@ -1,9 +1,8 @@
-import { Run, TimeMod } from './interfaces';
+import { Config, Run, TimeMod } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
 import { getNow, uciToLastMove } from './util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
-import config from './config';
 
 export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
   const cur = run.current;
@@ -33,7 +32,7 @@ export const onGoodMove = (run: Run): TimeMod | undefined => {
   return undefined;
 };
 
-export const onBadMove = (run: Run): void => {
+export const onBadMove = (config: Config) => (run: Run): void => {
   run.errors++;
   run.combo.reset();
   run.clock.addSeconds(-config.clock.malus);

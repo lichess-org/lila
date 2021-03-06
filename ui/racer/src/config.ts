@@ -1,9 +1,11 @@
-const config = {
+import { Config } from 'puz/interfaces';
+
+const config: Config = {
   // all times in seconds
   clock: {
-    initial: 3 * 60,
+    initial: 1 * 60,
     // initial: 10,
-    malus: 10,
+    malus: 5,
   },
   combo: {
     levels: [

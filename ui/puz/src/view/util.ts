@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import config from '../config';
-import { Run } from '../interfaces';
+import { Config, Run } from '../interfaces';
 import { countWins } from '../run';
 import { getNow } from '../util';
 
@@ -17,7 +16,7 @@ export const playModifiers = (run: Run) => {
   };
 };
 
-export const renderCombo = (run: Run): VNode => {
+export const renderCombo = (config: Config) => (run: Run): VNode => {
   const level = run.combo.level();
   return h('div.puz-combo', [
     h('div.puz-combo__counter', [

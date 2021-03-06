@@ -60,3 +60,14 @@ export interface TimeMod {
   seconds: number;
   at: number;
 }
+
+export interface Config {
+  clock: {
+    initial: number;
+    malus: number;
+  };
+  combo: {
+    levels: [number, number][];
+  };
+  timeToStart: number;
+}
