@@ -33,7 +33,7 @@
     <item quantity="other">%s Чланова</item>
   </plurals>
   <string name="inviteToTheStudy">Позовите у студију</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Молимо вас да само позивате људе које познајете, и који активно желе да се придруже овој студији.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Молимо вас да само позивате људе које познајете и који активно желе да се придруже овој студији.</string>
   <string name="searchByUsername">Претражујте по корисничком имену</string>
   <string name="spectator">Посматрач</string>
   <string name="contributor">Cарадник</string>
