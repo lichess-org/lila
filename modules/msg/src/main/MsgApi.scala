@@ -228,7 +228,7 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def allMessagesOf(userId: User.ID): Fu[Vector[(User.ID, String, DateTime)]] =
+  def allMessagesOf(userId: User.ID): Fu[Vector[(String, DateTime)]] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
@@ -259,19 +259,17 @@ final class MsgApi(
             )
           ),
           Unwind("msg"),
-          Project($doc("msg.text" -> true, "msg.date" -> true))
+          Project($doc("id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
       }
       .collect[Vector](maxDocs = 9000)
       .map { docs =>
         for {
           doc  <- docs
-          id   <- doc string "_id"
-          dest <- id.split(MsgThread.idSep).find(userId !=)
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[DateTime]("date")
-        } yield (dest, text, date)
+        } yield (text, date)
       }
 }
 
