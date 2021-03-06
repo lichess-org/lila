@@ -30,8 +30,14 @@
   <string name="dovetailMateDescription">Дама матира суседног краља, чија су једина два излазна поља препречена његовим фигурама.</string>
   <string name="equality">Изједначење</string>
   <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
+  <string name="defensiveMove">Одбрамбени потез</string>
   <string name="deflection">Дефлекција</string>
+  <string name="discoveredAttack">Откривени напад</string>
+  <string name="doubleCheck">Двоструки шах</string>
+  <string name="endgame">Завршница</string>
+  <string name="endgameDescription">Тактика у току краја игре.</string>
   <string name="fork">Маказе</string>
+  <string name="hookMate">Шах мат са куком</string>
   <string name="master">Партије мајстора</string>
   <string name="mateIn1">Мат у 1</string>
   <string name="mateIn2">Мат у 2</string>
