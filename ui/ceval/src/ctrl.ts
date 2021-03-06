@@ -48,7 +48,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
-  const enableNnue = storedProp(storageKey('ceval.enable-nnue'), !(navigator as any).connection?.saveData);
+  const enableNnue = storedProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
 
   // select nnue > hce > wasm > asmjs
   const officialStockfish =
