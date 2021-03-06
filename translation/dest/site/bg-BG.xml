@@ -179,19 +179,19 @@
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
   <string name="password">Парола</string>
-  <string name="changePassword">Промени парола</string>
-  <string name="changeEmail">Промени имейл</string>
-  <string name="email">Ел. Поща</string>
+  <string name="changePassword">Промяна на паролата</string>
+  <string name="changeEmail">Промяна на имейл</string>
+  <string name="email">Имейл</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
-  <string name="rank">Звание</string>
+  <string name="rank">Класация</string>
   <string name="rankX">Класация: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Класирането се обновява всяка минута</item>
     <item quantity="other">Класирането се обновява на всеки %s минути</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s пъзел</item>
+    <item quantity="one">%s задача</item>
     <item quantity="other">%s пъзели</item>
   </plurals>
   <string name="gamesPlayed">Изиграни игри</string>
@@ -650,7 +650,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s в по-добър от %2$s от %3$s играчите.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
-  <string name="yourRating">Твоят рейтинг</string>
+  <string name="yourRating">Вашият рейтинг</string>
   <string name="cumulative">С натрупване</string>
   <string name="glicko2Rating">Рейтинг по Glicko-2</string>
   <string name="checkYourEmail">Проверете вашата ел. поща</string>
