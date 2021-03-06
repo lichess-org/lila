@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s statistikat</string>
+  <string name="viewTheGames">Shiko lojërat</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">i përkohshëm</string>
+  <string name="notEnoughRatedGames">Nuk jan luajtur mjaftueshëm lojëra per një vlerësim korrekt.</string>
+  <string name="progressOverLastXGames">Përmirësimi nga %s lojërat e fundit:</string>
+  <string name="ratingDeviation">Devijimi i vlerësimit: %s.</string>
+  <string name="ratingDeviationHelp">Sa me i vogël numëri, aq me i saktë vlerësimi. Mbi %s, vlerësimi quhet i përkohshëm.</string>
+  <string name="totalGames">Lojërat gjithsej</string>
+  <string name="ratedGames">Lojë të vlerësuara</string>
+  <string name="tournamentGames">Lojëra turneu</string>
+  <string name="berserkedGames">Lojëra berserk</string>
+  <string name="timeSpentPlaying">Koha e luajtur</string>
+  <string name="averageOpponent">Kundërshtari mesatar</string>
+  <string name="victories">Fitoret</string>
+  <string name="defeats">Humbjet</string>
+  <string name="disconnections">Shkëputjet</string>
+  <string name="notEnoughGames">Numri i lojërave i pamjaftueshëm</string>
+  <string name="highestRating">Vlerësimi më i lartë: %s</string>
+  <string name="lowestRating">Vlerësimi më i ulet: %s</string>
+  <string name="fromXToY">nga %1$s deri %2$s</string>
+  <string name="winningStreak">Fitore radhazi</string>
+  <string name="losingStreak">Humbje radhazi</string>
+  <string name="longestStreak">Më e gjatë: %s</string>
+  <string name="currentStreak">Aktuale: %s</string>
+  <string name="bestRated">Fitoret më te mira</string>
+  <string name="worstRated">Humbjet më të dobëta</string>
+  <string name="gamesInARow">Lojëra radhazi</string>
+  <string name="lessThanOneHour">Më pak se një orë mes lojërave</string>
+  <string name="maxTimePlaying">Koha më gjatë luajtur</string>
+  <string name="now">tani</string>
+</resources>

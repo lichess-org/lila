@@ -67,7 +67,7 @@
   <string name="fundamentals">Основе</string>
   <string name="capture">Ношење</string>
   <string name="takeTheEnemyPieces">Однесите противничке фигуре</string>
-  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и носите их!</string>
+  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и однесите их!</string>
   <string name="takeTheBlackPieces">Носите црне фигуре!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Носите црне фигуре!
 И немојте изгубити своје.</string>
@@ -81,7 +81,7 @@
   <string name="noEscape">Нема излаза,
 али можете бранити!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да Вам однесу
-ниједну не одбрањену фигуру!</string>
+ниједну небрањену фигуру!</string>
   <string name="combat">Борба</string>
   <string name="captureAndDefendPieces">Однесите и одбраните фигуре</string>
   <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>

@@ -55,7 +55,7 @@
     <item quantity="other">Krijoi %s mësime të reja</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Morre pjesë në %s kampjonat</item>
+    <item quantity="one">Morri pjesë në kampionatin %s</item>
     <item quantity="other">Morre pjesë në %s kampjonate</item>
   </plurals>
   <plurals name="rankedInTournament">
@@ -65,7 +65,7 @@
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">I rreshtuar #%1$s in %2$s</string>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Iu bashkua %s ekipi</item>
+    <item quantity="one">Iu bashkua ekipit %s</item>
     <item quantity="other">Iu bashkua %s ekipeve</item>
   </plurals>
 </resources>

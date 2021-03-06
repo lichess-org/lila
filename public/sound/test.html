@@ -26,70 +26,85 @@
       };
       document.body.setAttribute('data-asset-url', `${location.protocol}//${location.host}`);
     </script>
-    <script src="../compiled/deps.min.js"></script>
-    <script src="../compiled/site.js"></script>
-    <table>
+    <script src="https://lichess1.org/assets/compiled/deps.min.js"></script>
+    <script src="https://lichess1.org/assets/compiled/site.min.js"></script>
+    <table class="common">
       <thead>
-        <tr id="sets"></tr>
+        <tr></tr>
       </thead>
-      <tbody id="sounds"></tbody>
+      <tbody></tbody>
+    </table>
+    <br><br><hr><br><br>
+    <table class="storm">
+      <thead>
+        <tr>Puzzle Storm</tr>
+      </thead>
+      <tbody>
+      </tbody>
     </table>
     <script>
       function playSound(set, name) {
         lichess.sound.changeSet(set);
         lichess.sound.play(name);
       }
-      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'],
-        basics = [
-          'genericNotify',
-          'move',
-          'capture',
-          'explosion',
-          'lowTime',
-          'victory',
-          'defeat',
-          'draw',
-          'berserk',
-          'check',
-          'newChallenge',
-          'newPM',
-          'confirmation',
-          'error',
-        ];
-      /*
-    for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
-    $.each(soundSets, function(i, soundSet) {
-      $('#sets').append($('<th>').text(soundSet));
-    });
-    */
+      const soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot', 'lisp'];
+      const basics = [
+        'genericNotify',
+        'move',
+        'capture',
+        'explosion',
+        'lowTime',
+        'victory',
+        'defeat',
+        'draw',
+        'berserk',
+        'check',
+        'newChallenge',
+        'newPM',
+        'confirmation',
+        'error',
+        'practiceComplete',
+        'practiceWrong',
+        'tournament1st',
+        'tournament2nd',
+        'tournament3rd',
+        'tournamentOther',
+        ...[...Array(11).keys()].reverse().map(i => 'CountDown' + i)
+      ];
+
+      soundSets.forEach(s => {
+        $('<th>').text(s).appendTo($('table.common thead tr'));
+      });
+
       for (const name of basics) {
-        var tr = $('<tr>').appendTo($('#sounds'));
+        var tr = $('<tr>').appendTo($('table.common tbody'));
         $.each(soundSets, function (i, soundSet) {
           var id = 'soundSet_' + soundSet;
           $('<td>')
             .append(
               $('<button>')
-                .on('click', function () {
-                  playSound(soundSet, name);
-                })
+                .on('click', () => playSound(soundSet, name))
                 .text(name)
             )
             .appendTo(tr);
         });
       }
-      /*
-        var tr = $('<tr>');
-        $.each(soundSets, function(i, soundSet) {
-          $('<td>').append($("<button>").on('click', function() {
-            var i = 10;
-            var tId = setInterval(function() {
-              playSound(soundSet, "CountDown" + i);
-              i-- || clearInterval(tId);
-            }, 1000);
-          }).text("CountDown10 --1> 0")).appendTo(tr);
-          tr.appendTo($('#sounds'));
-        });
-        */
+
+      [
+        ['good', 'lisp/PuzzleStormGood'],
+        ['wrong', 'lisp/Error'],
+        ['end', 'lisp/PuzzleStormEnd']
+      ].forEach(([name, sound]) => {
+        lichess.sound.loadOggOrMp3(sound, `${lichess.sound.baseUrl}/${sound}`);
+        var tr = $('<tr>').appendTo($('table.storm tbody'));
+        $('<td>')
+          .append(
+            $('<button>')
+              .on('click', () => lichess.sound.play(sound))
+              .text(name)
+          )
+          .appendTo(tr);
+      });
     </script>
   </body>
 </html>

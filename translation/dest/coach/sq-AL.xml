@@ -8,7 +8,7 @@
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Na dergoni nje email tek %s dhe ne do te shqyrtojme aplikim tuaj.</string>
   <string name="location">Vendodhja</string>
   <string name="languages">Gjuha</string>
-  <string name="rating">Vleresimi (piket)</string>
+  <string name="rating">Vlerësimi</string>
   <string name="hourlyRate">Pagesa per ore</string>
   <string name="availability">Disponueshmeria</string>
   <string name="accepting">Pranon student</string>

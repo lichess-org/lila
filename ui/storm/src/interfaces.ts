@@ -22,6 +22,7 @@ export interface StormVm {
   signed: Prop<string | undefined>;
   lateStart: boolean;
   filterFailed: boolean;
+  filterSlow: boolean;
 }
 
 export interface DailyBest {

@@ -32,6 +32,7 @@ export const loadSound = (file: string, volume?: number, delay?: number) => {
 
 export const sound = {
   move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-  bonus: loadSound('other/ping', 0.8, 1000),
-  end: loadSound('other/gewonnen', 0.5, 5000),
+  good: loadSound('lisp/PuzzleStormGood', 1, 1000),
+  wrong: loadSound('lisp/Error', 0.8, 1000),
+  end: loadSound('lisp/PuzzleStormEnd', 1, 5000),
 };

@@ -9,6 +9,7 @@
   <string name="yourTurn">El teu torn</string>
   <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
   <string name="level">Nivell</string>
+  <string name="strength">Força</string>
   <string name="toggleTheChat">Activa/Desactiva el xat</string>
   <string name="toggleSound">Activa/Desactiva el so</string>
   <string name="chat">Xat</string>
@@ -581,6 +582,7 @@ en %3$s</string>
   <string name="error.email_unique">Aquesta adreça ja està agafada</string>
   <string name="error.email_different">Aquest ja era el teu correu electrònic</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroc</string>

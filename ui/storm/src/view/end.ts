@@ -7,6 +7,7 @@ import { numberSpread } from 'common/number';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { VNode } from 'snabbdom/vnode';
+import { StormVm } from '../interfaces';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 
@@ -72,12 +73,12 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
   ];
 };
 
-const renderHistory = (ctrl: StormCtrl): VNode =>
-  h('div.storm--end__history.box.box-pad', [
+const renderHistory = (ctrl: StormCtrl): VNode => {
+  const slowIds = slowPuzzleIds(ctrl.vm);
+  return h('div.storm--end__history.box.box-pad', [
     h('div.box__top', [
       h('h2', ctrl.trans('puzzlesPlayed')),
-      h(
-        'div.box__top__actions',
+      h('div.box__top__actions', [
         h(
           'button.storm--end__history__filter.button',
           {
@@ -87,14 +88,25 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
             },
             hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterFailed)),
           },
-          'View failed puzzles'
-        )
-      ),
+          'Failed puzzles'
+        ),
+        h(
+          'button.storm--end__history__filter.button',
+          {
+            class: {
+              active: ctrl.vm.filterSlow,
+              'button-empty': !ctrl.vm.filterSlow,
+            },
+            hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterSlow)),
+          },
+          'Slow puzzles'
+        ),
+      ]),
     ]),
     h(
       'div.storm--end__history__rounds',
-      ctrl.run.history
-        .filter(r => !r.win || !ctrl.vm.filterFailed)
+      ctrl.vm.history
+        .filter(r => (!r.win || !ctrl.vm.filterFailed) && (!slowIds || slowIds.has(r.puzzle.id)))
         .map(round =>
           h(
             'div.storm--end__history__round',
@@ -126,5 +138,13 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
         )
     ),
   ]);
+};
+
+const slowPuzzleIds = (vm: StormVm): Set<string> | undefined => {
+  if (!vm.filterSlow || !vm.history.length) return undefined;
+  const mean = vm.history.reduce((a, r) => a + r.millis, 0) / vm.history.length;
+  const threshold = mean * 1.5;
+  return new Set(vm.history.filter(r => r.millis > threshold).map(r => r.puzzle.id));
+};
 
 export default renderEnd;

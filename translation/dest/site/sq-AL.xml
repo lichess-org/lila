@@ -132,8 +132,8 @@
   </plurals>
   <string name="currentGames">Lojrat që po luhen tani</string>
   <plurals name="nbGames">
-    <item quantity="one">Shihni gjithë lojrat %s</item>
-    <item quantity="other">Shihni gjithë lojrat %s</item>
+    <item quantity="one">%s lojë</item>
+    <item quantity="other">%s lojëra</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Faqeruajtës</item>
@@ -716,7 +716,7 @@
   <string name="boardGeometry">Gjeometria e fushes</string>
   <string name="boardTheme">Tema e fushes</string>
   <string name="boardSize">Madhesia e fushes</string>
-  <string name="pieceSet">Vendosja e figurave</string>
+  <string name="pieceSet">Figurat</string>
   <string name="embedInYourWebsite">Fut ne faqen tuaj te webit</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi ekziston tashmë, ju lutem zgjidhni një tjetër.</string>
   <string name="usernamePrefixInvalid">Emri i perdoruesit nuk duhet te filloje me numer.</string>
@@ -736,7 +736,7 @@
   <string name="error.unknown">Gabim</string>
   <string name="custom">te zakonshme</string>
   <string name="notifications">Njoftime</string>
-  <string name="perfRatingX">Vleresimi: %s</string>
+  <string name="perfRatingX">Vlerësimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonda te besh levizjen e pare</item>
     <item quantity="other">%s sekonda për të luajtur lëvizjen e parë</item>
@@ -813,12 +813,12 @@
   <string name="agreementPolicy">Jam dakord që do të ndjek të gjitha politikat e Lichess-it.</string>
   <string name="searchOrStartNewDiscussion">Kërkoni ose filloni muhabet e re</string>
   <string name="edit">Ndrysho</string>
-  <string name="rapid">I shpejtë</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Lojëra jashtëzakonisht të shpejta: më pak se 30 sekonda</string>
   <string name="bulletDesc">Lojëra shumë të shpejta: më pak se 3 minuta</string>
   <string name="blitzDesc">Lojëra të shpejta: 3 deri në 8 minuta</string>
-  <string name="rapidDesc">Lojëra të shpejta: 8 deri në 25 minuta</string>
+  <string name="rapidDesc">Rapid: 8 deri në 25 minuta</string>
   <string name="classicalDesc">Lojëra klasike: 25 minuta dhe më shumë</string>
   <string name="correspondenceDesc">Lojëra korrespondence: një ose disa ditë çdo lëvizje</string>
   <string name="puzzleDesc">Trajner i taktikave të shahut</string>

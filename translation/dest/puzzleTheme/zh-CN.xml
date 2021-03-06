@@ -8,7 +8,7 @@
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被同一方棋子卡住的角落。</string>
   <string name="arabianMate">阿拉伯杀法</string>
   <string name="arabianMateDescription">马与车配合将杀角落位置对方的王。</string>
-  <string name="attackingF2F7">进攻f2或f7</string>
+  <string name="attackingF2F7">进攻 f2 或 f7</string>
   <string name="attackingF2F7Description">进攻的焦点集中在f2或f7兵，像在双马防御煎肝进攻中一样。</string>
   <string name="attraction">引入</string>
   <string name="attractionDescription">以兑子或弃子吸引或迫使对方的棋子走到后续可实施战术的格子。</string>
@@ -22,7 +22,7 @@
   <string name="castlingDescription">将王转移到安全的地方，同时将车投入进攻。</string>
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以便在接下来的着法中吃掉现在未保护的棋子。</string>
-  <string name="crushing">压倒性优势</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">压倒性优势</string>
   <string name="crushingDescription">发现对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">双象在交错的斜线上将杀被同一方子力阻挡的王。</string>
@@ -120,5 +120,5 @@
   <string name="zugzwang">楚茨文克（无等着）</string>
   <string name="zugzwangDescription">对手可选的着法是有限的，所有着法都会使其局面更加恶化。</string>
   <string name="healthyMix">健康搭配</string>
-  <string name="healthyMixDescription">每个主题中的一点点。您不知道会出现什么，因此您随时准备就绪！ 就像在真实游戏中一样。</string>
+  <string name="healthyMixDescription">每个主题中选取一些。您不知道会出现什么，因此得时刻打起精神！ 就像在真实游戏中一样。</string>
 </resources>

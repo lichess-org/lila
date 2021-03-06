@@ -15,7 +15,7 @@
     "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
-    "chessground": "^7.11.0",
+    "chessground": "^7.11.1",
     "chessops": "^0.8.1",
     "snabbdom": "^0.7.4",
     "common": "2.0.0"

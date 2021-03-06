@@ -85,7 +85,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     lichess.loadScript('javascripts/chart/acpl.js').then(function () {
-      lichess.advantageChart(data, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
+      lichess.advantageChart!(data, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
     });
   }
 

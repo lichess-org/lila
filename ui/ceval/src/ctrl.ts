@@ -48,10 +48,12 @@ export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
+  const enableNnue = storedProp(storageKey('ceval.enable-nnue'), !(navigator as any).connection?.saveData);
 
   // select nnue > hce > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
+  let supportsNnue = false;
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
@@ -61,11 +63,8 @@ export default function (opts: CevalOpts): CevalCtrl {
 
       // i32x4.dot_i16x8_s
       const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]); // prettier-ignore
-      if (
-        !(navigator as any).connection?.saveData &&
-        officialStockfish(opts.variant.key) &&
-        WebAssembly.validate(sourceWithSimd)
-      ) {
+      supportsNnue = WebAssembly.validate(sourceWithSimd);
+      if (supportsNnue && enableNnue() && officialStockfish(opts.variant.key)) {
         technology = 'nnue';
       }
 
@@ -229,7 +228,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: '2732f2',
+          version: '85a969',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
         });
       else if (technology == 'hce')
@@ -282,6 +281,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     maxThreads,
     maxHashSize,
     infinite,
+    supportsNnue,
+    enableNnue,
     hovering,
     setHovering(fen: Fen, uci?: Uci) {
       hovering(

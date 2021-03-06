@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="combo">Ratxa</string>
+  <string name="moveToStart">Fes una jugada per començar</string>
+  <string name="puzzlesSolved">problemes resolts</string>
+  <string name="newDailyHighscore">Nou récord de puntuació diària!</string>
+  <string name="newWeeklyHighscore">Nou récord de puntuació setmanal!</string>
+  <string name="newMonthlyHighscore">Nou récord de puntuació mensual!</string>
+  <string name="newAllTimeHighscore">Nou récord de puntuació de tots els temps!</string>
+  <string name="previousHighscoreWasX">El récord de puntuació anterior era de %s</string>
+  <string name="playAgain">Torna a jugar</string>
+  <plurals name="xRuns">
+    <item quantity="one">Un intent</item>
+    <item quantity="other">%s intents</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Has jugat una ronda de %2$s</item>
+    <item quantity="other">Has jugat %1$s rondes de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Récord de puntuació: %s</string>
+  <string name="score">Puntuació</string>
+  <string name="moves">Moviments</string>
+  <string name="accuracy">Precisió</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Ratxa</string>
+  <string name="time">Temps</string>
+  <string name="timePerMove">Temps per jugada</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">El més difícil resolt</string>
 </resources>
