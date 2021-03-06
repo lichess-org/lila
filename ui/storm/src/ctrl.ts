@@ -45,6 +45,7 @@ export default class StormCtrl {
       signed: prop(undefined),
       lateStart: false,
       filterFailed: false,
+      filterSlow: false,
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
@@ -249,6 +250,11 @@ export default class StormCtrl {
 
   toggleFilterFailed = () => {
     this.vm.filterFailed = !this.vm.filterFailed;
+    this.redraw();
+  };
+
+  toggleFilterSlow = () => {
+    this.vm.filterSlow = !this.vm.filterSlow;
     this.redraw();
   };
 
