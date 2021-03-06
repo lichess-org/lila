@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">İletişim</string>
-  <string name="contactLishogi">Contact Lishogi</string>
+  <string name="contactLishogi">Lishogi ile iletişime geç</string>
   <string name="whatCanWeHelpYouWith">Size ne konuda yardımcı olabiliriz?</string>
   <string name="visitThisPage">Sorununuzu çözmek için bu sayfayı ziyaret edin</string>
   <string name="iCantLogIn">Giriş yapamıyorum</string>
@@ -69,7 +69,7 @@
   <string name="otherRestriction">Başka bir itiraz</string>
   <string name="collaboration">İş birliği, yasal ve ticari işlemler</string>
   <string name="monetizing">Lishogi üzerinden para kazanmak</string>
-  <string name="buyingLishogi">Buying Lishogi</string>
+  <string name="buyingLishogi">Lishogi\'yi satın almak</string>
   <string name="authorizationToUse">Lishogi\'i kullanabilme yetkisi</string>
   <string name="welcomeToUse">Lishogi\'i ticaret amacıyla kullanabilirsiniz.</string>
   <string name="videosAndBooks">Lishogi\'ten aldığınız bir ekran görüntüsünü kitaplarınızda ya da videolarınızda gösterebilirsiniz.</string>

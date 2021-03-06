@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi coaches</string>
-	<string name="lishogiCoach">Lishogi coach</string>
-	<string name="areYouCoach" comment="not sure if coaches will ever be a feature in lishogi. the original text in lichess is: &quot;Are you a great chess coach with a NM or FIDE title?&#10;Confirm your title here and we will review your application.&quot;">Are you a great shogi coach with a %s?</string>
-	<string name="nmOrFideTitle">title</string>
+	<string name="lishogiCoaches">Lishogi antrenörleri</string>
+	<string name="lishogiCoach">Lishogi antrenörü</string>
+	<string name="areYouCoach" comment="not sure if coaches will ever be a feature in lishogi. the original text in lichess is: &quot;Are you a great chess coach with a NM or FIDE title?&#10;Confirm your title here and we will review your application.&quot;">%s gibi bir ünvan sahibi, yetenekli bir shogi eğitmeni misiniz?</string>
+	<string name="nmOrFideTitle">ünvan</string>
 	<string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
 	<string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>
 	<string name="location">Konum</string>
@@ -13,7 +13,7 @@
 	<string name="availability">Uygunluk durumu</string>
 	<string name="accepting">Öğrenci kabul ediyor</string>
 	<string name="notAccepting">Şu anda öğrenci kabul etmiyor</string>
-	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="xCoachesStudents">%s shogi öğrencilerine eğitim veriyor</string>
 	<string name="viewXProfile">%s adlı eğitmenin Lishogi profilini ziyaret et</string>
 	<string name="sendPM">Özel mesaj gönder</string>
 	<string name="aboutMe">Hakkımda</string>

@@ -9,13 +9,13 @@
 	<string name="boardCoordinates">Tahta kordinatları</string>
 	<string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
 	<string name="pgnPieceNotation">Notasyon tut</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="chessPieceSymbol">Satranç taş sembolleri</string>
+	<string name="pgnLetter">Harf (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen modu</string>
 	<string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
 	<string name="onlyOnInitialPosition">Sadece oyunun başında</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldChess">Kör shogi (görünmez taşlar)</string>
+	<string name="chessClock">Shogi saati</string>
 	<string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Kalan zaman 10 saniyeden az ise</string>
 	<string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>

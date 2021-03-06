@@ -65,7 +65,7 @@
   <string name="broadcastUrl">Yayın URL’si</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
   <string name="currentGameUrl">Şu anki oyunun adresi</string>
-  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Bunu sabitlemek için foruma yapıştırabilirsiniz</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>
