@@ -653,10 +653,10 @@
   <string name="yourRating">Вашият рейтинг</string>
   <string name="cumulative">С натрупване</string>
   <string name="glicko2Rating">Рейтинг по Glicko-2</string>
-  <string name="checkYourEmail">Проверете вашата ел. поща</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме ви писмо. Натиснете върху връзката в писмото, за да задействате вашата регистрация.</string>
+  <string name="checkYourEmail">Проверете имейла си</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви писмо. Натиснете върху връзката в писмото, за да задействате регистрацията си.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
-  <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да преустановите паролата на вашата регистрация.</string>
+  <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да промените паролата на вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="readAboutOur">Прочетете за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
