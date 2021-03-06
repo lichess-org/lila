@@ -238,6 +238,8 @@ final class PlanApi(
 
           case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
+          case (None, None) if patron.isPatreon => fuccess(Synced(patron.some, none))
+
           case (None, None) if user.plan.active && patron.free.isEmpty =>
             logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
             setDbUserPlan(user, user.plan.disable) inject ReloadUser
@@ -250,6 +252,52 @@ final class PlanApi(
     userPatron(user) map {
       _.exists(_.isLifetime)
     }
+
+  def isPatreon(user: User): Fu[Boolean] =
+    userPatron(user) map {
+      _.exists(_.isPatreon)
+    }
+
+  def unsetPatreon(user: User): Funit =
+    userPatron(user) flatMap { patronOpt =>
+      val patron = patronOpt
+        .getOrElse(Patron(_id = Patron.UserId(user.id)))
+        .copy(
+          patreon = false.some
+        )
+        .expireInOneMonth
+      patronColl.update.one(
+        $id(user.id),
+        patron
+      ).void >>- lightUserApi.invalidate(user.id)
+    }
+
+  def setPatreon(user: User, amount: Int): Funit = {
+    val charge = Charge.make(
+        userId = Some(user.id),
+        cents = Cents(amount * 100) // dollars to cents
+    )
+    addCharge(charge)
+    userRepo.setPlan(
+      user,
+      lila.user.Plan(
+        months = user.plan.months | 1,
+        active = true,
+        since = user.plan.since orElse DateTime.now.some
+      )
+    ) >> patronColl.update
+      .one(
+        $id(user.id),
+        $set(
+          "lastLevelUp" -> DateTime.now,
+          "lifetime"    -> false,
+          "patreon"     -> true,
+          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1)
+        ),
+        upsert = true
+      )
+      .void >>- lightUserApi.invalidate(user.id)
+  }
 
   def setLifetime(user: User): Funit =
     userRepo.setPlan(
@@ -271,12 +319,7 @@ final class PlanApi(
       )
       .void >>- lightUserApi.invalidate(user.id)
 
-  def giveMonth(user: User): Funit = {
-    val charge = Charge.make(
-        userId = Some(user.id),
-        cents = Cents(420)
-      )
-    addCharge(charge)
+  def giveMonth(user: User): Funit =
     userRepo.setPlan(
       user,
       lila.user.Plan(
@@ -296,7 +339,6 @@ final class PlanApi(
         upsert = true
       )
       .void >>- lightUserApi.invalidate(user.id)
-  }
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {

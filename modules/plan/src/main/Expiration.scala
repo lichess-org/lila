@@ -35,7 +35,8 @@ final private class Expiration(
     patronColl.list[Patron](
       $doc(
         "expiresAt" $lt DateTime.now,
-        "lifetime" $ne true
+        "lifetime" $ne true,
+        "patreon" $ne true
       ),
       50
     )
