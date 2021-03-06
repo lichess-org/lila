@@ -66,7 +66,7 @@ final class Tv(
   def gamesChannel(chanKey: String) =
     Open { implicit ctx =>
       (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-        env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 10) map {
+        env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
           case (champs, games) => {
             NoCache {
               Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
