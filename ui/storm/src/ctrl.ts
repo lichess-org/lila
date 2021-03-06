@@ -110,9 +110,9 @@ export default class StormCtrl {
       if (bonus) {
         this.vm.modifier.bonus = bonus;
         this.vm.clock += bonus.seconds * 1000;
-        this.sound.bonus();
       }
       if (this.vm.moveIndex == line.length - 1) {
+        this.sound.good();
         this.pushToHistory(true);
         this.vm.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
@@ -122,7 +122,7 @@ export default class StormCtrl {
       }
       this.sound.move(captureSound);
     } else {
-      lichess.sound.play('error');
+      this.sound.wrong();
       this.pushToHistory(false);
       this.vm.run.errors++;
       this.vm.combo = 0;
@@ -269,8 +269,9 @@ export default class StormCtrl {
 
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: this.loadSound('other/ping', 0.8, 1000),
-    end: this.loadSound('other/gewonnen', 0.6, 5000),
+    good: this.loadSound('lisp/PuzzleStormGood', 1, 1000),
+    wrong: this.loadSound('lisp/Error', 0.8, 1000),
+    end: this.loadSound('lisp/PuzzleStormEnd', 1, 5000),
   };
 
   private checkDupTab = () => {
