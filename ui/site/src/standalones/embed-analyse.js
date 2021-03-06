@@ -163,6 +163,7 @@ $(function () {
     "wood1",
     "kaya1",
     "kaya2",
+    "kaya-light",
     "oak",
     "solid-brown1",
     "solid-wood1",
