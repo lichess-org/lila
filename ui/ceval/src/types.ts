@@ -13,7 +13,6 @@ export interface ProtocolOpts {
   variant: VariantKey;
   threads: false | (() => number | string);
   hashSize: false | (() => number | string);
-  minDepth: number;
 }
 
 export interface Work {

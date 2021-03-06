@@ -88,7 +88,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
-  const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
@@ -102,7 +101,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const isDeeper = prop(false);
 
   const protocolOpts = {
-    minDepth,
     variant: opts.variant.key,
     threads: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
     hashSize: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
