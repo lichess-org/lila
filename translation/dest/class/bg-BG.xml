@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Часове</string>
+  <string name="lichessClasses">Класове</string>
   <string name="teachClassesOfChessStudents">Води часове с ученици на шахмат с инструмента Lichess Часове.</string>
   <string name="features">Функционалности</string>
   <string name="quicklyGenerateSafeUsernames">Бързо създаване на безопасни потребителски имена и пароли за ученици</string>
@@ -53,4 +53,17 @@
 Ето линк за достъп към класа.</string>
   <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
   <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
+  <string name="teachers">Учители</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Учител</item>
+    <item quantity="other">%s учители</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Ученик</item>
+    <item quantity="other">%s ученици</item>
+  </plurals>
+  <string name="students">Ученици</string>
+  <string name="progress">Напредък</string>
+  <string name="noStudents">В този клас все още няма ученици.</string>
+  <string name="noRemovedStudents">Няма премахнати ученици.</string>
 </resources>
