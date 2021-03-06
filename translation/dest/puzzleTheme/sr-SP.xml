@@ -25,6 +25,7 @@
   <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Уништавање</string>
   <string name="crushingDescription">Уочите противничку грубу грешку како бисте стекли огромну предност. (евалуација ≥ 600cp)</string>
   <string name="doubleBishopMate">Мат ловачким паром</string>
+  <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
   <string name="deflection">Дефлекција</string>
   <string name="fork">Маказе</string>
   <string name="master">Партије мајстора</string>
