@@ -34,6 +34,14 @@
       </thead>
       <tbody></tbody>
     </table>
+    <br><br><hr><br><br>
+    <table class="storm">
+      <thead>
+        <tr>Puzzle Storm</tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
     <script>
       function playSound(set, name) {
         lichess.sound.changeSet(set);
@@ -55,6 +63,11 @@
         'newPM',
         'confirmation',
         'error',
+        'tournament1st',
+        'tournament2nd',
+        'tournament3rd',
+        'tournamentOther',
+        ...[...Array(11).keys()].reverse().map(i => 'CountDown' + i)
       ];
 
       soundSets.forEach(s => {
@@ -68,14 +81,28 @@
           $('<td>')
             .append(
               $('<button>')
-                .on('click', function () {
-                  playSound(soundSet, name);
-                })
+                .on('click', () => playSound(soundSet, name))
                 .text(name)
             )
             .appendTo(tr);
         });
       }
+
+      [
+        ['good', 'lisp/PuzzleStormGood'],
+        ['wrong', 'lisp/Error'],
+        ['end', 'lisp/PuzzleStormEnd']
+      ].forEach(([name, sound]) => {
+        lichess.sound.loadOggOrMp3(sound, `${lichess.sound.baseUrl}/${sound}`);
+        var tr = $('<tr>').appendTo($('table.storm tbody'));
+        $('<td>')
+          .append(
+            $('<button>')
+              .on('click', () => lichess.sound.play(sound))
+              .text(name)
+          )
+          .appendTo(tr);
+      });
     </script>
   </body>
 </html>
