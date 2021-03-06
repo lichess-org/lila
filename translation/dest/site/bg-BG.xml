@@ -29,8 +29,8 @@
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Надпреварата завърши</string>
   <string name="variantEnding">Край на варианта</string>
-  <string name="newOpponent">Друг противник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Противник иска да играе нова игра с вас</string>
+  <string name="newOpponent">Нов противник</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Противникът иска да играе нова игра с вас</string>
   <string name="joinTheGame">Влез в играта</string>
   <string name="whitePlays">Белите на ход</string>
   <string name="blackPlays">Черните на ход</string>
@@ -40,7 +40,7 @@
   </plurals>
   <string name="opponentLeftChoices">Другият играч напусна играта. Можете да изискате победа, реми, или да изчакате.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
-  <string name="forceResignation">Претендирай победа</string>
+  <string name="forceResignation">Обяви победа</string>
   <string name="forceDraw">Обяви реми</string>
   <string name="talkInChat">Моля бъдете учтиви в чата!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Първият човек който отвори този адрес ще играе с вас.</string>
@@ -48,10 +48,10 @@
   <string name="blackResigned">Черните се предадоха</string>
   <string name="whiteLeftTheGame">Белите напуснаха</string>
   <string name="blackLeftTheGame">Черните напуснаха</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Сподели адреса с приятели, които да наблюдават играта</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Споделете този адрес с приятели, за да могат да наблюдават играта</string>
   <string name="theComputerAnalysisHasFailed">Компютърният анализ се провали</string>
-  <string name="viewTheComputerAnalysis">Виж компютърния анализ</string>
-  <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
+  <string name="viewTheComputerAnalysis">Вижте компютърния анализ</string>
+  <string name="requestAComputerAnalysis">Поискайте компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="computerAnalysisAvailable">Компютърният анализ е наличен</string>
   <string name="analysis">Анализ</string>
@@ -123,16 +123,16 @@
   <string name="moveTimes">Време за ход</string>
   <string name="flipBoard">Завърти дъската</string>
   <string name="threefoldRepetition">Тройно повторение</string>
-  <string name="claimADraw">Наложи равенство</string>
-  <string name="offerDraw">Предложи равенство</string>
+  <string name="claimADraw">Обяви реми</string>
+  <string name="offerDraw">Предложи реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s играчи</item>
+    <item quantity="one">%s играч</item>
     <item quantity="other">%s играчи</item>
   </plurals>
   <string name="currentGames">Текущи игри</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Партии</item>
+    <item quantity="one">%s Партия</item>
     <item quantity="other">%s Партии</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -142,8 +142,8 @@
   <string name="viewInFullSize">Гледай на пълен екран</string>
   <string name="logOut">Излез</string>
   <string name="signIn">Влез</string>
-  <string name="youNeedAnAccountToDoThat">Трябва ти регистрация, за да направиш това</string>
-  <string name="signUp">Регистрирай се</string>
+  <string name="youNeedAnAccountToDoThat">Трябва Ви регистрация, за да направите това</string>
+  <string name="signUp">Регистрирайте се</string>
   <string name="computersAreNotAllowedToPlay">Не е позволено използването на компютърна помощ. Моля не си помагайте с шах програми, архиви или други играчи по време на игра. Също, създаването на множество регистрации е силно непрепоръчително и ще се накаже с бан.</string>
   <string name="games">Игри</string>
   <string name="forum">Форум</string>
