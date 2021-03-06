@@ -26,8 +26,14 @@ function pocket(ctrl: EditorCtrl, c: Color): VNode {
                 mousedown: dragFromPocket(ctrl, [c, r as Role], nb, "mouseup"),
                 touchstart: dragFromPocket(ctrl, [c, r as Role], nb, "touchend"),
                 click: (e) => {
+                  if(e.shiftKey)
+                    ctrl.removeFromPocket(opposite(c), r as Role, true);
+                  else
+                    ctrl.addToPocket(opposite(c), r as Role, true);
                   e.preventDefault();
-                  ctrl.addToPocket(opposite(c), r as Role, true);
+                },
+                contextmenu: (e) => {
+                  e.preventDefault();
                 }
               },
             },
