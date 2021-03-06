@@ -35,7 +35,7 @@ case class RacerRace(
     )
 
   def startCountdown =
-    if (startsAt.isEmpty) copy(startsAt = DateTime.now.plusSeconds(10).some)
+    if (startsAt.isEmpty) copy(startsAt = DateTime.now.plusSeconds(5).some)
     else this
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)

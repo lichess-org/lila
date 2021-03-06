@@ -51,16 +51,17 @@ export default class StormCtrl {
     this.vm = {
       signed: prop(undefined),
     };
-    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, this.isRacing()), this.redraw);
+    this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
-    this.startCountdown(this.data.startsIn);
+    this.startCountdown();
   }
 
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
-    this.startCountdown(data.startsIn);
+    this.data.startsIn = data.startsIn;
+    this.startCountdown();
     this.redraw();
   };
 
@@ -76,13 +77,16 @@ export default class StormCtrl {
     if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
   });
 
-  private startCountdown = (startsIn: number | undefined) => {
-    if (startsIn) {
-      this.vm.startsAt = new Date(Date.now() + startsIn);
+  private startCountdown = () => {
+    if (this.data.startsIn) {
+      this.vm.startsAt = new Date(Date.now() + this.data.startsIn);
       const countdown = () => {
         const diff = this.vm.startsAt.getTime() - Date.now();
         if (diff > 0) setTimeout(countdown, diff % 1000);
-        else this.run.clock.start();
+        else {
+          this.run.clock.start();
+          this.withGround(g => g.set(this.cgOpts()));
+        }
         this.redraw();
       };
       setTimeout(countdown);
@@ -143,12 +147,14 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g => g.set(makeCgOpts(this.run, this.isRacing())));
+    this.withGround(g => g.set(this.cgOpts()));
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
+
+  private cgOpts = () => makeCgOpts(this.run, this.isRacing());
 
   private pushToHistory = (win: boolean) =>
     this.run.history.push({

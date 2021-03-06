@@ -16,7 +16,7 @@ final private class RacerSocket(
   import RacerSocket._
 
   def publishState(race: RacerRace): Unit = send(
-    Protocol.Out.publishState(race.id, json state race).pp
+    Protocol.Out.publishState(race.id, json state race)
   )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply _
