@@ -100,7 +100,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     else if (loading && !$("#acpl-chart-loader").length)
       $panel.append(chartLoader());
     li.loadScript("javascripts/chart/acpl.js").then(function () {
-      li.advantageChart(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement, notationStyle(ctrl.data.pref.pieceNotation ?? 0));
+      li.advantageChart!(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement, notationStyle(ctrl.data.pref.pieceNotation ?? 0));
     });
   }
 

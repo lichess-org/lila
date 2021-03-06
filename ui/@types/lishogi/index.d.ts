@@ -67,17 +67,17 @@ interface Lishogi {
   };
 
   // misc
-  advantageChart: {
+  advantageChart?: {
     update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement, notation: any): void;
   };
   movetimeChart: any;
-  RoundNVUI(
+  RoundNVUI?(
     redraw: () => void
   ): {
     render(ctrl: any): any;
   };
-  AnalyseNVUI(
+  AnalyseNVUI?(
     redraw: () => void
   ): {
     render(ctrl: any): any;

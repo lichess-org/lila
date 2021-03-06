@@ -89,7 +89,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         li.requestIdleCallback(() => {
           li.loadScript("javascripts/chart/acpl.js").then(() => {
             const notation = ctrl.root.data.pref.pieceNotation ?? 0;
-            li.advantageChart(ctrl.root.data, ctrl.root.trans, el, notationStyle(notation));
+            li.advantageChart!(ctrl.root.data, ctrl.root.trans, el, notationStyle(notation));
             ctrl.chartEl(el);
           });
         });
