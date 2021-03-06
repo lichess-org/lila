@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.CuteNameGenerator
 
-final private class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
+final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
 
   def apply(maxSize: Int = 17, triesLeft: Int = 20): Fu[Option[String]] = {
     CuteNameGenerator.make(maxSize) ?? { name =>
