@@ -270,8 +270,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: 'Enable NNUE',
-                      title: 'Enable NNUE (page reload required after change)',
+                      name: 'Use NNUE',
+                      title: 'Downloads large neural network evaluation file (page reload required after change)',
                       id: 'enable-nnue',
                       checked: ceval.enableNNUE(),
                       change: ctrl.cevalEnableNNUE,
