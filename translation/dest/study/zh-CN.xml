@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">私人</string>
-  <string name="myStudies">我的研究</string>
-  <string name="studiesIContributeTo">我贡献的研究</string>
-  <string name="myPublicStudies">我的公开研究</string>
-  <string name="myPrivateStudies">我的私有研究</string>
-  <string name="myFavoriteStudies">我收藏的研究</string>
-  <string name="whatAreStudies">什么是研究？</string>
-  <string name="allStudies">所有研究</string>
-  <string name="studiesCreatedByX">由 %s 创建的研究</string>
+  <string name="myStudies">我的研讨</string>
+  <string name="studiesIContributeTo">我贡献的研讨</string>
+  <string name="myPublicStudies">我的公开研讨</string>
+  <string name="myPrivateStudies">我的私有研讨</string>
+  <string name="myFavoriteStudies">我收藏的研讨</string>
+  <string name="whatAreStudies">什么是研讨？</string>
+  <string name="allStudies">所有研讨</string>
+  <string name="studiesCreatedByX">由 %s 创建的研讨</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">添加时间 (最新)</string>
@@ -26,23 +26,23 @@
   <plurals name="nbMembers">
     <item quantity="other">%s 位成员</item>
   </plurals>
-  <string name="inviteToTheStudy">邀请参加研究</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研究的成员</string>
+  <string name="inviteToTheStudy">邀请参加研讨</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研讨的成员</string>
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢除</string>
-  <string name="leaveTheStudy">离开研究</string>
+  <string name="leaveTheStudy">离开研讨</string>
   <string name="youAreNowAContributor">您现在是一位贡献者</string>
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
-  <string name="pgnTags">PGN标签</string>
+  <string name="pgnTags">PGN 标签</string>
   <string name="like">赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
-  <string name="commentThisMove">评论当前走子</string>
+  <string name="commentThisMove">评论这步走法</string>
   <string name="annotateWithGlyphs">用图形标注</string>
   <string name="theChapterIsTooShortToBeAnalysed">本章节太短，无法进行分析。</string>
-  <string name="onlyContributorsCanRequestAnalysis">只有研究贡献者可以请求进行计算机分析。</string>
+  <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
@@ -54,7 +54,7 @@
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
-  <string name="studyPgn">研究PGN</string>
+  <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="downloadGame">下载棋局</string>

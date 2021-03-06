@@ -14,13 +14,13 @@
   <string name="beingAPatron">成为赞助者</string>
   <string name="breakdownOfOurCosts">我们的费用明细表</string>
   <string name="otherWaysToHelp">其它的帮助方式</string>
-  <string name="areThereWebsitesBasedOnLichess">是否有基于Lichess的网站？</string>
+  <string name="areThereWebsitesBasedOnLichess">是否有基于Lichess 的网站？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess确实激励了其他使用我们的 %1$s %2$s或 %3$s 的开源站点。</string>
   <string name="fairPlay">公平竞争</string>
   <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
   <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
-  <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
-  <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的评分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
+  <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还等级分？</string>
+  <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的等级分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
   (例如，如果你的评分在这些游戏后大幅增加，你可能得不到所有或部分返还分数) 。返回分数不会超过150分。</string>
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
@@ -102,11 +102,11 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
-  <string name="ratingSystemUsedByLichess">评分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的评分计算方法，被大量国际象棋组织（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 评分系统）所采用。
+  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统）所采用。
 
-总的来说，Glicko 算法使用”置信区间“来计算和表示你的评分。当首次来到本站时，你的初始评分为 1500 ± 700。其中 1500 表示你的评分，700 表示置信区间。
+总的来说，Glicko 算法使用”置信区间“来计算和表示你的等级分。当首次来到本站时，你的初始等级分为 1500 ± 700。其中 1500 表示你的等级分，700 表示置信区间。
 
-大体上，系统拥有 90% 的确信度认定你的评分在 800-2200 之间的某个值，这是相当模糊的。因为这个原因，玩家的评分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些评分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
+大体上，系统拥有 90% 的确信度认定你的等级分在 800-2200 之间的某个值，这是相当模糊的。因为这个原因，玩家的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
 
 此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
   <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
@@ -124,14 +124,14 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
-  <string name="whyAreRatingHigherExplanation">你不应将评分视为一个绝对数值，也不应将其与其它组织的评分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响评分的绝对数值。
+  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
 
-相反地，你应该将评分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的评分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的评分只有在和其它玩家相比较时才有意义。</string>
+相反地，你应该将等级分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
-  <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
+  <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
-  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的等级分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
   <string name="howToThreeDots">说明</string>
   <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>

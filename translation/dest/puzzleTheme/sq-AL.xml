@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="mateIn1">Mat në 1</string>
+  <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
+  <string name="mateIn2">Mat në 2</string>
+  <string name="mateIn2Description">Jep shahmat në dy lëvizje.</string>
+  <string name="mateIn3">Mat në 3</string>
+  <string name="mateIn3Description">Jep shahmat në tri lëvizje.</string>
+  <string name="mateIn4">Mat në 4</string>
+  <string name="mateIn4Description">Jep shahmat në katër lëvizje.</string>
+  <string name="mateIn5">Jep shahmat në 5 ose me shumë lëvizje</string>
+  <string name="mateIn5Description">Gjëje sekuencen e gjatë për shahmat.</string>
+  <string name="middlegame">Lojë e mesme</string>
+  <string name="middlegameDescription">Një taktikë gjatë fazës se dytë te lojës.</string>
+  <string name="oneMove">Ushtrimet me një lëvizje</string>
+  <string name="oneMoveDescription">Një ushtrim qe zgjidhet me një lëvizje.</string>
+  <string name="opening">Hapja</string>
+  <string name="sacrifice">Sakrificë</string>
+  <string name="short">Ushtrim i shkurtë</string>
+  <string name="shortDescription">Dy lëvizje për te fituar.</string>
+  <string name="superGMDescription">Ushtrime prej lojërave nga lojëtaret më të mirë ne botë.</string>
+  <string name="veryLong">Ushtrim shumë i gjatë</string>
+  <string name="veryLongDescription">Katër lëvizje ose me shumë për te fituar.</string>
+  <string name="healthyMixDescription">Diçka nga te gjitha. Nuk di çka te presish, je gati per gjdo gjë! Sikur ne lojëra te vërteta.</string>
+</resources>

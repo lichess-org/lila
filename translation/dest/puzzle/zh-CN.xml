@@ -11,12 +11,12 @@
   <string name="goals">目标</string>
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">来源</string>
   <string name="specialMoves">特殊着法</string>
-  <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
+  <string name="didYouLikeThisPuzzle">你喜欢这道迷题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
-  <string name="toGetPersonalizedPuzzles">获取个性化训练题</string>
+  <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">谜题编号：%s</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>

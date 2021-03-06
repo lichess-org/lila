@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">和朋友下棋</string>
+  <string name="playWithAFriend">与好友下棋</string>
   <string name="playWithTheMachine">和电脑下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
@@ -126,7 +126,7 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s位在线棋手</item>
   </plurals>
-  <string name="currentGames">当前对局</string>
+  <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
   </plurals>
@@ -691,7 +691,7 @@
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">直接的帮助 Lichess</string>
   <string name="playChessInStyle">有型地下棋</string>
-  <string name="chessBasics">国际象棋基础知识</string>
+  <string name="chessBasics">基础知识</string>
   <string name="coaches">教练</string>
   <string name="invalidPgn">PGN无法识别</string>
   <string name="invalidFen">FEN无法识别</string>
