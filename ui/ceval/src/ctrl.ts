@@ -231,7 +231,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: '2732f2',
+          version: '85a969',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
         });
       else if (technology == 'hce')
