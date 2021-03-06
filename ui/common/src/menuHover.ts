@@ -19,7 +19,7 @@ type State = {
 export default function () {
   if ('ontouchstart' in window) return;
 
-  const interval = 250,
+  const interval = 200,
     sensitivity = 8;
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
