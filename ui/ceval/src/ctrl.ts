@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, officialStockfish } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -51,6 +51,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const enableNnue = storedProp(storageKey('ceval.enable-nnue'), !(navigator as any).connection?.saveData);
 
   // select nnue > hce > wasm > asmjs
+  const officialStockfish =
+    opts.standardMaterial && ['standard', 'fromPosition', 'chess960'].includes(opts.variant.key);
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   let supportsNnue = false;
@@ -64,9 +66,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       // i32x4.dot_i16x8_s
       const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]); // prettier-ignore
       supportsNnue = WebAssembly.validate(sourceWithSimd);
-      if (supportsNnue && enableNnue() && officialStockfish(opts.variant.key)) {
-        technology = 'nnue';
-      }
+      if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
 
       try {
         sharedMem.grow(8);
@@ -75,7 +75,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const initialAllocationMaxThreads = officialStockfish(opts.variant.key) ? 2 : 1;
+  const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads = Math.min(
     Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
     growableSharedMem ? 32 : initialAllocationMaxThreads
@@ -231,8 +231,8 @@ export default function (opts: CevalOpts): CevalCtrl {
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker(protocolOpts, {
-          baseUrl: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
-          module: officialStockfish(opts.variant.key) ? 'Stockfish' : 'StockfishMv',
+          baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+          module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
         });
       else

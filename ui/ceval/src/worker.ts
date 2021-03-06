@@ -2,10 +2,6 @@ import { sync, Sync } from 'common/sync';
 import { ProtocolOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
-export function officialStockfish(variant: VariantKey): boolean {
-  return variant === 'standard' || variant === 'chess960';
-}
-
 export abstract class AbstractWorker<T> {
   protected protocol: Sync<Protocol>;
 
