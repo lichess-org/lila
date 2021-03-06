@@ -134,26 +134,10 @@ export default class EditorCtrl {
   }
 
   private isLikelyStandard(legalFen: string): boolean {
-    const setup = parseFen(legalFen).unwrap();
-    const board = setup.board;
-
-    if (
-      setup.unmovedRooks
-        .without(0)
-        .without(7)
-        .without(7 * 8)
-        .without(7 * 8 + 7)
-        .nonEmpty()
-    )
-      return false;
+    const board = parseFen(legalFen).unwrap().board;
 
     for (const color of COLORS) {
       const pieces = board[color];
-      const canCastle = setup.unmovedRooks.intersect(SquareSet.backrank(color)).nonEmpty();
-      const expectedKingSquare = color === 'white' ? 4 : 7 * 8 + 4;
-
-      if (canCastle && board.king.intersect(pieces).singleSquare() !== expectedKingSquare) return false;
-
       const promotedPieces =
         Math.max(board.queen.intersect(pieces).size() - 1, 0) +
         Math.max(board.rook.intersect(pieces).size() - 2, 0) +
