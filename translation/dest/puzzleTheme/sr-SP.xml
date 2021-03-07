@@ -47,7 +47,7 @@
   <string name="longDescription">Три потеза до добитка.</string>
   <string name="master">Партије мајстора</string>
   <string name="masterVsMaster">Партије Мајстор против Мајстора</string>
-  <string name="masterVsMasterDescription">Проблеми из партија где оба играча имају титуле.</string>
+  <string name="masterVsMasterDescription">Проблеми из партија између два играча са титулама.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Добиј партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
@@ -60,13 +60,13 @@
   <string name="mateIn4Description">Матирај у четири потеза.</string>
   <string name="mateIn5">Мат у 5 или више</string>
   <string name="middlegame">Средишњица</string>
-  <string name="middlegameDescription">Тактика у току друге фазе игре.</string>
+  <string name="middlegameDescription">Тактика у току друге фазе партије.</string>
   <string name="oneMove">Једнопотезни проблем</string>
-  <string name="oneMoveDescription">Проблем од само једног потеза.</string>
+  <string name="oneMoveDescription">Проблем који је сачињен од само једног потеза.</string>
   <string name="opening">Отварање</string>
-  <string name="openingDescription">Тактика у току прве фазе игре.</string>
-  <string name="pawnEndgame">Завршница са пешаком</string>
-  <string name="pawnEndgameDescription">Завршница са само пијунима.</string>
+  <string name="openingDescription">Тактика у току прве фазе партије.</string>
+  <string name="pawnEndgame">Пешачка завршница</string>
+  <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
   <string name="pin">Игла</string>
   <string name="pinDescription">Тактика са иглом, где фигура не може да се помери без да открије напад на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
