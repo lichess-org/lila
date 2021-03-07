@@ -103,7 +103,7 @@
   <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
-  <string name="mateInOneIntro">Ви побеђујете када ваш противник не може да се одбрани од шаха.</string>
+  <string name="mateInOneIntro">Ви добијате када ваш противник не може да се одбрани од шаха.</string>
   <string name="attackYourOpponentsKing">Нападните противничког краља
 на начин који се не може одбранити!</string>
   <string name="mateInOneComplete">Честитамо! Тако се добијају шаховске партије!</string>
