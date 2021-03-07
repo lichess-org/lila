@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">延迟测试</string>
+  <string name="isLichessLagging">Lichess 卡了吗？</string>
   <string name="measurementInProgressThreeDot">测量进行中...</string>
-  <string name="noAndYourNetworkIsGood">不。而且您的网络很好。</string>
-  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">不。但是您的网络不好。</string>
+  <string name="noAndYourNetworkIsGood">没有，而且您的网络很好。</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">没有，但是您的网络不好。</string>
   <string name="yesItWillBeFixedSoon">是的。它将很快被修好！</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">那么，我们来详细的解释一下吧！游戏延迟由两个互不影响的数值组成（越低越好）：</string>
   <string name="lichessServerLatency">Lichess 服务器处理延迟</string>
