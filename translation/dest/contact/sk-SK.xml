@@ -49,6 +49,7 @@
   <string name="noRatingPoints">Neboli udelené žiadne ratingové body</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="banAppeal">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
+  <string name="engineAppeal">Značka motora alebo podvádzania</string>
   <string name="otherRestriction">Iné obmedzenie</string>
   <string name="collaboration">Spolupráca, právna, obchodná</string>
   <string name="monetizing">Monetizovanie Lichess</string>
