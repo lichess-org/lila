@@ -51,13 +51,13 @@
   <string name="mate">Мат</string>
   <string name="mateDescription">Добијте партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
-  <string name="mateIn1Description">Матирај у једном потезу.</string>
+  <string name="mateIn1Description">Матирајте у једном потезу.</string>
   <string name="mateIn2">Мат у 2</string>
-  <string name="mateIn2Description">Матирај у два потеза.</string>
+  <string name="mateIn2Description">Матирајте у два потеза.</string>
   <string name="mateIn3">Мат у 3</string>
-  <string name="mateIn3Description">Матирај у три потеза.</string>
+  <string name="mateIn3Description">Матирајте у три потеза.</string>
   <string name="mateIn4">Мат у 4</string>
-  <string name="mateIn4Description">Матирај у четири потеза.</string>
+  <string name="mateIn4Description">Матирајте у четири потеза.</string>
   <string name="mateIn5">Мат у 5 или више</string>
   <string name="middlegame">Средишњица</string>
   <string name="middlegameDescription">Тактика у току друге фазе партије.</string>
@@ -67,7 +67,7 @@
   <string name="openingDescription">Тактика у току прве фазе партије.</string>
   <string name="pawnEndgame">Пешачка завршница</string>
   <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
-  <string name="pin">Везање</string>
+  <string name="pin">Везивање</string>
   <string name="pinDescription">Тактика која садржи везивања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
   <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
