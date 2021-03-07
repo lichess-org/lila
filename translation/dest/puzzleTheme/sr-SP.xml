@@ -70,12 +70,12 @@
   <string name="pin">Везање</string>
   <string name="pinDescription">Тактика која садржи везања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
-  <string name="promotionDescription">Промовишиј једног пијуна у краљицу, топа, коња или ловца.</string>
+  <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Завршниза са краљицом</string>
   <string name="queensideAttack">Напад са краљичине стране</string>
   <string name="quietMove">Тих потез</string>
   <string name="rookEndgame">Завршница са топом</string>
   <string name="smotheredMate">Угушени мат</string>
   <string name="xRayAttack">Рендгенски напад</string>
-  <string name="zugzwang">Принуђен потез</string>
+  <string name="zugzwang">Цугцванг</string>
 </resources>
