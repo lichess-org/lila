@@ -36,7 +36,7 @@
   <string name="discoveredAttack">Откривени напад</string>
   <string name="doubleCheck">Двоструки шах</string>
   <string name="endgame">Завршница</string>
-  <string name="endgameDescription">Тактика у току краја игре.</string>
+  <string name="endgameDescription">Тактика у току последње фазе партије.</string>
   <string name="exposedKing">Откривен краљ</string>
   <string name="fork">Маказе</string>
   <string name="hookMate">Шах мат са куком</string>
