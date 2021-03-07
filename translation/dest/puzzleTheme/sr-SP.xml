@@ -49,7 +49,7 @@
   <string name="masterVsMaster">Партије Мајстор против Мајстора</string>
   <string name="masterVsMasterDescription">Проблеми из партија између два играча са титулама.</string>
   <string name="mate">Мат</string>
-  <string name="mateDescription">Добиј партију са стилом.</string>
+  <string name="mateDescription">Добијте партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
   <string name="mateIn1Description">Матирај у једном потезу.</string>
   <string name="mateIn2">Мат у 2</string>
@@ -68,14 +68,14 @@
   <string name="pawnEndgame">Пешачка завршница</string>
   <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
   <string name="pin">Везање</string>
-  <string name="pinDescription">Тактика која садржи везања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
+  <string name="pinDescription">Тактика која садржи везивања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
   <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
-  <string name="queenEndgame">Завршниза са краљицом</string>
-  <string name="queensideAttack">Напад са краљичине стране</string>
-  <string name="quietMove">Тих потез</string>
-  <string name="rookEndgame">Завршница са топом</string>
+  <string name="queenEndgame">Дамска завршница</string>
+  <string name="queensideAttack">Напад на даминој страни</string>
+  <string name="quietMove">Тихи потез</string>
+  <string name="rookEndgame">Топовска завршница</string>
   <string name="smotheredMate">Угушени мат</string>
-  <string name="xRayAttack">Рендгенски напад</string>
+  <string name="xRayAttack">Икс Реј напад</string>
   <string name="zugzwang">Цугцванг</string>
 </resources>
