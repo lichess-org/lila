@@ -3,16 +3,16 @@
   <string name="perfStats">%s 战绩</string>
   <string name="viewTheGames">查看棋局</string>
   <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">暂定</string>
-  <string name="notEnoughRatedGames">因计分局不足而无法测定可靠的评级</string>
+  <string name="notEnoughRatedGames">因排位赛数量不足而无法测定可靠的等级分</string>
   <string name="progressOverLastXGames">最新 %s 局后的变化:</string>
-  <string name="ratingDeviation">积分偏差: %s</string>
-  <string name="ratingDeviationHelp">偏差越低，表示积分越稳定。偏差高于 %s，积分将会被评为暂定。</string>
+  <string name="ratingDeviation">等级分偏差: %s</string>
+  <string name="ratingDeviationHelp">偏差越低，表示等级分越稳定。偏差高于 %s，等级分将会被评为暂定。</string>
   <string name="totalGames">棋局总数</string>
-  <string name="ratedGames">积分局数</string>
+  <string name="ratedGames">排位赛局数</string>
   <string name="tournamentGames">锦标赛局数</string>
   <string name="berserkedGames">神速局数</string>
   <string name="timeSpentPlaying">弈棋总时间</string>
-  <string name="averageOpponent">平均对手</string>
+  <string name="averageOpponent">对手平均等级分</string>
   <string name="victories">胜</string>
   <string name="defeats">负</string>
   <string name="disconnections">断线</string>
