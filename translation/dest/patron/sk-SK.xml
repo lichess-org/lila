@@ -26,6 +26,7 @@
   <string name="weAreSmallTeam">Sme malý tím, čiže Vaša podpora robí obrovský rozdiel!</string>
   <string name="celebratedPatrons">Slávni Patróni, ktorí robia Lichess možným</string>
   <string name="whereMoneyGoes">Kam idú peniaze?</string>
+  <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
   <string name="currentStatus">Aktuálny stav</string>
   <string name="nextPayment">Ďalšia platba</string>
@@ -34,6 +35,9 @@
   <string name="xOrY">%1$s alebo %2$s</string>
   <string name="paymentHistory">História platieb</string>
   <string name="paid">Zaplatené</string>
+  <string name="viewOthers">Zobraziť iných Lichess Patronov</string>
   <string name="date">Dátum</string>
   <string name="amount">Suma</string>
+  <string name="nowLifetime">Odteraz ste doživotný Lichess Patron!</string>
+  <string name="nowOneMonth">Odteraz ste Lichess Patron na jeden mesiac!</string>
 </resources>
