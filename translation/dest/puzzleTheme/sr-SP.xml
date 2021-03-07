@@ -39,9 +39,9 @@
   <string name="endgameDescription">Тактика у току последње фазе партије.</string>
   <string name="exposedKing">Откривен краљ</string>
   <string name="fork">Маказе</string>
-  <string name="hookMate">Шах мат са куком</string>
+  <string name="hookMate">Кука-мат</string>
   <string name="interference">Пресретање</string>
-  <string name="knightEndgame">Завршница са коњем</string>
+  <string name="knightEndgame">Скакачка завршница</string>
   <string name="knightEndgameDescription">Завршница са само ловцима и пешацима.</string>
   <string name="long">Дугачак проблем</string>
   <string name="longDescription">Победа у три потеза.</string>
