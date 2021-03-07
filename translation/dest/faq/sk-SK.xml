@@ -51,6 +51,7 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="whatUsernameCanIchoose">Aké môže vyť moje používateľské meno?</string>
   <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
   <string name="guidelines">pokyny</string>
+  <string name="canIChangeMyUsername">Môžem si zmeniť svoje užívateľské meno?</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
   <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
