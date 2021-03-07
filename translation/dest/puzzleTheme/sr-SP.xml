@@ -46,10 +46,10 @@
   <string name="long">Дугачак проблем</string>
   <string name="longDescription">Три потеза до добитка.</string>
   <string name="master">Партије мајстора</string>
-  <string name="masterVsMaster">Партије са мајстором против мајстора</string>
+  <string name="masterVsMaster">Партије Мајстор против Мајстора</string>
   <string name="masterVsMasterDescription">Проблеми из партија где оба играча имају титуле.</string>
-  <string name="mate">Матови</string>
-  <string name="mateDescription">Победи партију са стилом.</string>
+  <string name="mate">Мат</string>
+  <string name="mateDescription">Добиј партију са стилом.</string>
   <string name="mateIn1">Мат у 1</string>
   <string name="mateIn1Description">Матирај у једном потезу.</string>
   <string name="mateIn2">Мат у 2</string>
@@ -61,7 +61,7 @@
   <string name="mateIn5">Мат у 5 или више</string>
   <string name="middlegame">Средишњица</string>
   <string name="middlegameDescription">Тактика у току друге фазе игре.</string>
-  <string name="oneMove">Једно-потезни проблем</string>
+  <string name="oneMove">Једнопотезни проблем</string>
   <string name="oneMoveDescription">Проблем од само једног потеза.</string>
   <string name="opening">Отварање</string>
   <string name="openingDescription">Тактика у току прве фазе игре.</string>
