@@ -67,8 +67,8 @@
   <string name="openingDescription">Тактика у току прве фазе партије.</string>
   <string name="pawnEndgame">Пешачка завршница</string>
   <string name="pawnEndgameDescription">Завршница са само пешацима.</string>
-  <string name="pin">Игла</string>
-  <string name="pinDescription">Тактика са иглом, где фигура не може да се помери без да открије напад на вреднију фигуру.</string>
+  <string name="pin">Везање</string>
+  <string name="pinDescription">Тактика која садржи везања, где се фигура не може померити без откривања напада на вреднију фигуру.</string>
   <string name="promotion">Промоција</string>
   <string name="promotionDescription">Промовишиј једног пијуна у краљицу, топа, коња или ловца.</string>
   <string name="queenEndgame">Завршниза са краљицом</string>
