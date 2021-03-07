@@ -44,7 +44,7 @@
   <string name="knightEndgame">Скакачка завршница</string>
   <string name="knightEndgameDescription">Завршница са само ловцима и пешацима.</string>
   <string name="long">Дугачак проблем</string>
-  <string name="longDescription">Победа у три потеза.</string>
+  <string name="longDescription">Три потеза до добитка.</string>
   <string name="master">Партије мајстора</string>
   <string name="masterVsMaster">Партије са мајстором против мајстора</string>
   <string name="masterVsMasterDescription">Проблеми из партија где оба играча имају титуле.</string>
