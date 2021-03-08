@@ -219,6 +219,8 @@ final class AssessApi(
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)
+      else if (game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle))
+        fuccess(TitledPlayer.some)
       else if (!game.source.exists(assessableSources.contains)) fuccess(none)
       // give up on correspondence games
       else if (game.isCorrespondence) fuccess(none)
