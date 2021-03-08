@@ -891,10 +891,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
-  <string name="conditionalPremoves">Réamhbheart coinníollach</string>
+  <string name="conditionalPremoves">Réamhbhearta coinníollacha</string>
   <string name="addCurrentVariation">Cuir athrúchán reatha leis</string>
   <string name="playVariationToCreateConditionalPremoves">Imir athrúchán chun réamhbheart coinníollach a chruthú</string>
-  <string name="noConditionalPremoves">Gan aon réamhbheart coinníollach</string>
+  <string name="noConditionalPremoves">Gan aon réamhbhearta coinníollacha</string>
   <string name="playX">Imir %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">agus sábháil %s líne réamhbheart</item>
