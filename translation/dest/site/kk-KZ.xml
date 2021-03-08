@@ -124,7 +124,7 @@
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
-  <string name="offerDraw">Тепе-теңдікке келісу</string>
+  <string name="offerDraw">Тепе-теңдік сұрау</string>
   <string name="draw">Тепе-теңдік</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ойыншы</item>
