@@ -806,7 +806,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="xJoinsY">tagann %1$s %2$s</string>
   <string name="xLikesY">Is maith le %1$s %2$s</string>
   <string name="xCreatesStudyY">cruthaíonn %1$s staidéar %2$s</string>
-  <string name="quickPairing">Péireáil gasta</string>
+  <string name="quickPairing">Péireáil ghasta</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Anaithnid</string>
   <string name="yourScore">Do scór: %s</string>
@@ -820,7 +820,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="boardTheme">Téama an chláir</string>
   <string name="boardSize">Méid an chláir</string>
   <string name="pieceSet">Foireann píosaí</string>
-  <string name="embedInYourWebsite">Leabaithe i do shuíomh gréasáin</string>
+  <string name="embedInYourWebsite">Leabaigh i do shuíomh gréasáin</string>
   <string name="usernameAlreadyUsed">Tá an t-ainm úsáideora seo in úsáid cheana féin, bain triail as ceann eile.</string>
   <string name="usernamePrefixInvalid">Caithfidh an t-ainm úsáideora tosú le litir.</string>
   <string name="usernameSuffixInvalid">Caithfidh an t-ainm úsáideora críochniú le litir nó uimhir.</string>
