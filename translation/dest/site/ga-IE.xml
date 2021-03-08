@@ -927,12 +927,12 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="edit">Athraigh</string>
   <string name="rapid">Mear</string>
   <string name="classical">Clasaiceach</string>
-  <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
-  <string name="bulletDesc">Cluichí an-tapa: níos lú ná 3 nóiméad</string>
-  <string name="blitzDesc">Cluichí tapa: 3 go 8 nóiméad</string>
-  <string name="rapidDesc">Cluichí mear: 8 go 25 nóiméad</string>
+  <string name="ultraBulletDesc">Cluichí ríghasta; níos lú ná 30 soicind</string>
+  <string name="bulletDesc">Cluichí an-ghasta: níos lú ná 3 nóiméad</string>
+  <string name="blitzDesc">Cluichí gasta: 3 go 8 nóiméad</string>
+  <string name="rapidDesc">Cluichí meara: 8 go 25 nóiméad</string>
   <string name="classicalDesc">Cluichí clasaiceacha: 25 nóiméad agus níos mó</string>
-  <string name="correspondenceDesc">Cluichí comhfhreagrais: lá amháin nó níos mó do gach beart</string>
+  <string name="correspondenceDesc">Cluichí comhfhreagrais: lá nó dhó an bhirt</string>
   <string name="puzzleDesc">Traenálaí beartaíocht fichille</string>
   <string name="important">Tábhachtach</string>
   <string name="yourQuestionMayHaveBeenAnswered">Seans go bhfuil freagra ar do cheist cheana féin %1$s</string>
