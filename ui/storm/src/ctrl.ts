@@ -269,8 +269,8 @@ export default class StormCtrl {
 
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    good: this.loadSound('lisp/PuzzleStormGood', 1, 1000),
-    wrong: this.loadSound('lisp/Error', 0.8, 1000),
+    good: this.loadSound('lisp/PuzzleStormGood', 0.5, 1000),
+    wrong: this.loadSound('lisp/Error', 0.9, 1000),
     end: this.loadSound('lisp/PuzzleStormEnd', 1, 5000),
   };
 
