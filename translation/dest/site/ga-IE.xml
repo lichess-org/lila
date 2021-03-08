@@ -935,7 +935,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="correspondenceDesc">Cluichí comhfhreagrais: lá nó dhó an bhirt</string>
   <string name="puzzleDesc">Traenálaí beartaíocht fichille</string>
   <string name="important">Tábhachtach</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Seans go bhfuil freagra ar do cheist cheana féin %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Seans go bhfuil freagra do cheist ann cheana féin %1$s</string>
   <string name="inTheFAQ">sna CCana</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Chun úsáideoir a thuairisciú maidir le caimiléireacht nó drochiompar, %1$s</string>
   <string name="useTheReportForm">úsáid as an bhfoirm tuarascála</string>
