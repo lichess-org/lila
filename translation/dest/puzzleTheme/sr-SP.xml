@@ -31,6 +31,9 @@
   <string name="equality">Изједначење</string>
   <string name="equalityDescription">Вратите се из губитне позиције и осигурајте реми или изједначену позицију. (евалуација ≤ 200cp)</string>
   <string name="kingsideAttack">Напад на краљевој страни</string>
+  <string name="kingsideAttackDescription">Напад на противничког краља, након што су се рокадирали на краљевој страни.</string>
+  <string name="clearance">Рашчишћавање</string>
+  <string name="clearanceDescription">Потез, често са темпом, који рашчишћава поље, колону или дијагоналу за пратећу тактичку идеју.</string>
   <string name="defensiveMove">Одбрамбени потез</string>
   <string name="deflection">Дефлекција</string>
   <string name="discoveredAttack">Откривени напад</string>
