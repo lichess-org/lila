@@ -897,14 +897,14 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="noConditionalPremoves">Gan aon réamhbhearta coinníollacha</string>
   <string name="playX">Imir %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">agus sábháil %s líne réamhbheart</item>
-    <item quantity="two">agus sábháil %s líne réamhbheart</item>
-    <item quantity="few">agus sábháil %s líne réamhbheart</item>
-    <item quantity="many">agus sábháil %s líne réamhbheart</item>
-    <item quantity="other">agus sábháil %s líne réamhbheart</item>
+    <item quantity="one">agus sábháil %s líne réamhbhirt</item>
+    <item quantity="two">agus sábháil %s líne réamhbhirt</item>
+    <item quantity="few">agus sábháil %s líne réamhbhirt</item>
+    <item quantity="many">agus sábháil %s líne réamhbhirt</item>
+    <item quantity="other">agus sábháil %s líne réamhbhirt</item>
   </plurals>
   <string name="sorry">Tá brón orainn :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
+  <string name="weHadToTimeYouOutForAWhile">Bhí orainn tú a chur ar fionraí ar feadh tréimhse.</string>
   <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
   <string name="why">Cén fáth?</string>
   <string name="pleasantChessExperience">Is mian dúinn atmaisféar maith fichille a chur ar fáil do chách.</string>
