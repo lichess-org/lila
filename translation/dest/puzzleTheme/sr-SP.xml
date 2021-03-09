@@ -39,6 +39,7 @@
   <string name="deflection">Одвлачење</string>
   <string name="deflectionDescription">Потез који одвлачи противничку фигуру од обављања друге дужности, као што је чување кључног поља. Некада се такође зове \"преоптерећење\".</string>
   <string name="discoveredAttack">Откривени напад</string>
+  <string name="discoveredAttackDescription">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
   <string name="doubleCheck">Двоструки шах</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика у току последње фазе партије.</string>
