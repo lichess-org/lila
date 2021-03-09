@@ -41,6 +41,7 @@ object Reason {
     def isOther    = reason == Other
     def isPrint    = reason == CheatPrint
     def isComm     = reason == Comm
+    def isBoost    = reason == Boost
     def isPlaybans = reason == Playbans
   }
 
