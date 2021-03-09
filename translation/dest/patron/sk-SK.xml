@@ -26,14 +26,29 @@
   <string name="weAreSmallTeam">Sme malý tím, čiže Vaša podpora robí obrovský rozdiel!</string>
   <string name="celebratedPatrons">Slávni Patróni, ktorí robia Lichess možným</string>
   <string name="whereMoneyGoes">Kam idú peniaze?</string>
+  <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Patron na jeden mesiac</item>
+    <item quantity="few">Lichess Patron na %s mesiacov</item>
+    <item quantity="many">Lichess Patron na %s mesiacov</item>
+    <item quantity="other">Lichess Patron na %s mesiacov</item>
+  </plurals>
   <string name="currentStatus">Aktuálny stav</string>
   <string name="nextPayment">Ďalšia platba</string>
   <string name="update">Aktualizovať</string>
   <string name="changeMonthlyAmount">Zmeniť mesačnú sumu (%s)</string>
+  <string name="cancelSupport">zrušiť svoju podporu</string>
   <string name="xOrY">%1$s alebo %2$s</string>
+  <string name="noLongerSupport">Nepodporovať Lichess</string>
   <string name="paymentHistory">História platieb</string>
   <string name="paid">Zaplatené</string>
+  <string name="viewOthers">Zobraziť iných Lichess Patronov</string>
   <string name="date">Dátum</string>
   <string name="amount">Suma</string>
+  <string name="permanentPatron">Teraz máte permanentný Patron účet.</string>
+  <string name="checkOutProfile">Pozrite sa na svoju profilovú stránku!</string>
+  <string name="nowLifetime">Odteraz ste doživotný Lichess Patron!</string>
+  <string name="nowOneMonth">Odteraz ste Lichess Patron na jeden mesiac!</string>
+  <string name="downgradeNextMonth">Za jeden mesiac, vám NEBUDE zaúčtovaný poplatok znova, a váš Lichess účet sa obnoví na bežný účet.</string>
 </resources>
