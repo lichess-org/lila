@@ -598,7 +598,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="clockInitialTime">Am tosaithe an chloig</string>
   <string name="clockIncrement">Am incriminte an chloig</string>
   <string name="privacy">Príobháideachas</string>
-  <string name="privacyPolicy">Polasaí príobháideachas</string>
+  <string name="privacyPolicy">Polasaí príobháideachais</string>
   <string name="letOtherPlayersFollowYou">Lig do imreoirí eile thú a leanúint</string>
   <string name="letOtherPlayersChallengeYou">Lig do imreoirí eile dúshláin a sheoladh chugat</string>
   <string name="letOtherPlayersInviteYouToStudy">Lig do imreoirí eile cuireadh a sheoladh chugat le haghaidh staidéir</string>
@@ -730,7 +730,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="keyGoToStartOrEnd">téigh chuig tús/deireadh</string>
   <string name="keyShowOrHideComments">taispeáin/folaigh nótaí tráchta</string>
   <string name="keyEnterOrExitVariation">iontráil/scor comhathrú</string>
-  <string name="newTournament">Comórtas Nua</string>
+  <string name="newTournament">Comórtas nua</string>
   <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil srianta ama agus comhathraithe éagsúla</string>
   <string name="tournamentHomeDescription">Imir comortais fichille ag luas tapaigh! Cláraigh do chomórtas oifigiúil sceidealaithe nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Ficheall 960 (Chess960), Rí an Chnoic (King of the Hill), Sáinn faoi thrí (Threecheck), agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan críoch.</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
@@ -848,7 +848,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="other">%s soicindí chun an chéad bheart a imirt</item>
   </plurals>
   <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
-  <string name="anotherWasX">Ceann eile ab ea %s</string>
+  <string name="anotherWasX">Ceann eile ba ea %s</string>
   <string name="bestWasX">Ba é %s ab fhearr</string>
   <string name="youBrowsedAway">Bhí tú ag brabhsáil in áit éigin eile</string>
   <string name="resumePractice">Atosaigh cleachtadh</string>
