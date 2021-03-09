@@ -35,6 +35,8 @@ case class Pov(game: Game, color: Color) {
 
   def hasMoved = game playerHasMoved color
 
+  def moves = game playerMoves color
+
   def win = game wonBy color
 
   def loss = game lostBy color
