@@ -19,9 +19,10 @@ import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
-import lila.socket.UserLagCache
-import lila.user.{ User => UserModel }
 import lila.security.UserLogins
+import lila.socket.UserLagCache
+import lila.user.{ User => UserModel, Holder }
+import lila.security.Granter
 
 final class User(
     env: Env,
@@ -323,12 +324,14 @@ final class User(
     }
 
   def mod(username: String) =
-    Secure(_.UserModView) { implicit ctx => _ =>
-      modZoneOrRedirect(username)
+    Secure(_.UserModView) { implicit ctx => holder =>
+      modZoneOrRedirect(holder, username)
     }
 
-  protected[controllers] def modZoneOrRedirect(username: String)(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isEventSource ctx.req) renderModZone(username)
+  protected[controllers] def modZoneOrRedirect(holder: Holder, username: String)(implicit
+      ctx: Context
+  ): Fu[Result] =
+    if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
     else fuccess(modC.redirect(username))
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, _] =
@@ -352,7 +355,9 @@ final class User(
       }
   }
 
-  protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
+  protected[controllers] def renderModZone(holder: Holder, username: String)(implicit
+      ctx: Context
+  ): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod => view }
@@ -390,7 +395,7 @@ final class User(
           }
         }
         val identification = userLoginsFu map { spy =>
-          (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
+          (Granter.canViewFp(holder, user) || Granter.canViewIp(holder, user)) ??
             html.user.mod.identification(spy)
         }
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {

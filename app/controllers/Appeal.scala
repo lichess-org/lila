@@ -82,7 +82,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.appeal.api.toggleMute(appeal) >>
-          env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id) inject
+          env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
           Redirect(routes.Appeal.queue)
       }
     }

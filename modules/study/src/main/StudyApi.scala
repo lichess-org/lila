@@ -11,7 +11,7 @@ import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
+import lila.user.{ Holder, User }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -832,7 +832,7 @@ final class StudyApi(
       }
     }
 
-  def adminInvite(studyId: Study.Id, me: User): Funit =
+  def adminInvite(studyId: Study.Id, me: Holder): Funit =
     sequenceStudy(studyId) { inviter.admin(_, me) }
 
   def erase(user: User) =

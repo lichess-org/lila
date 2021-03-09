@@ -12,6 +12,7 @@ import lila.common.HTTPRequest
 import lila.db.dsl._
 import lila.api.GameApiV2
 import lila.common.config
+import lila.user.Holder
 
 final class GameMod(env: Env) extends LilaController(env) {
 
@@ -54,7 +55,7 @@ final class GameMod(env: Env) extends LilaController(env) {
       }
     }
 
-  private def multipleAnalysis(me: lila.user.User, gameIds: Seq[lila.game.Game.ID])(implicit ctx: Context) =
+  private def multipleAnalysis(me: Holder, gameIds: Seq[lila.game.Game.ID])(implicit ctx: Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
         env.fishnet.analyser(

@@ -190,7 +190,7 @@ object mod {
           )
         )
       },
-      (isGranted(_.Doxing) && isGranted(_.SetEmail)) ?? frag(
+      (isGranted(_.Admin) && isGranted(_.SetEmail)) ?? frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe := "email",
@@ -547,9 +547,9 @@ object mod {
         ),
         tbody(
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
-            val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
+            val dox = isGranted(_.Admin) || (o.lameOrAlt && !o.hasTitle)
             val userNotes =
-              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
+              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
             tr(
               dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
               cls := (o == u) option "same"

@@ -7,7 +7,7 @@ import lila.db.dsl._
 import lila.db.Photographer
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.{ Holder, User, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
@@ -32,10 +32,10 @@ final class CoachApi(
       }
     }
 
-  def findOrInit(user: User): Fu[Option[Coach.WithUser]] =
-    Granter(_.Coach)(user) ?? {
-      find(user) orElse {
-        val c = Coach.WithUser(Coach make user, user)
+  def findOrInit(coach: Holder): Fu[Option[Coach.WithUser]] =
+    Granter.is(_.Coach)(coach) ?? {
+      find(coach.user) orElse {
+        val c = Coach.WithUser(Coach make coach.user, coach.user)
         coachColl.insert.one(c.coach) inject c.some
       }
     }

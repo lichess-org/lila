@@ -11,7 +11,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.team.{ Requesting, Team => TeamModel }
-import lila.user.{ User => UserModel }
+import lila.user.{ User => UserModel, Holder }
 
 final class Team(
     env: Env,
@@ -514,7 +514,7 @@ final class Team(
 ---
 You received this because you are subscribed to messages of the team $url."""
               env.msg.api
-                .multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
+                .multiPost(Holder(me), env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
                 .addEffect { nb =>
                   lila.mon.msg.teamBulk(team.id).record(nb).unit
                 }

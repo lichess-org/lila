@@ -3,7 +3,7 @@ package lila.mod
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Title, User, UserRepo }
+import lila.user.{ Holder, LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
@@ -133,14 +133,14 @@ final class ModApi(
         logApi.setEmail(mod, user.id)
     }
 
-  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit =
+  def setPermissions(mod: Holder, username: String, permissions: Set[Permission]): Funit =
     withUser(username) { user =>
       val finalPermissions = Permission(user.roles).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !Granter.canGrant(mod.user, p)
+        permissions.contains(p) || !Granter.canGrant(mod, p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(Granter.canGrant(mod.user, _))
+        permissions.filter(Granter.canGrant(mod, _))
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >> {
         Bus.publish(
           lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),

@@ -14,7 +14,7 @@ import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
 import lila.security.{ FingerHash, Permission }
-import lila.user.{ User => UserModel, Title }
+import lila.user.{ User => UserModel, Title, Holder }
 
 final class Mod(
     env: Env,
@@ -26,12 +26,14 @@ final class Mod(
   private def modLogApi = env.mod.logApi
   private def assessApi = env.mod.assessApi
 
+  implicit private def asMod(holder: Holder) = AsMod(holder.user)
+
   def alt(username: String, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
       withSuspect(username) { sus =>
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setAlt(AsMod(me), sus, v)
+          _       <- modApi.setAlt(me, sus, v)
           _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user.id, self = false)
         } yield (inquiry, sus).some
       }
@@ -46,7 +48,7 @@ final class Mod(
       withSuspect(username) { sus =>
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
-          _       <- modApi.setEngine(AsMod(me), sus, v)
+          _       <- modApi.setEngine(me, sus, v)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -67,7 +69,7 @@ final class Mod(
       withSuspect(username) { prev =>
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
-          suspect <- modApi.setBoost(AsMod(me), prev, v)
+          suspect <- modApi.setBoost(me, prev, v)
         } yield (inquiry, suspect).some
       }
     }(ctx =>
@@ -81,7 +83,7 @@ final class Mod(
       withSuspect(username) { prev =>
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
-          suspect <- modApi.setTroll(AsMod(me), prev, v)
+          suspect <- modApi.setTroll(me, prev, v)
         } yield (inquiry, suspect).some
       }
     }(ctx =>
@@ -96,7 +98,7 @@ final class Mod(
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
-            suspect <- modApi.setTroll(AsMod(me), prev, prev.user.marks.troll)
+            suspect <- modApi.setTroll(me, prev, prev.user.marks.troll)
             _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
           } yield (inquiry, suspect).some
@@ -123,7 +125,7 @@ final class Mod(
 
   def disableTwoFactor(username: String) =
     Secure(_.DisableTwoFactor) { implicit ctx => me =>
-      modApi.disableTwoFactor(me.id, username) >> userC.modZoneOrRedirect(username)
+      modApi.disableTwoFactor(me.id, username) >> userC.modZoneOrRedirect(me, username)
     }
 
   def closeAccount(username: String) =
@@ -144,14 +146,14 @@ final class Mod(
   def reportban(username: String, v: Boolean) =
     OAuthMod(_.ReportBan) { _ => me =>
       withSuspect(username) { sus =>
-        modApi.setReportban(AsMod(me), sus, v) map some
+        modApi.setReportban(me, sus, v) map some
       }
     }(actionResult(username))
 
   def rankban(username: String, v: Boolean) =
     OAuthMod(_.RemoveRanking) { _ => me =>
       withSuspect(username) { sus =>
-        modApi.setRankban(AsMod(me), sus, v) map some
+        modApi.setRankban(me, sus, v) map some
       }
     }(actionResult(username))
 
@@ -288,7 +290,7 @@ final class Mod(
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         assessApi.refreshAssessOf(user) >>
-          env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
+          env.irwin.api.requests.fromMod(Suspect(user), me) >>
           userC.renderModZoneActions(username)
       }
     }
@@ -300,7 +302,7 @@ final class Mod(
           val f =
             if (isAppeal) env.report.api.inquiries.appeal _
             else env.report.api.inquiries.spontaneous _
-          f(AsMod(me), Suspect(user)) inject {
+          f(me, Suspect(user)) inject {
             if (isAppeal) Redirect(routes.Appeal.show(user.username))
             else redirect(user.username, mod = true)
           }
@@ -409,7 +411,7 @@ final class Mod(
             _ => BadRequest(html.mod.permissions(user, me)).fuccess,
             permissions => {
               val newPermissions = Permission(permissions) diff Permission(user.roles)
-              modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
+              modApi.setPermissions(me, user.username, Permission(permissions)) >> {
                 newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
               } >> {
                 Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
@@ -493,8 +495,8 @@ final class Mod(
       _ ?? f
     }
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Option[A]])(
-      secure: Context => UserModel => A => Fu[Result]
+  private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => Holder => Fu[Option[A]])(
+      secure: Context => Holder => A => Fu[Result]
   ): Action[Unit] =
     SecureOrScoped(perm)(
       secure = ctx => me => f(ctx.req)(me) flatMap { _ ?? secure(ctx)(me) },
@@ -504,8 +506,8 @@ final class Mod(
             res.isDefined ?? fuccess(jsonOkResult)
           }
     )
-  private def OAuthModBody[A](perm: Permission.Selector)(f: UserModel => Fu[Option[A]])(
-      secure: BodyContext[_] => UserModel => A => Fu[Result]
+  private def OAuthModBody[A](perm: Permission.Selector)(f: Holder => Fu[Option[A]])(
+      secure: BodyContext[_] => Holder => A => Fu[Result]
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
       secure = ctx => me => f(me) flatMap { _ ?? secure(ctx)(me) },
@@ -518,7 +520,7 @@ final class Mod(
 
   private def actionResult(
       username: String
-  )(ctx: Context)(@nowarn("cat=unused") user: UserModel)(@nowarn("cat=unused") res: Any) =
+  )(ctx: Context)(@nowarn("cat=unused") user: Holder)(@nowarn("cat=unused") res: Any) =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)
 }

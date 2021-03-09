@@ -78,7 +78,7 @@ object communication {
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
-              (isGranted(_.Doxing) || !note.dox) option
+              (isGranted(_.Admin) || !note.dox) option
                 div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
             }
           )

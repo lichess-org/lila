@@ -11,6 +11,7 @@ import lila.common.LilaStream
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.user.Holder
 
 final class MsgApi(
     colls: MsgColls,
@@ -154,7 +155,7 @@ final class MsgApi(
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, multi = true)
 
-  def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Fu[Int] =
+  def multiPost(orig: Holder, destSource: Source[User.ID, _], text: String): Fu[Int] =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
@@ -166,7 +167,7 @@ final class MsgApi(
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
     userRepo named orig flatMap {
       case None         => fuccess(s"Unknown sender $orig")
-      case Some(sender) => multiPost(sender, Source(dests), text) inject "done"
+      case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =

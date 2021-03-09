@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.User
+import lila.user.{ Holder, User }
 
 sealed trait Room {
 
@@ -52,14 +52,14 @@ object Room {
     def highest = ~value.values.maxOption
   }
 
-  def isGrantedFor(mod: User)(room: Room) = {
+  def isGrantedFor(mod: Holder)(room: Room) = {
     import lila.security.Granter
     room match {
-      case Cheat  => Granter(_.MarkEngine)(mod)
-      case Print  => Granter(_.ViewIpPrint)(mod)
-      case Comm   => Granter(_.Shadowban)(mod)
-      case Other  => Granter(_.MarkBooster)(mod)
-      case Xfiles => Granter(_.MarkEngine)(mod)
+      case Cheat  => Granter.is(_.MarkEngine)(mod)
+      case Print  => Granter.is(_.Admin)(mod)
+      case Comm   => Granter.is(_.Shadowban)(mod)
+      case Other  => Granter.is(_.MarkBooster)(mod)
+      case Xfiles => Granter.is(_.MarkEngine)(mod)
     }
   }
 }

@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.{ Holder, User, UserRepo }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.irc.SlackApi)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -170,10 +170,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.irc.S
       Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
     }
 
-  def setPermissions(mod: Mod, user: User.ID, permissions: Map[Permission, Boolean]) =
+  def setPermissions(mod: Holder, user: User.ID, permissions: Map[Permission, Boolean]) =
     add {
       Modlog(
-        mod.id.value,
+        mod.id,
         user.some,
         Modlog.permissions,
         details = permissions

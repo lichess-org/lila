@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.report.Report.WithSuspect
+import lila.user.Holder
 
 object list {
 
@@ -111,7 +112,7 @@ object list {
                 scoreTag(scores.highest)
               ),
               ctx.me ?? { me =>
-                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(me)).map { room =>
+                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
                   a(
                     href := routes.Report.listWithFilter(room.key),
                     cls := List(

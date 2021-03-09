@@ -54,7 +54,7 @@ object inquiry {
       )
 
     def renderNote(r: lila.user.Note)(implicit ctx: Context) =
-      (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
+      (!r.dox || isGranted(_.Admin)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
         p(richText(r.text, expandImg = false))
       )
