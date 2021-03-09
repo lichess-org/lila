@@ -199,7 +199,7 @@
   <string name="ratingStats">Staitisticí rátála</string>
   <string name="username">Ainm úsáideora</string>
   <string name="usernameOrEmail">Ainm úsáideora nó seoladh ríomphoist</string>
-  <string name="changeUsername">Athraigh ainm an úsáideora</string>
+  <string name="changeUsername">Athraigh ainm úsáideora</string>
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit ach cás na litreacha i d’ainm úsáideora a athrú.</string>
   <string name="password">Pasfhocal</string>
@@ -791,7 +791,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="phoneAndTablet">Fón agus táibléad</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clasaiceach</string>
   <string name="correspondenceChess">Ficheall comhfhreagrais</string>
-  <string name="onlineAndOfflinePlay">Imir ar líne agus as líne</string>
+  <string name="onlineAndOfflinePlay">Imirt ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
   <string name="followAndChallengeFriends">Lean agus tabhair dúshlán do chairde</string>
   <plurals name="availableInNbLanguages">
@@ -860,9 +860,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="evaluatingYourMove">Ag meas do bheart ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
-  <string name="learnFromYourMistakes">Foghlaim ó do chuid botúin</string>
+  <string name="learnFromYourMistakes">Foghlaim ó do chuid botún</string>
   <string name="learnFromThisMistake">Foghlaim ón mbotún seo</string>
-  <string name="skipThisMove">Scip an beart seo</string>
+  <string name="skipThisMove">Ná bac leis an mbeart seo</string>
   <string name="next">Ar aghaidh</string>
   <string name="xWasPlayed">Imríodh %s</string>
   <string name="findBetterMoveForWhite">Faigh beart níos fearr do bán</string>
