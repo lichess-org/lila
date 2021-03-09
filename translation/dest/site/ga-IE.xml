@@ -537,9 +537,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
   <string name="watchLichessTV">Féach ar Lichess TV</string>
   <string name="previouslyOnLichessTV">Roimhe seo ar Lichess TV</string>
-  <string name="onlinePlayers">Imreoirí ar-líne</string>
+  <string name="onlinePlayers">Imreoirí ar líne</string>
   <string name="activeToday">Gníomhach inniu</string>
-  <string name="activePlayers">Imreoirí gníomhach</string>
+  <string name="activePlayers">Imreoirí gníomhacha</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tabhair aire, tá an cluiche seo rátáilte ach níl clog aige!</string>
   <string name="success">D\'éirigh leat</string>
   <plurals name="nbGamesInPlay">
@@ -556,8 +556,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
-  <string name="no">Níl</string>
-  <string name="yes">Tá</string>
+  <string name="no">Ná lig</string>
+  <string name="yes">Lig</string>
   <string name="help">Cabhair:</string>
   <string name="createANewTopic">Cruthaigh topaic nua</string>
   <string name="topics">Topaicí</string>
@@ -593,7 +593,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="currentPassword">Pasfhocal reatha</string>
   <string name="newPassword">Pasfhocal nua</string>
   <string name="newPasswordAgain">Pasfhocal nua (arís)</string>
-  <string name="newPasswordsDontMatch">Ní hionann na pasfhocail nua</string>
+  <string name="newPasswordsDontMatch">Níl na pasfhocail nua ag teacht le chéile</string>
   <string name="newPasswordStrength">Neart an phasfhocail</string>
   <string name="clockInitialTime">Am tosaithe an chloig</string>
   <string name="clockIncrement">Am incriminte an chloig</string>
@@ -603,7 +603,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="letOtherPlayersChallengeYou">Lig do imreoirí eile dúshláin a sheoladh chugat</string>
   <string name="letOtherPlayersInviteYouToStudy">Lig do imreoirí eile cuireadh a sheoladh chugat le haghaidh staidéir</string>
   <string name="sound">Fuaim</string>
-  <string name="none">Tada</string>
+  <string name="none">Faic</string>
   <string name="fast">Tapa</string>
   <string name="normal">Gnách</string>
   <string name="slow">Mall</string>
@@ -665,7 +665,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="sharePGN">Roinn an PGN</string>
   <string name="playOnline">Imir ar líne</string>
   <string name="playOffline">Imir as líne</string>
-  <string name="allowAnalytics">Ceadaigh staitisticí anaithnid</string>
+  <string name="allowAnalytics">Ceadaigh staitisticí anaithnide</string>
   <string name="shareGameURL">Roinn URL an chluiche</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
   <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
