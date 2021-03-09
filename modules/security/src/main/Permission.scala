@@ -50,7 +50,6 @@ object Permission {
   case object Coach                 extends Permission("COACH", "Is a coach")
   case object Teacher               extends Permission("TEACHER", "Is a class teacher")
   case object ModNote               extends Permission("MOD_NOTE", "Mod notes")
-  case object ViewIpPrint           extends Permission("VIEW_IP_PRINT", "View IP/print")
   case object RemoveRanking         extends Permission("REMOVE_RANKING", "Remove from ranking")
   case object ReportBan             extends Permission("REPORT_BAN", "Report ban")
   case object ModMessage            extends Permission("MOD_MESSAGE", "Send mod messages")
@@ -115,15 +114,6 @@ object Permission {
         "Shusher"
       )
 
-  case object Doxing
-      extends Permission(
-        "DOXING",
-        List(
-          ViewIpPrint
-        ),
-        "Doxing"
-      )
-
   case object Admin
       extends Permission(
         "ADMIN",
@@ -131,7 +121,6 @@ object Permission {
           Hunter,
           Shusher,
           Appeals,
-          Doxing,
           IpBan,
           PrintBan,
           CloseAccount,
@@ -190,7 +179,6 @@ object Permission {
     ),
     "Account mod" -> List(
       UserModView,
-      ViewIpPrint,
       IpBan,
       PrintBan,
       DisableTwoFactor,
@@ -242,7 +230,6 @@ object Permission {
       LichessTeam,
       Hunter,
       Shusher,
-      Doxing,
       Admin,
       SuperAdmin
     )
