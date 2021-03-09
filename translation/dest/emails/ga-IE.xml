@@ -17,6 +17,6 @@ Seo do leathanach próifíle: %1$s. Is féidir leat é a phearsanú ar %2$s
 Bain sult as, agus go ndéanfaidh do phíosaí a mbealach chuig rí do chéile comhraic i gcónaí!</string>
   <string name="logInToLichess">Logáil isteach go lichess.org %s</string>
   <string name="common_orPaste">(Nach n-oibríonn cliceáil? Bain triail as é a chur i do bhrabhsálaí!)</string>
-  <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid %s.</string>
+  <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid de %s.</string>
   <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
 </resources>
