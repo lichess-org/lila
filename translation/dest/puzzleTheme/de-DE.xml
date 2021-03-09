@@ -22,7 +22,7 @@
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
   <string name="capturingDefenderDescription">Schlagen einer Figur, die für die Deckung einer anderen Figur von entscheidender Bedeutung ist, sodass die jetzt nicht mehr gedeckte Figur mit dem folgendem Zug geschlagen werden kann.</string>
-  <string name="crushing">Vernichtend</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
   <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen einen - von eigenen Figuren behinderten - König matt.</string>
