@@ -823,7 +823,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="embedInYourWebsite">Leabaigh i do shuíomh gréasáin</string>
   <string name="usernameAlreadyUsed">Tá an t-ainm úsáideora seo in úsáid cheana féin, bain triail as ceann eile.</string>
   <string name="usernamePrefixInvalid">Caithfidh an t-ainm úsáideora tosú le litir.</string>
-  <string name="usernameSuffixInvalid">Caithfidh an t-ainm úsáideora críochniú le litir nó uimhir.</string>
+  <string name="usernameSuffixInvalid">Caithfidh an t-ainm úsáideora críochnú le litir nó uimhir.</string>
   <string name="usernameCharsInvalid">Ní mór nach mbeadh ach litreacha, uimhreacha, fo-línte agus fleiscíní san ainm úsáideora. Ní cheadaítear fostríoca agus fleiscíní leanúnacha.</string>
   <string name="usernameUnacceptable">Níl an t-ainm úsáideora seo inghlactha.</string>
   <string name="directlySupportLichess">Tabhair tacaíocht do Lichess</string>
