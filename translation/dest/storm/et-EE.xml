@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Alusta käiguga</string>
-  <string name="puzzlesSolved">puslet lahendatud</string>
-  <string name="newDailyHighscore">Päeva uus rekord!</string>
-  <string name="newWeeklyHighscore">Nädala uus rekord!</string>
-  <string name="newMonthlyHighscore">Kuu uus rekord!</string>
+  <string name="puzzlesSolved">lahendatud ülesannet</string>
+  <string name="newDailyHighscore">Päeva parim tulemus!</string>
+  <string name="newWeeklyHighscore">Nädala parim tulemus!</string>
+  <string name="newMonthlyHighscore">Kuu parim tulemus!</string>
   <string name="newAllTimeHighscore">Uus kõikide aegade rekord!</string>
   <string name="previousHighscoreWasX">Eelmine rekord oli %s</string>
   <string name="playAgain">Mängi uuesti</string>
