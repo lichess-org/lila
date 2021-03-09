@@ -6,7 +6,7 @@
   <string name="passwordReset_subject">Athshocraigh do phasfhocal do Lichess.org, %s</string>
   <string name="passwordReset_intro">Fuair muid iarratas chun do phasfhocal a athshocrú.</string>
   <string name="passwordReset_clickOrIgnore">Más rud é go ndearna tú an t-iarratas seo, déan an nasc thíos a chliceáil. Muna ndearna, tabhair neamhaird ar an ríomhphost seo.</string>
-  <string name="emailChange_subject">Deimhnigh seoladh ríomhphost nua, %s</string>
+  <string name="emailChange_subject">Deimhnigh seoladh ríomhphoist nua, %s</string>
   <string name="emailChange_intro">Rinne tú iarratas le do sheoladh ríomhphoist a athrú.</string>
   <string name="emailChange_click">Le deimhniú go bhfuil rochtain agat ar an seoladh ríomhphoist seo, cliceáil ar an nasc thíos:</string>
   <string name="welcome_subject">Fáilte go Lichess.org %s</string>
