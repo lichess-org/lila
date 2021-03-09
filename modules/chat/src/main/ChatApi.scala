@@ -170,10 +170,14 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     ): Funit = {
+      val lineText = scope match {
+        case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
+        case _                        => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
+      }
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
-        text = s"${user.username} was timed out 15 minutes for ${reason.name}.",
+        text = lineText,
         troll = false,
         deleted = false
       )
