@@ -261,6 +261,7 @@ final class Mod(
                   }
                 }
                 html.mod.communication(
+                  me,
                   user,
                   (povs zip chats) collect {
                     case (p, Some(c)) if c.nonEmpty => p -> c

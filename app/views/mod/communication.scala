@@ -5,13 +5,15 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.hub.actorApi.shutup.PublicSource
+import lila.user.{ Holder, User }
 
 import controllers.routes
 
 object communication {
 
   def apply(
-      u: lila.user.User,
+      mod: Holder,
+      u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.MsgConvo],
       publicLines: List[lila.shutup.PublicLine],
@@ -54,7 +56,7 @@ object communication {
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone none"),
-          views.html.user.mod.otherUsers(u, logins)(ctx)(cls := "communication__logins")
+          views.html.user.mod.otherUsers(mod, u, logins)(ctx)(cls := "communication__logins")
         ),
         history.nonEmpty option frag(
           h2("Moderation history"),

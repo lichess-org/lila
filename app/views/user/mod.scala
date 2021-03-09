@@ -9,8 +9,9 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
 import lila.mod.ModPresets
 import lila.playban.RageSit
+import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
-import lila.user.User
+import lila.user.{ Holder, User }
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
@@ -516,7 +517,7 @@ object mod {
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
-  def otherUsers(u: User, data: UserLogins.TableData)(implicit ctx: Context): Tag = {
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData)(implicit ctx: Context): Tag = {
     import data._
     mzSection("others")(
       table(cls := "slist")(
@@ -529,7 +530,7 @@ object mod {
                 a(cls := "more-others")("Load more")
               )
             ),
-            th("Email"),
+            isGranted(_.Admin) option th("Email"),
             sortNumberTh("Same"),
             th("Games"),
             sortNumberTh(playban)(cls := "i", title := "Playban"),
@@ -547,17 +548,16 @@ object mod {
         ),
         tbody(
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
-            val dox = isGranted(_.Admin) || (o.lameOrAlt && !o.hasTitle)
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
             tr(
               dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
               cls := (o == u) option "same"
             )(
-              if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+              if (o == u || Granter.canViewAltUsernames(mod, u))
+                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
               else td,
-              if (dox) td(othersWithEmail emailValueOf o)
-              else td,
+              isGranted(_.Admin) option td(othersWithEmail emailValueOf o),
               td(
                 // show prints and ips separately
                 dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)

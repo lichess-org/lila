@@ -391,7 +391,7 @@ final class User(
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = userLoginsFu flatMap { userLogins =>
           loginsTableData(user, userLogins, nbOthers) map {
-            html.user.mod.otherUsers(user, _)
+            html.user.mod.otherUsers(holder, user, _)
           }
         }
         val identification = userLoginsFu map { spy =>
