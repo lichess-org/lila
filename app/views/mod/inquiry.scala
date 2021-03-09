@@ -239,16 +239,18 @@ object inquiry {
         .withFilter(_.byLichess)
         .flatMap(_.text.linesIterator)
         .collect {
-          case farmWithRegex(userId)    => userId
-          case sandbagWithRegex(userId) => userId
+          case farmWithRegex(userId)     => List(userId)
+          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.trim.replace("@", ""))
         }
+        .flatten
+        .distinct
         .toNel
     }
 
   private val farmWithRegex =
     ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
   private val sandbagWithRegex =
-    ("^Sandbagging: throws games to @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+    "^Sandbagging: throws games to (.+)".r.unanchored
 
   private def thenForms(url: String, button: Tag) =
     div(

@@ -251,15 +251,15 @@ final class ReportApi(
         case _ => funit
       }
 
-  def autoSandbagReport(winnerId: User.ID, loserId: User.ID): Funit =
-    userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
-      case Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
+  def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID): Funit =
+    userRepo.byId(loserId) zip getLichessReporter flatMap {
+      case Some(loser) ~ reporter if !loser.lame =>
         create(
           Candidate(
             reporter = reporter,
             suspect = Suspect(loser),
             reason = Reason.Boost,
-            text = s"Sandbagging: throws games to @${winner.username}"
+            text = s"Sandbagging: throws games to ${winnerIds.map("@" + _) mkString " "}"
           )
         )
       case _ => funit
