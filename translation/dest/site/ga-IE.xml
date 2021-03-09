@@ -757,7 +757,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura bhfeiceann tú an ríomhphost, seiceáil áiteanna eile a d’fhéadfadh sé a bheith ann, cosúil le junk, spam, sóisialta nó fillteáin eile.</string>
   <string name="weHaveSentYouAnEmailTo">Tá ríomhphost seolta againn chuig %s. Cliceáil ar an nasc sa ríomhphost chun do phasfhocal a athshocrú.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Trí chlárú, aontaíonn tú leis na %s.</string>
-  <string name="readAboutOur">Léigh faoin ár %s.</string>
+  <string name="readAboutOur">Léigh faoinár %s.</string>
   <string name="networkLagBetweenYouAndLichess">Moill gréasáin idir tú féin agus Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Am le beart a phróiseáil ar fhreastalaí Lichess</string>
   <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
@@ -802,7 +802,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="other">Ar fáil i %s teangacha!</item>
   </plurals>
   <string name="gameAnalysis">Anailís cluichí</string>
-  <string name="xHostsY">óstálann %1$s %2$s</string>
+  <string name="xHostsY">Óstálann %1$s %2$s</string>
   <string name="xJoinsY">tagann %1$s %2$s</string>
   <string name="xLikesY">Is maith le %1$s %2$s</string>
   <string name="xCreatesStudyY">cruthaíonn %1$s staidéar %2$s</string>
