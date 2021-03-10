@@ -64,7 +64,11 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
       setTimeout(() => {
         const cur = current();
-        if (cur && (path !== cur.path || chapterId !== cur.chapterId) && (!focus() || playedMyself)) {
+        if (
+          cur &&
+          (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node) &&
+          (!focus() || playedMyself)
+        ) {
           cur.chapterId = chapterId;
           cur.path = path;
           cur.node = node;
@@ -135,7 +139,7 @@ export function view(root: AnalyseCtrl): VNode {
               el.onblur = function () {
                 ctrl.focus(false);
               };
-              vnode.data!.hash = current.chapterId + current.path;
+              vnode.data!.path = current.chapterId + current.path;
             },
             postpatch(old, vnode) {
               const newKey = current.chapterId + current.path;
