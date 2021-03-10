@@ -26,7 +26,7 @@ final private[team] class TeamForm(
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
     val description = "description" -> cleanText(minLength = 30, maxLength = 4000)
-    val descPrivate = "descPrivate" -> cleanText(minLength = 0, maxLength = 4000)
+    val descPrivate = "descPrivate" -> optional(cleanText(minLength = 0, maxLength = 4000))
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
@@ -118,7 +118,7 @@ private[team] case class TeamSetup(
     location: Option[String],
     password: Option[String],
     description: String,
-    descPrivate: String,
+    descPrivate: Option[String],
     request: Boolean,
     gameId: String,
     move: String
@@ -131,7 +131,7 @@ private[team] case class TeamSetup(
       name = name.trim,
       location = location map (_.trim) filter (_.nonEmpty),
       description = description.trim,
-      descPrivate = descPrivate.trim
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 
@@ -139,7 +139,7 @@ private[team] case class TeamEdit(
     location: Option[String],
     password: Option[String],
     description: String,
-    descPrivate: String,
+    descPrivate: Option[String],
     request: Boolean,
     chat: Team.ChatFor
 ) {
@@ -150,7 +150,7 @@ private[team] case class TeamEdit(
     copy(
       location = location map (_.trim) filter (_.nonEmpty),
       description = description.trim,
-      descPrivate = descPrivate.trim
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 
