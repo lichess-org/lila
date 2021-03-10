@@ -362,6 +362,7 @@ final class User(
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod => view }
         import lila.app.ui.ScalatagsExtensions.LilaFragZero
+        implicit val renderIp = env.mod.ipRender(holder)
 
         val nbOthers = getInt("nbOthers") | 100
 
@@ -394,9 +395,9 @@ final class User(
             html.user.mod.otherUsers(holder, user, _)
           }
         }
-        val identification = userLoginsFu map { spy =>
-          (Granter.canViewFp(holder, user) || Granter.canViewIp(holder, user)) ??
-            html.user.mod.identification(spy)
+        val identification = userLoginsFu map { logins =>
+          Granter.is(_.ViewPrintNoIP)(holder) ??
+            html.user.mod.identification(holder, logins)
         }
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
           _ ?? { reps =>

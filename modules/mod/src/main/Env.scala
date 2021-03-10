@@ -40,7 +40,8 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     slackApi: lila.irc.SlackApi,
-    msgApi: lila.msg.MsgApi
+    msgApi: lila.msg.MsgApi,
+    symmetricCipher: lila.common.SymmetricCipher
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -77,6 +78,8 @@ final class Env(
   lazy val stream = wire[ModStream]
 
   lazy val presets = wire[ModPresetsApi]
+
+  lazy val ipRender = wire[IpRender]
 
   private lazy val sandbagWatch = wire[SandbagWatch]
 

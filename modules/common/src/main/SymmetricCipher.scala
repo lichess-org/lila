@@ -46,11 +46,16 @@ final class SymmetricCipher(secret: Secret) {
     def encrypt(text: String): Try[String] =
       bytes.encrypt(text.getBytes).map(Base64.getEncoder.encodeToString)
 
-    def decrypt(input: Array[Byte]): Try[Array[Byte]] =
-      bytes.decrypt(input)
-
     def decrypt(encryptedBase64String: String): Try[String] =
-      decrypt(Base64.getDecoder.decode(encryptedBase64String)).map(_.map(_.toChar).mkString)
+      bytes.decrypt(Base64.getDecoder.decode(encryptedBase64String)).map(_.map(_.toChar).mkString)
+  }
+
+  object base64UrlFriendly {
+    def encrypt(text: String): Try[String] =
+      base64.encrypt(text).map(_.replace("/", "_"))
+
+    def decrypt(encrypted: String): Try[String] =
+      base64.decrypt(encrypted.replace("_", "/"))
   }
 
   object hex {

@@ -34,15 +34,6 @@ object Granter {
       }
     }
 
-  def canViewFp(mod: Holder, user: User): Boolean =
-    is(_.PrintBan)(mod) || is(_.Hunter)(mod)
-
-  def canViewIp(mod: Holder, user: User): Boolean =
-    is(_.IpBan)(mod)
-
-  def canViewEmail(mod: Holder, user: User): Boolean =
-    is(_.Admin)(mod)
-
   def canViewAltUsername(mod: Holder, user: User): Boolean =
     is(_.Admin)(mod) || {
       (is(_.Hunter)(mod) && user.marks.engine) ||

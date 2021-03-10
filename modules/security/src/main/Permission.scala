@@ -25,8 +25,9 @@ object Permission {
   case object SetKidMode            extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
-  case object IpBan                 extends Permission("IP_BAN", List(UserModView), "IP ban")
+  case object IpBan                 extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
   case object PrintBan              extends Permission("PRINT_BAN", List(UserModView), "Print ban")
+  case object ViewPrintNoIP         extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case object DisableTwoFactor      extends Permission("DISABLE_2FA", "Disable 2FA")
   case object CloseAccount          extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
   case object SetTitle              extends Permission("SET_TITLE", List(UserModView), "Set/unset title")
@@ -91,7 +92,8 @@ object Permission {
           UserSearch,
           RemoveRanking,
           ModMessage,
-          ModNote
+          ModNote,
+          ViewPrintNoIP
         ),
         "Hunter"
       )
@@ -109,7 +111,8 @@ object Permission {
           ModMessage,
           SeeReport,
           ModLog,
-          ModNote
+          ModNote,
+          ViewPrintNoIP
         ),
         "Shusher"
       )

@@ -12,6 +12,7 @@ import lila.playban.RageSit
 import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
 import lila.user.{ Holder, User }
+import lila.mod.IpRender.RenderIp
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
@@ -517,7 +518,10 @@ object mod {
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData)(implicit ctx: Context): Tag = {
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData)(implicit
+      ctx: Context,
+      renderIp: RenderIp
+  ): Tag = {
     import data._
     mzSection("others")(
       table(cls := "slist")(
@@ -551,7 +555,7 @@ object mod {
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
             tr(
-              dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
+              dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
               cls := (o == u) option "same"
             )(
               if (o == u || Granter.canViewAltUsername(mod, o))
@@ -602,7 +606,10 @@ object mod {
     )
   }
 
-  def identification(spy: UserLogins)(implicit ctx: Context): Frag = {
+  def identification(mod: Holder, logins: UserLogins)(implicit
+      ctx: Context,
+      renderIp: RenderIp
+  ): Frag = {
     val canIpBan = isGranted(_.IpBan)
     val canFpBan = isGranted(_.PrintBan)
     mzSection("identification")(
@@ -617,7 +624,7 @@ object mod {
             )
           ),
           tbody(
-            spy.distinctLocations.toList
+            logins.distinctLocations.toList
               .sortBy(-_.seconds)
               .map { loc =>
                 tr(
@@ -635,7 +642,7 @@ object mod {
         table(cls := "slist slist--sort")(
           thead(
             tr(
-              th(pluralize("Device", spy.uas.size)),
+              th(pluralize("Device", logins.uas.size)),
               th("OS"),
               th("Client"),
               sortNumberTh("Date"),
@@ -643,7 +650,7 @@ object mod {
             )
           ),
           tbody(
-            spy.uas
+            logins.uas
               .sortBy(-_.seconds)
               .map { ua =>
                 import ua.value.client._
@@ -666,7 +673,7 @@ object mod {
         table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
-              th(pluralize("IP", spy.prints.size)),
+              th(pluralize("IP", logins.prints.size)),
               sortNumberTh("Alts"),
               th,
               sortNumberTh("Date"),
@@ -674,9 +681,10 @@ object mod {
             )
           ),
           tbody(
-            spy.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
+            logins.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
+              val renderedIp = renderIp(ip.ip.value)
               tr(cls := ip.blocked option "blocked")(
-                td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
+                td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp take 16)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
@@ -698,14 +706,14 @@ object mod {
         table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
-              th(pluralize("Print", spy.prints.size)),
+              th(pluralize("Print", logins.prints.size)),
               sortNumberTh("Alts"),
               sortNumberTh("Date"),
               canFpBan option sortNumberTh
             )
           ),
           tbody(
-            spy.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
+            logins.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
               tr(cls := fp.banned option "blocked")(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),

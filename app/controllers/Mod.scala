@@ -221,6 +221,7 @@ final class Mod(
       if (priv) perms.ViewPrivateComms else perms.Shadowban
     } { implicit ctx => me =>
       OptionFuOk(env.user.repo named username) { user =>
+        implicit val renderIp = env.mod.ipRender(me)
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
@@ -346,7 +347,7 @@ final class Mod(
   }
 
   def print(fh: String) =
-    SecureBody(_.PrintBan) { implicit ctx => _ =>
+    SecureBody(_.ViewPrintNoIP) { implicit ctx => _ =>
       val hash = FingerHash(fh)
       for {
         uids       <- env.security.api recentUserIdsByFingerHash hash
@@ -363,8 +364,9 @@ final class Mod(
     }
 
   def singleIp(ip: String) =
-    SecureBody(_.IpBan) { implicit ctx => _ =>
-      IpAddress.from(ip) ?? { address =>
+    SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
+      implicit val renderIp = env.mod.ipRender(me)
+      env.mod.ipRender.decrypt(ip) ?? { address =>
         for {
           uids       <- env.security.api recentUserIdsByIp address
           users      <- env.user.repo usersFromSecondary uids.reverse

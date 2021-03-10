@@ -197,6 +197,7 @@ final class EnvBoot(
 
   lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
   lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
+  lazy val symmetricCipher    = new lila.common.SymmetricCipher(config.get[Secret]("api.symmetric_cipher.key"))
 
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
