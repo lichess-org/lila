@@ -692,7 +692,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="watch">Féach</string>
   <string name="videoLibrary">Leabharlann físeáin</string>
   <string name="streamersMenu">Sruthóir</string>
-  <string name="mobileApp">Aip Móibíleach</string>
+  <string name="mobileApp">Aip Mhóibíleach</string>
   <string name="webmasters">Máistir gréasáin</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Maidir le %s</string>
@@ -700,7 +700,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="really">i ndáiríre</string>
   <string name="contribute">Glac páirt</string>
   <string name="termsOfService">Téarmaí Seirbhíse</string>
-  <string name="sourceCode">Cód Foinseach</string>
+  <string name="sourceCode">Cód Foinse</string>
   <string name="simultaneousExhibitions">Taispeántais comhuaineach</string>
   <string name="host">Óstach</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
@@ -734,7 +734,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil srianta ama agus comhathraithe éagsúla</string>
   <string name="tournamentHomeDescription">Imir comortais fichille ag luas tapaigh! Cláraigh do chomórtas oifigiúil sceidealaithe nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Ficheall 960 (Chess960), Rí an Chnoic (King of the Hill), Sáinn faoi thrí (Threecheck), agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan críoch.</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
-  <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
+  <string name="tournamentDoesNotExist">Níl an comórtas seo ann.</string>
   <string name="tournamentMayHaveBeenCanceled">B\'fhéidir gur cuireadh an comórtas seo ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
   <string name="returnToTournamentsHomepage">Fill ar leathanach baile na gcomórtas</string>
   <string name="weeklyPerfTypeRatingDistribution">Dáileadh %s ráta seachtainiúil</string>
@@ -760,7 +760,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="readAboutOur">Léigh faoinár %s.</string>
   <string name="networkLagBetweenYouAndLichess">Moill gréasáin idir tú féin agus Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Am le beart a phróiseáil ar fhreastalaí Lichess</string>
-  <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
+  <string name="downloadAnnotated">Íoslódáil leagan anótáilte</string>
   <string name="downloadRaw">Ioslódáil sonraí loma</string>
   <string name="downloadImported">Ioslódáil sonraí iompórtáilte</string>
   <string name="printFriendlyPDF">PDF atá furasta le priontáil</string>
