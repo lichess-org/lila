@@ -588,7 +588,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="typePrivateNotesHere">Scríobh nótaí príobháideach anseo</string>
   <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal neamhbhailí</string>
   <string name="incorrectPassword">Pasfhocal mícheart</string>
-  <string name="invalidAuthenticationCode">Cód fíordheimhniú neamhbhailí</string>
+  <string name="invalidAuthenticationCode">Cód fíordheimhnithe neamhbhailí</string>
   <string name="emailMeALink">Seol nasc chugam trí ríomphost</string>
   <string name="currentPassword">Pasfhocal reatha</string>
   <string name="newPassword">Pasfhocal nua</string>
@@ -611,7 +611,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="outsideTheBoard">Lasmuigh den chlár</string>
   <string name="onSlowGames">Ar chluichí malla</string>
   <string name="always">I gcónaí</string>
-  <string name="never">Ná lig riamh</string>
+  <string name="never">Choíche</string>
   <string name="difficultyEasy">Éasca</string>
   <string name="difficultyNormal">Gnách</string>
   <string name="difficultyHard">Deacair</string>
