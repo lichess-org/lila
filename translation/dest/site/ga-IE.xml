@@ -437,7 +437,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">%s cairde ar líne</item>
     <item quantity="other">%s cairde ar líne</item>
   </plurals>
-  <string name="noFriendsOnline">Níl aon cara ar líne</string>
+  <string name="noFriendsOnline">Níl aon chara ar líne</string>
   <string name="findFriends">Aimsigh cairde</string>
   <string name="favoriteOpponents">Céilí comhraic is fearr</string>
   <string name="follow">Lean</string>
@@ -499,7 +499,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="winStreak">Stríoc bua</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
-  <string name="tournamentPairingsAreNowClosed">Níl cluichí á shocrú níos mó.</string>
+  <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
