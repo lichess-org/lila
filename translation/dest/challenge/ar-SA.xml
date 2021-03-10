@@ -10,4 +10,5 @@
   <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
   <string name="yourXRatingIsTooFarFromY">تقييمك %1$s أعلى من %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">لا يمكن ارسال التحدي بسبب تقييم %s المبدئي.</string>
+  <string name="declineGeneric">أنا لا أقبل التحديات في الوقت الراهن.</string>
 </resources>
