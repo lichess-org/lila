@@ -190,14 +190,14 @@
   <string name="rating">דירוג</string>
   <string name="ratingStats">סטטיסטיקת דירוג</string>
   <string name="username">שם משתמש</string>
-  <string name="usernameOrEmail">שם משתמש או כתובת דואר אלקטרוני</string>
+  <string name="usernameOrEmail">שם משתמש או דוא״ל</string>
   <string name="changeUsername">שנה שם משתמש</string>
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שנוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שנה סיסמה</string>
-  <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
-  <string name="email">הדואר האלקטרוני</string>
+  <string name="changeEmail">שינוי דוא״ל</string>
+  <string name="email">דוא״ל</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
@@ -221,7 +221,7 @@
     <item quantity="many">%s משחקים איתך</item>
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
-  <string name="cancel">בטל</string>
+  <string name="cancel">ביטול</string>
   <string name="whiteTimeOut">נגמר לך הזמן, שחקן לבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
@@ -559,7 +559,7 @@
   <string name="invalidUsernameOrPassword">שגיאה בשם משתמש או בסיסמא</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
-  <string name="emailMeALink">שלחו לי קישור באמצעות הדואר האלקטרוני</string>
+  <string name="emailMeALink">שלחו לי קישור בדוא״ל</string>
   <string name="currentPassword">הסיסמא הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
   <string name="newPasswordAgain">סיסמא חדשה שוב</string>
@@ -639,10 +639,10 @@
   <string name="allowAnalytics">אפשר דגימה אנונימית</string>
   <string name="shareGameURL">URL שתף</string>
   <string name="error.required">שדה חובה</string>
-  <string name="error.email">כתובת המייל אינה חוקית</string>
+  <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
   <string name="error.email_acceptable">כתובת המייל אינה קבילה</string>
-  <string name="error.email_unique">כתובת המייל שהזנת תפוסה</string>
-  <string name="error.email_different">זהו כבר המייל שלך</string>
+  <string name="error.email_unique">כתובת דוא״ל זו כבר תפוסה</string>
+  <string name="error.email_different">זאת כתובת הדוא״ל שלך כבר</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
   <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
@@ -721,7 +721,7 @@
   <string name="yourRating">הדירוג שלך</string>
   <string name="cumulative">מצטבר</string>
   <string name="glicko2Rating">דירוג Glicko-2</string>
-  <string name="checkYourEmail">בדוק את האימייל שלך</string>
+  <string name="checkYourEmail">נא לבדוק את הדוא״ל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק באימייל על מנת להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
