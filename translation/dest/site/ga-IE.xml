@@ -772,7 +772,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="withNobody">Le duine ar bith</string>
   <string name="withFriends">Le cairde</string>
   <string name="withEverybody">Le gach duine</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost: %s cheana féin</string>
   <string name="kidMode">Mód páistí</string>
   <string name="kidModeExplanation">Baineann sé seo le sábháilteacht. I mód na bpáistí, tá gach cumarsáid múchta. Úsáid seo do pháistí agus daltaí scoile, chun iad a chosaint ó úsáideoirí idirlín eile.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I mód na bpáistí, faigheann an lógó Lichess íocón %s, ionas go mbeidh a fhios agat go bhfuil do pháistí sábháilte.</string>
