@@ -393,7 +393,7 @@
   <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="ratedMoreThanInPerf">Rátáil ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rátáilte ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
+  <string name="mustBeInTeam">Caithfear a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú san fhoireann %s</string>
   <string name="backToGame">Fill ar an chluiche</string>
   <string name="siteDescription">Freastalaí fichille saor in aisce. Imir ficheall i gcomhéadan glan. Níl aon fógraí agus ní chaithfear clárú nó plugin a úsáid. Imir ficheall leis an ríomhaire, le cairde nó céilí comhraic randamach.</string>
