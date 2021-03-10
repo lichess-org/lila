@@ -235,17 +235,12 @@
     justify-content: center;
   }
 
-  &.reduced .message {
-    justify-content: flex-start;
-  }
-
   .message strong {
     font-weight: bold;
     margin: 1em 0;
   }
 
-  &:not(.reduced) .message h3,
-  &.reduced:hover .message h3 {
+  .message h3 {
     font-weight: bold;
   }
 
@@ -253,16 +248,6 @@
     white-space: normal;
     padding: 0 8px;
     margin: 0 0 8px 0;
-  }
-
-  &.reduced .message p,
-  &.reduced .message button {
-    display: none;
-  }
-
-  &.reduced:hover .message p,
-  &.reduced:hover .message button {
-    display: block;
   }
 
   .message button {
