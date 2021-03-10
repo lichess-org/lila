@@ -75,7 +75,7 @@
   <string name="insufficientMaterial">אין מספיק כלים</string>
   <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
-  <string name="close">סגור</string>
+  <string name="close">סגירה</string>
   <string name="winning">זוכה</string>
   <string name="losing">מפסיד</string>
   <string name="drawn">תיקו</string>
@@ -106,7 +106,7 @@
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
-  <string name="delete">מחק</string>
+  <string name="delete">מחיקה</string>
   <string name="deleteThisImportedGame">מחק את משחק העבר הזה?</string>
   <string name="replayMode">מצב הרצת המסעים</string>
   <string name="realtimeReplay">זמן אמת</string>
@@ -116,8 +116,8 @@
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="evaluationGauge">מד הערכה</string>
   <string name="multipleLines">המשכים מקבילים</string>
-  <string name="cpus">רוחב החישוב המקבילי</string>
-  <string name="memory">גודל הזיכרון</string>
+  <string name="cpus">מעבדים</string>
+  <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
   <string name="blunder">בלאנדר</string>
@@ -175,14 +175,14 @@
   <string name="daysPerTurn">ימים למהלך</string>
   <string name="oneDay">יום אחד</string>
   <plurals name="nbDays">
-    <item quantity="one">%s יום</item>
+    <item quantity="one">יום %s</item>
     <item quantity="two">%s ימים</item>
     <item quantity="many">%s ימים</item>
     <item quantity="other">%s ימים</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s שעה</item>
-    <item quantity="two">%s שעתיים</item>
+    <item quantity="one">שעה %s</item>
+    <item quantity="two">%s שעות</item>
     <item quantity="many">%s שעות</item>
     <item quantity="other">%s שעות</item>
   </plurals>
