@@ -43,7 +43,7 @@ object Granter {
   def canViewEmail(mod: Holder, user: User): Boolean =
     is(_.Admin)(mod)
 
-  def canViewAltUsernames(mod: Holder, user: User): Boolean =
+  def canViewAltUsername(mod: Holder, user: User): Boolean =
     is(_.Admin)(mod) || {
       (is(_.Hunter)(mod) && user.marks.engine) ||
       (is(_.Shusher)(mod) && user.marks.troll)
