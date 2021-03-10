@@ -185,6 +185,7 @@ object show {
             standardFlash(),
             st.section(cls := "team-show__desc")(
               markdownLinksOrRichText(t.description),
+              if (info.mine) frag(br, markdownLinksOrRichText(t.descPrivate)) else "",
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
               }

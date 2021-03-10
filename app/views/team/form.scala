@@ -30,6 +30,7 @@ object form {
             passwordField(form),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            form3.group(form("descPrivate"), trans.descPrivate())(form3.textarea(_)(rows := 10)), 
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.cancel()),
@@ -56,6 +57,7 @@ object form {
             passwordField(form),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            form3.group(form("descPrivate"), trans.descPrivate())(form3.textarea(_)(rows := 10)),
             form3.group(form("chat"), frag("Team chat")) { f =>
               form3.select(
                 f,
