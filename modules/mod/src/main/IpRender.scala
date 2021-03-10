@@ -2,12 +2,15 @@ package lila.mod
 
 import com.github.blemale.scaffeine.Cache
 import com.github.blemale.scaffeine.LoadingCache
+import scala.concurrent.duration._
+import scala.jdk.CollectionConverters._
 
+import lila.common.CuteNameGenerator
 import lila.common.IpAddress
-import lila.common.SymmetricCipher
 import lila.memo.CacheApi
 import lila.security.Granter
 import lila.user.Holder
+import lila.common.ThreadLocalRandom
 
 object IpRender {
 
@@ -16,7 +19,7 @@ object IpRender {
   type RenderIp = IpAddress => Rendered
 }
 
-final class IpRender(cipher: SymmetricCipher) {
+final class IpRender {
 
   import IpRender._
 
@@ -24,13 +27,17 @@ final class IpRender(cipher: SymmetricCipher) {
 
   val visible = (ip: IpAddress) => ip.value
 
-  val encrypted = (ip: IpAddress) => cache.get(ip.value)
+  val encrypted = (ip: IpAddress) => cache get ip
 
-  def decrypt(str: String) = IpAddress from {
-    cipher.base64UrlFriendly.decrypt(str) getOrElse str
-  }
+  def decrypt(str: String): Option[IpAddress] = IpAddress.from(str) orElse
+    cache.underlying.asMap.asScala.collectFirst {
+      case (ip, encrypted) if encrypted == str =>
+        ip
+    }
 
-  private val cache: LoadingCache[Raw, Rendered] = CacheApi.scaffeineNoScheduler
-    .maximumSize(4096)
-    .build((raw: Raw) => cipher.base64UrlFriendly.encrypt(raw).get)
+  private val cache: LoadingCache[IpAddress, Rendered] = CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(30 minutes)
+    .build((_: IpAddress) =>
+      s"NoIP:${CuteNameGenerator.make(maxSize = 24) | ThreadLocalRandom.nextString(8)}"
+    )
 }

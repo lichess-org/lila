@@ -40,8 +40,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     slackApi: lila.irc.SlackApi,
-    msgApi: lila.msg.MsgApi,
-    symmetricCipher: lila.common.SymmetricCipher
+    msgApi: lila.msg.MsgApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

@@ -684,7 +684,7 @@ object mod {
             logins.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
               val renderedIp = renderIp(ip.ip.value)
               tr(cls := ip.blocked option "blocked")(
-                td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp take 16)),
+                td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
