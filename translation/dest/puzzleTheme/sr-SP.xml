@@ -41,6 +41,7 @@
   <string name="discoveredAttack">Откривени напад</string>
   <string name="discoveredAttackDescription">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
   <string name="doubleCheck">Двоструки шах</string>
+  <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика у току последње фазе партије.</string>
   <string name="exposedKing">Откривен краљ</string>
