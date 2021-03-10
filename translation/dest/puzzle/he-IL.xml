@@ -27,4 +27,19 @@
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסה משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>
+  <string name="hidden">מוסתר</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">שוחק %s פעמים</item>
+    <item quantity="two">שוחק %s פעמים</item>
+    <item quantity="many">שוחק %s פעמים</item>
+    <item quantity="other">שוחק %s פעמים</item>
+  </plurals>
+  <string name="continueTraining">המשך להתאמן</string>
+  <string name="difficultyLevel">רמת קושי</string>
+  <string name="normal">רגיל</string>
+  <string name="easier">קל יותר</string>
+  <string name="easiest">הקל ביותר</string>
+  <string name="harder">קשה יותר</string>
+  <string name="hardest">הקשה ביותר</string>
+  <string name="example">דוגמא</string>
 </resources>
