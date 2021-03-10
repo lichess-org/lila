@@ -35,8 +35,11 @@
   <string name="clearance">Рашчишћавање</string>
   <string name="clearanceDescription">Потез, често са темпом, који рашчишћава поље, колону или дијагоналу за пратећу тактичку идеју.</string>
   <string name="defensiveMove">Одбрамбени потез</string>
-  <string name="deflection">Дефлекција</string>
+  <string name="defensiveMoveDescription">Прецизан потез или низ потеза који је потребан да се избегне губитак материјала или нека друга предност.</string>
+  <string name="deflection">Одвлачење</string>
+  <string name="deflectionDescription">Потез који одвлачи противничку фигуру од обављања друге дужности, као што је чување кључног поља. Некада се такође зове \"преоптерећење\".</string>
   <string name="discoveredAttack">Откривени напад</string>
+  <string name="discoveredAttackDescription">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
   <string name="doubleCheck">Двоструки шах</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика у току последње фазе партије.</string>
