@@ -108,7 +108,7 @@ object GameMod {
   val emptyFilter = Filter(none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
-    lila.game.Query.notSimul ++ filter.arena.?? { id =>
+    lila.game.Query.notSimul ++ lila.game.Query.clock(true) ++ filter.arena.?? { id =>
       $doc(lila.game.Game.BSONFields.tournamentId -> id)
     } ++ filter.swiss.?? { id =>
       $doc(lila.game.Game.BSONFields.swissId -> id)
