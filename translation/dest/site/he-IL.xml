@@ -9,6 +9,7 @@
   <string name="yourTurn">תורך</string>
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
   <string name="level">רמה</string>
+  <string name="strength">רמת קושי</string>
   <string name="toggleTheChat">הפעל/כבה את הצ\'אט</string>
   <string name="toggleSound">הפעל/כבה צלילים</string>
   <string name="chat">צ\'אט</string>
@@ -562,9 +563,12 @@
   <string name="currentPassword">הסיסמא הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
   <string name="newPasswordAgain">סיסמא חדשה שוב</string>
+  <string name="newPasswordsDontMatch">הסיסמה החדשה אינה תאומת</string>
+  <string name="newPasswordStrength">חוזק הסיסמה</string>
   <string name="clockInitialTime">זמן שעון התחלתי</string>
   <string name="clockIncrement">הוספת זמן</string>
   <string name="privacy">פרטיות</string>
+  <string name="privacyPolicy">מדיניות הפרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
   <string name="letOtherPlayersInviteYouToStudy">תן לשחקנים אחרים להזמין אותך ללמידה</string>
@@ -640,6 +644,7 @@
   <string name="error.email_unique">כתובת המייל שהזנת תפוסה</string>
   <string name="error.email_different">זהו כבר המייל שלך</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>
   <string name="castling">הצרחה</string>
@@ -721,6 +726,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">.%s על ידי הרשמה, אתה מסכים ל</string>
+  <string name="readAboutOur">קרא את ה%s.</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב רשת בינך לבין ליצ\'ס</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
   <string name="downloadAnnotated">להוריד עם פרשנויות</string>
@@ -902,6 +908,7 @@
   <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
+  <string name="teamNamedX">הקבוצה %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
