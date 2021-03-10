@@ -2,6 +2,9 @@
 <resources>
   <string name="lichessCoaches">Lichess treenerid</string>
   <string name="lichessCoach">Lichess treener</string>
+  <string name="areYouCoach">Kas sa oled hea maletreener kellel on %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM või FIDE tiitel</string>
+  <string name="confirmTitle">Kinnita oma tiitel siin ja me vaatame taotluse üle.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Saada meile email %s ja me vaatame sinu taotlust.</string>
   <string name="location">Asukoht</string>
   <string name="languages">Keeled</string>
@@ -15,7 +18,7 @@
   <string name="aboutMe">Minust</string>
   <string name="playingExperience">Mängukogemus</string>
   <string name="teachingExperience">Õpetuskogemus</string>
-  <string name="otherExperiences">Muud kogemused</string>
+  <string name="otherExperiences">Muu kogemus</string>
   <string name="bestSkills">Parimad oskused</string>
   <string name="teachingMethod">Õpetusmeetodid</string>
   <string name="publicStudies">Avalikud uuringud</string>
