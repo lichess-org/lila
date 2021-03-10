@@ -664,8 +664,8 @@
   <string name="streamersMenu">משדרים</string>
   <string name="mobileApp">אפליקציית מובייל</string>
   <string name="webmasters">מנהלי אתרים</string>
-  <string name="about">אודות</string>
-  <string name="aboutX">אודות%s</string>
+  <string name="about">על אודות</string>
+  <string name="aboutX">על אודות %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חופשי (%2$s), קוד פתוח וללא מודעות.</string>
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
@@ -869,19 +869,19 @@
     <item quantity="other">ושמור %s קו קדם המסעים</item>
   </plurals>
   <string name="sorry">מצטערים :(</string>
-  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
-  <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
+  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
+  <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
   <string name="why">למה?</string>
   <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
   <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
   <string name="potentialProblem">כאשר בעיה מסויימת מתגלה, אנו מציגים הודעה זו.</string>
   <string name="howToAvoidThis">איך להימנע מכך?</string>
-  <string name="playEveryGame">סיים כל משחק שהתחלת.</string>
-  <string name="tryToWin">נסה/י לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
-  <string name="resignLostGames">פרוש/י במצבים שאת/ה מפסיד/ה (אל תתן/י לשעון להיגמר).</string>
+  <string name="playEveryGame">יש לסיים כל משחק שהתחלת.</string>
+  <string name="tryToWin">יש לנסות לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
+  <string name="resignLostGames">יש לפרוש במצבי הפסד (אין לתת לשעון להיגמר).</string>
   <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
-  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב-lichess.org.</string>
-  <string name="thankYouForReading">תודה שקראת!</string>
+  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
+  <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
