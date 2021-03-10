@@ -425,7 +425,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="thisIsAChessCaptcha">Is CAPCHTA fichille é seo.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an bhord le beart a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
-  <string name="notACheckmate">Ní marbhsháinn é sin</string>
+  <string name="notACheckmate">Ní marbhsháinn í sin</string>
   <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
   <string name="blackCheckmatesInOneMove">Marbhsháinn ag dubh le beart amháin</string>
   <string name="retry">Atriail</string>
