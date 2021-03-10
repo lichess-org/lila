@@ -815,7 +815,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
   <string name="transparent">Trédhearcach</string>
-  <string name="backgroundImageUrl">Íomhá cúlra URL:</string>
+  <string name="backgroundImageUrl">URL íomhá chúlrá:</string>
   <string name="boardGeometry">Céimseata an chláir</string>
   <string name="boardTheme">Téama an chláir</string>
   <string name="boardSize">Méid an chláir</string>
@@ -837,7 +837,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="error.unknown">Earráid</string>
-  <string name="custom">Saincheap</string>
+  <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
