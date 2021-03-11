@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
+  <string name="descPrivate">Interne beschrijving</string>
+  <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
