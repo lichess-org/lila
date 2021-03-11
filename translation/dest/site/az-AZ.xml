@@ -579,7 +579,7 @@
   <string name="error.email_unique">Bu e-poçt artıq istifadə edilir</string>
   <string name="error.email_different">Bu sizin inidiki e-poçtl ünvanınızdır</string>
   <string name="ifRatingIsPlusMinusX">Əgər reytinq ± %s olarsa</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Yalnız mövcud söhbətlər</string>
+  <string name="onlyExistingConversations">Yalnız mövcud söhbətlər</string>
   <string name="onlyFriends">Yalnız dostlar</string>
   <string name="menu">Menyu</string>
   <string name="castling">Qalaqurma</string>
