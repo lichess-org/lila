@@ -498,6 +498,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
+  <string name="descPrivate">Privatni opis</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
