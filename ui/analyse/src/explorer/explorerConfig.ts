@@ -21,9 +21,9 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
       available,
       selected:
         available.length > 1
-          ? storedProp('explorer.db.' + variant, available[0])
+          ? storedProp('explorer.burned-db.' + variant, available[0])
           : function () {
-              return available[0];
+              return available[available.length - 1]; // revert to 0
             },
     },
     rating: {
