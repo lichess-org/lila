@@ -315,15 +315,21 @@ case class Game(
       blackPlayer = f(blackPlayer)
     )
 
+  def drawOffers = metadata.drawOffers
+
   def playerCanOfferDraw(color: Color) =
     started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
-      !playerHasOfferedDraw(color)
+      !playerHasOfferedDrawRecently(color)
 
-  def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer ?? (_ >= turns - 20)
+  def playerHasOfferedDrawRecently(color: Color) =
+    drawOffers.lastBy(color) ?? (_ >= turns - 20)
+
+  def offerDraw(color: Color) = copy(
+    metadata = metadata.copy(drawOffers = drawOffers.add(color, turns))
+  ).updatePlayer(color, _.offerDraw)
 
   def playerCouldRematch =
     finishedOrAborted &&
@@ -735,14 +741,7 @@ object Game {
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
-        metadata = Metadata(
-          source = source.some,
-          pgnImport = pgnImport,
-          tournamentId = none,
-          swissId = none,
-          simulId = none,
-          analysed = false
-        ),
+        metadata = metadata(source).copy(pgnImport = pgnImport),
         createdAt = createdAt,
         movedAt = createdAt
       )
@@ -756,7 +755,8 @@ object Game {
       tournamentId = none,
       swissId = none,
       simulId = none,
-      analysed = false
+      analysed = false,
+      drawOffers = GameDrawOffers.empty
     )
 
   object BSONFields {
@@ -800,6 +800,7 @@ object Game {
     val initialFen        = "if"
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
+    val drawOffers        = "do"
   }
 }
 

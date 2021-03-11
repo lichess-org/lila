@@ -41,9 +41,7 @@ final private[round] class Drawer(
       case Pov(g, color) if g playerCanOfferDraw color =>
         proxy.save {
           messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
-          Progress(g) map { g =>
-            g.updatePlayer(color, _ offerDraw g.turns)
-          }
+          Progress(g) map { _ offerDraw color }
         } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
     }

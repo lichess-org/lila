@@ -66,6 +66,18 @@ object BSONHandlers {
       )
   }
 
+  implicit private[game] val gameDrawOffersHandler = tryHandler[GameDrawOffers](
+    { case arr: BSONArray =>
+      Success(arr.values.foldLeft(GameDrawOffers.empty) {
+        case (offers, BSONInteger(p)) =>
+          if (p > 0) offers.copy(white = offers.white incl p)
+          else offers.copy(black = offers.black incl -p)
+        case (offers, _) => offers
+      })
+    },
+    offers => BSONArray(offers.white ++ offers.black.map(-_))
+  )
+
   import Player.playerBSONHandler
   private val emptyPlayerBuilder = playerBSONHandler.read($empty)
 
@@ -160,7 +172,8 @@ object BSONHandlers {
           tournamentId = r strO F.tournamentId,
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
-          analysed = r boolD F.analysed
+          analysed = r boolD F.analysed,
+          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty)
         )
       )
     }
