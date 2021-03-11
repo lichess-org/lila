@@ -469,6 +469,7 @@
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
   <string name="descPrivate">Deskribapen pribatua</string>
+  <string name="descPrivateHelp">Taldekideek bakarrik ikusiko duten testua. Ezarrita badago, taldekideei taldearen deskribapenaren ordez agertuko zaie testu hau.</string>
   <string name="no">Ez</string>
   <string name="yes">Bai</string>
   <string name="help">Laguntza:</string>
