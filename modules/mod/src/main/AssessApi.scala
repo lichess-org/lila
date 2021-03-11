@@ -153,7 +153,7 @@ final class AssessApi(
 
   def assessUser(userId: User.ID): Funit =
     getPlayerAggregateAssessment(userId) flatMap {
-      case Some(playerAggregateAssessment) =>
+      _ ?? { playerAggregateAssessment =>
         playerAggregateAssessment.action match {
           case AccountAction.Engine | AccountAction.EngineAndBan =>
             userRepo.getTitle(userId).flatMap {
@@ -171,7 +171,7 @@ final class AssessApi(
             // reporter ! lila.hub.actorApi.report.Clean(userId)
             funit
         }
-      case _ => funit
+      }
     }
 
   private val assessableSources: Set[Source] =
