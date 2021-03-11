@@ -25,6 +25,11 @@ object form {
           cls := "form3",
           action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
+          div(cls := "form-group")(
+            a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
+              "Read more about Lichess reports"
+            )
+          ),
           form3.globalError(form),
           form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
             reqUser
