@@ -527,6 +527,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentWinners">Turnyrų nugalėtojai</string>
   <string name="name">Pavadinimas</string>
   <string name="description">Aprašymas</string>
+  <string name="descPrivate">Privatus aprašymas</string>
+  <string name="descPrivateHelp">Tekstas, kurį gali matyti tik komandos nariai. Jei nustatytas, komandos nariams pakeičia viešą aprašymą.</string>
   <string name="no">Ne</string>
   <string name="yes">Taip</string>
   <string name="help">Pagalba:</string>
