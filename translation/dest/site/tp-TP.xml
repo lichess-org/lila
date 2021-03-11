@@ -469,6 +469,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
+  <string name="descPrivate">sitelen sona pi jan kulupu</string>
+  <string name="descPrivateHelp">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
   <string name="no">ala</string>
   <string name="yes">lon</string>
   <string name="help">o pona</string>
