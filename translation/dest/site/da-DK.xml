@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
+  <string name="descPrivate">Privat beskrivelse</string>
+  <string name="descPrivateHelp">Tekst som kun holddeltagere vil se. Hvis den er udfyldt, erstatter den for holddeltagere den offentlige beskrivelse.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjælp:</string>
