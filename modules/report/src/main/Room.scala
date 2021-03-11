@@ -33,7 +33,7 @@ object Room {
   def apply(reason: Reason): Room =
     reason match {
       case Reason.Cheat                                  => Cheat
-      case Reason.CheatPrint                             => Print
+      case Reason.AltPrint | Reason.CheatPrint           => Print
       case Reason.Comm                                   => Comm
       case Reason.Boost | Reason.Playbans | Reason.Other => Other
     }
@@ -41,7 +41,7 @@ object Room {
   def toReasons(room: Room): Set[Reason] =
     room match {
       case Cheat  => Set(Reason.Cheat)
-      case Print  => Set(Reason.CheatPrint)
+      case Print  => Set(Reason.AltPrint)
       case Comm   => Set(Reason.Comm)
       case Other  => Set(Reason.Boost, Reason.Other)
       case Xfiles => Set.empty

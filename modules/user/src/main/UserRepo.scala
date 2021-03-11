@@ -255,9 +255,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
-    else F.marks $ne (mark.key)
+    else F.marks $ne mark.key
   def engineSelect = markSelect(UserMark.Engine) _
   def trollSelect  = markSelect(UserMark.Troll) _
+  val lameOrTroll = $or(
+    $doc(F.marks -> UserMark.Engine.key),
+    $doc(F.marks -> UserMark.Boost.key),
+    $doc(F.marks -> UserMark.Troll.key)
+  )
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
@@ -596,6 +601,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def countEngines(userIds: List[User.ID]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
+
+  def countLameOrTroll(userIds: List[User.ID]): Fu[Int] =
+    coll.secondaryPreferred.countSel($inIds(userIds) ++ lameOrTroll)
 
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))

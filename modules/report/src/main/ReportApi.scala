@@ -121,11 +121,11 @@ final class ReportApi(
   def getSuspect(username: String): Fu[Option[Suspect]] =
     userRepo named username dmap2 Suspect.apply
 
-  def autoCheatPrintReport(userId: String): Funit =
+  def autoAltPrintReport(userId: String): Funit =
     coll.exists(
       $doc(
         "user"   -> userId,
-        "reason" -> Reason.CheatPrint.key
+        "reason" -> Reason.AltPrint.key
       )
     ) flatMap {
       case true => funit // only report once
@@ -136,8 +136,8 @@ final class ReportApi(
               Candidate(
                 reporter = reporter,
                 suspect = suspect,
-                reason = Reason.CheatPrint,
-                text = "Shares print with known cheaters"
+                reason = Reason.AltPrint,
+                text = "Shares print with suspicious accounts"
               )
             )
           case _ => funit
