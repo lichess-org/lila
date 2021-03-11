@@ -497,6 +497,7 @@
   <string name="tournamentWinners">Turnīra uzvarētāji</string>
   <string name="name">Nosaukums</string>
   <string name="description">Apraksts</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Privātais apraksts</string>
   <string name="no">Nē</string>
   <string name="yes">Jā</string>
   <string name="help">Palīdzība:</string>
