@@ -469,6 +469,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
+  <string name="descPrivate">Private description</string>
   <string name="no">No</string>
   <string name="yes">Yes</string>
   <string name="help">Help:</string>

@@ -53,6 +53,7 @@ final class TeamApi(
         location = s.location,
         password = s.password,
         description = s.description,
+        descPrivate = s.descPrivate,
         open = s.isOpen,
         createdBy = me
       )
@@ -74,6 +75,7 @@ final class TeamApi(
         location = e.location,
         password = e.password,
         description = e.description,
+        descPrivate = e.descPrivate,
         open = e.isOpen,
         chat = e.chat
       ) pipe { team =>
