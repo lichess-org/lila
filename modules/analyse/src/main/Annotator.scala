@@ -10,20 +10,10 @@ import lila.game.Game
 final class Annotator(netDomain: lila.common.config.NetDomain) {
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
-    apply(p, analysis, game.opening, game.winnerColor, game.drawOffers.some, game.status)
-
-  def apply(
-      p: Pgn,
-      analysis: Option[Analysis],
-      opening: Option[FullOpening.AtPly],
-      winner: Option[Color],
-      drawOffers: Option[GameDrawOffers],
-      status: Status
-  ): Pgn =
-    annotateStatus(winner, status) {
-      annotateOpening(opening) {
+    annotateStatus(game.winnerColor, game.status) {
+      annotateOpening(game.opening) {
         annotateTurns(
-          annotateDrawOffers(p, drawOffers | GameDrawOffers.empty),
+          annotateDrawOffers(p, game.drawOffers),
           analysis.??(_.advices)
         )
       }.copy(
@@ -59,10 +49,10 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       )
     }
 
-  private def annotateDrawOffers(pgn: Pgn, offers: GameDrawOffers): Pgn =
-    if (offers.isEmpty) pgn
+  private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
+    if (drawOffers.isEmpty) pgn
     else
-      offers.normalizedPlies.foldLeft(pgn) { case (pgn, ply) =>
+      drawOffers.normalizedPlies.foldLeft(pgn) { case (pgn, ply) =>
         pgn.updatePly(
           ply,
           move => {

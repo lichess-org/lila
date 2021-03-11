@@ -35,7 +35,7 @@ final class JsonView(rematches: Rematches) {
       .add("lastMove" -> game.lastMoveKeys)
       .add("check" -> game.situation.checkSquare.map(_.key))
       .add("rematch" -> rematches.of(game.id))
-      .add("drawOffers" -> game.drawOffers.nonEmptyNormalizedPlies)
+      .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 }
 
 object JsonView {

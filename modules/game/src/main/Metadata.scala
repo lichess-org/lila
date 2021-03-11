@@ -43,8 +43,6 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]) {
     case ply => ply
   }
   def normalizedPlies: Set[Int] = normalize(chess.White) ++ normalize(chess.Black)
-
-  def nonEmptyNormalizedPlies = !isEmpty option normalizedPlies
 }
 
 object GameDrawOffers {
