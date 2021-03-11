@@ -468,6 +468,7 @@
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
+  <string name="descPrivate">Biographie</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>
   <string name="help">Hilfe:</string>
