@@ -324,8 +324,8 @@
   <string name="yourPerfRatingIsTooLow">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
-  <string name="mustBeInTeam">Трябва да сте в тим %s</string>
-  <string name="youAreNotInTeam">Не сте в тимът %s</string>
+  <string name="mustBeInTeam">Трябва да сте в отбора %s</string>
+  <string name="youAreNotInTeam">Не сте в отбора %s</string>
   <string name="backToGame">Връщане към играта</string>
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
   <string name="xJoinedTeamY">%1$s се присъедини към отбор %2$s</string>
@@ -834,7 +834,7 @@
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
   <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
-  <string name="teamNamedX">екипа %1$s</string>
+  <string name="teamNamedX">отбора %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Все още не можете да публикувате във форумите. Изиграйте няколко игри!</string>
   <string name="subscribe">Абонирай се</string>
   <string name="unsubscribe">Отпиши ме</string>
