@@ -48,6 +48,8 @@
   <string name="exposedKing">Изложен краљ</string>
   <string name="exposedKingDescription">Тактика која укључује краља са малим бројем бранилаца око њега, често доводи до мата.</string>
   <string name="fork">Виљушка</string>
+  <string name="forkDescription">Потез где померена фигура напада две противничке фигуре од једном.</string>
+  <string name="hangingPiece">Висећа фигура</string>
   <string name="hookMate">Кука-мат</string>
   <string name="interference">Сметња</string>
   <string name="knightEndgame">Скакачка завршница</string>
