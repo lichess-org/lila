@@ -106,7 +106,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   const timeout = perms.timeout
     ? h('div.timeout.block', [
-        h('strong', 'Timeout 10 minutes for'),
+        h('strong', 'Timeout 15 minutes for'),
         ...ctrl.reasons.map(r => {
           return h(
             'a.text',
@@ -126,7 +126,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             attrs: { 'data-icon': 'p' },
             hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text)),
           },
-          'Timeout 10 minutes'
+          'Timeout 15 minutes'
         ),
       ]);
 

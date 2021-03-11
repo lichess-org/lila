@@ -130,28 +130,3 @@
     }
   }
 }
-
-#communication.public_chat {
-  position: relative;
-
-  #auto_refresh {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-
-    @include transition;
-  }
-
-  #auto_refresh.active.hold {
-    opacity: 0.4;
-  }
-
-  .player_chats .line,
-  .threads .post {
-    opacity: 1;
-  }
-
-  .chat {
-    overflow-y: auto !important;
-  }
-}

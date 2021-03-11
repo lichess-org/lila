@@ -1,11 +1,13 @@
 package lila.chat
 
-import lila.db.dsl._
-import lila.user.User
-
 import org.joda.time.DateTime
+import play.api.data.Form
+import play.api.data.Forms._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
+
+import lila.db.dsl._
+import lila.user.User
 
 final class ChatTimeout(
     coll: Coll,
@@ -66,7 +68,9 @@ final class ChatTimeout(
 
 object ChatTimeout {
 
-  sealed abstract class Reason(val key: String, val name: String)
+  sealed abstract class Reason(val key: String, val name: String) {
+    lazy val shortName = name.split(';').lift(0) | name
+  }
 
   object Reason {
     case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
@@ -93,4 +97,16 @@ object ChatTimeout {
     case object Local  extends Scope
     case object Global extends Scope
   }
+
+  val form = Form(
+    mapping(
+      "roomId" -> nonEmptyText,
+      "chan"   -> lila.common.Form.stringIn(Set("tournament", "simul")),
+      "userId" -> nonEmptyText,
+      "reason" -> nonEmptyText,
+      "text"   -> nonEmptyText
+    )(TimeoutFormData.apply)(TimeoutFormData.unapply)
+  )
+
+  case class TimeoutFormData(roomId: String, chan: String, userId: User.ID, reason: String, text: String)
 }

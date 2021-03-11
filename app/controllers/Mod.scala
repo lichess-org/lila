@@ -64,6 +64,13 @@ final class Mod(
       }
     }
 
+  def publicChatTimeout =
+    SecureBody(_.ChatTimeout) { implicit ctx => me =>
+      FormResult(lila.chat.ChatTimeout.form) { data =>
+        env.chat.api.userChat.publicTimeout(data, me)
+      }(ctx.body)
+    }
+
   def booster(username: String, v: Boolean) =
     OAuthModBody(_.MarkBooster) { me =>
       withSuspect(username) { prev =>

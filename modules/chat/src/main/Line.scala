@@ -29,6 +29,8 @@ case class UserLine(
   def delete = copy(deleted = true)
 
   def isVisible = !troll && !deleted
+
+  def isLichess = userId == User.lichessId
 }
 case class PlayerLine(
     color: Color,

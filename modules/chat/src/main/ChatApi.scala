@@ -10,7 +10,7 @@ import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.{ Holder, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
@@ -152,6 +152,19 @@ final class ChatApi(
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => funit
+      }
+
+    def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
+      ChatTimeout.Reason(data.reason) ?? { reason =>
+        timeout(
+          chatId = Chat.Id(data.roomId),
+          modId = me.id,
+          userId = data.userId,
+          reason = reason,
+          scope = ChatTimeout.Scope.Global,
+          text = data.text,
+          busChan = if (data.chan == "tournament") _.Tournament else _.Simul
+        )
       }
 
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
