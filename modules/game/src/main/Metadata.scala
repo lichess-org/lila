@@ -33,6 +33,16 @@ case class GameDrawOffers(white: Set[Int], black: Set[Int]) {
 
   def add(color: Color, ply: Int) =
     color.fold(copy(white = white incl ply), copy(black = black incl ply))
+
+  def isEmpty = this == GameDrawOffers.empty
+
+  // lichess allows to offer draw on either turn,
+  // normalize to pretend it was done on the opponent turn.
+  def normalize(color: Color): Set[Int] = color.fold(white, black) map {
+    case ply if (ply % 2 == 0) == color.white => ply + 1
+    case ply => ply
+  }
+  def normalizedPlies: Set[Int] = normalize(chess.White) ++ normalize(chess.Black)
 }
 
 object GameDrawOffers {
