@@ -317,9 +317,8 @@ object Event {
   }
 
   case class DrawOffer(by: Option[Color]) extends Event {
-    def typ            = "reload"
-    def data           = reloadOr("drawOffer", by)
-    override def owner = true
+    def typ  = "reload"
+    def data = reloadOr("drawOffer", by)
   }
 
   case class ClockInc(color: Color, time: Centis) extends Event {
