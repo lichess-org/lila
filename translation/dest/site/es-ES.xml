@@ -468,6 +468,7 @@
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
+  <string name="descPrivate">Descripción privada</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
