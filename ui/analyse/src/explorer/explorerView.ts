@@ -407,21 +407,8 @@ function showFailing(ctrl: AnalyseCtrl) {
   return h('div.data.empty', [
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.failing.message', [
-      h('h3', 'The explorer will be back in a few days.'),
-      h('p.explanation', [
-        'Due to a ',
-        h(
-          'a',
-          {
-            attrs: {
-              href:
-                'https://france3-regions.francetvinfo.fr/grand-est/bas-rhin/strasbourg-0/strasbourg-gros-incendie-dans-un-data-center-du-port-du-rhin-pas-de-blesse-1990768.html',
-            },
-          },
-          'fire in the SBG2 datacenter'
-        ),
-        ', power to the server (in SBG3) has been cut. We expect it to be restored before reindexing games on a new server would complete.',
-      ]),
+      h('h3', 'Oops, sorry!'),
+      h('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
       closeButton(ctrl),
     ]),
   ]);

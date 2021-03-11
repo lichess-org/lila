@@ -27,7 +27,6 @@ export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  return Promise.reject(); // hack: avoid long timeout
   return xhr
     .json(url.href, {
       cache: 'default',
