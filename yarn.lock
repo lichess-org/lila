@@ -2152,6 +2152,11 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+idb-keyval@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/idb-keyval/-/idb-keyval-5.0.4.tgz#182881b1eafbb47d11a269422ae6d5243f0db0c7"
+  integrity sha512-qS0kplHuadZujoE90ze0NUkhW0/Fbfib7d+mYNMXNEn45NSh2NWY3fBewoX4GZUsKkGHBgc8JiAwMx0zrfL3LQ==
+
 ignore@^5.1.1:
   version "5.1.8"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
