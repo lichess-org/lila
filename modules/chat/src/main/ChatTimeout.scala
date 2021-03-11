@@ -18,9 +18,9 @@ final class ChatTimeout(
 
   private val global = new lila.memo.ExpireSetMemo(duration)
 
-  def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Funit =
+  def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id) flatMap {
-      case true => funit
+      case true => fuccess(false)
       case false =>
         if (scope == Scope.Global) global put user.id
         coll.insert
@@ -34,8 +34,7 @@ final class ChatTimeout(
               "createdAt" -> DateTime.now,
               "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
             )
-          )
-          .void
+          ) inject true
     }
 
   def isActive(chatId: Chat.Id, userId: User.ID): Fu[Boolean] =
