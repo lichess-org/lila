@@ -23,16 +23,9 @@ final class SlackApi(
 
     implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.amount)
 
-    def apply(event: ChargeEvent): Funit =
-      if (event.amount < 10000) addToBuffer(event)
-      else
-        displayMessage {
-          s"${userAt(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
-        }
-
-    private def addToBuffer(event: ChargeEvent): Funit = {
+    def apply(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
+      buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
