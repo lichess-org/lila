@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
+  <string name="descPrivate">Descrição privada</string>
+  <string name="descPrivateHelp">Texto que apenas os membros da equipe verão. Se definido, substitui a descrição pública para os membros da equipe.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="help">Ajuda:</string>
