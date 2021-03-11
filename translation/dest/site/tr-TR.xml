@@ -468,6 +468,7 @@
   <string name="tournamentWinners">Turnuvanın Kazananları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Özel tanım</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="help">Yardım:</string>
