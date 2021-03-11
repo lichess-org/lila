@@ -470,6 +470,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
   <string name="descPrivate">Descrizione privata</string>
+  <string name="descPrivateHelp">Il testo che solo i membri del team vedranno. Se impostato sostituisce la descrizione pubblica per i membri del team.</string>
   <string name="no">No</string>
   <string name="yes">Sì</string>
   <string name="help">Aiuto:</string>
