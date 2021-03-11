@@ -440,6 +440,7 @@
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">プライベートな説明</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
   <string name="help">ヘルプ：</string>
