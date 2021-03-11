@@ -28,9 +28,7 @@ object form {
             form3.group(form("name"), trans.name())(form3.input(_)),
             requestField(form),
             passwordField(form),
-            form3.group(form("location"), trans.location())(form3.input(_)),
-            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
-            form3.group(form("descPrivate"), trans.descPrivate())(form3.textarea(_)(rows := 10)), 
+            textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.cancel()),
@@ -55,9 +53,7 @@ object form {
             ),
             requestField(form),
             passwordField(form),
-            form3.group(form("location"), trans.location())(form3.input(_)),
-            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
-            form3.group(form("descPrivate"), trans.descPrivate())(form3.textarea(_)(rows := 10)),
+            textFields(form),
             form3.group(form("chat"), frag("Team chat")) { f =>
               form3.select(
                 f,
@@ -95,6 +91,14 @@ object form {
       )
     }
   }
+
+  private def textFields(form: Form[_])(implicit ctx: Context) = frag(
+    form3.group(form("location"), trans.location())(form3.input(_)),
+    form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+    form3.group(form("descPrivate"), trans.descPrivate(), help = trans.descPrivateHelp().some)(
+      form3.textarea(_)(rows := 10)
+    )
+  )
 
   private def requestField(form: Form[_])(implicit lang: Lang) =
     form3.checkbox(

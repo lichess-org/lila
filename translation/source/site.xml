@@ -470,6 +470,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>
+  <string name="descPrivateHelp">Text that only the team members will see. If set, replaces the public description for team members.</string>
   <string name="no">No</string>
   <string name="yes">Yes</string>
   <string name="help">Help:</string>
