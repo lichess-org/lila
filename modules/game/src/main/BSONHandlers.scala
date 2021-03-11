@@ -75,7 +75,7 @@ object BSONHandlers {
         case (offers, _) => offers
       })
     },
-    offers => BSONArray(offers.white ++ offers.black.map(-_))
+    offers => BSONArray((offers.white ++ offers.black.map(-_)).view.map(BSONInteger.apply).toIndexedSeq)
   )
 
   import Player.playerBSONHandler

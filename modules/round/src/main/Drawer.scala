@@ -20,7 +20,7 @@ final private[round] class Drawer(
     Pov(game)
       .map { pov =>
         import Pref.PrefZero
-        if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
+        if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
           pov.player.userId ?? prefApi.getPref map { pref =>
             pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
