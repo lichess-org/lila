@@ -95,7 +95,7 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule3())
+        li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
       ul(
