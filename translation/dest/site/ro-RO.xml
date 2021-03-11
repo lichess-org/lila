@@ -496,6 +496,7 @@
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
+  <string name="descPrivate">Descriere privată</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
