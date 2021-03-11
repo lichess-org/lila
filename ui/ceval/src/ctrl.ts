@@ -6,6 +6,7 @@ import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
+import { Cache } from './cache';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -228,6 +229,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           }),
           version: '85a969',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
+          cache: new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker(protocolOpts, {
