@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -42,29 +43,40 @@ final class Relation(
         )
       }
 
+  private val FollowLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = 150,
+    duration = 72.hour,
+    key = "follow.user"
+  )
+
   def follow(userId: String) =
     Auth { implicit ctx => me =>
-      api.reachedMaxFollowing(me.id) flatMap {
-        case true =>
-          env.msg.api
-            .postPreset(
-              me.id,
-              lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-            )
-            .void
-        case _ =>
-          api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
-      }
+      FollowLimitPerUser(me.id) {
+        api.reachedMaxFollowing(me.id) flatMap {
+          case true =>
+            env.msg.api
+              .postPreset(
+                me.id,
+                lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
+              ) inject Ok
+          case _ =>
+            api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+        }
+      }(rateLimitedFu)
     }
 
   def unfollow(userId: String) =
     Auth { implicit ctx => me =>
-      api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+      FollowLimitPerUser(me.id) {
+        api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+      }(rateLimitedFu)
     }
 
   def block(userId: String) =
     Auth { implicit ctx => me =>
-      api.block(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+      FollowLimitPerUser(me.id) {
+        api.block(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+      }(rateLimitedFu)
     }
 
   def unblock(userId: String) =
