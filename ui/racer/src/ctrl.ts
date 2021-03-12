@@ -11,8 +11,9 @@ import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Promotion, Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, Status } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, Status, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
+import { Countdown } from './countdown';
 
 export default class StormCtrl {
   private data: RacerData;
@@ -23,6 +24,7 @@ export default class StormCtrl {
   vm: RacerVm;
   trans: Trans;
   promotion: Promotion;
+  countdown: Countdown;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
@@ -46,19 +48,21 @@ export default class StormCtrl {
     this.vm = {
       signed: prop(undefined),
     };
+    this.countdown = new Countdown(this.run.clock, this.resetGround, this.redraw);
     this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
-    this.startCountdown();
+    setTimeout(() => {
+      this.vm.startsAt = this.countdown.start(opts.data.startsIn);
+    });
     // this.simulate();
     console.log(this.data);
   }
 
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
-    this.data.startsIn = data.startsIn;
-    this.startCountdown();
+    this.vm.startsAt = this.countdown.start(data.startsIn) || this.vm.startsAt;
     this.redraw();
   };
 
@@ -86,27 +90,6 @@ export default class StormCtrl {
   join = throttle(1000, () => {
     if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
   });
-
-  private startCountdown = () => {
-    if (this.data.startsIn && !this.run.clock.started()) {
-      for (let i = 10; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
-
-      this.vm.startsAt = new Date(Date.now() + this.data.startsIn);
-      const countdown = () => {
-        const diff = this.vm.startsAt.getTime() - Date.now();
-        if (diff > 0) {
-          lichess.sound.play('countDown' + Math.ceil(diff / 1000));
-          setTimeout(countdown, (diff % 1000) + 50);
-        } else {
-          lichess.sound.play('countDown0');
-          this.run.clock.start();
-          this.withGround(g => g.set(this.cgOpts()));
-        }
-        this.redraw();
-      };
-      setTimeout(countdown);
-    }
-  };
 
   countdownSeconds = (): number | undefined =>
     this.vm.startsAt && this.vm.startsAt > new Date()
@@ -162,7 +145,7 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g => g.set(this.cgOpts()));
+    this.resetGround();
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -170,6 +153,8 @@ export default class StormCtrl {
   private redrawSlow = () => setTimeout(this.redraw, 1000);
 
   private cgOpts = () => makeCgOpts(this.run, this.isRacing());
+
+  private resetGround = () => this.withGround(g => g.set(this.cgOpts()));
 
   private pushToHistory = (win: boolean) =>
     this.run.history.push({
@@ -189,7 +174,7 @@ export default class StormCtrl {
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
-  withGround = <A>(f: (cg: CgApi) => A): A | false => {
+  withGround: WithGround = f => {
     const g = this.ground();
     return g && f(g);
   };

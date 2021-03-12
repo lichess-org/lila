@@ -1,7 +1,10 @@
 import { Prop } from 'common';
 import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import { Api as CgApi } from 'chessground/api';
 
 export type Status = 'pre' | 'racing' | 'post';
+
+export type WithGround = <A>(f: (g: CgApi) => A) => A | false;
 
 export interface RacerOpts {
   data: RacerData;
