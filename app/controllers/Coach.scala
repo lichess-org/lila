@@ -73,7 +73,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def approveReview(id: String) =
     SecureBody(_.Coach) { implicit ctx => me =>
       OptionFuResult(api.reviews.byId(id)) { review =>
-        api.byId(review.coachId).map(_ ?? (_ is me)) flatMap {
+        api.byId(review.coachId).dmap(_.exists(_ is me.user)) flatMap {
           case false => notFound
           case true  => api.reviews.approve(review, getBool("v")) inject Ok
         }
@@ -123,7 +123,7 @@ final class Coach(env: Env) extends LilaController(env) {
     }
 
   def pictureApply =
-    AuthBody(parse.multipartFormData) { implicit ctx => me =>
+    SecureBody(parse.multipartFormData)(lila.security.Permission.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>

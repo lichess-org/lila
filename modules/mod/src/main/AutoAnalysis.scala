@@ -13,5 +13,6 @@ object AutoAnalysis {
     case object Blurs                extends Reason
     case object WinnerRatingProgress extends Reason
     case object NewPlayerWin         extends Reason
+    case object TitledPlayer         extends Reason
   }
 }

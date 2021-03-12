@@ -74,9 +74,7 @@ final class Analyse(
                       pov,
                       data,
                       initialFen,
-                      env.analyse
-                        .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-                        .toString,
+                      env.analyse.annotator(pgn, pov.game, analysis).toString,
                       analysis,
                       analysisInProgress,
                       simul,
@@ -136,9 +134,7 @@ final class Analyse(
       html.analyse.replayBot(
         pov,
         initialFen,
-        env.analyse
-          .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-          .toString,
+        env.analyse.annotator(pgn, pov.game, analysis).toString,
         simul,
         crosstable
       )

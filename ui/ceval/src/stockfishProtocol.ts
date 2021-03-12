@@ -3,7 +3,7 @@ import { ProtocolOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
 import { Sync, sync } from 'common/sync';
 
-const EVAL_REGEX = new RegExp(
+const evalRegex = new RegExp(
   '' +
     /^info depth (\d+) seldepth \d+ multipv (\d+) /.source +
     /score (cp|mate) ([-\d]+) /.source +
@@ -11,6 +11,8 @@ const EVAL_REGEX = new RegExp(
     /(?:hashfull \d+ )?(?:tbhits \d+ )?time (\S+) /.source +
     /pv (.+)/.source
 );
+
+const minDepth = 6;
 
 export default class Protocol {
   private engineNameDeferred: Deferred<string> = defer();
@@ -55,7 +57,7 @@ export default class Protocol {
     }
     if (!this.work || this.work.stopRequested) return;
 
-    const matches = text.match(EVAL_REGEX);
+    const matches = text.match(evalRegex);
     if (!matches) return;
 
     const depth = parseInt(matches[1]),
@@ -73,7 +75,7 @@ export default class Protocol {
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
-    if (depth < this.opts.minDepth) return;
+    if (depth < minDepth) return;
 
     const pivot = this.work.threatMode ? 0 : 1;
     const ev = this.work.ply % 2 === pivot ? -povEv : povEv;

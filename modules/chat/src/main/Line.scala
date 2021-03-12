@@ -12,6 +12,7 @@ sealed trait Line {
   def isHuman     = !isSystem
   def humanAuthor = isHuman option author
   def troll: Boolean
+  def userIdMaybe: Option[User.ID]
 }
 
 case class UserLine(
@@ -26,17 +27,22 @@ case class UserLine(
 
   def userId = User normalize username
 
+  def userIdMaybe = userId.some
+
   def delete = copy(deleted = true)
 
   def isVisible = !troll && !deleted
+
+  def isLichess = userId == User.lichessId
 }
 case class PlayerLine(
     color: Color,
     text: String
 ) extends Line {
-  def deleted = false
-  def author  = color.name
-  def troll   = false
+  def deleted     = false
+  def author      = color.name
+  def troll       = false
+  def userIdMaybe = none
 }
 
 object Line {

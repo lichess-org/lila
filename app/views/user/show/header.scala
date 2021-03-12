@@ -138,7 +138,7 @@ object header {
                 div(form3.cmnToggle("note-mod", "mod", checked = true)),
                 label(`for` := "note-mod")("For moderators only")
               ),
-              isGranted(_.Doxing) option div(
+              isGranted(_.Admin) option div(
                 div(form3.cmnToggle("note-dox", "dox", checked = false)),
                 label(`for` := "note-dox")("Doxing info")
               )
@@ -153,7 +153,7 @@ object header {
         social.notes
           .filter { n =>
             ctx.me.exists(n.isFrom) ||
-            isGranted(_.Doxing) ||
+            isGranted(_.Admin) ||
             (!n.dox && isGranted(_.ModNote))
           }
           .map { note =>

@@ -34,9 +34,7 @@ trait dsl {
 
   def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
 
-  def $arr(elements: Producer[BSONValue]*): Barr = {
-    BSONArray(elements: _*)
-  }
+  def $arr(elements: Producer[BSONValue]*): Barr = BSONArray(elements: _*)
 
   def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
 

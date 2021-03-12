@@ -19,9 +19,10 @@ import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
-import lila.socket.UserLagCache
-import lila.user.{ User => UserModel }
 import lila.security.UserLogins
+import lila.socket.UserLagCache
+import lila.user.{ User => UserModel, Holder }
+import lila.security.Granter
 
 final class User(
     env: Env,
@@ -323,12 +324,14 @@ final class User(
     }
 
   def mod(username: String) =
-    Secure(_.UserModView) { implicit ctx => _ =>
-      modZoneOrRedirect(username)
+    Secure(_.UserModView) { implicit ctx => holder =>
+      modZoneOrRedirect(holder, username)
     }
 
-  protected[controllers] def modZoneOrRedirect(username: String)(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isEventSource ctx.req) renderModZone(username)
+  protected[controllers] def modZoneOrRedirect(holder: Holder, username: String)(implicit
+      ctx: Context
+  ): Fu[Result] =
+    if (HTTPRequest isEventSource ctx.req) renderModZone(holder, username)
     else fuccess(modC.redirect(username))
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, _] =
@@ -352,11 +355,14 @@ final class User(
       }
   }
 
-  protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
+  protected[controllers] def renderModZone(holder: Holder, username: String)(implicit
+      ctx: Context
+  ): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         import html.user.{ mod => view }
         import lila.app.ui.ScalatagsExtensions.LilaFragZero
+        implicit val renderIp = env.mod.ipRender(holder)
 
         val nbOthers = getInt("nbOthers") | 100
 
@@ -386,12 +392,12 @@ final class User(
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = userLoginsFu flatMap { userLogins =>
           loginsTableData(user, userLogins, nbOthers) map {
-            html.user.mod.otherUsers(user, _)
+            html.user.mod.otherUsers(holder, user, _)
           }
         }
-        val identification = userLoginsFu map { spy =>
-          (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
-            html.user.mod.identification(spy)
+        val identification = userLoginsFu map { logins =>
+          Granter.is(_.ViewPrintNoIP)(holder) ??
+            html.user.mod.identification(holder, logins)
         }
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
           _ ?? { reps =>

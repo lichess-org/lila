@@ -276,6 +276,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         name: 'Standard',
         key: 'standard',
       },
+      standardMaterial: true,
       possible: true,
       emit: function (ev, work) {
         tree.updateAt(work.path, function (node) {

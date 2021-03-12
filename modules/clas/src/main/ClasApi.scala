@@ -10,6 +10,7 @@ import lila.db.dsl._
 import lila.msg.MsgApi
 import lila.security.Permission
 import lila.user.{ Authenticator, User, UserRepo }
+import lila.user.Holder
 
 final class ClasApi(
     colls: ClasColls,
@@ -250,12 +251,12 @@ final class ClasApi(
       authenticator.setPassword(s.userId, password) inject password
     }
 
-    def archive(sId: Student.Id, t: User, v: Boolean): Fu[Option[Student]] =
+    def archive(sId: Student.Id, by: Holder, v: Boolean): Fu[Option[Student]] =
       coll.ext
         .findAndUpdate[Student](
           selector = $id(sId),
           update =
-            if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
+            if (v) $set("archived" -> Clas.Recorded(by.id, DateTime.now))
             else $unset("archived"),
           fetchNewObject = true
         )
@@ -280,9 +281,9 @@ ${clas.desc}""",
 
     import ClasInvite.Feedback._
 
-    def create(clas: Clas, user: User, realName: String, teacher: User): Fu[ClasInvite.Feedback] =
+    def create(clas: Clas, user: User, realName: String, teacher: Holder): Fu[ClasInvite.Feedback] =
       student
-        .archive(Student.id(user.id, clas.id), user, v = false)
+        .archive(Student.id(user.id, clas.id), teacher, v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
         lila.mon.clas.student.invite(teacher.id).increment()
         val invite = ClasInvite.make(clas, user, realName, teacher)
@@ -342,7 +343,7 @@ ${clas.desc}""",
       colls.invite.delete.one($id(id)).void
 
     private def sendInviteMessage(
-        teacher: User,
+        teacher: Holder,
         student: User,
         clas: Clas,
         invite: ClasInvite

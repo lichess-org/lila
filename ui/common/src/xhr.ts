@@ -54,7 +54,7 @@ export const script = (src: string): Promise<void> =>
   });
 
 /* produce HTTP form data from a JS object */
-export const form = (data: any) => {
+export const form = (data: any): FormData => {
   const formData = new FormData();
   for (const k of Object.keys(data)) formData.append(k, data[k]);
   return formData;

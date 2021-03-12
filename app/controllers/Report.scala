@@ -7,7 +7,7 @@ import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
-import lila.user.{ User => UserModel }
+import lila.user.{ User => UserModel, Holder }
 
 final class Report(
     env: Env,
@@ -17,9 +17,11 @@ final class Report(
 
   private def api = env.report.api
 
+  implicit private def asMod(holder: Holder) = AsMod(holder.user)
+
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
-      if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
+      if (env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force"))
         fuccess(Forbidden(html.site.message.streamingMod))
       else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
     }
@@ -34,7 +36,7 @@ final class Report(
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(me: UserModel, room: String)(implicit ctx: Context) =
+  private def renderList(me: Holder, room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(12, Room(room)) zip
       getScores flatMap { case (reports, scores ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
@@ -52,7 +54,7 @@ final class Report(
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(AsMod(me), id) flatMap { case (prev, next) =>
+      api.inquiries.toggle(me, id) flatMap { case (prev, next) =>
         prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.unreadById) inject
           next.fold(
             Redirect {
@@ -70,7 +72,7 @@ final class Report(
 
   protected[controllers] def onInquiryClose(
       inquiry: Option[ReportModel],
-      me: UserModel,
+      me: Holder,
       goTo: Option[Suspect],
       force: Boolean = false
   )(implicit ctx: BodyContext[_]): Fu[Result] =
@@ -80,7 +82,7 @@ final class Report(
         inquiry match {
           case None =>
             goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
-              userC.modZoneOrRedirect(s.user.username)
+              userC.modZoneOrRedirect(me, s.user.username)
             }
           case Some(prev) =>
             val dataOpt = ctx.body.body match {
@@ -98,12 +100,12 @@ final class Report(
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
                 if (prev.isAppeal) Redirect(routes.Appeal.queue).fuccess
                 else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
-                  api.inquiries.toggleNext(AsMod(me), prev.room) map {
+                  api.inquiries.toggleNext(me, prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
                   }
-                else if (force) userC.modZoneOrRedirect(prev.user)
+                else if (force) userC.modZoneOrRedirect(me, prev.user)
                 else
-                  api.inquiries.toggle(AsMod(me), prev.id) map { case (prev, next) =>
+                  api.inquiries.toggle(me, prev.id) map { case (prev, next) =>
                     next
                       .fold(
                         if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue)
@@ -118,7 +120,7 @@ final class Report(
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api byId id flatMap { inquiry =>
         inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.readById) >>
-          api.process(AsMod(me), id) >>
+          api.process(me, id) >>
           onInquiryClose(inquiry, me, none, force = true)
       }
     }
@@ -133,7 +135,7 @@ final class Report(
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
-            api.inquiries.toggle(lila.report.Mod(me), report.id).void
+            api.inquiries.toggle(me, report.id).void
           } inject modC.redirect(username, mod = true)
         }
       }

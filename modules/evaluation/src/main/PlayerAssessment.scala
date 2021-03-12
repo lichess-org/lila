@@ -60,17 +60,19 @@ object PlayerAssessment {
 
     val basics = makeBasics(pov, holdAlerts)
 
+    def blursMatter = !game.isSimul && game.hasClock
+
     lazy val highBlurRate: Boolean =
-      !game.isSimul && game.playerBlurPercent(color) > 90
+      blursMatter && game.playerBlurPercent(color) > 90
 
     lazy val moderateBlurRate: Boolean =
-      !game.isSimul && game.playerBlurPercent(color) > 70
+      blursMatter && game.playerBlurPercent(color) > 70
 
     val highestChunkBlurs = highestChunkBlursOf(pov)
 
-    val highChunkBlurRate: Boolean = highestChunkBlurs >= 11
+    val highChunkBlurRate: Boolean = blursMatter && highestChunkBlurs >= 11
 
-    val moderateChunkBlurRate: Boolean = highestChunkBlurs >= 8
+    val moderateChunkBlurRate: Boolean = blursMatter && highestChunkBlurs >= 8
 
     lazy val highlyConsistentMoveTimes: Boolean =
       game.clock.exists(_.estimateTotalSeconds > 60) && {

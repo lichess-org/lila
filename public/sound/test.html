@@ -34,13 +34,16 @@
       </thead>
       <tbody></tbody>
     </table>
-    <br><br><hr><br><br>
+    <br /><br />
+    <hr />
+    <br /><br />
     <table class="storm">
       <thead>
-        <tr>Puzzle Storm</tr>
+        <tr>
+          Puzzle Storm
+        </tr>
       </thead>
-      <tbody>
-      </tbody>
+      <tbody></tbody>
     </table>
     <script>
       function playSound(set, name) {
@@ -69,7 +72,7 @@
         'tournament2nd',
         'tournament3rd',
         'tournamentOther',
-        ...[...Array(11).keys()].reverse().map(i => 'CountDown' + i)
+        ...[...Array(11).keys()].reverse().map(i => 'CountDown' + i),
       ];
 
       soundSets.forEach(s => {
@@ -93,7 +96,7 @@
       [
         ['good', 'lisp/PuzzleStormGood'],
         ['wrong', 'lisp/Error'],
-        ['end', 'lisp/PuzzleStormEnd']
+        ['end', 'lisp/PuzzleStormEnd'],
       ].forEach(([name, sound]) => {
         lichess.sound.loadOggOrMp3(sound, `${lichess.sound.baseUrl}/${sound}`);
         var tr = $('<tr>').appendTo($('table.storm tbody'));

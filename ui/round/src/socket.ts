@@ -116,9 +116,16 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       else ctrl.redraw();
     },
     drawOffer(by) {
-      ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-      if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
+      if (ctrl.isPlaying()) {
+        ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
+        const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
+        if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
+      }
+      if (by) {
+        let ply = ctrl.lastPly();
+        if ((by == 'white') == (ply % 2 == 0)) ply++;
+        ctrl.data.game.drawOffers = (ctrl.data.game.drawOffers || []).concat([ply]);
+      }
       ctrl.redraw();
     },
     berserk(color: Color) {

@@ -312,6 +312,9 @@ object faq {
           whyAreRatingHigher.txt(),
           p(
             whyAreRatingHigherExplanation()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(

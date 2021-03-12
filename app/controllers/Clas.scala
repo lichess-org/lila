@@ -8,6 +8,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
+import lila.user.Holder
 
 final class Clas(
     env: Env,
@@ -55,7 +56,7 @@ final class Clas(
           .fold(
             err => BadRequest(html.clas.clas.create(err)).fuccess,
             data =>
-              env.clas.api.clas.create(data, me) map { clas =>
+              env.clas.api.clas.create(data, me.user) map { clas =>
                 Redirect(routes.Clas.show(clas.id.value))
               }
           )
@@ -68,7 +69,7 @@ final class Clas(
   def show(id: String) =
     Auth { implicit ctx => me =>
       WithClassAny(id, me)(
-        forTeacher = WithClass(me, id) { clas =>
+        forTeacher = WithClass(Holder(me), id) { clas =>
           env.clas.api.student.activeWithUsers(clas) map { students =>
             preloadStudentUsers(students)
             views.html.clas.teacherDashboard.overview(clas, students)
@@ -115,7 +116,7 @@ final class Clas(
 
   def wall(id: String) =
     Secure(_.Teacher) { implicit ctx => me =>
-      WithClassAny(id, me)(
+      WithClassAny(id, me.user)(
         forTeacher = WithClass(me, id) { clas =>
           env.clas.api.student.allWithUsers(clas) map { students =>
             val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
@@ -265,7 +266,7 @@ final class Clas(
   def archive(id: String, v: Boolean) =
     SecureBody(_.Teacher) { _ => me =>
       WithClass(me, id) { clas =>
-        env.clas.api.clas.archive(clas, me, v) inject
+        env.clas.api.clas.archive(clas, me.user, v) inject
           Redirect(routes.Clas.show(clas.id.value)).flashSuccess
       }
     }
@@ -322,7 +323,7 @@ final class Clas(
                       )
                     },
                   data =>
-                    env.clas.api.student.create(clas, data, me) map { s =>
+                    env.clas.api.student.create(clas, data, me.user) map { s =>
                       Redirect(routes.Clas.studentForm(clas.id.value))
                         .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                     }
@@ -373,7 +374,7 @@ final class Clas(
                   .fold(
                     err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).fuccess,
                     data =>
-                      env.clas.api.student.manyCreate(clas, data, me) flatMap { many =>
+                      env.clas.api.student.manyCreate(clas, data, me.user) flatMap { many =>
                         env.user.lightUserApi.preloadMany(many.map(_.student.userId)) inject
                           Redirect(routes.Clas.studentManyForm(clas.id.value))
                             .flashing(
@@ -595,12 +596,12 @@ final class Clas(
     if (students.sizeIs <= lila.clas.Clas.maxStudents) f
     else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).fuccess
 
-  private def WithClass(me: lila.user.User, clasId: String)(
+  private def WithClass(me: Holder, clasId: String)(
       f: lila.clas.Clas => Fu[Result]
   ): Fu[Result] =
-    env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), me) flatMap { _ ?? f }
+    env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), me.user) flatMap { _ ?? f }
 
-  private def WithClassAndStudents(me: lila.user.User, clasId: String)(
+  private def WithClassAndStudents(me: Holder, clasId: String)(
       f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
   ): Fu[Result] =
     WithClass(me, clasId) { c =>

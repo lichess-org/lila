@@ -2,6 +2,25 @@
 <resources>
   <string name="search">Търсене</string>
   <string name="advancedSearch">Разширено търсене</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Търсене в %s игра</item>
+    <item quantity="other">Търсене в %s игри</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Открита е една игра</item>
+    <item quantity="other">Открити са %s игри</item>
+  </plurals>
   <string name="opponentName">Името на противника</string>
   <string name="loser">Победен</string>
+  <string name="from">От</string>
+  <string name="to">До</string>
+  <string name="humanOrComputer">Дали съперникът е бил човек или компютър</string>
+  <string name="source">Източник</string>
+  <string name="nbTurns">Брой ходове</string>
+  <string name="result">Резултат</string>
+  <string name="winnerColor">Цвят на победителя</string>
+  <string name="date">Дата</string>
+  <string name="sortBy">Подреди по</string>
+  <string name="analysis">Анализ</string>
+  <string name="onlyAnalysed">Само партии за които е направен компютърен анализ</string>
 </resources>

@@ -121,11 +121,11 @@ final class ReportApi(
   def getSuspect(username: String): Fu[Option[Suspect]] =
     userRepo named username dmap2 Suspect.apply
 
-  def autoCheatPrintReport(userId: String): Funit =
+  def autoAltPrintReport(userId: String): Funit =
     coll.exists(
       $doc(
         "user"   -> userId,
-        "reason" -> Reason.CheatPrint.key
+        "reason" -> Reason.AltPrint.key
       )
     ) flatMap {
       case true => funit // only report once
@@ -136,8 +136,8 @@ final class ReportApi(
               Candidate(
                 reporter = reporter,
                 suspect = suspect,
-                reason = Reason.CheatPrint,
-                text = "Shares print with known cheaters"
+                reason = Reason.AltPrint,
+                text = "Shares print with suspicious accounts"
               )
             )
           case _ => funit
@@ -163,14 +163,14 @@ final class ReportApi(
 
   def autoCheatDetectedReport(userId: User.ID, cheatedGames: Int): Funit =
     userRepo.byId(userId) zip getLichessReporter flatMap {
-      case Some(user) ~ reporter if !user.lame && cheatedGames >= 3 =>
+      case Some(user) ~ reporter if !user.marks.engine =>
         lila.mon.cheat.autoReport.increment()
         create(
           Candidate(
             reporter = reporter,
             suspect = Suspect(user),
             reason = Reason.Cheat,
-            text = s"$cheatedGames cheat detected in the last 6 months"
+            text = s"$cheatedGames cheat detected in the last 6 months; last one is correspondence"
           )
         )
       case _ => funit
@@ -251,15 +251,15 @@ final class ReportApi(
         case _ => funit
       }
 
-  def autoSandbagReport(winnerId: User.ID, loserId: User.ID): Funit =
-    userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
-      case Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
+  def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID): Funit =
+    userRepo.byId(loserId) zip getLichessReporter flatMap {
+      case Some(loser) ~ reporter if !loser.lame =>
         create(
           Candidate(
             reporter = reporter,
             suspect = Suspect(loser),
             reason = Reason.Boost,
-            text = s"Sandbagging: throws games to @${winner.username}"
+            text = s"Sandbagging: throws games to ${winnerIds.map("@" + _) mkString " "}"
           )
         )
       case _ => funit

@@ -3,6 +3,7 @@ package lila.appeal
 import lila.db.dsl._
 import lila.user.User
 import org.joda.time.DateTime
+import lila.user.Holder
 
 final class AppealApi(
     coll: Coll
@@ -40,8 +41,8 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal) inject appeal
     }
 
-  def reply(text: String, prev: Appeal, mod: User) = {
-    val appeal = prev.post(text, mod)
+  def reply(text: String, prev: Appeal, mod: Holder) = {
+    val appeal = prev.post(text, mod.user)
     coll.update.one($id(appeal.id), appeal) inject appeal
   }
 

@@ -307,6 +307,15 @@ function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
     ),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
+      h('p', [
+        'Note that so far only a few games have been restored after the ',
+        h(
+          'a',
+          { attrs: { href: 'https://lichess.org/forum/lichess-feedback/fire-in-a-lichess-datacenter' } },
+          'recent data center fire'
+        ),
+        '. Expect the complete database to be back by end of March.',
+      ]),
       ctrl.explorer.config.fullHouse()
         ? null
         : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),

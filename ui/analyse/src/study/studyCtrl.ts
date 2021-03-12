@@ -60,9 +60,7 @@ export default function (
 
   const notif = notifCtrl(redraw);
 
-  function startTour() {
-    tours.study(ctrl);
-  }
+  const startTour = () => tours.study(ctrl);
 
   const members = memberCtrl({
     initDict: data.members,

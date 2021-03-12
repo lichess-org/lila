@@ -39,7 +39,18 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   })
 );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean) {
+const renderDrawOffer = () =>
+  h(
+    'draw',
+    {
+      attrs: {
+        title: 'Draw offer',
+      },
+    },
+    '½?'
+  );
+
+function renderMove(step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) {
   return step
     ? h(
         moveTag,
@@ -48,7 +59,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean) {
             a1t: step.ply === curPly,
           },
         },
-        step.san[0] === 'P' ? step.san.slice(1) : step.san
+        [step.san[0] === 'P' ? step.san.slice(1) : step.san, drawOffers.has(step.ply) ? renderDrawOffer() : undefined]
       )
     : orEmpty
     ? h(moveTag, '…')
@@ -90,7 +101,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
     firstPly = round.firstPly(ctrl.data),
-    lastPly = round.lastPly(ctrl.data);
+    lastPly = round.lastPly(ctrl.data),
+    drawPlies = new Set(ctrl.data.game.drawOffers || []);
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
@@ -105,8 +117,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(h(indexTag, i + 1 + ''));
-    els.push(renderMove(pairs[i][0], curPly, true));
-    els.push(renderMove(pairs[i][1], curPly, false));
+    els.push(renderMove(pairs[i][0], curPly, true, drawPlies));
+    els.push(renderMove(pairs[i][1], curPly, false, drawPlies));
   }
   els.push(renderResult(ctrl));
 

@@ -196,6 +196,8 @@ export default class RoundController {
     return this.data.simul && this.data.simul.hostId === this.opts.userId;
   };
 
+  lastPly = () => round.lastPly(this.data);
+
   makeCgHooks = () => ({
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
@@ -206,7 +208,7 @@ export default class RoundController {
     onPredrop: this.onPredrop,
   });
 
-  replaying = (): boolean => this.ply !== round.lastPly(this.data);
+  replaying = (): boolean => this.ply !== this.lastPly();
 
   userJump = (ply: Ply): void => {
     this.cancelMove();
@@ -218,7 +220,7 @@ export default class RoundController {
   isPlaying = () => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
-    ply = Math.max(round.firstPly(this.data), Math.min(round.lastPly(this.data), ply));
+    ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
     const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
@@ -415,7 +417,7 @@ export default class RoundController {
     }
     d.game.threefold = !!o.threefold;
     const step = {
-      ply: round.lastPly(this.data) + 1,
+      ply: this.lastPly() + 1,
       fen: o.fen,
       san: o.san,
       uci: o.uci,
@@ -500,7 +502,7 @@ export default class RoundController {
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.boosted = o.boosted;
-    this.userJump(round.lastPly(d));
+    this.userJump(this.lastPly());
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];

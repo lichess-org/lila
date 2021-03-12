@@ -25,6 +25,12 @@
   .piece-letter & {
     @extend %base-font;
   }
+
+  draw {
+    @extend %roboto;
+    margin-left: 1ch;
+    font-weight: normal;
+  }
 }
 
 /* text printed directly on the page background deserves special treatment (transp theme) */

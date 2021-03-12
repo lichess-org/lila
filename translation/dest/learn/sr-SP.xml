@@ -67,14 +67,14 @@
   <string name="fundamentals">Основе</string>
   <string name="capture">Ношење</string>
   <string name="takeTheEnemyPieces">Однесите противничке фигуре</string>
-  <string name="captureIntro">Идентификујте небрањене противничке фигуре, и однесите их!</string>
+  <string name="captureIntro">Идентификујте небрањене противничке фигуре и однесите их!</string>
   <string name="takeTheBlackPieces">Носите црне фигуре!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Носите црне фигуре!
 И немојте изгубити своје.</string>
   <string name="captureComplete">Честитамо! Знате како да се борите шаховским фигурама!</string>
   <string name="protection">Заштита</string>
   <string name="keepYourPiecesSafe">Заштитите своје фигуре</string>
-  <string name="protectionIntro">Видите које фигуре Ваш противник напада, и одбраните их!</string>
+  <string name="protectionIntro">Видите које фигуре Ваш противник напада и одбраните их!</string>
   <string name="protectionComplete">Честитамо! Фигура коју не изгубите је фигура коју добијете!</string>
   <string name="escape">Ви сте под нападом!
 Избегните претњу!</string>
@@ -103,7 +103,7 @@
   <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
-  <string name="mateInOneIntro">Ви побеђујете када ваш противник не може да се одбрани од шаха.</string>
+  <string name="mateInOneIntro">Ви добијате када ваш противник не може да се одбрани од шаха.</string>
   <string name="attackYourOpponentsKing">Нападните противничког краља
 на начин који се не може одбранити!</string>
   <string name="mateInOneComplete">Честитамо! Тако се добијају шаховске партије!</string>
@@ -129,7 +129,7 @@
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="castling">Рокада</string>
   <string name="theSpecialKingMove">Посебан краљев потез</string>
-  <string name="castlingIntro">Доведите свог краља на сигурно, и развијте вашег топа у напад!</string>
+  <string name="castlingIntro">Доведите свог краља на сигурно и развијте свог топа за напад!</string>
   <string name="castleKingSide">Померите свог краља за два поља
 да направите малу рокаду!</string>
   <string name="castleQueenSide">Померите свог краља за два поља

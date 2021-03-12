@@ -1,17 +1,20 @@
 package views.html.mod
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.hub.actorApi.shutup.PublicSource
-
-import controllers.routes
+import lila.mod.IpRender.RenderIp
+import lila.user.{ Holder, User }
 
 object communication {
 
   def apply(
-      u: lila.user.User,
+      mod: Holder,
+      u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.MsgConvo],
       publicLines: List[lila.shutup.PublicLine],
@@ -19,7 +22,7 @@ object communication {
       history: List[lila.mod.Modlog],
       logins: lila.security.UserLogins.TableData,
       priv: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
@@ -54,7 +57,7 @@ object communication {
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone none"),
-          views.html.user.mod.otherUsers(u, logins)(ctx)(cls := "communication__logins")
+          views.html.user.mod.otherUsers(mod, u, logins)(ctx, renderIp)(cls := "communication__logins")
         ),
         history.nonEmpty option frag(
           h2("Moderation history"),
@@ -78,7 +81,7 @@ object communication {
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
-              (isGranted(_.Doxing) || !note.dox) option
+              (isGranted(_.Admin) || !note.dox) option
                 div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
             }
           )
@@ -129,7 +132,7 @@ object communication {
                         "author" -> (line.author.toLowerCase == u.id)
                       )
                     )(
-                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
                       richText(line.text)
                     )

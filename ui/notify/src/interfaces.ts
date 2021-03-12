@@ -24,6 +24,7 @@ interface NotificationUser {
 interface NotificationContent {
   text: string;
   user: NotificationUser;
+  [key: string]: any;
 }
 
 export interface Notification {

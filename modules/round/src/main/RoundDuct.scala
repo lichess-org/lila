@@ -203,13 +203,10 @@ final private[round] class RoundDuct(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
-                    id = a.analysis.id,
-                    pgnMoves = a.game.pgnMoves,
-                    variant = a.variant,
-                    analysis = a.analysis.some,
-                    initialFen = a.initialFen,
-                    withFlags = JsonView.WithFlags(),
-                    clocks = none
+                    a.game,
+                    a.analysis.some,
+                    a.initialFen,
+                    JsonView.WithFlags()
                   )
                 }
               )

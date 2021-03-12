@@ -86,7 +86,7 @@ object tree {
           )
         )
       ),
-      content = p(
+      content = frag(
         "We define this as using any external assistance to strengthen your knowledge and, or, calculation ability to gain an unfair advantage over your opponent. Some examples would include computer engine assistance, opening books (except for correspondence games), endgame tablebases, and asking another player for help, although these aren’t the only things we would consider cheating."
       ).some
     )
@@ -233,7 +233,12 @@ object tree {
             none
           )
         ),
-        p(cls := "appeal__moderators text", dataIcon := "")(doNotMessageModerators())
+        div(cls := "appeal__rules")(
+          p(cls := "text", dataIcon := "")(doNotMessageModerators()),
+          a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
+            "Read more about the appeal process"
+          )
+        )
       )
     }
 

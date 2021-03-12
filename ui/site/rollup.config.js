@@ -198,4 +198,8 @@ export default rollupProject({
     input: 'src/appeal.ts',
     output: 'appeal',
   },
+  publicChats: {
+    input: 'src/publicChats.ts',
+    output: 'publicChats',
+  },
 });

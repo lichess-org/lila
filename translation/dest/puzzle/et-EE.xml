@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Pusled</string>
+  <string name="puzzles">Ülesanded</string>
   <string name="puzzleThemes">Pusle teemad</string>
-  <string name="recommended">Soovitatav</string>
+  <string name="recommended">Soovitame</string>
   <string name="phases">Etapid</string>
   <string name="motifs">Motiivid</string>
   <string name="advanced">Edasijõudnutele</string>

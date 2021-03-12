@@ -327,8 +327,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     F.positionHashes                              -> true,
     F.playingUids                                 -> true,
     F.unmovedRooks                                -> true,
-    ("p0." + Player.BSONFields.lastDrawOffer)     -> true,
-    ("p1." + Player.BSONFields.lastDrawOffer)     -> true,
     ("p0." + Player.BSONFields.isOfferingDraw)    -> true,
     ("p1." + Player.BSONFields.isOfferingDraw)    -> true,
     ("p0." + Player.BSONFields.proposeTakebackAt) -> true,

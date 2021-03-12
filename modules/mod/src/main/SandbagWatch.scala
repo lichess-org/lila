@@ -36,16 +36,15 @@ final private class SandbagWatch(
     }
     else {
       records.put(userId, record)
-      if (record.latest has Sandbag) {
-        if (record.count(Sandbag) == 3) sendMessage(userId, MsgPreset.sandbagAuto)
-        else if (record.count(Sandbag) == 4) withWinnerAndLoser(game)(reportApi.autoSandbagReport)
-        else funit
-      } else {
-        val boostCount = record.samePlayerBoostCount
-        if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
-        else if (boostCount == 4) withWinnerAndLoser(game)(reportApi.autoBoostReport)
-        else funit
+      val sandbagCount = record.countSandbagWithLatest
+      val boostCount   = record.samePlayerBoostCount
+      if (sandbagCount == 3) sendMessage(userId, MsgPreset.sandbagAuto)
+      else if (sandbagCount == 4) game.loserUserId ?? { loser =>
+        reportApi.autoSandbagReport(record.sandbagOpponents, loser)
       }
+      else if (boostCount == 3) sendMessage(userId, MsgPreset.boostAuto)
+      else if (boostCount == 4) withWinnerAndLoser(game)(reportApi.autoBoostReport)
+      else funit
     }
 
   private def sendMessage(userId: User.ID, preset: MsgPreset): Funit =
@@ -70,7 +69,8 @@ final private class SandbagWatch(
       .playerByUserId(userId)
       .ifTrue(isSandbag(game))
       .fold[Outcome](Good) { player =>
-        if (player.color == loser) Sandbag else game.loserUserId.fold[Outcome](Good)(Boost.apply)
+        if (player.color == loser) game.winnerUserId.fold[Outcome](Good)(Sandbag.apply)
+        else game.loserUserId.fold[Outcome](Good)(Boost.apply)
       }
 
   private def isSandbag(game: Game): Boolean =
@@ -83,9 +83,9 @@ final private class SandbagWatch(
 private object SandbagWatch {
 
   sealed trait Outcome
-  case object Good                    extends Outcome
-  case object Sandbag                 extends Outcome
-  case class Boost(opponent: User.ID) extends Outcome
+  case object Good                      extends Outcome
+  case class Sandbag(opponent: User.ID) extends Outcome
+  case class Boost(opponent: User.ID)   extends Outcome
 
   val maxOutcomes = 7
 
@@ -98,6 +98,20 @@ private object SandbagWatch {
     def latest = outcomes.headOption
 
     def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Good ==)
+
+    def latestIsSandbag = latest exists {
+      case Sandbag(_) => true
+      case _          => false
+    }
+
+    def countSandbagWithLatest: Int = latestIsSandbag ?? outcomes.count {
+      case Sandbag(_) => true
+      case _          => false
+    }
+
+    def sandbagOpponents = outcomes.collect { case Sandbag(opponent) =>
+      opponent
+    }.distinct
 
     def samePlayerBoostCount = latest ?? {
       case Boost(opponent) =>

@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
 import lila.user.User
+import lila.user.Holder
 
 final class SlackApi(
     client: SlackClient,
@@ -22,16 +23,9 @@ final class SlackApi(
 
     implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.amount)
 
-    def apply(event: ChargeEvent): Funit =
-      if (event.amount < 10000) addToBuffer(event)
-      else
-        displayMessage {
-          s"${userAt(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
-        }
-
-    private def addToBuffer(event: ChargeEvent): Funit = {
+    def apply(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
+      buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
@@ -80,10 +74,10 @@ final class SlackApi(
         )
     }
 
-  def commlog(mod: User, user: User, reportBy: Option[User.ID]): Funit =
+  def commlog(mod: Holder, user: User, reportBy: Option[User.ID]): Funit =
     client(
       SlackMessage(
-        username = mod.username,
+        username = mod.user.username,
         icon = "eye",
         text = {
           val finalS = if (user.username endsWith "s") "" else "s"
@@ -123,10 +117,10 @@ final class SlackApi(
       }
     }
 
-  def chatPanic(mod: User, v: Boolean): Funit =
+  def chatPanic(mod: Holder, v: Boolean): Funit =
     client(
       SlackMessage(
-        username = mod.username,
+        username = mod.user.username,
         icon = if (v) "anger" else "information_source",
         text = s"${if (v) "Enabled" else "Disabled"} $chatPanicLink",
         channel = rooms.tavern
@@ -218,21 +212,21 @@ final class SlackApi(
   private def linkifyUsers(msg: String) =
     userRegex matcher msg replaceAll userReplace
 
-  def userMod(user: User, mod: User): Funit =
+  def userMod(user: User, mod: Holder): Funit =
     noteApi
       .forMod(user.id)
       .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
       .map {
         case None =>
           SlackMessage(
-            username = mod.username,
+            username = mod.user.username,
             icon = "eyes",
             text = s"Let's have a look at _*${userLink(user.username)}*_",
             channel = rooms.tavern
           )
         case Some(note) =>
           SlackMessage(
-            username = mod.username,
+            username = mod.user.username,
             icon = "spiral_note_pad",
             text = s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
               linkifyUsers(note.text take 2000),
@@ -251,10 +245,10 @@ final class SlackApi(
       )
     )
 
-  def userAppeal(user: User, mod: User): Funit =
+  def userAppeal(user: User, mod: Holder): Funit =
     client(
       SlackMessage(
-        username = mod.username,
+        username = mod.user.username,
         icon = "eyes",
         text =
           s"Let's have a look at the appeal of _*${lichessLink(s"/appeal/${user.username}", user.username)}*_",

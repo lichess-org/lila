@@ -51,6 +51,11 @@ object form {
 
   private def inner(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
+      div(cls := "form-group")(
+        a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
+          "How to use Lichess Broadcasts"
+        )
+      ),
       form3.globalError(form),
       form3.group(form("name"), eventName())(form3.input(_)(autofocus)),
       form3.group(form("description"), eventDescription())(form3.textarea(_)(rows := 2)),

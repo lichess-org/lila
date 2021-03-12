@@ -17,7 +17,7 @@ import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ FingerPrintedUser, Granter, Permission }
-import lila.user.{ UserContext, User => UserModel }
+import lila.user.{ UserContext, User => UserModel, Holder }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -171,17 +171,17 @@ abstract private[controllers] class LilaController(val env: Env)
       }
     }
 
-  protected def Secure(perm: Permission.Selector)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission.Selector)(f: Context => Holder => Fu[Result]): Action[AnyContent] =
     Secure(perm(Permission))(f)
 
-  protected def Secure(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission)(f: Context => Holder => Fu[Result]): Action[AnyContent] =
     Secure(parse.anyContent)(perm)(f)
 
   protected def Secure[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
+  )(perm: Permission)(f: Context => Holder => Fu[Result]): Action[A] =
     Auth(parser) { implicit ctx => me =>
-      if (isGranted(perm)) f(ctx)(me) else authorizationFailed
+      if (isGranted(perm)) f(ctx)(Holder(me)) else authorizationFailed
     }
 
   protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
@@ -191,14 +191,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def SecureBody[A](
       parser: BodyParser[A]
-  )(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
+  )(perm: Permission)(f: BodyContext[A] => Holder => Fu[Result]): Action[A] =
     AuthBody(parser) { implicit ctx => me =>
-      if (isGranted(perm)) f(ctx)(me) else authorizationFailed
+      if (isGranted(perm)) f(ctx)(Holder(me)) else authorizationFailed
     }
 
   protected def SecureBody(
       perm: Permission.Selector
-  )(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
+  )(f: BodyContext[_] => Holder => Fu[Result]): Action[AnyContent] =
     SecureBody(parse.anyContent)(perm(Permission))(f)
 
   protected def Scoped[A](
@@ -247,26 +247,26 @@ abstract private[controllers] class LilaController(val env: Env)
   }
 
   protected def SecureOrScoped(perm: Permission.Selector)(
-      secure: Context => UserModel => Fu[Result],
-      scoped: RequestHeader => UserModel => Fu[Result]
+      secure: Context => Holder => Fu[Result],
+      scoped: RequestHeader => Holder => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
       if (HTTPRequest isOAuth req) securedScopedAction(perm, req)(scoped)
       else Secure(parse.empty)(perm(Permission))(secure)(req)
     }
   protected def SecureOrScopedBody(perm: Permission.Selector)(
-      secure: BodyContext[_] => UserModel => Fu[Result],
-      scoped: RequestHeader => UserModel => Fu[Result]
+      secure: BodyContext[_] => Holder => Fu[Result],
+      scoped: RequestHeader => Holder => Fu[Result]
   ): Action[AnyContent] =
     Action.async(parse.anyContent) { req =>
       if (HTTPRequest isOAuth req) securedScopedAction(perm, req.map(_ => ()))(scoped)
       else SecureBody(parse.anyContent)(perm(Permission))(secure)(req)
     }
   private def securedScopedAction(perm: Permission.Selector, req: Request[Unit])(
-      f: RequestHeader => UserModel => Fu[Result]
+      f: RequestHeader => Holder => Fu[Result]
   ) =
     Scoped() { req => me =>
-      IfGranted(perm, req, me)(f(req)(me))
+      IfGranted(perm, req, me)(f(req)(Holder(me)))
     }(req)
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =

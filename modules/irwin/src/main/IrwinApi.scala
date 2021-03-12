@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
+import lila.analyse.Analysis
 import lila.analyse.Analysis.Analyzed
 import lila.analyse.AnalysisRepo
 import lila.common.Bus
@@ -11,8 +12,7 @@ import lila.db.dsl._
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
 import lila.tournament.{ Tournament, TournamentTop }
-import lila.user.{ User, UserRepo }
-import lila.analyse.Analysis
+import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
     reportColl: Coll,
@@ -86,8 +86,8 @@ final class IrwinApi(
 
     import IrwinRequest.Origin
 
-    def fromMod(suspect: Suspect, mod: Mod) = {
-      notification.add(suspect.id, mod.id)
+    def fromMod(suspect: Suspect, mod: Holder) = {
+      notification.add(suspect.id, ModId(mod.id))
       insert(suspect, _.Moderator)
     }
 

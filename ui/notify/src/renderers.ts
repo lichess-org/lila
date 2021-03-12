@@ -121,7 +121,7 @@ export const renderers: Renderers = {
   ratingRefund: {
     html: n =>
       generic(n, '/player/myself', '', [
-        h('span', [h('strong', 'You lost to a cheater'), drawTime(n)]),
+        h('span', [h('strong', 'You lost to someone who violated the Lichess TOS'), drawTime(n)]),
         h('span', 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'),
       ]),
     text: n => 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.',

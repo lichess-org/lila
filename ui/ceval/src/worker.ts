@@ -1,10 +1,7 @@
 import { sync, Sync } from 'common/sync';
 import { ProtocolOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
-
-export function officialStockfish(variant: VariantKey): boolean {
-  return variant === 'standard' || variant === 'chess960';
-}
+import { Cache } from './cache';
 
 export abstract class AbstractWorker<T> {
   protected protocol: Sync<Protocol>;
@@ -66,6 +63,7 @@ export interface ThreadedWasmWorkerOpts {
   version?: string;
   downloadProgress?: (mb: number) => void;
   wasmMemory: WebAssembly.Memory;
+  cache?: Cache;
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
@@ -75,14 +73,23 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   boot(): Promise<Protocol> {
     const version = this.opts.version;
     const progress = this.opts.downloadProgress;
+    const cache = this.opts.cache;
+    const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
     ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
       .loadScript(this.opts.baseUrl + 'stockfish.js', { version })
       .then(
         _ =>
           progress &&
-          new Promise((resolve, reject) => {
+          new Promise(async (resolve, reject) => {
+            if (cache) {
+              const [found, data] = await cache.get(wasmPath, version!);
+              if (found) {
+                resolve(data);
+                return;
+              }
+            }
             const req = new XMLHttpRequest();
-            req.open('GET', lichess.assetUrl(this.opts.baseUrl + 'stockfish.wasm', { version }), true);
+            req.open('GET', lichess.assetUrl(wasmPath, { version }), true);
             req.responseType = 'arraybuffer';
             req.onerror = event => reject(event);
             req.onprogress = event => progress(event.loaded);
@@ -93,14 +100,17 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
             req.send();
           })
       )
-      .then(wasmBinary =>
-        window[this.opts.module]({
+      .then(async wasmBinary => {
+        if (cache && wasmBinary) {
+          await cache.set(wasmPath, version!, wasmBinary);
+        }
+        return window[this.opts.module]({
           wasmBinary,
           locateFile: (path: string) =>
             lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
           wasmMemory: this.opts.wasmMemory,
-        })
-      )
+        });
+      })
       .then((sf: any) => {
         ThreadedWasmWorker.sf[this.opts.module] = sf;
         const protocol = new Protocol(this.send.bind(this), this.protocolOpts);

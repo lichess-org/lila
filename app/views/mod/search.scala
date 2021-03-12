@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.IpAddress
 import lila.security.FingerHash
+import lila.mod.IpRender.RenderIp
 
 import controllers.routes
 
@@ -80,7 +81,7 @@ object search {
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc")
@@ -89,7 +90,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
-            h1("IP address: ", address.value),
+            h1("IP address: ", renderIp(address)),
             postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
               submitButton(
                 cls := List(
@@ -99,7 +100,7 @@ object search {
               )(if (blocked) "Banned" else "Ban this IP")
             )
           ),
-          div(cls := "box__pad")(
+          isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
             ul(uas map { ua =>
               li(ua)
@@ -151,7 +152,7 @@ object search {
           tr(
             td(
               userLink(u, withBestRating = true, params = "?mod"),
-              (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
+              (isGranted(_.Admin) && isGranted(_.SetEmail)) option
                 email(emails.list.map(_.value).mkString(", "))
             ),
             td(u.count.game.localize),

@@ -33,7 +33,8 @@ import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { Outcome, isNormal } from 'chessops/types';
+import { COLORS, Outcome, isNormal } from 'chessops/types';
+import { SquareSet } from 'chessops/squareSet';
 import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
@@ -610,6 +611,23 @@ export default class AnalyseCtrl {
     if (this.ceval) this.ceval.destroy();
     const cfg: CevalOpts = {
       variant: this.data.game.variant,
+      standardMaterial:
+        !this.data.game.initialFen ||
+        parseFen(this.data.game.initialFen).unwrap(
+          setup =>
+            COLORS.every(color => {
+              const board = setup.board;
+              const pieces = board[color];
+              const promotedPieces =
+                Math.max(board.queen.intersect(pieces).size() - 1, 0) +
+                Math.max(board.rook.intersect(pieces).size() - 2, 0) +
+                Math.max(board.knight.intersect(pieces).size() - 2, 0) +
+                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
+                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
+              return board.pawn.intersect(pieces).size() + promotedPieces <= 8;
+            }),
+          _ => false
+        ),
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
       emit: (ev: Tree.ClientEval, work: CevalWork) => {
         this.onNewCeval(ev, work.path, work.threatMode);

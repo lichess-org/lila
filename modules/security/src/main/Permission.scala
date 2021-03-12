@@ -25,8 +25,9 @@ object Permission {
   case object SetKidMode            extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
-  case object IpBan                 extends Permission("IP_BAN", List(UserModView), "IP ban")
+  case object IpBan                 extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
   case object PrintBan              extends Permission("PRINT_BAN", List(UserModView), "Print ban")
+  case object ViewPrintNoIP         extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case object DisableTwoFactor      extends Permission("DISABLE_2FA", "Disable 2FA")
   case object CloseAccount          extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
   case object SetTitle              extends Permission("SET_TITLE", List(UserModView), "Set/unset title")
@@ -50,7 +51,6 @@ object Permission {
   case object Coach                 extends Permission("COACH", "Is a coach")
   case object Teacher               extends Permission("TEACHER", "Is a class teacher")
   case object ModNote               extends Permission("MOD_NOTE", "Mod notes")
-  case object ViewIpPrint           extends Permission("VIEW_IP_PRINT", "View IP/print")
   case object RemoveRanking         extends Permission("REMOVE_RANKING", "Remove from ranking")
   case object ReportBan             extends Permission("REPORT_BAN", "Report ban")
   case object ModMessage            extends Permission("MOD_MESSAGE", "Send mod messages")
@@ -92,7 +92,8 @@ object Permission {
           UserSearch,
           RemoveRanking,
           ModMessage,
-          ModNote
+          ModNote,
+          ViewPrintNoIP
         ),
         "Hunter"
       )
@@ -110,18 +111,10 @@ object Permission {
           ModMessage,
           SeeReport,
           ModLog,
-          ModNote
+          ModNote,
+          ViewPrintNoIP
         ),
         "Shusher"
-      )
-
-  case object Doxing
-      extends Permission(
-        "DOXING",
-        List(
-          ViewIpPrint
-        ),
-        "Doxing"
       )
 
   case object Admin
@@ -131,7 +124,6 @@ object Permission {
           Hunter,
           Shusher,
           Appeals,
-          Doxing,
           IpBan,
           PrintBan,
           CloseAccount,
@@ -190,7 +182,6 @@ object Permission {
     ),
     "Account mod" -> List(
       UserModView,
-      ViewIpPrint,
       IpBan,
       PrintBan,
       DisableTwoFactor,
@@ -242,7 +233,6 @@ object Permission {
       LichessTeam,
       Hunter,
       Shusher,
-      Doxing,
       Admin,
       SuperAdmin
     )

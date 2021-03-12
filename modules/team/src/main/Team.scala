@@ -12,6 +12,7 @@ case class Team(
     location: Option[String],
     password: Option[String],
     description: String,
+    descPrivate: Option[String],
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
@@ -82,6 +83,7 @@ object Team {
       location: Option[String],
       password: Option[String],
       description: String,
+      descPrivate: Option[String],
       open: Boolean,
       createdBy: User
   ): Team =
@@ -91,6 +93,7 @@ object Team {
       location = location,
       password = password,
       description = description,
+      descPrivate = descPrivate,
       nbMembers = 1,
       enabled = true,
       open = open,

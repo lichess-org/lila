@@ -13,7 +13,6 @@ export interface ProtocolOpts {
   variant: VariantKey;
   threads: false | (() => number | string);
   hashSize: false | (() => number | string);
-  minDepth: number;
 }
 
 export interface Work {
@@ -34,9 +33,10 @@ export interface CevalOpts {
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
+  standardMaterial: boolean;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
-  redraw(): void;
+  redraw: () => void;
 }
 
 export interface Hovering {

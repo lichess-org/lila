@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanText, numberIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, numberIn }
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -26,6 +26,7 @@ final private[team] class TeamForm(
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
     val description = "description" -> cleanText(minLength = 30, maxLength = 4000)
+    val descPrivate = "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000))
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
@@ -38,6 +39,7 @@ final private[team] class TeamForm(
       Fields.location,
       Fields.password,
       Fields.description,
+      Fields.descPrivate,
       Fields.request,
       Fields.gameId,
       Fields.move
@@ -52,6 +54,7 @@ final private[team] class TeamForm(
         Fields.location,
         Fields.password,
         Fields.description,
+        Fields.descPrivate,
         Fields.request,
         Fields.chat
       )(TeamEdit.apply)(TeamEdit.unapply)
@@ -59,6 +62,7 @@ final private[team] class TeamForm(
       location = team.location,
       password = team.password,
       description = team.description,
+      descPrivate = team.descPrivate,
       request = !team.open,
       chat = team.chat
     )
@@ -114,6 +118,7 @@ private[team] case class TeamSetup(
     location: Option[String],
     password: Option[String],
     description: String,
+    descPrivate: Option[String],
     request: Boolean,
     gameId: String,
     move: String
@@ -125,7 +130,8 @@ private[team] case class TeamSetup(
     copy(
       name = name.trim,
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 
@@ -133,6 +139,7 @@ private[team] case class TeamEdit(
     location: Option[String],
     password: Option[String],
     description: String,
+    descPrivate: Option[String],
     request: Boolean,
     chat: Team.ChatFor
 ) {
@@ -142,7 +149,8 @@ private[team] case class TeamEdit(
   def trim =
     copy(
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 

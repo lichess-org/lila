@@ -130,7 +130,7 @@ object games {
                       )
                     }
                   ),
-                  td(dataSort := pov.game.playedTurns)(pov.game.playedTurns),
+                  td(dataSort := pov.moves)(pov.moves),
                   td(dataSort := ~pov.player.ratingDiff)(
                     pov.win match {
                       case Some(true)  => goodTag(cls := "result")("1")

@@ -10,7 +10,7 @@ import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.{ Holder, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
@@ -154,6 +154,19 @@ final class ChatApi(
         case _ => funit
       }
 
+    def publicTimeout(data: ChatTimeout.TimeoutFormData, me: Holder): Funit =
+      ChatTimeout.Reason(data.reason) ?? { reason =>
+        timeout(
+          chatId = Chat.Id(data.roomId),
+          modId = me.id,
+          userId = data.userId,
+          reason = reason,
+          scope = ChatTimeout.Scope.Global,
+          text = data.text,
+          busChan = if (data.chan == "tournament") _.Tournament else _.Simul
+        )
+      }
+
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
       userRepo named username flatMap {
         _ ?? { user =>
@@ -169,36 +182,42 @@ final class ChatApi(
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit = {
-      val line = c.hasRecentLine(user) option UserLine(
-        username = systemUserId,
-        title = None,
-        text = s"${user.username} was timed out 15 minutes for ${reason.name}.",
-        troll = false,
-        deleted = false
-      )
-      val c2   = c.markDeleted(user)
-      val chat = line.fold(c2)(c2.add)
-      coll.update.one($id(chat.id), chat).void >>
-        chatTimeout.add(c, mod, user, reason, scope) >>- {
-          cached invalidate chat.id
-          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
-          line foreach { l =>
-            publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
+    ): Funit =
+      chatTimeout.add(c, mod, user, reason, scope) flatMap {
+        _ ?? {
+          val lineText = scope match {
+            case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
+            case _                        => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
           }
-          if (isMod(mod))
-            lila.common.Bus.publish(
-              lila.hub.actorApi.mod.ChatTimeout(
-                mod = mod.id,
-                user = user.id,
-                reason = reason.key,
-                text = text
-              ),
-              "chatTimeout"
-            )
-          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+          val line = c.hasRecentLine(user) option UserLine(
+            username = systemUserId,
+            title = None,
+            text = lineText,
+            troll = false,
+            deleted = false
+          )
+          val c2   = c.markDeleted(user)
+          val chat = line.fold(c2)(c2.add)
+          coll.update.one($id(chat.id), chat).void >>- {
+            cached.invalidate(chat.id)
+            publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+            line foreach { l =>
+              publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
+            }
+            if (isMod(mod))
+              lila.common.Bus.publish(
+                lila.hub.actorApi.mod.ChatTimeout(
+                  mod = mod.id,
+                  user = user.id,
+                  reason = reason.key,
+                  text = text
+                ),
+                "chatTimeout"
+              )
+            else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+          }
         }
-    }
+      }
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Funit = {
       val chat = c.markDeleted(user)

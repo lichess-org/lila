@@ -1,11 +1,12 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { AbstractWorker, WebWorker, ThreadedWasmWorker, officialStockfish } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
+import { Cache } from './cache';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -48,9 +49,11 @@ export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
-  const enableNnue = storedProp(storageKey('ceval.enable-nnue'), !(navigator as any).connection?.saveData);
+  const enableNnue = storedProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
 
   // select nnue > hce > wasm > asmjs
+  const officialStockfish =
+    opts.standardMaterial && ['standard', 'fromPosition', 'chess960'].includes(opts.variant.key);
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   let supportsNnue = false;
@@ -64,9 +67,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       // i32x4.dot_i16x8_s
       const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]); // prettier-ignore
       supportsNnue = WebAssembly.validate(sourceWithSimd);
-      if (supportsNnue && enableNnue() && officialStockfish(opts.variant.key)) {
-        technology = 'nnue';
-      }
+      if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
 
       try {
         sharedMem.grow(8);
@@ -75,7 +76,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const initialAllocationMaxThreads = officialStockfish(opts.variant.key) ? 2 : 1;
+  const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads = Math.min(
     Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
     growableSharedMem ? 32 : initialAllocationMaxThreads
@@ -88,7 +89,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
-  const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
@@ -102,7 +102,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const isDeeper = prop(false);
 
   const protocolOpts = {
-    minDepth,
     variant: opts.variant.key,
     threads: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(threads()), maxThreads)),
     hashSize: (technology == 'hce' || technology == 'nnue') && (() => Math.min(parseInt(hashSize()), maxHashSize)),
@@ -230,11 +229,12 @@ export default function (opts: CevalOpts): CevalCtrl {
           }),
           version: '85a969',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
+          cache: new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker(protocolOpts, {
-          baseUrl: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
-          module: officialStockfish(opts.variant.key) ? 'Stockfish' : 'StockfishMv',
+          baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
+          module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
         });
       else

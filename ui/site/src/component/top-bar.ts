@@ -10,8 +10,10 @@ export default function () {
       return display && display != 'none';
     };
 
-  // on touchscreens, clicking the top menu element expands it. There's no top link.
-  if ('ontouchstart' in window) $('#topnav > section > a').removeAttr('href');
+  // On touchscreens, clicking the top menu element expands it. There's no top link.
+  // Only for $mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
+  if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
+    $('#topnav > section > a').removeAttr('href');
 
   $('#topnav-toggle').on('change', e =>
     document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)

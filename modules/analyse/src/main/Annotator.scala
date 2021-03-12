@@ -4,18 +4,18 @@ import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
 import chess.opening._
 import chess.{ Color, Status }
 
+import lila.game.GameDrawOffers
+import lila.game.Game
+
 final class Annotator(netDomain: lila.common.config.NetDomain) {
 
-  def apply(
-      p: Pgn,
-      analysis: Option[Analysis],
-      opening: Option[FullOpening.AtPly],
-      winner: Option[Color],
-      status: Status
-  ): Pgn =
-    annotateStatus(winner, status) {
-      annotateOpening(opening) {
-        annotateTurns(p, analysis ?? (_.advices))
+  def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
+    annotateStatus(game.winnerColor, game.status) {
+      annotateOpening(game.opening) {
+        annotateTurns(
+          annotateDrawOffers(p, game.drawOffers),
+          analysis.??(_.advices)
+        )
       }.copy(
         tags = p.tags + Tag(_.Annotator, netDomain)
       )
@@ -48,6 +48,19 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
           )
       )
     }
+
+  private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
+    if (drawOffers.isEmpty) pgn
+    else
+      drawOffers.normalizedPlies.foldLeft(pgn) { case (pgn, ply) =>
+        pgn.updatePly(
+          ply,
+          move => {
+            val color = !Color.fromPly(ply)
+            move.copy(comments = s"$color offers draw" :: move.comments)
+          }
+        )
+      }
 
   private def makeVariation(turn: Turn, advice: Advice): List[Turn] =
     Turn.fromMoves(

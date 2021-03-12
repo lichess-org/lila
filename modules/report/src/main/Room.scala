@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.User
+import lila.user.{ Holder, User }
 
 sealed trait Room {
 
@@ -33,7 +33,7 @@ object Room {
   def apply(reason: Reason): Room =
     reason match {
       case Reason.Cheat                                  => Cheat
-      case Reason.CheatPrint                             => Print
+      case Reason.AltPrint | Reason.CheatPrint           => Print
       case Reason.Comm                                   => Comm
       case Reason.Boost | Reason.Playbans | Reason.Other => Other
     }
@@ -41,7 +41,7 @@ object Room {
   def toReasons(room: Room): Set[Reason] =
     room match {
       case Cheat  => Set(Reason.Cheat)
-      case Print  => Set(Reason.CheatPrint)
+      case Print  => Set(Reason.AltPrint)
       case Comm   => Set(Reason.Comm)
       case Other  => Set(Reason.Boost, Reason.Other)
       case Xfiles => Set.empty
@@ -52,14 +52,14 @@ object Room {
     def highest = ~value.values.maxOption
   }
 
-  def isGrantedFor(mod: User)(room: Room) = {
+  def isGrantedFor(mod: Holder)(room: Room) = {
     import lila.security.Granter
     room match {
-      case Cheat  => Granter(_.MarkEngine)(mod)
-      case Print  => Granter(_.ViewIpPrint)(mod)
-      case Comm   => Granter(_.Shadowban)(mod)
-      case Other  => Granter(_.MarkBooster)(mod)
-      case Xfiles => Granter(_.MarkEngine)(mod)
+      case Cheat  => Granter.is(_.MarkEngine)(mod)
+      case Print  => Granter.is(_.Admin)(mod)
+      case Comm   => Granter.is(_.Shadowban)(mod)
+      case Other  => Granter.is(_.MarkBooster)(mod)
+      case Xfiles => Granter.is(_.MarkEngine)(mod)
     }
   }
 }

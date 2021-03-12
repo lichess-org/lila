@@ -54,7 +54,7 @@ object inquiry {
       )
 
     def renderNote(r: lila.user.Note)(implicit ctx: Context) =
-      (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
+      (!r.dox || isGranted(_.Admin)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
         p(richText(r.text, expandImg = false))
       )
@@ -239,16 +239,18 @@ object inquiry {
         .withFilter(_.byLichess)
         .flatMap(_.text.linesIterator)
         .collect {
-          case farmWithRegex(userId)    => userId
-          case sandbagWithRegex(userId) => userId
+          case farmWithRegex(userId)     => List(userId)
+          case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.trim.replace("@", ""))
         }
+        .flatten
+        .distinct
         .toNel
     }
 
   private val farmWithRegex =
     ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
   private val sandbagWithRegex =
-    ("^Sandbagging: throws games to @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+    "^Sandbagging: throws games to (.+)".r.unanchored
 
   private def thenForms(url: String, button: Tag) =
     div(

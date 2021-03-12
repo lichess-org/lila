@@ -20,7 +20,7 @@ final private[round] class Drawer(
     Pov(game)
       .map { pov =>
         import Pref.PrefZero
-        if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
+        if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
           pov.player.userId ?? prefApi.getPref map { pref =>
             pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
@@ -41,9 +41,7 @@ final private[round] class Drawer(
       case Pov(g, color) if g playerCanOfferDraw color =>
         proxy.save {
           messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
-          Progress(g) map { g =>
-            g.updatePlayer(color, _ offerDraw g.turns)
-          }
+          Progress(g) map { _ offerDraw color }
         } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
     }

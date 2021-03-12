@@ -452,6 +452,7 @@ GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String
 GET   /mod/:username/permissions       controllers.Mod.permissions(username: String)
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
+POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
