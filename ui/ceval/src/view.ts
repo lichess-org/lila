@@ -295,7 +295,14 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
-          el.addEventListener('mouseover', (e: MouseEvent) => instance.setHovering(getElFen(el), getElUci(e)));
+          el.addEventListener('mouseover', (e: MouseEvent) => {
+            instance.setHovering(getElFen(el), getElUci(e));
+            const pvBoard = (e.target as HTMLElement).getAttribute('data-board');
+            if (pvBoard) {
+              const [fen, uci] = pvBoard.split('|');
+              instance.setPvBoard({ fen, uci });
+            }
+          });
           el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
           el.addEventListener('mousedown', (e: MouseEvent) => {
             const uci = getElUci(e);
@@ -320,7 +327,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           [
             multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
             ...pos.unwrap(
-              pos => renderPv(instance, pos.clone(), pvs[i].moves.slice(0, 12)),
+              pos => renderPv(pos.clone(), pvs[i].moves.slice(0, 12)),
               _ => ['--']
             ),
           ]
@@ -330,7 +337,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   );
 }
 
-function renderPv(instance: CevalCtrl, pos: Position, pv: Uci[]): VNode[] {
+function renderPv(pos: Position, pv: Uci[]): VNode[] {
   const vnodes: VNode[] = [];
   let key = makeBoardFen(pos.board);
   for (let i = 0; i < pv.length; i++) {
@@ -350,13 +357,18 @@ function renderPv(instance: CevalCtrl, pos: Position, pv: Uci[]): VNode[] {
       break;
     }
     key += '|' + uci;
-    const hook = {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('mouseover', () => instance.setPvBoard({ fen, uci }));
-      },
-    };
-    vnodes.push(h('span.pv-san', { key, hook }, san));
+    vnodes.push(
+      h(
+        'span.pv-san',
+        {
+          key,
+          attrs: {
+            'data-board': `${fen}|${uci}`,
+          },
+        },
+        san
+      )
+    );
   }
   return vnodes;
 }
