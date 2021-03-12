@@ -1,6 +1,6 @@
-import { Config } from 'puz/interfaces';
+import { StormConfig } from './interfaces';
 
-const config: Config = {
+const config: StormConfig = {
   // all times in seconds
   clock: {
     initial: 3 * 60,

@@ -60,13 +60,7 @@ const renderPlay = (ctrl: RacerCtrl): VNode[] => [
         ]),
         h('div.puz-side', [
           ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
-          ctrl.status() == 'pre'
-            ? ctrl.raceFull()
-              ? undefined
-              : ctrl.isPlayer()
-              ? renderLink(ctrl)
-              : renderJoin(ctrl)
-            : renderClock(ctrl.run, ctrl.endNow),
+          renderSideBody(ctrl),
           h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
         ]),
       ]),
@@ -121,6 +115,24 @@ const renderJoin = (ctrl: RacerCtrl) =>
     )
   );
 
+const renderSideBody = (ctrl: RacerCtrl) => {
+  switch (ctrl.status()) {
+    case 'pre':
+      return ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl);
+    case 'racing':
+      return renderClock(ctrl.run, ctrl.endNow);
+    case 'post':
+      return renderComplete(ctrl);
+  }
+};
+
+const renderComplete = (ctrl: RacerCtrl) =>
+  h('div.racer__complete', [
+    h('h2', 'Race complete!'),
+    h('strong.race__complete__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`),
+    newRaceButton(),
+  ]);
+
 const renderStart = () =>
   h(
     'div.puz-side__top.puz-side__start',
@@ -131,11 +143,14 @@ const renderStarted = () =>
   h('div.racer__started.box.box-pad', [
     h('i', { attrs: { 'data-icon': '~' } }),
     h('p', 'This race has already started!'),
-    h(
-      'a.storm--dup__reload.button',
-      {
-        attrs: { href: '/racer' },
-      },
-      'New race'
-    ),
+    newRaceButton(),
   ]);
+
+const newRaceButton = () =>
+  h(
+    'a.racer__new-race.button.button-fat',
+    {
+      attrs: { href: '/racer' },
+    },
+    'New race'
+  );

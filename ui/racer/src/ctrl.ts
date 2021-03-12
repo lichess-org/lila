@@ -69,9 +69,19 @@ export default class StormCtrl {
   raceFull = () => this.data.players.length >= 10;
 
   status = (): Status =>
-    this.data.finished ? 'post' : this.vm.startsAt && this.vm.startsAt < new Date() ? 'racing' : 'pre';
+    this.run.endAt ? 'post' : this.vm.startsAt && this.vm.startsAt < new Date() ? 'racing' : 'pre';
 
   isRacing = () => this.status() == 'racing';
+
+  myMoves = (): number | undefined => {
+    const p = this.data.players.find(p => p.name == this.data.player.name);
+    return p?.moves;
+  };
+
+  myRank = () => {
+    const moves = this.myMoves();
+    return moves ? this.data.players.filter(p => p.moves > moves).length + 1 : this.data.players.length;
+  };
 
   join = throttle(1000, () => {
     if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
@@ -79,14 +89,14 @@ export default class StormCtrl {
 
   private startCountdown = () => {
     if (this.data.startsIn && !this.run.clock.started()) {
-      for (let i = 5; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
+      for (let i = 10; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
 
       this.vm.startsAt = new Date(Date.now() + this.data.startsIn);
       const countdown = () => {
         const diff = this.vm.startsAt.getTime() - Date.now();
         if (diff > 0) {
           lichess.sound.play('countDown' + Math.ceil(diff / 1000));
-          setTimeout(countdown, (diff % 1000) + 100);
+          setTimeout(countdown, (diff % 1000) + 50);
         } else {
           lichess.sound.play('countDown0');
           this.run.clock.start();

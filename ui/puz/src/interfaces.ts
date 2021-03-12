@@ -69,5 +69,4 @@ export interface Config {
   combo: {
     levels: [number, number][];
   };
-  timeToStart: number;
 }

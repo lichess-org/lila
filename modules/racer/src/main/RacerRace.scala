@@ -12,8 +12,7 @@ case class RacerRace(
     players: List[RacerPlayer],
     puzzles: List[StormPuzzle],
     createdAt: DateTime,
-    startsAt: Option[DateTime],
-    finishedAt: Option[DateTime]
+    startsAt: Option[DateTime]
 ) {
 
   def id = _id
@@ -35,7 +34,7 @@ case class RacerRace(
     )
 
   def startCountdown =
-    if (startsAt.isEmpty) copy(startsAt = DateTime.now.plusSeconds(5).some)
+    if (startsAt.isEmpty) copy(startsAt = DateTime.now.plusSeconds(10).some)
     else this
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
@@ -61,7 +60,6 @@ object RacerRace {
     ),
     puzzles = puzzles,
     createdAt = DateTime.now,
-    startsAt = none,
-    finishedAt = none
+    startsAt = none
   )
 }

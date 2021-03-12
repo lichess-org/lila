@@ -34,4 +34,11 @@
       margin: 3em 0;
     }
   }
+
+  &__complete {
+    .racer__new-race {
+      display: block;
+      margin-top: 2em;
+    }
+  }
 }

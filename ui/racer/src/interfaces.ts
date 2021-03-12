@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { PuzPrefs, Puzzle } from 'puz/interfaces';
+import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export type Status = 'pre' | 'racing' | 'post';
 
@@ -41,3 +41,5 @@ export interface RacerVm {
   startsAt?: Date;
   signed: Prop<string | undefined>;
 }
+
+export interface RacerConfig extends Config {}

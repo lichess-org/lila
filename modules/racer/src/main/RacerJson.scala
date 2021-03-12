@@ -42,5 +42,4 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
       "players" -> race.players
     )
     .add("startsIn" -> race.startsInMillis)
-    .add("finished" -> race.finishedAt.isDefined)
 }

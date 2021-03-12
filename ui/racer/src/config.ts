@@ -1,10 +1,10 @@
-import { Config } from 'puz/interfaces';
+import { RacerConfig } from './interfaces';
 
-const config: Config = {
+const config: RacerConfig = {
   // all times in seconds
   clock: {
-    initial: 99 * 60,
-    // initial: 1 * 60,
+    // initial: 99 * 60,
+    initial: 1 * 60,
     // initial: 10,
     malus: 5,
   },
@@ -17,7 +17,6 @@ const config: Config = {
       [30, 10],
     ],
   },
-  timeToStart: 1000 * 60 * 2,
 };
 
 export default config;

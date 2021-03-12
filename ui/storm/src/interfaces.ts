@@ -1,5 +1,5 @@
 import { Prop } from 'common';
-import { PuzPrefs, Puzzle } from 'puz/interfaces';
+import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;
@@ -49,4 +49,8 @@ export interface RunResponse {
 export interface NewHigh {
   key: 'day' | 'week' | 'month' | 'allTime';
   prev: number;
+}
+
+export interface StormConfig extends Config {
+  timeToStart: number;
 }

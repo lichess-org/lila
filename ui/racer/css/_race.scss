@@ -102,12 +102,3 @@ $car-colors: (
     color: #{$color};
   }
 }
-// @for $i from 0 through 9 {
-//   .car-#{$i} {
-//     @if $theme-dark {
-//       filter: hue-rotate(#{$i * 36 * 7 % 360}deg) brightness(2);
-//     } @else {
-//       filter: hue-rotate(#{$i * 36 * 7 % 360}deg);
-//     }
-//   }
-// }
