@@ -192,24 +192,30 @@ final class ReportApi(
 
   def maybeAutoPlaybanReport(userId: String): Funit =
     userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
-      playbanApi.bans(ids.toList ::: List(userId)) flatMap { bans =>
-        (bans.values.sum >= 80) ?? {
-          userRepo.byId(userId) zip
-            getLichessReporter zip
-            findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-              case Some(abuser) ~ reporter ~ past if past.isEmpty =>
-                create(
-                  Candidate(
-                    reporter = reporter,
-                    suspect = Suspect(abuser),
-                    reason = Reason.Playbans,
-                    text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
-                  )
-                )
-              case _ => funit
-            }
+      playbanApi
+        .bans(userId :: ids.toList)
+        .map {
+          _ filter { case (_, bans) => bans > 2 }
         }
-      }
+        .flatMap { bans =>
+          (bans.values.sum >= 80) ?? {
+            userRepo.byId(userId) zip
+              getLichessReporter zip
+              findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
+                case Some(abuser) ~ reporter ~ past if past.isEmpty =>
+                  create(
+                    Candidate(
+                      reporter = reporter,
+                      suspect = Suspect(abuser),
+                      reason = Reason.Playbans,
+                      text =
+                        s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+                    )
+                  )
+                case _ => funit
+              }
+          }
+        }
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] =
