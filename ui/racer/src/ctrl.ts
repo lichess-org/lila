@@ -66,6 +66,8 @@ export default class StormCtrl {
     this.redraw();
   };
 
+  player = () => this.data.player;
+
   players = () => this.data.players;
 
   isPlayer = () => this.data.players.filter(p => p.name == this.data.player.name).length > 0;

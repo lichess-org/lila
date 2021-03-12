@@ -18,7 +18,7 @@ export class Countdown {
           this.playOnce(Math.ceil(diff / 1000));
           setTimeout(countdown, (diff % 1000) + 50);
         } else {
-          lichess.sound.play('countDown0');
+          this.playOnce(0);
           this.clock.start();
           this.resetGround();
         }

@@ -1,5 +1,6 @@
 $car-width: 4rem;
 $car-ratio: 0.328;
+$c-bg-position-y: 2px;
 
 @font-face {
   font-family: 'racer-car';
@@ -16,6 +17,7 @@ $car-ratio: 0.328;
   // background-image: url(../images/grain.png);
   background-image: url(../images/racer/road1.jpg);
   background-size: 102px;
+  background-position: 0 $c-bg-position-y;
   padding: 2vh 2vw;
   font-size: 0.9em;
 
@@ -39,7 +41,6 @@ $car-ratio: 0.328;
 
     &__name {
       margin-left: 1ch;
-      color: $c-font-dim;
       white-space: nowrap;
     }
 
@@ -52,10 +53,16 @@ $car-ratio: 0.328;
       text-shadow: -1px 1px 2px #000;
       animation: lightSpeedInLeft 0.8s ease-out;
     }
+
+    &--me {
+      .user-link,
+      anonymous {
+        color: $c-font-clearer;
+      }
+    }
   }
 }
 
-$c-bg-position-y: 3px;
 @keyframes road-scroll {
   from {
     background-position: 0 $c-bg-position-y;

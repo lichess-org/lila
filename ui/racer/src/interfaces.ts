@@ -15,7 +15,7 @@ export interface RacerOpts {
 export interface RacerPrefs extends PuzPrefs {}
 
 export interface UpdatableData {
-  players: Player[];
+  players: PlayerWithMoves[];
   startsIn?: number;
   finished?: boolean;
 }
@@ -37,6 +37,8 @@ export interface Player {
   name: string;
   userId?: string;
   title?: string;
+}
+export interface PlayerWithMoves extends Player {
   moves: number;
 }
 
