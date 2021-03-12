@@ -44,6 +44,11 @@ export interface Hovering {
   uci: string;
 }
 
+export interface PvBoard {
+  fen: string;
+  uci: string;
+}
+
 export interface Started {
   path: string;
   steps: Step[];
@@ -63,6 +68,7 @@ export interface CevalCtrl {
   engineName(): string | undefined;
   variant: Variant;
   setHovering: (fen: string, uci?: string) => void;
+  setPvBoard: (pvBoard: PvBoard | null) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
   stop(): void;
@@ -74,6 +80,7 @@ export interface CevalCtrl {
   supportsNnue: boolean;
   enableNnue: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
+  pvBoard: Prop<PvBoard | null>;
   toggle(): void;
   curDepth(): number;
   isDeeper(): boolean;
