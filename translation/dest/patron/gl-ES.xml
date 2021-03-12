@@ -27,4 +27,12 @@
   <string name="withCreditCard">Tarxeta de crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo pequeno, polo que o teu apoio marca fai unha gran diferenza!</string>
+  <string name="celebratedPatrons">Os gloriosos patróns que fan Lichess posíbel</string>
+  <string name="whereMoneyGoes">Onde van os cartos?</string>
+  <string name="serversAndDeveloper">En primeiro lugar, servidores poderosos.
+Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Liches.</string>
+  <string name="costBreakdown">Vexa a análise detallada de custos</string>
+  <string name="officialNonProfit">É Lichess unha organización oficial sen ánimo de lucro?</string>
+  <string name="actOfCreation">Si, aquí está a acta fundacional (en francés)</string>
+  <string name="changeMonthlySupport">Podo cambiar/cancelar a miña achega mensual?</string>
 </resources>
