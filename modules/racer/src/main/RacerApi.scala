@@ -36,7 +36,6 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList
         )
-        .startCountdown
       store.put(race.id, race)
       race
     }

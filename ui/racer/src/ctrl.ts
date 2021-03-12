@@ -11,7 +11,7 @@ import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Promotion, Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, Status } from './interfaces';
 import { Role } from 'chessground/types';
 
 export default class StormCtrl {
@@ -51,8 +51,8 @@ export default class StormCtrl {
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     this.startCountdown();
-    this.simulate();
-    console.log(this.race);
+    // this.simulate();
+    console.log(this.data);
   }
 
   serverUpdate = (data: UpdatableData) => {
@@ -66,9 +66,12 @@ export default class StormCtrl {
 
   isPlayer = () => this.data.players.filter(p => p.name == this.data.player.name).length > 0;
 
-  canJoin = () => this.data.players.length < 10;
+  raceFull = () => this.data.players.length >= 10;
 
-  isRacing = () => !this.data.finished && this.vm.startsAt && this.vm.startsAt < new Date();
+  status = (): Status =>
+    this.data.finished ? 'post' : this.vm.startsAt && this.vm.startsAt < new Date() ? 'racing' : 'pre';
+
+  isRacing = () => this.status() == 'racing';
 
   join = throttle(1000, () => {
     if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');

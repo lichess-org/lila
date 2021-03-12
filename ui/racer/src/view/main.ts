@@ -60,7 +60,13 @@ const renderPlay = (ctrl: RacerCtrl): VNode[] => [
         ]),
         h('div.puz-side', [
           ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
-          ctrl.isPlayer() ? renderClock(ctrl.run, ctrl.endNow) : renderJoin(ctrl),
+          ctrl.status() == 'pre'
+            ? ctrl.raceFull()
+              ? undefined
+              : ctrl.isPlayer()
+              ? renderLink(ctrl)
+              : renderJoin(ctrl)
+            : renderClock(ctrl.run, ctrl.endNow),
           h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
         ]),
       ]),
@@ -82,19 +88,38 @@ const renderCountdown = (seconds: number) =>
     h('div.racer__countdown__seconds', seconds),
   ]);
 
+const renderLink = (ctrl: RacerCtrl) =>
+  h('div.puz-side__link', [
+    h('p', ctrl.trans.noarg('toInviteSomeoneToPlayGiveThisUrl')),
+    h('div', [
+      h(`input#racer-url-${ctrl.race.id}.copyable.autoselect`, {
+        attrs: {
+          spellcheck: false,
+          readonly: 'readonly',
+          value: `${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`,
+        },
+      }),
+      h('button.copy.button', {
+        attrs: {
+          title: 'Copy URL',
+          'data-rel': `racer-url-${ctrl.race.id}`,
+          'data-icon': '"',
+        },
+      }),
+    ]),
+  ]);
+
 const renderJoin = (ctrl: RacerCtrl) =>
-  ctrl.canJoin()
-    ? h(
-        'div.puz-side__join',
-        h(
-          'button.button.button-fat',
-          {
-            hook: bind('click', ctrl.join),
-          },
-          'Join the race!'
-        )
-      )
-    : undefined;
+  h(
+    'div.puz-side__join',
+    h(
+      'button.button.button-fat',
+      {
+        hook: bind('click', ctrl.join),
+      },
+      'Join the race!'
+    )
+  );
 
 const renderStart = () =>
   h(

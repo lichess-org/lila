@@ -64,7 +64,8 @@ object racer {
       s.score,
       s.moves,
       s.combo,
-      s.newRun
+      s.newRun,
+      trans.toInviteSomeoneToPlayGiveThisUrl
     ).map(_.key)
   }
 }

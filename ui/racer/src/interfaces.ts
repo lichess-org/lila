@@ -1,6 +1,8 @@
 import { Prop } from 'common';
 import { PuzPrefs, Puzzle } from 'puz/interfaces';
 
+export type Status = 'pre' | 'racing' | 'post';
+
 export interface RacerOpts {
   data: RacerData;
   pref: RacerPrefs;
