@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Играјте са пријатељем</string>
   <string name="playWithTheMachine">Играјте са рачунаром</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
-  <string name="gameOver">Крај партије</string>
+  <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="waiting">Чекање</string>
   <string name="yourTurn">Ваш потез</string>
