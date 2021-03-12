@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Играјте са пријатељем</string>
-  <string name="playWithTheMachine">Играј са рачунаром</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете некога да игра, проследите овaј УРЛ</string>
+  <string name="playWithTheMachine">Играјте са рачунаром</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
   <string name="gameOver">Крај партије</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="waiting">Чекање</string>
