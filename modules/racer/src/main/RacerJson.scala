@@ -19,7 +19,7 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
     Json
       .obj("name" -> p.name, "moves" -> p.moves)
       .add("userId" -> p.userId)
-      .add("title" -> user.map(_.title))
+      .add("title", user.map(_.title))
   }
 
   // full race data

@@ -3,7 +3,8 @@ import { Config } from 'puz/interfaces';
 const config: Config = {
   // all times in seconds
   clock: {
-    initial: 1 * 60,
+    initial: 99 * 60,
+    // initial: 1 * 60,
     // initial: 10,
     malus: 5,
   },

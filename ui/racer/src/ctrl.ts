@@ -27,12 +27,6 @@ export default class StormCtrl {
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
     this.data = opts.data;
-    // this.data.players = [];
-    // for (let i = 0; i < 10; i++)
-    //   this.data.players.push({
-    //     name: `Player${i}`,
-    //     moves: Math.round((this.data.race.moves / 9) * i),
-    //   });
     this.race = this.data.race;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
@@ -57,6 +51,7 @@ export default class StormCtrl {
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     this.startCountdown();
+    this.simulate();
     console.log(this.race);
   }
 
@@ -179,5 +174,18 @@ export default class StormCtrl {
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();
     return g && f(g);
+  };
+
+  private simulate = () => {
+    this.data.players = [];
+    for (let i = 0; i < 10; i++)
+      this.data.players.push({
+        name: `Player${i}`,
+        moves: 0,
+      });
+    setInterval(() => {
+      if (this.isRacing()) this.data.players[Math.floor(Math.random() * 10)].moves++;
+      this.redraw();
+    }, 150);
   };
 }

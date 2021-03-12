@@ -1,16 +1,31 @@
 $car-width: 4rem;
 $car-ratio: 0.328;
 
+@font-face {
+  font-family: 'racer-car';
+  font-style: normal;
+  font-weight: 400;
+
+  src: url('../images/racer/racer.woff2') format('woff2');
+}
+
 .racer__race {
   @extend %box-neat;
 
   background: $c-bg-box;
+  // background-image: url(../images/grain.png);
+  background-image: url(../images/racer/road1.jpg);
+  background-size: 102px;
   padding: 2vh 2vw;
   font-size: 0.9em;
 
+  .racer--ongoing & {
+    animation: road-scroll 2000s linear infinite;
+  }
+
   &__track {
     display: flex;
-    border-bottom: 2px solid $c-border;
+    // border-bottom: 2px solid $c-border;
     margin-right: 10ch;
     margin-top: 0.5rem;
   }
@@ -19,23 +34,34 @@ $car-ratio: 0.328;
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
-    transition: padding 1s;
+    transition: padding 2s;
     margin-left: -0.5rem;
 
     &__name {
       margin-left: 1ch;
       color: $c-font-dim;
+      white-space: nowrap;
     }
 
     &__car {
       flex: 0 0 $car-width;
+      font-family: 'racer-car';
       height: #{$car-width * $car-ratio};
-      background-image: img-url('racer/race-car2.svg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: bottom right;
+      font-size: $car-width;
+      line-height: 0;
+      text-shadow: -1px 1px 2px #000;
       animation: lightSpeedInLeft 0.8s ease-out;
     }
+  }
+}
+
+$c-bg-position-y: 3px;
+@keyframes road-scroll {
+  from {
+    background-position: 0 $c-bg-position-y;
+  }
+  to {
+    background-position: -10000% $c-bg-position-y;
   }
 }
 
@@ -59,12 +85,29 @@ $car-ratio: 0.328;
   }
 }
 
-@for $i from 0 through 9 {
-  .car-#{$i} {
-    @if $theme-dark {
-      filter: hue-rotate(#{$i * 36 * 7 % 360}deg) brightness(2);
-    } @else {
-      filter: hue-rotate(#{$i * 36 * 7 % 360}deg);
-    }
+$car-colors: (
+  0: hsl(274, 100%, 59%),
+  1: hsl(240, 100%, 67%),
+  2: #008000,
+  3: #b22222,
+  4: hsl(16, 80%, 62%),
+  5: #9acd32,
+  6: #ff4500,
+  7: #2e8b57,
+  8: #daa520,
+  9: hsl(32, 75%, 47%),
+);
+@each $index, $color in $car-colors {
+  .car-#{$index} {
+    color: #{$color};
   }
 }
+// @for $i from 0 through 9 {
+//   .car-#{$i} {
+//     @if $theme-dark {
+//       filter: hue-rotate(#{$i * 36 * 7 % 360}deg) brightness(2);
+//     } @else {
+//       filter: hue-rotate(#{$i * 36 * 7 % 360}deg);
+//     }
+//   }
+// }

@@ -15,7 +15,10 @@ export default function (ctrl: RacerCtrl): VNode {
   return h(
     'div.racer.racer-app.racer--play',
     {
-      class: playModifiers(ctrl.run),
+      class: {
+        ...playModifiers(ctrl.run),
+        'racer--ongoing': ctrl.isRacing(),
+      },
     },
     renderPlay(ctrl)
   );
