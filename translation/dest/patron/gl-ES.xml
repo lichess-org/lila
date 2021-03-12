@@ -35,6 +35,8 @@ Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Liches.</str
   <string name="officialNonProfit">É Lichess unha organización oficial sen ánimo de lucro?</string>
   <string name="actOfCreation">Si, aquí está a acta fundacional (en francés)</string>
   <string name="changeMonthlySupport">Podo cambiar/cancelar a miña achega mensual?</string>
+  <string name="changeOrContact">Si, en calquera momento, dende esta páxina.
+Ou podes %s.</string>
   <string name="contactSupport">poñerte en contacto co soporte de Lichess</string>
   <string name="otherMethods">Hai outros métodos de donación?</string>
   <string name="bankTransfers">Tamén aceptamos trasferencias bancarias</string>
@@ -48,4 +50,27 @@ Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</st
     <item quantity="other">Patrón de Lichess por %s meses</item>
   </plurals>
   <string name="youSupportWith">Apoias a lichess.org con %s por mes.</string>
+  <string name="tyvm">Moitas grazas polo teu apoio. Es un fenómeno!</string>
+  <string name="currentStatus">Estado actual</string>
+  <string name="nextPayment">Próximo pagamento</string>
+  <string name="youWillBeChargedXOnY">Cobrarémosche %1$s o %2$s.</string>
+  <string name="makeAdditionalDonation">Fai unha doazón adicional agora</string>
+  <string name="update">Actualiza</string>
+  <string name="changeMonthlyAmount">Cambia a cantidade mensual (%s)</string>
+  <string name="cancelSupport">cancela o teu apoio</string>
+  <string name="xOrY">%1$s ou %2$s</string>
+  <string name="decideHowMuch">Decide canto vale Lichess para ti:</string>
+  <string name="stopPayments">Retira a túa tarxeta de crédito e detén os pagos:</string>
+  <string name="noLongerSupport">Xa non apoias a Lichess</string>
+  <string name="paymentHistory">Historial de pagamentos</string>
+  <string name="paid">Pago</string>
+  <string name="viewOthers">Ver outros patróns de Lichess</string>
+  <string name="date">Data</string>
+  <string name="amount">Cantidade</string>
+  <string name="transactionCompleted">A túa transacción foi completada, e foiche enviado un recibo da túa doazón por e-mail.</string>
+  <string name="permanentPatron">Agora tes unha conta de patrón permanente.</string>
+  <string name="checkOutProfile">Bótalle un ollo á túa páxina de perfil!</string>
+  <string name="nowLifetime">Agora es un patrón de Lichess de por vida!</string>
+  <string name="nowOneMonth">Agora es un patrón de Lichess por un mes!</string>
+  <string name="downgradeNextMonth">Nun mes, NON se che cobrará de novo, e a túa conta de Lichess será rebaixada á versión normal.</string>
 </resources>
