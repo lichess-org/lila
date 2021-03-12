@@ -13,15 +13,20 @@ $c-bg-position-y: 2px;
 .racer__race {
   @extend %box-neat;
 
+  position: relative;
   background: $c-bg-box;
-  // background-image: url(../images/grain.png);
-  background-image: url(../images/racer/road1.jpg);
-  background-size: 102px;
-  background-position: 0 $c-bg-position-y;
   padding: 2vh 2vw;
   font-size: 0.9em;
 
-  .racer--ongoing & {
+  &__road {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100000%;
+    background-image: url(../images/racer/road1.jpg);
+    background-position: 0 $c-bg-position-y;
+    // .racer--ongoing & {
     animation: road-scroll 2000s linear infinite;
   }
 
@@ -65,10 +70,10 @@ $c-bg-position-y: 2px;
 
 @keyframes road-scroll {
   from {
-    background-position: 0 $c-bg-position-y;
+    transform: translateX(0);
   }
   to {
-    background-position: -10000% $c-bg-position-y;
+    transform: translateX(-10000%);
   }
 }
 

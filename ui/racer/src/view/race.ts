@@ -11,7 +11,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const maxMoves = players.reduce((m, p) => (p.moves > m ? p.moves : m), 30);
   const delta = maxMoves - minMoves;
   const relative: RelativeMoves = moves => (moves - minMoves) / delta;
-  return h('div.racer__race', players.map(renderTrack(relative, ctrl.player().name)));
+  return h('div.racer__race', [h('div.racer__race__road'), ...players.map(renderTrack(relative, ctrl.player().name))]);
 };
 
 const renderTrack = (relative: RelativeMoves, myName: string) => (player: PlayerWithMoves, index: number) => {
