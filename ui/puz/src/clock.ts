@@ -13,6 +13,8 @@ export class Clock {
     if (!this.startAt) this.startAt = getNow();
   };
 
+  started = () => !!this.startAt;
+
   millis = (): number =>
     this.startAt ? Math.max(0, this.startAt + this.initialMillis - getNow()) : this.initialMillis;
 

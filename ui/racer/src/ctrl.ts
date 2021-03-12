@@ -75,12 +75,17 @@ export default class StormCtrl {
   });
 
   private startCountdown = () => {
-    if (this.data.startsIn) {
+    if (this.data.startsIn && !this.run.clock.started()) {
+      for (let i = 5; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
+
       this.vm.startsAt = new Date(Date.now() + this.data.startsIn);
       const countdown = () => {
         const diff = this.vm.startsAt.getTime() - Date.now();
-        if (diff > 0) setTimeout(countdown, (diff % 1000) + 100);
-        else {
+        if (diff > 0) {
+          lichess.sound.play('countDown' + Math.ceil(diff / 1000));
+          setTimeout(countdown, (diff % 1000) + 100);
+        } else {
+          lichess.sound.play('countDown0');
           this.run.clock.start();
           this.withGround(g => g.set(this.cgOpts()));
         }
