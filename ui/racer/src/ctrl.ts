@@ -57,6 +57,9 @@ export default class StormCtrl {
       this.vm.startsAt = this.countdown.start(opts.data.startsIn);
     });
     // this.simulate();
+    window.addEventListener('beforeunload', () => {
+      if (this.isPlayer()) this.socketSend('racerEnd');
+    });
     console.log(this.data);
   }
 
@@ -75,7 +78,13 @@ export default class StormCtrl {
   raceFull = () => this.data.players.length >= 10;
 
   status = (): Status =>
-    this.run.endAt ? 'post' : this.vm.startsAt && this.vm.startsAt < new Date() ? 'racing' : 'pre';
+    this.run.endAt
+      ? this.data.players.some(p => !p.end)
+        ? 'end'
+        : 'post'
+      : this.vm.startsAt && this.vm.startsAt < new Date()
+      ? 'racing'
+      : 'pre';
 
   isRacing = () => this.status() == 'racing';
 
@@ -90,7 +99,7 @@ export default class StormCtrl {
   };
 
   join = throttle(1000, () => {
-    if (!this.isPlayer()) lichess.pubsub.emit('socket.send', 'racerJoin');
+    if (!this.isPlayer()) this.socketSend('racerJoin');
   });
 
   countdownSeconds = (): number | undefined =>
@@ -105,6 +114,7 @@ export default class StormCtrl {
     this.redraw();
     sound.end();
     this.redrawSlow();
+    this.socketSend('racerEnd');
   };
 
   endNow = (): void => {
@@ -128,7 +138,7 @@ export default class StormCtrl {
     if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
       puzzle.moveIndex++;
       onGoodMove(this.run);
-      lichess.pubsub.emit('socket.send', 'racerMoves', this.run.moves);
+      this.socketSend('racerMoves', this.run.moves);
       if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -180,6 +190,8 @@ export default class StormCtrl {
     const g = this.ground();
     return g && f(g);
   };
+
+  private socketSend = (tpe: string, data?: any) => lichess.pubsub.emit('socket.send', tpe, data);
 
   private simulate = () => {
     this.data.players = [];

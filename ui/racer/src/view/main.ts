@@ -121,15 +121,23 @@ const renderSideBody = (ctrl: RacerCtrl) => {
       return ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl);
     case 'racing':
       return renderClock(ctrl.run, ctrl.endNow);
+    case 'end':
+      return renderEnd(ctrl);
     case 'post':
-      return renderComplete(ctrl);
+      return renderPost(ctrl);
   }
 };
 
-const renderComplete = (ctrl: RacerCtrl) =>
-  h('div.racer__complete', [
+const renderEnd = (ctrl: RacerCtrl) =>
+  h('div.racer__end', [
+    h('h2', 'Your time is up!'),
+    h('div.race__end__players', `${ctrl.players().filter(p => !p.end).length} players still racing.`),
+  ]);
+
+const renderPost = (ctrl: RacerCtrl) =>
+  h('div.racer__post', [
     h('h2', 'Race complete!'),
-    h('strong.race__complete__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`),
+    h('strong.race__post__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`),
     newRaceButton(),
   ]);
 

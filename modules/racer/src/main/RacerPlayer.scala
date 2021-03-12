@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import lila.common.CuteNameGenerator
 import lila.user.User
 
-case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, moves: Int) {
+case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, moves: Int, end: Boolean) {
 
   import RacerPlayer.Id
 
@@ -29,5 +29,5 @@ object RacerPlayer {
       else User(str)
   }
 
-  def make(id: Id) = RacerPlayer(id = id, moves = 0, createdAt = DateTime.now)
+  def make(id: Id) = RacerPlayer(id = id, moves = 0, createdAt = DateTime.now, end = false)
 }

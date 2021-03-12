@@ -2,7 +2,7 @@ import { Prop } from 'common';
 import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 import { Api as CgApi } from 'chessground/api';
 
-export type Status = 'pre' | 'racing' | 'post';
+export type Status = 'pre' | 'racing' | 'end' | 'post';
 
 export type WithGround = <A>(f: (g: CgApi) => A) => A | false;
 
@@ -17,7 +17,6 @@ export interface RacerPrefs extends PuzPrefs {}
 export interface UpdatableData {
   players: PlayerWithMoves[];
   startsIn?: number;
-  finished?: boolean;
 }
 
 export interface RacerData extends UpdatableData {
@@ -37,6 +36,7 @@ export interface Player {
   name: string;
   userId?: string;
   title?: string;
+  end?: boolean;
 }
 export interface PlayerWithMoves extends Player {
   moves: number;

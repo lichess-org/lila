@@ -46,6 +46,9 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   def registerPlayerMoves(id: RacerRace.Id, player: RacerPlayer.Id, moves: Int): Unit =
     get(id).map(_.registerMoves(player, moves)) foreach saveAndPublish
 
+  def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
+    get(id).map(_ end player) foreach saveAndPublish
+
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)
 

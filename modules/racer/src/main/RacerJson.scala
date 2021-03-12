@@ -18,8 +18,9 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
     val user = p.userId flatMap lightUserSync
     Json
       .obj("name" -> p.name, "moves" -> p.moves)
-      .add("userId" -> p.userId)
+      .add("userId", p.userId)
       .add("title", user.map(_.title))
+      .add("end", p.end)
   }
 
   // full race data
@@ -41,5 +42,5 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
     .obj(
       "players" -> race.players
     )
-    .add("startsIn" -> race.startsInMillis)
+    .add("startsIn", race.startsInMillis)
 }

@@ -41,6 +41,16 @@ case class RacerRace(
 
   def hasStarted = startsInMillis.exists(_ <= 0)
 
+  def end(playerId: RacerPlayer.Id): RacerRace =
+    copy(
+      players = players map {
+        case p if p.id == playerId => p.copy(end = true)
+        case p                     => p
+      }
+    )
+
+  def finished = players.forall(_.end)
+
   lazy val moves = puzzles.foldLeft(0) { case (m, p) =>
     m + p.line.size / 2
   }
