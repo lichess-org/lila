@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doar</string>
+  <string name="lichessPatron">Patrón de Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
+  <string name="becomePatron">Faite patrón de Lichess</string>
+  <string name="xBecamePatron">%s fíxose patrón de Lichess</string>
+  <string name="newPatrons">Novos patróns</string>
+  <string name="freeChess">Xadrez gratis para todos, para sempre!</string>
   <string name="lifetime">De por vida</string>
   <string name="onetime">Unha vez</string>
 </resources>
