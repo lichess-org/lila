@@ -33,8 +33,10 @@
   }
 
   .pv-board {
+    @extend %popup-shadow;
     position: absolute;
     width: 80%;
+    left: 34px;
     max-width: 240px;
     z-index: 1;
 
