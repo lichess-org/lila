@@ -114,8 +114,13 @@ const renderJoin = (ctrl: RacerCtrl) =>
     )
   );
 
-const yourRank = (ctrl: RacerCtrl) =>
-  h('strong.race__post__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`);
+const yourRank = (ctrl: RacerCtrl) => {
+  const moves = ctrl.myMoves();
+  if (!moves) return;
+  const players = ctrl.players();
+  const rank = players.filter(p => p.moves > moves).length + 1;
+  return h('strong.race__post__rank', `Your rank: ${rank}/${players.length}`);
+};
 
 const newRaceButton = (cls: string = '') =>
   h(

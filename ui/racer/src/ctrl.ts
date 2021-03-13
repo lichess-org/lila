@@ -61,7 +61,6 @@ export default class StormCtrl {
     window.addEventListener('beforeunload', () => {
       if (this.isPlayer()) this.socketSend('racerEnd');
     });
-    console.log(this.data);
   }
 
   serverUpdate = (data: UpdatableData) => {
@@ -90,11 +89,6 @@ export default class StormCtrl {
   myMoves = (): number | undefined => {
     const p = this.data.players.find(p => p.name == this.data.player.name);
     return p?.moves;
-  };
-
-  myRank = () => {
-    const moves = this.myMoves();
-    return moves ? this.data.players.filter(p => p.moves > moves).length + 1 : this.data.players.length;
   };
 
   join = throttle(1000, () => {
