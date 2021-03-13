@@ -2,15 +2,12 @@ import config from '../config';
 import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
 import { bind } from 'puz/util';
-import { Chessground } from 'chessground';
 import { h } from 'snabbdom';
-import { INITIAL_BOARD_FEN } from 'chessops/fen';
-import { makeCgOpts } from 'puz/run';
-import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
 import { VNode } from 'snabbdom/vnode';
-import { Run } from 'puz/interfaces';
+import { MaybeVNodes, Run } from 'puz/interfaces';
+import { renderBoard } from './board';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(
@@ -21,70 +18,64 @@ export default function (ctrl: RacerCtrl): VNode {
         [`racer--${ctrl.status()}`]: true,
       },
     },
-    renderPlay(ctrl)
+    [renderRace(ctrl), renderBoard(ctrl), h('div.puz-side', selectScreen(ctrl))]
   );
 }
 
-const chessground = (ctrl: RacerCtrl): VNode =>
-  h('div.cg-wrap', {
-    hook: {
-      insert: vnode =>
-        ctrl.ground(
-          Chessground(
-            vnode.elm as HTMLElement,
-            makeCgConfig(
-              ctrl.isRacing()
-                ? makeCgOpts(ctrl.run, ctrl.isRacing())
-                : {
-                    fen: INITIAL_BOARD_FEN,
-                    orientation: ctrl.run.pov,
-                    movable: { color: ctrl.run.pov },
-                  },
-              ctrl.pref,
-              ctrl.userMove
-            )
-          )
-        ),
-      destroy: _ => ctrl.withGround(g => g.destroy()),
-    },
-  });
+const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
+  switch (ctrl.status()) {
+    case 'pre':
+      return [
+        waitingToStart(),
+        ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),
+        comboZone(ctrl),
+      ];
+    case 'racing':
+      if (ctrl.isPlayer())
+        return ctrl.run.endAt
+          ? [
+              playerScore(ctrl.run),
+              h('div.racer__end', [h('h2', 'Your time is up!'), h('div.race__end__players', playersInTheRace(ctrl))]),
+              comboZone(ctrl),
+            ]
+          : [playerScore(ctrl.run), renderClock(ctrl.run, ctrl.endNow), comboZone(ctrl)];
+      return [
+        spectating(),
+        h('div.racer__spectating', [playersInTheRace(ctrl), newRaceButton('.button-empty')]),
+        comboZone(ctrl),
+      ];
+    case 'post':
+      return ctrl.isPlayer()
+        ? [
+            playerScore(ctrl.run),
+            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), newRaceButton()]),
+            comboZone(ctrl),
+          ]
+        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), newRaceButton()]), comboZone(ctrl)];
+  }
+};
 
-const renderPlay = (ctrl: RacerCtrl): VNode[] => [
-  renderRace(ctrl),
-  ...(ctrl.race.alreadyStarted
-    ? [renderStarted()]
-    : [
-        h('div.puz-board.main-board', [
-          chessground(ctrl),
-          ctrl.promotion.view(),
-          ctrl.countdownSeconds() ? renderCountdown(ctrl.countdownSeconds()) : undefined,
-        ]),
-        h('div.puz-side', [
-          ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(),
-          renderSideBody(ctrl),
-          h('div.puz-side__table', [renderCombo(config)(ctrl.run)]),
-        ]),
-      ]),
-];
+const puzzleRacer = () => h('strong', 'Puzzle Racer');
 
-const renderSolved = (run: Run): VNode =>
+const waitingToStart = () =>
+  h(
+    'div.puz-side__top.puz-side__start',
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Waiting to start')])
+  );
+
+const spectating = () =>
+  h(
+    'div.puz-side__top.puz-side__start',
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Spectating the race')])
+  );
+
+const comboZone = (ctrl: RacerCtrl) => h('div.puz-side__table', [renderCombo(config)(ctrl.run)]);
+
+const playerScore = (run: Run): VNode =>
   h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', run.moves - run.errors)]);
 
-const renderCountdown = (seconds: number) =>
-  h('div.racer__countdown', [
-    h('div.racer__countdown__lights', [
-      h('light.red', {
-        class: { active: seconds > 4 },
-      }),
-      h('light.orange', {
-        class: { active: seconds == 3 || seconds == 4 },
-      }),
-      h('light.green', {
-        class: { active: seconds <= 2 },
-      }),
-    ]),
-    h('div.racer__countdown__seconds', seconds),
-  ]);
+const playersInTheRace = (ctrl: RacerCtrl) =>
+  h('div.race__players-racing', `${ctrl.players().filter(p => !p.end).length} players still in the race.`);
 
 const renderLink = (ctrl: RacerCtrl) =>
   h('div.puz-side__link', [
@@ -119,47 +110,12 @@ const renderJoin = (ctrl: RacerCtrl) =>
     )
   );
 
-const renderSideBody = (ctrl: RacerCtrl) => {
-  switch (ctrl.status()) {
-    case 'pre':
-      return ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl);
-    case 'racing':
-      if (ctrl.isPlayer() && ctrl.run.endAt) return renderEnd(ctrl);
-      return renderClock(ctrl.run, ctrl.endNow);
-    case 'post':
-      return renderPost(ctrl);
-  }
-};
+const yourRank = (ctrl: RacerCtrl) =>
+  h('strong.race__post__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`);
 
-const renderEnd = (ctrl: RacerCtrl) =>
-  h('div.racer__end', [
-    h('h2', 'Your time is up!'),
-    h('div.race__end__players', `${ctrl.players().filter(p => !p.end).length} players still racing.`),
-  ]);
-
-const renderPost = (ctrl: RacerCtrl) =>
-  h('div.racer__post', [
-    h('h2', 'Race complete!'),
-    h('strong.race__post__rank', `Your rank: ${ctrl.myRank()}/${ctrl.players().length}`),
-    newRaceButton(),
-  ]);
-
-const renderStart = () =>
+const newRaceButton = (cls: string = '') =>
   h(
-    'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Puzzle Racer'), h('span', 'Waiting to start')])
-  );
-
-const renderStarted = () =>
-  h('div.racer__started.box.box-pad', [
-    h('i', { attrs: { 'data-icon': '~' } }),
-    h('p', 'This race has already started!'),
-    newRaceButton(),
-  ]);
-
-const newRaceButton = () =>
-  h(
-    'a.racer__new-race.button.button-fat',
+    `a.racer__new-race.button${cls}`,
     {
       attrs: { href: '/racer' },
     },

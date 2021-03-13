@@ -109,7 +109,7 @@ export default class StormCtrl {
   end = (): void => {
     this.run.history.reverse();
     this.run.endAt = getNow();
-    this.ground(false);
+    this.resetGround();
     this.redraw();
     sound.end();
     this.redrawSlow();
@@ -163,7 +163,12 @@ export default class StormCtrl {
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
 
-  private cgOpts = () => makeCgOpts(this.run, this.isRacing());
+  private cgOpts = () =>
+    this.isPlayer()
+      ? makeCgOpts(this.run, this.isRacing() && !this.run.endAt)
+      : {
+          orientation: this.run.pov,
+        };
 
   private resetGround = () => this.withGround(g => g.set(this.cgOpts()));
 
@@ -182,8 +187,6 @@ export default class StormCtrl {
     }
     return false;
   };
-
-  countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
   withGround: WithGround = f => {
     const g = this.ground();

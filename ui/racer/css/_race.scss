@@ -111,6 +111,10 @@ $c-bg-position-y: 2px;
       margin-right: 0.6ch;
     }
   }
+
+  .button {
+    display: block;
+  }
 }
 
 @keyframes lightSpeedInLeft {

@@ -42,7 +42,6 @@ const renderTrack = (relative: RelativeMoves, myName: string, first?: PlayerWith
       },
     },
     [
-      h('div.racer__race__score', player.moves),
       h(
         'div.racer__race__player',
         {
@@ -55,6 +54,7 @@ const renderTrack = (relative: RelativeMoves, myName: string, first?: PlayerWith
           h('span.racer__race__player__name', playerLink(player, isMe)),
         ]
       ),
+      h('div.racer__race__score', player.moves),
     ]
   );
 };

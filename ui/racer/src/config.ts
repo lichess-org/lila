@@ -4,8 +4,8 @@ const config: RacerConfig = {
   // all times in seconds
   clock: {
     // initial: 99 * 60,
-    initial: 1 * 60,
-    // initial: 10,
+    // initial: 1 * 60,
+    initial: 60,
     malus: 5,
   },
   combo: {
