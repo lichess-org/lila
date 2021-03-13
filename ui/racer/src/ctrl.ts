@@ -14,6 +14,7 @@ import { prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { Countdown } from './countdown';
+import { Boost } from './boost';
 
 export default class StormCtrl {
   private data: RacerData;
@@ -25,6 +26,7 @@ export default class StormCtrl {
   trans: Trans;
   promotion: Promotion;
   countdown: Countdown;
+  boost: Boost = new Boost();
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
@@ -50,6 +52,7 @@ export default class StormCtrl {
     };
     this.countdown = new Countdown(this.run.clock, this.resetGround, this.redraw);
     this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
+    this.boost.setPlayers(this.data.players);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
@@ -65,8 +68,10 @@ export default class StormCtrl {
 
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
+    this.boost.setPlayers(data.players);
     this.vm.startsAt = this.countdown.start(data.startsIn) || this.vm.startsAt;
     this.redraw();
+    this.redrawSlow();
   };
 
   player = () => this.data.player;
@@ -197,8 +202,12 @@ export default class StormCtrl {
         moves: 0,
       });
     setInterval(() => {
-      if (true || this.isRacing()) this.data.players[Math.floor(Math.random() * 10)].moves++;
-      this.redraw();
+      if (true || this.isRacing()) {
+        this.data.players[Math.floor(Math.random() * 10)].moves++;
+        this.boost.setPlayers(this.data.players);
+        this.redraw();
+        this.redrawSlow();
+      }
     }, 150);
   };
 }

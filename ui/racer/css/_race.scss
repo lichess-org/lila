@@ -74,6 +74,9 @@ $c-bg-position-y: 2px;
     padding-top: 0.3em;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
+    .racer__race__track--end & {
+      color: $c-bad;
+    }
     .racer__race__track--first & {
       color: $c-brag;
     }
@@ -91,13 +94,26 @@ $c-bg-position-y: 2px;
     }
 
     &__car {
+      position: relative;
       flex: 0 0 $car-width;
       font-family: 'racer-car';
       height: #{$car-width * $car-ratio};
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      animation: lightSpeedInLeft 0.8s ease-out;
+      transition: transform 0.3s;
+
+      .racer__race__track--boost & {
+        transform: translateX(7px) scaleX(0.95) skewX(10deg) rotate(-3deg);
+        &::before {
+          content: 'A';
+          position: absolute;
+          left: -0.9em;
+          bottom: 0.3em;
+          font-size: 0.4em;
+          animation: boost 0.1s ease-in infinite;
+        }
+      }
     }
 
     .user-link,
@@ -110,6 +126,17 @@ $c-bg-position-y: 2px;
     .utitle {
       margin-right: 0.6ch;
     }
+  }
+}
+
+@keyframes boost {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-3px);
+    opacity: 0.6;
   }
 }
 

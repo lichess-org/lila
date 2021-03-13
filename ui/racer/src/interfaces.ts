@@ -39,6 +39,7 @@ export interface Player {
 }
 export interface PlayerWithMoves extends Player {
   moves: number;
+  boostAt?: Date;
 }
 
 export interface RacerVm {

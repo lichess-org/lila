@@ -1,6 +1,7 @@
 import RacerCtrl from '../ctrl';
 import { h } from 'snabbdom';
 import { PlayerWithMoves } from '../interfaces';
+import { Boost } from '../boost';
 
 // to [0,1]
 type RelativeMoves = (moves: number) => number;
@@ -9,7 +10,7 @@ const trackHeight = 30;
 
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
-  const minMoves = players.reduce((m, p) => (p.moves < m ? p.moves : m), 999) / 2;
+  const minMoves = players.reduce((m, p) => (p.moves < m ? p.moves : m), 999) / 3;
   const maxMoves = players.reduce((m, p) => (p.moves > m ? p.moves : m), 30);
   const delta = maxMoves - minMoves;
   const relative: RelativeMoves = moves => (moves - minMoves) / delta;
@@ -21,11 +22,11 @@ export const renderRace = (ctrl: RacerCtrl) => {
         style: `height:${players.length * trackHeight + 30}px`,
       },
     },
-    h('div.racer__race__tracks', players.map(renderTrack(relative, ctrl.player().name, bestScore)))
+    h('div.racer__race__tracks', players.map(renderTrack(relative, ctrl.player().name, bestScore, ctrl.boost)))
   );
 };
 
-const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number) => (
+const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number, boost: Boost) => (
   player: PlayerWithMoves,
   index: number
 ) => {
@@ -36,6 +37,8 @@ const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number)
       class: {
         'racer__race__track--me': isMe,
         'racer__race__track--first': player.moves && player.moves == bestScore,
+        'racer__race__track--boost': boost.isBoosting(index),
+        'racer__race__track--end': player.end,
       },
     },
     [
