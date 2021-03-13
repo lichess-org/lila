@@ -1,3 +1,4 @@
+$track-height: 30px;
 $car-width: 4rem;
 $car-ratio: 0.328;
 $c-bg-position-y: 2px;
@@ -11,38 +12,59 @@ $c-bg-position-y: 2px;
 }
 
 .racer__race {
-  @extend %box-neat;
+  @extend %box-radius;
+  overflow: hidden;
 
   position: relative;
   background: $c-bg-box;
-  padding: 2vh 2vw;
   font-size: 0.9em;
 
-  &__road {
+  &::before,
+  &__tracks {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
-    width: 100000%;
+  }
+
+  &::before {
+    content: '';
+    z-index: 0;
+    width: 120%;
+    height: 100%;
     background-image: url(../images/racer/road1.jpg);
-    background-position: 0 $c-bg-position-y;
+    background-repeat: repeat;
+    background-position-y: 15px;
     // .racer--ongoing & {
-    animation: road-scroll 2000s linear infinite;
+    animation: road-scroll 1s linear infinite;
+    animation-fill-mode: both;
+  }
+
+  @keyframes road-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-121px);
+    }
+  }
+
+  &__tracks {
+    padding: 22px 0 15px 10px;
+    width: 100%;
   }
 
   &__track {
-    display: flex;
+    height: $track-height;
+    z-index: 1;
     // border-bottom: 2px solid $c-border;
-    margin-right: 10ch;
-    margin-top: 0.5rem;
+    margin-right: 20ch;
   }
 
   &__player {
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
-    transition: padding 2s;
-    margin-left: -0.5rem;
+    transition: transform 2s;
 
     &__name {
       margin-left: 1ch;
@@ -65,15 +87,6 @@ $c-bg-position-y: 2px;
         color: #ddd;
       }
     }
-  }
-}
-
-@keyframes road-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-10000%);
   }
 }
 

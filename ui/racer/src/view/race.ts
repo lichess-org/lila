@@ -5,13 +5,23 @@ import { PlayerWithMoves } from '../interfaces';
 // to [0,1]
 type RelativeMoves = (moves: number) => number;
 
+const trackHeight = 30;
+
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
   const minMoves = players.reduce((m, p) => (p.moves < m ? p.moves : m), 999) / 2;
   const maxMoves = players.reduce((m, p) => (p.moves > m ? p.moves : m), 30);
   const delta = maxMoves - minMoves;
   const relative: RelativeMoves = moves => (moves - minMoves) / delta;
-  return h('div.racer__race', [h('div.racer__race__road'), ...players.map(renderTrack(relative, ctrl.player().name))]);
+  return h(
+    'div.racer__race',
+    {
+      attrs: {
+        style: `height:${players.length * trackHeight + 30}px`,
+      },
+    },
+    h('div.racer__race__tracks', players.map(renderTrack(relative, ctrl.player().name)))
+  );
 };
 
 const renderTrack = (relative: RelativeMoves, myName: string) => (player: PlayerWithMoves, index: number) => {
@@ -22,7 +32,7 @@ const renderTrack = (relative: RelativeMoves, myName: string) => (player: Player
       `div.racer__race__player${isMe ? '.racer__race__player--me' : ''}`,
       {
         attrs: {
-          style: `padding-left:${relative(player.moves) * 95}%`,
+          style: `transform:translateX(${relative(player.moves) * 95}%)`,
         },
       },
       [
@@ -42,4 +52,4 @@ export const playerLink = (player: PlayerWithMoves, isMe: boolean) =>
         },
         player.title ? [h('span.utitle', player.title), player.name] : [player.name]
       )
-    : h(`anonymous`, [player.name, isMe ? ' (you)' : undefined]);
+    : h('anonymous', [player.name, isMe ? ' (you)' : undefined]);
