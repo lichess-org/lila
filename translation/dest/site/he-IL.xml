@@ -9,6 +9,7 @@
   <string name="yourTurn">תורך</string>
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
   <string name="level">רמה</string>
+  <string name="strength">רמת קושי</string>
   <string name="toggleTheChat">הפעל/כבה את הצ\'אט</string>
   <string name="toggleSound">הפעל/כבה צלילים</string>
   <string name="chat">צ\'אט</string>
@@ -74,7 +75,7 @@
   <string name="insufficientMaterial">אין מספיק כלים</string>
   <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
-  <string name="close">סגור</string>
+  <string name="close">סגירה</string>
   <string name="winning">זוכה</string>
   <string name="losing">מפסיד</string>
   <string name="drawn">תיקו</string>
@@ -105,7 +106,7 @@
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
-  <string name="delete">מחק</string>
+  <string name="delete">מחיקה</string>
   <string name="deleteThisImportedGame">מחק את משחק העבר הזה?</string>
   <string name="replayMode">מצב הרצת המסעים</string>
   <string name="realtimeReplay">זמן אמת</string>
@@ -115,8 +116,8 @@
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="evaluationGauge">מד הערכה</string>
   <string name="multipleLines">המשכים מקבילים</string>
-  <string name="cpus">רוחב החישוב המקבילי</string>
-  <string name="memory">גודל הזיכרון</string>
+  <string name="cpus">מעבדים</string>
+  <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
   <string name="blunder">בלאנדר</string>
@@ -174,14 +175,14 @@
   <string name="daysPerTurn">ימים למהלך</string>
   <string name="oneDay">יום אחד</string>
   <plurals name="nbDays">
-    <item quantity="one">%s יום</item>
+    <item quantity="one">יום %s</item>
     <item quantity="two">%s ימים</item>
     <item quantity="many">%s ימים</item>
     <item quantity="other">%s ימים</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s שעה</item>
-    <item quantity="two">%s שעתיים</item>
+    <item quantity="one">שעה %s</item>
+    <item quantity="two">%s שעות</item>
     <item quantity="many">%s שעות</item>
     <item quantity="other">%s שעות</item>
   </plurals>
@@ -189,14 +190,14 @@
   <string name="rating">דירוג</string>
   <string name="ratingStats">סטטיסטיקת דירוג</string>
   <string name="username">שם משתמש</string>
-  <string name="usernameOrEmail">שם משתמש או כתובת דואר אלקטרוני</string>
+  <string name="usernameOrEmail">שם משתמש או דוא״ל</string>
   <string name="changeUsername">שנה שם משתמש</string>
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שנוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שנה סיסמה</string>
-  <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
-  <string name="email">הדואר האלקטרוני</string>
+  <string name="changeEmail">שינוי דוא״ל</string>
+  <string name="email">דוא״ל</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
@@ -220,7 +221,7 @@
     <item quantity="many">%s משחקים איתך</item>
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
-  <string name="cancel">בטל</string>
+  <string name="cancel">ביטול</string>
   <string name="whiteTimeOut">נגמר לך הזמן, שחקן לבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
@@ -558,13 +559,16 @@
   <string name="invalidUsernameOrPassword">שגיאה בשם משתמש או בסיסמא</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
-  <string name="emailMeALink">שלחו לי קישור באמצעות הדואר האלקטרוני</string>
+  <string name="emailMeALink">שלחו לי קישור בדוא״ל</string>
   <string name="currentPassword">הסיסמא הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
   <string name="newPasswordAgain">סיסמא חדשה שוב</string>
+  <string name="newPasswordsDontMatch">הסיסמה החדשה אינה תאומת</string>
+  <string name="newPasswordStrength">חוזק הסיסמה</string>
   <string name="clockInitialTime">זמן שעון התחלתי</string>
   <string name="clockIncrement">הוספת זמן</string>
   <string name="privacy">פרטיות</string>
+  <string name="privacyPolicy">מדיניות הפרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
   <string name="letOtherPlayersInviteYouToStudy">תן לשחקנים אחרים להזמין אותך ללמידה</string>
@@ -635,11 +639,12 @@
   <string name="allowAnalytics">אפשר דגימה אנונימית</string>
   <string name="shareGameURL">URL שתף</string>
   <string name="error.required">שדה חובה</string>
-  <string name="error.email">כתובת המייל אינה חוקית</string>
+  <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
   <string name="error.email_acceptable">כתובת המייל אינה קבילה</string>
-  <string name="error.email_unique">כתובת המייל שהזנת תפוסה</string>
-  <string name="error.email_different">זהו כבר המייל שלך</string>
+  <string name="error.email_unique">כתובת דוא״ל זו כבר תפוסה</string>
+  <string name="error.email_different">זאת כתובת הדוא״ל שלך כבר</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
+  <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
   <string name="menu">תפריט</string>
   <string name="castling">הצרחה</string>
@@ -659,8 +664,8 @@
   <string name="streamersMenu">משדרים</string>
   <string name="mobileApp">אפליקציית מובייל</string>
   <string name="webmasters">מנהלי אתרים</string>
-  <string name="about">אודות</string>
-  <string name="aboutX">אודות%s</string>
+  <string name="about">על אודות</string>
+  <string name="aboutX">על אודות %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חופשי (%2$s), קוד פתוח וללא מודעות.</string>
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
@@ -716,11 +721,12 @@
   <string name="yourRating">הדירוג שלך</string>
   <string name="cumulative">מצטבר</string>
   <string name="glicko2Rating">דירוג Glicko-2</string>
-  <string name="checkYourEmail">בדוק את האימייל שלך</string>
+  <string name="checkYourEmail">נא לבדוק את הדוא״ל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק באימייל על מנת להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">.%s על ידי הרשמה, אתה מסכים ל</string>
+  <string name="readAboutOur">קרא את ה%s.</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב רשת בינך לבין ליצ\'ס</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
   <string name="downloadAnnotated">להוריד עם פרשנויות</string>
@@ -863,19 +869,19 @@
     <item quantity="other">ושמור %s קו קדם המסעים</item>
   </plurals>
   <string name="sorry">מצטערים :(</string>
-  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
-  <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
+  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
+  <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
   <string name="why">למה?</string>
   <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
   <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
   <string name="potentialProblem">כאשר בעיה מסויימת מתגלה, אנו מציגים הודעה זו.</string>
   <string name="howToAvoidThis">איך להימנע מכך?</string>
-  <string name="playEveryGame">סיים כל משחק שהתחלת.</string>
-  <string name="tryToWin">נסה/י לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
-  <string name="resignLostGames">פרוש/י במצבים שאת/ה מפסיד/ה (אל תתן/י לשעון להיגמר).</string>
+  <string name="playEveryGame">יש לסיים כל משחק שהתחלת.</string>
+  <string name="tryToWin">יש לנסות לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
+  <string name="resignLostGames">יש לפרוש במצבי הפסד (אין לתת לשעון להיגמר).</string>
   <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
-  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב-lichess.org.</string>
-  <string name="thankYouForReading">תודה שקראת!</string>
+  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
+  <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
@@ -902,6 +908,7 @@
   <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
+  <string name="teamNamedX">הקבוצה %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>

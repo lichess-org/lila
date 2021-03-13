@@ -47,7 +47,7 @@
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
   <string name="shareChanges">与旁观者共享更改并云端保存</string>
-  <string name="playing">下棋中</string>
+  <string name="playing">正在对局</string>
   <string name="first">首页</string>
   <string name="previous">前一页</string>
   <string name="next">下一页</string>
@@ -77,7 +77,7 @@
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
-  <string name="clearAnnotations">清除注释</string>
+  <string name="clearAnnotations">清除注解</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>

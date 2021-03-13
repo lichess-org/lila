@@ -121,7 +121,7 @@ final class ReportApi(
   def getSuspect(username: String): Fu[Option[Suspect]] =
     userRepo named username dmap2 Suspect.apply
 
-  def autoAltPrintReport(userId: String): Funit =
+  def autoAltPrintReport(userId: User.ID): Funit =
     coll.exists(
       $doc(
         "user"   -> userId,
@@ -144,7 +144,7 @@ final class ReportApi(
         }
     }
 
-  def autoCheatReport(userId: String, text: String): Funit =
+  def autoCheatReport(userId: User.ID, text: String): Funit =
     getSuspect(userId) zip
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
@@ -176,7 +176,7 @@ final class ReportApi(
       case _ => funit
     }
 
-  def autoBotReport(userId: String, referer: Option[String], name: String): Funit =
+  def autoBotReport(userId: User.ID, referer: Option[String], name: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -190,26 +190,32 @@ final class ReportApi(
       case _ => funit
     }
 
-  def maybeAutoPlaybanReport(userId: String): Funit =
+  def maybeAutoPlaybanReport(userId: User.ID): Funit =
     userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
-      playbanApi.bans(ids.toList ::: List(userId)) flatMap { bans =>
-        (bans.values.sum >= 80) ?? {
-          userRepo.byId(userId) zip
-            getLichessReporter zip
-            findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-              case Some(abuser) ~ reporter ~ past if past.isEmpty =>
-                create(
-                  Candidate(
-                    reporter = reporter,
-                    suspect = Suspect(abuser),
-                    reason = Reason.Playbans,
-                    text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
-                  )
-                )
-              case _ => funit
-            }
+      playbanApi
+        .bans(userId :: ids.toList)
+        .map {
+          _ filter { case (_, bans) => bans > 2 }
         }
-      }
+        .flatMap { bans =>
+          (bans.values.sum >= 80) ?? {
+            userRepo.byId(userId) zip
+              getLichessReporter zip
+              findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
+                case Some(abuser) ~ reporter ~ past if past.isEmpty =>
+                  create(
+                    Candidate(
+                      reporter = reporter,
+                      suspect = Suspect(abuser),
+                      reason = Reason.Playbans,
+                      text =
+                        s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+                    )
+                  )
+                case _ => funit
+              }
+          }
+        }
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] =
@@ -306,7 +312,7 @@ final class ReportApi(
       )
       .void
 
-  def autoInsultReport(userId: String, text: String): Funit =
+  def autoInsultReport(userId: User.ID, text: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -321,7 +327,7 @@ final class ReportApi(
       case _ => funit
     }
 
-  def moveToXfiles(id: String): Funit =
+  def moveToXfiles(id: User.ID): Funit =
     coll.update
       .one(
         $id(id),

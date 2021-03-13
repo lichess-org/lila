@@ -393,7 +393,7 @@
   <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="ratedMoreThanInPerf">Rátáil ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rátáilte ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
+  <string name="mustBeInTeam">Caithfear a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú san fhoireann %s</string>
   <string name="backToGame">Fill ar an chluiche</string>
   <string name="siteDescription">Freastalaí fichille saor in aisce. Imir ficheall i gcomhéadan glan. Níl aon fógraí agus ní chaithfear clárú nó plugin a úsáid. Imir ficheall leis an ríomhaire, le cairde nó céilí comhraic randamach.</string>
@@ -425,7 +425,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="thisIsAChessCaptcha">Is CAPCHTA fichille é seo.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an bhord le beart a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
-  <string name="notACheckmate">Ní marbhsháinn é sin</string>
+  <string name="notACheckmate">Ní marbhsháinn í sin</string>
   <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
   <string name="blackCheckmatesInOneMove">Marbhsháinn ag dubh le beart amháin</string>
   <string name="retry">Atriail</string>
@@ -437,7 +437,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">%s cairde ar líne</item>
     <item quantity="other">%s cairde ar líne</item>
   </plurals>
-  <string name="noFriendsOnline">Níl aon cara ar líne</string>
+  <string name="noFriendsOnline">Níl aon chara ar líne</string>
   <string name="findFriends">Aimsigh cairde</string>
   <string name="favoriteOpponents">Céilí comhraic is fearr</string>
   <string name="follow">Lean</string>
@@ -499,7 +499,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="winStreak">Stríoc bua</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
-  <string name="tournamentPairingsAreNowClosed">Níl cluichí á shocrú níos mó.</string>
+  <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
@@ -552,7 +552,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Téigh ar aghaidh chuig an chéad cluiche eile go huathoibríoch i ndiaidh bogadh</string>
   <string name="autoSwitch">Athrú uathoibríoch</string>
   <string name="puzzles">Tomhais</string>
-  <string name="latestUpdates">Nuashonraithe is déanaí</string>
+  <string name="latestUpdates">Nuashonruithe is déanaí</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
@@ -588,7 +588,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="typePrivateNotesHere">Scríobh nótaí príobháideach anseo</string>
   <string name="invalidUsernameOrPassword">Ainm úsáideora nó pasfhocal neamhbhailí</string>
   <string name="incorrectPassword">Pasfhocal mícheart</string>
-  <string name="invalidAuthenticationCode">Cód fíordheimhniú neamhbhailí</string>
+  <string name="invalidAuthenticationCode">Cód fíordheimhnithe neamhbhailí</string>
   <string name="emailMeALink">Seol nasc chugam trí ríomphost</string>
   <string name="currentPassword">Pasfhocal reatha</string>
   <string name="newPassword">Pasfhocal nua</string>
@@ -611,7 +611,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="outsideTheBoard">Lasmuigh den chlár</string>
   <string name="onSlowGames">Ar chluichí malla</string>
   <string name="always">I gcónaí</string>
-  <string name="never">Ná lig riamh</string>
+  <string name="never">Choíche</string>
   <string name="difficultyEasy">Éasca</string>
   <string name="difficultyNormal">Gnách</string>
   <string name="difficultyHard">Deacair</string>
@@ -673,7 +673,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.email_unique">Tá an seoladh ríomhphoist in úsáid cheana féin</string>
   <string name="error.email_different">Seo do sheoladh ríomhphoist cheana féin</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Comhráite láithreach amháin</string>
+  <string name="onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
   <string name="castling">Caisleáil</string>
@@ -692,7 +692,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="watch">Féach</string>
   <string name="videoLibrary">Leabharlann físeáin</string>
   <string name="streamersMenu">Sruthóir</string>
-  <string name="mobileApp">Aip Móibíleach</string>
+  <string name="mobileApp">Aip Mhóibíleach</string>
   <string name="webmasters">Máistir gréasáin</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Maidir le %s</string>
@@ -700,7 +700,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="really">i ndáiríre</string>
   <string name="contribute">Glac páirt</string>
   <string name="termsOfService">Téarmaí Seirbhíse</string>
-  <string name="sourceCode">Cód Foinseach</string>
+  <string name="sourceCode">Cód Foinse</string>
   <string name="simultaneousExhibitions">Taispeántais comhuaineach</string>
   <string name="host">Óstach</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
@@ -734,7 +734,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil srianta ama agus comhathraithe éagsúla</string>
   <string name="tournamentHomeDescription">Imir comortais fichille ag luas tapaigh! Cláraigh do chomórtas oifigiúil sceidealaithe nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Ficheall 960 (Chess960), Rí an Chnoic (King of the Hill), Sáinn faoi thrí (Threecheck), agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan críoch.</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
-  <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
+  <string name="tournamentDoesNotExist">Níl an comórtas seo ann.</string>
   <string name="tournamentMayHaveBeenCanceled">B\'fhéidir gur cuireadh an comórtas seo ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
   <string name="returnToTournamentsHomepage">Fill ar leathanach baile na gcomórtas</string>
   <string name="weeklyPerfTypeRatingDistribution">Dáileadh %s ráta seachtainiúil</string>
@@ -760,19 +760,19 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="readAboutOur">Léigh faoinár %s.</string>
   <string name="networkLagBetweenYouAndLichess">Moill gréasáin idir tú féin agus Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Am le beart a phróiseáil ar fhreastalaí Lichess</string>
-  <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
+  <string name="downloadAnnotated">Íoslódáil leagan anótáilte</string>
   <string name="downloadRaw">Ioslódáil sonraí loma</string>
   <string name="downloadImported">Ioslódáil sonraí iompórtáilte</string>
   <string name="printFriendlyPDF">PDF atá furasta le priontáil</string>
   <string name="crosstable">Trastábla</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrollú thar an gclár freisin chun bogadh sa chluiche.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrolláil thar an gclár freisin chun bogadh sa chluiche.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
   <string name="letOtherPlayersMessageYou">Lig d\'imreoirí eile teachtaireacht a chur chugat</string>
   <string name="shareYourInsightsData">Roinn do thuiscint ar an fhicheall</string>
   <string name="withNobody">Le duine ar bith</string>
   <string name="withFriends">Le cairde</string>
   <string name="withEverybody">Le gach duine</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost: %s cheana féin</string>
   <string name="kidMode">Mód páistí</string>
   <string name="kidModeExplanation">Baineann sé seo le sábháilteacht. I mód na bpáistí, tá gach cumarsáid múchta. Úsáid seo do pháistí agus daltaí scoile, chun iad a chosaint ó úsáideoirí idirlín eile.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I mód na bpáistí, faigheann an lógó Lichess íocón %s, ionas go mbeidh a fhios agat go bhfuil do pháistí sábháilte.</string>
@@ -790,7 +790,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="fullFeatured">Uirlisí iomlána le feiceáil</string>
   <string name="phoneAndTablet">Fón agus táibléad</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clasaiceach</string>
-  <string name="correspondenceChess">Ficheall comhfhreagrais</string>
+  <string name="correspondenceChess">Ficheall chomhfhreagrais</string>
   <string name="onlineAndOfflinePlay">Imirt ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
   <string name="followAndChallengeFriends">Lean agus tabhair dúshlán do chairde</string>
@@ -815,7 +815,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
   <string name="transparent">Trédhearcach</string>
-  <string name="backgroundImageUrl">Íomhá cúlra URL:</string>
+  <string name="backgroundImageUrl">URL íomhá chúlrá:</string>
   <string name="boardGeometry">Céimseata an chláir</string>
   <string name="boardTheme">Téama an chláir</string>
   <string name="boardSize">Méid an chláir</string>
@@ -837,7 +837,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
   <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="error.unknown">Earráid</string>
-  <string name="custom">Saincheap</string>
+  <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">

@@ -95,7 +95,12 @@ final class Env(
             logApi.cheatDetected(userId, game.id) >>
               logApi.countRecentCheatDetected(userId) flatMap { count =>
                 (count >= 3) ?? {
-                  if (game.hasClock) api.autoMark(lila.report.SuspectId(userId), lila.report.ModId.lichess)
+                  if (game.hasClock)
+                    api.autoMark(
+                      lila.report.SuspectId(userId),
+                      lila.report.ModId.lichess,
+                      s"Cheat detected during game, ${count} times"
+                    )
                   else reportApi.autoCheatDetectedReport(userId, count)
                 }
               }
@@ -119,8 +124,10 @@ final class Env(
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(User.lichessId, userId, subject).unit
     },
-    "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId) =>
-      api.autoMark(lila.report.SuspectId(suspectId), lila.report.ModId.lichess).unit
+    "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
+      api
+        .autoMark(lila.report.SuspectId(suspectId), lila.report.ModId.lichess, s"Self report: ${name}")
+        .unit
     },
     "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(mod, user, reason, text).unit

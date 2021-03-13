@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Turnuvanın Kazananları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Özel tanım</string>
+  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">Sadece takım üyelerinin görebileceği metin. Eğer ayarlanırsa, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="help">Yardım:</string>
@@ -579,7 +581,7 @@
   <string name="error.email_unique">Bu e-posta adresi zaten alınmış</string>
   <string name="error.email_different">Şu anda zaten bu e-posta adresini kullanıyorsun</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Sadece mevcut yazışmalar</string>
+  <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>

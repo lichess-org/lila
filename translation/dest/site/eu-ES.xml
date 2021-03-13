@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
+  <string name="descPrivate">Deskribapen pribatua</string>
+  <string name="descPrivateHelp">Taldekideek bakarrik ikusiko duten testua. Ezarrita badago, taldekideei taldearen deskribapenaren ordez agertuko zaie testu hau.</string>
   <string name="no">Ez</string>
   <string name="yes">Bai</string>
   <string name="help">Laguntza:</string>
@@ -579,7 +581,7 @@
   <string name="error.email_unique">Posta hau beste inork erabili du</string>
   <string name="error.email_different">Hau jada bada zure eposta helbidea</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
+  <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>

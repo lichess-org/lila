@@ -157,7 +157,9 @@ final class AssessApi(
         playerAggregateAssessment.action match {
           case AccountAction.Engine | AccountAction.EngineAndBan =>
             userRepo.getTitle(userId).flatMap {
-              case None => modApi.autoMark(SuspectId(userId), ModId.lichess)
+              case None =>
+                modApi
+                  .autoMark(SuspectId(userId), ModId.lichess, playerAggregateAssessment.reportText(3))
               case Some(_) =>
                 fuccess {
                   reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))

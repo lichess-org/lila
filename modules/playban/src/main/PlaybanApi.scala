@@ -11,6 +11,7 @@ import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 final class PlaybanApi(
     coll: Coll,
@@ -180,20 +181,18 @@ final class PlaybanApi(
     }
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
-    coll
-      .find(
-        $inIds(userIds),
-        $doc("b" -> true).some
+    coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
+        Project($doc("bans" -> $doc("$size" -> "$b")))
       )
-      .cursor[Bdoc]()
-      .list()
-      .map {
-        _.flatMap { obj =>
-          obj.getAsOpt[User.ID]("_id") flatMap { id =>
-            obj.getAsOpt[Barr]("b") map { id -> _.size }
-          }
-        }.toMap
-      }
+    } map {
+      _.flatMap { obj =>
+        obj.getAsOpt[User.ID]("_id") flatMap { id =>
+          obj.getAsOpt[Int]("bans") map { id -> _ }
+        }
+      }.toMap
+    }
 
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
