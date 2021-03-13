@@ -22,7 +22,7 @@
   <string name="castlingDescription">Патшаны қорғаулы жерге кіргізіп, тураны шабуылға даярлаңыз.</string>
   <string name="capturingDefender">Қорғаушыны жою</string>
   <string name="capturingDefenderDescription">Бір тасты қорғап тұрған басқа тасты басып алсаңыз, әлгі тас қорғаусыз қалып, оны басып алуға жол ашылады.</string>
-  <string name="crushing">Тас-талқан</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Тас-талқан</string>
   <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (≥ 600 сп)</string>
   <string name="doubleBishopMate">Пілдер маты</string>
   <string name="doubleBishopMateDescription">Қарсылас патшасының бір жағын өз тастары бөгеп тұрғанда, екі піл қатарлас шабуылдайды.</string>

@@ -580,7 +580,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.email_unique">See e-posti aadress on juba võetud</string>
   <string name="error.email_different">See on juba teie e-posti aadress</string>
   <string name="ifRatingIsPlusMinusX">Kui reiting on ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Ainult olemasolevad vestlused</string>
+  <string name="onlyExistingConversations">Ainult olemasolevad vestlused</string>
   <string name="onlyFriends">Ainult sõbrad</string>
   <string name="menu">Menüü</string>
   <string name="castling">Vangerdus</string>

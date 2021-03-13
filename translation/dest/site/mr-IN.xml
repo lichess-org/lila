@@ -579,7 +579,7 @@
   <string name="error.email_unique">हा ईमेल आधीपासून आहे</string>
   <string name="error.email_different">हा आधीपासून तुमचा ईमेल आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
+  <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>

@@ -641,7 +641,7 @@
   <string name="error.email_unique">Emailová adresa je již používaná</string>
   <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Pouze existující konverzace</string>
+  <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>

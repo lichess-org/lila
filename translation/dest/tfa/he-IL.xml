@@ -2,4 +2,5 @@
 <resources>
   <string name="twoFactorAuth">אימות דו-גורמי</string>
   <string name="twoFactorHelp">אימות דו-גורמי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
+  <string name="authenticationCode">קוד אימות</string>
 </resources>

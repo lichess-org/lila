@@ -22,7 +22,7 @@
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
-  <string name="crushing">圧倒</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="doubleBishopMate">ダブル・ビショップのメイト</string>
   <string name="doubleBishopMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>

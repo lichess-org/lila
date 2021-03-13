@@ -3,8 +3,8 @@
   <string name="moveToStart">Wykonaj ruch, aby zacząć</string>
   <string name="puzzlesSolved">liczba rozwiązanych zadań</string>
   <string name="newDailyHighscore">Nowy rekord dnia!</string>
-  <string name="newWeeklyHighscore">Nowy tygodniowy rekord!</string>
-  <string name="newMonthlyHighscore">Nowy miesięczny rekord!</string>
+  <string name="newWeeklyHighscore">Nowy rekord tygodnia!</string>
+  <string name="newMonthlyHighscore">Nowy rekord miesiąca!</string>
   <string name="newAllTimeHighscore">Nowy rekord!</string>
   <string name="previousHighscoreWasX">Poprzedni rekord wynosił %s</string>
   <string name="playAgain">Zagraj ponownie</string>

@@ -8,7 +8,7 @@
   <string name="castlingDescription">o awen e jan lawa sina. o tawa e tomo utala sina tawa ni: ona li ken utala e ijo ante.</string>
   <string name="capturingDefender">o anpa e ijo pi awen ijo</string>
   <string name="capturingDefenderDescription">ijo musi li awen e ijo ante. sina anpa e ona la, ijo ante li awen ala. sina ken anpa e ijo ante lon tenpo tawa kama sina.</string>
-  <string name="crushing">tawa ike pi jan ante</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">tawa ike pi jan ante</string>
   <string name="crushingDescription">jan ante li pali e tawa ike. sina ken lukin e ona la, sina ken pali e tawa ni: ona li wawa e nasin pi ijo musi sina.</string>
   <string name="equality">sama wawa pi nasin ijo</string>
   <string name="equalityDescription">nasin pi ijo musi sina li ike. taso, sina ken sama e ona tawa jan ante.</string>
