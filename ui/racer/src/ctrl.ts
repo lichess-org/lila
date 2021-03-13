@@ -137,7 +137,7 @@ export default class StormCtrl {
     if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
       puzzle.moveIndex++;
       onGoodMove(this.run);
-      this.socketSend('racerMoves', this.run.moves);
+      this.socketSend('racerMoves', this.run.moves - this.run.errors);
       if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
