@@ -12,16 +12,15 @@ export class Boost {
   cars: CarBoost[] = [];
 
   setPlayers = (players: PlayerWithMoves[]) => {
-    const now = getNow();
     if (players.length != this.cars.length) {
-      this.cars = players.map(p => ({ score: p.moves, time: now }));
+      this.cars = players.map(p => ({ score: p.moves, time: 0 }));
     } else {
       this.cars = this.cars.map((car, i) => ({
         score: players[i].moves,
-        time: players[i].moves > car.score ? now : car.time,
+        time: players[i].moves > car.score ? getNow() : car.time,
       }));
     }
   };
 
-  isBoosting = (index: number) => this.cars[index]?.time > getNow() - 1000;
+  isBoosting = (index: number) => this.cars[index]?.score && this.cars[index]?.time > getNow() - 1000;
 }
