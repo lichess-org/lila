@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
-  <string name="waiting">Чекање</string>
+  <string name="waiting">Чека се</string>
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
