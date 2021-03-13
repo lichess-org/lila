@@ -105,7 +105,7 @@
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
-  <string name="evaluationGauge">局面估值条</string>
+  <string name="evaluationGauge">显示局面估值</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
@@ -421,7 +421,7 @@
   <string name="country">国家与地区</string>
   <string name="thankYou">谢谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
-  <string name="inlineNotation">棋谱上的步数代号</string>
+  <string name="inlineNotation">紧凑显示棋谱</string>
   <string name="watchLichessTV">观看 Lichess 直播</string>
   <string name="previouslyOnLichessTV">过去的 Lichess 直播</string>
   <string name="onlinePlayers">在线棋手</string>
