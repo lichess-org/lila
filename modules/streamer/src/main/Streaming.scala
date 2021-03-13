@@ -41,7 +41,7 @@ final private class Streaming(
 
   private def scheduleTick(): Unit = context.system.scheduler.scheduleOnce(15 seconds, self, Tick).unit
 
-  self ! Tick
+  scheduleTick()
 
   def updateStreams: Funit =
     for {
