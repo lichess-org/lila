@@ -94,8 +94,7 @@ object RelayForm {
 
     def cleanUrl: Option[String] =
       syncUrl.filter(validUrl).map { u =>
-        if (u endsWith "/") u drop 1
-        else u
+        u stripSuffix "/"
       }
 
     def gameIds = syncUrl flatMap toGameIds
