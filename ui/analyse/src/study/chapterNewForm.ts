@@ -213,6 +213,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         data.embed = true;
                         data.options = {
                           inlineCastling: true,
+                          orientation: currentChapter.setup.orientation,
                           onChange: ctrl.vm.editorFen,
                         };
                         ctrl.vm.editor = window['LichessEditor'](vnode.elm as HTMLElement, data);
