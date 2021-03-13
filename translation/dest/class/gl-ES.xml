@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
   <string name="features">Funcións</string>
   <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
   <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
@@ -52,7 +53,18 @@ Contrasinal %3$s</string>
 Aquí está a ligazón para acceder.</string>
   <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
   <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Unha invitación pendente</item>
+    <item quantity="other">%s invitacións pendentes</item>
+  </plurals>
+  <string name="noPendingInvitations">Non ten invitacións pendentes</string>
+  <string name="onlyVisibleToTeachers">Só visíbel para os profesores da clase</string>
   <string name="lastActiveDate">Última visita</string>
+  <string name="managed">Supervisada</string>
+  <string name="thisStudentAccountIsManaged">A conta deste estudante está supervisada</string>
+  <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
+  <string name="release">Liberar</string>
+  <string name="releaseTheAccount">Libera a conta para que o estudante poda xestionala de forma autónoma.</string>
   <string name="winrate">Porcentaxe de victorias</string>
   <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
