@@ -67,6 +67,23 @@ Aquí está a ligazón para acceder.</string>
   <string name="releaseTheAccount">Libera a conta para que o estudante poda xestionala de forma autónoma.</string>
   <string name="releaseDesc1">Unha conta liberada non pode volver ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
   <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
+  <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
+  <string name="teachers">Profesores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="other">%s profesores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Estudante</item>
+    <item quantity="other">%s estudantes</item>
+  </plurals>
+  <string name="students">Estudantes</string>
+  <string name="progress">Progreso</string>
+  <string name="noStudents">Non hai aínda estudantes na aula.</string>
+  <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Durante días</string>
+  <string name="timePlaying">Tempo xogado</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Porcentaxe de victorias</string>
   <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
