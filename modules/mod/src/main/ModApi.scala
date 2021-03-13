@@ -40,7 +40,7 @@ final class ModApi(
       }
     }
 
-  def autoMark(suspectId: SuspectId, modId: ModId): Funit =
+  def autoMark(suspectId: SuspectId, modId: ModId, note: String): Funit =
     for {
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)

@@ -65,7 +65,7 @@ final class SelfReport(
                   lila.round.actorApi.round.Cheat(pov.color)
                 )
                 user.ifTrue(name == "cma") foreach { u =>
-                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id), "selfReportMark")
+                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
                 }
               }
               else gameRepo.setBorderAlert(pov).void
