@@ -241,7 +241,7 @@
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">观众：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s排位赛</item>
+    <item quantity="other">%s 排位赛</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s胜</item>
@@ -256,12 +256,12 @@
     <item quantity="other">%s进行中</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
-  <string name="ratingRange">对方积分范围</string>
+  <string name="ratingRange">对方等级分范围</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">添加对方%s秒</item>
   </plurals>
   <string name="thisAccountViolatedTos">该账户违反了Lichess服务条款</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">该棋手伪造积分（作弊）</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">该棋手伪造等级分（作弊）</string>
   <string name="openingExplorerAndTablebase">开局浏览器 &amp; 终局数据库</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">请求悔棋</string>
@@ -284,23 +284,23 @@
   <string name="backToTournament">回到锦标赛主页</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">完成至少 %s 盘计分局</item>
+    <item quantity="other">完成至少 %s 局排位赛</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">完成至少 %1$s 盘计分 %2$s 棋局</item>
+    <item quantity="other">完成至少 %1$s 局 %2$s 排位赛</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">您需要再完成 %1$s 盘计分 %2$s 棋局</item>
+    <item quantity="other">您需要再完成 %1$s 局 %2$s 排位赛</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">您需要再完成 %s 盘计分局</item>
+    <item quantity="other">您需要再完成 %s 局排位赛</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">您的%s积分是暂时的</string>
-  <string name="yourPerfRatingIsTooHigh">您的 %1$s 积分 (%2$s) 过高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 积分 (%2$s) 过高</string>
-  <string name="yourPerfRatingIsTooLow">您的 %1$s 积分 (%2$s) 过低</string>
-  <string name="ratedMoreThanInPerf">%2$s积分必须至少%1$s</string>
-  <string name="ratedLessThanInPerf">%2$s积分不能超过%1$s</string>
+  <string name="yourPerfRatingIsProvisional">您的 %s 等级分是暂时的</string>
+  <string name="yourPerfRatingIsTooHigh">您的 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 等级分 (%2$s) 过高</string>
+  <string name="yourPerfRatingIsTooLow">您的 %1$s 等级分 (%2$s) 过低</string>
+  <string name="ratedMoreThanInPerf">%2$s 等级分必须不低于 %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s 等级分不能超过 %1$s</string>
   <string name="mustBeInTeam">您必须属于 %s 队</string>
   <string name="youAreNotInTeam">您不属于 %s 队</string>
   <string name="backToGame">返回棋局</string>
@@ -308,7 +308,7 @@
   <string name="xJoinedTeamY">%1$s加入%2$s队</string>
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
   <string name="xStartedStreaming">%s 开始直播</string>
-  <string name="averageElo">平均积分</string>
+  <string name="averageElo">平均等级分</string>
   <string name="location">位置</string>
   <string name="filterGames">筛选棋局</string>
   <string name="reset">重置</string>
@@ -427,7 +427,7 @@
   <string name="onlinePlayers">在线棋手</string>
   <string name="activeToday">本日活跃棋手</string>
   <string name="activePlayers">活跃棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是积分赛，但是不计时！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是排位赛，但是不计时！</string>
   <string name="success">解题成功</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s场对局进行中</item>
@@ -549,7 +549,7 @@
   <string name="error.email_acceptable">该电子邮件地址不被接受。</string>
   <string name="error.email_unique">该电子邮件地址已被使用。</string>
   <string name="error.email_different">这是你当前的电子邮件地址</string>
-  <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
+  <string name="ifRatingIsPlusMinusX">允许等级分范围±%s</string>
   <string name="onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="menu">菜单</string>
@@ -610,17 +610,17 @@
   <string name="tournamentDoesNotExist">该锦标赛不存在。</string>
   <string name="tournamentMayHaveBeenCanceled">该锦标赛可能已被取消，假如所有的选手在比赛开始之前退赛。</string>
   <string name="returnToTournamentsHomepage">返回锦标赛主页</string>
-  <string name="weeklyPerfTypeRatingDistribution">本月%s的积分分布</string>
+  <string name="weeklyPerfTypeRatingDistribution">本月%s的等级分分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">本周有%1$s 位棋手下%2$s</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">您的%1$s积分是%2$s分。</string>
+  <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的 %s 等级分。</string>
   <string name="yourRating">你的排名</string>
   <string name="cumulative">累计</string>
-  <string name="glicko2Rating">Glicko-2 积分</string>
+  <string name="glicko2Rating">Glicko-2 等级分</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
@@ -704,7 +704,7 @@
   <string name="error.unknown">错误</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
-  <string name="perfRatingX">积分：%s</string>
+  <string name="perfRatingX">等级分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>
   </plurals>
