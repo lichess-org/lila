@@ -703,7 +703,7 @@
   <string name="error.email_unique">هذا البريد الإلكتروني مستعمل من قبل</string>
   <string name="error.email_different">هذا بريدك الإلكتروني بالفعل</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">المحادثات الحالية فقط</string>
+  <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>

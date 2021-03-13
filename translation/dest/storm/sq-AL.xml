@@ -5,12 +5,16 @@
   <string name="newDailyHighscore">Rekord i ri ditor!</string>
   <string name="newWeeklyHighscore">Rekord i ri javor!</string>
   <string name="newMonthlyHighscore">Rekord i ri mujor!</string>
-  <string name="newAllTimeHighscore">Rekord i ri i pergjithshëm!</string>
+  <string name="newAllTimeHighscore">Rekord i ri i përgjithshëm!</string>
   <string name="previousHighscoreWasX">Rekordi i mëhershëm ishte %s</string>
   <string name="playAgain">Luaj përsëri</string>
   <plurals name="xRuns">
     <item quantity="one">1 raund</item>
     <item quantity="other">%s raunde</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Luajti një raund nga %2$s</item>
+    <item quantity="other">Luajti %1$s raunde nga %2$s</item>
   </plurals>
   <string name="highscoreX">Rekordi: %s</string>
   <string name="score">Rezultati</string>

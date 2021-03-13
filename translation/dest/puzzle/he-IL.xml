@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">פאזלים</string>
+  <string name="puzzleThemes">נושאי פזלים</string>
+  <string name="recommended">מומלץ</string>
+  <string name="phases">שלבים</string>
+  <string name="advanced">מתקדם</string>
+  <string name="lengths">אורך</string>
+  <string name="mates">מט</string>
+  <string name="goals">מטרות</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">מקור</string>
+  <string name="specialMoves">צעדים מיוחדים</string>
+  <string name="didYouLikeThisPuzzle">האם אהבת את הפאזל הזה?</string>
+  <string name="voteToLoadNextOne">תדרג לקבלת הפאזל הבא!</string>
+  <string name="yourPuzzleRatingX">דירוג הפאזלים שלך: %s</string>
+  <string name="findTheBestMoveForWhite">מצא את המהלך הטוב ביותר ללבן.</string>
+  <string name="findTheBestMoveForBlack">מצא את המהלך הטוב ביותר לשחור.</string>
+  <string name="toGetPersonalizedPuzzles">לקבל פאזל מותאם אישית:</string>
+  <string name="puzzleId">פאזל %s</string>
+  <string name="puzzleOfTheDay">הפאזל היומי</string>
+  <string name="clickToSolve">לחץ כדי לפתור</string>
+  <string name="goodMove">מהלך טוב</string>
+  <string name="bestMove">המהלך הטוב ביותר!</string>
+  <string name="keepGoing">המשך…</string>
+  <string name="puzzleSuccess">הצלחה!</string>
+  <string name="puzzleComplete">פאזל הושלם!</string>
+  <string name="notTheMove">זה לא המהלך!</string>
+  <string name="trySomethingElse">נסה משהו אחר.</string>
+  <string name="ratingX">דירוג: %s</string>
+  <string name="hidden">מוסתר</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">שוחק %s פעמים</item>
+    <item quantity="two">שוחק %s פעמים</item>
+    <item quantity="many">שוחק %s פעמים</item>
+    <item quantity="other">שוחק %s פעמים</item>
+  </plurals>
+  <string name="continueTraining">המשך להתאמן</string>
+  <string name="difficultyLevel">רמת קושי</string>
+  <string name="normal">רגיל</string>
+  <string name="easier">קל יותר</string>
+  <string name="easiest">הקל ביותר</string>
+  <string name="harder">קשה יותר</string>
+  <string name="hardest">הקשה ביותר</string>
+  <string name="example">דוגמא</string>
+</resources>

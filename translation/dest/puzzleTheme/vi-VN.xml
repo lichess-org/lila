@@ -22,7 +22,7 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn, và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ bây giờ không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
-  <string name="crushing">Áp đảo</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để chiếm được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
   <string name="doubleBishopMate">Chiếu hết bằng đôi Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một vị vua bị cản trở bởi quân cờ.</string>

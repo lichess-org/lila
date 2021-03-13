@@ -9,6 +9,7 @@
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
+  <string name="strength">Nivel</string>
   <string name="toggleTheChat">(Des)activar o chat</string>
   <string name="toggleSound">(Des)activar son</string>
   <string name="chat">Chat</string>
@@ -468,6 +469,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Descrición privada</string>
+  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">Este texto só poden velo os membros do equipo. O texto que escribas aquí reemplazará a descrición pública para os membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
@@ -510,6 +513,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clockInitialTime">Tempo inicial do reloxo</string>
   <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
+  <string name="privacyPolicy">Política de privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
   <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
   <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores che conviden a estudos</string>
@@ -578,6 +582,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.email_unique">Este enderezo de correo xa está en uso</string>
   <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
+  <string name="onlyExistingConversations">Só conversas existentes</string>
   <string name="onlyFriends">Só amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
@@ -655,6 +660,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa outras carpetas onde poda estar, coma a de spam ou correo basura.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
+  <string name="readAboutOur">Le acerca a nosa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movimiento no servidor de lichess</string>
   <string name="downloadAnnotated">Descarga con notación</string>

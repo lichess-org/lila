@@ -527,6 +527,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tournamentWinners">Turnyrų nugalėtojai</string>
   <string name="name">Pavadinimas</string>
   <string name="description">Aprašymas</string>
+  <string name="descPrivate">Privatus aprašymas</string>
+  <string name="descPrivateHelp">Tekstas, kurį gali matyti tik komandos nariai. Jei nustatytas, komandos nariams pakeičia viešą aprašymą.</string>
   <string name="no">Ne</string>
   <string name="yes">Taip</string>
   <string name="help">Pagalba:</string>
@@ -642,7 +644,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="error.email_unique">Šis el.pašto adresas yra užimtas</string>
   <string name="error.email_different">Tai yra dabartinis jūsų el. pašto adresas</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Tik esami pokalbiai</string>
+  <string name="onlyExistingConversations">Tik esami pokalbiai</string>
   <string name="onlyFriends">Tik draugai</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rokiruotė</string>

@@ -15,7 +15,7 @@
   <string name="castlingDescription">Защити царя си, и приготви топа си за атака.</string>
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
-  <string name="crushing">Погром</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Погром</string>
   <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
   <string name="doubleBishopMate">Мат с два офицера</string>
   <string name="doubleBishopMateDescription">Два офицера на съседни диагонали матират цар обкръжен от собствените си фигури.</string>

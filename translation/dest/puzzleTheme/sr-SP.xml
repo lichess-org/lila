@@ -41,10 +41,15 @@
   <string name="discoveredAttack">Откривени напад</string>
   <string name="discoveredAttackDescription">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
   <string name="doubleCheck">Двоструки шах</string>
+  <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>
   <string name="endgameDescription">Тактика у току последње фазе партије.</string>
-  <string name="exposedKing">Откривен краљ</string>
-  <string name="fork">Маказе</string>
+  <string name="enPassantDescription">Тактика која укључује ан пасан правило, где пешак може однети противничког пешака који га је заобишао користећи његов иницијални потез од два поља.</string>
+  <string name="exposedKing">Изложен краљ</string>
+  <string name="exposedKingDescription">Тактика која укључује краља са малим бројем бранилаца око њега, често доводи до мата.</string>
+  <string name="fork">Виљушка</string>
+  <string name="forkDescription">Потез где померена фигура напада две противничке фигуре од једном.</string>
+  <string name="hangingPiece">Висећа фигура</string>
   <string name="hookMate">Кука-мат</string>
   <string name="interference">Сметња</string>
   <string name="knightEndgame">Скакачка завршница</string>

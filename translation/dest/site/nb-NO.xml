@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Turneringsvinnere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Privat beskrivelse</string>
+  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">Tekst som lagmedlemmene ser i stedet for den offentlige beskrivelsen.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjelp:</string>
@@ -579,7 +581,7 @@
   <string name="error.email_unique">Denne e-postadressen er allerede registrert</string>
   <string name="error.email_different">Dette er allerede mailadressen din</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Bare eksisterende samtaler</string>
+  <string name="onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>

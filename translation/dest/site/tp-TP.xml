@@ -469,6 +469,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
+  <string name="descPrivate">sitelen sona pi jan kulupu</string>
+  <string name="descPrivateHelp">jan pi kulupu ni taso li ken lukin e sitelen ni. ona li lon la, ona li weka e sitelen sona pi jan ale.</string>
   <string name="no">ala</string>
   <string name="yes">lon</string>
   <string name="help">o pona</string>
@@ -580,7 +582,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="error.email_unique">jan ante li kepeken e poki e-mail ni</string>
   <string name="error.email_different">nimi nasin e-mail ni li ante ala</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">toki pi tenpo ni taso</string>
+  <string name="onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
   <string name="castling">tawa pi tomo utala en lawa mije lon tenpo sama</string>

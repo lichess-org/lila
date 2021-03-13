@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
+  <string name="descPrivate">Descrição privada</string>
+  <string name="descPrivateHelp">Texto que apenas os membros da equipe verão. Se definido, substitui a descrição pública para os membros da equipe.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="help">Ajuda:</string>
@@ -579,7 +581,7 @@
   <string name="error.email_unique">Este endereço de email já existe</string>
   <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Apenas conversas iniciadas</string>
+  <string name="onlyExistingConversations">Apenas conversas iniciadas</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
