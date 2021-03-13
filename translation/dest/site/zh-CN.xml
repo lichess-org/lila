@@ -105,7 +105,7 @@
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
-  <string name="evaluationGauge">估值函数表</string>
+  <string name="evaluationGauge">局面估值条</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
@@ -278,7 +278,7 @@
     <item quantity="other">%s锦标赛积分</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">%s研究</item>
+    <item quantity="other">%s 研讨</item>
   </plurals>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">回到锦标赛主页</string>
@@ -319,7 +319,7 @@
   <string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
   <string name="fromPosition">自定义局面</string>
   <string name="continueFromHere">从此处继续下棋</string>
-  <string name="toStudy">研究</string>
+  <string name="toStudy">研讨</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
   <plurals name="nbImportedGames">
@@ -551,7 +551,7 @@
   <string name="error.email_different">这是你当前的电子邮件地址</string>
   <string name="ifRatingIsPlusMinusX">允许等级分范围±%s</string>
   <string name="onlyExistingConversations">仅现有的对话</string>
-  <string name="onlyFriends">只允许朋友</string>
+  <string name="onlyFriends">仅好友</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
   <string name="whiteCastlingKingside">白方 O-O</string>
@@ -670,7 +670,7 @@
   <string name="xHostsY">%1$s 主持 %2$s</string>
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s点赞%2$s</string>
-  <string name="xCreatesStudyY">%1$s创建研究%2$s</string>
+  <string name="xCreatesStudyY">%1$s创建研讨%2$s</string>
   <string name="quickPairing">快速匹配</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
