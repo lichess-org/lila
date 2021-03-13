@@ -2,7 +2,7 @@
 <resources>
   <string name="challenges">Thách đấu</string>
   <string name="challengeToPlay">Yêu cầu chơi</string>
-  <string name="challengeDeclined">Thử thách đấu bị từ chối</string>
+  <string name="challengeDeclined">Lời thách đấu bị từ chối</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
   <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
   <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
