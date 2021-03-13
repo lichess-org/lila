@@ -24,6 +24,7 @@ final class Env(
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
     mode: play.api.Mode
 ) {
 

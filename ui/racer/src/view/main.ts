@@ -35,7 +35,11 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
         return ctrl.run.endAt
           ? [
               playerScore(ctrl.run),
-              h('div.racer__end', [h('h2', 'Your time is up!'), h('div.race__end__players', playersInTheRace(ctrl))]),
+              h('div.racer__end', [
+                h('h2', 'Your time is up!'),
+                h('div.race__end__players', playersInTheRace(ctrl)),
+                newRaceButton('.button-empty'),
+              ]),
               comboZone(ctrl),
             ]
           : [playerScore(ctrl.run), renderClock(ctrl.run, ctrl.endNow), comboZone(ctrl)];
@@ -48,10 +52,10 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       return ctrl.isPlayer()
         ? [
             playerScore(ctrl.run),
-            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), newRaceButton()]),
+            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), rematchButton(ctrl)]),
             comboZone(ctrl),
           ]
-        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), newRaceButton()]), comboZone(ctrl)];
+        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), rematchButton(ctrl)]), comboZone(ctrl)];
   }
 };
 
@@ -115,9 +119,18 @@ const yourRank = (ctrl: RacerCtrl) =>
 
 const newRaceButton = (cls: string = '') =>
   h(
-    `a.racer__new-race.button${cls}`,
+    `a.racer__new-race.button.button-navaway${cls}`,
     {
       attrs: { href: '/racer' },
     },
     'New race'
+  );
+
+const rematchButton = (ctrl: RacerCtrl) =>
+  h(
+    `a.racer__rematch.button.button-fat.button-navaway`,
+    {
+      attrs: { href: `/racer/${ctrl.race.id}/rematch` },
+    },
+    'Join rematch'
   );

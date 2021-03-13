@@ -43,6 +43,17 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       }
     }
 
+  def rematch(id: String) =
+    WithPlayerId { implicit ctx => playerId =>
+      env.racer.api.get(RacerRace.Id(id)) match {
+        case None => Redirect(routes.Racer.home).fuccess
+        case Some(race) =>
+          env.racer.api.rematch(race, playerId) map { rematchId =>
+            Redirect(routes.Racer.show(rematchId.value))
+          }
+      }
+    }
+
   private def WithPlayerId(f: Context => RacerPlayer.Id => Fu[Result]): Action[Unit] =
     Open { implicit ctx =>
       NoBot {

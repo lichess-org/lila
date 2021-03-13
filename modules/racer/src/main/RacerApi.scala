@@ -12,7 +12,8 @@ import lila.storm.StormSelector
 import lila.user.User
 
 final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: CacheApi)(implicit
-    ec: ExecutionContext
+    ec: ExecutionContext,
+    system: akka.actor.ActorSystem
 ) {
 
   import RacerRace.Id
@@ -39,6 +40,27 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
       store.put(race.id, race)
       race
     }
+
+  private val rematchQueue =
+    new lila.hub.DuctSequencer(
+      maxSize = 32,
+      timeout = 20 seconds,
+      name = "racer.rematch"
+    )
+
+  def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match {
+    case Some(found) if found.finished => rematch(found, player)
+    case Some(found) =>
+      join(found.id, player)
+      fuccess(found.id)
+    case None =>
+      rematchQueue {
+        create(player) map { rematch =>
+          save(race.copy(rematch = rematch.id.some))
+          rematch.id
+        }
+      }
+  }
 
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
     get(id).flatMap(_ join player) foreach saveAndPublish

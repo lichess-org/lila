@@ -12,7 +12,8 @@ case class RacerRace(
     players: List[RacerPlayer],
     puzzles: List[StormPuzzle],
     createdAt: DateTime,
-    startsAt: Option[DateTime]
+    startsAt: Option[DateTime],
+    rematch: Option[RacerRace.Id]
 ) {
 
   def id = _id
@@ -70,6 +71,7 @@ object RacerRace {
     ),
     puzzles = puzzles,
     createdAt = DateTime.now,
-    startsAt = none
+    startsAt = none,
+    rematch = none
   )
 }
