@@ -2,9 +2,9 @@
 <resources>
   <string name="moveToStart">Đi quân để bắt đầu</string>
   <string name="puzzlesSolved">thế cờ đã giải</string>
-  <string name="newDailyHighscore">Điểm cao mới hàng ngày!</string>
-  <string name="newWeeklyHighscore">Điểm cao mới hàng tuần!</string>
-  <string name="newMonthlyHighscore">Điểm cao mới hàng tháng!</string>
+  <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
+  <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
+  <string name="newMonthlyHighscore">Điểm cao hàng tháng mới!</string>
   <string name="newAllTimeHighscore">Điểm cao mới!</string>
   <string name="previousHighscoreWasX">Điểm cao trước đây là %s</string>
   <string name="playAgain">Chơi lại</string>
@@ -23,7 +23,7 @@
   <string name="timePerMove">Thời gian trên mỗi nước đi</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Giải được cao nhất</string>
   <string name="puzzlesPlayed">Câu đố đã chơi</string>
-  <string name="newRun">Chơi mới (phím nhanh: Dấu cách)</string>
+  <string name="newRun">Chơi lại (Cách)</string>
   <string name="endRun">Kết thúc (phím nhanh: Enter)</string>
   <string name="highscores">Điểm cao</string>
   <string name="viewBestRuns">Xem các lần chơi tốt nhất</string>
