@@ -314,30 +314,47 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance),
       },
     },
-    [...Array(multiPv).keys()]
-      .map(function (i) {
-        if (!pvs[i]) return h('div.pv');
-        return h(
-          'div.pv',
-          threat
-            ? {}
-            : {
-                attrs: { 'data-uci': pvs[i].moves[0] },
-              },
-          [
-            multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
-            ...pos.unwrap(
-              pos => renderPv(pos.clone(), pvs[i].moves.slice(0, 12)),
-              _ => ['--']
-            ),
-          ]
-        );
-      })
-      .concat([renderPvBoard(ctrl) as VNode])
+    [
+      ...[...Array(multiPv).keys()].map(i => renderPv(threat, multiPv, pvs[i], pos.isOk ? pos.value : undefined)),
+      renderPvBoard(ctrl),
+    ]
   );
 }
 
-function renderPv(pos: Position, pv: Uci[]): VNode[] {
+const MAX_NUM_MOVES = 16;
+
+function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Position): VNode {
+  const data: any = {};
+  const children: VNode[] = [renderPvWrapToggle()];
+  if (pv) {
+    if (!threat) {
+      data.attrs = { 'data-uci': pv.moves[0] };
+    }
+    if (multiPv > 1) {
+      children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+    }
+    if (pos) {
+      children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
+    }
+  }
+  return h('div.pv.pv--nowrap', data, children);
+}
+
+function renderPvWrapToggle(): VNode {
+  return h('span.pv-wrap-toggle', {
+    hook: {
+      insert: (vnode: VNode) => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('mousedown', (e: MouseEvent) => {
+          e.stopPropagation();
+          $(el).closest('.pv').toggleClass('pv--nowrap');
+        });
+      },
+    },
+  });
+}
+
+function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
   const vnodes: VNode[] = [];
   let key = makeBoardFen(pos.board);
   for (let i = 0; i < pv.length; i++) {
