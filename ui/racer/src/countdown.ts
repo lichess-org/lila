@@ -10,21 +10,23 @@ export class Countdown {
 
   // returns updated startsAt
   start = (startsIn?: number): Date | undefined => {
-    if (startsIn && !this.clock.started()) {
+    if (startsIn) {
       const startsAt = new Date(Date.now() + startsIn);
-      const countdown = () => {
-        const diff = startsAt.getTime() - Date.now();
-        if (diff > 0) {
-          this.playOnce(Math.ceil(diff / 1000));
-          setTimeout(countdown, (diff % 1000) + 50);
-        } else {
-          this.playOnce(0);
-          this.clock.start();
-          this.resetGround();
-        }
-        this.redraw();
-      };
-      countdown();
+      if (!this.clock.started()) {
+        const countdown = () => {
+          const diff = startsAt.getTime() - Date.now();
+          if (diff > 0) {
+            this.playOnce(Math.ceil(diff / 1000));
+            setTimeout(countdown, (diff % 1000) + 50);
+          } else {
+            this.playOnce(0);
+            this.clock.start();
+            this.resetGround();
+          }
+          this.redraw();
+        };
+        countdown();
+      }
       return startsAt;
     }
   };

@@ -11,7 +11,7 @@ import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Promotion, Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
-import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, Status, WithGround } from './interfaces';
+import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { Countdown } from './countdown';
 
@@ -55,6 +55,7 @@ export default class StormCtrl {
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     setTimeout(() => {
       this.vm.startsAt = this.countdown.start(opts.data.startsIn);
+      this.redraw();
     });
     // this.simulate();
     window.addEventListener('beforeunload', () => {
@@ -77,13 +78,11 @@ export default class StormCtrl {
 
   raceFull = () => this.data.players.length >= 10;
 
-  status = (): Status =>
-    this.run.endAt
+  status = (): RaceStatus =>
+    this.vm.startsAt && this.vm.startsAt < new Date()
       ? this.data.players.some(p => !p.end)
-        ? 'end'
+        ? 'racing'
         : 'post'
-      : this.vm.startsAt && this.vm.startsAt < new Date()
-      ? 'racing'
       : 'pre';
 
   isRacing = () => this.status() == 'racing';
@@ -201,7 +200,7 @@ export default class StormCtrl {
         moves: 0,
       });
     setInterval(() => {
-      if (this.isRacing()) this.data.players[Math.floor(Math.random() * 10)].moves++;
+      if (true || this.isRacing()) this.data.players[Math.floor(Math.random() * 10)].moves++;
       this.redraw();
     }, 150);
   };

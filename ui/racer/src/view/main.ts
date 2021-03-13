@@ -7,9 +7,10 @@ import { h } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
+import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
 import { VNode } from 'snabbdom/vnode';
+import { Run } from 'puz/interfaces';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(
@@ -17,7 +18,7 @@ export default function (ctrl: RacerCtrl): VNode {
     {
       class: {
         ...playModifiers(ctrl.run),
-        'racer--ongoing': ctrl.isRacing(),
+        [`racer--${ctrl.status()}`]: true,
       },
     },
     renderPlay(ctrl)
@@ -65,6 +66,9 @@ const renderPlay = (ctrl: RacerCtrl): VNode[] => [
         ]),
       ]),
 ];
+
+const renderSolved = (run: Run): VNode =>
+  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', run.moves - run.errors)]);
 
 const renderCountdown = (seconds: number) =>
   h('div.racer__countdown', [
@@ -120,9 +124,8 @@ const renderSideBody = (ctrl: RacerCtrl) => {
     case 'pre':
       return ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl);
     case 'racing':
+      if (ctrl.isPlayer() && ctrl.run.endAt) return renderEnd(ctrl);
       return renderClock(ctrl.run, ctrl.endNow);
-    case 'end':
-      return renderEnd(ctrl);
     case 'post':
       return renderPost(ctrl);
   }

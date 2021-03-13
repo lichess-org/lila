@@ -29,14 +29,14 @@ $c-bg-position-y: 2px;
   &::before {
     content: '';
     z-index: 0;
-    width: 120%;
+    width: 130%;
     height: 100%;
     background-image: url(../images/racer/road1.jpg);
     background-repeat: repeat;
     background-position-y: 15px;
-    // .racer--ongoing & {
-    animation: road-scroll 1s linear infinite;
-    animation-fill-mode: both;
+    .racer--racing & {
+      animation: road-scroll 1s linear infinite;
+    }
   }
 
   @keyframes road-scroll {
@@ -49,21 +49,40 @@ $c-bg-position-y: 2px;
   }
 
   &__tracks {
-    padding: 22px 0 15px 10px;
+    padding: 15px 0 15px 10px;
     width: 100%;
   }
 
   &__track {
+    position: relative;
     height: $track-height;
     z-index: 1;
-    // border-bottom: 2px solid $c-border;
-    margin-right: 20ch;
+    margin-right: 140px;
+  }
+
+  &__score {
+    @extend %flex-center;
+    font-family: 'storm';
+    font-size: 20px;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: -140px;
+    color: #bbb;
+    width: 4ch;
+    padding-right: 1ch;
+    padding-top: 0.3em;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    .racer__race__track--first & {
+      color: $c-brag;
+    }
   }
 
   &__player {
     @extend %flex-center-nowrap;
 
-    flex: 0 0 auto;
+    height: 100%;
     transition: transform 2s;
 
     &__name {
@@ -81,10 +100,11 @@ $c-bg-position-y: 2px;
       animation: lightSpeedInLeft 0.8s ease-out;
     }
 
-    &--me {
-      .user-link,
-      anonymous {
-        color: #ddd;
+    .user-link,
+    anonymous {
+      color: #ddd;
+      .racer__race__track--me & {
+        color: #efab3e;
       }
     }
   }

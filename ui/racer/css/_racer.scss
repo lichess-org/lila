@@ -41,4 +41,8 @@
       margin-top: 2em;
     }
   }
+
+  .puz-side__top::before {
+    background-image: img-url('racer/checkered-flag.svg');
+  }
 }
