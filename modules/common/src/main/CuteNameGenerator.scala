@@ -1011,7 +1011,6 @@ object CuteNameGenerator {
       "Sound",
       "Spacious",
       "Spangly",
-      "Spanking",
       "Sparkly",
       "Special",
       "Specular",
