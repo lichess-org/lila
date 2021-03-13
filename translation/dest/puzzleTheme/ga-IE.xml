@@ -22,7 +22,7 @@
   <string name="castlingDescription">Cuir an rí i bhfolach, agus scaoil an caiseal le haghaidh ionsaí.</string>
   <string name="capturingDefender">Marú an cosantóir</string>
   <string name="capturingDefenderDescription">Bain amach píosa atá ríthábhachtach do cosaint píosa eile, ag ceadaigh an píosa atá anois gan chosaint a mharú an sa chéad bheart ina dhiaidh.</string>
-  <string name="crushing">Tubaisteach</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Tubaisteach</string>
   <string name="crushingDescription">Féach ar earráid an chéile comhraic chun buntáiste cumhachtach a fháil. (meastóireacht ≥ 600cp)</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
   <string name="doubleBishopMateDescription">Dhá ionsaitheoir easpig ar trasnáin cóngarach dá chéile marbhsháinn ar rí ina bhfuil píosaí cairdiúla ag cuir bac air.</string>

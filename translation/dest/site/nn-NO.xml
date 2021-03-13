@@ -469,6 +469,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
+  <string name="descPrivate">Privat omtale</string>
+  <string name="descPrivateHelp">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjelp:</string>
@@ -583,7 +585,7 @@ i %3$s</string>
   <string name="error.email_unique">Denne epostadressa er allereie i bruk</string>
   <string name="error.email_different">Dette er allereie mailadressen din</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Berre eksisterande samtalar</string>
+  <string name="onlyExistingConversations">Berre eksisterande samtalar</string>
   <string name="onlyFriends">Berre vener</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>

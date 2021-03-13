@@ -5,6 +5,6 @@
   <string name="closingIsDefinitive">הסגירה היא סופית. אין דרך חזרה. האם אתה בטוח?</string>
   <string name="cantOpenSimilarAccount">אתה תהיה מורשה לפתוח חשבון חדש עם אותו השם, אפילו אם המקרה שונה.</string>
   <string name="changedMindDoNotCloseAccount">שיניתי את דעתי, אל תסגרו את החשבון שלי</string>
-  <string name="closeAccountExplanation">האם אתה בטוח שאתה רוצה לסגור את חשבונך? סגירת חשבונך היא החלטה סופית. אתה לעולם לא תוכל להתחבר לחשבון הזה שוב לעולם.</string>
+  <string name="closeAccountExplanation">האם אכן ברצונך לסגור את חשבונך? סגירת חשבונך היא החלטה סופית. לעולם לא יהיה אפשר להתחבר לחשבון הזה שוב.</string>
   <string name="thisAccountIsClosed">החשבון הזה סגור.</string>
 </resources>

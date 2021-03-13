@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">你执白棋</string>
   <string name="youPlayTheBlackPieces">你执黑棋</string>
   <string name="itsYourTurn">轮到你了！</string>
-  <string name="kingInTheCenter">国王在中间</string>
+  <string name="kingInTheCenter">王占中</string>
   <string name="threeChecks">三次将军</string>
   <string name="raceFinished">比赛结束</string>
   <string name="variantEnding">变种结束</string>
@@ -111,12 +111,12 @@
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的电脑发热</string>
-  <string name="blunder">漏着</string>
-  <string name="blunders">漏着</string>
+  <string name="blunder">失策</string>
+  <string name="blunders">失策</string>
   <string name="mistake">错着</string>
   <string name="mistakes">错着</string>
-  <string name="inaccuracy">不精确</string>
-  <string name="inaccuracies">轻微失误</string>
+  <string name="inaccuracy">失准</string>
+  <string name="inaccuracies">失准</string>
   <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
   <string name="threefoldRepetition">三次重复局面</string>
@@ -434,11 +434,13 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
-  <string name="puzzles">训练题</string>
+  <string name="puzzles">谜题</string>
   <string name="latestUpdates">最近更新</string>
   <string name="tournamentWinners">锦标赛赢家</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">内部简介</string>
+  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">仅团队成员可见，设置后将覆盖公开简介为团队成员展示。</string>
   <string name="no">否</string>
   <string name="yes">是</string>
   <string name="help">帮助：</string>
@@ -548,7 +550,7 @@
   <string name="error.email_unique">该电子邮件地址已被使用。</string>
   <string name="error.email_different">这是你当前的电子邮件地址</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">仅现有的对话</string>
+  <string name="onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>

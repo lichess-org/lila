@@ -22,7 +22,7 @@
   <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
   <string name="capturingDefender">A védő leütése</string>
   <string name="capturingDefenderDescription">Egy olyan figura leütése, amelyik elengedhetetlen egy másik védelméhez, így a védtelen figura a következő lépésben szabadon levehető.</string>
-  <string name="crushing">Megsemmisítés</string>
+  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
   <string name="doubleBishopMate">Futópár matt</string>
   <string name="doubleBishopMateDescription">A két futó szomszédos átlókon ad mattot a saját figurája által akadályozott királynak.</string>

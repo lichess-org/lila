@@ -936,6 +936,7 @@ object CuteNameGenerator {
       "Rousing",
       "Rugged",
       "Ruling",
+      "Running",
       "Sacred",
       "Safe",
       "Sage",

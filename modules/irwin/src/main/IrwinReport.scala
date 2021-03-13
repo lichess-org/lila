@@ -14,6 +14,10 @@ case class IrwinReport(
 ) {
 
   def suspectId = SuspectId(_id)
+
+  def note: String = games.sortBy(-_.activation).map { g =>
+    s"#${g.gameId} = ${g.activation}"
+  } mkString ", "
 }
 
 object IrwinReport {

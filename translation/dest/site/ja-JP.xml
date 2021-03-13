@@ -440,6 +440,8 @@
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
+  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">非公開説明文</string>
+  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
   <string name="help">ヘルプ：</string>
@@ -549,7 +551,7 @@
   <string name="error.email_unique">このメールアドレスはすでに使用されています</string>
   <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">すでにある会話のみ</string>
+  <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>

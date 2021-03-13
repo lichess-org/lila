@@ -498,6 +498,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
+  <string name="descPrivate">Privatni opis</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
@@ -611,7 +612,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="error.email_unique">Ova e-mail adresa je već iskorištena</string>
   <string name="error.email_different">Već koristite ovu e-mail adresu</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Samo već postojeći razgovori</string>
+  <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
   <string name="castling">Rokada</string>

@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
+  <string name="descPrivate">Interne beschrijving</string>
+  <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
@@ -579,7 +581,7 @@
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
   <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Alleen bestaande gesprekken</string>
+  <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokeren</string>

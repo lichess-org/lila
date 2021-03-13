@@ -122,6 +122,7 @@
     <item quantity="many">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
     <item quantity="other">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
   </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">حائز على تصنيف #%1$s في %2$s</string>
   <string name="signedUp">إنشيء حساب ليتشيس جديد</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">إنضم ل %s فريق</item>

@@ -579,7 +579,7 @@
   <string name="error.email_unique">Kjo adresë email është përdorur</string>
   <string name="error.email_different">Kjo eshte tashme adresa juaj e emailit</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
-  <string name="onlyExistingConversations" comment="One of the options for messaging privacy settings (Let other players message you: Only existing conversations / Only friends / Always)&#10;&#10;onlyExistingConversations">Vetëm bisedat ekzistuese</string>
+  <string name="onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm miqtë</string>
   <string name="menu">Menu</string>
   <string name="castling">Rrokada</string>
