@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="lichessClasses">Clases</string>
   <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
   <string name="features">Funcións</string>
   <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
@@ -88,4 +88,11 @@ Aquí está a ligazón para acceder.</string>
   <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
+  <string name="notifyAllStudents">Notificar todos os estudantes</string>
+  <string name="nothingHere">Nada aquí polo de agora.</string>
+  <string name="newsEdit1">Todas as novidades sobre a clase nun único campo.</string>
+  <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
+  <string name="newsEdit3">Separa as novas con ---
+Amosará unha liña separadora horizontal.</string>
+  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
 </resources>
