@@ -47,6 +47,10 @@
       cursor: pointer;
       top: 2px;
 
+      &:hover {
+        background: $c-secondary;
+        color: $c-secondary-over;
+      }
       &::before {
         content: '⯆';
       }
