@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzlesSolved">enigmas resolvite</string>
+  <string name="newDailyHighscore">Nove record del die!</string>
+  <string name="newWeeklyHighscore">Nove record del septimana!</string>
+  <string name="newMonthlyHighscore">Nove record del mense!</string>
+  <string name="newAllTimeHighscore">Nove record absolute!</string>
 </resources>
