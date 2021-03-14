@@ -38,6 +38,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 
   def create(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     selector.apply map { puzzles =>
+      lila.mon.racer.friendRace.increment()
       val race = RacerRace
         .make(
           owner = player,

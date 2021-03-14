@@ -506,6 +506,10 @@ object mon {
       def sign(cause: String)  = counter("storm.run.sign").withTag("cause", cause)
     }
   }
+  object racer {
+    val lobbyRace  = counter("racer.lobby.race").withoutTags()
+    val friendRace = counter("racer.friend.race").withoutTags()
+  }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
       counter("game.finish").withTags(
