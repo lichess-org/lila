@@ -70,13 +70,22 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   }
 
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
-    get(id).flatMap(_ join player) map { race =>
+    get(id).flatMap(_ join player) map { r =>
+      val race = r.startCountdown match {
+        case Some(starting) =>
+          system.scheduler.scheduleOnce(RacerRace.duration.seconds + 100.millis) { finish(id) }
+          starting
+        case None => r
+      }
       saveAndPublish(race)
       race
     }
 
+  private def finish(id: RacerRace.Id): Unit =
+    get(id).filterNot(_.finished) foreach publish
+
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
-    get(id).map(_.registerScore(player, score)) foreach saveAndPublish
+    get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
 
   def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
     get(id).map(_ end player) foreach { race =>
@@ -94,6 +103,9 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 
   private def saveAndPublish(race: RacerRace): Unit = {
     save(race)
+    publish(race)
+  }
+  private def publish(race: RacerRace): Unit = {
     socket.foreach(_ publishState race)
   }
 

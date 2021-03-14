@@ -24,20 +24,19 @@ case class RacerRace(
 
   def join(id: RacerPlayer.Id): Option[RacerRace] =
     !hasStarted && !has(id) && players.sizeIs <= RacerRace.maxPlayers option
-      copy(players = players :+ RacerPlayer.make(id)).startCountdown
+      copy(players = players :+ RacerPlayer.make(id))
 
-  def registerScore(playerId: RacerPlayer.Id, score: Int): RacerRace =
-    copy(
+  def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
+    !finished option copy(
       players = players map {
         case p if p.id == playerId => p.copy(score = score)
         case p                     => p
       }
     )
 
-  def startCountdown =
-    if (startsAt.isEmpty && players.size > (if (isLobby) 2 else 1))
+  def startCountdown: Option[RacerRace] =
+    startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
       copy(startsAt = DateTime.now.plusSeconds(10).some)
-    else this
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 
@@ -52,13 +51,16 @@ case class RacerRace(
       else players.filterNot(_.id == playerId)
     )
 
-  def finished = players.forall(_.end)
+  def finishesAt = startsAt.map(_ plusSeconds RacerRace.duration)
+
+  def finished = players.forall(_.end) || finishesAt.exists(_.isBeforeNow)
 
   def isLobby = owner == RacerPlayer.lichess
 }
 
 object RacerRace {
 
+  val duration   = 120
   val maxPlayers = 10
 
   case class Id(value: String) extends AnyVal with StringValue
