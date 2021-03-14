@@ -9,6 +9,7 @@ final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
+    noteApi: lila.user.NoteApi,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
@@ -48,7 +49,8 @@ final class ModApi(
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, v = true)
+            setEngine(mod, sus, v = true) >>
+              noteApi.lichessWrite(sus.user, note)
           }
         }
       }
