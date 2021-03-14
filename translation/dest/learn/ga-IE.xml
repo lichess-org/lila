@@ -91,7 +91,7 @@ i mbeart amháin!</string>
   <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="outOfCheck">Ealú ó sáinn</string>
   <string name="defendYourKing">Cosain do rí</string>
-  <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh tú éalú nó an t-ionsaí a blocáil.</string>
+  <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh tú éalú ón ionsaí nó é a bhac.</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
   <string name="theKingCannotEscapeButBlock">Ní féidir leis an rí éalú,
 ach is féidir leat an iasacht a blocáil!</string>
