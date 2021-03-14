@@ -38,6 +38,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
               h('div.racer__end', [
                 h('h2', 'Your time is up!'),
                 h('div.race__end__players', playersInTheRace(ctrl)),
+                waitForRematch(),
                 newRaceButton('.button-empty'),
               ]),
               comboZone(ctrl),
@@ -45,7 +46,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
           : [playerScore(ctrl.run), renderClock(ctrl.run, ctrl.endNow), comboZone(ctrl)];
       return [
         spectating(),
-        h('div.racer__spectating', [playersInTheRace(ctrl), newRaceButton('.button-empty')]),
+        h('div.racer__spectating', [playersInTheRace(ctrl), waitForRematch(), newRaceButton('.button-empty')]),
         comboZone(ctrl),
       ];
     case 'post':
@@ -121,6 +122,15 @@ const yourRank = (ctrl: RacerCtrl) => {
   const rank = players.filter(p => p.moves > moves).length + 1;
   return h('strong.race__post__rank', `Your rank: ${rank}/${players.length}`);
 };
+
+const waitForRematch = () =>
+  h(
+    `a.racer__new-race.button.button-fat.button-navaway.disabled`,
+    {
+      attrs: { disabled: true },
+    },
+    'Wait for rematch'
+  );
 
 const newRaceButton = (cls: string = '') =>
   h(
