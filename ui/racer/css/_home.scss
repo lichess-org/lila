@@ -1,0 +1,47 @@
+@import 'car-font';
+
+.racer-home {
+  background-image: img-url('racer/checkered-flag-grey.svg');
+  background-size: 200%;
+  background-position: center;
+
+  > div {
+    @extend %flex-between;
+    margin: 4em 0 3em 0;
+  }
+
+  form {
+    width: 45%;
+  }
+
+  .button {
+    font-size: 1.5em;
+    padding: 4em 0;
+    display: block;
+    width: 100%;
+    opacity: 0.75;
+    @include transition;
+    &:hover {
+      opacity: 1;
+    }
+    &::before {
+      font-family: 'racer-car';
+      font-weight: normal;
+      content: '0';
+      font-size: 9em;
+      display: block;
+      margin-top: -0.5em;
+    }
+  }
+
+  @include breakpoint($mq-not-small) {
+    > div {
+      display: block;
+    }
+
+    form {
+      width: 100%;
+      margin-bottom: 4em;
+    }
+  }
+}
