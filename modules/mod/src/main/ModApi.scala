@@ -86,6 +86,12 @@ final class ModApi(
       } inject sus
   }
 
+  def autoTroll(sus: Suspect, note: String): Funit =
+    reportApi.getLichessMod flatMap { mod =>
+      setTroll(mod, sus, true) >>
+        noteApi.lichessWrite(sus.user, note)
+    }
+
   def garbageCollect(sus: Suspect): Funit =
     reportApi.getLichessMod flatMap { mod =>
       setAlt(mod, sus, v = true) >>
