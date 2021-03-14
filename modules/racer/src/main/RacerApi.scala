@@ -38,13 +38,13 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 
   def create(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     selector.apply map { puzzles =>
-      lila.mon.racer.friendRace.increment()
       val race = RacerRace
         .make(
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList
         )
       store.put(race.id, race)
+      lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
     }
 
@@ -79,7 +79,15 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     get(id).map(_.registerScore(player, score)) foreach saveAndPublish
 
   def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
-    get(id).map(_ end player) foreach saveAndPublish
+    get(id).map(_ end player) foreach { race =>
+      saveAndPublish(race)
+      if (race.finished) {
+        lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
+        race.players foreach { player =>
+          lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
+        }
+      }
+    }
 
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)

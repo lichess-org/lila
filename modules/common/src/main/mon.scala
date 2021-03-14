@@ -507,8 +507,17 @@ object mon {
     }
   }
   object racer {
-    val lobbyRace  = counter("racer.lobby.race").withoutTags()
-    val friendRace = counter("racer.friend.race").withoutTags()
+    private def tpe(lobby: Boolean) = if (lobby) "lobby" else "friend"
+    def race(lobby: Boolean)        = counter("racer.lobby.race").withTag("tpe", tpe(lobby))
+    def players(lobby: Boolean) =
+      histogram("racer.lobby.players").withTag("tpe", tpe(lobby))
+    def score(lobby: Boolean, auth: Boolean) = histogram("racer.player.score").withTags(
+      Map(
+        "tpe"  -> tpe(lobby),
+        "auth" -> auth
+      )
+    )
+
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
