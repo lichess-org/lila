@@ -30,6 +30,7 @@
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
+  <string name="whatIsACPL">Cad é an meánchaillteanas céadúceithearnach (ACPL - average centipawn loss)? </string>
   <string name="insufficientMaterial">Ag cailleadh ar an clog, cluichí cothroma agus gan go leoir píosaí</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
