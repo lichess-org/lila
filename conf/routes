@@ -120,6 +120,7 @@ GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
 GET   /racer/:id                        controllers.Racer.show(id: String)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id: String)
+POST  /racer/lobby                      controllers.Racer.lobby
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help

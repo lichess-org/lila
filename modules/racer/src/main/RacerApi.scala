@@ -30,7 +30,13 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     case None    => RacerPlayer.Id.Anon(sessionId)
   }
 
-  def create(player: RacerPlayer.Id): Fu[RacerRace] =
+  def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
+    create(player).map { id =>
+      join(id, player)
+      id
+    }
+
+  def create(player: RacerPlayer.Id): Fu[RacerRace.Id] =
     selector.apply map { puzzles =>
       val race = RacerRace
         .make(
@@ -38,7 +44,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList
         )
       store.put(race.id, race)
-      race
+      race.id
     }
 
   private val rematchQueue =
@@ -55,9 +61,9 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
       fuccess(found.id)
     case None =>
       rematchQueue {
-        create(player) map { rematch =>
-          save(race.copy(rematch = rematch.id.some))
-          rematch.id
+        createAndJoin(player) map { rematchId =>
+          save(race.copy(rematch = rematchId.some))
+          rematchId
         }
       }
   }

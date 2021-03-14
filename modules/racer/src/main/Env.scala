@@ -32,6 +32,8 @@ final class Env(
 
   lazy val api = wire[RacerApi]
 
+  lazy val lobby = wire[RacerLobby]
+
   lazy val json = wire[RacerJson]
 
   private val socket = wire[RacerSocket] // requires eager eval

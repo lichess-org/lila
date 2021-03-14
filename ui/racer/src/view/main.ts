@@ -25,11 +25,13 @@ export default function (ctrl: RacerCtrl): VNode {
 const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
   switch (ctrl.status()) {
     case 'pre':
-      return [
-        waitingToStart(),
-        ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),
-        comboZone(ctrl),
-      ];
+      return ctrl.race.lobby
+        ? [waitingToStart(), comboZone(ctrl)]
+        : [
+            waitingToStart(),
+            ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),
+            comboZone(ctrl),
+          ];
     case 'racing':
       if (ctrl.isPlayer())
         return ctrl.run.endAt
@@ -38,25 +40,25 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
               h('div.racer__end', [
                 h('h2', 'Your time is up!'),
                 h('div.race__end__players', playersInTheRace(ctrl)),
-                waitForRematch(),
-                newRaceButton('.button-empty'),
+                ctrl.race.lobby ? [newRaceForm(ctrl)] : [waitForRematch(), newRaceForm(ctrl)],
               ]),
               comboZone(ctrl),
             ]
           : [playerScore(ctrl.run), renderClock(ctrl.run, ctrl.endNow), comboZone(ctrl)];
       return [
         spectating(),
-        h('div.racer__spectating', [playersInTheRace(ctrl), waitForRematch(), newRaceButton('.button-empty')]),
+        h('div.racer__spectating', [playersInTheRace(ctrl), ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch()]),
         comboZone(ctrl),
       ];
     case 'post':
+      const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : rematchButton(ctrl);
       return ctrl.isPlayer()
         ? [
             playerScore(ctrl.run),
-            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), rematchButton(ctrl)]),
+            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), nextRace]),
             comboZone(ctrl),
           ]
-        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), rematchButton(ctrl)]), comboZone(ctrl)];
+        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), nextRace]), comboZone(ctrl)];
   }
 };
 
@@ -69,10 +71,7 @@ const waitingToStart = () =>
   );
 
 const spectating = () =>
-  h(
-    'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Spectating the race')])
-  );
+  h('div.puz-side__top.puz-side__start', h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Spectating')]));
 
 const comboZone = (ctrl: RacerCtrl) => h('div.puz-side__table', [renderCombo(config)(ctrl.run)]);
 
@@ -132,13 +131,20 @@ const waitForRematch = () =>
     'Wait for rematch'
   );
 
-const newRaceButton = (cls: string = '') =>
+const newRaceForm = (ctrl: RacerCtrl) =>
   h(
-    `a.racer__new-race.button.button-navaway${cls}`,
+    'form',
     {
-      attrs: { href: '/racer' },
+      attrs: {
+        action: ctrl.race.lobby ? '/racer/lobby' : '/racer',
+        method: 'post',
+      },
     },
-    'New race'
+    [
+      h(`button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`, [
+        ctrl.race.lobby ? 'Next race' : 'New race',
+      ]),
+    ]
   );
 
 const rematchButton = (ctrl: RacerCtrl) =>

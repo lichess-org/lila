@@ -27,6 +27,7 @@ export interface RacerData extends UpdatableData {
 
 export interface Race {
   id: string;
+  lobby?: boolean;
 }
 
 export interface Player {

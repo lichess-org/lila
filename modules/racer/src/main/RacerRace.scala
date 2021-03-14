@@ -51,6 +51,8 @@ case class RacerRace(
     )
 
   def finished = players.forall(_.end)
+
+  def isLobby = owner == RacerPlayer.lichess
 }
 
 object RacerRace {
@@ -62,9 +64,7 @@ object RacerRace {
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle]) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 8),
     owner = owner,
-    players = List(
-      RacerPlayer.make(owner)
-    ),
+    players = Nil,
     puzzles = puzzles,
     createdAt = DateTime.now,
     startsAt = none,

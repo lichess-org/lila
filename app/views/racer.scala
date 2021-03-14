@@ -24,6 +24,11 @@ object racer {
           postForm(cls := "racer__create", action := routes.Racer.create)(
             submitButton(cls := "button button-fat")("Race your friends")
           )
+        ),
+        div(
+          postForm(cls := "racer__lobby", action := routes.Racer.lobby)(
+            submitButton(cls := "button button-fat")("Join a public race")
+          )
         )
       )
     }

@@ -29,5 +29,7 @@ object RacerPlayer {
       else User(str)
   }
 
+  val lichess = Id.User("Lichess")
+
   def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now, end = false)
 }

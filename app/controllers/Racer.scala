@@ -22,8 +22,8 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
 
   def create =
     WithPlayerId { implicit ctx => playerId =>
-      env.racer.api.create(playerId) map { race =>
-        Redirect(routes.Racer.show(race.id.value))
+      env.racer.api.createAndJoin(playerId) map { raceId =>
+        Redirect(routes.Racer.show(raceId.value))
       }
     }
 
@@ -51,6 +51,13 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
           env.racer.api.rematch(race, playerId) map { rematchId =>
             Redirect(routes.Racer.show(rematchId.value))
           }
+      }
+    }
+
+  def lobby =
+    WithPlayerId { implicit ctx => playerId =>
+      env.racer.lobby.join(playerId) map { raceId =>
+        Redirect(routes.Racer.show(raceId.value))
       }
     }
 

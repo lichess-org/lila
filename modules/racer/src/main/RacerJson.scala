@@ -29,7 +29,7 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
       .obj(
         "race" -> Json
           .obj("id" -> race.id.value)
-          .add("alreadyStarted" -> race.hasStarted),
+          .add("lobby", race.isLobby),
         "player"  -> player,
         "puzzles" -> race.puzzles
       ) ++ state(race)
