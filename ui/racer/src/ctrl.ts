@@ -61,6 +61,7 @@ export default class StormCtrl {
       this.vm.startsAt = this.countdown.start(opts.data.startsIn, this.isPlayer());
       this.redraw();
     });
+    setInterval(this.redraw, 1000);
     // this.simulate();
     window.addEventListener('beforeunload', () => {
       if (this.isPlayer()) this.socketSend('racerEnd');
@@ -85,7 +86,7 @@ export default class StormCtrl {
 
   status = (): RaceStatus =>
     this.vm.startsAt && this.vm.startsAt < new Date()
-      ? this.data.players.some(p => !p.end)
+      ? !this.run.clock.flag() && this.data.players.some(p => !p.end)
         ? 'racing'
         : 'post'
       : 'pre';
