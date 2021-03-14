@@ -40,7 +40,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
               h('div.racer__end', [
                 h('h2', 'Your time is up!'),
                 h('div.race__end__players', playersInTheRace(ctrl)),
-                ctrl.race.lobby ? [newRaceForm(ctrl)] : [waitForRematch(), newRaceForm(ctrl)],
+                ...(ctrl.race.lobby ? [newRaceForm(ctrl)] : [waitForRematch(), newRaceForm(ctrl)]),
               ]),
               comboZone(ctrl),
             ]
