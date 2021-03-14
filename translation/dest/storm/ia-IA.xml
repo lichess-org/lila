@@ -12,6 +12,10 @@
     <item quantity="one">1 essayo</item>
     <item quantity="other">%s essayos</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Un essayo jocate de %2$s</item>
+    <item quantity="other">%1$s essayos jocate de %2$s</item>
+  </plurals>
   <string name="highscoreX">Record: %s</string>
   <string name="score">Tabula de punctos</string>
   <string name="moves">Movimentos</string>
@@ -19,4 +23,5 @@
   <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
   <string name="time">Tempore</string>
   <string name="timePerMove">Tempore per movimento</string>
+  <string name="puzzlesPlayed">Enigmas jocate</string>
 </resources>
