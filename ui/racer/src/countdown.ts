@@ -12,14 +12,14 @@ export class Countdown {
   start = (startsIn: number | undefined, isPlayer: boolean): Date | undefined => {
     if (startsIn) {
       const startsAt = new Date(Date.now() + startsIn);
-      if (isPlayer && !this.clock.started()) {
+      if (!this.clock.started()) {
         const countdown = () => {
           const diff = startsAt.getTime() - Date.now();
           if (diff > 0) {
-            this.playOnce(Math.ceil(diff / 1000));
+            if (isPlayer) this.playOnce(Math.ceil(diff / 1000));
             setTimeout(countdown, (diff % 1000) + 50);
           } else {
-            this.playOnce(0);
+            if (isPlayer) this.playOnce(0);
             this.clock.start();
             this.resetGround();
           }
