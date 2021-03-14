@@ -9,7 +9,7 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {
       case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRaceFor(player)
-      case race if race.startsInMillis.exists(_ < 4000)        => makeNewRaceFor(player)
+      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRaceFor(player)
       case race                                                => fuccess(race.id)
     } map { raceId =>
       api.join(raceId, player)

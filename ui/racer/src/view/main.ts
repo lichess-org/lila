@@ -26,7 +26,11 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
   switch (ctrl.status()) {
     case 'pre':
       return ctrl.race.lobby
-        ? [waitingToStart(), comboZone(ctrl)]
+        ? [
+            waitingToStart(),
+            ctrl.vm.startsAt ? "It's racing time!" : 'Waiting for more players to join...',
+            comboZone(ctrl),
+          ]
         : [
             waitingToStart(),
             ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),

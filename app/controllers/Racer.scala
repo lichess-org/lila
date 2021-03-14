@@ -31,7 +31,8 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
     WithPlayerId { implicit ctx => playerId =>
       env.racer.api.get(RacerRace.Id(id)) match {
         case None => Redirect(routes.Racer.home).fuccess
-        case Some(race) =>
+        case Some(r) =>
+          val race   = r.isLobby.??(env.racer.api.join(r.id, playerId)) | r
           val player = race.player(playerId) | RacerPlayer.make(playerId)
           Ok(
             html.racer.show(
@@ -39,7 +40,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
               env.racer.json.data(race, player),
               env.storm.json.pref(ctx.pref.copy(coords = lila.pref.Pref.Coords.NONE))
             )
-          ).fuccess
+          ).fuccess dmap NoCache
       }
     }
 

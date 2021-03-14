@@ -19,7 +19,7 @@ object racer {
       title = "Puzzle Racer"
     ) {
       main(cls := "page page-small racer-home box box-pad")(
-        h1("Puzzle Racer"),
+        h1("Puzzle Racer (beta)"),
         div(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
             submitButton(cls := "button button-fat")("Join a public race")

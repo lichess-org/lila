@@ -45,10 +45,11 @@ case class RacerRace(
 
   def end(playerId: RacerPlayer.Id): RacerRace =
     copy(
-      players = players map {
+      players = if (hasStarted) players map {
         case p if p.id == playerId => p.copy(end = true)
         case p                     => p
       }
+      else players.filterNot(_.id == playerId)
     )
 
   def finished = players.forall(_.end)
