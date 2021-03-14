@@ -23,7 +23,6 @@ export interface RacerData extends UpdatableData {
   race: Race;
   puzzles: Puzzle[];
   player: Player;
-  key?: string;
 }
 
 export interface Race {
@@ -43,7 +42,6 @@ export interface PlayerWithScore extends Player {
 
 export interface RacerVm {
   startsAt?: Date;
-  signed: Prop<string | undefined>;
   alreadyStarted: boolean;
 }
 

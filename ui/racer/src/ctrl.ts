@@ -19,6 +19,7 @@ import { Boost } from './boost';
 export default class StormCtrl {
   private data: RacerData;
   private redraw: () => void;
+  private sign = Math.random().toString(36);
   race: Race;
   pref: RacerPrefs;
   run: Run;
@@ -48,14 +49,13 @@ export default class StormCtrl {
       },
     };
     this.vm = {
-      signed: prop(undefined),
       alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(this.run.clock, this.resetGround, this.redraw);
     this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
     this.boost.setPlayers(this.data.players);
-    if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
+    lichess.socket.sign(this.sign);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     setTimeout(() => {
       this.vm.startsAt = this.countdown.start(opts.data.startsIn, this.isPlayer());
@@ -137,7 +137,7 @@ export default class StormCtrl {
     if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
       puzzle.moveIndex++;
       onGoodMove(this.run);
-      this.socketSend('racerMoves', this.run.moves - this.run.errors);
+      this.socketSend('racerScore', this.run.moves - this.run.errors);
       if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -193,7 +193,7 @@ export default class StormCtrl {
     return g && f(g);
   };
 
-  private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data);
+  private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
 
   private simulate = () => {
     this.data.players = [];
