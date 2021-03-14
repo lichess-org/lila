@@ -25,5 +25,10 @@
   <string name="timePerMove">Tempore per movimento</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Plus difficile resolvite</string>
   <string name="puzzlesPlayed">Enigmas jocate</string>
+  <string name="newRun">Nove essayo (clave: \"Space\")</string>
+  <string name="endRun">Finir essayo (clave: \"Enter\")</string>
+  <string name="highscores">Records</string>
+  <string name="viewBestRuns">Vider le melior essayos</string>
+  <string name="bestRunOfDay">Melior essayo del die</string>
   <string name="runs">Essayos</string>
 </resources>
