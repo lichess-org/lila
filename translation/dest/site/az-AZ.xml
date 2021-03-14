@@ -42,7 +42,7 @@
   <string name="makeYourOpponentResign">Rəqibi məğlubiyyətə məcbur edin</string>
   <string name="forceResignation">Qələbə tələb et</string>
   <string name="forceDraw">Heç-heçə elan et</string>
-  <string name="talkInChat">Zəhmət olmasa söhbət vaxtı nəzakətli olun!</string>
+  <string name="talkInChat">Söhbət zamanı nəzakətli olun!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">URL-ə ilk müraciət edən sizin rəqibiniz olacaq.</string>
   <string name="whiteResigned">Ağlar tərk etdi</string>
   <string name="blackResigned">Qaralar tərk etdi</string>
@@ -468,8 +468,8 @@
   <string name="tournamentWinners">Turnirin qalibləri</string>
   <string name="name">Ad</string>
   <string name="description">Açıqlama</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Özəl açıqlama</string>
-  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">Yalnız komanda üzvlərinin görəcəyi mətn. Təyin olunarsa, komanda üzvləri üçün olan açıqlamanı əvəz edir.</string>
+  <string name="descPrivate">Özəl açıqlama</string>
+  <string name="descPrivateHelp">Yalnız komanda üzvlərinin görəcəyi mətn. Təyin olunarsa, komanda üzvləri üçün olan açıqlamanı əvəz edir.</string>
   <string name="no">Xeyr</string>
   <string name="yes">Bəli</string>
   <string name="help">Kömək:</string>
