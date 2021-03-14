@@ -809,6 +809,7 @@
   <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
   <string name="puzzleDesc">Trainator de tacticas de chacos</string>
   <string name="important">Importante</string>
+  <string name="joinTheTeamXToPost">Pro postar in iste foro, uni se in %1$s</string>
   <string name="teamNamedX">Equipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
   <string name="subscribe">Abonar</string>
