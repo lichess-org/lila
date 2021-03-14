@@ -25,11 +25,11 @@ chun rudaí a bhrostú!</string>
   <string name="youNeedBothBishops">Easpag geal amháin,
 easpag dorcha amháin.
 Tá an dá uait!</string>
-  <string name="bishopComplete">Comhghairdeas! Is féidir leat an t-easpag a ordú.</string>
+  <string name="bishopComplete">Comhghairdeas! Fuair tú máistreacht ar an t-easpag.</string>
   <string name="theQueen">An bhanríon</string>
   <string name="queenCombinesRookAndBishop">Banríon = caiseal + easpag</string>
-  <string name="queenIntro">Isteach leis an píosa is cumhachtaí. An bhanríon!</string>
-  <string name="queenComplete">Comhghairdeas! Tá fhios agat rúin na banríona.</string>
+  <string name="queenIntro">Isteach leis an píosa is cumhachtaí. A mórgacht na banríona!</string>
+  <string name="queenComplete">Comhghairdeas! Fuair tú máistreacht ar an bhanríon.</string>
   <string name="theKing">An rí</string>
   <string name="theMostImportantPiece">An píosa is tábhachtaí</string>
   <string name="kingIntro">Is tusa an rí. Dá thitfeá sa chogadh, bheadh an cluiche caillte.</string>
