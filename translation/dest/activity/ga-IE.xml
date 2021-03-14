@@ -117,7 +117,7 @@
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Céim #%1$s as %2$s</string>
   <string name="signedUp">Sínithe suas le lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Isteach i %s foireann</item>
+    <item quantity="one">Isteach i bhfoireann amháin</item>
     <item quantity="two">Isteach i %s fhoireann</item>
     <item quantity="few">Isteach i %s bhfoireann</item>
     <item quantity="many">Isteach i %s foireann</item>
