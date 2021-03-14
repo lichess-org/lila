@@ -1,13 +1,12 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
 import makePromotion from 'puz/promotion';
-import sign from 'puz/sign';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
 import { getNow, puzzlePov, sound } from 'puz/util';
-import { makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
+import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Promotion, Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
@@ -20,6 +19,7 @@ export default class StormCtrl {
   private data: RacerData;
   private redraw: () => void;
   private sign = Math.random().toString(36);
+  private localScore = 0;
   race: Race;
   pref: RacerPrefs;
   run: Run;
@@ -136,8 +136,15 @@ export default class StormCtrl {
     pos.play(move);
     if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
       puzzle.moveIndex++;
-      onGoodMove(this.run);
-      this.socketSend('racerScore', this.run.moves - this.run.errors);
+      this.localScore++;
+      this.run.combo.inc();
+      this.run.modifier.moveAt = getNow();
+      const bonus = this.run.combo.bonus();
+      if (bonus) {
+        this.run.modifier.bonus = bonus;
+        this.localScore += bonus.seconds; // yeah, ah well
+      }
+      this.socketSend('racerScore', this.localScore);
       if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -149,7 +156,8 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      onBadMove(config)(this.run);
+      this.run.errors++;
+      this.run.combo.reset();
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }

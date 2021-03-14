@@ -31,7 +31,6 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
   private def currentRace: Fu[RacerRace] = currentId.map(api.get) dmap { _ | fallbackRace }
 
   private def makeNewRaceFor(player: RacerPlayer.Id): Fu[RacerRace.Id] = {
-    lila.mon.racer.lobbyRace.increment()
     currentId = api create RacerPlayer.lichess
     currentId
   }

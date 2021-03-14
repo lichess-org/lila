@@ -12,14 +12,6 @@
     @include breakpoint($mq-col2) {
       margin: 0;
     }
-
-    .puz-mod-bonus-slow & {
-      color: $c-good;
-    }
-
-    .puz-mod-malus-slow & {
-      color: $c-bad;
-    }
   }
 
   @keyframes mod-fade-out {

@@ -13,3 +13,13 @@
     }
   }
 }
+
+.puz-clock__time {
+  .puz-mod-bonus-slow & {
+    color: $c-good;
+  }
+
+  .puz-mod-malus-slow & {
+    color: $c-bad;
+  }
+}

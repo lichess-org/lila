@@ -4,7 +4,7 @@ import makePromotion from 'puz/promotion';
 import sign from 'puz/sign';
 import { Api as CgApi } from 'chessground/api';
 import { getNow, puzzlePov, sound } from 'puz/util';
-import { countWins, makeCgOpts, onBadMove, onGoodMove } from 'puz/run';
+import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
@@ -93,7 +93,13 @@ export default class StormCtrl {
     pos.play(move);
     if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
       puzzle.moveIndex++;
-      onGoodMove(this.run);
+      this.run.combo.inc();
+      this.run.modifier.moveAt = getNow();
+      const bonus = this.run.combo.bonus();
+      if (bonus) {
+        this.run.modifier.bonus = bonus;
+        this.run.clock.addSeconds(bonus.seconds);
+      }
       if (puzzle.isOver()) {
         this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
@@ -105,7 +111,14 @@ export default class StormCtrl {
     } else {
       lichess.sound.play('error');
       this.pushToHistory(false);
-      onBadMove(config)(this.run);
+      this.run.errors++;
+      this.run.combo.reset();
+      this.run.clock.addSeconds(-config.clock.malus);
+      this.run.modifier.malus = {
+        seconds: config.clock.malus,
+        at: getNow(),
+      };
+
       if (this.run.clock.flag()) this.end();
       else if (!this.incPuzzle()) this.end();
     }
@@ -140,9 +153,11 @@ export default class StormCtrl {
     return g && f(g);
   };
 
+  countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
+
   runStats = (): StormRecap => ({
     puzzles: this.run.history.length,
-    score: countWins(this.run),
+    score: this.countWins(),
     moves: this.run.moves,
     errors: this.run.errors,
     combo: this.run.combo.best,

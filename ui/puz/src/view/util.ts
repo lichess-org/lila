@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { Config, Run } from '../interfaces';
-import { countWins } from '../run';
 import { getNow } from '../util';
 
 export const playModifiers = (run: Run) => {
@@ -16,7 +15,7 @@ export const playModifiers = (run: Run) => {
   };
 };
 
-export const renderCombo = (config: Config) => (run: Run): VNode => {
+export const renderCombo = (config: Config, renderBonus: (bonus: number) => string) => (run: Run): VNode => {
   const level = run.combo.level();
   return h('div.puz-combo', [
     h('div.puz-combo__counter', [
@@ -40,13 +39,10 @@ export const renderCombo = (config: Config) => (run: Run): VNode => {
                 active: l < level,
               },
             },
-            h('span', `${config.combo.levels[l + 1][1]}s`)
+            h('span', renderBonus(config.combo.levels[l + 1][1]))
           )
         )
       ),
     ]),
   ]);
 };
-
-export const renderSolved = (run: Run): VNode =>
-  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', countWins(run))]);

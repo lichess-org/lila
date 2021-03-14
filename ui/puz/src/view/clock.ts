@@ -9,7 +9,7 @@ type OnFlag = () => void;
 let refreshInterval: Timeout;
 let lastText: string;
 
-export default function renderClock(run: Run, onFlag: OnFlag): VNode {
+export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean): VNode {
   const malus = run.modifier.malus;
   const bonus = run.modifier.bonus;
   return h('div.puz-clock', [
@@ -18,24 +18,28 @@ export default function renderClock(run: Run, onFlag: OnFlag): VNode {
         insert(node) {
           const el = node.elm as HTMLDivElement;
           el.innerText = formatMs(run.clock.millis());
-          refreshInterval = setInterval(() => renderIn(run, onFlag, el), 100);
+          refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
         },
         destroy() {
           if (refreshInterval) clearInterval(refreshInterval);
         },
       },
     }),
-    !!malus && malus.at > getNow() - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
-    !!bonus && bonus.at > getNow() - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
+    ...(withBonus
+      ? [
+          !!malus && malus.at > getNow() - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
+          !!bonus && bonus.at > getNow() - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
+        ]
+      : []),
   ]);
 }
 
-function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement) {
+function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean) {
   if (!run.clock.startAt) return;
   const mods = run.modifier;
   const now = getNow();
   const millis = run.clock.millis();
-  const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
+  const diffs = withBonus ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus) : 0;
   const text = formatMs(millis - diffs);
   if (text != lastText) el.innerText = text;
   lastText = text;

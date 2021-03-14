@@ -6,7 +6,7 @@ import { h } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
 import { VNode } from 'snabbdom/vnode';
-import { MaybeVNodes, Run } from 'puz/interfaces';
+import { MaybeVNodes } from 'puz/interfaces';
 import { renderBoard } from './board';
 
 export default function (ctrl: RacerCtrl): VNode {
@@ -40,7 +40,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       if (ctrl.isPlayer())
         return ctrl.run.endAt
           ? [
-              playerScore(ctrl.run),
+              playerScore(ctrl),
               h('div.racer__end', [
                 h('h2', 'Your time is up!'),
                 h('div.race__end__players', playersInTheRace(ctrl)),
@@ -48,7 +48,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
               ]),
               comboZone(ctrl),
             ]
-          : [playerScore(ctrl.run), renderClock(ctrl.run, ctrl.endNow), comboZone(ctrl)];
+          : [playerScore(ctrl), renderClock(ctrl.run, ctrl.endNow, false), comboZone(ctrl)];
       return [
         spectating(),
         h('div.racer__spectating', [playersInTheRace(ctrl), ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch()]),
@@ -58,7 +58,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : rematchButton(ctrl);
       return ctrl.isPlayer()
         ? [
-            playerScore(ctrl.run),
+            playerScore(ctrl),
             h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), nextRace]),
             comboZone(ctrl),
           ]
@@ -77,10 +77,12 @@ const waitingToStart = () =>
 const spectating = () =>
   h('div.puz-side__top.puz-side__start', h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Spectating')]));
 
-const comboZone = (ctrl: RacerCtrl) => h('div.puz-side__table', [renderCombo(config)(ctrl.run)]);
+const renderBonus = (bonus: number) => `+${bonus}`;
 
-const playerScore = (run: Run): VNode =>
-  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', run.moves - run.errors)]);
+const comboZone = (ctrl: RacerCtrl) => h('div.puz-side__table', [renderCombo(config, renderBonus)(ctrl.run)]);
+
+const playerScore = (ctrl: RacerCtrl): VNode =>
+  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.myScore() || 0)]);
 
 const playersInTheRace = (ctrl: RacerCtrl) =>
   h('div.race__players-racing', `${ctrl.players().filter(p => !p.end).length} players still in the race.`);

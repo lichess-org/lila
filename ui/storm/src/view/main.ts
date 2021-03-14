@@ -7,7 +7,7 @@ import { h } from 'snabbdom';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { onInsert } from 'puz/util';
-import { playModifiers, renderCombo, renderSolved } from 'puz/view/util';
+import { playModifiers, renderCombo } from 'puz/view/util';
 import { VNode } from 'snabbdom/vnode';
 
 export default function (ctrl: StormCtrl): VNode {
@@ -38,14 +38,19 @@ const chessground = (ctrl: StormCtrl): VNode =>
     },
   });
 
+const renderBonus = (bonus: number) => `${bonus}s`;
+
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
   h('div.puz-side', [
-    ctrl.run.clock.startAt ? renderSolved(ctrl.run) : renderStart(ctrl),
-    renderClock(ctrl.run, ctrl.endNow),
-    h('div.puz-side__table', [renderControls(ctrl), renderCombo(config)(ctrl.run)]),
+    ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
+    renderClock(ctrl.run, ctrl.endNow, true),
+    h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
   ]),
 ];
+
+const renderSolved = (ctrl: StormCtrl): VNode =>
+  h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.countWins())]);
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__control', [
