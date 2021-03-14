@@ -1,5 +1,5 @@
 import { getNow } from 'puz/util';
-import { PlayerWithMoves } from './interfaces';
+import { PlayerWithScore } from './interfaces';
 
 type Timestamp = number;
 
@@ -11,13 +11,13 @@ export interface CarBoost {
 export class Boost {
   cars: CarBoost[] = [];
 
-  setPlayers = (players: PlayerWithMoves[]) => {
+  setPlayers = (players: PlayerWithScore[]) => {
     if (players.length != this.cars.length) {
-      this.cars = players.map(p => ({ score: p.moves, time: -9999999 }));
+      this.cars = players.map(p => ({ score: p.score, time: -9999999 }));
     } else {
       this.cars = this.cars.map((car, i) => ({
-        score: players[i].moves,
-        time: players[i].moves > car.score ? getNow() : car.time,
+        score: players[i].score,
+        time: players[i].score > car.score ? getNow() : car.time,
       }));
     }
   };

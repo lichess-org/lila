@@ -92,9 +92,9 @@ export default class StormCtrl {
 
   isRacing = () => this.status() == 'racing';
 
-  myMoves = (): number | undefined => {
+  myScore = (): number | undefined => {
     const p = this.data.players.find(p => p.name == this.data.player.name);
-    return p?.moves;
+    return p?.score;
   };
 
   join = throttle(1000, () => {
@@ -193,18 +193,18 @@ export default class StormCtrl {
     return g && f(g);
   };
 
-  private socketSend = (tpe: string, data?: any) => lichess.pubsub.emit('socket.send', tpe, data);
+  private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data);
 
   private simulate = () => {
     this.data.players = [];
     for (let i = 0; i < 10; i++)
       this.data.players.push({
         name: `Player${i}`,
-        moves: 0,
+        score: 0,
       });
     setInterval(() => {
       if (true || this.isRacing()) {
-        this.data.players[Math.floor(Math.random() * 10)].moves++;
+        this.data.players[Math.floor(Math.random() * 10)].score++;
         this.boost.setPlayers(this.data.players);
         this.redraw();
         this.redrawSlow();

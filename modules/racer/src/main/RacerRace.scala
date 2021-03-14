@@ -26,10 +26,10 @@ case class RacerRace(
     !hasStarted && !has(id) && players.sizeIs <= RacerRace.maxPlayers option
       copy(players = players :+ RacerPlayer.make(id)).startCountdown
 
-  def registerMoves(playerId: RacerPlayer.Id, moves: Int): RacerRace =
+  def registerScore(playerId: RacerPlayer.Id, score: Int): RacerRace =
     copy(
       players = players map {
-        case p if p.id == playerId => p.copy(moves = moves)
+        case p if p.id == playerId => p.copy(score = score)
         case p                     => p
       }
     )
@@ -51,10 +51,6 @@ case class RacerRace(
     )
 
   def finished = players.forall(_.end)
-
-  lazy val moves = puzzles.foldLeft(0) { case (m, p) =>
-    m + p.line.size / 2
-  }
 }
 
 object RacerRace {

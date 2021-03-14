@@ -26,8 +26,8 @@ final private class RacerSocket(
   private lazy val racerHandler: Handler = {
     case Protocol.In.PlayerJoin(raceId, playerId) =>
       api.join(raceId, playerId)
-    case Protocol.In.PlayerMoves(raceId, playerId, moves) =>
-      api.registerPlayerMoves(raceId, playerId, moves)
+    case Protocol.In.PlayerScore(raceId, playerId, score) =>
+      api.registerPlayerScore(raceId, playerId, score)
     case Protocol.In.PlayerEnd(raceId, playerId) =>
       api.playerEnd(raceId, playerId)
   }
@@ -46,7 +46,7 @@ object RacerSocket {
     object In {
 
       case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id)              extends P.In
-      case class PlayerMoves(race: RacerRace.Id, player: RacerPlayer.Id, moves: Int) extends P.In
+      case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
       case class PlayerEnd(race: RacerRace.Id, player: RacerPlayer.Id)               extends P.In
 
       val reader: P.In.Reader = raw => raceReader(raw) orElse RP.In.reader(raw)
@@ -57,9 +57,9 @@ object RacerSocket {
             raw.get(2) { case Array(raceId, playerId) =>
               PlayerJoin(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
             }
-          case "racer/moves" =>
-            raw.get(3) { case Array(raceId, playerId, moveStr) =>
-              moveStr.toIntOption map { PlayerMoves(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
+          case "racer/score" =>
+            raw.get(3) { case Array(raceId, playerId, scoreStr) =>
+              scoreStr.toIntOption map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
             }
           case "racer/end" =>
             raw.get(2) { case Array(raceId, playerId) =>

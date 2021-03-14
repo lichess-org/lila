@@ -65,8 +65,8 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
     get(id).flatMap(_ join player) foreach saveAndPublish
 
-  def registerPlayerMoves(id: RacerRace.Id, player: RacerPlayer.Id, moves: Int): Unit =
-    get(id).map(_.registerMoves(player, moves)) foreach saveAndPublish
+  def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
+    get(id).map(_.registerScore(player, score)) foreach saveAndPublish
 
   def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
     get(id).map(_ end player) foreach saveAndPublish

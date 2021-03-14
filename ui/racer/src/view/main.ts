@@ -116,10 +116,10 @@ const renderJoin = (ctrl: RacerCtrl) =>
   );
 
 const yourRank = (ctrl: RacerCtrl) => {
-  const moves = ctrl.myMoves();
-  if (!moves) return;
+  const score = ctrl.myScore();
+  if (!score) return;
   const players = ctrl.players();
-  const rank = players.filter(p => p.moves > moves).length + 1;
+  const rank = players.filter(p => p.score > score).length + 1;
   return h('strong.race__post__rank', `Your rank: ${rank}/${players.length}`);
 };
 

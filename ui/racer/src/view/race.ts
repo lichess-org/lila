@@ -1,20 +1,20 @@
 import RacerCtrl from '../ctrl';
 import { h } from 'snabbdom';
-import { PlayerWithMoves } from '../interfaces';
+import { PlayerWithScore as PlayerWithScore } from '../interfaces';
 import { Boost } from '../boost';
 
 // to [0,1]
-type RelativeMoves = (moves: number) => number;
+type RelativeScore = (score: number) => number;
 
 const trackHeight = 30;
 
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
-  const minMoves = players.reduce((m, p) => (p.moves < m ? p.moves : m), 999) / 3;
-  const maxMoves = players.reduce((m, p) => (p.moves > m ? p.moves : m), 30);
+  const minMoves = players.reduce((m, p) => (p.score < m ? p.score : m), 999) / 3;
+  const maxMoves = players.reduce((m, p) => (p.score > m ? p.score : m), 30);
   const delta = maxMoves - minMoves;
-  const relative: RelativeMoves = moves => (moves - minMoves) / delta;
-  const bestScore = players.reduce((b, p) => (p.moves > b ? p.moves : b), 0);
+  const relative: RelativeScore = score => (score - minMoves) / delta;
+  const bestScore = players.reduce((b, p) => (p.score > b ? p.score : b), 0);
   return h(
     'div.racer__race',
     {
@@ -26,8 +26,8 @@ export const renderRace = (ctrl: RacerCtrl) => {
   );
 };
 
-const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number, boost: Boost) => (
-  player: PlayerWithMoves,
+const renderTrack = (relative: RelativeScore, myName: string, bestScore: number, boost: Boost) => (
+  player: PlayerWithScore,
   index: number
 ) => {
   const isMe = player.name == myName;
@@ -36,7 +36,7 @@ const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number,
     {
       class: {
         'racer__race__track--me': isMe,
-        'racer__race__track--first': player.moves && player.moves == bestScore,
+        'racer__race__track--first': player.score && player.score == bestScore,
         'racer__race__track--boost': boost.isBoosting(index),
         'racer__race__track--end': player.end,
       },
@@ -46,7 +46,7 @@ const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number,
         'div.racer__race__player',
         {
           attrs: {
-            style: `transform:translateX(${relative(player.moves) * 95}%)`,
+            style: `transform:translateX(${relative(player.score) * 95}%)`,
           },
         },
         [
@@ -54,12 +54,12 @@ const renderTrack = (relative: RelativeMoves, myName: string, bestScore: number,
           h('span.racer__race__player__name', playerLink(player, isMe)),
         ]
       ),
-      h('div.racer__race__score', player.moves),
+      h('div.racer__race__score', player.score),
     ]
   );
 };
 
-export const playerLink = (player: PlayerWithMoves, isMe: boolean) =>
+export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
   player.userId
     ? h(
         'a.user-link.ulpt',

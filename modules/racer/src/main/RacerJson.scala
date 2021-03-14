@@ -17,7 +17,7 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
   implicit private val playerWrites = OWrites[RacerPlayer] { p =>
     val user = p.userId flatMap lightUserSync
     Json
-      .obj("name" -> p.name, "moves" -> p.moves)
+      .obj("name" -> p.name, "score" -> p.score)
       .add("userId", p.userId)
       .add("title", user.map(_.title))
       .add("end", p.end)
@@ -28,10 +28,7 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
     Json
       .obj(
         "race" -> Json
-          .obj(
-            "id"    -> race.id.value,
-            "moves" -> race.moves
-          )
+          .obj("id" -> race.id.value)
           .add("alreadyStarted" -> race.hasStarted),
         "player"  -> player,
         "puzzles" -> race.puzzles
