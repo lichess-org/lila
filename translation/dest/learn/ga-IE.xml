@@ -4,8 +4,8 @@
   <string name="byPlaying">trí imirt!</string>
   <string name="menu">Roghchlár</string>
   <string name="progressX">Forás: %s</string>
-  <string name="resetMyProgress">Athshocraigh mo thomhas</string>
-  <string name="youWillLoseAllYourProgress">Caillfidh tú do thomhas ar fad!</string>
+  <string name="resetMyProgress">Athshocraigh mo fhorás</string>
+  <string name="youWillLoseAllYourProgress">Caillfidh tú do fhorás ar fad!</string>
   <string name="play">imir!</string>
   <string name="chessPieces">Píosaí fichille</string>
   <string name="theRook">An caiseal</string>
