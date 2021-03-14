@@ -13,7 +13,7 @@ export class Boost {
 
   setPlayers = (players: PlayerWithMoves[]) => {
     if (players.length != this.cars.length) {
-      this.cars = players.map(p => ({ score: p.moves, time: 0 }));
+      this.cars = players.map(p => ({ score: p.moves, time: -9999999 }));
     } else {
       this.cars = this.cars.map((car, i) => ({
         score: players[i].moves,

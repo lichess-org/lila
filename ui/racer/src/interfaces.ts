@@ -45,6 +45,7 @@ export interface PlayerWithMoves extends Player {
 export interface RacerVm {
   startsAt?: Date;
   signed: Prop<string | undefined>;
+  alreadyStarted: boolean;
 }
 
 export interface RacerConfig extends Config {}

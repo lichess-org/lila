@@ -49,6 +49,7 @@ export default class StormCtrl {
     };
     this.vm = {
       signed: prop(undefined),
+      alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(this.run.clock, this.resetGround, this.redraw);
     this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
@@ -78,7 +79,7 @@ export default class StormCtrl {
 
   players = () => this.data.players;
 
-  isPlayer = () => this.data.players.filter(p => p.name == this.data.player.name).length > 0;
+  isPlayer = () => !this.vm.alreadyStarted && this.data.players.filter(p => p.name == this.data.player.name).length > 0;
 
   raceFull = () => this.data.players.length >= 10;
 
