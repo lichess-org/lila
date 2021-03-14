@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Clases</string>
-  <string name="teachClassesOfChessStudents">Enseñar clases de ajedrez con el conjunto de herramientos de clases de Lichess.</string>
+  <string name="teachClassesOfChessStudents">Enseña ajedrez con el conjunto de herramientas de clases de Lichess.</string>
   <string name="features">Características</string>
   <string name="quicklyGenerateSafeUsernames">Generar rápidamente nombres de usuario y contraseñas seguras para estudiantes</string>
   <string name="trackStudentProgress">Seguir el progreso del estudiante en partidas y ejercicios de táctica</string>
