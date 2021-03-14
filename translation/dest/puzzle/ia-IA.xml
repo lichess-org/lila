@@ -7,6 +7,11 @@
   <string name="motifs">Themas</string>
   <string name="advanced">Avantiate</string>
   <string name="lengths">Longitudes</string>
+  <string name="mates">Chaco mat</string>
+  <string name="goals">Objectivos</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origine</string>
+  <string name="specialMoves">Movimentos special</string>
+  <string name="didYouLikeThisPuzzle">Esque tu amava iste enigma?</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
   <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
   <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
