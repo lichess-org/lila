@@ -58,7 +58,7 @@ export default class StormCtrl {
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
     lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
     setTimeout(() => {
-      this.vm.startsAt = this.countdown.start(opts.data.startsIn);
+      this.vm.startsAt = this.countdown.start(opts.data.startsIn, this.isPlayer());
       this.redraw();
     });
     // this.simulate();
@@ -70,7 +70,7 @@ export default class StormCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    this.vm.startsAt = this.countdown.start(data.startsIn) || this.vm.startsAt;
+    this.vm.startsAt = this.countdown.start(data.startsIn, this.isPlayer()) || this.vm.startsAt;
     this.redraw();
     this.redrawSlow();
   };

@@ -9,10 +9,10 @@ export class Countdown {
   }
 
   // returns updated startsAt
-  start = (startsIn?: number): Date | undefined => {
+  start = (startsIn: number | undefined, isPlayer: boolean): Date | undefined => {
     if (startsIn) {
       const startsAt = new Date(Date.now() + startsIn);
-      if (!this.clock.started()) {
+      if (isPlayer && !this.clock.started()) {
         const countdown = () => {
           const diff = startsAt.getTime() - Date.now();
           if (diff > 0) {
