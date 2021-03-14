@@ -4,7 +4,7 @@ const config: RacerConfig = {
   clock: {
     // initial: 99 * 60,
     // initial: 1 * 60,
-    initial: 120,
+    initial: 90,
     malus: 0,
   },
   combo: {

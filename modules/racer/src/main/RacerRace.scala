@@ -60,7 +60,7 @@ case class RacerRace(
 
 object RacerRace {
 
-  val duration   = 120
+  val duration   = 90
   val maxPlayers = 10
 
   case class Id(value: String) extends AnyVal with StringValue
