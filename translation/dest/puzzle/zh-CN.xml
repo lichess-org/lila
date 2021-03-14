@@ -34,7 +34,7 @@
   </plurals>
   <string name="fromGameLink">来自对局： %s</string>
   <string name="continueTraining">继续训练</string>
-  <string name="difficultyLevel">难易级别</string>
+  <string name="difficultyLevel">难度</string>
   <string name="normal">正常</string>
   <string name="easier">容易</string>
   <string name="easiest">最容易</string>
