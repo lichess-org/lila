@@ -11,10 +11,12 @@
   <string name="theRook">An caiseal</string>
   <string name="itMovesInStraightLines">Bogann sé i línte díreacha</string>
   <string name="rookIntro">Is píosa cumhachtach é an caiseal. An bhfuil tú réidh é a ordú?</string>
-  <string name="rookGoal">Cliceáil ar an gcaiseal agus bog é chun an réalta!</string>
+  <string name="rookGoal">Cliceáil ar an gcaiseal 
+chun é a thabhairt chuig an réalta!</string>
   <string name="grabAllTheStars">Sciob gach réalta!</string>
-  <string name="theFewerMoves">Dá laghad beart a dhéanann tú, bheadh tuilleadh pointe agat!</string>
-  <string name="useTwoRooks">Bog dhá caiseal
+  <string name="theFewerMoves">An níos lú beart a dhéanann tú, 
+bheadh tuilleadh pointe agat!</string>
+  <string name="useTwoRooks">Úsáid dhá caiseal
 chun rudaí a bhrostú!</string>
   <string name="rookComplete">Comhghairdeas! Fuair tú máistreacht ar an gcaiseal.</string>
   <string name="theBishop">An t-easpag</string>
