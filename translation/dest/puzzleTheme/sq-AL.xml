@@ -35,6 +35,16 @@
   <string name="clearance">Largim</string>
   <string name="clearanceDescription">Një lëvizje, shpesh me tempo, që pastron një katror, kolonë ose diagonale për një ide taktike vijuese.</string>
   <string name="defensiveMove">Lëvizje mbrojtëse</string>
+  <string name="defensiveMoveDescription">Një lëvizje apo sekuenc e lëvizjeve të sakta që nevojitet për të shmangur humbjen e materialit ose një avantazh tjetër.</string>
+  <string name="deflection">Shmangie</string>
+  <string name="deflectionDescription">Një lëvizje që tërheq vëmendjen e një figure të kundërshtarit nga një detyrë tjetër që ajo kryen, siç është ruajtja e një sheshi kryesor. Ndonjëherë quhet edhe \"mbingarkesë\".</string>
+  <string name="discoveredAttack">Sulm me zbulim</string>
+  <string name="discoveredAttackDescription">Lëvizja e një figure (për shembull një kalë) që më parë bllokoi një sulm nga një figurë me distancë të gjatë (për shembull një torre), nga rruga e asaj figure.</string>
+  <string name="doubleCheck">Shah i dyfishtë</string>
+  <string name="doubleCheckDescription">Jepi Shah me dy figura në të njëjtën kohë, ku edhe figura me sulm të zbuluar po edhe figuare që lëviz sulmojnë mbretin e kundërshtarit.</string>
+  <string name="endgame">Loja finale</string>
+  <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
+  <string name="enPassantDescription">Një taktikë që përfshin rregullin en passant, ku një ushtar mund të kapë një ushtar kundërshtar që e ka kaluar atë duke përdorur lëvizjen e tij fillestare me dy katrorë.</string>
   <string name="mateIn1">Mat në 1</string>
   <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
   <string name="mateIn2">Mat në 2</string>
