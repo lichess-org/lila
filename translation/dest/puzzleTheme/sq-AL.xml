@@ -45,6 +45,15 @@
   <string name="endgame">Loja finale</string>
   <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
   <string name="enPassantDescription">Një taktikë që përfshin rregullin en passant, ku një ushtar mund të kapë një ushtar kundërshtar që e ka kaluar atë duke përdorur lëvizjen e tij fillestare me dy katrorë.</string>
+  <string name="exposedKing">Mbreti i ekspozuar</string>
+  <string name="exposedKingDescription">Një taktikë që përfshin një mbret me pak mbrojtës rreth tij, që shpesh çon në shah mat.</string>
+  <string name="fork">Sfurk</string>
+  <string name="forkDescription">Një lëvizje ku pjesa e lëvizur sulmon dy pjesë të kundërshtarit në të njëjtën kohë.</string>
+  <string name="hangingPiece">Figurë e pambrojtur</string>
+  <string name="hangingPieceDescription">Një taktikë që përfshin një figurë të kundërshtarit të pa mbrojtur ose të mbrojtur në mënyrë të pamjaftueshme dhe është e lirë për të kapur.</string>
+  <string name="hookMate">Mati Hook</string>
+  <string name="hookMateDescription">Shat mat me një torrë kalë dhe një ushtar bashk me një uhstar të kundërshtarit për të kufizuar arratisjen e mbretit të kundërshtarit.</string>
+  <string name="interference">Ndërhyrje</string>
   <string name="mateIn1">Mat në 1</string>
   <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
   <string name="mateIn2">Mat në 2</string>
