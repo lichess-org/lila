@@ -52,7 +52,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       return [
         spectating(),
         h('div.racer__spectating', [
-          renderClock(ctrl.run, () => {}, false),
+          renderClock(ctrl.run, ctrl.endNow, false),
           ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch(),
         ]),
         comboZone(ctrl),

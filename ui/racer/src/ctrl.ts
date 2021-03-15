@@ -66,9 +66,6 @@ export default class StormCtrl {
     lichess.socket.sign(this.sign);
     // setInterval(this.redraw, 1000);
     // this.simulate();
-    window.addEventListener('beforeunload', () => {
-      if (this.isPlayer()) this.socketSend('racerEnd');
-    });
   }
 
   serverUpdate = (data: UpdatableData) => {
@@ -114,7 +111,6 @@ export default class StormCtrl {
     this.redraw();
     sound.end();
     this.redrawSlow();
-    this.socketSend('racerEnd');
   };
 
   endNow = (): void => {
