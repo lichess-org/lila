@@ -26,6 +26,8 @@
   <string name="youCanUseOpeningBookNoEngine">Maidir le Lichess, is é an príomhdhifríocht sna rialacha maidir le fichille comhfhreagrais ná go gceadaítear leabhar oscailte. Tá cosc fós ar innill a úsáid agus beidh bratach ar chúnamh innill dá bharr. Cé go gceadaíonn ICCF úsáid innill i gcomhfhreagras, ní cheadaíonn Lichess.</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="howBulletBlitzEtcDecided">Conas a chinntear Bullet, Blitz agus rialuithe ama eile?</string>
+  <string name="basedOnGameDuration">Tá rialtán ama Lichess bunaithe ar fhad cluiche measta = %1$s
+Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</string>
   <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
