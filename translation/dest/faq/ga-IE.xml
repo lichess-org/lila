@@ -39,6 +39,13 @@ Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
   <string name="whatIsACPL">Cad é an meánchaillteanas céadúceithearnach (ACPL - average centipawn loss)? </string>
+  <string name="acplExplanation">Is é an ceinticeithearnach an t-aonad tomhais a úsáidtear i bhficheall mar léiriú ar an mbuntáiste. Tá ceinticeithearnach cothrom le 1/100ú ceithearnach. Dá bhrí sin 100 ceinticeithearnach = 1 ceithearnach. Níl aon ról foirmiúil ag na luachanna seo sa chluiche ach tá siad úsáideach d’imreoirí, agus riachtanach i bhficheall ríomhaire, chun suíomhanna a mheas.
+
+Caillfidh an beart is fearr ó ríomhaire nialas ceinticeithearnach, ach beidh meath ar an suíomh, arna thomhas i gcéadchosach, mar thoradh ar ghluaiseachtaí níos lú.
+
+Is féidir an luach seo a úsáid mar caighdeán na himeartha. An níos lú ceinticeithearnach a chailleann duine in aghaidh an ghluaiseachta, is láidre an imirt.
+
+Tá an anailís ríomhaire ar Lichess faoi thiomáint ag Stockfish.</string>
   <string name="insufficientMaterial">Ag cailleadh ar an clog, cluichí cothroma agus gan go leoir píosaí</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
@@ -98,6 +105,9 @@ Ná iarr ar an teideal LM.</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Is é an 2ú riachtanas ná go stopfaidh imreoirí nach n-úsáideann a gcuntais a thuilleadh spás a thógáil suas sna cláir ceann riain.</string>
   <string name="whyAreRatingHigher">Cén fáth go bhfuil rátálacha níos airde i gcomparáid le suíomhanna agus eagraíochtaí eile mar FIDE, USCF agus an ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Is fearr gan smaoineamh ar rátálacha mar uimhreacha iomlán, ná iad a chur i gcomparáid le heagraíochtaí eile. Tá leibhéil éagsúla imreoirí ag eagraíochtaí difriúla, córais rátála éagsúla (Elo, Glicko, Glicko-2, nó leagan modhnaithe den mhéid thuasluaite). Is féidir leis na tosca seo dul i bhfeidhm go mór ar na huimhreacha iomlána (rátálacha).
+
+Is fearr smaoineamh ar rátálacha mar fhigiúirí “coibhneasta” (seachas figiúirí “dearbh”): Laistigh de líon imreoirí, cuideoidh a ndifríochtaí coibhneasta sna rátálacha leat meastachán a dhéanamh ar cé a bhuaigh / a tharraingeoidh / a chaillfidh, agus cé chomh minic. Ní chiallaíonn \"Tá rátáil X agam\" rud ar bith mura bhfuil imreoirí eile ann chun an rátáil sin a chur i gcomparáid le.</string>
   <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
   <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
