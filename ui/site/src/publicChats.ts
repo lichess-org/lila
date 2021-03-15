@@ -2,7 +2,7 @@ import { text, form } from 'common/xhr';
 import modal from 'common/modal';
 
 lichess.load.then(() => {
-  let autoRefreshEnabled = false;
+  let autoRefreshEnabled = true;
   let autoRefreshOnHold = false;
 
   const renderButton = () =>
