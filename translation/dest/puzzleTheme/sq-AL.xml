@@ -112,7 +112,13 @@
   <string name="trappedPiece">Figurë e bllokuar</string>
   <string name="trappedPieceDescription">Një figurë nuk është në gjendje t\'i shpëtojë kapjes pasi ka lëvizje të kufizuara.</string>
   <string name="underPromotion">Nëngradim</string>
+  <string name="underPromotionDescription">Promovim në nje kalë, oficer, ose torrë.</string>
   <string name="veryLong">Ushtrim shumë i gjatë</string>
   <string name="veryLongDescription">Katër lëvizje ose me shumë për te fituar.</string>
+  <string name="xRayAttack">Sulm Rreze-X</string>
+  <string name="xRayAttackDescription">Një copë sulmon ose mbron një shesh, përmes një figure të kundërshtarit.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Kundërshtari është i kufizuar në lëvizjet që mund të bëjë dhe të gjitha lëvizjet përkeqësojnë pozicionin e tyre.</string>
+  <string name="healthyMix">Përzierje e ushtrimeve</string>
   <string name="healthyMixDescription">Diçka nga te gjitha. Nuk di çka te presish, je gati per gjdo gjë! Sikur ne lojëra te vërteta.</string>
 </resources>
