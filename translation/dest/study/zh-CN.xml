@@ -40,7 +40,7 @@
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
   <string name="commentThisMove">评论这步走法</string>
-  <string name="annotateWithGlyphs">用图形标注</string>
+  <string name="annotateWithGlyphs">用符号标注</string>
   <string name="theChapterIsTooShortToBeAnalysed">本章节太短，无法进行分析。</string>
   <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
