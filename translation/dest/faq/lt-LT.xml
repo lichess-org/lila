@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Kodėl Lichess pavadintas Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess yra gyvų (live), lengvų (light) ir laisvų (libre) šachmatų kombinacija. Jis tariamas %1$s.</string>
   <string name="leechess">ly-čes</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Išgirskite, kaip jį taria specialistas.</string>
+  <string name="hearItPronouncedBySpecialist">Išgirskite, kaip jį taria specialistas.</string>
   <string name="whyLiveLightLibre">Gyvų, nes žaidimai žaidžiami ir peržiūrimi gyvai 24/7; lengvų ir laisvų, nes Lichess yra atviro kodo projektas ir nėra apkrautas komercinio kodo, kuris persekioja kitas svetaines.</string>
   <string name="whyIsLilaCalledLila">Taip pat, Lichess kodas, %1$s, reiškia \"li[chess in sca]la\". Didžioji Lichess dalis parašyta %2$s, intuityvia programavimo kalba.</string>
   <string name="howCanIContributeToLichess">Kaip galiu prisidėti prie Lichess?</string>
