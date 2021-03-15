@@ -9,6 +9,11 @@
   <string name="arabianMate">Mati Arab</string>
   <string name="arabianMateDescription">Një kalë dhe torrë bashkohen për të bllokuar mbretin kundërshtar në një anë të bordit.</string>
   <string name="attackingF2F7">Sulmo f2 ose f7</string>
+  <string name="attackingF2F7Description">Një sulm i fokusuar drejt ushtarit të f2 ose f7, sikur te hapja e quajtur \"mëlçia e skuqur\".</string>
+  <string name="attraction">Tërheqje</string>
+  <string name="attractionDescription">Një shkëmbim ose sakrificë duke inkurajuar ose detyruar një pjesë të kundërshtarit në një shesh që lejon një taktikë vijuese.</string>
+  <string name="backRankMate">Mat ne rreshtin e fundit</string>
+  <string name="backRankMateDescription">Bëj Mat mbretin ne rreshtin e tij, kur ai është bllokuar atje nga pjesët e veta.</string>
   <string name="mateIn1">Mat në 1</string>
   <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
   <string name="mateIn2">Mat në 2</string>
