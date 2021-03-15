@@ -449,7 +449,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="followsYou">Do leanúint</string>
   <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s leantóir amháin</item>
+    <item quantity="one">leantóir amháin</item>
     <item quantity="two">beirt leantóir</item>
     <item quantity="few">%s leantóir</item>
     <item quantity="many">%s leantóirí</item>
