@@ -54,6 +54,29 @@ I gcásanna neamhchoitianta bíonn sé deacair air seo a chinneadh go huathoibr�
 Tabhair faoi deara gur féidir marbhsháinnú le ridire nó easpag amháin má tá píosa ag an céile comhraic a d’fhéadfadh bac a chur ar an rí.</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
+  <string name="explainingEnPassant">Is beart dlíthiúil é seo d\'arbh ainm \"en passant\". Tugann an t-alt Wikipedia %1$s.
+
+Déantar cur síos air i gcuid 3.7 (d) den %2$s:
+
+En passant (ón bhFraincis: \"ag trasnú thar” [an ceithearnach]). Is
+gabh speisialta é an beart “En passant” ina bhfuil ceithearnach ábalta
+ceithearnach eile a thógáil, faoi rialacha sainiúil. Téann sé mar seo: 
+
+Is féidir le ceithearnach bogadh dhá chearnóg nó cearnóg amháin ar aghaidh sa chéad bheart. Má dhéanann imreoir beart le dhá chearnóg (an chéad gluais ón ceithearnach) agus tá ceithearnach a chéile comhraic díreach in aice leis ar an
+chúigiú rang is féidir leis an céile comhraic an ceithearnach a thógáil fiarthrasna más mian. 
+Sa riail “en passant” 
+1. Ní féidir fanacht. Más maith leat é a thógáil “en passant”, caithfear é a
+dhéanamh díreach sa chéad bheart eile.
+2. Is iad na ceithearnaigh amháin atá in ann an riail seo a úsáid.
+3. Cosúil le aon tógáil eile, tá an beart seo deonach.
+4. Is féidir an beart “en passant” a dhéanamh níos mó ná uair amháin sa
+chluiche.
+
+Tá an beart seo neamhchoitianta i bhficheall toisc go bhfuil tú ag dul
+isteach i gcearnóg éagsúil ón gcearnóg ina bhfuil an píosa atá maraithe
+suite. I nodaireacht fichille scríobhtar “ep”.
+
+Féach ar %3$s ar an mbeart seo le haghaidh cleachtadh leis.</string>
   <string name="goodIntroduction">réamhrá maith</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
   <string name="lichessTraining">Traenáil Lichess</string>
@@ -95,6 +118,13 @@ Ná iarr ar an teideal LM.</string>
   <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ríomhtar rátálacha ag baint úsáide as an modh rátála Glicko-2 a d’fhorbair Mark Glickman. Is modh rátála an-tóir é seo, agus úsáideann líon suntasach eagraíochtaí fichille é (is sampla maith é FIDE, toisc go n-úsáideann siad an córas rátála Elo dátaithe fós).
+
+Go bunúsach, úsáideann rátálacha Glicko “eatraimh muiníne” agus do rátáil á ríomh agus á léiriú. Nuair a thosaíonn tú ag úsáid an suíomh gréasáin den chéad uair, tosaíonn do rátáil ag 1500 ± 700. Léiríonn an 1500 do rátáil, agus is ionann an 700 agus an t-eatramh muiníne.
+
+Go bunúsach, tá an córas 90% cinnte go bhfuil do rátáil áit éigin idir 800 agus 2200. Tá sé dochreidte éiginnte. Mar gheall air seo, nuair a bhíonn imreoir díreach ag tosú amach, athróidh a rátáil go suntasach, cúpla céad pointe ag an am, b’fhéidir. Ach tar éis roinnt cluichí i gcoinne imreoirí bhunaithe laghdóidh an t-eatramh muiníne, agus laghdóidh méid na bpointí a ghnóthaítear/a chaillfear tar éis gach cluiche.
+
+Pointe eile le tabhairt faoi deara ná, de réir mar a théann am thart, go dtiocfaidh méadú ar an eatramh muiníne. Ligeann sé seo duit pointí a fháil/a chailleadh níos gasta le bheith níos cóngaraí do do leibhéal scil thar an aga seo.</string>
   <string name="whatIsProvisionalRating">Cén fáth go bhfuil comhartha ceiste (?) In aice le rátáil?</string>
   <string name="provisionalRatingExplanation">Ciallaíonn an comhartha ceiste go bhfuil an rátáil sealadach. Cúiseanna san áireamh:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
