@@ -18,6 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
   <string name="fairPlay">Cothrom na Féinne</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Cén fáth a bhfuilim faoi bhratach ionramhála rátála saorga (bacadh agus treisiú) nó cúnamh ríomhaire?</string>
+  <string name="cheatDetectionMethods">Tá modhanna braite láidre ag Lichess agus próiseas an-críochnúil chun an fhianaise go léir a athbhreithniú agus chun cinneadh a dhéanamh. Is minic a bhíonn go leor modhnóirí i gceist leis an bpróiseas agus tógfaidh sé tamall fada. Seachas an marc féin, ní rachaimid isteach i sonraí faoi fhianaise ná faoin bpróiseas cinnteoireachta do chásanna aonair. Dá ndéanfaí é sin bheadh sé níos éasca braite a sheachaint sa todhchaí, agus cuireadh a thabhairt do dhíospóireachtaí neamhtháirgiúla. Is fearr an t-am agus an iarracht sin a chaitheamh ar chásanna tábhachtacha eile. Is féidir le húsáideoirí achomharc a dhéanamh trí ríomhphost a sheoladh chuig %1$s, ach is annamh a chuirtear cinntí ar ceal.</string>
   <string name="whenAmIEligibleRatinRefund">Cathain a bheidh mé incháilithe don aisíocaíocht rátála uathoibríoch ó caimiléirí?</string>
   <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
@@ -101,4 +102,9 @@ Ná iarr ar an teideal LM.</string>
   <string name="howToThreeDots">Conas...</string>
   <string name="enableDisableNotificationPopUps">Cumasaigh fógraí mír aníos nó díchumasaigh iad?</string>
   <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh gréasáin</string>
+  <string name="lichessCanOptionnalySendPopUps">Is féidir le Lichess fógraí mír aníos a sheoladh go roghnach, mar shampla nuair is é do sheal é nó nuair a fuair tú teachtaireacht phríobháideach.
+
+Cliceáil ar an deilbhín glasála in aice leis an seoladh lichess.org i mbarra URL do bhrabhsálaí.
+
+Ansin roghnaigh fógraí ó Lichess a cheadú nó a bhac.</string>
 </resources>
