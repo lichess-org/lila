@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Miks Lichessi nimi on Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sõnade live/light/libre ja chess kombinatsioon. Seda hääldatakse %1$s.</string>
   <string name="leechess">li-tšes</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Kuula kuidas asjatundja seda hääldab.</string>
+  <string name="hearItPronouncedBySpecialist">Kuula kuidas asjatundja seda hääldab.</string>
   <string name="fairPlay">Aus mäng</string>
   <string name="howCanIBecomeModerator">Kuidas ma saan moderaatoriks?</string>
   <string name="gameplay">Mängimine</string>
