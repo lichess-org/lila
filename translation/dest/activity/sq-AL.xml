@@ -15,8 +15,8 @@
     <item quantity="other">Zgjodhi %s enigma taktike</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Luajti %1$s %2$s lojë</item>
-    <item quantity="other">Luajti %1$s %2$s lojëra</item>
+    <item quantity="one">Luajti %1$s lojë %2$s</item>
+    <item quantity="other">Luajti %1$s lojëra %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Postoi %1$s mesazh në %2$s</item>
