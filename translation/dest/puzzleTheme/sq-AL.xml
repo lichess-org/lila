@@ -3,8 +3,12 @@
   <string name="advancedPawn">Ushtar i përparuar</string>
   <string name="advancedPawnDescription">Një nga ushtaret është thellë ne territorin e kundërshtarit, synon të promovohet.</string>
   <string name="advantage">Avantazh</string>
-  <string name="advantageDescription">Shfrytëzo shansin te fitosh nje avantazh. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Shfrytëzo shansin te fitosh një avantazh. (200cp ≤ vlerë ≤ 600cp)</string>
   <string name="anastasiaMate">Mati i Anastsias</string>
+  <string name="anastasiaMateDescription">Një kalë dhe torrë ose mbretëreshë bashkohen për të bllokuar mbretin kundërshtar midis anës së bordit dhe një pjese miqësore.</string>
+  <string name="arabianMate">Mati Arab</string>
+  <string name="arabianMateDescription">Një kalë dhe torrë bashkohen për të bllokuar mbretin kundërshtar në një anë të bordit.</string>
+  <string name="attackingF2F7">Sulmo f2 ose f7</string>
   <string name="mateIn1">Mat në 1</string>
   <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
   <string name="mateIn2">Mat në 2</string>
