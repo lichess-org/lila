@@ -53,6 +53,11 @@ Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</
   <string name="accounts">Cuntais</string>
   <string name="titlesAvailableOnLichess">Cad iad na teidil atá ar Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Aithníonn Lichess gach teideal FIDE a fuarthas ó dhráma OTB (thar an gclár), chomh maith le %1$s. Seo liosta de theidil FIDE:</string>
+  <string name="showYourTitle">Má tá teideal OTB agat, is féidir leat iarratas a dhéanamh go dtaispeánfar é seo ar do chuntas trí na %1$s a críochnú, lena n-áirítear íomhá shoiléir de dhoiciméad / chárta aitheantais agus féinín díot leis an doiciméad/cárta.
+
+Trí fhíorú mar imreoir le teideal tugtar Lichess rochtain ar imirt sna himeachtaí Arena Teidealta.
+
+Faoi dheireadh tá teideal oinigh %2$s ann.</string>
   <string name="asWellAsManyNMtitles">go leor máistir-teidil náisiúnta</string>
   <string name="verificationForm">foirm fíoraithe</string>
   <string name="canIbecomeLM">An féidir liom an teideal Máistir Lichess (LM) a fháil?</string>
