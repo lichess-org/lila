@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Lichess の名前の由来は？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
   <string name="leechess">リーチェス</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">実際の発音をお聞きください。</string>
+  <string name="hearItPronouncedBySpecialist">実際の発音をお聞きください。</string>
   <string name="whyLiveLightLibre">「ライブ」それは24時間無休で対戦・観戦できるから。「軽い」「自由」は Lichess がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないから。</string>
   <string name="whyIsLilaCalledLila">同様に、Lichess のソースコード「%1$s」は「Li(chess in sca)la」の意味で、Lichess の大部分が直感的なプログラム言語 %2$s で書かれているからです。</string>
   <string name="howCanIContributeToLichess">どうすれば Lichess に貢献できますか？</string>
