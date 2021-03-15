@@ -84,8 +84,10 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   private def finish(id: RacerRace.Id): Unit =
     get(id).filterNot(_.finished) foreach publish
 
-  def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
+  def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
+    if (score >= 100) logger.warn(s"$id $player score: $score")
     get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
+  }
 
   def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
     get(id).map(_ end player) foreach { race =>
