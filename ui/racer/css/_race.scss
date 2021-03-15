@@ -66,6 +66,11 @@ $c-bg-position-y: 2px;
     padding-top: 0.3em;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
+    transition: filter ease-out 0.5s;
+    .racer__race__track--boost & {
+      transition: none;
+      filter: brightness(1.5);
+    }
     .racer__race__track--end & {
       color: $c-bad;
     }
@@ -93,10 +98,12 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      transition: transform 0.3s;
+      transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {
-        transform: translateX(7px) scaleX(0.95) skewX(10deg) rotate(-3deg);
+        transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        filter: brightness(1.3);
+        transition: all 0.15s ease-out;
         &::before {
           content: 'A';
           position: absolute;
@@ -129,26 +136,6 @@ $c-bg-position-y: 2px;
   to {
     transform: translateX(-3px);
     opacity: 0.6;
-  }
-}
-
-@keyframes lightSpeedInLeft {
-  from {
-    transform: translateX(-100%) skewX(30deg);
-    opacity: 0;
-  }
-
-  60% {
-    transform: skewX(-20deg);
-    opacity: 1;
-  }
-
-  80% {
-    transform: translateX(0), skewX(5deg);
-  }
-
-  to {
-    transform: translateX(0);
   }
 }
 
