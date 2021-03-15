@@ -71,6 +71,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="usernamesNotOffensive">Go ginearálta, níor cheart go mbeadh ainmneacha úsáideora: maslach, aithris a dhéanamh ar dhuine eile, nó fógraíocht a dhéanamh. Is féidir leat níos mó a léamh faoin %1$s.</string>
   <string name="guidelines">treoirlínte</string>
   <string name="canIChangeMyUsername">An bhfuil cead agam m’ainm úsáideora a athrú?</string>
+  <string name="usernamesCannotBeChanged">Ní féidir ainmneacha úsáideora a athrú ar chúiseanna teicniúla agus praiticiúla. Cuirtear ainmneacha úsáideoirí i bhfeidhm san iomarca áiteanna: bunachair sonraí, onnmhairí, logaí agus intinn daoine. Is féidir leat an ceannlitriú a athrú uair amháin.</string>
   <string name="uniqueTrophies">Trófaithe uathúla</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
@@ -82,6 +83,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="provisionalRatingExplanation">Ciallaíonn an comhartha ceiste go bhfuil an rátáil sealadach. Cúiseanna san áireamh:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
   <string name="similarOpponents">céile comhraic den chaighdeán céanna</string>
+  <string name="notPlayedRecently">Níor imir an ficheallaí a ndóthain cluichí le déanaí. Ag brath ar líon na gcluichí a d’imir tú, b’fhéidir go dtógfadh sé timpeall bliana neamhghníomhaíochta do rátáil a bheith sealadach arís.</string>
   <string name="howDoLeaderoardsWork">Conas a oibríonn céimeanna agus cláracha ceann riain?</string>
   <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
@@ -89,6 +91,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">imir cluiche rátáilte laistigh den tseachtain seo caite don rátáil seo,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i bhficheall caighdeánach, agus níos ísle ná %2$s in leaganacha,</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Is é an 2ú riachtanas ná go stopfaidh imreoirí nach n-úsáideann a gcuntais a thuilleadh spás a thógáil suas sna cláir ceann riain.</string>
   <string name="whyAreRatingHigher">Cén fáth go bhfuil rátálacha níos airde i gcomparáid le suíomhanna agus eagraíochtaí eile mar FIDE, USCF agus an ICC?</string>
   <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
   <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
