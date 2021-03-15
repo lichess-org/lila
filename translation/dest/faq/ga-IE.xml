@@ -84,6 +84,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Níor chríochnaigh an ficheallaí go leor cluichí rátáilte go fóill i gcoinne %1$s sa chatagóir rátála.</string>
   <string name="similarOpponents">céile comhraic den chaighdeán céanna</string>
   <string name="notPlayedRecently">Níor imir an ficheallaí a ndóthain cluichí le déanaí. Ag brath ar líon na gcluichí a d’imir tú, b’fhéidir go dtógfadh sé timpeall bliana neamhghníomhaíochta do rátáil a bheith sealadach arís.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">I ndáiríre, ciallaíonn sé go bhfuil diall Glicko-2 níos mó ná 110. Is é an diall an leibhéal muiníne atá ag an gcóras sa rátáil. Dá ísle an diall, is iontaofa an rátáil.</string>
   <string name="howDoLeaderoardsWork">Conas a oibríonn céimeanna agus cláracha ceann riain?</string>
   <string name="inOrderToAppearsYouMust">Chun na %1$s a fháil caithfidh tú:</string>
   <string name="ratingLeaderboards">bord ceannais rátála</string>
@@ -99,5 +100,5 @@ Ná iarr ar an teideal LM.</string>
   <string name="connexionLostCanIGetMyRatingBack">Chaill mé cluiche de bharr moille/dícheangail. An féidir liom mo chuid pointí rátála a fháil ar ais?</string>
   <string name="howToThreeDots">Conas...</string>
   <string name="enableDisableNotificationPopUps">Cumasaigh fógraí mír aníos nó díchumasaigh iad?</string>
-  <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh Gréasáin</string>
+  <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh gréasáin</string>
 </resources>
