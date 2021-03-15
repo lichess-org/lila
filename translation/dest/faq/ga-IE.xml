@@ -89,6 +89,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">imir cluiche rátáilte laistigh den tseachtain seo caite don rátáil seo,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i bhficheall caighdeánach, agus níos ísle ná %2$s in leaganacha,</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
+  <string name="whyAreRatingHigher">Cén fáth go bhfuil rátálacha níos airde i gcomparáid le suíomhanna agus eagraíochtaí eile mar FIDE, USCF agus an ICC?</string>
   <string name="howToHideRatingWhilePlaying">Conas rátálacha a cuir i bhfolach agus tú ag imirt?</string>
   <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
