@@ -7,7 +7,7 @@
 
 %1$s  diye okunur.</string>
   <string name="leechess">lii-çes</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Telaffuzunu bir uzmandan dinleyin.</string>
+  <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
   <string name="whyLiveLightLibre">Lichess, oyunlar 7/24 gerçek zamanlı olarak oynanıp izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
   <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess\'in kaynak kodu %1$s, \'li[chess in sca]la\' ifadesinin kısaltılmış hâlidir. Zira Lichess\'in büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
   <string name="howCanIContributeToLichess">Lichess\'e nasıl katkıda bulunabilirim?</string>
