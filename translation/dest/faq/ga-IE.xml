@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Cén fáth a dtugtar Lichess ar Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Is meascán de bheo/éadrom/saoirse agus ficheall é Lichess. Fuaimnítear é %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Éist le fuaimniú speisialtóir.</string>
+  <string name="hearItPronouncedBySpecialist">Éist le fuaimniú speisialtóir.</string>
   <string name="whyLiveLightLibre">Beo, toisc go nimrítear agus féachtar ar chluichí i bhfíor-am 24/7; éadrom agus saor toisc gur foinse oscailte í Lichess agus neamhualaithe ó bruscar dílseánaigh a phléann suíomhanna Gréasáin eile.</string>
   <string name="whyIsLilaCalledLila">Ar an dóigh chéanna, seasann an cód foinseach do Lichess, %1$s, do li[ficheall in sca]la, ag féachaint dó go bhfuil an chuid is mó de Lichess scríofa i %2$s, teanga ríomhchláraithe iomasach.</string>
   <string name="howCanIContributeToLichess">Conas is féidir liom tacú le Lichess?</string>
@@ -21,7 +21,9 @@
   <string name="whenAmIEligibleRatinRefund">Cathain a bheidh mé incháilithe don aisíocaíocht rátála uathoibríoch ó caimiléirí?</string>
   <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
+  <string name="youCannotApply">Ní féidir iarratas a dhéanamh chun bheith i do mhodhnóir. Má fheicimid duine a cheapfaimis a bheadh go maith mar mhodhnóir, rachaimid i dteagmháil leo go díreach.</string>
   <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
+  <string name="youCanUseOpeningBookNoEngine">Maidir le Lichess, is é an príomhdhifríocht sna rialacha maidir le fichille comhfhreagrais ná go gceadaítear leabhar oscailte. Tá cosc fós ar innill a úsáid agus beidh bratach ar chúnamh innill dá bharr. Cé go gceadaíonn ICCF úsáid innill i gcomhfhreagras, ní cheadaíonn Lichess.</string>
   <string name="gameplay">Imirt chomhoibritheach</string>
   <string name="howBulletBlitzEtcDecided">Conas a chinntear Bullet, Blitz agus rialuithe ama eile?</string>
   <string name="durationFormula">(am tosaigh an chloig) + 40 × (incrimint clog)</string>
@@ -85,5 +87,6 @@ Ná iarr ar an teideal LM.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
   <string name="connexionLostCanIGetMyRatingBack">Chaill mé cluiche de bharr moille/dícheangail. An féidir liom mo chuid pointí rátála a fháil ar ais?</string>
   <string name="howToThreeDots">Conas...</string>
+  <string name="enableDisableNotificationPopUps">Cumasaigh fógraí mír aníos nó díchumasaigh iad?</string>
   <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh Gréasáin</string>
 </resources>
