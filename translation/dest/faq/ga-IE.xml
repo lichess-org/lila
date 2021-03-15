@@ -47,6 +47,11 @@ Is féidir an luach seo a úsáid mar caighdeán na himeartha. An níos lú cein
 
 Tá an anailís ríomhaire ar Lichess faoi thiomáint ag Stockfish.</string>
   <string name="insufficientMaterial">Ag cailleadh ar an clog, cluichí cothroma agus gan go leoir píosaí</string>
+  <string name="lichessFollowFIDErules">Sa chás go rithfidh imreoir amháin as am, is iondúil go gcaillfidh an t-imreoir sin an cluiche. Is cluiche cothrom an cluiche, áfach, má tá an suíomh sa chaoi nach féidir leis an céile comhraic rí an imreora a marbhsháinnú le haon tsraith bearta dlithiúil (%1$s).
+
+I gcásanna neamhchoitianta bíonn sé deacair air seo a chinneadh go huathoibríoch (línte éigeantacha, daingne). De réir réamhshocraithe bímid i gcónaí ar taobh an imreoir nár rith as am.
+
+Tabhair faoi deara gur féidir marbhsháinnú le ridire nó easpag amháin má tá píosa ag an céile comhraic a d’fhéadfadh bac a chur ar an rí.</string>
   <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="discoveringEnPassant">Cén fáth gur féidir le ceithearnach ceithearnach eile a mharú nuair nach bhfuil sé díreach ar fiar? (en passant)</string>
   <string name="goodIntroduction">réamhrá maith</string>
