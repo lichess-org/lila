@@ -86,6 +86,16 @@
   <string name="pawnEndgame">Loja finale me ushtar</string>
   <string name="pawnEndgameDescription">Nje lojë finale vetëm me ushtar.</string>
   <string name="pin">Mbërthimi</string>
+  <string name="pinDescription">Një taktikë që përfshin mbërthim, ku një pjesë nuk është në gjendje të lëvizë pa zbuluar një sulm ndaj një pjese me vlerë më të lartë.</string>
+  <string name="promotion">Promovim</string>
+  <string name="promotionDescription">Promovo njërin ushtar në një mbretëreshë ose nje figure te vogël.</string>
+  <string name="queenEndgame">Loja finale me mbretëreshë</string>
+  <string name="queenEndgameDescription">Nje lojë finale vetëm me mbretëreshë dhe ushtar.</string>
+  <string name="queenRookEndgame">Mbretëreshë dhe torrë</string>
+  <string name="queenRookEndgameDescription">Nje lojë finale vetëm me mbretëreshë, torrë dhe ushtar.</string>
+  <string name="queensideAttack">Sulm nga ana e mbretëshës</string>
+  <string name="queensideAttackDescription">Një sulm në anë të mbretëreshës, pasi bëri rrokade në anë te mbretëreshës.</string>
+  <string name="quietMove">Lëvizje e qetë</string>
   <string name="sacrifice">Sakrificë</string>
   <string name="short">Ushtrim i shkurtë</string>
   <string name="shortDescription">Dy lëvizje për te fituar.</string>
