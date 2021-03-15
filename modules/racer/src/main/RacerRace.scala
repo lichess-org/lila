@@ -11,7 +11,6 @@ case class RacerRace(
     owner: RacerPlayer.Id,
     players: List[RacerPlayer],
     puzzles: List[StormPuzzle],
-    createdAt: DateTime,
     startsAt: Option[DateTime],
     rematch: Option[RacerRace.Id]
 ) {
@@ -42,18 +41,9 @@ case class RacerRace(
 
   def hasStarted = startsInMillis.exists(_ <= 0)
 
-  def end(playerId: RacerPlayer.Id): RacerRace =
-    copy(
-      players = if (hasStarted) players map {
-        case p if p.id == playerId => p.copy(end = true)
-        case p                     => p
-      }
-      else players.filterNot(_.id == playerId)
-    )
-
   def finishesAt = startsAt.map(_ plusSeconds RacerRace.duration)
 
-  def finished = players.forall(_.end) || finishesAt.exists(_.isBeforeNow)
+  def finished = finishesAt.exists(_.isBeforeNow)
 
   def isLobby = owner == RacerPlayer.lichess
 }
@@ -70,7 +60,6 @@ object RacerRace {
     owner = owner,
     players = Nil,
     puzzles = puzzles,
-    createdAt = DateTime.now,
     startsAt = none,
     rematch = none
   )

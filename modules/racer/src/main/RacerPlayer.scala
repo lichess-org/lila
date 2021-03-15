@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import lila.common.CuteNameGenerator
 import lila.user.User
 
-case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int, end: Boolean) {
+case class RacerPlayer(id: RacerPlayer.Id, createdAt: DateTime, score: Int) {
 
   import RacerPlayer.Id
 
@@ -31,5 +31,5 @@ object RacerPlayer {
 
   val lichess = Id.User("Lichess")
 
-  def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now, end = false)
+  def make(id: Id) = RacerPlayer(id = id, score = 0, createdAt = DateTime.now)
 }

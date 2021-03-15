@@ -20,7 +20,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   import RacerBsonHandlers._
 
   private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](512, "racer.race")(
-    _.expireAfterWrite(1 hour).build()
+    _.expireAfterAccess(20 minutes).build()
   )
 
   def get(id: Id): Option[RacerRace] = store getIfPresent id
@@ -71,34 +71,29 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
     get(id).flatMap(_ join player) map { r =>
-      val race = r.startCountdown match {
-        case Some(starting) =>
-          system.scheduler.scheduleOnce(RacerRace.duration.seconds + 100.millis) { finish(id) }
-          starting
-        case None => r
-      }
+      val race = start(r) | r
       saveAndPublish(race)
       race
     }
 
+  private def start(race: RacerRace): Option[RacerRace] = race.startCountdown.map { starting =>
+    system.scheduler.scheduleOnce(RacerRace.duration.seconds + 50.millis) { finish(race.id) }
+    starting
+  }
+
   private def finish(id: RacerRace.Id): Unit =
-    get(id).filterNot(_.finished) foreach publish
+    get(id).filterNot(_.finished) foreach { race =>
+      lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
+      race.players foreach { player =>
+        lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
+      }
+      publish(race)
+    }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
     if (score >= 100) logger.warn(s"$id $player score: $score")
-    get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
+    else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
   }
-
-  def playerEnd(id: RacerRace.Id, player: RacerPlayer.Id): Unit =
-    get(id).map(_ end player) foreach { race =>
-      saveAndPublish(race)
-      if (race.finished) {
-        lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
-        race.players foreach { player =>
-          lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
-        }
-      }
-    }
 
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)

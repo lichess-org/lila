@@ -38,7 +38,6 @@ const renderTrack = (relative: RelativeScore, myName: string, bestScore: number,
         'racer__race__track--me': isMe,
         'racer__race__track--first': player.score && player.score == bestScore,
         'racer__race__track--boost': boost.isBoosting(index),
-        'racer__race__track--end': player.end,
       },
     },
     [

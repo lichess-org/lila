@@ -34,7 +34,6 @@ const chessground = (ctrl: StormCtrl): VNode =>
             makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove)
           )
         ),
-      destroy: _ => ctrl.withGround(g => g.destroy()),
     },
   });
 

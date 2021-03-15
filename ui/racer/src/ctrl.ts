@@ -41,7 +41,7 @@ export default class StormCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config),
+      clock: new Clock(config, Math.max(0, -opts.data.startsIn)),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -51,17 +51,20 @@ export default class StormCtrl {
     this.vm = {
       alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
     };
-    this.countdown = new Countdown(this.run.clock, this.resetGround, this.redraw);
+    this.countdown = new Countdown(this.run.clock, this.resetGround, () => setTimeout(this.redraw));
     this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
-    this.boost.setPlayers(this.data.players);
-    lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false);
-    lichess.socket.sign(this.sign);
-    lichess.pubsub.on('socket.in.racerState', this.serverUpdate);
-    setTimeout(() => {
-      this.vm.startsAt = this.countdown.start(opts.data.startsIn, this.isPlayer());
-      this.redraw();
+    this.serverUpdate(opts.data);
+    lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false, {
+      events: {
+        racerState: (data: UpdatableData) => {
+          this.serverUpdate(data);
+          this.redraw();
+          this.redrawSlow();
+        },
+      },
     });
-    setInterval(this.redraw, 1000);
+    lichess.socket.sign(this.sign);
+    // setInterval(this.redraw, 1000);
     // this.simulate();
     window.addEventListener('beforeunload', () => {
       if (this.isPlayer()) this.socketSend('racerEnd');
@@ -71,25 +74,22 @@ export default class StormCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    this.vm.startsAt = this.countdown.start(data.startsIn, this.isPlayer()) || this.vm.startsAt;
-    this.redraw();
-    this.redrawSlow();
+    if (data.startsIn) {
+      this.vm.startsAt = new Date(Date.now() + data.startsIn);
+      if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
+      else this.run.clock.start();
+    }
   };
 
   player = () => this.data.player;
 
   players = () => this.data.players;
 
-  isPlayer = () => !this.vm.alreadyStarted && this.data.players.filter(p => p.name == this.data.player.name).length > 0;
+  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name == this.data.player.name);
 
   raceFull = () => this.data.players.length >= 10;
 
-  status = (): RaceStatus =>
-    this.vm.startsAt && this.vm.startsAt < new Date()
-      ? !this.run.clock.flag() && this.data.players.some(p => !p.end)
-        ? 'racing'
-        : 'post'
-      : 'pre';
+  status = (): RaceStatus => (this.run.clock.started() ? (this.run.clock.flag() ? 'post' : 'racing') : 'pre');
 
   isRacing = () => this.status() == 'racing';
 
@@ -103,7 +103,7 @@ export default class StormCtrl {
   });
 
   countdownSeconds = (): number | undefined =>
-    this.vm.startsAt && this.vm.startsAt > new Date()
+    this.status() == 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
       ? Math.min(9, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
       : undefined;
 

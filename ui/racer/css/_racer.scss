@@ -45,4 +45,8 @@
   .puz-side__top::before {
     background-image: img-url('racer/checkered-flag.svg');
   }
+
+  &__spectating .puz-clock__time {
+    font-size: 3em;
+  }
 }

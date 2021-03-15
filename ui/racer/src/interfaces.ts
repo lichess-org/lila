@@ -34,7 +34,6 @@ export interface Player {
   name: string;
   userId?: string;
   title?: string;
-  end?: boolean;
 }
 export interface PlayerWithScore extends Player {
   score: number;

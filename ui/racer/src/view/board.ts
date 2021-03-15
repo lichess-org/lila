@@ -21,8 +21,8 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
           Chessground(
             vnode.elm as HTMLElement,
             makeCgConfig(
-              ctrl.isRacing()
-                ? makeCgOpts(ctrl.run, ctrl.isRacing())
+              ctrl.isRacing() && ctrl.isPlayer()
+                ? makeCgOpts(ctrl.run, true)
                 : {
                     fen: INITIAL_BOARD_FEN,
                     orientation: ctrl.run.pov,
@@ -33,7 +33,6 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
             )
           )
         ),
-      destroy: _ => ctrl.withGround(g => g.destroy()),
     },
   });
 

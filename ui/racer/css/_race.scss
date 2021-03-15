@@ -71,9 +71,6 @@ $c-bg-position-y: 2px;
       transition: none;
       filter: brightness(1.5);
     }
-    .racer__race__track--end & {
-      color: $c-bad;
-    }
     .racer__race__track--first & {
       color: $c-brag;
     }

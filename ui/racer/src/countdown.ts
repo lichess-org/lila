@@ -8,27 +8,20 @@ export class Countdown {
     for (let i = 10; i >= 0; i--) lichess.sound.loadStandard(`countDown${i}`);
   }
 
-  // returns updated startsAt
-  start = (startsIn: number | undefined, isPlayer: boolean): Date | undefined => {
-    if (startsIn) {
-      const startsAt = new Date(Date.now() + startsIn);
-      if (!this.clock.started()) {
-        const countdown = () => {
-          const diff = startsAt.getTime() - Date.now();
-          if (diff > 0) {
-            if (isPlayer) this.playOnce(Math.ceil(diff / 1000));
-            setTimeout(countdown, (diff % 1000) + 50);
-          } else {
-            if (isPlayer) this.playOnce(0);
-            this.clock.start();
-            this.resetGround();
-          }
-          this.redraw();
-        };
-        countdown();
+  start = (startsAt: Date, aloud: boolean): void => {
+    const countdown = () => {
+      const diff = startsAt.getTime() - Date.now();
+      if (diff > 0) {
+        if (aloud) this.playOnce(Math.ceil(diff / 1000));
+        setTimeout(countdown, diff % 1000);
+      } else {
+        if (aloud) this.playOnce(0);
+        this.clock.start();
+        this.resetGround();
       }
-      return startsAt;
-    }
+      this.redraw();
+    };
+    countdown();
   };
 
   private playOnce = (i: number) => {
