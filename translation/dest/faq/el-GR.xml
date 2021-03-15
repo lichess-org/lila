@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Γιατί το Lichess ονομάζεται Lichess;</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Το Lichess συνδιάζει το σκάκι με ανοικτό κώδικα, αποδοτικότητα και καινοτομία στα ζωντανά παιχνίδια. Προφέρεται ως %1$s.</string>
   <string name="leechess">lee-chess (λί-τσες)</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Ακούστε πως προφέρεται από έναν ειδικό.</string>
+  <string name="hearItPronouncedBySpecialist">Ακούστε πως προφέρεται από έναν ειδικό.</string>
   <string name="whyLiveLightLibre">Ζωντανά, επειδή τα παιχνίδια παίζονται και παρακολουθούνται σε πραγματικό χρόνο 24/7, αποδοτικό και καινοτόμο, καθώς υιοθετεί την φιλοσοφία του ανοικτού κώδικα, αποφεύγοντας παράλληλα τα προβλήματα που ενέχει ο ιδιόκτητος κώδικας και τα οποία μαστίζουν άλλες ιστοσελίδες.</string>
   <string name="whyIsLilaCalledLila">Όμοια, ο πηγαίος κώδικας για το Lichess, %1$s, σημαίνει li[chess in sca]la (lichess σε scala), αφού ένα αρκετά μεγάλο μέρος του Lichess είναι γραμμένο στην %2$s, μια διαισθητική γλώσσα προγραμματισμού.</string>
   <string name="howCanIContributeToLichess">Πώς μπορώ να συνεισφέρω στο Lichess;</string>
