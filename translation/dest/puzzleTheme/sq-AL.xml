@@ -26,6 +26,15 @@
   <string name="crushingDescription">Shfrytëzo gabimin e kundërshtarit për të marrë një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy fila/oficer</string>
   <string name="doubleBishopMateDescription">Dy fila sulmues në diagonalet kryqëzuese i bëjne mat një mbreti të penguar nga figura miqësore.</string>
+  <string name="dovetailMate">Mati bishtbardhe</string>
+  <string name="dovetailMateDescription">Një mbretëreshë jep mat një mbretit afër, së të cilit dy sheshet e arratisjes i pengohen nga copa miqësore.</string>
+  <string name="equality">Barazim</string>
+  <string name="equalityDescription">Kthehuni nga një pozicion humbës dhe siguroni një barazim ose një pozicion të ekuilibruar. (vlera ≤ 200cp)</string>
+  <string name="kingsideAttack">Sulmi nga ana e mbretit</string>
+  <string name="kingsideAttackDescription">Një sulm në anë të mbretit, pasi bëri rrokade në anë te mbretit.</string>
+  <string name="clearance">Largim</string>
+  <string name="clearanceDescription">Një lëvizje, shpesh me tempo, që pastron një katror, kolonë ose diagonale për një ide taktike vijuese.</string>
+  <string name="defensiveMove">Lëvizje mbrojtëse</string>
   <string name="mateIn1">Mat në 1</string>
   <string name="mateIn1Description">Jep shahmat në një lëvizje.</string>
   <string name="mateIn2">Mat në 2</string>
