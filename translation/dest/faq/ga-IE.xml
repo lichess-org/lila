@@ -20,7 +20,10 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Cén fáth a bhfuilim faoi bhratach ionramhála rátála saorga (bacadh agus treisiú) nó cúnamh ríomhaire?</string>
   <string name="cheatDetectionMethods">Tá modhanna braite láidre ag Lichess agus próiseas an-críochnúil chun an fhianaise go léir a athbhreithniú agus chun cinneadh a dhéanamh. Is minic a bhíonn go leor modhnóirí i gceist leis an bpróiseas agus tógfaidh sé tamall fada. Seachas an marc féin, ní rachaimid isteach i sonraí faoi fhianaise ná faoin bpróiseas cinnteoireachta do chásanna aonair. Dá ndéanfaí é sin bheadh sé níos éasca braite a sheachaint sa todhchaí, agus cuireadh a thabhairt do dhíospóireachtaí neamhtháirgiúla. Is fearr an t-am agus an iarracht sin a chaitheamh ar chásanna tábhachtacha eile. Is féidir le húsáideoirí achomharc a dhéanamh trí ríomhphost a sheoladh chuig %1$s, ach is annamh a chuirtear cinntí ar ceal.</string>
   <string name="whenAmIEligibleRatinRefund">Cathain a bheidh mé incháilithe don aisíocaíocht rátála uathoibríoch ó caimiléirí?</string>
+  <string name="ratingRefundExplanation">Nóiméad tar éis imreoir a mharcáil, tógtar a 40 cluiche rátáilte is déanaí le 3 lá anuas. Más tusa a chéile comhraic sna cluichí sin, chaill tú rátáil (mar gheall ar chaillteanas nó tarraingt), agus mura raibh do rátáil sealadach, faigheann tú aisíocaíocht rátála. Cuirtear teorainn leis an aisíocaíocht bunaithe ar do bhuaic-rátáil agus ar do dhul chun cinn rátála tar éis an chluiche.
+  (Mar shampla, má mhéadaigh do rátáil go mór tar éis na gcluichí sin, b’fhéidir nach bhfaighfeá aisíocaíocht ar bith nó aisíocaíocht pháirteach.) Ní bhfaigheann tú aisíocaíocht os cionn 150 pointe riamh.</string>
   <string name="preventLeavingGameWithoutResigning">Cad a dhéantar faoi imreoirí ag fágáil cluichí gan éirí as?</string>
+  <string name="leavingGameWithoutResigningExplanation">Má ghiorraíonn / fágann do chéile comhraic cluichí go minic, faigheann siad “cosc ar imirt”, rud a chiallaíonn go gcuirtear cosc orthu go sealadach cluichí a imirt. Ní léirítear é seo go poiblí ar a bpróifíl. Má leantar leis an iompar seo, méadaíonn fad an cosc - agus d’fhéadfadh dúnadh cuntas a bheith mar thoradh ar iompar fada den chineál seo.</string>
   <string name="howCanIBecomeModerator">Conas is féidir liom a bheith i mo mhodhnóir?</string>
   <string name="youCannotApply">Ní féidir iarratas a dhéanamh chun bheith i do mhodhnóir. Má fheicimid duine a cheapfaimis a bheadh go maith mar mhodhnóir, rachaimid i dteagmháil leo go díreach.</string>
   <string name="isCorrespondenceDifferent">An bhfuil ficheall comhfhreagrais difriúil ó ghnáth-fhicheall?</string>
@@ -99,6 +102,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="enableZenMode">Cumasaigh mód Zen sa %1$s, nó trí %2$s a bhrú i lár cluiche.</string>
   <string name="displayPreferences">taispeáin roghanna</string>
   <string name="connexionLostCanIGetMyRatingBack">Chaill mé cluiche de bharr moille/dícheangail. An féidir liom mo chuid pointí rátála a fháil ar ais?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Ar an drochuair, ní féidir linn pointí rátála a thabhairt ar ais do chluichí a cailleadh mar gheall ar mhoill nó dícheangal, is cuma an raibh an fhadhb ag do thaobh nó ag ár dtaobh. Tá an dara ceann an-annamh áfach. Tabhair faoi deara freisin nuair a atosaíonn Lichess agus má chailleann tú am mar gheall air sin, déanaimid ginmhilleadh ar an gcluiche chun caillteanas éagórach a chosc.</string>
   <string name="howToThreeDots">Conas...</string>
   <string name="enableDisableNotificationPopUps">Cumasaigh fógraí mír aníos nó díchumasaigh iad?</string>
   <string name="viewSiteInformationPopUp">Féach ar eolas ar mír aníos an suíomh gréasáin</string>
