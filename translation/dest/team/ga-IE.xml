@@ -3,7 +3,7 @@
   <string name="team">Foireann</string>
   <string name="teams">Foirne</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s ball</item>
+    <item quantity="one">ball amháin</item>
     <item quantity="two">%s bhall</item>
     <item quantity="few">%s mball</item>
     <item quantity="many">%s ball</item>
