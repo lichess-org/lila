@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Hví eitur tað Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er ein samanseting av live/light/libre og chess. Tað verður úttalað %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hoyr, hvussu tað verður úttalað av einum serfrøðingi.</string>
+  <string name="hearItPronouncedBySpecialist">Hoyr, hvussu tað verður úttalað av einum serfrøðingi.</string>
   <string name="whyLiveLightLibre">Live (beinleiðis), tí at talv verða telvað, og til ber at hyggja at teimum beinleiðis, 24/7; light og libre, tí at Lichess er open-source og ikki tyngt av einstaklingaognarviðurskiftum og øðrum skrambli, ið plágar aðrar heimasíður.</string>
   <string name="whyIsLilaCalledLila">Á sama hátt er tað við keldukotuni fyri Lichess, %1$s, ið stendur fyri li[chess in sca]la. Meginparturin av Lichess er skrivaður í %2$s, ið er eitt hugskygt forritanarmál.</string>
   <string name="howCanIContributeToLichess">Hvussu kann eg stuðla Lichess?</string>
