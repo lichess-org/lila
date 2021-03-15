@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Perquè Lichess es diu Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess és una combinació de live/light/libre (en directe, lleuger i lliure, en anglès) i chess (escacs, en anglès). Es pronuncia %1$s.</string>
   <string name="leechess">liches</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Així és com ho pronuncia un especialista.</string>
+  <string name="hearItPronouncedBySpecialist">Així és com ho pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directe, perquè les partides es juguen i es veuen en temps real 24/7; lleuger i lliure perquè Lichess és de codi obert i sense la brossa propietària que abunda en altres pàgines.</string>
   <string name="whyIsLilaCalledLila">De la mateixa manera, el codi font de Lichess, %1$s, significa li[escacs en sca]la, donat que la major part de Lichess està escrita en %2$s, un intuïtiu llenguatge de programació.</string>
   <string name="howCanIContributeToLichess">Com puc contribuir a Lichess?</string>
