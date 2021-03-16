@@ -66,13 +66,16 @@ $c-bg-position-y: 2px;
     padding-top: 0.3em;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    transition: filter ease-out 0.5s;
+    transition: color ease-out 0.5s;
     .racer__race__track--boost & {
       transition: none;
-      filter: brightness(1.5);
+      color: #fff;
     }
     .racer__race__track--first & {
       color: $c-brag;
+    }
+    .racer__race__track--boost.racer__race__track--first & {
+      color: mix($c-brag, #fff, 40%);
     }
   }
 
@@ -99,7 +102,6 @@ $c-bg-position-y: 2px;
 
       .racer__race__track--boost & {
         transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
-        filter: brightness(1.3);
         transition: all 0.15s ease-out;
         &::before {
           content: 'A';
