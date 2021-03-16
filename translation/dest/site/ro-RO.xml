@@ -367,7 +367,7 @@
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
-  <string name="importGameExplanation">Când inserați un joc în format PGN, obțineți o reluare dinamică, o analiză a computerului, un chat și un URL pentru distribuire.</string>
+  <string name="importGameExplanation">Inserați un joc în format PGN pentru a obțineți o reluare dinamică, o analiză a computerului, un chat și un URL pentru distribuire.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -376,7 +376,7 @@
   <string name="thisIsAChessCaptcha">Aceasta este o verificare anti-spam pe baza unei poziții de șah.</string>
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
-  <string name="notACheckmate">Nu este mat</string>
+  <string name="notACheckmate">Nu este sah mat</string>
   <string name="whiteCheckmatesInOneMove">Albele să dea șah mat într-o mutare</string>
   <string name="blackCheckmatesInOneMove">Negrele să dea șah mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
@@ -386,7 +386,7 @@
     <item quantity="few">%s prieteni online</item>
     <item quantity="other">%s prieteni online</item>
   </plurals>
-  <string name="noFriendsOnline">Niciun prieten online</string>
+  <string name="noFriendsOnline">Nici un prieten conectat</string>
   <string name="findFriends">Găsiți prieteni</string>
   <string name="favoriteOpponents">Oponenți favoriți</string>
   <string name="follow">Urmăriți</string>
@@ -403,8 +403,8 @@
     <item quantity="other">%s urmăritori</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s urmăritor</item>
-    <item quantity="few">%s urmăritori</item>
+    <item quantity="one">%s urmărit</item>
+    <item quantity="few">%s urmăriți</item>
     <item quantity="other">%s urmăriți</item>
   </plurals>
   <string name="more">Mai mult</string>
@@ -425,13 +425,13 @@
   <string name="standing">Clasament</string>
   <string name="createANewTournament">Creați un turneu nou</string>
   <string name="tournamentCalendar">Calendarul competiției</string>
-  <string name="conditionOfEntry">Condiție de admitere:</string>
+  <string name="conditionOfEntry">Condiții de intrare:</string>
   <string name="advancedSettings">Setări avansate</string>
   <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
-  <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului dvs.</string>
-  <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un mare maestru oarecare.</string>
-  <string name="recommendNotTouching">Recomandăm să nu modificați aceste setări.</string>
-  <string name="fewerPlayers">Dacă stabiliți condiții de admitere, turneul dvs. va avea mai puțini jucători.</string>
+  <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
+  <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un jucător bun de șah.</string>
+  <string name="recommendNotTouching">Iți recomandăm să nu modifici aceste setări.</string>
+  <string name="fewerPlayers">Dacă stabilești condiții de intrare, turneul tău va avea mai puțini jucători.</string>
   <string name="showAdvancedSettings">Afișează setările avansate</string>
   <string name="makePrivateTournament">Faceți competiția privată și restricționați accesul cu o parolă</string>
   <string name="join">Intră</string>
@@ -444,7 +444,7 @@
   <string name="tournamentIsStarting">Turneul începe</string>
   <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
-  <string name="youArePlaying">Vă jucați!</string>
+  <string name="youArePlaying">Te joci!</string>
   <string name="winRate">Procent de câștig</string>
   <string name="berserkRate">Procent jocuri cu timp înjumătățit</string>
   <string name="performance">Performanță</string>
