@@ -104,7 +104,7 @@
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
-  <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
+  <string name="xOpeningExplorer">%s taighde oscailt</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua mar gheall ar riail an 50 bheart</string>
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
   <string name="allSet">Réidh le himirt!</string>
