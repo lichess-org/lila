@@ -19,7 +19,7 @@
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="randomColor">Culoare aleatorie</string>
-  <string name="createAGame">Creează un joc nou</string>
+  <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
   <string name="blackIsVictorious">Negrul a câștigat</string>
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
@@ -498,6 +498,7 @@
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>
+  <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
