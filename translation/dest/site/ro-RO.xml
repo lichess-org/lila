@@ -464,7 +464,7 @@
   <string name="savePosition">Salvează poziția</string>
   <string name="loadPosition">Încarcă poziția</string>
   <string name="isPrivate">Privat</string>
-  <string name="reportXToModerators">Raportează %s moderatorilor</string>
+  <string name="reportXToModerators">Raportează-l pe %s moderatorilor</string>
   <string name="profileCompletion">Completarea profilului: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
@@ -476,11 +476,11 @@
   <string name="biography">Biografie</string>
   <string name="country">Țară</string>
   <string name="thankYou">Mulţumesc!</string>
-  <string name="socialMediaLinks">Legături pentru rețele de socializare</string>
+  <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="inlineNotation">Notație integrată</string>
   <string name="watchLichessTV">Urmărește Lichess TV</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
-  <string name="onlinePlayers">Jucători online</string>
+  <string name="onlinePlayers">Jucători conectați</string>
   <string name="activeToday">Activ azi</string>
   <string name="activePlayers">Jucători activi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atenție, partida este oficială, dar se joacă fără ceas!</string>
@@ -490,7 +490,7 @@
     <item quantity="few">%s partide în desfășurare</item>
     <item quantity="other">%s partide în desfășurare</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Comută automat la partida următoare după mutare</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
   <string name="latestUpdates">Ultimele noutăți</string>
@@ -521,7 +521,7 @@
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
   <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
-  <string name="error.provideOneCheatedGameLink">Vă rugăm să furnizați cel puțin un link către un joc în care s-a trișat.</string>
+  <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
   <string name="theming">Teme</string>
@@ -569,9 +569,9 @@
   <string name="drawVsYInZ">%1$s vs %2$s în %3$s</string>
   <string name="timeline">Activitate recentă</string>
   <string name="starting">Începe în:</string>
-  <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>
-  <string name="yourCityRegionOrDepartment">Orașul tău, regiunea sau provincia</string>
-  <string name="biographyDescription">Descrie-te, ce-ți place în șah, deschiderea, jocurile, jucătorii tăi favoriți…</string>
+  <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și opționale.</string>
+  <string name="yourCityRegionOrDepartment">Orașul tău, regiunea sau provincia.</string>
+  <string name="biographyDescription">Descrie-te, ce-ți place în șah, deschiderea favorită, jocurile, jucătorii tăi favoriți…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maxim: %s caracter.</item>
     <item quantity="few">Maxim: %s caractere.</item>
@@ -584,8 +584,8 @@
   </plurals>
   <string name="listBlockedPlayers">Afișează jucătorii pe care i-ai blocat</string>
   <string name="human">Om</string>
-  <string name="computer">Computer</string>
-  <string name="side">Culoare</string>
+  <string name="computer">Calculator</string>
+  <string name="side">Parte</string>
   <string name="clock">Ceas</string>
   <string name="unauthorizedError">Acces neautorizat.</string>
   <string name="noInternetConnection">Nu ai acces la Internet. Poți juca doar offline (din meniu).</string>
