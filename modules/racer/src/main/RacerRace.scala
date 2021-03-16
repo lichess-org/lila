@@ -35,7 +35,7 @@ case class RacerRace(
 
   def startCountdown: Option[RacerRace] =
     startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
-      copy(startsAt = DateTime.now.plusSeconds(10).some)
+      copy(startsAt = DateTime.now.plusSeconds(if (isLobby) 7 else 10).some)
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 
