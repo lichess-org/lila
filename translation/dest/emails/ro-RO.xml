@@ -12,11 +12,11 @@
   <string name="welcome_subject">Bine ai venit pe lichess.org, %s</string>
   <string name="welcome_text">Ți-ai creat cu succes contul pe https://lichess.org.
 
-Aici e pagina ta de profil: %1$s. O poți personaliza pe %2$s.
+Aici este pagina ta de profil: %1$s. O poți personaliza pe %2$s.
 
 Distracție plăcută și fie ca piesele tale să își găsească mereu calea la regele adversarului tău!</string>
   <string name="logInToLichess">Conectează-te pe lichess.org, %s</string>
-  <string name="common_orPaste">(Nu merge să dați click? Încercați să-l puneți în browser!)</string>
+  <string name="common_orPaste">(Nu merge să dai click? Încercă să-l pui în browser!)</string>
   <string name="common_note">Acesta e un email legat de folosirea dumneavoastră a %s.</string>
   <string name="common_contact">Pentru a ne contacta, vă rugăm să utilizați %s.</string>
 </resources>
