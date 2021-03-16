@@ -15,6 +15,14 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const delta = maxMoves - minMoves;
   const relative: RelativeScore = score => (score - minMoves) / delta;
   const bestScore = players.reduce((b, p) => (p.score > b ? p.score : b), 0);
+  const myName = ctrl.player().name;
+  const tracks = [];
+  players.forEach((p, i) => {
+    const isMe = p.name == myName;
+    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i);
+    if (isMe) tracks.unshift(track);
+    else tracks.push(track);
+  });
   return h(
     'div.racer__race',
     {
@@ -22,15 +30,18 @@ export const renderRace = (ctrl: RacerCtrl) => {
         style: `height:${players.length * trackHeight + 30}px`,
       },
     },
-    h('div.racer__race__tracks', players.map(renderTrack(relative, ctrl.player().name, bestScore, ctrl.boost)))
+    h('div.racer__race__tracks', tracks)
   );
 };
 
-const renderTrack = (relative: RelativeScore, myName: string, bestScore: number, boost: Boost) => (
+const renderTrack = (
+  relative: RelativeScore,
+  isMe: boolean,
+  bestScore: number,
+  boost: Boost,
   player: PlayerWithScore,
   index: number
 ) => {
-  const isMe = player.name == myName;
   return h(
     'div.racer__race__track',
     {
