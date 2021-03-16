@@ -37,26 +37,16 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             comboZone(ctrl),
           ];
     case 'racing':
-      if (ctrl.isPlayer())
-        return ctrl.run.endAt
-          ? [
-              playerScore(ctrl),
-              h('div.racer__end', [
-                h('h2', 'Your time is up!'),
-                h('div.race__end__players', playersInTheRace(ctrl)),
-                ...(ctrl.race.lobby ? [newRaceForm(ctrl)] : [waitForRematch(), newRaceForm(ctrl)]),
-              ]),
-              comboZone(ctrl),
-            ]
-          : [playerScore(ctrl), renderClock(ctrl.run, ctrl.endNow, false), comboZone(ctrl)];
-      return [
-        spectating(),
-        h('div.racer__spectating', [
-          renderClock(ctrl.run, ctrl.endNow, false),
-          ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch(),
-        ]),
-        comboZone(ctrl),
-      ];
+      return ctrl.isPlayer()
+        ? [playerScore(ctrl), renderClock(ctrl.run, ctrl.endNow, false), comboZone(ctrl)]
+        : [
+            spectating(),
+            h('div.racer__spectating', [
+              renderClock(ctrl.run, ctrl.endNow, false),
+              ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch(),
+            ]),
+            comboZone(ctrl),
+          ];
     case 'post':
       const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : rematchButton(ctrl);
       return ctrl.isPlayer()
@@ -86,9 +76,6 @@ const comboZone = (ctrl: RacerCtrl) => h('div.puz-side__table', [renderCombo(con
 
 const playerScore = (ctrl: RacerCtrl): VNode =>
   h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.myScore() || 0)]);
-
-const playersInTheRace = (ctrl: RacerCtrl) =>
-  h('div.race__players-racing', `${ctrl.players().filter(p => !p.end).length} players still in the race.`);
 
 const renderLink = (ctrl: RacerCtrl) =>
   h('div.puz-side__link', [
