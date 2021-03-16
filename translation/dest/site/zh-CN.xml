@@ -74,7 +74,7 @@
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">胜棋</string>
-  <string name="losing">败棋</string>
+  <string name="losing">输棋</string>
   <string name="drawn">和棋</string>
   <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
@@ -122,7 +122,7 @@
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="claimADraw">宣布和棋</string>
   <string name="offerDraw">提出和棋</string>
-  <string name="draw">和棋</string>
+  <string name="draw">平局</string>
   <plurals name="nbPlayers">
     <item quantity="other">%s位在线棋手</item>
   </plurals>
@@ -504,11 +504,11 @@
   <string name="xAskedY">%1$s问%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 评论%2$s</string>
-  <string name="victory">胜</string>
+  <string name="victory">获胜</string>
   <string name="defeat">败</string>
-  <string name="victoryVsYInZ">在 %3$s 中战%1$s对手 %2$s</string>
+  <string name="victoryVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
   <string name="defeatVsYInZ">在 %3$s 中战%1$s对手 %2$s</string>
-  <string name="drawVsYInZ">在 %3$s 中与对手 %2$s %1$s</string>
+  <string name="drawVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有资料是公开且可选填的。</string>
