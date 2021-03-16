@@ -36,7 +36,7 @@ Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
-  <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do fhicheall caighdeánach agus %1$s.</string>
+  <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do gnáth-fhicheall agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
   <string name="whatIsACPL">Cad é an meánchaillteanas céadúceithearnach (ACPL - average centipawn loss)? </string>
   <string name="acplExplanation">Is é an ceinticeithearnach an t-aonad tomhais a úsáidtear i bhficheall mar léiriú ar an mbuntáiste. Tá ceinticeithearnach cothrom le 1/100ú ceithearnach. Dá bhrí sin 100 ceinticeithearnach = 1 ceithearnach. Níl aon ról foirmiúil ag na luachanna seo sa chluiche ach tá siad úsáideach d’imreoirí, agus riachtanach i bhficheall ríomhaire, chun suíomhanna a mheas.
@@ -114,7 +114,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="uniqueTrophies">Trófaithe uathúla</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
-  <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
+  <string name="aHourlyBulletTournament" comment="aHourlyBulletTournament&#10;&#10;Used in the second half of  the string&#10;&quot;To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.&quot;&#10;&#10;">comórtas Bullet gach uair an chloig</string>
   <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>
@@ -136,7 +136,7 @@ Pointe eile le tabhairt faoi deara ná, de réir mar a théann am thart, go dtio
   <string name="ratingLeaderboards">bord ceannais rátála</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">imir 30 cluiche rátáilte ar a laghad i rátáil ar leith,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">imir cluiche rátáilte laistigh den tseachtain seo caite don rátáil seo,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i bhficheall caighdeánach, agus níos ísle ná %2$s in leaganacha,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">diall rátála a bheith agat atá níos ísle ná %1$s, i gnáth-fhicheall, agus níos ísle ná %2$s in leaganacha,</string>
   <string name="beInTopTen">bí sa 10 is fearr sa rátáil seo.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Is é an 2ú riachtanas ná go stopfaidh imreoirí nach n-úsáideann a gcuntais a thuilleadh spás a thógáil suas sna cláir ceann riain.</string>
   <string name="whyAreRatingHigher">Cén fáth go bhfuil rátálacha níos airde i gcomparáid le suíomhanna agus eagraíochtaí eile mar FIDE, USCF agus an ICC?</string>
