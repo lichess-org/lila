@@ -78,4 +78,12 @@ export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
         },
         player.title ? [h('span.utitle', player.title), player.name] : [player.name]
       )
-    : h('anonymous', [player.name, isMe ? ' (you)' : undefined]);
+    : h(
+        'anonymous',
+        {
+          attrs: {
+            title: 'Anonymous player',
+          },
+        },
+        [player.name, isMe ? ' (you)' : undefined]
+      );
