@@ -505,9 +505,9 @@
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">获胜</string>
-  <string name="defeat">败</string>
+  <string name="defeat">负败</string>
   <string name="victoryVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
-  <string name="defeatVsYInZ">在 %3$s 中战%1$s对手 %2$s</string>
+  <string name="defeatVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
   <string name="drawVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
