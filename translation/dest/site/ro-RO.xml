@@ -181,23 +181,23 @@
   <string name="time">Timp</string>
   <string name="rating">Clasament</string>
   <string name="ratingStats">Statistică pentru clasament</string>
-  <string name="username">Nume utilizator</string>
-  <string name="usernameOrEmail">Utilizator/Email</string>
+  <string name="username">Nume de utilizator</string>
+  <string name="usernameOrEmail">Nume de utilizator sau email</string>
   <string name="changeUsername">Schimbă numele de utilizator</string>
   <string name="changeUsernameNotSame">Se poate interschimba din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
   <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="password">Parolă</string>
-  <string name="changePassword">Schimbați parola</string>
-  <string name="changeEmail">Schimbă e-mailul</string>
-  <string name="email">E-mail</string>
+  <string name="changePassword">Schimbă parola</string>
+  <string name="changeEmail">Schimbă emailul</string>
+  <string name="email">Email</string>
   <string name="passwordReset">Resetează parola</string>
-  <string name="forgotPassword">Ți-ai pierdut parola?</string>
+  <string name="forgotPassword">Ți-ai uitat parola?</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Locul în clasament este actualizat în fiecare minut</item>
-    <item quantity="few">Locul în clasament este actualizat în fiecare %s minute</item>
-    <item quantity="other">Locul în clasament este actualizat în fiecare %s minute</item>
+    <item quantity="few">Locul în clasament este actualizat la fiecare %s minute</item>
+    <item quantity="other">Locul în clasament este actualizat la fiecare %s minute</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">O poziție</item>
@@ -255,13 +255,13 @@
   <string name="youHaveBeenTimedOut">Pentru o perioadă, nu mai aveți acces la chat.</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
   <string name="composeMessage">Compune un mesaj</string>
-  <string name="noNewMessages">Niciun mesaj nou</string>
+  <string name="noNewMessages">Nici un mesaj nou</string>
   <string name="subject">Subiect</string>
   <string name="recipient">Destinatar</string>
   <string name="send">Trimite</string>
   <string name="incrementInSeconds">Adaos de timp în secunde</string>
-  <string name="freeOnlineChess">Șah online gratuit</string>
-  <string name="spectators">Spectatori</string>
+  <string name="freeOnlineChess">Șah Online Gratuit</string>
+  <string name="spectators">Spectatori:</string>
   <plurals name="nbRated">
     <item quantity="one">%s evaluat</item>
     <item quantity="few">%s evaluate</item>
@@ -303,7 +303,7 @@
   <string name="takebackPropositionDeclined">Propunerea de revocare respinsă</string>
   <string name="takebackPropositionAccepted">Propunerea de revocare acceptată</string>
   <string name="takebackPropositionCanceled">Propunerea de revocare anulată</string>
-  <string name="yourOpponentProposesATakeback">Adversarul dvs. propune revocarea unei mutări</string>
+  <string name="yourOpponentProposesATakeback">Adversarul tău propune revocarea unei mutări</string>
   <string name="bookmarkThisGame">Marcați această partidă</string>
   <string name="tournament">Turneu</string>
   <string name="tournaments">Turnee</string>
@@ -318,7 +318,7 @@
     <item quantity="few">%s studii</item>
     <item quantity="other">%s studii</item>
   </plurals>
-  <string name="viewTournament">Vizualizați turneu</string>
+  <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
   <string name="thematic">Tematică</string>
   <plurals name="moreThanNbRatedGames">
@@ -332,8 +332,8 @@
     <item quantity="other">%1$s %2$s meciuri jucate</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Trebuie să joci încă %1$s meci %2$s evaluat</item>
-    <item quantity="few">Trebuie să joci încă %1$s meciuri %2$s evaluate</item>
+    <item quantity="one">Trebuie să joci încă %1$s meci in variantă %2$s</item>
+    <item quantity="few">Trebuie să joci încă %1$s meciuri in variantă %2$s</item>
     <item quantity="other">Trebuie să joci încă %1$s meciuri %2$s evaluate</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -354,15 +354,15 @@
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
   <string name="xStartedStreaming">%s a început să facă stream</string>
-  <string name="averageElo">Media rating</string>
+  <string name="averageElo">Medie rating</string>
   <string name="location">Locaţie</string>
   <string name="filterGames">Filtrați partidele</string>
   <string name="reset">Resetare</string>
   <string name="apply">Aplicați</string>
   <string name="save">Salvează</string>
   <string name="leaderboard">Clasament</string>
-  <string name="pasteTheFenStringHere">Lipește FEN aici</string>
-  <string name="pasteThePgnStringHere">Lipește PGN aici</string>
+  <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
+  <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
