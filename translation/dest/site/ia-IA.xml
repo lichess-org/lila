@@ -330,7 +330,7 @@
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="xJoinedTeamY">%1$s ha adherite a %2$s</string>
   <string name="xCreatedTeamY">%1$s ha create le equipa %2$s</string>
-  <string name="xStartedStreaming">%s comenciava un transmission</string>
+  <string name="xStartedStreaming">%s comenciava un emission directe</string>
   <string name="averageElo">Classification medie</string>
   <string name="location">Loco</string>
   <string name="filterGames">Filtrar partitas</string>
