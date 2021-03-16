@@ -30,6 +30,7 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
   <string name="howDoesItEnd">Como remata?</string>
   <string name="howDoesItEndAnswer">O torneo ten unha conta atrás de tempo. Cando chega a cero, a clasificación do torneo se conxela, e o gañador é proclamado. As partidas en curso nese momento deben ser rematadas, pero non contan para a clasificación do torneo.</string>
   <string name="otherRules">Outras regras importantes</string>
+  <string name="thereIsACountdown">Hai unha conta atrás para o teu primer movemento. Non executalo neste tempo dará a partida ao teu opoñente.</string>
   <string name="thisIsPrivate">Este é un torneo privado</string>
   <string name="shareUrl">Comparte esta URL para que a xente se una: %s</string>
 </resources>
