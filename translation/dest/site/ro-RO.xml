@@ -843,10 +843,10 @@
   <string name="resignLostGames">Abandonați meciurile pierdute (nu lăsați timpul să expire).</string>
   <string name="temporaryInconvenience">Ne pare rău pentru neplăcerile temporare</string>
   <string name="wishYouGreatGames">și vă dorim meciuri deosebite pe Lichess.org.</string>
-  <string name="thankYouForReading">Vă mulțumim pentru atenție!</string>
+  <string name="thankYouForReading">Îți mulțumim pentru atenție!</string>
   <string name="lifetimeScore">Scorul total</string>
   <string name="currentMatchScore">Scorul curent</string>
-  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul meciurilor mele (de la un computer, o carte, o bază de date sau de la o altă persoană).</string>
+  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul meciurilor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
@@ -862,8 +862,8 @@
   <string name="correspondenceDesc">Meciuri de corespondență: o mutare la una sau mai multe zile</string>
   <string name="puzzleDesc">Antrenor de tactici de șah</string>
   <string name="important">Important</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Este posibil ca întrebarea dvs. să aibă deja un răspuns %1$s</string>
-  <string name="inTheFAQ">în F.A.Q.</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Este posibil ca întrebarea ta să aibă deja un răspuns %1$s</string>
+  <string name="inTheFAQ">la întrebări și răspunsuri.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pentru a raporta un utilizator pentru trișare sau comportament inadecvat, %1$s</string>
   <string name="useTheReportForm">folosiți formularul de raportare</string>
   <string name="toRequestSupport">Pentru a solicita asistență, %1$s</string>
