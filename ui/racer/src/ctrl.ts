@@ -64,7 +64,7 @@ export default class StormCtrl {
       },
     });
     lichess.socket.sign(this.sign);
-    // setInterval(this.redraw, 1000);
+    setInterval(this.redraw, 1000);
     // this.simulate();
   }
 
