@@ -99,6 +99,7 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
 - [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 - [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
+- [mailcheck.p.rapidapi.com](https://rapidapi.com/Top-Rated/api/e-mail-check-invalid-or-disposable-domain)
 - [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - Fallback to [Google Fonts](https://fonts.google.com/)
