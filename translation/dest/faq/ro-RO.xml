@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">alte feluri de a ajuta</string>
   <string name="areThereWebsitesBasedOnLichess">Există websiteuri bazate pe Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess a inspirat într-adevăr alte websiteuri open-source care folosesc %1$s, %2$s sau %3$s.</string>
+  <string name="fairPlay">Joc Corect</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">De ce sunt marcat pentru schimbarea artificială a scorurilor (sandbagging și boosting) sau pentru asistență din partea calculatorului?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
