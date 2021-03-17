@@ -457,29 +457,38 @@ final class Study(
     }
 
   def export(username: String) =
-    Open { implicit ctx =>
-      val userId = lila.user.User normalize username
-      val flags  = requestPgnFlags(ctx.req)
-      val isMe   = ctx.userId has userId
-      apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, ctx.me) {
-          env.study.studyRepo
-            .sourceByOwner(userId, isMe)
-            .flatMapConcat(env.study.pgnDump(_, flags))
-            .withAttributes(
-              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
-            )
-            .throttle(30, 1 second)
-        } { source =>
-          Ok.chunked(source)
-            .withHeaders(
-              noProxyBufferHeader,
-              CONTENT_DISPOSITION -> s"attachment; filename=${username}-${if (isMe) "all" else "public"}-studies.pgn"
-            )
-            .as(pgnContentType)
-        }
-        .fuccess
-    }
+    OpenOrScoped()(
+      open = ctx => handleExport(username, ctx.me, ctx.req),
+      scoped = req => me => handleExport(username, me.some, req)
+    )
+
+  private def handleExport(
+      username: String,
+      me: Option[lila.user.User],
+      req: RequestHeader
+  ) = {
+    val userId = lila.user.User normalize username
+    val flags  = requestPgnFlags(req)
+    val isMe   = me.exists(_.id == userId)
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me) {
+        env.study.studyRepo
+          .sourceByOwner(userId, isMe)
+          .flatMapConcat(env.study.pgnDump(_, flags))
+          .withAttributes(
+            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+          )
+          .throttle(30, 1 second)
+      } { source =>
+        Ok.chunked(source)
+          .withHeaders(
+            noProxyBufferHeader,
+            CONTENT_DISPOSITION -> s"attachment; filename=${username}-${if (isMe) "all" else "public"}-studies.pgn"
+          )
+          .as(pgnContentType)
+      }
+      .fuccess
+  }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
