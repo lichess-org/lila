@@ -326,7 +326,7 @@
   <string name="ratedLessThanInPerf">Classification ≤ %1$s in %2$s</string>
   <string name="mustBeInTeam">Tu debe esser in le equipa %s</string>
   <string name="youAreNotInTeam">Tu non es in le equipa %s</string>
-  <string name="backToGame">Retro al partite</string>
+  <string name="backToGame">Retro al partita</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="xJoinedTeamY">%1$s ha adherite a %2$s</string>
   <string name="xCreatedTeamY">%1$s ha create le equipa %2$s</string>
