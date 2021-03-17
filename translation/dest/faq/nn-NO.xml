@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Finst det nettstader basert på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspirert andre nettstader med open kjeldekode som brukar vår %1$s, %2$s, eller %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Kvifor er eg flagga for kunstig manipulering av rating (sandbagging og boosting) eller for bruk av datamaskinhjelp?</string>
-  <string name="cheatDetectionMethods">Lichess rår over sterke deteksjonsmetodar og vi går grundig gjennom alle bevisa før avgjerda vert tatt. Ofte er mange moderatorar involvert i prosessen, som difor kan ta lang tid. Sett bort frå sjølve merknaden går vi ikkje inn på nærare detaljar omkring prov eller beslutningsprosess i enkeltsaker. Gjorde vi det ville det bli lettare å unngå avsløringar i framtida, og vi kan bruke tid og krefter betre enn å gå inn i uproduktive og potensielt langdryge diskusjonar. Brukarar kan appellere på epost til %1$s, med avgjerder blir sjeldan omstøytt.</string>
   <string name="whenAmIEligibleRatinRefund">Når er eg kvalifisert til den automatiske refunderinga av rating-tap frå fuskarar?</string>
   <string name="ratingRefundExplanation">Eit minutt etter at ein spelar er markert, vert spelarens 40 siste rata sigrar dei tre siste dagane tatt frå vedkomande. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
   (Til dømes: dersom ratinga di aukar sterkt etter desse spela kan det hende du får korkje heil eller delvis refusjon.) Refusjonen vil aldri overgå 150 ratingpoeng.</string>
