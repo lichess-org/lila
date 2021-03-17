@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
   <string name="playWithTheMachine">AI と対局する</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="waiting">待機中</string>
