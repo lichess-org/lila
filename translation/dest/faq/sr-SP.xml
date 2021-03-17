@@ -69,6 +69,7 @@
   <string name="whatUsernameCanIchoose">Шта моје корисничко име може бити?</string>
   <string name="usernamesNotOffensive">Генерално, корисничко име не сме: бити увредљиво, представљати неког другог или бити реклама. Можеш више прочитати о %1$s.</string>
   <string name="guidelines">смерницама</string>
+  <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
   <string name="lichessRatings">Личес рејтинзи</string>
