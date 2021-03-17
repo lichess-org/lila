@@ -374,7 +374,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="followsYou">Ti segue</string>
   <string name="xStartedFollowingY">%1$s ha iniziato a seguire %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s Persone che segui</item>
+    <item quantity="one">%s lo segue</item>
     <item quantity="other">%s lo seguono</item>
   </plurals>
   <plurals name="nbFollowing">
