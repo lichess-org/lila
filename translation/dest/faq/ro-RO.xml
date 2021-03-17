@@ -50,6 +50,15 @@ Este descris în secțiunea 3.7 (d) a %2$s:
 
 Vezi %3$s pe această mutare pentru a te putea antrena cu ea.</string>
   <string name="goodIntroduction">introducere bună</string>
+  <string name="officialRulesPDF">regulamentului (PDF)</string>
+  <string name="lichessTraining">antrenamentul Lichess</string>
+  <string name="threefoldRepetition">Repetare de trei ori</string>
+  <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 (d) a %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">repetare de trei ori</string>
+  <string name="notRepeatedMoves">Nu am repetat mișcări. De ce partida a fost declarată ca remiză?</string>
+  <string name="repeatedPositionsThatMatters">Repetarea de trei ori este despre repetarea %1$s, nu a mișcărilor. Repetiția nu trebuie să se execute consecutiv.</string>
+  <string name="positions">pozițiilor</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Am repetat o poziție de trei ori. De ce partida nu a fost declarată ca remiză?</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>
