@@ -77,6 +77,12 @@
     <item quantity="few">Clasat #%1$s (top %2$s%%) cu %3$s meciuri în %4$s</item>
     <item quantity="other">Clasat #%1$s (top %2$s%%) cu %3$s meciuri în %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">A concurat în %s turneu elvețian</item>
+    <item quantity="few">A concurat în %s turnee elvețiene</item>
+    <item quantity="other">A concurat în %s turnee elvețiene</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Evaluat #%1$s în %2$s</string>
   <string name="signedUp">S-a înregistrat pe lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">S-a alăturat la %s echipă</item>
