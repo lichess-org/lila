@@ -16,8 +16,6 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
 
   import BSONHandlers._
 
-  val noRootProjection = $doc("root" -> false)
-
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll(_.byId[Chapter, Chapter.Id](id))
 
   def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
@@ -36,9 +34,17 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def existsByStudy(studyId: Study.Id): Fu[Boolean] =
     coll(_ exists $studyId(studyId))
 
+  private val metadataProjection =
+    $doc(
+      "name"       -> true,
+      "setup"      -> true,
+      "relay.path" -> true,
+      "tags"       -> $doc("$elemMatch" -> $doc("$eq" -> "Result:*"))
+    ).some
+
   def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
     coll {
-      _.find($studyId(studyId), noRootProjection.some)
+      _.find($studyId(studyId), metadataProjection)
         .sort($sort asc "order")
         .cursor[Chapter.Metadata]()
         .list()

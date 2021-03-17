@@ -74,7 +74,7 @@ case class Chapter(
       createdAt = DateTime.now
     )
 
-  def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
+  def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup, looksOngoing = looksOngoing)
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
@@ -87,6 +87,8 @@ case class Chapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
+
+  def looksOngoing = tags.resultColor.isEmpty && relay.exists(!_.path.isEmpty)
 }
 
 object Chapter {
@@ -105,6 +107,7 @@ object Chapter {
     val _id: Chapter.Id
     val name: Chapter.Name
     val setup: Chapter.Setup
+    def looksOngoing: Boolean
     def id = _id
 
     def initialPosition = Position.Ref(id, Path.root)
@@ -145,7 +148,8 @@ object Chapter {
   case class Metadata(
       _id: Id,
       name: Name,
-      setup: Setup
+      setup: Setup,
+      looksOngoing: Boolean
   ) extends Like
 
   case class IdName(id: Id, name: Name)

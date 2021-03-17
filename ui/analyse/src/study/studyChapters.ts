@@ -37,18 +37,12 @@ export function ctrl(
     newForm,
     editForm,
     list,
-    get(id) {
-      return list().find(c => c.id === id);
-    },
-    size() {
-      return list().length;
-    },
+    get: (id: string) => list().find(c => c.id === id),
+    size: () => list().length,
     sort(ids) {
       send('sortChapters', ids);
     },
-    firstChapterId() {
-      return list()[0].id;
-    },
+    firstChapterId: () => list()[0].id,
     toggleNewForm() {
       if (newForm.vm.open || list().length < 64) newForm.toggle();
       else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
@@ -156,6 +150,7 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
+            chapter.ongoing ? h('ongoing', { attrs: dataIcon('J'), title: 'Ongoing' }) : null,
             canContribute ? h('act', { attrs: dataIcon('%') }) : null,
           ]
         );

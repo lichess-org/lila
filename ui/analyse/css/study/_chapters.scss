@@ -39,6 +39,14 @@ $span-width: 1.7em;
       margin-right: 0.4em;
       opacity: 0.8;
     }
+
+    ongoing {
+      @extend %flex-center;
+      align-self: center;
+      justify-content: center;
+      font-size: 0.7em;
+      color: $c-red;
+    }
   }
 
   .ddloader {

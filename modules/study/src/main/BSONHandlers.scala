@@ -273,9 +273,8 @@ object BSONHandlers {
   implicit val ChapterRelayBSONHandler         = Macros.handler[Chapter.Relay]
   implicit val ChapterServerEvalBSONHandler    = Macros.handler[Chapter.ServerEval]
   import Chapter.Ply
-  implicit val PlyBSONHandler             = intAnyValHandler[Ply](_.value, Ply.apply)
-  implicit val ChapterBSONHandler         = Macros.handler[Chapter]
-  implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
+  implicit val PlyBSONHandler     = intAnyValHandler[Ply](_.value, Ply.apply)
+  implicit val ChapterBSONHandler = Macros.handler[Chapter]
 
   implicit val PositionRefBSONHandler = tryHandler[Position.Ref](
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },
@@ -358,5 +357,16 @@ object BSONHandlers {
           contributors = doc.getAsOpt[StudyMembers]("members").??(_.contributorIds)
         )
       )
+  }
+
+  implicit val ChapterMetadataBSONReader = new BSONDocumentReader[Chapter.Metadata] {
+    def readDocument(doc: Bdoc) = for {
+      id    <- doc.getAsTry[Chapter.Id]("_id")
+      name  <- doc.getAsTry[Chapter.Name]("name")
+      setup <- doc.getAsTry[Chapter.Setup]("setup")
+      looksOngoing =
+        doc.contains("tags") &&
+          doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
+    } yield Chapter.Metadata(id, name, setup, looksOngoing)
   }
 }
