@@ -1,5 +1,6 @@
 package lila.study
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
@@ -8,7 +9,10 @@ import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
-final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
+final class StudyRepo(private[study] val coll: AsyncColl)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import BSONHandlers._
 
@@ -65,6 +69,16 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
 
   def countByOwner(ownerId: User.ID) = coll(_.countSel(selectOwnerId(ownerId)))
+
+  def sourceByOwner(ownerId: User.ID, isMe: Boolean): Source[Study, _] =
+    Source futureSource {
+      coll map {
+        _.find(selectOwnerId(ownerId) ++ (!isMe ?? selectPublic))
+          .sort($sort desc "updatedAt")
+          .cursor[Study](readPreference = readPref)
+          .documentSource()
+      }
+    }
 
   def insert(s: Study): Funit =
     coll {

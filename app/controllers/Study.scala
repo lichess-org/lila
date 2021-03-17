@@ -18,7 +18,8 @@ import views._
 
 final class Study(
     env: Env,
-    userAnalysisC: => UserAnalysis
+    userAnalysisC: => UserAnalysis,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) =
@@ -453,6 +454,31 @@ final class Study(
           }
         }
       }
+    }
+
+  def export(username: String) =
+    Open { implicit ctx =>
+      val userId = lila.user.User normalize username
+      val flags  = requestPgnFlags(ctx.req)
+      val isMe   = ctx.userId has userId
+      apiC
+        .GlobalConcurrencyLimitPerIpAndUserOption(ctx.req, ctx.me) {
+          env.study.studyRepo
+            .sourceByOwner(userId, isMe)
+            .flatMapConcat(env.study.pgnDump(_, flags))
+            .withAttributes(
+              akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+            )
+            .throttle(30, 1 second)
+        } { source =>
+          Ok.chunked(source)
+            .withHeaders(
+              noProxyBufferHeader,
+              CONTENT_DISPOSITION -> s"attachment; filename=${username}-${if (isMe) "all" else "public"}-studies.pgn"
+            )
+            .as(pgnContentType)
+        }
+        .fuccess
     }
 
   private def requestPgnFlags(req: RequestHeader) =
