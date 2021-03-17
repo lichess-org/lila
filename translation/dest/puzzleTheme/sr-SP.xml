@@ -103,4 +103,6 @@
   <string name="veryLongDescription">Четири или више потеза за победу.</string>
   <string name="xRayAttack">Икс Реј напад</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="healthyMix">Здрава мешавина</string>
+  <string name="healthyMixDescription">Свега по мало. Не знаш шта да очекујеш, па остајеш спреман за све! Баш као у правим партијама.</string>
 </resources>
