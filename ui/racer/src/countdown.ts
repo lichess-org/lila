@@ -12,7 +12,7 @@ export class Countdown {
     const countdown = () => {
       const diff = startsAt.getTime() - Date.now();
       if (diff > 0) {
-        if (aloud) this.playOnce(Math.ceil(diff / 1000));
+        if (aloud && diff % 1000 > 500) this.playOnce(Math.ceil(diff / 1000));
         setTimeout(countdown, diff % 1000);
       } else {
         if (aloud) this.playOnce(0);
