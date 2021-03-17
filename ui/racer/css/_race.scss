@@ -1,4 +1,4 @@
-$track-height: 30px;
+$track-height: 25px;
 $car-width: 4rem;
 $car-ratio: 0.328;
 $c-bg-position-y: 2px;
@@ -25,7 +25,7 @@ $c-bg-position-y: 2px;
     height: 100%;
     background-image: url(../images/racer/road1.jpg);
     background-repeat: repeat;
-    background-position-y: 15px;
+    background-position-y: 7px;
     .racer--racing & {
       animation: road-scroll 1s linear infinite;
     }
@@ -36,12 +36,12 @@ $c-bg-position-y: 2px;
       transform: translateX(0);
     }
     to {
-      transform: translateX(-121px);
+      transform: translateX(-101px);
     }
   }
 
   &__tracks {
-    padding: 15px 0 15px 10px;
+    padding: 7px 0 7px 10px;
     width: 100%;
   }
 
@@ -61,9 +61,9 @@ $c-bg-position-y: 2px;
     top: 0;
     right: -140px;
     color: #bbb;
-    width: 4ch;
-    padding-right: 1ch;
-    padding-top: 0.3em;
+    width: 3.8ch;
+    padding-right: 0.8ch;
+    padding-top: 0.2em;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     transition: color ease-out 0.5s;
@@ -75,7 +75,7 @@ $c-bg-position-y: 2px;
       color: $c-brag;
     }
     .racer__race__track--boost.racer__race__track--first & {
-      color: mix($c-brag, #fff, 40%);
+      color: mix(saturate($c-brag, 50%), #fff, 70%);
     }
   }
 
@@ -98,6 +98,7 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
+      transform: translateX(0px);
       transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {

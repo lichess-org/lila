@@ -6,11 +6,11 @@ import { Boost } from '../boost';
 // to [0,1]
 type RelativeScore = (score: number) => number;
 
-const trackHeight = 30;
+const trackHeight = 25;
 
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
-  const minMoves = players.reduce((m, p) => (p.score < m ? p.score : m), 999) / 3;
+  const minMoves = players.reduce((m, p) => (p.score < m ? p.score : m), 130) / 3;
   const maxMoves = players.reduce((m, p) => (p.score > m ? p.score : m), 30);
   const delta = maxMoves - minMoves;
   const relative: RelativeScore = score => (score - minMoves) / delta;
@@ -27,7 +27,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
     'div.racer__race',
     {
       attrs: {
-        style: `height:${players.length * trackHeight + 30}px`,
+        style: `height:${players.length * trackHeight + 14}px`,
       },
     },
     h('div.racer__race__tracks', tracks)
