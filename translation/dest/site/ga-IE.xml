@@ -56,8 +56,8 @@
   <string name="viewTheComputerAnalysis">Féach ar anailís an ríomhaire</string>
   <string name="requestAComputerAnalysis">Iarr anailís an ríomhaire</string>
   <string name="computerAnalysis">Anailís an ríomhaire</string>
-  <string name="computerAnalysisAvailable">Anailís Ríomhaire ar fáil</string>
-  <string name="analysis">Bord anailíse</string>
+  <string name="computerAnalysisAvailable">Anailís an ríomhaire ar fáil</string>
+  <string name="analysis">Clár anailíse</string>
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
