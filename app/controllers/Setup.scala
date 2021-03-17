@@ -192,7 +192,9 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
+                    "rr"
+                  ) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor

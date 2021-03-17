@@ -57,7 +57,7 @@ object SetupForm {
     )
 
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
-    hook fill HookConfig.default.withTimeModeString(timeModeString)
+    hook fill HookConfig.default(ctx.isAuth).withTimeModeString(timeModeString)
 
   def hook(implicit ctx: UserContext) =
     Form(
