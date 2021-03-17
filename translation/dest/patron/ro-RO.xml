@@ -26,11 +26,11 @@
   <string name="pleaseEnterAmount">Te rugăm să introduci suma în dolari americani</string>
   <string name="withCreditCard">Card de credit</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta aduce o diferență uriașă!</string>
+  <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta face o diferență uriașă!</string>
   <string name="celebratedPatrons">Patronii renumiți care fac Lichess posibil</string>
   <string name="whereMoneyGoes">Unde se duc banii?</string>
   <string name="serversAndDeveloper">În primul rând, la servere puternice.
-Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
+Apoi plătim un dezvoltator cu normă întreagă: %s, fondatorul Lichess.</string>
   <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
   <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
