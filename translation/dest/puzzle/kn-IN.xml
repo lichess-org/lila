@@ -14,6 +14,9 @@
   <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಸಮಸ್ಯೆ ಇಷ್ಟವಾಯಿತೇ?</string>
   <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ತಿಳಿಸಿ!</string>
   <string name="yourPuzzleRatingX">ನಿಮ್ಮ ಸಮಸ್ಯೆ ರೇಟಿಂಗ್: %s</string>
-  <string name="findTheBestMoveForWhite">ಬಿಳಿ-ಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
+  <string name="findTheBestMoveForWhite">ಬಿಳಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="findTheBestMoveForBlack">ಕಪ್ಪಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
+  <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಸಮಸ್ಯೆಗಳಿಗೆ:</string>
+  <string name="puzzleId">ಸಮಸ್ಯೆ %s</string>
+  <string name="puzzleOfTheDay">ಈ ದಿನದ ಸಮಸ್ಯೆ</string>
 </resources>
