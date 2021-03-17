@@ -20,6 +20,10 @@
   <string name="whenAmIEligibleRatinRefund">Cănd sunt eligibil să primesc automat înapoi scorul pierdut din cauza cheaterilor?</string>
   <string name="ratingRefundExplanation">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
   <string name="preventLeavingGameWithoutResigning">Ce se face împotriva jucătorilor care abandonează un meci fară sa se predea?</string>
+  <string name="leavingGameWithoutResigningExplanation">Daca oponentul tău anulează/iese dintr-un meci frecvent, vor primi \"play ban\", ceea ce înseamnă că sunt blocați temporar din a mai juca partide. Acest lucru nu este indicat public pe profilul lor. Dacă acest comportament continuă, lungimea blocării temporare crește - și acest comportament prelungit poate duce la închiderea contului.</string>
+  <string name="howCanIBecomeModerator">Cum pot deveni un moderator?</string>
+  <string name="youCannotApply">Nu este posibil să aplici pentru a deveni moderator. Dacă vedem pe cineva care credem noi ca este bun de moderator, îl vom contacta direct.</string>
+  <string name="isCorrespondenceDifferent">Este șahul prin corespondență diferit față de șahul normal?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
