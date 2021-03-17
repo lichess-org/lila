@@ -105,17 +105,10 @@ export default class StormCtrl {
       : undefined;
 
   end = (): void => {
-    this.run.history.reverse();
-    this.run.endAt = getNow();
     this.resetGround();
     this.redraw();
     sound.end();
     this.redrawSlow();
-  };
-
-  endNow = (): void => {
-    this.pushToHistory(false);
-    this.end();
   };
 
   userMove = (orig: Key, dest: Key): void => {
@@ -143,7 +136,6 @@ export default class StormCtrl {
       }
       this.socketSend('racerScore', this.localScore);
       if (puzzle.isOver()) {
-        this.pushToHistory(true);
         if (!this.incPuzzle()) this.end();
       } else {
         puzzle.moveIndex++;
@@ -152,7 +144,6 @@ export default class StormCtrl {
       sound.move(captureSound);
     } else {
       lichess.sound.play('error');
-      this.pushToHistory(false);
       this.run.errors++;
       this.run.combo.reset();
       if (this.run.clock.flag()) this.end();
@@ -170,19 +161,12 @@ export default class StormCtrl {
 
   private cgOpts = () =>
     this.isPlayer()
-      ? makeCgOpts(this.run, this.isRacing() && !this.run.endAt)
+      ? makeCgOpts(this.run, this.isRacing())
       : {
           orientation: this.run.pov,
         };
 
   private resetGround = () => this.withGround(g => g.set(this.cgOpts()));
-
-  private pushToHistory = (win: boolean) =>
-    this.run.history.push({
-      puzzle: this.run.current.puzzle,
-      win,
-      millis: this.run.history.length ? getNow() - this.run.current.startAt : 0, // first one is free
-    });
 
   private incPuzzle = (): boolean => {
     const index = this.run.current.index;

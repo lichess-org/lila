@@ -37,14 +37,12 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             comboZone(ctrl),
           ];
     case 'racing':
+      const clock = renderClock(ctrl.run, ctrl.end, false);
       return ctrl.isPlayer()
-        ? [playerScore(ctrl), renderClock(ctrl.run, ctrl.endNow, false), comboZone(ctrl)]
+        ? [playerScore(ctrl), clock, comboZone(ctrl)]
         : [
             spectating(),
-            h('div.racer__spectating', [
-              renderClock(ctrl.run, ctrl.endNow, false),
-              ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch(),
-            ]),
+            h('div.racer__spectating', [clock, ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch()]),
             comboZone(ctrl),
           ];
     case 'post':
