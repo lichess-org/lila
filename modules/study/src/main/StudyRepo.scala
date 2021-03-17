@@ -15,7 +15,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   private object F {
     val uids      = "uids"
     val likers    = "likers"
-    val views     = "views"
     val rank      = "rank"
     val likes     = "likes"
     val topics    = "topics"
@@ -25,7 +24,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   private[study] val projection = $doc(
     F.uids   -> false,
     F.likers -> false,
-    F.views  -> false,
     F.rank   -> false
   )
 
@@ -122,8 +120,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
           )
         )
     ).void
-
-  def incViews(study: Study) = coll.map(_.incFieldUnchecked($id(study.id), F.views))
 
   def updateNow(s: Study): Funit =
     coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now))

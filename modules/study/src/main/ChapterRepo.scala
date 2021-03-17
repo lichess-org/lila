@@ -23,9 +23,6 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
     coll(_.primitiveOne[Study.Id]($id(chapterId), "studyId"))
 
-  // def metadataById(id: Chapter.Id): Fu[Option[Chapter.Metadata]] =
-  // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
-
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
   def deleteByStudyIds(ids: List[Study.Id]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
