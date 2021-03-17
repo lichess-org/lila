@@ -18,18 +18,17 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 }
 
 export default function (ctrl: LobbyController) {
-  const myTurnPovsNb = ctrl.data.nowPlaying.filter(function (p) {
-    return p.isMyTurn;
-  }).length;
+  const nbPlaying = ctrl.data.nbNowPlaying;
+  const myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length;
   const active = ctrl.tab;
   return [
     ctrl.isBot ? undefined : tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
     ctrl.isBot ? undefined : tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
     ctrl.isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
-    active === 'now_playing' || ctrl.data.nbNowPlaying > 0 || ctrl.isBot
+    active === 'now_playing' || nbPlaying || ctrl.isBot
       ? tab(ctrl, 'now_playing', active, [
-          ctrl.trans.plural('nbGamesInPlay', ctrl.data.nbNowPlaying),
-          myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb) : null,
+          ctrl.trans.plural('nbGamesInPlay', nbPlaying >= 100 ? '100+' : nbPlaying),
+          myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
         ])
       : null,
   ];
