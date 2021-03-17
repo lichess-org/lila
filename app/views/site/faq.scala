@@ -78,13 +78,6 @@ object faq {
         ),
         h2(fairPlay()),
         question(
-          "marks",
-          whyFlaggedRatingManipulationOrCheater.txt(),
-          p(
-            cheatDetectionMethods(contactEmail)
-          )
-        ),
-        question(
           "rating-refund",
           whenAmIEligibleRatinRefund.txt(),
           p(
