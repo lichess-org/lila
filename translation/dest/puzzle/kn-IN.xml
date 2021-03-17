@@ -19,4 +19,14 @@
   <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಸಮಸ್ಯೆಗಳಿಗೆ:</string>
   <string name="puzzleId">ಸಮಸ್ಯೆ %s</string>
   <string name="puzzleOfTheDay">ಈ ದಿನದ ಸಮಸ್ಯೆ</string>
+  <string name="clickToSolve">ಬಿಡಿಸುವುದಕ್ಕೆ ಕ್ಲಿಕ್ಕಿಸಿ</string>
+  <string name="goodMove">ಒಳ್ಳೆಯ ನಡೆ</string>
+  <string name="bestMove">ಅತ್ಯುತ್ತಮ ನಡೆ!</string>
+  <string name="keepGoing">ಮುಂದುವರೆಸಿ…</string>
+  <string name="puzzleSuccess">ಯಶಸ್ವಿ!</string>
+  <string name="puzzleComplete">ಸಮಸ್ಯೆ ಮುಕ್ತಾಯ!</string>
+  <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
+  <string name="trySomethingElse">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+  <string name="ratingX">ರೇಟಿಂಗ್: %s</string>
+  <string name="hidden">ಮರೆಯಲ್ಲಿ</string>
 </resources>
