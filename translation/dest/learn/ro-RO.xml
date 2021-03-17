@@ -28,7 +28,7 @@ ai nevoie de ambii!</string>
   <string name="theQueen">Regina</string>
   <string name="queenCombinesRookAndBishop">Regina = Tură + Nebun</string>
   <string name="queenIntro">Cea mai puternică piesă își face intrarea. Majestatea sa regina!</string>
-  <string name="queenComplete">Felicitări! Reginele nu au secrete pentru tine.</string>
+  <string name="queenComplete">Felicitări! Reginele nu au secrete față de tine.</string>
   <string name="theKing">Regele</string>
   <string name="theMostImportantPiece">Cea mai importantă piesă</string>
   <string name="kingIntro">Tu ești regele. Dacă cazi în luptă, jocul e pierdut.</string>
@@ -37,11 +37,12 @@ ai nevoie de ambii!</string>
   <string name="kingComplete">Acum poți comanda comandantul!</string>
   <string name="theKnight">Calul</string>
   <string name="itMovesInAnLShape">Se mișcă în formă de L</string>
-  <string name="knightIntro">Aici e o provocare pentru tine. Calul este... o piesă șireată.</string>
-  <string name="knightsHaveAFancyWay">Caii au un mod șiret în a sări împrejur!</string>
+  <string name="knightIntro">Iată o provocare pentru tine. Cavalerul este... o piesă șireată.</string>
+  <string name="knightsHaveAFancyWay">Caii au un mod elegant
+de a sări împrejur!</string>
   <string name="knightsCanJumpOverObstacles">Caii pot sări peste obstacole!
 Evadează și cucerește stelele!</string>
-  <string name="knightComplete">Felicitări! Ai învățat să folosești calul.</string>
+  <string name="knightComplete">Felicitări! Ai învățat să stăpânești calul.</string>
   <string name="thePawn">Pionul</string>
   <string name="itMovesForwardOnly">Se mișcă doar înainte</string>
   <string name="pawnIntro">Pionii sunt slabi, dar au un mare potențial.</string>
@@ -50,14 +51,14 @@ Dar atunci când ajung la celălalt capăt al tablei, ei devin piese mai puterni
   <string name="mostOfTheTimePromotingToAQueenIsBest">De cele mai multe ori, promovând pionul într-o regină e cea mai bună alegere.
 Dar uneori, un cal poate fi util!</string>
   <string name="pawnsMoveForward">Pionii se mișcă înainte,
-dar mănâncă în diagonală!</string>
-  <string name="captureThenPromote">Mănâncă, apoi promovează!</string>
+dar capturează pe diagonală!</string>
+  <string name="captureThenPromote">Capturează, apoi promovează!</string>
   <string name="useAllThePawns">Folosește toți pionii!
 Nu trebuie să-i promovezi.</string>
   <string name="aPawnOnTheSecondRank">Un pion de pe a doua linie se poate mișca două pătrățele deodată!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Capturează toate stelele!
 Nu trebuie să promovezi.</string>
-  <string name="pawnComplete">Felicitări! Ai învățat să controlezi pionul.</string>
+  <string name="pawnComplete">Felicitări! Pionii nu au secrete față de tine.</string>
   <string name="pawnPromotion">Promovarea pionului</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Pionul tău a atins capătul tablei!</string>
   <string name="itNowPromotesToAStrongerPiece">Acum este promovat într-o piesă mai puternică.</string>
@@ -72,11 +73,12 @@ Nu trebuie să promovezi.</string>
   <string name="protection">Protecție</string>
   <string name="keepYourPiecesSafe">Protejează-ți piesele</string>
   <string name="protectionIntro">Identifică piesele pe care oponentul tău le atacă și protejează-le!</string>
-  <string name="protectionComplete">Felicitări! O piesă care nu o pierde este o piesă câștigată!</string>
+  <string name="protectionComplete">Felicitări! O piesă pe care nu o pierzi este o piesă câștigată!</string>
   <string name="escape">Ești atacat! Scăpa de amenințare!</string>
   <string name="noEscape">Nu este nicio scăpare,
 dar poți proteja!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Nu-i lăsa să ia vreo piesă neprotejată!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Nu-i lăsa să ia
+vreo piesă neprotejată!</string>
   <string name="combat">Luptă</string>
   <string name="captureAndDefendPieces">Capturează și protejează piese</string>
   <string name="combatIntro">Un bun războinic știe despre atac și apărare!</string>
