@@ -18,6 +18,8 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess a inspirat într-adevăr alte websiteuri open-source care folosesc %1$s, %2$s sau %3$s.</string>
   <string name="fairPlay">Joc Corect</string>
   <string name="whenAmIEligibleRatinRefund">Cănd sunt eligibil să primesc automat înapoi scorul pierdut din cauza cheaterilor?</string>
+  <string name="ratingRefundExplanation">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
+  <string name="preventLeavingGameWithoutResigning">Ce se face împotriva jucătorilor care abandonează un meci fară sa se predea?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
