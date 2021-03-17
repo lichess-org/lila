@@ -57,7 +57,7 @@
   <string name="analysis">Analysbräde</string>
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
-  <string name="loadingEngine">Laddar schackprogram...</string>
+  <string name="loadingEngine">Laddar schackmotor...</string>
   <string name="cloudAnalysis">Molnanalys</string>
   <string name="goDeeper">Sök djupare</string>
   <string name="showThreat">Visa hot</string>
