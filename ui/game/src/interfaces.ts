@@ -22,6 +22,7 @@ export interface Game {
   speed: Speed;
   variant: Variant;
   winner?: Color;
+  drawOffers?: number[];
   moveCentis?: number[];
   initialFen?: string;
   importedBy?: string;
