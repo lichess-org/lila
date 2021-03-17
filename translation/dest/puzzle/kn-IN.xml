@@ -29,4 +29,25 @@
   <string name="trySomethingElse">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="ratingX">ರೇಟಿಂಗ್: %s</string>
   <string name="hidden">ಮರೆಯಲ್ಲಿ</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s ಸಾರ್ತಿ ಆಡಲ್ಪಟ್ಟಿದೆ</item>
+    <item quantity="other">%s ಸಾರ್ತಿ ಆಡಲ್ಪಟ್ಟಿದೆ</item>
+  </plurals>
+  <string name="fromGameLink">%s ಆಟದಿಂದ</string>
+  <string name="continueTraining">ಅಭ್ಯಾಸ ಮುಂದುವರೆಸಿ</string>
+  <string name="difficultyLevel">ಕ್ಲಿಷ್ಟತೆ ಮಟ್ಟ</string>
+  <string name="normal">ಸಾಧಾರಣ</string>
+  <string name="easier">ಮತ್ತೂ ಸುಲಭ</string>
+  <string name="easiest">ಅತೀ ಸುಲಭ</string>
+  <string name="harder">ಮಾತ್ತೂ ಕ್ಲಿಷ್ಟ</string>
+  <string name="hardest">ಅತೀ ಕ್ಲಿಷ್ಟ</string>
+  <string name="example">ಉದಾಹರಣೆ</string>
+  <string name="addAnotherTheme">ಮತ್ತೊಂದು ವರ್ಗ ಸೇರಿಸಿ</string>
+  <string name="jumpToNextPuzzleImmediately">ಮುಂದಿನ ಸಮಸ್ಯೆಗೆ ತಕ್ಷಣ ಹೋಗಲು</string>
+  <string name="puzzleDashboard">ಸಮಸ್ಯೆ ಡ್ಯಾಶ್ಬೋರ್ಡ್</string>
+  <string name="improvementAreas">ಸುಧಾರಣೆಗಳು</string>
+  <string name="strengths">ಶಕ್ತಿ</string>
+  <string name="history">ಮುಂಚಿನ ಸಮಸ್ಯೆಗಳು</string>
+  <string name="solved">ಬಿಡಿಸಿದ</string>
+  <string name="failed">ವಿಫಲಗೊಂಡ</string>
 </resources>
