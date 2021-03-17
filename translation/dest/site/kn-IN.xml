@@ -9,6 +9,7 @@
   <string name="yourTurn">ನಿಮ್ಮ ತಿರುವು</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
+  <string name="strength">ಶಕ್ತಿ</string>
   <string name="toggleTheChat">ಮಾತಾಡುವುದು ಬೇಕೇ?</string>
   <string name="toggleSound">ಧ್ವನಿ ಬೇಕೇ?</string>
   <string name="chat">ಮಾತಾಡುವುದು</string>
