@@ -11,11 +11,12 @@
   <string name="theRook">Turn</string>
   <string name="itMovesInStraightLines">Se mișcă în linii drepte</string>
   <string name="rookIntro">Turnul e o piesă puternică. Ești pregătit s-o mânuiești?</string>
-  <string name="rookGoal">Apasă click pe turn ca să-l aduci pe stea!</string>
+  <string name="rookGoal">Dă click pe turn ca să îl aduci pe stea!</string>
   <string name="grabAllTheStars">Prinde toate stelele!</string>
-  <string name="theFewerMoves">Cu cât mai puține mutări făcute,
-cu atât mai multe puncte câștigate!</string>
-  <string name="useTwoRooks">Folosește două turnuri ca să grăbești lucrurile!</string>
+  <string name="theFewerMoves">Cu cât faci mai puține mutări,
+cu atât căștigi mai multe pucte!</string>
+  <string name="useTwoRooks">Folosește două turnuri
+ca să grăbești lucrurile!</string>
   <string name="rookComplete">Felicitări! Ai reușit să stăpânești turnul.</string>
   <string name="theBishop">Nebunul</string>
   <string name="itMovesDiagonally">Se mișcă în diagonală</string>
@@ -27,7 +28,7 @@ ai nevoie de ambii!</string>
   <string name="theQueen">Regina</string>
   <string name="queenCombinesRookAndBishop">Regina = Tură + Nebun</string>
   <string name="queenIntro">Cea mai puternică piesă își face intrarea. Majestatea sa regina!</string>
-  <string name="queenComplete">Felicitări! Regina nu are secrete pentru tine.</string>
+  <string name="queenComplete">Felicitări! Reginele nu au secrete pentru tine.</string>
   <string name="theKing">Regele</string>
   <string name="theMostImportantPiece">Cea mai importantă piesă</string>
   <string name="kingIntro">Tu ești regele. Dacă cazi în luptă, jocul e pierdut.</string>
