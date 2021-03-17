@@ -20,17 +20,41 @@
     display: block;
     width: 100%;
     opacity: 0.75;
+    overflow: hidden;
     @include transition;
-    &:hover {
-      opacity: 1;
-    }
-    &::before {
+    .car {
+      position: relative;
       font-family: 'racer-car';
       font-weight: normal;
-      content: '0';
       font-size: 9em;
       display: block;
       margin-top: -0.5em;
+    }
+    &:hover {
+      opacity: 1;
+      .car {
+        transform: translateX(0.1em) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        transition: all 0.15s ease-out;
+        &::before {
+          content: 'A';
+          position: absolute;
+          left: 0.9em;
+          bottom: 0.6em;
+          font-size: 0.3em;
+          animation: boost 0.1s ease-in infinite;
+        }
+      }
+    }
+  }
+
+  @keyframes boost {
+    from {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-3px);
+      opacity: 0.6;
     }
   }
 

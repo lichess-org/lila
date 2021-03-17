@@ -22,10 +22,10 @@ object racer {
         h1("Puzzle Racer (beta)"),
         div(cls := "racer-home__buttons")(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
-            submitButton(cls := "button button-fat")("Join a public race")
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), "Join a public race")
           ),
           postForm(cls := "racer-home__create", action := routes.Racer.create)(
-            submitButton(cls := "button button-fat")("Race your friends")
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), "Race your friends")
           )
         ),
         div(cls := "racer-home__about")(
