@@ -24,7 +24,17 @@
   <string name="howCanIBecomeModerator">Cum pot deveni un moderator?</string>
   <string name="youCannotApply">Nu este posibil să aplici pentru a deveni moderator. Dacă vedem pe cineva care credem noi ca este bun de moderator, îl vom contacta direct.</string>
   <string name="isCorrespondenceDifferent">Este șahul prin corespondență diferit față de șahul normal?</string>
+  <string name="youCanUseOpeningBookNoEngine">Pe Lichess, diferența principală de regulament pentru șahul prin corespondență este că o carte de deschideri in șah este permisă. Utilizarea de motoare pentru a automatiza șahul sunt încă nepermise ți vor rezulta în marcharea contului tău pentru motor de asistență. Deși ICCF permite motor de asistență la șahul prin corespondență, Lichess nu permite acest lucru.</string>
+  <string name="gameplay">Joc</string>
+  <string name="howBulletBlitzEtcDecided">Cum sunt decise controalele de timp Bullet, Blitz și alte?</string>
+  <string name="basedOnGameDuration">Controalele de timp sunt bazate pe durata de joc estimată = %1$s
+De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de secunde.</string>
+  <string name="durationFormula">(timpul inițial pe ceas) + 40 × (crestere pe ceas)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess suportă șah standard și %1$s.</string>
+  <string name="eightVariants">8 variante de șah</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
