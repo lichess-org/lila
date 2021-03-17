@@ -90,6 +90,8 @@
   </plurals>
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
+  <string name="openingExplorer">ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
+  <string name="xOpeningExplorer">%s ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
   <string name="allSet">ಸಿದ್ಧವಾಗಿದೆ!</string>
   <string name="delete">ಅಳಿಸಿ</string>
   <string name="deleteThisImportedGame">ಈ ಪ್ರಮುಖ ಆಟವನ್ನು ಅಳಿಸುವುದೇ?</string>
