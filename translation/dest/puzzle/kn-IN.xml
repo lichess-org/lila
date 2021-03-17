@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ಸಮಸ್ಯೆ</string>
+  <string name="puzzleThemes">ಸಮಸ್ಯೆ ವರ್ಗ</string>
+  <string name="recommended">ಶಿಫಾರಸ್ಸು</string>
+  <string name="phases">ಹಂತಗಳು</string>
+  <string name="motifs">ಗುರಿಗಳು</string>
+</resources>
