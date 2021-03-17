@@ -5,4 +5,11 @@
   <string name="recommended">ಶಿಫಾರಸ್ಸು</string>
   <string name="phases">ಹಂತಗಳು</string>
   <string name="motifs">ಗುರಿಗಳು</string>
+  <string name="advanced">ಪ್ರೌಢ</string>
+  <string name="lengths">ಅವಧಿ</string>
+  <string name="mates">ಮೇಟ್-ಗಳು</string>
+  <string name="goals">ಗುರಿಗಳು</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">ಮೂಲ</string>
+  <string name="specialMoves">ವಿಶೇಷ ನಡೆಗಳು</string>
+  <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಸಮಸ್ಯೆ ಇಷ್ಟವಾಯಿತೇ?</string>
 </resources>
