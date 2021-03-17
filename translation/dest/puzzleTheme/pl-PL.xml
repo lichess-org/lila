@@ -120,5 +120,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Ograniczone ruchy przeciwnika powodują, że każde posunięcie pogarsza jego pozycję.</string>
   <string name="healthyMix">Miszmasz</string>
-  <string name="healthyMixDescription">Bądź gotów na wszystko! Tak jak w prawdziwej grze.</string>
+  <string name="healthyMixDescription">Bądź gotów na wszystko! Jak podczas prawdziwej partii.</string>
 </resources>

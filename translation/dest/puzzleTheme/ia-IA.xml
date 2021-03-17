@@ -9,4 +9,7 @@
   <string name="endgame">Fin del joco</string>
   <string name="exposedKing">Rege exponite</string>
   <string name="fork">Furca</string>
+  <string name="veryLong">Enigma multo longe</string>
+  <string name="veryLongDescription">Quatro movimento o plus pro vincer.</string>
+  <string name="zugzwang">Zugzwang</string>
 </resources>

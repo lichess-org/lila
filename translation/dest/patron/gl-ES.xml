@@ -42,7 +42,7 @@ Ou podes %s.</string>
   <string name="bankTransfers">Tamén aceptamos trasferencias bancarias</string>
   <string name="bitcoin">E aquí está o noso enderezo de bitcoin: %s</string>
   <string name="patronFeatures">Hai algunhas funcionalidades reservadas aos patróns?</string>
-  <string name="noPatronFeatures">No, porque Lichess é totalmente gratuíto, para sempre, para todos. Iso é unha promesa.
+  <string name="noPatronFeatures">Non, porque Lichess é totalmente gratuíto, para sempre, para todos. Iso é unha promesa.
 Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</string>
   <string name="featuresComparison">Ver a comparación detallada das funcionalidades</string>
   <plurals name="patronForMonths">

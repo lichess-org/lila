@@ -7,9 +7,6 @@
   <string name="newAllTimeHighscore">အမြင့်ဆုံး ရမှတ် အသစ်</string>
   <string name="previousHighscoreWasX">ယခင် အမြင့်ဆုံး ရမှတ်မှ %s ဖြစ်ပါသည်</string>
   <string name="playAgain">ဆက်ကစားမည်</string>
-  <plurals name="xRuns">
-    <item quantity="other">တစ်ကြိမ်</item>
-  </plurals>
   <string name="highscoreX">အမြင့်ဆုံး ရမှတ် %s</string>
   <string name="highscores">အမြင့်ဆုံးရမှတ်များ</string>
 </resources>

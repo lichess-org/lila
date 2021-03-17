@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">常见问题</string>
-  <string name="frequentlyAskedQuestions">常见问题解答</string>
+  <string name="frequentlyAskedQuestions">常见问题</string>
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">听一位专家发音。</string>
+  <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
   <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
   <string name="whyIsLilaCalledLila">同样，Lichess源代码 %1$s，表示li[chess in sca]la，查看Lichess的主体是用 %2$s写的，这是一种直观的编程语言。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
@@ -14,8 +14,8 @@
   <string name="beingAPatron">成为赞助者</string>
   <string name="breakdownOfOurCosts">我们的费用明细表</string>
   <string name="otherWaysToHelp">其它的帮助方式</string>
-  <string name="areThereWebsitesBasedOnLichess">是否有基于Lichess 的网站？</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess确实激励了其他使用我们的 %1$s %2$s或 %3$s 的开源站点。</string>
+  <string name="areThereWebsitesBasedOnLichess">是否有基于 Lichess 的网站？</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess 确实激励了其他使用我们的 %1$s、%2$s 或 %3$s 的开源站点。</string>
   <string name="fairPlay">公平竞争</string>
   <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
   <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
@@ -26,8 +26,8 @@
   <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
-  <string name="isCorrespondenceDifferent">通信赛是否不同于常规赛？</string>
-  <string name="youCanUseOpeningBookNoEngine">在Lichess平台，通讯赛的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管ICCF允许在通信中使用引擎，但Lichess不允许。</string>
+  <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
+  <string name="youCanUseOpeningBookNoEngine">在 Lichess 平台，通讯棋的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通讯棋中使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
@@ -38,12 +38,12 @@
   <string name="whatVariantsCanIplay">我可以在 Lichess上玩哪些变体？</string>
   <string name="lichessSupportChessAnd">Lichess支持标准国际象棋和 %1$s。</string>
   <string name="eightVariants">8 种国际象棋变体</string>
-  <string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+  <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
+  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的1/100。也就是说，100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
-最佳的电脑着法将会损失0兵厘，但较少的着法将导致兵厘计量下局面的恶化。
+最佳的电脑着法将会损失0厘兵，但较少的着法将导致厘兵计量下局面的恶化。
 
-该值可以用作着法质量的一个指标。每次失去的兵厘越少，着法就越强。
+该值可以用作着法质量的一个指标。每次失去的厘兵越少，着法就越强。
 
 Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="insufficientMaterial">超时判负，和棋以及子力不足</string>

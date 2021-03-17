@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="lichessClasses">Clases</string>
+  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
   <string name="features">Funcións</string>
   <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
   <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
@@ -52,9 +53,46 @@ Contrasinal %3$s</string>
 Aquí está a ligazón para acceder.</string>
   <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
   <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Unha invitación pendente</item>
+    <item quantity="other">%s invitacións pendentes</item>
+  </plurals>
+  <string name="noPendingInvitations">Non ten invitacións pendentes</string>
+  <string name="onlyVisibleToTeachers">Só visíbel para os profesores da clase</string>
   <string name="lastActiveDate">Última visita</string>
+  <string name="managed">Supervisada</string>
+  <string name="thisStudentAccountIsManaged">A conta deste estudante está supervisada</string>
+  <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
+  <string name="release">Liberar</string>
+  <string name="releaseTheAccount">Libera a conta para que o estudante poda xestionala de forma autónoma.</string>
+  <string name="releaseDesc1">Unha conta liberada non pode volver ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
+  <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
+  <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
+  <string name="teachers">Profesores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="other">%s profesores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Estudante</item>
+    <item quantity="other">%s estudantes</item>
+  </plurals>
+  <string name="students">Estudantes</string>
+  <string name="progress">Progreso</string>
+  <string name="noStudents">Non hai aínda estudantes na aula.</string>
+  <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Durante días</string>
+  <string name="timePlaying">Tempo xogado</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Porcentaxe de victorias</string>
   <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
+  <string name="notifyAllStudents">Notificar todos os estudantes</string>
+  <string name="nothingHere">Nada aquí polo de agora.</string>
+  <string name="newsEdit1">Todas as novidades sobre a clase nun único campo.</string>
+  <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
+  <string name="newsEdit3">Separa as novas con ---
+Amosará unha liña separadora horizontal.</string>
+  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
 </resources>

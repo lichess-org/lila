@@ -80,21 +80,21 @@
     <item quantity="other">Bhí %s taispeántais comhuaineacha faoi cúram</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Glacadh páirt i %s taispeántas comhuaineach</item>
+    <item quantity="one">Glacadh páirt i dtaispeántas comhuaineach amháin</item>
     <item quantity="two">Glacadh páirt i %s thaispeántais comhuaineacha</item>
     <item quantity="few">Glacadh páirt i %s dtaispeántais comhuaineacha</item>
     <item quantity="many">Glacadh páirt i %s taispeántais comhuaineacha</item>
     <item quantity="other">Glacadh páirt i %s taispeántais comhuaineacha</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Chruthaigh %s staidéar nua</item>
+    <item quantity="one">Chruthaigh staidéar nua amháin</item>
     <item quantity="two">Chruthaigh %s staidéar nua</item>
     <item quantity="few">Chruthaigh %s staidéar nua</item>
     <item quantity="many">Chruthaigh %s staidéar nua</item>
     <item quantity="other">Chruthaigh %s staidéar nua</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">San iomaíocht i %s comórtas</item>
+    <item quantity="one">San iomaíocht i gcomórtas amháin</item>
     <item quantity="two">San iomaíocht i %s chomórtas</item>
     <item quantity="few">San iomaíocht i %s gcomórtas</item>
     <item quantity="many">San iomaíocht i %s comórtas</item>
@@ -117,7 +117,7 @@
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Céim #%1$s as %2$s</string>
   <string name="signedUp">Sínithe suas le lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Isteach i %s foireann</item>
+    <item quantity="one">Isteach i bhfoireann amháin</item>
     <item quantity="two">Isteach i %s fhoireann</item>
     <item quantity="few">Isteach i %s bhfoireann</item>
     <item quantity="many">Isteach i %s foireann</item>

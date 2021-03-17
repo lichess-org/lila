@@ -3,46 +3,46 @@
   <string name="activity">动态</string>
   <string name="hostedALiveStream">主持了直播</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">该用户作为%2$s已赞助lichess.org%1$s个月</item>
+    <item quantity="other">该用户作为 %2$s 已赞助 lichess.org %1$s 个月</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">在 %2$s 中完成了 %1$s 个练习</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">解答了 %s 道谜题</item>
+    <item quantity="other">解决了 %s 道谜题</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="other">下了%1$s局%2$s象棋</item>
+    <item quantity="other">下了 %1$s 局 %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">在%2$s发布%1$s条留言</item>
+    <item quantity="other">在 %2$s 发布 %1$s 条留言</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">下了 %1$s 手棋</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">在 %1$s 局通信棋局中</item>
+    <item quantity="other">在 %1$s 局通讯棋局中</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">结束了%s盘通信棋</item>
+    <item quantity="other">完成了 %s 盘通讯棋</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">开始关注%s个用户</item>
+    <item quantity="other">新关注 %s 个用户</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="other">新增%s个关注者</item>
+    <item quantity="other">新增 %s 个关注者</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">主持了%s场车轮战</item>
+    <item quantity="other">主持了 %s 场车轮战</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">参与了%s场车轮战</item>
+    <item quantity="other">参与了 %s 场车轮战</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">创建了%s个新的研讨室</item>
+    <item quantity="other">创建了 %s 个新的研讨</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="other">参与了%s场锦标赛</item>
+    <item quantity="other">参与了 %s 场锦标赛</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="other">在 %4$s 里下了 %3$s 盘棋，排名 #%1$s 位（前 %2$s%% ）</item>
@@ -51,7 +51,7 @@
     <item quantity="other">参加了 %s 场 swiss 锦标赛</item>
   </plurals>
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">在 %2$s 中获得第 #%1$s 名</string>
-  <string name="signedUp">在lichess.org上注册帐户</string>
+  <string name="signedUp">注册 lichess 帐户</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">加入了 %s 个团队</item>
   </plurals>

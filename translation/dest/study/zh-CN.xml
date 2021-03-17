@@ -40,7 +40,7 @@
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
   <string name="commentThisMove">评论这步走法</string>
-  <string name="annotateWithGlyphs">用图形标注</string>
+  <string name="annotateWithGlyphs">用符号标注</string>
   <string name="theChapterIsTooShortToBeAnalysed">本章节太短，无法进行分析。</string>
   <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
@@ -49,7 +49,7 @@
   <string name="shareChanges">与旁观者共享更改并云端保存</string>
   <string name="playing">正在对局</string>
   <string name="first">首页</string>
-  <string name="previous">前一页</string>
+  <string name="previous">上一页</string>
   <string name="next">下一页</string>
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>

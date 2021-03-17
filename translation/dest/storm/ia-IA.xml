@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Move pro initiar</string>
+  <string name="puzzlesSolved">enigmas resolvite</string>
+  <string name="newDailyHighscore">Nove record del die!</string>
+  <string name="newWeeklyHighscore">Nove record del septimana!</string>
+  <string name="newMonthlyHighscore">Nove record del mense!</string>
+  <string name="newAllTimeHighscore">Nove record absolute!</string>
+  <string name="previousHighscoreWasX">Le record previe esseva %s</string>
+  <string name="playAgain">Jocar de novo</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 essayo</item>
+    <item quantity="other">%s essayos</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Un essayo jocate de %2$s</item>
+    <item quantity="other">%1$s essayos jocate de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Record: %s</string>
+  <string name="score">Tabula de punctos</string>
+  <string name="moves">Movimentos</string>
+  <string name="accuracy">Precision</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="time">Tempore</string>
+  <string name="timePerMove">Tempore per movimento</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Plus difficile resolvite</string>
+  <string name="puzzlesPlayed">Enigmas jocate</string>
+  <string name="newRun">Nove essayo (clave: \"Space\")</string>
+  <string name="endRun">Finir essayo (clave: \"Enter\")</string>
+  <string name="highscores">Records</string>
+  <string name="viewBestRuns">Vider le melior essayos</string>
+  <string name="bestRunOfDay">Melior essayo del die</string>
+  <string name="runs">Essayos</string>
+</resources>

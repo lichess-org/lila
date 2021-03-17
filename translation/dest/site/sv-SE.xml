@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
+  <string name="descPrivate">Privat beskrivning</string>
+  <string name="descPrivateHelp">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjälp:</string>

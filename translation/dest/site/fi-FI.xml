@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
+  <string name="descPrivate">Yksityinen kuvaus</string>
+  <string name="descPrivateHelp">Teksti, jonka vain tiimin jäsenet näkevät. Jos se on asetettu, se korvaa julkisen kuvauksen tiimin jäsenille.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
   <string name="help">Apu:</string>

@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
-  <string name="waiting">Чекање</string>
+  <string name="waiting">Чека се</string>
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
@@ -498,8 +498,8 @@
   <string name="tournamentWinners">Победници турнира</string>
   <string name="name">Назив</string>
   <string name="description">Опис</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">Приватни опис</string>
-  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
+  <string name="descPrivate">Приватни опис</string>
+  <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помоћ</string>

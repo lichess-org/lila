@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een samentrekking van \'live/light/libre\' en \'chess\'. Het wordt uitgesproken als %1$s.</string>
   <string name="leechess">lie-tjess</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hoor het uitgesproken door een specialist.</string>
+  <string name="hearItPronouncedBySpecialist">Hoor het uitgesproken door een specialist.</string>
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
   <string name="whyIsLilaCalledLila">Evenzo staat de broncode voor Lichess, %1$s, voor li[chess in sca]la, omdat het grootste deel van Lichess geschreven is in %2$s, een intuïtieve programmeertaal.</string>
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
@@ -98,7 +98,7 @@ Vraag niet om de LM-titel.</string>
   <string name="uniqueTrophies">Unieke trofeeën</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
   <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
-  <string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
+  <string name="aHourlyBulletTournament" comment="aHourlyBulletTournament&#10;&#10;Used in the second half of  the string&#10;&quot;To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.&quot;&#10;&#10;">elk uur een bullet-toernooi</string>
   <string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
   <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Welk ratingsysteem gebruikt Lichess?</string>

@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Lichess को Lichess क्यों कहा जाता है?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live / light / libre और chess का एक संयोजन है। इसका उच्चारण%1$s है।</string>
   <string name="leechess">ली-शतरंज</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">किसी विशेषज्ञ द्वारा उच्चारित इसे सुनें।</string>
+  <string name="hearItPronouncedBySpecialist">किसी विशेषज्ञ द्वारा उच्चारित इसे सुनें।</string>
   <string name="whyLiveLightLibre">लाइव, क्योंकि गेम वास्तविक समय 24/7 में खेले और देखे जाते हैं; इस तथ्य के लिए कि लिचेस ओपन-सोर्स है और अन्य वेबसाइटों को नुकसान पहुंचाने वाले मालिकाना रद्दी द्वारा बिना लाइसेंस के है।</string>
   <string name="whyIsLilaCalledLila">इसी तरह, लिचेस के लिए स्रोत कोड,%1$s, ली के लिए खड़ा है [sca में] ला, यह देखते हुए कि Lichess के थोक को%2$s, एक सहज ज्ञान युक्त प्रोग्रामिंग भाषा में लिखा गया है।</string>
   <string name="howCanIContributeToLichess">मैं लिचेस में कैसे योगदान कर सकता हूं?</string>

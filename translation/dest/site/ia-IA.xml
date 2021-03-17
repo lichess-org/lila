@@ -330,6 +330,7 @@
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="xJoinedTeamY">%1$s ha adherite a %2$s</string>
   <string name="xCreatedTeamY">%1$s ha create le equipa %2$s</string>
+  <string name="xStartedStreaming">%s comenciava un emission directe</string>
   <string name="averageElo">Classification medie</string>
   <string name="location">Loco</string>
   <string name="filterGames">Filtrar partitas</string>
@@ -467,6 +468,8 @@
   <string name="tournamentWinners">Vincitores de torneos</string>
   <string name="name">Nomine</string>
   <string name="description">Description</string>
+  <string name="descPrivate">Description private</string>
+  <string name="descPrivateHelp">Texto que solo le membros del equipa videra. Si imponite, illo reimplacia le description public pro le membros del equipa.</string>
   <string name="no">No</string>
   <string name="yes">Si</string>
   <string name="help">Adjuta:</string>
@@ -506,6 +509,8 @@
   <string name="newPasswordAgain">Confirmar nove contrasigno</string>
   <string name="newPasswordsDontMatch">Le nove contrasignos non corresponde</string>
   <string name="newPasswordStrength">Fortia del contrasigno</string>
+  <string name="clockInitialTime">Tempore initial del horologio</string>
+  <string name="clockIncrement">Incremento del horologio</string>
   <string name="privacy">Confidentialitate</string>
   <string name="privacyPolicy">Politica de confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
@@ -591,6 +596,7 @@
   <string name="tpTimeSpentOnTV">Tempore spectante Lichess TV: %s</string>
   <string name="watch">Spectar</string>
   <string name="videoLibrary">Videotheca</string>
+  <string name="streamersMenu">Streamers</string>
   <string name="mobileApp">Application mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">A proposito de</string>
@@ -643,6 +649,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es melior que %2$s intra %3$s jocatores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
   <string name="yourRating">Tu classification</string>
   <string name="cumulative">Cumulative</string>
@@ -652,6 +659,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si tu non trova le message in tu e-posta, verifica in altere locos ubi illo pote esser, como tu cassa de posta indesirate, spam, corbe a papiro, o altere dossiers.</string>
   <string name="weHaveSentYouAnEmailTo">Nos ha inviate un message de e-posta a %s. Clicca sur le ligamine in le message pro restaurar tu contrasigno.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Per registrar, tu accepta nostre %s.</string>
+  <string name="readAboutOur">Lege nostre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo in le rete inter te e Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempore pro processar un movimento sur le servitor de Lichess</string>
   <string name="downloadAnnotated">Discargar joco annotate</string>
@@ -801,6 +809,9 @@
   <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
   <string name="puzzleDesc">Trainator de tacticas de chacos</string>
   <string name="important">Importante</string>
+  <string name="joinTheTeamXToPost">Pro postar in iste foro, uni se in %1$s</string>
+  <string name="teamNamedX">Equipa %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
   <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
 </resources>

@@ -3,7 +3,7 @@
   <string name="team">Foireann</string>
   <string name="teams">Foirne</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s ball</item>
+    <item quantity="one">ball amháin</item>
     <item quantity="two">%s bhall</item>
     <item quantity="few">%s mball</item>
     <item quantity="many">%s ball</item>
@@ -40,7 +40,7 @@
   <string name="teamBattle">Cath Foirne</string>
   <string name="teamBattleOverview">Cath ilfhoirne, scórálann gach ficheallaí pointí dá bhfoireann</string>
   <string name="teamTournament">Comórtas foirne</string>
-  <string name="teamTournamentOverview">Comórtas Láthair nach féidir ach baill d’fhoireann a bheith páirteach ann</string>
+  <string name="teamTournamentOverview">Comórtas Láthair nach féidir ach baill d’fhoireann ficheallaithe a bheith páirteach ann</string>
   <string name="messageAllMembers">Cuir teachtaireacht chuig gach ball</string>
   <string name="messageAllMembersOverview">Seol teachtaireacht phríobháideach chuig gach ball den fhoireann</string>
   <string name="messageAllMembersLongDescription">Seol teachtaireacht phríobháideach chuig GACH ball den fhoireann.

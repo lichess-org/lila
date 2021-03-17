@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Por que é que o Lichess se chama Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (vida, direto/leve/livre). Pronuncia-se %1$s.</string>
   <string name="leechess">li-tchéss</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Ouve-o pronunciado por um especialista.</string>
+  <string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
   <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
   <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>

@@ -7,9 +7,16 @@
   <string name="motifs">Themas</string>
   <string name="advanced">Avantiate</string>
   <string name="lengths">Longitudes</string>
+  <string name="mates">Chaco mat</string>
+  <string name="goals">Objectivos</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origine</string>
+  <string name="specialMoves">Movimentos special</string>
+  <string name="didYouLikeThisPuzzle">Esque tu amava iste enigma?</string>
+  <string name="voteToLoadNextOne">Vota pro cargar le proxime!</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
   <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
   <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
+  <string name="toGetPersonalizedPuzzles">Pro obtener enigmas personalisate:</string>
   <string name="puzzleId">Enigma %s</string>
   <string name="puzzleOfTheDay">Enigma del die</string>
   <string name="clickToSolve">Clicca pro resolver</string>
@@ -18,6 +25,8 @@
   <string name="keepGoing">Continua…</string>
   <string name="puzzleSuccess">Successo!</string>
   <string name="puzzleComplete">Enigma complete!</string>
+  <string name="notTheMove">Iste non es le movimento!</string>
+  <string name="trySomethingElse">Tenta alcun cosa differente.</string>
   <string name="ratingX">Classification: %s</string>
   <string name="hidden">celate</string>
   <plurals name="playedXTimes">
@@ -33,4 +42,12 @@
   <string name="harder">Difficile</string>
   <string name="hardest">Le plus difficile</string>
   <string name="example">Exemplo</string>
+  <string name="addAnotherTheme">Adder un altere thema</string>
+  <string name="jumpToNextPuzzleImmediately">Passar al proxime enigma immediatemente</string>
+  <string name="puzzleDashboard">Pannello de enigmas</string>
+  <string name="improvementAreas">Areas a meliorar</string>
+  <string name="strengths">Punctos forte</string>
+  <string name="history">Chronologia de enigmas</string>
+  <string name="solved">resolvite</string>
+  <string name="failed">fallite</string>
 </resources>

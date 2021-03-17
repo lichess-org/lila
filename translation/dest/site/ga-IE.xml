@@ -28,7 +28,7 @@
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Rás críochnaithe</string>
-  <string name="variantEnding">Críoch éagsúil</string>
+  <string name="variantEnding">Leagan críoch</string>
   <string name="newOpponent">Céile comhraic nua</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ba mhaith le do chéile comhraic cluiche nua a imirt leat</string>
   <string name="joinTheGame">Téigh isteach sa chluiche</string>
@@ -44,7 +44,7 @@
   <string name="opponentLeftChoices">D’fhág do chéile comhraic an cluiche. Féadfaidh tú an bua a fháil, an cluiche a chríochnú ar chomhscór, nó fanacht.</string>
   <string name="makeYourOpponentResign">Cuir iallach ar do chéile comhraic éirí as</string>
   <string name="forceResignation">Maígh an bua</string>
-  <string name="forceDraw">Éiligh comhscór</string>
+  <string name="forceDraw">Fógair cluiche cothrom</string>
   <string name="talkInChat">Bí dea-bhéasach sa chomhrá!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Imreoidh an chéad duine a thagann go dtí an URL seo leat</string>
   <string name="whiteResigned">D\'éirigh Bán as</string>
@@ -104,7 +104,7 @@
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
-  <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
+  <string name="xOpeningExplorer">%s taighde oscailt</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua mar gheall ar riail an 50 bheart</string>
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
   <string name="allSet">Réidh le himirt!</string>
@@ -449,7 +449,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="followsYou">Do leanúint</string>
   <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s leantóir amháin</item>
+    <item quantity="one">leantóir amháin</item>
     <item quantity="two">beirt leantóir</item>
     <item quantity="few">%s leantóir</item>
     <item quantity="many">%s leantóirí</item>
@@ -556,6 +556,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
+  <string name="descPrivate">Cur síos príobháideach</string>
+  <string name="descPrivateHelp">Téacs nach bhfuil le feiceáil ach le baill. Má tá sé socraithe, cuirtear an tuairisc phoiblí in ionad do baill na foirne.</string>
   <string name="no">Ná lig</string>
   <string name="yes">Lig</string>
   <string name="help">Cabhair:</string>

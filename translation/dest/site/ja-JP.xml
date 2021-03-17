@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
   <string name="playWithTheMachine">AI と対局する</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="waiting">待機中</string>
@@ -440,8 +440,8 @@
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
-  <string name="descPrivate" comment="descPrivate&#10;&#10;Text that only the team members will see. If set, replaces the public description for team members.">非公開説明文</string>
-  <string name="descPrivateHelp" comment="descPrivateHelp&#10;&#10;Help text for the title &quot;Private description&quot;">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
+  <string name="descPrivate">非公開説明文</string>
+  <string name="descPrivateHelp">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
   <string name="help">ヘルプ：</string>

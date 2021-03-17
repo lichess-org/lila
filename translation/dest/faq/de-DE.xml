@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Warum heißt Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
   <string name="leechess">li-tschess</string>
-  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Höre dir die Aussprache von einem Spezialisten an.</string>
+  <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
   <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lichess, %1$s, der für li[chess in sca]la steht. Der Großteil von Lichess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
   <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
@@ -97,8 +97,8 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der %s-Partien zu berserken und zu gewinnen.</string>
-  <string name="aHourlyBulletTournament">eine stündliche Bullet-Arena</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
+  <string name="aHourlyBulletTournament" comment="aHourlyBulletTournament&#10;&#10;Used in the second half of  the string&#10;&quot;To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.&quot;&#10;&#10;">einer stündlichen Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
