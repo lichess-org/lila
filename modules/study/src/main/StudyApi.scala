@@ -225,36 +225,38 @@ final class StudyApi(
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
   )(who: Who): Funit = {
-    val node         = rawNode.withoutChildren
+    val singleNode   = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(failReload())
     } else
-      position.chapter.addNode(node, position.path, relay) match {
+      position.chapter.addNode(singleNode, position.path, relay) match {
         case None =>
           failReload()
-          fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+          fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
-            val newPosition = position.ref + node
-            chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
-              (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-              (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-              updateConceal(study, chapter, newPosition) >> {
-                sendTo(study.id)(
-                  _.addNode(
-                    position.ref,
-                    node,
-                    chapter.setup.variant,
-                    sticky = opts.sticky,
-                    relay = relay,
-                    who
+            parent.children.get(singleNode.id) ?? { node =>
+              val newPosition = position.ref + node
+              chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
+                (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
+                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+                updateConceal(study, chapter, newPosition) >> {
+                  sendTo(study.id)(
+                    _.addNode(
+                      position.ref,
+                      node,
+                      chapter.setup.variant,
+                      sticky = opts.sticky,
+                      relay = relay,
+                      who
+                    )
                   )
-                )
-                (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) ??
-                  promote(study.id, position.ref + node, toMainline = true)(who)
-              }
+                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) ??
+                    promote(study.id, position.ref + node, toMainline = true)(who)
+                }
+            }
           }
       }
   }
