@@ -35,7 +35,13 @@ De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de sec
   <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess suportă șah standard și %1$s.</string>
   <string name="eightVariants">8 variante de șah</string>
+  <string name="lichessFollowFIDErules">În cazul în care unul dintre jucatori rămâne fară timp, acel jucător deobicei va pierde meciul. Dar, partida va fi declarată ca remiză dacă inamicul este intr-o poziție în care nu poate da șah mat regelui jucatorului prin orice serie de mutări legale (%1$s).
+
+În cazurile rare care poate fi greu de decis automat (linii forțate, cetăți). Implicit luăm partea jucătorului care nu a rămas fara timp.
+
+Ține minte că poate fi posibil să dai mat cu un singur rege sau nebun daca oponentul are o piesă care poate bloca regele.</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
+  <string name="discoveringEnPassant">De ce poate un pion să captureze alt pion când deja a trecut? (en passant)</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>
