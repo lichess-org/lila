@@ -22,7 +22,7 @@
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Руйнування</string>
+  <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Визначте грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусудніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
