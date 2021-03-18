@@ -73,7 +73,7 @@
     <item quantity="other">Fuarthas %s leantóir nua</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Bhí taispeántas comhuaineach faoi cúram</item>
+    <item quantity="one">Bhí taispeántas comhuaineach amháin faoi cúram</item>
     <item quantity="two">Bhí %s taispeántas comhuaineacha faoi cúram</item>
     <item quantity="few">Bhí %s taispeántas comhuaineacha faoi cúram</item>
     <item quantity="many">Bhí %s taispeántas comhuaineacha faoi cúram</item>
@@ -94,11 +94,11 @@
     <item quantity="other">Chruthaigh %s staidéar nua</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">San iomaíocht i gcomórtas amháin</item>
-    <item quantity="two">San iomaíocht i %s chomórtas</item>
-    <item quantity="few">San iomaíocht i %s gcomórtas</item>
-    <item quantity="many">San iomaíocht i %s comórtas</item>
-    <item quantity="other">San iomaíocht i %s comórtas</item>
+    <item quantity="one">San iomaíocht i gcomórtas Airéine amháin</item>
+    <item quantity="two">San iomaíocht i %s chomórtas Airéine</item>
+    <item quantity="few">San iomaíocht i %s gcomórtas Airéine</item>
+    <item quantity="many">San iomaíocht i %s comórtas Airéine</item>
+    <item quantity="other">San iomaíocht i %s comórtas Airéine</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
