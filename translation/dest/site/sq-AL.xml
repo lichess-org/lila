@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emri</string>
   <string name="description">Përshkrimi</string>
+  <string name="descPrivate">Përshkrim privat</string>
+  <string name="descPrivateHelp">Tekst që do të shohin vetëm anëtarët e ekipit. Nëse është vendosur, zëvendëson përshkrimin publik për anëtarët e ekipit.</string>
   <string name="no">Jo</string>
   <string name="yes">Po</string>
   <string name="help">Ndihmë</string>

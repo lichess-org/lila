@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Tiefstapelei und Hochtreiben) oder Computerunterstützung markiert?</string>
-  <string name="cheatDetectionMethods">Lichess arbeitet mit starken Erkennungsmethoden und sehr gründlichen Verfahren, um alle Hinweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Hinweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe wenden wir lieber für andere wichtige Fälle auf. Benutzer können Widerspruch einlegen, indem sie eine E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
   <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
  (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
@@ -98,7 +96,7 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
-  <string name="aHourlyBulletTournament" comment="aHourlyBulletTournament&#10;&#10;Used in the second half of  the string&#10;&quot;To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.&quot;&#10;&#10;">einer stündlichen Bullet-Arena</string>
+  <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>

@@ -613,6 +613,7 @@
   <string name="error.email_unique">Email адреса се већ користи</string>
   <string name="error.email_different">Ова имејл адреса је већ пријављена.</string>
   <string name="ifRatingIsPlusMinusX">Ако je рејтинг ± %s</string>
+  <string name="onlyExistingConversations">Само постојећи разговори</string>
   <string name="onlyFriends">Само пријатељи</string>
   <string name="menu">Опције</string>
   <string name="castling">Рокада</string>

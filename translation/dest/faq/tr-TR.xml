@@ -19,8 +19,6 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
-  <string name="cheatDetectionMethods">Lichess tüm kanıtların incelendiği, güçlü ve kapsamlı bir tespit mekanizmasına sahiptir. Karar sürecine genellikle birçok moderatör dahil olduğundan uzun zaman alabilir. Tespit edilenlerin dışında, bireysel olarak sunulan kanıtlar ile ilgilenmiyoruz. Bunu yapmak, gelecekte tespit edilmekten kaçınmayı kolaylaştırır ve verimsiz tartışmalara neden olur. Bunlara harcanacak zaman ve efor daha önemli vakalara ayrılıyor. Kullanıcılar %1$s adresine e-posta göndererek itirazda bulunabilir, ancak verilen kararlar nadiren bozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
   <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
 (Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>

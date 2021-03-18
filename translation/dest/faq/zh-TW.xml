@@ -17,9 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">有的，Lichess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
   <string name="fairPlay">公平的下棋</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">為什麼我被警告有人為操控積分(例如：送分) 或是有電腦輔助？</string>
-  <string name="cheatDetectionMethods">Lichess有強大的檢測方式以及非常徹底的過程來檢閱每一個證據，並作出判決。這過程通常需要很多的仲裁者並可能花上一段時間。
-除了標記，我們將不會公布個案的細節及辦決過程。這樣可能會導致鑽漏洞的情形更容易出現，以及產生許多無意義的辯論。這些時間及精力應該花在更重要的案件上。用戶可以通過電子郵件%1$s來上訴，但裁決被推翻的情況很少出現。</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
   <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
 (例如：你如果在那些棋局之後積分大幅提升，你可能就不會拿回那些積分或是只拿回一部分)。且退回的積分永遠不會超過150分。</string>

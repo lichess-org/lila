@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">An bhfuil suíomhanna Gréasáin bunaithe ar Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Go deimhin, spreag Lichess suíomhanna foinse oscailte eile a úsáideann ár %1$s, %2$s, nó %3$s.</string>
   <string name="fairPlay">Cothrom na Féinne</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Cén fáth a bhfuilim faoi bhratach ionramhála rátála saorga (bacadh agus treisiú) nó cúnamh ríomhaire?</string>
-  <string name="cheatDetectionMethods">Tá modhanna braite láidre ag Lichess agus próiseas an-críochnúil chun an fhianaise go léir a athbhreithniú agus chun cinneadh a dhéanamh. Is minic a bhíonn go leor modhnóirí i gceist leis an bpróiseas agus tógfaidh sé tamall fada. Seachas an marc féin, ní rachaimid isteach i sonraí faoi fhianaise ná faoin bpróiseas cinnteoireachta do chásanna aonair. Dá ndéanfaí é sin bheadh sé níos éasca braite a sheachaint sa todhchaí, agus cuireadh a thabhairt do dhíospóireachtaí neamhtháirgiúla. Is fearr an t-am agus an iarracht sin a chaitheamh ar chásanna tábhachtacha eile. Is féidir le húsáideoirí achomharc a dhéanamh trí ríomhphost a sheoladh chuig %1$s, ach is annamh a chuirtear cinntí ar ceal.</string>
   <string name="whenAmIEligibleRatinRefund">Cathain a bheidh mé incháilithe don aisíocaíocht rátála uathoibríoch ó caimiléirí?</string>
   <string name="ratingRefundExplanation">Nóiméad tar éis imreoir a mharcáil, tógtar a 40 cluiche rátáilte is déanaí le 3 lá anuas. Más tusa a chéile comhraic sna cluichí sin, chaill tú rátáil (mar gheall ar chaillteanas nó tarraingt), agus mura raibh do rátáil sealadach, faigheann tú aisíocaíocht rátála. Cuirtear teorainn leis an aisíocaíocht bunaithe ar do bhuaic-rátáil agus ar do dhul chun cinn rátála tar éis an chluiche.
   (Mar shampla, má mhéadaigh do rátáil go mór tar éis na gcluichí sin, b’fhéidir nach bhfaighfeá aisíocaíocht ar bith nó aisíocaíocht pháirteach.) Ní bhfaigheann tú aisíocaíocht os cionn 150 pointe riamh.</string>
@@ -114,7 +112,7 @@ Ná iarr ar an teideal LM.</string>
   <string name="uniqueTrophies">Trófaithe uathúla</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
-  <string name="aHourlyBulletTournament" comment="aHourlyBulletTournament&#10;&#10;Used in the second half of  the string&#10;&quot;To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.&quot;&#10;&#10;">comórtas Bullet gach uair an chloig</string>
+  <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
   <string name="goldenZeeExplanation">Bhí ZugAddict ag sruthú agus le 2 uair an chloig anuas bhí sé ag iarraidh an ruaig a chur ar A.I. leibhéal 8 i gcluiche 1+0, gan rath. Dúirt Thibault leis, dá n-éireodh leis é a dhéanamh, go bhfaigheadh sé trófaí uathúil. Uair an chloig ina dhiaidh sin, bhris sé Stockfish, agus tugadh onóir don gheallúint.</string>
   <string name="lichessRatings">Rátálacha Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Cén córas rátála a úsáideann Lichess?</string>

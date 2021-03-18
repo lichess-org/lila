@@ -51,13 +51,13 @@
   <string name="blackResigned">D\'éirigh Dubh as</string>
   <string name="whiteLeftTheGame">D\'fhág Bán an cluiche</string>
   <string name="blackLeftTheGame">D\'fhág Dubh an cluiche</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Scaip an URL don lucht féachana</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comhroinn an URL seo chun ligean do lucht féachana an cluiche a fheiceáil</string>
   <string name="theComputerAnalysisHasFailed">Theip ar anailís an ríomhaire</string>
   <string name="viewTheComputerAnalysis">Féach ar anailís an ríomhaire</string>
   <string name="requestAComputerAnalysis">Iarr anailís an ríomhaire</string>
   <string name="computerAnalysis">Anailís an ríomhaire</string>
-  <string name="computerAnalysisAvailable">Anailís Ríomhaire ar fáil</string>
-  <string name="analysis">Bord anailíse</string>
+  <string name="computerAnalysisAvailable">Anailís an ríomhaire ar fáil</string>
+  <string name="analysis">Clár anailíse</string>
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
@@ -104,7 +104,7 @@
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
-  <string name="xOpeningExplorer">%s taighde oscailt</string>
+  <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua mar gheall ar riail an 50 bheart</string>
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
   <string name="allSet">Réidh le himirt!</string>

@@ -468,7 +468,7 @@
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
-  <string name="descPrivate">Interne Beschreibung</string>
+  <string name="descPrivate">Private Beschreibung</string>
   <string name="descPrivateHelp">Text, den nur Teammitglieder lesen können. Wenn ausgefüllt, ersetzt er für Teammitglieder die öffentliche Beschreibung.</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>

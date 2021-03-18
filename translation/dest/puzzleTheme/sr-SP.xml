@@ -52,6 +52,7 @@
   <string name="hangingPiece">Висећа фигура</string>
   <string name="hookMate">Кука-мат</string>
   <string name="interference">Сметња</string>
+  <string name="intermezzo">Интермецо</string>
   <string name="knightEndgame">Скакачка завршница</string>
   <string name="knightEndgameDescription">Завршница са само скакачима и пешацима.</string>
   <string name="long">Дугачак проблем</string>
@@ -83,10 +84,25 @@
   <string name="promotion">Промоција</string>
   <string name="promotionDescription">Промовишите једног од Ваших пешака у даму или лаку фигуру.</string>
   <string name="queenEndgame">Дамска завршница</string>
+  <string name="queenEndgameDescription">Завршница са само краљицама и пешацима.</string>
+  <string name="queenRookEndgame">Краљица и Топ</string>
+  <string name="queenRookEndgameDescription">Завршница са само краљицама, топовима и пешацима.</string>
   <string name="queensideAttack">Напад на даминој страни</string>
+  <string name="queensideAttackDescription">Напад на противничког краља, након што су се рокадирали на краљичиној страни.</string>
   <string name="quietMove">Тихи потез</string>
   <string name="rookEndgame">Топовска завршница</string>
+  <string name="rookEndgameDescription">Завршница са само топовима и пешацима.</string>
+  <string name="sacrifice">Жртва</string>
+  <string name="short">Кратак проблем</string>
+  <string name="shortDescription">Два потеза до добитка.</string>
   <string name="smotheredMate">Угушени мат</string>
+  <string name="trappedPiece">Заробљена фигура</string>
+  <string name="underPromotion">Слаба промоција</string>
+  <string name="underPromotionDescription">Промоција на коња, ловца или топа.</string>
+  <string name="veryLong">Врло дугачак проблем</string>
+  <string name="veryLongDescription">Четири или више потеза за победу.</string>
   <string name="xRayAttack">Икс Реј напад</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="healthyMix">Здрава мешавина</string>
+  <string name="healthyMixDescription">Свега по мало. Не знаш шта да очекујеш, па остајеш спреман за све! Баш као у правим партијама.</string>
 </resources>

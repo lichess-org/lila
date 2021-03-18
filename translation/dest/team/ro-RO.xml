@@ -15,6 +15,11 @@
   <string name="quitTeam">Ieşi din echipă</string>
   <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Verificați manual cererile de admitere</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să scrie o cerere pentru a se alătura echipei, pe care o puteți refuza sau accepta.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Lider de echipă</item>
+    <item quantity="few">Lideri de echipa</item>
+    <item quantity="other">Lideri de echipa</item>
+  </plurals>
   <string name="teamBestPlayers">Cei mai buni jucători</string>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
@@ -27,6 +32,18 @@
   <string name="willBeReviewed">Cererea ta va fi revizuită de către liderul echipei.</string>
   <string name="beingReviewed">Cererea ta este revizuită de către liderul echipei.</string>
   <string name="teamBattle">Luptă în echipă</string>
+  <string name="teamBattleOverview">O bătălie între mai multe echipe, fiecare jucator adună puncte pentru echipa sa</string>
+  <string name="teamTournament">Turneu de echipă</string>
+  <string name="teamTournamentOverview">Un turneu de arenă în care doar membri echipei tale pot intra</string>
+  <string name="messageAllMembers">Trimite un mesaj tuturor membrilor</string>
+  <string name="messageAllMembersOverview">Trimite un mesaj privat fiecărui membru a echipei tale</string>
+  <string name="messageAllMembersLongDescription">Trimite un mesaj privat tuturor membrilor echipei tale.
+Poți folosi asta pentru a suna jucătorii să intre într-un turneu sau o bătălie de echipă.
+Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echipă.</string>
+  <string name="teamsIlead">Echipe pe care le-am condus</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Ai vrea să legi unul dintre aceste turnee viitoare?</string>
+  <string name="usersWhoCanManageThisTeam">Utilizatori ce pot administra această echipă</string>
+  <string name="leadersChat">Chat-ul liderilor</string>
   <string name="closeTeam">Închide echipa</string>
   <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
   <string name="teamPassword">Parola echipei</string>

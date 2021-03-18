@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Vannak Lichess-en alapuló weboldalak?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. Lichess valóban inspirált más nyílt forrású oldalakat amik használják a %1$s, %2$s vagy %3$s-t.</string>
   <string name="fairPlay">Sportszerűség</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Miért lettem megjelölve értékszám manipulálásért vagy csalásért (pl. számítógépes segítség)?</string>
-  <string name="cheatDetectionMethods">A Lichess-nek komoly és alapos módszerei vannak a bizonyítékok elbírálásához mielőtt a döntést meghoznánk. A folyamat gyakran moderátorok bevonásával egészül ki, ami miatt az sokáig eltarthat. A jelölésen kívül nem bocsátkozunk részletekbe a bizonyítékokat és döntés folyamatát illetően. Ha megtennénk, azzal csak megkönnyítenénk a szabályok kijátszását és értelmetlen viták sorát hozná magával. Azt az időt és energiát más fontos esetekre is fordíthatjuk. A felhasználók fellebbezhetnek email formájában %1$s, de ezek a döntések ritkán változnak meg.</string>
   <string name="whenAmIEligibleRatinRefund">Mikor vagyok jogosult értékszám kompenzációra a csalók miatt?</string>
   <string name="ratingRefundExplanation">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
   (Például, ha nagyon sokat emelkedett a pontszámod ezalatt a játszmák alatt, nem jár vissza mind.) A kompenzáció sosem több, mint 150 pont.</string>

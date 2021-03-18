@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">是否有基于 Lichess 的网站？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess 确实激励了其他使用我们的 %1$s、%2$s 或 %3$s 的开源站点。</string>
   <string name="fairPlay">公平竞争</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
-  <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
   <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还等级分？</string>
   <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的等级分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
   (例如，如果你的评分在这些游戏后大幅增加，你可能得不到所有或部分返还分数) 。返回分数不会超过150分。</string>

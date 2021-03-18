@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ಸಮಸ್ಯೆ</string>
+  <string name="puzzleThemes">ಸಮಸ್ಯೆ ವರ್ಗ</string>
+  <string name="recommended">ಶಿಫಾರಸ್ಸು</string>
+  <string name="phases">ಹಂತಗಳು</string>
+  <string name="motifs">ಗುರಿಗಳು</string>
+  <string name="advanced">ಪ್ರೌಢ</string>
+  <string name="lengths">ಅವಧಿ</string>
+  <string name="mates">ಮೇಟ್-ಗಳು</string>
+  <string name="goals">ಗುರಿಗಳು</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">ಮೂಲ</string>
+  <string name="specialMoves">ವಿಶೇಷ ನಡೆಗಳು</string>
+  <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಸಮಸ್ಯೆ ಇಷ್ಟವಾಯಿತೇ?</string>
+  <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ತಿಳಿಸಿ!</string>
+  <string name="yourPuzzleRatingX">ನಿಮ್ಮ ಸಮಸ್ಯೆ ರೇಟಿಂಗ್: %s</string>
+  <string name="findTheBestMoveForWhite">ಬಿಳಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
+  <string name="findTheBestMoveForBlack">ಕಪ್ಪಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
+  <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಸಮಸ್ಯೆಗಳಿಗೆ:</string>
+  <string name="puzzleId">ಸಮಸ್ಯೆ %s</string>
+  <string name="puzzleOfTheDay">ಈ ದಿನದ ಸಮಸ್ಯೆ</string>
+  <string name="clickToSolve">ಬಿಡಿಸುವುದಕ್ಕೆ ಕ್ಲಿಕ್ಕಿಸಿ</string>
+  <string name="goodMove">ಒಳ್ಳೆಯ ನಡೆ</string>
+  <string name="bestMove">ಅತ್ಯುತ್ತಮ ನಡೆ!</string>
+  <string name="keepGoing">ಮುಂದುವರೆಸಿ…</string>
+  <string name="puzzleSuccess">ಯಶಸ್ವಿ!</string>
+  <string name="puzzleComplete">ಸಮಸ್ಯೆ ಮುಕ್ತಾಯ!</string>
+  <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
+  <string name="trySomethingElse">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+  <string name="ratingX">ರೇಟಿಂಗ್: %s</string>
+  <string name="hidden">ಮರೆಯಲ್ಲಿ</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s ಸಾರ್ತಿ ಆಡಲ್ಪಟ್ಟಿದೆ</item>
+    <item quantity="other">%s ಸಾರ್ತಿ ಆಡಲ್ಪಟ್ಟಿದೆ</item>
+  </plurals>
+  <string name="fromGameLink">%s ಆಟದಿಂದ</string>
+  <string name="continueTraining">ಅಭ್ಯಾಸ ಮುಂದುವರೆಸಿ</string>
+  <string name="difficultyLevel">ಕ್ಲಿಷ್ಟತೆ ಮಟ್ಟ</string>
+  <string name="normal">ಸಾಧಾರಣ</string>
+  <string name="easier">ಮತ್ತೂ ಸುಲಭ</string>
+  <string name="easiest">ಅತೀ ಸುಲಭ</string>
+  <string name="harder">ಮಾತ್ತೂ ಕ್ಲಿಷ್ಟ</string>
+  <string name="hardest">ಅತೀ ಕ್ಲಿಷ್ಟ</string>
+  <string name="example">ಉದಾಹರಣೆ</string>
+  <string name="addAnotherTheme">ಮತ್ತೊಂದು ವರ್ಗ ಸೇರಿಸಿ</string>
+  <string name="jumpToNextPuzzleImmediately">ಮುಂದಿನ ಸಮಸ್ಯೆಗೆ ತಕ್ಷಣ ಹೋಗಲು</string>
+  <string name="puzzleDashboard">ಸಮಸ್ಯೆ ಡ್ಯಾಶ್ಬೋರ್ಡ್</string>
+  <string name="improvementAreas">ಸುಧಾರಣೆಗಳು</string>
+  <string name="strengths">ಶಕ್ತಿ</string>
+  <string name="history">ಮುಂಚಿನ ಸಮಸ್ಯೆಗಳು</string>
+  <string name="solved">ಬಿಡಿಸಿದ</string>
+  <string name="failed">ವಿಫಲಗೊಂಡ</string>
+</resources>

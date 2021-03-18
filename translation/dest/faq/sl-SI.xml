@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na Lichess-u?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
   <string name="fairPlay">Poštena igra</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Zakaj sem označen za umetno manipulacijo z ratingom (peskanje in povečanje) ali računalniško pomoč?</string>
-  <string name="cheatDetectionMethods">Lichess ima močne metode odkrivanja in zelo temeljit postopek za pregled vseh dokazov in odločitev. V postopku pogosto sodeluje veliko moderatorjev in lahko traja veliko časa. Razen same znamke ne bomo spuščali podrobnosti o dokazih ali postopku odločanja za posamezne primere. S tem bi se lažje izognili odkrivanju v prihodnosti in bili povabilo k neproduktivnim razpravam. Ta čas in trud je bolje porabiti za druge pomembne primere. Uporabniki se lahko pritožijo po e-pošti %1$s, vendar se odločitve redko razveljavijo.</string>
   <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
   <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
  (Na primer, če se je vaš rejting po teh igrah močno povečal, morda ne boste dobili nobenega povračila ali samo delno povračilo.) Povračilo ne bo nikoli preseglo 150 točk.</string>

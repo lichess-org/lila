@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Vai eksistē uz Lichess balstītas vietnes?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jā. Vietne Lichess tiešām ir iedvesmojusi citas atvērtā koda lapas, kas izmanto mūsu %1$s, %2$s, vai %3$s.</string>
   <string name="fairPlay">Godīga spēlēšana</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Kāpēc esmu atzīmēts par mākslīgu reitinga manipulāciju (tīšu zaudēšanu reitinga uzlabošanu) vai datora palīdzību?</string>
-  <string name="cheatDetectionMethods">Vietnei Lichess ir labas atpazīšanas tehnikas un izsmeļošs process visu pierādījumu izskatīšanai un lēmumu pieņemšanai. Šajā procesā bieži ir iesaistīti daudzi moderatori un tas var aizņemt daudz laika. Atskaitot pašu atzīmēšanu, mēs neiedziļināsimies pierādījumu vai lēmumu pieņemšanas sīkumos atsevišķiem gadījumiem. Tas padarītu izvairīšanos no pieķeršanas vieglāku nākotnē un veicinātu neproduktīvas sarunas. Šo laiku labāk veltīt svarīgākiem gadījumiem. Spēlētāji var  pieprasīt pārsūdzību rakstot e-pastu uz %1$s, bet spriedumi tiek mainīti reti.</string>
   <string name="whenAmIEligibleRatinRefund">Kad man ir tiesības uz automātisku reitinga atlīdzinājumu no blēžiem?</string>
   <string name="ratingRefundExplanation">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
   (Piemēram, ja jūsu reitings ļoti pieauga pēc šīm spēlēm, iespējams, nesaņemsiet atlīdzinājumu vai tā daļu.) Atlīdzinājums nepārsniegs 150 punktus.</string>
