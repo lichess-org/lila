@@ -22,7 +22,7 @@
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën ne sulm.</string>
   <string name="capturingDefender">Merreni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, duke lejuar që pjesa tani e pambrojtur të kapet në një lëvizje vijuese.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Shkatërrim</string>
+  <string name="crushing">Shkatërrim</string>
   <string name="crushingDescription">Shfrytëzo gabimin e kundërshtarit për të marrë një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy fila/oficer</string>
   <string name="doubleBishopMateDescription">Dy fila sulmues në diagonalet kryqëzuese i bëjne mat një mbreti të penguar nga figura miqësore.</string>
