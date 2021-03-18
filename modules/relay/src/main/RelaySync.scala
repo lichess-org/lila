@@ -106,12 +106,11 @@ final private class RelaySync(
       if (!chapter.tags.value.exists(tag ==)) newTags + tag
       else newTags
     }
-    val tags = game.end
+    val newEndTag = game.end
       .ifFalse(gameTags(_.Result).isDefined)
       .filterNot(end => chapter.tags(_.Result).??(end.resultText ==))
-      .fold(gameTags) { end =>
-        gameTags + Tag(_.Result, end.resultText)
-      }
+      .map(end => Tag(_.Result, end.resultText))
+    val tags = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags) { case (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     }
@@ -123,7 +122,8 @@ final private class RelaySync(
         chapterId = chapter.id,
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
-        chapterNewTags.resultColor.isDefined ?? onChapterEnd(study.id, chapter.id)
+        val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
+        newEnd ?? onChapterEnd(study.id, chapter.id)
       }
     }
   }
@@ -133,7 +133,7 @@ final private class RelaySync(
       studyApi.analysisRequest(
         studyId = studyId,
         chapterId = chapterId,
-        userId = "lichess"
+        userId = lila.user.User.lichessId
       )
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
