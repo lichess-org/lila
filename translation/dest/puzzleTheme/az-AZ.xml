@@ -22,7 +22,7 @@
   <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="capturingDefenderDescription">Bir fiquru müdafiə edən başqa bir fiquru ələ keçirərək, müdafiəsiz qalan digər fiquru da növbəti gedişdə ələ keçirin.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Əzici üstünlük</string>
+  <string name="crushing">Əzici üstünlük</string>
   <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="doubleBishopMate">İki fil matı</string>
   <string name="doubleBishopMateDescription">İki fil, öz fiqurları tərəfindən bloklanan şahı bitişik diaqonallardan hücum edərək mat edir.</string>
