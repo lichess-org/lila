@@ -96,6 +96,7 @@
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
+  <string name="deleteThisImportedGame">Ջնջե՞լ ներմուծված խաղը</string>
   <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
