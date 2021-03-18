@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, PvBoard, Started } from './types';
 
-import { AbstractWorker, WebWorker, ThreadedWasmWorker } from './worker';
+import { AbstractWorker, WebWorker, ThreadedWasmWorker, CustomServerWorker } from './worker';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -50,6 +50,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
   const enableNnue = storedProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
+  const useCustomServer = storedProp('ceval.use-custom-server', false);
 
   // select nnue > hce > wasm > asmjs
   const officialStockfish =
@@ -76,6 +77,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
+  // TODO: No maximum limit for custom server
   const initialAllocationMaxThreads = officialStockfish ? 2 : 1;
   const maxThreads = Math.min(
     Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
@@ -101,6 +103,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const pvBoard = prop<PvBoard | null>(null);
   const isDeeper = prop(false);
+  const customServerUrl = storedProp<string>(storageKey('ceval.custom-server-url'), '');
 
   const protocolOpts = {
     variant: opts.variant.key,
@@ -219,6 +222,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     lichess.storage.fire('ceval.disable');
     lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
+    // TODO: Move it up and handle maximum limit
+    if (useCustomServer() && customServerUrl().length > 0) {
+      technology = 'custom';
+    }
+
     if (!worker) {
       if (technology == 'nnue')
         worker = new ThreadedWasmWorker(protocolOpts, {
@@ -238,6 +246,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           module: officialStockfish ? 'Stockfish' : 'StockfishMv',
           wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
         });
+      else if (technology == 'custom') worker = new CustomServerWorker(protocolOpts, { url: customServerUrl() });
       else
         worker = new WebWorker(protocolOpts, {
           url: technology == 'wasm' ? 'vendor/stockfish.js/stockfish.wasm.js' : 'vendor/stockfish.js/stockfish.js',
@@ -284,6 +293,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     infinite,
     supportsNnue,
     enableNnue,
+    useCustomServer,
+    customServerUrl,
     hovering,
     setHovering(fen: Fen, uci?: Uci) {
       hovering(

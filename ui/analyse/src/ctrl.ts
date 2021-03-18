@@ -826,6 +826,9 @@ export default class AnalyseCtrl {
   }
 
   canEvalGet(): boolean {
+    // Disable evalCache if custom server ceval
+    if (this.ceval.useCustomServer()) return false;
+
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition

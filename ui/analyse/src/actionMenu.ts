@@ -332,6 +332,39 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           h('div.range_value', formatHashSize(parseInt(ceval.hashSize()))),
                         ]))('analyse-memory')
                     : undefined,
+                  ctrlBoolSetting(
+                    {
+                      name: 'Use custom server',
+                      title: 'Page reload required after change',
+                      id: 'use-custom-server',
+                      checked: ceval.useCustomServer(),
+                      change: value => {
+                        ceval.useCustomServer(value);
+                        ctrl.redraw();
+                      },
+                    },
+                    ctrl
+                  ),
+                  ceval.useCustomServer()
+                    ? h('div.setting', [
+                        h(
+                          'label',
+                          { attrs: { for: 'custom-server-url', style: 'flex: 0 1 auto; margin-right: 6px;' } },
+                          'URL'
+                        ),
+                        h('input#custom-server-url', {
+                          attrs: { value: ceval.customServerUrl(), style: 'flex: 1 1 auto; height: 24px;' },
+                          hook: {
+                            insert: (vnode: VNode) => {
+                              const el = vnode.elm as HTMLInputElement;
+                              el.addEventListener('input', () => {
+                                ceval.customServerUrl(el.value);
+                              });
+                            },
+                          },
+                        }),
+                      ])
+                    : undefined,
                 ]
               : []
           )

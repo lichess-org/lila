@@ -2,7 +2,7 @@ import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue';
+export type CevalTechnology = 'asmjs' | 'wasm' | 'hce' | 'nnue' | 'custom';
 
 export interface Eval {
   cp?: number;
@@ -79,6 +79,8 @@ export interface CevalCtrl {
   infinite: StoredBooleanProp;
   supportsNnue: boolean;
   enableNnue: StoredBooleanProp;
+  useCustomServer: StoredBooleanProp;
+  customServerUrl: StoredProp<string>;
   hovering: Prop<Hovering | null>;
   pvBoard: Prop<PvBoard | null>;
   toggle(): void;

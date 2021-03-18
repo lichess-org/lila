@@ -132,3 +132,29 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     ThreadedWasmWorker.sf[this.opts.module]?.postMessage(cmd);
   }
 }
+
+export interface CustomServerWorkerOpts {
+  url: string;
+}
+
+export class CustomServerWorker extends AbstractWorker<CustomServerWorkerOpts> {
+  private ws: WebSocket;
+
+  async boot(): Promise<Protocol> {
+    // TODO: Error handling
+    this.ws = new WebSocket(this.opts.url);
+    const protocol = new Protocol(this.send.bind(this), this.protocolOpts);
+    await new Promise(resolve => (this.ws.onopen = resolve));
+    this.ws.onmessage = e => protocol.received(e.data);
+    protocol.init();
+    return Promise.resolve(protocol);
+  }
+
+  destroy() {
+    this.ws.close();
+  }
+
+  protected send(cmd: string) {
+    this.ws.send(cmd + '\n');
+  }
+}
