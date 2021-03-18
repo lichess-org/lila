@@ -22,7 +22,7 @@
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Murskaava etu</string>
+  <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan munaus ja hanki murskaava etu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Kahden lähetin matti</string>
   <string name="doubleBishopMateDescription">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
