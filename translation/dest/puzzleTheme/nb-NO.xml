@@ -22,7 +22,7 @@
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Knusende</string>
+  <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dobbeltløpermatt</string>
   <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
