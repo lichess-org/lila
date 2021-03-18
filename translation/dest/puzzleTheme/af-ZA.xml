@@ -22,7 +22,7 @@
   <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
   <string name="capturingDefender">Vang die verdediger vas</string>
   <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Verpletter</string>
+  <string name="crushing">Verpletter</string>
   <string name="crushingDescription">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dubbel loper mat</string>
   <string name="doubleBishopMateDescription">Twee aanvallende lopers op aaneengrensende diagonale mat \'n koning wat deur sy eie stukke vasgekeer is.</string>
