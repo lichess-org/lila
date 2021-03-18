@@ -155,8 +155,11 @@ object SetupForm {
       mapping(
         variant,
         clock,
-        "fen" -> fenField
-      )(OpenConfig.from)(_ => none).verifying("invalidFen", _.validFen)
+        "rated" -> boolean,
+        "fen"   -> fenField
+      )(OpenConfig.from)(_ => none)
+        .verifying("invalidFen", _.validFen)
+        .verifying("rated without a clock", c => c.clock.isDefined || !c.rated)
     )
   }
 }

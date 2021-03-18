@@ -10,6 +10,7 @@ import lila.rating.PerfType
 final case class OpenConfig(
     variant: chess.variant.Variant,
     clock: Option[Clock.Config],
+    rated: Boolean,
     position: Option[FEN] = None
 ) {
 
@@ -24,10 +25,11 @@ final case class OpenConfig(
 
 object OpenConfig {
 
-  def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
+  def from(v: Option[String], cl: Option[Clock.Config], rated: Boolean, pos: Option[String]) =
     new OpenConfig(
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,
+      rated = rated,
       position = pos map FEN.apply
     ).autoVariant
 }
