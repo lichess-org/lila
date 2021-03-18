@@ -22,7 +22,7 @@
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Suspaudimas</string>
+  <string name="crushing">Suspaudimas</string>
   <string name="crushingDescription">Pastebėkite priešininko klaidą ir įgaukite ryškią persvarą. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dvigubų rikių matas</string>
   <string name="doubleBishopMateDescription">Du gretimose įstrižainėse puolantys rikiai atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
