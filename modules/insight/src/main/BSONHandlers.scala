@@ -62,6 +62,11 @@ private object BSONHandlers {
     v => (v.id * TimeVariance.intFactor).toInt
   )
 
+  implicit val CplRangeBSONHandler = tryHandler[CplRange](
+    { case BSONInteger(v) => CplRange.byId get v toTry s"Invalid CPL range $v" },
+    e => BSONInteger(e.cpl)
+  )
+
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
 
   implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))

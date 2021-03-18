@@ -188,6 +188,15 @@ object Dimension {
         )
       )
 
+  case object CplRange
+      extends Dimension[CplRange](
+        "cpl",
+        "Centipawn loss",
+        F.moves("c"),
+        Move,
+        raw("Centipawns lost by each move, according to Stockfish evalutation.")
+      )
+
   def requiresStableRating(d: Dimension[_]) =
     d match {
       case OpponentStrength => true
@@ -207,6 +216,7 @@ object Dimension {
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
+      case CplRange                => lila.insight.CplRange.all
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
@@ -227,6 +237,7 @@ object Dimension {
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
+      case CplRange                => key.toIntOption flatMap lila.insight.CplRange.byId.get
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
@@ -254,6 +265,7 @@ object Dimension {
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
+      case CplRange                => v.cpl
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
@@ -274,6 +286,7 @@ object Dimension {
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)
+      case CplRange                => JsString(v.name)
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)

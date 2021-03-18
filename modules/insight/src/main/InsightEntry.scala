@@ -7,11 +7,12 @@ import org.joda.time.DateTime
 
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
+import lila.user.User
 
 case class InsightEntry(
     id: String,  // gameId + w/b
     number: Int, // auto increment over userId
-    userId: String,
+    userId: User.ID,
     color: Color,
     perf: PerfType,
     eco: Option[Ecopening],
@@ -259,4 +260,21 @@ object TimeVariance {
         all.indexOf(tv).some.filter(-1 !=).map(_ - 1).flatMap(all.lift).fold(0)(_.intFactored),
         tv.intFactored
       )
+}
+
+final class CplRange(val name: String, val cpl: Int)
+object CplRange {
+  val all = List(0, 10, 25, 50, 100, 200, 500, 99999).map { cpl =>
+    new CplRange(
+      name =
+        if (cpl == 0) "Perfect"
+        else if (cpl == 99999) "> 500 CPL"
+        else s"≤ $cpl CPL",
+      cpl = cpl
+    )
+  }
+  val byId = all.map { p =>
+    (p.cpl, p)
+  }.toMap
+  val worse = all.last
 }
