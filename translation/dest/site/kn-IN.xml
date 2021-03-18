@@ -109,6 +109,7 @@
   <string name="cpus">CPU-ಗಳು</string>
   <string name="memory">ಮೆಮೊರಿ</string>
   <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="removesTheDepthLimit">ಆಳ ನಿರ್ಬಂಧಿನೆ ತೆಗೆಯುತ್ತದೆ, ಕಂಪ್ಯೂಟರ್ ಬಿಸಿಯಾಗಬಹುದು</string>
   <string name="blunder">ಪ್ರಮಾದ</string>
   <string name="blunders">ಪ್ರಮಾದಗಳು</string>
   <string name="mistake">ತಪ್ಪು</string>
