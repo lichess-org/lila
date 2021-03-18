@@ -192,6 +192,15 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               ) :::
                 group(dimension, AvgField(F.moves("c"))) :::
                 List(includeSomeGameIds.some)
+            case M.CplBucket =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves,
+                AddFields($doc("cplBucket" -> cplIdDispatcher)).some
+              ) :::
+                groupMulti(dimension, "cplBucket")
             case M.Material =>
               List(
                 projectForMove,
