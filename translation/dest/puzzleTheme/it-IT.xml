@@ -22,7 +22,7 @@
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Posizione schiacciante</string>
+  <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
