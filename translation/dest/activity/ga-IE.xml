@@ -11,13 +11,13 @@
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Rinneadh cleachtadh ar suíomh amháin de chuid %2$s</item>
-    <item quantity="two">Rinneadh cleactadh ar %1$s shuíomh de chuid %2$s</item>
-    <item quantity="few">Rinneadh cleactadh ar%1$s suíomh de chuid %2$s</item>
-    <item quantity="many">Rinneadh cleactadh ar %1$s suíomh de chuid %2$s</item>
-    <item quantity="other">Rinneadh cleactadh ar %1$s suíomh de chuid %2$s</item>
+    <item quantity="two">Rinneadh cleachtadh ar %1$s shuíomh de chuid %2$s</item>
+    <item quantity="few">Rinneadh cleachtadh ar%1$s suíomh de chuid %2$s</item>
+    <item quantity="many">Rinneadh cleachtadh ar %1$s suíomh de chuid %2$s</item>
+    <item quantity="other">Rinneadh cleachtadh ar %1$s suíomh de chuid %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s fadhb beartach réitithe</item>
+    <item quantity="one">Fadhb beartach amháin réitithe</item>
     <item quantity="two">%s fhadhb beartach réitithe</item>
     <item quantity="few">%s bhfadhb beartach réitithe</item>
     <item quantity="many">%s fadhb beartach réitithe</item>
@@ -38,7 +38,7 @@
     <item quantity="other">Phostaíodh %1$s teachtaireachtí i %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s beart imeartha</item>
+    <item quantity="one">Beart amháin imeartha</item>
     <item quantity="two">%1$s bheart imeartha</item>
     <item quantity="few">%1$s beart imeartha</item>
     <item quantity="many">%1$s beart imeartha</item>
@@ -66,7 +66,7 @@
     <item quantity="other">Thosaíodh %s ficheallaí a leanacht</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Fuarthas %s leantóir nua</item>
+    <item quantity="one">Fuarthas leantóir amháin nua</item>
     <item quantity="two">Fuarthas %s leantóir nua</item>
     <item quantity="few">Fuarthas %s leantóir nua</item>
     <item quantity="many">Fuarthas %s leantóir nua</item>
@@ -74,10 +74,10 @@
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Bhí taispeántas comhuaineach faoi cúram</item>
-    <item quantity="two">Bhí %s taispeántais comhuaineacha faoi cúram</item>
-    <item quantity="few">Bhí %s taispeántais comhuaineacha faoi cúram</item>
-    <item quantity="many">Bhí %s taispeántais comhuaineacha faoi cúram</item>
-    <item quantity="other">Bhí %s taispeántais comhuaineacha faoi cúram</item>
+    <item quantity="two">Bhí %s taispeántas comhuaineacha faoi cúram</item>
+    <item quantity="few">Bhí %s taispeántas comhuaineacha faoi cúram</item>
+    <item quantity="many">Bhí %s taispeántas comhuaineacha faoi cúram</item>
+    <item quantity="other">Bhí %s taispeántas comhuaineacha faoi cúram</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Glacadh páirt i dtaispeántas comhuaineach amháin</item>
