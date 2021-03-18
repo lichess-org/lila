@@ -117,7 +117,7 @@ object tree {
           deny,
           frag(
             sendUsAnAppeal,
-            newAppeal(deny)
+            newAppeal(denyFull)
           )
         )
       ),
@@ -133,8 +133,6 @@ object tree {
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
     val deny =
       "I have followed the communication guidelines"
-    val denyFull =
-      "I deny having manipulated my rating. I have never lost rated games on purpose, or played several games with someone who does."
     Branch(
       "root",
       "Your account is muted.",
