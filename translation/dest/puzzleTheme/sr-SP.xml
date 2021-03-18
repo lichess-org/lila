@@ -22,7 +22,7 @@
   <string name="castlingDescription">Доведите краља на сигурно и развијте топа за напад.</string>
   <string name="capturingDefender">Однесите браниоца</string>
   <string name="capturingDefenderDescription">Уклањање фигуре која је критична за одбрану друге фигуре, што омогућава да сада небрањена фигура буде однета на следећем потезу.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Уништавање</string>
+  <string name="crushing">Уништавање</string>
   <string name="crushingDescription">Уочите противничку грубу грешку како бисте стекли огромну предност. (евалуација ≥ 600cp)</string>
   <string name="doubleBishopMate">Мат ловачким паром</string>
   <string name="doubleBishopMateDescription">Два нападајућа ловца на суседним дијагоналама матирају краља препреченог пријатељским фигурама.</string>
