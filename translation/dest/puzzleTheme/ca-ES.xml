@@ -22,7 +22,7 @@
   <string name="castlingDescription">Assegura el rei, i prepara la torre per l\'atac.</string>
   <string name="capturingDefender">Captura el defensor</string>
   <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar una altra, fent que es pugui menjar la peça que ara ja no està defensada.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Destrucció</string>
+  <string name="crushing">Destrucció</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>
   <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
