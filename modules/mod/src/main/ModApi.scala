@@ -45,7 +45,7 @@ final class ModApi(
     for {
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)
-      _ <- (!sus.user.isBot && !unengined) ?? {
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined) ?? {
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
