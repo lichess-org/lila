@@ -19,7 +19,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   import RacerRace.Id
   import RacerBsonHandlers._
 
-  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](512, "racer.race")(
+  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](1024, "racer.race")(
     _.expireAfterAccess(20 minutes).build()
   )
 
