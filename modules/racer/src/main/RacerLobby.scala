@@ -8,8 +8,8 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {
-      case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRaceFor(player)
-      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRaceFor(player)
+      case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace
+      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace
       case race                                                => fuccess(race.id)
     } map { raceId =>
       api.join(raceId, player)
@@ -30,7 +30,7 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
 
   private def currentRace: Fu[RacerRace] = currentId.map(api.get) dmap { _ | fallbackRace }
 
-  private def makeNewRaceFor(player: RacerPlayer.Id): Fu[RacerRace.Id] = {
+  private def makeNewRace: Fu[RacerRace.Id] = {
     currentId = api create RacerPlayer.lichess
     currentId
   }
