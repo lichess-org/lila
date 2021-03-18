@@ -211,12 +211,12 @@ final class StudyApi(
       node: Node,
       opts: MoveOpts,
       relay: Option[Chapter.Relay] = None
-  )(who: Who) =
+  )(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
-        doAddNode(study, Position(chapter, position.path), node, opts, relay)(who).void
+        doAddNode(study, Position(chapter, position.path), node, opts, relay)(who)
       }
-    }
+    } flatMap { _ ?? { _() } } // this one is for you, Lakin <3
 
   private def doAddNode(
       study: Study,
@@ -224,12 +224,13 @@ final class StudyApi(
       rawNode: Node,
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
-  )(who: Who): Funit = {
+  )(who: Who): Fu[Option[() => Funit]] = {
     val singleNode   = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      fuccess(failReload())
+      failReload()
+      fuccess(none)
     } else
       position.chapter.addNode(singleNode, position.path, relay) match {
         case None =>
@@ -242,19 +243,20 @@ final class StudyApi(
               chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
                 (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
                 (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-                updateConceal(study, chapter, newPosition) >> {
-                  sendTo(study.id)(
-                    _.addNode(
-                      position.ref,
-                      node,
-                      chapter.setup.variant,
-                      sticky = opts.sticky,
-                      relay = relay,
-                      who
-                    )
+                updateConceal(study, chapter, newPosition) >>-
+                sendTo(study.id)(
+                  _.addNode(
+                    position.ref,
+                    node,
+                    chapter.setup.variant,
+                    sticky = opts.sticky,
+                    relay = relay,
+                    who
                   )
-                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) ??
+                ) inject {
+                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) option { () =>
                     promote(study.id, position.ref + node, toMainline = true)(who)
+                  }
                 }
             }
           }
