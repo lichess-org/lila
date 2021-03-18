@@ -386,25 +386,29 @@ final class Account(
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.forms.reopen.form
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(renderReopen(err.some, none)).fuccess,
-          data =>
-            env.security.reopen
-              .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose) flatMap {
-              case Left((code, msg)) =>
-                lila.mon.user.auth.reopenRequest(code).increment()
-                BadRequest(renderReopen(none, msg.some)).fuccess
-              case Right(user) =>
-                auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
-                  lila.mon.user.auth.reopenRequest("success").increment()
-                  env.security.reopen.send(user, data.realEmail) inject Redirect(
-                    routes.Account.reopenSent(data.realEmail.value)
-                  )
-                }(rateLimitedFu)
-            }
-        )
+      env.security.recaptcha.verify() flatMap {
+        _.ok ?? {
+          env.security.forms.reopen.form
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(renderReopen(err.some, none)).fuccess,
+              data =>
+                env.security.reopen
+                  .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose) flatMap {
+                  case Left((code, msg)) =>
+                    lila.mon.user.auth.reopenRequest(code).increment()
+                    BadRequest(renderReopen(none, msg.some)).fuccess
+                  case Right(user) =>
+                    auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
+                      lila.mon.user.auth.reopenRequest("success").increment()
+                      env.security.reopen.send(user, data.realEmail) inject Redirect(
+                        routes.Account.reopenSent(data.realEmail.value)
+                      )
+                    }(rateLimitedFu)
+                }
+            )
+        }
+      }
     }
 
   def reopenSent(@nowarn("cat=unused") email: String) =
