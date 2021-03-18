@@ -65,7 +65,7 @@
   <string name="masterDescription">Puzzles from games played by titled players.</string>
   <string name="masterVsMaster">Master vs Master games</string>
   <string name="masterVsMasterDescription">Puzzles from games between two titled players.</string>
-  <string name="mate">Mate</string>
+  <string name="mate">Checkmate</string>
   <string name="mateDescription">Win the game with style.</string>
   <string name="mateIn1">Mate in 1</string>
   <string name="mateIn1Description">Deliver checkmate in one move.</string>
