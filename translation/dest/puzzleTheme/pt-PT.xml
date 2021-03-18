@@ -22,7 +22,7 @@
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Esmagar</string>
+  <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
