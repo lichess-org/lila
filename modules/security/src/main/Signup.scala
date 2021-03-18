@@ -59,17 +59,16 @@ final class Signup(
   def website(
       blind: Boolean
   )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
-    forms.signup.website.form
-      .bindFromRequest()
-      .fold[Fu[Signup.Result]](
-        err => fuccess(Signup.Bad(err tap signupErrLog)),
-        data =>
-          recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-            case false =>
-              authLog(data.username, data.email, "Signup recaptcha fail")
-              fuccess(Signup.Bad(forms.signup.website.form fill data))
-            case true =>
-              signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+    recaptcha.verify().flatMap {
+      case Recaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
+      case Recaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
+      case recaptchaResult =>
+        forms.signup.website.form
+          .bindFromRequest()
+          .fold[Fu[Signup.Result]](
+            err => fuccess(Signup.Bad(err tap signupErrLog)),
+            data =>
+              signupRateLimit(data.username, if (recaptchaResult == Recaptcha.Result.Valid) 1 else 3) {
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -92,8 +91,8 @@ final class Signup(
                     }
                 }
               }
-          }
-      )
+          )
+    }
 
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
@@ -203,6 +202,7 @@ object Signup {
 
   sealed trait Result
   case class Bad(err: Form[_])                             extends Result
+  case object MissingCaptcha                               extends Result
   case object RateLimited                                  extends Result
   case class ConfirmEmail(user: User, email: EmailAddress) extends Result
   case class AllSet(user: User, email: EmailAddress)       extends Result

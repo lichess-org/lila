@@ -19,15 +19,7 @@ final class SecurityForm(
 
   import SecurityForm._
 
-  private val recaptchaField = "g-recaptcha-response" -> optional(nonEmptyText)
-
   private val passwordMinLength = 4
-
-  case class Empty(captchaResponse: Option[String])
-
-  val empty = Form(
-    mapping(recaptchaField)(Empty.apply)(_ => None)
-  )
 
   private val anyEmail =
     LilaForm.cleanNonEmptyText(minLength = 6, maxLength = 320).verifying(Constraints.emailAddress)
@@ -92,8 +84,7 @@ final class SecurityForm(
           "password"  -> text(minLength = passwordMinLength),
           "email"     -> emailField,
           "agreement" -> agreement,
-          "fp"        -> optional(nonEmptyText),
-          recaptchaField
+          "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
       ),
       "signup-form",
@@ -112,8 +103,7 @@ final class SecurityForm(
   val passwordReset = RecaptchaForm(
     Form(
       mapping(
-        "email" -> sendableEmail, // allow unacceptable emails for BC
-        recaptchaField
+        "email" -> sendableEmail // allow unacceptable emails for BC
       )(PasswordReset.apply)(_ => None)
     ),
     "password-reset-form",
@@ -143,8 +133,7 @@ final class SecurityForm(
   val magicLink = RecaptchaForm(
     Form(
       mapping(
-        "email" -> sendableEmail, // allow unacceptable emails for BC
-        recaptchaField
+        "email" -> sendableEmail // allow unacceptable emails for BC
       )(MagicLink.apply)(_ => None)
     ),
     "magic-link-form",
@@ -222,8 +211,7 @@ final class SecurityForm(
     Form(
       mapping(
         "username" -> LilaForm.cleanNonEmptyText,
-        "email"    -> sendableEmail, // allow unacceptable emails for BC
-        recaptchaField
+        "email"    -> sendableEmail // allow unacceptable emails for BC
       )(Reopen.apply)(_ => None)
     ),
     "reopen-form",
@@ -248,8 +236,7 @@ object SecurityForm {
       password: String,
       email: String,
       agreement: AgreementData,
-      fp: Option[String],
-      recaptchaResponse: Option[String]
+      fp: Option[String]
   ) {
     def realEmail = EmailAddress(email)
 
@@ -265,23 +252,20 @@ object SecurityForm {
   }
 
   case class PasswordReset(
-      email: String,
-      recaptchaResponse: Option[String]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }
 
   case class MagicLink(
-      email: String,
-      recaptchaResponse: Option[String]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }
 
   case class Reopen(
       username: String,
-      email: String,
-      recaptchaResponse: Option[String]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }

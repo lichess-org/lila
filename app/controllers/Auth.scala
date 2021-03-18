@@ -175,6 +175,8 @@ final class Auth(
               .website(ctx.blind)
               .flatMap {
                 case Signup.RateLimited => limitedDefault.zero.fuccess
+                case Signup.MissingCaptcha =>
+                  BadRequest(html.auth.signup(forms.signup.website)).fuccess
                 case Signup.Bad(err) =>
                   BadRequest(html.auth.signup(forms.signup.website withForm err)).fuccess
                 case Signup.ConfirmEmail(user, email) =>
@@ -191,6 +193,7 @@ final class Auth(
                 .mobile(apiVersion)
                 .flatMap {
                   case Signup.RateLimited        => limitedDefault.zero.fuccess
+                  case Signup.MissingCaptcha     => fuccess(BadRequest(jsonError("Missing captcha?!")))
                   case Signup.Bad(err)           => jsonFormError(err)
                   case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
                   case Signup.AllSet(user, email) =>
@@ -319,24 +322,26 @@ final class Auth(
   def passwordResetApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      forms.passwordReset.form
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(renderPasswordReset(err.some, fail = true)).fuccess,
-          data =>
-            env.security.recaptcha.verify(~data.recaptchaResponse, req) flatMap {
-              _ ?? env.user.repo.enabledWithEmail(data.realEmail.normalize)
-            } flatMap {
-              case Some((user, storedEmail)) =>
-                lila.mon.user.auth.passwordResetRequest("success").increment()
-                env.security.passwordReset.send(user, storedEmail) inject Redirect(
-                  routes.Auth.passwordResetSent(storedEmail.conceal)
-                )
-              case _ =>
-                lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
-            }
-        )
+      env.security.recaptcha.verify() flatMap {
+        _.ok ?? {
+          forms.passwordReset.form
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(renderPasswordReset(err.some, fail = true)).fuccess,
+              data =>
+                env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
+                  case Some((user, storedEmail)) =>
+                    lila.mon.user.auth.passwordResetRequest("success").increment()
+                    env.security.passwordReset.send(user, storedEmail) inject Redirect(
+                      routes.Auth.passwordResetSent(storedEmail.conceal)
+                    )
+                  case _ =>
+                    lila.mon.user.auth.passwordResetRequest("noEmail").increment()
+                    Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
+                }
+            )
+        }
+      }
     }
 
   def passwordResetSent(email: String) =
@@ -398,26 +403,29 @@ final class Auth(
   def magicLinkApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      forms.magicLink.form
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(renderMagicLink(err.some, fail = true)).fuccess,
-          data =>
-            env.security.recaptcha.verify(~data.recaptchaResponse, req) flatMap {
-              _ ?? env.user.repo.enabledWithEmail(data.realEmail.normalize)
-            } flatMap {
-              case Some((user, storedEmail)) =>
-                MagicLinkRateLimit(user, storedEmail, ctx.req) {
-                  lila.mon.user.auth.magicLinkRequest("success").increment()
-                  env.security.magicLink.send(user, storedEmail) inject Redirect(
-                    routes.Auth.magicLinkSent(storedEmail.value)
-                  )
-                }(rateLimitedFu)
-              case _ =>
-                lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).fuccess
-            }
-        )
+      env.security.recaptcha.verify() flatMap {
+        _.ok ?? {
+          forms.magicLink.form
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(renderMagicLink(err.some, fail = true)).fuccess,
+              data =>
+                env.user.repo.enabledWithEmail(data.realEmail.normalize)
+                  flatMap {
+                    case Some((user, storedEmail)) =>
+                      MagicLinkRateLimit(user, storedEmail, ctx.req) {
+                        lila.mon.user.auth.magicLinkRequest("success").increment()
+                        env.security.magicLink.send(user, storedEmail) inject Redirect(
+                          routes.Auth.magicLinkSent(storedEmail.value)
+                        )
+                      }(rateLimitedFu)
+                    case _ =>
+                      lila.mon.user.auth.magicLinkRequest("no_email").increment()
+                      Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).fuccess
+                  }
+            )
+        }
+      }
     }
 
   def magicLinkSent(@nowarn("cat=unused") email: String) =
