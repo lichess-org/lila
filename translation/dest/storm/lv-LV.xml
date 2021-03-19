@@ -41,4 +41,6 @@
   <string name="spectating">Skatās</string>
   <string name="joinTheRace">Pievienoties sacīkstēm!</string>
   <string name="yourRankX">Jūsu vieta: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Gaidiet nākamo spēli</string>
+  <string name="nextRace">Nākamā spēle</string>
 </resources>
