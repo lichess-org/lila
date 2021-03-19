@@ -53,7 +53,7 @@ object Iso {
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
 
-  implicit val ipAddressIso = string[IpAddress](IpAddress.apply, _.value)
+  implicit val ipAddressIso = string[IpAddress](IpAddress.unchecked, _.value)
 
   implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
 

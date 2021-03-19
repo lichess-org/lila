@@ -57,7 +57,7 @@ object config {
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
   implicit val netDomainLoader    = strLoader(NetDomain.apply)
   implicit val assetDomainLoader  = strLoader(AssetDomain.apply)
-  implicit val ipLoader           = strLoader(IpAddress.apply)
+  implicit val ipLoader           = strLoader(IpAddress.unchecked)
   implicit val rateLimitLoader    = boolLoader(RateLimit.apply)
   implicit val netLoader          = AutoConfig.loader[NetConfig]
 
