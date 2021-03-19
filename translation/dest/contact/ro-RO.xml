@@ -57,6 +57,19 @@
   <string name="banAppeal">Aplică pentru un ban sau restricție de IP</string>
   <string name="engineAppeal">Motor de asistență sau marcaj de trișare</string>
   <string name="sendAppealTo">Poți trimite o cerere pe %s.</string>
+  <string name="falsePositives">Fals pozitivele se întâmplă uneori, și ne cerem scuze pentru asta.</string>
+  <string name="ifLegit">Daca cererea ta este legitimă, iți vom scoate banul imediat.</string>
+  <string name="accountLost">În orice caz, dacă chiar ai folosit asistența unui motor, chiar și doar o dată, atunci contul tău este din păcate pierdut.</string>
   <string name="doNotDeny">Nu nega faptul că ai trișat. Dacă vrei să ai voie sa-ți faci un cont nou, recunoaște ce ai făcut, și arată că înțelegi că a fost o greșeală.</string>
+  <string name="otherRestriction">Alte restricții</string>
+  <string name="collaboration">Colaborare, legal, comercial</string>
+  <string name="monetizing">Monetizare Lichess</string>
+  <string name="buyingLichess">Vanzare Lichess</string>
+  <string name="authorizationToUse">Autorizația de a folosi Lichess</string>
+  <string name="welcomeToUse">Ești binevenit să folosești Lichess pentru activitatea ta, chiar și comercială.</string>
+  <string name="videosAndBooks">Îl poți arăta în videoclipurile tale și poți printa capturi de ecran din Lichess în cărțile tale.</string>
+  <string name="creditAppreciated">Creditarea este aperciată dar nu este obligatorie.</string>
+  <string name="noneOfTheAbove">Nici unul dintre cele de mai sus</string>
   <string name="sendEmailAt">Trimite-ne un e-mail pe adresa %s.</string>
+  <string name="explainYourRequest">Te rog să îți explici cererea clar și detaliat. Spune-ți numele de utilizator Lichess, și orice informație care ne poate ajuta să te ajutăm.</string>
 </resources>
