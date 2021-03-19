@@ -69,7 +69,7 @@ export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
 
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  return ctrl.treeView.inline() || isCol1() ? inline(ctrl) : column(ctrl, concealOf);
+  return (ctrl.treeView.inline() || isCol1()) && !concealOf ? inline(ctrl) : column(ctrl, concealOf);
 }
 
 export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeClasses {
@@ -178,6 +178,4 @@ export const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => 
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-export function nonEmpty(x: any): boolean {
-  return !!x;
-}
+export const nonEmpty = (x: any): boolean => !!x;
