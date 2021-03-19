@@ -33,4 +33,15 @@
   <string name="viewBestRuns">View best runs</string>
   <string name="bestRunOfDay">Best run of day</string>
   <string name="runs">Runs</string>
+  <string name="getReady">Get ready!</string>
+  <string name="waitingForMorePlayers">Waiting for more players to join...</string>
+  <string name="raceComplete">Race complete!</string>
+  <string name="spectating">Spectating</string>
+  <string name="joinTheRace">Join the race!</string>
+  <string name="yourRankX">Your rank: %s</string>
+  <string name="waitForRematch">Wait for rematch</string>
+  <string name="nextRace">Next race</string>
+  <string name="joinRematch">Join rematch</string>
+  <string name="waitingToStart">Waiting to start</string>
+  <string name="createNewGame">Create a new game</string>
 </resources>

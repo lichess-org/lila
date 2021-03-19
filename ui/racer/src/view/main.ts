@@ -24,20 +24,21 @@ export default function (ctrl: RacerCtrl): VNode {
 }
 
 const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
+  const noarg = ctrl.trans.noarg;
   switch (ctrl.status()) {
     case 'pre':
       const povMsg = h('p.racer__pre__message__pov', ctrl.trans(povMessage(ctrl.run)));
       return ctrl.race.lobby
         ? [
-            waitingToStart(),
+            waitingToStart(noarg),
             h('div.racer__pre__message', [
-              h('p', ctrl.vm.startsAt ? "It's racing time!" : 'Waiting for more players to join...'),
+              h('p', noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers')),
               povMsg,
             ]),
             comboZone(ctrl),
           ]
         : [
-            waitingToStart(),
+            waitingToStart(noarg),
             h('div.racer__pre__message', [
               h('p', ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl)),
               povMsg,
@@ -49,32 +50,32 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       return ctrl.isPlayer()
         ? [playerScore(ctrl), clock, comboZone(ctrl)]
         : [
-            spectating(),
-            h('div.racer__spectating', [clock, ctrl.race.lobby ? newRaceForm(ctrl) : waitForRematch()]),
+            spectating(noarg),
+            h('div.racer__spectating', [clock, ctrl.race.lobby ? lobbyNext(ctrl) : waitForRematch(noarg)]),
             comboZone(ctrl),
           ];
     case 'post':
-      const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : friendNext(ctrl);
+      const nextRace = ctrl.race.lobby ? lobbyNext(ctrl) : friendNext(ctrl);
+      const raceComplete = h('h2', noarg('raceComplete'));
       return ctrl.isPlayer()
-        ? [
-            playerScore(ctrl),
-            h('div.racer__post', [h('h2', 'Race complete!'), yourRank(ctrl), nextRace]),
-            comboZone(ctrl),
-          ]
-        : [spectating(), h('div.racer__post', [h('h2', 'Race complete!'), nextRace]), comboZone(ctrl)];
+        ? [playerScore(ctrl), h('div.racer__post', [raceComplete, yourRank(ctrl), nextRace]), comboZone(ctrl)]
+        : [spectating(noarg), h('div.racer__post', [raceComplete, nextRace]), comboZone(ctrl)];
   }
 };
 
 const puzzleRacer = () => h('strong', 'Puzzle Racer');
 
-const waitingToStart = () =>
+const waitingToStart = (noarg: TransNoArg) =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Waiting to start')])
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('waitingToStart'))])
   );
 
-const spectating = () =>
-  h('div.puz-side__top.puz-side__start', h('div.puz-side__start__text', [puzzleRacer(), h('span', 'Spectating')]));
+const spectating = (noarg: TransNoArg) =>
+  h(
+    'div.puz-side__top.puz-side__start',
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', noarg('spectating'))])
+  );
 
 const renderBonus = (bonus: number) => `+${bonus}`;
 
@@ -112,7 +113,7 @@ const renderJoin = (ctrl: RacerCtrl) =>
       {
         hook: bind('click', ctrl.join),
       },
-      'Join the race!'
+      ctrl.trans.noarg('joinTheRace')
     )
   );
 
@@ -121,31 +122,32 @@ const yourRank = (ctrl: RacerCtrl) => {
   if (!score) return;
   const players = ctrl.players();
   const rank = players.filter(p => p.score > score).length + 1;
-  return h('strong.race__post__rank', `Your rank: ${rank}/${players.length}`);
+  return h('strong.race__post__rank', ctrl.trans('yourRank', `${rank}/${players.length}`));
 };
 
-const waitForRematch = () =>
+const waitForRematch = (noarg: TransNoArg) =>
   h(
     `a.racer__new-race.button.button-fat.button-navaway.disabled`,
     {
       attrs: { disabled: true },
     },
-    'Wait for rematch'
+    noarg('waitForRematch')
   );
 
-const newRaceForm = (ctrl: RacerCtrl) =>
+const lobbyNext = (ctrl: RacerCtrl) =>
   h(
     'form',
     {
       attrs: {
-        action: ctrl.race.lobby ? '/racer/lobby' : '/racer',
+        action: '/racer/lobby',
         method: 'post',
       },
     },
     [
-      h(`button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`, [
-        ctrl.race.lobby ? 'Next race' : 'New race',
-      ]),
+      h(
+        `button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`,
+        ctrl.trans.noarg('nextRace')
+      ),
     ]
   );
 
@@ -156,7 +158,7 @@ const friendNext = (ctrl: RacerCtrl) =>
       {
         attrs: { href: `/racer/${ctrl.race.id}/rematch` },
       },
-      'Join rematch'
+      ctrl.trans.noarg('joinRematch')
     ),
     h(
       'form.racer__post__next__new',
@@ -173,7 +175,7 @@ const friendNext = (ctrl: RacerCtrl) =>
             type: 'submit',
           },
         },
-        'Create new race'
+        ctrl.trans.noarg('createNewGame')
       )
     ),
   ]);

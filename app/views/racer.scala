@@ -64,15 +64,21 @@ object racer {
   private val i18nKeys = {
     import lila.i18n.I18nKeys.{ storm => s }
     List(
-      s.moveToStart,
-      s.puzzlesSolved,
-      s.playAgain,
       s.score,
-      s.moves,
       s.combo,
-      s.newRun,
       s.youPlayTheWhitePiecesInAllPuzzles,
       s.youPlayTheBlackPiecesInAllPuzzles,
+      s.getReady,
+      s.waitingForMorePlayers,
+      s.raceComplete,
+      s.spectating,
+      s.joinTheRace,
+      s.yourRankX,
+      s.waitForRematch,
+      s.nextRace,
+      s.joinRematch,
+      s.waitingToStart,
+      s.createNewGame,
       trans.toInviteSomeoneToPlayGiveThisUrl
     ).map(_.key)
   }
