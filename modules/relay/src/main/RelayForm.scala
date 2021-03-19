@@ -1,15 +1,16 @@
 package lila.relay
 
+import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import io.lemonlabs.uri.AbsoluteUrl
+import scala.util.chaining._
 
-import lila.security.Granter
-import lila.user.User
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
 import lila.game.Game
+import lila.security.Granter
 import lila.study.Study
+import lila.user.User
 
 final class RelayForm {
 
@@ -105,13 +106,15 @@ object RelayForm {
         description = description,
         markup = markup,
         official = ~official && Granter(_.Relay)(user),
-        sync = makeSync(user),
+        sync = makeSync(user) pipe { sync =>
+          if (relay.sync.playing) sync.play else sync
+        },
         credit = credit,
         startsAt = startsAt,
         finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
       )
 
-    def makeSync(user: User) =
+    private def makeSync(user: User) =
       Relay.Sync(
         upstream = cleanUrl.map { u =>
           Relay.Sync.UpstreamUrl(s"$u${syncUrlRound.??(" " +)}")
