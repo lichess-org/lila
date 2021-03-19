@@ -5,6 +5,6 @@
   <string name="score">Sgor</string>
   <string name="moves">Symudiadau</string>
   <string name="accuracy">Cywirdeb</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Cyfuniad</string>
+  <string name="combo">Cyfuniad</string>
   <string name="time">Amser</string>
 </resources>
