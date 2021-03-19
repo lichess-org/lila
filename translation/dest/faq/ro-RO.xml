@@ -35,7 +35,15 @@ De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de sec
   <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess suportă șah standard și %1$s.</string>
   <string name="eightVariants">8 variante de șah</string>
-  <string name="insufficientMaterial">Pierdere la timp, desenare şi material insuficient</string>
+  <string name="whatIsACPL">Care este pierderea in medie de centipawns (ACPL)?</string>
+  <string name="acplExplanation">Centipawn este unitatea de măsură utilizată în șah ca reprezentare a avantajului. Un centipawn este egal cu 1/100 a dintr-un pion. Prin urmare, 100 de centipawns = 1 pion. Aceste valori nu joacă nici un rol formal în joc, dar sunt utile jucătorilor și esențiale în șahul calculatorului, pentru evaluarea pozițiilor.
+
+Mutarea calculatorului de top va pierde zero centipawns, dar mutările mai mici vor duce la deteriorarea poziției, măsurată în centipawns.
+
+Această valoare poate fi folosită ca un indicator al calității partidei. Cu cât sunt mai puțini centipawans per mutare, cu atât piesa este mai puternică.
+
+Analiza computerizată pe Lichess este posibilă cu ajutorul Stockfish.</string>
+  <string name="insufficientMaterial">Pierdere la timp, desenare și material insuficient</string>
   <string name="lichessFollowFIDErules">În cazul în care unul dintre jucatori rămâne fară timp, acel jucător deobicei va pierde meciul. Dar, partida va fi declarată ca remiză dacă inamicul este intr-o poziție în care nu poate da șah mat regelui jucatorului prin orice serie de mutări legale (%1$s).
 
 În cazurile rare care poate fi greu de decis automat (linii forțate, cetăți). Implicit luăm partea jucătorului care nu a rămas fara timp.
