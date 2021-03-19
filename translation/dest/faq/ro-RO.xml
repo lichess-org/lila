@@ -78,6 +78,14 @@ Verificarea ca fiind un jucator cu titlu pe Lichess, iți va da acces să joci i
 Îl acorăm foarte rar jucatorilor foarte buni care sunt locuitori buni ai Lichess, la inițiativa noastră. Nu primești titlul LM, titlul LM te primește pe tine. Dacă ești calificat, o să primești un mesaj de la noi cu privire la el, și alegerea de a-l accepta sau nu.
 
 Nu cere titlul LM.</string>
+  <string name="whatUsernameCanIchoose">Care poate fi numele meu de utilizator?</string>
+  <string name="usernamesNotOffensive">În general, numele de utilizator nu ar trebui să fie: ofensiv, să nu fie numele altcuiva sau publicitate. Puteți citi %1$s aici.</string>
+  <string name="guidelines">instrucțiunile</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
+  <string name="uniqueTrophies">Trofee unice</string>
+  <string name="ownerUniqueTrophies">Acest trofeu este unic în istoria Lichess, nimeni înafară de %1$s nu îl va avea vreodată.</string>
+  <string name="wayOfBerserkExplanation">Pentru a-l obține, hiimgosu a înnebunit și s-a provocat să câştige 100%% din jocurile de %s.</string>
+  <string name="aHourlyBulletTournament">turneu de o oră de Bullet</string>
+  <string name="goldenZeeExplanation">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
 </resources>
