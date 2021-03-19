@@ -113,6 +113,12 @@ object Streamer {
   case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]) {
     def withoutStream = WithUser(streamer, user)
     def titleName     = withoutStream.titleName
+
+    def redirectToLiveUrl: Option[String] =
+      stream ?? { s =>
+        streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
+          streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
+      }
   }
 
   case class ModChange(list: Option[Boolean], tier: Option[Int])

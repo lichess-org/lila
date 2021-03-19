@@ -212,6 +212,7 @@ GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /streamer/picture/upload         controllers.Streamer.pictureApply
 POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
 GET   /streamer/:username              controllers.Streamer.show(username: String)
+GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

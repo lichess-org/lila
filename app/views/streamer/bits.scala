@@ -85,7 +85,7 @@ object bits extends Context.ToLang {
     }
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
-    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.show(userId))(
+    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.redirect(userId), targetBlank)(
       xIsStreaming(usernameOrId(userId))
     )
 
