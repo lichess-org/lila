@@ -36,7 +36,8 @@
     }
   }
 
-  .button-navaway {
+  .button-navaway,
+  .puz-side__join .button {
     display: block;
     width: 100%;
     margin-top: 2em;
@@ -52,6 +53,7 @@
 
   &__pre__message {
     &__pov {
+      margin: 1em 0;
       color: $c-brag;
     }
   }
