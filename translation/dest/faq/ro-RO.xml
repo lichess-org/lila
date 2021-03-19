@@ -113,4 +113,11 @@ Un alt punct de ținut minte este că, cu timpul, intervalul de încredere va cr
   <string name="beInTopTen">să fii top 10 în acest scor.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A doua cerință este pentru ca jucătorii care nu își mai folosesc contul să nu mai fie în clasament.</string>
   <string name="whyAreRatingHigher">De ce scorurile mai mari comparativ cu alte siteuri și organizații, cum ar fi FIDE, USCF și ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Este cel mai bine să nu te gândești la scoruri ca la un numar absolt, sau să le compari cu alte organizații. Diferite organizații pot avea un nivel diferit de jucători, pot avea un sistem diferit de scoruri (Elo, Glicko, Glicko-2 sau o versiune modificată a lor). Acești factori pot afecta drastic numărul absolut (scorul).
+
+Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (spre deosebire de numerele \"absolute\"): Într-un grup de jucători, diferența relative între scoruri te va ajuta să estimezi cine va câștiga/va face remiză/va pierde, și cât de des. Să zici că \"am X scor\" nu înseamnă nimic decăt dacă îl compari cu alți jucători.</string>
+  <string name="howToHideRatingWhilePlaying">Cum pot ascunde scorul în timp ce joc?</string>
+  <string name="enableZenMode">Activează modul Zen în %1$s, sau apăsând tasta %2$s în timpul jocului.</string>
+  <string name="displayPreferences">setările de afișare</string>
+  <string name="connexionLostCanIGetMyRatingBack">Am pierdut un joc din cauza lagului/deconectării. Pot sa-mi iau punctele înapoi?</string>
 </resources>
