@@ -54,7 +54,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             comboZone(ctrl),
           ];
     case 'post':
-      const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : rematchButton(ctrl);
+      const nextRace = ctrl.race.lobby ? newRaceForm(ctrl) : friendNext(ctrl);
       return ctrl.isPlayer()
         ? [
             playerScore(ctrl),
@@ -149,11 +149,31 @@ const newRaceForm = (ctrl: RacerCtrl) =>
     ]
   );
 
-const rematchButton = (ctrl: RacerCtrl) =>
-  h(
-    `a.racer__rematch.button.button-fat.button-navaway`,
-    {
-      attrs: { href: `/racer/${ctrl.race.id}/rematch` },
-    },
-    'Join rematch'
-  );
+const friendNext = (ctrl: RacerCtrl) =>
+  h('div.racer__post__next', [
+    h(
+      `a.racer__rematch.button.button-fat.button-navaway`,
+      {
+        attrs: { href: `/racer/${ctrl.race.id}/rematch` },
+      },
+      'Join rematch'
+    ),
+    h(
+      'form.racer__post__next__new',
+      {
+        attrs: {
+          action: '/racer',
+          method: 'post',
+        },
+      },
+      h(
+        'button.racer__post__next__button.button.button-empty',
+        {
+          attrs: {
+            type: 'submit',
+          },
+        },
+        'Create new race'
+      )
+    ),
+  ]);

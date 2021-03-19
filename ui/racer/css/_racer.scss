@@ -55,4 +55,13 @@
       color: $c-brag;
     }
   }
+
+  &__post__next {
+    &__new {
+      margin: 2em 0 1em 0;
+    }
+    &__button {
+      width: 100%;
+    }
+  }
 }
