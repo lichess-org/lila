@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Jouez un coup pour commencer</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vous avez les pièces blanches dans tous les problèmes.</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vous avez les pièces noires dans tous les problèmes.</string>
   <string name="puzzlesSolved">problèmes résolus</string>
   <string name="newDailyHighscore">Nouveau record du jour!</string>
   <string name="newWeeklyHighscore">Nouveau record de la semaine!</string>
@@ -31,4 +33,7 @@
   <string name="viewBestRuns">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs">Essais</string>
+  <string name="getReady">Soyez prêts!</string>
+  <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
+  <string name="spectating">Observer</string>
 </resources>
