@@ -842,6 +842,9 @@
   <string name="important">গুরুত্বপূর্ণ</string>
   <string name="yourQuestionMayHaveBeenAnswered">হয়তো আপনার প্রশ্নের উত্তর রয়েছেই %1$s</string>
   <string name="inTheFAQ">F.A.Q এর মধ্যে.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">প্রতারনারমুলক কাজ বা খারাপ আচরনের জন্য রিপোর্ট, %1$s</string>
+  <string name="useTheReportForm">এই রিপোর্ট ফোরাম ব্যাবহার করুন</string>
+  <string name="toRequestSupport">সমর্থনের জন্য অনুরোধ করতে, %1$s</string>
   <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
   <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
   <string name="joinTheTeamXToPost">যুক্ত হোন %1$s, এই ফোরামে পোষ্ট করার জন্য</string>
