@@ -39,7 +39,7 @@ final class RemoteSocket(
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
-    val id = lila.common.ThreadLocalRandom.nextPositiveInt()
+    val id = lila.common.ThreadLocalRandom.nextInt()
     sendReq(id)
     val promise = Promise[String]()
     requests.put(id, promise)
