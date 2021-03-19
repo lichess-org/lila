@@ -14,4 +14,10 @@
   <string name="threefoldRepetition">তিনবার একই চাল</string>
   <string name="threefoldRepetitionLowerCase">তিনবার একই চাল</string>
   <string name="positions">পজিশন</string>
+  <string name="howToHideRatingWhilePlaying">খেলার সময় কিভাবে রেটিংস দেখার সিস্টেম বন্ধ রেখে খেলবো?</string>
+  <string name="connexionLostCanIGetMyRatingBack">একটি গেমে হেরেছি ইন্টারনেট সংযোগ বিচ্ছিন/খারাপ থাকার কারনে. হেরে যাওয়া পয়েন্ট ফেরত দেওয়া হবে?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">অপ্রত্যাশিত হলেও, ইন্টারনেট সংযোগ বিচ্ছিনো হওয়ার কারনে যেসব গেম হেরে যাওয়ায় আপনার রেটিংস হারান তা ফেরত পাবেন না। আমারাও গেম খেলের সময় একই সমস্যা ফেস করে থাকি এবং সবার জন্য একই রুলস। যদিও এরকম ঘটনা লাখে একটা ঘটে থাকে। আরেকটি ঘোষনা, যদি আমরা কারিগরি উন্নয়নের জন্য ওয়েবসাইট রি-স্টার্ট দিই এবং এর জন্য যেনো আপনি হেরে পয়েন্ট লস না করেন তার জন্য গেমটাই কেটে দেওয়া হয়।.</string>
+  <string name="howToThreeDots">কিভাবে...</string>
+  <string name="enableDisableNotificationPopUps">নোটিফিকেশনের পপআপ চালু অথবা বন্ধ?</string>
+  <string name="viewSiteInformationPopUp">ওয়েবসাইটের পপআপ তথ্য দেখুন</string>
 </resources>
