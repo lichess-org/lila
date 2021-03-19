@@ -33,4 +33,13 @@
   <string name="viewBestRuns">Se de bedste runder</string>
   <string name="bestRunOfDay">Dagens bedste runde</string>
   <string name="runs">Runder</string>
+  <string name="getReady">Gør dig klar!</string>
+  <string name="waitingForMorePlayers">Venter på at flere spillere slutter sig til...</string>
+  <string name="raceComplete">Race fuldført!</string>
+  <string name="spectating">Tilskuere</string>
+  <string name="joinTheRace">Deltag i racet!</string>
+  <string name="yourRankX">Din rang: %s</string>
+  <string name="waitForRematch">Vent på omkamp</string>
+  <string name="nextRace">Næste race</string>
+  <string name="joinRematch">Deltag i omkamp</string>
 </resources>
