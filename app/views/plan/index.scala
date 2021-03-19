@@ -272,6 +272,8 @@ object index {
         ),
         dt(otherMethods()),
         dd(
+          "Lichess is registered with Benevity.",
+          br,
           a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",
           br,
