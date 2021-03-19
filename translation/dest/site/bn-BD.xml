@@ -810,20 +810,35 @@
 দুঃখিত
 খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
+  <string name="timeoutExpires">সময় লাগবে %s.</string>
   <string name="why">কেন</string>
   <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>
+  <string name="potentialProblem">যখন এধরনের সমস্যা ধরা পড়ে তখনই আমরা এই মেসেজ দিই.</string>
   <string name="howToAvoidThis">কিভাবে এসব এড়িয়ে চলবো?</string>
   <string name="playEveryGame">যে গেম খেলা শুরু করবেন তা অবশ্যই শেষ করবেন.</string>
   <string name="tryToWin">জেতার চেষ্টা করুন (অথবা ড্র) যেসব গেম খেলছেন.</string>
   <string name="resignLostGames">হেরে জাওা খেলা তি রেসিগ্ন করুন।( সময় সেশ হওার অপ্পেখা করবেন না)।.</string>
   <string name="temporaryInconvenience">অস্থায়ীভাবে এই অসুবিধার জন্য আমরা ক্ষমা প্রার্থনা করছি,</string>
+  <string name="wishYouGreatGames">এবং lichess.org এ আপনার দুর্দান্ত গেমের শুভেচ্ছা.</string>
+  <string name="thankYouForReading">পড়ার জন্য ধন্যবাদ!</string>
+  <string name="lifetimeScore">সারাজীবনের স্কোর</string>
+  <string name="currentMatchScore">বর্তমান ম্যাচের স্কোর</string>
   <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
   <string name="agreementAccount">আমি সম্মতি জানাচ্ছি যে নিজের জন্য একটিই একাউন্ট খুলে রাখবো পাশাপাশি অনেকগুলো একাউন্ট খুলে রাখবো না.</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
+  <string name="rapid">র‍্যাপিড</string>
+  <string name="classical">ক্লাসিক্যাল</string>
+  <string name="ultraBulletDesc">অত্যন্ত দ্রুত গেমস: 30 সেকেন্ডেরও কম</string>
+  <string name="bulletDesc">খুবই দ্রুত গেমস: 3 মিনিটেরও কম</string>
+  <string name="blitzDesc">দ্রুত গেমস: 3 থেকে 8 মিনিট</string>
+  <string name="rapidDesc">র‍্যাপিড গেমস: 3 থেকে 8 মিনিট</string>
+  <string name="classicalDesc">ক্লাসিক্যাল গেমস: ২৫ মিনিট বা তার বেশি</string>
+  <string name="correspondenceDesc">কোরেস্পডেন্স গেমস: এক বা একাধিক দিনের চাল</string>
+  <string name="puzzleDesc">দাবা কৌশলের প্রশিক্ষক</string>
   <string name="important">গুরুত্বপূর্ণ</string>
   <string name="yourQuestionMayHaveBeenAnswered">হয়তো আপনার প্রশ্নের উত্তর রয়েছেই %1$s</string>
   <string name="inTheFAQ">F.A.Q এর মধ্যে.</string>
