@@ -47,6 +47,16 @@
   <string name="castlingRules">Asigură-te că înțelegi regulile rocadei</string>
   <string name="tryCastling">Încearcă acest mic joc interactiv pentru a practica mișcarea castling în șah.</string>
   <string name="castlingImported">Dacă ai importat partida, sau ai inceput-o de la o poziție, asigură-te că ai setat corect drepturile de castling.</string>
+  <string name="insufficientMaterial">Material de înperechere insuficient</string>
+  <string name="fideMate">Conform legii FIDE a șahului §6.9, daca un șah mat este posibil cu orice secvență legală de mutări, atunci jocul nu este remiză</string>
+  <string name="knightMate">Este posibil șah mat-ul cu doar un cal sau un nebun, dacă oponentul are mai mult de un rege pe masă.</string>
+  <string name="noRatingPoints">Nu au fost acordate puncte de scor</string>
+  <string name="ratedGame">Asigură-te ca ai jucat un meci oficial. Jocurile neoficiale nu sunt afectate de scorurile jucătorilor.</string>
+  <string name="errorPage">Pagina de eroare</string>
+  <string name="reportErrorPage">Dacă ai primit o pagină de eroare, o poți raporta:</string>
+  <string name="banAppeal">Aplică pentru un ban sau restricție de IP</string>
+  <string name="engineAppeal">Motor de asistență sau marcaj de trișare</string>
+  <string name="sendAppealTo">Poți trimite o cerere pe %s.</string>
   <string name="doNotDeny">Nu nega faptul că ai trișat. Dacă vrei să ai voie sa-ți faci un cont nou, recunoaște ce ai făcut, și arată că înțelegi că a fost o greșeală.</string>
   <string name="sendEmailAt">Trimite-ne un e-mail pe adresa %s.</string>
 </resources>
