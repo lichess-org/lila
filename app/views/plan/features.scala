@@ -78,6 +78,9 @@ object features {
               a(href := routes.Storm.home)("Puzzle Storm")
             ),
             tr(unlimited)(
+              a(href := routes.Racer.home)("Puzzle Racer")
+            ),
+            tr(unlimited)(
               a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
               " (280 million games!)"
             ),
