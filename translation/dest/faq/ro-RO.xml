@@ -35,6 +35,7 @@ De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de sec
   <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess suportă șah standard și %1$s.</string>
   <string name="eightVariants">8 variante de șah</string>
+  <string name="insufficientMaterial">Pierdere la timp, desenare şi material insuficient</string>
   <string name="lichessFollowFIDErules">În cazul în care unul dintre jucatori rămâne fară timp, acel jucător deobicei va pierde meciul. Dar, partida va fi declarată ca remiză dacă inamicul este intr-o poziție în care nu poate da șah mat regelui jucatorului prin orice serie de mutări legale (%1$s).
 
 În cazurile rare care poate fi greu de decis automat (linii forțate, cetăți). Implicit luăm partea jucătorului care nu a rămas fara timp.
@@ -120,7 +121,13 @@ Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (
   <string name="enableZenMode">Activează modul Zen în %1$s, sau apăsând tasta %2$s în timpul jocului.</string>
   <string name="displayPreferences">setările de afișare</string>
   <string name="connexionLostCanIGetMyRatingBack">Am pierdut un joc din cauza lagului/deconectării. Pot sa-mi iau punctele înapoi?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Din păcate, nu putem să-ți dăm scor înapoi pentru partidele pierdute din cauza lagului sau a deconectării, indiferent de ce problemă ai avut, sau am avut. Deși a doua este foarte rară. Ține minte și: când Lichess se restartează și tu pierzi la timp din această cauză, anulăm partida pentru a preveni o pierdere nedreaptă.</string>
   <string name="howToThreeDots">Cum să...</string>
   <string name="enableDisableNotificationPopUps">Activați sau dezactivați ferestrele de notificare?</string>
   <string name="viewSiteInformationPopUp">Vezi ferestra de informații a siteului</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess poate trimite opțional ferestre de notificări, de exemplu atunci când este rândul tău sau când ai primit un mesaj privat.
+
+Dă click pe iconița de lângă adresa lichess.org în bara URL a browser-ului tau.
+
+Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la Lichess.</string>
 </resources>
