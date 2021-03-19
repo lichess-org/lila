@@ -41,6 +41,9 @@
   <string name="easiest">খুবই সহজ</string>
   <string name="harder">কঠিন</string>
   <string name="hardest">খুবই কঠিন</string>
+  <string name="example">উদাহরণ</string>
+  <string name="addAnotherTheme">অন্য থিম যুক্ত করুন</string>
+  <string name="jumpToNextPuzzleImmediately">তাৎক্ষনিক নতুন পাজলে চলে যাই</string>
   <string name="puzzleDashboard">পাজল ড্যাশবোর্ড</string>
   <string name="improvementAreas">উন্নতি করার জায়গা</string>
   <string name="strengths">শক্তিমত্তা</string>
