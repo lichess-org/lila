@@ -48,7 +48,7 @@ object Metric {
         F moves "c",
         Move,
         Move,
-        Average,
+        Percent,
         Dimension.CplRange.description
       )
 
