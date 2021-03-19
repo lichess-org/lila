@@ -42,4 +42,6 @@ Parolă: %3$s</string>
   <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
   <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
   <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
+  <string name="createANewLichessAccount">Creează un cont nou Lichess aici</string>
+  <string name="createDesc1">Dacă studentul nu are încă un cont de Lichess, poți crea unul pentru ei aici.</string>
 </resources>
