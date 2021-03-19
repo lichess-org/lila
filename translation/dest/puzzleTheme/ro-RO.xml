@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pion avansat</string>
-  <string name="advancedPawnDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
+  <string name="advancedPawnDescription">Unul dintre pionii care este avansat in teritoriul inamic, poate amenință să promoveze.</string>
   <string name="advantage">Avantaj</string>
   <string name="advantageDescription">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Matul Anastasiei</string>
@@ -52,6 +52,7 @@
   <string name="hangingPiece">Piesă neprotejată</string>
   <string name="hangingPieceDescription">O tactică ce implică o piesă adversară care e neprotejată sau apărată insuficient și e liberă pentru capturare.</string>
   <string name="hookMate">Mat-ul hook</string>
+  <string name="hookMateDescription">Șah mat cu un turn, un cal și un pion alături de un pion inamic pentru a limita metodele de scăpare ale regeului.</string>
   <string name="interference">Obstacol</string>
   <string name="interferenceDescription">Mutarea unei piese între două piese adversare pentru a lăsa una sau ambele piese adversare neprotejate, cum ar fi un cal pe un pătrat protejat dintre două ture.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -102,10 +103,21 @@
   <string name="sacrificeDescription">O tactică care implică renunțarea la material pe termen scurt pentru a câștiga un avantaj din nou după o secvență forțată de mutări.</string>
   <string name="short">Puzzle scurt</string>
   <string name="shortDescription">Două mutări pentru a câștiga.</string>
+  <string name="skewer">Skewer</string>
+  <string name="skewerDescription">Un motiv care implică atacarea unei piese de mare valoare, mutarea înafara traseului, și permițând capturarea sau atacarea unei piese cu valoare inferioară în spatele ei, inversul unui pin.</string>
+  <string name="smotheredMate">Mat sufocat</string>
+  <string name="smotheredMateDescription">Un șah mat livrat de un cal în care regele împerechiat este incapabil să se miște deoarece este înconjurat (sau sufocat) de piesele lui aliate.</string>
   <string name="superGM">Jocuri Super GM</string>
   <string name="superGMDescription">Puzzle-uri din jocurile jucate de cei mai buni jucători din lume.</string>
+  <string name="trappedPiece">Piesa blocată</string>
+  <string name="trappedPieceDescription">O piesa este incapabilă de a scăpa din capturarea deoarece are mutări limitate.</string>
+  <string name="underPromotion">Subpromovare</string>
   <string name="underPromotionDescription">Promovează într-un cal, un nebun sau o tură.</string>
+  <string name="veryLong">Problemă foarte lungă</string>
   <string name="veryLongDescription">Patru mutări sau mai multe pentru a câștiga.</string>
+  <string name="xRayAttack">Atac raze x</string>
+  <string name="xRayAttackDescription">O piesă atacă sau apară un patrat, printr-o piesă inamică.</string>
+  <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
   <string name="healthyMix">Amestec sănătos</string>
   <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
