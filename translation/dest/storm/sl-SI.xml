@@ -26,4 +26,5 @@
   <string name="nextRace">Naslednja dirka</string>
   <string name="joinRematch">Pridružite se revanši</string>
   <string name="waitingToStart">Čakanje na začetek</string>
+  <string name="createNewGame">Ustvari novo igro</string>
 </resources>
