@@ -32,10 +32,10 @@ final class Account(
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
-        if (
-          profile.bio.exists(env.security.spam.detect) ||
-          profile.links.exists(env.security.spam.detect)
-        ) env.mod.api.autoTroll(lila.report.Suspect(me), "Spam in profile bio or links")
+        if (profile.bio.exists(env.security.spam.detect))
+          env.mod.api.autoTroll(lila.report.Suspect(me), s"Spam in profile bio: ${~profile.bio}")
+        if (profile.links.exists(env.security.spam.detect))
+          env.mod.api.autoTroll(lila.report.Suspect(me), s"Spam in profile links: ${~profile.links}")
         env.user.repo.setProfile(me.id, profile) inject
           Redirect(routes.Account.profile).flashSuccess
       }
