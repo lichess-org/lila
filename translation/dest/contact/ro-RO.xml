@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contact</string>
+  <string name="contactLichess">Contactează Lichess</string>
   <string name="whatCanWeHelpYouWith">Cu ce te putem ajuta?</string>
   <string name="visitThisPage">Vizitați această pagină pentru a rezolva problema</string>
   <string name="iCantLogIn">Nu mă pot conecta</string>
@@ -33,7 +34,7 @@
   <string name="doNotMessageModerators">Nu trimite mesaje directe către moderatori.</string>
   <string name="onlyReports">Doar rapotând jucătorii prin intermediul formularului de raport este eficient.</string>
   <string name="wantReportBug">Vreau să raportez un bug</string>
-  <string name="reportBugInForum">În secțiunea Lichess Feedback a forumului</string>
+  <string name="reportBugInForum">În secțiunea Evaluări Lichess a forumului</string>
   <string name="reportWebsiteIssue">Ca o problemă a site-ului Lichess pe GitHub</string>
   <string name="reportMobileIssue">Ca o problemă a aplicației mobile Lichess pe GitHub</string>
   <string name="reportBugInDiscord">Pe serverul de Discord Lichess</string>
@@ -44,4 +45,8 @@
   <string name="illegalCastling">Rocadă ilegală sau imposibilă</string>
   <string name="castlingPrevented">Rocada este împiedicata doar dacă regele trece printr-un pătrat controlat.</string>
   <string name="castlingRules">Asigură-te că înțelegi regulile rocadei</string>
+  <string name="tryCastling">Încearcă acest mic joc interactiv pentru a practica mișcarea castling în șah.</string>
+  <string name="castlingImported">Dacă ai importat partida, sau ai inceput-o de la o poziție, asigură-te că ai setat corect drepturile de castling.</string>
+  <string name="doNotDeny">Nu nega faptul că ai trișat. Dacă vrei să ai voie sa-ți faci un cont nou, recunoaște ce ai făcut, și arată că înțelegi că a fost o greșeală.</string>
+  <string name="sendEmailAt">Trimite-ne un e-mail pe adresa %s.</string>
 </resources>
