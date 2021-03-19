@@ -33,4 +33,13 @@
   <string name="viewBestRuns">Вижте най-добрите опити</string>
   <string name="bestRunOfDay">Най-добрият опит за деня</string>
   <string name="runs">Опити</string>
+  <string name="getReady">Пригответе се!</string>
+  <string name="waitingForMorePlayers">Изчакване на още играчи...</string>
+  <string name="raceComplete">Състезанието приключи!</string>
+  <string name="spectating">Наблюдаване</string>
+  <string name="joinTheRace">Влезте в състезанието!</string>
+  <string name="yourRankX">Вашето класиране: %s</string>
+  <string name="waitForRematch">Изчакайте за реванш</string>
+  <string name="nextRace">Следващо състезание</string>
+  <string name="createNewGame">Създайте нова игра</string>
 </resources>
