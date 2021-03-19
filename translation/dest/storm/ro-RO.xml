@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzlesSolved">puzzle-uri rezolvate</string>
-  <string name="playAgain">Jucați din nou</string>
+  <string name="puzzlesSolved">probleme rezolvate</string>
+  <string name="playAgain">Joacă din nou</string>
+  <string name="highscoreX">Scor de top: %s</string>
   <string name="score">Scor</string>
   <string name="moves">Mutări</string>
   <string name="accuracy">Acuratețe</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combinație</string>
   <string name="time">Timp</string>
   <string name="timePerMove">Timp per mutare</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Cel mai bun rezolvat</string>
+  <string name="puzzlesPlayed">Porbleme de șah jucate</string>
+  <string name="newRun">Mișcare nouă (tasta: Space)</string>
+  <string name="endRun">Încheie încercarea (tasta: Enter)</string>
+  <string name="highscores">Scoruri de top</string>
+  <string name="viewBestRuns">Vezi cele mai bune încercări</string>
+  <string name="bestRunOfDay">Încercarea zilei</string>
+  <string name="runs">Încercări</string>
 </resources>
