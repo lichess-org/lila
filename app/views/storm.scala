@@ -156,7 +156,9 @@ object storm {
       s.highestSolved,
       s.puzzlesPlayed,
       s.newRun,
-      s.endRun
+      s.endRun,
+      s.youPlayTheWhitePiecesInAllPuzzles,
+      s.youPlayTheBlackPiecesInAllPuzzles
     ).map(_.key)
   }
 }

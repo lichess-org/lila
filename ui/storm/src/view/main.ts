@@ -43,7 +43,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
-    renderClock(ctrl.run, ctrl.endNow, true),
+    renderClock(ctrl.run, ctrl.endNow, ctrl.trans, true),
     h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
   ]),
 ];
@@ -71,9 +71,12 @@ const renderControls = (ctrl: StormCtrl): VNode =>
 
 const renderStart = (ctrl: StormCtrl) =>
   h(
-    'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))])
-  );
+    'div.puz-side__top.puz-side__start', [
+    h('div.puz-side__start__text', [
+      h('strong', 'Puzzle Storm'),
+      h('span', ctrl.trans('moveToStart')),
+    ]),
+  ]);
 
 const renderReload = (msg: string) =>
   h('div.storm.storm--reload.box.box-pad', [

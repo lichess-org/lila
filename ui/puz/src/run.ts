@@ -19,3 +19,6 @@ export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
     lastMove: uciToLastMove(cur.lastMove()),
   };
 };
+
+export const povMessage = (run: Run) =>
+  `youPlayThe${run.pov == 'white' ? 'White' : 'Black'}PiecesInAllPuzzles`;

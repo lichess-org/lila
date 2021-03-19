@@ -14,12 +14,25 @@
   }
 }
 
-.puz-clock__time {
-  .puz-mod-bonus-slow & {
-    color: $c-good;
+.puz-clock {
+  &__time {
+    .puz-mod-bonus-slow & {
+      color: $c-good;
+    }
+
+    .puz-mod-malus-slow & {
+      color: $c-bad;
+    }
   }
 
-  .puz-mod-malus-slow & {
-    color: $c-bad;
+  &__pov {
+    color: $c-brag;
+    margin-left: 5vw;
+
+    @include breakpoint($mq-col2) {
+      position: absolute;
+      bottom: -2vh;
+      margin-left: 0;
+    }
   }
 }

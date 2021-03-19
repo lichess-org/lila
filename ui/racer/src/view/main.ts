@@ -8,6 +8,7 @@ import { renderRace } from './race';
 import { VNode } from 'snabbdom/vnode';
 import { MaybeVNodes } from 'puz/interfaces';
 import { renderBoard } from './board';
+import { povMessage } from 'puz/run';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(
@@ -25,19 +26,26 @@ export default function (ctrl: RacerCtrl): VNode {
 const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
   switch (ctrl.status()) {
     case 'pre':
+      const povMsg = h('p.racer__pre__message__pov', ctrl.trans(povMessage(ctrl.run)));
       return ctrl.race.lobby
         ? [
             waitingToStart(),
-            ctrl.vm.startsAt ? "It's racing time!" : 'Waiting for more players to join...',
+            h('div.racer__pre__message', [
+              h('p', ctrl.vm.startsAt ? "It's racing time!" : 'Waiting for more players to join...'),
+              povMsg,
+            ]),
             comboZone(ctrl),
           ]
         : [
             waitingToStart(),
-            ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),
+            h('div.racer__pre__message', [
+              h('p', ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl)),
+              povMsg,
+            ]),
             comboZone(ctrl),
           ];
     case 'racing':
-      const clock = renderClock(ctrl.run, ctrl.end, false);
+      const clock = renderClock(ctrl.run, ctrl.end, ctrl.trans, false);
       return ctrl.isPlayer()
         ? [playerScore(ctrl), clock, comboZone(ctrl)]
         : [

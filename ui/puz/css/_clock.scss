@@ -1,10 +1,11 @@
 .puz-clock {
   @extend %flex-center-nowrap;
 
+  position: relative;
   margin-bottom: -1em;
-  font-family: 'storm';
 
   &__time {
+    font-family: 'storm';
     font-size: 6em;
     transition: color 0.3s;
     margin: 2vh 0;
@@ -28,6 +29,7 @@
 
   &__bonus,
   &__malus {
+    font-family: 'storm';
     font-size: 3.5em;
     color: $c-good;
     margin-left: 0.3ch;

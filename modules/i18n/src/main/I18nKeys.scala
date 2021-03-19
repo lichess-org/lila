@@ -1978,6 +1978,8 @@ val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
 
 object storm {
 val `moveToStart` = new I18nKey("storm:moveToStart")
+val `youPlayTheWhitePiecesInAllPuzzles` = new I18nKey("storm:youPlayTheWhitePiecesInAllPuzzles")
+val `youPlayTheBlackPiecesInAllPuzzles` = new I18nKey("storm:youPlayTheBlackPiecesInAllPuzzles")
 val `puzzlesSolved` = new I18nKey("storm:puzzlesSolved")
 val `newDailyHighscore` = new I18nKey("storm:newDailyHighscore")
 val `newWeeklyHighscore` = new I18nKey("storm:newWeeklyHighscore")

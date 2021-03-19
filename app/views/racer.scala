@@ -71,6 +71,8 @@ object racer {
       s.moves,
       s.combo,
       s.newRun,
+      s.youPlayTheWhitePiecesInAllPuzzles,
+      s.youPlayTheBlackPiecesInAllPuzzles,
       trans.toInviteSomeoneToPlayGiveThisUrl
     ).map(_.key)
   }

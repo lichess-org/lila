@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="moveToStart">Move to start</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">You play the white pieces in all puzzles</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">You play the black pieces in all puzzles</string>
   <string name="puzzlesSolved">puzzles solved</string>
   <string name="newDailyHighscore">New daily highscore!</string>
   <string name="newWeeklyHighscore">New weekly highscore!</string>

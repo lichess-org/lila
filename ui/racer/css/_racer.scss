@@ -49,4 +49,10 @@
   &__spectating .puz-clock__time {
     font-size: 3em;
   }
+
+  &__pre__message {
+    &__pov {
+      color: $c-brag;
+    }
+  }
 }
