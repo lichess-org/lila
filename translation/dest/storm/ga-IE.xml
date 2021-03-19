@@ -39,4 +39,7 @@
   <string name="viewBestRuns">Féach ar stríocáin is fearr</string>
   <string name="bestRunOfDay">An stríocán is fearr sa lá</string>
   <string name="runs">Stríocáin</string>
+  <string name="getReady">Déan réidh!</string>
+  <string name="waitingForMorePlayers">Ag fanacht le níos mó imreoirí a bheith páirteach...</string>
+  <string name="raceComplete">Rás críochnaithe!</string>
 </resources>
