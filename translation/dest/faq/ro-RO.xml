@@ -90,4 +90,19 @@ Nu cere titlul LM.</string>
   <string name="goldenZeeExplanation">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
   <string name="lichessRatings">Scoruri Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Ce sistem de scor folosește Licehss?</string>
+  <string name="ratingSystemUsedByLichess">Scorurile sunt calculate folosind metoda Glicko-2 creată de Mark Glickman. Aceasta este o metoda de calculare a scorului foarte populară, și este folosit de un număr mare de organizații de șah (FIDE ar fi un contraexemplu, fiindcă ei încă folosesc metoda veche de tip Elo).
+
+Fundamental, scorurile Glicko folosesc \"intervale de încredere\" când calculează și reprezintă scorul tău. Când începi pentru prima dată să folosești siteul, scorul tău începe la 1500 ± 700. 1500 reprezintâ scorul tău, iar 700 reprezintă intervalul de încredere.
+
+Practic, sistemul este 90% sigur că scorul tau este între 800 și 2200. Este incredibil de nesigur.
+Din această cauză, când un jucător abia începe, scorul lor se va schimba dramatic, poate chiar și cu câteva sute de puncte odată. Dar după ceva partide înportiva unor jucatori buni intervalul de încredere se va micșora, și suma de puncte câștigată/pierdută dupa fiecare meci va scădea.
+
+Un alt punct de ținut minte este că, cu timpul, intervalul de încredere va crește. Asta te ajută să câștigi/pierzi puncte mai rapid și să se alinieze cu schimbările tale în abilitați după acel timp.</string>
+  <string name="whatIsProvisionalRating">De ce este un semn de întrebare (?) lângă scor?</string>
+  <string name="provisionalRatingExplanation">Semnul de întrebare înseamnă că scorul este provizoriu. Motivele includ:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Jucătorul nu a terminat încă destule meciuri oficiale împotriva %1$s în categoria de scor.</string>
+  <string name="similarOpponents">oponenți cu o putere similară</string>
+  <string name="notPlayedRecently">Jucătorul nu a jucat suficiente partide recente. În funcție de numărul de jocuri pe care le-ai jucat, ar putea dura aproximativ un an de inactivitate pentru ca scorul tău să devină din nou provizoriu.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concret, înseamnă că deviația de la Glicko-2 este mia mare de 110. Deviația este nivelul de încredere pe care sistemul îl are in scor. Mai mică deviația, mai stabil scorul.</string>
+  <string name="howDoLeaderoardsWork">Cum funcționează scorurile și clasamentul?</string>
 </resources>
