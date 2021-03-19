@@ -8,4 +8,10 @@
   <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য একাউন্ট প্রয়োজন দয়া করে নিবন্ধন করুন.</string>
   <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না %s.</string>
   <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করে না.</string>
+  <string name="yourXRatingIsTooFarFromY">আপনার %1$s রেটিংস অনেক ব্যাবধান %2$s থেকে.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">আপনার রেটিংস %s এর জন্য চ্যালেঞ্জ হবে না.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন করেন.</string>
+  <string name="declineGeneric">দুঃখিত আমি এই মুহুর্তে কোনো চ্যালেঞ্জ গ্রহন করছি না.</string>
+  <string name="declineLater">আমার জন্য উপযুক্ত সময় এটি নয়, পরে জিজ্ঞাস করুন.</string>
+  <string name="declineTooFast">এই টাইম কন্ট্রলের গেম আমার জন্য খুবই দ্রুত হয়ে যায়, অনুগ্রহ করে আরেকটু ধির গতির গেম দিয়ে চেলেঞ্জ দিন.</string>
 </resources>
