@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Miscă-te ca să începi</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Joci cu piesele albe în toate puzzle-urile</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Joci cu piesele negre în toate puzzle-urile</string>
   <string name="puzzlesSolved">probleme rezolvate</string>
   <string name="newDailyHighscore">Scor de top nou zilnic!</string>
   <string name="newWeeklyHighscore">Scor de top nou săptămânal!</string>
