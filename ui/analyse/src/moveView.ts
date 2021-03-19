@@ -1,8 +1,8 @@
-import {h} from 'snabbdom';
-import {VNode} from 'snabbdom/vnode';
-import {fixCrazySan} from 'chess';
-import {defined} from 'common';
-import {view as cevalView, renderEval as normalizeEval} from 'ceval';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { fixCrazySan } from 'chess';
+import { defined } from 'common';
+import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 
 export interface Ctx {
   withDots?: boolean;
@@ -12,13 +12,14 @@ export interface Ctx {
 
 export const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
 
-export const renderGlyph = (glyph: Tree.Glyph): VNode => h(
-  'glyph',
-  {
-    attrs: {title: glyph.name},
-  },
-  glyph.symbol
-);
+export const renderGlyph = (glyph: Tree.Glyph): VNode =>
+  h(
+    'glyph',
+    {
+      attrs: { title: glyph.name },
+    },
+    glyph.symbol
+  );
 
 const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 
@@ -31,10 +32,9 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
-  const ev: any = cevalView.getBestEval({client: node.ceval, server: node.eval}) || {};
+  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
   const nodes = [h('san', fixCrazySan(node.san!))];
-  if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g =>
-    nodes.push(renderGlyph(g)));
+  if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => nodes.push(renderGlyph(g)));
   if (node.shapes) nodes.push(h('shapes', 'K'));
   if (ctx.showEval) {
     if (defined(ev.cp)) nodes.push(renderEval(normalizeEval(ev.cp)));

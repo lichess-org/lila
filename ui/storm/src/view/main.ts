@@ -70,12 +70,8 @@ const renderControls = (ctrl: StormCtrl): VNode =>
   ]);
 
 const renderStart = (ctrl: StormCtrl) =>
-  h(
-    'div.puz-side__top.puz-side__start', [
-    h('div.puz-side__start__text', [
-      h('strong', 'Puzzle Storm'),
-      h('span', ctrl.trans('moveToStart')),
-    ]),
+  h('div.puz-side__top.puz-side__start', [
+    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))]),
   ]);
 
 const renderReload = (msg: string) =>

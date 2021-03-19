@@ -1,12 +1,12 @@
-import {h} from 'snabbdom';
-import {VNode} from 'snabbdom/vnode';
-import {isEmpty} from 'common';
-import {fixCrazySan} from 'chess';
-import {path as treePath, ops as treeOps} from 'tree';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { isEmpty } from 'common';
+import { fixCrazySan } from 'chess';
+import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
-import {authorText as commentAuthorText} from '../study/studyComments';
+import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
-import {MaybeVNodes, ConcealOf, Conceal} from '../interfaces';
+import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
 import {
   nonEmpty,
   mainHook,
@@ -16,9 +16,9 @@ import {
   truncateComment,
   retroLine,
 } from './treeView';
-import {enrichText, innerHTML} from '../util';
-import {Ctx as BaseCtx, Opts as BaseOpts} from './treeView';
-import {renderGlyph} from '../moveView';
+import { enrichText, innerHTML } from '../util';
+import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
+import { renderGlyph } from '../moveView';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -60,10 +60,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
     const mainChildren = main.forceVariation
       ? undefined
       : renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true,
-        conceal,
-      });
+          parentPath: opts.parentPath + main.id,
+          isMainline: true,
+          conceal,
+        });
     const passOpts = {
       parentPath: opts.parentPath,
       isMainline: !main.forceVariation,
@@ -110,7 +110,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
   return h(
     'lines',
     {
-      class: {single: !nodes[1]},
+      class: { single: !nodes[1] },
     },
     nodes.map(n => {
       return (
@@ -141,7 +141,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   return h(
     'move',
     {
-      attrs: {p: path},
+      attrs: { p: path },
       class: classes,
     },
     moveView.renderMove(ctx, node)
@@ -158,7 +158,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   return h(
     'move',
     {
-      attrs: {p: path},
+      attrs: { p: path },
       class: classes,
     },
     content
@@ -172,7 +172,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       h(
         'move',
         {
-          attrs: {p: path},
+          attrs: { p: path },
         },
         [h('index', '[...]')]
       ),

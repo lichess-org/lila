@@ -1,13 +1,13 @@
-import {h} from 'snabbdom';
-import {VNode} from 'snabbdom/vnode';
-import {fixCrazySan} from 'chess';
-import {path as treePath, ops as treeOps} from 'tree';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { fixCrazySan } from 'chess';
+import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
-import {MaybeVNodes} from '../interfaces';
-import {mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine} from './treeView';
-import {Ctx, Opts} from './treeView';
-import {renderGlyph} from '../moveView';
+import { MaybeVNodes } from '../interfaces';
+import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
+import { Ctx, Opts } from './treeView';
+import { renderGlyph } from '../moveView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -25,13 +25,13 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : [
-            renderMoveOf(ctx, main, {
-              parentPath: opts.parentPath,
-              isMainline: true,
-              withIndex: opts.withIndex,
-            }),
-            ...renderInlineCommentsOf(ctx, main),
-          ]),
+              renderMoveOf(ctx, main, {
+                parentPath: opts.parentPath,
+                isMainline: true,
+                withIndex: opts.withIndex,
+              }),
+              ...renderInlineCommentsOf(ctx, main),
+            ]),
         h(
           'interrupt',
           renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
@@ -42,10 +42,10 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : renderChildrenOf(ctx, main, {
-            parentPath: opts.parentPath + main.id,
-            isMainline: true,
-            withIndex: true,
-          }) || []),
+              parentPath: opts.parentPath + main.id,
+              isMainline: true,
+              withIndex: true,
+            }) || []),
       ]
     );
   }
@@ -88,7 +88,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
     comments = renderInlineCommentsOf(ctx, node);
-  if (opts.truncate === 0) return [h('move', {attrs: {p: path}}, '[...]')];
+  if (opts.truncate === 0) return [h('move', { attrs: { p: path } }, '[...]')];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
     .concat(comments)
     .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
@@ -123,7 +123,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   return h(
     'move',
     {
-      attrs: {p: path},
+      attrs: { p: path },
       class: nodeClasses(ctx, node, path),
     },
     content
