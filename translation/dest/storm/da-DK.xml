@@ -42,4 +42,6 @@
   <string name="waitForRematch">Vent på omkamp</string>
   <string name="nextRace">Næste race</string>
   <string name="joinRematch">Deltag i omkamp</string>
+  <string name="waitingToStart">Venter på at starte</string>
+  <string name="createNewGame">Opret et nyt spil</string>
 </resources>
