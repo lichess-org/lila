@@ -74,12 +74,10 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
         }
       : null;
   if (conceal)
-    return function (isMainline: boolean) {
-      return function (path: Tree.Path, node: Tree.Node) {
-        if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-        if (treePath.contains(ctrl.path, path)) return null;
-        return conceal.owner ? 'conceal' : 'hide';
-      };
+    return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
+      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+      if (treePath.contains(ctrl.path, path)) return null;
+      return conceal.owner ? 'conceal' : 'hide';
     };
   return undefined;
 }
