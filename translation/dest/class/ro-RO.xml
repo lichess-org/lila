@@ -44,4 +44,35 @@ Parolă: %3$s</string>
   <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
   <string name="createANewLichessAccount">Creează un cont nou Lichess aici</string>
   <string name="createDesc1">Dacă studentul nu are încă un cont de Lichess, poți crea unul pentru ei aici.</string>
+  <string name="createDesc2">Nu este necesară o adresă de e-mail. O parolă va fi generată și va trebui să o transmiți studentului să se poată conecta.</string>
+  <string name="createDesc3">Important: un student nu trebuie să aibă mai multe conturi.</string>
+  <string name="createDesc4">Dacă au deja unul, folosește în schimb formularul de invitație.</string>
+  <string name="lichessUsername">Nume de utilizator Lichess</string>
+  <string name="generateANewUsername">Generează un nou nume de utilizator</string>
+  <string name="welcomeToClass">Bine ai venit la clasa ta: %s.
+Aici este link-ul pentru a accesa clasa.</string>
+  <string name="invitationToClass">Ești invitat să te alături clasei \"%s\" ca și student.</string>
+  <string name="clickToViewInvitation">Dați click pe link pentru a vedea invitaţia:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">O invitație în așteptare</item>
+    <item quantity="few">%s invitații în așteptare</item>
+    <item quantity="other">%s invitații în așteptare</item>
+  </plurals>
+  <string name="noPendingInvitations">Nu ai nici o invitație</string>
+  <string name="onlyVisibleToTeachers">Vizibil doar profesorilor de clasă</string>
+  <string name="lastActiveDate">Acrtiv</string>
+  <string name="managed">Manageriat</string>
+  <string name="thisStudentAccountIsManaged">Contul studentului este manageriat</string>
+  <string name="upgradeFromManaged">Actualizare de la manageriat la autonom</string>
+  <string name="release">Eliberează</string>
+  <string name="releaseTheAccount">Eliberează contul pentru ca studentul să poata manageria singur contul.</string>
+  <string name="releaseDesc1">Un cont eliberat nu poate fi facut din nou manageriat. Studentul poate să activeze modul copil și să reseteze parola singur.</string>
+  <string name="releaseDesc2">Studentul va rămâne în clasă dupa e contul lui este eliberat.</string>
+  <string name="realUniqueEmail">Adresa de e-mail unică și reală a studentului. Vom trimite un e-mail de confirmare la acea adresă, cu un link-ul pentru a elibera contul.</string>
+  <string name="teachers">Profesori</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="few">%s profesori</item>
+    <item quantity="other">%s profesori</item>
+  </plurals>
 </resources>
