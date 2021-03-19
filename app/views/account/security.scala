@@ -44,7 +44,7 @@ object security {
             )
           ),
           td(cls := "info")(
-            span(cls := "ip")(s.session.ip),
+            span(cls := "ip")(s.session.ip.value),
             " ",
             span(cls := "location")(s.location.map(_.toString)),
             p(cls := "ua")(s.session.ua),

@@ -1,6 +1,7 @@
 package lila.common
 
 import scala.concurrent.duration._
+import io.lemonlabs.uri.{ IpV4, IpV6 }
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
@@ -19,22 +20,33 @@ object AssetVersion {
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
-case class IpAddress(value: String) extends AnyVal with StringValue {
-  def blockable =
-    value != "127.0.0.1" && value != "0:0:0:0:0:0:0:1" && // loopback
-      value != "0.0.0.0" && value != "0:0:0:0:0:0:0:0"    // unspecified
+sealed trait IpAddress {
+  protected def unspecified: Boolean
+  protected def loopback: Boolean
+  def blockable = !unspecified && !loopback
+  def value: String
+  override def toString = value
+}
+case class IpV4Address(a: Byte, b: Byte, c: Byte, d: Byte) extends IpAddress {
+  def unspecified = a == 0 && b == 0 && c == 0 && d == 0
+  def loopback    = a == 127 && b == 0 && c == 0 && d == 1
+  def value       = IpV4(a, b, c, d).value
+}
+case class IpV6Address(a: Char, b: Char, c: Char, d: Char, e: Char, f: Char, g: Char, h: Char)
+    extends IpAddress {
+  def unspecified = a == 0 && b == 0 && c == 0 && d == 0 && e == 0 && e == 0 && f == 0 && g == 0 && h == 0
+  def loopback    = a == 0 && b == 0 && c == 0 && d == 0 && e == 0 && e == 0 && f == 0 && g == 0 && h == 1
+  def value       = IpV6(a, b, c, d, e, f, g, h).value.stripPrefix("[").stripSuffix("]")
 }
 
 object IpAddress {
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Regex =
-    """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
-  // ipv6 address in standard form (no compression, no leading zeros!)
-  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}+):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
-
-  def from(str: String): Option[IpAddress] = {
-    ipv4Regex.matches(str) || ipv6Regex.matches(str)
-  } option IpAddress(str)
+  def from(str: String): Option[IpAddress] =
+    IpV4.parseOption(str).map(ip => IpV4Address(ip.octet1, ip.octet2, ip.octet3, ip.octet4)) orElse IpV6
+      .parseOption(f"[$str]")
+      .map(ip =>
+        IpV6Address(ip.piece1, ip.piece2, ip.piece3, ip.piece4, ip.piece5, ip.piece6, ip.piece7, ip.piece8)
+      )
+  def unchecked(str: String): IpAddress = from(str).get
 }
 
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue

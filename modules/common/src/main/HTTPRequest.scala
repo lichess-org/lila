@@ -52,7 +52,7 @@ object HTTPRequest {
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
-    IpAddress {
+    IpAddress.unchecked {
       req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
     }
 

@@ -7,6 +7,7 @@ object ThreadLocalRandom {
   import java.util.concurrent.ThreadLocalRandom.current
 
   def nextBoolean(): Boolean              = current.nextBoolean()
+  def nextByte(): Byte                    = current.nextInt(256).toByte
   def nextBytes(bytes: Array[Byte]): Unit = current.nextBytes(bytes)
   def nextDouble(): Double                = current.nextDouble()
   def nextFloat(): Float                  = current.nextFloat()

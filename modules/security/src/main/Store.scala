@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.{ ApiVersion, HTTPRequest, IpAddress, IpV4Address, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
 import reactivemongo.api.bson.BSONNull
@@ -67,7 +67,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
           "ip" -> (HTTPRequest.ipAddress(req) match {
             // randomize stresser IPs to relieve mod tools
             case ip if ip == localIp =>
-              IpAddress(s"127.0.${ThreadLocalRandom nextInt 256}.${ThreadLocalRandom nextInt 256}")
+              IpV4Address(127, 0, ThreadLocalRandom.nextByte(), ThreadLocalRandom.nextByte())
             case ip => ip
           }),
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
