@@ -33,4 +33,10 @@
   <string name="viewBestRuns">Näytä parhaat sarjat</string>
   <string name="bestRunOfDay">Päivän paras sarja</string>
   <string name="runs">Sarjoja</string>
+  <string name="getReady">Ole valmiina!</string>
+  <string name="waitingForMorePlayers">Odotetaan lisää pelaajia mukaan...</string>
+  <string name="raceComplete">Kisa on päättynyt!</string>
+  <string name="spectating">Katsomassa</string>
+  <string name="joinTheRace">Liity kisaan!</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Luo uusi peli</string>
 </resources>
