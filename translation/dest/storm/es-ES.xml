@@ -33,4 +33,10 @@
   <string name="viewBestRuns">Ver las mejores rondas</string>
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>
+  <string name="getReady">¡Prepárate!</string>
+  <string name="waitingForMorePlayers">Esperando a que se unan más jugadores…</string>
+  <string name="raceComplete">¡Carrera completada!</string>
+  <string name="spectating">Observando</string>
+  <string name="joinTheRace">¡Únete a la carrera!</string>
+  <string name="yourRankX">Tu puntuación: %s</string>
 </resources>
