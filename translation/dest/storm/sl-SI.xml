@@ -16,4 +16,14 @@
   <string name="viewBestRuns">Ogled najboljših iger</string>
   <string name="bestRunOfDay">Najboljša igra dneva</string>
   <string name="runs">Igre</string>
+  <string name="getReady">Pripravite se!</string>
+  <string name="waitingForMorePlayers">Čakanje, da se pridruži več igralcev...</string>
+  <string name="raceComplete">Dirka končana!</string>
+  <string name="spectating">Gledanje</string>
+  <string name="joinTheRace">Pridruži se dirki!</string>
+  <string name="yourRankX">Tvoj rang: %s</string>
+  <string name="waitForRematch">Počakajte na revanšo</string>
+  <string name="nextRace">Naslednja dirka</string>
+  <string name="joinRematch">Pridružite se revanši</string>
+  <string name="waitingToStart">Čakanje na začetek</string>
 </resources>
