@@ -31,4 +31,7 @@
   <string name="viewBestRuns">Vider le melior essayos</string>
   <string name="bestRunOfDay">Melior essayo del die</string>
   <string name="runs">Essayos</string>
+  <string name="spectating">Spectante</string>
+  <string name="yourRankX">Tu classification: %s</string>
+  <string name="createNewGame">Crear un nove partita</string>
 </resources>
