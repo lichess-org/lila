@@ -42,5 +42,6 @@
   <string name="waitForRematch">Warte auf die Revanche</string>
   <string name="nextRace">Nächstes Rennen</string>
   <string name="joinRematch">Nimm an der Revanche teil</string>
+  <string name="waitingToStart">Warte auf den Start</string>
   <string name="createNewGame">Erstelle ein neues Spiel</string>
 </resources>
