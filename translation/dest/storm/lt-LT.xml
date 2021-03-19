@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Norėdami pradėti padarykite ėjimą</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Visose užduotyse žaidžiate baltaisiais</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Visose užduotyse žaidžiate juodaisiais</string>
   <string name="puzzlesSolved">išspręsta užduočių</string>
   <string name="newDailyHighscore">Naujas kasdieninis rekordas!</string>
   <string name="newWeeklyHighscore">Naujas savaitinis rekordas!</string>
