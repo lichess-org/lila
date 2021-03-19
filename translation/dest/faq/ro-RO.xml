@@ -73,6 +73,11 @@ Verificarea ca fiind un jucator cu titlu pe Lichess, iți va da acces să joci i
   <string name="verificationForm">formularul de verificare</string>
   <string name="canIbecomeLM">Pot să primesc titlul de Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Nu.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Acest titlu onorific este neoficial și există doar pe Lichess.
+
+Îl acorăm foarte rar jucatorilor foarte buni care sunt locuitori buni ai Lichess, la inițiativa noastră. Nu primești titlul LM, titlul LM te primește pe tine. Dacă ești calificat, o să primești un mesaj de la noi cu privire la el, și alegerea de a-l accepta sau nu.
+
+Nu cere titlul LM.</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>
