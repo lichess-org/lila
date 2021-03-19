@@ -131,7 +131,7 @@
   <string name="findAWayToCastleQueenSide">Намерете начин да
 направите дамска рокада!</string>
   <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
-  <string name="enPassant">Ан-пасан</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Специалният ход на пешката</string>
   <string name="enPassantIntro">Когато противниковата пионка бъде преместена с две полета напред, тя може да се вземе, все едно е преместена само веднъж.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Черните току-що преместиха
