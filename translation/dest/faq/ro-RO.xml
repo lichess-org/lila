@@ -120,4 +120,7 @@ Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (
   <string name="enableZenMode">Activează modul Zen în %1$s, sau apăsând tasta %2$s în timpul jocului.</string>
   <string name="displayPreferences">setările de afișare</string>
   <string name="connexionLostCanIGetMyRatingBack">Am pierdut un joc din cauza lagului/deconectării. Pot sa-mi iau punctele înapoi?</string>
+  <string name="howToThreeDots">Cum să...</string>
+  <string name="enableDisableNotificationPopUps">Activați sau dezactivați ferestrele de notificare?</string>
+  <string name="viewSiteInformationPopUp">Vezi ferestra de informații a siteului</string>
 </resources>
