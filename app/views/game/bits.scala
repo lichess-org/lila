@@ -48,7 +48,6 @@ object bits {
           s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
         case v => routes.Page.variant(v.key).url
       }),
-      rel := "nofollow",
       targetBlank,
       title := variant.title
     )(name)

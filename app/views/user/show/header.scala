@@ -256,7 +256,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   },
                   !hideTroll option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
-                      a(href := link.url, targetBlank, rel := "nofollow")(link.site.name)
+                      a(href := link.url, targetBlank, noFollow)(link.site.name)
                     }
                   ),
                   div(cls := "teams col2")(

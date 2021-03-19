@@ -29,7 +29,7 @@ object index {
       main(cls := "box page-small search")(
         h1(advancedSearch()),
         st.form(
-          rel := "nofollow",
+          noFollow,
           cls := "box__pad search__form",
           action := s"${routes.Search.index()}#results",
           method := "GET"
@@ -75,7 +75,7 @@ object index {
         div(cls := "search__result", id := "results")(
           paginator.map { pager =>
             val permalink =
-              a(cls := "permalink", href := routes.Search.index(), rel := "nofollow")("Permalink")
+              a(cls := "permalink", href := routes.Search.index(), noFollow)("Permalink")
             if (pager.nbResults > 0)
               frag(
                 div(cls := "search__status box__pad")(

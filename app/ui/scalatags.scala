@@ -149,6 +149,8 @@ trait ScalatagsExtensions {
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
   }
 
+  val noFollow = rel := "nofollow"
+
   def ariaTitle(v: String): Modifier = (t: Builder) => {
     val value = Builder.GenericAttrValueSource(v)
     t.setAttr("title", value)
