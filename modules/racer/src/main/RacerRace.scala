@@ -22,7 +22,7 @@ case class RacerRace(
   def player(id: RacerPlayer.Id) = players.find(_.id == id)
 
   def join(id: RacerPlayer.Id): Option[RacerRace] =
-    !hasStarted && !has(id) && players.sizeIs <= RacerRace.maxPlayers option
+    !hasStarted && !has(id) && players.sizeIs < RacerRace.maxPlayers option
       copy(players = players :+ RacerPlayer.make(id))
 
   def registerScore(playerId: RacerPlayer.Id, score: Int): Option[RacerRace] =
