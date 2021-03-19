@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Bele figure igrate v vseh ugankah</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Črne figure igrate v vseh ugankah</string>
   <string name="score">Rezultat</string>
   <string name="moves">Poteze</string>
   <string name="accuracy">Točnost</string>
