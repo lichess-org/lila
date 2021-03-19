@@ -12,7 +12,7 @@ object embed {
 
   import EmbedConfig.implicits._
 
-  def apply(daily: DailyPuzzle.Html)(implicit config: EmbedConfig) =
+  def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "lishogi.org shogi puzzle",
       cssModule = "tv.embed"
@@ -27,7 +27,7 @@ object embed {
       jsAt("compiled/puzzle.js", false)
     )
 
-  def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) = a(
+  def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
     href := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
@@ -35,7 +35,7 @@ object embed {
     div(cls := "vstext")(
       trans.puzzleOfTheDay(),
       br,
-      daily.color.fold(trans.blackPlays, trans.whitePlays)()
+      daily.puzzle.color.fold(trans.blackPlays, trans.whitePlays)()
     )
   )
 }

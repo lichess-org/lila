@@ -53,13 +53,20 @@ final class Puzzle(
   def daily =
     Open { implicit ctx =>
       NoBot {
-        OptionFuResult(env.puzzle.daily.get flatMap {
-          _.map(_.id) ?? env.puzzle.api.puzzle.find
-        }) { puzzle =>
+        OptionFuResult(env.puzzle.daily.get) { daily =>
           negotiate(
-            html = renderShow(puzzle, PuzzleTheme.mix),
-            api = v => renderJson(puzzle, PuzzleTheme.mix, apiVersion = v.some) dmap { Ok(_) }
+            html = renderShow(daily.puzzle, PuzzleTheme.mix),
+            api = v => renderJson(daily.puzzle, PuzzleTheme.mix, apiVersion = v.some) dmap { Ok(_) }
           ) map NoCache
+        }
+      }
+    }
+
+  def apiDaily =
+    Action.async { implicit req =>
+      env.puzzle.daily.get flatMap {
+        _.fold(NotFound.fuccess) { daily =>
+          JsonOk(env.puzzle.jsonView(daily.puzzle, PuzzleTheme.mix, none, none)(reqLang))
         }
       }
     }
