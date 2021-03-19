@@ -105,4 +105,12 @@ Un alt punct de ținut minte este că, cu timpul, intervalul de încredere va cr
   <string name="notPlayedRecently">Jucătorul nu a jucat suficiente partide recente. În funcție de numărul de jocuri pe care le-ai jucat, ar putea dura aproximativ un an de inactivitate pentru ca scorul tău să devină din nou provizoriu.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concret, înseamnă că deviația de la Glicko-2 este mia mare de 110. Deviația este nivelul de încredere pe care sistemul îl are in scor. Mai mică deviația, mai stabil scorul.</string>
   <string name="howDoLeaderoardsWork">Cum funcționează scorurile și clasamentul?</string>
+  <string name="inOrderToAppearsYouMust">Pentru a intra în %1$s trebuie să:</string>
+  <string name="ratingLeaderboards">clasamentul de scor</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">să fi jucat cel puțin 30 de meciuri oficiale într-un scor dat,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">să fi jucat un meci oficial în ultima săptămână pentru acest scor,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">să ai o deviație mai mică de %1$s, în șah standard, și mai mică de %2$s în variante,</string>
+  <string name="beInTopTen">să fii top 10 în acest scor.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A doua cerință este pentru ca jucătorii care nu își mai folosesc contul să nu mai fie în clasament.</string>
+  <string name="whyAreRatingHigher">De ce scorurile mai mari comparativ cu alte siteuri și organizații, cum ar fi FIDE, USCF și ICC?</string>
 </resources>
