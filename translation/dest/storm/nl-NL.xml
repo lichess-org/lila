@@ -33,4 +33,8 @@
   <string name="viewBestRuns">Bekijk beste sessies</string>
   <string name="bestRunOfDay">Beste sessie van de dag</string>
   <string name="runs">Sessies</string>
+  <string name="getReady">Houd je gereed!</string>
+  <string name="spectating">Toeschouwer</string>
+  <string name="joinTheRace">Doe mee aan de wedstrijd!</string>
+  <string name="nextRace">Volgende wedstrijd</string>
 </resources>
