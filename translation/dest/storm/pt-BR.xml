@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mova para começar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Você joga as peças brancas em todos os quebra-cabeças</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Você joga as peças pretas em todos os quebra-cabeças</string>
   <string name="puzzlesSolved">quebra-cabeças resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
