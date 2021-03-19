@@ -37,4 +37,15 @@
   <string name="viewBestRuns">Посмотреть лучшие попытки</string>
   <string name="bestRunOfDay">Лучшая попытка дня</string>
   <string name="runs">Серий</string>
+  <string name="getReady">Приготовьтесь!</string>
+  <string name="waitingForMorePlayers">Ожидание других игроков...</string>
+  <string name="raceComplete">Гонка завершена!</string>
+  <string name="spectating">Наблюдение</string>
+  <string name="joinTheRace">Присоединиться к гонке!</string>
+  <string name="yourRankX">Ваше место: %s</string>
+  <string name="waitForRematch">Ожидание реванша</string>
+  <string name="nextRace">Следующая гонка</string>
+  <string name="joinRematch">Присоединиться к реваншу</string>
+  <string name="waitingToStart">Ожидание начала</string>
+  <string name="createNewGame">Создать новую игру</string>
 </resources>
