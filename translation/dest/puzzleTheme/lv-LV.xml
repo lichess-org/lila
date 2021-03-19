@@ -22,7 +22,7 @@
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Graušana</string>
+  <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
   <string name="doubleBishopMate">Dubultlaidņa mats</string>
   <string name="doubleBishopMateDescription">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>

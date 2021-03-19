@@ -22,7 +22,7 @@
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">मुंहतोड़</string>
+  <string name="crushing">मुंहतोड़</string>
   <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">डबल बिशप मात</string>
   <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर बिशप मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>

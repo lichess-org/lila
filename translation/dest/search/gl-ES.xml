@@ -2,13 +2,24 @@
 <resources>
   <string name="search">Buscar</string>
   <string name="advancedSearch">Busca avanzada</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Busca en %s partida</item>
+    <item quantity="other">Busca en %s partidas</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Atopouse unha partida</item>
+    <item quantity="other">Atopáronse %s partidas</item>
+  </plurals>
   <string name="opponentName">Nome do rival</string>
   <string name="loser">Perdedor</string>
   <string name="from">Dende</string>
   <string name="to">Ata</string>
   <string name="humanOrComputer">Sen importar se o rival é humano ou máquina</string>
   <string name="aiLevel">Nivel da IA</string>
+  <string name="source">Fonte</string>
+  <string name="nbTurns">Número de quendas</string>
   <string name="result">Resultado</string>
+  <string name="winnerColor">Cor do gañador</string>
   <string name="date">Data</string>
   <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análise</string>

@@ -19,7 +19,7 @@
   <string name="castlingDescription">För din kung i säkerhet, och använd ditt torn till att angripa.</string>
   <string name="capturingDefender">Ta försvararen</string>
   <string name="capturingDefenderDescription">Ta en pjäs som försvarar en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Krossande</string>
+  <string name="crushing">Krossande</string>
   <string name="crushingDescription">Upptäck motståndares blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
   <string name="dovetailMateDescription">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
   <string name="equality">Utjämning</string>

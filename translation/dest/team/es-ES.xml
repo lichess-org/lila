@@ -43,7 +43,7 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="leadersChat">Chat de líderes</string>
   <string name="closeTeam">Cerrar equipo</string>
   <string name="closeTeamDescription">Cierra el equipo para siempre.</string>
-  <string name="teamPassword">Contraseña de equipo</string>
+  <string name="teamPassword">Contraseña del equipo</string>
   <string name="teamPasswordDescriptionForLeader">(Opcional) Una contraseña que los nuevos miembros deben saber para unirse a este equipo.</string>
   <string name="incorrectTeamPassword">Contraseña del equipo incorrecta.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>

@@ -181,7 +181,7 @@
   <string name="daysPerTurn">Laethanta sa bheart</string>
   <string name="oneDay">Lá amháin</string>
   <plurals name="nbDays">
-    <item quantity="one">%s lá</item>
+    <item quantity="one">Lá amháin</item>
     <item quantity="two">%s lá</item>
     <item quantity="few">%s lá</item>
     <item quantity="many">%s lá</item>

@@ -10,7 +10,7 @@
   <string name="castlingDescription">Sklonite kralja na sigurno i razvijte topa za napad.</string>
   <string name="capturingDefender">Uzmite figuru koja brani drugu</string>
   <string name="capturingDefenderDescription">Uklanjanje figure koja je ključna za odbranu druge figure, što omogućuje da sada nebranjena figura bude uzeta u sljedećem potezu.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Uništavanje</string>
+  <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
   <string name="equality">Izjednačenost</string>
   <string name="equalityDescription">Vratite se iz izgubljene pozicije i osigurajte remi ili izjednačenu poziciju (≤ 200 cp)</string>

@@ -62,6 +62,11 @@
     <item quantity="one">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
     <item quantity="other">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">সুইস টুর্নামেন্ট শেষ করেছেন %s এর ভেতর</item>
+    <item quantity="other">সুইস টুর্নামেন্ট শেষ করেছেন %s এর ভেতর</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">পদমর্যাদা পেয়েছেন #%1$s এর ভেতর %2$s</string>
   <string name="signedUp">Lichess.org সাইন আপ করুন</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">যুক্ত হয়েছে %s দল</item>

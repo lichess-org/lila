@@ -22,7 +22,7 @@
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Écrasant</string>
+  <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
   <string name="doubleBishopMate">Mat des deux Fous</string>
   <string name="doubleBishopMateDescription">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>

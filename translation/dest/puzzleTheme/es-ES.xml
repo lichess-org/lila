@@ -22,7 +22,7 @@
   <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza ahora indefensa en el siguiente movimiento.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Aplastante</string>
+  <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja decisiva. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
@@ -65,7 +65,7 @@
   <string name="masterDescription">Ejercicios de partidas de jugadores titulados.</string>
   <string name="masterVsMaster">Partidas entre maestros</string>
   <string name="masterVsMasterDescription">Ejercicios de partidas entre jugadores titulados.</string>
-  <string name="mate">Mate</string>
+  <string name="mate">Jaque mate</string>
   <string name="mateDescription">Gana la partida con estilo.</string>
   <string name="mateIn1">Mate en 1</string>
   <string name="mateIn1Description">Dar jaque mate en un movimiento.</string>

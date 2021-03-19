@@ -12,6 +12,8 @@
   <string name="noTeamFound">কোন দল পাওয়া যায় নি</string>
   <string name="joinTeam">দলে যোগ দিন</string>
   <string name="quitTeam">দল ত্যাগ করুন</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">যদি টিক দেওয়া থাকে, তাহলে খেলোয়াড়দের আপনার দলে প্রবেশের জন্য মেসেজ লিখতে হবে, যার মধ্য থেকে আপনি বাদ দেবেন বা বাছাই করবেন.</string>
   <plurals name="teamLeaders">
     <item quantity="one">দলনেতা</item>
     <item quantity="other">দলনেতারা</item>
@@ -39,4 +41,10 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">আপনি এইসব অনুষ্ঠিতব্য টুর্নামেন্টের কোনোটির লিংক তৈরী করতে পারেন?</string>
   <string name="usersWhoCanManageThisTeam">ব্যবহারকারীদের মধ্যে যারা এই দলের ব্যবস্থাপনা করতে পারেন</string>
   <string name="leadersChat">দলনেতাদের কথোপকথন</string>
+  <string name="closeTeam">দল বাতিল করুন</string>
+  <string name="closeTeamDescription">সারাজীবনের জন্য দল বন্ধ করুন.</string>
+  <string name="teamPassword">দলের পাসওয়ার্ড</string>
+  <string name="teamPasswordDescriptionForLeader">(বাধ্যতামূলক নয়) পাসওয়ার্ড দিন যা ছাড়া নতুন সদস্য আপনার দলে প্রবেশ করতে পারবে না.</string>
+  <string name="incorrectTeamPassword">দলের পাসওয়ার্ড ভুল দিয়েছেন.</string>
+  <string name="teamAlreadyExists">এই নামে আরেকটি দল রয়েছে.</string>
 </resources>

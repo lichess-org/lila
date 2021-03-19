@@ -22,7 +22,7 @@
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvaren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
-  <string name="crushing" comment="crushing&#10;&#10;Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)">Knusende</string>
+  <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
