@@ -6,6 +6,7 @@
   <string name="advantageDescription">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Matul Anastasiei</string>
   <string name="anastasiaMateDescription">Un cal şi o tură sau o regină lucrează împreună pentru a prinde regele opus între marginea tablei şi o piesă de culoarea regelui.</string>
+  <string name="arabianMate">Mat arab</string>
   <string name="attackingF2F7">Atac pe f2 sau f7</string>
   <string name="attackingF2F7Description">Un atac concentrat pe pionul f2 sau f7, cum ar fi în deschiderea ficat prăjit (atacul Fegatello).</string>
   <string name="attraction">Atragere</string>
