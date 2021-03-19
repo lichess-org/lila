@@ -35,5 +35,12 @@
   <string name="runs">Essais</string>
   <string name="getReady">Soyez prêts!</string>
   <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
+  <string name="raceComplete">Course terminée!</string>
   <string name="spectating">Observer</string>
+  <string name="joinTheRace">Participez!</string>
+  <string name="yourRankX">Votre classement : %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Attendre une offre de revanche</string>
+  <string name="nextRace">Prochaine course</string>
+  <string name="waitingToStart">Attendre le départ de la course</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Créer une nouvelle course</string>
 </resources>
