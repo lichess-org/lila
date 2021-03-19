@@ -41,5 +41,7 @@
   <string name="yourRankX">Вашето класиране: %s</string>
   <string name="waitForRematch">Изчакайте за реванш</string>
   <string name="nextRace">Следващо състезание</string>
+  <string name="joinRematch">Започнете реванша</string>
+  <string name="waitingToStart">Изчакване на започването</string>
   <string name="createNewGame">Създайте нова игра</string>
 </resources>
