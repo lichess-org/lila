@@ -88,4 +88,6 @@ Nu cere titlul LM.</string>
   <string name="wayOfBerserkExplanation">Pentru a-l obține, hiimgosu a înnebunit și s-a provocat să câştige 100%% din jocurile de %s.</string>
   <string name="aHourlyBulletTournament">turneu de o oră de Bullet</string>
   <string name="goldenZeeExplanation">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
+  <string name="lichessRatings">Scoruri Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Ce sistem de scor folosește Licehss?</string>
 </resources>
