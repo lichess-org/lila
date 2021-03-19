@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Miscă-te ca să începi</string>
   <string name="puzzlesSolved">probleme rezolvate</string>
+  <string name="newDailyHighscore">Scor de top nou zilnic!</string>
+  <string name="newWeeklyHighscore">Scor de top nou săptămânal!</string>
+  <string name="newMonthlyHighscore">Scor de top nou lunar!</string>
+  <string name="newAllTimeHighscore">Scor nou de top din toate timpurile!</string>
+  <string name="previousHighscoreWasX">Scorul de top anterior a fost %s</string>
   <string name="playAgain">Joacă din nou</string>
+  <plurals name="xRuns">
+    <item quantity="one">O încercare</item>
+    <item quantity="few">%s încercări</item>
+    <item quantity="other">%s încercări</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">A jucat o încercare de %2$s</item>
+    <item quantity="few">A jucat %1$s încercări de %2$s</item>
+    <item quantity="other">A jucat %1$s încercări de %2$s</item>
+  </plurals>
   <string name="highscoreX">Scor de top: %s</string>
   <string name="score">Scor</string>
   <string name="moves">Mutări</string>
@@ -11,7 +27,7 @@
   <string name="timePerMove">Timp per mutare</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Cel mai bun rezolvat</string>
   <string name="puzzlesPlayed">Porbleme de șah jucate</string>
-  <string name="newRun">Mișcare nouă (tasta: Space)</string>
+  <string name="newRun">Încercare nouă (tasta: Space)</string>
   <string name="endRun">Încheie încercarea (tasta: Enter)</string>
   <string name="highscores">Scoruri de top</string>
   <string name="viewBestRuns">Vezi cele mai bune încercări</string>
