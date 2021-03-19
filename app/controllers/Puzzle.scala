@@ -66,7 +66,7 @@ final class Puzzle(
     Action.async { implicit req =>
       env.puzzle.daily.get flatMap {
         _.fold(NotFound.fuccess) { daily =>
-          JsonOk(env.puzzle.jsonView(daily.puzzle, PuzzleTheme.mix, none, none)(reqLang))
+          JsonOk(env.puzzle.jsonView(daily.puzzle, PuzzleTheme.mix, none, none, withTheme = false)(reqLang))
         }
       }
     }

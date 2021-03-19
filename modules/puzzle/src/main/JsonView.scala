@@ -17,7 +17,13 @@ final class JsonView(
 
   import JsonView._
 
-  def apply(puzzle: Puzzle, theme: PuzzleTheme, replay: Option[PuzzleReplay], user: Option[User])(implicit
+  def apply(
+      puzzle: Puzzle,
+      theme: PuzzleTheme,
+      replay: Option[PuzzleReplay],
+      user: Option[User],
+      withTheme: Boolean = true
+  )(implicit
       lang: Lang
   ): Fu[JsObject] = {
     gameJson(
@@ -28,20 +34,24 @@ final class JsonView(
       Json
         .obj(
           "game"   -> gameJson,
-          "puzzle" -> puzzleJson(puzzle),
-          "theme" -> Json
-            .obj(
-              "key" -> theme.key,
-              "name" -> {
-                if (theme == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
-                else theme.name.txt()
-              },
-              "desc" -> theme.description.txt()
-            )
-            .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
+          "puzzle" -> puzzleJson(puzzle)
         )
         .add("user" -> user.map(userJson))
         .add("replay" -> replay.map(replayJson))
+        .add(
+          "theme",
+          withTheme option
+            Json
+              .obj(
+                "key" -> theme.key,
+                "name" -> {
+                  if (theme == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
+                  else theme.name.txt()
+                },
+                "desc" -> theme.description.txt()
+              )
+              .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
+        )
     }
   }
 
