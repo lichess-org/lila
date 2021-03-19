@@ -14,7 +14,7 @@
   <string name="accuracy">الدقة</string>
   <string name="time">الوقت</string>
   <string name="timePerMove">الوقت لكل نقلة</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">تقييم أصعب لغز تم حله</string>
+  <string name="highestSolved">تقييم أصعب لغز تم حله</string>
   <string name="puzzlesPlayed">الألغاز الملعوبة</string>
   <string name="bestRunOfDay">أفضل جولة في اليوم</string>
   <string name="runs">جولات</string>
