@@ -20,10 +20,10 @@
   <string name="score">Ұпай</string>
   <string name="moves">Жүрістер</string>
   <string name="accuracy">Дәлдік</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="combo">Комбо</string>
   <string name="time">Уақыт</string>
   <string name="timePerMove">Бір жүріс уақыты</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Шешілген ең жоғарғы рейтинг</string>
+  <string name="highestSolved">Шешілген ең жоғарғы рейтинг</string>
   <string name="puzzlesPlayed">Ойналған жұмбақтар</string>
   <string name="newRun">Жаңа кезең (жылдам перне: бос орын)</string>
   <string name="endRun">Кезеңді аяқтау (жылдам перне: Enter)</string>
