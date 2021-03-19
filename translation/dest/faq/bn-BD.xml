@@ -14,7 +14,15 @@
   <string name="threefoldRepetition">তিনবার একই চাল</string>
   <string name="threefoldRepetitionLowerCase">তিনবার একই চাল</string>
   <string name="positions">পজিশন</string>
+  <string name="guidelines">নিয়মকানুন</string>
+  <string name="canIChangeMyUsername">আমি কি আমার ইউজারনেম পরিবর্তন করতে পারবো?</string>
+  <string name="usernamesCannotBeChanged">না, ইউজারনেম কখনোই পরিবর্তন করতে পারবেন না প্রোগ্রামিং ডেটাবেজ এবং কিছু টেকনিকাল কারনে। কারন ইউজারনেম ওয়েবসাইটের প্রোগ্রামের অনেকগুলো জায়গায় ব্যাবহৃত হচ্ছে: ডেটাবেজ, তথ্য সংরক্ষন, পরিসংখ্যান এবং অনেক গুলো মানুষের মনেও আপনার একাউন্টের ইউজার নেম রয়েছে। সর্বচ্চ নিজের নামের অক্ষর ছোটো থেকে বড় করতে পারবেন তাও সেটা জীবনে একবার।.</string>
+  <string name="uniqueTrophies">অনন্য ট্রফি</string>
+  <string name="ownerUniqueTrophies">লিচেজের ইতিহাসের ব্যাতিক্রম ট্রফি, যা অন্যদের থেকে আলাদা %1$s এবং যা এদেরই রয়েছে.</string>
+  <string name="aHourlyBulletTournament">ঘন্টাখানেকের বুলেট টুর্নামেন্ট</string>
   <string name="howToHideRatingWhilePlaying">খেলার সময় কিভাবে রেটিংস দেখার সিস্টেম বন্ধ রেখে খেলবো?</string>
+  <string name="enableZenMode">জেন মুড চালু রেখে %1$s, অথবা গেমের মধ্যে %2$s চেপে.</string>
+  <string name="displayPreferences">দেখানোর অগ্রাধিকারগুলি</string>
   <string name="connexionLostCanIGetMyRatingBack">একটি গেমে হেরেছি ইন্টারনেট সংযোগ বিচ্ছিন/খারাপ থাকার কারনে. হেরে যাওয়া পয়েন্ট ফেরত দেওয়া হবে?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">অপ্রত্যাশিত হলেও, ইন্টারনেট সংযোগ বিচ্ছিনো হওয়ার কারনে যেসব গেম হেরে যাওয়ায় আপনার রেটিংস হারান তা ফেরত পাবেন না। আমারাও গেম খেলের সময় একই সমস্যা ফেস করে থাকি এবং সবার জন্য একই রুলস। যদিও এরকম ঘটনা লাখে একটা ঘটে থাকে। আরেকটি ঘোষনা, যদি আমরা কারিগরি উন্নয়নের জন্য ওয়েবসাইট রি-স্টার্ট দিই এবং এর জন্য যেনো আপনি হেরে পয়েন্ট লস না করেন তার জন্য গেমটাই কেটে দেওয়া হয়।.</string>
   <string name="howToThreeDots">কিভাবে...</string>
