@@ -38,12 +38,11 @@ object mini {
     )
   }
 
-  def noCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
+  def noCtx(pov: Pov, tv: Boolean = false): Tag = {
     val game   = pov.game
     val isLive = game.isBeingPlayed
     a(
       href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      blank option targetBlank,
       cls := s"mini-game mini-game-${game.id} mini-game--init is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
       dataLive := isLive.option(game.id),
       renderState(pov)

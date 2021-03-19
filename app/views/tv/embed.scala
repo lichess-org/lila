@@ -17,7 +17,7 @@ object embed {
     )(
       dataStreamUrl,
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
-        views.html.game.mini.noCtx(pov, tv = true, blank = true)
+        views.html.game.mini.noCtx(pov, tv = true)(targetBlank)
       ),
       cashTag,
       jsModule("tvEmbed")
