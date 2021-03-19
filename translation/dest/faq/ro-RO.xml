@@ -64,7 +64,15 @@ Vezi %3$s pe această mutare pentru a te putea antrena cu ea.</string>
   <string name="accounts">Conturi</string>
   <string name="titlesAvailableOnLichess">Ce titluri sunt pe Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess recunoaște toate Titlurile FIDE opțiunute din jocul (peste masă), de asemena și %1$s. Aici este o listă a titlurilor FIDE:</string>
+  <string name="showYourTitle">Dacă deții un titlu OTB, poți aplica să apară pe contul tau completând %1$s, incluzănd o imagine clară a documentului/cardului de identificare și un selfie cu tine ținând documentul/cardul.
+
+Verificarea ca fiind un jucator cu titlu pe Lichess, iți va da acces să joci in evenimente de tip Tilted Arena.
+
+În final, este un titlu onorific %2$s.</string>
   <string name="asWellAsManyNMtitles">multe tiluri naționale de maestru</string>
+  <string name="verificationForm">formularul de verificare</string>
+  <string name="canIbecomeLM">Pot să primesc titlul de Lichess Master (LM)?</string>
+  <string name="noUpperCaseDot">Nu.</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
   <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>
