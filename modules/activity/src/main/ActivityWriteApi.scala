@@ -81,6 +81,17 @@ final class ActivityWriteApi(
         .void
     }
 
+  def racer(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.racer -> { ~a.racer + score }),
+          upsert = true
+        )
+        .void
+    }
+
   def learn(userId: User.ID, stage: String) =
     update(userId) { a =>
       a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some

@@ -10,6 +10,7 @@ import lila.socket.Socket
 import lila.storm.StormPuzzle
 import lila.storm.StormSelector
 import lila.user.User
+import lila.common.Bus
 
 final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: CacheApi)(implicit
     ec: ExecutionContext,
@@ -86,6 +87,9 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players foreach { player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
+        player.userId.ifTrue(player.score > 0) foreach { userId =>
+          Bus.publish(lila.hub.actorApi.racer.RacerRun(userId, player.score), "racerRun")
+        }
       }
       publish(race)
     }

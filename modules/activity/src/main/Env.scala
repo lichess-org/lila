@@ -40,6 +40,9 @@ final class Env(
     },
     "stormRun" -> { case lila.hub.actorApi.storm.StormRun(userId, score) =>
       write.storm(userId, score).unit
+    },
+    "racerRun" -> { case lila.hub.actorApi.racer.RacerRun(userId, score) =>
+      write.racer(userId, score).unit
     }
   )
 

@@ -84,6 +84,11 @@ private object BSONHandlers {
     def writes(w: lila.db.BSON.Writer, s: Storm) = BSONDocument("r" -> s.runs, "s" -> s.score)
   }
 
+  implicit lazy val racerHandler = new lila.db.BSON[Racer] {
+    def reads(r: lila.db.BSON.Reader)            = Racer(r.intD("r"), r.intD("s"))
+    def writes(w: lila.db.BSON.Writer, r: Racer) = BSONDocument("r" -> r.runs, "s" -> r.score)
+  }
+
   implicit private lazy val learnHandler =
     typedMapHandler[Learn.Stage, Int](Iso.string(Learn.Stage.apply, _.value))
       .as[Learn](Learn.apply, _.value)
@@ -132,6 +137,7 @@ private object BSONHandlers {
     val posts    = "p"
     val puzzles  = "z"
     val storm    = "m"
+    val racer    = "c"
     val learn    = "l"
     val practice = "r"
     val simuls   = "s"
@@ -155,6 +161,7 @@ private object BSONHandlers {
         posts = r.getO[Posts](posts),
         puzzles = r.getO[Puzzles](puzzles),
         storm = r.getO[Storm](storm),
+        racer = r.getO[Racer](racer),
         learn = r.getO[Learn](learn),
         practice = r.getO[Practice](practice),
         simuls = r.getO[Simuls](simuls),
@@ -174,6 +181,7 @@ private object BSONHandlers {
         posts    -> o.posts,
         puzzles  -> o.puzzles,
         storm    -> o.storm,
+        racer    -> o.racer,
         learn    -> o.learn,
         practice -> o.practice,
         simuls   -> o.simuls,
