@@ -35,4 +35,10 @@
   <string name="viewBestRuns">Skatīt labākos mēģinājumus</string>
   <string name="bestRunOfDay">Dienas labākais mēģinājums</string>
   <string name="runs">Mēģinājumi</string>
+  <string name="getReady">Sagatavojieties!</string>
+  <string name="waitingForMorePlayers">Gaida papildu spēlētāju pievienošanos...</string>
+  <string name="raceComplete">Sacīkstes beigušās!</string>
+  <string name="spectating">Skatās</string>
+  <string name="joinTheRace">Pievienoties sacīkstēm!</string>
+  <string name="yourRankX">Jūsu vieta: %s</string>
 </resources>
