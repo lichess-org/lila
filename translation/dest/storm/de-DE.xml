@@ -36,10 +36,11 @@
   <string name="getReady">Mach dich bereit!</string>
   <string name="waitingForMorePlayers">Warte auf weitere teilnehmende Spieler...</string>
   <string name="raceComplete">Rennen abgeschlossen!</string>
-  <string name="joinTheRace">Trete dem Rennen bei!</string>
+  <string name="spectating">Zuschauen</string>
+  <string name="joinTheRace">Nimm am Rennen teil!</string>
   <string name="yourRankX">Dein Rang: %s</string>
-  <string name="waitForRematch">Auf Revanche warten</string>
+  <string name="waitForRematch">Warte auf die Revanche</string>
   <string name="nextRace">Nächstes Rennen</string>
-  <string name="joinRematch">An der Revanche teilnehmen</string>
+  <string name="joinRematch">Nimm an der Revanche teil</string>
   <string name="createNewGame">Erstelle ein neues Spiel</string>
 </resources>
