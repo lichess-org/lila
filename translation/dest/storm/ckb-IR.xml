@@ -14,6 +14,6 @@
   <string name="accuracy">وردی</string>
   <string name="time">کات</string>
   <string name="timePerMove">کات بە پێی جوڵە</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">زۆرترین شیکارکراو</string>
+  <string name="highestSolved">زۆرترین شیکارکراو</string>
   <string name="puzzlesPlayed">مەتەڵی یاریپێکراو</string>
 </resources>
