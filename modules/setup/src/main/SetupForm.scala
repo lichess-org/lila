@@ -153,6 +153,7 @@ object SetupForm {
 
     lazy val open = Form(
       mapping(
+        "name" -> optional(lila.common.Form.cleanNonEmptyText(maxLength = 200)),
         variant,
         clock,
         "rated" -> boolean,

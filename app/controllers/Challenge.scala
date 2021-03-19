@@ -404,7 +404,8 @@ final class Challenge(
                   color = "random",
                   challenger = Challenger.Open,
                   destUser = none,
-                  rematchOf = none
+                  rematchOf = none,
+                  name = config.name
                 )
               (env.challenge.api create challenge) map {
                 case true =>

@@ -29,7 +29,7 @@ object mine {
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(if (c.isOpen) "Open challenge" else trans.challenge.challengeToPlay.txt()),
+              h1(if (c.isOpen) c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()),
               bits.details(c),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(

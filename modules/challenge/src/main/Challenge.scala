@@ -26,6 +26,7 @@ case class Challenge(
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
     open: Option[Boolean] = None,
+    name: Option[String] = None,
     declineReason: Option[Challenge.DeclineReason] = None
 ) {
 
@@ -218,7 +219,8 @@ object Challenge {
       color: String,
       challenger: Challenger,
       destUser: Option[User],
-      rematchOf: Option[Game.ID]
+      rematchOf: Option[Game.ID],
+      name: Option[String] = None
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
@@ -250,7 +252,8 @@ object Challenge {
       createdAt = DateTime.now,
       seenAt = !isOpen option DateTime.now,
       expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
-      open = isOpen option true
+      open = isOpen option true,
+      name = name
     )
   }
 }
