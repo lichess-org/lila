@@ -33,4 +33,12 @@
   <string name="viewBestRuns">En iyi denemeleri göster</string>
   <string name="bestRunOfDay">Tarih</string>
   <string name="runs">Deneme sayısı</string>
+  <string name="raceComplete">Yarış tamamlandı!</string>
+  <string name="joinTheRace">Yarışa katıl!</string>
+  <string name="yourRankX">Sıralamanız %s</string>
+  <string name="waitForRematch">Rövanş için bekle</string>
+  <string name="nextRace">Sıradaki yarış</string>
+  <string name="joinRematch">Rövanşa katıl</string>
+  <string name="waitingToStart">Başlamak için bekleniyor</string>
+  <string name="createNewGame">Yeni bir oyun oluştur</string>
 </resources>
