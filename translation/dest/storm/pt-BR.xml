@@ -33,4 +33,13 @@
   <string name="viewBestRuns">Ver melhores séries</string>
   <string name="bestRunOfDay">Melhor série do dia</string>
   <string name="runs">Séries</string>
+  <string name="getReady">Prepare-se!</string>
+  <string name="waitingForMorePlayers">Esperando mais jogadores entrarem...</string>
+  <string name="raceComplete">Corrida concluída!</string>
+  <string name="spectating">Espectando</string>
+  <string name="joinTheRace">Entre na corrida!</string>
+  <string name="yourRankX">Sua classificação: %s</string>
+  <string name="nextRace">Próxima corrida</string>
+  <string name="waitingToStart">Esperando para começar</string>
+  <string name="createNewGame">Criar um novo jogo</string>
 </resources>
