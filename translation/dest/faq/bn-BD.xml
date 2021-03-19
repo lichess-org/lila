@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">প্রায়ই জিজ্ঞাসিত প্রশ্নাবলী</string>
+  <string name="whyIsLichessCalledLichess">লিচেজের নাম কেনো লিচেজ?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess মানে হলো Live/Light/Libre and Chess. তাই এটার উচ্চারান %1$s.</string>
+  <string name="leechess">লি-চেজ</string>
+  <string name="hearItPronouncedBySpecialist">বিশেষজ্ঞের থেকে উচ্চারন শুনুন.</string>
+  <string name="whyIsLilaCalledLila">প্রসঙ্গত, উন্মুক্ত প্রোগ্রাম লিচেজের, %1$s, তৈরি হয়েছে Scala প্রোগ্রাম দিয়ে %2$s যা একটি স্বজ্ঞাত প্রোগ্রামিং ভাষা.</string>
+  <string name="howCanIContributeToLichess">কিভাবে লিচেজে অবদান রাখতে পারি?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">লিচেজ টিকে আছে মানুষের অনুদান এবং স্বেচ্ছাসেবীদের দলিও প্রচেষ্টায়.</string>
+  <string name="officialRulesPDF">অফিশাল নিয়ম (পিডিএফ আকারে)</string>
+  <string name="lichessTraining">লিচেজ প্রশিক্ষন</string>
+  <string name="threefoldRepetition">তিনবার একই চাল</string>
+  <string name="threefoldRepetitionLowerCase">তিনবার একই চাল</string>
+  <string name="positions">পজিশন</string>
+</resources>
