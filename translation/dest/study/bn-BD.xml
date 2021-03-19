@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">ব্যাক্তিগত</string>
+  <string name="myStudies">আমার অধ্যায়ন</string>
+  <string name="studiesIContributeTo">যেসকল অধ্যায়নে আমার অবদান রয়েছে</string>
+  <string name="myPublicStudies">জনসাধারনকৃত আমার অধ্যায়নগুলো</string>
+  <string name="myPrivateStudies">আমার ব্যাক্তিগত অধ্যায়ন</string>
+  <string name="myFavoriteStudies">আমার পছন্দের অধ্যায়ন</string>
+  <string name="whatAreStudies">অধ্যায়ন কি?</string>
+</resources>
