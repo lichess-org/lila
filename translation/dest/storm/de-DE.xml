@@ -33,4 +33,12 @@
   <string name="viewBestRuns">Beste Durchläufe anzeigen</string>
   <string name="bestRunOfDay">Bester Durchlauf des Tages</string>
   <string name="runs">Durchläufe</string>
+  <string name="waitingForMorePlayers">Warten, bis {0} weitere Spieler {1} beigetreten sind...</string>
+  <string name="raceComplete">Rennen abgeschlossen!</string>
+  <string name="joinTheRace">Trete dem Rennen bei!</string>
+  <string name="yourRankX">Dein Rang: %s</string>
+  <string name="waitForRematch">Auf Revanche warten</string>
+  <string name="nextRace">Nächstes Rennen</string>
+  <string name="joinRematch">An der Revanche teilnehmen</string>
+  <string name="createNewGame">Erstelle ein neues Spiel</string>
 </resources>
