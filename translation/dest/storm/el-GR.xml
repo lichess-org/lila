@@ -20,10 +20,10 @@
   <string name="score">Βαθμολογία</string>
   <string name="moves">Κινήσεις</string>
   <string name="accuracy">Ακρίβεια</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Αλληλουχία</string>
+  <string name="combo">Αλληλουχία</string>
   <string name="time">Χρόνος</string>
   <string name="timePerMove">Χρόνος ανά κίνηση</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Υψηλότερο επιλυμένο</string>
+  <string name="highestSolved">Υψηλότερο επιλυμένο</string>
   <string name="puzzlesPlayed">Παιγμένοι γρίφοι</string>
   <string name="newRun">Νέος γύρος (πλήκτρο: Space)</string>
   <string name="endRun">Τερματισμός γύρου (πλήκτρο: Enter)</string>
