@@ -12,7 +12,7 @@ object embed {
 
   import EmbedConfig.implicits._
 
-  def apply(daily: DailyPuzzle.Html)(implicit config: EmbedConfig) =
+  def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
@@ -25,12 +25,12 @@ object embed {
       jsModule("puzzle.embed")
     )
 
-  def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) = a(
+  def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
     href := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
     raw(daily.html),
-    span(cls := "text")(daily.color.fold(trans.whitePlays, trans.blackPlays)())
+    span(cls := "text")(daily.puzzle.color.fold(trans.whitePlays, trans.blackPlays)())
   )
 }

@@ -137,7 +137,6 @@ GET   /study/public/:order             controllers.Study.minePublic(order: Strin
 GET   /study/private/:order            controllers.Study.minePrivate(order: String, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order: String, page: Int ?= 1)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
-GET   /study/by/:username/export.pgn   controllers.Study.export(username: String)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q: String ?= "", page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
@@ -588,6 +587,7 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
+GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)

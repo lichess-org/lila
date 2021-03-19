@@ -120,7 +120,7 @@ object Preload {
       featured: Option[Game],
       leaderboard: List[User.LightPerf],
       tournamentWinners: List[Winner],
-      puzzle: Option[lila.puzzle.DailyPuzzle.Html],
+      puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
       streams: LiveStreams.WithTitles,
       lastPost: List[lila.blog.MiniPost],
       playban: Option[TempBan],
