@@ -75,9 +75,23 @@ object bits extends Context.ToLang {
       a(href := "/about")(downloadKit())
     )
 
+  def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
+    isStreaming match {
+      case Some(false) => a(href := routes.Streamer.show(username))
+      case _ =>
+        a(
+          href := routes.Streamer.redirect(username),
+          targetBlank,
+          noFollow
+        )
+    }
+
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      a(cls := "stream highlight", href := routes.Streamer.show(s.streamer.id.value), title := s.status)(
+      redirectLink(s.streamer.id.value)(
+        cls := "stream highlight",
+        title := s.status
+      )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
         s.status
@@ -85,7 +99,7 @@ object bits extends Context.ToLang {
     }
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
-    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.redirect(userId), targetBlank)(
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
       xIsStreaming(usernameOrId(userId))
     )
 

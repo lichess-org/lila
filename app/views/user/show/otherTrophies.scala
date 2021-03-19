@@ -88,15 +88,16 @@ object otherTrophies {
           cls := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
         )(":"),
-      (info.isStreamer && ctx.noKid) option
-        a(
-          href := routes.Streamer.show(info.user.username),
+      (info.isStreamer && ctx.noKid) option {
+        val streaming = isStreaming(info.user.id)
+        views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(
             "trophy award icon3d streamer" -> true,
-            "streaming"                    -> isStreaming(info.user.id)
+            "streaming"                    -> streaming
           ),
-          ariaTitle(if (isStreaming(info.user.id)) "Live now!" else "Lichess Streamer")
+          ariaTitle(if (streaming) "Live now!" else "Lichess Streamer")
         )("")
+      }
     )
 
   private def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
