@@ -39,9 +39,9 @@
   <string name="spectating">Zuschauen</string>
   <string name="joinTheRace">Nimm am Rennen teil!</string>
   <string name="yourRankX">Dein Rang: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Warte auf ein neues Rennen</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Auf ein neues Rennen warten</string>
   <string name="nextRace">Nächstes Rennen</string>
-  <string name="joinRematch">Nimm am nächsten Rennen teil</string>
+  <string name="joinRematch">Am nächsten Rennen teilnehmen</string>
   <string name="waitingToStart">Warte auf den Start</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Erstelle ein neues Rennen</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Ein neues Rennen erstellen</string>
 </resources>
