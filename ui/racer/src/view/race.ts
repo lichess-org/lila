@@ -11,7 +11,7 @@ const trackHeight = 25;
 export const renderRace = (ctrl: RacerCtrl) => {
   const players = ctrl.players();
   const minMoves = players.reduce((m, p) => (p.score < m ? p.score : m), 130) / 3;
-  const maxMoves = players.reduce((m, p) => (p.score > m ? p.score : m), 30);
+  const maxMoves = players.reduce((m, p) => (p.score > m ? p.score : m), 35);
   const delta = maxMoves - minMoves;
   const relative: RelativeScore = score => (score - minMoves) / delta;
   const bestScore = players.reduce((b, p) => (p.score > b ? p.score : b), 0);

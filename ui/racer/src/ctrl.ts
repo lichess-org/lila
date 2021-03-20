@@ -28,6 +28,7 @@ export default class StormCtrl {
   promotion: Promotion;
   countdown: Countdown;
   boost: Boost = new Boost();
+  skipAvailable = true;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
@@ -111,15 +112,27 @@ export default class StormCtrl {
     this.redrawSlow();
   };
 
+  canSkip = () => this.skipAvailable;
+
+  skip = () => {
+    if (this.skipAvailable) {
+      this.skipAvailable = false;
+      sound.good();
+      this.playUci(this.run.current.expectedMove());
+    }
+  };
+
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   };
 
-  playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+  playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>
+    this.playUci(`${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`);
+
+  playUci = (uci: Uci): void => {
     this.run.moves++;
     this.promotion.cancel();
     const puzzle = this.run.current;
-    const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
     const pos = puzzle.position();
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);

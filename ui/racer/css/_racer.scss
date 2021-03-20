@@ -54,6 +54,31 @@
     }
   }
 
+  .puz-clock {
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+
+  &__skip {
+    @extend %flex-column;
+    align-items: center;
+    @include transition;
+    &.disabled {
+      opacity: 0;
+      cursor: default;
+    }
+    &::before {
+      content: '';
+      background-image: img-url('racer/gear-stick.svg');
+      width: 4ch;
+      height: 4ch;
+      margin-bottom: 0.6ch;
+    }
+    &:hover::before {
+      transform: scaleX(-1);
+    }
+  }
+
   &__spectating .puz-clock__time {
     font-size: 3em;
   }

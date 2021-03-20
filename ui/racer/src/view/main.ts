@@ -46,12 +46,15 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             comboZone(ctrl),
           ];
     case 'racing':
-      const clock = h('div.puz-clock', [renderClock(ctrl.run, ctrl.end, false)]);
+      const clock = renderClock(ctrl.run, ctrl.end, false);
       return ctrl.isPlayer()
-        ? [playerScore(ctrl), clock, comboZone(ctrl)]
+        ? [playerScore(ctrl), h('div.puz-clock', [clock, renderSkip(ctrl)]), comboZone(ctrl)]
         : [
             spectating(noarg),
-            h('div.racer__spectating', [clock, ctrl.race.lobby ? lobbyNext(ctrl) : waitForRematch(noarg)]),
+            h('div.racer__spectating', [
+              h('div.puz-clock', clock),
+              ctrl.race.lobby ? lobbyNext(ctrl) : waitForRematch(noarg),
+            ]),
             comboZone(ctrl),
           ];
     case 'post':
@@ -62,6 +65,21 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
         : [spectating(noarg), h('div.racer__post', [raceComplete, nextRace]), comboZone(ctrl)];
   }
 };
+
+const renderSkip = (ctrl: RacerCtrl) =>
+  h(
+    'button.racer__skip.button.button-red',
+    {
+      class: {
+        disabled: !ctrl.canSkip(),
+      },
+      attrs: {
+        title: 'Skip this move to preserve your combo! Only works once per race.',
+      },
+      hook: bind('click', ctrl.skip),
+    },
+    'skip'
+  );
 
 const puzzleRacer = () => h('strong', 'Puzzle Racer');
 

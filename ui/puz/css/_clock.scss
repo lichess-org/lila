@@ -2,16 +2,15 @@
   @extend %flex-center-nowrap;
 
   position: relative;
-  margin-bottom: -1em;
 
   &__time {
     font-family: 'storm';
-    font-size: 6em;
+    font-size: 5em;
     transition: color 0.3s;
     margin: 2vh 0;
 
     @include breakpoint($mq-col2) {
-      margin: 0;
+      margin: 0 0 -0.2em 0;
     }
   }
 
