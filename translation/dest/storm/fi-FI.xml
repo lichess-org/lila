@@ -43,5 +43,5 @@
   <string name="nextRace">Seuraava kisa</string>
   <string name="joinRematch">Liity revanssiin</string>
   <string name="waitingToStart">Odotetaan alkamista</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Luo uusi peli</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Luo uusi peli</string>
 </resources>
