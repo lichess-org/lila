@@ -78,8 +78,15 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def delete(categSlug: String, id: String) =
     Auth { implicit ctx => me =>
-      CategGrantMod(categSlug) {
-        postApi.delete(categSlug, id, me) map { Ok(_) }
+      postApi getPost id flatMap {
+        _ ?? { post =>
+          if (me.id == ~post.userId)
+            postApi.erasePost(id) inject Redirect(routes.ForumPost.redirect(id))
+          else
+            isGrantedMod(categSlug) flatMap { granted =>
+              (granted | isGranted(_.ModerateForum)) ?? postApi.delete(categSlug, id, me) map { Ok(_) }
+            }
+        }
       }
     }
 

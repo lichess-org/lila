@@ -35,7 +35,7 @@ object games {
     ) {
       main(cls := "mod-games box")(
         div(cls := "box__top")(
-          h1(userLink(user), " games"),
+          h1(userLink(user, params = "?mod"), " games"),
           div(cls := "box__top__actions")(
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
               form3.input(filterForm("opponents"))(placeholder := "Opponents"),

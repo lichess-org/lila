@@ -66,6 +66,6 @@ final class Env(
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
-    case lila.user.User.GDPRErase(user) => postApi.erase(user).unit
+    case lila.user.User.GDPRErase(user) => postApi.eraseAllOf(user).unit
   }
 }

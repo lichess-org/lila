@@ -34,8 +34,5 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       modIcon: Boolean = false
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
-    else
-      post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
-        userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
-      }
+    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
 }

@@ -41,7 +41,7 @@ object post {
   )(implicit ctx: Context) = {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
-        div(
+        !post.erased option div(
           authorLink(post = post, cssClass = "author".some, modIcon = post.displayModIcon),
           a(href := url)(
             post.updatedAt
@@ -55,23 +55,33 @@ object post {
                 momentFromNow(post.createdAt)
               }
           ),
-          ctx.userId.fold(false)(post.shouldShowEditForm(_)) option
+          ctx.userId.exists(post.shouldShowEditForm) option
             a(cls := "mod edit button button-empty text", dataIcon := "m")("Edit"),
-          canModCateg option a(
-            cls := "mod delete button button-empty button-red",
-            href := routes.ForumPost.delete(categ.slug, post.id),
-            dataIcon := "q",
-            title := "Delete"
-          )
+          if (ctx.userId.has(~post.userId))
+            postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
+              submitButton(
+                cls := "mod delete button button-empty confirm",
+                dataIcon := "q",
+                title := "Delete"
+              )
+            )
+          else if (canModCateg)
+            a(
+              cls := "mod delete button button-empty",
+              href := routes.ForumPost.delete(categ.slug, post.id),
+              dataIcon := "q",
+              title := "Delete"
+            )
+          else emptyFrag
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),
       p(cls := "forum-post__message")(
-        if (post.erased) "<erased>"
+        if (post.erased) "<Comment deleted by user>"
         else richText(post.text)
       ),
-      reactions(post, canReact),
-      ctx.userId.exists(post.shouldShowEditForm(_)) option
+      !post.erased option reactions(post, canReact),
+      ctx.userId.exists(post.shouldShowEditForm) option
         postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
             bits.dataTopic := topic.id,

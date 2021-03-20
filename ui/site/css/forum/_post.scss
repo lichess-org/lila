@@ -25,6 +25,14 @@
       color: $c-link-dim;
       font-weight: bold;
     }
+
+    .delete {
+      color: $c-font;
+      margin-left: 1em;
+      &:hover {
+        color: $c-bad;
+      }
+    }
   }
 
   .mod {
@@ -56,14 +64,16 @@
   }
 
   &.erased {
-    background: $c-shade;
-    opacity: 0.6;
-  }
+    color: $c-font-dimmer;
 
-  &.erased .forum-post__message {
-    font-style: italic;
-    text-align: center;
-    margin: 0;
+    .forum-post__message {
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    .forum-post__metas {
+      justify-content: flex-end;
+    }
   }
 
   &__message {
