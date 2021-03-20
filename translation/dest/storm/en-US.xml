@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Move to start</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">You play the white pieces in all puzzles</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">You play the black pieces in all puzzles</string>
   <string name="puzzlesSolved">puzzles solved</string>
   <string name="newDailyHighscore">New daily highscore!</string>
   <string name="newWeeklyHighscore">New weekly highscore!</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">View best runs</string>
   <string name="bestRunOfDay">Best run of day</string>
   <string name="runs">Runs</string>
+  <string name="getReady">Get ready!</string>
+  <string name="waitingForMorePlayers">Waiting for more players to join...</string>
+  <string name="raceComplete">Race complete!</string>
+  <string name="spectating">Spectating</string>
+  <string name="joinTheRace">Join the race!</string>
+  <string name="yourRankX">Your rank: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Wait for rematch</string>
+  <string name="nextRace">Next race</string>
+  <string name="joinRematch">Join rematch</string>
+  <string name="waitingToStart">Waiting to start</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Create a new game</string>
 </resources>
