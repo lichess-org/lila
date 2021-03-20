@@ -377,7 +377,7 @@
     <item quantity="other">%s izləyici</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s izlənilən</item>
+    <item quantity="one">%s izləyici</item>
     <item quantity="other">%s izlənilən</item>
   </plurals>
   <string name="more">Daha çox</string>
