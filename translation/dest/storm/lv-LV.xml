@@ -45,5 +45,5 @@
   <string name="nextRace">Nākamā spēle</string>
   <string name="joinRematch">Pievienoties revanšam</string>
   <string name="waitingToStart">Gaida sākumu</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Izveidot jaunu spēli</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Izveidot jaunu spēli</string>
 </resources>
