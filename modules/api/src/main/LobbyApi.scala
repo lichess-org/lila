@@ -55,4 +55,6 @@ final class LobbyApi(
         "isMyTurn" -> pov.isMyTurn
       )
       .add("secondsLeft" -> pov.remainingSeconds)
+      .add("tournamentId" -> pov.game.tournamentId)
+      .add("swissId" -> pov.game.tournamentId)
 }
