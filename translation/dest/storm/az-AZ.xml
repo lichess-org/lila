@@ -31,4 +31,11 @@
   <string name="viewBestRuns">Ən yaxşı cəhdləri göstər</string>
   <string name="bestRunOfDay">Günün ən yaxşı cəhdi</string>
   <string name="runs">Cəhdlərin sayı</string>
+  <string name="getReady">Hazır ol!</string>
+  <string name="raceComplete">Yarış tamamlandı!</string>
+  <string name="spectating">Tamaşaçı</string>
+  <string name="joinTheRace">Yarışa qatıl!</string>
+  <string name="yourRankX">Sənin rank %s</string>
+  <string name="nextRace">Növbəti yarış</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni oyun yarat</string>
 </resources>
