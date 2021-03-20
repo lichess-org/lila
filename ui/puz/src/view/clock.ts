@@ -3,37 +3,25 @@ import { getNow } from '../util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { Run, TimeMod } from '../interfaces';
-import { povMessage } from '../run';
 
 type OnFlag = () => void;
 
 let refreshInterval: Timeout;
 let lastText: string;
 
-export default function renderClock(run: Run, onFlag: OnFlag, trans: Trans, withBonus: boolean): VNode {
-  const malus = run.modifier.malus;
-  const bonus = run.modifier.bonus;
-  return h('div.puz-clock', [
-    h('div.puz-clock__time', {
-      hook: {
-        insert(node) {
-          const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(run.clock.millis());
-          refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
-        },
-        destroy() {
-          if (refreshInterval) clearInterval(refreshInterval);
-        },
+export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean): VNode {
+  return h('div.puz-clock__time', {
+    hook: {
+      insert(node) {
+        const el = node.elm as HTMLDivElement;
+        el.innerText = formatMs(run.clock.millis());
+        refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
       },
-    }),
-    ...(withBonus
-      ? [
-          !!malus && malus.at > getNow() - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
-          !!bonus && bonus.at > getNow() - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
-        ]
-      : []),
-    ...(run.clock.started() ? [] : [h('span.puz-clock__pov', trans(povMessage(run)))]),
-  ]);
+      destroy() {
+        if (refreshInterval) clearInterval(refreshInterval);
+      },
+    },
+  });
 }
 
 function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean) {

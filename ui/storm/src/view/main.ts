@@ -4,9 +4,9 @@ import renderEnd from './end';
 import StormCtrl from '../ctrl';
 import { Chessground } from 'chessground';
 import { h } from 'snabbdom';
-import { makeCgOpts } from 'puz/run';
+import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { onInsert } from 'puz/util';
+import { getNow, onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { VNode } from 'snabbdom/vnode';
 
@@ -39,14 +39,25 @@ const chessground = (ctrl: StormCtrl): VNode =>
 
 const renderBonus = (bonus: number) => `${bonus}s`;
 
-const renderPlay = (ctrl: StormCtrl): VNode[] => [
-  h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
-  h('div.puz-side', [
-    ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
-    renderClock(ctrl.run, ctrl.endNow, ctrl.trans, true),
-    h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
-  ]),
-];
+const renderPlay = (ctrl: StormCtrl): VNode[] => {
+  const run = ctrl.run;
+  const malus = run.modifier.malus;
+  const bonus = run.modifier.bonus;
+  const now = getNow();
+  return [
+    h('div.puz-board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
+    h('div.puz-side', [
+      run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
+      h('div.puz-clock', [
+        renderClock(run, ctrl.endNow, true),
+        !!malus && malus.at > now - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
+        !!bonus && bonus.at > now - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
+        ...(run.clock.started() ? [] : [h('span.puz-clock__pov', ctrl.trans.noarg(povMessage(run)))]),
+      ]),
+      h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(run)]),
+    ]),
+  ];
+};
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__top.puz-side__solved', [h('div.puz-side__solved__text', ctrl.countWins())]);

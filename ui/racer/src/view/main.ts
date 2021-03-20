@@ -46,7 +46,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             comboZone(ctrl),
           ];
     case 'racing':
-      const clock = renderClock(ctrl.run, ctrl.end, ctrl.trans, false);
+      const clock = h('div.puz-clock', [renderClock(ctrl.run, ctrl.end, false)]);
       return ctrl.isPlayer()
         ? [playerScore(ctrl), clock, comboZone(ctrl)]
         : [
