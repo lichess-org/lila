@@ -37,4 +37,15 @@
   <string name="viewBestRuns">Peržiūrėti geriausias eiles</string>
   <string name="bestRunOfDay">Geriausia dienos eilė</string>
   <string name="runs">Eilės</string>
+  <string name="getReady">Pasiruoškite!</string>
+  <string name="waitingForMorePlayers">Laukiama daugiau žaidėjų...</string>
+  <string name="raceComplete">Lenktynės baigtos!</string>
+  <string name="spectating">Stebima</string>
+  <string name="joinTheRace">Prisijungti prie lenktynių!</string>
+  <string name="yourRankX">Jūsų reitingas: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Laukti revanšo</string>
+  <string name="nextRace">Kitos lenktynės</string>
+  <string name="joinRematch">Prisijungti revanšui</string>
+  <string name="waitingToStart">Laukiama pradžios</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Kurti naują žaidimą</string>
 </resources>
