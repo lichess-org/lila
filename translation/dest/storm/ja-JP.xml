@@ -29,4 +29,11 @@
   <string name="viewBestRuns">最高記録を表示</string>
   <string name="bestRunOfDay">日別最高</string>
   <string name="runs">回数</string>
+  <string name="joinTheRace">レースに参戦！</string>
+  <string name="yourRankX">順位：%s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">次をお待ちください</string>
+  <string name="nextRace">次のレース</string>
+  <string name="joinRematch">もう一度参加する</string>
+  <string name="waitingToStart">まもなくスタート</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">新たなレースを作成</string>
 </resources>
