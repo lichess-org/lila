@@ -55,6 +55,8 @@ object RelayForm {
     AbsoluteUrl.parseOption(source).exists { url =>
       url.hostOption
         .exists { host =>
+          host.toString != "localhost" &&
+          host.toString != "127.0.0.1" &&
           host.apexDomain.fold(true) { apex =>
             !blocklist.contains(apex) && (
               // only allow public API, not arbitrary URLs
@@ -74,7 +76,8 @@ object RelayForm {
     "vk.com",
     "localhost",
     "chess-results.com",
-    "chessgames.com"
+    "chessgames.com",
+    "zoom.us"
   )
 
   case class Data(
