@@ -124,7 +124,7 @@
   <string name="offerDraw">提出和棋</string>
   <string name="draw">平局</string>
   <plurals name="nbPlayers">
-    <item quantity="other">%s位在线棋手</item>
+    <item quantity="other">%s 位在线棋手</item>
   </plurals>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
@@ -430,7 +430,7 @@
   <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是排位赛，但是不计时！</string>
   <string name="success">解题成功</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="other">%s场对局进行中</item>
+    <item quantity="other">%s 场对局进行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
