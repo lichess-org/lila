@@ -43,5 +43,5 @@
   <string name="nextRace">Neste race</string>
   <string name="joinRematch">Bli med på neste race</string>
   <string name="waitingToStart">Vent på starten</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Lag eit nytt race</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Lag eit nytt race</string>
 </resources>
