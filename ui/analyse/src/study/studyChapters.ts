@@ -151,6 +151,7 @@ export function view(ctrl: StudyCtrl): VNode {
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
             chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon('J'), title: 'Ongoing' } }) : null,
+            !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
             canContribute ? h('act', { attrs: dataIcon('%') }) : null,
           ]
         );

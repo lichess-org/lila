@@ -136,6 +136,7 @@ export interface StudyChapterMeta {
   id: string;
   name: string;
   ongoing?: boolean;
+  res?: string;
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {

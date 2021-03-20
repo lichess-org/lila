@@ -74,7 +74,13 @@ case class Chapter(
       createdAt = DateTime.now
     )
 
-  def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup, looksOngoing = looksOngoing)
+  def metadata = Chapter.Metadata(
+    _id = _id,
+    name = name,
+    setup = setup,
+    resultColor = tags.resultColor.isDefined option tags.resultColor,
+    hasRelayPath = relay.exists(!_.path.isEmpty)
+  )
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
@@ -87,8 +93,6 @@ case class Chapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
-
-  def looksOngoing = tags.resultColor.isEmpty && relay.exists(!_.path.isEmpty)
 }
 
 object Chapter {
@@ -107,7 +111,6 @@ object Chapter {
     val _id: Chapter.Id
     val name: Chapter.Name
     val setup: Chapter.Setup
-    def looksOngoing: Boolean
     def id = _id
 
     def initialPosition = Position.Ref(id, Path.root)
@@ -149,8 +152,14 @@ object Chapter {
       _id: Id,
       name: Name,
       setup: Setup,
-      looksOngoing: Boolean
-  ) extends Like
+      resultColor: Option[Option[Option[Color]]],
+      hasRelayPath: Boolean
+  ) extends Like {
+
+    def looksOngoing = resultColor.exists(_.isEmpty) && hasRelayPath
+
+    def resultStr: Option[String] = resultColor.map(_.fold("*")(chess.Color.showResult).replace("1/2", "½"))
+  }
 
   case class IdName(id: Id, name: Name)
 

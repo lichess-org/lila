@@ -39,7 +39,7 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       "name"       -> true,
       "setup"      -> true,
       "relay.path" -> true,
-      "tags"       -> $doc("$elemMatch" -> $doc("$eq" -> "Result:*"))
+      "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
     ).some
 
   def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =

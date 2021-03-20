@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Pos, PromotableRole, Role }
+import chess.{ Centis, Color, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -364,9 +364,14 @@ object BSONHandlers {
       id    <- doc.getAsTry[Chapter.Id]("_id")
       name  <- doc.getAsTry[Chapter.Name]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
-      looksOngoing =
-        doc.contains("tags") &&
-          doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    } yield Chapter.Metadata(id, name, setup, looksOngoing)
+      resultColor = doc
+        .getAsOpt[List[String]]("tags")
+        .map {
+          _.headOption
+            .map(_ drop 7)
+            .filter("*" !=) map Color.fromResult
+        }
+      hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
+    } yield Chapter.Metadata(id, name, setup, resultColor, hasRelayPath)
   }
 }
