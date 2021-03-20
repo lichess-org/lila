@@ -20,6 +20,12 @@ export function start(opts: StormOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 
+  opts.i18n = {
+    ...opts.i18n,
+    youPlayTheWhitePiecesInAllPuzzles: 'You play the white pieces in all puzzles',
+    youPlayTheBlackPiecesInAllPuzzles: 'You play the black pieces in all puzzles',
+  };
+
   const ctrl = new StormCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
