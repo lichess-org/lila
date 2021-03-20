@@ -519,6 +519,7 @@
   <string name="cheat">Krāpšanās</string>
   <string name="insult">Apvainošana</string>
   <string name="troll">Troļļošana</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Reitinga manipulācija</string>
   <string name="other">Cits</string>
   <string name="reportDescriptionHelp">Ielīmējiet spēles saiti un paskaidrojiet, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsiet, ka \"lietotājs krāpjas\" — lūdzu, pastāstiet, kā nonācāt pie šī secinājuma. Ja jūsu ziņojums būs rakstīts angliski, par to varēsim parūpēties ātrāk.</string>
   <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
