@@ -548,6 +548,7 @@
   <string name="cheat">Goljufija</string>
   <string name="insult">Žalitev</string>
   <string name="troll">Provokacija</string>
+  <string name="ratingManipulation">Manipulacija z ratingi</string>
   <string name="other">Drugo</string>
   <string name="reportDescriptionHelp">Prilepite povezave do igre (ali iger) in pojasnite kaj je narobe z obnašanjem uporabnika. Ne napišite samo \"uporabnik goljufa\" temveč pojasnite zakaj mislite tako. Prijava bo obdelana hitreje če bo napisana v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
