@@ -43,5 +43,5 @@
   <string name="nextRace">Nächstes Rennen</string>
   <string name="joinRematch">Am nächsten Rennen teilnehmen</string>
   <string name="waitingToStart">Warte auf den Start</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">Ein neues Rennen erstellen</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Ein neues Rennen erstellen</string>
 </resources>
