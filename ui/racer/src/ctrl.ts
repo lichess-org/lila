@@ -3,8 +3,10 @@ import CurrentPuzzle from 'puz/current';
 import makePromotion from 'puz/promotion';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
+import { Boost } from './boost';
 import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
+import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
@@ -12,8 +14,7 @@ import { Promotion, Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
-import { Countdown } from './countdown';
-import { Boost } from './boost';
+import { storedProp } from 'common/storage';
 
 export default class StormCtrl {
   private data: RacerData;
@@ -29,6 +30,7 @@ export default class StormCtrl {
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
+  knowsSkip = storedProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
@@ -115,10 +117,11 @@ export default class StormCtrl {
   canSkip = () => this.skipAvailable;
 
   skip = () => {
-    if (this.skipAvailable) {
+    if (this.skipAvailable && this.run.clock.started()) {
       this.skipAvailable = false;
       sound.good();
       this.playUci(this.run.current.expectedMove());
+      this.knowsSkip(true);
     }
   };
 

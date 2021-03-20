@@ -63,6 +63,7 @@
     @extend %flex-column;
     align-items: center;
     @include transition;
+    outline: none;
     &.disabled {
       opacity: 0;
       cursor: default;
@@ -78,15 +79,23 @@
       transform: scaleX(-1);
     }
   }
+  &--pre .racer__skip {
+    cursor: not-allowed;
+  }
 
   &__spectating .puz-clock__time {
     font-size: 3em;
   }
 
   &__pre__message {
+    @extend %flex-center-nowrap;
+    justify-content: space-between;
     &__pov {
-      margin: 1em 0;
       color: $c-brag;
+      margin: 1em 0;
+      @include breakpoint($mq-col2) {
+        margin: 1em 0 0 0;
+      }
     }
   }
 
