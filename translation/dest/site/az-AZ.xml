@@ -177,7 +177,7 @@
   <string name="usernameOrEmail">İstifadəçi adı və ya e-poçt</string>
   <string name="changeUsername">İstifadəçi adını dəyiş</string>
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
-  <string name="changeUsernameDescription">İstifadəçi adınızı dəyişdirin. Bu prosesi sadəcə 1 (bir) dəfə gərçəkləşdirə bilərsiniz və sadəcə mövcud istifadəçi adınızdakı hərfləri (\"johndoe\", \"JohnDoe\") dəyiştirə bilərsiniz.</string>
+  <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">E-poçtu dəyiş</string>
