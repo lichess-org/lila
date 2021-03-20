@@ -59,7 +59,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     (rating - 1500) / 300
   } atLeast 0
 
-  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 20
+  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 15
 
   private def modBonus(user: User) =
     if (user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR")) 100

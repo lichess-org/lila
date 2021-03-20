@@ -19,7 +19,7 @@ final private[puzzle] class DailyPuzzle(
 
   private val cache =
     cacheApi.unit[Option[DailyPuzzle.WithHtml]] {
-      _.refreshAfterWrite(5 minutes)
+      _.refreshAfterWrite(1 minutes)
         .buildAsyncFuture(_ => find)
     }
 
@@ -43,7 +43,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find($doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15)))
+      _.find($doc(F.day $gt DateTime.now.minusDays(1)))
         .one[Puzzle]
     }
 

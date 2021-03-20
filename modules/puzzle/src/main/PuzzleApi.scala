@@ -97,7 +97,7 @@ final class PuzzleApi(
         import Puzzle.{ BSONFields => F }
         coll.one[Bdoc](
           $id(puzzleId.value),
-          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false)
+          $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
         ) flatMap {
           _ ?? { doc =>
             val prevUp   = ~doc.int(F.voteUp)
@@ -111,7 +111,12 @@ final class PuzzleApi(
                   F.voteUp   -> up,
                   F.voteDown -> down,
                   F.vote     -> ((up - down).toFloat / (up + down))
-                )
+                ) ++ {
+                  (newVote <= -100 && doc
+                    .getAsOpt[DateTime](F.day)
+                    .exists(_ isAfter DateTime.now.minusDays(1))) ??
+                    $unset(F.day)
+                }
               )
               .void
           }
