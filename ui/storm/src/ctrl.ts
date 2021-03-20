@@ -109,7 +109,7 @@ export default class StormCtrl {
       }
       sound.move(captureSound);
     } else {
-      lichess.sound.play('error');
+      sound.wrong();
       this.pushToHistory(false);
       this.run.errors++;
       this.run.combo.reset();

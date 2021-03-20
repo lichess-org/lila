@@ -143,7 +143,7 @@ export default class StormCtrl {
       }
       sound.move(captureSound);
     } else {
-      lichess.sound.play('error');
+      sound.wrong();
       this.run.errors++;
       this.run.combo.reset();
       if (this.run.clock.flag()) this.end();
