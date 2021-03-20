@@ -96,7 +96,11 @@ final private class RelaySync(
                 )
                 .some
             )(who) inject position + n
-          } inject node.mainline.size
+          } inject {
+            if (chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty)
+              studyApi.reloadChapters(study)
+            node.mainline.size
+          }
         }
     }
   }
