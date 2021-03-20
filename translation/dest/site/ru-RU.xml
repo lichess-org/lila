@@ -548,6 +548,7 @@
   <string name="cheat">Жульничество</string>
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
+  <string name="ratingManipulation">Махинации с рейтингом</string>
   <string name="other">Другое</string>
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
