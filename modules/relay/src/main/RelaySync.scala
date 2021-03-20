@@ -134,7 +134,7 @@ final private class RelaySync(
         studyId = study.id,
         chapterId = chapterId,
         userId = study.ownerId
-      )
+      ) >>- studyApi.reloadChapters(study)
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>

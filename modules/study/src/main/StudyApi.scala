@@ -852,7 +852,7 @@ final class StudyApi(
   private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: Chapter.Id) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
-  private def reloadChapters(study: Study) =
+  def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id)(_ reloadChapters chapters)
     }
