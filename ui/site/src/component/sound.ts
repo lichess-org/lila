@@ -11,7 +11,7 @@ const sound = new (class {
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', {
-    version: 'Iu1lae', // 6 random letters to update
+    version: '_____1', // 6 random letters to update
   });
 
   constructor() {
