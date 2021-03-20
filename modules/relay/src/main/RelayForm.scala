@@ -77,7 +77,8 @@ object RelayForm {
     "localhost",
     "chess-results.com",
     "chessgames.com",
-    "zoom.us"
+    "zoom.us",
+    "herokuapp.com"
   )
 
   case class Data(
