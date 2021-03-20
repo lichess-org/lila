@@ -221,7 +221,8 @@ package fishnet {
       initialFen: Option[chess.format.FEN],
       variant: chess.variant.Variant,
       moves: List[Uci],
-      userId: String
+      userId: String,
+      unlimited: Boolean
   )
 }
 

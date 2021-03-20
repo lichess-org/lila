@@ -7,15 +7,17 @@ import scala.concurrent.duration._
 
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
+import lila.security.Granter
 import lila.tree.Node.Comment
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.{ tree => T }
 
 object ServerEval {
 
   final class Requester(
       fishnet: lila.hub.actors.Fishnet,
-      chapterRepo: ChapterRepo
+      chapterRepo: ChapterRepo,
+      userRepo: UserRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
@@ -24,22 +26,29 @@ object ServerEval {
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id.value)
       } ?? {
-        chapterRepo.startServerEval(chapter) >>- {
-          fishnet ! StudyChapterRequest(
-            studyId = study.id.value,
-            chapterId = chapter.id.value,
-            initialFen = chapter.root.fen.some,
-            variant = chapter.setup.variant,
-            moves = chess.format
-              .UciDump(
-                moves = chapter.root.mainline.map(_.move.san),
-                initialFen = chapter.root.fen.some,
-                variant = chapter.setup.variant
-              )
-              .toOption
-              .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-            userId = userId
-          )
+        val unlimitedFu =
+          fuccess(userId == User.lichessId) >>| userRepo
+            .byId(userId)
+            .map(_.exists(Granter(_.Relay)))
+        unlimitedFu flatMap { unlimited =>
+          chapterRepo.startServerEval(chapter) >>- {
+            fishnet ! StudyChapterRequest(
+              studyId = study.id.value,
+              chapterId = chapter.id.value,
+              initialFen = chapter.root.fen.some,
+              variant = chapter.setup.variant,
+              moves = chess.format
+                .UciDump(
+                  moves = chapter.root.mainline.map(_.move.san),
+                  initialFen = chapter.root.fen.some,
+                  variant = chapter.setup.variant
+                )
+                .toOption
+                .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+              userId = userId,
+              unlimited = unlimited
+            )
+          }
         }
       }
   }

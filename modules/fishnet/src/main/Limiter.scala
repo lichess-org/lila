@@ -13,12 +13,10 @@ final private class Limiter(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
-    if (sender.userId == User.lichessId) fuTrue
-    else
-      (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
-        case false => fuFalse
-        case true  => perDayCheck(sender)
-      }
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
+      case false => fuFalse
+      case true  => perDayCheck(sender)
+    }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 60,
