@@ -38,4 +38,6 @@
   <string name="bestRunOfDay">Najlepsza seria dnia</string>
   <string name="runs">Serie zadań</string>
   <string name="getReady">Przygotuj się!</string>
+  <string name="waitingForMorePlayers">Oczekiwanie na dołączenie większej liczby graczy...</string>
+  <string name="waitingToStart">Oczekiwanie na rozpoczęcie</string>
 </resources>
