@@ -43,6 +43,9 @@
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar nesta posición</string>
   <string name="commentThisMove">Comentar nesta posición</string>
+  <string name="annotateWithGlyphs">Anotar con símbolos</string>
+  <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para analizalo.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudio poden solicitar unha análise por ordenador.</string>
   <string name="playing">En xogo</string>
   <string name="first">Primeiro</string>
   <string name="previous">Anterior</string>
