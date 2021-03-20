@@ -29,7 +29,7 @@ final class Relay(
 
   def form =
     Auth { implicit ctx => _ =>
-      NoLame {
+      NoLameOrBot {
         Ok(html.relay.form.create(env.relay.forms.create)).fuccess
       }
     }
@@ -38,23 +38,26 @@ final class Relay(
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
-          env.relay.forms.create
-            .bindFromRequest()(ctx.body, formBinding)
-            .fold(
-              err => BadRequest(html.relay.form.create(err)).fuccess,
-              setup =>
-                env.relay.api.create(setup, me) map { relay =>
-                  Redirect(showRoute(relay))
-                }
-            ),
+          NoLameOrBot {
+            env.relay.forms.create
+              .bindFromRequest()(ctx.body, formBinding)
+              .fold(
+                err => BadRequest(html.relay.form.create(err)).fuccess,
+                setup =>
+                  env.relay.api.create(setup, me) map { relay =>
+                    Redirect(showRoute(relay))
+                  }
+              )
+          },
       scoped = req =>
         me =>
-          env.relay.forms.create
-            .bindFromRequest()(req, formBinding)
-            .fold(
-              err => BadRequest(apiFormError(err)).fuccess,
-              setup => env.relay.api.create(setup, me) map env.relay.jsonView.admin map JsonOk
-            )
+          !(me.isBot || me.lame) ??
+            env.relay.forms.create
+              .bindFromRequest()(req, formBinding)
+              .fold(
+                err => BadRequest(apiFormError(err)).fuccess,
+                setup => env.relay.api.create(setup, me) map env.relay.jsonView.admin map JsonOk
+              )
     )
 
   def edit(@nowarn("cat=unused") slug: String, id: String) =
