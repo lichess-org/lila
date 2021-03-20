@@ -20,6 +20,25 @@ export function start(opts: RacerOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 
+  opts.i18n = {
+    ...opts.i18n,
+    score: 'Score',
+    combo: 'Combo',
+    youPlayTheWhitePiecesInAllPuzzles: 'You play the white pieces in all puzzles',
+    youPlayTheBlackPiecesInAllPuzzles: 'You play the black pieces in all puzzles',
+    getReady: 'Get ready!',
+    waitingForMorePlayers: 'Waiting for more players to join...',
+    raceComplete: 'Race complete!',
+    spectating: 'Spectating',
+    joinTheRace: 'Join the race!',
+    yourRankX: 'Your rank: %s',
+    waitForRematch: 'Wait for rematch',
+    nextRace: 'Next race',
+    joinRematch: 'Join rematch',
+    waitingToStart: 'Waiting to start',
+    createNewGame: 'Create a new game',
+  };
+
   const ctrl = new RacerCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
