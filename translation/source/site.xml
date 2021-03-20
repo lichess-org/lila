@@ -491,6 +491,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="cheat">Cheat</string>
   <string name="insult">Insult</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Rating manipulation</string>
   <string name="other">Other</string>
   <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
