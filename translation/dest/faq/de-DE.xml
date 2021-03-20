@@ -106,13 +106,13 @@ Grundsätzlich verwenden Glicko-Wertungen \"Konfidenzintervalle\" bei der Berech
 
 Grundsätzlich ist sich das System zu 90% sicher, dass deine Wertung zwischen 800 und 2200 liegt. Das ist unglaublich ungewiss. Aus diesem Grund wird sich die Wertung, wenn ein Spieler gerade beginnt drastisch ändern, möglicherweise um mehrere hundert Punkte pro Stunde. Aber nach einigen Spielen gegen etablierte Spieler wird sich das Konfidenzintervall verkleinern und die Anzahl der gewonnenen/verlorenen Punkte nach jedem Spiel sinken.
 
-Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen in deinem Fertigkeitslevel über diese Zeit hinweg zu berücksichtigen.</string>
+Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen deiner Fertigkeiten während dieses Zeitraums zu berücksichtigen.</string>
   <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
   <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
   <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
   <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig ist.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, dass das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, das das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
   <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
   <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
   <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
