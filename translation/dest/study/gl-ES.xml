@@ -46,6 +46,10 @@
   <string name="annotateWithGlyphs">Anotar con símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é demasiado curto para analizalo.</string>
   <string name="onlyContributorsCanRequestAnalysis">Só os colaboradores do estudio poden solicitar unha análise por ordenador.</string>
+  <string name="getAFullComputerAnalysis">Obtén unha análise completa da liña principal do servidor.</string>
+  <string name="makeSureTheChapterIsComplete">Asegúrate de que o capítulo está completo. Só podes solicitar análise unha vez.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros en SYNC permanecen na mesma posición</string>
+  <string name="shareChanges">Comparte os cambios cos espectadores e gárdaos no servidor</string>
   <string name="playing">En xogo</string>
   <string name="first">Primeiro</string>
   <string name="previous">Anterior</string>
@@ -65,6 +69,8 @@
   <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
+  <string name="readMoreAboutEmbedding">Ler máis sobre como insertar contido</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Só poden incorporarse estudos públicos!</string>
   <string name="open">Abrir</string>
   <string name="xBroughtToYouByY">%1$s traído para ti por %2$s</string>
   <string name="studyNotFound">Estudo non atopado</string>
@@ -72,9 +78,13 @@
   <string name="newChapter">Novo capítulo</string>
   <string name="orientation">Orientación</string>
   <string name="analysisMode">Modo de análise</string>
+  <string name="pinnedChapterComment">Comentario do capítulo fixado</string>
   <string name="saveChapter">Gardar capítulo</string>
   <string name="clearAnnotations">Borrar anotacións</string>
   <string name="deleteChapter">Borrar capítulo</string>
+  <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
+  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo?</string>
+  <string name="rightUnderTheBoard">Mesmo debaixo do taboleiro</string>
   <string name="noPinnedComment">Ningún</string>
   <string name="normalAnalysis">Análise normal</string>
   <string name="hideNextMoves">Ocultar os seguientes movementos</string>
@@ -83,7 +93,15 @@
   <string name="empty">Baleiro</string>
   <string name="startFromInitialPosition">Comezar desde a posición inicial</string>
   <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Comezar dende unha posición personalizada</string>
+  <string name="loadAGameByUrl">Cargar unha partida dende unha URL</string>
+  <string name="loadAPositionFromFen">Cargar unha posición vía FEN</string>
+  <string name="loadAGameFromPgn">Cargar partidas vía PGN</string>
   <string name="automatic">Automática</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Copia o teu texto PGN aquí, ata %s partida</item>
+    <item quantity="other">Copia o teu texto PGN aquí, ata %s partidas</item>
+  </plurals>
   <string name="createChapter">Crear capítulo</string>
   <string name="createStudy">Crear estudo</string>
   <string name="editStudy">Editar estudo</string>
