@@ -41,5 +41,5 @@
   <string name="nextRace">次のレース</string>
   <string name="joinRematch">もう一度参加する</string>
   <string name="waitingToStart">まもなくスタート</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race is completed, this is the title of a button for creating a new racing game.">新たなレースを作成</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">新たなレースを作成</string>
 </resources>
