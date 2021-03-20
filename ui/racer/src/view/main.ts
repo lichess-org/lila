@@ -140,7 +140,7 @@ const yourRank = (ctrl: RacerCtrl) => {
   if (!score) return;
   const players = ctrl.players();
   const rank = players.filter(p => p.score > score).length + 1;
-  return h('strong.race__post__rank', ctrl.trans('yourRank', `${rank}/${players.length}`));
+  return h('strong.race__post__rank', ctrl.trans('yourRankX', `${rank}/${players.length}`));
 };
 
 const waitForRematch = (noarg: TransNoArg) =>
