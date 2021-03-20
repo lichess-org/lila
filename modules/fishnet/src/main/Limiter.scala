@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.common.IpAddress
 import lila.db.dsl._
+import lila.user.User
 
 final private class Limiter(
     analysisColl: Coll,
@@ -12,10 +13,12 @@ final private class Limiter(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
-    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
-      case false => fuFalse
-      case true  => perDayCheck(sender)
-    }
+    if (sender.userId == User.lichessId) fuTrue
+    else
+      (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
+        case false => fuFalse
+        case true  => perDayCheck(sender)
+      }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 60,
