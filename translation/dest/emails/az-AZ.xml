@@ -15,7 +15,7 @@
 Profil səhifəniz: %1$s. Profilinizi %2$s üzərindən özəlləşdirə bilərsiniz.
 
 Əylənin, fiqurlarınız hər zaman rəqib şahına gedən yolu tapa bilsin!</string>
-  <string name="logInToLichess">Lichess.org\'a giriş edin, %s</string>
+  <string name="logInToLichess">\"Lichess.org\"-a giriş edin, %s</string>
   <string name="common_orPaste">(Klikləmə işləmədi? Kopyalayıb brauzerə yapışdırmağı yoxla!)</string>
   <string name="common_note">Bu, %s istifadənizlə əlaqəli bir xidmət e-poçtudur.</string>
   <string name="common_contact">Bizimlə əlaqə üçün, zəhmət olmasa bu linkdən istifadə edin: %s.</string>
