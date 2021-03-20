@@ -272,7 +272,7 @@
     <item quantity="other">%s laufende Partien</item>
   </plurals>
   <string name="exportGames">Partien exportieren</string>
-  <string name="ratingRange">Ratingbereich</string>
+  <string name="ratingRange">Wertungsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
