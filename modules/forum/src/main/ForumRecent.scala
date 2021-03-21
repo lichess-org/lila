@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lila.memo.CacheApi._
 import lila.user.User
 
-final class Recent(
+final class ForumRecent(
     postApi: PostApi,
     postRepo: PostRepo,
     cacheApi: lila.memo.CacheApi,

@@ -41,7 +41,7 @@ object post {
   )(implicit ctx: Context) = {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
-        !post.erased option div(
+        (!post.erased || canModCateg) option div(
           authorLink(post = post, cssClass = "author".some, modIcon = post.displayModIcon),
           a(href := url)(
             post.updatedAt
@@ -55,9 +55,9 @@ object post {
                 momentFromNow(post.createdAt)
               }
           ),
-          ctx.userId.exists(post.shouldShowEditForm) option
+          (!post.erased && ctx.userId.exists(post.shouldShowEditForm)) option
             a(cls := "mod edit button button-empty text", dataIcon := "m")("Edit"),
-          if (ctx.userId.has(~post.userId))
+          if (!post.erased && ctx.userId.has(~post.userId))
             postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
               submitButton(
                 cls := "mod delete button button-empty confirm",

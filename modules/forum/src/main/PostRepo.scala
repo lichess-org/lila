@@ -50,16 +50,14 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll
-      .find(
-        selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-      )
+      .find(selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden ++ selectNotErased)
       .sort($sort.createdDesc)
       .cursor[Post]()
       .list(nb)
 
   def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
     coll
-      .find(selectCateg(categId) ++ selectNotHidden)
+      .find(selectCateg(categId) ++ selectNotHidden ++ selectNotErased)
       .sort($sort.createdDesc)
       .cursor[Post]()
       .list(nb)
@@ -85,6 +83,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def selectCategs(categIds: List[String]) = $doc("categId" $in categIds) ++ trollFilter
 
   val selectNotHidden = $doc("hidden" -> false)
+  val selectNotErased = $doc("erasedAt" $exists false)
 
   def selectLangs(langs: List[String]) =
     if (langs.isEmpty) $empty

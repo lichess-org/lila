@@ -80,7 +80,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     Auth { implicit ctx => me =>
       postApi getPost id flatMap {
         _ ?? { post =>
-          if (me.id == ~post.userId)
+          if (me.id == ~post.userId && !post.erased)
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
             isGrantedMod(categSlug) flatMap { granted =>

@@ -62,7 +62,7 @@ final class Env(
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
-  lazy val recent                           = wire[Recent]
+  lazy val recent                           = wire[ForumRecent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
