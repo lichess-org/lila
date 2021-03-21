@@ -490,7 +490,7 @@
   <string name="cheat">Triche</string>
   <string name="insult">Insulte</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Manipulation du classement</string>
+  <string name="ratingManipulation">Manipulation du classement</string>
   <string name="other">Autre</string>
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
