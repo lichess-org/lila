@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Trekk for å begynne</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du spiller med de hvite brikkene i alle sjakknøttene</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spiller med de svarte brikkene i alle sjakknøttene</string>
   <string name="puzzlesSolved">sjakknøtter løst</string>
   <string name="newDailyHighscore">Ny rekord for dagen!</string>
   <string name="newWeeklyHighscore">Ny rekord for uken!</string>
@@ -31,4 +33,7 @@
   <string name="viewBestRuns">Vis beste runder</string>
   <string name="bestRunOfDay">Dagens beste runde</string>
   <string name="runs">Runder</string>
+  <string name="getReady">Gjør deg klar!</string>
+  <string name="waitingForMorePlayers">Venter på flere deltakere...</string>
+  <string name="raceComplete">Løpet er fullført!</string>
 </resources>
