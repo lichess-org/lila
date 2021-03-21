@@ -65,7 +65,7 @@ final class Env(
         case lila.hub.actorApi.report.Cheater(userId, text) =>
           api.autoCheatReport(userId, text).unit
         case lila.hub.actorApi.report.Shutup(userId, text) =>
-          api.autoInsultReport(userId, text).unit
+          api.autoCommReport(userId, text).unit
       }
     }),
     name = config.actorName

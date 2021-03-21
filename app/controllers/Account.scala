@@ -32,12 +32,17 @@ final class Account(
       FormFuResult(env.user.forms.profile) { err =>
         fuccess(html.account.profile(me, err))
       } { profile =>
-        profile.bio.exists(env.security.spam.detect).option(s"Spam in profile bio: ${~profile.bio}") orElse
-          profile.links
-            .exists(env.security.spam.detect)
-            .option(s"Spam in profile links: ${~profile.links}") foreach {
-            env.report.api.autoCommFlag(lila.report.Suspect(me), _)
+        profile.bio
+          .exists(env.security.spam.detect)
+          .option("profile.bio" -> ~profile.bio)
+          .orElse {
+            profile.links
+              .exists(env.security.spam.detect)
+              .option("profile.links" -> ~profile.links)
           }
+          .?? { case (resource, text) =>
+            env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+          } inject Redirect(routes.Account.profile).flashSuccess
       }
     }
 
