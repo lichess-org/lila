@@ -20,5 +20,4 @@ export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
   };
 };
 
-export const povMessage = (run: Run) =>
-  `youPlayThe${run.pov == 'white' ? 'White' : 'Black'}PiecesInAllPuzzles`;
+export const povMessage = (run: Run) => `youPlayThe${run.pov == 'white' ? 'White' : 'Black'}PiecesInAllPuzzles`;
