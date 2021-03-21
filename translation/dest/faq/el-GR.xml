@@ -60,7 +60,7 @@
   <string name="weRepeatedthreeTimesPosButNoDraw">Η θέση έχει επαναληφθεί τρεις φορές. Γιατί δεν έχει γίνει ισοπαλία;</string>
   <string name="accounts">Λογαριασμοί</string>
   <string name="titlesAvailableOnLichess">Τι είδους τίτλοι υπάρχουν στο Lichess;</string>
-  <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν από το OTB (Over The Board), καθώς και από %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
+  <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν από το OTB (Over The Board), καθώς και %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
   <string name="showYourTitle">Αν έχετε έναν τίτλο OTB, μπορείτε να κάνετε αίτηση για να τον εμφανίσετε στο λογαριασμό σας συμπληρώνοντας τη %1$s, όπου θα πρέπει να επισυνάψετε μια καθαρή εικόνα από το σχετικό έγγραφο καθώς και μια φωτογραφία του εαυτού σας ενώ το κρατάτε.
 
 Εάν το Lichess έχει επαληθεύσει τον τίτλο σας, τότε μπορείτε να συμμετέχετε σε τουρνουά Titled Arena.
@@ -99,11 +99,18 @@
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">έχετε παίξει ένα βαθμολογημένο παιχνίδι την τελευταία εβδομάδα για αυτή τη βαθμολογία,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">έχετε απόκλιση βαθμολογίας μικρότερη από %1$s στο κανονικό σκάκι και από %2$s σε παραλλαγές,</string>
   <string name="beInTopTen">να είστε στους καλύτερους 10 σε αυτήν τη βαθμολογία.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Η 2η απαίτηση υπάρχει για να εμποδίσει τους παίκτες που δεν είναι ενεργοί από το να εμφανίζονται στους πίνακες βαθμολογιών.</string>
+  <string name="whyAreRatingHigher">Γιατί οι βαθμολογίες είναι ψηλότερες σε σχέση με άλλες ιστοσελίδες και οργανισμούς όπως οι FIDE, USCF και ICC;</string>
+  <string name="whyAreRatingHigherExplanation">Είναι καλύτερο να μη σκεφτόμαστε τις αξιολογήσεις ως απόλυτους αριθμούς ή να τις συγκρίνουμε με άλλους οργανισμούς. Διαφορετικοί οργανισμοί έχουν διαφορετικά επίπεδα παικτών και διαφορετικά συστήματα διαβάθμισης (Elo, Glicko, Glicko-2, ή μια τροποποιημένη έκδοση αυτών). Οι παράγοντες αυτοί μπορεί να επηρεάσουν τους απόλυτους αριθμούς (αξιολογήσεις).
+
+Είναι καλύτερο να σκεφτείτε τις βαθμολογίες ως \"σχετικές\" μορφές: μέσα σε μια ομάδα παικτών, οι σχετικές διαφορές τους στις βαθμολογίες θα σας βοηθήσουν να υπολογίσετε ποιος θα κερδίσει/θα κάνει ισοπαλία/θα χάσει και πόσο συχνά. Το να λέτε \"Η βαθμολογία μου είναι Χ\" δε σημαίνει τίποτα αν δεν υπάρχουν κι άλλοι παίκτες με διαφορετικές βαθμολογίες με τους οποίους μπορείτε να συγκριθείτε.</string>
+  <string name="howToHideRatingWhilePlaying">Πώς μπορώ να κρύψω τη βαθμολογία μου ενώ παίζω;</string>
   <string name="enableZenMode">Ενεργοποιήστε τη λειτουργία Zen-mode στις %1$s ή πατώντας το πλήκτρο %2$s κατά τη διάρκεια του παιχνιδιού.</string>
   <string name="displayPreferences">προτιμήσεις εμφάνισης</string>
   <string name="connexionLostCanIGetMyRatingBack">Έχασα ένα παιχνίδι λόγω καθυστέρησης/αποσύνδεσης. Μπορώ να πάρω τους βαθμούς μου πίσω;</string>
   <string name="howToThreeDots">Πως να...</string>
   <string name="enableDisableNotificationPopUps">Ενεργοποίηση ή απενεργοποίηση εμφάνισης ειδοποιήσεων;</string>
+  <string name="viewSiteInformationPopUp">Προβολή πληροφοριών ιστότοπου σε αναδυόμενο παράθυρο</string>
   <string name="lichessCanOptionnalySendPopUps">Το Lichess μπορεί προαιρετικά να στείλει ειδοποιήσεις, όταν για παράδειγμα είναι η σειρά σας ή λαμβάνετε ένα ιδιωτικό μήνυμα.
 
 Κάντε κλικ στο εικονίδιο κλειδώματος δίπλα στη διεύθυνση lichess.org στη γραμμή URL του περιηγητή σας.
