@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Doe een zet om te beginnen</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">In alle puzzels speel je met de witte stukken</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">In alle puzzels speel je met de zwarte stukken</string>
   <string name="puzzlesSolved">puzzels opgelost</string>
   <string name="newDailyHighscore">Nieuwe dagelijkse topscore!</string>
   <string name="newWeeklyHighscore">Nieuwe wekelijkse topscore!</string>
@@ -20,10 +22,10 @@
   <string name="score">Score</string>
   <string name="moves">Zetten</string>
   <string name="accuracy">Nauwkeurigheid</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="combo">Combo</string>
   <string name="time">Tijd</string>
   <string name="timePerMove">Tijd per zet</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Hoogste rating</string>
+  <string name="highestSolved">Hoogste rating</string>
   <string name="puzzlesPlayed">Gespeelde puzzels</string>
   <string name="newRun">Nieuwe sessie (sneltoets: Spatiebalk)</string>
   <string name="endRun">Sessie stoppen (sneltoets: Enter)</string>
@@ -31,4 +33,11 @@
   <string name="viewBestRuns">Bekijk beste sessies</string>
   <string name="bestRunOfDay">Beste sessie van de dag</string>
   <string name="runs">Sessies</string>
+  <string name="getReady">Houd je gereed!</string>
+  <string name="waitingForMorePlayers">Wachten op meer deelnemers...</string>
+  <string name="raceComplete">Wedstrijd afgelopen!</string>
+  <string name="spectating">Toeschouwer</string>
+  <string name="joinTheRace">Doe mee aan de wedstrijd!</string>
+  <string name="nextRace">Volgende wedstrijd</string>
+  <string name="waitingToStart">Wachten op de start</string>
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">一手指すとスタート</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">あなたの駒はどの問題でも白です</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">あなたの駒はどの問題でも黒です</string>
   <string name="puzzlesSolved">正解数</string>
   <string name="newDailyHighscore">今日のハイスコア更新！</string>
   <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
@@ -18,10 +20,10 @@
   <string name="score">スコア</string>
   <string name="moves">総手数</string>
   <string name="accuracy">正解率</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">連続正解</string>
+  <string name="combo">連続正解</string>
   <string name="time">経過時間</string>
   <string name="timePerMove">１手あたり時間</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">正解最高レート</string>
+  <string name="highestSolved">正解最高レート</string>
   <string name="puzzlesPlayed">プレイした問題</string>
   <string name="newRun">新たなストーム（スペースキー）</string>
   <string name="endRun">ストーム終了（Enter キー）</string>
@@ -29,4 +31,15 @@
   <string name="viewBestRuns">最高記録を表示</string>
   <string name="bestRunOfDay">日別最高</string>
   <string name="runs">回数</string>
+  <string name="getReady">用意！</string>
+  <string name="waitingForMorePlayers">他の参加者を待っています...</string>
+  <string name="raceComplete">レース終了！</string>
+  <string name="spectating">観戦中</string>
+  <string name="joinTheRace">レースに参戦！</string>
+  <string name="yourRankX">順位：%s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">次をお待ちください</string>
+  <string name="nextRace">次のレース</string>
+  <string name="joinRematch">もう一度参加する</string>
+  <string name="waitingToStart">まもなくスタート</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">新たなレースを作成</string>
 </resources>

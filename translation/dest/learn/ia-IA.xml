@@ -19,15 +19,15 @@ tanto plus punctos tu gania!</string>
   <string name="useTwoRooks">Usa duo turres
 pro accelerar isto!</string>
   <string name="rookComplete">Congratulationes! Tu ha maestrate con successo le turre.</string>
-  <string name="theBishop">Le alfil</string>
+  <string name="theBishop">Le episcopo</string>
   <string name="itMovesDiagonally">Illo move se in diagonales</string>
-  <string name="bishopIntro">Ora nos va apprender como manovrar un alfil!</string>
-  <string name="youNeedBothBishops">Un alfil pro quadratos clar,
-e un alfil pro quadratos obscur.
+  <string name="bishopIntro">Ora nos va apprender como manovrar un episcopo!</string>
+  <string name="youNeedBothBishops">Un episcopo pro quadratos clar,
+e uno pro quadratos obscur.
 Tu ha besonio de ambes!</string>
-  <string name="bishopComplete">Congratulationes! Tu pote commandar un alfil.</string>
+  <string name="bishopComplete">Congratulationes! Tu pote commandar un episcopo.</string>
   <string name="theQueen">Le dama</string>
-  <string name="queenCombinesRookAndBishop">Dama = turre + alfil</string>
+  <string name="queenCombinesRookAndBishop">Dama = turre + episcopo</string>
   <string name="queenIntro">Le plus potente pecia de chacos entra. Su majestate le regina!</string>
   <string name="queenComplete">Congratulationes! Damas non ha secretos pro te.</string>
   <string name="theKing">Le rege</string>
@@ -120,7 +120,7 @@ Movimenta ulle pecia pro continuar.</string>
 Illos va in le angulos.</string>
   <string name="thenPlaceTheKnights">Alora pone le cavallos!
 Illos va presso al turres.</string>
-  <string name="placeTheBishops">Pone le alfiles!
+  <string name="placeTheBishops">Pone le episcopo!
 Illos va proxime al cavallos.</string>
   <string name="placeTheQueen">Pone le dama!
 Illa va in su proprie color.</string>
@@ -176,19 +176,21 @@ si tu pedon es in le quinte rango.</string>
   <string name="pieceValue">Valor del pecias</string>
   <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
   <string name="pieceValueIntro">Pecias con plus mobilitate ha un valor plus alte!
-Dama = 9    Turre = 5
-Alfil = 3      Cavallo = 3
+Dama = 9
+Turre = 5
+Episcopo = 3
+Cavallo = 3
 Pedon = 1
 Le rege es inestimabile! Perder lo significa perder le partita.</string>
   <string name="queenOverBishop">Prende le pecia
 con le valor plus alte!
-Dama &gt; Alfil</string>
+Dama &gt; Episcopo</string>
   <string name="takeThePieceWithTheHighestValue">Captura le pecia
 con le valor plus alte!</string>
   <string name="pieceValueComplete">Congratulationes! Tu sape le valor material!
 Dama = 9
 Turre = 5
-Alfil = 3
+Episcopo = 3
 Cavallo = 3
 Pedon = 1</string>
   <string name="checkInTwo">Chaco in 2</string>

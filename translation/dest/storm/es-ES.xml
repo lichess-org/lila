@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mueve para empezar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Juegas con blancas en todos los ejercicios</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Juegas con negras en todos los ejercicios</string>
   <string name="puzzlesSolved">ejercicios resueltos</string>
   <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>
   <string name="newWeeklyHighscore">¡Nueva puntuación más alta semanal!</string>
@@ -9,7 +11,7 @@
   <string name="previousHighscoreWasX">La puntuación más alta anterior era %s</string>
   <string name="playAgain">Jugar de nuevo</string>
   <plurals name="xRuns">
-    <item quantity="one">%s ronda</item>
+    <item quantity="one">1 ronda</item>
     <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
@@ -20,10 +22,10 @@
   <string name="score">Puntuación</string>
   <string name="moves">Movimientos</string>
   <string name="accuracy">Precisión</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ejercicio de mayor dificultad resuelto</string>
+  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Ver las mejores rondas</string>
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>
+  <string name="getReady">¡Prepárate!</string>
+  <string name="waitingForMorePlayers">Esperando a que se unan más jugadores…</string>
+  <string name="raceComplete">¡Carrera completada!</string>
+  <string name="spectating">Observando</string>
+  <string name="joinTheRace">¡Únete a la carrera!</string>
+  <string name="yourRankX">Tu puntuación: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Espera para la revancha</string>
+  <string name="nextRace">Siguiente carrera</string>
+  <string name="joinRematch">Unirse a la revancha</string>
+  <string name="waitingToStart">Esperando a que empiece</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Crear una nueva carrera</string>
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Направете ход за да започнете</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Играете с белите фигури във всички задачи</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Играете с черните фигури във всички задачи</string>
   <string name="puzzlesSolved">решени пъзели</string>
   <string name="newDailyHighscore">Нов дневен рекорд!</string>
   <string name="newWeeklyHighscore">Нов седмичен рекорд!</string>
@@ -20,10 +22,10 @@
   <string name="score">Резултат</string>
   <string name="moves">Ходове</string>
   <string name="accuracy">Точност</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="combo">Комбо</string>
   <string name="time">Време</string>
   <string name="timePerMove">Време на ход</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Най-сложната решена</string>
+  <string name="highestSolved">Най-сложната решена</string>
   <string name="puzzlesPlayed">Изиграни задачи</string>
   <string name="newRun">Нов опит (натисни: Интервал)</string>
   <string name="endRun">Приключване на опита (натисни: Enter)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Вижте най-добрите опити</string>
   <string name="bestRunOfDay">Най-добрият опит за деня</string>
   <string name="runs">Опити</string>
+  <string name="getReady">Пригответе се!</string>
+  <string name="waitingForMorePlayers">Изчакване на още играчи...</string>
+  <string name="raceComplete">Състезанието приключи!</string>
+  <string name="spectating">Наблюдаване</string>
+  <string name="joinTheRace">Влезте в състезанието!</string>
+  <string name="yourRankX">Вашето класиране: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Изчакайте за реванш</string>
+  <string name="nextRace">Следващо състезание</string>
+  <string name="joinRematch">Започнете реванша</string>
+  <string name="waitingToStart">Изчакване на започването</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Създайте нова игра</string>
 </resources>

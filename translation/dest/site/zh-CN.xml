@@ -124,7 +124,7 @@
   <string name="offerDraw">提出和棋</string>
   <string name="draw">平局</string>
   <plurals name="nbPlayers">
-    <item quantity="other">%s位在线棋手</item>
+    <item quantity="other">%s 位在线棋手</item>
   </plurals>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
@@ -148,7 +148,7 @@
   <string name="discussions">讨论组</string>
   <string name="today">今天</string>
   <string name="yesterday">昨天</string>
-  <string name="minutesPerSide">每方分钟数</string>
+  <string name="minutesPerSide">各方限时（分钟）</string>
   <string name="variant">变体</string>
   <string name="variants">变体</string>
   <string name="timeControl">时间限制</string>
@@ -237,7 +237,7 @@
   <string name="subject">主题</string>
   <string name="recipient">收件人</string>
   <string name="send">发送</string>
-  <string name="incrementInSeconds">步时</string>
+  <string name="incrementInSeconds">每步加时（秒）</string>
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">观众：</string>
   <plurals name="nbRated">
@@ -360,7 +360,7 @@
   <string name="list">列表</string>
   <string name="graph">图表</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="other">小于%s分钟</item>
+    <item quantity="other">小于 %s 分钟</item>
   </plurals>
   <string name="required">必填项目</string>
   <string name="openTournaments">公开锦标赛</string>
@@ -430,7 +430,7 @@
   <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是排位赛，但是不计时！</string>
   <string name="success">解题成功</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="other">%s场对局进行中</item>
+    <item quantity="other">%s 场对局进行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
@@ -461,6 +461,7 @@
   <string name="cheat">作弊</string>
   <string name="insult">侮辱</string>
   <string name="troll">捣乱</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">操纵等级分</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
   <string name="error.provideOneCheatedGameLink">请提供至少一局作弊的棋局的链接。</string>
@@ -538,7 +539,7 @@
   <string name="practice">练习</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
-  <string name="increment">加秒</string>
+  <string name="increment">每步加秒</string>
   <string name="sharePGN">分享PGN</string>
   <string name="playOnline">在线下棋</string>
   <string name="playOffline">离线下棋</string>

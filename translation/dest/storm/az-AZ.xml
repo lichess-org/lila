@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Başlamaq üçün gediş edin</string>
-  <string name="puzzlesSolved">tapmacalar həll edildi</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Hər pazlda ağ hissələrlə oynay</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Hər pazlda qara hissələrlə oyna</string>
+  <string name="puzzlesSolved">həll edilən tapmaca</string>
   <string name="newDailyHighscore">Günlük ən yüksək nəticə!</string>
   <string name="newWeeklyHighscore">Həftəlik ən yüksək nəticə!</string>
   <string name="newMonthlyHighscore">Aylıq ən yüksək nəticə!</string>
@@ -20,15 +22,26 @@
   <string name="score">Hesab</string>
   <string name="moves">Gediş sayı</string>
   <string name="accuracy">Dəqiqlik</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="combo">Kombo</string>
   <string name="time">Vaxt</string>
   <string name="timePerMove">Gediş başına vaxt</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ən çətin tapmaca</string>
+  <string name="highestSolved">Ən çətin tapmaca</string>
   <string name="puzzlesPlayed">Ən çətin tapmaca</string>
   <string name="newRun">Yeni tur (qısayol: Boşluq düyməsi)</string>
-  <string name="endRun">Turu bitir</string>
+  <string name="endRun">Turu bitir (qısayol: Enter)</string>
   <string name="highscores">Ən yüksək ballar</string>
   <string name="viewBestRuns">Ən yaxşı cəhdləri göstər</string>
   <string name="bestRunOfDay">Günün ən yaxşı cəhdi</string>
   <string name="runs">Cəhdlərin sayı</string>
+  <string name="getReady">Hazır ol!</string>
+  <string name="waitingForMorePlayers">Daha çox oyunçunun qatılması üçün gözləmə...</string>
+  <string name="raceComplete">Yarış tamamlandı!</string>
+  <string name="spectating">Tamaşaçı</string>
+  <string name="joinTheRace">Yarışa qatıl!</string>
+  <string name="yourRankX">Sənin rank %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Yeni oyun üçün gözlə</string>
+  <string name="nextRace">Növbəti yarış</string>
+  <string name="joinRematch">Yeni oyuna qatıl</string>
+  <string name="waitingToStart">Başlamaq üçün gözlə</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni oyun yarat</string>
 </resources>

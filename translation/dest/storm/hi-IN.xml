@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">शुरू करने के लिए एक चाल खेलें।</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">आप सभी पहेली में सफेद शतरंज के मोहरे खेलते हैं</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">आप सभी पहेली में काला शतरंज के मोहरे खेलते हैं</string>
   <string name="puzzlesSolved">हल पहेलियों की संख्या</string>
   <string name="newDailyHighscore">आज का नया सर्वश्रेष्ठ स्कोर</string>
   <string name="newWeeklyHighscore">इस हफ्ते का नया सर्वश्रेष्ठ स्कोर</string>

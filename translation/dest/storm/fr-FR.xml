@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Jouez un coup pour commencer</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vous avez les pièces blanches dans tous les problèmes.</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vous avez les pièces noires dans tous les problèmes.</string>
   <string name="puzzlesSolved">problèmes résolus</string>
   <string name="newDailyHighscore">Nouveau record du jour!</string>
   <string name="newWeeklyHighscore">Nouveau record de la semaine!</string>
@@ -20,10 +22,10 @@
   <string name="score">Score</string>
   <string name="moves">Coups</string>
   <string name="accuracy">Précision</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Enchaînement</string>
+  <string name="combo">Enchaînement</string>
   <string name="time">Temps</string>
   <string name="timePerMove">Temps par coup</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Prob. résolu le plus difficile</string>
+  <string name="highestSolved">Prob. résolu le plus difficile</string>
   <string name="puzzlesPlayed">Problèmes faits</string>
   <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
   <string name="endRun">Terminer l\'essai (raccourci clavier: Entrée)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs">Essais</string>
+  <string name="getReady">Soyez prêts!</string>
+  <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
+  <string name="raceComplete">Course terminée!</string>
+  <string name="spectating">Observer</string>
+  <string name="joinTheRace">Participez!</string>
+  <string name="yourRankX">Votre classement : %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Attendre une offre de revanche</string>
+  <string name="nextRace">Prochaine course</string>
+  <string name="joinRematch">Faire une revanche</string>
+  <string name="waitingToStart">Attendre le départ de la course</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Créer une nouvelle course</string>
 </resources>

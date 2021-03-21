@@ -92,6 +92,13 @@
     <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
     <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Uczestniczył(a) w %s turnieju szwajcarskim</item>
+    <item quantity="few">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+    <item quantity="many">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+    <item quantity="other">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">%1$s miejsce w %2$s</string>
   <string name="signedUp">Rejestracja na lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Dołączenie do klubu</item>

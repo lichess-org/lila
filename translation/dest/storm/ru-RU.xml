@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Сделайте ход, чтобы начать</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы играете белыми фигурами во всех задачах</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Вы играете чёрными фигурами во всех задачах</string>
   <string name="puzzlesSolved">задач решено</string>
   <string name="newDailyHighscore">Новый дневной рекорд!</string>
   <string name="newWeeklyHighscore">Новый недельный рекорд!</string>
@@ -24,10 +26,10 @@
   <string name="score">Результат</string>
   <string name="moves">Ходов</string>
   <string name="accuracy">Точность</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="combo">Комбо</string>
   <string name="time">Время</string>
   <string name="timePerMove">Времени на ход</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Труднейшая задача</string>
+  <string name="highestSolved">Труднейшая задача</string>
   <string name="puzzlesPlayed">Сыгранные задачи</string>
   <string name="newRun">Новая попытка (клавиша: Пробел)</string>
   <string name="endRun">Закончить попытку (клавиша: Ввод)</string>
@@ -35,4 +37,15 @@
   <string name="viewBestRuns">Посмотреть лучшие попытки</string>
   <string name="bestRunOfDay">Лучшая попытка дня</string>
   <string name="runs">Серий</string>
+  <string name="getReady">Приготовьтесь!</string>
+  <string name="waitingForMorePlayers">Ожидание других игроков...</string>
+  <string name="raceComplete">Гонка завершена!</string>
+  <string name="spectating">Наблюдение</string>
+  <string name="joinTheRace">Присоединиться к гонке!</string>
+  <string name="yourRankX">Ваше место: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Ожидание реванша</string>
+  <string name="nextRace">Следующая гонка</string>
+  <string name="joinRematch">Присоединиться к реваншу</string>
+  <string name="waitingToStart">Ожидание начала</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Создать новую игру</string>
 </resources>

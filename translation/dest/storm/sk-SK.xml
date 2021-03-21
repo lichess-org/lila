@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Odštartujte potiahnutím</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vo všetkých úlohách ste biely</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vo všetkých úlohách ste čierny</string>
   <string name="puzzlesSolved">vyriešených úloh</string>
   <string name="newDailyHighscore">Nové najvyššie skóre dňa!</string>
   <string name="newWeeklyHighscore">Nové najvyššie skóre týždňa!</string>
@@ -12,10 +14,10 @@
   <string name="score">Skóre</string>
   <string name="moves">Počet ťahov</string>
   <string name="accuracy">Úspešnosť</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="combo">Kombo</string>
   <string name="time">Čas</string>
   <string name="timePerMove">Čas na ťah</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Najťažšia vyriešená úloha</string>
+  <string name="highestSolved">Najťažšia vyriešená úloha</string>
   <string name="puzzlesPlayed">Riešené úlohy</string>
   <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
   <string name="endRun">Ukončiť pokus (kláves. skratka: Enter)</string>
@@ -23,4 +25,15 @@
   <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
   <string name="bestRunOfDay">Najlepší pokus dňa</string>
   <string name="runs">Pokusy</string>
+  <string name="getReady">Pripravte sa!</string>
+  <string name="waitingForMorePlayers">Čaká sa kým sa pripojí viac hráčov...</string>
+  <string name="raceComplete">Preteky ukončené!</string>
+  <string name="spectating">Divák</string>
+  <string name="joinTheRace">Zapojte sa do pretekov!</string>
+  <string name="yourRankX">Vaše miesto: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Čakať na odvetu</string>
+  <string name="nextRace">Ďalšie preteky</string>
+  <string name="joinRematch">Zapojiť sa do odvety</string>
+  <string name="waitingToStart">Čaká sa na štart</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Vytvoriť nové preteky</string>
 </resources>

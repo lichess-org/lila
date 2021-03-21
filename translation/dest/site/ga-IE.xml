@@ -578,6 +578,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="cheat">Caimiléir</string>
   <string name="insult">Masla</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Ionramháil rátála</string>
   <string name="other">Eile</string>
   <string name="reportDescriptionHelp">Greamaigh an nasc chuig an gcluiche/na cluichí agus mínigh cad atá cearr le hiompar an úsáideora. Ná habair go díreach go mbíonn \"caimiléireacht\" ar bun acu, ach inis dúinn faoin dóigh a fuair tú amach faoi. Faraor, déanfar do thuairisc a phróiseáil níos tapúla más i mBéarla atá sé.</string>
   <string name="error.provideOneCheatedGameLink">Cuir nasc ar fáil chuig cluiche amháin ar a laghad ar tharla caimiléireacht ann le do thoil.</string>

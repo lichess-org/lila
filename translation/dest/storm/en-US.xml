@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Move to start</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">You play the white pieces in all puzzles</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">You play the black pieces in all puzzles</string>
   <string name="puzzlesSolved">puzzles solved</string>
   <string name="newDailyHighscore">New daily highscore!</string>
   <string name="newWeeklyHighscore">New weekly highscore!</string>
@@ -20,10 +22,10 @@
   <string name="score">Score</string>
   <string name="moves">Moves</string>
   <string name="accuracy">Accuracy</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="combo">Combo</string>
   <string name="time">Time</string>
   <string name="timePerMove">Time per move</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Highest solved</string>
+  <string name="highestSolved">Highest solved</string>
   <string name="puzzlesPlayed">Puzzles played</string>
   <string name="newRun">New run (hotkey: Space)</string>
   <string name="endRun">End run (hotkey: Enter)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">View best runs</string>
   <string name="bestRunOfDay">Best run of day</string>
   <string name="runs">Runs</string>
+  <string name="getReady">Get ready!</string>
+  <string name="waitingForMorePlayers">Waiting for more players to join...</string>
+  <string name="raceComplete">Race complete!</string>
+  <string name="spectating">Spectating</string>
+  <string name="joinTheRace">Join the race!</string>
+  <string name="yourRankX">Your rank: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Wait for rematch</string>
+  <string name="nextRace">Next race</string>
+  <string name="joinRematch">Join rematch</string>
+  <string name="waitingToStart">Waiting to start</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Create a new game</string>
 </resources>

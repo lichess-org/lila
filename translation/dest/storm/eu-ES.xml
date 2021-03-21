@@ -20,10 +20,10 @@
   <string name="score">Puntuazioa</string>
   <string name="moves">Jokaldiak</string>
   <string name="accuracy">Zehaztasuna</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Jarraiak</string>
+  <string name="combo">Jarraiak</string>
   <string name="time">Denbora</string>
   <string name="timePerMove">Jokaldiko denbora</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ebatzitako altuena</string>
+  <string name="highestSolved">Ebatzitako altuena</string>
   <string name="puzzlesPlayed">Jokatutako ariketak</string>
   <string name="newRun">Saiakera berria (espazioa)</string>
   <string name="endRun">Amaitu saiakera (enter)</string>

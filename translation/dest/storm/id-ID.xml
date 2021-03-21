@@ -18,10 +18,10 @@
   <string name="score">Skor</string>
   <string name="moves">Langkah</string>
   <string name="accuracy">Akurasi</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="combo">Kombo</string>
   <string name="time">Waktu</string>
   <string name="timePerMove">Waktu per langkah</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Terpecahkan tertinggi</string>
+  <string name="highestSolved">Terpecahkan tertinggi</string>
   <string name="puzzlesPlayed">Teka-teki dimainkan</string>
   <string name="newRun">Mulai baru (tombol: Space)</string>
   <string name="endRun">Akhiri (tombol: Enter)</string>

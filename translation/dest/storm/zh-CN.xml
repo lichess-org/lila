@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">走一步棋以开始</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">你将在所有的谜题中执白</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">你将在所有的谜题中执黑</string>
   <string name="puzzlesSolved">谜题已解决 ！</string>
   <string name="newDailyHighscore">新的每日高分！</string>
   <string name="newWeeklyHighscore">新的每周高分！</string>
@@ -18,10 +20,10 @@
   <string name="score">得分</string>
   <string name="moves">着法</string>
   <string name="accuracy">准确度</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">连击</string>
+  <string name="combo">连击</string>
   <string name="time">时间</string>
   <string name="timePerMove">平均着法时间</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">最难解决的谜题</string>
+  <string name="highestSolved">最难解决的谜题</string>
   <string name="puzzlesPlayed">玩过的谜题</string>
   <string name="newRun">开始新的一组(快捷键：空格)</string>
   <string name="endRun">结束本组(快捷键：回车)</string>
@@ -29,4 +31,15 @@
   <string name="viewBestRuns">查看最佳战绩</string>
   <string name="bestRunOfDay">每日最佳战绩</string>
   <string name="runs">组数</string>
+  <string name="getReady">做好准备！</string>
+  <string name="waitingForMorePlayers">等待更多玩家加入...</string>
+  <string name="raceComplete">竞速结束！</string>
+  <string name="spectating">观战中</string>
+  <string name="joinTheRace">加入竞速</string>
+  <string name="yourRankX">你的排名：%s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">等待下一场</string>
+  <string name="nextRace">下一场竞速</string>
+  <string name="joinRematch">再来一局</string>
+  <string name="waitingToStart">等待开始</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">创建新比赛</string>
 </resources>

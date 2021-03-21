@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Aloita tekemällä siirto</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Pelaat kaikissa tehtävissä valkeilla</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Pelaat kaikissa tehtävissä mustilla</string>
   <string name="puzzlesSolved">tehtävää ratkaistu</string>
   <string name="newDailyHighscore">Päivän uusi ennätys!</string>
   <string name="newWeeklyHighscore">Viikon uusi ennätys!</string>
@@ -20,10 +22,10 @@
   <string name="score">Pisteet</string>
   <string name="moves">Siirtoja</string>
   <string name="accuracy">Tarkkuus</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Putki</string>
+  <string name="combo">Putki</string>
   <string name="time">Aika</string>
   <string name="timePerMove">Aika per siirto</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Vaikein ratkaistu</string>
+  <string name="highestSolved">Vaikein ratkaistu</string>
   <string name="puzzlesPlayed">Tehdyt tehtävät</string>
   <string name="newRun">Uusi sarja (pikanäppäin: välilyönti)</string>
   <string name="endRun">Lopeta sarja (pikanäppäin: Enter)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Näytä parhaat sarjat</string>
   <string name="bestRunOfDay">Päivän paras sarja</string>
   <string name="runs">Sarjoja</string>
+  <string name="getReady">Ole valmiina!</string>
+  <string name="waitingForMorePlayers">Odotetaan lisää pelaajia mukaan...</string>
+  <string name="raceComplete">Kisa on päättynyt!</string>
+  <string name="spectating">Katsomassa</string>
+  <string name="joinTheRace">Liity kisaan!</string>
+  <string name="yourRankX">Sijoituksesi: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Odota revanssia</string>
+  <string name="nextRace">Seuraava kisa</string>
+  <string name="joinRematch">Liity revanssiin</string>
+  <string name="waitingToStart">Odotetaan alkamista</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Luo uusi peli</string>
 </resources>

@@ -15,6 +15,7 @@
   <string name="from">От</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Дали съперникът е бил човек или компютър</string>
+  <string name="aiLevel">Ниво на ИИ</string>
   <string name="source">Източник</string>
   <string name="nbTurns">Брой ходове</string>
   <string name="result">Резултат</string>

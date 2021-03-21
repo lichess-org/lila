@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Bog le tosú</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Imir leis na píosaí bána i ngach fadhb</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Imir leis na píosaí dubha i ngach fadhb</string>
   <string name="puzzlesSolved">fadhbhanna déanta</string>
   <string name="newDailyHighscore">Ardscór laethúil nua!</string>
   <string name="newWeeklyHighscore">Ardscór seachtainiúil nua!</string>
@@ -26,10 +28,10 @@
   <string name="score">Scór</string>
   <string name="moves">Bearta</string>
   <string name="accuracy">Cruinneas</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Sraithbhuille</string>
+  <string name="combo">Sraithbhuille</string>
   <string name="time">Am</string>
   <string name="timePerMove">Am an bheart</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Réitithe is airde</string>
+  <string name="highestSolved">Réitithe is airde</string>
   <string name="puzzlesPlayed">Fadhbhanna imeartha</string>
   <string name="newRun">Stríocáin nua (eochair aicearra: Spás)</string>
   <string name="endRun">Stríocáin deireadh (eochair aicearra: Iontráil)</string>
@@ -37,4 +39,15 @@
   <string name="viewBestRuns">Féach ar stríocáin is fearr</string>
   <string name="bestRunOfDay">An stríocán is fearr sa lá</string>
   <string name="runs">Stríocáin</string>
+  <string name="getReady">Déan réidh!</string>
+  <string name="waitingForMorePlayers">Ag fanacht le níos mó imreoirí a bheith páirteach...</string>
+  <string name="raceComplete">Léibhéal críochnaithe!</string>
+  <string name="spectating">Ag breathnú</string>
+  <string name="joinTheRace">Bí sa rás!</string>
+  <string name="yourRankX">Do rang: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Fan ar athchluiche</string>
+  <string name="nextRace">Chéad rás eile</string>
+  <string name="joinRematch">Téigh isteach i athchluiche</string>
+  <string name="waitingToStart">Ag fanacht le tosú</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Cruthaigh cluiche nua</string>
 </resources>

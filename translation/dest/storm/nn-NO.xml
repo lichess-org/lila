@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Start ved å gjera eit trekk</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du spelar med kvite brikker i alle oppgåvene</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spelar med svarte brikker i alle oppgåvene</string>
   <string name="puzzlesSolved">sjakkoppgåvene løyst</string>
   <string name="newDailyHighscore">Ny dagsrekord!</string>
   <string name="newWeeklyHighscore">Ny vekesrekord!</string>
@@ -20,10 +22,10 @@
   <string name="score">Poengsum</string>
   <string name="moves">Trekk</string>
   <string name="accuracy">Presisjon</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombinasjon</string>
+  <string name="combo">Kombinasjon</string>
   <string name="time">Tid</string>
   <string name="timePerMove">Tid per trekk</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Høgste vanskegrad</string>
+  <string name="highestSolved">Høgste vanskegrad</string>
   <string name="puzzlesPlayed">Spelte oppgåver</string>
   <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
   <string name="endRun">Avslutt runden (hurtigtast: Enter)</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Vis beste runde</string>
   <string name="bestRunOfDay">Dagens beste runde</string>
   <string name="runs">Runder</string>
+  <string name="getReady">Gjer deg klar!</string>
+  <string name="waitingForMorePlayers">Ventar på fleire deltakarar...</string>
+  <string name="raceComplete">Racet er fullført!</string>
+  <string name="spectating">Sjå på</string>
+  <string name="joinTheRace">Bli med på racet!</string>
+  <string name="yourRankX">Du er rangert som nr. %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Vent på ein ny omgang</string>
+  <string name="nextRace">Neste race</string>
+  <string name="joinRematch">Bli med på neste race</string>
+  <string name="waitingToStart">Vent på starten</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Lag eit nytt race</string>
 </resources>

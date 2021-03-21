@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Flytta för att starta</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du spelar de vita pjäserna i alla pussel</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spelar de vita pjäserna i alla pussel</string>
   <string name="puzzlesSolved">schackproblem lösta</string>
   <string name="newDailyHighscore">Nytt dagligt rekord!</string>
   <string name="newWeeklyHighscore">Nytt vecko-rekord!</string>
@@ -20,10 +22,10 @@
   <string name="score">Poäng</string>
   <string name="moves">Drag</string>
   <string name="accuracy">Precision</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="combo">Kombo</string>
   <string name="time">Tid</string>
   <string name="timePerMove">Tid per drag</string>
-  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Högsta lösta</string>
+  <string name="highestSolved">Högsta lösta</string>
   <string name="puzzlesPlayed">Spelade schackproblem</string>
   <string name="newRun">Nytt försök (snabbkommando: mellanslag)</string>
   <string name="endRun">Avsluta försök (snabbkommando: retur)</string>

@@ -177,7 +177,7 @@
   <string name="usernameOrEmail">İstifadəçi adı və ya e-poçt</string>
   <string name="changeUsername">İstifadəçi adını dəyiş</string>
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
-  <string name="changeUsernameDescription">İstifadəçi adınızı dəyişdirin. Bu prosesi sadəcə 1 (bir) dəfə gərçəkləşdirə bilərsiniz və sadəcə mövcud istifadəçi adınızdakı hərfləri (\"johndoe\", \"JohnDoe\") dəyiştirə bilərsiniz.</string>
+  <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">E-poçtu dəyiş</string>
@@ -229,7 +229,7 @@
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Revanş</string>
   <string name="rematchOfferSent">Revanş təklifi göndərildi</string>
-  <string name="rematchOfferSentWhite">Ağlar yeni bir oyun təklif edir</string>
+  <string name="rematchOfferSentWhite">Ağlar yeni oyun təklif edir</string>
   <string name="rematchOfferSentBlack">Qaralar yeni bir oyun təklif edir</string>
   <string name="rematchOfferAccepted">Revanş qəbul edildi</string>
   <string name="rematchOfferCanceled">Revanş təklifi ləğv edildi</string>
@@ -324,7 +324,7 @@
   <string name="yourPerfRatingIsTooLow">Sizin %1$s reytinqiniz (%2$s) çox aşağıdır</string>
   <string name="ratedMoreThanInPerf">%2$s reytinqi ≥ %1$s olmalıdır</string>
   <string name="ratedLessThanInPerf">%2$s reytinqi ≤ %1$s olmalıdır</string>
-  <string name="mustBeInTeam">%s adlı komandada olmalısınız.</string>
+  <string name="mustBeInTeam">%s adlı komandada olmalısan</string>
   <string name="youAreNotInTeam">%s komandasının üzvü deyilsiniz</string>
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Pulsuz onlayn şahmat serveridir. Təmiz bir interfeysdə şahmat oynayın. Heç bir qeydiyyat, reklam və plagin tələb olunmur. Kompüter, dostlar və ya təsadüfi rəqiblərlə şahmat oynayın.</string>
@@ -377,7 +377,7 @@
     <item quantity="other">%s izləyici</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s izlənilən</item>
+    <item quantity="one">%s izləyici</item>
     <item quantity="other">%s izlənilən</item>
   </plurals>
   <string name="more">Daha çox</string>
@@ -403,7 +403,7 @@
   <string name="inappropriateNameWarning">Hər hansı uyğunsuz bir ad, hesabınızın bağlanmasına yol aça bilər.</string>
   <string name="emptyTournamentName">Turnirə görkəmli bir şahmatçının adını vermək üçün boş buraxın.</string>
   <string name="recommendNotTouching">Bunlara toxunmamağınızı məsləhət görürük.</string>
-  <string name="fewerPlayers">Giriş tələbləri qoysanız, turnirinizə daha az oyunçu qoşulacaq.</string>
+  <string name="fewerPlayers">Giriş tələbləri qoyulsa, turnirə daha az oyunçu qoşulacaq.</string>
   <string name="showAdvancedSettings">Ətraflı tənzimləmələr</string>
   <string name="makePrivateTournament">Turniri özəl et və şifrə qoyaraq müraciəti məhdudlaşdır</string>
   <string name="join">Qoşul</string>
@@ -419,7 +419,7 @@
   <string name="youArePlaying">Oyundasınız!</string>
   <string name="winRate">Qazanma əmsalı</string>
   <string name="berserkRate">Berserk əmsalı</string>
-  <string name="performance">Performans</string>
+  <string name="performance">Reytinq</string>
   <string name="tournamentComplete">Turnir tamamlandı</string>
   <string name="movesPlayed">Oynanılan gediş</string>
   <string name="whiteWins">Ağların qələbəsi</string>
@@ -448,7 +448,7 @@
   <string name="biography">Özü haqqında</string>
   <string name="country">Ölkə</string>
   <string name="thankYou">Təşəkkürlər!</string>
-  <string name="socialMediaLinks">Sosial media bağlantıları</string>
+  <string name="socialMediaLinks">Sosial media linkləri</string>
   <string name="inlineNotation">Sətirarası notasiya</string>
   <string name="watchLichessTV">Lichess TV izlə</string>
   <string name="previouslyOnLichessTV">Daha öncə Lichess TV-də</string>
@@ -726,7 +726,7 @@
   <string name="usernameCharsInvalid">İstifadəçi adı yalnız hərflər, rəqəmlər, alt xətlər və tirelərdən ibarət olmalıdır. Ardıcıl alt xətlər və tire işarələrinə icazə verilmir.</string>
   <string name="usernameUnacceptable">Bu istifadəçi adı qəbuledilməzdir.</string>
   <string name="directlySupportLichess">Lichessi dəstəkləyin</string>
-  <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
+  <string name="playChessInStyle">Şahmatı tərz ilə oyna</string>
   <string name="chessBasics">Şahmatın təməl prinsipləri</string>
   <string name="coaches">Məşqçilər</string>
   <string name="invalidPgn">Yanlış PGN</string>
