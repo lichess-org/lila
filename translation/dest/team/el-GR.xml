@@ -26,8 +26,8 @@
     <item quantity="one">%s αίτημα ένταξης</item>
     <item quantity="other">%s αιτήματα ένταξης</item>
   </plurals>
-  <string name="willBeReviewed">Το αίτημα ένταξη σας θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
-  <string name="beingReviewed">Το αίτημά σας για ένταξη στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
+  <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
+  <string name="beingReviewed">Το αίτημά για πρόσβαση στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
   <string name="teamTournament">Τουρνουά ομάδας</string>
