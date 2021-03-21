@@ -230,7 +230,7 @@ final class PostApi(
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
-  def allByUser(userId: String) =
+  def allByUser(userId: User.ID) =
     env.postRepo.coll
       .find($doc("userId" -> userId))
       .sort($doc("createdAt" -> -1))
@@ -250,7 +250,8 @@ final class PostApi(
       )
 
   def erasePost(post: Post) =
-    env.postRepo.coll.update.one($id(post.id), post.erase).void
+    env.postRepo.coll.update.one($id(post.id), post.erase).void >>-
+      (indexer ! RemovePost(post.id))
 
   def eraseAllOf(user: User): Funit =
     env.postRepo.coll.update
@@ -260,7 +261,12 @@ final class PostApi(
           $set("text" -> "", "erasedAt" -> DateTime.now),
         multi = true
       )
-      .void
+      .void >>
+      env.postRepo.coll
+        .distinctEasy[Post.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
+        .map { ids =>
+          indexer ! RemovePosts(ids)
+        }
 
   def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamID]] =
     env.postRepo.coll.byId[Post](postId) flatMap {
