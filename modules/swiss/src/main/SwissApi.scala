@@ -259,16 +259,18 @@ final class SwissApi(
     }
 
   def searchPlayers(id: Swiss.Id, term: String, nb: Int): Fu[List[User.ID]] =
-    User.couldBeUsername(term) ?? SwissPlayer.fields { f =>
-      colls.player.primitive[User.ID](
-        selector = $doc(
-          f.swissId -> id,
-          f.userId $startsWith term.toLowerCase
-        ),
-        sort = $sort desc f.score,
-        nb = nb,
-        field = f.userId
-      )
+    User.validateId(term) ?? { valid =>
+      SwissPlayer.fields { f =>
+        colls.player.primitive[User.ID](
+          selector = $doc(
+            f.swissId -> id,
+            f.userId $startsWith valid
+          ),
+          sort = $sort desc f.score,
+          nb = nb,
+          field = f.userId
+        )
+      }
     }
 
   def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =

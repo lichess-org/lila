@@ -63,13 +63,13 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
 
   def apiDashboardOf(username: String, days: Int) =
     Open { implicit ctx =>
-      val userId = lila.user.User normalize username
-      if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
-      else
-        ((days > 0) ?? env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(userId) map {
-          case (history, high) =>
-            Ok(env.storm.json.apiDashboard(high, history))
-        }
-
+      lila.user.User.validateId(username) ?? { userId =>
+        if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
+        else
+          ((days > 0) ?? env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(userId) map {
+            case (history, high) =>
+              Ok(env.storm.json.apiDashboard(high, history))
+          }
+      }
     }
 }

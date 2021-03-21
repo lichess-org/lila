@@ -225,6 +225,8 @@ object User {
 
   def normalize(username: String) = username.toLowerCase
 
+  def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
+
   object BSONFields {
     val id                    = "_id"
     val username              = "username"

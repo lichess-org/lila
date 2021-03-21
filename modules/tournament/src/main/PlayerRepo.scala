@@ -307,11 +307,11 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       .result
 
   def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
-    User.couldBeUsername(term) ?? {
+    User.validateId(term) ?? { valid =>
       coll.primitive[User.ID](
         selector = $doc(
           "tid" -> tourId,
-          "uid" $startsWith term.toLowerCase
+          "uid" $startsWith valid
         ),
         sort = $sort desc "m",
         nb = nb,

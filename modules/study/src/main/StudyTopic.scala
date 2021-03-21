@@ -78,7 +78,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       favsFu flatMap { favs =>
         topicRepo
           .coll {
-            _.find($doc("_id".$startsWith(str, "i")))
+            _.find($doc("_id".$startsWith(java.util.regex.Pattern.quote(str), "i")))
               .sort($sort.naturalAsc)
               .cursor[Bdoc](readPref)
               .list(nb - favs.size)
