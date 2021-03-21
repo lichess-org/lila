@@ -548,7 +548,7 @@
   <string name="cheat">Oszust</string>
   <string name="insult">Znieważenie</string>
   <string name="troll">Natręt (troll)</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Manipulacja rankingiem</string>
+  <string name="ratingManipulation">Manipulacja rankingiem</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej odnośnik do gry (gier) i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
