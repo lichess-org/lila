@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Flyt eitt fólk at byrja</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Tú telvar við hvítum í ølllum uppgávum</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Tú telvar við svørtum í ølllum uppgávum</string>
   <string name="puzzlesSolved">uppgávur loystar</string>
   <string name="newDailyHighscore">Nýtt dagsmet!</string>
   <string name="newWeeklyHighscore">Nýtt vikumet!</string>
