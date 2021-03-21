@@ -519,7 +519,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="cheat">Varanje</string>
   <string name="insult">Vrijeđanje</string>
   <string name="troll">Provokacija</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Manipuliranje rejtingom</string>
+  <string name="ratingManipulation">Manipuliranje rejtingom</string>
   <string name="other">Ostalo</string>
   <string name="reportDescriptionHelp">Zalijepite link na partiju ili partije u pitanju i objasnite što nije bilo u redu sa ponašanjem korisnika. Nemojte samo reći \"varao je\", nego objasnite kako ste došli do tog zaključka. Vaša prijava će biti brže obrađena ukoliko je napišete na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link na partiju u kojoj je igrač varao.</string>
