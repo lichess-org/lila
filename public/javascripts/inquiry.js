@@ -1,5 +1,4 @@
 $(function () {
-
   const noteStore = lichess.storage.make('inquiry-note');
   const noteTextArea = $('#inquiry .notes').find('textarea')[0];
 
@@ -10,12 +9,12 @@ $(function () {
 
   $('#inquiry .notes').on('keydown', function () {
     setTimeout(function () {
-      noteStore.set(noteTextArea.value)
+      noteStore.set(noteTextArea.value);
     }, 5);
   });
 
   $('#inquiry .notes .button').on('click', function () {
-    noteStore.remove()
+    noteStore.remove();
   });
 
   $('#inquiry .costello').on('click', () => {
