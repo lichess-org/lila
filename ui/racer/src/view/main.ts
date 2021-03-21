@@ -31,7 +31,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
       return ctrl.race.lobby
         ? [
             waitingToStart(noarg),
-            h('div.racer__pre__message', [
+            h('div.racer__pre__message.racer__pre__message--with-skip', [
               h('div.racer__pre__message__text', [
                 h('p', ctrl.knowsSkip() ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers') : skipHelp()),
                 povMsg,

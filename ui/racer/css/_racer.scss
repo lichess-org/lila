@@ -88,8 +88,10 @@
   }
 
   &__pre__message {
-    @extend %flex-center-nowrap;
-    justify-content: space-between;
+    &--with-skip {
+      @extend %flex-center-nowrap;
+      justify-content: space-between;
+    }
     &__pov {
       color: $c-brag;
       margin: 1em 0;
