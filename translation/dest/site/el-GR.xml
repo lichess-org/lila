@@ -491,7 +491,7 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Παραποίηση βαθμολογίας</string>
+  <string name="ratingManipulation">Παραποίηση βαθμολογίας</string>
   <string name="other">Άλλο</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
