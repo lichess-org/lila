@@ -58,6 +58,8 @@
   <string name="repeatedPositionsThatMatters">Η τριπλή επανάληψη αφορά %1$s, όχι κινήσεις. Οι επαναλήψεις δε χρειάζεται να είναι διαδοχικές.</string>
   <string name="positions">θέσεις</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Η θέση έχει επαναληφθεί τρεις φορές. Γιατί δεν έχει γίνει ισοπαλία;</string>
+  <string name="threeFoldHasToBeClaimed">Τριπλή επανάληψη πρέπει να ισχυριστεί ένας από τους δύο παίκτες. Μπορείτε να το κάνετε πατώντας το κουμπί που εμφανίζεται, ή προσφέροντας ισοπαλία πριν την τελική σας κίνηση. Δεν έχει σημασία αν ο αντίπαλός σας απορρίψει την προσφορά, το αίτημα τριπλής επανάληψης θα γίνει ούτως ή άλλως. Μπορείτε επίσης να %1$s το Lichess να κάνει αυτόματα αιτήματα τριπλής επανάληψης. Επιπλέον, η πενταπλή επανάληψη λήγει αμέσως το παιχνίδι.</string>
+  <string name="configure">ρυθμίσετε</string>
   <string name="accounts">Λογαριασμοί</string>
   <string name="titlesAvailableOnLichess">Τι είδους τίτλοι υπάρχουν στο Lichess;</string>
   <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν από το OTB (Over The Board), καθώς και %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
@@ -109,6 +111,7 @@
   <string name="enableZenMode">Ενεργοποιήστε τη λειτουργία Zen-mode στις %1$s ή πατώντας το πλήκτρο %2$s κατά τη διάρκεια του παιχνιδιού.</string>
   <string name="displayPreferences">προτιμήσεις εμφάνισης</string>
   <string name="connexionLostCanIGetMyRatingBack">Έχασα ένα παιχνίδι λόγω καθυστέρησης/αποσύνδεσης. Μπορώ να πάρω τους βαθμούς μου πίσω;</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Δυστυχώς, δεν μπορούμε να δώσουμε πίσω τους πόντους που χάσατε λόγω καθυστέρησης ή αποσύνδεσης, ανεξάρτητα από το αν το πρόβλημα ήταν δικό μας (πολύ σπάνιο) ή δικό σας. Επίσης, όταν το Lichess επανεκκινεί, τα παιχνίδια ματαιώνονται αυτόματα.</string>
   <string name="howToThreeDots">Πως να...</string>
   <string name="enableDisableNotificationPopUps">Ενεργοποίηση ή απενεργοποίηση εμφάνισης ειδοποιήσεων;</string>
   <string name="viewSiteInformationPopUp">Προβολή πληροφοριών ιστότοπου σε αναδυόμενο παράθυρο</string>
