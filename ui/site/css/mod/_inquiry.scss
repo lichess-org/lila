@@ -351,6 +351,11 @@ body.no-inquiry {
       max-height: 500px;
       overflow-y: auto;
     }
+
+    .separator {
+      border-top: $border;
+      margin: 0.6em 0;
+    }
   }
 
   .history li {

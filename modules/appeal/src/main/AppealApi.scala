@@ -63,18 +63,18 @@ final class AppealApi(
       }
     }
 
-  def read(appeal: Appeal) =
+  def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void
 
-  def unread(appeal: Appeal) =
+  def setUnread(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.unread).void
 
   def toggleMute(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
-  def readById(userId: User.ID) =
-    coll.byId[Appeal](userId) flatMap { _ ?? read }
+  def setReadById(userId: User.ID) =
+    coll.byId[Appeal](userId) flatMap { _ ?? setRead }
 
-  def unreadById(userId: User.ID) =
-    coll.byId[Appeal](userId) flatMap { _ ?? unread }
+  def setUnreadById(userId: User.ID) =
+    coll.byId[Appeal](userId) flatMap { _ ?? setUnread }
 }

@@ -55,7 +55,7 @@ final class Report(
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
       api.inquiries.toggle(me, id) flatMap { case (prev, next) =>
-        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.unreadById) inject
+        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect {
               if (prev.exists(_.isAppeal)) routes.Appeal.queue
@@ -119,7 +119,7 @@ final class Report(
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api byId id flatMap { inquiry =>
-        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.readById) >>
+        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.setReadById) >>
           api.process(me, id) >>
           onInquiryClose(inquiry, me, none, force = true)
       }
@@ -128,6 +128,13 @@ final class Report(
   def xfiles(id: String) =
     Secure(_.SeeReport) { _ => _ =>
       api.moveToXfiles(id) inject Redirect(routes.Report.list)
+    }
+
+  def snooze(id: String, dur: String) =
+    SecureBody(_.SeeReport) { implicit ctx => me =>
+      api.snooze(me, id, dur) map {
+        _.fold(Redirect(routes.Report.list))(onInquiryStart)
+      }
     }
 
   def currentCheatInquiry(username: String) =

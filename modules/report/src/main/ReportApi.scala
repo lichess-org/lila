@@ -346,8 +346,10 @@ final class ReportApi(
   private def selectOpenInRoom(room: Option[Room]) =
     $doc("open" -> true) ++ roomSelect(room)
 
-  private def selectOpenAvailableInRoom(room: Option[Room]) =
-    selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
+  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
+    selectOpenInRoom(room) ++ $doc("inquiry" $exists false) ++ {
+      exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
+    }
 
   private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
@@ -356,7 +358,7 @@ final class ReportApi(
           .map { room =>
             coll // hits the best_open partial index
               .primitiveOne[Float](
-                selectOpenAvailableInRoom(room.some),
+                selectOpenAvailableInRoom(room.some, Nil),
                 $sort desc "score",
                 "score"
               )
@@ -446,8 +448,8 @@ final class ReportApi(
       withNotes <- addSuspectsAndNotes(opens ++ closed)
     } yield withNotes
 
-  private def findNext(room: Room): Fu[Option[Report]] =
-    findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
+  private def findNext(mod: Mod, room: Room): Fu[Option[Report]] =
+    findBest(1, selectOpenAvailableInRoom(room.some, snoozer snoozedIdsOf mod)).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
@@ -459,6 +461,31 @@ final class ReportApi(
         }
         .sortBy(-_.urgency)
     }
+
+  def snooze(mod: Mod, reportId: Report.ID, duration: String): Fu[Option[Report]] =
+    byId(reportId) flatMap {
+      _ ?? { report =>
+        Snooze.Duration(duration) foreach { snoozer.set(mod, report.id, _) }
+        inquiries.toggleNext(mod, report.room)
+      }
+    }
+
+  private object snoozer {
+    import Snooze._
+    private val store = cacheApi.notLoadingSync[SnoozeKey, Duration](256, "report.snooze")(
+      _.expireAfter[SnoozeKey, Duration](
+        create = (_, duration) => duration.value,
+        update = (_, duration, _) => duration.value,
+        read = (_, _, current) => current
+      ).build()
+    )
+
+    def set(mod: Mod, reportId: Report.ID, duration: Duration): Unit =
+      store.put(SnoozeKey(mod.id, reportId), duration)
+
+    def snoozedIdsOf(mod: Mod): Iterable[Report.ID] =
+      store.asMap().keys.collect { case SnoozeKey(m, r) if m == mod.id => r }
+  }
 
   object accuracy {
 
@@ -571,7 +598,7 @@ final class ReportApi(
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
-        findNext(room) flatMap {
+        findNext(mod, room) flatMap {
           _ ?? { report =>
             doToggle(mod, report.id).dmap(_._2)
           }
