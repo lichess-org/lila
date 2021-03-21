@@ -127,18 +127,19 @@ final private class RelaySync(
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
         val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
-        newEnd ?? onChapterEnd(study, chapter.id)
+        newEnd ?? onChapterEnd(study, chapter)
       }
     }
   }
 
-  private def onChapterEnd(study: Study, chapterId: Chapter.Id): Funit =
-    chapterRepo.setRelayPath(chapterId, Path.root) >>
-      studyApi.analysisRequest(
+  private def onChapterEnd(study: Study, chapter: Chapter): Funit =
+    chapterRepo.setRelayPath(chapter.id, Path.root) >> {
+      (chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
-        chapterId = chapterId,
+        chapterId = chapter.id,
         userId = study.ownerId
-      ) >>- studyApi.reloadChapters(study)
+      )
+    } >>- studyApi.reloadChapters(study)
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
