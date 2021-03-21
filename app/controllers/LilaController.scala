@@ -105,6 +105,20 @@ abstract private[controllers] class LilaController(val env: Env)
       reqToCtx(req) flatMap f
     }
 
+  // protected def OpenOrScopedBody(selectors: OAuthScope.Selector*)(
+  //     open: BodyContext[_] => Fu[Result],
+  //     scoped: Request[_] => UserModel => Fu[Result]
+  // ): Action[AnyContent] = OpenOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
+
+  protected def OpenOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+      open: BodyContext[A] => Fu[Result],
+      scoped: Request[A] => UserModel => Fu[Result]
+  ): Action[A] =
+    Action.async(parser) { req =>
+      if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
+      else OpenBody(parser)(open)(req)
+    }
+
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
       anon: RequestHeader => Fu[Result],
       scoped: RequestHeader => UserModel => Fu[Result]

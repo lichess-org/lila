@@ -5,6 +5,7 @@ import lila.app._
 import lila.insight.{ Dimension, Metric }
 import play.api.mvc._
 import views._
+import play.api.libs.json.JsValue
 
 final class Insight(env: Env) extends LilaController(env) {
 
@@ -49,21 +50,33 @@ final class Insight(env: Env) extends LilaController(env) {
     }
 
   def json(username: String) =
-    OpenBody(parse.json) { implicit ctx =>
-      import lila.insight.JsonQuestion, JsonQuestion._
-      Accessible(username) { user =>
-        ctx.body.body
-          .validate[JsonQuestion]
-          .fold(
-            err => BadRequest(jsonError(err.toString)).fuccess,
-            _.question.fold(BadRequest.fuccess) { q =>
-              env.insight.api.ask(q, user) map
-                lila.insight.Chart.fromAnswer(env.user.lightUserSync) map
-                env.insight.jsonView.chart.apply map { Ok(_) }
-            }
-          )
-      }
-    }
+    OpenOrScopedBody(parse.json)(Nil)(
+      open = implicit ctx => {
+        AccessibleApi(username)(ctx.me) { user =>
+          processQuestion(user, ctx.body)
+        }
+      },
+      scoped = req =>
+        me =>
+          AccessibleApi(username)(me.some) { user =>
+            processQuestion(user, req)
+          }
+    )
+
+  private def processQuestion(user: lila.user.User, body: Request[JsValue]) = {
+    import lila.insight.JsonQuestion, JsonQuestion._
+    implicit val lang = reqLang(body)
+    body.body
+      .validate[JsonQuestion]
+      .fold(
+        err => BadRequest(jsonError(err.toString)).fuccess,
+        _.question.fold(BadRequest.fuccess) { q =>
+          env.insight.api.ask(q, user) map
+            lila.insight.Chart.fromAnswer(env.user.lightUserSync) map
+            env.insight.jsonView.chart.apply map { Ok(_) }
+        }
+      )
+  }
 
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
     env.user.repo named username flatMap {
@@ -71,6 +84,16 @@ final class Insight(env: Env) extends LilaController(env) {
         env.insight.share.grant(u, ctx.me) flatMap {
           case true => f(u)
           case _    => fuccess(Forbidden(html.insight.forbidden(u)))
+        }
+      }
+    }
+
+  private def AccessibleApi(username: String)(me: Option[lila.user.User])(f: lila.user.User => Fu[Result]) =
+    env.user.repo named username flatMap {
+      _ ?? { u =>
+        env.insight.share.grant(u, me) flatMap {
+          case true => f(u)
+          case _    => fuccess(Forbidden)
         }
       }
     }
