@@ -619,7 +619,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="aboutSimul">Simuls involve a single player facing several players at once.</string>
   <string name="aboutSimulImage">Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1.</string>
   <string name="aboutSimulRealLife">The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move.</string>
-  <string name="aboutSimulRules">When the simul starts, every player starts a game with the host, who gets to play the white pieces. The simul ends when all games are complete.</string>
+  <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
