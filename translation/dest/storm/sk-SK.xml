@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Odštartujte potiahnutím</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vo všetkých úlohách ste biely</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vo všetkých úlohách ste čierny</string>
   <string name="puzzlesSolved">vyriešených úloh</string>
   <string name="newDailyHighscore">Nové najvyššie skóre dňa!</string>
   <string name="newWeeklyHighscore">Nové najvyššie skóre týždňa!</string>
@@ -23,4 +25,6 @@
   <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
   <string name="bestRunOfDay">Najlepší pokus dňa</string>
   <string name="runs">Pokusy</string>
+  <string name="getReady">Pripravte sa!</string>
+  <string name="waitingForMorePlayers">Čaká sa kým sa pripojí viac hráčov...</string>
 </resources>
