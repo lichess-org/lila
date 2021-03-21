@@ -11,6 +11,7 @@ case class RacerRace(
     owner: RacerPlayer.Id,
     players: List[RacerPlayer],
     puzzles: List[StormPuzzle],
+    countdownSeconds: Int,
     startsAt: Option[DateTime],
     rematch: Option[RacerRace.Id]
 ) {
@@ -35,7 +36,7 @@ case class RacerRace(
 
   def startCountdown: Option[RacerRace] =
     startsAt.isEmpty && players.size > (if (isLobby) 2 else 1) option
-      copy(startsAt = DateTime.now.plusSeconds(if (isLobby) 7 else 10).some)
+      copy(startsAt = DateTime.now.plusSeconds(countdownSeconds).some)
 
   def startsInMillis = startsAt.map(d => d.getMillis - nowMillis)
 
@@ -55,11 +56,12 @@ object RacerRace {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle]) = RacerRace(
+  def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle], countdownSeconds: Int) = RacerRace(
     _id = Id(lila.common.ThreadLocalRandom nextString 5),
     owner = owner,
     players = Nil,
     puzzles = puzzles,
+    countdownSeconds = countdownSeconds,
     startsAt = none,
     rematch = none
   )

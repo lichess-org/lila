@@ -32,17 +32,18 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   }
 
   def createAndJoin(player: RacerPlayer.Id): Fu[RacerRace.Id] =
-    create(player).map { id =>
+    create(player, 10).map { id =>
       join(id, player)
       id
     }
 
-  def create(player: RacerPlayer.Id): Fu[RacerRace.Id] =
+  def create(player: RacerPlayer.Id, countdownSeconds: Int): Fu[RacerRace.Id] =
     selector.apply map { puzzles =>
       val race = RacerRace
         .make(
           owner = player,
-          puzzles = puzzles.grouped(2).flatMap(_.headOption).toList
+          puzzles = puzzles.grouped(2).flatMap(_.headOption).toList,
+          countdownSeconds = 10
         )
       store.put(race.id, race)
       lila.mon.racer.race(lobby = race.isLobby).increment()

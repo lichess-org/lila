@@ -8,8 +8,8 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue {
     currentRace flatMap {
-      case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace
-      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace
+      case race if race.players.sizeIs >= RacerRace.maxPlayers => makeNewRace(7)
+      case race if race.startsInMillis.exists(_ < 3000)        => makeNewRace(10)
       case race                                                => fuccess(race.id)
     } map { raceId =>
       api.join(raceId, player)
@@ -24,14 +24,14 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
       name = "racer.lobby"
     )
 
-  private val fallbackRace = RacerRace.make(RacerPlayer.lichess, Nil)
+  private val fallbackRace = RacerRace.make(RacerPlayer.lichess, Nil, 10)
 
-  private var currentId: Fu[RacerRace.Id] = api create RacerPlayer.lichess
+  private var currentId: Fu[RacerRace.Id] = api.create(RacerPlayer.lichess, 10)
 
   private def currentRace: Fu[RacerRace] = currentId.map(api.get) dmap { _ | fallbackRace }
 
-  private def makeNewRace: Fu[RacerRace.Id] = {
-    currentId = api create RacerPlayer.lichess
+  private def makeNewRace(countdownSeconds: Int): Fu[RacerRace.Id] = {
+    currentId = api.create(RacerPlayer.lichess, countdownSeconds)
     currentId
   }
 }
