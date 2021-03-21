@@ -681,7 +681,10 @@ object Game {
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {
-      clock ?? { _.estimateTotalTime >= Centis(3000) }
+      clock ?? { c =>
+        c.estimateTotalTime >= Centis(3000) &&
+        c.limitSeconds > 0 || c.incrementSeconds > 1
+      }
     }
 
   val gameIdSize   = 8

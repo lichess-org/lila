@@ -152,8 +152,7 @@ export default class Setup {
           limit = parseFloat($timeInput.val() as string),
           inc = parseFloat($incrementInput.val() as string),
           // no rated variants with less than 30s on the clock
-          cantBeRated =
-            (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) || (variantId != '1' && timeMode != '1');
+          cantBeRated = variantId != '1' && (timeMode != '1' || (limit < 0.5 && inc == 0) || (limit == 0 && inc < 2));
         if (cantBeRated && rated) {
           $casual.trigger('click');
           return toggleButtons();
