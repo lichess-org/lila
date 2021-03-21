@@ -548,7 +548,7 @@
   <string name="cheat">Podvod</string>
   <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Ovplyvňovanie ratingu</string>
+  <string name="ratingManipulation">Ovplyvňovanie ratingu</string>
   <string name="other">Iné</string>
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
