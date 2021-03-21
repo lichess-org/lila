@@ -1,7 +1,23 @@
 $(function () {
+
+  const noteStore = lichess.storage.make('inquiry-note');
+  const noteTextArea = $('#inquiry .notes').find('textarea')[0];
+
   $('#inquiry .notes').on('mouseenter', function () {
-    $(this).find('textarea')[0].focus();
+    noteTextArea.focus();
+    noteTextArea.value = noteStore.get();
   });
+
+  $('#inquiry .notes').on('keydown', function () {
+    setTimeout(function () {
+      noteStore.set(noteTextArea.value)
+    }, 5);
+  });
+
+  $('#inquiry .notes .button').on('click', function () {
+    noteStore.remove()
+  });
+
   $('#inquiry .costello').on('click', () => {
     $('#inquiry').toggleClass('hidden');
     $('body').toggleClass('no-inquiry');
