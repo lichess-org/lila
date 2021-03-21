@@ -19,6 +19,10 @@
   <string name="fairPlay">Κανόνες Δικαίου Παιχνιδιού</string>
   <string name="whenAmIEligibleRatinRefund">Πότε μπορώ να πάρω πίσω τις μονάδες elo που έχασα παίζοντας με κλέφτες;</string>
   <string name="preventLeavingGameWithoutResigning">Ποιες είναι οι επιπτώσεις στους παίκτες που φεύγουν από την παρτίδα χωρίς να παραιτηθούν;</string>
+  <string name="leavingGameWithoutResigningExplanation">Εάν ένας παίκτης αποχωρεί συχνά ή ακυρώνει πολλά παιχνίδια, τότε τιμωρείται και δεν μπορεί να παίξει άλλα για ένα χρονικό διάστημα. Αυτό δεν αναφέρεται δημοσίως στο προφίλ του. Εάν αυτή η συμπεριφορά συνεχιστεί, το μήκος της τιμωρίας αυξάνεται. Παρατεταμένη συμπεριφορά αυτού του είδους μπορεί να οδηγήσει σε κλείσιμο του λογαριασμού.</string>
+  <string name="howCanIBecomeModerator">Πώς μπορώ να γίνω διαχειριστής;</string>
+  <string name="youCannotApply">Δεν μπορείτε να κάνετε αίτηση για να γίνετε διαχειριστής. Αν δούμε κάποιον που πιστεύουμε ότι θα ήταν καλός διαχειριστής θα επικοινωνήσουμε απευθείας μαζί τους.</string>
+  <string name="isCorrespondenceDifferent">Είναι το σκάκι αλληλογραφίας διαφορετικό από το κανονικό σκάκι;</string>
   <string name="gameplay">Παιχνίδι</string>
   <string name="eightVariants">8 παραλλαγές σκάκιου</string>
   <string name="fideHandbookX">βιβλίο κανονισμών FIDE %s</string>
