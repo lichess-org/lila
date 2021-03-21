@@ -56,13 +56,15 @@ export default function (ctrl: Controller): VNode {
           title: ctrl.trans.noarg('playWithTheMachine'),
         },
       }),
-      h(
-        'a',
-        {
-          hook: bind('click', ctrl.nextPuzzle),
-        },
-        ctrl.trans.noarg('continueTraining')
-      ),
+      ctrl.getData().user
+        ? h(
+            'a',
+            {
+              hook: bind('click', ctrl.nextPuzzle),
+            },
+            ctrl.trans.noarg('continueTraining')
+          )
+        : undefined,
     ]),
   ]);
 }

@@ -58,6 +58,7 @@ final class JsonView(
   def userJson(u: User) =
     Json
       .obj(
+        "id"     -> u.id,
         "rating" -> u.perfs.puzzle.intRating
       )
       .add(
