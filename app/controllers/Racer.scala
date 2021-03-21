@@ -38,7 +38,7 @@ final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
             html.racer.show(
               race,
               env.racer.json.data(race, player),
-              env.storm.json.pref(ctx.pref.copy(coords = lila.pref.Pref.Coords.NONE))
+              env.storm.json.pref(ctx.pref)
             )
           ).fuccess dmap NoCache
       }
