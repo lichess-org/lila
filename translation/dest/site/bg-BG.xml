@@ -491,7 +491,7 @@
   <string name="cheat">Измама</string>
   <string name="insult">Обида</string>
   <string name="troll">Вредител</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Манипулация на рейтинга</string>
+  <string name="ratingManipulation">Манипулация на рейтинга</string>
   <string name="other">Друго</string>
   <string name="reportDescriptionHelp">Поставете линк към играта и обяснете какъв е проблемът с поведението на този потребител. Не казвайте единствено, че мами, но ни кажете как сте стигнали до този извод. Вашият доклад ще бъде обработен по-бързо, ако е написан на английски.</string>
   <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
