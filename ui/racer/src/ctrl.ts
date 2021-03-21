@@ -111,6 +111,7 @@ export default class StormCtrl {
     this.resetGround();
     this.redraw();
     sound.end();
+    lichess.pubsub.emit('ply', 0); // restore resize handle
     this.redrawSlow();
   };
 
