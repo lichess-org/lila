@@ -23,8 +23,18 @@
   <string name="howCanIBecomeModerator">Πώς μπορώ να γίνω διαχειριστής;</string>
   <string name="youCannotApply">Δεν μπορείτε να κάνετε αίτηση για να γίνετε διαχειριστής. Αν δούμε κάποιον που πιστεύουμε ότι θα ήταν καλός διαχειριστής θα επικοινωνήσουμε απευθείας μαζί τους.</string>
   <string name="isCorrespondenceDifferent">Είναι το σκάκι αλληλογραφίας διαφορετικό από το κανονικό σκάκι;</string>
+  <string name="youCanUseOpeningBookNoEngine">Στο Lichess, η κύρια διαφορά στους κανόνες για το σκάκι αλληλογραφίας είναι ότι επιτρέπεται ένα opening book. Η χρήση μηχανών εξακολουθεί να απαγορεύεται και μπορεί να έχει ως αποτέλεσμα το κλείσιμο του λογαριασμού σας. Αν και το ICCF επιτρέπει τη χρήση μηχανών, το Lichess δεν το κάνει.</string>
   <string name="gameplay">Παιχνίδι</string>
+  <string name="howBulletBlitzEtcDecided">Πώς αποφασίζεται ποιοι χρόνοι είναι τι (π.χ. Bullet, Blitz);</string>
+  <string name="basedOnGameDuration">Οι χρόνοι του Lichess βασίζονται στην εκτιμώμενη διάρκεια παιχνιδιού = %1$s. Για παράδειγμα, η εκτιμώμενη διάρκεια παιχνιδιού για ένα παιχνίδι με χρόνο 5+3 είναι 5 × 60 + 40 × 3 = 420 δευτερόλεπτα.</string>
+  <string name="durationFormula">(αρχικός χρόνος χρονομέτρου) + 40 × (προσαύξηση)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s δευτερόλεπτα = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s δευτερόλεπτα = %2$s</string>
+  <string name="whatVariantsCanIplay">Ποιες είναι οι διάφορες εκδοχές που μπορώ να παίξω στο Lichess;</string>
+  <string name="lichessSupportChessAnd">Το Lichess υποστηρίζει κανονικό σκάκι και %1$s.</string>
   <string name="eightVariants">8 παραλλαγές σκάκιου</string>
+  <string name="whatIsACPL">Τι είναι η μέση απώλεια εκατοστοπιονιού (ACPL);</string>
+  <string name="insufficientMaterial">Χάνοντας από χρόνο, ισοπαλία και ανεπαρκές υλικό</string>
   <string name="fideHandbookX">βιβλίο κανονισμών FIDE %s</string>
   <string name="officialRulesPDF">επίσημοι κανόνες (PDF)</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
