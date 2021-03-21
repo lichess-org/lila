@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Μετάβαση στην αρχή</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Παίζετε με τα λευκά σε όλους τους γρίφους</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Παίζετε με τα μαύρα σε όλους τους γρίφους</string>
   <string name="puzzlesSolved">γρίφοι που λύθηκαν</string>
   <string name="newDailyHighscore">Νέο ημερήσιο υψηλότερο σκορ!</string>
   <string name="newWeeklyHighscore">Νέο εβδομαδιαίο υψηλότερο σκορ!</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Προβολή καλύτερων γύρων</string>
   <string name="bestRunOfDay">Καλύτερος γύρος της ημέρας</string>
   <string name="runs">Γύροι</string>
+  <string name="getReady">Ετοιμαστείτε!</string>
+  <string name="waitingForMorePlayers">Αναμονή για περισσότερους παίκτες...</string>
+  <string name="raceComplete">Ο αγώνας ολοκληρώθηκε!</string>
+  <string name="spectating">Παρακολούθηση</string>
+  <string name="joinTheRace">Λάβετε μέρος στον αγώνα!</string>
+  <string name="yourRankX">Κατάταξη: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Αναμονή για ρεβάνς</string>
+  <string name="nextRace">Επόμενος αγώνας</string>
+  <string name="joinRematch">Συμμετοχή στη ρεβάνς</string>
+  <string name="waitingToStart">Αναμονή για έναρξη</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Δημιουργία νέου αγώνα</string>
 </resources>

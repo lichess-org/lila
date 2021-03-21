@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Trekk for å begynne</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du spiller med de hvite brikkene i alle sjakknøttene</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spiller med de svarte brikkene i alle sjakknøttene</string>
   <string name="puzzlesSolved">sjakknøtter løst</string>
   <string name="newDailyHighscore">Ny rekord for dagen!</string>
   <string name="newWeeklyHighscore">Ny rekord for uken!</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Vis beste runder</string>
   <string name="bestRunOfDay">Dagens beste runde</string>
   <string name="runs">Runder</string>
+  <string name="getReady">Gjør deg klar!</string>
+  <string name="waitingForMorePlayers">Venter på flere deltakere...</string>
+  <string name="raceComplete">Løpet er fullført!</string>
+  <string name="spectating">Tilskuer</string>
+  <string name="joinTheRace">Delta i løpet!</string>
+  <string name="yourRankX">Din plassering: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Vent på nytt løp</string>
+  <string name="nextRace">Neste løp</string>
+  <string name="joinRematch">Delta i nytt løp</string>
+  <string name="waitingToStart">Venter på start</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Lag et nytt løp</string>
 </resources>

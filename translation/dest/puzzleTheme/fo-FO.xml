@@ -23,7 +23,7 @@
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
   <string name="crushing">At knúsa</string>
-  <string name="crushingDescription">Finn bukkin hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Finn mistakið hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Tvífalt bispamát</string>
   <string name="doubleBishopMateDescription">Tveir bispar, ið leypa á á tveimum grannahornalinjum, seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
   <string name="dovetailMate">Sýlt mát (dúgvuvelamát)</string>

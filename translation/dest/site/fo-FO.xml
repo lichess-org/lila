@@ -45,7 +45,7 @@
   <string name="talkInChat">Ver vinalig/ur í kjattinum!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Tann fyrsti persónurin, sum brúkar hesa adressuna, verður tín mótpartur.</string>
   <string name="whiteResigned">Hvítur leggur kong</string>
-  <string name="blackResigned">Svartur leggur kong</string>
+  <string name="blackResigned">Svartur legði kong</string>
   <string name="whiteLeftTheGame">Hvítur er farin frá talvinum</string>
   <string name="blackLeftTheGame">Svartur er farin frá talvinum</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deil hesa adressuna við áskoðarar</string>
@@ -468,6 +468,7 @@
   <string name="tournamentWinners">Kappingarvinnarar</string>
   <string name="name">Navn</string>
   <string name="description">Lýsing</string>
+  <string name="descPrivate">Innanhýsis lýsing</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjálp:</string>
@@ -488,6 +489,7 @@
   <string name="cheat">Snýt</string>
   <string name="insult">Háðar</string>
   <string name="troll">Trøll</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Svik við styrkitali</string>
   <string name="other">Annað</string>
   <string name="reportDescriptionHelp">Flyt leinkið til talvið ella talvini higar, og greið frá, hvat bagir atburðinum hjá brúkaranum. Skriva ikki bert \"hann snýtir\", men sig okkum, hvussu tú komst til hesa niðurstøðu. Fráboðan tín verður skjótari viðgjørd, um hon verður skrivað á enskum.</string>
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>

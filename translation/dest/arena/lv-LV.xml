@@ -22,7 +22,9 @@ Kurbads nav pieejams spēlēm ar nulles sākotnējo laiku (0+1, 0+2).
 
 Papildus punkts tiek piešķirts tikai tad, ja Kurbada spēlē izdarīti vismaz 7 gājieni.</string>
   <string name="howIsTheWinnerDecided">Kā tiek noteikts uzvarētājs?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Spēlētājs(i) ar visvairāk punktiem, turnīram beidzoties, tiek pasludināts(i) par uzvarētāju(iem).</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnīra laikam beidzoties, spēlētājus, kam visvairāk punktu, pasludinās par uzvarētājiem.
+
+Ja vairākiem spēlētājiem ir vienāds punktu skaits, uzvarošo nosaka pēc turnīra snieguma.</string>
   <string name="howDoesPairingWork">Kā notiek sapārošana?</string>
   <string name="howDoesPairingWorkAnswer">Turnīram sākoties, spēlētājus sapāro atbilstoši reitingam.
 Tiklīdz spēle beigusies, atgriezies turnīra vestibilā: tad tiksi sapārots ar nākamo spēlētāju vistuvāk tavam reitingam.

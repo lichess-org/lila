@@ -159,7 +159,7 @@
   <string name="computersAreNotAllowedToPlay">Kompiuteriams ir kompiuterių padedamiems žaidėjams žaisti draudžiama. Prašome nesinaudoti šachmatų programomis, duomenų bazėmis ar kitų žaidėjų pagalba partijos metu. Kartu norime pažymėti, kad keleto paskyrų turėjimas yra nepatartinas, o dėl perdėto jų naudojimo būsite užblokuoti.</string>
   <string name="games">Partijos</string>
   <string name="forum">Diskusijos</string>
-  <string name="xPostedInForumY">%1$s parašė į „%2$s“ temą</string>
+  <string name="xPostedInForumY">%1$s parašė temoje „%2$s“</string>
   <string name="latestForumPosts">Naujausi diskusijų pranešimai</string>
   <string name="players">Žaidėjai</string>
   <string name="friends">Draugai</string>

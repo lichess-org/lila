@@ -34,4 +34,15 @@
   <string name="viewBestRuns">Pogledajte najbolje ture</string>
   <string name="bestRunOfDay">Najbolja tura dana</string>
   <string name="runs">Ture</string>
+  <string name="getReady">Spremite se!</string>
+  <string name="waitingForMorePlayers">Čekamo da se pridruži više igrača...</string>
+  <string name="raceComplete">Utrka završena!</string>
+  <string name="spectating">Posmatram</string>
+  <string name="joinTheRace">Pridružite se utrci!</string>
+  <string name="yourRankX">Vaš plasman: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Pričekajte revanš</string>
+  <string name="nextRace">Sljedeća utrka</string>
+  <string name="joinRematch">Pridružite se revanšu</string>
+  <string name="waitingToStart">Čekamo na početak</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Kreirajte novu partiju</string>
 </resources>

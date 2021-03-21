@@ -468,8 +468,8 @@
   <string name="tournamentWinners">Turnuvanın Kazananları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
-  <string name="descPrivate">Özel tanım</string>
-  <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metin. Eğer ayarlanırsa, takım üyeleri genel açıklama yerine bunu görür.</string>
+  <string name="descPrivate">Üyelere özel açıklama</string>
+  <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="help">Yardım:</string>

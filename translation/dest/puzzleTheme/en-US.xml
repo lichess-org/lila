@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Advanced pawn</string>
-  <string name="advancedPawnDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
+  <string name="advancedPawnDescription">One of your pawns is deep into the opponent position, maybe threatening to promote.</string>
   <string name="advantage">Advantage</string>
   <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia\'s mate</string>
@@ -88,7 +88,7 @@
   <string name="pin">Pin</string>
   <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
   <string name="promotion">Promotion</string>
-  <string name="promotionDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
+  <string name="promotionDescription">Promote one of your pawns to a queen or minor piece.</string>
   <string name="queenEndgame">Queen endgame</string>
   <string name="queenEndgameDescription">An endgame with only queens and pawns.</string>
   <string name="queenRookEndgame">Queen and Rook</string>

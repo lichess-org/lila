@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Izvirzīts bandinieks</string>
-  <string name="advancedPawnDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
+  <string name="advancedPawnDescription">Kāds no jūsu bandiniekiem nonācis dziļi pretinieka pozīcijā, iespējams draudot ar paaugstināšanu.</string>
   <string name="advantage">Pārsvars</string>
   <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
   <string name="anastasiaMate">Anastāsijas mats</string>
@@ -88,7 +88,7 @@
   <string name="pin">Piespraušana</string>
   <string name="pinDescription">Taktika, kas iesaista piespraušanu – pozīciju, kurā figūra nevar izkustēties bez uzbrukuma atklāšanas augstākas vērtības figūrai.</string>
   <string name="promotion">Paaugstināšana</string>
-  <string name="promotionDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
+  <string name="promotionDescription">Paaugstiniet bandinieku par dāmu vai citu figūru.</string>
   <string name="queenEndgame">Dāmu beigu spēle</string>
   <string name="queenEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki un dāmas.</string>
   <string name="queenRookEndgame">Dāmu un torņu beigu spēle</string>

@@ -468,6 +468,8 @@
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
+  <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
+  <string name="descPrivateHelp">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
   <string name="no">नहीं</string>
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
@@ -488,6 +490,7 @@
   <string name="cheat">धोखेबाज़ी</string>
   <string name="insult">बेइज़्ज़ती</string>
   <string name="troll">ट्रोल</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
@@ -582,6 +585,9 @@
   <string name="error.email_unique">यह ईमेल पहले ही ली जा चुकी है</string>
   <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
+  <string name="onlyExistingConversations">मैसेजिंग गोपनीयता सेटिंग्स के विकल्पों में से एक (अन्य खिलाड़ियों को आपको संदेश दें: केवल मौजूदा वार्तालाप / केवल मित्र / हमेशा)
+
+केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
   <string name="menu">मेनू</string>
   <string name="castling">केस्लिंग</string>
