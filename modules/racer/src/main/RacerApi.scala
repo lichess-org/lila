@@ -20,8 +20,8 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
   import RacerRace.Id
   import RacerBsonHandlers._
 
-  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](1024, "racer.race")(
-    _.expireAfterAccess(20 minutes).build()
+  private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race")(
+    _.expireAfterAccess(30 minutes).build()
   )
 
   def get(id: Id): Option[RacerRace] = store getIfPresent id
