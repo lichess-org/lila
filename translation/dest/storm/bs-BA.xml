@@ -34,4 +34,6 @@
   <string name="viewBestRuns">Pogledajte najbolje ture</string>
   <string name="bestRunOfDay">Najbolja tura dana</string>
   <string name="runs">Ture</string>
+  <string name="getReady">Spremite se!</string>
+  <string name="waitingForMorePlayers">Čekamo da se pridruži više igrača...</string>
 </resources>
