@@ -13,7 +13,7 @@ $(function () {
     }, 5);
   });
 
-  $('#inquiry .notes .button').on('click', function () {
+  $('#inquiry .notes').on('submit', function () {
     noteStore.remove();
   });
 
