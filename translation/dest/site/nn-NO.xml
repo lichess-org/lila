@@ -491,7 +491,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="cheat">Juks</string>
   <string name="insult">Ærekrenking</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Ratingmanipulering</string>
+  <string name="ratingManipulation">Ratingmanipulering</string>
   <string name="other">Anna</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
