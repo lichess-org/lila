@@ -56,7 +56,7 @@ object RacerRace {
   case class Id(value: String) extends AnyVal with StringValue
 
   def make(owner: RacerPlayer.Id, puzzles: List[StormPuzzle]) = RacerRace(
-    _id = Id(lila.common.ThreadLocalRandom nextString 8),
+    _id = Id(lila.common.ThreadLocalRandom nextString 5),
     owner = owner,
     players = Nil,
     puzzles = puzzles,
