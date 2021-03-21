@@ -441,7 +441,6 @@ final class StudyApi(
 
   def setTag(studyId: Study.Id, setTag: actorApi.SetTag)(who: Who) =
     sequenceStudyWithChapter(studyId, setTag.chapterId) { case Study.WithChapter(study, chapter) =>
-      logger.info(s"setTag $studyId $setTag")
       Contribute(who.u, study) {
         doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
       }
