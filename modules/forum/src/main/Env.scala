@@ -14,8 +14,7 @@ import play.api.libs.ws.StandaloneWSClient
 @Module
 final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
-    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
-    @ConfigName("public_categ_ids") val publicCategIds: List[String]
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
 )
 
 @Module

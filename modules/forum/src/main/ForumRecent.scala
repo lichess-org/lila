@@ -8,11 +8,17 @@ import lila.user.User
 final class ForumRecent(
     postApi: PostApi,
     postRepo: PostRepo,
-    cacheApi: lila.memo.CacheApi,
-    categIds: List[String]
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val nb: Int = 10
+
+  private val categIds = List(
+    "general-chess-discussion",
+    "game-analysis",
+    "lichess-feedback",
+    "off-topic-discussion"
+  )
 
   private type GetTeamIds = String => Fu[List[String]]
 
