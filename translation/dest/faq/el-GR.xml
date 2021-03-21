@@ -45,8 +45,25 @@
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Η θέση έχει επαναληφθεί τρεις φορές. Γιατί δεν έχει γίνει ισοπαλία;</string>
   <string name="accounts">Λογαριασμοί</string>
+  <string name="titlesAvailableOnLichess">Τι είδους τίτλοι υπάρχουν στο Lichess;</string>
+  <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν από το OTB (Over The Board), καθώς και από %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
+  <string name="showYourTitle">Αν έχετε έναν τίτλο OTB, μπορείτε να κάνετε αίτηση για να τον εμφανίσετε στο λογαριασμό σας συμπληρώνοντας τη %1$s, όπου θα πρέπει να επισυνάψετε μια καθαρή εικόνα από το σχετικό έγγραφο καθώς και μια φωτογραφία του εαυτού σας ενώ το κρατάτε.
+
+Εάν το Lichess έχει επαληθεύσει τον τίτλο σας, τότε μπορείτε να συμμετέχετε σε τουρνουά Titled Arena.
+
+Τέλος, υπάρχει ένας τιμητικός τίτλος %2$s.</string>
+  <string name="verificationForm">φόρμα επαλήθευσης</string>
+  <string name="canIbecomeLM">Μπορώ να αποκτήσω τον τίτλο Lichess Master (LM);</string>
   <string name="noUpperCaseDot">Όχι.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Αυτός ο τιμητικός τίτλος είναι ανεπίσημος και υπάρχει μόνο στο Lichess.
+
+Τον απονέμουμε σε ιδιαίτερα αξιόλογους παίκτες που είναι καλοί «πολίτες» του Lichess, κατά τη γνώμη μας. Δεν μπορείτε να πάρετε τον τίτλο LM, ο τίτλος LM έρχεται σε σας. Εάν σας επιλέξουμε, θα λάβετε ένα μήνυμα από εμάς σχετικά με αυτό, αλλά και την επιλογή να δεχτείτε ή να αρνηθείτε.
+
+Μην ζητάτε τον τίτλο LM.</string>
+  <string name="whatUsernameCanIchoose">Τι μπορεί να περιλαμβάνει το όνομα χρήστη μου;</string>
+  <string name="usernamesNotOffensive">Γενικά, τα ονόματα χρηστών δεν πρέπει να είναι προσβλητικά, να μιμούνται κάποιο άλλο άτομο ή να είναι διαφημίσεις. Μπορείτε να διαβάσετε περισσότερα στις %1$s.</string>
   <string name="guidelines">οδηγίες</string>
   <string name="canIChangeMyUsername">Μπορώ να αλλάξω το όνομα χρήστη μου;</string>
   <string name="usernamesCannotBeChanged">Όχι, τα ονόματα χρηστών δεν μπορούν να αλλάξουν για τεχνικούς και πρακτικούς λόγους. Τα ονόματα χρηστών υλοποιούνται σε πάρα πολλές θέσεις: βάσεις δεδομένων, εξαγωγές, αρχεία καταγραφής και στο μυαλό των ανθρώπων. Μπορείτε να προσαρμόσετε την κεφαλαιοποίηση μία φορά.</string>
