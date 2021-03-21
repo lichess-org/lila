@@ -312,7 +312,7 @@ final class ReportApi(
       )
       .void
 
-  def autoInsultReport(userId: User.ID, text: String): Funit =
+  def autoCommReport(userId: User.ID, text: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -322,7 +322,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score => score
+          score => score atLeast 60
         )
       case _ => funit
     }

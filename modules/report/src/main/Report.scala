@@ -89,6 +89,7 @@ object Report {
       else if (value >= 100) "orange"
       else if (value >= 50) "yellow"
       else "green"
+    def atLeast(v: Int) = Score(value atLeast v)
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
