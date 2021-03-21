@@ -22,8 +22,8 @@
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
-  <string name="crushing">Zmiażdżenie</string>
-  <string name="crushingDescription">Zauważ błąd przeciwnika, aby uzyskać miażdżącą przewagę (ocena pozycji: powyżej 600cp)</string>
+  <string name="crushing">Decydująca przewaga</string>
+  <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="dovetailMate">Jaskółczy ogon</string>
