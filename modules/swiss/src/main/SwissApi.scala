@@ -71,7 +71,7 @@ final class SwissApi(
       winnerId = none,
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
-        rated = data.realPosition.isEmpty && (data.rated | true),
+        rated = data.realPosition.isEmpty && data.isRated,
         description = data.description,
         position = data.realPosition,
         chatFor = data.realChatFor,

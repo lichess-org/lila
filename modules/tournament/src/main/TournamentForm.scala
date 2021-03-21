@@ -95,7 +95,7 @@ final class TournamentForm {
         "hasChat"          -> optional(boolean)
       )(TournamentSetup.apply)(TournamentSetup.unapply)
         .verifying("Invalid clock", _.validClock)
-        .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
+        .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
         .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
         .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
     )
@@ -174,7 +174,7 @@ private[tournament] case class TournamentSetup(
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 
-  def validRatedUltraBulletVariant =
+  def validRatedVariant =
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig.some)
 

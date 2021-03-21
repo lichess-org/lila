@@ -36,6 +36,7 @@ final class SwissForm(implicit mode: Mode) {
         "conditions"        -> SwissCondition.DataForm.all,
         "forbiddenPairings" -> optional(cleanNonEmptyText)
       )(SwissData.apply)(SwissData.unapply)
+        .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 
   def create =
@@ -169,5 +170,10 @@ object SwissForm {
       }
     }.seconds
     def realPosition = position ifTrue realVariant.standard
+
+    def isRated = rated | true
+    def validRatedVariant =
+      !isRated ||
+        lila.game.Game.allowRated(realVariant, clock.some)
   }
 }
