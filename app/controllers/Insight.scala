@@ -1,53 +1,74 @@
 package controllers
 
+import play.api.libs.json.Json
+import play.api.libs.json.JsValue
+import play.api.mvc._
+import views._
+
 import lila.api.Context
 import lila.app._
 import lila.insight.{ Dimension, Metric }
-import play.api.mvc._
-import views._
-import play.api.libs.json.JsValue
 
 final class Insight(env: Env) extends LilaController(env) {
 
   def refresh(username: String) =
-    Open { implicit ctx =>
-      Accessible(username) { user =>
-        env.insight.api indexAll user.id inject Ok
-      }
-    }
-
-  def index(username: String) =
-    path(
-      username,
-      metric = Metric.MeanCpl.key,
-      dimension = Dimension.Perf.key,
-      filters = ""
+    OpenOrScoped()(
+      open = implicit ctx =>
+        Accessible(username) { user =>
+          env.insight.api indexAll user.id inject Ok
+        },
+      scoped = req =>
+        me =>
+          AccessibleApi(username)(me.some) { user =>
+            env.insight.api indexAll user.id inject Ok
+          }
     )
+
+  def index(username: String) = {
+    def jsonStatus(user: lila.user.User) =
+      env.insight.api userStatus user map { status =>
+        Ok(Json.obj("status" -> status.toString))
+      }
+    OpenOrScoped()(
+      open = implicit ctx =>
+        Accessible(username) { user =>
+          render.async {
+            case Accepts.Html() => doPath(user, Metric.MeanCpl.key, Dimension.Perf.key, "")
+            case Accepts.Json() => jsonStatus(user)
+          }
+        },
+      scoped = req => me => AccessibleApi(username)(me.some)(jsonStatus)
+    )
+  }
 
   def path(username: String, metric: String, dimension: String, filters: String) =
     Open { implicit ctx =>
-      Accessible(username) { user =>
-        import lila.insight.InsightApi.UserStatus._
-        env.insight.api userStatus user flatMap {
-          case NoGame => Ok(html.site.message.insightNoGames(user)).fuccess
-          case Empty  => Ok(html.insight.empty(user)).fuccess
-          case s =>
-            for {
-              cache  <- env.insight.api insightUser user
-              prefId <- env.insight.share getPrefId user
-            } yield Ok(
-              html.insight.index(
-                u = user,
-                cache = cache,
-                prefId = prefId,
-                ui = env.insight.jsonView.ui(cache.ecos, asMod = isGranted(_.ViewBlurs)),
-                question = env.insight.jsonView.question(metric, dimension, filters),
-                stale = s == Stale
-              )
-            )
-        }
-      }
+      Accessible(username) { doPath(_, metric, dimension, filters) }
     }
+
+  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(implicit
+      ctx: Context
+  ) = {
+    import lila.insight.InsightApi.UserStatus._
+    env.insight.api userStatus user flatMap {
+      case NoGame => Ok(html.site.message.insightNoGames(user)).fuccess
+      case Empty  => Ok(html.insight.empty(user)).fuccess
+      case s =>
+        for {
+          cache  <- env.insight.api insightUser user
+          prefId <- env.insight.share getPrefId user
+        } yield Ok(
+          html.insight.index(
+            u = user,
+            cache = cache,
+            prefId = prefId,
+            ui = env.insight.jsonView.ui(cache.ecos, asMod = isGranted(_.ViewBlurs)),
+            question = env.insight.jsonView.question(metric, dimension, filters),
+            stale = s == Stale
+          )
+        )
+    }
+  }
 
   def json(username: String) =
     OpenOrScopedBody(parse.json)(Nil)(
