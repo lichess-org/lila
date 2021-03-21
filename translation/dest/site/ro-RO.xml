@@ -519,7 +519,7 @@
   <string name="cheat">Trișează</string>
   <string name="insult">Insultă</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Manipularea evaluării</string>
+  <string name="ratingManipulation">Manipularea evaluării</string>
   <string name="other">Altceva</string>
   <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
