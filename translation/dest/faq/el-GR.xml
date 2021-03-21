@@ -41,10 +41,22 @@
 
 Επίσης, μπορεί να είναι δυνατόν κάποιος παίκτης να κάνει ματ με έναν ίππο ή έναν αξιωματικό εάν ο αντίπαλος έχει ένα κομμάτι που αποκλείει τις κινήσεις του βασιλιά.</string>
   <string name="fideHandbookX">βιβλίο κανονισμών FIDE %s</string>
+  <string name="explainingEnPassant">Αυτή είναι μια νόμιμη κίνηση γνωστή ως \"en passant\". Το άρθρο της Βικιπαίδειας δίνει μια %1$s.
+
+Περιγράφεται στην ενότητα 3. (δ) από τoυς %2$s:
+
+\"Ένα πιόνι που βρίσκεται σε ένα τετράγωνο στην ίδια γραμμή και σε διπλανή στήλη με ένα πιόνι αντιπάλου, το οποίο έχει μόλις μετακινηθεί δύο τετράγωνα (σε μία κίνηση) από το αρχικό του τετράγωνο, μπορεί να αιχμαλωτίσει το πιόνι αυτό σαν να είχε μετακινηθεί μόνο ένα τετράγωνο. Η κίνηση αυτή μπορεί να παιχτεί μόνο μετά τη μετακίνηση του αντίπαλου πιονιού και ονομάζεται \'en passant\'.\"
+
+Δείτε την %3$s σε αυτή την κίνηση για να εξασκηθείτε.</string>
+  <string name="goodIntroduction">καλή εισαγωγή</string>
   <string name="officialRulesPDF">επίσημοι κανόνες (PDF)</string>
+  <string name="lichessTraining">εκπαίδευση του Lichess</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
+  <string name="threefoldRepetitionExplanation">Αν μια θέση επαναληφθεί τρεις φορές, οι παίκτες μπορούν να ισχυριστούν ισοπαλία από τον κανόνα της %1$s. Το Lichess εφαρμόζει τους επίσημους κανόνες FIDE, όπως περιγράφονται στο άρθρο 9.2 (d) του %2$s.</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
+  <string name="repeatedPositionsThatMatters">Η τριπλή επανάληψη αφορά %1$s, όχι κινήσεις. Οι επαναλήψεις δε χρειάζεται να είναι διαδοχικές.</string>
+  <string name="positions">θέσεις</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Η θέση έχει επαναληφθεί τρεις φορές. Γιατί δεν έχει γίνει ισοπαλία;</string>
   <string name="accounts">Λογαριασμοί</string>
   <string name="titlesAvailableOnLichess">Τι είδους τίτλοι υπάρχουν στο Lichess;</string>
@@ -86,4 +98,9 @@
   <string name="connexionLostCanIGetMyRatingBack">Έχασα ένα παιχνίδι λόγω καθυστέρησης/αποσύνδεσης. Μπορώ να πάρω τους βαθμούς μου πίσω;</string>
   <string name="howToThreeDots">Πως να...</string>
   <string name="enableDisableNotificationPopUps">Ενεργοποίηση ή απενεργοποίηση εμφάνισης ειδοποιήσεων;</string>
+  <string name="lichessCanOptionnalySendPopUps">Το Lichess μπορεί προαιρετικά να στείλει ειδοποιήσεις, όταν για παράδειγμα είναι η σειρά σας ή λαμβάνετε ένα ιδιωτικό μήνυμα.
+
+Κάντε κλικ στο εικονίδιο κλειδώματος δίπλα στη διεύθυνση lichess.org στη γραμμή URL του περιηγητή σας.
+
+Στη συνέχεια, επιλέξτε αν θα επιτρέπονται ήαποκλείονται ειδοποιήσεις από το Lichess.</string>
 </resources>
