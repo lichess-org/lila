@@ -17,7 +17,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
               Ok(
                 views.html.storm.home(
                   env.storm.json(puzzles, ctx.me),
-                  env.storm.json.pref(ctx.pref.copy(coords = lila.pref.Pref.Coords.NONE)),
+                  env.storm.json.pref(ctx.pref),
                   high
                 )
               )
