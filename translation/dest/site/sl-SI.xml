@@ -548,7 +548,7 @@
   <string name="cheat">Goljufija</string>
   <string name="insult">Žalitev</string>
   <string name="troll">Provokacija</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Manipulacija z ratingi</string>
+  <string name="ratingManipulation">Manipulacija z ratingi</string>
   <string name="other">Drugo</string>
   <string name="reportDescriptionHelp">Prilepite povezave do igre (ali iger) in pojasnite kaj je narobe z obnašanjem uporabnika. Ne napišite samo \"uporabnik goljufa\" temveč pojasnite zakaj mislite tako. Prijava bo obdelana hitreje če bo napisana v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
