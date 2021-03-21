@@ -76,7 +76,7 @@ final class PostApi(
       }
     }
 
-  def editPost(postId: String, newText: String, user: User): Fu[Post] =
+  def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
       post.fold[Fu[Post]](fufail("Post no longer exists.")) {
         case (_, post) if !post.canBeEditedBy(user.id) =>
@@ -249,8 +249,8 @@ final class PostApi(
         ReadPreference.secondaryPreferred
       )
 
-  def erasePost(id: Post.ID) =
-    env.postRepo.coll.updateField($id(id), "erasedAt", DateTime.now).void
+  def erasePost(post: Post) =
+    env.postRepo.coll.update.one($id(post.id), post.erase).void
 
   def eraseAllOf(user: User): Funit =
     env.postRepo.coll.update

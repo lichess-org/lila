@@ -81,7 +81,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       postApi getPost id flatMap {
         _ ?? { post =>
           if (me.id == ~post.userId)
-            postApi.erasePost(id) inject Redirect(routes.ForumPost.redirect(id))
+            postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
             isGrantedMod(categSlug) flatMap { granted =>
               (granted | isGranted(_.ModerateForum)) ?? postApi.delete(categSlug, id, me) map { Ok(_) }

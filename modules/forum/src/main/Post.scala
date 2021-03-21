@@ -62,6 +62,8 @@ case class Post(
     )
   }
 
+  def erase = editPost(DateTime.now, "").copy(erasedAt = DateTime.now.some)
+
   def hasEdits = editHistory.isDefined
 
   def displayModIcon = ~modIcon
