@@ -63,7 +63,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Προώθηση παραλλαγής</string>
+  <string name="promoteVariation">Προώθηση βαριάντας</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
@@ -469,6 +469,8 @@
   <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
+  <string name="descPrivate">Ιδιωτική περιγραφή</string>
+  <string name="descPrivateHelp">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
   <string name="help">Βοήθεια:</string>
@@ -489,6 +491,7 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
+  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Παραποίηση βαθμολογίας</string>
   <string name="other">Άλλο</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
@@ -580,6 +583,7 @@
   <string name="error.email_unique">Αυτή η διεύθυνση ηλ. ταχυδρομείου χρησιμοποιείται ήδη</string>
   <string name="error.email_different">Έχετε αυτήν την διεύθυνση ήδη</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
+  <string name="onlyExistingConversations">Μόνο υπάρχουσες συνομιλίες</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
