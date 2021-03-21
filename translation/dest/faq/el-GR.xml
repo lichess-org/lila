@@ -66,6 +66,7 @@
 Εάν το Lichess έχει επαληθεύσει τον τίτλο σας, τότε μπορείτε να συμμετέχετε σε τουρνουά Titled Arena.
 
 Τέλος, υπάρχει ένας τιμητικός τίτλος %2$s.</string>
+  <string name="asWellAsManyNMtitles">πολλούς άλλους εθνικούς τίτλους</string>
   <string name="verificationForm">φόρμα επαλήθευσης</string>
   <string name="canIbecomeLM">Μπορώ να αποκτήσω τον τίτλο Lichess Master (LM);</string>
   <string name="noUpperCaseDot">Όχι.</string>
