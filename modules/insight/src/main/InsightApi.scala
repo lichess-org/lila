@@ -77,9 +77,9 @@ object InsightApi {
 
   sealed trait UserStatus
   object UserStatus {
-    case object NoGame extends UserStatus
-    case object Empty  extends UserStatus
-    case object Stale  extends UserStatus
-    case object Fresh  extends UserStatus
+    case object NoGame extends UserStatus // the user has no rated games
+    case object Empty  extends UserStatus // insights not yet generated
+    case object Stale  extends UserStatus // new games not yet generated
+    case object Fresh  extends UserStatus // up to date
   }
 }
