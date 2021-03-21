@@ -44,7 +44,7 @@ object RelayForm {
   case class GameIds(ids: List[Game.ID])
 
   private def toGameIds(ids: String): Option[GameIds] = {
-    val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(_.sizeIs == Game.gameIdSize).toList
+    val list = ids.split(' ').view.map(_.trim take Game.gameIdSize).filter(Game.validId).toList
     (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
   }
 
