@@ -651,9 +651,9 @@
   <string name="aboutSimulImage">Fišers 50 spēlēs uzvarēja 47, zaudēja 1 un 2 beidzās neizšķirti.</string>
   <string name="aboutSimulRealLife">Princips ir aizgūts no reāliem pasākumiem. Reālajā dzīvē simultānseansa vadītājs staigā no galdiņa pie galdiņa un veic pa vienam gājienam.</string>
   <string name="aboutSimulRules">Simultānseansam sākoties, katrs spēlētājs sāk spēli ar vadītāju, kurš spēlē ar baltajām figūrām. Seanss beidzas, kad visas spēles ir beigušās.</string>
-  <string name="aboutSimulSettings">Simultānseansi vienmēr ir gadījuma rakstura. Revanši, gājiena atcelšana un \"vairāklaika\" iespējas ir atspējotas.</string>
+  <string name="aboutSimulSettings">Simultānseansi nekad nav vērtēti. Revanšu, gājienu atsaukšanas un laika pievienošanas iespējas ir atspējotas.</string>
   <string name="create">Izveidot</string>
-  <string name="whenCreateSimul">Izveidojot Simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
+  <string name="whenCreateSimul">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
   <string name="simulVariantsHint">Ja atlasīsiet vairākus variantus, katrs spēlētājs varēs izvēlēties kuru spēlēt.</string>
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
