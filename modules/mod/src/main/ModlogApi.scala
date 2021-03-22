@@ -16,6 +16,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.irc.S
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
+  def streamerDecline(mod: Mod, streamerId: User.ID) =
+    add {
+      Modlog(mod.user.id, streamerId.some, Modlog.streamerDecline)
+    }
   def streamerList(mod: Mod, streamerId: User.ID, v: Boolean) =
     add {
       Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)

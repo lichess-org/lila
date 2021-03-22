@@ -121,7 +121,7 @@ object Streamer {
       }
   }
 
-  case class ModChange(list: Option[Boolean], tier: Option[Int])
+  case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 
   val maxTier = 10
 

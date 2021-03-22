@@ -109,6 +109,7 @@ final class Streamer(
                 },
               data =>
                 api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
+                  if (change.decline) env.mod.logApi.streamerDecline(lila.report.Mod(me), s.user.id)
                   change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
                   change.tier foreach { env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
                   if (data.approval.flatMap(_.quick).isDefined)
