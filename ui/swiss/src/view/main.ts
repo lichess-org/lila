@@ -244,6 +244,17 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
           numberRow(noarg('byes'), [s.byes, slots], 'percent'),
           numberRow(noarg('absences'), [s.absences, slots], 'percent'),
         ]),
+        h('div.swiss__stats__links', [
+          h(
+            'a',
+            {
+              attrs: {
+                href: `/swiss/${ctrl.data.id}/round/1`,
+              },
+            },
+            `View all ${ctrl.data.round} rounds`
+          ),
+        ]),
       ])
     : undefined;
 }

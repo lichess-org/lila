@@ -1,10 +1,15 @@
-package views.html.base
+package views.html
+package base
 
 import chess.format.FEN
 import controllers.routes
 import play.api.i18n.Lang
+import play.api.mvc.Call
 
+import lila.api.Context
+import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.paginator.Paginator
 
 object bits {
 
@@ -47,4 +52,43 @@ z-index: 99;
 
   def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
     a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+
+  def paginationByQuery(route: Call, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+    pagination(page => s"$route?page=$page", pager, showPost)
+
+  def pagination(url: Int => String, pager: Paginator[_], showPost: Boolean): Option[Frag] =
+    pager.hasToPaginate option pagination(url, pager.currentPage, pager.nbPages, showPost)
+
+  def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
+    st.nav(cls := "pagination")(
+      if (page > 1) a(href := url(page - 1), dataIcon := "I")
+      else span(cls := "disabled", dataIcon := "I"),
+      sliding(page, nbPages, 3, showPost = showPost).map {
+        case None                 => raw(" &hellip; ")
+        case Some(p) if p == page => span(cls := "current")(p)
+        case Some(p)              => a(href := url(p))(p)
+      },
+      if (page < nbPages) a(rel := "next", href := url(page + 1), dataIcon := "H")
+      else span(cls := "disabled", dataIcon := "H")
+    )
+
+  private def sliding(pager: Paginator[_], length: Int, showPost: Boolean): List[Option[Int]] =
+    sliding(pager.currentPage, pager.nbPages, length, showPost)
+
+  private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] = {
+    val fromPage = 1 max (page - length)
+    val toPage   = nbPages.min(page + length)
+    val pre = fromPage match {
+      case 1 => Nil
+      case 2 => List(1.some)
+      case _ => List(1.some, none)
+    }
+    val post = toPage match {
+      case x if x == nbPages     => Nil
+      case x if x == nbPages - 1 => List(nbPages.some)
+      case _ if showPost         => List(none, nbPages.some)
+      case _                     => List(none)
+    }
+    pre ::: (fromPage to toPage).view.map(Some.apply).toList ::: post
+  }
 }

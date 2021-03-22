@@ -4,15 +4,16 @@
   background: $c-bg-box;
   padding: 1.7em 0;
   align-self: flex-start;
+  text-align: center;
 
   h2 {
     font-size: 1.5em;
     margin-bottom: 1em;
-    text-align: center;
   }
 
   table {
     margin: auto;
+    text-align: left;
   }
 
   td {
@@ -20,5 +21,9 @@
     padding-left: 1em;
     text-align: right;
     line-height: 2em;
+  }
+
+  &__links {
+    margin-top: 2em;
   }
 }

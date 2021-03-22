@@ -93,7 +93,8 @@ object topic {
         .some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
-      val pager    = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+      val pager = views.html.base.bits
+        .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(

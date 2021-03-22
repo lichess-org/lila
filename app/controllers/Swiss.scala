@@ -82,6 +82,18 @@ final class Swiss(
   private def isCtxInTheTeam(teamId: lila.team.Team.ID)(implicit ctx: Context) =
     ctx.userId.??(u => env.team.cached.teamIds(u).dmap(_ contains teamId))
 
+  def round(id: String, round: Int) =
+    Open { implicit ctx =>
+      OptionFuResult(env.swiss.api.byId(SwissId(id))) { swiss =>
+        (round > 0 && round <= swiss.round.value).option(lila.swiss.SwissRound.Number(round)) ?? { r =>
+          val page = getInt("page").filter(0.<)
+          env.swiss.roundPager(swiss, r, page | 0) map { pager =>
+            Ok(html.swiss.show.round(swiss, r, pager))
+          }
+        }
+      }
+    }
+
   def form(teamId: String) =
     Open { implicit ctx =>
       Ok(html.swiss.form.create(env.swiss.forms.create, teamId)).fuccess

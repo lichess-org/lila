@@ -70,7 +70,7 @@ object categ {
         )
       )
     val bar = div(cls := "bar")(
-      bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
+      views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
       newTopicButton
     )
 

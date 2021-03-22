@@ -54,6 +54,8 @@ final class Env(
 
   val api: SwissApi = wire[SwissApi]
 
+  lazy val roundPager = wire[SwissRoundPager]
+
   private def teamOf = api.teamOf _
 
   private lazy val socket = wire[SwissSocket]

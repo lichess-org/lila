@@ -279,6 +279,7 @@ GET   /swiss                                  controllers.Swiss.home
 GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: String)
 POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: String)
 GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: String)
+GET   /swiss/$id<\w{8}>/round/:round          controllers.Swiss.round(id: String, round: Int)
 GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: String)
 POST  /swiss/$id<\w{8}>/join                  controllers.Swiss.join(id: String)
 POST  /swiss/$id<\w{8}>/withdraw              controllers.Swiss.withdraw(id: String)

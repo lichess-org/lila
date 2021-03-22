@@ -129,11 +129,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       modIcon = false
     )
 
-  def userIdLink(
-      userId: String,
-      cssClass: Option[String]
-  )(implicit lang: Lang): Frag = userIdLink(userId.some, cssClass)
-
   def titleTag(title: Option[Title]): Option[Frag] =
     title map { t =>
       frag(userTitleTag(t), nbsp)
