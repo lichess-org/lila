@@ -12,16 +12,16 @@
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Πηγή</string>
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
-  <string name="voteToLoadNextOne">Ψηφίστε για να φορτώσετε το επόμενο!</string>
+  <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
   <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας: %s</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
-  <string name="toGetPersonalizedPuzzles">Για να πάρετε εξατομικευμένους γρίφους:</string>
+  <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
   <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
   <string name="goodMove">Καλή κίνηση</string>
-  <string name="bestMove">Καλύτερη κίνηση!</string>
+  <string name="bestMove">Παίξατε την καλύτερη κίνηση!</string>
   <string name="keepGoing">Συνεχίστε…</string>
   <string name="puzzleSuccess">Επιτυχία!</string>
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
@@ -48,6 +48,6 @@
   <string name="improvementAreas">Τομείς βελτίωσης</string>
   <string name="strengths">Δυνατά σημεία</string>
   <string name="history">Ιστορικό γρίφων</string>
-  <string name="solved">επιλύθηκε</string>
+  <string name="solved">λύθηκε</string>
   <string name="failed">απέτυχε</string>
 </resources>
