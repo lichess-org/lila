@@ -92,6 +92,8 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="provisionalRatingExplanation">Otáznik znamená, že rating je provizórny. Je to spôsobené:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedokončil dostatočný počet hodnotených hier proti %1$s v kategórii ratingu.</string>
   <string name="similarOpponents">súperi podobnej sily</string>
+  <string name="notPlayedRecently">Hráč nehral dosť súčasných hier. V závislosti od počtu hier, ktoré ste hrali, môže trvať asi rok nečinnosti, kým sa vaše hodnotenie stane predbežným.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrétne to znamená, že odchýlka Glicko-2 je väčšia ako 110. Odchýlka je úroveň dôveryhodnosti systému v rating. Čím je odchýlka nižšia, tým je rating stabilnejší.</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>
   <string name="ratingLeaderboards">ratingový rebríček</string>
@@ -101,8 +103,20 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="beInTopTen">byť v top 10 v tomto ratingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhá požiadavka slúži aby hráči s neaktívnymi účtami nezaberali rebríčky.</string>
   <string name="whyAreRatingHigher">Prečo sú ratingy vyššie v porovnaním s inými stránkami a organizáciami ako FIDE, USCF a ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najlepšie je nepovažovať rating za absolútne čísla alebo ich porovnávať s inými organizáciami. Rôzne organizácie majú rozdielne úrovne hráčov, rôzne ratingove systémy (Elo, Glicko, Glicko-2 alebo upravená verzia vyššie uvedeného). Tieto faktory môžu drasticky ovplyvniť absolútne čísla (rating).
+
+Najlepšie je považovať rating za „relatívne“ čísla (na rozdiel od „absolútnych“): V skupine hráčov vám ich relatívne rozdiely v ratingu pomôžu odhadnúť, kto vyhrá / remizuje / prehrá a ako často. Povedať „Mám rating X“ nič neznamená, pokiaľ neexistujú ďalší hráči, s ktorými by bolo možné toto rating porovnať.</string>
   <string name="howToHideRatingWhilePlaying">Ako skryť ratingy počas partie?</string>
   <string name="enableZenMode">Povoľte Zen-mód v %1$s, alebo stlačením %2$s počas hry.</string>
+  <string name="displayPreferences">predvoľby zobrazenia</string>
   <string name="connexionLostCanIGetMyRatingBack">Prehral som hru kvôli lagu/odpojeniu. Môžem dostať ratingové body naspäť?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bohužiaľ nemôžeme vrátiť späť hodnotiace body za hry stratené v dôsledku oneskorenia alebo odpojenia bez ohľadu na to, či bol problém u vás, alebo u nás. To posledné je však veľmi zriedkavé. Upozorňujeme tiež, že keď sa Lichess reštartuje a vy kvôli tomu stratíte včas, hru prerušíme, aby sme zabránili nespravodlivej strate.</string>
   <string name="howToThreeDots">Ako...</string>
+  <string name="enableDisableNotificationPopUps">Povoliť alebo zakázať vyskakovacie okná s upozorneniami?</string>
+  <string name="viewSiteInformationPopUp">Zobraziť vyskakovacie okno s informáciami o webe</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess môže voliteľne posielať vyskakovacie oznámenia, napríklad keď ste na rade, alebo keď ste dostali súkromnú správu.
+
+Kliknite na ikonu zámku vedľa adresy lichess.org v paneli URL vášho prehliadača.
+
+Potom vyberte, či chcete povoliť alebo blokovať upozornenia od Lichess.</string>
 </resources>
