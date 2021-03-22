@@ -6,7 +6,7 @@ object CuteNameGenerator {
 
   type CuteName = String
 
-  def make(maxSize: Int = 17, triesLeft: Int = 100): Option[CuteName] = {
+  def make(maxSize: Int = 20, triesLeft: Int = 100): Option[CuteName] = {
     val name = makeForSure
     if (name.sizeIs <= maxSize) name.some
     else if (triesLeft <= 0) none
@@ -24,11 +24,11 @@ object CuteNameGenerator {
     vec(Math.abs(seed) % vec.size)
 
   lazy val combinations: Vector[List[Vector[String]]] = Vector(
-    List(adjectives, nouns)
+    List(colors ++ adjectives, animals ++ pieces ++ jobs),
+    List(colors, adjectives, animals ++ pieces ++ jobs),
+    List(colors ++ adjectives, adjectives, animals ++ pieces ++ jobs),
+    List(colors ++ adjectives, jobs, animals ++ pieces)
   )
-
-  val adjectives = colors ++ positiveAdjectives
-  val nouns      = animals ++ pieces ++ jobs
 
   def colors =
     Vector(
@@ -258,7 +258,7 @@ object CuteNameGenerator {
       "Zebra"
     )
 
-  def positiveAdjectives =
+  def adjectives =
     Vector(
       "Abiding",
       "Able",
@@ -1237,12 +1237,14 @@ object CuteNameGenerator {
       "Chef",
       "Chemist",
       "Choreographer",
+      "Coder",
       "Dancer",
       "Dentist",
       "Diver",
       "Doctor",
       "Drummer",
       "Duelist",
+      "Fan",
       "Farmer",
       "Florist",
       "Flutist",
@@ -1253,12 +1255,14 @@ object CuteNameGenerator {
       "Harpist",
       "Journalist",
       "Judge",
+      "Lawyer",
       "Musician",
       "Ninja",
       "Nurse",
       "Officer",
       "Optician",
       "Pianist",
+      "Player",
       "Runner",
       "Singer",
       "Trumpeter",
