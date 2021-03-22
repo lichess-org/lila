@@ -490,6 +490,7 @@
   <string name="cheat">Valsspelen</string>
   <string name="insult">Beledigen</string>
   <string name="troll">Provoceren</string>
+  <string name="ratingManipulation">Rating manipulatie</string>
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
