@@ -21,7 +21,7 @@ final private class RelaySync(
           case None =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(study, chapter, game)
+                case Some(chapter) => updateChapter(relay, study, chapter, game)
                 case None =>
                   createChapter(study, game) flatMap { chapter =>
                     chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
@@ -50,8 +50,8 @@ final private class RelaySync(
     if (nbGames == 1 || game.looksLikeLichess) chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
-  private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
-    updateChapterTags(study, chapter, game) >>
+  private def updateChapter(relay: Relay, study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
+    updateChapterTags(relay, study, chapter, game) >>
       updateChapterTree(study, chapter, game)
 
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
@@ -105,7 +105,7 @@ final private class RelaySync(
     }
   }
 
-  private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
+  private def updateChapterTags(relay: Relay, study: Study, chapter: Chapter, game: RelayGame): Funit = {
     val gameTags = game.tags.value.foldLeft(Tags(Nil)) { case (newTags, tag) =>
       if (!chapter.tags.value.exists(tag ==)) newTags + tag
       else newTags
@@ -127,14 +127,14 @@ final private class RelaySync(
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
         val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
-        newEnd ?? onChapterEnd(study, chapter)
+        newEnd ?? onChapterEnd(relay, study, chapter)
       }
     }
   }
 
-  private def onChapterEnd(study: Study, chapter: Chapter): Funit =
+  private def onChapterEnd(relay: Relay, study: Study, chapter: Chapter): Funit =
     chapterRepo.setRelayPath(chapter.id, Path.root) >> {
-      (chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
+      (relay.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,
         userId = study.ownerId
