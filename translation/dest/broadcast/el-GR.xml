@@ -6,11 +6,11 @@
   <string name="ongoing">Σε εξέλιξη</string>
   <string name="upcoming">Προσεχή</string>
   <string name="completed">Ολοκληρώθηκε</string>
-  <string name="eventName">Όνομα εκδήλωσης</string>
-  <string name="eventDescription">Σύντομη περιγραφή εκδήλωσης</string>
-  <string name="fullDescription">Πλήρης περιγραφή εκδήλωσης</string>
-  <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή αναμετάδοσης. %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
-  <string name="sourceUrlOrGameIds">Url πηγής ή ID παιχνιδιού</string>
+  <string name="eventName">Όνομα γεγονότος</string>
+  <string name="eventDescription">Σύντομη περιγραφή γεγονότος</string>
+  <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
+  <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
+  <string name="sourceUrlOrGameIds">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 IDs παιχνιδιών Lichess, με κενά μεταξύ τους.</string>
   <string name="roundNumber">Αριθμός γύρου</string>
