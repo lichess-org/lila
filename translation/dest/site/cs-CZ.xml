@@ -526,6 +526,8 @@
   <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
+  <string name="descPrivate">Soukromý popis</string>
+  <string name="descPrivateHelp">Text, který uvidí pouze členové týmu, kteří poté uvidí jenom tento text.</string>
   <string name="no">Ne</string>
   <string name="yes">Ano</string>
   <string name="help">Nápověda:</string>
@@ -546,6 +548,7 @@
   <string name="cheat">Podvod</string>
   <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulace s ratingem</string>
   <string name="other">Jiné</string>
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
