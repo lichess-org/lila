@@ -12,11 +12,11 @@
   <string name="playAgain">Rejouer</string>
   <plurals name="xRuns">
     <item quantity="one">1 essai</item>
-    <item quantity="other">%s essais</item>
+    <item quantity="other">%s courses</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">A fait un essai de %2$s</item>
-    <item quantity="other">A fait %1$s essais de %2$s</item>
+    <item quantity="other">A fait %1$s courses de %2$s</item>
   </plurals>
   <string name="highscoreX">Meilleur score : %s</string>
   <string name="score">Score</string>
