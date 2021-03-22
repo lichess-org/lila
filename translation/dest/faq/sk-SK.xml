@@ -51,6 +51,14 @@ V zriedkavých prípadoch môže byť ťažké automaticky rozhodnúť (vynúten
 
 Upozorňujeme, že je možné matovať s jedným jazdcom alebo strelcom, ak má protivník figúrku, ktorá by mohla kráľa zablokovať.</string>
   <string name="fideHandbookX">Príručka FIDE %s</string>
+  <string name="discoveringEnPassant">Prečo môže pešiak vziať iného pešiaka, keď sa pohol? (en passant)</string>
+  <string name="explainingEnPassant">Toto je legálny ťah známy ako „en passant“. Článok na Wikipédii poskytuje %1$s
+
+Je to opísané v časti 3.7(d) z %2$s:
+
+„Pešiak, ktorý kontroluje pole s rovnakou pozíciou a na susednom poli súperovho pešiaka, ktorý práve postúpil o dve políčka v jednom ťahu z pôvodného štvorca, môže brať tohto súperovho pešiaka, akoby bol druhý presunutý iba o jedno políčko. Toto branie je legálne iba v ťahu nasledujúcom po tomto ťahu a nazýva sa ‘en passant’ branie mimochodom. “
+
+Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="goodIntroduction">dobrý úvod</string>
   <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
   <string name="lichessTraining">Lichess tréning</string>
