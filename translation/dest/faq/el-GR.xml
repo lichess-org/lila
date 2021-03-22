@@ -3,19 +3,19 @@
   <string name="faqAbbreviation">Συχνές ερωτήσεις</string>
   <string name="frequentlyAskedQuestions">Συχνές Ερωτήσεις</string>
   <string name="whyIsLichessCalledLichess">Γιατί το Lichess ονομάζεται Lichess;</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Το Lichess συνδιάζει το σκάκι με ανοικτό κώδικα, αποδοτικότητα και καινοτομία στα ζωντανά παιχνίδια. Προφέρεται ως %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Το Lichess είναι ένας συνδυασμός των «live/light/libre». Προφέρεται ως %1$s.</string>
   <string name="leechess">lee-chess (λί-τσες)</string>
-  <string name="hearItPronouncedBySpecialist">Ακούστε πως προφέρεται από έναν ειδικό.</string>
-  <string name="whyLiveLightLibre">Ζωντανά, επειδή τα παιχνίδια παίζονται και παρακολουθούνται σε πραγματικό χρόνο 24/7, αποδοτικό και καινοτόμο, καθώς υιοθετεί την φιλοσοφία του ανοικτού κώδικα, αποφεύγοντας παράλληλα τα προβλήματα που ενέχει ο ιδιόκτητος κώδικας και τα οποία μαστίζουν άλλες ιστοσελίδες.</string>
+  <string name="hearItPronouncedBySpecialist">Ακούστε πώς προφέρεται από έναν ειδικό.</string>
+  <string name="whyLiveLightLibre">Ζωντανά, επειδή τα παιχνίδια παίζονται και παρακολουθούνται σε πραγματικό χρόνο 24/7, αποδοτικό και καινοτόμο, καθώς είναι ανοικτού κώδικα και αποφεύγει, έτσι, τα προβλήματα με τον κλειστό κώδικα που μαστίζουν άλλες ιστοσελίδες.</string>
   <string name="whyIsLilaCalledLila">Όμοια, ο πηγαίος κώδικας για το Lichess, %1$s, σημαίνει li[chess in sca]la (lichess σε scala), αφού ένα αρκετά μεγάλο μέρος του Lichess είναι γραμμένο στην %2$s, μια διαισθητική γλώσσα προγραμματισμού.</string>
   <string name="howCanIContributeToLichess">Πώς μπορώ να συνεισφέρω στο Lichess;</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Το Lichess υποστηρίζεται από δωρεές των χρηστών του (patrons) καθώς και από τις προσπάθειες μιας ομάδας εθελοντών.</string>
-  <string name="findMoreAndSeeHowHelp">Μπορείτε να μάθετε περισσότερα για το πως να %1$s (καθώς και των ισολογισμών της οργάνωσης %2$s). Αν θέλετε να βοηθήσετε το Lichess με τον χρόνο και τις ικανότητές σας, υπάρχουν πολλοί %3$s.</string>
-  <string name="beingAPatron">γίνετε χορηγός</string>
-  <string name="breakdownOfOurCosts">ανάλυση των εξόδων μας</string>
+  <string name="findMoreAndSeeHowHelp">Μπορείτε να μάθετε περισσότερα για το πώς να %1$s (καθώς και για τα %2$s). Αν θέλετε να βοηθήσετε το Lichess με τον χρόνο και τις ικανότητές σας, υπάρχουν πολλοί %3$s.</string>
+  <string name="beingAPatron">γίνετε υποστηρικτής</string>
+  <string name="breakdownOfOurCosts">έξοδά μας αναλυτικά</string>
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν το %1$s, το %2$s ή την %3$s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν τον %1$s, το %2$s ή τη %3$s.</string>
   <string name="fairPlay">Κανόνες Δικαίου Παιχνιδιού</string>
   <string name="whenAmIEligibleRatinRefund">Πότε μπορώ να πάρω πίσω τις μονάδες elo που έχασα παίζοντας με κλέφτες;</string>
   <string name="ratingRefundExplanation">Ένα λεπτό μετά την αναφορά ενός παίκτη, εξετάζονται τα 40 τελευταία βαθμολογημένα παιχνίδια του τις τελευταίες 3 ημέρες. Αν είστε αντίπαλος σε αυτά τα παιχνίδια, έχετε χάσει πόντους (ήττα ή ισοπαλία) και η βαθμολογία σας δεν ήταν προσωρινή, μπορείτε να πάρετε αυτούς τους πόντους πίσω. Η επιστροφή πόντων είναι προσαρμοσμένη με βάση την κορυφαία βαθμολογία σας και την πρόοδό της μετά το παιχνίδι.
@@ -34,7 +34,7 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s δευτερόλεπτα = %2$s</string>
   <string name="whatVariantsCanIplay">Ποιες είναι οι διάφορες εκδοχές που μπορώ να παίξω στο Lichess;</string>
   <string name="lichessSupportChessAnd">Το Lichess υποστηρίζει κανονικό σκάκι και %1$s.</string>
-  <string name="eightVariants">8 παραλλαγές σκάκιου</string>
+  <string name="eightVariants">8 παραλλαγές σκακιού</string>
   <string name="whatIsACPL">Τι είναι η μέση απώλεια εκατοστοπιονιού (ACPL);</string>
   <string name="acplExplanation">Το εκατοστοπιόνι είναι η μονάδα μέτρησης που χρησιμοποιείται στο σκάκι ως αναπαράσταση του πλεονεκτήματος. Ένα εκατοστοπιόνι είναι ίσο με το 1/100 ενός πιονιού. Επομένως 100 εκατοστοπιόνια = 1 πιόνι. Αυτές οι αξίες δεν παίζουν επίσημο ρόλο στο παιχνίδι, αλλά είναι χρήσιμες για τους παίκτες, και απαραίτητα για τις σκακιστικές μηχανές, για την αξιολόγηση των θέσεων.
 
@@ -49,7 +49,7 @@
 Σε σπάνιες περιπτώσεις αυτό είναι δύσκολο να αποφασιστεί αυτόματα (αναγκαστικές γραμμές, φρούρια =). Συνήθως, είμαστε με τον παίκτη του οποίου ο χρόνος δεν έχει εξαντληθεί.
 
 Επίσης, μπορεί να είναι δυνατόν κάποιος παίκτης να κάνει ματ με έναν ίππο ή έναν αξιωματικό εάν ο αντίπαλος έχει ένα κομμάτι που αποκλείει τις κινήσεις του βασιλιά.</string>
-  <string name="fideHandbookX">βιβλίο κανονισμών FIDE %s</string>
+  <string name="fideHandbookX">βιβλίο κανονισμών της FIDE %s</string>
   <string name="discoveringEnPassant">Γιατί μπορεί ένα πιόνι να αιχμαλωτίσει ένα αντίπαλο που βρίσκεται δίπλα του (en passant);</string>
   <string name="explainingEnPassant">Αυτή είναι μια νόμιμη κίνηση γνωστή ως \"en passant\". Το άρθρο της Βικιπαίδειας δίνει μια %1$s.
 
