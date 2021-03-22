@@ -73,10 +73,23 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="configure">konfigurovať</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Aké tituly sú na Lichessi?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess rozpoznáva všetky tituly FIDE získané z hrania OTB (za šachovnicou), ako aj %1$s.. Tu je zoznam titulov FIDE:</string>
+  <string name="showYourTitle">337 / 5000
+Výsledky prekladov
+Ak máte titul OTB, môžete požiadať o jeho zobrazenie vo svojom účte vyplnením %1$ss vrátane jasného obrázka identifikačného dokumentu / karty a selfie, v ktorej držíte dokument / kartu.
+
+Overenie ako hráč s titulom na Lichess dáva prístup k hre na udalostiach s názvom Arena.
+
+Konečne je tu čestný %2$s titul.</string>
   <string name="asWellAsManyNMtitles">veľa národných majstrovských titulov</string>
   <string name="verificationForm">overovací formulár</string>
   <string name="canIbecomeLM">Môžem získať Lichess majster (LM) titul?</string>
   <string name="noUpperCaseDot">Nie.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tento čestný titul je neoficiálny a existuje iba pre Lichess.
+
+Zriedka ju podľa nášho uváženia udelíme vysoko pozoruhodným hráčom, ktorí sú dobrými členmi Lichess. Nezískate titul LM, titul LM sa dostane k vám. Ak sa kvalifikujete, dostanete od nás správu týkajúcu sa tejto informácie a možnosti prijať alebo odmietnuť.
+
+Nepýtajte si titul LM.</string>
   <string name="whatUsernameCanIchoose">Aké môže vyť moje používateľské meno?</string>
   <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
   <string name="guidelines">pokyny</string>
@@ -86,8 +99,16 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
   <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
   <string name="aHourlyBulletTournament">hodinový Bullet turnaj</string>
+  <string name="goldenZeeExplanation">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
   <string name="lichessRatings">Lichess ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ratingy sa počítajú pomocou hodnotiacej metódy Glicko-2 vyvinutej Markom Glickmanom. Toto je veľmi populárna metóda hodnotenia a používa ju veľké množstvo šachových organizácií (FIDE je pozoruhodný protiklad, pretože stále používa datovaný systém hodnotenia Elo).
+
+Hodnotenia Glicko zásadne používajú pri výpočte a reprezentácii vášho hodnotenia „intervaly spoľahlivosti“. Pri prvom použití stránky sa vaše hodnotenie začína na 1 500 ± 700. 1 500 predstavuje vaše hodnotenie a 700 predstavuje interval spoľahlivosti.
+
+Systém je v zásade 90% istý, že vaše hodnotenie je niekde medzi 800 a 2200. Je to neuveriteľne neisté. Z tohto dôvodu, keď hráč práve začína, jeho hodnotenie sa zmení veľmi dramaticky, potenciálne niekoľko stoviek bodov naraz. Ale po niektorých hrách proti zavedeným hráčom sa interval spoľahlivosti zúži a počet získaných / stratených bodov po každej hre sa zníži.
+
+Je potrebné poznamenať, že s pribúdajúcim časom sa bude interval spoľahlivosti zvyšovať. To vám umožní rýchlejšie získavať / strácať body, aby ste zodpovedali akýmkoľvek zmenám vo svojej úrovni schopností za ten čas.</string>
   <string name="whatIsProvisionalRating">Prečo má niekto otáznik (?) vedľa ratingu?</string>
   <string name="provisionalRatingExplanation">Otáznik znamená, že rating je provizórny. Je to spôsobené:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedokončil dostatočný počet hodnotených hier proti %1$s v kategórii ratingu.</string>
