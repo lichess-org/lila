@@ -32,7 +32,7 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
+        a(href := routes.Swiss.home)(trans.returnToTournamentsHomepage())
       )
     }
 
