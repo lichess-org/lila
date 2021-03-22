@@ -241,8 +241,8 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
           numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
           numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
           numberRow(noarg('draws'), [s.draws, slots], 'percent'),
-          numberRow(noarg('byes'), [s.byes, slots], 'percent'),
-          numberRow(noarg('absences'), [s.absences, slots], 'percent'),
+          numberRow('Byes', [s.byes, slots], 'percent'),
+          numberRow('Absences', [s.absences, slots], 'percent'),
         ]),
         h('div.swiss__stats__links', [
           h(
@@ -253,6 +253,48 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
               },
             },
             `View all ${ctrl.data.round} rounds`
+          ),
+          h('br'),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/swiss/${ctrl.data.id}.trf`,
+              },
+            },
+            'Download TRF file'
+          ),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/api/swiss/${ctrl.data.id}/games`,
+              },
+            },
+            'Download all games'
+          ),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/api/swiss/${ctrl.data.id}/results`,
+              },
+            },
+            'Download results'
+          ),
+          h('br'),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': '',
+                href: 'https://lichess.org/api#tag/Swiss-tournaments',
+              },
+            },
+            'Swiss API documentation'
           ),
         ]),
       ])

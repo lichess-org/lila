@@ -1,19 +1,18 @@
 .swiss__stats {
-  @extend %box-neat;
+  @extend %flex-column, %box-neat;
 
   background: $c-bg-box;
   padding: 1.7em 0;
   align-self: flex-start;
-  text-align: center;
 
   h2 {
     font-size: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: 2rem;
+    text-align: center;
   }
 
   table {
     margin: auto;
-    text-align: left;
   }
 
   td {
@@ -24,6 +23,10 @@
   }
 
   &__links {
-    margin-top: 2em;
+    margin: 2em auto 0 auto;
+    a {
+      display: block;
+      margin: 0.5em 0;
+    }
   }
 }
