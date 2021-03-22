@@ -4,7 +4,7 @@
   <string name="lichessPatron">Υποστηρικτής του Lichess</string>
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
   <string name="becomePatron">Υποστηρίξτε το Lichess</string>
-  <string name="xBecamePatron">%s έγινε Δωρητής του Lichess</string>
+  <string name="xBecamePatron">%s έγινε Υποστηρικτής του Lichess</string>
   <string name="newPatrons">Νέοι Υποστηρικτές</string>
   <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
   <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές, αλλά με ανοιχτό κώδικα και πάθος.</string>
@@ -19,12 +19,12 @@
   <string name="lifetimePatron">Εφ όρου ζωής Lichess Δωρητής</string>
   <string name="makeExtraDonation">Κάντε μια επιπλέον δωρεά;</string>
   <string name="monthly">Μηνιαία</string>
-  <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Δωρητή κάθε μήνα.</string>
+  <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Patron κάθε μήνα.</string>
   <string name="onetime">Μία φορά</string>
-  <string name="singleDonation">Μεμονωμένη δωρεά που σας επιτρέπει τα φτερά Δωρητή για ένα μήνα.</string>
+  <string name="singleDonation">Μία μόνο δωρεά που σας δίνει τα φτερά Patron για ένα μήνα.</string>
   <string name="otherAmount">Άλλο</string>
-  <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε USD</string>
-  <string name="withCreditCard">Πιστωτική Κάρτα</string>
+  <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε δολλάρια</string>
+  <string name="withCreditCard">Πιστωτική κάρτα</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
   <string name="celebratedPatrons">Οι διάσημοι Δωρητές που έκαναν το Lichess πραγματικότητα</string>
