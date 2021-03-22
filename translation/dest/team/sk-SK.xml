@@ -14,6 +14,8 @@
   <string name="noTeamFound">Nenašiel sa tím</string>
   <string name="joinTeam">Vstúpiť do tímu</string>
   <string name="quitTeam">Opustiť tím</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Manuálne skontrolujte žiadosti o prijatie</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ak je táto možnosť začiarknutá, hráči budú musieť napísať žiadosť o pripojenie sa k tímu, ktorú môžete odmietnuť alebo prijať.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder tímu</item>
     <item quantity="few">Lídri tímu</item>
