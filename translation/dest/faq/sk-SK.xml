@@ -69,6 +69,7 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakovanie ťahov sa týka opakovania %1$s, nie ťahov. Opakovanie sa nemusí vyskytnúť hneď po sebe.</string>
   <string name="positions">pozície</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Zopakovali sme pozíciu trikrát. Prečo nebola partia vyhlásená za remízu?</string>
+  <string name="threeFoldHasToBeClaimed">Opakovanie musí požadovať jeden z hráčov. Môžete tak urobiť stlačením zobrazeného tlačidla, alebo ponúknutím remízy pred posledným opakujúcim sa ťahom. Nezáleží na tom, či váš súper odmietne ponuku remízy, trojnásobná opakovaná remíza bude rovnako uplatnená. Môžete tiež %1$s Lichess požiadať o automatické opakovania. Päťnásobné opakovanie navyše vždy okamžite ukončí hru.</string>
   <string name="configure">konfigurovať</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Aké tituly sú na Lichessi?</string>
