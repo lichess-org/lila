@@ -26,4 +26,5 @@
   <string name="runs">Pokusy</string>
   <string name="getReady">Připravte se!</string>
   <string name="waitingForMorePlayers">Čeká se na připojení dalších hráčů...</string>
+  <string name="nextRace">Další závod</string>
 </resources>
