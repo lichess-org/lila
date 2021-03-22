@@ -92,7 +92,7 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 22
-        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"TOR login $userId")
+        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
