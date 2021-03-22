@@ -12,6 +12,7 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess je poháňaný darmi od patrónov a úsilím tímu dobrovoľníkov.</string>
   <string name="findMoreAndSeeHowHelp">Viac informácii o %1$s (vrátane %2$s). Ak chcete pomôcť stránke Lichess, tým že ponúknete váš čas a zručnosti, existuje veľa %3$s.</string>
   <string name="beingAPatron">byť patrónom</string>
+  <string name="breakdownOfOurCosts">rozpis našich nákladov</string>
   <string name="otherWaysToHelp">iné možnosti ako pomôcť</string>
   <string name="areThereWebsitesBasedOnLichess">Sú nejaké webstránky založené na Lichessi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Áno. Lichess vskutku inšpiroval iné open-source stránky, ktoré používajú náš %1$s, %2$s, alebo %3$s.</string>
@@ -33,6 +34,7 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="whatIsACPL">Čo je priemerná strata stotiny pešiaka (ACPL)?</string>
   <string name="insufficientMaterial">Prehra na čas, remíza a nedostatočný materiál</string>
   <string name="fideHandbookX">Príručka FIDE %s</string>
+  <string name="goodIntroduction">dobrý úvod</string>
   <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
   <string name="lichessTraining">Lichess tréning</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
