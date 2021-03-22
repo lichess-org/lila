@@ -50,7 +50,7 @@
   <string name="uploadPicture">Μεταφόρτωση εικόνας</string>
   <string name="deletePicture">Διαγραφή εικόνας</string>
   <string name="maxSize">Μέγιστο μέγεθος: %s</string>
-  <string name="installBlocker">Εγκαταστήστε έναν malware blocker!</string>
+  <string name="installBlocker">Εγκαταστήστε ένα πρόγραμμα αποκλεισμού κακόβουλου λογισμικού!</string>
   <string name="beSafe">Για να είστε ασφαλείς από διαφημίσεις και
 παρακολούθηση από το Twitch και το YouTube.
 To Lichess προτείνει το uBlock Origin που είναι
