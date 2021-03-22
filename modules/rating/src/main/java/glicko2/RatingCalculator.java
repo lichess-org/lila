@@ -94,9 +94,10 @@ public class RatingCalculator {
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
 
-        player.setWorkingRating(player.getGlicko2Rating());
-        player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods));
-        player.setWorkingVolatility(player.getVolatility());
+        double newSigma = player.getVolatility();
+        double newPhi = calculateNewRD( player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods );
+        player.updateWorkingRatingAndResults( 0.0d, newPhi, 0 );
+        player.setWorkingVolatility( newSigma );
       }
     }
 
@@ -191,23 +192,18 @@ public class RatingCalculator {
       throw new RuntimeException("Convergence fail");
     }
 
-    double newSigma = Math.exp( A/2.0 );
-
-    player.setWorkingVolatility(newSigma);
+    double newSigma = Math.exp( A / 2.0 );
+    player.setWorkingVolatility( newSigma );
 
     // Step 6
     double phiStar = calculateNewRD( phi, newSigma, elapsedRatingPeriods );
 
     // Step 7
     double newPhi = 1.0 / Math.sqrt(( 1.0 / Math.pow(phiStar, 2) ) + ( 1.0 / v ));
+    double muIncrement = Math.pow( newPhi, 2 ) * outcomeBasedRating( player, results );
 
-    // note that the newly calculated rating values are stored in a "working" area in the Rating object
-    // this avoids us attempting to calculate subsequent participants' ratings against a moving target
-    player.setWorkingRating(
-        player.getGlicko2Rating()
-        + ( Math.pow(newPhi, 2) * outcomeBasedRating(player, results)));
-    player.setWorkingRatingDeviation(newPhi);
-    player.incrementNumberOfResults(results.size());
+    // Step 8
+    player.updateWorkingRatingAndResults( muIncrement, newPhi, results.size() );
   }
 
   private double f(double x, double delta, double phi, double v, double a, double tau) {
@@ -254,11 +250,11 @@ public class RatingCalculator {
     for ( Result result: results ) {
       v = v + (
           ( Math.pow( g(result.getOpponent(player).getGlicko2RatingDeviation()), 2) )
-          * E(player.getGlicko2Rating(),
-            result.getOpponent(player).getGlicko2Rating(),
+          * E(player.getGlicko2RatingWithAdvantage(),
+            result.getOpponent(player).getGlicko2RatingWithAdvantage(),
             result.getOpponent(player).getGlicko2RatingDeviation())
-          * ( 1.0 - E(player.getGlicko2Rating(),
-              result.getOpponent(player).getGlicko2Rating(),
+          * ( 1.0 - E(player.getGlicko2RatingWithAdvantage(),
+              result.getOpponent(player).getGlicko2RatingWithAdvantage(),
               result.getOpponent(player).getGlicko2RatingDeviation())
             ));
     }
@@ -293,8 +289,8 @@ public class RatingCalculator {
       outcomeBasedRating = outcomeBasedRating
         + ( g(result.getOpponent(player).getGlicko2RatingDeviation())
             * ( result.getScore(player) - E(
-                player.getGlicko2Rating(),
-                result.getOpponent(player).getGlicko2Rating(),
+                player.getGlicko2RatingWithAdvantage(),
+                result.getOpponent(player).getGlicko2RatingWithAdvantage(),
                 result.getOpponent(player).getGlicko2RatingDeviation() ))
           );
     }
