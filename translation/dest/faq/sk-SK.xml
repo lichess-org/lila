@@ -37,7 +37,19 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="lichessSupportChessAnd">Lichess podporuje štandardný šach a %1$s.</string>
   <string name="eightVariants">8 šachových variant</string>
   <string name="whatIsACPL">Čo je priemerná strata stotiny pešiaka (ACPL)?</string>
+  <string name="acplExplanation">Centipawn je merná jednotka použitá v šachu na vyjadrenie výhody. Centipawn sa rovná 1/100 pešiaka. Preto 100 centipawnov = 1 pešiak. Tieto hodnoty v hre nehrajú žiadnu formálnu úlohu, sú však užitočné pre hráčov a sú nevyhnutné v počítačových šachoch na hodnotenie pozícií.
+
+Hlavný ťah počítača stratí nula centipawnov, ale menšie pohyby povedú k zhoršeniu polohy, meranej na centipawnoch.
+
+Táto hodnota môže byť použitá ako indikátor kvality hry. Čím menej centipawnov človek stratí na ťah, tým je hra silnejšia.
+
+Počítačovú analýzu na serveri Lichess poskytuje server Stockfish.</string>
   <string name="insufficientMaterial">Prehra na čas, remíza a nedostatočný materiál</string>
+  <string name="lichessFollowFIDErules">V prípade, že jednému hráčovi dôjde čas, tento hráč obvykle prehrá. Hra je však remízovaná, ak je pozícia taká, že súper nemôže dať mat hráčovmu kráľovi žiadnou možnou sériou legálnych ťahov (%1$s).
+
+V zriedkavých prípadoch môže byť ťažké automaticky rozhodnúť (vynútené čiary, pevnosti). Štandardne vždy stojíme na strane hráča, ktorému nevypršal čas.
+
+Upozorňujeme, že je možné matovať s jedným jazdcom alebo strelcom, ak má protivník figúrku, ktorá by mohla kráľa zablokovať.</string>
   <string name="fideHandbookX">Príručka FIDE %s</string>
   <string name="goodIntroduction">dobrý úvod</string>
   <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
