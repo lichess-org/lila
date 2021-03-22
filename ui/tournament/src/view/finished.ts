@@ -34,7 +34,57 @@ function stats(data: TournamentData, noarg: any): VNode {
     tableData.push(numberRow(noarg('berserkRate'), berserkRate, 'percent'));
   }
 
-  return h('div.tour__stats', [h('h2', noarg('tournamentComplete')), h('table', tableData)]);
+  return h('div.tour__stats', [
+    h('h2', noarg('tournamentComplete')),
+    h('table', tableData),
+    h('div.tour__stats__links', [
+      ...(data.teamBattle
+        ? [
+            h(
+              'a',
+              {
+                attrs: {
+                  href: `/tournament/${data.id}/teams`,
+                },
+              },
+              `View all ${Object.keys(data.teamBattle.teams).length} teams`
+            ),
+            h('br'),
+          ]
+        : []),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': 'x',
+            href: `/api/tournament/${data.id}/games`,
+          },
+        },
+        'Download all games'
+      ),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': 'x',
+            href: `/api/tournament/${data.id}/results`,
+          },
+        },
+        'Download results'
+      ),
+      h('br'),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': '',
+            href: 'https://lichess.org/api#tag/Arena-tournaments',
+          },
+        },
+        'Arena API documentation'
+      ),
+    ]),
+  ]);
 }
 
 export const name = 'finished';

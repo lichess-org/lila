@@ -245,7 +245,7 @@ final class Api(
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
             env.tournament.api
-              .resultStream(tour, MaxPerSecond(50), nb)
+              .resultStream(tour, MaxPerSecond(40), nb)
               .map(playerResultWrites.writes)
           }.fuccess
         }
