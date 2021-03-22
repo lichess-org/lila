@@ -26,8 +26,8 @@
   <string name="approved">Váš stream je schválený.</string>
   <string name="pendingReview">Váš stream je preskúmavaný moderátormi.</string>
   <string name="pleaseFillIn">Prosím vyplňte Vaše streamerské informácie a nahrajte obrázok.</string>
-  <string name="whenReady">Keď budete pripravený byť uvedený ako Lichess streamer, %s</string>
-  <string name="requestReview">požiadať o preskúmanie moderátorom</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Keď budete pripravený byť uvedený ako Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požiadať o preskúmanie moderátorom</string>
   <string name="anotherLanguage">Ak je Váš stream v inom jazyku ako angličtine, zahrňte správne označenie jazyka (%s) v hranatých zátvorkách na začiatok Vášho názvu streamu.
 Napríklad, môžete zahrnúť \"[RU]\" pre Ruštinu, \"[TR]\" pre Turečtinu, \"[FR]\" pre Francúzštinu, atď.
 Zahrňte to do názvu streamu na Twitchi alebo Youtube, nie do nastavení streamu na Lichessi. 
@@ -47,4 +47,8 @@ Ak je Váš stream v Angličtine, netreba zahrnúť označenie.</string>
   <string name="deletePicture">Odstrániť obrázok</string>
   <string name="maxSize">Maximálna veľkosť: %s</string>
   <string name="installBlocker">Nainštalujte si bloker malwareov!</string>
+  <string name="beSafe">Chráňte sa pred reklamami a trackermi
+zamorujucich Twitch a YouTube.
+Lichess odporúča uBlock Origin
+ktorý je bezplatný a otvorený.</string>
 </resources>
