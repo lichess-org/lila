@@ -79,12 +79,14 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     }
 
   private def start(race: RacerRace): Option[RacerRace] = race.startCountdown.map { starting =>
-    system.scheduler.scheduleOnce(RacerRace.duration.seconds + 50.millis) { finish(race.id) }
+    system.scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
+      finish(race.id)
+    }
     starting
   }
 
   private def finish(id: RacerRace.Id): Unit =
-    get(id).filterNot(_.finished) foreach { race =>
+    get(id) foreach { race =>
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players foreach { player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
