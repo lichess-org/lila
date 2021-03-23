@@ -26,8 +26,8 @@
   <string name="approved">Zure emanaldia onartu egin da.</string>
   <string name="pendingReview">Zure emanaldia moderatzaileak ikuskatzeko zain dago.</string>
   <string name="pleaseFillIn">Bete zure informazioa eta kargatu irudia.</string>
-  <string name="whenReady">Lichess streamer gisa zerrendatzeko prest zaudenean, %s</string>
-  <string name="requestReview">moderatzaileek ikuskatzea eskatu</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess streamer gisa zerrendatzeko prest zaudenean, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatzaileek ikuskatzea eskatu</string>
   <string name="anotherLanguage">Ingelesa ez den hizkuntza baten egiten baduzu emanaldia, gehitu hizkuntzaren etiketa (%s) kortxete artean zure emanaldiaren izenburuan.
 Adibidez, gehitu \"[EU]\" euskararentzat \"[ES]\" gaztelaniarentzat edo \"[FR]\" frantsesarentzat.
 Gehitu zure emanaldiaren izenburuan Twich edo YouTube orrialdean, ez Lichesseko ezarpenetan. 
