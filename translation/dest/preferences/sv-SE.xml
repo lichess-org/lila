@@ -11,7 +11,7 @@
   <string name="pgnPieceNotation">Dragnotation</string>
   <string name="chessPieceSymbol">Schackpjäs-symbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen-läge</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-läge</string>
   <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
   <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
