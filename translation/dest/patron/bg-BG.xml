@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Дарете</string>
-  <string name="lichessPatron">Lichess спонсор</string>
+  <string name="lichessPatron">Lichess Дарител</string>
   <string name="freeAccount">Безплатна регистрация</string>
-  <string name="becomePatron">Станете спонсор на Lichess</string>
-  <string name="xBecamePatron">%s стана спонсор на Lichess</string>
-  <string name="newPatrons">Нови спонсори</string>
+  <string name="becomePatron">Станете дарител на Lichess</string>
+  <string name="xBecamePatron">%s стана дарител на Lichess</string>
+  <string name="newPatrons">Нови дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
   <string name="thankYou">Благодарим Ви за дарението!</string>
   <string name="monthly">Ежемесечно</string>
@@ -17,11 +17,13 @@
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
   <string name="update">Актуализация</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
-  <string name="cancelSupport">отмяна на Вашата поддръжка</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="paymentHistory">История на плащанията</string>
   <string name="paid">Платено</string>
+  <string name="viewOthers">Вижте другите Lichess Дарители</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>
   <string name="transactionCompleted">Трансакцията е завършена и квитанция за Вашето дарение бе изпратена на електронната Ви поща.</string>
+  <string name="permanentPatron">Сега имате постоянна регистрация като Дарител.</string>
+  <string name="checkOutProfile">Проверете страницата на профила Ви!</string>
 </resources>
