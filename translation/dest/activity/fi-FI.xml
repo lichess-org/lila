@@ -66,7 +66,7 @@
     <item quantity="one">Osallistui %s sveitsiläiseen turnaukseen</item>
     <item quantity="other">Osallistui %s sveitsiläiseen turnaukseen</item>
   </plurals>
-  <string name="rankedInSwissTournament">Tuli %1$s. sijalle turnauksessa %2$s</string>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Tuli %1$s. sijalle turnauksessa %2$s</string>
   <string name="signedUp">Liittyi lichess.orgiin</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Liittyi %s joukkueeseen</item>
