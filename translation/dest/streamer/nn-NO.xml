@@ -26,8 +26,8 @@
   <string name="approved">Straumen din er godkjent.</string>
   <string name="pendingReview">Strømmen din blir no vurdert av moderatorane.</string>
   <string name="pleaseFillIn">Ver venleg og fyll inn informasjon om straumen din og last opp eit bilete.</string>
-  <string name="whenReady">Når du er klar til å bli lista som en Lichess-strøymar, %s</string>
-  <string name="requestReview">be om ei omdøming frå ein moderator</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli lista som en Lichess-strøymar, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">be om ei omdøming frå ein moderator</string>
   <string name="anotherLanguage">Pass på at du har sett på rett språkmerke (%s) i hakeparantesar i starten av strøymingstittelen dersom du sender på eit anna språk enn engelsk.
 Start til dømes strøymetittelen med \"[NN]\" om du strøymer på nynorsk eller \"[NB]\" om du strøymer på bokmål, osb.
 Bruk denne språk-taggen i strømmetittelen din på Twitch eller YouTube, ikke i Lichess-innstillingene dine.
