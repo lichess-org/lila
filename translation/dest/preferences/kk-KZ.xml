@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Жүрісті жазу тәртібі</string>
   <string name="chessPieceSymbol">Тас таңбасы</string>
   <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen қалпы</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen қалпы</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
   <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">10 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 секунд қалғанда</string>
   <string name="horizontalGreenProgressBars">Уақыт жүрісін көрсететін көлденең жасыл жолақ</string>
   <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
   <string name="giveMoreTime">Қарсыласқа уақыт беру мүмкіндігі</string>
-  <string name="gameBehavior">Ойын тәртібі</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Ойын тәртібі</string>
   <string name="howDoYouMovePieces">Тасты қалай жүресіз?</string>
   <string name="clickTwoSquares">Екі шаршыны басып</string>
   <string name="dragPiece">Тасты тартып</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
   <string name="castleByMovingOntoTheRook">Патшаны тура тасына қою</string>
   <string name="inputMovesWithTheKeyboard">Пернетақта арқылы жүру</string>
-  <string name="snapArrowsToValidMoves">Нұсқағыш тек заңды жүрістерге ғана жабысады</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Жеңіліс не тепе-теңдіктен кейін \"Жақсы ойын, қызық болды\" деп айту</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Нұсқағыш тек заңды жүрістерге ғана жабысады</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Жеңіліс не тепе-теңдіктен кейін \"Жақсы ойын, қызық болды\" деп айту</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
 </resources>
