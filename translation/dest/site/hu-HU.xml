@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Verseny győztesek</string>
   <string name="name">Név</string>
   <string name="description">Leírás</string>
+  <string name="descPrivate">Privát leírás</string>
+  <string name="descPrivateHelp">Szöveg, amit csak a csapattagok láthatnak. Kitöltés esetén lecseréli a nyilvános leírást a csapattagok számára.</string>
   <string name="no">Nem</string>
   <string name="yes">Igen</string>
   <string name="help">Segítség</string>
@@ -488,6 +490,7 @@
   <string name="cheat">Csalás</string>
   <string name="insult">Sértegetés</string>
   <string name="troll">Trollkodás</string>
+  <string name="ratingManipulation">Pontszám manipuláció</string>
   <string name="other">Egyéb</string>
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és mondd el, mi a gond a játékos viselkedésével. Ne csak annyit írj, hogy \"csalt\", hanem próbáld elmondani, miből gondolod ezt. A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
