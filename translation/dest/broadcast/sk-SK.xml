@@ -10,7 +10,7 @@
   <string name="eventDescription">Krátky popis udalosti</string>
   <string name="fullDescription">Dlhý popis udalosti</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
-  <string name="sourceUrlOrGameIds">Zdrojová URL alebo ID partií</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Zdrojová URL alebo ID partií</string>
   <string name="sourceUrlHelp">URL, ktorý Liches bude kontrolovať pre získanie PGN aktualizácií. Musí byť verejne dostupný z internetu.</string>
   <string name="gameIdsHelp">Prípadne môžete zadať až 64 ID Lichess partií oddelených medzerami.</string>
   <string name="roundNumber">Číslo kola</string>
