@@ -14,7 +14,7 @@
   <string name="noTeamFound">Нет таких клубов</string>
   <string name="joinTeam">Вступить в клуб</string>
   <string name="quitTeam">Покинуть клуб</string>
-  <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ручная проверка запросов на вступление</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Если отмечено, то кандидаты на вступление в клуб должны написать запрос, который вы можете принять или отклонить.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Руководитель клуба</item>
