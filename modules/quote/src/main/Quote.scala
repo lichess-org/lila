@@ -1390,6 +1390,7 @@ object Quote {
       "Experience and the constant analysis of the most varied positions builds up a store of knowledge in a player's mind enabling him often at a glance to assess this or that position.",
       "Alexander Kotov"
     ),
+    new Quote("An error does not become a mistake until you refuse to correct it.", "John F. Kennedy"),
     new Quote(
       "Failing to open the center at the right moment - a common error by White in the Exchange Lopez - can allow Black an excellent game.",
       "Andy Soltis"
