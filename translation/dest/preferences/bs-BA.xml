@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">PGN notacija figura</string>
   <string name="chessPieceSymbol">Simbol šahovske figure</string>
   <string name="pgnLetter">PGN slovo (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen način</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
   <string name="displayBoardResizeHandle">Prikažite ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Kada je ostalo &lt; 10 sekundi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kada je ostalo &lt; 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvučno upozorenje pred istek vremena</string>
   <string name="giveMoreTime">Dodajte više vremena</string>
-  <string name="gameBehavior">Način igre</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Način igre</string>
   <string name="howDoYouMovePieces">Kako želite pomicati figure?</string>
   <string name="clickTwoSquares">Klikom na dva polja</string>
   <string name="dragPiece">Povlačenjem figure</string>
@@ -41,6 +41,6 @@
   <string name="castleByMovingTwoSquares">Pomicanjem kralja za dva polja</string>
   <string name="castleByMovingOntoTheRook">Pomicanjem kralja na topa</string>
   <string name="inputMovesWithTheKeyboard">Omogućite unos poteza tastaturom</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Kažite \"Dobra partija, dobro odigrano\" nakon poraza ili remija</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Kažite \"Dobra partija, dobro odigrano\" nakon poraza ili remija</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše postavke su sačuvane.</string>
 </resources>
