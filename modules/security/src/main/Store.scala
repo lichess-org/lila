@@ -13,7 +13,7 @@ import lila.db.dsl._
 import lila.user.User
 import reactivemongo.api.bson.BSONNull
 
-final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
+final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -64,12 +64,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         $doc(
           "_id"  -> sessionId,
           "user" -> userId,
-          "ip" -> (HTTPRequest.ipAddress(req) match {
-            // randomize stresser IPs to relieve mod tools
-            case ip if ip == localIp =>
-              IpV4Address(127, 0, ThreadLocalRandom.nextByte(), ThreadLocalRandom.nextByte())
-            case ip => ip
-          }),
+          "ip"   -> HTTPRequest.ipAddress(req),
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
