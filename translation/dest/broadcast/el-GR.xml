@@ -10,7 +10,7 @@
   <string name="eventDescription">Σύντομη περιγραφή γεγονότος</string>
   <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
-  <string name="sourceUrlOrGameIds">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 IDs παιχνιδιών Lichess, με κενά μεταξύ τους.</string>
   <string name="roundNumber">Αριθμός γύρου</string>
