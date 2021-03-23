@@ -21,22 +21,15 @@ object AssetVersion {
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
 sealed trait IpAddress {
-  protected def unspecified: Boolean
-  protected def loopback: Boolean
-  def blockable = !unspecified && !loopback
   def value: String
   override def toString = value
 }
 case class IpV4Address(a: Byte, b: Byte, c: Byte, d: Byte) extends IpAddress {
-  def unspecified = a == 0 && b == 0 && c == 0 && d == 0
-  def loopback    = a == 127 && b == 0 && c == 0 && d == 1
-  def value       = IpV4(a, b, c, d).value
+  def value = IpV4(a, b, c, d).value
 }
 case class IpV6Address(a: Char, b: Char, c: Char, d: Char, e: Char, f: Char, g: Char, h: Char)
     extends IpAddress {
-  def unspecified = a == 0 && b == 0 && c == 0 && d == 0 && e == 0 && e == 0 && f == 0 && g == 0 && h == 0
-  def loopback    = a == 0 && b == 0 && c == 0 && d == 0 && e == 0 && e == 0 && f == 0 && g == 0 && h == 1
-  def value       = IpV6(a, b, c, d, e, f, g, h).value.stripPrefix("[").stripSuffix("]")
+  def value = IpV6(a, b, c, d, e, f, g, h).value.stripPrefix("[").stripSuffix("]")
 }
 
 object IpAddress {
