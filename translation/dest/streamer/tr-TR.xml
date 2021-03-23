@@ -26,8 +26,8 @@
   <string name="approved">Yayın başvurunuz onaylandı.</string>
   <string name="pendingReview">Yayın başvurunuz moderatörler tarafından gözden geçiriliyor.</string>
   <string name="pleaseFillIn">Lütfen yayıncı bilgilerini doldurun ve bir fotoğraf yükleyin.</string>
-  <string name="whenReady">Lichess yayıncısı olarak listelenmeye hazırsanız, %s</string>
-  <string name="requestReview">moderatör incelemesi talep edin</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayıncısı olarak listelenmeye hazırsanız, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatör incelemesi talep edin</string>
   <string name="anotherLanguage">Canlı yayınınız İngilizceden farklı bir dilde olabilir.
 Bu durumda yayın başlığınızın en başına, uygun olan dil etiketini (%s) köşeli parantez içine alarak ekleyin.
 
