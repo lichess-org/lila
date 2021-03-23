@@ -73,7 +73,7 @@ object topnav {
           a(href := routes.User.list)(trans.players()),
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
-          ctx.me.exists(u => true || !u.isPatron && !u.kid) option
+          ctx.me.exists(u => !u.isPatron && !u.kid) option
             a(href := routes.Plan.index)(trans.patron.donate())
         )
       ),
