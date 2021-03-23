@@ -143,7 +143,7 @@ object inquiry {
           div(
             env.mod.presets.pmPresets.get().value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-                submitButton(cls := "fbt")(preset.name),
+                submitButton(cls := "fbt", title := preset.text)(preset.name),
                 autoNextInput
               )
             }
