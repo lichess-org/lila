@@ -82,7 +82,7 @@
     <item quantity="one">Sacentās %s Šveices turnīrā</item>
     <item quantity="other">Sacentās %s Šveices turnīros</item>
   </plurals>
-  <string name="rankedInSwissTournament">Ieguva %1$s. vietu turnīrā %2$s</string>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Ieguva %1$s. vietu turnīrā %2$s</string>
   <string name="signedUp">Reģistrējās lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">Pievienojās %s komandām</item>
