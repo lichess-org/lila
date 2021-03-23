@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notacja ruchów</string>
   <string name="chessPieceSymbol">Za pomocą symboli figur</string>
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
-  <string name="zenMode">Tryb Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Tryb Zen</string>
   <string name="displayBoardResizeHandle">Uchwyt zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
   <string name="giveMoreTime">Dodaj więcej czasu</string>
-  <string name="gameBehavior">Zachowanie gry</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Zachowanie gry</string>
   <string name="howDoYouMovePieces">W jaki sposób wykonywać ruch?</string>
   <string name="clickTwoSquares">Klikając dwa pola</string>
   <string name="dragPiece">Przeciągając figurę</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Ruch królem o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Ruch królem na wieżę</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-  <string name="snapArrowsToValidMoves">Wyrównuj strzałki do legalnych ruchów</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Napisz \"Dobra gra, dobrze zagrałeś\" po porażce lub remisie</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Wyrównuj strzałki do legalnych ruchów</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Napisz \"Dobra gra, dobrze zagrałeś\" po porażce lub remisie</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>
