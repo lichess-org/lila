@@ -42,7 +42,7 @@ final class Account(
           }
           .?? { case (resource, text) =>
             env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-          } inject Redirect(routes.Account.profile).flashSuccess
+          } >> env.user.repo.setProfile(me.id, profile) inject Redirect(routes.Account.profile).flashSuccess
       }
     }
 
