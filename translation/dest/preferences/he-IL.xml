@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">תיאור המהלכים</string>
   <string name="chessPieceSymbol">סימן הכלי</string>
   <string name="pgnLetter">אות ( K, Q, R, B, N)</string>
-  <string name="zenMode">מצב זן</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">מצב זן</string>
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
   <string name="blindfoldChess">לשחק עם עיניים מכוסות: הכלים אינם נראים</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">עשיריות שניה</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">כאשר הזמן נותר קטן מעשר שניות</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כאשר הזמן נותר קטן מעשר שניות</string>
   <string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>
   <string name="soundWhenTimeGetsCritical">השמע צליל כאשר הזמן נהיה קריטי</string>
   <string name="giveMoreTime">תן עוד זמן</string>
-  <string name="gameBehavior">התנהגות המשחק</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">התנהגות המשחק</string>
   <string name="howDoYouMovePieces">איך מזיזים את הכלים?</string>
   <string name="clickTwoSquares">לחץ על שני ריבועים</string>
   <string name="dragPiece">הזז את הכלי</string>
