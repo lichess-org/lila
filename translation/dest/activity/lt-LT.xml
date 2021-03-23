@@ -98,7 +98,7 @@
     <item quantity="many">Dalyvavo %s šveicariško turnyro</item>
     <item quantity="other">Dalyvavo %s šveicariškų turnyrų</item>
   </plurals>
-  <string name="rankedInSwissTournament">Reitinguotas #%1$s iš %2$s</string>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Reitinguotas #%1$s iš %2$s</string>
   <string name="signedUp">Užsiregistravo „Lichess“</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Prisijungė prie %s komandos</item>
