@@ -36,6 +36,7 @@
   <string name="getReady">Felkészülni!</string>
   <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
+  <string name="yourRankX">Helyezésed: %s</string>
   <string name="nextRace">Következő</string>
   <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Új játék létrehozása</string>
 </resources>
