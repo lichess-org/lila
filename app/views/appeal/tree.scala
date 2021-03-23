@@ -143,7 +143,7 @@ object tree {
           frag(
             p(
               "I accept that I have not followed the ",
-              a(href := routes.Page.loneBookmark("chat-etiquette"))("communication guidelines"),
+              a(href := routes.Page.loneBookmark("communication-guidelines"))("communication guidelines"),
               ". I will behave better in future, please give me another chance."
             ),
             sendUsAnAppeal,
@@ -161,8 +161,8 @@ object tree {
       ),
       content = p(
         "Read our ",
-        a(href := routes.Page.loneBookmark("chat-etiquette"))("chat etiquette"),
-        ". Failure to follow the chat etiquette can result in accounts being muted."
+        a(href := routes.Page.loneBookmark("communication-guidelines"))("communication guidelines"),
+        ". Failure to follow the communication guidelines can result in accounts being muted."
       ).some
     )
   }
