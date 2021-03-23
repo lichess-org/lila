@@ -26,8 +26,8 @@
   <string name="approved">Jou uitsending is goedgekeur.</string>
   <string name="pendingReview">Jou uitsending word deur moderators hersien.</string>
   <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
-  <string name="whenReady">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
-  <string name="requestReview">versoek hersiening deur \'n moderator</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">versoek hersiening deur \'n moderator</string>
   <string name="anotherLanguage">Indien jou uitsending in \'n taal anders as Engels is, voeg die korrekte taal etiket (%s), in blokhakies aan die begin van die uitsending titel.
 Byvoorbeeld: Voeg \"[AF]\" vir Afrikaans, \"[RU]\" vir Russies, \"[FR]\" vir Frans, ens.
 Plaas dit in die uitsendingstitel in die Twitch of Youtube blad, nie in die Lichess uitsendings verstellings nie.
