@@ -26,8 +26,8 @@
   <string name="approved">Il tuo stream è approvato.</string>
   <string name="pendingReview">Il tuo stream è in fase di revisione da parte dei moderatori.</string>
   <string name="pleaseFillIn">Per favore compila le tue informazioni da streamer e carica un\'immagine.</string>
-  <string name="whenReady">Quando sei pronto per essere inserito nell\'elenco dei Lichess streamer, %s</string>
-  <string name="requestReview">richiedi la revisione di un moderatore</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Quando sei pronto per essere inserito nell\'elenco dei Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">richiedi la revisione di un moderatore</string>
   <string name="anotherLanguage">Se il tuo stream è in una lingua diversa dall\'inglese, aggiungi il tag di lingua corretto (%s), racchiuso tra parentesi quadre, all\'inizio del titolo dello stream.
 Per esempio, si può aggiungere \"[IT]\" per l\'italiano, \"[FR]\" per il francese, \"[DE]\" per il tedesco, ecc.
 Metti il tag nel titolo dello stream nella pagina di Twitch o YouTube, non nelle impostazioni dello stream su Lichess.
