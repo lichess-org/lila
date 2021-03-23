@@ -15,7 +15,11 @@
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
-  <string name="update">Актуализация</string>
+  <string name="currentStatus">Сегашен статус</string>
+  <string name="nextPayment">Следващо плащане</string>
+  <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
+  <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
+  <string name="update">Актуализиране</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="paymentHistory">История на плащанията</string>
@@ -25,5 +29,5 @@
   <string name="amount">Сума</string>
   <string name="transactionCompleted">Трансакцията е завършена и квитанция за Вашето дарение бе изпратена на електронната Ви поща.</string>
   <string name="permanentPatron">Сега имате постоянна регистрация като Дарител.</string>
-  <string name="checkOutProfile">Проверете страницата на профила Ви!</string>
+  <string name="checkOutProfile">Проверете страницата на профила си!</string>
 </resources>
