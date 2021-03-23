@@ -10,7 +10,7 @@
   <string name="eventDescription">Korte beschrijving evenement</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
   <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
-  <string name="sourceUrlOrGameIds">Bron-URL of partij-ID\'s</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Bron-URL of partij-ID\'s</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
   <string name="gameIdsHelp">U kunt ook maximaal 64 Lichess partij-ID\'s invoeren, gescheiden door spaties.</string>
   <string name="roundNumber">Ronde</string>
