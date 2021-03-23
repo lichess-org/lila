@@ -8,11 +8,11 @@
   <string name="pieceDestinations">selmu\'u be lo keirmu\'u</string>
   <string name="boardCoordinates">keirta\'o judri</string>
   <string name="moveListWhilePlaying">liste be lo nunmu\'u ca\'o lo nu jvikei</string>
-  <string name="zenMode">cuvytadji</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">cuvytadji</string>
   <string name="blindfoldChess">na jarco tu\'a lo caxmati</string>
   <string name="chessClock">caxmati junla</string>
   <string name="tenthsOfSeconds">pa no si\'e be lo snidu</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">ca\'o lo nu lo se snidu be lo stali temci cu mleca li pa no</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ca\'o lo nu lo se snidu be lo stali temci cu mleca li pa no</string>
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>
   <string name="soundWhenTimeGetsCritical">sance fi\'o se sinxa lo nu lo temci cu cmalu</string>
   <string name="giveMoreTime">dunda lo temci</string>
