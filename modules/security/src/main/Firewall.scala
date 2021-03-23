@@ -32,19 +32,17 @@ final class Firewall(
 
   def blockIps(ips: Iterable[IpAddress]): Funit =
     ips.map { ip =>
-      ip.blockable ?? {
-        coll.update
-          .one(
-            $id(ip),
-            $doc("_id" -> ip, "date" -> DateTime.now),
-            upsert = true
-          )
-          .void
-      }
+      coll.update
+        .one(
+          $id(ip),
+          $doc("_id" -> ip, "date" -> DateTime.now),
+          upsert = true
+        )
+        .void
     }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips.filter(_.blockable))).void >>- loadFromDb.unit
+    coll.delete.one($inIds(ips)).void >>- loadFromDb.unit
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.secondaryPreferred).map { ips =>

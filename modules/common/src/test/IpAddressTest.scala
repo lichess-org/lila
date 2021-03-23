@@ -4,18 +4,6 @@ import org.specs2.mutable.Specification
 
 class IpAddressTest extends Specification {
 
-  "blockable" should {
-    "ipv4" in {
-      IpAddress.unchecked("127.0.0.1").blockable must beFalse
-      IpAddress.unchecked("127.0.0.2").blockable must beTrue
-    }
-    "ipv6" in {
-      IpAddress.unchecked("::").blockable must beFalse
-      IpAddress.unchecked("::1").blockable must beFalse
-      IpAddress.unchecked("1::1").blockable must beTrue
-    }
-  }
-
   "iso" should {
     "ipv4" in {
       IpAddress.unchecked("0.0.0.0").toString must_== "0.0.0.0"
