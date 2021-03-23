@@ -23,7 +23,7 @@
   <string name="approved">استریم شما تایید شده است</string>
   <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
   <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
-  <string name="requestReview">درخواست بررسی مدیر کنید</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
   <string name="twitchUsername">نام کاربری شما در توییچ</string>
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
   <string name="youtubeChannel">ایدی شما در یوتیوب ویا کانال .</string>
