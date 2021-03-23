@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Дарете</string>
+  <string name="lichessPatron">Lichess спонсор</string>
+  <string name="freeAccount">Безплатна регистрация</string>
+  <string name="becomePatron">Станете спонсор на Lichess</string>
+  <string name="xBecamePatron">%s стана спонсор на Lichess</string>
+  <string name="newPatrons">Нови спонсори</string>
+  <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
+</resources>
