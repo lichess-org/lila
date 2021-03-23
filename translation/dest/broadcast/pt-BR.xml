@@ -10,7 +10,7 @@
   <string name="eventDescription">Descrição curta do evento</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O comprimento deve ser menor que %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds">URL de origem ou IDs de jogos</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">URL de origem ou IDs de jogos</string>
   <string name="sourceUrlHelp">URL que Lichess irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
   <string name="gameIdsHelp">Como alternativa, você pode inserir até 64 IDs de jogo do Lichess, separados por espaços.</string>
   <string name="roundNumber">Número da rodada</string>
