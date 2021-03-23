@@ -34,13 +34,13 @@
   <string name="bestRunOfDay">Tarih</string>
   <string name="runs">Deneme sayısı</string>
   <string name="getReady">Hazır ol!</string>
-  <string name="waitingForMorePlayers">Diğer oyuncuların katılması için bekleniyor...</string>
+  <string name="waitingForMorePlayers">Diğer oyuncuların katılması bekleniyor...</string>
   <string name="raceComplete">Yarış tamamlandı!</string>
   <string name="spectating">İzleyici modu</string>
   <string name="joinTheRace">Yarışa katıl!</string>
   <string name="yourRankX">Sıralamanız %s</string>
   <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Rövanş için bekle</string>
-  <string name="nextRace">Yeni yarışa başla</string>
+  <string name="nextRace">Sıradaki yarış</string>
   <string name="joinRematch">Rövanşa katıl</string>
   <string name="waitingToStart">Başlamak üzere</string>
   <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni bir oyun oluştur</string>
