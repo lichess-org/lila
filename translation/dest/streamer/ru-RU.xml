@@ -26,8 +26,8 @@
   <string name="approved">Ваш стрим подтверждён.</string>
   <string name="pendingReview">Ваш стрим на проверке у модераторов.</string>
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>
-  <string name="whenReady">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
-  <string name="requestReview">запросить отзыв модератора</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запросить отзыв модератора</string>
   <string name="anotherLanguage">Если ваш стрим на языке, отличном от английского, укажите тег вашего языка (%s) в начале заголовка стрима, заключив его в квадратные скобки.
 В качестве примера: «[RU]» для русского языка, «[TR]» для турецкого, «[FR]» для французского и т. д.
 Добавляйте его в заголовок стрима на страницах Twitch или YouTube, а не в настройках стрима Lichess.
