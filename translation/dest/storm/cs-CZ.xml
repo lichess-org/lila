@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Máte bílé figury ve všech úlohách.</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Máte černé figury ve všech úlohách.</string>
   <string name="puzzlesSolved">úloh vyřešeno</string>
   <string name="newDailyHighscore">Nové denní maximum!</string>
   <string name="newWeeklyHighscore">Nové týdenní maximum!</string>
@@ -22,4 +24,7 @@
   <string name="viewBestRuns">Zobrazit nejlepší pokusy</string>
   <string name="bestRunOfDay">Nejlepší pokus dne</string>
   <string name="runs">Pokusy</string>
+  <string name="getReady">Připravte se!</string>
+  <string name="waitingForMorePlayers">Čeká se na připojení dalších hráčů...</string>
+  <string name="nextRace">Další závod</string>
 </resources>

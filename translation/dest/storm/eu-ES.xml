@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mugitu hasteko</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Ariketa guztietan pieza zuriekin jokatuko duzu</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Ariketa guztietan pieza beltzekin jokatuko duzu</string>
   <string name="puzzlesSolved">ariketa ebatzita</string>
   <string name="newDailyHighscore">Eguneko marka berria!</string>
   <string name="newWeeklyHighscore">Asteko marka berria!</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">Ikusi saiakera onenak</string>
   <string name="bestRunOfDay">Eguneko saiakera onena</string>
   <string name="runs">Saiakerak</string>
+  <string name="getReady">Prest!</string>
+  <string name="waitingForMorePlayers">Jokalari gehiago sartzeko zain...</string>
+  <string name="raceComplete">Lasterketa amaitu da!</string>
+  <string name="spectating">Ikusten</string>
+  <string name="joinTheRace">Sartu lasterketara!</string>
+  <string name="yourRankX">Zure sailkapena: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Itxaron berriz jokatzeko</string>
+  <string name="nextRace">Hurrengo lasterketa</string>
+  <string name="joinRematch">Sartu berriz jokatzera</string>
+  <string name="waitingToStart">Hasteko zain</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Sortu partida berria</string>
 </resources>

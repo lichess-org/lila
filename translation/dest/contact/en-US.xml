@@ -51,7 +51,7 @@
   <string name="fideMate">According to the FIDE Laws of Chess §6.9, if a checkmate is possible with any legal sequence of moves, then the game is not a draw</string>
   <string name="knightMate">It can be possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
   <string name="noRatingPoints">No rating points were awarded</string>
-  <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
+  <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players\' ratings.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>

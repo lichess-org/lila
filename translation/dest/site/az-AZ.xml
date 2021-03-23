@@ -490,7 +490,7 @@
   <string name="cheat">Hiylə</string>
   <string name="insult">Təhqir</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation" comment="ratingManipulation&#10;&#10;When reporting a user (lichess.org/report), one of the possible selections for the &quot;reason&quot; dropdown. This is intended for reporting players that manipulate their rating, by either increasing it or decreasing it artificially with fake accounts.">Reytinq manipulyasiyası</string>
+  <string name="ratingManipulation">Reytinq manipulyasiyası</string>
   <string name="other">Digər</string>
   <string name="reportDescriptionHelp">Oyunun və ya oyunların linkini yapışdırın və bu istifadəçinin davranışında nəyin səhv olduğunu izah edin. Yalnız \"hiylə edirlər\" deməyin, necə bu nəticəyə gəldiyinizi bizə deyin. İngilis dilində yazıldığı təqdirdə hesabat daha sürətli işlənəcəkdir.</string>
   <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>

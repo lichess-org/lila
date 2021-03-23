@@ -11,6 +11,9 @@
   <string name="thankYou">Ďakujeme za Váš príspevok!</string>
   <string name="youHaveLifetime">Si doživotným Patrónom. To je skvelé!</string>
   <string name="patronUntil">Máš Patrón účet do %s.</string>
+  <string name="ifNotRenewed">Ak nebude obnovená, potom sa zníži jej úroveň na bezplatnú verziu.</string>
+  <string name="weAreNonProfit">Sme neziskové združenie, pretože veríme, že každý by mal mať prístup k bezplatnej šachovej platforme svetového formátu.</string>
+  <string name="weRelyOnSupport">Pri umožňovaní sa spoliehame na podporu od ľudí ako ste vy. Ak radi používate Lichess, prosím zvážte našu podporu darovaním a že sa stanete Patronom!</string>
   <string name="lifetime">Doživotne</string>
   <string name="payLifetimeOnce">Zaplať %s raz. Buď Patrónom Lichessu navždy!</string>
   <string name="lifetimePatron">Doživotný Lichess Patrón</string>
@@ -26,26 +29,46 @@
   <string name="weAreSmallTeam">Sme malý tím, čiže Vaša podpora robí obrovský rozdiel!</string>
   <string name="celebratedPatrons">Slávni Patróni, ktorí robia Lichess možným</string>
   <string name="whereMoneyGoes">Kam idú peniaze?</string>
+  <string name="serversAndDeveloper">V prvom rade výkonné servery.
+Potom zaplatíme vývojárovi na plný úväzok: %s, zakladateľovi spoločnosti Lichess.</string>
+  <string name="costBreakdown">Pozrite si podrobný rozpis nákladov</string>
+  <string name="officialNonProfit">Je Lichess oficiálna nezisková organizácia?</string>
+  <string name="changeMonthlySupport">Môžem zmeniť / zrušiť svoju mesačnú podporu?</string>
+  <string name="changeOrContact">Áno, kedykoľvek z tejto stránky.
+Alebo môžete %s.</string>
   <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
+  <string name="bankTransfers">Prijímame aj bankové prevody</string>
+  <string name="bitcoin">A tu je naša bitcoinová adresa: %s</string>
+  <string name="patronFeatures">Sú niektoré funkcie vyhradené pre patrónov?</string>
+  <string name="noPatronFeatures">Nie, pretože Lichess je úplne zadarmo, navždy a pre všetkých. To je prísľub.
+Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</string>
+  <string name="featuresComparison">Pozrite si podrobné porovnanie funkcií</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron na jeden mesiac</item>
     <item quantity="few">Lichess Patron na %s mesiacov</item>
     <item quantity="many">Lichess Patron na %s mesiacov</item>
     <item quantity="other">Lichess Patron na %s mesiacov</item>
   </plurals>
+  <string name="youSupportWith">Podporujete web lichess.org %s s za mesiac.</string>
+  <string name="tyvm">Veľmi pekne ti ďakujem za tvoju pomoc. Ide ti to!</string>
   <string name="currentStatus">Aktuálny stav</string>
   <string name="nextPayment">Ďalšia platba</string>
+  <string name="youWillBeChargedXOnY">Bude sa vám účtovať %1$s z %2$s.</string>
+  <string name="makeAdditionalDonation">Poskytnite ďalší dar hneď teraz</string>
   <string name="update">Aktualizovať</string>
   <string name="changeMonthlyAmount">Zmeniť mesačnú sumu (%s)</string>
   <string name="cancelSupport">zrušiť svoju podporu</string>
   <string name="xOrY">%1$s alebo %2$s</string>
+  <string name="decideHowMuch">Rozhodnite sa, čo pre vás Lichess znamená:</string>
+  <string name="stopPayments">Vyberte svoju kreditnú kartu a zastavte platby:</string>
   <string name="noLongerSupport">Nepodporovať Lichess</string>
   <string name="paymentHistory">História platieb</string>
   <string name="paid">Zaplatené</string>
   <string name="viewOthers">Zobraziť iných Lichess Patronov</string>
   <string name="date">Dátum</string>
   <string name="amount">Suma</string>
+  <string name="transactionCompleted">Vaša transakcia bola dokončená a potvrdenie o dare vám bolo zaslané e-mailom.</string>
   <string name="permanentPatron">Teraz máte permanentný Patron účet.</string>
   <string name="checkOutProfile">Pozrite sa na svoju profilovú stránku!</string>
   <string name="nowLifetime">Odteraz ste doživotný Lichess Patron!</string>

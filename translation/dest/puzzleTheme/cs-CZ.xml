@@ -77,8 +77,12 @@
   <string name="superGM">Úlohy Super GM</string>
   <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
   <string name="trappedPiece">Chycená figura</string>
+  <string name="underPromotionDescription">Proměna na jezdce, střelce či věž, jelikož proměna na dámu je v dané pozici špatná.</string>
   <string name="veryLong">Velmi dlouhá úloha</string>
   <string name="veryLongDescription">Čtyři či více tahů k vyhrávající pozici.</string>
+  <string name="xRayAttack">Rentgenový útok</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Soupeř musí zahrát jakýkoliv tah, přičemž všechny zhoršují jeho pozici a zlepšují naší pozici.</string>
   <string name="healthyMix">Mix úloh</string>
   <string name="healthyMixDescription">Troška od všeho. Nevíte co čekat, čili jste na vše připraveni! Jako v normální partii.</string>
 </resources>

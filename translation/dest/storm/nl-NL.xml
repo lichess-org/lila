@@ -38,6 +38,10 @@
   <string name="raceComplete">Wedstrijd afgelopen!</string>
   <string name="spectating">Toeschouwer</string>
   <string name="joinTheRace">Doe mee aan de wedstrijd!</string>
+  <string name="yourRankX">Jouw plaats: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Wacht op rematch</string>
   <string name="nextRace">Volgende wedstrijd</string>
+  <string name="joinRematch">Neem deel aan rematch</string>
   <string name="waitingToStart">Wachten op de start</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Maak een nieuwe wedstrijd</string>
 </resources>

@@ -4,7 +4,7 @@
   <string name="advancedSearch">Προχωρημένη αναζήτηση</string>
   <plurals name="searchInXGames">
     <item quantity="one">Αναζήτηση σε %s παρτίδα</item>
-    <item quantity="other">Αναζήτησε σε %s παρτίδες</item>
+    <item quantity="other">Αναζήτηση σε %s παρτίδες</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Μία παρτίδα βρέθηκε</item>
@@ -15,7 +15,7 @@
   <string name="from">Από</string>
   <string name="to">Έως</string>
   <string name="humanOrComputer">Αν ο αντίπαλος του παίκτη ήταν άνθρωπος ή υπολογιστής</string>
-  <string name="aiLevel">Τ.Ν. επίπεδο</string>
+  <string name="aiLevel">Επίπεδο τεχνητής νοημοσύνης</string>
   <string name="source">Πηγή</string>
   <string name="nbTurns">Αριθμός γύρων</string>
   <string name="result">Αποτέλεσμα</string>

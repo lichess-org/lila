@@ -15,8 +15,8 @@
     <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Jugó una ronda de %2$s</item>
-    <item quantity="other">Jugó %1$s rondas de %2$s</item>
+    <item quantity="one">Ha jugado una ronda de %2$s</item>
+    <item quantity="other">Ha jugado %1$s rondas de %2$s</item>
   </plurals>
   <string name="highscoreX">Puntuación más alta: %s</string>
   <string name="score">Puntuación</string>
