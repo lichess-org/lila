@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notasjon</string>
   <string name="chessPieceSymbol">Brikkesymbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen-modus</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Når det er mindre enn 10 sekundar igjen</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når det er mindre enn 10 sekundar igjen</string>
   <string name="horizontalGreenProgressBars">Horisontal grøn progresjonsline</string>
   <string name="soundWhenTimeGetsCritical">Lyd når det er kritisk lite tid att</string>
   <string name="giveMoreTime">Gje meir tid</string>
-  <string name="gameBehavior">Spelframferd</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spelframferd</string>
   <string name="howDoYouMovePieces">Korleis flytta brikker?</string>
   <string name="clickTwoSquares">Klikk to felt</string>
   <string name="dragPiece">Dra brikke</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
   <string name="inputMovesWithTheKeyboard">Skriv trekk med tastaturet</string>
-  <string name="snapArrowsToValidMoves">Marker lovlege trekk med piler</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Sei \"Bra parti, godt spela\" etter nederlag eller remis</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Marker lovlege trekk med piler</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sei \"Bra parti, godt spela\" etter nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
 </resources>
