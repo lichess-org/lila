@@ -347,23 +347,32 @@ final class PlanApi(
   }
 
   private def addCharge(charge: Charge): Funit =
-    chargeColl.insert.one(charge).void >>- {
-      recentChargeUserIdsCache.invalidateUnit()
-      monthlyGoalApi.get foreach { m =>
-        Bus.publish(
-          lila.hub.actorApi.plan.ChargeEvent(
-            username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
-            amount = charge.cents.value,
-            percent = m.percent,
-            DateTime.now
-          ),
-          "plan"
-        )
-        lila.mon.plan.goal.update(m.goal.value)
-        lila.mon.plan.current.update(m.current.value)
-        lila.mon.plan.percent.update(m.percent)
-        if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
-        else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
+    monitorFirstCharge(charge) >>
+      chargeColl.insert.one(charge).void >>- {
+        recentChargeUserIdsCache.invalidateUnit()
+        monthlyGoalApi.get foreach { m =>
+          Bus.publish(
+            lila.hub.actorApi.plan.ChargeEvent(
+              username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
+              amount = charge.cents.value,
+              percent = m.percent,
+              DateTime.now
+            ),
+            "plan"
+          )
+          lila.mon.plan.goal.update(m.goal.value)
+          lila.mon.plan.current.update(m.current.value)
+          lila.mon.plan.percent.update(m.percent)
+          if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
+          else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
+        }
+      }
+
+  private def monitorFirstCharge(charge: Charge): Funit =
+    charge.userId ?? { userId =>
+      chargeColl.exists($doc("userId" -> userId)) map {
+        case false => lila.mon.plan.newPatron(charge.serviceName).increment().unit
+        case _     =>
       }
     }
 
