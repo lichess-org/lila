@@ -44,4 +44,7 @@
   <string name="joinRematch">Join rematch</string>
   <string name="waitingToStart">Waiting to start</string>
   <string name="createNewGame">Create a new game</string>
+  <string name="joinPublicRace">Join a public race</string>
+  <string name="raceYourFriends">Race your friends</string>
+  <string name="aboutRacer">About Puzzle Racer</string>
 </resources>

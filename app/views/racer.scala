@@ -8,6 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.i18n.I18nKeys.{ storm => s }
 import lila.racer.RacerRace
 import lila.user.User
 
@@ -22,14 +23,14 @@ object racer {
         h1("Puzzle Racer"),
         div(cls := "racer-home__buttons")(
           postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
-            submitButton(cls := "button button-fat")(i(cls := "car")(0), "Join a public race")
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
           ),
           postForm(cls := "racer-home__create", action := routes.Racer.create)(
-            submitButton(cls := "button button-fat")(i(cls := "car")(0), "Race your friends")
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), s.raceYourFriends())
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.Page.loneBookmark("racer"))("About Puzzle Racer")
+          a(href := routes.Page.loneBookmark("racer"))(s.aboutRacer())
         )
       )
     }
@@ -62,7 +63,6 @@ object racer {
     }
 
   private val i18nKeys = {
-    import lila.i18n.I18nKeys.{ storm => s }
     List(
       s.score,
       s.combo,
