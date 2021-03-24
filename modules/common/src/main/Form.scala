@@ -2,6 +2,7 @@ package lila.common
 
 import chess.format.FEN
 import chess.format.Forsyth
+import io.lemonlabs.uri._
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.FieldMapping
 import play.api.data.format.Formats._
@@ -113,6 +114,8 @@ object Form {
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
 
+  def absoluteUrl = of[AbsoluteUrl](formatter.absoluteUrlFormatter)
+
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
       new Formatter[A] {
@@ -131,6 +134,18 @@ object Form {
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
+    }
+    val absoluteUrlFormatter: Formatter[AbsoluteUrl] = new Formatter[AbsoluteUrl] {
+      override val format = Some(("format.url", Nil))
+      def bind(key: String, data: Map[String, String]) =
+        data
+          .get(key)
+          .map(_.trim)
+          .toRight("error.required")
+          .flatMap(str => AbsoluteUrl.parseTry(str).toEither.left.map(_.getMessage))
+          .left
+          .map(err => (Seq(FormError(key, err.toString, Nil))))
+      def unbind(key: String, value: AbsoluteUrl) = Map(key -> value.toString)
     }
   }
 

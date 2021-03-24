@@ -10,6 +10,7 @@ import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 import chess.format.FEN
 import chess.variant.Variant
+import io.lemonlabs.uri.AbsoluteUrl
 
 trait Handlers {
 
@@ -145,5 +146,10 @@ trait Handlers {
         "limit"     -> c.limitSeconds,
         "increment" -> c.incrementSeconds
       )
+  )
+
+  implicit val absoluteUrlHandler = tryHandler[AbsoluteUrl](
+    { case str: BSONString => AbsoluteUrl parseTry str.value },
+    url => BSONString(url.toString)
   )
 }
