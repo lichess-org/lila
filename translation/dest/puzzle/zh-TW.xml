@@ -41,4 +41,9 @@
   <string name="example">範例</string>
   <string name="addAnotherTheme">加入其他主題</string>
   <string name="jumpToNextPuzzleImmediately">立即跳到下一個題目</string>
+  <string name="improvementAreas">弱點</string>
+  <string name="strengths">強項</string>
+  <string name="history">解題紀錄</string>
+  <string name="solved">過關</string>
+  <string name="failed">失敗</string>
 </resources>
