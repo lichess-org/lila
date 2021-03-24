@@ -47,8 +47,6 @@
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
 
-      @include transition;
-
       &::after {
         content: '';
         background: fade-out($c-accent, 0.4);
