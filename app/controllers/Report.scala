@@ -151,9 +151,11 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        env.report.forms.createWithCaptcha map { case (form, captcha) =>
-          Ok(html.report.form(form, user, captcha))
-        }
+        if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
+        else
+          env.report.forms.createWithCaptcha map { case (form, captcha) =>
+            Ok(html.report.form(form, user, captcha))
+          }
       }
     }
 
