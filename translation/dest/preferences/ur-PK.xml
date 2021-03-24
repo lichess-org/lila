@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">چالوں کی نوٹیشن</string>
   <string name="chessPieceSymbol">شطرنج کے مہرے کہ علامات</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
-  <string name="zenMode">زن موڈ</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">زن موڈ</string>
   <string name="displayBoardResizeHandle">بساط کی وضع قطع تبدیل کرنے والا ہینڈل</string>
   <string name="onlyOnInitialPosition">صرف ابتدائی پوزیشن میں</string>
   <string name="blindfoldChess">نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔</string>
   <string name="chessClock">گھڑی سے متعلق</string>
   <string name="tenthsOfSeconds">سیکنڈ کا دسواں حصہ</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
   <string name="horizontalGreenProgressBars">افقی سبز پیشرفت نما</string>
   <string name="soundWhenTimeGetsCritical">قلت وقت پر آواز کا بجنا</string>
   <string name="giveMoreTime">مزید وقت دیں</string>
-  <string name="gameBehavior">کھیل سے متعلقہ</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">کھیل سے متعلقہ</string>
   <string name="howDoYouMovePieces">مہرے کس طرح چلائے جاتے ہیں?</string>
   <string name="clickTwoSquares">دو خانوں پر کلک کریں</string>
   <string name="dragPiece">مہرے کو اٹھائیں</string>

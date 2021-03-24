@@ -10,4 +10,5 @@
   <string name="eventDescription">簡短比賽說明</string>
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
+  <string name="roundNumber">回合數</string>
 </resources>

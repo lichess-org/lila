@@ -11,16 +11,16 @@
   <string name="pgnPieceNotation">نمایش حرکات</string>
   <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
-  <string name="zenMode">حالت ذن</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">حالت ذن</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی </string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>
   <string name="soundWhenTimeGetsCritical">صدا در هنگام زمان بحرانی زده می شود</string>
   <string name="giveMoreTime">افزایش زمان حریف</string>
-  <string name="gameBehavior">تنظیمات بازی</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">تنظیمات بازی</string>
   <string name="howDoYouMovePieces">تمایل دارید که چگونه مهره ها را حرکت دهید؟</string>
   <string name="clickTwoSquares">انتخاب دو مربع مبدا و مقصد</string>
   <string name="dragPiece">کشیدن یک مهره</string>

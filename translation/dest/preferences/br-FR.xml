@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notenniñ ar fiñvadennoù</string>
   <string name="chessPieceSymbol">Arouez ar pezh echedoù</string>
   <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
-  <string name="zenMode">Mod zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mod zen</string>
   <string name="displayBoardResizeHandle">Diskouez an arouez evit cheñch ment an dablez</string>
   <string name="onlyOnInitialPosition">Lec\'hiadur kentañ nemetken</string>
   <string name="blindfoldChess">Echedoù dall (pezhioù diwelus)</string>
   <string name="chessClock">Horolaj echedoù</string>
   <string name="tenthsOfSeconds">Dekvedennoù an eilennoù</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
   <string name="horizontalGreenProgressBars">Barrennoù dibunañ gwer a-blaen</string>
   <string name="soundWhenTimeGetsCritical">Trouz pa ne chom ket kalz amzer</string>
   <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
-  <string name="gameBehavior">Mont en-dro ar c\'hrogad</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Mont en-dro ar c\'hrogad</string>
   <string name="howDoYouMovePieces">Penaos e lakaer ar pezhioù da fiñval?</string>
   <string name="clickTwoSquares">Klikañ war div garrezenn</string>
   <string name="dragPiece">Lakaat ar pezh da riklañ</string>

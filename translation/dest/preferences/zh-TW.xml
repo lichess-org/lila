@@ -8,7 +8,7 @@
   <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
   <string name="boardCoordinates">棋盤座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
-  <string name="zenMode">禪意模式</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禪意模式</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
   <string name="chessClock">棋鍾</string>
   <string name="tenthsOfSeconds">十分之一秒</string>

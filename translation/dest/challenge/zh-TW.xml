@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">挑戰</string>
+  <string name="challenges">對弈</string>
   <string name="challengeToPlay">邀請對弈</string>
   <string name="challengeDeclined">對弈邀請已拒絕</string>
   <string name="challengeAccepted">對弈邀請已接受</string>
@@ -13,4 +13,6 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的對弈邀請</string>
   <string name="declineGeneric">我目前不接受對弈</string>
   <string name="declineLater">我現在不接受對弈，請晚點再詢問</string>
+  <string name="declineNoBot">我不接受機器人的對弈。</string>
+  <string name="declineOnlyBot">我目前只接受機器人的對弈。</string>
 </resources>

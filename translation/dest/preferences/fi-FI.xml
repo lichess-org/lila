@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
   <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
-  <string name="zenMode">Zen-moodi</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-moodi</string>
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
   <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Kun aikaa jäljellä &lt; 10 sekuntia</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kun aikaa jäljellä &lt; 10 sekuntia</string>
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>
   <string name="soundWhenTimeGetsCritical">Äänimerkki kun aika on vähissä</string>
   <string name="giveMoreTime">Anna lisää aikaa</string>
-  <string name="gameBehavior">Pelillisiä lisäasetuksia</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Pelillisiä lisäasetuksia</string>
   <string name="howDoYouMovePieces">Kuinka siirrät nappuloita?</string>
   <string name="clickTwoSquares">Klikkaa kahta ruutua</string>
   <string name="dragPiece">Raahaa nappulaa</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
   <string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
   <string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
-  <string name="snapArrowsToValidMoves">Merkitse mahdolliset siirrot nuolilla</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Sano \"Good game, well played\" (suom. \"Hyvä peli, hyvin pelattu\") tasapelin tai tappion jälkeen</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Merkitse mahdolliset siirrot nuolilla</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sano \"Good game, well played\" (suom. \"Hyvä peli, hyvin pelattu\") tasapelin tai tappion jälkeen</string>
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
 </resources>

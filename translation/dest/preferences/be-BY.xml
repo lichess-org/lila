@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Пазнака фігуры ў натацыі</string>
   <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
   <string name="pgnLetter">Літара (K, Q, R, B, N)</string>
-  <string name="zenMode">Рэжым Дзэн</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Рэжым Дзэн</string>
   <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
   <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
   <string name="blindfoldChess">Шахматы ўсляпую (фігуры схаваныя)</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Калі засталося менш за 10 с</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі засталося менш за 10 с</string>
   <string name="horizontalGreenProgressBars">Індыкатар часу</string>
   <string name="soundWhenTimeGetsCritical">Гукавое апавяшчэнне пры нястачы часу</string>
   <string name="giveMoreTime">Дадаць часу</string>
-  <string name="gameBehavior">Налады гульні</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Налады гульні</string>
   <string name="howDoYouMovePieces">Як вы перасоўваеце фігуры?</string>
   <string name="clickTwoSquares">Націскам на дзве клеткі</string>
   <string name="dragPiece">Перацягваннем фігуры</string>

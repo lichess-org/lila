@@ -10,7 +10,7 @@
   <string name="eventDescription">Tədbirin qısa açıqlaması</string>
   <string name="fullDescription">Tədbirin tam açıqlaması</string>
   <string name="fullDescriptionHelp">Tədbirin istəyə bağlı təfsilatlı açıqlaması. %1$s seçimi mövcuddur. Mətnin uzunluğu %2$s simvoldan az olmalıdır.</string>
-  <string name="sourceUrlOrGameIds">Mənbə URL və ya oyun ID-si</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Mənbə URL və ya oyun ID-si</string>
   <string name="sourceUrlHelp">Lichess, verdiyiniz URL ilə PGN-i yeniləyəcək. URL, internetdə hamı tərəfindən əldə edilə bilən olmalıdır.</string>
   <string name="gameIdsHelp">Alternativ olaraq, boşluqlarla ayrılmış 64-ə qədər Lichess oyun ID-ni daxil edə bilərsiniz.</string>
   <string name="roundNumber">Tur sayı</string>

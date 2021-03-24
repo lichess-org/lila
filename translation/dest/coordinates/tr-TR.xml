@@ -7,7 +7,7 @@
   <string name="knowingTheChessBoard">Satranç tahtasının koordinatlarını bilmek çok önemli bir satranç becerisidir:</string>
   <string name="mostChessCourses">Satranç derslerinin ve alıştırmalarının çoğunda cebirsel gösterim kullanılır.</string>
   <string name="talkToYourChessFriends">\"Satranç dilini\" anlayabildiğin için satranç oynayan arkadaşlarınla anlaşman daha kolay bir hâl alır.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Eğer karelerin adlarını aramak zorunda kalmazsanız, oyunu daha etkili bir şekilde analiz edebilirsiniz.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Karelerin adlarını iyice bilirsen oyunları daha etkili bir şekilde analiz edebilirsin.</string>
   <string name="aSquareNameAppears">Bu alıştırma için tahta üzerinde adı görünen karelere tıklaman gerekiyor. 30 saniye içinde mümkün olduğunca çok kareyi bulmaya çalış!</string>
   <string name="startTraining">Antrenmana başla</string>
 </resources>

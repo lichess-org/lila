@@ -11,13 +11,13 @@
   <string name="pgnPieceNotation">Notación d\'os movimientos</string>
   <string name="chessPieceSymbol">Simbolo d\'a pieza</string>
   <string name="pgnLetter">Inicial (en anglés) d\'a pieza (K, Q, R, B, N)</string>
-  <string name="zenMode">Modo Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="displayBoardResizeHandle">Amostrar lo control de grandaria d\'o escaquero</string>
   <string name="onlyOnInitialPosition">Nomás en posición inicial</string>
   <string name="blindfoldChess">Escaques a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloch d\'escaques</string>
   <string name="tenthsOfSeconds">Decenas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quan queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quan queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontals verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta quan quede poco tiempo</string>
   <string name="giveMoreTime">Dar mas tiempo</string>

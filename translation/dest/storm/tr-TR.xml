@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Başlamak için hamle yap</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Tüm bulmacalarda beyazlarla oynarsınız</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Tüm bulmacalarda siyahlarla oynarsınız</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Tüm bulmacalarda beyaz taraf olacaksınız</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Tüm bulmacalarda siyah taraf olacaksınız</string>
   <string name="puzzlesSolved">bulmaca çözüldü</string>
   <string name="newDailyHighscore">Günün rekoru kırıldı!</string>
   <string name="newWeeklyHighscore">Haftanın rekoru kırıldı!</string>
@@ -34,14 +34,14 @@
   <string name="bestRunOfDay">Tarih</string>
   <string name="runs">Deneme sayısı</string>
   <string name="getReady">Hazır ol!</string>
-  <string name="waitingForMorePlayers">Diğer oyuncuların katılması için bekleniyor...</string>
-  <string name="raceComplete">Yarış tamamlandı!</string>
+  <string name="waitingForMorePlayers">Diğer oyuncuların katılması bekleniyor...</string>
+  <string name="raceComplete">Yarış sona erdi!</string>
   <string name="spectating">İzleyici modu</string>
   <string name="joinTheRace">Yarışa katıl!</string>
-  <string name="yourRankX">Sıralamanız %s</string>
+  <string name="yourRankX">Sıralamanız: %s</string>
   <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Rövanş için bekle</string>
   <string name="nextRace">Sıradaki yarış</string>
   <string name="joinRematch">Rövanşa katıl</string>
-  <string name="waitingToStart">Başlamak için bekleniyor</string>
+  <string name="waitingToStart">Başlamak üzere</string>
   <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni bir oyun oluştur</string>
 </resources>

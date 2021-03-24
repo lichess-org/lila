@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Konfigurimet</string>
+  <string name="settings">Cilësimet</string>
   <string name="closeAccount">Mbyll llogarinë</string>
   <string name="closingIsDefinitive">Mbyllja është përfundimtare. Nuk ka kthim prapa. A jeni i sigurtë?</string>
   <string name="cantOpenSimilarAccount">Nuk do të mund të hapni llogari me të njejtin emër, edhe nëse e ndryshoni madhësinë e shkronjave.</string>

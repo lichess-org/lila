@@ -6,7 +6,7 @@
   <string name="challengeAccepted">Предизвикателството е прието!</string>
   <string name="challengeCanceled">Предизвикателството е отменено.</string>
   <string name="registerToSendChallenges">Регистрирайте се, за да отправяте предизвикателства.</string>
-  <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
+  <string name="youCannotChallengeX">Не можете да предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
   <string name="yourXRatingIsTooFarFromY">Разликата между вашия рейтинг %1$s и %2$s е твърде голяма.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Не можете да отправите предизвикателството поради временен рейтинг %s.</string>

@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Ėjimų žymėjimas</string>
   <string name="chessPieceSymbol">Šachmatų figūrų simboliai</string>
   <string name="pgnLetter">Raidės (K, Q, R, B, N)</string>
-  <string name="zenMode">„Zen“ režimas</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">„Zen“ režimas</string>
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
   <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Kai lieka mažiau nei 10 sekundžių</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 10 sekundžių</string>
   <string name="horizontalGreenProgressBars">Horizontalios, žalios eigos juostos</string>
   <string name="soundWhenTimeGetsCritical">Garsas pasiekus kritinę laiko ribą</string>
   <string name="giveMoreTime">Duoti daugiau laiko</string>
-  <string name="gameBehavior">Žaidimo elgsena</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Žaidimo elgsena</string>
   <string name="howDoYouMovePieces">Kaip jūs darote ėjimus?</string>
   <string name="clickTwoSquares">Spustelėjant du langelius</string>
   <string name="dragPiece">Tempiant figūrą</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Eiti su karaliumi per du langelius</string>
   <string name="castleByMovingOntoTheRook">Eiti su karaliumi ant bokšto</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
-  <string name="snapArrowsToValidMoves">Rodykles užfiksuoti ties leistinais ėjimais</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Rodykles užfiksuoti ties leistinais ėjimais</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
 </resources>

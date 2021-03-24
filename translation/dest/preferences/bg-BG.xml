@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Символ</string>
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Режим Zen</string>
+  <string name="displayBoardResizeHandle">Показване на инструмента за промяна на размера на дъската</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
   <string name="chessClock">Шахматен часовник</string>
@@ -40,6 +41,7 @@
   <string name="castleByMovingTwoSquares">Преместване на царя с две полета</string>
   <string name="castleByMovingOntoTheRook">Преместване на царя върху топа</string>
   <string name="inputMovesWithTheKeyboard">Въвеждане на ходове с клавиатурата</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Ограничи стрелките да показват само допустими ходове</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Изпратете в чата \"Good game, well played\" след загуба или реми</string>
   <string name="yourPreferencesHaveBeenSaved">Вашите предпочитания бяха записани.</string>
 </resources>

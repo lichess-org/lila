@@ -14,7 +14,7 @@
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
   <string name="quitTeam">Palikti komandą</string>
-  <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Priėmimo prašymus peržvelgti rankiniu būdu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jei pažymėta, norėdami patekti į komandą žaidėjai turės užpildyti prašymą. Šį prašymą galite priimti arba atmesti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komandos vadovas</item>

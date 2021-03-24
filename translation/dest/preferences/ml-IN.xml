@@ -11,12 +11,12 @@
   <string name="pgnPieceNotation">നീക്കങ്ങൾ എങ്ങനെ രേഖപ്പെടുത്തണം</string>
   <string name="chessPieceSymbol">ചെസ്സ് കരുവിന്റെ അടയാളം</string>
   <string name="pgnLetter">അക്ഷരം (K, Q, R, B, N)</string>
-  <string name="zenMode">സെൻ മോഡ്</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">സെൻ മോഡ്</string>
   <string name="onlyOnInitialPosition">തുടക്കത്തില്‍ മാത്രം</string>
   <string name="blindfoldChess">കണ്ണു കെട്ടിയ ചതുരംഗം (അദൃശ്യമായ കരുക്കൾ)</string>
   <string name="chessClock">ചതുരംഗ സമയം</string>
   <string name="tenthsOfSeconds">സെക്കന്റിന്റെ പത്തിലൊരംശം</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
   <string name="horizontalGreenProgressBars">തിരശ്ചീന പച്ച നിലവാര രേഖകൾ</string>
   <string name="soundWhenTimeGetsCritical">നിർണായക സമയത്തു ധ്വനിപ്പിക്കുക</string>
   <string name="giveMoreTime">കൂടുതൽ സമയം കൊടുക്കുക</string>

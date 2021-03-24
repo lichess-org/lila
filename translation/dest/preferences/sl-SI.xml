@@ -11,7 +11,7 @@
   <string name="pgnPieceNotation">Zapis potez</string>
   <string name="chessPieceSymbol">Simbol figur</string>
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen način</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
   <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>

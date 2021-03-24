@@ -34,7 +34,14 @@
   <string name="bestRunOfDay">Napi legjobb futam</string>
   <string name="runs">Futamok</string>
   <string name="getReady">Felkészülni!</string>
+  <string name="waitingForMorePlayers">Várakozás játékosok csatlakozására...</string>
+  <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
+  <string name="joinTheRace">Csatlakozz a versenyhez!</string>
+  <string name="yourRankX">Helyezésed: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Várj az újrajátszásig</string>
   <string name="nextRace">Következő</string>
+  <string name="joinRematch">Csatlakozás</string>
+  <string name="waitingToStart">Várakozás a kezdésig</string>
   <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Új játék létrehozása</string>
 </resources>
