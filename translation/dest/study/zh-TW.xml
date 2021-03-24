@@ -101,6 +101,7 @@
   <string name="allowCloning">可以複製</string>
   <string name="nobody">没有人</string>
   <string name="onlyMe">僅自己</string>
+  <string name="contributors">貢獻者</string>
   <string name="members">成員</string>
   <string name="everyone">所有人</string>
   <string name="enableSync">允許同步</string>
