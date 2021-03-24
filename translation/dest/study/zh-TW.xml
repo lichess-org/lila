@@ -108,5 +108,7 @@
   <string name="pinnedStudyComment">置頂研究留言</string>
   <string name="start">開始</string>
   <string name="save">存檔</string>
+  <string name="clearChat">清空對話紀錄</string>
+  <string name="deleteTheStudyChatHistory">確定要清空課程對話紀錄嗎？此操作無法還原！</string>
   <string name="deleteStudy">刪除此研究</string>
 </resources>
