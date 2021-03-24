@@ -34,6 +34,8 @@ object Cents {
   val lifetime = Cents(25000)
 }
 
+case class Country(code: String) extends AnyVal
+
 case class StripeSubscriptions(data: List[StripeSubscription])
 
 case class StripePlan(id: String, name: String, amount: Cents) {
@@ -92,8 +94,19 @@ case class StripeCustomer(
   def renew = firstSubscription ?? (_.renew)
 }
 
-case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId) {
+case class StripeCharge(
+    id: ChargeId,
+    amount: Cents,
+    customer: CustomerId,
+    billing_details: Option[StripeCharge.BillingDetails]
+) {
   def lifetimeWorthy = amount >= Cents.lifetime
+  def country        = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+}
+
+object StripeCharge {
+  case class Address(country: Option[String])
+  case class BillingDetails(address: Option[Address])
 }
 
 case class StripeInvoice(
