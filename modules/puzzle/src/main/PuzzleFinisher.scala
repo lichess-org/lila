@@ -36,7 +36,7 @@ final private[puzzle] class PuzzleFinisher(
       user: User,
       result: Result
   ): Fu[Option[(PuzzleRound, Perf)]] =
-    if (api.casual(user, id)) fuccess {
+    if (api.casual(user, id) || user.perfs.dubiousPuzzle) fuccess {
       PuzzleRound(
         id = PuzzleRound.Id(user.id, id),
         win = result.win,

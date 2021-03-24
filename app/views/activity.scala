@@ -20,7 +20,7 @@ object activity {
           div(cls := "entries")(
             a.patron map renderPatron,
             a.practice map renderPractice,
-            a.puzzles map renderPuzzles,
+            a.puzzles map renderPuzzles(u),
             a.storm map renderStorm,
             a.racer map renderRacer,
             a.games map renderGames,
@@ -78,10 +78,10 @@ object activity {
         )
     }
 
-  private def renderPuzzles(p: Puzzles)(implicit ctx: Context) =
+  private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
       iconTag("-"),
-      scoreFrag(p.score),
+      !u.perfs.dubiousPuzzle option scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
         p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
