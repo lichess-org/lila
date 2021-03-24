@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Move para comezar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Xogas coas pezas brancas en todos os crebacabezas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Xogas as negras en todos os crebacabezas</string>
+  <string name="puzzlesSolved">crebacabezas resoltos</string>
+  <string name="newDailyHighscore">Novo récord diario!</string>
+  <string name="newWeeklyHighscore">Novo récord semanal!</string>
+  <string name="newMonthlyHighscore">Novo récord mensual!</string>
+  <string name="newAllTimeHighscore">Novo récord absoluto!</string>
+  <string name="previousHighscoreWasX">O récord anterior era%s</string>
+  <string name="playAgain">Xogar de novo</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 ronda</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Xogaches unha ronda de %2$s</item>
+    <item quantity="other">Xogaches %1$s rondas de %2$s</item>
+  </plurals>
+</resources>
