@@ -211,11 +211,11 @@
   <string name="standard">標準</string>
   <string name="unlimited">無限</string>
   <string name="mode">模式</string>
-  <string name="casual">非定級</string>
-  <string name="rated">定級</string>
-  <string name="casualTournament">非定级</string>
-  <string name="ratedTournament">定级</string>
-  <string name="thisGameIsRated">這盤棋是定級的</string>
+  <string name="casual">休閒</string>
+  <string name="rated">排位賽</string>
+  <string name="casualTournament">休閒</string>
+  <string name="ratedTournament">排位</string>
+  <string name="thisGameIsRated">此對局是排位賽</string>
   <string name="rematch">重賽</string>
   <string name="rematchOfferSent">重賽請求已發送</string>
   <string name="rematchOfferSentWhite">白方請求重賽</string>
@@ -241,7 +241,7 @@
   <string name="freeOnlineChess">免費線上國際象棋</string>
   <string name="spectators">旁觀者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s 評分</item>
+    <item quantity="other">%s 場排位賽</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s局勝</item>
@@ -284,16 +284,16 @@
   <string name="backToTournament">返回錦標賽主頁</string>
   <string name="thematic">特殊開局</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s 個已評分的棋局</item>
+    <item quantity="other">完成至少 %s 場排位賽</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s 積分賽</item>
+    <item quantity="other">≥ %1$s %2$s 排位賽</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">你需要再下%1$s局%2$s模式的積分棋局</item>
+    <item quantity="other">你需要再下 %1$s 局 %2$s 變體的排位賽</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">您需要再下%s盤會評分的棋局</item>
+    <item quantity="other">您需要再完成 %s 場排位賽</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
@@ -427,7 +427,7 @@
   <string name="onlinePlayers">在線棋手</string>
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，這棋局是排位賽，但是不計時！</string>
   <string name="success">大功告成！</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s場對局正在進行中</item>
