@@ -405,12 +405,16 @@ object mon {
     val json                  = future("swiss.json")
   }
   object plan {
-    val paypal                       = histogram("plan.amount").withTag("service", "paypal")
-    val stripe                       = histogram("plan.amount").withTag("service", "stripe")
-    val goal                         = gauge("plan.goal").withoutTags()
-    val current                      = gauge("plan.current").withoutTags()
-    val percent                      = gauge("plan.percent").withoutTags()
-    def firstCharge(service: String) = counter("plan.charge.first").withTag("service", service)
+    val paypal  = histogram("plan.amount").withTag("service", "paypal")
+    val stripe  = histogram("plan.amount").withTag("service", "stripe")
+    val goal    = gauge("plan.goal").withoutTags()
+    val current = gauge("plan.current").withoutTags()
+    val percent = gauge("plan.percent").withoutTags()
+    object charge {
+      def first(service: String) = counter("plan.charge.first").withTag("service", service)
+      def countryCents(country: String, service: String) =
+        histogram("plan.charge.country.cents").withTags(Map("country" -> country, "service" -> service))
+    }
   }
   object forum {
     object post {

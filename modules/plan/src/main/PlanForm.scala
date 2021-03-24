@@ -11,15 +11,16 @@ object PlanForm {
 
   val ipn = Form(
     mapping(
-      "txn_id"      -> optional(nonEmptyText),
-      "subscr_id"   -> optional(nonEmptyText),
-      "txn_type"    -> text.verifying("Invalid txn type", txnTypes contains _),
-      "mc_gross"    -> bigDecimal,
-      "mc_fee"      -> bigDecimal,
-      "custom"      -> optional(text),
-      "payer_email" -> optional(nonEmptyText),
-      "first_name"  -> optional(text),
-      "last_name"   -> optional(text)
+      "txn_id"               -> optional(nonEmptyText),
+      "subscr_id"            -> optional(nonEmptyText),
+      "txn_type"             -> text.verifying("Invalid txn type", txnTypes contains _),
+      "mc_gross"             -> bigDecimal,
+      "mc_fee"               -> bigDecimal,
+      "custom"               -> optional(text),
+      "payer_email"          -> optional(nonEmptyText),
+      "first_name"           -> optional(text),
+      "last_name"            -> optional(text),
+      "address_country_code" -> optional(text)
     )(Ipn.apply)(Ipn.unapply)
   )
 
@@ -32,7 +33,8 @@ object PlanForm {
       userId: Option[String],
       email: Option[String],
       firstName: Option[String],
-      lastName: Option[String]
+      lastName: Option[String],
+      countryCode: Option[String]
   ) {
 
     def name = (firstName, lastName) mapN { _ + " " + _ }
@@ -40,5 +42,7 @@ object PlanForm {
     def grossCents = (gross * 100).toInt
 
     def feeCents = (fee * 100).toInt
+
+    def country = countryCode.map(Country)
   }
 }

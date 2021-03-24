@@ -9,6 +9,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
+import lila.common.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -64,7 +65,7 @@ final class PlanApi(
         stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
         cents = stripeCharge.amount
       )
-      addCharge(charge) >> {
+      addCharge(charge, stripeCharge.country) >> {
         patronOption match {
           case None =>
             logger.info(s"Charged anon customer $charge")
@@ -94,6 +95,7 @@ final class PlanApi(
       cents: Cents,
       name: Option[String],
       txnId: Option[String],
+      country: Option[Country],
       ip: String,
       key: String
   ): Funit =
@@ -117,7 +119,7 @@ final class PlanApi(
           .some,
         cents = cents
       )
-      addCharge(charge) >>
+      addCharge(charge, country) >>
         (userId ?? userRepo.named) flatMap { userOption =>
           userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
@@ -346,8 +348,8 @@ final class PlanApi(
     }
   }
 
-  private def addCharge(charge: Charge): Funit =
-    monitorFirstCharge(charge) >>
+  private def addCharge(charge: Charge, country: Option[Country]): Funit =
+    monitorCharge(charge, country) >>
       chargeColl.insert.one(charge).void >>- {
         recentChargeUserIdsCache.invalidateUnit()
         monthlyGoalApi.get foreach { m =>
@@ -368,13 +370,17 @@ final class PlanApi(
         }
       }
 
-  private def monitorFirstCharge(charge: Charge): Funit =
+  private def monitorCharge(charge: Charge, country: Option[Country]): Funit = {
+    lila.mon.plan.charge
+      .countryCents(country = country.fold("unknown")(_.code), service = charge.serviceName)
+      .record(charge.cents.value)
     charge.userId ?? { userId =>
       chargeColl.exists($doc("userId" -> userId)) map {
-        case false => lila.mon.plan.newPatron(charge.serviceName).increment().unit
+        case false => lila.mon.plan.charge.first(charge.serviceName).increment().unit
         case _     =>
       }
     }
+  }
 
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
