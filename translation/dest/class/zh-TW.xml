@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">課程</string>
   <string name="features">功能</string>
+  <string name="freeForAllForever">完全免費，一視同仁。且無廣告及追蹤器</string>
   <string name="applyToBeLichessTeacher">申請成為 Lichess 的的教師</string>
   <string name="noClassesYet">還沒有課程</string>
   <string name="teachersX">%s個教師</string>
@@ -25,6 +26,8 @@
   <string name="inviteALichessAccount">邀請一位玩家</string>
   <string name="createANewLichessAccount">創建一個新的帳戶</string>
   <string name="lichessUsername">Lichess上的使用者名稱</string>
+  <string name="generateANewUsername">產生一個新的使用者名稱</string>
+  <string name="noPendingInvitations">沒有待處理的邀請</string>
   <string name="lastActiveDate">活動</string>
   <string name="managed">管理</string>
   <string name="release">正式版</string>
