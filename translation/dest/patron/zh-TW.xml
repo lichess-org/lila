@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐款</string>
+  <string name="lichessPatron">Lichess 贊助者</string>
   <string name="freeAccount">免費帳戶</string>
+  <string name="becomePatron">成為 Lichess 贊助者</string>
+  <string name="xBecamePatron">%s 成為了 Lichess 贊助者</string>
+  <string name="noAdsNoSubs">無廣告、無訂閱；只有開源和熱情。</string>
   <string name="thankYou">感謝您的捐款!</string>
   <string name="lifetime">終身</string>
+  <string name="lifetimePatron">終生 Lichess 贊助者</string>
   <string name="monthly">每個月</string>
   <string name="onetime">一次性</string>
   <string name="otherAmount">其他</string>
