@@ -13,6 +13,10 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的對弈邀請</string>
   <string name="declineGeneric">我目前不接受對弈</string>
   <string name="declineLater">我現在不接受對弈，請晚點再詢問</string>
+  <string name="declineRated">請向我發送積分對弈。</string>
+  <string name="declineCasual">請向我發送休閒對弈。</string>
+  <string name="declineStandard">我不接受變體對弈。</string>
+  <string name="declineVariant">我現在不想玩這個變體。</string>
   <string name="declineNoBot">我不接受機器人的對弈。</string>
   <string name="declineOnlyBot">我目前只接受機器人的對弈。</string>
 </resources>
