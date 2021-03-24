@@ -22,9 +22,9 @@
   <string name="createAGame">開始對局</string>
   <string name="whiteIsVictorious">白方勝</string>
   <string name="blackIsVictorious">黑方勝</string>
-  <string name="youPlayTheWhitePieces">您使用白棋</string>
-  <string name="youPlayTheBlackPieces">您使用黑棋</string>
-  <string name="itsYourTurn">您的回合!</string>
+  <string name="youPlayTheWhitePieces">您執白棋</string>
+  <string name="youPlayTheBlackPieces">您執黑棋</string>
+  <string name="itsYourTurn">輪到你了！</string>
   <string name="kingInTheCenter">王居中勝</string>
   <string name="threeChecks">三次將軍勝</string>
   <string name="raceFinished">競王結束</string>
@@ -35,7 +35,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
+    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒後獲勝。</item>
   </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
