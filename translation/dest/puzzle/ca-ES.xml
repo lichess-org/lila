@@ -29,6 +29,10 @@
   <string name="trySomethingElse">Prova d\'una altra manera.</string>
   <string name="ratingX">Puntuació: %s</string>
   <string name="hidden">ocult</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jugat %s vegades</item>
+    <item quantity="other">Intentat %s vegades</item>
+  </plurals>
   <string name="fromGameLink">De la partida %s</string>
   <string name="continueTraining">Continuar l\'entrenament</string>
   <string name="difficultyLevel">Nivell de dificultat</string>
@@ -43,6 +47,7 @@
   <string name="puzzleDashboard">Panell de problemes</string>
   <string name="improvementAreas">Àrees de millora</string>
   <string name="strengths">Fortaleses</string>
+  <string name="history">Historial de problemes</string>
   <string name="solved">resolt</string>
   <string name="failed">fallit</string>
 </resources>
