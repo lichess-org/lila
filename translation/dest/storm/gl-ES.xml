@@ -18,4 +18,30 @@
     <item quantity="one">Xogaches unha ronda de %2$s</item>
     <item quantity="other">Xogaches %1$s rondas de %2$s</item>
   </plurals>
+  <string name="highscoreX">Récord: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movementos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo">Combo</string>
+  <string name="time">Tempo</string>
+  <string name="timePerMove">Tempo por movemento</string>
+  <string name="highestSolved">Exercicio máis difícil resolto</string>
+  <string name="puzzlesPlayed">Crebacabezas xogados</string>
+  <string name="newRun">Nova ronda (tecla: espacio)</string>
+  <string name="endRun">Finalizar ronda (tecla: enter)</string>
+  <string name="highscores">Récords</string>
+  <string name="viewBestRuns">Ver as mellores rondas</string>
+  <string name="bestRunOfDay">Mellor ronda do día</string>
+  <string name="runs">Rondas</string>
+  <string name="getReady">Prepárate!</string>
+  <string name="waitingForMorePlayers">Agardando a máis xogardores entraren...</string>
+  <string name="raceComplete">Corrida concluída!</string>
+  <string name="spectating">Observando</string>
+  <string name="joinTheRace">Entra na corrida!</string>
+  <string name="yourRankX">A túa clasificación: %s</string>
+  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Espera para o desquite</string>
+  <string name="nextRace">Próxima corrida</string>
+  <string name="joinRematch">Unirse ao desquite</string>
+  <string name="waitingToStart">Esperando a que comece</string>
+  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Crea unha nova partida</string>
 </resources>
