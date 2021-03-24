@@ -322,7 +322,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score => score atLeast 60
+          score => score atLeast 40
         )
       case _ => funit
     }
