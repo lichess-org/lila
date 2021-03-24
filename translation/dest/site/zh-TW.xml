@@ -434,7 +434,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移动棋子后自动进入下一盘棋</string>
   <string name="autoSwitch">自动更换</string>
-  <string name="puzzles">題目</string>
+  <string name="puzzles">謎題</string>
   <string name="latestUpdates">最近更新</string>
   <string name="tournamentWinners">比赛赢家</string>
   <string name="name">名</string>
