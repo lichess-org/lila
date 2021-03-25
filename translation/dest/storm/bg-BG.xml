@@ -44,4 +44,8 @@
   <string name="joinRematch">Започнете реванша</string>
   <string name="waitingToStart">Изчакване на започването</string>
   <string name="createNewGame">Създайте нова игра</string>
+  <string name="joinPublicRace">Участвайте в публично състезание</string>
+  <string name="raceYourFriends">Състезавайте се с приятели</string>
+  <string name="skip">пропусни</string>
+  <string name="skipHelp">Можете да пропуснете един ход на състезание:</string>
 </resources>
