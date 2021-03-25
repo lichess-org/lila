@@ -37,7 +37,7 @@ final class Report(
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
   private def renderList(me: Holder, room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room)) zip
+    api.openAndRecentWithFilter(asMod(me), 12, Room(room)) zip
       getScores flatMap { case (reports, scores ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
           Ok(
