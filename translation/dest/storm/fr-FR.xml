@@ -44,9 +44,9 @@
   <string name="joinRematch">Faire une revanche</string>
   <string name="waitingToStart">Attendre le départ de la course</string>
   <string name="createNewGame">Créer une nouvelle course</string>
-  <string name="joinPublicRace">Rejoindre une course publique</string>
+  <string name="joinPublicRace">Joindre une course publique</string>
   <string name="raceYourFriends">Faites la course avec vos amis</string>
-  <string name="skip">passer</string>
-  <string name="skipHelp">NOUVEAU! Vous pouvez passer un coup par course :</string>
-  <string name="skipExplanation">Passez ce coup pour préserver votre combo! Ne fonctionne qu\'une seule fois par course.</string>
+  <string name="skip">sauter</string>
+  <string name="skipHelp">Vous pouvez sauter un coup par course :</string>
+  <string name="skipExplanation">Sautez ce coup pour préserver votre combo ! Ne fonctionne qu\'une seule fois par course.</string>
 </resources>
