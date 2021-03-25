@@ -48,4 +48,5 @@
   <string name="joinRematch">Dołącz do rewanżu</string>
   <string name="waitingToStart">Oczekiwanie na rozpoczęcie</string>
   <string name="createNewGame">Utwórz nową grę</string>
+  <string name="skip">pomiń</string>
 </resources>
