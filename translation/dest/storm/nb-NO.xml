@@ -45,7 +45,8 @@
   <string name="waitingToStart">Venter på start</string>
   <string name="createNewGame">Lag et nytt løp</string>
   <string name="joinPublicRace">Delta i et offentlig løp</string>
+  <string name="raceYourFriends">Prøv deg mot vennene dine</string>
   <string name="skip">hopp over</string>
-  <string name="skipHelp">Du kan hoppe over ett trekk i hvert løp:</string>
+  <string name="skipHelp">Du kan hoppe over ett trekk for hvert løp:</string>
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Funker bare én gang for hvert løp.</string>
 </resources>
