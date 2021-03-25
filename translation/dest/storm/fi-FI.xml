@@ -48,4 +48,5 @@
   <string name="raceYourFriends">Kilpaile kaveriesi kanssa</string>
   <string name="skip">ohita</string>
   <string name="skipHelp">Kunkin kilvan aikana voit ohittaa yhden siirron:</string>
+  <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
 </resources>
