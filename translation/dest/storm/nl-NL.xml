@@ -44,4 +44,9 @@
   <string name="joinRematch">Neem deel aan rematch</string>
   <string name="waitingToStart">Wachten op de start</string>
   <string name="createNewGame">Maak een nieuwe wedstrijd</string>
+  <string name="joinPublicRace">Neem deel aan een openbare race</string>
+  <string name="raceYourFriends">Race met vrienden</string>
+  <string name="skip">overslaan</string>
+  <string name="skipHelp">Je kunt één zet per race overslaan:</string>
+  <string name="skipExplanation">Sla deze zet over om je combo te behouden! Werkt maar eenmaal per race.</string>
 </resources>
