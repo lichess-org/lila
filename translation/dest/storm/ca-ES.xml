@@ -24,4 +24,5 @@
   <string name="time">Temps</string>
   <string name="timePerMove">Temps per jugada</string>
   <string name="highestSolved">El més difícil resolt</string>
+  <string name="skip">omet</string>
 </resources>
