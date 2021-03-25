@@ -79,7 +79,9 @@ object racer {
       s.joinRematch,
       s.waitingToStart,
       s.createNewGame,
-      trans.toInviteSomeoneToPlayGiveThisUrl
+      trans.toInviteSomeoneToPlayGiveThisUrl,
+      s.skipHelp,
+      s.skipExplanation,
     ).map(_.key)
   }
 }
