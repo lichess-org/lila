@@ -114,6 +114,9 @@
   <string name="veryLong">Problema molt llarg</string>
   <string name="veryLongDescription">Quatre o més jugades per guanyar.</string>
   <string name="xRayAttack">Atac de raigs x</string>
+  <string name="xRayAttackDescription">Una peça ataca o defensa una casella, a través d\'una peça rival.</string>
   <string name="zugzwang">Atzucac</string>
+  <string name="zugzwangDescription">El rival té els moviments limitats i cada jugada empitjora la seva posició.</string>
+  <string name="healthyMix">Una mica de cada</string>
   <string name="healthyMixDescription">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
 </resources>
