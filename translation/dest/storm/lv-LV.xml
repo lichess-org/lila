@@ -46,4 +46,9 @@
   <string name="joinRematch">Pievienoties revanšam</string>
   <string name="waitingToStart">Gaida sākumu</string>
   <string name="createNewGame">Izveidot jaunu spēli</string>
+  <string name="joinPublicRace">Pievienoties publiskām sacīkstēm</string>
+  <string name="raceYourFriends">Sacensties ar draugiem</string>
+  <string name="skip">izlaist</string>
+  <string name="skipHelp">Varat izlaist vienu gājienu katrās sacīkstēs:</string>
+  <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
 </resources>
