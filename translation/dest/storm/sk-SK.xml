@@ -31,9 +31,9 @@
   <string name="spectating">Divák</string>
   <string name="joinTheRace">Zapojte sa do pretekov!</string>
   <string name="yourRankX">Vaše miesto: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Čakať na odvetu</string>
+  <string name="waitForRematch">Čakať na odvetu</string>
   <string name="nextRace">Ďalšie preteky</string>
   <string name="joinRematch">Zapojiť sa do odvety</string>
   <string name="waitingToStart">Čaká sa na štart</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Vytvoriť nové preteky</string>
+  <string name="createNewGame">Vytvoriť nové preteky</string>
 </resources>
