@@ -33,7 +33,10 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             waitingToStart(noarg),
             h('div.racer__pre__message.racer__pre__message--with-skip', [
               h('div.racer__pre__message__text', [
-                h('p', ctrl.knowsSkip() ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers') : skipHelp()),
+                h(
+                  'p',
+                  ctrl.knowsSkip() ? noarg(ctrl.vm.startsAt ? 'getReady' : 'waitingForMorePlayers') : skipHelp(noarg)
+                ),
                 povMsg,
               ]),
               ctrl.knowsSkip() ? null : renderSkip(ctrl),
@@ -77,14 +80,14 @@ const renderSkip = (ctrl: RacerCtrl) =>
         disabled: !ctrl.canSkip(),
       },
       attrs: {
-        title: 'Skip this move to preserve your combo! Only works once per race.',
+        title: ctrl.trans.noarg('skipExplanation'),
       },
       hook: bind('click', ctrl.skip),
     },
-    'skip'
+    ctrl.trans.noarg('skip')
   );
 
-const skipHelp = () => h('p', 'NEW! You can skip one move per race:');
+const skipHelp = (noarg: TransNoArg) => h('p', noarg('skipHelp'));
 
 const puzzleRacer = () => h('strong', 'Puzzle Racer');
 
