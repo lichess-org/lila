@@ -30,6 +30,17 @@
   <string name="newRun">Nou intent (tecla: Espai)</string>
   <string name="endRun">Finalitzar l\'intent (tecla: Enter)</string>
   <string name="highscores">Millors puntuacions</string>
+  <string name="viewBestRuns">Veure els millors intents</string>
+  <string name="bestRunOfDay">Millor intent del dia</string>
+  <string name="runs">Intents</string>
+  <string name="getReady">Prepara\'t!</string>
+  <string name="waitingForMorePlayers">Esperant que s\'uneixin més jugadors...</string>
+  <string name="raceComplete">Cursa finalitzada!</string>
+  <string name="spectating">Observant</string>
+  <string name="joinTheRace">Uneix-te a la cursa!</string>
+  <string name="yourRankX">La teva puntuació: %s</string>
+  <string name="waitForRematch">Espera per a la revenja</string>
+  <string name="nextRace">Cursa següent</string>
   <string name="joinPublicRace">Uneix-te a una cursa pública</string>
   <string name="raceYourFriends">Desafia els teus amics</string>
   <string name="skip">omet</string>
