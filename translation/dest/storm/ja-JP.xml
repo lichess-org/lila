@@ -42,4 +42,8 @@
   <string name="joinRematch">もう一度参加する</string>
   <string name="waitingToStart">まもなくスタート</string>
   <string name="createNewGame">新たなレースを作成</string>
+  <string name="joinPublicRace">レースに参加</string>
+  <string name="raceYourFriends">友達とレース</string>
+  <string name="skip">飛ばす</string>
+  <string name="skipHelp">レース中 1 手だけ飛ばすことができます：</string>
 </resources>
