@@ -46,4 +46,9 @@
   <string name="joinRematch">Intră în cursa pentru revanșă</string>
   <string name="waitingToStart">Se așteaptă startul</string>
   <string name="createNewGame">Creează o nouă partidă</string>
+  <string name="joinPublicRace">Alătură-te unei curse publice</string>
+  <string name="raceYourFriends">Invită-ți prietenii</string>
+  <string name="skip">omite</string>
+  <string name="skipHelp">Poți sări peste o mutare pe cursă:</string>
+  <string name="skipExplanation">Sări peste această mutare pentru a păstra combo-ul! Funcționează o singură dată pe cursă.</string>
 </resources>
