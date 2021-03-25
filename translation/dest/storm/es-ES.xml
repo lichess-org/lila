@@ -47,6 +47,6 @@
   <string name="joinPublicRace">Únete a una carrera pública</string>
   <string name="raceYourFriends">Compite con tus amigos</string>
   <string name="skip">omitir</string>
-  <string name="skipHelp">¡NOVEDAD! Ahora puedes omitir un movimiento por carrera:</string>
+  <string name="skipHelp">Puedes omitir un movimiento por carrera:</string>
   <string name="skipExplanation">Omite este movimiento para conservar tu combo. Solo funciona una vez por carrera.</string>
 </resources>
