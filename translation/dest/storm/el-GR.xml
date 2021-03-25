@@ -47,6 +47,6 @@
   <string name="joinPublicRace">Συμμετοχή σε δημόσιο αγώνα</string>
   <string name="raceYourFriends">Συμμετοχή σε αγώνα με φίλους</string>
   <string name="skip">παράλειψη</string>
-  <string name="skipHelp">ΝΕΟ! Μπορείτε να παραλείψετε μία κίνηση σε κάθε αγώνα:</string>
+  <string name="skipHelp">Μπορείτε να παραλείψετε μία κίνηση σε κάθε αγώνα:</string>
   <string name="skipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το combo σας! Αυτό μπορείτε να το κάνετε μόνο μία φορά σε κάθε αγώνα.</string>
 </resources>
