@@ -41,6 +41,9 @@
   <string name="yourRankX">La teva puntuació: %s</string>
   <string name="waitForRematch">Espera per a la revenja</string>
   <string name="nextRace">Cursa següent</string>
+  <string name="joinRematch">Unir-se a la revenja</string>
+  <string name="waitingToStart">Esperant que comenci</string>
+  <string name="createNewGame">Crea una nova cursa</string>
   <string name="joinPublicRace">Uneix-te a una cursa pública</string>
   <string name="raceYourFriends">Desafia els teus amics</string>
   <string name="skip">omet</string>
