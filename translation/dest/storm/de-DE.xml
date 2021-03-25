@@ -47,6 +47,6 @@
   <string name="joinPublicRace">An einem öffentlichen Rennen teilnehmen</string>
   <string name="raceYourFriends">Lade deine Freunde zu einem Rennen ein</string>
   <string name="skip">überspringen</string>
-  <string name="skipHelp">NEU! Du kannst einen Zug pro Rennen überspringen:</string>
+  <string name="skipHelp">Du kannst einen Zug pro Rennen überspringen:</string>
   <string name="skipExplanation">Überspringe diesen Zug um deine Erfolgsfolge beizubehalten! Das funktioniert nur einmal pro Rennen.</string>
 </resources>
