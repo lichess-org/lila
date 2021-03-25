@@ -46,4 +46,6 @@
   <string name="createNewGame">Yeni oyun yarat</string>
   <string name="raceYourFriends">Dostlarınla yarış</string>
   <string name="skip">keç</string>
+  <string name="skipHelp">Hər yarışda bir gedişi keçə bilərsən:</string>
+  <string name="skipExplanation">Kombonu qorumaq üçün bu gedişi keç! Hər yarışda sadəcə bir dəfə işləyir.</string>
 </resources>
