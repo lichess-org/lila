@@ -48,4 +48,5 @@
   <string name="raceYourFriends">Състезавайте се с приятели</string>
   <string name="skip">пропусни</string>
   <string name="skipHelp">Можете да пропуснете един ход на състезание:</string>
+  <string name="skipExplanation">Пропуснете този ход за да запазите комбинацията си! Можете да го направите само веднъж на състезание.</string>
 </resources>
