@@ -33,5 +33,5 @@
   <string name="runs">Essayos</string>
   <string name="spectating">Spectante</string>
   <string name="yourRankX">Tu classification: %s</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Crear un nove partita</string>
+  <string name="createNewGame">Crear un nove partita</string>
 </resources>
