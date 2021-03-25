@@ -48,4 +48,9 @@
   <string name="joinRematch">Присоединиться к реваншу</string>
   <string name="waitingToStart">Ожидание начала</string>
   <string name="createNewGame">Создать новую игру</string>
+  <string name="joinPublicRace">Принять участие в общей гонке</string>
+  <string name="raceYourFriends">Погоняться с друзьями</string>
+  <string name="skip">пропустить</string>
+  <string name="skipHelp">НОВИНКА! Вы можете пропустить один ход за гонку:</string>
+  <string name="skipExplanation">Пропустить этот ход, чтобы сохранить комбо! Только один раз за гонку.</string>
 </resources>
