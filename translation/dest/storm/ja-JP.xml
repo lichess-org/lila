@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">一手指すとスタート</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">あなたの駒はどの問題でも白です</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">あなたの駒はどの問題でも黒です</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">あなたの駒はつねに白です</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">あなたの駒はつねに黒です</string>
   <string name="puzzlesSolved">正解数</string>
   <string name="newDailyHighscore">今日のハイスコア更新！</string>
   <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
