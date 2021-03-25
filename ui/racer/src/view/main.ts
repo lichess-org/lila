@@ -81,7 +81,7 @@ const renderSkip = (ctrl: RacerCtrl) =>
       },
       hook: bind('click', ctrl.skip),
     },
-    'skip'
+    ctrl.trans.noarg('skip')
   );
 
 const skipHelp = (noarg: TransNoArg) => h('p', noarg('skipHelp'));

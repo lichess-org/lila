@@ -46,6 +46,7 @@
   <string name="createNewGame">Create a new game</string>
   <string name="joinPublicRace">Join a public race</string>
   <string name="raceYourFriends">Race your friends</string>
+  <string name="skip">skip</string>
   <string name="skipHelp">NEW! You can skip one move per race:</string>
   <string name="skipExplanation">Skip this move to preserve your combo! Only works once per race.</string>
 </resources>

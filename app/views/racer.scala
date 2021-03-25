@@ -80,8 +80,9 @@ object racer {
       s.waitingToStart,
       s.createNewGame,
       trans.toInviteSomeoneToPlayGiveThisUrl,
+      s.skip,
       s.skipHelp,
-      s.skipExplanation,
+      s.skipExplanation
     ).map(_.key)
   }
 }
