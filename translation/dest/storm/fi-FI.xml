@@ -44,4 +44,8 @@
   <string name="joinRematch">Liity revanssiin</string>
   <string name="waitingToStart">Odotetaan alkamista</string>
   <string name="createNewGame">Luo uusi peli</string>
+  <string name="joinPublicRace">Liity avoimeen kisaan</string>
+  <string name="raceYourFriends">Kilpaile kaveriesi kanssa</string>
+  <string name="skip">ohita</string>
+  <string name="skipHelp">Kunkin kilvan aikana voit ohittaa yhden siirron:</string>
 </resources>
