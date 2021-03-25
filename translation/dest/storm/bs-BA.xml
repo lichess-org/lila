@@ -45,4 +45,9 @@
   <string name="joinRematch">Pridružite se revanšu</string>
   <string name="waitingToStart">Čekamo na početak</string>
   <string name="createNewGame">Kreirajte novu partiju</string>
+  <string name="joinPublicRace">Pridružite se javnoj utrci</string>
+  <string name="raceYourFriends">Utrkujte se s prijateljima</string>
+  <string name="skip">preskočite</string>
+  <string name="skipHelp">Možete preskočiti jedan potez po utrci:</string>
+  <string name="skipExplanation">Preskočite ovaj potez da sačuvate niz! Možete to samo jednom po utrci.</string>
 </resources>
