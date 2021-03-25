@@ -44,4 +44,6 @@
   <string name="joinRematch">Yeni oyuna qatıl</string>
   <string name="waitingToStart">Başlamaq üçün gözlə</string>
   <string name="createNewGame">Yeni oyun yarat</string>
+  <string name="raceYourFriends">Dostlarınla yarış</string>
+  <string name="skip">keç</string>
 </resources>
