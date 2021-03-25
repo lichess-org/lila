@@ -30,7 +30,7 @@ object racer {
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.Page.loneBookmark("racer"))(s.aboutRacer())
+          a(href := routes.Page.loneBookmark("racer"))(trans.aboutX("Puzzle Racer"))
         )
       )
     }
