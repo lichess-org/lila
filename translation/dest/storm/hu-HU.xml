@@ -15,8 +15,8 @@
     <item quantity="other">%s futam</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">%2$s futamból egy lejátszva</item>
-    <item quantity="other">%2$s futamból %1$s lejátszva</item>
+    <item quantity="one">Egy %2$s futamot játszott</item>
+    <item quantity="other">%1$s %2$s futamot játszott</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Pontszám</string>
