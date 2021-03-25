@@ -39,8 +39,8 @@
   <string name="spectating">Áskoðari</string>
   <string name="joinTheRace">Kom við í kapprenningina!</string>
   <string name="yourRankX">Tín støða: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Bíða eftir nýggjum talvi</string>
+  <string name="waitForRematch">Bíða eftir nýggjum talvi</string>
   <string name="nextRace">Næsta kapprenning</string>
   <string name="waitingToStart">Bíða eftir byrjan</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Byrja nýtt talv</string>
+  <string name="createNewGame">Byrja nýtt talv</string>
 </resources>
