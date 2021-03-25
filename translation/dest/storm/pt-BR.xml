@@ -44,4 +44,9 @@
   <string name="joinRematch">Junte-se a revanche</string>
   <string name="waitingToStart">Esperando para começar</string>
   <string name="createNewGame">Criar um novo jogo</string>
+  <string name="joinPublicRace">Junte-se a uma corrida pública</string>
+  <string name="raceYourFriends">Corra contra seus amigos</string>
+  <string name="skip">pular</string>
+  <string name="skipHelp">Você pode pular um movimento por corrida:</string>
+  <string name="skipExplanation">Pule este lance para preservar o seu combo! Funciona apenas uma vez por corrida.</string>
 </resources>
