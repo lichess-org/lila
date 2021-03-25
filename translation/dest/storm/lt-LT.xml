@@ -48,4 +48,9 @@
   <string name="joinRematch">Prisijungti revanšui</string>
   <string name="waitingToStart">Laukiama pradžios</string>
   <string name="createNewGame">Kurti naują žaidimą</string>
+  <string name="joinPublicRace">Prisijungti prie viešų lenktynių</string>
+  <string name="raceYourFriends">Lenktyniauti su draugais</string>
+  <string name="skip">praleisti</string>
+  <string name="skipHelp">NAUJA! Per lenktynes galite praleisti vieną ėjimą:</string>
+  <string name="skipExplanation">Praleiskite ėjimą norėdami išlaikyti seką! Veikia tik kartą per lenktynes.</string>
 </resources>
