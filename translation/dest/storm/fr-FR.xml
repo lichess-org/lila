@@ -44,4 +44,5 @@
   <string name="joinRematch">Faire une revanche</string>
   <string name="waitingToStart">Attendre le départ de la course</string>
   <string name="createNewGame">Créer une nouvelle course</string>
+  <string name="joinPublicRace">Rejoindre une course publique</string>
 </resources>
