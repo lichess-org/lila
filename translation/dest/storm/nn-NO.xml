@@ -46,4 +46,6 @@
   <string name="createNewGame">Lag eit nytt race</string>
   <string name="joinPublicRace">Bli med i eit offentleg race</string>
   <string name="raceYourFriends">Inviter venene dine til å delta i eit race</string>
+  <string name="skip">hopp over</string>
+  <string name="skipHelp">Du kan hoppe over eit trekk for kvart race:</string>
 </resources>
