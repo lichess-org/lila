@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import makeRenderers from './renderers';
 import { VNode } from 'snabbdom/vnode';
 
-export default function view (ctrl: Ctrl): VNode {
+export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
   return h(
     'div#notify-app.links.dropdown',
@@ -67,7 +67,7 @@ function notificationDenied(): VNode {
 }
 
 function asHtml(n: Notification, trans: Trans): VNode | undefined {
-  const renderers = makeRenderers(trans); 
+  const renderers = makeRenderers(trans);
   return renderers[n.type] ? renderers[n.type].html(n) : undefined;
 }
 

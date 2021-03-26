@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 import lila.app._
 import lila.app.templating.Environment._
-import lila.i18n.{I18nKeys => t}
+import lila.i18n.{ I18nKeys => t }
 import lila.notify.Notification.Notifies
 
 final class Notify(env: Env) extends LilaController(env) {
@@ -34,21 +34,22 @@ final class Notify(env: Env) extends LilaController(env) {
     t.someoneReviewedYourCoachProfile,
     t.lostAgainstTOSViolator,
     t.refundXpointsTimeControlY,
-    t.timeAlmostUp,
+    t.timeAlmostUp
   ).map(_.key)
 
   def recent(page: Int) =
     Auth { implicit ctx => me =>
       XhrOrRedirectHome {
         val notifies = Notifies(me.id)
-        env.notifyM.api.getNotificationsAndCount(notifies, page) map {
-            x => JsonOk( Json.obj(
-                "pager" -> x.pager,
-                "unread" -> x.unread,
-                "i18n" -> i18nJsObject(i18nKeys)
+        env.notifyM.api.getNotificationsAndCount(notifies, page) map { x =>
+          JsonOk(
+            Json.obj(
+              "pager"  -> x.pager,
+              "unread" -> x.unread,
+              "i18n"   -> i18nJsObject(i18nKeys)
             )
-        )
+          )
         }
+      }
     }
-  }
 }
