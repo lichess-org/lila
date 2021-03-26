@@ -99,41 +99,41 @@ export default function makeRenderers(trans: Trans): Renderers {
     html: n =>
       generic(n, '/patron', '', [
         h('span', [h('strong', trans.noarg('thankYou')), drawTime(n)]),
-        h('span', 'You just became a lichess Patron.'),
+        h('span', trans.noarg('youJustBecamePatron')),
       ]),
-    text: _ => 'You just became a lichess Patron.',
+    text: _ => trans.noarg('youJustBecamePatron'),
   },
   planExpire: {
     html: n =>
       generic(n, '/patron', '', [
-        h('span', [h('strong', 'Patron account expired'), drawTime(n)]),
-        h('span', 'Please consider renewing it!'),
+        h('span', [h('strong', trans.noarg('patronAccountExpired')), drawTime(n)]),
+        h('span', trans.noarg('pleaseReconsiderRenewIt')),
       ]),
-    text: _ => 'Patron account expired',
+    text: _ => trans.noarg('patronAccountExpired'),
   },
   coachReview: {
     html: n =>
       generic(n, '/coach/edit', ':', [
         h('span', [h('strong', 'New pending review'), drawTime(n)]),
-        h('span', 'Someone reviewed your coach profile.'),
+        h('span', trans.noarg('someoneReviewedYourCoachProfile')),
       ]),
-    text: _ => 'New pending review',
+    text: _ => trans.noarg('newPendingReview'),
   },
   ratingRefund: {
     html: n =>
       generic(n, '/player/myself', '', [
-        h('span', [h('strong', 'You lost to someone who violated the Lichess TOS'), drawTime(n)]),
-        h('span', 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'),
+        h('span', [h('strong', trans.noarg('lostAgainstTOSViolator')), drawTime(n)]),
+        h('span', trans('refundXpointsTimeControlY', n.content.points, n.content.perf)),
       ]),
-    text: n => 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.',
+    text: n => trans('refundXpointsTimeControlY', n.content.points, n.content.perf),
   },
   corresAlarm: {
     html: n =>
       generic(n, '/' + n.content.id, ';', [
-        h('span', [h('strong', 'Time is almost up!'), drawTime(n)]),
+        h('span', [h('strong', trans.noarg('timeAlmostUp')), drawTime(n)]),
         h('span', 'Game vs ' + n.content.op),
       ]),
-    text: _ => 'Time is almost up!',
+    text: _ => trans.noarg('timeAlmostUp'),
   },
   irwinDone: {
     html: n =>
