@@ -42,4 +42,7 @@
   <string name="joinRematch">再来一局</string>
   <string name="waitingToStart">等待开始</string>
   <string name="createNewGame">创建新比赛</string>
+  <string name="joinPublicRace">加入公开比赛</string>
+  <string name="raceYourFriends">和好友比赛</string>
+  <string name="skip">跳过</string>
 </resources>
