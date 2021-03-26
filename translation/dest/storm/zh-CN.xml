@@ -45,4 +45,6 @@
   <string name="joinPublicRace">加入公开比赛</string>
   <string name="raceYourFriends">和好友比赛</string>
   <string name="skip">跳过</string>
+  <string name="skipHelp">每场比赛仅能跳过一次</string>
+  <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
 </resources>
