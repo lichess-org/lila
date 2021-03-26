@@ -839,12 +839,12 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
-  <string name="mentionedYouInX"> mentioned you in « %1$s ».</string>
-  <string name="xMentionedYouInY"> %1$s mentioned you in « %2$s ».</string>
-  <string name="invitedYouToX"> invited you to « %1$s ».</string>
-  <string name="xInvitedYouToY">%1$s invited you to « %2$s ».</string>
+  <string name="mentionedYouInX"> mentioned you in "%1$s".</string>
+  <string name="xMentionedYouInY"> %1$s mentioned you in "%2$s".</string>
+  <string name="invitedYouToX"> invited you to "%1$s".</string>
+  <string name="xInvitedYouToY">%1$s invited you to "%2$s".</string>
   <string name="youAreNowPartOfTeam">You are now part of the team.</string>
-  <string name="youHaveJoinedTeamX">You have joined « %$1s ».</string>
+  <string name="youHaveJoinedTeamX">You have joined "%$1s".</string>
   <string name="someoneYouReportedWasBanned">Someone you reported was banned</string>
   <string name="congratsYouWon">Congratulations, you won!</string>
   <string name="gameVsX">Game vs %$1s</string>
