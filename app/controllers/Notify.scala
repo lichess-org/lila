@@ -1,19 +1,34 @@
 package controllers
 
-import lila.app._
-import lila.notify.Notification.Notifies
-
 import play.api.libs.json._
+
+import lila.app._
+import lila.app.templating.Environment._
+import lila.i18n.{I18nKeys => trans}
+import lila.notify.Notification.Notifies
 
 final class Notify(env: Env) extends LilaController(env) {
 
   import env.notifyM.jsonHandlers._
+  import lila.common.paginator.PaginatorJson._
+
+  private val i18nKeys: List[lila.i18n.MessageKey] = List(
+    trans.mentionedYouInX,
+    trans.xMentionedYouInY,
+  ).map(_.key)
 
   def recent(page: Int) =
     Auth { implicit ctx => me =>
       XhrOrRedirectHome {
         val notifies = Notifies(me.id)
-        env.notifyM.api.getNotificationsAndCount(notifies, page) map { JsonOk(_) }
-      }
+        env.notifyM.api.getNotificationsAndCount(notifies, page) map {
+            x => JsonOk( Json.obj(
+                "pager" -> x.pager,
+                "unread" -> x.unread,
+                "i18n" -> i18nJsObject(i18nKeys)
+            )
+        )
+        }
     }
+  }
 }

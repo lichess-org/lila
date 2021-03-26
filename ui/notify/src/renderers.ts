@@ -18,9 +18,9 @@ export default function makeRenderers(trans: Trans): Renderers {
     html: n =>
       generic(n, '/forum/redirect/post/' + n.content.postId, 'd', [
         h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
-        h('span', ' mentioned you in « ' + n.content.topic + ' ».'),
+        h('span', trans('mentionedYouInX', n.content.topic)),
       ]),
-    text: n => userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».',
+    text: n => trans('xMentionedYouInY', userFullName(n.content.mentionedBy), n.content.topic),
   },
   invitedStudy: {
     html: n =>
