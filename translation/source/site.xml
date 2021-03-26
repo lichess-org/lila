@@ -839,6 +839,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
-  <string name="mentionedYouInX"> mentioned you in « %1$ ».</string>
-  <string name="xMentionedYouInY"> %1$ mentioned you in « %2$ ».</string>
+  <string name="mentionedYouInX"> mentioned you in « %1$s ».</string>
+  <string name="xMentionedYouInY"> %1$s mentioned you in « %2$s ».</string>
 </resources>
