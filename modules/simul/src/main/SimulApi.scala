@@ -60,7 +60,7 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.create(simul, me.hasTitle && ~setup.featured) >>- publish() >>- {
+    repo.create(simul, canBeFeatured(me) && ~setup.featured) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }
@@ -75,8 +75,10 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.update(simul, some(me.hasTitle && ~setup.featured)) >>- publish() inject simul
+    repo.update(simul, some(canBeFeatured(me) && ~setup.featured)) >>- publish() inject simul
   }
+
+  private def canBeFeatured(user: User) = user.hasTitle && !user.lameOrTroll
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
