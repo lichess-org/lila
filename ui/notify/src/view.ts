@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { renderers } from './renderers';
 import { VNode } from 'snabbdom/vnode';
 
-export default function (ctrl: Ctrl): VNode {
+export default function view (ctrl: Ctrl): VNode {
   const d = ctrl.data();
 
   return h(
