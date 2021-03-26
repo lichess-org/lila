@@ -36,9 +36,11 @@ class StringTest extends Specification {
     }
 
     "prize regex" should {
-      String.looksLikePrize(s"HqVrbTcy") must beFalse
-      String.looksLikePrize("10btc") must beTrue
-      String.looksLikePrize("ten btc") must beTrue
+      "not find btc in url" in {
+        String.looksLikePrize(s"HqVrbTcy") must beFalse
+        String.looksLikePrize(s"10btc") must beTrue
+        String.looksLikePrize(s"ten btc") must beTrue
+      }
     }
   }
 
