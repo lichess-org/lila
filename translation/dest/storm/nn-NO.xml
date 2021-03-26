@@ -44,4 +44,6 @@
   <string name="joinRematch">Bli med på neste race</string>
   <string name="waitingToStart">Vent på starten</string>
   <string name="createNewGame">Lag eit nytt race</string>
+  <string name="joinPublicRace">Bli med i eit offentleg race</string>
+  <string name="raceYourFriends">Inviter venene dine til å delta i eit race</string>
 </resources>
