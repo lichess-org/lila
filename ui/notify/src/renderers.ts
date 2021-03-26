@@ -26,9 +26,9 @@ export default function makeRenderers(trans: Trans): Renderers {
     html: n =>
       generic(n, '/study/' + n.content.studyId, '4', [
         h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
-        h('span', ' invited you to « ' + n.content.studyName + ' ».'),
+        h('span', trans('invitedYouToX', n.content.studyName)),
       ]),
-    text: n => userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».',
+    text: n => trans('xInvitedYouToY', userFullName(n.content.invitedBy), n.content.studyName),
   },
   privateMessage: {
     html: n =>
@@ -42,9 +42,9 @@ export default function makeRenderers(trans: Trans): Renderers {
     html: n =>
       generic(n, '/team/' + n.content.id, 'f', [
         h('span', [h('strong', n.content.name), drawTime(n)]),
-        h('span', 'You are now part of the team.'),
+        h('span', trans.noarg('youAreNowPartOfTeam')),
       ]),
-    text: n => 'You have joined  « ' + n.content.name + '  ».',
+    text: n => trans('youHaveJoinedTeamX', n.content.name),
   },
   titledTourney: {
     html: n =>
@@ -57,10 +57,10 @@ export default function makeRenderers(trans: Trans): Renderers {
   reportedBanned: {
     html: n =>
       generic(n, undefined, '', [
-        h('span', [h('strong', 'Someone you reported was banned')]),
-        h('span', 'Thank you for the help!'),
+        h('span', [h('strong', trans.noarg('someoneYouReportedWasBanned'))]),
+        h('span', trans.noarg('thankYou')),
       ]),
-    text: _ => 'Someone you reported was banned',
+    text: _ => trans.noarg('someoneYouReportedWasBanned'),
   },
   gameEnd: {
     html: n => {
