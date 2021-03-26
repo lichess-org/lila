@@ -21,6 +21,12 @@ final class Notify(env: Env) extends LilaController(env) {
     t.youHaveJoinedTeamX,
     t.thankYou,
     t.someoneYouReportedWasBanned,
+    t.victory,
+    t.defeat,
+    t.draw,
+    t.congratsYouWon,
+    t.gameVsX,
+    t.resVsX,
   ).map(_.key)
 
   def recent(page: Int) =

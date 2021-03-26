@@ -67,38 +67,38 @@ export default function makeRenderers(trans: Trans): Renderers {
       let result;
       switch (n.content.win) {
         case true:
-          result = 'Congratulations, you won!';
+          result = trans.noarg('congratsYouWon');
           break;
         case false:
-          result = 'You lost!';
+          result = trans.noarg('defeat');
           break;
         default:
-          result = "It's a draw.";
+          result = trans.noarg('draw');
       }
       return generic(n, '/' + n.content.id, ';', [
-        h('span', [h('strong', 'Game vs ' + userFullName(n.content.opponent)), drawTime(n)]),
+        h('span', [h('strong', trans('gameVsX', userFullName(n.content.opponent))), drawTime(n)]),
         h('span', result),
       ]);
     },
-    text: function (n) {
+    text: n => {
       let result;
       switch (n.content.win) {
         case true:
-          result = 'Victory';
+          result = trans.noarg('victory');
           break;
         case false:
-          result = 'Defeat';
+          result = trans.noarg('defeat');
           break;
         default:
-          result = 'Draw';
+          result = trans.noarg('draw');
       }
-      return result + ' vs ' + userFullName(n.content.opponent);
+      return trans('resVsX', result, userFullName(n.content.opponent));
     },
   },
   planStart: {
     html: n =>
       generic(n, '/patron', '', [
-        h('span', [h('strong', 'Thank you!'), drawTime(n)]),
+        h('span', [h('strong', trans.noarg('thankYou')), drawTime(n)]),
         h('span', 'You just became a lichess Patron.'),
       ]),
     text: _ => 'You just became a lichess Patron.',

@@ -846,4 +846,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youAreNowPartOfTeam">You are now part of the team.</string>
   <string name="youHaveJoinedTeamX">You have joined « %$1s ».</string>
   <string name="someoneYouReportedWasBanned">Someone you reported was banned</string>
+  <string name="congratsYouWon">Congratulations, you won!</string>
+  <string name="gameVsX">Game vs %$1s</string>
+  <string name="resVsX">%$1s vs %$2s</string>
 </resources>
