@@ -1,18 +1,20 @@
-import { Ctrl, NotifyData, Notification } from './interfaces';
+import { Ctrl, NotifyData, Notification, Renderers } from './interfaces';
 import { h } from 'snabbdom';
-import { renderers } from './renderers';
+import makeRenderers from './renderers';
 import { VNode } from 'snabbdom/vnode';
 
 export default function view (ctrl: Ctrl): VNode {
   const d = ctrl.data();
+  const trans = lichess.trans(d.i18n);
+  const renderers = makeRenderers(trans);
 
   return h(
     'div#notify-app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]
+    d && !ctrl.initiating() ? renderContent(ctrl, d, renderers) : [h('div.initiating', spinner())]
   );
 }
 
-function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
+function renderContent(ctrl: Ctrl, d: NotifyData, renderers: Renderers): VNode[] {
   const pager = d.pager;
   const nb = pager.currentPageResults.length;
 
@@ -49,7 +51,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   return nodes;
 }
 
-export function asText(n: Notification): string | undefined {
+export function asText(n: Notification, renderers: Renderers): string | undefined {
   return renderers[n.type] ? renderers[n.type].text(n) : undefined;
 }
 
@@ -66,7 +68,7 @@ function notificationDenied(): VNode {
   );
 }
 
-function asHtml(n: Notification): VNode | undefined {
+function asHtml(n: Notification, renderers: Renderers): VNode | undefined {
   return renderers[n.type] ? renderers[n.type].html(n) : undefined;
 }
 

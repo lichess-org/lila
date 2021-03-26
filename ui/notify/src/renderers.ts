@@ -4,7 +4,8 @@ import { VNode } from 'snabbdom/vnode';
 import { Notification, Renderers } from './interfaces';
 
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
-export const renderers: Renderers = {
+export default function makeRenderers(trans: Trans): Renderers {
+  return {
   genericLink: {
     html: n =>
       generic(n, n.content.url, n.content.icon, [
@@ -142,7 +143,7 @@ export const renderers: Renderers = {
       ]),
     text: n => n.content.user.name + ': Irwin job complete!',
   },
-};
+}};
 
 function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
   return h(
