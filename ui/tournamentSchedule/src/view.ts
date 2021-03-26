@@ -259,7 +259,10 @@ export default function (ctrl) {
               mousedownAt = [e.clientX, e.clientY];
             });
             el.addEventListener('click', e => {
-              if (mousedownAt && Math.pow(e.clientX - mousedownAt[0], 2) + Math.pow(e.clientY - mousedownAt[1], 2)) {
+              const dist = mousedownAt
+                ? Math.abs(e.clientX - mousedownAt![0]) + Math.abs(e.clientY - mousedownAt![1])
+                : 0;
+              if (dist > 20) {
                 e.preventDefault();
                 return false;
               }
