@@ -122,6 +122,8 @@ GET   /racer/:id                        controllers.Racer.show(id: String)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id: String)
 POST  /racer/lobby                      controllers.Racer.lobby
 
+GET   /streak                           controllers.Streak.home
+
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
