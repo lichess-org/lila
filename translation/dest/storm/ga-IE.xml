@@ -50,4 +50,7 @@
   <string name="joinRematch">Téigh isteach i athchluiche</string>
   <string name="waitingToStart">Ag fanacht le tosú</string>
   <string name="createNewGame">Cruthaigh cluiche nua</string>
+  <string name="joinPublicRace">Glac páirt i rás poiblí</string>
+  <string name="raceYourFriends">Rás in aghaidh do chairde</string>
+  <string name="skip">scipeáil</string>
 </resources>
