@@ -855,5 +855,5 @@
   <string name="newPendingReview">Neue ausstehende Überprüfung</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %$1s %$2s Wertungspunkte.</string>
-  <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
+  <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
 </resources>
