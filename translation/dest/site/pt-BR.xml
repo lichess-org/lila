@@ -853,4 +853,7 @@
   <string name="pleaseReconsiderRenewIt">Por favor, considere renová-la!</string>
   <string name="someoneReviewedYourCoachProfile">Alguém revisou o seu perfil de treinador.</string>
   <string name="newPendingReview">Nova revisão pendente</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Você perdeu para alguém que violou os termos de serviço do Lichess</string>
+  <string name="refundXpointsTimeControlY">Reembolso: %$1s %$2s pontos de classificação.</string>
+  <string name="timeAlmostUp">O tempo está quase acabando!</string>
 </resources>
