@@ -929,7 +929,7 @@ v %3$s</string>
   <string name="pleaseReconsiderRenewIt">Prosimo, razmislite o podaljšanju!</string>
   <string name="someoneReviewedYourCoachProfile">Nekdo je pregledal vaš profil trenerja.</string>
   <string name="newPendingReview">Novo čakanje na pregled</string>
-  <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
   <string name="refundXpointsTimeControlY">Vračilo: %$1s %$2s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
 </resources>
