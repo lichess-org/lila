@@ -5,6 +5,7 @@
   <string name="freeAccount">免費帳戶</string>
   <string name="becomePatron">成為 Lichess 贊助者</string>
   <string name="xBecamePatron">%s 成為了 Lichess 贊助者</string>
+  <string name="newPatrons">新贊助者</string>
   <string name="noAdsNoSubs">無廣告、無訂閱；只有開源和熱情。</string>
   <string name="thankYou">感謝您的捐款!</string>
   <string name="lifetime">終身</string>
@@ -17,6 +18,8 @@
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">我捐出的錢會到哪裡?</string>
   <string name="officialNonProfit">Lichess 是一個非營利組織嗎?</string>
+  <string name="changeOrContact">當然，您隨時可以在本頁更改。
+您也可以 %s。</string>
   <string name="contactSupport">聯絡 Lichess 支援</string>
   <string name="otherMethods">有其他的贊助方式嗎？</string>
   <string name="bankTransfers">我們也接受銀行轉帳</string>
