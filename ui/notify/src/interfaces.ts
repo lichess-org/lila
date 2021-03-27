@@ -13,6 +13,7 @@ export interface NotifyOpts {
 export interface NotifyData {
   pager: Paginator<Notification>;
   unread: number;
+  i18n: any;
 }
 
 interface NotificationUser {

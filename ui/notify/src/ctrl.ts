@@ -4,7 +4,7 @@ import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { asText } from './view';
 
-export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
+export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   let data: NotifyData | undefined,
     initiating = true,
     scrolling = false;
@@ -39,7 +39,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (!notif) return;
     opts.pulse();
     if (!lichess.quietMode || notif.content.user.id == 'lichess') lichess.sound.play('newPM');
-    const text = asText(notif);
+    const text = asText(notif, lichess.trans(data.i18n));
     const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
   }
