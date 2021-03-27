@@ -891,4 +891,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
   <string name="newPendingReview">Novi pregled na čekanju</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
+  <string name="refundXpointsTimeControlY">Povrat: %$1s %$2s rejting-bodova.</string>
+  <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
 </resources>
