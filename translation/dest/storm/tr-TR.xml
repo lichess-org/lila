@@ -44,7 +44,7 @@
   <string name="joinRematch">Rövanşa katıl</string>
   <string name="waitingToStart">Başlamak üzere</string>
   <string name="createNewGame">Yeni bir oyun oluştur</string>
-  <string name="joinPublicRace">Diğer oyuncularla yarış</string>
+  <string name="joinPublicRace">Herkese açık yarışa katıl</string>
   <string name="raceYourFriends">Arkadaşlarınla yarış</string>
   <string name="skip">atla</string>
   <string name="skipHelp">Her yarışta bir hamleyi atlayabilirsin:</string>
