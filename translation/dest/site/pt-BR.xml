@@ -838,4 +838,19 @@
   <string name="youCannotPostYetPlaySomeGames">Você não pode publicar nos fóruns ainda. Jogue algumas partidas!</string>
   <string name="subscribe">Seguir publicações</string>
   <string name="unsubscribe">Deixar de seguir publicações</string>
+  <string name="mentionedYouInX"> mencionou você em \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mencionou você em \"%2$s\".</string>
+  <string name="invitedYouToX"> convidou você para \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
+  <string name="youHaveJoinedTeamX">Você ingressou em \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Alguém que você denunciou foi banido</string>
+  <string name="congratsYouWon">Parabéns, você venceu!</string>
+  <string name="gameVsX">Jogo vs %$1s</string>
+  <string name="resVsX">%$1s vs %$2s</string>
+  <string name="youJustBecamePatron">Você acaba de se tornar um Patrono Lichess.</string>
+  <string name="patronAccountExpired">Conta de Patron expirada</string>
+  <string name="pleaseReconsiderRenewIt">Por favor, considere renová-la!</string>
+  <string name="someoneReviewedYourCoachProfile">Alguém revisou o seu perfil de treinador.</string>
+  <string name="newPendingReview">Nova revisão pendente</string>
 </resources>
