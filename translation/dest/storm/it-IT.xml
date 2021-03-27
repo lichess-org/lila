@@ -48,4 +48,5 @@
   <string name="raceYourFriends">Gareggia con i tuoi amici</string>
   <string name="skip">salta</string>
   <string name="skipHelp">Puoi saltare una mossa per gara:</string>
+  <string name="skipExplanation">Salta la prossima mossa per mantenere la striscia positiva! È possibile farlo solo una volta per gara.</string>
 </resources>
