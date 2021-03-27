@@ -838,7 +838,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
-  <string name="mentionedYouInX"> erwähnte Sie in \"%1$s\".</string>
+  <string name="mentionedYouInX"> erwähnte dich in \"%1$s\".</string>
   <string name="xMentionedYouInY"> %1$s erwähnte dich in \"%2$s\".</string>
   <string name="invitedYouToX"> hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">\"%1$s\" hat dich zu \"%2$s\" eingeladen.</string>
@@ -852,7 +852,7 @@
   <string name="patronAccountExpired">Patron-Konto abgelaufen</string>
   <string name="pleaseReconsiderRenewIt">Bitte überlege, ob du es erneuern willst!</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
-  <string name="newPendingReview">Neue ausstehende Überprüfung</string>
+  <string name="newPendingReview">Neue, ausstehende Überprüfung</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %$1s %$2s Wertungspunkte.</string>
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
