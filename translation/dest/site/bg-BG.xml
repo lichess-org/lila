@@ -846,4 +846,6 @@
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%$1s\".</string>
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
+  <string name="gameVsX">Партия срещу %$1s</string>
+  <string name="resVsX">%$1s срещу %$2s</string>
 </resources>
