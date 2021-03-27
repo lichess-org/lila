@@ -12,7 +12,7 @@ export interface SwissOpts {
   $side: Cash;
   socketSend: SocketSend;
   chat: any;
-  i18n: any;
+  i18n: I18nDict;
   classes: string | null;
 }
 

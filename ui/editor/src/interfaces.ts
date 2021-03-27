@@ -25,7 +25,7 @@ export interface EditorConfig {
   };
   embed: boolean;
   positions?: OpeningPosition[];
-  i18n: any;
+  i18n: I18nDict;
 }
 
 export interface EditorOptions {

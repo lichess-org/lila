@@ -11,7 +11,7 @@ export interface SimulOpts {
   $side: Cash;
   socketVersion: number;
   chat: any;
-  i18n: any;
+  i18n: I18nDict;
   socketSend: SocketSend;
 }
 

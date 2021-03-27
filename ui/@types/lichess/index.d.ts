@@ -33,7 +33,7 @@ interface Lichess {
   studyTour(study: Study): void;
   studyTourChapter(study: Study): void;
 
-  trans(i18n: { [key: string]: string | undefined }): Trans;
+  trans(i18n: I18nDict): Trans;
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
   socket: any;
@@ -80,6 +80,8 @@ interface Lichess {
   quietMode?: boolean;
   keyboardMove?: any;
 }
+
+type I18nDict = { [key: string]: string };
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 

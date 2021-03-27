@@ -115,7 +115,7 @@ export interface AnalyseOpts {
   relay?: RelayData;
   $side?: Cash;
   $underboard?: Cash;
-  i18n: any;
+  i18n: I18nDict;
   chat: {
     parseMoves: boolean;
     instance?: Promise<ChatCtrl>;

@@ -19,7 +19,7 @@ export interface DasherData {
   piece: PieceData;
   coach: boolean;
   streamer: boolean;
-  i18n: any;
+  i18n: I18nDict;
 }
 
 export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece';
