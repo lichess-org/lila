@@ -82,6 +82,7 @@ function clickHook(f: () => void) {
 const contentLoaded = (vnode: VNode) => lichess.contentLoaded(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
+  const trans = lichess.trans(d.i18n);
   return h(
     'div',
     {
@@ -94,7 +95,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
         postpatch: contentLoaded,
       },
     },
-    d.pager.currentPageResults.map(n => asHtml(n, lichess.trans(d.i18n))) as VNode[]
+    d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[]
   );
 }
 
