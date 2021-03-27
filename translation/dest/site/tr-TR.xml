@@ -838,4 +838,6 @@
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
+  <string name="congratsYouWon">Tebrikler, kazandınız!</string>
+  <string name="youJustBecamePatron">Artık bir Lichess Destekçisisiniz.</string>
 </resources>
