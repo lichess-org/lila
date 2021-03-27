@@ -923,4 +923,11 @@
   <string name="gameVsX">Партия против %$1s</string>
   <string name="resVsX">%$1s против %$2s</string>
   <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
+  <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
+  <string name="pleaseReconsiderRenewIt">Пожалуйста, обновите приложение!</string>
+  <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
+  <string name="newPendingReview">Ожидают рассмотрения</string>
+  <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил Пользовательское соглашение Lichess</string>
+  <string name="refundXpointsTimeControlY">Возврат: %$1s %$2s рейтинговых очков.</string>
+  <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>
