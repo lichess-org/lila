@@ -912,4 +912,11 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
+  <string name="mentionedYouInX"> wspomniał o tobie w \"%1$s\".</string>
+  <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
+  <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
+  <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
+  <string name="resVsX">%$1s vs %$2s</string>
+  <string name="patronAccountExpired">Konto Patron wygasło</string>
+  <string name="timeAlmostUp">Czas prawie minął!</string>
 </resources>
