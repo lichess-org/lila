@@ -848,6 +848,9 @@
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
   <string name="gameVsX">Játszma %$1s ellen</string>
   <string name="resVsX">%$1s %$2s ellen</string>
+  <string name="youJustBecamePatron">Éppen Lichess Patronná váltál.</string>
+  <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
+  <string name="newPendingReview">Új függőben lévő értékelés</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
   <string name="refundXpointsTimeControlY">Visszatérítve: %$1s %$2s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
