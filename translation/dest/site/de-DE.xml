@@ -852,4 +852,8 @@
   <string name="patronAccountExpired">Patron Account abgelaufen</string>
   <string name="pleaseReconsiderRenewIt">Bitte überlegen Sie, ob Sie sie erneuern wollen!</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat Ihr Trainerprofil bewertet.</string>
+  <string name="newPendingReview">Neue, zur Überprüfung ausstehende</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der die Lichess Regeln verletzt hat</string>
+  <string name="refundXpointsTimeControlY">Rückerstattung: %$1s %$2s Wertungspunkte.</string>
+  <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
 </resources>
