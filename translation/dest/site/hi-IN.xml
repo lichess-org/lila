@@ -843,4 +843,7 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
+  <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
+  <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
+  <string name="youJustBecamePatron">आप बस एक लिशेस पैट्रन बन गए।</string>
 </resources>
