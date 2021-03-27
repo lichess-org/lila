@@ -838,4 +838,5 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
+  <string name="mentionedYouInX"> erwähnte Sie in \"%1$s\".</string>
 </resources>
