@@ -9,7 +9,6 @@ import lila.notify.Notification.Notifies
 
 final class Notify(env: Env) extends LilaController(env) {
 
-  import env.notifyM.jsonHandlers._
   import lila.common.paginator.PaginatorJson._
 
   private val i18nKeys: List[lila.i18n.MessageKey] = List(
@@ -43,10 +42,8 @@ final class Notify(env: Env) extends LilaController(env) {
         val notifies = Notifies(me.id)
         env.notifyM.api.getNotificationsAndCount(notifies, page) map { x =>
           JsonOk(
-            Json.obj(
-              "pager"  -> x.pager,
-              "unread" -> x.unread,
-              "i18n"   -> i18nJsObject(i18nKeys)
+            env.notifyM.jsonHandlers.andUnreadWrites.writes(x) ++ Json.obj(
+              "i18n" -> i18nJsObject(i18nKeys)
             )
           )
         }
