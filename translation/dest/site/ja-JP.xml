@@ -802,4 +802,14 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
+  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
+  <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
+  <string name="youHaveJoinedTeamX">「%$1s」に参加しました。</string>
+  <string name="someoneYouReportedWasBanned">あなたが通報した人が追放されました</string>
+  <string name="congratsYouWon">おめでとう、あなたの勝ちです！</string>
+  <string name="gameVsX">%$1s との対局</string>
+  <string name="resVsX">%$1s 対 %$2s</string>
+  <string name="youJustBecamePatron">あなたは Lichess パトロンになりました。</string>
+  <string name="patronAccountExpired">パトロン期間の終了です</string>
+  <string name="pleaseReconsiderRenewIt">更新をご検討ください。</string>
 </resources>
