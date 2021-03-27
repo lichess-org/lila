@@ -44,4 +44,8 @@
   <string name="joinRematch">Unirse ao desquite</string>
   <string name="waitingToStart">Esperando a que comece</string>
   <string name="createNewGame">Crea unha nova partida</string>
+  <string name="joinPublicRace">Únete a unha corrida pública</string>
+  <string name="raceYourFriends">Corre contra os teus amigos</string>
+  <string name="skip">omitir</string>
+  <string name="skipHelp">Podes omitir un movemento por carreira:</string>
 </resources>
