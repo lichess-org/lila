@@ -16,8 +16,7 @@ final class ForumRecent(
   private val categIds = List(
     "general-chess-discussion",
     "game-analysis",
-    "lichess-feedback",
-    "off-topic-discussion"
+    "lichess-feedback"
   )
 
   private type GetTeamIds = String => Fu[List[String]]
