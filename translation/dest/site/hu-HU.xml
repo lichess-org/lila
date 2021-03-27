@@ -843,4 +843,5 @@
   <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
+  <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%$1s\".</string>
 </resources>
