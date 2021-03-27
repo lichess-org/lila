@@ -848,12 +848,12 @@
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %$1s</string>
   <string name="resVsX">%$1s gegen %$2s</string>
-  <string name="youJustBecamePatron">Du wurdest ein Lichess Patron.</string>
-  <string name="patronAccountExpired">Patron Account abgelaufen</string>
-  <string name="pleaseReconsiderRenewIt">Bitte überlegen Sie, ob Sie sie erneuern wollen!</string>
-  <string name="someoneReviewedYourCoachProfile">Jemand hat Ihr Trainerprofil bewertet.</string>
-  <string name="newPendingReview">Neue, zur Überprüfung ausstehende</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der die Lichess Regeln verletzt hat</string>
+  <string name="youJustBecamePatron">Du wurdest nun ein Lichess-Patron.</string>
+  <string name="patronAccountExpired">Patron-Konto abgelaufen</string>
+  <string name="pleaseReconsiderRenewIt">Bitte überlege, ob du es erneuern willst!</string>
+  <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
+  <string name="newPendingReview">Neue ausstehende Überprüfung</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %$1s %$2s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
 </resources>
