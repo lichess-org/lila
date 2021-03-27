@@ -43,4 +43,10 @@
   <string name="nextRace">Garë tjetër</string>
   <string name="joinRematch">Bashkohu revanshës</string>
   <string name="waitingToStart">Duke pritur fillimin</string>
+  <string name="createNewGame">Krijo një lojë të re</string>
+  <string name="joinPublicRace">Bashkohu një gare publike</string>
+  <string name="raceYourFriends">Garohu me shokët</string>
+  <string name="skip">kapërce</string>
+  <string name="skipHelp">Ju mundeni te kapërceni një lëvizje për garë:</string>
+  <string name="skipExplanation">Kapërce këtë lëvizje qe te ruash kombinimet! Bën vetëm një herë per garë.</string>
 </resources>
