@@ -850,4 +850,7 @@
   <string name="resVsX">%$1s срещу %$2s</string>
   <string name="youJustBecamePatron">Станахте Lichess Дарител.</string>
   <string name="patronAccountExpired">Дарителският Ви статус изтече</string>
+  <string name="pleaseReconsiderRenewIt">Моля подновете подкрепата си!</string>
+  <string name="someoneReviewedYourCoachProfile">Някой прегледа Вашия треньорски профил.</string>
+  <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">В очакване на преглед</string>
 </resources>
