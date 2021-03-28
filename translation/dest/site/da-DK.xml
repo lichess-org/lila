@@ -852,8 +852,8 @@
   <string name="patronAccountExpired">Patron-konto udløbet</string>
   <string name="pleaseReconsiderRenewIt">Overvej venligst at forny den!</string>
   <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
-  <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Ny afventende gennemgang</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refunderet: %$1s %$2s ratingpoint.</string>
-  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Tiden er næsten udløbet!</string>
+  <string name="newPendingReview">Ny afventende gennemgang</string>
+  <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
+  <string name="refundXpointsTimeControlY">Refunderet: %$1s %$2s ratingpoint.</string>
+  <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
 </resources>
