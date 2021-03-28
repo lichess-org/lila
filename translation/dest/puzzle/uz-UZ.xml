@@ -9,7 +9,7 @@
   <string name="lengths">Uzunliklar</string>
   <string name="mates">Motlar</string>
   <string name="goals">Maqsadlar</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Kelib chiqish</string>
+  <string name="origin">Kelib chiqish</string>
   <string name="specialMoves">Maxsus yurishlar</string>
   <string name="didYouLikeThisPuzzle">Ushbu boshqotirma yoqdimi?</string>
   <string name="voteToLoadNextOne">Navbatdagi bittasini oʻqish uchun baholang!</string>
