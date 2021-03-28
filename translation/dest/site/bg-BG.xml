@@ -848,4 +848,6 @@
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
   <string name="gameVsX">Партия срещу %$1s</string>
   <string name="resVsX">%$1s срещу %$2s</string>
+  <string name="youJustBecamePatron">Станахте Lichess Дарител.</string>
+  <string name="patronAccountExpired">Дарителският Ви статус изтече</string>
 </resources>
