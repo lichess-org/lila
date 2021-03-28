@@ -48,5 +48,8 @@
   <string name="joinRematch">Dołącz do rewanżu</string>
   <string name="waitingToStart">Oczekiwanie na rozpoczęcie</string>
   <string name="createNewGame">Utwórz nową grę</string>
+  <string name="joinPublicRace">Dołącz do publicznego wyścigu</string>
+  <string name="raceYourFriends">Ścigaj się ze znajomymi</string>
   <string name="skip">pomiń</string>
+  <string name="skipHelp">W każdym wyścigu możesz pominąć jeden ruch:</string>
 </resources>
