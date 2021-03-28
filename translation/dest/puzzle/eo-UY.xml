@@ -9,7 +9,7 @@
   <string name="lengths">Longecoj</string>
   <string name="mates">Matoj</string>
   <string name="goals">Celoj</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Originoj</string>
+  <string name="origin">Originoj</string>
   <string name="specialMoves">Specialaj movoj</string>
   <string name="didYouLikeThisPuzzle">Ĉu vi ŝatis la puzlon?</string>
   <string name="voteToLoadNextOne">Voĉdonu por iri al la venonta puzlo!</string>
