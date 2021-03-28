@@ -8,7 +8,7 @@
   <string name="lengths">Дужина</string>
   <string name="mates">Матови</string>
   <string name="goals">Циљеви</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Порекло</string>
+  <string name="origin">Порекло</string>
   <string name="specialMoves">Специјални потези</string>
   <string name="didYouLikeThisPuzzle">Да ли вам се свиђа овај проблем?</string>
   <string name="voteToLoadNextOne">Оцените да би учитали следећу!</string>
