@@ -9,7 +9,7 @@
   <string name="lengths">Дължини</string>
   <string name="mates">Матове</string>
   <string name="goals">Цели</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Произход</string>
+  <string name="origin">Произход</string>
   <string name="specialMoves">Специални ходове</string>
   <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
   <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
