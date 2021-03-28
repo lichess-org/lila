@@ -852,6 +852,6 @@
   <string name="patronAccountExpired">Statut de mécène expiré</string>
   <string name="pleaseReconsiderRenewIt">Songez à le renouveler!</string>
   <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Izgubili ste z nekom, ki je kršil Lichessove pogoje storitev</string>
-  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Il ne vous reste plus beaucoup de temps !</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Vous n\'avez presque plus de temps!</string>
 </resources>
