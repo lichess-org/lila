@@ -50,4 +50,9 @@
   <string name="history">Historique des problèmes</string>
   <string name="solved">résolu</string>
   <string name="failed">non réussis</string>
+  <string name="streakDescription">Rešujte postopoma težje uganke in zgradite niz zmag. Ure ni, zato si vzemite čas. Ena napačna poteza in igre je konec! Lahko pa preskočite eno potezo na sejo.</string>
+  <string name="yourStreakX">Vaša serija: %s</string>
+  <string name="streakSkipExplanation">Preskočite to potezo, da ohranite svojo žilico! Deluje samo enkrat na vožnjo.</string>
+  <string name="continueTheStreak">Nadaljujte serijo</string>
+  <string name="newStreak">Nova serija</string>
 </resources>
