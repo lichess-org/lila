@@ -38,7 +38,7 @@ export default class SimulCtrl {
     };
   };
 
-  teamBlock = () => this.data.team && !this.data.team.isIn;
+  teamBlock = () => !!this.data.team && !this.data.team.isIn;
   createdByMe = () => this.opts.userId === this.data.host.id;
   candidates = () => this.data.applicants.filter(a => !a.accepted);
   accepted = () => this.data.applicants.filter(a => a.accepted);

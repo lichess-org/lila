@@ -29,7 +29,7 @@ const NumberFirstRegex = /^(\d+)\s(.+)$/,
   NumberLastRegex = /^(.+)\s(\d+)$/;
 
 const splitNumber = (s: string) => {
-  let found: string[];
+  let found: string[] | null;
   if ((found = s.match(NumberFirstRegex))) return [h('div.number', found[1]), h('div.text', found[2])];
   if ((found = s.match(NumberLastRegex))) return [h('div.number', found[2]), h('div.text', found[1])];
   return h('div.text', s);
