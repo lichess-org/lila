@@ -889,8 +889,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="patronAccountExpired">Račun sponzora istekao</string>
   <string name="pleaseReconsiderRenewIt">Molimo, razmotrite da ga obnovite!</string>
   <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
-  <string name="newPendingReview">Novi pregled na čekanju</string>
+  <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Novi pregled na čekanju</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
-  <string name="refundXpointsTimeControlY">Povrat: %$1s %$2s rejting-bodova.</string>
-  <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Povrat: %$1s %$2s rejting-bodova.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Vrijeme je pri kraju!</string>
 </resources>
