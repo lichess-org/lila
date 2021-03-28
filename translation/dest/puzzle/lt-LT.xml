@@ -9,7 +9,7 @@
   <string name="lengths">Ilgiai</string>
   <string name="mates">Matai</string>
   <string name="goals">Tikslai</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Kilmė</string>
+  <string name="origin">Kilmė</string>
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
