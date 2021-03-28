@@ -845,6 +845,7 @@
   <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Някого когото сте докладвали беше блокиран</string>
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
   <string name="gameVsX">Партия срещу %$1s</string>
   <string name="resVsX">%$1s срещу %$2s</string>
