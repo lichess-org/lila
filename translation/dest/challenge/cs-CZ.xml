@@ -8,7 +8,7 @@
   <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
   <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaše %1$s hodnocení je příliš daleko od %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="declineGeneric">V tuto chvíli nepřijímám výzvy.</string>
