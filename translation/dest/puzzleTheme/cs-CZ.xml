@@ -12,7 +12,7 @@
   <string name="bishopEndgame">Střelcové koncovky</string>
   <string name="bishopEndgameDescription">Koncovka jen se střelci a pěšci.</string>
   <string name="bodenMate">Bodenův mat</string>
-  <string name="bodenMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi, jež je zablokován svými figurami.</string>
+  <string name="bodenMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi, jež je zablokován svými figurami. </string>
   <string name="castling">Rošáda</string>
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
