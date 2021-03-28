@@ -15,9 +15,10 @@
   }
 
   .button {
+    @extend %flex-column;
+    align-items: center;
     font-size: 1.5em;
     padding: 4em 0;
-    display: block;
     width: 100%;
     opacity: 0.75;
     overflow: hidden;
@@ -33,12 +34,12 @@
     &:hover {
       opacity: 1;
       .car {
-        transform: translateX(0.1em) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        transform: translateX(0.1em) scaleX(0.95) skewX(6deg) rotate(-3deg);
         transition: all 0.15s ease-out;
         &::before {
           content: 'A';
           position: absolute;
-          left: 0.9em;
+          left: -0.9em;
           bottom: 0.6em;
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;
