@@ -40,4 +40,5 @@
   <string name="nextRace">下一場競賽</string>
   <string name="waitingToStart">等待開始</string>
   <string name="createNewGame">開始新遊戲</string>
+  <string name="skip">跳過</string>
 </resources>
