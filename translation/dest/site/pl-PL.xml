@@ -921,7 +921,7 @@
   <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
   <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
   <string name="gameVsX">Gra przeciwko %$1s</string>
-  <string name="resVsX">%$1s vs %$2s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Właśnie zostałeś Patronem lichess.</string>
   <string name="patronAccountExpired">Konto Patron wygasło</string>
   <string name="pleaseReconsiderRenewIt">Proszę rozważ odnowienie!</string>
