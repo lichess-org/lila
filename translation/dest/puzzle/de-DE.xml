@@ -50,4 +50,9 @@
   <string name="history">Aufgabenverlauf</string>
   <string name="solved">gelöst</string>
   <string name="failed">fehlgeschlagen</string>
+  <string name="streakDescription">Löse schrittweise härtere Puzzles und baue eine Siegesserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Schritt, und er ist vorbei! Aber du kannst einen Zug pro Sitzung überspringen.</string>
+  <string name="yourStreakX">Deine Gewinnsträhne: %s</string>
+  <string name="streakSkipExplanation">Überspringe diesen Zug um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
+  <string name="continueTheStreak">Strähne fortsetzen</string>
+  <string name="newStreak">Neue Siegesträhne</string>
 </resources>
