@@ -28,20 +28,20 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
    */
   private val highestBoundary = 2800
   private val buckets = List(
-    1000            -> 5,
-    1150            -> 6,
-    1300            -> 7,
-    1450            -> 8,
-    1600            -> 9,
-    1750            -> 10,
-    1900            -> 12,
-    2050            -> 15,
-    2199            -> 17,
-    2349            -> 19,
-    2499            -> 21,
-    2649            -> 23,
-    2799            -> 25,
-    highestBoundary -> 27
+    1000            -> 3,
+    1150            -> 4,
+    1300            -> 5,
+    1450            -> 6,
+    1600            -> 7,
+    1750            -> 8,
+    1900            -> 10,
+    2050            -> 13,
+    2199            -> 15,
+    2349            -> 17,
+    2499            -> 19,
+    2649            -> 21,
+    2799            -> 23,
+    highestBoundary -> 25
   )
   private val poolSize     = buckets.map(_._2).sum
   private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
