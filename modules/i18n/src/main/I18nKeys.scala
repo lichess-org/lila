@@ -774,6 +774,7 @@ val `shareUrl` = new I18nKey("arena:shareUrl")
 val `drawStreak` = new I18nKey("arena:drawStreak")
 val `history` = new I18nKey("arena:history")
 val `drawingWithinNbMoves` = new I18nKey("arena:drawingWithinNbMoves")
+val `viewAllXTeams` = new I18nKey("arena:viewAllXTeams")
 }
 
 object emails {
@@ -1794,6 +1795,7 @@ val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
 
 object swiss {
 val `swissTournaments` = new I18nKey("swiss:swissTournaments")
+val `viewAllXRounds` = new I18nKey("swiss:viewAllXRounds")
 }
 
 object puzzle {

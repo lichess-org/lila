@@ -77,13 +77,13 @@ export function teamStanding(ctrl: TournamentController, klass?: string): VNode 
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
         h('tbody', [
           ...standing.map(rt => teamTr(ctrl, battle, rt)),
-          ...(bigBattle ? [extraTeams(ctrl.data), myTeam(ctrl, battle)] : []),
+          ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
         ]),
       ])
     : null;
 }
 
-function extraTeams(tour: TournamentData): VNode {
+function extraTeams(ctrl: TournamentController): VNode {
   return h(
     'tr',
     h(
@@ -95,10 +95,10 @@ function extraTeams(tour: TournamentData): VNode {
         'a',
         {
           attrs: {
-            href: `/tournament/${tour.id}/teams`,
+            href: `/tournament/${ctrl.data.tour.id}/teams`,
           },
         },
-        'View all teams'
+        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
       )
     )
   );

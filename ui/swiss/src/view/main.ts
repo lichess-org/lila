@@ -252,7 +252,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 href: `/swiss/${ctrl.data.id}/round/1`,
               },
             },
-            `View all ${ctrl.data.round} rounds`
+            ctrl.trans('viewAllXRounds', ctrl.data.round)
           ),
           h('br'),
           h(

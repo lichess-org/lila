@@ -13,32 +13,36 @@ The following games will continue to be worth double points until you fail to wi
 That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
 
 For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
-<string name="berserk">Arena Berserk</string>
-<string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
 
 Going Berserk in time controls with an increment also cancels the increment (1+2 is an exception, it gives 1+0).
 
 Berserk is not available for games with zero initial time (0+1, 0+2).
 
 Berserk only grants an extra point if you play at least 7 moves in the game.</string>
-<string name="howIsTheWinnerDecided">How is the winner decided?</string>
-<string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament's set time limit will be announced winner(s).
+  <string name="howIsTheWinnerDecided">How is the winner decided?</string>
+  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament's set time limit will be announced winner(s).
 
 When two or more players have the same number of points, the tournament performance is the tie break.</string>
-<string name="howDoesPairingWork">How does the pairing work?</string>
-<string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
+  <string name="howDoesPairingWork">How does the pairing work?</string>
+  <string name="howDoesPairingWorkAnswer">At the beginning of the tournament, players are paired based on their rating.
 As soon as you finish a game, return to the tournament lobby: you will then be paired with a player close to your ranking. This ensures minimum wait time, however you may not face all other players in the tournament.
 Play fast and return to the lobby to play more games and win more points.</string>
-<string name="howDoesItEnd">How does it end?</string>
-<string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don't count for the tournament.</string>
-<string name="otherRules">Other important rules</string>
-<string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
-<plurals name="drawingWithinNbMoves">
-  <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
-  <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
-</plurals>
-<string name="thisIsPrivate">This is a private tournament</string>
-<string name="shareUrl">Share this URL to let people join: %s</string>
-<string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
-<string name="history">Arena History</string>
+  <string name="howDoesItEnd">How does it end?</string>
+  <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don't count for the tournament.</string>
+  <string name="otherRules">Other important rules</string>
+  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
+    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+  </plurals>
+  <string name="thisIsPrivate">This is a private tournament</string>
+  <string name="shareUrl">Share this URL to let people join: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="history">Arena History</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>
