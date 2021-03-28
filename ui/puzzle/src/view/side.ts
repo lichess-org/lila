@@ -107,7 +107,15 @@ export function userBox(ctrl: Controller): VNode {
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     ctrl.streak
-      ? h('div.puzzle__side__user__streak', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak.current)))
+      ? h(
+          'div.puzzle__side__user__streak',
+          {
+            attrs: {
+              'data-icon': '}',
+            },
+          },
+          ctrl.streak.current
+        )
       : h(
           'div.puzzle__side__user__rating',
           ctrl.trans.vdom(

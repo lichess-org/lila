@@ -52,6 +52,15 @@
         font-size: 3.5em;
       }
     }
+    &__streak {
+      @extend %flex-center-nowrap;
+      justify-content: center;
+      font-size: 4em;
+      &::before {
+        font-size: 0.9em;
+        margin-right: 0.3ch;
+      }
+    }
 
     .rp {
       font-size: 1.3rem;
