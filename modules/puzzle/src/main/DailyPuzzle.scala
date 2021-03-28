@@ -52,7 +52,7 @@ final private[puzzle] class DailyPuzzle(
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 2000 to 2100)) -> List(
+          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 2050 to 2050)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
