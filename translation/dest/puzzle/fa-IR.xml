@@ -11,7 +11,7 @@
   <string name="lengths">مدت</string>
   <string name="mates">مات</string>
   <string name="goals">اهداف</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">منشا</string>
+  <string name="origin">منشا</string>
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
