@@ -12,5 +12,5 @@
   <string name="disableTwoFactor">Ikki faktorli autentifikatsiyani oʻchirish</string>
   <string name="twoFactorEnabled">Ikki faktorli autentifikatsiya yoqilgan</string>
   <string name="twoFactorDisable">Ikki faktorli autentifikatsiyani oʻchirish uchun siz autentifikator appdan autentifikatsiya kodi va parolni olishingiz kerak. Agar siz autentifikatsiya kodiga huquqni yoʻqotgan boʻlsangiz, siz parolni email orqali tiklashingiz mumkin.</string>
-  <string name="openTwoFactorApp">Identifikatsiyalashdan oʻtish va autentifikatsiya kodini koʻrish uchun ikki faktorli autentifikatsiya appini qurilmangizda oching. </string>
+  <string name="openTwoFactorApp">Identifikatsiyalashdan oʻtish va autentifikatsiya kodini koʻrish uchun ikki faktorli autentifikatsiya appini qurilmangizda oching.</string>
 </resources>
