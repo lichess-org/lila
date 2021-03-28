@@ -37,8 +37,10 @@
   <string name="spectating">觀戰中</string>
   <string name="joinTheRace">加入競賽！</string>
   <string name="yourRankX">你的排名: %s</string>
+  <string name="waitForRematch">等候重賽</string>
   <string name="nextRace">下一場競賽</string>
   <string name="waitingToStart">等待開始</string>
   <string name="createNewGame">開始新遊戲</string>
   <string name="skip">跳過</string>
+  <string name="skipHelp">每場賽可略一手棋</string>
 </resources>
