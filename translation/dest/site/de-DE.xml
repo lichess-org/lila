@@ -846,7 +846,7 @@
   <string name="youHaveJoinedTeamX">Du bist jetzt \"%$1s\" beigetreten.</string>
   <string name="someoneYouReportedWasBanned">Jemand, den du gemeldet hast, wurde gebannt</string>
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
-  <string name="gameVsX">Partie gegen %$1s</string>
+  <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%$1s gegen %$2s</string>
   <string name="youJustBecamePatron">Du wurdest nun ein Lichess-Patron.</string>
   <string name="patronAccountExpired">Patron-Status abgelaufen</string>
