@@ -840,12 +840,12 @@
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
   <string name="mentionedYouInX"> σας ανέφερε στο \"%1$s\".</string>
-  <string name="xMentionedYouInY"> Ο χρήστης %1$s σας ανέφερε στο \"%2$s\".</string>
-  <string name="invitedYouToX"> σας προσκάλεσε στο \"%1$s\".</string>
-  <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στο \"%2$s\".</string>
+  <string name="xMentionedYouInY"> Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
+  <string name="invitedYouToX"> σας προσκάλεσε στο «%1$s».</string>
+  <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στο «%2$s».</string>
   <string name="youAreNowPartOfTeam">Είστε πλέον μέλος της ομάδας.</string>
-  <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας \"%1$s\".</string>
-  <string name="someoneYouReportedWasBanned">Ένας χρήστης που αναφέρατε έχει αποκλειστεί</string>
+  <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας «%1$s».</string>
+  <string name="someoneYouReportedWasBanned">Κάποιος που αναφέρατε έχει αποκλειστεί</string>
   <string name="congratsYouWon">Συγχαρητήρια, κερδίσατε!</string>
   <string name="gameVsX">Παιχνίδι εναντίον %1$s</string>
   <string name="resVsX">%1$s εναντίον %2$s</string>
@@ -854,7 +854,7 @@
   <string name="pleaseReconsiderRenewIt">Σκεφτείτε να την ανανεώσετε!</string>
   <string name="someoneReviewedYourCoachProfile">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
   <string name="newPendingReview">Νέα κριτική σε αναμονή</string>
-  <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης Lichess</string>
-  <string name="refundXpointsTimeControlY">Επιστροφή πόντων βαθμολογίας: %1$s %2$s πόντοι αξιολόγησης.</string>
+  <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
+  <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
 </resources>
