@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess nodarbības</string>
+  <string name="lichessClasses">Lichess klases</string>
   <string name="teachClassesOfChessStudents">Apmāciet šaha skolēnu grupas ar Lichess Klašu rīkiem.</string>
   <string name="features">Iespējas</string>
   <string name="quicklyGenerateSafeUsernames">Ātri radīt drošus lietotājvārdus un paroles skolēniem</string>
@@ -10,8 +10,8 @@
   <string name="applyToBeLichessTeacher">Pieteikties par Lichess Skolotāju</string>
   <string name="noClassesYet">Vēl nav grupu.</string>
   <string name="teachersX">Skolotāji: %s</string>
-  <string name="newClass">Jauna grupa</string>
-  <string name="closeClass">Aizvērt grupu</string>
+  <string name="newClass">Jauna klase</string>
+  <string name="closeClass">Slēgt klasi</string>
   <string name="closedByX">Aizvēra %s</string>
   <string name="reopen">Atkal atvērt</string>
   <string name="removeStudent">Noņemt skolēnu</string>
@@ -19,10 +19,10 @@
   <string name="inviteTheStudentBack">Ielūgt skolēnu atgriezties</string>
   <string name="sendAMessage">Sūtīt ziņu visiem skolēniem.</string>
   <string name="aLinkToTheClassWillBeAdded">Grupas saite tiks automātiski pievienota ziņas beigās, tādēļ jums tā nav jāiekļauj.</string>
-  <string name="className">Grupas nosaukums</string>
-  <string name="classDescription">Grupas apraksts</string>
+  <string name="className">Klases nosaukums</string>
+  <string name="classDescription">Klases apraksts</string>
   <string name="visibleByBothStudentsAndTeachers">Redzams gan grupas skolēniem, gan skolotājiem</string>
-  <string name="teachersOfTheClass">Grupas skolotāji</string>
+  <string name="teachersOfTheClass">Klases skolotāji</string>
   <string name="addLichessUsernames">Pievienojiet Lichess lietotājvārdus, lai tos ielūgtu kā skolotājus. Katru savā rindiņā.</string>
   <string name="theyMustFirstApply">Viņiem vispirms jāpiesakās par Lichess Skolotājiem.</string>
   <string name="resetPassword">Atiestatīt paroli</string>
@@ -49,8 +49,8 @@ Parole: %3$s</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
   <string name="lichessUsername">Lichess lietotājvārds</string>
   <string name="generateANewUsername">Radīt jaunu lietotājvārdu</string>
-  <string name="welcomeToClass">Laipni lūgti savā grupā: %s.
-Lūk saite, lai piekļūtu grupai.</string>
+  <string name="welcomeToClass">Laipni lūgti savā klasē: %s.
+Lūk saite, lai piekļūtu kasei.</string>
   <string name="invitationToClass">Esat ielūgts pievienoties grupai \"%s\" kā skolēnam.</string>
   <string name="clickToViewInvitation">Noklikšķiniet uz saites, lai apskatītu ielūgumu:</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
