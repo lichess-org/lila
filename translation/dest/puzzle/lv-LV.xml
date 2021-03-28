@@ -9,7 +9,7 @@
   <string name="lengths">Garumi</string>
   <string name="mates">Mati</string>
   <string name="goals">Mērķi</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Izcelsme</string>
+  <string name="origin">Izcelsme</string>
   <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šī puzle?</string>
   <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
