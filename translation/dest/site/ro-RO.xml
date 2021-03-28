@@ -889,8 +889,8 @@
   <string name="patronAccountExpired">Contul Patron a expirat</string>
   <string name="pleaseReconsiderRenewIt">Vă rugăm să luați în considerare reînnoirea acestuia!</string>
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
-  <string name="newPendingReview">Revizuire nouă în așteptare</string>
+  <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Revizuire nouă în așteptare</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
-  <string name="refundXpointsTimeControlY">Rambursare: %$1s puncte de evaluare %$2s.</string>
-  <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Rambursare: %$1s puncte de evaluare %$2s.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Timpul se apropie de sfârșit!</string>
 </resources>
