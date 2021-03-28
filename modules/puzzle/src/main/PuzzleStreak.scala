@@ -116,7 +116,9 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
   }
 
   private def monitor(ids: List[Puzzle.Id]): Unit =
-    colls.puzzle(_.byIds[Puzzle](ids.map(_.value), ReadPreference.secondaryPreferred)) foreach { puzzles =>
+    colls
+      .puzzle(_.byIds[Puzzle](ids.map(_.value), ReadPreference.secondaryPreferred))
+      .map(_.sortBy(_.glicko.rating)) foreach { puzzles =>
       val nb = puzzles.size
       lila.mon.streak.selector.count.record(nb)
       if (nb < poolSize * 0.9)
