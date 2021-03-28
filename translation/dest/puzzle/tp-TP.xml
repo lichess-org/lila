@@ -9,7 +9,7 @@
   <string name="lengths">mute tawa</string>
   <string name="mates">o moli e jan lawa</string>
   <string name="goals">pini ante</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">musi tan pi musi lili</string>
+  <string name="origin">musi tan pi musi lili</string>
   <string name="specialMoves">tawa suli</string>
   <string name="didYouLikeThisPuzzle">musi lili ni li pona ala pona tawa sina?</string>
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
