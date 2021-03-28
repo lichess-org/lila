@@ -9,7 +9,7 @@
   <string name="lengths">Duljine</string>
   <string name="mates">Matevi</string>
   <string name="goals">Ciljevi</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Podrijetlo</string>
+  <string name="origin">Podrijetlo</string>
   <string name="specialMoves">Specifični potezi</string>
   <string name="didYouLikeThisPuzzle">Sviđa li ti se ovaj zadatak?</string>
   <string name="voteToLoadNextOne">Ocijeni i prijeđi na sljedeći zadatak!</string>
