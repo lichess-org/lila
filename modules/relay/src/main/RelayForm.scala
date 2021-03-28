@@ -78,6 +78,7 @@ object RelayForm {
     "chess-results.com",
     "chessgames.com",
     "zoom.us",
+    "facebook.com",
     "herokuapp.com"
   )
 
