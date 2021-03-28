@@ -839,4 +839,5 @@
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
+  <string name="mentionedYouInX"> σας ανέφερε στο \"%1$s\".</string>
 </resources>
