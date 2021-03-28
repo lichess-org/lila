@@ -838,4 +838,5 @@
   <string name="youCannotPostYetPlaySomeGames">Hələ forumlarda yazı göndərə bilməzsiniz. Biraz oyun oynayın!</string>
   <string name="subscribe">Abunə ol</string>
   <string name="unsubscribe">Abunəlikdən çıxın</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Vaxt bitmək üzrədir!</string>
 </resources>
