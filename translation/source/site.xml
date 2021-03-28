@@ -16,6 +16,7 @@
   <string name="resign">Resign</string>
   <string name="checkmate">Checkmate</string>
   <string name="stalemate">Stalemate</string>
+  <string name="Cheatdetected">Cheat detected</string>
   <string name="white">White</string>
   <string name="black">Black</string>
   <string name="randomColor">Random side</string>
