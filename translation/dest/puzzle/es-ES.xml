@@ -9,7 +9,7 @@
   <string name="lengths">Duraciones</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origen</string>
+  <string name="origin">Origen</string>
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
   <string name="voteToLoadNextOne">¡Vota para cargar el siguiente!</string>
