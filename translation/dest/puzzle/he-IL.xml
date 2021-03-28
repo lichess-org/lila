@@ -8,7 +8,7 @@
   <string name="lengths">אורך</string>
   <string name="mates">מט</string>
   <string name="goals">מטרות</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">מקור</string>
+  <string name="origin">מקור</string>
   <string name="specialMoves">צעדים מיוחדים</string>
   <string name="didYouLikeThisPuzzle">האם אהבת את הפאזל הזה?</string>
   <string name="voteToLoadNextOne">תדרג לקבלת הפאזל הבא!</string>
