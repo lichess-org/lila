@@ -9,7 +9,7 @@
   <string name="lengths">Lengtes</string>
   <string name="mates">Matte</string>
   <string name="goals">Doelwitte</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Oorsprong</string>
+  <string name="origin">Oorsprong</string>
   <string name="specialMoves">Spesiale bewegings</string>
   <string name="didYouLikeThisPuzzle">Hou jy van hierdie legkaart?</string>
   <string name="voteToLoadNextOne">Stem om die volgende een te laai!</string>
