@@ -847,5 +847,11 @@
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
   <string name="gameVsX">Partij tegen %$1s</string>
   <string name="resVsX">%$1s tegen %$2s</string>
-  <string name="timeAlmostUp">De tijd is bijna om!</string>
+  <string name="youJustBecamePatron">Je bent net een Lichess Patroon geworden.</string>
+  <string name="patronAccountExpired">Patroon status is verlopen</string>
+  <string name="pleaseReconsiderRenewIt">Overweeg het aub te vernieuwen!</string>
+  <string name="newPendingReview">In afwachting van beoordeling</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
+  <string name="refundXpointsTimeControlY">Teruggekregen: %$1s %$2s ratingpunten.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">De tijd is bijna om!</string>
 </resources>
