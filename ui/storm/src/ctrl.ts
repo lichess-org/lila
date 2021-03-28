@@ -81,52 +81,55 @@ export default class StormCtrl {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   };
 
-  playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    this.run.clock.start();
-    this.run.moves++;
-    this.promotion.cancel();
+  playUserMove = (orig: Key, dest: Key, promotion?: Role): any => {
+    const now = getNow();
     const puzzle = this.run.current;
-    const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
-    const pos = puzzle.position();
-    const move = parseUci(uci)!;
-    let captureSound = pos.board.occupied.has(move.to);
-    pos.play(move);
-    const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
-    if (!puzzle.moveIndex) mon.firstMove(correct);
-    if (correct) {
-      puzzle.moveIndex++;
-      this.run.combo.inc();
-      this.run.modifier.moveAt = getNow();
-      const bonus = this.run.combo.bonus();
-      if (bonus) {
-        this.run.modifier.bonus = bonus;
-        this.run.clock.addSeconds(bonus.seconds);
-      }
-      if (puzzle.isOver()) {
-        this.pushToHistory(true);
-        if (!this.incPuzzle()) this.end();
-      } else {
+    if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
+    else {
+      this.run.clock.start();
+      this.run.moves++;
+      this.promotion.cancel();
+      const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
+      const pos = puzzle.position();
+      const move = parseUci(uci)!;
+      let captureSound = pos.board.occupied.has(move.to);
+      pos.play(move);
+      const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
+      if (correct) {
         puzzle.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
-      }
-      sound.move(captureSound);
-    } else {
-      sound.wrong();
-      this.pushToHistory(false);
-      this.run.errors++;
-      this.run.combo.reset();
-      this.run.clock.addSeconds(-config.clock.malus);
-      this.run.modifier.malus = {
-        seconds: config.clock.malus,
-        at: getNow(),
-      };
+        this.run.combo.inc();
+        this.run.modifier.moveAt = now;
+        const bonus = this.run.combo.bonus();
+        if (bonus) {
+          this.run.modifier.bonus = bonus;
+          this.run.clock.addSeconds(bonus.seconds);
+        }
+        if (puzzle.isOver()) {
+          this.pushToHistory(true);
+          if (!this.incPuzzle()) this.end();
+        } else {
+          puzzle.moveIndex++;
+          captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
+        }
+        sound.move(captureSound);
+      } else {
+        sound.wrong();
+        this.pushToHistory(false);
+        this.run.errors++;
+        this.run.combo.reset();
+        this.run.clock.addSeconds(-config.clock.malus);
+        this.run.modifier.malus = {
+          seconds: config.clock.malus,
+          at: getNow(),
+        };
 
-      if (this.run.clock.flag()) this.end();
-      else if (!this.incPuzzle()) this.end();
+        if (this.run.clock.flag()) this.end();
+        else if (!this.incPuzzle()) this.end();
+      }
+      this.redraw();
+      this.redrawQuick();
+      this.redrawSlow();
     }
-    this.redraw();
-    this.redrawQuick();
-    this.redrawSlow();
     this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt)));
     lichess.pubsub.emit('ply', this.run.moves);
   };
@@ -145,7 +148,6 @@ export default class StormCtrl {
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
-      mon.newPuzzle();
       return true;
     }
     return false;
