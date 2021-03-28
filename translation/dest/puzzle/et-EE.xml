@@ -9,7 +9,7 @@
   <string name="lengths">Pikkused</string>
   <string name="mates">Matid</string>
   <string name="goals">Eesmärgid</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Allikas</string>
+  <string name="origin">Allikas</string>
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
   <string name="voteToLoadNextOne">Hääleta, nii saad edasi!</string>
