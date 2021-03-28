@@ -9,7 +9,7 @@
   <string name="lengths">Lengder</string>
   <string name="mates">Mattar</string>
   <string name="goals">Mål</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Opphav</string>
+  <string name="origin">Opphav</string>
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne oppgåva?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
