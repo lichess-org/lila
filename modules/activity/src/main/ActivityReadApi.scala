@@ -120,6 +120,7 @@ final class ActivityReadApi(
       puzzles = a.puzzles,
       storm = a.storm,
       racer = a.racer,
+      streak = a.streak,
       practice = practice,
       posts = postView,
       simuls = simuls,

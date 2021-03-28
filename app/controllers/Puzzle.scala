@@ -127,6 +127,10 @@ final class Puzzle(
                 env.puzzle.api.puzzle.find(streakNextId) flatMap {
                   case None => fuccess(Json.obj("streakComplete" -> true))
                   case Some(puzzle) =>
+                    ctx.userId.ifFalse(data.result.win) foreach { userId =>
+                      lila.common.Bus
+                        .publish(lila.hub.actorApi.streak.StreakRun(userId, player.score), "streakRun")
+                    }
                     renderJson(puzzle, theme) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }

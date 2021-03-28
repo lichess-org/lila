@@ -18,6 +18,7 @@ case class ActivityView(
     puzzles: Option[Puzzles] = None,
     storm: Option[Storm] = None,
     racer: Option[Racer] = None,
+    streak: Option[Streak] = None,
     practice: Option[Map[PracticeStudy, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,

@@ -43,6 +43,9 @@ final class Env(
     },
     "racerRun" -> { case lila.hub.actorApi.racer.RacerRun(userId, score) =>
       write.racer(userId, score).unit
+    },
+    "streakRun" -> { case lila.hub.actorApi.streak.StreakRun(userId, score) =>
+      write.streak(userId, score).unit
     }
   )
 

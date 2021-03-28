@@ -42,6 +42,11 @@ object activities {
   }
   implicit val RacerZero = Zero.instance(Racer(0, 0))
 
+  case class Streak(runs: Int, score: Int) {
+    def +(s: Int) = Streak(runs = runs + 1, score = score atLeast s)
+  }
+  implicit val StreakZero = Zero.instance(Streak(0, 0))
+
   case class Learn(value: Map[Learn.Stage, Int]) {
     def +(stage: Learn.Stage) =
       copy(

@@ -92,6 +92,17 @@ final class ActivityWriteApi(
         .void
     }
 
+  def streak(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.streak -> { ~a.streak + score }),
+          upsert = true
+        )
+        .void
+    }
+
   def learn(userId: User.ID, stage: String) =
     update(userId) { a =>
       a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some

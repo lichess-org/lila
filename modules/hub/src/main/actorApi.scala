@@ -67,6 +67,9 @@ package storm {
 package racer {
   case class RacerRun(userId: String, score: Int)
 }
+package streak {
+  case class StreakRun(userId: String, score: Int)
+}
 
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)

@@ -23,6 +23,7 @@ object activity {
             a.puzzles map renderPuzzles(u),
             a.storm map renderStorm,
             a.racer map renderRacer,
+            a.streak map renderStreak,
             a.games map renderGames,
             a.posts map renderPosts,
             a.corresMoves map { case (nb, povs) =>
@@ -105,6 +106,16 @@ object activity {
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Racer.home)("Puzzle Racer"))
+      )
+    )
+
+  private def renderStreak(s: Streak)(implicit ctx: Context) =
+    entryTag(
+      iconTag(","),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Puzzle.streak)("Puzzle Streak"))
       )
     )
 
