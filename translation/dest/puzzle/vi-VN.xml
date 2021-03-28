@@ -9,7 +9,7 @@
   <string name="lengths">Độ dài</string>
   <string name="mates">Chiếu hết</string>
   <string name="goals">Mục tiêu</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Nguồn gốc</string>
+  <string name="origin">Nguồn gốc</string>
   <string name="specialMoves">Nước đi đặc biệt</string>
   <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
   <string name="voteToLoadNextOne">Bình chọn để mở câu đố tiếp theo!</string>
