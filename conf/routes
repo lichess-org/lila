@@ -108,6 +108,9 @@ POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, 
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
 
+# Puzzle Streak
+GET   /streak                           controllers.Streak.home
+
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record

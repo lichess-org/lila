@@ -11,7 +11,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def home =
     Open { implicit ctx =>
       NoBot {
-        env.storm.selector.apply flatMap { puzzles =>
+        env.storm.selector.easySet flatMap { puzzles =>
           ctx.userId.?? { u => env.storm.highApi.get(u) dmap some } map { high =>
             NoCache {
               Ok(

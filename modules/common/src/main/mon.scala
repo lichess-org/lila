@@ -501,10 +501,11 @@ object mon {
   }
   object storm {
     object selector {
-      val time                    = timer("storm.selector.time").withoutTags()
-      val count                   = histogram("storm.selector.count").withoutTags()
-      val rating                  = histogram("storm.selector.rating").withoutTags()
-      def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)
+      def time(section: String)   = timer("storm.selector.time").withTag("section", section)
+      def count(section: String)  = histogram("storm.selector.count").withTag("section", section)
+      def rating(section: String) = histogram("storm.selector.rating").withTag("section", section)
+      def ratingSlice(section: String, index: Int) =
+        histogram("storm.selector.ratingSlice").withTags(Map("section" -> section, "index" -> index))
     }
     object run {
       def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)

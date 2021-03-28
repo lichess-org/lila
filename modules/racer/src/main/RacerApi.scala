@@ -38,7 +38,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     }
 
   def create(player: RacerPlayer.Id, countdownSeconds: Int): Fu[RacerRace.Id] =
-    selector.apply map { puzzles =>
+    selector.easySet map { puzzles =>
       val race = RacerRace
         .make(
           owner = player,
