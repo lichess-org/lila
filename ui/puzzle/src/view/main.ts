@@ -102,7 +102,7 @@ export default function (ctrl: Controller): VNode {
       h('aside.puzzle__side', [
         side.replay(ctrl),
         side.puzzleBox(ctrl),
-        side.userBox(ctrl),
+        ctrl.streak ? side.streakBox(ctrl) : side.userBox(ctrl),
         side.config(ctrl),
         theme(ctrl),
       ]),
@@ -155,12 +155,14 @@ function session(ctrl: Controller) {
       );
     }),
     rounds.find(r => r.id == current)
-      ? h('a.session-new', {
-          key: 'new',
-          attrs: {
-            href: `/training/${ctrl.session.theme}`,
-          },
-        })
+      ? ctrl.streak
+        ? null
+        : h('a.session-new', {
+            key: 'new',
+            attrs: {
+              href: `/training/${ctrl.session.theme}`,
+            },
+          })
       : h('a.result-cursor.current', {
           key: current,
           attrs: ctrl.streak

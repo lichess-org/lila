@@ -43,10 +43,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
     2799            -> 23,
     highestBoundary -> 25
   )
-  private val poolSize     = buckets.map(_._2).sum
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
-  private val tier         = lila.puzzle.PuzzleTier.Good.key
-  private val maxDeviation = 110
+  private val poolSize = buckets.map(_._2).sum
+  private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
 
   private val current = cacheApi.unit[List[Puzzle.Id]] {
     _.refreshAfterWrite(30 seconds)
@@ -57,6 +55,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
               import framework._
               Facet(
                 buckets.map { case (rating, nbPuzzles) =>
+                  val (tier, samples, deviation) =
+                    if (rating > 2300) (PuzzleTier.Good, 5, 110) else (PuzzleTier.Top, 1, 85)
                   rating.toString -> List(
                     Match(
                       $doc(
@@ -64,7 +64,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                         "max" $gte f"${theme}_${tier}_${if (rating == highestBoundary) 9999 else rating}%04d"
                       )
                     ),
-                    Sample(if (rating > 2300) 5 else 1),
+                    Sample(samples),
                     Project($doc("_id" -> false, "ids" -> true)),
                     UnwindField("ids"),
                     // ensure we have enough after filtering deviation
@@ -81,7 +81,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                                 "$expr" -> $doc(
                                   "$and" -> $arr(
                                     $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation))
+                                    $doc("$lte" -> $arr("$glicko.d", deviation))
                                   )
                                 )
                               )

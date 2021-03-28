@@ -133,7 +133,7 @@ export interface PuzzleData {
   game: PuzzleGame;
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
-  streak?: PuzzleId[];
+  streak?: string;
 }
 
 export interface PuzzleReplay {

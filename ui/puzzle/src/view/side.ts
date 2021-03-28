@@ -18,21 +18,24 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
     },
     [
       h('div', [
-        h('p', [
-          ...ctrl.trans.vdom(
-            'puzzleId',
-            h(
-              'a',
-              {
-                attrs: {
-                  href: `/training/${puzzle.id}`,
-                  ...(ctrl.streak ? { target: '_blank' } : {}),
-                },
-              },
-              '#' + puzzle.id
-            )
-          ),
-        ]),
+        ctrl.streak
+          ? null
+          : h(
+              'p',
+              ctrl.trans.vdom(
+                'puzzleId',
+                h(
+                  'a',
+                  {
+                    attrs: {
+                      href: `/training/${puzzle.id}`,
+                      ...(ctrl.streak ? { target: '_blank' } : {}),
+                    },
+                  },
+                  '#' + puzzle.id
+                )
+              )
+            ),
         h(
           'p',
           ctrl.trans.vdom(
@@ -117,7 +120,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
         )
   );
 
-export function userBox(ctrl: Controller): VNode {
+export const userBox = (ctrl: Controller): VNode => {
   const data = ctrl.getData();
   if (!data.user)
     return h('div.puzzle__side__user', [
@@ -126,21 +129,22 @@ export function userBox(ctrl: Controller): VNode {
     ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
-    ctrl.streak
-      ? renderStreak(ctrl.streak, ctrl.trans.noarg)
-      : h(
-          'div.puzzle__side__user__rating',
-          ctrl.trans.vdom(
-            'yourPuzzleRatingX',
-            h('strong', [
-              data.user.rating - (diff || 0),
-              ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-              ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-            ])
-          )
-        ),
+    h(
+      'div.puzzle__side__user__rating',
+      ctrl.trans.vdom(
+        'yourPuzzleRatingX',
+        h('strong', [
+          data.user.rating - (diff || 0),
+          ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+          ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+        ])
+      )
+    ),
   ]);
-}
+};
+
+export const streakBox = (ctrl: Controller) =>
+  h('div.puzzle__side__user', renderStreak(ctrl.streak!, ctrl.trans.noarg));
 
 const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder', 'hardest'];
 

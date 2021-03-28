@@ -33,7 +33,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
-  const streak = opts.data.streak && new PuzzleStreak(opts.data.streak);
+  const streak = opts.data.streak ? new PuzzleStreak(opts.data.streak.split(' ')) : undefined;
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';

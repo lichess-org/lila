@@ -17,10 +17,12 @@ object bits {
   def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
     views.html.board.bits.mini(fen, p.color, lastMove)(span)
 
-  def jsI18n(streak: Boolean)(implicit lang: Lang) = i18nJsObject {
-    i18nKeys ++ streak.??(streakI18nKeys)
-  } +
-    (PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)))
+  def jsI18n(streak: Boolean)(implicit lang: Lang) =
+    if (streak) i18nJsObject(streakI18nKeys)
+    else
+      i18nJsObject(trainingI18nKeys) + (PuzzleTheme.enPassant.key.value -> JsString(
+        PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)
+      ))
 
   lazy val jsonThemes = PuzzleTheme.all
     .collect {
@@ -59,9 +61,8 @@ object bits {
       )
     )
 
-  private val i18nKeys: List[MessageKey] = {
+  private val baseI18nKeys: List[MessageKey] =
     List(
-      trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.bestMove,
       trans.puzzle.keepGoing,
       trans.puzzle.notTheMove,
@@ -75,17 +76,10 @@ object bits {
       trans.puzzle.hidden,
       trans.puzzle.jumpToNextPuzzleImmediately,
       trans.puzzle.fromGameLink,
-      trans.puzzle.didYouLikeThisPuzzle,
-      trans.puzzle.voteToLoadNextOne,
       trans.puzzle.puzzleId,
       trans.puzzle.ratingX,
       trans.puzzle.playedXTimes,
       trans.puzzle.continueTraining,
-      trans.puzzle.difficultyLevel,
-      trans.puzzle.example,
-      trans.puzzle.toGetPersonalizedPuzzles,
-      trans.puzzle.addAnotherTheme,
-      trans.signUp,
       trans.analysis,
       trans.playWithTheMachine,
       // ceval
@@ -98,13 +92,25 @@ object bits {
       trans.gameOver,
       trans.inLocalBrowser,
       trans.toggleLocalEvaluation
-    ) ::: PuzzleTheme.all.map(_.name) :::
-      PuzzleTheme.all.map(_.description) :::
-      PuzzleDifficulty.all.map(_.name)
-  }.map(_.key)
+    ).map(_.key)
+
+  private val trainingI18nKeys: List[MessageKey] =
+    baseI18nKeys ::: List(
+      trans.puzzle.example,
+      trans.puzzle.addAnotherTheme,
+      trans.puzzle.yourPuzzleRatingX,
+      trans.puzzle.difficultyLevel,
+      trans.puzzle.didYouLikeThisPuzzle,
+      trans.puzzle.voteToLoadNextOne,
+      trans.signUp,
+      trans.puzzle.toGetPersonalizedPuzzles
+    ).map(_.key) :::
+      PuzzleTheme.all.map(_.name.key) :::
+      PuzzleTheme.all.map(_.description.key) :::
+      PuzzleDifficulty.all.map(_.name.key)
 
   private val streakI18nKeys: List[MessageKey] =
-    List(
+    baseI18nKeys ::: List(
       trans.storm.skip,
       trans.puzzle.streakDescription,
       trans.puzzle.yourStreakX,

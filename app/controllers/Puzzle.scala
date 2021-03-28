@@ -206,7 +206,7 @@ final class Puzzle(
         env.puzzle.streak.apply flatMap {
           _ ?? { case (streak, puzzle) =>
             env.puzzle.jsonView(puzzle = puzzle, PuzzleTheme.mix.some, none, user = ctx.me) map { preJson =>
-              val json = preJson ++ Json.obj("streak" -> streak.ids.map(_.value))
+              val json = preJson ++ Json.obj("streak" -> streak.ids.mkString(" "))
               EnableSharedArrayBuffer(
                 Ok(
                   views.html.puzzle
