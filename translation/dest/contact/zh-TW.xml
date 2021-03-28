@@ -24,8 +24,11 @@
   <string name="wantClearHistory">我想要把我的評分紀錄刪除</string>
   <string name="cantClearHistory">我們無法將您的下棋歷史、解題歷史和評分消除</string>
   <string name="wantReport">我想要舉報一位玩家</string>
+  <string name="toReportAPlayerUseForm">若要檢舉玩家行為，請填寫檢舉表單</string>
+  <string name="youCanAlsoReachReportPage">您也可以點擊個人資料頁面的 %s 檢舉按鈕來填寫表單。</string>
   <string name="doNotReportInForum">請不要在論壇中檢舉使用者</string>
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
+  <string name="doNotMessageModerators">請不要直接私訊管理員。</string>
   <string name="wantReportBug">我想要提出遊戲bug</string>
   <string name="reportBugInDiscord">在 Lichess 的 Discord 伺服器</string>
   <string name="illegalPawnCapture">不合規則的移動(吃法)</string>
@@ -38,6 +41,7 @@
   <string name="engineAppeal">作弊或電腦操作記號</string>
   <string name="sendAppealTo">您可以將上訴寄到%s</string>
   <string name="ifLegit">如果你的上訴是合理的，我們會盡快撤除懲處。</string>
+  <string name="accountLost">若您確實有使用引擎輔助，就算只有一次，您的帳號仍會被永久停用。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">合作，法律，商業等</string>
   <string name="monetizing">在 Lichess 上獲得營利</string>

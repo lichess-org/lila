@@ -39,9 +39,14 @@
   <string name="spectating">Tilskuere</string>
   <string name="joinTheRace">Deltag i racet!</string>
   <string name="yourRankX">Din rang: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Vent på omkamp</string>
+  <string name="waitForRematch">Vent på omkamp</string>
   <string name="nextRace">Næste race</string>
   <string name="joinRematch">Deltag i omkamp</string>
   <string name="waitingToStart">Venter på at starte</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Opret et nyt spil</string>
+  <string name="createNewGame">Opret et nyt spil</string>
+  <string name="joinPublicRace">Deltag i et offentligt race</string>
+  <string name="raceYourFriends">Race mod dine venner</string>
+  <string name="skip">spring over</string>
+  <string name="skipHelp">NYT! Du kan springe ét træk over pr. race:</string>
+  <string name="skipExplanation">Spring dette træk over for at bevare din kombo! Virker kun én gang pr. race.</string>
 </resources>

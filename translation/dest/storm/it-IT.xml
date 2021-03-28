@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Fai una mossa per iniziare</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Muove il bianco in tutti i problemi</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Muove il nero in tutti i problemi</string>
   <string name="puzzlesSolved">puzzle risolti</string>
   <string name="newDailyHighscore">Nuovo record di oggi!</string>
   <string name="newWeeklyHighscore">Nuovo record della settimana!</string>
@@ -31,4 +33,20 @@
   <string name="viewBestRuns">Visualizza i migliori tentativi</string>
   <string name="bestRunOfDay">Migliore tentativo del giorno</string>
   <string name="runs">Tentativo</string>
+  <string name="getReady">Preparati!</string>
+  <string name="waitingForMorePlayers">In attesa degli altri giocatori...</string>
+  <string name="raceComplete">Traguardo!</string>
+  <string name="spectating">Spettatore</string>
+  <string name="joinTheRace">Unisciti alla gara!</string>
+  <string name="yourRankX">Piazzamento finale: %s</string>
+  <string name="waitForRematch">Attendi la nuova gara</string>
+  <string name="nextRace">Prossima gara</string>
+  <string name="joinRematch">Unisciti alla nuova gara</string>
+  <string name="waitingToStart">In attesa del via</string>
+  <string name="createNewGame">Crea una nuova gara</string>
+  <string name="joinPublicRace">Partecipa a una gara pubblica</string>
+  <string name="raceYourFriends">Gareggia con i tuoi amici</string>
+  <string name="skip">salta</string>
+  <string name="skipHelp">Puoi saltare una mossa per gara:</string>
+  <string name="skipExplanation">Salta la prossima mossa per mantenere la striscia positiva! È possibile farlo solo una volta per gara.</string>
 </resources>

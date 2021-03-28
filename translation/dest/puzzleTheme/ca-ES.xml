@@ -103,6 +103,8 @@
   <string name="sacrificeDescription">Recurs tàctic que implica un sacrifici de material a curt termini per obtenir un avantatge després d\'una seqüència forçada de moviments.</string>
   <string name="short">Problema curt</string>
   <string name="shortDescription">Guanyar en dues jugades.</string>
+  <string name="skewer">Enfilada</string>
+  <string name="skewerDescription">Maniobra de clavada inversa en què una peça d\'alt valor és atacada i en moure\'s permet capturar o atacar una peça de menys valor al seu darrere.</string>
   <string name="smotheredMate">Mat ofegat</string>
   <string name="smotheredMateDescription">Un mat executat per un cavall on el rei que rep el mat no pot moure perquè està envoltat (o ofegat) per les seves pròpies peces.</string>
   <string name="superGM">Partides de super GMs</string>
@@ -114,6 +116,9 @@
   <string name="veryLong">Problema molt llarg</string>
   <string name="veryLongDescription">Quatre o més jugades per guanyar.</string>
   <string name="xRayAttack">Atac de raigs x</string>
+  <string name="xRayAttackDescription">Una peça ataca o defensa una casella, a través d\'una peça rival.</string>
   <string name="zugzwang">Atzucac</string>
+  <string name="zugzwangDescription">El rival té els moviments limitats i cada jugada empitjora la seva posició.</string>
+  <string name="healthyMix">Una mica de cada</string>
   <string name="healthyMixDescription">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
 </resources>

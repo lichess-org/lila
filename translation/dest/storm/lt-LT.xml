@@ -43,9 +43,14 @@
   <string name="spectating">Stebima</string>
   <string name="joinTheRace">Prisijungti prie lenktynių!</string>
   <string name="yourRankX">Jūsų reitingas: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Laukti revanšo</string>
+  <string name="waitForRematch">Laukti revanšo</string>
   <string name="nextRace">Kitos lenktynės</string>
   <string name="joinRematch">Prisijungti revanšui</string>
   <string name="waitingToStart">Laukiama pradžios</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Kurti naują žaidimą</string>
+  <string name="createNewGame">Kurti naują žaidimą</string>
+  <string name="joinPublicRace">Prisijungti prie viešų lenktynių</string>
+  <string name="raceYourFriends">Lenktyniauti su draugais</string>
+  <string name="skip">praleisti</string>
+  <string name="skipHelp">NAUJA! Per lenktynes galite praleisti vieną ėjimą:</string>
+  <string name="skipExplanation">Praleiskite ėjimą norėdami išlaikyti seką! Veikia tik kartą per lenktynes.</string>
 </resources>

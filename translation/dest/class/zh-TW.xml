@@ -2,6 +2,8 @@
 <resources>
   <string name="lichessClasses">課程</string>
   <string name="features">功能</string>
+  <string name="quicklyGenerateSafeUsernames">快速為學生建立安全的使用者名稱及密碼</string>
+  <string name="freeForAllForever">完全免費，一視同仁。且無廣告及追蹤器</string>
   <string name="applyToBeLichessTeacher">申請成為 Lichess 的的教師</string>
   <string name="noClassesYet">還沒有課程</string>
   <string name="teachersX">%s個教師</string>
@@ -15,6 +17,7 @@
   <string name="sendAMessage">傳送訊息給所有的學生</string>
   <string name="className">課程名稱</string>
   <string name="classDescription">課程描述</string>
+  <string name="visibleByBothStudentsAndTeachers">課程的學生及教師皆可見</string>
   <string name="teachersOfTheClass">這堂課程的教師</string>
   <string name="resetPassword">重設密碼</string>
   <string name="passwordX">密碼:%s</string>
@@ -23,8 +26,16 @@
   <string name="realName">真實名稱</string>
   <string name="addStudent">增加學生</string>
   <string name="inviteALichessAccount">邀請一位玩家</string>
+  <string name="inviteDesc1">如果學生已經有 Lichess 的帳號，你可以邀請他們進入課程。</string>
+  <string name="inviteDesc2">他們會在 Lichess 上收到包含加入課堂網址的訊息。</string>
+  <string name="inviteDesc3">注意：只邀請你認識的、或積極想加入課程的學生。</string>
   <string name="createANewLichessAccount">創建一個新的帳戶</string>
+  <string name="createDesc1">如果學生沒有 Lichess 帳號，你可以在這裡幫他們建立。</string>
+  <string name="createDesc3">注意：學生不得擁有多個帳號。</string>
+  <string name="createDesc4">如果他們已經有帳號，請使用邀請。</string>
   <string name="lichessUsername">Lichess上的使用者名稱</string>
+  <string name="generateANewUsername">產生一個新的使用者名稱</string>
+  <string name="noPendingInvitations">沒有待處理的邀請</string>
   <string name="lastActiveDate">活動</string>
   <string name="managed">管理</string>
   <string name="release">正式版</string>

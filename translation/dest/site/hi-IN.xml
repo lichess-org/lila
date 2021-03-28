@@ -843,4 +843,21 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
+  <string name="mentionedYouInX"> आपने \"%1$s\" में उल्लेख किया है।</string>
+  <string name="xMentionedYouInY"> %1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
+  <string name="invitedYouToX"> आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
+  <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
+  <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
+  <string name="youHaveJoinedTeamX">आप \"% $ 1s\" में शामिल हो गए हैं।</string>
+  <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
+  <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
+  <string name="gameVsX">खेल बनाम %$ 1s</string>
+  <string name="resVsX">% $ 1s बनाम% $ 2s</string>
+  <string name="youJustBecamePatron">आप बस एक लिशेस पैट्रन बन गए।</string>
+  <string name="patronAccountExpired">Patron खाता समाप्त हो गया</string>
+  <string name="pleaseReconsiderRenewIt">कृपया इसे नवीनीकृत करने पर विचार करें!</string>
+  <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
+  <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">नई लंबित समीक्षा</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">समय लगभग समाप्त है!</string>
 </resources>

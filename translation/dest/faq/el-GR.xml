@@ -33,7 +33,7 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s δευτερόλεπτα = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s δευτερόλεπτα = %2$s</string>
   <string name="whatVariantsCanIplay">Ποιες είναι οι διάφορες εκδοχές που μπορώ να παίξω στο Lichess;</string>
-  <string name="lichessSupportChessAnd">Το Lichess υποστηρίζει κανονικό σκάκι και %1$s.</string>
+  <string name="lichessSupportChessAnd">Εκτός από το κανονικό σκάκι, το Lichess υποστηρίζει και %1$s.</string>
   <string name="eightVariants">8 παραλλαγές σκακιού</string>
   <string name="whatIsACPL">Τι είναι η μέση απώλεια εκατοστοπιονιού (ACPL);</string>
   <string name="acplExplanation">Το εκατοστοπιόνι είναι η μονάδα μέτρησης που χρησιμοποιείται στο σκάκι ως αναπαράσταση του πλεονεκτήματος. Ένα εκατοστοπιόνι είναι ίσο με το 1/100 ενός πιονιού. Επομένως 100 εκατοστοπιόνια = 1 πιόνι. Αυτές οι αξίες δεν παίζουν επίσημο ρόλο στο παιχνίδι, αλλά είναι χρήσιμες για τους παίκτες, και απαραίτητα για τις σκακιστικές μηχανές, για την αξιολόγηση των θέσεων.
@@ -72,7 +72,7 @@
   <string name="configure">ρυθμίσετε</string>
   <string name="accounts">Λογαριασμοί</string>
   <string name="titlesAvailableOnLichess">Τι είδους τίτλοι υπάρχουν στο Lichess;</string>
-  <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν από το OTB (Over The Board), καθώς και %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
+  <string name="lichessRecognizeAllOTBtitles">Το Lichess αναγνωρίζει όλους τους τίτλους FIDE που αποκτήθηκαν OTB (Over The Board), καθώς και %1$s. Εδώ είναι μια λίστα με όλους τίτλους FIDE:</string>
   <string name="showYourTitle">Αν έχετε έναν τίτλο OTB, μπορείτε να κάνετε αίτηση για να τον εμφανίσετε στο λογαριασμό σας συμπληρώνοντας τη %1$s, όπου θα πρέπει να επισυνάψετε μια καθαρή εικόνα από το σχετικό έγγραφο καθώς και μια φωτογραφία του εαυτού σας ενώ το κρατάτε.
 
 Εάν το Lichess έχει επαληθεύσει τον τίτλο σας, τότε μπορείτε να συμμετέχετε σε τουρνουά Titled Arena.

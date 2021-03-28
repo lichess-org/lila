@@ -15,8 +15,8 @@
     <item quantity="other">%s futam</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">%2$s futamból egy lejátszva</item>
-    <item quantity="other">%2$s futamból %1$s lejátszva</item>
+    <item quantity="one">Egy %2$s futamot játszott</item>
+    <item quantity="other">%1$s %2$s futamot játszott</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Pontszám</string>
@@ -39,9 +39,14 @@
   <string name="spectating">Megfigyelés</string>
   <string name="joinTheRace">Csatlakozz a versenyhez!</string>
   <string name="yourRankX">Helyezésed: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Várj az újrajátszásig</string>
+  <string name="waitForRematch">Várj az újrajátszásig</string>
   <string name="nextRace">Következő</string>
   <string name="joinRematch">Csatlakozás</string>
   <string name="waitingToStart">Várakozás a kezdésig</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Új játék létrehozása</string>
+  <string name="createNewGame">Új játék létrehozása</string>
+  <string name="joinPublicRace">Csatlakozás egy nyilvános versenyhez</string>
+  <string name="raceYourFriends">Versenyezz a barátaiddal</string>
+  <string name="skip">kihagy</string>
+  <string name="skipHelp">ÚJ! Kihagyhatsz egy lépést versenyenként:</string>
+  <string name="skipExplanation">Lépés kihagyása a kombó megőrzéséhez! Csak egyszer használható versenyenként.</string>
 </resources>

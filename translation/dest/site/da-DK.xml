@@ -838,4 +838,22 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
+  <string name="mentionedYouInX"> nævnte dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s nævnte dig i \"%2$s\".</string>
+  <string name="invitedYouToX"> inviterede dig til \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
+  <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
+  <string name="congratsYouWon">Tillykke, du vandt!</string>
+  <string name="gameVsX">Spil mod %$1s</string>
+  <string name="resVsX">%$1s mod %$2s</string>
+  <string name="youJustBecamePatron">Du er lige blevet en Lichess Patron.</string>
+  <string name="patronAccountExpired">Patron-konto udløbet</string>
+  <string name="pleaseReconsiderRenewIt">Overvej venligst at forny den!</string>
+  <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
+  <string name="newPendingReview">Ny afventende gennemgang</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
+  <string name="refundXpointsTimeControlY">Refunderet: %$1s %$2s ratingpoint.</string>
+  <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
 </resources>

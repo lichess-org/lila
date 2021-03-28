@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">一手指すとスタート</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">あなたの駒はどの問題でも白です</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">あなたの駒はどの問題でも黒です</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">あなたの駒はつねに白です</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">あなたの駒はつねに黒です</string>
   <string name="puzzlesSolved">正解数</string>
   <string name="newDailyHighscore">今日のハイスコア更新！</string>
   <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
@@ -37,9 +37,14 @@
   <string name="spectating">観戦中</string>
   <string name="joinTheRace">レースに参戦！</string>
   <string name="yourRankX">順位：%s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">次をお待ちください</string>
+  <string name="waitForRematch">次をお待ちください</string>
   <string name="nextRace">次のレース</string>
   <string name="joinRematch">もう一度参加する</string>
   <string name="waitingToStart">まもなくスタート</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">新たなレースを作成</string>
+  <string name="createNewGame">新たなレースを作成</string>
+  <string name="joinPublicRace">レースに参加</string>
+  <string name="raceYourFriends">友達とレース</string>
+  <string name="skip">飛ばす</string>
+  <string name="skipHelp">レース中 1 手だけ飛ばすことができます：</string>
+  <string name="skipExplanation">手を飛ばすことで連続正解が続きます！ 1 レース中 1 回だけ有効。</string>
 </resources>

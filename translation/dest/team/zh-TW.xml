@@ -38,4 +38,6 @@
   <string name="leadersChat">隊長聊天</string>
   <string name="closeTeam">關閉團隊</string>
   <string name="closeTeamDescription">永遠關閉此團隊</string>
+  <string name="incorrectTeamPassword">團隊密碼錯誤。</string>
+  <string name="teamAlreadyExists">此隊伍已存在。</string>
 </resources>

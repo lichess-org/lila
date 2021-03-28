@@ -913,4 +913,22 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCannotPostYetPlaySomeGames">Diskutuoti forume dar negalite. Sužaiskite keletą partijų!</string>
   <string name="subscribe">Prenumeruoti</string>
   <string name="unsubscribe">Atsisakyti prenumeratos</string>
+  <string name="mentionedYouInX"> paminėjo jus \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s paminėjo jus \"%2$s\".</string>
+  <string name="invitedYouToX"> pakvietė jus į \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s pakvietė jus į \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Jūs jau esate komandos dalis.</string>
+  <string name="youHaveJoinedTeamX">Jūs prisijungėte prie \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Kažkas, apie ką pranešėte, buvo užblokuotas</string>
+  <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
+  <string name="gameVsX">Žaidimas prieš %$1s</string>
+  <string name="resVsX">%$1s prieš %$2s</string>
+  <string name="youJustBecamePatron">Jūs ką tik tapote lichess rėmėju.</string>
+  <string name="patronAccountExpired">Rėmėjo paskyra pasibaigė</string>
+  <string name="pleaseReconsiderRenewIt">Pagalvokite apie jo atnaujinimą!</string>
+  <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
+  <string name="newPendingReview">Nauja laukianti peržvalga</string>
+  <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
+  <string name="refundXpointsTimeControlY">Grąžinimas: %$1s %$2s reitingo taškų.</string>
+  <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
 </resources>

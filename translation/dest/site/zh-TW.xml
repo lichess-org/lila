@@ -22,9 +22,9 @@
   <string name="createAGame">開始對局</string>
   <string name="whiteIsVictorious">白方勝</string>
   <string name="blackIsVictorious">黑方勝</string>
-  <string name="youPlayTheWhitePieces">您使用白棋</string>
-  <string name="youPlayTheBlackPieces">您使用黑棋</string>
-  <string name="itsYourTurn">您的回合!</string>
+  <string name="youPlayTheWhitePieces">您執白棋</string>
+  <string name="youPlayTheBlackPieces">您執黑棋</string>
+  <string name="itsYourTurn">輪到你了！</string>
   <string name="kingInTheCenter">王居中勝</string>
   <string name="threeChecks">三次將軍勝</string>
   <string name="raceFinished">競王結束</string>
@@ -35,7 +35,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
+    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒後獲勝。</item>
   </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
@@ -211,11 +211,11 @@
   <string name="standard">標準</string>
   <string name="unlimited">無限</string>
   <string name="mode">模式</string>
-  <string name="casual">非定級</string>
-  <string name="rated">定級</string>
-  <string name="casualTournament">非定级</string>
-  <string name="ratedTournament">定级</string>
-  <string name="thisGameIsRated">這盤棋是定級的</string>
+  <string name="casual">休閒</string>
+  <string name="rated">排位賽</string>
+  <string name="casualTournament">休閒</string>
+  <string name="ratedTournament">排位</string>
+  <string name="thisGameIsRated">此對局是排位賽</string>
   <string name="rematch">重賽</string>
   <string name="rematchOfferSent">重賽請求已發送</string>
   <string name="rematchOfferSentWhite">白方請求重賽</string>
@@ -241,7 +241,7 @@
   <string name="freeOnlineChess">免費線上國際象棋</string>
   <string name="spectators">旁觀者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s 評分</item>
+    <item quantity="other">%s 場排位賽</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s局勝</item>
@@ -284,16 +284,16 @@
   <string name="backToTournament">返回錦標賽主頁</string>
   <string name="thematic">特殊開局</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s 個已評分的棋局</item>
+    <item quantity="other">完成至少 %s 場排位賽</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s 積分賽</item>
+    <item quantity="other">≥ %1$s %2$s 排位賽</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">你需要再下%1$s局%2$s模式的積分棋局</item>
+    <item quantity="other">你需要再下 %1$s 局 %2$s 變體的排位賽</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">您需要再下%s盤會評分的棋局</item>
+    <item quantity="other">您需要再完成 %s 場排位賽</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
@@ -427,14 +427,14 @@
   <string name="onlinePlayers">在線棋手</string>
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，這棋局是排位賽，但是不計時！</string>
   <string name="success">大功告成！</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s場對局正在進行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移动棋子后自动进入下一盘棋</string>
   <string name="autoSwitch">自动更换</string>
-  <string name="puzzles">題目</string>
+  <string name="puzzles">謎題</string>
   <string name="latestUpdates">最近更新</string>
   <string name="tournamentWinners">比赛赢家</string>
   <string name="name">名</string>
@@ -797,4 +797,13 @@
   <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
+  <string name="mentionedYouInX"> 在 \"%1$s\" 中提到了您。</string>
+  <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
+  <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
+  <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
+  <string name="youHaveJoinedTeamX">您已加入 \"%$1s\"。</string>
+  <string name="congratsYouWon">恭喜，您贏了！</string>
+  <string name="resVsX">%$1s vs %$2s</string>
+  <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
+  <string name="timeAlmostUp">時間快到了！</string>
 </resources>

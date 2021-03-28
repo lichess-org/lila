@@ -39,9 +39,14 @@
   <string name="spectating">Tamaşaçı</string>
   <string name="joinTheRace">Yarışa qatıl!</string>
   <string name="yourRankX">Sənin rank %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Yeni oyun üçün gözlə</string>
+  <string name="waitForRematch">Yeni oyun üçün gözlə</string>
   <string name="nextRace">Növbəti yarış</string>
   <string name="joinRematch">Yeni oyuna qatıl</string>
   <string name="waitingToStart">Başlamaq üçün gözlə</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni oyun yarat</string>
+  <string name="createNewGame">Yeni oyun yarat</string>
+  <string name="joinPublicRace">Təsadüfi yarışa qatıl</string>
+  <string name="raceYourFriends">Dostlarınla yarış</string>
+  <string name="skip">keç</string>
+  <string name="skipHelp">Hər yarışda bir gedişi keçə bilərsən:</string>
+  <string name="skipExplanation">Kombonu qorumaq üçün bu gedişi keç! Hər yarışda sadəcə bir dəfə işləyir.</string>
 </resources>

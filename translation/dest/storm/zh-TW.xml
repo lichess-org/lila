@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">移動以開始</string>
-  <string name="puzzlesSolved">已解決題目!</string>
-  <string name="newDailyHighscore">新的每日紀錄!</string>
-  <string name="newWeeklyHighscore">新的每周紀錄!</string>
-  <string name="newMonthlyHighscore">新的每月紀錄!</string>
-  <string name="newAllTimeHighscore">新歷史紀錄!</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">您將在所有謎題中執白</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">您將在所有謎題中執黑</string>
+  <string name="puzzlesSolved">已解決題目！</string>
+  <string name="newDailyHighscore">新的每日紀錄！</string>
+  <string name="newWeeklyHighscore">新的每周紀錄！</string>
+  <string name="newMonthlyHighscore">新的每月紀錄！</string>
+  <string name="newAllTimeHighscore">新歷史紀錄！</string>
   <string name="previousHighscoreWasX">之前的紀錄:%s</string>
   <string name="playAgain">再玩一次</string>
   <plurals name="xRuns">
@@ -29,4 +31,16 @@
   <string name="viewBestRuns">顯示最佳的一輪</string>
   <string name="bestRunOfDay">今日最佳的一輪</string>
   <string name="runs">輪</string>
+  <string name="getReady">做好準備！</string>
+  <string name="waitingForMorePlayers">等待更多玩家加入...</string>
+  <string name="raceComplete">完賽！</string>
+  <string name="spectating">觀戰中</string>
+  <string name="joinTheRace">加入競賽！</string>
+  <string name="yourRankX">你的排名: %s</string>
+  <string name="waitForRematch">等候重賽</string>
+  <string name="nextRace">下一場競賽</string>
+  <string name="waitingToStart">等待開始</string>
+  <string name="createNewGame">開始新遊戲</string>
+  <string name="skip">跳過</string>
+  <string name="skipHelp">每場賽可略一手棋</string>
 </resources>

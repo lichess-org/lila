@@ -39,9 +39,14 @@
   <string name="spectating">Spectating</string>
   <string name="joinTheRace">Join the race!</string>
   <string name="yourRankX">Your rank: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Wait for rematch</string>
+  <string name="waitForRematch">Wait for rematch</string>
   <string name="nextRace">Next race</string>
   <string name="joinRematch">Join rematch</string>
   <string name="waitingToStart">Waiting to start</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Create a new game</string>
+  <string name="createNewGame">Create a new game</string>
+  <string name="joinPublicRace">Join a public race</string>
+  <string name="raceYourFriends">Race your friends</string>
+  <string name="skip">skip</string>
+  <string name="skipHelp">You can skip one move per race:</string>
+  <string name="skipExplanation">Skip this move to preserve your combo! Only works once per race.</string>
 </resources>

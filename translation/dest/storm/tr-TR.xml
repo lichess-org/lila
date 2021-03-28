@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Başlamak için hamle yap</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Tüm bulmacalarda beyaz taraf olacaksınız</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Tüm bulmacalarda siyah taraf olacaksınız</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Tüm bulmacalarda beyaz taraf olacaksın</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Tüm bulmacalarda siyah taraf olacaksın</string>
   <string name="puzzlesSolved">bulmaca çözüldü</string>
   <string name="newDailyHighscore">Günün rekoru kırıldı!</string>
   <string name="newWeeklyHighscore">Haftanın rekoru kırıldı!</string>
@@ -39,9 +39,14 @@
   <string name="spectating">İzleyici modu</string>
   <string name="joinTheRace">Yarışa katıl!</string>
   <string name="yourRankX">Sıralamanız: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Rövanş için bekle</string>
+  <string name="waitForRematch">Rövanş için bekle</string>
   <string name="nextRace">Sıradaki yarış</string>
   <string name="joinRematch">Rövanşa katıl</string>
   <string name="waitingToStart">Başlamak üzere</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Yeni bir oyun oluştur</string>
+  <string name="createNewGame">Yeni bir oyun oluştur</string>
+  <string name="joinPublicRace">Herkese açık yarışa katıl</string>
+  <string name="raceYourFriends">Arkadaşlarınla yarış</string>
+  <string name="skip">atla</string>
+  <string name="skipHelp">Her yarışta bir hamleyi atlayabilirsin:</string>
+  <string name="skipExplanation">Serini korumak için bu hamleyi atla! Her yarışta sadece bir atlama hakkın var.</string>
 </resources>

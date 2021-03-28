@@ -46,6 +46,9 @@
   <string name="accounts">帳戶</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
   <string name="noUpperCaseDot">不行</string>
+  <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
+  <string name="guidelines">指南</string>
+  <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
   <string name="lichessRatings">Lichess 評分</string>

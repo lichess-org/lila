@@ -39,9 +39,14 @@
   <string name="spectating">Observando</string>
   <string name="joinTheRace">¡Únete a la carrera!</string>
   <string name="yourRankX">Tu puntuación: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Espera para la revancha</string>
+  <string name="waitForRematch">Espera para la revancha</string>
   <string name="nextRace">Siguiente carrera</string>
   <string name="joinRematch">Unirse a la revancha</string>
   <string name="waitingToStart">Esperando a que empiece</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Crear una nueva carrera</string>
+  <string name="createNewGame">Crear una nueva carrera</string>
+  <string name="joinPublicRace">Únete a una carrera pública</string>
+  <string name="raceYourFriends">Compite con tus amigos</string>
+  <string name="skip">omitir</string>
+  <string name="skipHelp">Puedes omitir un movimiento por carrera:</string>
+  <string name="skipExplanation">Omite este movimiento para conservar tu combo. Solo funciona una vez por carrera.</string>
 </resources>

@@ -8,6 +8,7 @@
   <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
   <string name="boardCoordinates">棋盤座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
+  <string name="pgnLetter">字母 (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禪意模式</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
   <string name="chessClock">棋鍾</string>
@@ -17,6 +18,9 @@
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="giveMoreTime">給對方更多時間</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">對局行為</string>
+  <string name="clickTwoSquares">點擊棋子及目標位置</string>
+  <string name="dragPiece">拖曳棋子</string>
+  <string name="bothClicksAndDrag">兩者都行</string>
   <string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（经过对手同意）</string>
   <string name="inCasualGamesOnly">仅限非正式游戏</string>
@@ -26,5 +30,6 @@
   <string name="moveConfirmation">走棋确认</string>
   <string name="inCorrespondenceGames">在长期对局中</string>
   <string name="correspondenceAndUnlimited">通信和無限</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">輸棋或和棋後自動發送 \"Good game, well played\"。</string>
   <string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
 </resources>

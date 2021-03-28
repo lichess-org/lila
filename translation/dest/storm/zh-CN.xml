@@ -37,9 +37,14 @@
   <string name="spectating">观战中</string>
   <string name="joinTheRace">加入竞速</string>
   <string name="yourRankX">你的排名：%s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">等待下一场</string>
+  <string name="waitForRematch">等待下一场</string>
   <string name="nextRace">下一场竞速</string>
   <string name="joinRematch">再来一局</string>
   <string name="waitingToStart">等待开始</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">创建新比赛</string>
+  <string name="createNewGame">创建新比赛</string>
+  <string name="joinPublicRace">加入公开比赛</string>
+  <string name="raceYourFriends">和好友比赛</string>
+  <string name="skip">跳过</string>
+  <string name="skipHelp">每场比赛仅能跳过一次</string>
+  <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
 </resources>

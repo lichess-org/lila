@@ -39,9 +39,14 @@
   <string name="spectating">Наблюдаване</string>
   <string name="joinTheRace">Влезте в състезанието!</string>
   <string name="yourRankX">Вашето класиране: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Изчакайте за реванш</string>
+  <string name="waitForRematch">Изчакайте за реванш</string>
   <string name="nextRace">Следващо състезание</string>
   <string name="joinRematch">Започнете реванша</string>
   <string name="waitingToStart">Изчакване на започването</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Създайте нова игра</string>
+  <string name="createNewGame">Създайте нова игра</string>
+  <string name="joinPublicRace">Участвайте в публично състезание</string>
+  <string name="raceYourFriends">Състезавайте се с приятели</string>
+  <string name="skip">пропусни</string>
+  <string name="skipHelp">Можете да пропуснете един ход на състезание:</string>
+  <string name="skipExplanation">Пропуснете този ход за да запазите комбинацията си! Можете да го направите само веднъж на състезание.</string>
 </resources>

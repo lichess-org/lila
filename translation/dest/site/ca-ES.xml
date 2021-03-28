@@ -468,6 +468,8 @@
   <string name="tournamentWinners">Guanyadors de tornejos</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
+  <string name="descPrivate">Descripció privada</string>
+  <string name="descPrivateHelp">Text que només veuran els membres de l\'equip en substitució de la descripció pública.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ajuda:</string>
@@ -488,6 +490,7 @@
   <string name="cheat">Trampós</string>
   <string name="insult">Insult</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulació de la puntuació</string>
   <string name="other">Altres</string>
   <string name="reportDescriptionHelp">Enganxa el link de la/les pardida/s i explica què hi ha de malament en el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", i digues com has arribat a aquesta conclusió. El teu informe serà processat més ràpid si l\'escrius en Anglés.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>

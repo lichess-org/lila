@@ -912,4 +912,22 @@
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
+  <string name="mentionedYouInX"> упомянул вас в «%1$s».</string>
+  <string name="xMentionedYouInY"> %1$s упомянул вас в «%2$s».</string>
+  <string name="invitedYouToX"> пригласил вас в «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
+  <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
+  <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
+  <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
+  <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
+  <string name="gameVsX">Партия против %$1s</string>
+  <string name="resVsX">%$1s против %$2s</string>
+  <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
+  <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
+  <string name="pleaseReconsiderRenewIt">Пожалуйста, рассмотрите возможность возобновить поддержку!</string>
+  <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
+  <string name="newPendingReview">Ожидают рассмотрения</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
+  <string name="refundXpointsTimeControlY">Возврат: %$1s %$2s рейтинговых очков.</string>
+  <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>

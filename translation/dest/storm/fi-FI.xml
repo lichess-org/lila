@@ -39,9 +39,14 @@
   <string name="spectating">Katsomassa</string>
   <string name="joinTheRace">Liity kisaan!</string>
   <string name="yourRankX">Sijoituksesi: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Odota revanssia</string>
+  <string name="waitForRematch">Odota revanssia</string>
   <string name="nextRace">Seuraava kisa</string>
   <string name="joinRematch">Liity revanssiin</string>
   <string name="waitingToStart">Odotetaan alkamista</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Luo uusi peli</string>
+  <string name="createNewGame">Luo uusi peli</string>
+  <string name="joinPublicRace">Liity avoimeen kisaan</string>
+  <string name="raceYourFriends">Kilpaile kaveriesi kanssa</string>
+  <string name="skip">ohita</string>
+  <string name="skipHelp">Kunkin kilvan aikana voit ohittaa yhden siirron:</string>
+  <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
 </resources>

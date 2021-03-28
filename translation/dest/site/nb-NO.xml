@@ -838,4 +838,16 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan ikke skrive innlegg i forumene ennå. Spill noen partier!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
+  <string name="mentionedYouInX"> nevnte deg i «%1$s».</string>
+  <string name="xMentionedYouInY"> %1$s nevnte deg i «%2$s».</string>
+  <string name="invitedYouToX"> inviterte deg til «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s inviterte deg til «%2$s».</string>
+  <string name="youAreNowPartOfTeam">Du er nå med på laget.</string>
+  <string name="youHaveJoinedTeamX">Du har blitt med i «%$1s».</string>
+  <string name="someoneYouReportedWasBanned">Noen du rapporterte, ble utestengt</string>
+  <string name="congratsYouWon">Gratulerer, du vant!</string>
+  <string name="gameVsX">Parti mot %$1s</string>
+  <string name="resVsX">%$1s mot %$2s</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refusjon: %$1s ratingpoeng i %$2s.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Tiden er nesten ute!</string>
 </resources>

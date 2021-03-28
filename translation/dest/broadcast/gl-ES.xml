@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Emisión</string>
+  <string name="liveBroadcasts">Emisións de torneos en directo</string>
+  <string name="newBroadcast">Nova emisión en directo</string>
+  <string name="ongoing">En curso</string>
+  <string name="upcoming">Proximamente</string>
+  <string name="completed">Completadas</string>
+  <string name="eventName">Nome do evento</string>
+  <string name="eventDescription">Descrición breve do evento</string>
+  <string name="fullDescription">Descrición completa do evento</string>
+  <string name="fullDescriptionHelp">Descrición longa opcional da retrasmisión. %1$s está dispoñibél. A lonxitude debe ser menor de %2$s caracteres.</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Enlace de orixe ou identificador da partida</string>
+  <string name="sourceUrlHelp">Enlace que Lichess comprobará para obter actualizacións PGN. Debe ser públicamente accesiíbel desde Internet.</string>
+  <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espacios.</string>
+  <string name="roundNumber">Número de ronda</string>
+  <string name="startDate">Data de inicio na túa zona horaria</string>
+  <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
+  <string name="credits">Cita a fonte</string>
+  <string name="cloneBroadcast">Clonar a emisión</string>
+  <string name="resetBroadcast">Reiniciar a emisión</string>
+</resources>

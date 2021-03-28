@@ -838,4 +838,7 @@
   <string name="youCannotPostYetPlaySomeGames">Et voi vielä lähettää viestejä foorumeihin. Pelaa ensin muutama peli!</string>
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
+  <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
+  <string name="refundXpointsTimeControlY">Hyvitys: %$1s %$2s vahvuuslukupistettä.</string>
 </resources>

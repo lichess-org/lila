@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Faça um lance para começar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Joga com as peças brancas em todos os problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Joga com as peças pretas em todos os problemas</string>
   <string name="puzzlesSolved">Problema Resolvido!</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
@@ -18,7 +20,7 @@
   </plurals>
   <string name="highscoreX">Recorde: %s</string>
   <string name="score">Pontuação</string>
-  <string name="moves">Total de lances </string>
+  <string name="moves">Total de lances</string>
   <string name="accuracy">Precisão</string>
   <string name="combo">Combo</string>
   <string name="time">Tempo</string>
@@ -31,4 +33,5 @@
   <string name="viewBestRuns">Ver as melhores partidas</string>
   <string name="bestRunOfDay">Melhor partida do dia</string>
   <string name="runs">Partidas</string>
+  <string name="getReady">Preparar!</string>
 </resources>

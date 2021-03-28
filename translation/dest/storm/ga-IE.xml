@@ -45,9 +45,14 @@
   <string name="spectating">Ag breathnú</string>
   <string name="joinTheRace">Bí sa rás!</string>
   <string name="yourRankX">Do rang: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Fan ar athchluiche</string>
+  <string name="waitForRematch">Fan ar athchluiche</string>
   <string name="nextRace">Chéad rás eile</string>
   <string name="joinRematch">Téigh isteach i athchluiche</string>
   <string name="waitingToStart">Ag fanacht le tosú</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Cruthaigh cluiche nua</string>
+  <string name="createNewGame">Cruthaigh cluiche nua</string>
+  <string name="joinPublicRace">Glac páirt i rás poiblí</string>
+  <string name="raceYourFriends">Rás in aghaidh do chairde</string>
+  <string name="skip">scipeáil</string>
+  <string name="skipHelp">Tá cead beart amháin a scipeáil in aon rás amháin:</string>
+  <string name="skipExplanation">Scipeáil an beart seo chun do sraithbhuille a chaomhnú! Ní oibríonn sé ach uair amháin in aon rás amháin.</string>
 </resources>

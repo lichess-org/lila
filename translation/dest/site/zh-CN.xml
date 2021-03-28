@@ -801,4 +801,18 @@
   <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
   <string name="subscribe">订阅</string>
   <string name="unsubscribe">取消订阅</string>
+  <string name="mentionedYouInX"> 在 “%1$s” 中提到了你。</string>
+  <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了你。</string>
+  <string name="invitedYouToX"> 邀请你加入\"%1$s\"。</string>
+  <string name="xInvitedYouToY">%1$s 邀请你加入 \"%2$s\"。</string>
+  <string name="youAreNowPartOfTeam">你现在是团队的成员。</string>
+  <string name="youHaveJoinedTeamX">你已加入\"%$1s\"。</string>
+  <string name="someoneYouReportedWasBanned">你举报的用户已被封禁</string>
+  <string name="congratsYouWon">恭喜你获得了胜利！</string>
+  <string name="gameVsX">与 %$1s 对局</string>
+  <string name="resVsX">%$1s vs %$2</string>
+  <string name="youJustBecamePatron">您已成为 lichess 的赞助者</string>
+  <string name="patronAccountExpired">赞助账户已过期</string>
+  <string name="refundXpointsTimeControlY">退回 %$1s %$2s 等级分。</string>
+  <string name="timeAlmostUp">时间快到了！</string>
 </resources>

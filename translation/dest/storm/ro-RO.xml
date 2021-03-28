@@ -41,9 +41,14 @@
   <string name="spectating">Spectator</string>
   <string name="joinTheRace">Intră în cursă!</string>
   <string name="yourRankX">Poziția ta: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Așteaptă pentru revanșă</string>
+  <string name="waitForRematch">Așteaptă pentru revanșă</string>
   <string name="nextRace">Următoarea cursă</string>
   <string name="joinRematch">Intră în cursa pentru revanșă</string>
   <string name="waitingToStart">Se așteaptă startul</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Creează o nouă partidă</string>
+  <string name="createNewGame">Creează o nouă partidă</string>
+  <string name="joinPublicRace">Alătură-te unei curse publice</string>
+  <string name="raceYourFriends">Invită-ți prietenii</string>
+  <string name="skip">omite</string>
+  <string name="skipHelp">Poți sări peste o mutare pe cursă:</string>
+  <string name="skipExplanation">Sări peste această mutare pentru a păstra combo-ul! Funcționează o singură dată pe cursă.</string>
 </resources>

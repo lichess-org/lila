@@ -43,9 +43,14 @@
   <string name="spectating">Наблюдение</string>
   <string name="joinTheRace">Присоединиться к гонке!</string>
   <string name="yourRankX">Ваше место: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Ожидание реванша</string>
+  <string name="waitForRematch">Ожидание реванша</string>
   <string name="nextRace">Следующая гонка</string>
   <string name="joinRematch">Присоединиться к реваншу</string>
   <string name="waitingToStart">Ожидание начала</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Создать новую игру</string>
+  <string name="createNewGame">Создать новую игру</string>
+  <string name="joinPublicRace">Принять участие в общей гонке</string>
+  <string name="raceYourFriends">Погоняться с друзьями</string>
+  <string name="skip">пропустить</string>
+  <string name="skipHelp">НОВИНКА! Вы можете пропустить один ход за гонку:</string>
+  <string name="skipExplanation">Пропустить этот ход, чтобы сохранить комбо! Только один раз за гонку.</string>
 </resources>

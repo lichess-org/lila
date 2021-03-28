@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">題目</string>
+  <string name="puzzles">謎題</string>
   <string name="recommended">推薦</string>
   <string name="phases">分類</string>
   <string name="motifs">主題</string>
@@ -8,14 +8,15 @@
   <string name="lengths">長度</string>
   <string name="mates">將軍</string>
   <string name="goals">目標</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">來源</string>
   <string name="specialMoves">特殊移動</string>
-  <string name="didYouLikeThisPuzzle">您喜歡這個題目嗎？</string>
+  <string name="didYouLikeThisPuzzle">您喜歡這道謎題嗎？</string>
   <string name="voteToLoadNextOne">告訴我們加載下一題!</string>
   <string name="yourPuzzleRatingX">您的解題等級：%s</string>
   <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
   <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>
-  <string name="puzzleId">題目%s</string>
+  <string name="puzzleId">謎題 %s</string>
   <string name="puzzleOfTheDay">每日一題</string>
   <string name="clickToSolve">點擊解題</string>
   <string name="goodMove">好棋</string>
@@ -40,5 +41,10 @@
   <string name="hardest">超困難</string>
   <string name="example">範例</string>
   <string name="addAnotherTheme">加入其他主題</string>
-  <string name="jumpToNextPuzzleImmediately">立即跳到下一個題目</string>
+  <string name="jumpToNextPuzzleImmediately">立即跳到下一個謎題</string>
+  <string name="improvementAreas">弱點</string>
+  <string name="strengths">強項</string>
+  <string name="history">解題紀錄</string>
+  <string name="solved">解決</string>
+  <string name="failed">失敗</string>
 </resources>

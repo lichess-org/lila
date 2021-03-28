@@ -22,9 +22,14 @@
   <string name="spectating">Gledanje</string>
   <string name="joinTheRace">Pridruži se dirki!</string>
   <string name="yourRankX">Tvoj rang: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Počakajte na revanšo</string>
+  <string name="waitForRematch">Počakajte na revanšo</string>
   <string name="nextRace">Naslednja dirka</string>
   <string name="joinRematch">Pridružite se revanši</string>
   <string name="waitingToStart">Čakanje na začetek</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Ustvari novo igro</string>
+  <string name="createNewGame">Ustvari novo igro</string>
+  <string name="joinPublicRace">Pridružite se javni tekmi</string>
+  <string name="raceYourFriends">Dirka s prijatelji</string>
+  <string name="skip">preskoči</string>
+  <string name="skipHelp">NOVO! Lahko preskočite eno potezo na dirko:</string>
+  <string name="skipExplanation">Preskočite to potezo, da ohranite svojo kombinacijo! Deluje samo enkrat na dirko.</string>
 </resources>

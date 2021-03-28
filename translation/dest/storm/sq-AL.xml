@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Lëviz për të filluar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Ti luan me figurat e bardha në te gjitha ushtrimet</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Ti luan me figurat e zeza në te gjitha ushtrimet</string>
   <string name="puzzlesSolved">ushtrime të zgjidhura</string>
   <string name="newDailyHighscore">Rekord i ri ditor!</string>
   <string name="newWeeklyHighscore">Rekord i ri javor!</string>
@@ -31,4 +33,20 @@
   <string name="viewBestRuns">Shiko raundet më të mira</string>
   <string name="bestRunOfDay">Raundi më i mire i ditës</string>
   <string name="runs">Raunde</string>
+  <string name="getReady">Bëhu Gati!</string>
+  <string name="waitingForMorePlayers">Duke pritur lojtarë te tjerë...</string>
+  <string name="raceComplete">Gara përfundoi!</string>
+  <string name="spectating">Shikues</string>
+  <string name="joinTheRace">Bashkohuni garës!</string>
+  <string name="yourRankX">Renditja juaj: %s</string>
+  <string name="waitForRematch">Prit për revansh</string>
+  <string name="nextRace">Garë tjetër</string>
+  <string name="joinRematch">Bashkohu revanshës</string>
+  <string name="waitingToStart">Duke pritur fillimin</string>
+  <string name="createNewGame">Krijo një lojë të re</string>
+  <string name="joinPublicRace">Bashkohu një gare publike</string>
+  <string name="raceYourFriends">Garohu me shokët</string>
+  <string name="skip">kapërce</string>
+  <string name="skipHelp">Ju mundeni te kapërceni një lëvizje për garë:</string>
+  <string name="skipExplanation">Kapërce këtë lëvizje qe te ruash kombinimet! Bën vetëm një herë per garë.</string>
 </resources>

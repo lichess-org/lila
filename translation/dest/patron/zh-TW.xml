@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐款</string>
+  <string name="lichessPatron">Lichess 贊助者</string>
   <string name="freeAccount">免費帳戶</string>
+  <string name="becomePatron">成為 Lichess 贊助者</string>
+  <string name="xBecamePatron">%s 成為了 Lichess 贊助者</string>
+  <string name="newPatrons">新贊助者</string>
+  <string name="noAdsNoSubs">無廣告、無訂閱；只有開源和熱情。</string>
   <string name="thankYou">感謝您的捐款!</string>
   <string name="lifetime">終身</string>
+  <string name="lifetimePatron">終生 Lichess 贊助者</string>
   <string name="monthly">每個月</string>
   <string name="onetime">一次性</string>
   <string name="otherAmount">其他</string>
@@ -12,16 +18,28 @@
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">我捐出的錢會到哪裡?</string>
   <string name="officialNonProfit">Lichess 是一個非營利組織嗎?</string>
+  <string name="changeOrContact">當然，您隨時可以在本頁更改。
+您也可以 %s。</string>
   <string name="contactSupport">聯絡 Lichess 支援</string>
+  <string name="otherMethods">有其他的贊助方式嗎？</string>
   <string name="bankTransfers">我們也接受銀行轉帳</string>
   <string name="bitcoin">這是我們的bitcoin連結:%s</string>
+  <string name="patronFeatures">贊助者會有專屬功能嗎？</string>
+  <string name="noPatronFeatures">不會，因為 Lichess 不管對任何人都是永遠免費的。這是我們的承諾。
+不過贊助者們可以炫耀自己有超酷的個人資料圖示。</string>
+  <string name="featuresComparison">查看詳細的功能比較</string>
   <string name="youSupportWith">你贊助lichess.org每個月 %s美元</string>
+  <string name="currentStatus">目前狀態</string>
+  <string name="nextPayment">下次付款</string>
   <string name="update">更新</string>
   <string name="cancelSupport">取消贊助</string>
+  <string name="xOrY">%1$s 或 %2$s</string>
   <string name="noLongerSupport">不再贊助 Lichess</string>
   <string name="paymentHistory">付款記錄</string>
   <string name="paid">已支付</string>
+  <string name="viewOthers">查看其他 Lichess 贊助者</string>
   <string name="date">日期</string>
   <string name="amount">金額</string>
+  <string name="transactionCompleted">您的交易已完成，您的贊助收據已透過電子郵件發送給您。</string>
   <string name="checkOutProfile">請確認您的個人資料頁面!</string>
 </resources>

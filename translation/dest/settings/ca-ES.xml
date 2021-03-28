@@ -5,6 +5,6 @@
   <string name="closingIsDefinitive">El tancament és definitiu. No es pot tornar enrere. N\'esteu segurs?</string>
   <string name="cantOpenSimilarAccount">No està permès crear un nou compte amb el mateix nom, ni tan sols si només canvien les majúscules o minúscules.</string>
   <string name="changedMindDoNotCloseAccount">He canviat d\'opinió, no tanqueu el meu compte</string>
-  <string name="closeAccountExplanation">Esteu segur de que voleu eliminar el compte? Eliminar-lo és una decisió permanent. No us podreu tornar a connectar MAI MÉS.</string>
+  <string name="closeAccountExplanation">Esteu segurs que voleu eliminar el compte? Eliminar-lo és una decisió permanent. No us podreu tornar a connectar MAI MÉS.</string>
   <string name="thisAccountIsClosed">Aquest compte està tancat.</string>
 </resources>

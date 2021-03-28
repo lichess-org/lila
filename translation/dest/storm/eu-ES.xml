@@ -39,9 +39,14 @@
   <string name="spectating">Ikusten</string>
   <string name="joinTheRace">Sartu lasterketara!</string>
   <string name="yourRankX">Zure sailkapena: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Itxaron berriz jokatzeko</string>
+  <string name="waitForRematch">Itxaron berriz jokatzeko</string>
   <string name="nextRace">Hurrengo lasterketa</string>
   <string name="joinRematch">Sartu berriz jokatzera</string>
   <string name="waitingToStart">Hasteko zain</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Sortu partida berria</string>
+  <string name="createNewGame">Sortu partida berria</string>
+  <string name="joinPublicRace">Sartu lasterketa publikora</string>
+  <string name="raceYourFriends">Jokatu zure lagunekin</string>
+  <string name="skip">salto egin</string>
+  <string name="skipHelp">Lasterketa bakoitzean jokaldi bat saltatu dezakezu:</string>
+  <string name="skipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
 </resources>

@@ -41,9 +41,14 @@
   <string name="spectating">Skatās</string>
   <string name="joinTheRace">Pievienoties sacīkstēm!</string>
   <string name="yourRankX">Jūsu vieta: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Gaidiet nākamo spēli</string>
+  <string name="waitForRematch">Gaidiet nākamo spēli</string>
   <string name="nextRace">Nākamā spēle</string>
   <string name="joinRematch">Pievienoties revanšam</string>
   <string name="waitingToStart">Gaida sākumu</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Izveidot jaunu spēli</string>
+  <string name="createNewGame">Izveidot jaunu spēli</string>
+  <string name="joinPublicRace">Pievienoties publiskām sacīkstēm</string>
+  <string name="raceYourFriends">Sacensties ar draugiem</string>
+  <string name="skip">izlaist</string>
+  <string name="skipHelp">Varat izlaist vienu gājienu katrās sacīkstēs:</string>
+  <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
 </resources>

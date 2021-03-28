@@ -39,9 +39,14 @@
   <string name="spectating">Παρακολούθηση</string>
   <string name="joinTheRace">Λάβετε μέρος στον αγώνα!</string>
   <string name="yourRankX">Κατάταξη: %s</string>
-  <string name="waitForRematch" comment="waitForRematch&#10;&#10;When a user is spectating a puzzle race, they are not able to join it. This is the title of a disabled button instructing the user to wait for a rematch before joining the game.">Αναμονή για ρεβάνς</string>
+  <string name="waitForRematch">Αναμονή για ρεβάνς</string>
   <string name="nextRace">Επόμενος αγώνας</string>
   <string name="joinRematch">Συμμετοχή στη ρεβάνς</string>
   <string name="waitingToStart">Αναμονή για έναρξη</string>
-  <string name="createNewGame" comment="createNewGame&#10;&#10;When a puzzle race (https://lichess.org/racer) is completed, this is the title of a button for creating a new racing game.">Δημιουργία νέου αγώνα</string>
+  <string name="createNewGame">Δημιουργία νέου αγώνα</string>
+  <string name="joinPublicRace">Συμμετοχή σε δημόσιο αγώνα</string>
+  <string name="raceYourFriends">Συμμετοχή σε αγώνα με φίλους</string>
+  <string name="skip">παράλειψη</string>
+  <string name="skipHelp">Μπορείτε να παραλείψετε μία κίνηση σε κάθε αγώνα:</string>
+  <string name="skipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το combo σας! Αυτό μπορείτε να το κάνετε μόνο μία φορά σε κάθε αγώνα.</string>
 </resources>

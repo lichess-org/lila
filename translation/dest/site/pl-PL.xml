@@ -912,4 +912,22 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
+  <string name="mentionedYouInX"> wspomniał o tobie w \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s wspomniał o tobie w \"%2$s\".</string>
+  <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
+  <string name="youHaveJoinedTeamX">Dołączyłeś do \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
+  <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
+  <string name="gameVsX">Gra przeciwko %$1s</string>
+  <string name="resVsX">%$1s vs %$2s</string>
+  <string name="youJustBecamePatron">Właśnie zostałeś Patronem lichess.</string>
+  <string name="patronAccountExpired">Konto Patron wygasło</string>
+  <string name="pleaseReconsiderRenewIt">Proszę rozważ odnowienie!</string>
+  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
+  <string name="newPendingReview">Nowa oczekująca recenzja</string>
+  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
+  <string name="refundXpointsTimeControlY">Zwrot: %$1s %$2s punktów rankingu.</string>
+  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Czas prawie minął!</string>
 </resources>

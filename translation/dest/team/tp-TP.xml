@@ -14,7 +14,7 @@
   <string name="quitTeam">o tawa tan kulupu</string>
   <plurals name="teamLeaders">
     <item quantity="one">jan lawa kulupu</item>
-    <item quantity="other">jan lawa kulupu </item>
+    <item quantity="other">jan lawa kulupu</item>
   </plurals>
   <string name="teamBestPlayers">jan kulupu pi pona mute</string>
   <string name="teamRecentMembers">jan kulupu sin</string>
