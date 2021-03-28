@@ -801,9 +801,7 @@
   <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
   <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
   <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
-  <string name="youHaveJoinedTeamX">您已加入 \"%$1s\"。</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
-  <string name="resVsX">%$1s vs %$2s</string>
   <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
   <string name="timeAlmostUp">時間快到了！</string>
 </resources>

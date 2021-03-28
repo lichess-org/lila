@@ -880,17 +880,13 @@
   <string name="invitedYouToX"> jūs uzaicināja uz \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s jūs uzaicināja uz \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tagad esat komandas dalībnieks.</string>
-  <string name="youHaveJoinedTeamX">Pievienojāties \"%$1s\".</string>
   <string name="someoneYouReportedWasBanned">Lietotājam, ko nosūdzējāt, tika slēgts konts</string>
   <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
-  <string name="gameVsX">Spēle pret %$1s</string>
-  <string name="resVsX">%$1s pret %$2s</string>
   <string name="youJustBecamePatron">Tikko kļuvāt par Lichess Sponsoru.</string>
   <string name="patronAccountExpired">Sponsora statuss beidzās</string>
   <string name="pleaseReconsiderRenewIt">Lūdzu apsveriet to atjaunot!</string>
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Jauna neizskatīta atsauksme</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Atlīdzība: %$1s %$2s reitinga punkti.</string>
   <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Laiks gandrīz beidzies!</string>
 </resources>

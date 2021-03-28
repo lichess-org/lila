@@ -843,16 +843,12 @@
   <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
-  <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%$1s\".</string>
   <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
-  <string name="gameVsX">Játszma %$1s ellen</string>
-  <string name="resVsX">%$1s %$2s ellen</string>
   <string name="youJustBecamePatron">Éppen Lichess Patronná váltál.</string>
   <string name="patronAccountExpired">Lejárt a Patron hozzájárulás</string>
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
-  <string name="refundXpointsTimeControlY">Visszatérítve: %$1s %$2s értékpont.</string>
   <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Hamarosan lejár az idő!</string>
 </resources>

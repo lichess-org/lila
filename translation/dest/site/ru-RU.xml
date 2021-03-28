@@ -920,14 +920,11 @@
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
-  <string name="gameVsX">Партия против %$1s</string>
-  <string name="resVsX">%$1s против %$2s</string>
   <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
   <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
   <string name="pleaseReconsiderRenewIt">Пожалуйста, рассмотрите возможность возобновить поддержку!</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Ожидают рассмотрения</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
-  <string name="refundXpointsTimeControlY">Возврат: %$1s %$2s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>

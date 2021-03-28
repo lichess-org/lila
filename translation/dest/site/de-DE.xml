@@ -843,17 +843,13 @@
   <string name="invitedYouToX"> hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">%1$s hat dich zu \"%2$s\" eingeladen.</string>
   <string name="youAreNowPartOfTeam">Du bist nun Teammitglied.</string>
-  <string name="youHaveJoinedTeamX">Du bist jetzt \"%$1s\" beigetreten.</string>
   <string name="someoneYouReportedWasBanned">Jemand, den du gemeldet hast, wurde gebannt</string>
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
-  <string name="gameVsX">Partie gegen %$1s</string>
-  <string name="resVsX">%$1s gegen %$2s</string>
   <string name="youJustBecamePatron">Du wurdest nun ein Lichess-Patron.</string>
   <string name="patronAccountExpired">Patron-Status abgelaufen</string>
   <string name="pleaseReconsiderRenewIt">Bitte überlege, ob du es erneuern willst!</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
   <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Rückerstattung: %$1s %$2s Wertungspunkte.</string>
   <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Die Zeit ist fast abgelaufen!</string>
 </resources>

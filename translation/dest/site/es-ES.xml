@@ -843,17 +843,13 @@
   <string name="invitedYouToX"> te invitó a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ya estás en el equipo.</string>
-  <string name="youHaveJoinedTeamX">Te has unido a \"%$1s\".</string>
   <string name="someoneYouReportedWasBanned">Un usuario que denunciaste ha sido expulsado</string>
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
-  <string name="gameVsX">Partida contra %$1s</string>
-  <string name="resVsX">%$1s contra %$2s</string>
   <string name="youJustBecamePatron">Ya eres patrocinador de Lichess.</string>
   <string name="patronAccountExpired">La cuenta de patrocinador ha vencido</string>
   <string name="pleaseReconsiderRenewIt">¡Sería genial que la renovaras!</string>
   <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
   <string name="newPendingReview" comment="newPendingReview&#10;&#10;This is title corresponding to the related string &quot;Someone reviewed your coach profile.&quot;&#10;&#10;It is part of a notification informing the user that their coach profile has been viewed.">Nueva revisión pendiente</string>
   <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Perdiste contra un usuario que no cumplió las condiciones del servicio de Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%$1s is the number of points refunded&#10;%$2s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Has recuperado %$1s puntos en %$2s.</string>
   <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">¡Te queda poco tiempo!</string>
 </resources>
