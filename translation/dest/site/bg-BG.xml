@@ -844,17 +844,17 @@
   <string name="invitedYouToX"> Ви покани на \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
-  <string name="youHaveJoinedTeamX">Присъединихте се към \"%$1s\".</string>
+  <string name="youHaveJoinedTeamX">Присъединихте се към \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Някого когото сте докладвали беше блокиран</string>
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
-  <string name="gameVsX">Партия срещу %$1s</string>
-  <string name="resVsX">%$1s срещу %$2s</string>
+  <string name="gameVsX">Партия срещу %1$s</string>
+  <string name="resVsX">%1$s срещу %2$s</string>
   <string name="youJustBecamePatron">Станахте Lichess Дарител.</string>
   <string name="patronAccountExpired">Дарителският Ви статус изтече</string>
   <string name="pleaseReconsiderRenewIt">Моля подновете подкрепата си!</string>
   <string name="someoneReviewedYourCoachProfile">Някой прегледа Вашия треньорски профил.</string>
   <string name="newPendingReview">В очакване на преглед</string>
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
-  <string name="refundXpointsTimeControlY">Възстановяване: %$1s %$2s точки.</string>
+  <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
 </resources>
