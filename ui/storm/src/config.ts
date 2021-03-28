@@ -17,6 +17,7 @@ const config: StormConfig = {
     ],
   },
   timeToStart: 1000 * 60 * 2,
+  minFirstMoveTime: 400,
 };
 
 export default config;

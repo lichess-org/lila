@@ -16,6 +16,7 @@ const config: RacerConfig = {
       [30, 4],
     ],
   },
+  minFirstMoveTime: 400,
 };
 
 export default config;

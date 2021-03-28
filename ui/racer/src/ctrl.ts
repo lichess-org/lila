@@ -134,41 +134,45 @@ export default class StormCtrl {
     this.playUci(`${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`);
 
   playUci = (uci: Uci): void => {
-    this.run.moves++;
-    this.promotion.cancel();
+    const now = getNow();
     const puzzle = this.run.current;
-    const pos = puzzle.position();
-    const move = parseUci(uci)!;
-    let captureSound = pos.board.occupied.has(move.to);
-    pos.play(move);
-    if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
-      puzzle.moveIndex++;
-      this.localScore++;
-      this.run.combo.inc();
-      this.run.modifier.moveAt = getNow();
-      const bonus = this.run.combo.bonus();
-      if (bonus) {
-        this.run.modifier.bonus = bonus;
-        this.localScore += bonus.seconds; // yeah, ah well
-      }
-      this.socketSend('racerScore', this.localScore);
-      if (puzzle.isOver()) {
-        if (!this.incPuzzle()) this.end();
-      } else {
+    if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
+    else {
+      this.run.moves++;
+      this.promotion.cancel();
+      const pos = puzzle.position();
+      const move = parseUci(uci)!;
+      let captureSound = pos.board.occupied.has(move.to);
+      pos.play(move);
+      if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
         puzzle.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
+        this.localScore++;
+        this.run.combo.inc();
+        this.run.modifier.moveAt = now;
+        const bonus = this.run.combo.bonus();
+        if (bonus) {
+          this.run.modifier.bonus = bonus;
+          this.localScore += bonus.seconds; // yeah, ah well
+        }
+        this.socketSend('racerScore', this.localScore);
+        if (puzzle.isOver()) {
+          if (!this.incPuzzle()) this.end();
+        } else {
+          puzzle.moveIndex++;
+          captureSound = captureSound || pos.board.occupied.has(parseUci(puzzle.line[puzzle.moveIndex]!)!.to);
+        }
+        sound.move(captureSound);
+      } else {
+        sound.wrong();
+        this.run.errors++;
+        this.run.combo.reset();
+        if (this.run.clock.flag()) this.end();
+        else if (!this.incPuzzle()) this.end();
       }
-      sound.move(captureSound);
-    } else {
-      sound.wrong();
-      this.run.errors++;
-      this.run.combo.reset();
-      if (this.run.clock.flag()) this.end();
-      else if (!this.incPuzzle()) this.end();
+      this.redraw();
+      this.redrawQuick();
+      this.redrawSlow();
     }
-    this.redraw();
-    this.redrawQuick();
-    this.redrawSlow();
     this.resetGround();
     lichess.pubsub.emit('ply', this.run.moves);
   };

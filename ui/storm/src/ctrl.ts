@@ -91,7 +91,9 @@ export default class StormCtrl {
     const move = parseUci(uci)!;
     let captureSound = pos.board.occupied.has(move.to);
     pos.play(move);
-    if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+    const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
+    if (!puzzle.moveIndex) mon.firstMove(correct);
+    if (correct) {
       puzzle.moveIndex++;
       this.run.combo.inc();
       this.run.modifier.moveAt = getNow();
@@ -143,6 +145,7 @@ export default class StormCtrl {
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
+      mon.newPuzzle();
       return true;
     }
     return false;
