@@ -40,4 +40,8 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="shareUrl">Comparte este enlace para que otras personas se unan: %s</string>
   <string name="drawStreak">Rachas de tablas: Cuando un jugador hace tablas en varias partidas consecutivas en un torneo, sólo conceden un punto la primera de ellas y las que hayan durado %s movimientos o más. Una racha de tablas sólo puede romperse mediante una victoria, no sirven ni una derrota ni unas tablas.</string>
   <string name="history">Historial de torneos</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">Ver equipo</item>
+    <item quantity="other">Ver los %s equipos</item>
+  </plurals>
 </resources>
