@@ -133,7 +133,7 @@ final class Puzzle(
                       if !data.result.win
                       if score > 0
                     } lila.common.Bus
-                      .publish(lila.hub.actorApi.streak.StreakRun(userId, score).pp, "streakRun")
+                      .publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
                     renderJson(puzzle, theme) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }

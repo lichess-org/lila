@@ -91,7 +91,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
       race.players foreach { player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
         player.userId.ifTrue(player.score > 0) foreach { userId =>
-          Bus.publish(lila.hub.actorApi.racer.RacerRun(userId, player.score), "racerRun")
+          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(userId, player.score), "racerRun")
         }
       }
       publish(race)
