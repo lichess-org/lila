@@ -9,7 +9,7 @@
   <string name="lengths">长度</string>
   <string name="mates">杀王</string>
   <string name="goals">目标</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">来源</string>
+  <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道迷题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
