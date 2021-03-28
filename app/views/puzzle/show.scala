@@ -28,7 +28,7 @@ object show {
             .obj(
               "data" -> data,
               "pref" -> pref,
-              "i18n" -> bits.jsI18n
+              "i18n" -> bits.jsI18n(streak = data.value.contains("streak"))
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
             .add("difficulty" -> difficulty.map(_.key))

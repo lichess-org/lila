@@ -50,4 +50,8 @@
   <string name="history">Puzzle history</string>
   <string name="solved">solved</string>
   <string name="failed">failed</string>
+  <string name="yourStreakX">Your streak: %s</string>
+  <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
+  <string name="continueTheStreak">Continue the streak</string>
+  <string name="newStreak">New streak</string>
 </resources>

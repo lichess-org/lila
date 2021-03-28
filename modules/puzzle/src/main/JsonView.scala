@@ -19,10 +19,9 @@ final class JsonView(
 
   def apply(
       puzzle: Puzzle,
-      theme: PuzzleTheme,
+      theme: Option[PuzzleTheme],
       replay: Option[PuzzleReplay],
-      user: Option[User],
-      withTheme: Boolean = true
+      user: Option[User]
   )(implicit
       lang: Lang
   ): Fu[JsObject] = {
@@ -40,17 +39,18 @@ final class JsonView(
         .add("replay" -> replay.map(replayJson))
         .add(
           "theme",
-          withTheme option
+          theme.map { t =>
             Json
               .obj(
-                "key" -> theme.key,
+                "key" -> t.key,
                 "name" -> {
-                  if (theme == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
-                  else theme.name.txt()
+                  if (t == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
+                  else t.name.txt()
                 },
-                "desc" -> theme.description.txt()
+                "desc" -> t.description.txt()
               )
-              .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
+              .add("chapter" -> PuzzleTheme.studyChapterIds.get(t.key))
+          }
         )
     }
   }
@@ -126,7 +126,7 @@ final class JsonView(
 
   object bc {
 
-    def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit
+    def apply(puzzle: Puzzle, user: Option[User])(implicit
         lang: Lang
     ): Fu[JsObject] = {
       gameJson(

@@ -44,11 +44,12 @@
     background: $c-bg-box;
     padding: 2vmin;
 
-    &__rating {
+    &__rating,
+    &__streak {
       strong {
-        @extend %flex-center;
-
-        font-size: 3em;
+        display: block;
+        text-align: center;
+        font-size: 3.5em;
       }
     }
 

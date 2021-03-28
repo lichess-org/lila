@@ -23,7 +23,10 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
             h(
               'a',
               {
-                attrs: { href: `/training/${puzzle.id}` },
+                attrs: {
+                  href: `/training/${puzzle.id}`,
+                  ...(ctrl.streak ? { target: '_blank' } : {}),
+                },
               },
               '#' + puzzle.id
             )
@@ -33,7 +36,9 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
           'p',
           ctrl.trans.vdom(
             'ratingX',
-            ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating)
+            !ctrl.streak && ctrl.vm.mode === 'play'
+              ? h('span.hidden', ctrl.trans.noarg('hidden'))
+              : h('strong', puzzle.rating)
           )
         ),
         h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays)))),
@@ -101,17 +106,19 @@ export function userBox(ctrl: Controller): VNode {
     ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
-    h(
-      'div.puzzle__side__user__rating',
-      ctrl.trans.vdom(
-        'yourPuzzleRatingX',
-        h('strong', [
-          data.user.rating - (diff || 0),
-          ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-          ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-        ])
-      )
-    ),
+    ctrl.streak
+      ? h('div.puzzle__side__user__streak', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak.current)))
+      : h(
+          'div.puzzle__side__user__rating',
+          ctrl.trans.vdom(
+            'yourPuzzleRatingX',
+            h('strong', [
+              data.user.rating - (diff || 0),
+              ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+              ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+            ])
+          )
+        ),
   ]);
 }
 
@@ -159,7 +166,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { for: id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately')),
     ]),
-    !ctrl.getData().replay && ctrl.difficulty
+    !ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
       ? h(
           'form.puzzle__side__config__difficulty',
           {

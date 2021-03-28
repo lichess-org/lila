@@ -1843,6 +1843,10 @@ val `strengths` = new I18nKey("puzzle:strengths")
 val `history` = new I18nKey("puzzle:history")
 val `solved` = new I18nKey("puzzle:solved")
 val `failed` = new I18nKey("puzzle:failed")
+val `yourStreakX` = new I18nKey("puzzle:yourStreakX")
+val `streakSkipExplanation` = new I18nKey("puzzle:streakSkipExplanation")
+val `continueTheStreak` = new I18nKey("puzzle:continueTheStreak")
+val `newStreak` = new I18nKey("puzzle:newStreak")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 

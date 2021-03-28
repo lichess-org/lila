@@ -155,7 +155,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
   lazy val storm: Storm                   = wire[Storm]
   lazy val racer: Racer                   = wire[Racer]
-  lazy val streak: Streak                 = wire[Streak]
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
 
   // eagerly wire up all controllers

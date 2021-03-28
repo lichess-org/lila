@@ -109,7 +109,7 @@ POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: S
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
 
 # Puzzle Streak
-GET   /streak                           controllers.Streak.home
+GET   /streak                           controllers.Puzzle.streak
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home

@@ -9,9 +9,11 @@ import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
+import PuzzleStreak from './streak';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
+export type PuzzleId = string;
 
 export type Redraw = () => void;
 
@@ -63,6 +65,9 @@ export interface Controller extends KeyboardController {
   autoNexting: () => boolean;
   session: PuzzleSession;
   allThemes?: AllThemes;
+
+  streak?: PuzzleStreak;
+  skip(): void;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -128,6 +133,7 @@ export interface PuzzleData {
   game: PuzzleGame;
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
+  streak?: PuzzleId[];
 }
 
 export interface PuzzleReplay {
@@ -162,7 +168,7 @@ export interface PuzzleUser {
 }
 
 export interface Puzzle {
-  id: string;
+  id: PuzzleId;
   solution: Uci[];
   rating: number;
   plays: number;

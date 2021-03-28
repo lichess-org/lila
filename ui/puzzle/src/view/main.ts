@@ -82,7 +82,7 @@ export default function (ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h(
-    `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}`,
+    `main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
       hook: {
@@ -148,6 +148,7 @@ function session(ctrl: Controller) {
           },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
+            ...(ctrl.streak ? { target: '_blank' } : {}),
           },
         },
         rd
@@ -162,9 +163,11 @@ function session(ctrl: Controller) {
         })
       : h('a.result-cursor.current', {
           key: current,
-          attrs: {
-            href: `/training/${ctrl.session.theme}/${current}`,
-          },
+          attrs: ctrl.streak
+            ? {}
+            : {
+                href: `/training/${ctrl.session.theme}/${current}`,
+              },
         }),
   ]);
 }

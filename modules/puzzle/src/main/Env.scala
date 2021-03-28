@@ -74,6 +74,8 @@ final class Env(
 
   lazy val history = wire[PuzzleHistoryApi]
 
+  lazy val streak = wire[PuzzleStreakApi]
+
   def cli =
     new lila.common.Cli {
       def process = { case "puzzle" :: "delete" :: id :: Nil =>

@@ -4,26 +4,44 @@ import { Controller, MaybeVNode } from '../interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-function viewSolution(ctrl: Controller): VNode {
-  return h(
-    'div.view_solution',
-    {
-      class: { show: ctrl.vm.canViewSolution },
-    },
-    [
-      h(
-        'a.button.button-empty',
+const viewSolution = (ctrl: Controller): VNode =>
+  ctrl.streak
+    ? h(
+        'div.view_solution.skip',
         {
-          hook: bind('click', ctrl.viewSolution),
+          class: { show: !!ctrl.streak?.skipAvailable },
         },
-        ctrl.trans.noarg('viewTheSolution')
-      ),
-    ]
-  );
-}
+        [
+          h(
+            'a.button.button-empty',
+            {
+              hook: bind('click', ctrl.skip),
+              attrs: {
+                title: ctrl.trans.noarg('streakSkipExplanation'),
+              },
+            },
+            ctrl.trans.noarg('skip')
+          ),
+        ]
+      )
+    : h(
+        'div.view_solution',
+        {
+          class: { show: ctrl.vm.canViewSolution },
+        },
+        [
+          h(
+            'a.button.button-empty',
+            {
+              hook: bind('click', ctrl.viewSolution),
+            },
+            ctrl.trans.noarg('viewTheSolution')
+          ),
+        ]
+      );
 
-function initial(ctrl: Controller): VNode {
-  return h('div.puzzle__feedback.play', [
+const initial = (ctrl: Controller): VNode =>
+  h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.no-square', h('piece.king.' + ctrl.vm.pov)),
       h('div.instruction', [
@@ -33,20 +51,18 @@ function initial(ctrl: Controller): VNode {
     ]),
     viewSolution(ctrl),
   ]);
-}
 
-function good(ctrl: Controller): VNode {
-  return h('div.puzzle__feedback.good', [
+const good = (ctrl: Controller): VNode =>
+  h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
       h('div.instruction', [h('strong', ctrl.trans.noarg('bestMove')), h('em', ctrl.trans.noarg('keepGoing'))]),
     ]),
     viewSolution(ctrl),
   ]);
-}
 
-function fail(ctrl: Controller): VNode {
-  return h('div.puzzle__feedback.fail', [
+const fail = (ctrl: Controller): VNode =>
+  h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
       h('div.instruction', [
@@ -56,7 +72,6 @@ function fail(ctrl: Controller): VNode {
     ]),
     viewSolution(ctrl),
   ]);
-}
 
 export default function (ctrl: Controller): MaybeVNode {
   if (ctrl.vm.mode === 'view') return afterView(ctrl);

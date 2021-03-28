@@ -32,6 +32,17 @@
     flex: 1 1 50%;
     font-size: 1.3em;
     white-space: nowrap;
+
+    .game-over {
+      letter-spacing: 0.5ch;
+      border-bottom: $border;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .puzzle--streak & {
+      @extend %flex-column;
+    }
   }
 
   .puzzle__more {

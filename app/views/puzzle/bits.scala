@@ -17,7 +17,9 @@ object bits {
   def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
     views.html.board.bits.mini(fen, p.color, lastMove)(span)
 
-  def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys) +
+  def jsI18n(streak: Boolean)(implicit lang: Lang) = i18nJsObject {
+    i18nKeys ++ streak.??(streakI18nKeys)
+  } +
     (PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt()(lila.i18n.defaultLang)))
 
   lazy val jsonThemes = PuzzleTheme.all
@@ -100,4 +102,13 @@ object bits {
       PuzzleTheme.all.map(_.description) :::
       PuzzleDifficulty.all.map(_.name)
   }.map(_.key)
+
+  private val streakI18nKeys: List[MessageKey] =
+    List(
+      trans.storm.skip,
+      trans.puzzle.yourStreakX,
+      trans.puzzle.streakSkipExplanation,
+      trans.puzzle.continueTheStreak,
+      trans.puzzle.newStreak
+    ).map(_.key)
 }
