@@ -843,11 +843,11 @@
   <string name="invitedYouToX"> heeft je uitgenodigd voor \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Je maakt nu deel uit van het team.</string>
-  <string name="youHaveJoinedTeamX">Je bent nu lid van \"%$1s\".</string>
+  <string name="youHaveJoinedTeamX">Je bent nu lid van \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Iemand die je hebt gerapporteerd is geband</string>
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
-  <string name="gameVsX">Partij tegen %$1s</string>
-  <string name="resVsX">%$1s tegen %$2s</string>
+  <string name="gameVsX">Partij tegen %1$s</string>
+  <string name="resVsX">%1$s tegen %2$s</string>
   <string name="youJustBecamePatron">Je bent net een Lichess Patroon geworden.</string>
   <string name="patronAccountExpired">Patroon status is verlopen</string>
   <string name="pleaseReconsiderRenewIt">Overweeg alsjeblieft het te vernieuwen!</string>
