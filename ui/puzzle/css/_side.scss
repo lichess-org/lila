@@ -44,21 +44,11 @@
     background: $c-bg-box;
     padding: 2vmin;
 
-    &__rating,
-    &__streak {
+    &__rating {
       strong {
         display: block;
         text-align: center;
         font-size: 3.5em;
-      }
-    }
-    &__streak {
-      @extend %flex-center-nowrap;
-      justify-content: center;
-      font-size: 4em;
-      &::before {
-        font-size: 0.9em;
-        margin-right: 0.3ch;
       }
     }
 
@@ -72,6 +62,31 @@
 
       &.down {
         color: $c-bad;
+      }
+    }
+  }
+
+  &__streak {
+    &__info {
+      h1 {
+        color: $c-brag;
+        @extend %flex-center-nowrap;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        &::before {
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    &__score {
+      color: $c-brag;
+      @extend %flex-center-nowrap;
+      justify-content: center;
+      font-size: 4em;
+
+      &::before {
+        font-size: 0.9em;
       }
     }
   }
@@ -134,6 +149,7 @@
 
       &::before {
         @extend %box-radius;
+
         z-index: 0;
         content: '';
         position: absolute;
@@ -144,8 +160,10 @@
         background: mix($c-bg-page, $c-primary, 40%)
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
+
         @include transition(width, 1s);
       }
+
       &::after {
         z-index: 1;
         content: attr(data-text);

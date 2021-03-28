@@ -106,6 +106,7 @@ object bits {
   private val streakI18nKeys: List[MessageKey] =
     List(
       trans.storm.skip,
+      trans.puzzle.streakDescription,
       trans.puzzle.yourStreakX,
       trans.puzzle.streakSkipExplanation,
       trans.puzzle.continueTheStreak,

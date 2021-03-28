@@ -30,8 +30,6 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
   };
 }
 
-export function dataIcon(icon: string) {
-  return {
-    'data-icon': icon,
-  };
-}
+export const dataIcon = (icon: string) => ({
+  'data-icon': icon,
+});

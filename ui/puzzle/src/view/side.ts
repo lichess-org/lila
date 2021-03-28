@@ -1,8 +1,9 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty, PuzzlePlayer } from '../interfaces';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
 import { dataIcon, onInsert } from '../util';
 import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { VNode } from 'snabbdom/vnode';
+import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
@@ -82,7 +83,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
                     {
                       attrs: { href: '/@/' + p.userId },
                     },
-                    playerName(p)
+                    p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + p.name] : p.name
                   )
                 : p.name
             )
@@ -93,9 +94,28 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   );
 }
 
-function playerName(p: PuzzlePlayer) {
-  return p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
-}
+const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
+  h(
+    'div.puzzle__side__streak',
+    streak.current == 0
+      ? h('div.puzzle__side__streak__info', [
+          h(
+            'h1.text',
+            {
+              attrs: dataIcon('}'),
+            },
+            'Puzzle Streak'
+          ),
+          h('p', noarg('streakDescription')),
+        ])
+      : h(
+          'div.puzzle__side__streak__score.text',
+          {
+            attrs: dataIcon('}'),
+          },
+          streak.current
+        )
+  );
 
 export function userBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
@@ -107,15 +127,7 @@ export function userBox(ctrl: Controller): VNode {
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     ctrl.streak
-      ? h(
-          'div.puzzle__side__user__streak',
-          {
-            attrs: {
-              'data-icon': '}',
-            },
-          },
-          ctrl.streak.current
-        )
+      ? renderStreak(ctrl.streak, ctrl.trans.noarg)
       : h(
           'div.puzzle__side__user__rating',
           ctrl.trans.vdom(

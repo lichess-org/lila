@@ -50,6 +50,7 @@
   <string name="history">Puzzle history</string>
   <string name="solved">solved</string>
   <string name="failed">failed</string>
+  <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it's game over! But you can skip one move per session.</string>
   <string name="yourStreakX">Your streak: %s</string>
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
   <string name="continueTheStreak">Continue the streak</string>
