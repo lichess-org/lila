@@ -843,5 +843,5 @@
   <string name="congratsYouWon">Təbriklər, siz qalib gəldiniz!</string>
   <string name="youJustBecamePatron">Lichess patronları siyahısına siz də qoşuldunuz.</string>
   <string name="patronAccountExpired">Patron hesabınızın müddəti bitmişdir</string>
-  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Vaxt bitmək üzrədir!</string>
+  <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>
 </resources>
