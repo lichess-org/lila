@@ -16,7 +16,7 @@ export function complete(
     body: xhr.form({
       win,
       ...(replay ? { replayDays: replay.days } : {}),
-      ...(streak ? { streakId: streak.currentId() } : {}),
+      ...(streak ? { streakId: streak.currentId(), streakScore: streak.current } : {}),
     }),
   });
 }
