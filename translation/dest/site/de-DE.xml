@@ -854,6 +854,6 @@
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
-  <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
 </resources>
