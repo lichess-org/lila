@@ -469,7 +469,7 @@
   <string name="name">Nom</string>
   <string name="description">Description</string>
   <string name="descPrivate">Description visible uniquement pour les membres de l\'équipe</string>
-  <string name="descPrivateHelp">Texte que seuls les membres de l\'équipe verront. Si utilisé, remplace la description publique des membres de l\'équipe.</string>
+  <string name="descPrivateHelp">Texte que seuls les membres de l\'équipe verront. Si utilisé, remplace la description publique pour les membres de l\'équipe.</string>
   <string name="no">Non</string>
   <string name="yes">Oui</string>
   <string name="help">Aide :</string>
