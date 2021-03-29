@@ -15,11 +15,10 @@ object show {
       data: JsObject,
       pref: JsObject,
       difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
-  )(implicit
-      ctx: Context
-  ) =
+  )(implicit ctx: Context) = {
+    val isStreak = data.value.contains("streak")
     views.html.base.layout(
-      title = trans.puzzles.txt(),
+      title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsModule("puzzle"),
@@ -28,7 +27,7 @@ object show {
             .obj(
               "data" -> data,
               "pref" -> pref,
-              "i18n" -> bits.jsI18n(streak = data.value.contains("streak"))
+              "i18n" -> bits.jsI18n(streak = isStreak)
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
             .add("difficulty" -> difficulty.map(_.key))
@@ -39,14 +38,19 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
-          title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          title =
+            if (isStreak) "Puzzle Streak"
+            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
-          description = s"Lichess tactic trainer: " + puzzle.color
-            .fold(
-              trans.puzzle.findTheBestMoveForWhite,
-              trans.puzzle.findTheBestMoveForBlack
-            )
-            .txt() + s" Played by ${puzzle.plays} players."
+          description =
+            if (isStreak) trans.puzzle.streakDescription.txt()
+            else
+              s"Lichess tactic trainer: ${puzzle.color
+                .fold(
+                  trans.puzzle.findTheBestMoveForWhite,
+                  trans.puzzle.findTheBestMoveForBlack
+                )
+                .txt()}. Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true,
@@ -61,4 +65,5 @@ object show {
         div(cls := "puzzle__controls")
       )
     }
+  }
 }
