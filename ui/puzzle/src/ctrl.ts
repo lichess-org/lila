@@ -53,7 +53,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     move: throttleSound('move'),
     capture: throttleSound('capture'),
     check: throttleSound('check'),
-    good: loadSound('lisp/PuzzleStormGood', 0.9, 500),
+    good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
     end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
   };
 
