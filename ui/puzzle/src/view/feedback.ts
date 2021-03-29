@@ -9,7 +9,7 @@ const viewSolution = (ctrl: Controller): VNode =>
     ? h(
         'div.view_solution.skip',
         {
-          class: { show: !!ctrl.streak?.skipAvailable },
+          class: { show: !!ctrl.streak?.data.skip },
         },
         [
           h(

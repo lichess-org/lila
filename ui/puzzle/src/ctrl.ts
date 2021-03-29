@@ -33,7 +33,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
-  const streak = opts.data.streak ? new PuzzleStreak(opts.data.streak.split(' ')) : undefined;
+  const streak = opts.data.streak ? new PuzzleStreak(opts.data.streak.split(' '), opts.data.user?.id) : undefined;
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -423,7 +423,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   const skip = () => {
-    if (!streak || !streak.skipAvailable || vm.mode != 'play') return;
+    if (!streak || !streak.data.skip || vm.mode != 'play') return;
     streak.skip();
     userJump(treePath.fromNodeList(vm.mainline));
     const moveIndex = treePath.size(vm.path) - treePath.size(vm.initialPath);
