@@ -34,4 +34,8 @@
   <string name="thereIsACountdown">Имате ограничено време за първия Ви ход. Ако не направите ход преди да изтече времето, ще загубите партията.</string>
   <string name="thisIsPrivate">Това е частен турнир</string>
   <string name="shareUrl">Споделете този URL, за да поканите някого: %s</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Вижте отбора</item>
+    <item quantity="other">Вижте всички %s отбора</item>
+  </plurals>
 </resources>
