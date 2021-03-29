@@ -833,4 +833,18 @@
   <string name="toRequestSupport">സഹായം ആവശ്യപെടുക</string>
   <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
+  <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
+  <string name="teamNamedX">%1$s ടീം</string>
+  <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
+  <string name="subscribe">സബ്സ്ക്രൈബ്</string>
+  <string name="unsubscribe">അൺസബ്സ്ക്രൈബ്</string>
+  <string name="mentionedYouInX"> %1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
+  <string name="xMentionedYouInY"> %2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
+  <string name="invitedYouToX"> %1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
+  <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
+  <string name="youAreNowPartOfTeam">നിങ്ങളിപ്പോൾ ടീമിന്റെ ഭാഗമായി.</string>
+  <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>
+  <string name="someoneYouReportedWasBanned">നിങ്ങൾ റിപ്പോർട്ടുചെയ്‌ത ഒരു കളിക്കാരനെ നിരോധിച്ചിരിക്കുന്നു</string>
+  <string name="congratsYouWon">അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ജയിച്ചു!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">%1$s ഇന് എതിരെയുള്ള കളി</string>
 </resources>
