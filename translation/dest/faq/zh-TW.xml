@@ -74,6 +74,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="configure">配置</string>
   <string name="accounts">帳戶</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess接受所有OTB (在棋盤上) 對局得到的國際象棋聯稱號，以及%1$s，以下列出：</string>
   <string name="noUpperCaseDot">不行</string>
   <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
   <string name="guidelines">指南</string>
