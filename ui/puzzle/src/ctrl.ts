@@ -32,8 +32,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const autoNext = storedProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
+  const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
+  if (streak)
+    opts.data = {
+      ...opts.data,
+      ...streak.data.current,
+    };
   const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
-  const streak = opts.data.streak ? new PuzzleStreak(opts.data.streak.split(' '), opts.data.user?.id) : undefined;
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -237,10 +242,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         }
       }
     } else if (progress == 'win') {
-      if (streak) {
-        streak.onComplete(true);
-        sound.good();
-      }
+      if (streak) sound.good();
       vm.lastFeedback = 'win';
       if (vm.mode != 'view') {
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
@@ -271,6 +273,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       }
       if (win) speech.success();
       vm.next.resolve(res.next);
+      if (streak && win) streak.onComplete(true, res.next);
       redraw();
     });
   }

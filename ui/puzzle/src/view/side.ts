@@ -100,7 +100,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
 const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
   h(
     'div.puzzle__side__streak',
-    streak.current == 0
+    streak.data.index == 0
       ? h('div.puzzle__side__streak__info', [
           h(
             'h1.text',
@@ -116,7 +116,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
           {
             attrs: dataIcon('}'),
           },
-          streak.current
+          streak.data.index
         )
   );
 

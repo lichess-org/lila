@@ -1,10 +1,16 @@
 import { StoredJsonProp, storedJsonProp } from 'common/storage';
-import { PuzzleId } from './interfaces';
+import { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
+
+interface Current {
+  puzzle: Puzzle;
+  game: PuzzleGame;
+}
 
 interface StreakData {
   ids: PuzzleId[];
-  current: number;
+  index: number;
   skip: boolean;
+  current: Current;
 }
 
 export default class PuzzleStreak {
@@ -12,24 +18,35 @@ export default class PuzzleStreak {
   fail: boolean = false;
   store: StoredJsonProp<StreakData | null>;
 
-  constructor(ids: PuzzleId[], readonly userId: string | undefined) {
-    this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${this.userId || 'anon'}`, () => null);
+  constructor(data: PuzzleData) {
+    this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${data.user?.id || 'anon'}`, () => null);
     this.data = this.store() || {
-      ids,
-      current: 0,
+      ids: data.streak!.split(' '),
+      index: 0,
       skip: true,
+      current: {
+        puzzle: data.puzzle,
+        game: data.game,
+      },
     };
   }
 
-  onComplete = (win: boolean) => {
-    if (win) this.data.current++;
-    else {
+  onComplete = (win: boolean, current?: Current) => {
+    if (win) {
+      this.data.index++;
+      if (current)
+        this.data.current = {
+          puzzle: current.puzzle,
+          game: current.game,
+        };
+      this.store(this.data);
+    } else {
       this.fail = true;
       this.store(null);
     }
   };
 
-  currentId = () => this.data.ids[this.data.current];
+  nextId = () => this.data.ids[this.data.index + 1];
 
   skip = (): void => {
     this.data.skip = false;
