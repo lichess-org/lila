@@ -50,6 +50,7 @@
   <string name="history">Historikk for sjakknøtter</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
+  <string name="streakDescription">Løs verre og verre sjakknøtter og bygg en seiersrekke. Det er ingen klokke, så ta den tiden du trenger. Ett galt trekk og det er slutt! Du kan imidlertid hoppe over ett trekk for hver runde.</string>
   <string name="yourStreakX">Din rekke: %s</string>
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>
   <string name="continueTheStreak">Fortsett rekken</string>
