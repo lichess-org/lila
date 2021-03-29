@@ -9,7 +9,7 @@
   <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Из партий</string>
+  <string name="origin">Из партий</string>
   <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
@@ -52,4 +52,9 @@
   <string name="history">История задач</string>
   <string name="solved">решённые</string>
   <string name="failed">неудачные</string>
+  <string name="streakDescription">Решайте постепенно усложняющиеся задачи и создайте победную серию. Здесь нет часов, так что не торопитесь. Один неправильный ход и игра закончена! Но можно пропустить один ход за сеанс.</string>
+  <string name="yourStreakX">Ваша серия: %s</string>
+  <string name="streakSkipExplanation">Пропустить этот ход, чтобы сохранить серию! Можно использовать только один раз.</string>
+  <string name="continueTheStreak">Продолжить серию</string>
+  <string name="newStreak">Новая серия</string>
 </resources>

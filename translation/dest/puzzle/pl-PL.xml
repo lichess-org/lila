@@ -9,7 +9,7 @@
   <string name="lengths">Długość zadania</string>
   <string name="mates">Maty</string>
   <string name="goals">Cele</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Źródło</string>
+  <string name="origin">Źródło</string>
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
@@ -52,4 +52,9 @@
   <string name="history">Historia zadań</string>
   <string name="solved">rozwiązane</string>
   <string name="failed">nie udało się</string>
+  <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć ruch w danej sesji.</string>
+  <string name="yourStreakX">Twój seria: %s</string>
+  <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>
+  <string name="continueTheStreak">Kontynuuj serię</string>
+  <string name="newStreak">Nowa seria</string>
 </resources>

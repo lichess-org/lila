@@ -38,4 +38,8 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="shareUrl">Del denne URL for at lade folk deltage: %s</string>
   <string name="drawStreak">Remis på stribe: Spiller man en ubrudt række remis\'er i en arena, gives der kun point for den første remis eller ved remis\'er efter mere end %s træk. En remis-stribe kan kun brydes af en sejr, ikke et nederlag eller en remis.</string>
   <string name="history">Arena-historik</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">Se holdet</item>
+    <item quantity="other">Se alle %s hold</item>
+  </plurals>
 </resources>

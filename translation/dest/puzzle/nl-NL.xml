@@ -9,7 +9,7 @@
   <string name="lengths">Duur</string>
   <string name="mates">Schaakmat</string>
   <string name="goals">Doelen</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Herkomst</string>
+  <string name="origin">Herkomst</string>
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
@@ -50,4 +50,9 @@
   <string name="history">Puzzelscore</string>
   <string name="solved">opgelost</string>
   <string name="failed">niet opgelost</string>
+  <string name="streakDescription">Los steeds moeilijker puzzels op en bouw aan een succesreeks. Er is geen klok, dus neem de tijd. Eén foute zet en het spel is uit! Per sessie kun je één zet overslaan.</string>
+  <string name="yourStreakX">Uw reeks: %s</string>
+  <string name="streakSkipExplanation">Sla deze zet over om je reeks te behouden! Werkt maar eenmaal per sessie.</string>
+  <string name="continueTheStreak">Doorgaan met de reeks</string>
+  <string name="newStreak">Nieuwe reeks</string>
 </resources>

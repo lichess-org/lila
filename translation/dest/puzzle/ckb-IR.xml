@@ -9,7 +9,7 @@
   <string name="lengths">درێژیەکان</string>
   <string name="mates">هاوڕێیان</string>
   <string name="goals">ئامانجەکان</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">سەرچاوە</string>
+  <string name="origin">سەرچاوە</string>
   <string name="specialMoves">جوڵە تایبەتەکان</string>
   <string name="didYouLikeThisPuzzle">ئەم مەتەڵەت بەدڵبوو؟</string>
   <string name="voteToLoadNextOne">دەنگبدە بۆ بارکردنی دانەی داهاتوو!</string>

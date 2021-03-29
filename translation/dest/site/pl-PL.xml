@@ -917,13 +917,17 @@
   <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
+  <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
   <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
+  <string name="gameVsX">Gra przeciwko %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Właśnie zostałeś Patronem lichess.</string>
   <string name="patronAccountExpired">Konto Patron wygasło</string>
   <string name="pleaseReconsiderRenewIt">Proszę rozważ odnowienie!</string>
   <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
-  <string name="timeAlmostUp" comment="timeAlmostUp&#10;&#10;In a correspondence game, the user receives a notification if their time to make a move has almost elapsed. This is the title of such a notification.">Czas prawie minął!</string>
+  <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Zwrot: %1$s %2$s punktów rankingu.</string>
+  <string name="timeAlmostUp">Czas prawie minął!</string>
 </resources>

@@ -9,7 +9,7 @@
   <string name="lengths">Längen</string>
   <string name="mates">Matts</string>
   <string name="goals">Ziele</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Herkunft</string>
+  <string name="origin">Herkunft</string>
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
@@ -50,4 +50,9 @@
   <string name="history">Aufgabenverlauf</string>
   <string name="solved">gelöst</string>
   <string name="failed">fehlgeschlagen</string>
+  <string name="streakDescription">Löse schwieriger werdende Aufgaben und baue eine Erfolgsserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Zug und es ist vorbei! Du kannst jedoch einen Zug pro Sitzung überspringen.</string>
+  <string name="yourStreakX">Deine Siegesserie: %s</string>
+  <string name="streakSkipExplanation">Überspringe diesen Zug um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
+  <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
+  <string name="newStreak">Neue Erfolgsserie</string>
 </resources>

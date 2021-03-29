@@ -9,7 +9,7 @@
   <string name="lengths">Længder</string>
   <string name="mates">Matter</string>
   <string name="goals">Mål</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Oprindelse</string>
+  <string name="origin">Oprindelse</string>
   <string name="specialMoves">Særlige træk</string>
   <string name="didYouLikeThisPuzzle">Kunne du lide denne opgave?</string>
   <string name="voteToLoadNextOne">Stem for at indlæse den næste!</string>
@@ -50,4 +50,9 @@
   <string name="history">Opgavehistorik</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
+  <string name="streakDescription">Løs gradvist sværere opgaver og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe et træk over per session.</string>
+  <string name="yourStreakX">Din stime: %s</string>
+  <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
+  <string name="continueTheStreak">Fortsæt stimen</string>
+  <string name="newStreak">Ny stime</string>
 </resources>

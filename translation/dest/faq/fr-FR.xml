@@ -124,7 +124,7 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
   <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
   <string name="whyAreRatingHigherExplanation">Il ne faut pas voir la cote comme un nombre absolu ou la comparer à la cote fournie par une autre organisation. Des organisations différentes ont des joueurs de niveau différent et utilisent des systèmes de cotation différents (Elo, Glicko, Glicko-2 ou une variante de ces systèmes). Ces facteurs ont une forte influence sur la valeur de la cote.
 
-Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absolu). Dans un groupe de joueurs, la différence relative entre les cotes vous aide à estimer qui gagnera ou perdra la partie ou fera une nulle, et à quelle fréquence. Dire que votre cote vaut « X » ne signifie rien, à moins de la comparer à la cote d\'autres joueurs. </string>
+Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absolu). Dans un groupe de joueurs, la différence relative entre les cotes vous aide à estimer qui gagnera ou perdra la partie ou fera une nulle, et à quelle fréquence. Dire que votre cote vaut « X » ne signifie rien, à moins de la comparer à la cote d\'autres joueurs.</string>
   <string name="howToHideRatingWhilePlaying">Comment cacher le classement Elo tout en jouant ?</string>
   <string name="enableZenMode">Activez le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
   <string name="displayPreferences">préférences d\'affichage</string>

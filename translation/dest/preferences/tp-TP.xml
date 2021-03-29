@@ -26,7 +26,7 @@
   <string name="clickTwoSquares">o pilin e selo tu</string>
   <string name="dragPiece">o tawa e ijo</string>
   <string name="bothClicksAndDrag">ale</string>
-  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo tenpo sama la jan ante li musi)</string>
+  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo tenpo sama la jan ante li musi) </string>
   <string name="takebacksWithOpponentApproval">o weka e tawa (la jan ante li pilin pona)</string>
   <string name="inCasualGamesOnly">taso lon musi pi nanpa ala</string>
   <string name="promoteToQueenAutomatically">o kama e lawa meli la ilo sona li tawa</string>
@@ -36,7 +36,7 @@
   <string name="moveConfirmation">sina wile tawa la o sina wile toki e ni pi tenpo tu</string>
   <string name="inCorrespondenceGames">musi pi tenpo suli</string>
   <string name="correspondenceAndUnlimited">musi pi tenpo suli en musi pi tenpo ale</string>
-  <string name="confirmResignationAndDrawOffers">o toki e ni: sina wile pini ike anu sina wile sama e musi</string>
+  <string name="confirmResignationAndDrawOffers">o toki e ni: sina wile pini ike anu sina wile sama e musi. </string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">o tawa e tomo utala, e jan lawa lon tenpo tawa sama kepeken nasin seme?</string>
   <string name="castleByMovingTwoSquares">o tawa e lawa mije lon ma pi weka tu</string>
   <string name="castleByMovingOntoTheRook">o tawa e jan lawa tawa ma pi tomo utala</string>

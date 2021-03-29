@@ -101,13 +101,13 @@
   <string name="allSet">ali li pali a!</string>
   <string name="importPgn">pana lon insa ma ni e PGN</string>
   <string name="delete">weka</string>
-  <string name="deleteThisImportedGame">o weka ala weka e musi?</string>
+  <string name="deleteThisImportedGame">o weka ala weka e musi? </string>
   <string name="replayMode">nasin lukin pi kama sin</string>
   <string name="realtimeReplay">tenpo sama</string>
   <string name="byCPL">tan nanpa CPL</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
-  <string name="bestMoveArrow">ilo utala kon pi tawa pona mute</string>
+  <string name="bestMoveArrow"> ilo utala kon pi tawa pona mute</string>
   <string name="evaluationGauge">o pana lukin e palisa pi wawa jan</string>
   <string name="multipleLines">mute pi linja tawa</string>
   <string name="cpus">nanpa pi ilo pilin</string>
@@ -176,7 +176,7 @@
   <string name="username">nimi</string>
   <string name="usernameOrEmail">nimi</string>
   <string name="changeUsername">o ante e nimi sina</string>
-  <string name="changeUsernameNotSame">suli pi sitelen lili li ken ante e ona. pana lukin la nimi \"JANSONJA\" li ken ante tawa \"janSonja\".</string>
+  <string name="changeUsernameNotSame">suli pi sitelen lili li ken ante e ona. pana lukin la nimi \"JANSONJA\" li ken ante tawa \"janSonja\". </string>
   <string name="changeUsernameDescription">o ante nimi sina. taso, ni li ken pali e tenpo wan. sina li ken ante e sitelen nimi tan suli tawa lili taso.</string>
   <string name="password">nimi pi sona ala</string>
   <string name="changePassword">ante e nimi sina pi sona ala</string>
@@ -241,7 +241,7 @@
   <string name="inbox">poki toki</string>
   <string name="chatRoom">tomo toki</string>
   <string name="loginToChat">o open la o toki</string>
-  <string name="youHaveBeenTimedOut">sina o, ken ala toki.</string>
+  <string name="youHaveBeenTimedOut">sina o, ken ala toki </string>
   <string name="spectatorRoom">tomo lukin</string>
   <string name="composeMessage">o sitelen e toki</string>
   <string name="noNewMessages">toki sin li lon ala</string>
@@ -679,7 +679,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="kidMode">nasin pi jan lili</string>
   <string name="kidModeExplanation">nasin pi jan lili li awen e jan musi. jan li ken ala toki lon nasin ni. jan lili li musi kepeken ilo Lichess la, nasin pi jan lili li pali e ni: ona li ken ala lukin e toki ike tan jan ante.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">nasin pi jan lili li lon, sitelen lawa pi ilo Lichess li kama jo e sitelen \"%s\". ona li toki e ni: nasin pi jan lili li lon, jan lili sina li awen.</string>
-  <string name="enableKidMode">o kepeken e nasin pi jan lili</string>
+  <string name="enableKidMode">o kepeken e nasin pi jan lili </string>
   <string name="disableKidMode">o kepeken ala e nasin pi jan lili</string>
   <string name="security">awen sona</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ilo ni li kepeken e lipu lawa sina. sina sona ala e ilo pi lipu ni la, sina ken pakala e linja ona.</string>

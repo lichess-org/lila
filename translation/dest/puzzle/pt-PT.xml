@@ -9,7 +9,7 @@
   <string name="lengths">Comprimentos</string>
   <string name="mates">Xeque-mates</string>
   <string name="goals">Objetivos</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origem</string>
+  <string name="origin">Origem</string>
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Gostaste deste problema?</string>
   <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>

@@ -41,4 +41,8 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="shareUrl">Share this URL to let people join: %s</string>
   <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
   <string name="history">Arena History</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">View the team</item>
+    <item quantity="other">View all %s teams</item>
+  </plurals>
 </resources>

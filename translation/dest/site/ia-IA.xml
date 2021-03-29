@@ -490,6 +490,7 @@
   <string name="cheat">Fraude</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulation de classification</string>
   <string name="other">Altere</string>
   <string name="reportDescriptionHelp">Colla le ligamine al joco(s) e explica lo que es improprie re le conducto del usator. Non dice solmente \"ille frauda\", ma informa como tu arrivava a iste conclusion. Tu reporto essera processate plus rapidemente si tu scribe in anglese.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, provide al minus un ligamine de un partita fraudate.</string>
@@ -797,6 +798,10 @@
   <string name="why">Proque?</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="thankYouForReading">Gratias pro leger isto!</string>
+  <string name="agreementAssistance">Io accepta que in ulle occasion io non recipera assistentia durante mi partitas (ab un computator de chacos, base de datos o altere persona).</string>
+  <string name="agreementNice">Io accepta que io sempre essera respectuose a altere jocatores.</string>
+  <string name="agreementAccount">Io accepta que io non creara multiple contos.</string>
+  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>
@@ -809,9 +814,24 @@
   <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
   <string name="puzzleDesc">Trainator de tacticas de chacos</string>
   <string name="important">Importante</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tu question pote ja haber un responsa %1$s</string>
+  <string name="inTheFAQ">in le F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Pro reportar un usator a causa de fraude o de mal comportamento, %1$s</string>
+  <string name="useTheReportForm">usa le formulario de reporto</string>
+  <string name="toRequestSupport">Pro requirer supporto, %1$s</string>
+  <string name="tryTheContactPage">tenta le pagina de contacto</string>
+  <string name="thisTopicIsArchived">Iste topico ha essite archivate e ja non es possibile responder lo.</string>
   <string name="joinTheTeamXToPost">Pro postar in iste foro, uni se in %1$s</string>
   <string name="teamNamedX">Equipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
   <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
+  <string name="mentionedYouInX"> mentionava tu in \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mentionava tu in \"%2$s\".</string>
+  <string name="invitedYouToX"> invitava tu a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitava tu a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Tu ora es parte del equipa.</string>
+  <string name="youHaveJoinedTeamX">Tu ha adherite a \"%1$s\".</string>
+  <string name="gameVsX">Partita contra %1$s</string>
+  <string name="resVsX">%1$s contra %2$s</string>
 </resources>

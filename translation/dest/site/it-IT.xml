@@ -844,13 +844,17 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="invitedYouToX"> ti ha invitato a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s ti ha invitato a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ora fai parte del team.</string>
+  <string name="youHaveJoinedTeamX">Ti sei unito a \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Qualcuno che hai segnalato è stato bannato</string>
   <string name="congratsYouWon">Complimenti, hai vinto!</string>
+  <string name="gameVsX">Partita contro %1$s</string>
+  <string name="resVsX">%1$s contro %2$s</string>
   <string name="youJustBecamePatron">Sei appena diventato un mecenate di lichess.</string>
   <string name="patronAccountExpired">Lo stato di mecenate è scaduto</string>
   <string name="pleaseReconsiderRenewIt">Per favore considera di rinnovarlo!</string>
   <string name="someoneReviewedYourCoachProfile">Qualcuno ha esaminato il tuo profilo di allenatore.</string>
   <string name="newPendingReview">In attesa di verifica</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Hai perso con qualcuno che ha violato i termini di servizio lichess</string>
+  <string name="lostAgainstTOSViolator">Hai perso con qualcuno che ha violato i termini di servizio lichess</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Rimborso: %1$s %2$s punti di valutazione.</string>
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
 </resources>

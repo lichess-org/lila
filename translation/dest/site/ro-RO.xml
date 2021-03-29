@@ -880,14 +880,17 @@
   <string name="invitedYouToX"> te-a invitat la \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
-  <string name="youHaveJoinedTeamX">V-ați alăturat la \"%$1\".</string>
+  <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cineva pe care l-ai raportat a fost banat</string>
   <string name="congratsYouWon">Felicitări, ați câștigat!</string>
+  <string name="gameVsX">Joc vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Tocmai ai devenit Patron Lichess.</string>
   <string name="patronAccountExpired">Contul Patron a expirat</string>
   <string name="pleaseReconsiderRenewIt">Vă rugăm să luați în considerare reînnoirea acestuia!</string>
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
   <string name="newPendingReview">Revizuire nouă în așteptare</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
+  <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
+  <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
 </resources>

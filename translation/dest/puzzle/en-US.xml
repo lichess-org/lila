@@ -9,7 +9,7 @@
   <string name="lengths">Lengths</string>
   <string name="mates">Mates</string>
   <string name="goals">Goals</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origin</string>
+  <string name="origin">Origin</string>
   <string name="specialMoves">Special moves</string>
   <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
   <string name="voteToLoadNextOne">Vote to load the next one!</string>
@@ -50,4 +50,9 @@
   <string name="history">Puzzle history</string>
   <string name="solved">solved</string>
   <string name="failed">failed</string>
+  <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it\'s game over! But you can skip one move per session.</string>
+  <string name="yourStreakX">Your streak: %s</string>
+  <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
+  <string name="continueTheStreak">Continue the streak</string>
+  <string name="newStreak">New streak</string>
 </resources>

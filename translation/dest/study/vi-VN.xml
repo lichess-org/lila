@@ -54,9 +54,9 @@
   <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Tạo bản sao</string>
-  <string name="studyPgn">PGN nghiên cứu</string>
+  <string name="studyPgn">PNG nghiên cứu</string>
   <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
-  <string name="chapterPgn">PGN chương</string>
+  <string name="chapterPgn">PNG chương</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL phát sóng</string>

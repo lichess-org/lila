@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">スイス式トーナメント</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="other">%s ラウンドを表示</item>
+  </plurals>
 </resources>

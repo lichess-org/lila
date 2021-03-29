@@ -9,7 +9,7 @@
   <string name="lengths">Longaria</string>
   <string name="mates">Mates</string>
   <string name="goals">Obchectivos</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Orichen</string>
+  <string name="origin">Orichen</string>
   <string name="specialMoves">Movimientos especials</string>
   <string name="didYouLikeThisPuzzle">Te fa goyo este problema?</string>
   <string name="voteToLoadNextOne">Vota pa cargar lo siguient!</string>

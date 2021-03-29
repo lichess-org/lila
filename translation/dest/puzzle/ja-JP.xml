@@ -9,7 +9,7 @@
   <string name="lengths">手数</string>
   <string name="mates">メイト</string>
   <string name="goals">目標</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">出所</string>
+  <string name="origin">出所</string>
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
@@ -49,4 +49,7 @@
   <string name="history">解答履歴</string>
   <string name="solved">正解</string>
   <string name="failed">失敗</string>
+  <string name="streakDescription">だんだん難しくなる問題に連続正解してください。時間制限はないのでじっくりとどうぞ。1 手間違えると終了です！　ただし途中 1 手だけ飛ばすことができます。</string>
+  <string name="yourStreakX">連続正解：%s</string>
+  <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
 </resources>

@@ -9,7 +9,7 @@
   <string name="lengths">Pituudet</string>
   <string name="mates">Matit</string>
   <string name="goals">Tavoitteet</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Alkuperä</string>
+  <string name="origin">Alkuperä</string>
   <string name="specialMoves">Erityissiirrot</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
   <string name="voteToLoadNextOne">Äänestä, niin seuraava latautuu!</string>

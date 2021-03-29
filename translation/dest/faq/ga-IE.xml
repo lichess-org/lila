@@ -36,7 +36,7 @@ Mar shampla, is é fad measta cluiche 5+3 ná 5 × 60 + 40 × 3 = 420 soicind.</
   <string name="whatVariantsCanIplay">Cad iad na leaganacha fichille is féidir liom a imirt ar Lichess?</string>
   <string name="lichessSupportChessAnd">Tugann Lichess tacaíocht do gnáth-fhicheall agus %1$s.</string>
   <string name="eightVariants">8 leagan fichille</string>
-  <string name="whatIsACPL">Cad é an meánchaillteanas céadúceithearnach (ACPL - average centipawn loss)?</string>
+  <string name="whatIsACPL">Cad é an meánchaillteanas céadúceithearnach (ACPL - average centipawn loss)? </string>
   <string name="acplExplanation">Is é an ceinticeithearnach an t-aonad tomhais a úsáidtear i bhficheall mar léiriú ar an mbuntáiste. Tá ceinticeithearnach cothrom le 1/100ú ceithearnach. Dá bhrí sin 100 ceinticeithearnach = 1 ceithearnach. Níl aon ról foirmiúil ag na luachanna seo sa chluiche ach tá siad úsáideach d’imreoirí, agus riachtanach i bhficheall ríomhaire, chun suíomhanna a mheas.
 
 Caillfidh an beart is fearr ó ríomhaire nialas ceinticeithearnach, ach beidh meath ar an suíomh, arna thomhas i gcéadchosach, mar thoradh ar ghluaiseachtaí níos lú.

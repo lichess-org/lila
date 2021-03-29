@@ -9,7 +9,7 @@
   <string name="lengths">Μήκος γρίφου</string>
   <string name="mates">Ματ</string>
   <string name="goals">Στόχοι</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Πηγή</string>
+  <string name="origin">Πηγή</string>
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
@@ -50,4 +50,9 @@
   <string name="history">Ιστορικό γρίφων</string>
   <string name="solved">λύθηκε</string>
   <string name="failed">απέτυχε</string>
+  <string name="streakDescription">Λύστε γρίφους που γίνονται όλο και πιο δύσκολοι και χτίστε σιγά σιγά ένα «σερί νικών». Δεν υπάρχει χρόνος, οπότε μη βιάζεστε. Μια λάθος κίνηση, και το παιχνίδι τέλειωσε! Μπορείτε να παραλείψετε μια κίνηση σε κάθε γύρο.</string>
+  <string name="yourStreakX">Το σερί νικών σας: %s</string>
+  <string name="streakSkipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το σερί νικών σας! Λειτουργεί μόνο μία φορά ανά γύρο.</string>
+  <string name="continueTheStreak">Συνεχίστε το σερί νικών</string>
+  <string name="newStreak">Νέο σερί νικών</string>
 </resources>

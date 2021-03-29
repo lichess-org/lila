@@ -9,7 +9,7 @@
   <string name="lengths">ಅವಧಿ</string>
   <string name="mates">ಮೇಟ್-ಗಳು</string>
   <string name="goals">ಗುರಿಗಳು</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">ಮೂಲ</string>
+  <string name="origin">ಮೂಲ</string>
   <string name="specialMoves">ವಿಶೇಷ ನಡೆಗಳು</string>
   <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಸಮಸ್ಯೆ ಇಷ್ಟವಾಯಿತೇ?</string>
   <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ಮಾಡಿ!</string>

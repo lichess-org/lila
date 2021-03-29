@@ -9,7 +9,7 @@
   <string name="lengths">लंबाई</string>
   <string name="mates">साथी</string>
   <string name="goals">लक्ष्य</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">मूल</string>
+  <string name="origin">मूल</string>
   <string name="specialMoves">विशेष चाल</string>
   <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
   <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>

@@ -9,7 +9,7 @@
   <string name="lengths">Duracións</string>
   <string name="mates">Mates</string>
   <string name="goals">Obxectivos</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Fonte</string>
+  <string name="origin">Fonte</string>
   <string name="specialMoves">Movementos especiais</string>
   <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
   <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>

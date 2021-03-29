@@ -9,7 +9,7 @@
   <string name="lengths">দৈর্ঘ্য</string>
   <string name="mates">চেকমেট নিদর্শন</string>
   <string name="goals">উদ্দেশ</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">উত্স</string>
+  <string name="origin">উত্স</string>
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
   <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>

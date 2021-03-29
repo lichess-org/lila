@@ -847,13 +847,17 @@ i %3$s</string>
   <string name="invitedYouToX"> inviterte deg til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterte deg til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er no med i laget.</string>
+  <string name="youHaveJoinedTeamX">Du har blitt med i \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nokon du rapporterte vart stengt ute</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
+  <string name="gameVsX">Spel mot %1$s</string>
+  <string name="resVsX">%1$s mot %2$s</string>
   <string name="youJustBecamePatron">Du vart nett ein lichess bidragsytar.</string>
   <string name="patronAccountExpired">Bidragsytar-kontoen har gått ut</string>
   <string name="pleaseReconsiderRenewIt">Ver venleg å vurdere fornying av den!</string>
   <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
   <string name="newPendingReview">Ventar på ny gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
 </resources>

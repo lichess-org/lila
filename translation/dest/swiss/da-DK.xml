@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Monradturneringer</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Se runden</item>
+    <item quantity="other">Se alle %s runder</item>
+  </plurals>
 </resources>

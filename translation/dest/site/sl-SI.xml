@@ -919,13 +919,17 @@ v %3$s</string>
   <string name="xMentionedYouInY"> %1$s vas je omenil v \"%2$s\".</string>
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
+  <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nekdo, za katerega ste poročali, je bil prepovedan</string>
   <string name="congratsYouWon">Čestitke, zmagali ste!</string>
+  <string name="gameVsX">Igra proti %1$s</string>
+  <string name="resVsX">%1$s proti %2$s</string>
   <string name="youJustBecamePatron">Postali ste pokrovitelj Lichess.</string>
   <string name="patronAccountExpired">Račun pokrovitelja je potekel</string>
   <string name="pleaseReconsiderRenewIt">Prosimo, razmislite o podaljšanju!</string>
   <string name="someoneReviewedYourCoachProfile">Nekdo je pregledal vaš profil trenerja.</string>
   <string name="newPendingReview">Novo čakanje na pregled</string>
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
+  <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
 </resources>

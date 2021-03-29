@@ -41,6 +41,8 @@
   <string name="goodIntroduction">好的自我介紹</string>
   <string name="officialRulesPDF">官方規則 (PDF)</string>
   <string name="lichessTraining">Lichess 訓練</string>
+  <string name="threefoldRepetition">三次重複局面</string>
+  <string name="threefoldRepetitionLowerCase">三次重複局面</string>
   <string name="positions">位置</string>
   <string name="configure">配置</string>
   <string name="accounts">帳戶</string>

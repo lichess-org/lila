@@ -9,7 +9,7 @@
   <string name="lengths">Longitudes</string>
   <string name="mates">Chaco mat</string>
   <string name="goals">Objectivos</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origine</string>
+  <string name="origin">Origine</string>
   <string name="specialMoves">Movimentos special</string>
   <string name="didYouLikeThisPuzzle">Esque tu amava iste enigma?</string>
   <string name="voteToLoadNextOne">Vota pro cargar le proxime!</string>

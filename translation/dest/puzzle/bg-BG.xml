@@ -9,7 +9,7 @@
   <string name="lengths">Дължини</string>
   <string name="mates">Матове</string>
   <string name="goals">Цели</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Произход</string>
+  <string name="origin">Произход</string>
   <string name="specialMoves">Специални ходове</string>
   <string name="didYouLikeThisPuzzle">Хареса ли Ви този пъзел?</string>
   <string name="voteToLoadNextOne">Гласувайте и преминете към следващия!</string>
@@ -50,4 +50,9 @@
   <string name="history">История на задачите</string>
   <string name="solved">решени</string>
   <string name="failed">неуспешни</string>
+  <string name="streakDescription">Решавайте задачи с нарастваща трудност и направете поредица от победи. Няма хронометър, така че играйте спокойно. Един грешен ход, и играта свършва! Можете да пропуснете по един ход на сесия.</string>
+  <string name="yourStreakX">Вашите последователни победи: %s</string>
+  <string name="streakSkipExplanation">Пропуснете този ход за да запазите поредицата си! Може да го направите само веднъж на сесия.</string>
+  <string name="continueTheStreak">Продължете поредицата</string>
+  <string name="newStreak">Нова поредица</string>
 </resources>

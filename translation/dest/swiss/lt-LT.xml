@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Šveicariškieji turnyrai</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Peržvelgti raundą</item>
+    <item quantity="few">Peržvelgti visus %s raundus</item>
+    <item quantity="many">Peržvelgti visus %s raundo</item>
+    <item quantity="other">Peržvelgti visus %s raundų</item>
+  </plurals>
 </resources>

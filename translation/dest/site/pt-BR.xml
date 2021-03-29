@@ -843,13 +843,17 @@
   <string name="invitedYouToX"> convidou você para \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
+  <string name="youHaveJoinedTeamX">Você ingressou em \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Alguém que você denunciou foi banido</string>
   <string name="congratsYouWon">Parabéns, você venceu!</string>
+  <string name="gameVsX">Jogo vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Você acaba de se tornar um Patrono Lichess.</string>
   <string name="patronAccountExpired">Conta de Patron expirada</string>
   <string name="pleaseReconsiderRenewIt">Por favor, considere renová-la!</string>
   <string name="someoneReviewedYourCoachProfile">Alguém revisou o seu perfil de treinador.</string>
   <string name="newPendingReview">Nova revisão pendente</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Você perdeu para alguém que violou os termos de serviço do Lichess</string>
+  <string name="lostAgainstTOSViolator">Você perdeu para alguém que violou os termos de serviço do Lichess</string>
+  <string name="refundXpointsTimeControlY">Reembolso: %1$s %2$s pontos de classificação.</string>
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
 </resources>

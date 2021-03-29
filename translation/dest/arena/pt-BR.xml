@@ -38,4 +38,8 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
   <string name="drawStreak">Sequências de empates: Quando um jogador empata consecutivos jogos em uma arena, apenas o primeiro empate será pontuado, ou empates que durarem mais que %s movimentos. A sequência de empates pode ser quebrada somente por uma vitória, não por uma derrota ou outro empate.</string>
   <string name="history">Histórico de arenas</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">Ver a equipe</item>
+    <item quantity="other">Ver todas as %s equipes</item>
+  </plurals>
 </resources>

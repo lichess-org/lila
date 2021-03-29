@@ -9,7 +9,7 @@
   <string name="lengths">Довжина</string>
   <string name="mates">Мати</string>
   <string name="goals">Цілі</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Походження</string>
+  <string name="origin">Походження</string>
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
   <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>

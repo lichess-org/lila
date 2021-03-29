@@ -9,7 +9,7 @@
   <string name="lengths">Délka</string>
   <string name="mates">Maty</string>
   <string name="goals">Cíle</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Původ</string>
+  <string name="origin">Původ</string>
   <string name="specialMoves">Speciální tahy</string>
   <string name="didYouLikeThisPuzzle">Líbila se vám tato hádanka?</string>
   <string name="voteToLoadNextOne">Hlasujte pro načtení dalšího!</string>

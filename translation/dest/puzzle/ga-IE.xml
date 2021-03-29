@@ -9,7 +9,7 @@
   <string name="lengths">Faid</string>
   <string name="mates">Marbhsháinneacha</string>
   <string name="goals">Aidhmeanna</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Foinse</string>
+  <string name="origin">Foinse</string>
   <string name="specialMoves">Bearta speisialta</string>
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
   <string name="voteToLoadNextOne">Vótáil chun an chéad cheann eile a lódáil!</string>

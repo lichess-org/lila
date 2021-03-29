@@ -9,7 +9,7 @@
   <string name="lengths">Per lunghezza</string>
   <string name="mates">Matti</string>
   <string name="goals">Per obiettivo</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Per fonte</string>
+  <string name="origin">Per fonte</string>
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
   <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>

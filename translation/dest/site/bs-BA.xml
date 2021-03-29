@@ -880,13 +880,17 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="invitedYouToX"> Vas je pozvao u \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
+  <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>
   <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
+  <string name="gameVsX">Partija protiv %1$s</string>
+  <string name="resVsX">%1$s protiv %2$s</string>
   <string name="youJustBecamePatron">Upravo ste postali sponzor.</string>
   <string name="patronAccountExpired">Račun sponzora istekao</string>
   <string name="pleaseReconsiderRenewIt">Molimo, razmotrite da ga obnovite!</string>
   <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
   <string name="newPendingReview">Novi pregled na čekanju</string>
-  <string name="lostAgainstTOSViolator" comment="lostAgainstTOSViolator&#10;&#10;TOS stands for &quot;Terms of Service&quot;">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
+  <string name="lostAgainstTOSViolator">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
+  <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting-bodova.</string>
   <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
 </resources>
