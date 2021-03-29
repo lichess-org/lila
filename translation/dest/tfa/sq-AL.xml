@@ -12,4 +12,7 @@ Ju duhet kodi identifikimit cdo here qe logoheni.</string>
   <string name="enableTwoFactor">Aktivizo identifikimin e dyfishtë</string>
   <string name="disableTwoFactor">Deaktivizo identifikimin e dyfishtë</string>
   <string name="twoFactorEnabled">Identifikimi i dyfishtë u aktivizua</string>
+  <string name="twoFactorDisable">Ju duhet fjalekalimi dhe kodi identifikues nga aplikacioni ne menyre qe te hiqni identifikimin me dy etapa.
+Nese keni humbur fjalekalimin atehere mund ta ndryshoni perseri nepermjet emailt.</string>
+  <string name="openTwoFactorApp">Hapni identifikimin me dy etapa ne aplikacion ne paisjen tuaj per te shikuar kodin dhe te verifikoni identitetin tuaj.</string>
 </resources>
