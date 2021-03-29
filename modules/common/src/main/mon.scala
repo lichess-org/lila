@@ -530,6 +530,9 @@ object mon {
       val rating                  = histogram("streak.selector.rating").withoutTags()
       def ratingSlice(index: Int) = histogram("streak.selector.ratingSlice").withTag("index", index)
     }
+    object run {
+      def score(auth: Boolean) = histogram("streak.run.score").withTag("auth", auth)
+    }
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =

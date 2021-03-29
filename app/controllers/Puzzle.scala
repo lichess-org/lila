@@ -128,12 +128,12 @@ final class Puzzle(
                   case None => fuccess(Json.obj("streakComplete" -> true))
                   case Some(puzzle) =>
                     for {
-                      userId <- ctx.userId
-                      score  <- data.streakScore
+                      score <- data.streakScore
                       if !data.result.win
                       if score > 0
-                    } lila.common.Bus
-                      .publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+                      _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
+                      userId <- ctx.userId
+                    } lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
                     renderJson(puzzle, theme) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }
