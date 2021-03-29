@@ -846,7 +846,7 @@
   <string name="youHaveJoinedTeamX">Vous avez joint l\'équipe \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Quelqu\'un que vous avez signalé a été banni.</string>
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
-  <string name="gameVsX">Partie contre %1$s</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
   <string name="youJustBecamePatron">Vous êtes devenu un mécène de Lichess.</string>
   <string name="patronAccountExpired">Statut de mécène expiré</string>
@@ -854,5 +854,6 @@
   <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
   <string name="newPendingReview">Nouvelle évaluation en attente</string>
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Remboursement : %$1s point(s) de cote – %$2s</string>
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
 </resources>
