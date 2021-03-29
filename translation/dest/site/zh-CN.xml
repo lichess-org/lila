@@ -809,7 +809,6 @@
   <string name="youHaveJoinedTeamX">你已加入\"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">你举报的用户已被封禁</string>
   <string name="congratsYouWon">恭喜你获得了胜利！</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">与 %$1s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">您已成为 lichess 的赞助者</string>
   <string name="patronAccountExpired">赞助账户已过期</string>
