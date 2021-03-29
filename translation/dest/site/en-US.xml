@@ -855,6 +855,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="someoneReviewedYourCoachProfile">Someone reviewed your coach profile.</string>
   <string name="newPendingReview">New pending review</string>
   <string name="lostAgainstTOSViolator">You lost to someone who violated the Lichess TOS</string>
-  <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
 </resources>
