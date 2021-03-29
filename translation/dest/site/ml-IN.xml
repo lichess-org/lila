@@ -9,6 +9,7 @@
   <string name="yourTurn">താങ്കളുടെ ഊഴം</string>
   <string name="aiNameLevelAiLevel">%1$s തരം %2$s</string>
   <string name="level">തരം</string>
+  <string name="strength">ശക്തി</string>
   <string name="toggleTheChat">സംഭാഷണം തുടങ്ങുകയോ നിര്തുകയോ ചെയ്യുന്നതിന്</string>
   <string name="toggleSound">ശബ്ദം നിർത്തുക/കേൾപ്പിക്കുക</string>
   <string name="chat">സംഭാഷണം</string>
@@ -21,6 +22,8 @@
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
+  <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
+  <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
@@ -197,6 +200,8 @@
     <item quantity="other">നിങ്ങളോടോത്തു %s കളികൾ</item>
   </plurals>
   <string name="cancel">ഒഴിവാക്കുക</string>
+  <string name="whiteTimeOut">വെള്ള സമയം കഴിഞു</string>
+  <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
   <string name="drawOfferDeclined">സമനിലാ വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
@@ -290,6 +295,10 @@
     <item quantity="one">%s ടൂര്‍ണമെന്‍റ് പോയിന്റ്</item>
     <item quantity="other">%s ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s പഠനം</item>
+    <item quantity="other">%s പഠനങ്ങൾ</item>
+  </plurals>
   <string name="viewTournament">ടൂര്‍ണമെന്‍റ് കാണുക</string>
   <string name="backToTournament">ടൂര്‍ണമെന്‍റിലേക്ക് തിരികെ പോവുക</string>
   <string name="thematic">തീമാറ്റിക്</string>
@@ -321,6 +330,7 @@
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
+  <string name="xStartedStreaming">%s സംപ്രേക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
   <string name="averageElo">ശരാശരി നിലവാരം</string>
   <string name="location">സ്ഥലം</string>
   <string name="filterGames">മത്സരങ്ങള്‍ തരംതിരിക്കുക</string>
@@ -332,6 +342,7 @@
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
+  <string name="toStudy">പഠനം</string>
   <string name="importGame">മത്സരം അപ്പ്‌ലോഡ് ചെയ്യുക</string>
   <string name="importGameExplanation">ഒരു ഗെയിം PGN പേസ്റ്റ് ചെയ്യുമ്പോൾ ബ്രൗസ്‌ ചെയ്യാൻ പറ്റുന്ന റീപ്ലേ, കമ്പ്യൂട്ടർ വിശകലനം, ഗെയിം ചാറ്റ്, ഷെയർ ചെയ്യാൻ പറ്റുന്ന ഒരു URL എന്നിവ ലഭിക്കുന്നു.</string>
   <plurals name="nbImportedGames">
@@ -394,6 +405,7 @@
   <string name="recommendNotTouching">ഇവ തൊടരുതെന്ന് ഞങ്ങൾ ശുപാർശ ചെയ്യുന്നു.</string>
   <string name="fewerPlayers">പ്രവേശനത്തിനുള്ള നിബന്ധനങ്ങൾ നിങ്ങൾ സെറ്റ് ചെയ്താൽ, അത് കുറച്ചു കളിക്കാർ മാത്രം നിങ്ങളുടെ ടൂർണമെന്റിൽ കളിക്കുന്നതിനു കാരണമാകും.</string>
   <string name="showAdvancedSettings">നൂതനമായ ക്രമീകരണം</string>
+  <string name="makePrivateTournament">ടൂർണമെന്റ് പ്രൈവറ്റ് ആക്കുക പാസ്സ്‌വേർഡ്‌ വെച്ച് സംരക്ഷിക്കുക</string>
   <string name="join">പങ്കെടുക്കാം</string>
   <string name="withdraw">റദ്ദാക്കുക</string>
   <string name="points">പോയിന്റുകൾ</string>
@@ -436,6 +448,7 @@
   <string name="biography">ജീവചരിത്രം</string>
   <string name="country">രാജ്യം</string>
   <string name="thankYou">നന്ദി!</string>
+  <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="watchLichessTV">കാണാം Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
@@ -455,6 +468,7 @@
   <string name="tournamentWinners">പരമ്പരയിലെ ജേതാക്കൾ</string>
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
+  <string name="descPrivate">സ്വകാര്യ വിവരണം</string>
   <string name="no">ഇല്ല</string>
   <string name="yes">അതെ</string>
   <string name="help">സഹായം:</string>
