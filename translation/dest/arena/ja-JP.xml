@@ -32,4 +32,7 @@
   <string name="shareUrl">誰もが参加できるようにシェアして: %s</string>
   <string name="drawStreak">連続ドロー：ドローが連続した場合、手数が%s手を超えたゲームしかポイントが得られません（最初のドローは手数を問わない）。連続ドローが途切れるのは勝った時だけで、負けでは途切れたことになりません。</string>
   <string name="history">過去のアリーナ</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="other">%s チームを表示</item>
+  </plurals>
 </resources>
