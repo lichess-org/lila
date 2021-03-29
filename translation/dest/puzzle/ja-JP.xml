@@ -52,4 +52,6 @@
   <string name="streakDescription">だんだん難しくなる問題に連続正解してください。時間制限はないのでじっくりとどうぞ。1 手間違えると終了です！　ただし途中 1 手だけ飛ばすことができます。</string>
   <string name="yourStreakX">連続正解：%s</string>
   <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
+  <string name="continueTheStreak">連続正解を続ける</string>
+  <string name="newStreak">新たなストリーク</string>
 </resources>
