@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Torneios Suíços</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Ver a rodada</item>
+    <item quantity="other">Ver todas as %s rodadas</item>
+  </plurals>
 </resources>
