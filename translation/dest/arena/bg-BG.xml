@@ -31,6 +31,7 @@
   <string name="howDoesItEndAnswer">Турнирът има хронометър. Когато той достигне нула, класирането сe замразява и победителят е обявен.
 Игри в действие трябва да се довършат и те не се зачитат за класирането.</string>
   <string name="otherRules">Други важни правила</string>
+  <string name="thereIsACountdown">Имате ограничено време за първия Ви ход. Ако не направите ход преди да изтече времето, ще загубите партията.</string>
   <string name="thisIsPrivate">Това е частен турнир</string>
   <string name="shareUrl">Споделете този URL, за да поканите някого: %s</string>
 </resources>
