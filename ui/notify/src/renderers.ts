@@ -131,7 +131,8 @@ export default function makeRenderers(trans: Trans): Renderers {
       html: n =>
         generic(n, '/' + n.content.id, ';', [
           h('span', [h('strong', trans.noarg('timeAlmostUp')), drawTime(n)]),
-          h('span', trans('gameVsX', userFullName(n.content.op))),
+          // not a `LightUser`, could be a game against Stockfish
+          h('span', trans('gameVsX', n.content.op)),
         ]),
       text: _ => trans.noarg('timeAlmostUp'),
     },
