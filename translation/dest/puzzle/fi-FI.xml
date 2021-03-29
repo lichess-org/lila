@@ -54,4 +54,5 @@
   <string name="yourStreakX">Putkesi: %s</string>
   <string name="streakSkipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin sarjan aikana vain kerran.</string>
   <string name="continueTheStreak">Jatka putkea</string>
+  <string name="newStreak">Uusi putki</string>
 </resources>
