@@ -469,6 +469,7 @@
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
   <string name="descPrivate">സ്വകാര്യ വിവരണം</string>
+  <string name="descPrivateHelp">ഈ ടെക്സ്റ്റ്‌ ടീം അംഗങ്ങൾ കാണും സജ്ജീകരിച്ചിട്ടുടെങ്കിൽ പൊതു വിവരണം മാറ്റിസ്ഥാപിക്കും.</string>
   <string name="no">ഇല്ല</string>
   <string name="yes">അതെ</string>
   <string name="help">സഹായം:</string>
@@ -489,6 +490,7 @@
   <string name="cheat">ചതി</string>
   <string name="insult">അധിക്ഷേപം</string>
   <string name="troll">ചൂണ്ട</string>
+  <string name="ratingManipulation">റേറ്റിംഗ് കൃത്യമം</string>
   <string name="other">മറ്റുള്ളവ</string>
   <string name="reportDescriptionHelp">ഗെയിമിന്റെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക. ശേഷം യുസറിന്റെ പെരുമാറ്റത്തിലെ അപാകത ഞങ്ങളോട് വിശദമായി പറയുക. \"they cheat\" എന്ന് പറയരുത്. പക്ഷെ എന്തുകൊണ്ട് നിങ്ങൾ ആ അഭിപ്രായത്തിലേക്ക് എത്തി എന്നാണ് പറയേണ്ടത്. ഇംഗ്ലീഷിൽ എഴുതിയാൽ നിങ്ങളുടെ റിപ്പോർട്ട് വേഗത്തിൽ വിശകലനം ചെയ്യപ്പെടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
@@ -506,7 +508,12 @@
   <string name="currentPassword">നിലവിലുള്ള രഹസ്യപദം</string>
   <string name="newPassword">പുതിയ രഹസ്യപദം</string>
   <string name="newPasswordAgain">പുതിയ രഹസ്യപദം (പിന്നെയും)</string>
+  <string name="newPasswordsDontMatch">പുതിയ പാസ്സ്‌വേർഡുകൾ പരസ്പരം മാച്ച് ആവുന്നില്ല</string>
+  <string name="newPasswordStrength">പാസ്സ്‌വേർഡ്‌ ശക്തി</string>
+  <string name="clockInitialTime">ഘഡികാര പ്രരാംബ സമയം</string>
+  <string name="clockIncrement">ഘഡികാര സമയം കൂട്ടുക</string>
   <string name="privacy">സ്വകാര്യത</string>
+  <string name="privacyPolicy">സ്വകാര്യത നയം</string>
   <string name="letOtherPlayersFollowYou">മറ്റു കളിക്കാരെ പിന്തുടരാൻ (ഫോളോ) അനുവദിക്കൂ</string>
   <string name="letOtherPlayersChallengeYou">മറ്റു കളിക്കാർക്ക് പന്തയത്തിനുള്ള അനുവാദം നൽകൂ</string>
   <string name="letOtherPlayersInviteYouToStudy">മറ്റു കളിക്കാർ നിങ്ങളെ പഠനത്തിലേക്ക് ക്ഷണിക്കട്ടെ</string>
@@ -575,6 +582,7 @@
   <string name="error.email_unique">ഈ ഇമെയിൽ വിലാസം ഇതിനു മുന്നേ എടുത്തിട്ടുണ്ട്</string>
   <string name="error.email_different">ഇത് തന്നെയാണ് നിങ്ങളുടെ email address</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
+  <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
   <string name="menu">പട്ടിക</string>
   <string name="castling">കേസ്‌ലിങ്</string>
@@ -589,6 +597,7 @@
   <string name="tpTimeSpentOnTV">ടീവിയിൽ സമയം: %s</string>
   <string name="watch">നോക്കാം</string>
   <string name="videoLibrary">വീഡിയോ ശേഖരം</string>
+  <string name="streamersMenu">സംപ്രഷകർ</string>
   <string name="mobileApp">മൊബൈൽ ആപ്പ്</string>
   <string name="webmasters">വെബ് മാസ്റ്റേഴ്സ്</string>
   <string name="about">ഇതിനെ കുറിച്ച്</string>
@@ -641,6 +650,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s ആണ്.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">നിങ്ങൾ %1$s -ൽ %2$s-വരേക്കാളും മികച്ചവരാണ്.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s,%3$s ഇന്റെ %2$s നേക്കാൾ മികച്ചത്.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">നിങ്ങൾക്ക് സ്വന്തമായി രേഖപ്പെടുത്തപ്പെട്ട %s റേറ്റിംഗ് ഇല്ല.</string>
   <string name="yourRating">നിങ്ങളുടെ റേറ്റിംഗ്</string>
   <string name="cumulative">ഒന്നിച്ചു ചേർത്ത</string>
@@ -650,6 +660,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
   <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">രജിസ്റ്റർ ചെയ്യുന്നത് വഴി നിങ്ങൾ ഞങ്ങളുടെ %s പിന്തുടരുമെന്നു സമ്മതിക്കുന്നു.</string>
+  <string name="readAboutOur">%s ഇനി കുറിച്ച് വായിക്കുക.</string>
   <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess സെർവറിൽ ഒരു നീക്കം വിശകലനം ചെയ്യാൻ എടുക്കുന്ന സമയം</string>
   <string name="downloadAnnotated">Annotated ആയി ഡൗൺലോഡ് ചെയ്യുക</string>
@@ -803,6 +814,8 @@
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
+  <string name="searchOrStartNewDiscussion">കണ്ടുപിടിക്കുക അല്ലെങ്കിൽ പുതിയൊരു സംഭാഷണം ആരംഭിക്കുക</string>
+  <string name="edit">മാറ്റുക</string>
   <string name="rapid">റാപിഡ്</string>
   <string name="classical">ക്ലാസിക്കല്‍</string>
   <string name="ultraBulletDesc">തീവ്രവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
@@ -812,4 +825,5 @@
   <string name="classicalDesc">ക്ലാസ്സിക്കല്‍ കളികള്‍: 25 മിനിറ്റില്‍ കൂടുതല്‍</string>
   <string name="correspondenceDesc">കറസ്പോണ്ടന്‍സ് കളികള്‍: ഓരോ നീക്കത്തിനും ഒരു ദിവസമോ അതില്‍ കൂടുതലോ ലഭിക്കും</string>
   <string name="puzzleDesc">ചെസ്സ്‌ ടാക്ടിക്സ് ട്രെയിനര്‍</string>
+  <string name="important">പ്രധാനയമത്</string>
 </resources>
