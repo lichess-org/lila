@@ -847,5 +847,6 @@
   <string name="someoneReviewedYourCoachProfile">Birisi antrenör profilinizi inceledi.</string>
   <string name="newPendingReview">Yeni bekleyen inceleme</string>
   <string name="lostAgainstTOSViolator">Lichess Hizmet Şartları\'nı ihlal eden birine kaybettin</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">%1$s %2$s puanı iade edildi.</string>
   <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
 </resources>
