@@ -75,6 +75,9 @@ object features {
               a(href := routes.Puzzle.home)("Tactical puzzles from user games")
             ),
             tr(unlimited)(
+              a(href := routes.Puzzle.streak)("Puzzle Streak")
+            ),
+            tr(unlimited)(
               a(href := routes.Storm.home)("Puzzle Storm")
             ),
             tr(unlimited)(

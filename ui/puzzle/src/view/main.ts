@@ -163,13 +163,17 @@ function session(ctrl: Controller) {
               href: `/training/${ctrl.session.theme}`,
             },
           })
-      : h('a.result-cursor.current', {
-          key: current,
-          attrs: ctrl.streak
-            ? {}
-            : {
-                href: `/training/${ctrl.session.theme}/${current}`,
-              },
-        }),
+      : h(
+          'a.result-cursor.current',
+          {
+            key: current,
+            attrs: ctrl.streak
+              ? {}
+              : {
+                  href: `/training/${ctrl.session.theme}/${current}`,
+                },
+          },
+          ctrl.streak?.data.index
+        ),
   ]);
 }

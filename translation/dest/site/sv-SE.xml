@@ -840,7 +840,6 @@
   <string name="mentionedYouInX"> nämnde dig i \"%1$s\".</string>
   <string name="invitedYouToX"> bjöd in dig till \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>
-  <string name="youHaveJoinedTeamX">Du har gått med i \"%$1s\".</string>
   <string name="congratsYouWon">Grattis, du vann!</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
 </resources>

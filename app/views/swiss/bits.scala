@@ -101,6 +101,7 @@ object bits {
     trans.standByX,
     trans.averageOpponent,
     trans.tournamentComplete,
-    trans.password
+    trans.password,
+    trans.swiss.viewAllXRounds
   ).map(_.key)
 }

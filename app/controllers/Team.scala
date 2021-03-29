@@ -288,6 +288,8 @@ final class Team(
                       api.joinApi(team, me, _, setup.message)
                     } flatMap {
                       case Requesting.Joined => jsonOkResult.fuccess
+                      case Requesting.NeedPassword =>
+                        Forbidden(jsonError("This team requires a password.")).fuccess
                       case Requesting.NeedRequest =>
                         Forbidden(
                           jsonError(

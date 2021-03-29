@@ -19,7 +19,8 @@ function confetti(data: TournamentData): VNode | undefined {
     });
 }
 
-function stats(data: TournamentData, noarg: any): VNode {
+function stats(data: TournamentData, trans: Trans): VNode {
+  const noarg = trans.noarg;
   const tableData = [
     numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
     numberRow(noarg('gamesPlayed'), data.stats.games),
@@ -47,7 +48,7 @@ function stats(data: TournamentData, noarg: any): VNode {
                   href: `/tournament/${data.id}/teams`,
                 },
               },
-              `View all ${Object.keys(data.teamBattle.teams).length} teams`
+              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length)
             ),
             h('br'),
           ]
@@ -105,6 +106,6 @@ export function table(ctrl: TournamentController): VNode | undefined {
     : ctrl.teamInfo.requested
     ? teamInfo(ctrl)
     : stats
-    ? stats(ctrl.data, ctrl.trans.noarg)
+    ? stats(ctrl.data, ctrl.trans)
     : undefined;
 }

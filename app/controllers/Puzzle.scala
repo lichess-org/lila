@@ -12,7 +12,7 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, PuzzleStreak, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -128,12 +128,12 @@ final class Puzzle(
                   case None => fuccess(Json.obj("streakComplete" -> true))
                   case Some(puzzle) =>
                     for {
-                      userId <- ctx.userId
-                      score  <- data.streakScore
+                      score <- data.streakScore
                       if !data.result.win
                       if score > 0
-                    } lila.common.Bus
-                      .publish(lila.hub.actorApi.streak.StreakRun(userId, score).pp, "streakRun")
+                      _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
+                      userId <- ctx.userId
+                    } lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
                     renderJson(puzzle, theme) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }
@@ -204,9 +204,9 @@ final class Puzzle(
     Open { implicit ctx =>
       NoBot {
         env.puzzle.streak.apply flatMap {
-          _ ?? { case (streak, puzzle) =>
+          _ ?? { case PuzzleStreak(ids, puzzle) =>
             env.puzzle.jsonView(puzzle = puzzle, PuzzleTheme.mix.some, none, user = ctx.me) map { preJson =>
-              val json = preJson ++ Json.obj("streak" -> streak.ids.mkString(" "))
+              val json = preJson ++ Json.obj("streak" -> ids)
               EnableSharedArrayBuffer(
                 Ok(
                   views.html.puzzle

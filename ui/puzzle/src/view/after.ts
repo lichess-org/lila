@@ -46,7 +46,7 @@ const renderContinue = (ctrl: Controller) =>
 const renderStreak = (ctrl: Controller): MaybeVNodes => [
   h('div.complete', [
     h('span.game-over', 'GAME OVER'),
-    h('span', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak?.current))),
+    h('span', ctrl.trans.vdom('yourStreakX', h('strong', ctrl.streak?.data.index))),
   ]),
   h(
     'a.continue',

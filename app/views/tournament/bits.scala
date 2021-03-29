@@ -78,6 +78,7 @@ object bits {
     trans.averageOpponent,
     trans.ratedTournament,
     trans.casualTournament,
-    trans.password
+    trans.password,
+    trans.arena.viewAllXTeams
   ).map(_.key)
 }

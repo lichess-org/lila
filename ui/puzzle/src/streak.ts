@@ -1,20 +1,54 @@
-import { PuzzleId } from './interfaces';
+import { StoredJsonProp, storedJsonProp } from 'common/storage';
+import { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
+
+interface Current {
+  puzzle: Puzzle;
+  game: PuzzleGame;
+}
+
+interface StreakData {
+  ids: PuzzleId[];
+  index: number;
+  skip: boolean;
+  current: Current;
+}
 
 export default class PuzzleStreak {
-  current: number = 0;
-  skipAvailable: boolean = true;
+  data: StreakData;
   fail: boolean = false;
+  store: StoredJsonProp<StreakData | null>;
 
-  constructor(readonly ids: PuzzleId[]) {}
+  constructor(data: PuzzleData) {
+    this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${data.user?.id || 'anon'}`, () => null);
+    this.data = this.store() || {
+      ids: data.streak!.split(' '),
+      index: 0,
+      skip: true,
+      current: {
+        puzzle: data.puzzle,
+        game: data.game,
+      },
+    };
+  }
 
-  onComplete = (win: boolean) => {
-    if (win) this.current++;
-    else this.fail = true;
+  onComplete = (win: boolean, current?: Current) => {
+    if (win) {
+      this.data.index++;
+      if (current)
+        this.data.current = {
+          puzzle: current.puzzle,
+          game: current.game,
+        };
+      this.store(this.data);
+    } else {
+      this.fail = true;
+      this.store(null);
+    }
   };
 
-  currentId = () => this.ids[this.current];
+  nextId = () => this.data.ids[this.data.index + 1];
 
   skip = (): void => {
-    this.skipAvailable = false;
+    this.data.skip = false;
   };
 }

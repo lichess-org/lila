@@ -82,10 +82,10 @@ object activity {
   private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
       iconTag("-"),
-      !u.perfs.dubiousPuzzle option scoreFrag(p.score),
+      scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
+        p.score.rp.filterNot(_.isEmpty || u.perfs.dubiousPuzzle).map(ratingProgFrag)
       )
     )
 
@@ -342,10 +342,7 @@ object activity {
     }
 
   private def ratingProgFrag(r: RatingProg) =
-    ratingTag(
-      r.after.value,
-      ratingProgress(r.diff)
-    )
+    ratingTag(r.after.value, ratingProgress(r.diff))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""
