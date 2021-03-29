@@ -141,6 +141,9 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if pattern in m_source and pattern not in m_dest:
             ctx.notice(f"missing {pattern}")
 
+    if "%$" in dest:
+        ctx.error("invalid %$")
+
     if "%%" in source and "%%" not in dest:
         ctx.warning("missing %%")
 
