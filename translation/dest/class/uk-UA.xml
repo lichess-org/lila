@@ -29,11 +29,9 @@
   <string name="makeSureToCopy">Переконайтеся, що ви скопіювали або записали пароль. Ви не зможете побачити його знову!</string>
   <string name="passwordX">Пароль: %s</string>
   <string name="generateANewPassword">Згенерувати новий пароль для учня</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Запрошено до %1$s користувачем %2$s</string>
   <string name="realName">Справжнє ім\'я</string>
   <string name="privateWillNeverBeShown">Приватний. Ніколи не буде показуватися за межами класу. Допомагає згадати, хто цей учень.</string>
   <string name="addStudent">Додати учня</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Профіль Lichess %1$s створений для %2$s.</string>
   <string name="studentCredentials">Учень:  %1$s
 Ім\'я користувача: %2$s
 Пароль: %3$s</string>
