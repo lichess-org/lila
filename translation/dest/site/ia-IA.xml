@@ -799,6 +799,9 @@
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="thankYouForReading">Gratias pro leger isto!</string>
   <string name="agreementAssistance">Io accepta que in ulle occasion io non recipera assistentia durante mi partitas (ab un computator de chacos, base de datos o altere persona).</string>
+  <string name="agreementNice">Io accepta que io sempre essera respectuose a altere jocatores.</string>
+  <string name="agreementAccount">Io accepta que io non creara multiple contos.</string>
+  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>
@@ -811,9 +814,15 @@
   <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
   <string name="puzzleDesc">Trainator de tacticas de chacos</string>
   <string name="important">Importante</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tu question pote ja haber un responsa %1$s</string>
+  <string name="inTheFAQ">in le F.A.Q.</string>
   <string name="joinTheTeamXToPost">Pro postar in iste foro, uni se in %1$s</string>
   <string name="teamNamedX">Equipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
   <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
+  <string name="mentionedYouInX"> mentionava tu in \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mentionava tu in \"%2$s\".</string>
+  <string name="invitedYouToX"> invitava tu a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitava tu a \"%2$s\".</string>
 </resources>
