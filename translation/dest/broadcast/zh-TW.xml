@@ -11,4 +11,6 @@
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
   <string name="roundNumber">回合數</string>
+  <string name="startDate">開始日期 (當地時間)</string>
+  <string name="startDateHelp">可選，如果知道比賽開始時間</string>
 </resources>
