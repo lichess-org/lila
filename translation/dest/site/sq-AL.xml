@@ -490,6 +490,7 @@
   <string name="cheat">Mashtrim</string>
   <string name="insult">Fyerje</string>
   <string name="troll">Tallje</string>
+  <string name="ratingManipulation">Manipulimi i vleresimit</string>
   <string name="other">Tjetër</string>
   <string name="reportDescriptionHelp">Ngjit lidhjen e lojës dhe shpjego çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruaj thjesht \"mashtroi\", por na thuaj si arrite në këtë përfundim. Raportimi juaj do të përpunohet më shpejt nëse shkruhet në gjuhën angleze.</string>
   <string name="error.provideOneCheatedGameLink">Të lutem siguro të japësh një lidhje për një lojë të mashtruar.</string>
