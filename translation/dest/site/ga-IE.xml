@@ -950,4 +950,22 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="youCannotPostYetPlaySomeGames">Níl cead postáil sna fóraim go fóill. Imir roinnt cluichí!</string>
   <string name="subscribe">Liostáil</string>
   <string name="unsubscribe">Díliostáil</string>
+  <string name="mentionedYouInX"> luadh tú i \"%1$s\".</string>
+  <string name="xMentionedYouInY"> luadh %1$s tú i \"%2$s\".</string>
+  <string name="invitedYouToX"> tugadh cuireadh duit \"%1$s\".</string>
+  <string name="xInvitedYouToY">tugadh %1$s cuireadh duit \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Tá tú anois mar chuid den fhoireann.</string>
+  <string name="youHaveJoinedTeamX">Tá tú tar éis dul isteach \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Cuireadh cosc ar dhuine a thuairiscigh tú</string>
+  <string name="congratsYouWon">Comhghairdeas, bhuaigh tú!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Cluiche in aghaidh %1$s</string>
+  <string name="resVsX">%1$s in aghaidh %2$s</string>
+  <string name="youJustBecamePatron">D\'éirigh tú díreach mar Phátrún lichess.</string>
+  <string name="patronAccountExpired">Cuntas Pátrún imithe as feidhm</string>
+  <string name="pleaseReconsiderRenewIt">Smaoinigh ar é a athnuachan!</string>
+  <string name="someoneReviewedYourCoachProfile">Rinne duine éigin athbhreithniú ar do phróifíl cóitseálaí.</string>
+  <string name="newPendingReview">Athbhreithniú nua ar feitheamh</string>
+  <string name="lostAgainstTOSViolator">Chaill tú i gcoinne duine a sháraigh téarmaí seirbhíse Lichess</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Athchistiú: %1$s %2$s pointí rátála.</string>
+  <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
 </resources>
