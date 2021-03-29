@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Tournoi au système suisse</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Voir la manche</item>
+    <item quantity="other">Voir toutes les manches de %s</item>
+  </plurals>
 </resources>
