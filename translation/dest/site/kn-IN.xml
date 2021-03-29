@@ -95,7 +95,7 @@
   <string name="winPreventedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಗೆಲುವು ತಪ್ಪಿದೆ</string>
   <string name="lossSavedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಸೋಲು ತಪ್ಪಿದೆ</string>
   <string name="allSet">ಸಿದ್ಧವಾಗಿದೆ!</string>
-  <string name="importPgn">PNG ಆಮದು</string>
+  <string name="importPgn">PGN ಆಮದು</string>
   <string name="delete">ಅಳಿಸಿ</string>
   <string name="deleteThisImportedGame">ಈ ಪ್ರಮುಖ ಆಟವನ್ನು ಅಳಿಸುವುದೇ?</string>
   <string name="replayMode">ಪ್ರತ್ಯುತ್ತರ ಮೋಡ್</string>
