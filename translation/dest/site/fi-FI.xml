@@ -840,5 +840,4 @@
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
-  <string name="refundXpointsTimeControlY">Hyvitys: %$1s %$2s vahvuuslukupistettä.</string>
 </resources>
