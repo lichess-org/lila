@@ -820,6 +820,7 @@
   <string name="useTheReportForm">usa le formulario de reporto</string>
   <string name="toRequestSupport">Pro requirer supporto, %1$s</string>
   <string name="tryTheContactPage">tenta le pagina de contacto</string>
+  <string name="thisTopicIsArchived">Iste topico ha essite archivate e ja non es possibile responder lo.</string>
   <string name="joinTheTeamXToPost">Pro postar in iste foro, uni se in %1$s</string>
   <string name="teamNamedX">Equipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
@@ -829,4 +830,8 @@
   <string name="xMentionedYouInY"> %1$s mentionava tu in \"%2$s\".</string>
   <string name="invitedYouToX"> invitava tu a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s invitava tu a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Tu ora es parte del equipa.</string>
+  <string name="youHaveJoinedTeamX">Tu ha adherite a \"%1$s\".</string>
+  <string name="gameVsX">Partita contra %1$s</string>
+  <string name="resVsX">%1$s contra %2$s</string>
 </resources>
