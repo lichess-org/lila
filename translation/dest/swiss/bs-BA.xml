@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Turniri po švicarskom sistemu</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Pogledajte kolo</item>
+    <item quantity="few">Pogledajte sva kola %s</item>
+    <item quantity="other">Pogledajte sva kola %s</item>
+  </plurals>
 </resources>

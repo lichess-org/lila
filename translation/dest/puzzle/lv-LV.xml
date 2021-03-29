@@ -51,4 +51,9 @@
   <string name="history">Pužļu vēsture</string>
   <string name="solved">atrisināts</string>
   <string name="failed">neizdevās</string>
+  <string name="streakDescription">Atrisiniet aizvien grūtākas puzles un veidojiet uzvaru sēriju. Varat domāt, cik ilgi vēlaties, jo laiks nav ierobežots. Viens nepareizs gājiens, un spēle galā! Taču varat izlaist vienu gājienu katrā sesijā.</string>
+  <string name="yourStreakX">Jūsu uzvaru posms: %s</string>
+  <string name="streakSkipExplanation">Izlaist gājienu, lai paturētu uzvaru sēriju. Darbojas tikai vienreiz katrā spēlē.</string>
+  <string name="continueTheStreak">Turpināt uzvaru sēriju</string>
+  <string name="newStreak">Jauna uzvaru sērija</string>
 </resources>

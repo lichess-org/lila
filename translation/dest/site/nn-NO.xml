@@ -858,6 +858,6 @@ i %3$s</string>
   <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
   <string name="newPendingReview">Ventar på ny gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
-  <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
 </resources>

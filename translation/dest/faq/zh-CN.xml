@@ -39,7 +39,7 @@
   <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
   <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的1/100。也就是说，100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
-最佳的电脑着法将会损失0厘兵，但较少的着法将导致厘兵计量下局面的恶化。
+最佳的电脑着法将会损失0厘兵，但较差的着法将导致厘兵计量下局面的恶化。
 
 该值可以用作着法质量的一个指标。每次失去的厘兵越少，着法就越强。
 
@@ -69,7 +69,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lichess</string>
+  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下已显示的按钮，或者在您最后一次重复移动之前提出和棋。无论对方接不接受，根据三次重复规范，游戏会以和棋结束。您也可以%1$sLichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。</string>
   <string name="configure">配置</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>

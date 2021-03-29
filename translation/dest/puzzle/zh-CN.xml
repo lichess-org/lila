@@ -21,7 +21,7 @@
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
-  <string name="bestMove">最佳着法！</string>
+  <string name="bestMove">最佳走法！</string>
   <string name="keepGoing">请继续…</string>
   <string name="puzzleSuccess">解题成功!</string>
   <string name="puzzleComplete">解题完成</string>
@@ -49,4 +49,9 @@
   <string name="history">解题历史</string>
   <string name="solved">已解决</string>
   <string name="failed">失败</string>
+  <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时的情况下，慢慢来。当您走错了一次，游戏将会结束！不过，每场游戏里可跳过一步。</string>
+  <string name="yourStreakX">您的连胜纪录: %s</string>
+  <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
+  <string name="continueTheStreak">继续连胜纪录</string>
+  <string name="newStreak">新创连胜纪录</string>
 </resources>

@@ -2,7 +2,7 @@
 <resources>
   <string name="swissTournaments">Torneos suizos</string>
   <plurals name="viewAllXRounds">
-    <item quantity="one">Ver ronda</item>
-    <item quantity="other">Ver las %s rondas</item>
+    <item quantity="one">Ver la ronda</item>
+    <item quantity="other">Ver todas las %s rondas</item>
   </plurals>
 </resources>

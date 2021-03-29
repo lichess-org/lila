@@ -51,4 +51,8 @@
   <string name="history">Istoric probleme de șah</string>
   <string name="solved">rezolvat</string>
   <string name="failed">eșuat</string>
+  <string name="streakDescription">Rezolvă puzzle-uri din ce în ce mai grele și construiește un șir de victorii consecutive. Nu există limită de timp, deci nu te grăbi. O mișcare greșită și jocul s-a terminat! Dar poți sări peste o mutare în fiecare sesiune.</string>
+  <string name="yourStreakX">Victorii consecutive: %s</string>
+  <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de victorii consecutive! Funcționează o singură dată pe rulare.</string>
+  <string name="newStreak">Începe o nouă secvență</string>
 </resources>

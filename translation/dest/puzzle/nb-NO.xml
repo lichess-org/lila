@@ -50,4 +50,8 @@
   <string name="history">Historikk for sjakknøtter</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
+  <string name="yourStreakX">Din rekke: %s</string>
+  <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>
+  <string name="continueTheStreak">Fortsett rekken</string>
+  <string name="newStreak">Ny rekke</string>
 </resources>

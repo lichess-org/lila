@@ -50,4 +50,9 @@
   <string name="history">Historial de ejercicios</string>
   <string name="solved">resuelto</string>
   <string name="failed">error</string>
+  <string name="streakDescription">Soluciona ejercicios cada vez más difíciles y consigue una racha de victorias. No hay cuenta atrás, así que tómate tu tiempo. Si te equivocas en solo un movimiento, ¡se acabó la partida! Pero recuerda que puedes omitir un movimiento por sesión.</string>
+  <string name="yourStreakX">Aciertos seguidos: %s</string>
+  <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
+  <string name="continueTheStreak">Continuar la racha</string>
+  <string name="newStreak">Nueva racha</string>
 </resources>

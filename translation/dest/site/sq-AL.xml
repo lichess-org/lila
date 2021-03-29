@@ -490,6 +490,7 @@
   <string name="cheat">Mashtrim</string>
   <string name="insult">Fyerje</string>
   <string name="troll">Tallje</string>
+  <string name="ratingManipulation">Manipulimi i vleresimit</string>
   <string name="other">Tjetër</string>
   <string name="reportDescriptionHelp">Ngjit lidhjen e lojës dhe shpjego çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruaj thjesht \"mashtroi\", por na thuaj si arrite në këtë përfundim. Raportimi juaj do të përpunohet më shpejt nëse shkruhet në gjuhën angleze.</string>
   <string name="error.provideOneCheatedGameLink">Të lutem siguro të japësh një lidhje për një lojë të mashtruar.</string>
@@ -837,4 +838,18 @@
   <string name="youCannotPostYetPlaySomeGames">Ti nuk mundësh të postosh në forume akoma. Luaj disa lojra!</string>
   <string name="subscribe">Abonohu</string>
   <string name="unsubscribe">Ç\'abonohu</string>
+  <string name="mentionedYouInX"> ju permendi tek \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s ju permendi tek \"%2$s\".</string>
+  <string name="invitedYouToX"> ju ftoj tek \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s ju ftoj tek \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Tani je pjese e skuadres.</string>
+  <string name="youHaveJoinedTeamX">Ju u antaresuat tek \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Dikush qe raportuat u ndalua</string>
+  <string name="congratsYouWon">Urime, ju fituat!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Loja vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Ju sapo u bëtë një Patron i lichess.</string>
+  <string name="patronAccountExpired">Llogaria e Patron skadoi</string>
+  <string name="pleaseReconsiderRenewIt">Ju lutemi merrni parasysh rinovimin e saj!</string>
+  <string name="someoneReviewedYourCoachProfile">Dikush vleresoi profilin tuaj të trajnerit.</string>
 </resources>

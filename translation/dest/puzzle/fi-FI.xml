@@ -50,4 +50,9 @@
   <string name="history">Tehtävähistoria</string>
   <string name="solved">ratkaistu</string>
   <string name="failed">epäonnistui</string>
+  <string name="streakDescription">Ratkaise asteittain vaikeutuvia tehtäviä ja luo voittoputki. Kello ei ole käytössä, joten voit miettiä rauhassa. Yksikin väärä siirto, niin peli on ohi! Kunkin sarjan aikana voit kuitenkin ohittaa yhden siirron.</string>
+  <string name="yourStreakX">Putkesi: %s</string>
+  <string name="streakSkipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin sarjan aikana vain kerran.</string>
+  <string name="continueTheStreak">Jatka putkea</string>
+  <string name="newStreak">Uusi putki</string>
 </resources>

@@ -843,8 +843,10 @@
   <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
+  <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%$1s\".</string>
   <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
+  <string name="gameVsX">Játszma %$1s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>
   <string name="youJustBecamePatron">Éppen Lichess Patronná váltál.</string>
   <string name="patronAccountExpired">Lejárt a Patron hozzájárulás</string>
@@ -852,5 +854,6 @@
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Visszatérítve: %$1s %$2s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
 </resources>

@@ -50,8 +50,9 @@
   <string name="history">Bulmaca geçmişi</string>
   <string name="solved">çözüldü</string>
   <string name="failed">başarısız</string>
-  <string name="streakDescription">Giderek daha zor bulmacaları çözün ve bir galibiyet serisi oluşturun. Zaman sınırı yok, bu yüzden acele etmeyin. Bir yanlış hamle ve oyun biter! Ancak seans başına bir hareket atlayabilirsiniz. Ancak oturum başına bir hamle atlayabilirsiniz.</string>
+  <string name="streakDescription">Giderek zorlaşan bulmacaları çözün ve bir galibiyet serisi oluşturun. Zaman sınırı yok, bu yüzden acele etmeyin. Bir yanlış hamleye oyun biter! Fakat tur başına bir hamle atlayabilirsiniz.</string>
   <string name="yourStreakX">Seriniz: %s</string>
+  <string name="streakSkipExplanation">Serini korumak için bu hamleyi atla! Her turda sadece bir atlama hakkın var.</string>
   <string name="continueTheStreak">Seriye devam et</string>
   <string name="newStreak">Yeni seri</string>
 </resources>

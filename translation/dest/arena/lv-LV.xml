@@ -43,4 +43,9 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
   <string name="drawStreak">Atkārtoti neizšķirti: Kad spēlētājs vairākas reizes pēc kārtas panāk neizšķirtu arēnā, punktu ieskaitīs tikai par pirmo neizšķirtu, vai neizšķirtas spēles, kas ilga %s gājienus. Šo secību var pārtraukt tikai uzvara, nevis zaudējums vai neizšķirts.</string>
   <string name="history">Arēnu vēsture</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="zero">Skatīt %s komandas</item>
+    <item quantity="one">Skatīt %s komandu</item>
+    <item quantity="other">Skatīt visas %s komandas</item>
+  </plurals>
 </resources>

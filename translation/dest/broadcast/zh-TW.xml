@@ -10,5 +10,13 @@
   <string name="eventDescription">簡短比賽說明</string>
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">對局URL連接，或遊戲ID</string>
+  <string name="sourceUrlHelp">Lichess 將以該網址更新PGN數據，網址必須公開</string>
+  <string name="gameIdsHelp">此外，您可以輸入最長64个字符的 Lichess 遊戲 ID，用空格隔開。</string>
   <string name="roundNumber">回合數</string>
+  <string name="startDate">開始日期 (當地時間)</string>
+  <string name="startDateHelp">可選，如果知道比賽開始時間</string>
+  <string name="credits">將來源歸因</string>
+  <string name="cloneBroadcast">複製廣播</string>
+  <string name="resetBroadcast">重置轉播</string>
 </resources>
