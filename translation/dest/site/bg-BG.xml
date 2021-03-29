@@ -855,6 +855,6 @@
   <string name="someoneReviewedYourCoachProfile">Някой прегледа Вашия треньорски профил.</string>
   <string name="newPendingReview">В очакване на преглед</string>
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
-  <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
 </resources>
