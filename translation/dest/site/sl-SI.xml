@@ -930,6 +930,6 @@ v %3$s</string>
   <string name="someoneReviewedYourCoachProfile">Nekdo je pregledal vaš profil trenerja.</string>
   <string name="newPendingReview">Novo čakanje na pregled</string>
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
-  <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
 </resources>
