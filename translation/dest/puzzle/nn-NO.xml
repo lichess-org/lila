@@ -50,4 +50,6 @@
   <string name="history">Oppgåvehistorikk</string>
   <string name="solved">løyst</string>
   <string name="failed">uløyst</string>
+  <string name="streakDescription">Løys gradvis vanskelegare oppgåver og bygg ei sigerrekke. Det er inga tidsavgrensing, så det er berre å ta tida til hjelp. Spelet er over om du gjer eit feiltrekk. Men du kan hoppe over eit trekk for kvar omgang.</string>
+  <string name="yourStreakX">Sigerrekka di: %s</string>
 </resources>
