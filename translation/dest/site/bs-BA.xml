@@ -891,6 +891,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
   <string name="newPendingReview">Novi pregled na čekanju</string>
   <string name="lostAgainstTOSViolator">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
-  <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting-bodova.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Povrat: %1$s %2$s rejting-bodova.</string>
   <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
 </resources>
