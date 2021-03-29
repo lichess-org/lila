@@ -854,6 +854,6 @@
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
-  <string name="refundXpointsTimeControlY">Visszatérítve: %$1s %$2s értékpont.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Visszatérítve: %$1s %$2s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
 </resources>
