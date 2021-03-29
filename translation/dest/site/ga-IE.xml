@@ -958,4 +958,11 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="youHaveJoinedTeamX">Tá tú tar éis dul isteach \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Cuireadh cosc ar dhuine a thuairiscigh tú</string>
   <string name="congratsYouWon">Comhghairdeas, bhuaigh tú!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Cluiche in aghaidh %1$s</string>
+  <string name="resVsX">%1$s in aghaidh %2$s</string>
+  <string name="youJustBecamePatron">D\'éirigh tú díreach mar Phátrún lichess.</string>
+  <string name="patronAccountExpired">Cuntas Pátrún imithe as feidhm</string>
+  <string name="pleaseReconsiderRenewIt">Smaoinigh ar é a athnuachan!</string>
+  <string name="someoneReviewedYourCoachProfile">Rinne duine éigin athbhreithniú ar do phróifíl cóitseálaí.</string>
+  <string name="newPendingReview">Athbhreithniú nua ar feitheamh</string>
 </resources>
