@@ -53,4 +53,5 @@
   <string name="history">Stair fadhbhanna</string>
   <string name="solved">réitithe</string>
   <string name="failed">teipthe</string>
+  <string name="yourStreakX">Do stríoc: %s</string>
 </resources>
