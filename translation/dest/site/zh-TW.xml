@@ -804,6 +804,5 @@
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">退回 %$1s %$2s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
 </resources>
