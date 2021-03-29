@@ -277,7 +277,7 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lichess</string>
+  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους όρους χρήσης του Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
