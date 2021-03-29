@@ -891,6 +891,6 @@
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
   <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
-  <string name="refundXpointsTimeControlY">Atlīdzība: %$1s %$2s reitinga punkti.</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Atlīdzība: %$1s %$2s reitinga punkti.</string>
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
 </resources>
