@@ -95,7 +95,7 @@ function extraTeams(ctrl: TournamentController): VNode {
         'a',
         {
           attrs: {
-            href: `/tournament/${ctrl.data.tour.id}/teams`,
+            href: `/tournament/${ctrl.data.id}/teams`,
           },
         },
         ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
