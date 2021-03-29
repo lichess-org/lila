@@ -826,4 +826,11 @@
   <string name="correspondenceDesc">കറസ്പോണ്ടന്‍സ് കളികള്‍: ഓരോ നീക്കത്തിനും ഒരു ദിവസമോ അതില്‍ കൂടുതലോ ലഭിക്കും</string>
   <string name="puzzleDesc">ചെസ്സ്‌ ടാക്ടിക്സ് ട്രെയിനര്‍</string>
   <string name="important">പ്രധാനയമത്</string>
+  <string name="yourQuestionMayHaveBeenAnswered">നിങ്ങളുടെ ചോദ്യത്തിന് നിലവിൽ ഉത്തരം ഉണ്ടായിരിക്കും %1$s</string>
+  <string name="inTheFAQ">പതിവുചോദ്യങ്ങളിൽ.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">വഞ്ചനയ്‌ക്കോ മോശം പെരുമാറ്റത്തിനോ ഒരു ഉപയോക്താവിനെ റിപ്പോർട്ടുചെയ്യുന്നതിന്,%1$s</string>
+  <string name="useTheReportForm">റിപ്പോർട്ട് ഫോം ഉപയോഗിക്കുക</string>
+  <string name="toRequestSupport">സഹായം ആവശ്യപെടുക</string>
+  <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
+  <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
 </resources>
