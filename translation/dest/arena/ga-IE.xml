@@ -44,4 +44,11 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   <string name="shareUrl">Comhroinn an URL seo chun ligean do imreoirí a bheith páirteach: %s</string>
   <string name="drawStreak">Stríocán cothroma: Nuair a bhíonn cluichí cothroma i ndiaidh a chéile ag ficheallaí i réimse, ní bheidh pointe buaite ach don céad cluiche cothrom, nó cluichí cothroma le níos mó ná %s beart. Ní féidir an stríocán cothroma a bhriseadh ach le bua, ní le caill nó cluiche cothrom.</string>
   <string name="history">Stair Láithreach</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Féach ar an bhfoireann</item>
+    <item quantity="two">Féach ar na %s fhoireann ar fad</item>
+    <item quantity="few">Féach ar na %s bhfoireann go léir</item>
+    <item quantity="many">Féach ar na %s foireann go léir</item>
+    <item quantity="other">Féach ar na %s foireann go léir</item>
+  </plurals>
 </resources>
