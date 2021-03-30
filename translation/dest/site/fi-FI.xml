@@ -840,6 +840,7 @@
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
   <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> kutsui sinut tutkielmaan \"%1$s\".</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
   <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>
