@@ -207,5 +207,10 @@ pid(a|o|)r
 """
     )
 
+  def es = dict("""
+trampas?
+tramposos?
+""")
+
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
 }
