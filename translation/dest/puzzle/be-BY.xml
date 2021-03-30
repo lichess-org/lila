@@ -5,6 +5,14 @@
   <string name="recommended">Рэкамендаваныя</string>
   <string name="phases">Стадыі гульні</string>
   <string name="motifs">Матывы</string>
+  <string name="advanced">Прасунутыя</string>
+  <string name="lengths">Колькасць хадоў</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Мэты</string>
+  <string name="origin">Паходжанне</string>
+  <string name="specialMoves">Адмысловыя хады</string>
+  <string name="didYouLikeThisPuzzle">Ці спадабалася заданне?</string>
+  <string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні заданняў: %s</string>
   <string name="goodMove">Добры ход</string>
   <string name="bestMove">Лепшы ход!</string>
   <string name="puzzleSuccess">Поспех!</string>
