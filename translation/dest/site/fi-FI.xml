@@ -144,7 +144,7 @@
   <string name="signIn">Kirjaudu sisään</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
-  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätilien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
+  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
   <string name="games">Pelit</string>
   <string name="forum">Foorumi</string>
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
@@ -659,7 +659,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi tilisi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="readAboutOur">Lue lisää %s.</string>
   <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
   <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
@@ -772,11 +772,11 @@
   <string name="waitingForAnalysis">Analyysi käynnissä</string>
   <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
   <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
-  <string name="doneReviewingWhiteMistakes">Olen tutkinut valkean virheitä kylliksi</string>
-  <string name="doneReviewingBlackMistakes">Olen tutkinut mustan virheitä kylliksi</string>
+  <string name="doneReviewingWhiteMistakes">Olet käynyt läpi valkean virheet</string>
+  <string name="doneReviewingBlackMistakes">Olet käynyt läpi mustan virheet</string>
   <string name="doItAgain">Sama uudelleen</string>
-  <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
-  <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
+  <string name="reviewWhiteMistakes">Tarkastele valkean virheitä</string>
+  <string name="reviewBlackMistakes">Tarkastele mustan virheitä</string>
   <string name="advantage">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
@@ -799,7 +799,7 @@
   <string name="timeoutExpires">Jäähy päättyy %s.</string>
   <string name="why">Miksi?</string>
   <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
-  <string name="goodPractice">Siksi meidän tulee huolehtia siitä, että kaikki käyttäytyvät asiallisesti.</string>
+  <string name="goodPractice">Siksi meidän on huolehdittava siitä, että kaikki käyttäytyvät asiallisesti.</string>
   <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
   <string name="howToAvoidThis">Kuinka voit välttää tämän?</string>
   <string name="playEveryGame">Pelaa loppuun jokainen aloittamasi peli.</string>
