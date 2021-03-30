@@ -16,7 +16,7 @@
   <string name="yourPuzzleRatingX">nanpa wawa sina pi musi lili li %s</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
-  <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la, </string>
+  <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
   <string name="puzzleId">musi lili # %s</string>
   <string name="puzzleOfTheDay">musi lili pi tenpo suni ni</string>
   <string name="clickToSolve">o pini e musi lili</string>
