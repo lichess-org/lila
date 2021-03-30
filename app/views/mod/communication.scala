@@ -9,6 +9,7 @@ import lila.common.String.html.richText
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.user.{ Holder, User }
+import lila.shutup.Analyser
 
 object communication {
 
@@ -82,7 +83,13 @@ object communication {
           div(cls := "notes")(
             notes.map { note =>
               (isGranted(_.Admin) || !note.dox) option
-                div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
+                div(
+                  userIdLink(note.from.some),
+                  " ",
+                  momentFromNowOnce(note.date),
+                  ": ",
+                  highlightBad(richText(note.text))
+                )
             }
           )
         ),
@@ -103,7 +110,7 @@ object communication {
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
                 " ",
-                line.text
+                highlightBad(line.text)
               )
             }
           ),
@@ -134,7 +141,7 @@ object communication {
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      richText(line.text)
+                      highlightBad(richText(line.text))
                     )
                   }
                 )
@@ -153,7 +160,7 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(richText(msg.text))
+                        td(highlightBad(richText(msg.text)))
                       )
                     }
                   )
@@ -164,4 +171,11 @@ object communication {
         )
       )
     }
+
+  def highlightBad(html: Frag): Frag = {
+    val words             = Analyser(html.render).badWords
+    val regex             = ("""(?i)\b""" + words.mkString("(", "|", ")") + """\b""").r
+    def tag(word: String) = s"<bad>$word</bad>"
+    raw(regex.replaceAllIn(html.render, m => tag(m.toString)))
+  }
 }

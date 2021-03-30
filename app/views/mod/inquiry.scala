@@ -39,6 +39,7 @@ object inquiry {
     def renderReport(r: lila.report.Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
+          val reportText = renderAtomText(atom)
           div(cls := "atom")(
             h3(
               reportScore(atom.score),
@@ -48,7 +49,7 @@ object inquiry {
               " ",
               momentFromNow(atom.at)
             ),
-            p(renderAtomText(atom))
+            p(if (r.isComm) communication.highlightBad(reportText) else reportText)
           )
         }
       )
