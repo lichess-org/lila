@@ -156,7 +156,7 @@ object event {
           form("homepageHours"),
           raw("Hours on homepage (0 to 24)"),
           half = true,
-          help = raw("Ask on slack first!").some
+          help = raw("Ask first!").some
         )(form3.input(_, typ = "number"))
       ),
       form3.action(form3.submit(trans.apply()))

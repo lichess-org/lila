@@ -169,7 +169,7 @@ object Forsyth {
 
   def getFullMove(rawSource: String): Option[Int] =
     read(rawSource) { fen =>
-      fen.split(' ').lift(5) flatMap parseIntOption
+      fen.split(' ').lift(3) flatMap parseIntOption
     }
 
   def getColor(rawSource: String): Option[Color] =

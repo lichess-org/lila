@@ -39,11 +39,11 @@ export function controller(
     },
     rating: {
       available: allRatings,
-      selected: storedJsonProp("explorer.rating", allRatings),
+      selected: storedJsonProp("explorer.rating", () => allRatings),
     },
     speed: {
       available: allSpeeds,
-      selected: storedJsonProp<ExplorerSpeed[]>("explorer.speed", allSpeeds),
+      selected: storedJsonProp<ExplorerSpeed[]>("explorer.speed", () => allSpeeds),
     },
   };
 

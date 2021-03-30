@@ -68,7 +68,7 @@ function dragFromPocket(
   return function(e: MouchEvent): void {
     e.preventDefault();
     if(s !== "pointer" && s !== "trash" && nb > 0){
-      ctrl.removeFromPocket(opposite(s[0]), s[1]);
+      ctrl.removeFromPocket(opposite(s[0]), s[1], true);
       dragNewPiece(
         ctrl.shogiground!.state,
         {

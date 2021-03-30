@@ -49,8 +49,10 @@ ${Mailgun.txt.serviceNote}
 
       val body = s"""Hello,
 
-Thank you for confirming your $title title on Lishogi.
+Your $title title was confirmed.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
+
+Thank you for using lishogi.org.
 
 $regards
 """
