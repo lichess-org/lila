@@ -20,7 +20,7 @@
   </plurals>
   <string name="highscoreX">Recorde: %s</string>
   <string name="score">Pontuação</string>
-  <string name="moves">Total de lances </string>
+  <string name="moves">Total de lances</string>
   <string name="accuracy">Precisão</string>
   <string name="combo">Combo</string>
   <string name="time">Tempo</string>
