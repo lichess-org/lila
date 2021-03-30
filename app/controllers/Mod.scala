@@ -264,7 +264,8 @@ final class Mod(
                       env.irc.slack.monitorMod(
                         me.id,
                         "eyes",
-                        s"spontaneously checked out @${user.username}'s private comms"
+                        s"spontaneously checked out @${user.username}'s private comms",
+                        lila.irc.SlackApi.MonitorType.Comm
                       )
                   }
                 }
