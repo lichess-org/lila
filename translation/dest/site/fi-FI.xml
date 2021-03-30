@@ -144,7 +144,7 @@
   <string name="signIn">Kirjaudu sisään</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
-  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
+  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätilien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
   <string name="games">Pelit</string>
   <string name="forum">Foorumi</string>
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
@@ -803,7 +803,7 @@
   <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
   <string name="howToAvoidThis">Miten tämän välttää?</string>
   <string name="playEveryGame">Pelaa pelit loppuun jotka aloitat.</string>
-  <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) joka peli jonka pelaat.</string>
+  <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) jokainen pelisi.</string>
   <string name="resignLostGames">Luovuta hävityt pelit (äläkä juoksuta kelloa loppuun).</string>
   <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
   <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
