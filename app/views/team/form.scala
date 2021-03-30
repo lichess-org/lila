@@ -27,6 +27,7 @@ object form {
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
             requestField(form),
+            hideMembersField(form),
             passwordField(form),
             textFields(form),
             views.html.base.captcha(form, captcha),
@@ -52,6 +53,7 @@ object form {
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
             ),
             requestField(form),
+            hideMembersField(form),
             passwordField(form),
             textFields(form),
             form3.group(form("chat"), frag("Team chat")) { f =>
@@ -106,6 +108,12 @@ object form {
       trans.team.manuallyReviewAdmissionRequests(),
       help = trans.team.manuallyReviewAdmissionRequestsHelp().some
     )
+
+  private def hideMembersField(form: Form[_])(implicit lang: Lang) =
+    form3.checkbox(
+      form("hideMembers"),
+      "Hide team member list and team forum from non-members."
+  )
 
   private def passwordField(form: Form[_])(implicit ctx: Context) =
     form3.group(
