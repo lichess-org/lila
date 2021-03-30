@@ -27,7 +27,7 @@ function displayClockLimit(limit) {
 }
 
 function displayClock(clock) {
-  return displayClockLimit(clock.limit) + "+" + clock.increment;
+  return displayClockLimit(clock.limit) + (clock.increment > 0 ? "+" + clock.increment : "|" + clock.byoyomi);
 }
 
 function leftPos(time) {
