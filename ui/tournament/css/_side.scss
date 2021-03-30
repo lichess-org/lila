@@ -15,6 +15,10 @@
   padding: #{$block-gap * 0.6} $block-gap;
   section {
     margin-bottom: $block-gap;
+    @include breakpoint($mq-col2) {
+      max-height: 25vmin;
+      overflow: auto;
+    }
     &[data-icon] {
       @extend %flex-center-nowrap;
     }

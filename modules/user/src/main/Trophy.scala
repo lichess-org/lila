@@ -36,6 +36,7 @@ object TrophyKind {
   val developer          = "developer"
   val verified           = "verified"
   val zugMiracle         = "zugMiracle"
+  val bougyoku           = "bougyoku"
 
   object Unknown
       extends TrophyKind(

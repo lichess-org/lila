@@ -64,7 +64,7 @@ final class TrophyApi(
     coll.insert
       .one(
         $doc(
-          "_id"  -> ornicar.scalalib.Random.nextString(8),
+          "_id"  -> lila.common.ThreadLocalRandom.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,
