@@ -59,6 +59,9 @@ final class JsonView(
       }
     implicit def toursWrites(implicit lang: Lang) = Json.writes[ActivityView.Tours]
     implicit val puzzlesWrites                    = Json.writes[Puzzles]
+    implicit val stormWrites                      = Json.writes[Storm]
+    implicit val racerWrites                      = Json.writes[Racer]
+    implicit val streakWrites                     = Json.writes[Streak]
     implicit def simulWrites(user: User) =
       OWrites[Simul] { s =>
         Json.obj(
@@ -101,6 +104,9 @@ final class JsonView(
         .obj("interval" -> a.interval)
         .add("games", a.games)
         .add("puzzles", a.puzzles)
+        .add("storm", a.storm)
+        .add("racer", a.racer)
+        .add("streak", a.streak)
         .add("tournaments", a.tours)
         .add(
           "practice",
