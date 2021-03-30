@@ -177,7 +177,7 @@
   <string name="usernameOrEmail">Käyttäjätunnus tai sähköpostiosoite</string>
   <string name="changeUsername">Muuta käyttäjänimeä</string>
   <string name="changeUsernameNotSame">Voit muuttaa vain pieniä kirjaimia isoiksi tai toisinpäin. Esimerkiksi \"mattimeikäläinen\" voidaan muuttaa muotoon \"MattiMeikäläinen\".</string>
-  <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
+  <string name="changeUsernameDescription">Muuta käyttäjänimeä. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
   <string name="password">Salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
@@ -373,7 +373,7 @@
   <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seuraajaa</item>
+    <item quantity="one">%s seuraaja</item>
     <item quantity="other">%s seuraajaa</item>
   </plurals>
   <plurals name="nbFollowing">
