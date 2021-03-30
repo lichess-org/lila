@@ -144,7 +144,7 @@
   <string name="signIn">Kirjaudu sisään</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
-  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät ole tervetulleita. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien vinkkejä. Ota myös huomioon, että useamman tilin luomista ei katsota yhtään hyvällä ja johtaa ääritapauksissa porttikieltoon.</string>
+  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
   <string name="games">Pelit</string>
   <string name="forum">Foorumi</string>
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
@@ -154,7 +154,7 @@
   <string name="discussions">Keskustelut</string>
   <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>
-  <string name="minutesPerSide">Minuuttia per puoli</string>
+  <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
   <string name="timeControl">Aikajärjestelmä</string>
@@ -176,8 +176,8 @@
   <string name="username">Käyttäjänimi</string>
   <string name="usernameOrEmail">Käyttäjätunnus tai sähköpostiosoite</string>
   <string name="changeUsername">Muuta käyttäjänimeä</string>
-  <string name="changeUsernameNotSame">Vain se, onko kirjain iso vai pieni voi muuttua.</string>
-  <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran ja sen jälkeen voit vain muuttaa käyttäjänimesi kirjoitusasua.</string>
+  <string name="changeUsernameNotSame">Voit muuttaa vain pieniä kirjaimia isoiksi tai toisinpäin. Esimerkiksi \"mattimeikäläinen\" voidaan muuttaa muotoon \"MattiMeikäläinen\".</string>
+  <string name="changeUsernameDescription">Muuta käyttäjänimeä. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
   <string name="password">Salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
@@ -187,14 +187,14 @@
   <string name="rank">Sijoitus</string>
   <string name="rankX">Sijoitus: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Sijoitus päivitetään %s minuutin välein</item>
+    <item quantity="one">Sijoitus päivitetään joka minuutti</item>
     <item quantity="other">Sijoitus päivitetään %s minuutin välein</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tehtävä</item>
     <item quantity="other">%s tehtävää</item>
   </plurals>
-  <string name="gamesPlayed">Pelattua peliä</string>
+  <string name="gamesPlayed">Pelattuja pelejä</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s pelejä kanssasi</item>
     <item quantity="other">%s pelejä kanssasi</item>
@@ -277,7 +277,7 @@
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tämä tili rikkoi Lichessin käyttöehtoja</string>
+  <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
@@ -373,7 +373,7 @@
   <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seuraajaa</item>
+    <item quantity="one">%s seuraaja</item>
     <item quantity="other">%s seuraajaa</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -387,7 +387,7 @@
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Alle %s minuuttia</item>
+    <item quantity="one">Alle %s minuutti</item>
     <item quantity="other">Alle %s minuuttia</item>
   </plurals>
   <string name="required">Vaadittu.</string>
@@ -400,7 +400,7 @@
   <string name="conditionOfEntry">Liittymisehto:</string>
   <string name="advancedSettings">Lisäasetukset</string>
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
-  <string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
+  <string name="inappropriateNameWarning">Hiemankin epäasiallinen nimi voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
   <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
   <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
@@ -656,10 +656,10 @@
   <string name="cumulative">Kumulatiivinen</string>
   <string name="glicko2Rating">Glicko-2 -vahvuusluku</string>
   <string name="checkYourEmail">Tarkista sähköpostisi</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi tilisi.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi käyttäjätunnuksesi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="readAboutOur">Lue lisää %s.</string>
   <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
   <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
@@ -772,11 +772,11 @@
   <string name="waitingForAnalysis">Analyysi käynnissä</string>
   <string name="noMistakesFoundForWhite">Ei löytynyt valkean virheitä</string>
   <string name="noMistakesFoundForBlack">Ei löytynyt mustan virheitä</string>
-  <string name="doneReviewingWhiteMistakes">Olen tutkinut valkean virheitä kylliksi</string>
-  <string name="doneReviewingBlackMistakes">Olen tutkinut mustan virheitä kylliksi</string>
+  <string name="doneReviewingWhiteMistakes">Olet käynyt läpi valkean virheet</string>
+  <string name="doneReviewingBlackMistakes">Olet käynyt läpi mustan virheet</string>
   <string name="doItAgain">Sama uudelleen</string>
-  <string name="reviewWhiteMistakes">Tutki valkean virheitä</string>
-  <string name="reviewBlackMistakes">Tutki mustan virheitä</string>
+  <string name="reviewWhiteMistakes">Tarkastele valkean virheitä</string>
+  <string name="reviewBlackMistakes">Tarkastele mustan virheitä</string>
   <string name="advantage">Etu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunti</item>
@@ -799,20 +799,20 @@
   <string name="timeoutExpires">Jäähy päättyy %s.</string>
   <string name="why">Miksi?</string>
   <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
-  <string name="goodPractice">Siksi meidän tulee huolehtia siitä, että kaikki käyttäytyvät asiallisesti.</string>
+  <string name="goodPractice">Siksi meidän on huolehdittava siitä, että kaikki käyttäytyvät asiallisesti.</string>
   <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
-  <string name="howToAvoidThis">Miten tämän välttää?</string>
-  <string name="playEveryGame">Pelaa pelit loppuun jotka aloitat.</string>
-  <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) joka peli jonka pelaat.</string>
-  <string name="resignLostGames">Luovuta hävityt pelit (äläkä juoksuta kelloa loppuun).</string>
+  <string name="howToAvoidThis">Kuinka voit välttää tämän?</string>
+  <string name="playEveryGame">Pelaa loppuun jokainen aloittamasi peli.</string>
+  <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) jokainen pelisi.</string>
+  <string name="resignLostGames">Luovuta hävityt pelit (äläkä anna ajan kulua loppuun).</string>
   <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
   <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
-  <string name="thankYouForReading">Kiitos kun luit!</string>
+  <string name="thankYouForReading">Kiitos, että luit tämän!</string>
   <string name="lifetimeScore">Kaikkien aikojen yhteistilanne</string>
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
-  <string name="agreementAccount">Vakuutan etten luo useita tunnuksia.</string>
+  <string name="agreementAccount">Vakuutan, etten luo useita käyttäjätunnuksia.</string>
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Etsi tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
@@ -839,7 +839,12 @@
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> kutsui sinut tutkielmaan \"%1$s\".</string>
+  <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
+  <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
   <string name="youJustBecamePatron">Olet nyt Lichessin tukija.</string>
   <string name="patronAccountExpired">Tukijatili on vanhentunut</string>

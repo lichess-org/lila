@@ -843,18 +843,22 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
-  <string name="mentionedYouInX"> आपने \"% 1 $ s\" में उल्लेख किया है।</string>
-  <string name="xMentionedYouInY"> % 1 $ s ने \"% 2 $ s\" में आपका उल्लेख किया।</string>
-  <string name="invitedYouToX"> आपको \"% 1 $ s\" के लिए आमंत्रित किया गया है।</string>
-  <string name="xInvitedYouToY">% 1 $ s ने आपको \"% 2 $ s\" के लिए आमंत्रित किया।</string>
+  <string name="mentionedYouInX"> आपने \"%1$s\" में उल्लेख किया है।</string>
+  <string name="xMentionedYouInY"> %1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
+  <string name="invitedYouToX"> आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
+  <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
   <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
+  <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
   <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
   <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">खेल बनाम %1$s</string>
+  <string name="resVsX">%1$s बनाम %2$s</string>
   <string name="youJustBecamePatron">आप बस एक लिशेस पैट्रन बन गए।</string>
   <string name="patronAccountExpired">Patron खाता समाप्त हो गया</string>
   <string name="pleaseReconsiderRenewIt">कृपया इसे नवीनीकृत करने पर विचार करें!</string>
   <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
   <string name="newPendingReview">नई लंबित समीक्षा</string>
   <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">%1$s %2$s वापसी की</string>
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
 </resources>

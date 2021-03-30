@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mova para começar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Você joga as peças brancas em todos os quebra-cabeças</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Você joga as peças pretas em todos os quebra-cabeças</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Você joga com as peças brancas em todos os quebra-cabeças</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Você joga com as peças pretas em todos os quebra-cabeças</string>
   <string name="puzzlesSolved">quebra-cabeças resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
@@ -15,7 +15,7 @@
     <item quantity="other">%s séries</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Jogou uma tentativa de %2$s</item>
+    <item quantity="one">Jogou %1$s tentativas de %2$s</item>
     <item quantity="other">Jogou %1$s tentativas de %2$s</item>
   </plurals>
   <string name="highscoreX">Recorde: %s</string>

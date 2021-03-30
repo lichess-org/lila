@@ -830,7 +830,7 @@
   <string name="inTheFAQ">പതിവുചോദ്യങ്ങളിൽ.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">വഞ്ചനയ്‌ക്കോ മോശം പെരുമാറ്റത്തിനോ ഒരു ഉപയോക്താവിനെ റിപ്പോർട്ടുചെയ്യുന്നതിന്,%1$s</string>
   <string name="useTheReportForm">റിപ്പോർട്ട് ഫോം ഉപയോഗിക്കുക</string>
-  <string name="toRequestSupport">സഹായം ആവശ്യപെടുക</string>
+  <string name="toRequestSupport">സഹായം ആവശ്യപെടുക, %1$s</string>
   <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
