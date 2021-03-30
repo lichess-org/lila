@@ -207,12 +207,14 @@ final class Puzzle(
           _ ?? { case PuzzleStreak(ids, puzzle) =>
             env.puzzle.jsonView(puzzle = puzzle, PuzzleTheme.mix.some, none, user = ctx.me) map { preJson =>
               val json = preJson ++ Json.obj("streak" -> ids)
-              EnableSharedArrayBuffer(
-                Ok(
-                  views.html.puzzle
-                    .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), none)
-                )
-              )
+              EnableSharedArrayBuffer {
+                NoCache {
+                  Ok {
+                    views.html.puzzle
+                      .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), none)
+                  }
+                }
+              }
             }
           }
         }
