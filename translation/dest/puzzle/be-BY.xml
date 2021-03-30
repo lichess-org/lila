@@ -29,6 +29,12 @@
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
   <string name="hidden">схаваны</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Згуляна %s раз</item>
+    <item quantity="few">Згуляна %s разы</item>
+    <item quantity="many">Згуляна %s разоў</item>
+    <item quantity="other">Згуляна %s разоў</item>
+  </plurals>
   <string name="fromGameLink">З гульні %s</string>
   <string name="continueTraining">Працягнуць трэніроўку</string>
   <string name="difficultyLevel">Узровень складанасці</string>
@@ -41,11 +47,14 @@
   <string name="addAnotherTheme">Дадаць іншую тэму</string>
   <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнага задання</string>
   <string name="puzzleDashboard">Панэль заданняў</string>
-  <string name="improvementAreas">Паляпшэнне напрамкаў</string>
+  <string name="improvementAreas">Напрамкі паляпшэння</string>
+  <string name="strengths">Моцныя бакі</string>
+  <string name="history">Гісторыя заданняў</string>
   <string name="solved">рэшана</string>
   <string name="failed">памылка</string>
   <string name="streakDescription">Рашайце заданнi, якія паступова ўскладняюцца, і стварыце пераможную серыю. Тут няма гадзін, так што не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за сеанс.</string>
   <string name="yourStreakX">Ваша серыя: %s</string>
+  <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>
   <string name="continueTheStreak">Працягнуць серыю</string>
   <string name="newStreak">Новая серыя</string>
 </resources>
