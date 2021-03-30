@@ -3,10 +3,12 @@ package lila.appeal
 import lila.db.dsl._
 import lila.user.User
 import org.joda.time.DateTime
-import lila.user.Holder
+import lila.user.{ Holder, NoteApi, UserRepo }
 
 final class AppealApi(
-    coll: Coll
+    coll: Coll,
+    userRepo: UserRepo,
+    noteApi: NoteApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -41,9 +43,15 @@ final class AppealApi(
         coll.update.one($id(appeal.id), appeal) inject appeal
     }
 
-  def reply(text: String, prev: Appeal, mod: Holder) = {
+  def reply(text: String, prev: Appeal, mod: Holder, preset: Option[String]) = {
     val appeal = prev.post(text, mod.user)
-    coll.update.one($id(appeal.id), appeal) inject appeal
+    coll.update.one($id(appeal.id), appeal) >> {
+      preset ?? { note =>
+        userRepo.byId(appeal.id) flatMap {
+          _ ?? { noteApi.write(_, s"Appeal reply: $note", mod.user, modOnly = true, dox = false) }
+        }
+      }
+    } inject appeal
   }
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))

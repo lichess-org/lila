@@ -7,6 +7,7 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
+    noteApi: lila.user.NoteApi,
     userRepo: lila.user.UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
