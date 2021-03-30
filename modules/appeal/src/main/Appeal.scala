@@ -59,13 +59,20 @@ object Appeal {
     def apply(key: String) = all.find(_.key == key)
   }
 
-  val form = {
-    import play.api.data._
-    import play.api.data.Forms._
+  val maxLength = 1000
+
+  import play.api.data._
+  import play.api.data.Forms._
+
+  val form =
     Form[String](
-      single("text" -> nonEmptyText)
+      single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
     )
-  }
+
+  val modForm =
+    Form[String](
+      single("text" -> lila.common.Form.cleanNonEmptyText)
+    )
 }
 
 case class AppealMsg(

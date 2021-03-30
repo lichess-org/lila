@@ -118,7 +118,11 @@ object discussion {
   ) =
     postForm(st.action := action)(
       form3.globalError(form),
-      form3.group(form("text"), if (isNew) "Create an appeal" else "Add something to the appeal")(
+      form3.group(
+        form("text"),
+        if (isNew) "Create an appeal" else "Add something to the appeal",
+        help = !isGranted(_.Appeals) option frag("Please be concise. Maximum 1000 chars.")
+      )(
         form3.textarea(_)(rows := 6)
       ),
       presets.map { ps =>

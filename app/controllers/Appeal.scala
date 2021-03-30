@@ -10,7 +10,9 @@ import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
-  import lila.appeal.Appeal.form
+  private def form(implicit ctx: Context) =
+    if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
+    else lila.appeal.Appeal.form
 
   def home =
     Auth { implicit ctx => me =>
