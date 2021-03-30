@@ -801,13 +801,13 @@
   <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
   <string name="goodPractice">Siksi meidän tulee huolehtia siitä, että kaikki käyttäytyvät asiallisesti.</string>
   <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
-  <string name="howToAvoidThis">Miten tämän välttää?</string>
-  <string name="playEveryGame">Pelaa pelit loppuun jotka aloitat.</string>
+  <string name="howToAvoidThis">Kuinka voit välttää tämän?</string>
+  <string name="playEveryGame">Pelaa loppuun jokainen aloittamasi peli.</string>
   <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) jokainen pelisi.</string>
-  <string name="resignLostGames">Luovuta hävityt pelit (äläkä juoksuta kelloa loppuun).</string>
+  <string name="resignLostGames">Luovuta hävityt pelit (äläkä anna ajan kulua loppuun).</string>
   <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
   <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
-  <string name="thankYouForReading">Kiitos kun luit!</string>
+  <string name="thankYouForReading">Kiitos, että luit tämän!</string>
   <string name="lifetimeScore">Kaikkien aikojen yhteistilanne</string>
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
