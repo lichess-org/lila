@@ -30,6 +30,7 @@ GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: 
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 GET   /api/tv/channels                 controllers.Tv.channels
+GET   /api/tv/feed                     controllers.Tv.feed
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
