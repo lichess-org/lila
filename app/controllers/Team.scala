@@ -10,7 +10,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.team.{ Requesting, Team => TeamModel }
+import lila.team.{ Requesting, Team, TeamInfo => TeamModel }
 import lila.user.{ User => UserModel, Holder }
 
 final class Team(
@@ -78,6 +78,16 @@ final class Team(
     }
 
   def users(teamId: String) =
+    AnonOrScoped()(
+      anon = req => usersExport(teamId, none, req, oauth = false),
+      scoped = req => me => usersExport(teamId, me.some, req, oauth = true)
+    )
+
+  private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) = {
+    val Team = api.team(teamId)
+    me match {
+      case Some(m) if m  => 
+    }
     Action.async { implicit req =>
       api.team(teamId) flatMap {
         _ ?? { team =>
@@ -89,6 +99,7 @@ final class Team(
         }
       }
     }
+  }
 
   def tournaments(teamId: String) =
     Open { implicit ctx =>
