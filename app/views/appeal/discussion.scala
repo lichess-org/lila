@@ -90,14 +90,16 @@ object discussion {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        (asMod == inquiry) option renderForm(
-          textForm,
-          action =
-            if (asMod) routes.Appeal.reply(appeal.id).url
-            else routes.Appeal.post.url,
-          isNew = false,
-          presets = presets ifTrue asMod
-        )
+        if (!asMod && !appeal.canAddMsg) p("Please wait for a moderator to reply.")
+        else
+          (asMod == inquiry) option renderForm(
+            textForm,
+            action =
+              if (asMod) routes.Appeal.reply(appeal.id).url
+              else routes.Appeal.post.url,
+            isNew = false,
+            presets = presets ifTrue asMod
+          )
       )
     )
 
