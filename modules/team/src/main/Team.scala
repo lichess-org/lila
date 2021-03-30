@@ -19,7 +19,8 @@ case class Team(
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Team.ChatFor
+    chat: Team.ChatFor,
+    hideMembers: Boolean
 ) {
 
   def id = _id
@@ -85,7 +86,8 @@ object Team {
       description: String,
       descPrivate: Option[String],
       open: Boolean,
-      createdBy: User
+      createdBy: User,
+      hideMembers: Boolean
   ): Team =
     new Team(
       _id = id,
@@ -100,7 +102,8 @@ object Team {
       createdAt = DateTime.now,
       createdBy = createdBy.id,
       leaders = Set(createdBy.id),
-      chat = ChatFor.MEMBERS
+      chat = ChatFor.MEMBERS,
+      hideMembers = hideMembers
     )
 
   def nameToId(name: String) =

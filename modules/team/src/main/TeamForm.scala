@@ -31,7 +31,7 @@ final private[team] class TeamForm(
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
     val chat        = "chat"        -> numberIn(Team.ChatFor.all)
-    val isPrivate   = "isPrivate"   -> boolean
+    val hideMembers   = "hideMembers"   -> boolean
   }
 
   val create = Form(
@@ -44,7 +44,7 @@ final private[team] class TeamForm(
       Fields.request,
       Fields.gameId,
       Fields.move,
-      Fields.isPrivate
+      Fields.hideMembers
     )(TeamSetup.apply)(TeamSetup.unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
@@ -59,7 +59,7 @@ final private[team] class TeamForm(
         Fields.descPrivate,
         Fields.request,
         Fields.chat,
-        Fields.isPrivate
+        Fields.hideMembers
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
@@ -68,7 +68,7 @@ final private[team] class TeamForm(
       descPrivate = team.descPrivate,
       request = !team.open,
       chat = team.chat,
-      isPrivate = team.isPrivate
+      hideMembers = team.hideMembers
     )
 
   def request(team: Team) = Form(
@@ -126,7 +126,7 @@ private[team] case class TeamSetup(
     request: Boolean,
     gameId: String,
     move: String,
-    isPrivate: Boolean
+    hideMembers: Boolean
 ) {
 
   def isOpen = !request
@@ -147,7 +147,7 @@ private[team] case class TeamEdit(
     descPrivate: Option[String],
     request: Boolean,
     chat: Team.ChatFor,
-    isPrivate: Boolean
+    hideMembers: Boolean
 ) {
 
   def isOpen = !request
