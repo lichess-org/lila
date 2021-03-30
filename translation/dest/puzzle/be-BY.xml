@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Заданні</string>
+  <string name="puzzleThemes">Тэмы заданняў</string>
+  <string name="recommended">Рэкамендаваныя</string>
+  <string name="phases">Стадыі гульні</string>
+  <string name="motifs">Матывы</string>
+  <string name="goodMove">Добры ход</string>
+  <string name="bestMove">Лепшы ход!</string>
+  <string name="puzzleSuccess">Поспех!</string>
+  <string name="hidden">схаваны</string>
+  <string name="difficultyLevel">Узровень складанасці</string>
+  <string name="normal">Нармальны</string>
+  <string name="easier">Лёгкі</string>
+  <string name="easiest">Найлягчэйшы</string>
+  <string name="harder">Цяжкі</string>
+  <string name="hardest">Найцяжэйшы</string>
+  <string name="example">Прыклад</string>
 </resources>
