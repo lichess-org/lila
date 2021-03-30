@@ -27,7 +27,7 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.7.1",
     "tablesort": "^5.1",
-    "shogiops": "^0.1.5"
+    "shogiops": "^0.1.10"
   },
   "scripts": {
     "dev": "gulp dev",
