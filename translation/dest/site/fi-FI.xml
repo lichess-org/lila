@@ -839,7 +839,10 @@
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
+  <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
+  <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
   <string name="youJustBecamePatron">Olet nyt Lichessin tukija.</string>
   <string name="patronAccountExpired">Tukijatili on vanhentunut</string>
