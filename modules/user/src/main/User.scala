@@ -157,10 +157,10 @@ object User {
     case object InvalidTotpToken          extends Result(none)
   }
 
-  val anonymous              = "Anonymous"
-  val lichessId              = "lichess"
-  val broadcasterId          = "broadcaster"
-  def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
+  val anonymous                    = "Anonymous"
+  val lichessId                    = "lichess"
+  val broadcasterId                = "broadcaster"
+  def isOfficial(username: String) = normalize(username) == lichessId || normalize(username) == broadcasterId
 
   val seenRecently = 2.minutes
 

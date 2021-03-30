@@ -23,11 +23,16 @@ final private[report] class ReportForm(
 
   val create = Form(
     mapping(
-      "username" -> lila.user.UserForm.historicalUsernameField.verifying(
-        "Unknown username", {
-          blockingFetchUser(_).isDefined
-        }
-      ),
+      "username" -> lila.user.UserForm.historicalUsernameField
+        .verifying(
+          "Unknown username", {
+            blockingFetchUser(_).isDefined
+          }
+        )
+        .verifying(
+          "Don't report Lichess. Use lichess.org/contact instead.",
+          u => !User.isOfficial(u)
+        ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000),
       "gameId" -> text,
