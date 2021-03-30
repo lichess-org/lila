@@ -442,8 +442,8 @@ final class User(
   def writeNote(username: String) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
-        err = _ => user => renderShow(user, Results.BadRequest),
-        suc = Redirect(routes.User.show(username).url + "?note").flashSuccess
+        _ => user => renderShow(user, Results.BadRequest),
+        Redirect(routes.User.show(username)).flashSuccess
       )(ctx.body)
     }
 
