@@ -176,8 +176,8 @@
   <string name="username">Käyttäjänimi</string>
   <string name="usernameOrEmail">Käyttäjätunnus tai sähköpostiosoite</string>
   <string name="changeUsername">Muuta käyttäjänimeä</string>
-  <string name="changeUsernameNotSame">Vain se, onko kirjain iso vai pieni voi muuttua.</string>
-  <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran ja sen jälkeen voit vain muuttaa käyttäjänimesi kirjoitusasua.</string>
+  <string name="changeUsernameNotSame">Voit muuttaa vain pieniä kirjaimia isoiksi tai toisinpäin. Esimerkiksi \"mattimeikäläinen\" voidaan muuttaa muotoon \"MattiMeikäläinen\".</string>
+  <string name="changeUsernameDescription">Vaihda käyttäjänimi. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
   <string name="password">Salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
@@ -194,7 +194,7 @@
     <item quantity="one">%s tehtävä</item>
     <item quantity="other">%s tehtävää</item>
   </plurals>
-  <string name="gamesPlayed">Pelattua peliä</string>
+  <string name="gamesPlayed">Pelattuja pelejä</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s pelejä kanssasi</item>
     <item quantity="other">%s pelejä kanssasi</item>
@@ -277,7 +277,7 @@
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Tämä tili rikkoi Lichessin käyttöehtoja</string>
+  <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
@@ -400,7 +400,7 @@
   <string name="conditionOfEntry">Liittymisehto:</string>
   <string name="advancedSettings">Lisäasetukset</string>
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
-  <string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
+  <string name="inappropriateNameWarning">Hiemankin epäasiallinen nimi voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
   <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
   <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
@@ -656,7 +656,7 @@
   <string name="cumulative">Kumulatiivinen</string>
   <string name="glicko2Rating">Glicko-2 -vahvuusluku</string>
   <string name="checkYourEmail">Tarkista sähköpostisi</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi tilisi.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi käyttäjätunnuksesi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
@@ -812,7 +812,7 @@
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
-  <string name="agreementAccount">Vakuutan etten luo useita tunnuksia.</string>
+  <string name="agreementAccount">Vakuutan, etten luo useita käyttäjätunnuksia.</string>
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Etsi tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
