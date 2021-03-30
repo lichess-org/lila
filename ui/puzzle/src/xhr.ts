@@ -1,27 +1,40 @@
-import { PuzzleRound, PuzzleVote, PuzzleData } from './interfaces';
+import * as xhr from 'common/xhr';
+import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
+import { defined } from 'common';
+import throttle from 'common/throttle';
 
-// do NOT set mobile API headers here
-// they trigger a compat layer
-export function round(puzzleId: number, win: boolean): JQueryPromise<PuzzleRound> {
-  return $.ajax({
+export function complete(
+  puzzleId: string,
+  theme: ThemeKey,
+  win: boolean,
+  replay?: PuzzleReplay
+): Promise<PuzzleResult | undefined> {
+  return xhr.json(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
-    url: `/training/${puzzleId}/round2`,
-    data: {
-      win: win ? 1 : 0
-    }
+    body: xhr.form({
+      win,
+      ...(replay ? { replayDays: replay.days } : {}),
+    }),
   });
 }
-export function vote(puzzleId: number, v: boolean): JQueryPromise<PuzzleVote> {
-  return $.ajax({
+
+export function vote(puzzleId: string, vote: boolean): Promise<void> {
+  return xhr.json(`/training/${puzzleId}/vote`, {
     method: 'POST',
-    url: `/training/${puzzleId}/vote`,
-    data: {
-      vote: v ? 1 : 0
-    }
+    body: xhr.form({ vote }),
   });
 }
-export function nextPuzzle(): JQueryPromise<PuzzleData> {
-  return $.ajax({
-    url: '/training/new'
+
+export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> {
+  return xhr.json(`/training/${puzzleId}/vote/${theme}`, {
+    method: 'POST',
+    body: defined(vote) ? xhr.form({ vote }) : undefined,
   });
 }
+
+export const setZen = throttle(1000, zen =>
+  xhr.text('/pref/zen', {
+    method: 'post',
+    body: xhr.form({ zen: zen ? 1 : 0 }),
+  })
+);
