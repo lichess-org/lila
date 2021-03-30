@@ -169,6 +169,7 @@ object show {
                   trans.settings.settings()
                 )
             ),
+            //add a check here for if team is private and ifTrue(info.mine) (if team member)
             t.enabled option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
@@ -212,6 +213,7 @@ object show {
                   )
                 )
               ),
+              //add a check here for if team is private and ifTrue(info.mine) (if team member)
               t.enabled && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
