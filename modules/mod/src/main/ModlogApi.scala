@@ -293,10 +293,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
         val monitorType = m.action match {
-          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount =>
+          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt | M.unalt =>
             SlackApi.MonitorType.Hunt
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
-              M.enableTeam =>
+              M.enableTeam | M.setKidMode =>
             SlackApi.MonitorType.Comm
           case _ => SlackApi.MonitorType.Other
         }
