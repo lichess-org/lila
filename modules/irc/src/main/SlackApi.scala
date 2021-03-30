@@ -89,17 +89,17 @@ final class SlackApi(
       )
     )
 
-  def monitorMod(modId: User.ID, icon: String, text: String): Funit =
+  def monitorMod(modId: User.ID, icon: String, text: String, monitorType: MonitorType): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
-        client(
+        val msg =
           SlackMessage(
             username = mod.name,
             icon = "scroll",
             text = s":$icon: ${linkifyUsers(text)}",
-            channel = "tavern-monitor"
+            channel = rooms.tavernMonitor(monitorType)
           )
-        )
+        client(msg) >> client(msg.copy(channel = rooms.tavernMonitorAll))
       }
     }
 
@@ -111,7 +111,7 @@ final class SlackApi(
             username = mod.name,
             icon = "scroll",
             text = s":$icon: ${linkifyUsers(text)}",
-            channel = "tavern-log"
+            channel = rooms.tavernLog
           )
         )
       }
@@ -291,20 +291,30 @@ final class SlackApi(
     )
 }
 
-private object SlackApi {
+object SlackApi {
 
-  object rooms {
-    val general      = "team"
-    val tavern       = "tavern"
-    val tavernBots   = "tavern-bots"
-    val tavernNotes  = "tavern-notes"
-    val tavernAppeal = "tavern-appeal"
-    val signups      = "signups"
-    val broadcast    = "broadcast"
-    val devNoise     = "dev-noise"
+  sealed trait MonitorType
+  object MonitorType {
+    case object Hunt  extends MonitorType
+    case object Comm  extends MonitorType
+    case object Other extends MonitorType
   }
 
-  object stage {
+  private[irc] object rooms {
+    val general                         = "team"
+    val tavern                          = "tavern"
+    val tavernBots                      = "tavern-bots"
+    val tavernNotes                     = "tavern-notes"
+    val tavernAppeal                    = "tavern-appeal"
+    val tavernLog                       = "tavern-log"
+    val signups                         = "signups"
+    val broadcast                       = "broadcast"
+    val devNoise                        = "dev-noise"
+    def tavernMonitor(tpe: MonitorType) = s"tavern-monitor-${tpe.toString.toLowerCase}"
+    val tavernMonitorAll                = "tavern-monitor-all"
+  }
+
+  private[irc] object stage {
     val name = "stage.lichess.org"
     val icon = "volcano"
   }

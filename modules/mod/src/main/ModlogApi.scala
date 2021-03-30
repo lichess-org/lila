@@ -6,8 +6,9 @@ import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
+import lila.irc.SlackApi
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.irc.SlackApi)(implicit
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -290,7 +291,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.irc.S
     }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? slackApi.monitorMod(m.mod, icon = icon, text = text)
+      _ ?? {
+        val monitorType = m.action match {
+          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount =>
+            SlackApi.MonitorType.Hunt
+          case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
+              M.enableTeam =>
+            SlackApi.MonitorType.Hunt
+          case _ => SlackApi.MonitorType.Other
+        }
+        slackApi.monitorMod(m.mod, icon = icon, text = text, monitorType)
+      }
     }
     slackApi.logMod(m.mod, icon = icon, text = text)
   }
