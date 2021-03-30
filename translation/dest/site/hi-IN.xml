@@ -859,5 +859,6 @@
   <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
   <string name="newPendingReview">नई लंबित समीक्षा</string>
   <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">%1$s %2$s वापसी की</string>
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
 </resources>
