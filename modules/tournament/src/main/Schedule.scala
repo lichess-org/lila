@@ -317,9 +317,6 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz)                 => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1, 0, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2, 0, 1)
       case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2, 0, 1)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2, 0, 1)
@@ -330,8 +327,8 @@ object Schedule {
       case (_, _, HippoBullet) => TC(2 * 60, 0, 0, 1)
       case (_, _, SuperBlitz)  => TC(3 * 60, 0, 0, 1)
       case (_, _, Blitz)       => TC(5 * 60, 0, 0, 1)
-      case (_, _, Rapid)       => TC(10 * 60, 0, 0, 1)
-      case (_, _, Classical)   => TC(20 * 60, 10, 0, 1)
+      case (_, _, Rapid)       => TC(5 * 60, 0, 10, 1)
+      case (_, _, Classical)   => TC(20 * 60, 0, 15, 1)
     }
   }
   private[tournament] def addCondition(s: Schedule) =
@@ -356,8 +353,7 @@ object Schedule {
       }
 
       val minRating = (s.freq, s.variant) match {
-        case (Weekend, chess.variant.Crazyhouse) => 2100
-        case (Weekend, _)                        => 2200
+        // case (Weekend, _)                        => 2200
         case _                                   => 0
       }
 
