@@ -60,7 +60,7 @@ final class MsgCompat(
         colls.thread
           .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
             import framework._
-            Match($doc("users" -> userId)) -> List(
+            Match($doc("users" -> userId, "del" $ne userId)) -> List(
               Sort(Descending("lastMsg.date")),
               Limit(maxPerPage.value),
               Match($doc("lastMsg.read" -> false, "lastMsg.user" $ne userId)),
