@@ -297,7 +297,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
             SlackApi.MonitorType.Hunt
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
               M.enableTeam =>
-            SlackApi.MonitorType.Hunt
+            SlackApi.MonitorType.Comm
           case _ => SlackApi.MonitorType.Other
         }
         slackApi.monitorMod(m.mod, icon = icon, text = text, monitorType)
