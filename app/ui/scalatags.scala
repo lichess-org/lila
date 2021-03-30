@@ -31,7 +31,7 @@ trait ScalatagsAttrs {
 
   val dataSortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort         = attr("data-sort")
-  val dataSortDefault  = attr("data-sort-default") := "1"
+  val dataSortDefault  = attr("data-sort-default").empty
 }
 
 // collection of lila snippets

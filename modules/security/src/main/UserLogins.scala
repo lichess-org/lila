@@ -19,8 +19,8 @@ case class UserLogins(
 
   import UserLogins.OtherUser
 
-  def rawIps = ips map (_.ip.value)
-  def rawFps = prints map (_.fp.value)
+  def rawIps = ips.map(_.ip.value)
+  def rawFps = prints.map(_.fp.value)
 
   def otherUserIds = otherUsers.map(_.user.id)
 
@@ -233,7 +233,7 @@ object UserLogins {
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
     userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
-        (OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers),
+        OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers,
         emailMap
       )
     }

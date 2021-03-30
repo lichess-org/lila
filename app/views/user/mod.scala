@@ -542,7 +542,7 @@ object mod {
               )
             ),
             isGranted(_.Admin) option th("Email"),
-            sortNumberTh("Same"),
+            sortNumberTh(dataSortDefault)("Same"),
             th("Games"),
             sortNumberTh(playban)(cls := "i", title := "Playban"),
             sortNumberTh(alt)(cls := "i", title := "Alt"),
