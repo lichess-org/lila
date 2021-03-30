@@ -62,6 +62,10 @@ package msg {
   case class SystemMsg(userId: String, text: String)
 }
 
+package storm {
+  case class StormRun(userId: String, score: Int)
+}
+
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)

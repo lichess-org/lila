@@ -20,6 +20,7 @@ object activity {
             a.patron map renderPatron,
             a.practice map renderPractice,
             a.puzzles map renderPuzzles,
+//            a.storm map renderStorm,
             a.games map renderGames,
             a.posts map renderPosts,
             a.corresMoves map {
@@ -81,6 +82,16 @@ object activity {
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
         p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
+      )
+    )
+
+  private def renderStorm(s: Storm)(implicit ctx: Context) =
+    entryTag(
+      iconTag("~"),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
       )
     )
 
@@ -274,6 +285,8 @@ object activity {
 
   private val entryTag = div(cls := "entry")
   private val subTag   = div(cls := "sub")
+  private val scoreTag = tag("score")
+  private val winTag   = tag("win")
 
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {

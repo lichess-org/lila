@@ -33,19 +33,28 @@ object topnav {
           )
         )
       ),
+      ctx.noBot option st.section(
+        linkTitle(routes.Puzzle.home.path, trans.puzzles()),
+        div(role := "group")(
+          a(href := routes.Puzzle.home)(trans.puzzles()),
+          a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
+          a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume()),
+          //a(href := routes.Storm.home)("Puzzle Storm"),
+        )
+      ),
       st.section(
         linkTitle(routes.Learn.index().toString, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
             ctx.noKid option a(href := routes.Page.resources())(trans.shogiResources()),
-            a(href := routes.Page.notSupported())(trans.puzzles()), // puzzle
+            //a(href := routes.Page.notSupported())(trans.puzzles()), // puzzle
             //a(href := routes.Practice.index())(trans.practice()),
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          //ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          //canSeeClasMenu option a(href := routes.Clas.index())(trans.clas.lishogiClasses())
+          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+          canSeeClasMenu option a(href := routes.Clas.index())(trans.clas.lishogiClasses())
         )
       ),
       st.section(

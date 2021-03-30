@@ -141,11 +141,16 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  private val dataSoundSet      = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataPreload       = attr("data-preload")
+  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
+  val dataSoundSet              = attr("data-sound-set")
+  val dataTheme                 = attr("data-theme")
+  val dataAssetUrl              = attr("data-asset-url")
+  val dataAssetVersion          = attr("data-asset-version")
+  val dataDev                   = attr("data-dev")
 
   def apply(
       title: String,

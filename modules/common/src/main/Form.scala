@@ -43,14 +43,19 @@ object Form {
       d -> format(d)
     }
 
+  private def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+
   def numberIn(choices: Options[Int]) =
-    number.verifying(hasKey(choices, _))
+    number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
+
+  def numberIn(choices: Set[Int]) =
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberIn(choices: Seq[Int]) =
-    number.verifying(choices.contains _)
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
-    of[Double].verifying(hasKey(choices, _))
+    of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
   def clean(m: Mapping[String]) =
@@ -59,6 +64,10 @@ object Form {
 
   def stringIn(choices: Options[String]) =
     text.verifying(hasKey(choices, _))
+
+  def stringIn(choices: Set[String]) =
+    text.verifying(mustBeOneOf(choices), choices.contains _)
+
 
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 

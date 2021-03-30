@@ -1,6 +1,6 @@
 interface Lishogi {
   // standalones/util.js
-  requestIdleCallback(f: () => void): void;
+  requestIdleCallback(f: () => void, timeout?: number): void;
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
   sri: string;
@@ -137,6 +137,8 @@ interface Trans {
 }
 
 type PubsubCallback = (...data: any[]) => void;
+
+type Timeout = ReturnType<typeof setTimeout>;
 
 interface Pubsub {
   on(msg: string, f: PubsubCallback): void;

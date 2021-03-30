@@ -41,7 +41,8 @@ final class Env(
     "plan",
     "relation",
     "startStudy",
-    "streamStart"
+    "streamStart",
+    "stormRun"
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
     case lila.forum.actorApi.CreatePost(post)                       => write.forumPost(post)
@@ -54,6 +55,7 @@ final class Env(
     case lila.study.actorApi.StartStudy(id)                         =>
       // wait some time in case the study turns private
       system.scheduler.scheduleOnce(5 minutes) { write study id }
+    case lila.hub.actorApi.storm.StormRun(userId, score)  => write.storm(userId, score)
     case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
     case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId)
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId)
