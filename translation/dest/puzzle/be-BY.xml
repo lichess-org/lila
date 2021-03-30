@@ -24,6 +24,7 @@
   <string name="bestMove">Лепшы ход!</string>
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
+  <string name="puzzleComplete">Заданне рэшана!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
   <string name="hidden">схаваны</string>
@@ -34,4 +35,9 @@
   <string name="harder">Цяжкі</string>
   <string name="hardest">Найцяжэйшы</string>
   <string name="example">Прыклад</string>
+  <string name="solved">рэшана</string>
+  <string name="failed">памылка</string>
+  <string name="yourStreakX">Ваша серыя: %s</string>
+  <string name="continueTheStreak">Працягнуць серыю</string>
+  <string name="newStreak">Новая серыя</string>
 </resources>
