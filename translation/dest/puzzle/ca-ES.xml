@@ -50,4 +50,9 @@
   <string name="history">Historial de problemes</string>
   <string name="solved">resolt</string>
   <string name="failed">fallit</string>
+  <string name="streakDescription">Soluciona problemes cada vegada més difícils i aconsegueix una ratxa de victòries. No hi ha temps, pren-t\'ho amb calma. Si fas un moviment erroni, s\'acaba el joc! Però pots ometre un moviment per sessió.</string>
+  <string name="yourStreakX">Victòries consecutives: %s</string>
+  <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
+  <string name="continueTheStreak">Continua la sèrie</string>
+  <string name="newStreak">Nova sèrie</string>
 </resources>
