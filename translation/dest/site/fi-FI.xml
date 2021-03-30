@@ -154,7 +154,7 @@
   <string name="discussions">Keskustelut</string>
   <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>
-  <string name="minutesPerSide">Minuuttia per puoli</string>
+  <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
   <string name="timeControl">Aikajärjestelmä</string>
@@ -187,7 +187,7 @@
   <string name="rank">Sijoitus</string>
   <string name="rankX">Sijoitus: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Sijoitus päivitetään %s minuutin välein</item>
+    <item quantity="one">Sijoitus päivitetään joka minuutti</item>
     <item quantity="other">Sijoitus päivitetään %s minuutin välein</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -387,7 +387,7 @@
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Alle %s minuuttia</item>
+    <item quantity="one">Alle %s minuutti</item>
     <item quantity="other">Alle %s minuuttia</item>
   </plurals>
   <string name="required">Vaadittu.</string>
@@ -839,8 +839,10 @@
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> kutsui sinut tutkielmaan \"%1$s\".</string>
   <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
   <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
   <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
