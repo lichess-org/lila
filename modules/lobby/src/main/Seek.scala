@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.api.i18n.Lang
 
@@ -87,7 +86,7 @@ object Seek {
       blocking: Set[String]
   ): Seek =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = variant.id,
       daysPerTurn = daysPerTurn,
       mode = mode.id,
@@ -99,7 +98,7 @@ object Seek {
 
   def renew(seek: Seek) =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = seek.variant,
       daysPerTurn = seek.daysPerTurn,
       mode = seek.mode,

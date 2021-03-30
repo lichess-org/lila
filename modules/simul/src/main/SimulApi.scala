@@ -68,7 +68,7 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.create(simul, me.hasTitle) >>- publish() >>- {
+    repo.create(simul, me.hasGames) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }

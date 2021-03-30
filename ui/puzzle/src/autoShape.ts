@@ -4,6 +4,7 @@ import { Vm } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
 import { CevalCtrl } from 'ceval';
 import { opposite } from 'shogiground/util';
+import { assureLishogiUci } from 'shogiops/compat';
 
 interface Opts {
   vm: Vm;
@@ -14,12 +15,14 @@ interface Opts {
 }
 
 function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  return [{
-    orig: uci.slice(0, 2) as Key,
-    dest: uci.slice(2, 4) as Key,
-    brush: brush,
-    modifiers: modifiers
-  }];
+  return [
+    {
+      orig: assureLishogiUci(uci.slice(0, 2)) as Key,
+      dest: assureLishogiUci(uci.slice(2, 4)) as Key,
+      brush: brush,
+      modifiers: modifiers,
+    },
+  ];
 }
 
 export default function (opts: Opts): DrawShape[] {
@@ -33,15 +36,23 @@ export default function (opts: Opts): DrawShape[] {
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest;
       if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleGreen'));
-      if (opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
+      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleBlue'));
+      if (
+        opts.ceval.enabled() &&
+        n.ceval &&
+        n.ceval.pvs &&
+        n.ceval.pvs[1] &&
+        !(opts.threatMode && n.threat && n.threat.pvs[2])
+      ) {
         n.ceval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-          shapes = shapes.concat(makeAutoShapesFromUci(pv.moves[0], 'paleGrey', {
-            lineWidth: Math.round(12 - shift * 50) // 12 to 2
-          }));
+          shapes = shapes.concat(
+            makeAutoShapesFromUci(pv.moves[0], 'paleGrey', {
+              lineWidth: Math.round(12 - shift * 50), // 12 to 2
+            })
+          );
         });
       }
     }
@@ -52,12 +63,13 @@ export default function (opts: Opts): DrawShape[] {
       n.threat.pvs.slice(1).forEach(function (pv) {
         const shift = winningChances.povDiff(opposite(color as Color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-        shapes = shapes.concat(makeAutoShapesFromUci(pv.moves[0], 'paleRed', {
-          lineWidth: Math.round(11 - shift * 45) // 11 to 2
-        }));
+        shapes = shapes.concat(
+          makeAutoShapesFromUci(pv.moves[0], 'paleRed', {
+            lineWidth: Math.round(11 - shift * 45), // 11 to 2
+          })
+        );
       });
-    } else
-      shapes = shapes.concat(makeAutoShapesFromUci(n.threat.pvs[0].moves[0], 'red'));
+    } else shapes = shapes.concat(makeAutoShapesFromUci(n.threat.pvs[0].moves[0], 'red'));
   }
   return shapes;
 }

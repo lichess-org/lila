@@ -53,7 +53,7 @@ final private[video] class Youtube(
     api.video.allIds flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
+          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )

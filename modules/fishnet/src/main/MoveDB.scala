@@ -103,7 +103,7 @@ final class MoveDB(implicit system: ActorSystem) {
       }
 
       case Clean =>
-        val since    = DateTime.now minusSeconds 3
+        val since    = DateTime.now minusSeconds 5
         val timedOut = coll.values.filter(_ acquiredBefore since)
         if (timedOut.nonEmpty) logger.debug(s"cleaning ${timedOut.size} of ${coll.size} moves")
         timedOut.foreach { m =>

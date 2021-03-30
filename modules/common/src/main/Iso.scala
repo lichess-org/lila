@@ -1,6 +1,7 @@
 package lila.common
 
 import play.api.i18n.Lang
+import chess.format.FEN
 import chess.Centis
 
 trait Iso[A, B] {
@@ -47,4 +48,7 @@ object Iso {
   implicit val centisIso = int[Centis](Centis.apply, _.centis)
 
   implicit val langIso = string[Lang](Lang.apply, _.toString)
+
+  implicit val fenIso = string[FEN](FEN.apply, _.value)
+
 }

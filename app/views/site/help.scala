@@ -34,7 +34,7 @@ object help {
       contentCls = "page",
       moreJs = embedJsUnsafe(
         """$('#asset-version-date').text(lishogi.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lishogi.info.commit).find('pre').text(lishogi.info.commit);
+$('#asset-version-commit').attr('href', 'https://github.com/WandererXII/lishogi/commits/' + lishogi.info.commit).find('pre').text(lishogi.info.commit);
 $('#asset-version-message').text(lishogi.info.message);"""
       )
     )(
@@ -52,7 +52,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
                 tr(
                   td("Server"),
                   td(date),
-                  td(a(href := s"https://github.com/ornicar/lila/commits/$commit")(pre(commit))),
+                  td(a(href := s"https://github.com/WandererXII/lishogi/commits/$commit")(pre(commit))),
                   td(message)
                 )
             },
@@ -107,36 +107,36 @@ $('#asset-version-message').text(lishogi.info.message);"""
             parameters
           )
         },
-        //br,
-        //div(cls := "box box-pad developers body") {
-        //  val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
-        //  frag(
-        //    h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
-        //    div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=wood" $args></iframe>""")),
-        //    p("Add the following HTML to your site:"),
-        //    p(cls := "copy-zone")(
-        //      input(
-        //        id := "puzzle-embed-src",
-        //        cls := "copyable autoselect",
-        //        value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light" $args></iframe>"""
-        //      ),
-        //      button(
-        //        title := "Copy code",
-        //        cls := "copy button",
-        //        dataRel := "puzzle-embed-src",
-        //        dataIcon := "\""
-        //      )
-        //    ),
-        //    parameters,
-        //    p("The text is automatically translated to your visitor's language.")
-        //  )
-        //},
+        br,
+        div(cls := "box box-pad developers body") {
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
+          frag(
+            h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            div(cls := "center")(raw(s"""<iframe src="/training/frame?theme=wood" $args></iframe>""")),
+            p("Add the following HTML to your site:"),
+            p(cls := "copy-zone")(
+              input(
+                id := "puzzle-embed-src",
+                cls := "copyable autoselect",
+                value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light" $args></iframe>"""
+              ),
+              button(
+                title := "Copy code",
+                cls := "copy button",
+                dataRel := "puzzle-embed-src",
+                dataIcon := "\""
+              )
+            ),
+            parameters,
+            p("The text is automatically translated to your visitor's language.")
+          )
+        },
         br,
         div(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1(id := "embed-study")("Embed a shogi analysis in your site"),
-            raw(s"""<iframe src="/study/embed/pDehhzD5?bg=auto&theme=auto" $args></iframe>"""),
+            raw(s"""<iframe src="/study/embed/4XssSDlR?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
               a(href := routes.Study.allDefault(1))("a study"),
@@ -151,9 +151,9 @@ $('#asset-version-message').text(lishogi.info.message);"""
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1("Embed a shogi game in your site"),
-            raw(s"""<iframe src="/embed/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
+            raw(s"""<iframe src="/embed/sFbJtorq?bg=auto&theme=auto" $args></iframe>"""),
             p(
-              raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),
+              raw("""On a game analysis page, click the <em>"SFEN &amp; PGN"</em> tab at the bottom, then """),
               "\"",
               em(trans.embedInYourWebsite(), "\".")
             ),
@@ -166,7 +166,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
           h1("HTTP API"),
           p(
             raw(
-              """Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+              """WIP - Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
             )
           )
         ),

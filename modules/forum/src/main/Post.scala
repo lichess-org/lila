@@ -2,7 +2,6 @@ package lila.forum
 
 import lila.user.User
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import scala.concurrent.duration._
 
 case class OldVersion(text: String, createdAt: DateTime)
@@ -98,7 +97,7 @@ object Post {
   ): Post = {
 
     Post(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,
       author = author,
       userId = userId,

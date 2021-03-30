@@ -1,0 +1,381 @@
+piece.pawn.white {
+  background-image: url("/assets/piece/Portella/0FU.png");
+}
+piece.bishop.white {
+  background-image: url("/assets/piece/Portella/0KA.png");
+}
+piece.knight.white {
+  background-image: url("/assets/piece/Portella/0KE.png");
+}
+piece.rook.white {
+  background-image: url("/assets/piece/Portella/0HI.png");
+}
+piece.king.white {
+  background-image: url("/assets/piece/Portella/0OU.png");
+}
+piece.gold.white {
+  background-image: url("/assets/piece/Portella/0KI.png");
+}
+piece.silver.white {
+  background-image: url("/assets/piece/Portella/0GI.png");
+}
+piece.lance.white {
+  background-image: url("/assets/piece/Portella/0KY.png");
+}
+
+piece.horse.white {
+  background-image: url("/assets/piece/Portella/0UM.png");
+}
+piece.promotedlance.white,
+piece.promotedLance.white {
+  background-image: url("/assets/piece/Portella/0NY.png");
+}
+piece.dragon.white {
+  background-image: url("/assets/piece/Portella/0RY.png");
+}
+piece.promotedsilver.white,
+piece.promotedSilver.white {
+  background-image: url("/assets/piece/Portella/0NG.png");
+}
+piece.promotedknight.white,
+piece.promotedKnight.white {
+  background-image: url("/assets/piece/Portella/0NK.png");
+}
+piece.tokin.white {
+  background-image: url("/assets/piece/Portella/0TO.png");
+}
+
+piece.pawn.black {
+  background-image: url("/assets/piece/Portella/1FU.png");
+}
+piece.bishop.black {
+  background-image: url("/assets/piece/Portella/1KA.png");
+}
+piece.knight.black {
+  background-image: url("/assets/piece/Portella/1KE.png");
+}
+piece.rook.black {
+  background-image: url("/assets/piece/Portella/1HI.png");
+}
+piece.king.black {
+  background-image: url("/assets/piece/Portella/1OU.png");
+}
+piece.gold.black {
+  background-image: url("/assets/piece/Portella/1KI.png");
+}
+piece.silver.black {
+  background-image: url("/assets/piece/Portella/1GI.png");
+}
+piece.lance.black {
+  background-image: url("/assets/piece/Portella/1KY.png");
+}
+
+piece.horse.black {
+  background-image: url("/assets/piece/Portella/1UM.png");
+}
+piece.promotedlance.black,
+piece.promotedLance.black {
+  background-image: url("/assets/piece/Portella/1NY.png");
+}
+piece.dragon.black {
+  background-image: url("/assets/piece/Portella/1RY.png");
+}
+piece.promotedsilver.black,
+piece.promotedSilver.black {
+  background-image: url("/assets/piece/Portella/1NG.png");
+}
+piece.promotedknight.black,
+piece.promotedKnight.black {
+  background-image: url("/assets/piece/Portella/1NK.png");
+}
+piece.tokin.black {
+  background-image: url("/assets/piece/Portella/1TO.png");
+}
+
+/*
+      Pieces for white
+      */
+
+.cg-wrap.orientation-white piece.pawn.white {
+  background-image: url("/assets/piece/Portella/0FU.png");
+}
+.cg-wrap.orientation-white piece.bishop.white {
+  background-image: url("/assets/piece/Portella/0KA.png");
+}
+.cg-wrap.orientation-white piece.knight.white {
+  background-image: url("/assets/piece/Portella/0KE.png");
+}
+.cg-wrap.orientation-white piece.rook.white {
+  background-image: url("/assets/piece/Portella/0HI.png");
+}
+.cg-wrap.orientation-white piece.king.white {
+  background-image: url("/assets/piece/Portella/0GY.png");
+}
+.cg-wrap.orientation-white piece.gold.white {
+  background-image: url("/assets/piece/Portella/0KI.png");
+}
+.cg-wrap.orientation-white piece.silver.white {
+  background-image: url("/assets/piece/Portella/0GI.png");
+}
+.cg-wrap.orientation-white piece.lance.white {
+  background-image: url("/assets/piece/Portella/0KY.png");
+}
+
+.cg-wrap.orientation-white piece.horse.white {
+  background-image: url("/assets/piece/Portella/0UM.png");
+}
+.cg-wrap.orientation-white piece.promotedlance.white,
+.cg-wrap.orientation-white piece.promotedLance.white {
+  background-image: url("/assets/piece/Portella/0NY.png");
+}
+.cg-wrap.orientation-white piece.dragon.white {
+  background-image: url("/assets/piece/Portella/0RY.png");
+}
+.cg-wrap.orientation-white piece.promotedsilver.white,
+.cg-wrap.orientation-white piece.promotedSilver.white {
+  background-image: url("/assets/piece/Portella/0NG.png");
+}
+.cg-wrap.orientation-white piece.promotedknight.white,
+.cg-wrap.orientation-white piece.promotedKnight.white {
+  background-image: url("/assets/piece/Portella/0NK.png");
+}
+.cg-wrap.orientation-white piece.tokin.white {
+  background-image: url("/assets/piece/Portella/0TO.png");
+}
+
+.cg-wrap.orientation-white piece.pawn.black {
+  background-image: url("/assets/piece/Portella/1FU.png");
+}
+.cg-wrap.orientation-white piece.bishop.black {
+  background-image: url("/assets/piece/Portella/1KA.png");
+}
+.cg-wrap.orientation-white piece.knight.black {
+  background-image: url("/assets/piece/Portella/1KE.png");
+}
+.cg-wrap.orientation-white piece.rook.black {
+  background-image: url("/assets/piece/Portella/1HI.png");
+}
+.cg-wrap.orientation-white piece.king.black {
+  background-image: url("/assets/piece/Portella/1OU.png");
+}
+.cg-wrap.orientation-white piece.gold.black {
+  background-image: url("/assets/piece/Portella/1KI.png");
+}
+.cg-wrap.orientation-white piece.silver.black {
+  background-image: url("/assets/piece/Portella/1GI.png");
+}
+.cg-wrap.orientation-white piece.lance.black {
+  background-image: url("/assets/piece/Portella/1KY.png");
+}
+
+.cg-wrap.orientation-white piece.horse.black {
+  background-image: url("/assets/piece/Portella/1UM.png");
+}
+.cg-wrap.orientation-white piece.promotedlance.black,
+.cg-wrap.orientation-white piece.promotedLance.black {
+  background-image: url("/assets/piece/Portella/1NY.png");
+}
+.cg-wrap.orientation-white piece.dragon.black {
+  background-image: url("/assets/piece/Portella/1RY.png");
+}
+.cg-wrap.orientation-white piece.promotedsilver.black,
+.cg-wrap.orientation-white piece.promotedSilver.black {
+  background-image: url("/assets/piece/Portella/1NG.png");
+}
+.cg-wrap.orientation-white piece.promotedknight.black,
+.cg-wrap.orientation-white piece.promotedKnight.black {
+  background-image: url("/assets/piece/Portella/1NK.png");
+}
+.cg-wrap.orientation-white piece.tokin.black {
+  background-image: url("/assets/piece/Portella/1TO.png");
+}
+
+/*
+      Pieces for black
+      */
+
+.cg-wrap.orientation-black piece.pawn.black {
+  background-image: url("/assets/piece/Portella/0FU.png");
+}
+.cg-wrap.orientation-black piece.bishop.black {
+  background-image: url("/assets/piece/Portella/0KA.png");
+}
+.cg-wrap.orientation-black piece.knight.black {
+  background-image: url("/assets/piece/Portella/0KE.png");
+}
+.cg-wrap.orientation-black piece.rook.black {
+  background-image: url("/assets/piece/Portella/0HI.png");
+}
+.cg-wrap.orientation-black piece.king.black {
+  background-image: url("/assets/piece/Portella/0OU.png");
+}
+.cg-wrap.orientation-black piece.gold.black {
+  background-image: url("/assets/piece/Portella/0KI.png");
+}
+.cg-wrap.orientation-black piece.silver.black {
+  background-image: url("/assets/piece/Portella/0GI.png");
+}
+.cg-wrap.orientation-black piece.lance.black {
+  background-image: url("/assets/piece/Portella/0KY.png");
+}
+
+.cg-wrap.orientation-black piece.horse.black {
+  background-image: url("/assets/piece/Portella/0UM.png");
+}
+.cg-wrap.orientation-black piece.promotedlance.black,
+.cg-wrap.orientation-black piece.promotedLance.black {
+  background-image: url("/assets/piece/Portella/0NY.png");
+}
+.cg-wrap.orientation-black piece.dragon.black {
+  background-image: url("/assets/piece/Portella/0RY.png");
+}
+.cg-wrap.orientation-black piece.promotedsilver.black,
+.cg-wrap.orientation-black piece.promotedSilver.black {
+  background-image: url("/assets/piece/Portella/0NG.png");
+}
+.cg-wrap.orientation-black piece.promotedknight.black,
+.cg-wrap.orientation-black piece.promotedKnight.black {
+  background-image: url("/assets/piece/Portella/0NK.png");
+}
+.cg-wrap.orientation-black piece.tokin.black {
+  background-image: url("/assets/piece/Portella/0TO.png");
+}
+
+.cg-wrap.orientation-black piece.pawn.white {
+  background-image: url("/assets/piece/Portella/1FU.png");
+}
+.cg-wrap.orientation-black piece.bishop.white {
+  background-image: url("/assets/piece/Portella/1KA.png");
+}
+.cg-wrap.orientation-black piece.knight.white {
+  background-image: url("/assets/piece/Portella/1KE.png");
+}
+.cg-wrap.orientation-black piece.rook.white {
+  background-image: url("/assets/piece/Portella/1HI.png");
+}
+.cg-wrap.orientation-black piece.king.white {
+  background-image: url("/assets/piece/Portella/1GY.png");
+}
+.cg-wrap.orientation-black piece.gold.white {
+  background-image: url("/assets/piece/Portella/1KI.png");
+}
+.cg-wrap.orientation-black piece.silver.white {
+  background-image: url("/assets/piece/Portella/1GI.png");
+}
+.cg-wrap.orientation-black piece.lance.white {
+  background-image: url("/assets/piece/Portella/1KY.png");
+}
+
+.cg-wrap.orientation-black piece.horse.white {
+  background-image: url("/assets/piece/Portella/1UM.png");
+}
+.cg-wrap.orientation-black piece.promotedlance.white,
+.cg-wrap.orientation-black piece.promotedLance.white {
+  background-image: url("/assets/piece/Portella/1NY.png");
+}
+.cg-wrap.orientation-black piece.dragon.white {
+  background-image: url("/assets/piece/Portella/1RY.png");
+}
+.cg-wrap.orientation-black piece.promotedsilver.white,
+.cg-wrap.orientation-black piece.promotedSilver.white {
+  background-image: url("/assets/piece/Portella/1NG.png");
+}
+.cg-wrap.orientation-black piece.promotedknight.white,
+.cg-wrap.orientation-black piece.promotedKnight.white {
+  background-image: url("/assets/piece/Portella/1NK.png");
+}
+.cg-wrap.orientation-black piece.tokin.white {
+  background-image: url("/assets/piece/Portella/1TO.png");
+}
+
+/*
+      Promotions
+      */
+
+#promotion-choice piece.pawn {
+  background-image: url("/assets/piece/Portella/0FU.png");
+}
+#promotion-choice piece.silver {
+  background-image: url("/assets/piece/Portella/0GI.png");
+}
+#promotion-choice piece.lance {
+  background-image: url("/assets/piece/Portella/0KY.png");
+}
+#promotion-choice piece.knight {
+  background-image: url("/assets/piece/Portella/0KE.png");
+}
+#promotion-choice piece.rook {
+  background-image: url("/assets/piece/Portella/0HI.png");
+}
+#promotion-choice piece.bishop {
+  background-image: url("/assets/piece/Portella/0KA.png");
+}
+#promotion-choice piece.tokin {
+  background-image: url("/assets/piece/Portella/0TO.png");
+}
+#promotion-choice piece.promotedsilver,
+#promotion-choice piece.promotedSilver {
+  background-image: url("/assets/piece/Portella/0NG.png");
+}
+#promotion-choice piece.promotedlance,
+#promotion-choice piece.promotedLance {
+  background-image: url("/assets/piece/Portella/0NY.png");
+}
+#promotion-choice piece.promotedknight,
+#promotion-choice piece.promotedKnight {
+  background-image: url("/assets/piece/Portella/0NK.png");
+}
+#promotion-choice piece.dragon {
+  background-image: url("/assets/piece/Portella/0RY.png");
+}
+#promotion-choice piece.horse {
+  background-image: url("/assets/piece/Portella/0UM.png");
+}
+
+/*
+      Pockets
+      */
+
+.pocket-top piece.pawn {
+  background-image: url("/assets/piece/Portella/1FU.png");
+}
+.pocket-top piece.lance {
+  background-image: url("/assets/piece/Portella/1KY.png");
+}
+.pocket-top piece.knight {
+  background-image: url("/assets/piece/Portella/1KE.png");
+}
+.pocket-top piece.silver {
+  background-image: url("/assets/piece/Portella/1GI.png");
+}
+.pocket-top piece.gold {
+  background-image: url("/assets/piece/Portella/1KI.png");
+}
+.pocket-top piece.bishop {
+  background-image: url("/assets/piece/Portella/1KA.png");
+}
+.pocket-top piece.rook {
+  background-image: url("/assets/piece/Portella/1HI.png");
+}
+
+.pocket-bottom piece.pawn {
+  background-image: url("/assets/piece/Portella/0FU.png");
+}
+.pocket-bottom piece.lance {
+  background-image: url("/assets/piece/Portella/0KY.png");
+}
+.pocket-bottom piece.knight {
+  background-image: url("/assets/piece/Portella/0KE.png");
+}
+.pocket-bottom piece.silver {
+  background-image: url("/assets/piece/Portella/0GI.png");
+}
+.pocket-bottom piece.gold {
+  background-image: url("/assets/piece/Portella/0KI.png");
+}
+.pocket-bottom piece.bishop {
+  background-image: url("/assets/piece/Portella/0KA.png");
+}
+.pocket-bottom piece.rook {
+  background-image: url("/assets/piece/Portella/0HI.png");
+}

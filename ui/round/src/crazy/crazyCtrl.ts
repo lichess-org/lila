@@ -3,7 +3,7 @@ import { dragNewPiece } from "shogiground/drag";
 import { setDropMode, cancelDropMode } from "shogiground/drop";
 import RoundController from "../ctrl";
 import * as cg from "shogiground/types";
-import { RoundData } from "../interfaces";
+//import { RoundData } from "../interfaces";
 import { Shogi } from "shogiops/shogi"; 
 import { parseFen } from "shogiops/fen";
 import { makeShogiFen, parseChessSquare } from "shogiops/compat";
@@ -72,7 +72,6 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
 
 let dropWithKey = false;
 let dropWithDrag = false;
-let mouseIconsLoaded = false;
 
 export function valid(
   ctrl: RoundController,
@@ -89,10 +88,8 @@ export function valid(
   const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
 
   if (crazyKeys.length === 0) dropWithDrag = true;
-  else {
+  else
     dropWithKey = true;
-    if (!mouseIconsLoaded) preloadMouseIcons(data);
-  }
 
   if (!isPlayerTurn(data)) return false;
 
@@ -197,19 +194,4 @@ export function init(ctrl: RoundController) {
     },
     { capture: true }
   );
-
-  if (li.storage.get("crazyKeyHist") !== "0") preloadMouseIcons(ctrl.data); // todo
-}
-
-// zh keys has unacceptable jank when cursors need to dl,
-// so preload when the feature might be used.
-// Images are used in _zh.scss, which should be kept in sync.
-function preloadMouseIcons(data: RoundData) {
-  const colorKey = data.player.color === "white" ? "w" : "b";
-  if (window.fetch !== undefined) {
-    for (const pKey of "PNBRSGL") {
-      fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
-    }
-  }
-  mouseIconsLoaded = true;
 }

@@ -37,12 +37,6 @@ Offering an excessive amount of draws in order to distract or annoy an opponent 
 
 """, /* ---------------------------------------------------------------*/ """
 
-En passant
-
-This is called "en passant" and is one of the rules of chess. Check https://lishogi.org/learn#/15 to learn more about it.
-
-""", /* ---------------------------------------------------------------*/ """
-
 Use /report
 
 In order to report players for bad behavior, please visit https://lishogi.org/report

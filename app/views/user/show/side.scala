@@ -6,6 +6,8 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
 import lila.user.User
 
+import play.api.i18n.Lang
+
 import controllers.routes
 
 object side {
@@ -20,16 +22,18 @@ object side {
       perf.nonEmpty option showPerf(perf, perfType)
 
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) = {
-      val isGame = lila.rating.PerfType.isGame(perfType)
+      val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
         title := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
-          "game"   -> isGame,
           "active" -> active.has(perfType)
         ),
-        href := isGame option routes.User.perfStat(u.username, perfType.key).url,
+        href := {
+          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
+          else routes.User.perfStat(u.username, perfType.key).url.some
+        },
         span(
           h3(perfType.trans),
           st.rating(
@@ -51,7 +55,7 @@ object side {
             )
           }
         ),
-        isGame option iconTag("G")
+        !isPuzzle option iconTag("G")
       )
     }
 
@@ -64,17 +68,30 @@ object side {
         showPerf(u.perfs.classical, PerfType.Classical),
         showPerf(u.perfs.correspondence, PerfType.Correspondence),
         br,
-        //showNonEmptyPerf(u.perfs.crazyhouse, PerfType.Crazyhouse),
-        //showNonEmptyPerf(u.perfs.chess960, PerfType.Chess960),
-        //showNonEmptyPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill),
-        //showNonEmptyPerf(u.perfs.threeCheck, PerfType.ThreeCheck),
-        //showNonEmptyPerf(u.perfs.antichess, PerfType.Antichess),
-        //showNonEmptyPerf(u.perfs.atomic, PerfType.Atomic),
-        //showNonEmptyPerf(u.perfs.horde, PerfType.Horde),
-        //showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings), // todo variant
-        // br,
-        // u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle) // todo puzzle
+        // br, todo variant
+        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
+        // u.noBot option showStorm(u.perfs.storm, u)
       )
     )
   }
+
+    private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
+    a(
+      dataIcon := '~',
+      cls := List(
+        "empty" -> !storm.nonEmpty
+      ),
+      href := routes.Storm.dashboardOf(user.username),
+      span(
+        h3("Puzzle Storm"),
+        st.rating(
+          strong(storm.score),
+          storm.nonEmpty option frag(
+            " ",
+            span(trans.storm.xRuns.plural(storm.runs, storm.runs.localize))
+          )
+        )
+      ),
+      iconTag("G")
+    )
 }

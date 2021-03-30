@@ -53,7 +53,7 @@ final private class Streaming(
       (twitchStreams, youTubeStreams) <-
         fetchTwitchStreams(streamers, 0, None, Nil) zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        scala.util.Random.shuffle {
+        lila.common.ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }

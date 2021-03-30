@@ -109,6 +109,8 @@ final private class Rematcher(
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       }
+      wPlayer = returnPlayer(pov.game, White, users)
+      bPlayer = returnPlayer(pov.game, Black, users)
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
@@ -123,8 +125,8 @@ final private class Rematcher(
           turns = situation ?? (_.turns),
           startedAtTurn = situation ?? (_.turns)
         ),
-        whitePlayer = returnPlayer(pov.game, White, users, !isHandicap),
-        blackPlayer = returnPlayer(pov.game, Black, users, !isHandicap),
+        whitePlayer = if(isHandicap) bPlayer else wPlayer,
+        blackPlayer = if(isHandicap) wPlayer else bPlayer,
         mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
@@ -132,15 +134,13 @@ final private class Rematcher(
       ) withUniqueId idGenerator
     } yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User], switchSides: Boolean): lila.game.Player =
+  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
     game.opponent(color).aiLevel match {
       case Some(ai) => lila.game.Player.make(color, ai.some)
       case None =>
         lila.game.Player.make(
           color,
-          game.player(
-            if (switchSides) !color else color
-          ).userId.flatMap { id =>
+          game.opponent(color).userId.flatMap { id =>
             users.find(_.id == id)
           },
           PerfPicker.mainOrDefault(game)

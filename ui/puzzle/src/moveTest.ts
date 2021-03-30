@@ -1,65 +1,63 @@
+import { lishogiCharToRole, makeShogiFen, parseLishogiUci } from 'shogiops/compat';
 import { path as pathOps } from 'tree';
-import { parseUci } from 'chessops/util';
 import { Vm, Puzzle, MoveTest } from './interfaces';
+import { isDrop, Role, Shogi, SquareSet } from 'shogiops';
+import { parseFen } from 'shogiops/fen';
+import {opposite} from 'shogiground/util';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
-export type MoveTestFn = () => MoveTestReturn;
 
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
-
-type AltCastle = keyof typeof altCastles;
-
-function isAltCastle(str: string | undefined): str is AltCastle {
-  if (str) return altCastles.hasOwnProperty(str);
-  return false;
+function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role ): boolean {
+  const m1 = parseLishogiUci(u1);
+  const m2 = parseLishogiUci(u2);
+  if(!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to)
+    return false;
+  console.log(turn);
+  console.log("Backrank: ", SquareSet.backrank2(turn).has(m1.to));
+  return (role === "knight" && SquareSet.backrank2(turn).has(m1.to)) ||
+    ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to));
 }
 
-export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
-  return function(): MoveTestReturn {
-    if (vm.mode === 'view') return;
-    if (!pathOps.contains(vm.path, vm.initialPath)) return;
+export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
+  if (vm.mode === 'view') return;
+  if (!pathOps.contains(vm.path, vm.initialPath)) return;
 
-    const playedByColor = vm.node.ply % 2 === 1 ? 'white' : 'black';
-    if (playedByColor !== puzzle.color) return;
+  const playedByColor = vm.node.ply % 2 === 1 ? 'white' : 'black';
+  if (playedByColor !== vm.pov) return;
 
-    const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
-      return {
-        uci: node.uci,
-        castle: node.san!.startsWith('O-O')
-      };
-    });
+  const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
+    uci: node.uci,
+    san: node.san!,
+    fen: node.fen!
+  }));
+  
+  for (const i in nodes) {
+    const b: boolean = parseFen(makeShogiFen(nodes[i].fen)).unwrap(
+      (s) => Shogi.fromSetup(s).unwrap(
+        (sh) => sh.isCheckmate(),
+        () => false
+      ),
+      () => false
+    );
+    if (b) return (vm.node.puzzle = 'win');
+    const uci = nodes[i].uci!,
+      solUci = puzzle.solution[i];
+    console.log(nodes[i]);
+    console.log(solUci, "?==", uci)
+    const role = nodes[i].san[0] as Role;
+    if (uci != solUci && !isForcedPromotion(uci, solUci, opposite(playedByColor), lishogiCharToRole(role)))
+      return (vm.node.puzzle = 'fail');
+  }
 
-    let progress = puzzle.lines;
-    for (const i in nodes) {
-      const uci = nodes[i].uci;
-      if (typeof progress === 'object' && uci && progress[uci]) progress = progress[uci];
-      else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]];
-      else progress = 'fail';
-      if (typeof progress === 'string') break;
-    }
-    if (typeof progress === 'string') {
-      vm.node.puzzle = progress;
-      return progress;
-    }
+  const nextUci = puzzle.solution[nodes.length];
+  if (!nextUci) return (vm.node.puzzle = 'win');
 
-    const nextKey = Object.keys(progress)[0];
-    if (progress[nextKey] === 'win') {
-      vm.node.puzzle = 'win';
-      return 'win';
-    }
+  // from here we have a next move
+  vm.node.puzzle = 'good';
 
-    // from here we have a next move
-    vm.node.puzzle = 'good';
-
-    return {
-      move: parseUci(nextKey)!,
-      fen: vm.node.fen,
-      path: vm.path
-    };
+  return {
+    move: parseLishogiUci(nextUci)!,
+    fen: vm.node.fen,
+    path: vm.path,
   };
 }

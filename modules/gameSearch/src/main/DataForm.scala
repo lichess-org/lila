@@ -37,7 +37,9 @@ final private[gameSearch] class DataForm {
         "initMin" -> optional(numberIn(Query.clockInits)),
         "initMax" -> optional(numberIn(Query.clockInits)),
         "incMin"  -> optional(numberIn(Query.clockIncs)),
-        "incMax"  -> optional(numberIn(Query.clockIncs))
+        "incMax"  -> optional(numberIn(Query.clockIncs)),
+        "byoMin"  -> optional(numberIn(Query.clockByos)),
+        "byoMax"  -> optional(numberIn(Query.clockByos))
       )(SearchClock.apply)(SearchClock.unapply),
       "dateMin"  -> DataForm.dateField,
       "dateMax"  -> DataForm.dateField,
@@ -138,5 +140,7 @@ private[gameSearch] case class SearchClock(
     initMin: Option[Int] = None,
     initMax: Option[Int] = None,
     incMin: Option[Int] = None,
-    incMax: Option[Int] = None
+    incMax: Option[Int] = None,
+    byoMin: Option[Int] = None,
+    byoMax: Option[Int] = None
 )

@@ -99,7 +99,7 @@ final class SecurityApi(
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
       req: RequestHeader
   ): Funit = {
-    val sessionId = Random nextString 22
+    val sessionId = lila.common.ThreadLocalRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 

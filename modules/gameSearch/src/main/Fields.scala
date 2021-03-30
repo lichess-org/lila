@@ -16,6 +16,7 @@ private[gameSearch] object Fields {
   val duration      = "l"
   val clockInit     = "ct"
   val clockInc      = "ci"
+  val clockByo      = "cb"
   val analysed      = "n"
   val whiteUser     = "wu"
   val blackUser     = "bu"

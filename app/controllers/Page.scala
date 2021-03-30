@@ -57,6 +57,8 @@ final class Page(
       }
     }
 
+  def loneBookmark(name: String) = bookmark(name)
+
   def variantHome =
     Open { implicit ctx =>
       import play.api.libs.json._

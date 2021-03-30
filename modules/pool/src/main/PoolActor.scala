@@ -1,7 +1,7 @@
 package lila.pool
 
 import scala.concurrent.duration._
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
 import akka.actor._
 import akka.pattern.pipe
@@ -25,7 +25,7 @@ final private class PoolActor(
 
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
-      config.wave.every + Random.nextInt(1000).millis,
+      config.wave.every + ThreadLocalRandom.nextInt(1000).millis,
       self,
       ScheduledWave
     )

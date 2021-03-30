@@ -94,7 +94,7 @@ object Work {
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
 
-    def isOutOfTries = tries >= 3
+    def isOutOfTries = tries > 3
 
     def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
 
@@ -140,5 +140,5 @@ object Work {
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

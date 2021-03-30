@@ -68,7 +68,8 @@ export function make(opts): EvalCache {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
       if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
-        opts.send('evalPut', toPutData(opts.variant, ev));
+        // opts.send('evalPut', toPutData(opts.variant, ev));
+        console.log("Disabled posting eval to the server for now.", toPutData(opts.variant, ev));
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {

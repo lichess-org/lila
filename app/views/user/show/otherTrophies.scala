@@ -38,31 +38,6 @@ object otherTrophies {
           href := routes.Tournament.show(revol.tourId)
         )(revol.iconChar.toString)
       },
-      info.trophies.find(_.kind._id == TrophyKind.zugMiracle).map { t =>
-        frag(
-          styleTag("""
-.trophy.zugMiracle {
-  display: flex;
-  align-items: flex-end;
-  height: 40px;
-  margin: 0 8px!important;
-  transition: 2s;
-}
-.trophy.zugMiracle img {
-  height: 60px;
-}
-@keyframes psyche {
- 100% { filter: hue-rotate(360deg); }
-}
-.trophy.zugMiracle:hover {
-  transform: translateY(-9px);
-  animation: psyche 0.3s ease-in-out infinite alternate;
-}"""),
-          a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
-            img(src := staticUrl("images/trophy/zug-trophy.png"))
-          )
-        )
-      },
       info.trophies.filter(_.kind.withCustomImage).map { t =>
         a(
           awardCls(t),

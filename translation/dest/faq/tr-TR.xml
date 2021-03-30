@@ -2,21 +2,21 @@
 <resources>
 	<string name="faqAbbreviation">S.S.S</string>
 	<string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="whyIsLishogiCalledLishogi">Lishogi\'nin adı neden Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi, Lichess\'ten esinlenmiş açık kaynak kodlu bir platformdur fakat shogi oynamak için kurulmuştur, bu yüzden adı lishogi\'dir.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Çünkü bu site Lichess\'ten türetilmiştir ve lichess, lichess diye okunur çünkü canlı/hafif/yaşam ve satranç kelimelerinin birleşimidir (live/light/libre/chess). Lishogi, %1$s olarak telaffuz edilir.</string>
+	<string name="leechess">Lishogi</string>
 	<string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
 	<string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lishogi açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="howCanIContributeToLishogi">Lishogi\'ye nasıl katkıda bulunabilirim?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="beingAPatron">Destek olun</string>
 	<string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>
 	<string name="otherWaysToHelp">yardım etmenin diğer yolları</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="areThereWebsitesBasedOnLishogi">Lishogi kaynak kodunu kullanan siteler var mı?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Evet. Lishogi %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
 	<string name="fairPlay">Adil Oyun</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
 	<string name="cheatDetectionMethods">Lishogi bu konuda güçlü bir yakalama sistemine ve bunu işleme yetisine sahiptir. Bu süreç bir çok moderatör tarafından incelenir ve bu baya zaman alabilir. Haksız ve ya bireysel itirazlar ile ilgilenmiyoruz. Çünkü bu ileride tespit edilmekten kaçışı kolaylaştıracak çok zaman alacaktır. Zamanı ve eforu daha önemli olaylarda harcamak daha iyidir. İtirazlar e-mail yolu ile de yapılabilir. (%1$s) ama unutmayın ki verilen kararlar ya da yasaklar nadiren kaldırılır.</string>
@@ -27,7 +27,7 @@
 	<string name="leavingGameWithoutResigningExplanation">Rakibiniz sık sık oyunu iptal ederse / oyundan ayrılırsa, \'\'oyun yasaklaması\'\'alırlar, yani oyun oynamaktan geçici olarak yasaklanırlar. Bu, profillerinde genel olarak gösterilmez. Bu davranış devam ederse, oyun yasaklamasının uzunluğu artar - ve bu türden uzun süreli davranışlar hesabın kapanmasına yol açabilir.</string>
 	<string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
 	<string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="isCorrespondenceDifferent">Yazışmalı oyun normal shogiden farklı mıdır?</string>
 	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
 	<string name="gameplay">Oynanış</string>
 	<string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
@@ -76,7 +76,7 @@ Biraz pratik yapmak için bu hamle için olan %3$s\'ye bakın.</string>
 	<string name="threeFoldHasToBeClaimed">Hamle tekrarı oyunculardan biri tarafından kabul edilmesi gerekiyor. Gösterilen düğmeye basarak veya son yinelenen hareketinizden önce bir beraberlik sunarak bunu yapabilirsiniz. Ayrıca %1$s Lishogi otomatik olarak sizin için hamle tekrarı talep edebilirsiniz. Ek olarak, beş kez hamle tekrarı her zaman oyunu hemen bitirir.</string>
 	<string name="configure">yapılandır</string>
 	<string name="accounts">Hesaplar</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Lishogi\'de hangi unvanlar var?</string>
 	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Eğer bir OTB unvanınız varsa, %1$s\'yi tamamlayarak bunu hesabınızda göstermeniz için başvuruda bulunabilirsiniz; bunu, tanımlayıcı bir belge/kartın net bir görüntüsü ve belgeyi/kartı elinde tutan bir fotoğraf da dahil olmak üzere gerçekleştirebilirsiniz.
 
@@ -100,8 +100,8 @@ LM unvanı için sorma.</string>
 	<string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>
 	<string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
 	<string name="goldenZeeExplanation">ZugAddict canlı yayın açmıştı ve son 2 saat boyunca A.I. level 8\'i 1+0 oyununda başarılı bir şekilde yenmeye çalışıyordu. Thibault, canlı yayında başarılı bir şekilde bunu gerçekleştirirse, ona benzersiz bir kupa alacağını söyledi. Bir saat sonra, Stockfish\'i yendi ve söz onurlandırıldı.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="lishogiRatings">Lishogi dereceleri</string>
+	<string name="whichRatingSystemUsedByLishogi">Lishogi hangi derecelendirme sistemini kullanıyor?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
 
 Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.

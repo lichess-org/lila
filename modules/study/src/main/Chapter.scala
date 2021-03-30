@@ -164,7 +164,7 @@ object Chapter {
 
   val idSize = 8
 
-  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
 
   def make(
       studyId: Study.Id,

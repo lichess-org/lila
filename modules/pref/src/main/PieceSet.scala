@@ -32,6 +32,7 @@ object PieceSet extends PieceSetObject {
     default.name,
     "orangain",
     "kanji_red_wood",
+    "Portella",
     "1Kanji_3D",
     "2Kanji_3D",
     "Shogi_cz",

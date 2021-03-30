@@ -122,10 +122,6 @@ private object bits {
             renderSelect(form("byoyomi"), clockByoyomiChoices)
           ),
           renderRadios(form("periods"), periodsChoices),
-          //div(cls := "periods_choice")(
-          //  renderLabel(form("periods"), trans.byoyomiInSeconds()),
-          //  renderSelect(form("periods"), clockByoyomiChoices)
-          //),
           div(cls := "increment_choice")(
             renderLabel(form("increment"), trans.incrementInSeconds()),
             renderSelect(form("increment"), clockIncrementChoices)

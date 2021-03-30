@@ -6,7 +6,6 @@ import { tablebaseGuaranteed } from "../explorer/explorerCtrl";
 import AnalyseCtrl from "../ctrl";
 import { Redraw } from "../interfaces";
 import { defined, prop, Prop } from "common";
-import { altCastles } from "chess";
 import { makeSan } from "shogiops/san";
 import { parseLishogiUci } from "shogiops/compat";
 
@@ -124,8 +123,7 @@ export function make(
 
       best = nodeBestUci(prev)!;
       if (
-        best === node.uci ||
-        (node.san!.startsWith("O-O") && best === altCastles[node.uci!])
+        best === node.uci
       )
         best = null;
 

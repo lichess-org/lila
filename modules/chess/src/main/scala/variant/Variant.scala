@@ -172,7 +172,7 @@ abstract class Variant private[variant] (
     if(situation.checkMate && lastMove.isDefined && lastMove.get.uci(0) == 'P') Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
-    else if(situation.board.tryRule) situation.board.tryRuleColor(!situation.color)
+    else if(situation.board.tryRule) situation.board.tryRuleColor
     else if(situation.board.perpetualCheck) situation.board.perpetualCheckColor
     else None
   }

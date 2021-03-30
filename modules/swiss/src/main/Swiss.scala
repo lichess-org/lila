@@ -116,7 +116,7 @@ object Swiss {
       (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
     )
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

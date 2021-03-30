@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">Bağış yap</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Lishogi Bağışçısı</string>
 	<string name="freeAccount">Ücretsiz Hesap</string>
 	<string name="becomePatron">Lishogi Destekçisi olun</string>
 	<string name="xBecamePatron">%s Lishogi Destekçisi oldu</string>
 	<string name="newPatrons">Yeni Destekçiler</string>
-	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="freeChess">Herkes için ücretsiz shogi, sonsuza kadar!</string>
 	<string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
 	<string name="thankYou">Yardımınız için teşekkür ederiz!</string>
 	<string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
 	<string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
 	<string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weAreNonProfit">Lishogi, kar amacı gütmeyen bir kuruluştur. Çünkü herkesin ücretsiz, birinci sınıf bir shogi platformuna erişimi olması gerektiğine inanıyoruz.</string>
 	<string name="weRelyOnSupport">Lishogi sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
 	<string name="lifetime">Ömür Boyu</string>
 	<string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lishogi destekçisi olun!</string>

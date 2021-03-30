@@ -178,16 +178,13 @@ case class Board(
   }
 
   def tryRule: Boolean = {
-    kingsEntered && ((kingPosOf(White) == posAt(5, 9)) || (kingPosOf(Black) == posAt(5, 1)))
+    (kingPosOf(White) == posAt(5, 9)) || (kingPosOf(Black) == posAt(5, 1))
   }
 
-  def tryRuleColor(color: Color): Option[Color] = {
-    color match {
-      case White if (kingPosOf(White) == posAt(5, 9)) => Some(White)
-      case Black if (kingPosOf(Black) == posAt(5, 1)) => Some(Black)
-      case _ => None
-    }
-  }
+  def tryRuleColor: Option[Color] =
+    if (kingPosOf(White) == posAt(5, 9)) White.some
+    else if(kingPosOf(Black) == posAt(5, 1)) Black.some
+    else none
 
   def perpetualCheckColor: Option[Color] = {
     val checks = history.checkCount

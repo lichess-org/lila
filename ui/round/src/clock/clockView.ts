@@ -47,7 +47,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
         },
         hook: timeHook
       }),
-      renderByoyomiTime(clock.byoyomi, clock.startPeriod - clock.curPeriods[player.color]),
+      renderByoyomiTime(clock.byoyomi, clock.startPeriod - clock.curPeriods[player.color], ctrl.goneBerserk[player.color]),
     ]),
     renderBerserk(ctrl, player.color, position),
     isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
@@ -62,10 +62,10 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function renderByoyomiTime(byoyomi: Seconds, periods: number) : MaybeVNode {
+function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false) : MaybeVNode {
   const byo = byoyomi > 0 ? `+${byoyomi}s` : "";
   const per = periods > 1 ? `(${periods}x)` : "";
-  if(byo && periods > 0)
+  if(byo && periods > 0 && !berserk)
     return h(`div.byoyomi.byo-${periods}`, {}, byo + per);
   else return undefined;
 }
@@ -153,7 +153,7 @@ function goBerserk(ctrl: RoundController) {
   if (ctrl.goneBerserk[ctrl.data.player.color]) return;
   return h('button.fbt.go-berserk', {
     attrs: {
-      title: 'GO BERSERK! Half the time, no increment, bonus point',
+      title: 'GO BERSERK! Half the time, no increment, no byoyomi, bonus point',
       'data-icon': '`'
     },
     hook: bind('click', ctrl.goBerserk)

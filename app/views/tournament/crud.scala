@@ -84,7 +84,7 @@ object crud {
           form("homepageHours"),
           raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
           half = true,
-          help = raw("Ask on slack first").some
+          help = raw("Ask first").some
         )(form3.input(_, typ = "number")),
         form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
       ),

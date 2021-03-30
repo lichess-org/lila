@@ -186,7 +186,7 @@ export function defaults(): Partial<State> {
         },
       },
       pieces: {
-        baseUrl: "https://lishogi.org/assets/piece/cburnett/",
+        baseUrl: "https://lishogi1.org/assets/piece/cburnett/",
       },
       prevSvgHash: "",
     },

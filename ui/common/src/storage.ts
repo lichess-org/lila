@@ -32,12 +32,12 @@ export function storedProp(k: string, defaultValue: any) {
 
 export interface StoredJsonProp<T> {
   (): T;
-  (v: T): void;
+  (v: T): T;
 }
 
 export function storedJsonProp<T>(
   key: string,
-  defaultValue: T
+  defaultValue: () => T
 ): StoredJsonProp<T> {
   return function (v?: T) {
     if (defined(v)) {

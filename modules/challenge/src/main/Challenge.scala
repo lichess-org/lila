@@ -171,12 +171,12 @@ object Challenge {
 
   private val idSize = 8
 
-  private def randomId = ornicar.scalalib.Random nextString idSize
+  private def randomId = lila.common.ThreadLocalRandom nextString idSize
 
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(scala.util.Random.nextBoolean())
+  def randomColor = chess.Color(lila.common.ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,

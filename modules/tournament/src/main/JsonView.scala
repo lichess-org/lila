@@ -511,7 +511,8 @@ object JsonView {
   implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit"     -> clock.limitSeconds,
-      "increment" -> clock.incrementSeconds
+      "increment" -> clock.incrementSeconds,
+      "byoyomi"   -> clock.byoyomiSeconds
     )
   }
 

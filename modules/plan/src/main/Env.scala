@@ -92,6 +92,15 @@ final class Env(
         // instead, give them a free month.
         case "patron" :: "month" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
+        case "patron" :: "patreon" :: "cancel" :: user :: Nil =>
+          userRepo named user flatMap { _ ?? api.unsetPatreon } inject "ok"
+        case "patron" :: "patreon" :: user :: price :: Nil => {
+          val p = price.toIntOption
+          userRepo named user flatMap {
+            case Some(u) => api.setPatreon(u, ~p) inject "ok"
+            case None => fuccess("User not found")
+          }
+        }
       }
     }
 }

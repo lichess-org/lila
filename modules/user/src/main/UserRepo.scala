@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLocalRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -70,6 +70,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       } yield xx -> yy
     }
 
+  def namePair(x: ID, y: ID): Fu[Option[(User, User)]] =
+    pair(normalize(x), normalize(y))
+
   def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, User.ID](ids, readPreference = readPreference)(_.id)
 
@@ -88,6 +91,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
 
   def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
+
+  def enabledNamed(username: String): Fu[Option[User]] = enabledById(normalize(username))
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
@@ -142,7 +147,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
       .map {
-        _.fold(scala.util.Random.nextBoolean()) { doc =>
+        _.fold(lila.common.ThreadLocalRandom.nextBoolean()) { doc =>
           doc.string("_id") contains u1
         }
       }
@@ -197,6 +202,17 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $set(
           s"${F.perfs}.${pt.key}" -> Perf.perfBSONHandler.write(perf)
         )
+      )
+      .void
+
+  private val incStormRuns = $inc("perfs.storm.runs" -> 1)
+  def addStormRun(userId: User.ID, newHighScore: Option[Int]): Funit =
+    coll.update
+      .one(
+        $id(userId),
+        newHighScore.fold(incStormRuns) { score =>
+          incStormRuns ++ $set("perfs.storm.score" -> score)
+        }
       )
       .void
 

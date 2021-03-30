@@ -78,6 +78,7 @@ final class Env(
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env,
     val swiss: lila.swiss.Env,
+    val storm: lila.storm.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
 )(implicit
@@ -124,12 +125,11 @@ final class Env(
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
   lazy val pageCache     = wire[http.PageCache]
 
-  private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
+  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
     Future {
       puzzle.daily.get
     }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none) recover {
-      case e: Exception =>
+      .withTimeoutDefault(50.millis, none) recover { case e: Exception =>
         lila.log("preloader").warn("daily puzzle", e)
         none
     }
@@ -258,6 +258,7 @@ final class EnvBoot(
   lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
   lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
   lazy val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
+  lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 

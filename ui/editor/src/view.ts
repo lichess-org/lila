@@ -26,8 +26,14 @@ function pocket(ctrl: EditorCtrl, c: Color): VNode {
                 mousedown: dragFromPocket(ctrl, [c, r as Role], nb, "mouseup"),
                 touchstart: dragFromPocket(ctrl, [c, r as Role], nb, "touchend"),
                 click: (e) => {
+                  if(e.shiftKey)
+                    ctrl.removeFromPocket(opposite(c), r as Role, true);
+                  else
+                    ctrl.addToPocket(opposite(c), r as Role, true);
                   e.preventDefault();
-                  ctrl.addToPocket(opposite(c), r as Role, true);
+                },
+                contextmenu: (e) => {
+                  e.preventDefault();
                 }
               },
             },
@@ -62,7 +68,7 @@ function dragFromPocket(
   return function(e: MouchEvent): void {
     e.preventDefault();
     if(s !== "pointer" && s !== "trash" && nb > 0){
-      ctrl.removeFromPocket(opposite(s[0]), s[1]);
+      ctrl.removeFromPocket(opposite(s[0]), s[1], true);
       dragNewPiece(
         ctrl.shogiground!.state,
         {
@@ -195,7 +201,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                     "option",
                     {
                       attrs: {
-                        value: key[0] == "w" ? "white" : "black",
+                        value: key[0] == "b" ? "white" : "black",
                         selected: ctrl.turn[0] !== key[0],
                       },
                     },
@@ -211,7 +217,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 on: {
                   click() {
-                    ctrl.startPosition();
+                    ctrl.setFen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1");
                   },
                 },
               },
@@ -222,7 +228,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 on: {
                   click() {
-                    ctrl.clearBoard();
+                    ctrl.setFen("9/9/9/9/9/9/9/9/9 w - 1");
                   },
                 },
               },

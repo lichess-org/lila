@@ -83,56 +83,56 @@ object Tv {
           name = "Top Rated",
           icon = "C",
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(standard) // rated(1400), standard)
+          filters = Seq(minRating(1400), standardShogiRules, noBot)
         )
     case object Bullet
         extends Channel(
           name = S.Bullet.name,
           icon = P.Bullet.iconChar.toString,
           secondsSinceLastMove = 40,
-          filters = Seq(speed(S.Bullet), standard, noBot)
+          filters = Seq(speed(S.Bullet), standardShogiRules, noBot)
         )
     case object Blitz
         extends Channel(
           name = S.Blitz.name,
           icon = P.Blitz.iconChar.toString,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(speed(S.Blitz), standard, noBot)
+          filters = Seq(speed(S.Blitz), standardShogiRules, noBot)
         )
     case object Rapid
         extends Channel(
           name = S.Rapid.name,
           icon = P.Rapid.iconChar.toString,
           secondsSinceLastMove = 60 * 5,
-          filters = Seq(speed(S.Rapid), standard, noBot)
+          filters = Seq(speed(S.Rapid), standardShogiRules, noBot)
         )
     case object Classical
         extends Channel(
           name = S.Classical.name,
           icon = P.Classical.iconChar.toString,
           secondsSinceLastMove = 60 * 8,
-          filters = Seq(speed(S.Classical), standard, noBot)
+          filters = Seq(speed(S.Classical), standardShogiRules, noBot)
         )
     case object UltraBullet
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.iconChar.toString,
           secondsSinceLastMove = 30,
-          filters = Seq(speed(S.UltraBullet), standard, noBot)
+          filters = Seq(speed(S.UltraBullet), standardShogiRules, noBot)
         )
     case object Bot
         extends Channel(
           name = "Bot",
           icon = "n",
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(standard, hasBot)
+          filters = Seq(standardShogiRules, hasBot)
         )
     case object Computer
         extends Channel(
           name = "Computer",
           icon = "n",
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(computerFromInitialPosition)
+          filters = Seq(computerStandardRules)
         )
     val all = List(
       Best,
@@ -150,18 +150,19 @@ object Tv {
   }
 
   private def rated(min: Int)                           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def minRating(min: Int)                       = (c: Candidate) => hasMinRating(c.game, min)
   private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
-  private val standard                                  = variant(V.Standard)
+  private def standardShogiRules(c: Candidate)          = c.game.variant == V.Standard || c.game.variant == V.FromPosition
   private val freshBlitz                                = 60 * 2
-  private def computerFromInitialPosition(c: Candidate) = c.game.hasAi && !c.game.fromPosition
+  private def computerStandardRules(c: Candidate)       = c.game.hasAi && standardShogiRules(c)
   private def hasBot(c: Candidate)                      = c.hasBot
   private def noBot(c: Candidate)                       = !c.hasBot
 
   private def fresh(seconds: Int, game: Game): Boolean = {
     game.isBeingPlayed && !game.olderThan(seconds)
   } || {
-    game.finished && !game.olderThan(7)
+    game.finished && !game.olderThan(10)
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 }

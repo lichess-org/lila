@@ -35,8 +35,8 @@
 	<string name="joinTheGame">Oyuna katıl</string>
 	<string name="whitePlays">Hamle Beyazda</string>
 	<string name="blackPlays">Hamle Siyahta</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">Hamle Sırası Shitate\'de</string>
+	<string name="uwatePlays">Hamle Sırası Uwate\'de</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
 		<item quantity="other">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
@@ -241,7 +241,7 @@
 	<string name="confirmMove">Hamleyi onayla</string>
 	<string name="play">Oyna</string>
 	<string name="inbox">Gelen kutusu</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">Yayın yöneticisi</string>
 	<string name="chatRoom">Sohbet odası</string>
 	<string name="loginToChat">Sohbete katılmak için oturum aç</string>
 	<string name="youHaveBeenTimedOut">Sohbetten men edildiniz.</string>
@@ -252,9 +252,9 @@
 	<string name="recipient">Alıcı</string>
 	<string name="send">Gönder</string>
 	<string name="incrementInSeconds">Hamle başına eklenen saniye</string>
-	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="byoyomiInSeconds">Saniye olarak geri sayım</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineChess">Ücretsiz çevrimiçi shogi</string>
 	<string name="spectators">İzleyiciler</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s puanlı</item>
@@ -332,7 +332,7 @@
 	<string name="mustBeInTeam">%s adlı takımda olmalısınız.</string>
 	<string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
 	<string name="backToGame">Oyuna dön</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">Bedava online shogi sunucusu. Şimdi sade bir arayüzde Shogi oyna. Kayıt olmaya gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple shogi oyna.</string>
 	<string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
 	<string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
 	<string name="xStartedStreaming">%s canlı yayında</string>
@@ -343,7 +343,7 @@
 	<string name="apply">Uygula</string>
 	<string name="save">Kaydet</string>
 	<string name="leaderboard">Lider Tablosu</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">Handikap seç</string>
 	<string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
 	<string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
 	<string name="fromPosition">Özel pozisyondan</string>
@@ -351,15 +351,14 @@
 	<string name="toStudy">Çalışma oluştur</string>
 	<string name="importGame">Oyun yükle</string>
 	<string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifuExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun kifusu yapıştırın.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s yüklenen oyun</item>
 		<item quantity="other">%s yüklenen oyun</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">Bu bir shogi CAPTCHA\'sıdır.</string>
 	<string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">Lütfen shogi captcha\'sını çözün.</string>
 	<string name="notACheckmate">Mat değil</string>
 	<string name="whiteCheckmatesInOneMove">Beyaz bir hamlede mat eder</string>
 	<string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
@@ -440,8 +439,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="boardEditor">Tahta yapıcı</string>
 	<string name="setTheBoard">Tahtayı ayarla</string>
 	<string name="popularOpenings">Popüler açılışlar</string>
-	<string name="handicaps">Handicaps</string>
-	<string name="handicap">Handicap</string>
+	<string name="handicaps">Handikaplar</string>
+	<string name="handicap">Handikap</string>
 	<string name="startPosition">Başlangıç konumu</string>
 	<string name="clearBoard">Tahtayı temizle</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -461,8 +460,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="country">Ülke</string>
 	<string name="socialMediaLinks">Sosyal medya bağlantıları</string>
 	<string name="inlineNotation">Notasyonu aynı satırda göster</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">Lishogi TV izle</string>
+	<string name="previouslyOnLishogiTV">Lishgoi TV\'de bunlar da vardı</string>
 	<string name="onlinePlayers">Çevrimiçi oyuncular</string>
 	<string name="activeToday">Bugün aktif</string>
 	<string name="activePlayers">Aktif oyuncular</string>
@@ -545,7 +544,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="newPasswordAgain">Yeni şifre(tekrar)</string>
 	<string name="clockInitialTime">Maç başlangıç süresi</string>
 	<string name="clockIncrement">Hamle başına süre artışı</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi">Geri sayım saati</string>
 	<string name="privacy">Gizlilik</string>
 	<string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
 	<string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
@@ -576,7 +575,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="starting">Başlangıç:</string>
 	<string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
 	<string name="yourCityRegionOrDepartment">Şehrin, ilçen ya da bölgen.</string>
-	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
+	<string name="biographyDescription">Kendinizden bahsedin, ilgi alanlarınız, shogide ne buluyorsunuz, favori açılışlarınız, hayranı olduğunuz oyuncular, ...</string>
 	<plurals name="maximumNbCharacters">
 		<item quantity="one">En fazla: %s karakter.</item>
 		<item quantity="other">En fazla: %s karakter.</item>
@@ -592,7 +591,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clock">Saat</string>
 	<string name="unauthorizedError">Yetkisiz erişim.</string>
 	<string name="noInternetConnection">İnternet bağlantısı yok. Hâlâ menüden çevrimdışı oynayabilirsiniz.</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">lishogi.org\'a bağlandınız</string>
 	<string name="signedOut">Zaten başarıyla çıkış yapmışsınız.</string>
 	<string name="loginSuccessful">Giriş başarılı</string>
 	<string name="playOnTheBoardOffline">Tahta üzerinde çevrimdışı oyna</string>
@@ -604,7 +603,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="community">Topluluk</string>
 	<string name="tools">Araçlar</string>
 	<string name="increment">Artış</string>
-	<string name="byoyomi">Byoyomi</string>
+	<string name="byoyomi">Geri sayım</string>
 	<string name="periods">Periods</string>
 	<string name="sharePGN">PGN \'yi paylaş</string>
 	<string name="playOnline">Çevrimiçi Oyna</string>
@@ -660,10 +659,10 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
 	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
 	<string name="hostColorForEachGame">Host color for each game</string>
-	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="onlyMembersOfTeam">Sadece takım üyeleri</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
-	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="lishogiTournaments">Lishogi turnuvaları</string>
 	<string name="tournamentFAQ">Arena turnuvaları SSS</string>
 	<string name="tournamentOfficial">Resmî</string>
 	<string name="timeBeforeTournamentStarts">Turnuvanın başlama süresi</string>

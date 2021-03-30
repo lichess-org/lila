@@ -81,17 +81,20 @@ case class Clock(
 
         val moveTime = (elapsed - lagComp) nonNeg
 
-        val clockActive = gameActive && (player.hasPeriodsLeft || moveTime <= player.remaining)
-        val inc         = clockActive ?? player.increment
-        val byo         = clockActive ?? player.byoyomi
+        val clockActive  = gameActive && (player.hasPeriodsLeft || moveTime < player.remaining)
+        val updatePeriod = clockActive && moveTime >= player.remaining
+        val usingByo     = player.isUsingByoyomi || updatePeriod
 
-        val newC = if (gameActive && player.isUsingByoyomi) {
+        val inc          = clockActive ?? player.increment
+        val curRemaining = player.remaining - moveTime
+
+        val newC = if (clockActive && usingByo) {
           updatePlayer(color){
-            _.setRemaining(byo)
+            _.setRemaining(curRemaining atLeast player.byoyomi)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
-        else if (player.isUsingByoyomi) {
+        else if (usingByo) {
           updatePlayer(color){
             _.takeTime(moveTime)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
@@ -104,7 +107,7 @@ case class Clock(
           }
         }
 
-        if (clockActive) newC else newC.hardStop
+        if (updatePeriod) newC.removePeriod(color) else if (clockActive) newC else newC.hardStop
       }
     }).switch
 
@@ -119,6 +122,12 @@ case class Clock(
   def addPeriod(c: Color) = {
     updatePlayer(c) {
       _.addPeriod
+    }
+  }
+
+  def removePeriod(c: Color) = {
+    updatePlayer(c) {
+      _.removePeriod
     }
   }
 
@@ -183,6 +192,8 @@ case class ClockPlayer(
 
   def addPeriod = copy(curPeriod = curPeriod - 1)
 
+  def removePeriod = copy(curPeriod = curPeriod + 1)
+
   def hasPeriodsLeft = periods > curPeriod && config.hasByoyomi
 
   def limit = {
@@ -229,7 +240,7 @@ object Clock {
   // All unspecified durations are expressed in seconds
   case class Config(limitSeconds: Int, incrementSeconds: Int, byoyomiSeconds: Int, periods: Int) {
     
-    def berserkable = incrementSeconds == 0 || limitSeconds > 0
+    def berserkable = (incrementSeconds == 0 && byoyomiSeconds == 0) || limitSeconds > 0
 
     // Activate low time warning when between 10 and 90 seconds remain
     def emergSeconds = math.min(90, math.max(10, limitSeconds / 6))
@@ -265,7 +276,7 @@ object Clock {
 
     def incrementString: String = if(hasIncrement) s"+${incrementSeconds}" else ""
 
-    def byoyomiString: String = if(hasByoyomi) s"|${byoyomiSeconds}" else ""
+    def byoyomiString: String = if(hasByoyomi || !hasIncrement) s"|${byoyomiSeconds}" else ""
 
     def periodsString: String = if(periods > 1) s"(${periods}x)" else ""
 

@@ -10,6 +10,8 @@ import controllers.routes
 
 object bits {
 
+  private val dataLastmove = attr("data-lastmove")
+
   def featuredJs(pov: Pov): Frag =
     frag(
       gameFenNoCtx(pov, tv = true),
@@ -27,6 +29,14 @@ object bits {
       cls := "mini-board parse-fen cg-wrap is2d",
       dataColor := color.name,
       dataFen := fen.value
+    )(cgWrapContent)
+
+  def miniTag(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+    tag(
+      cls := "mini-board parse-fen cg-wrap is2d",
+      dataColor := color.name,
+      dataFen := fen.value,
+      dataLastmove := lastMove
     )(cgWrapContent)
 
   def gameIcon(game: Game): Char =

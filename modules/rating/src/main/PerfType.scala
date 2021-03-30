@@ -131,7 +131,6 @@ object PerfType {
     Classical,
     Correspondence,
   )
-  val nonGame: List[PerfType] = List(Puzzle)
   val leaderboardable: List[PerfType] = List(
     Bullet,
     Blitz,
@@ -142,8 +141,6 @@ object PerfType {
   )
   val variants: List[PerfType] = Nil
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
-
-  def isGame(pt: PerfType) = !nonGame.contains(pt)
 
   def variantOf(pt: PerfType): chess.variant.Variant =
     pt match {
