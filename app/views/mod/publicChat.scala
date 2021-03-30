@@ -73,7 +73,7 @@ object publicChat {
           )(
             userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
             " ",
-            communication.highlightBad(richText(line.text, expandImg = false))
+            communication.highlightBad(line.text)
           )
         }
       )

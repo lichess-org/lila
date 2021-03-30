@@ -17,8 +17,8 @@ object inquiry {
   // simul game study relay tournament
   private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""".r
 
-  def renderAtomText(atom: lila.report.Report.Atom) =
-    richText(
+  def renderAtomText(atom: lila.report.Report.Atom, highlight: Boolean) = {
+    val text =
       commFlagRegex.replaceAllIn(
         atom.simplifiedText,
         m => {
@@ -33,13 +33,13 @@ object inquiry {
           Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")
         }
       )
-    )
+    if (highlight) communication.highlightBad(text) else richText(text)
+  }
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
     def renderReport(r: lila.report.Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
-          val reportText = renderAtomText(atom)
           div(cls := "atom")(
             h3(
               reportScore(atom.score),
@@ -49,7 +49,7 @@ object inquiry {
               " ",
               momentFromNow(atom.at)
             ),
-            p(if (r.isComm) communication.highlightBad(reportText) else reportText)
+            p(renderAtomText(atom, r.isComm))
           )
         }
       )

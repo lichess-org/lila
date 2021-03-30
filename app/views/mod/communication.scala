@@ -88,7 +88,7 @@ object communication {
                   " ",
                   momentFromNowOnce(note.date),
                   ": ",
-                  highlightBad(richText(note.text))
+                  richText(note.text)
                 )
             }
           )
@@ -141,7 +141,7 @@ object communication {
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      highlightBad(richText(line.text))
+                      highlightBad(line.text)
                     )
                   }
                 )
@@ -160,7 +160,7 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(highlightBad(richText(msg.text)))
+                        td(highlightBad(msg.text))
                       )
                     }
                   )
@@ -172,10 +172,11 @@ object communication {
       )
     }
 
-  def highlightBad(html: Frag): Frag = {
-    val words             = Analyser(html.render).badWords
+  // incompatible with richText
+  def highlightBad(text: String): Frag = {
+    val words             = Analyser(text).badWords
     val regex             = ("""(?i)\b""" + words.mkString("(", "|", ")") + """\b""").r
     def tag(word: String) = s"<bad>$word</bad>"
-    raw(regex.replaceAllIn(html.render, m => tag(m.toString)))
+    raw(regex.replaceAllIn(text, m => tag(m.toString)))
   }
 }
