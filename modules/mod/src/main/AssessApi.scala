@@ -20,7 +20,7 @@ import lila.user.User
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
 import chess.Color
 
@@ -151,7 +151,7 @@ final class AssessApi(
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def randomPercent(percent: Int): Boolean =
-    Random.nextInt(100) < percent
+    ThreadLocalRandom.nextInt(100) < percent
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
 
@@ -178,7 +178,7 @@ final class AssessApi(
 
     def suspCoefVariation(c: Color) = {
       val x = noFastCoefVariation(game player c)
-      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean())
+      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)

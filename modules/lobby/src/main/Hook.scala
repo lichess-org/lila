@@ -125,7 +125,7 @@ object Hook {
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = Random nextString idSize,
+      id = lila.common.ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

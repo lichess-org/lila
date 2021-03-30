@@ -132,7 +132,7 @@ object Node {
   object Comment {
     case class Id(value: String) extends AnyVal
     object Id {
-      def make = Id(scala.util.Random.alphanumeric take 4 mkString)
+      def make = Id(lila.common.ThreadLocalRandom nextString 4)
     }
     private val metaReg = """\[%[^\]]+\]""".r
     case class Text(value: String) extends AnyVal {

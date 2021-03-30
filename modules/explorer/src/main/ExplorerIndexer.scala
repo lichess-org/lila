@@ -4,7 +4,7 @@ import akka.stream.scaladsl._
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import scala.util.Random.nextFloat
+import lila.common.ThreadLocalRandom.nextFloat
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream

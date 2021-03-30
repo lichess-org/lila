@@ -30,7 +30,7 @@ object Clas {
 
   def make(teacher: User, name: String, desc: String) =
     Clas(
-      _id = Id(scala.util.Random.alphanumeric take 8 mkString),
+      _id = Id(lila.common.ThreadLocalRandom nextString 8),
       name = name,
       desc = desc,
       teachers = NonEmptyList(teacher.id),

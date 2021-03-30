@@ -68,7 +68,7 @@ object Relay {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def makeId = Id(ornicar.scalalib.Random nextString 8)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN

@@ -2,7 +2,6 @@ package lila.bot
 
 import akka.actor._
 import akka.stream.scaladsl._
-import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -40,7 +39,7 @@ final class GameStateStream(
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
-        name = s"GameStateStream:${init.game.id}:${Random nextString 8}"
+        name = s"GameStateStream:${init.game.id}:${lila.common.ThreadLocalRandom nextString 8}"
       )
       queue.watchCompletion().foreach { _ =>
         actor ! PoisonPill

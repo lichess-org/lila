@@ -5,7 +5,6 @@ import chess.{ Speed, StartingPosition }
 import lila.rating.PerfType
 import lila.user.User
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 case class Simul(
     _id: Simul.ID,
@@ -153,7 +152,7 @@ object Simul {
       team: Option[String]
   ): Simul =
     Simul(
-      _id = Random nextString 8,
+      _id = lila.common.ThreadLocalRandom nextString 8,
       name = name,
       status = SimulStatus.Created,
       clock = clock,
