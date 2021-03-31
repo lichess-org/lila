@@ -217,7 +217,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局の申し込みを送信しました</string>
+  <string name="rematchOfferSent">再対局の申し込みです</string>
   <string name="rematchOfferSentWhite">白が再戦を求めています</string>
   <string name="rematchOfferSentBlack">黒が再戦を求めています</string>
   <string name="rematchOfferAccepted">再対局の申し込みを受け入れました</string>
@@ -804,8 +804,8 @@
   <string name="unsubscribe">投稿のフォローをはずす</string>
   <string name="mentionedYouInX"> 「%1$s」であなたの名前が出ました。</string>
   <string name="xMentionedYouInY"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
-  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
-  <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> 「%1$s」 への招待が来ました。</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
   <string name="someoneYouReportedWasBanned">あなたが通報した人が追放されました</string>

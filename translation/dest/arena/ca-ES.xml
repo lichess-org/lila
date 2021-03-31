@@ -37,4 +37,8 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="shareUrl">Comparteix aquest enllaç perquè altres persones s\'uneixin: %s</string>
   <string name="drawStreak">Ratxa de taules: Quan un jugador té taules consecutives en un arena, només la primera compta com a punt, o les que tinguin més de %s moviments. La ratxa només es trenca amb una victòria, ni perdent o fent taules.</string>
   <string name="history">Historial de torneigs Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Veure l\'equip</item>
+    <item quantity="other">Veure els %s equips</item>
+  </plurals>
 </resources>

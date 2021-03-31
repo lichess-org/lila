@@ -803,8 +803,8 @@
   <string name="unsubscribe">取消订阅</string>
   <string name="mentionedYouInX"> 在 “%1$s” 中提到了你。</string>
   <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了你。</string>
-  <string name="invitedYouToX"> 邀请你加入\"%1$s\"。</string>
-  <string name="xInvitedYouToY">%1$s 邀请你加入 \"%2$s\"。</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> 邀请你加入\"%1$s\"。</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s 邀请你加入 \"%2$s\"。</string>
   <string name="youAreNowPartOfTeam">你现在是团队的成员。</string>
   <string name="youHaveJoinedTeamX">你已加入\"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">你举报的用户已被封禁</string>
@@ -813,9 +813,9 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">您已成为 lichess 的赞助者</string>
   <string name="patronAccountExpired">赞助账户已过期</string>
-  <string name="pleaseReconsiderRenewIt">请考虑重新订阅！</string>
+  <string name="pleaseReconsiderRenewIt">请考虑续期！</string>
   <string name="someoneReviewedYourCoachProfile">有人审查了您的教练简介。</string>
-  <string name="lostAgainstTOSViolator">您输给违反Lichess使用条件的用户</string>
+  <string name="lostAgainstTOSViolator">您输给了违反 Lichess 服务条款的用户</string>
   <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">退回 %1$s %2$s 等级分。</string>
   <string name="timeAlmostUp">时间快到了！</string>
 </resources>

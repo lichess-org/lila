@@ -50,4 +50,9 @@
   <string name="history">Ushtrimet e kaluara</string>
   <string name="solved">zgjidhur</string>
   <string name="failed">dështoj</string>
+  <string name="streakDescription">Zgjidh ushtrime që bëhen më të vështira. Nuk ka kufizim kohe, kështu qe mendohu mirë, një lëvizje e gabuar, dhe humb! Mund ta kapërcesh vetëm një ushtrim.</string>
+  <string name="yourStreakX">Rrezultati juaj: %s</string>
+  <string name="streakSkipExplanation">Kapërce këtë lëvizje qe te ruash kombinimet! Bën vetëm një herë per garë.</string>
+  <string name="continueTheStreak">Vazhdoje raundin</string>
+  <string name="newStreak">Raund i ri</string>
 </resources>

@@ -1,2 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Заданні</string>
+  <string name="puzzleThemes">Тэмы заданняў</string>
+  <string name="recommended">Рэкамендаваныя</string>
+  <string name="phases">Стадыі гульні</string>
+  <string name="motifs">Матывы</string>
+  <string name="advanced">Прасунутыя</string>
+  <string name="lengths">Колькасць хадоў</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Мэты</string>
+  <string name="origin">Паходжанне</string>
+  <string name="specialMoves">Адмысловыя хады</string>
+  <string name="didYouLikeThisPuzzle">Ці спадабалася заданне?</string>
+  <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнага!</string>
+  <string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні заданняў: %s</string>
+  <string name="findTheBestMoveForWhite">Знайдзіце лепшы ход за белых.</string>
+  <string name="findTheBestMoveForBlack">Знайдзіце лепшы ход за чорных.</string>
+  <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя заданні:</string>
+  <string name="puzzleId">Заданне %s</string>
+  <string name="puzzleOfTheDay">Заданне дня</string>
+  <string name="clickToSolve">Націсніце, каб рашыць</string>
+  <string name="goodMove">Добры ход</string>
+  <string name="bestMove">Лепшы ход!</string>
+  <string name="keepGoing">Працягвайце…</string>
+  <string name="puzzleSuccess">Поспех!</string>
+  <string name="puzzleComplete">Заданне рэшана!</string>
+  <string name="notTheMove">Гэта не ход!</string>
+  <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
+  <string name="ratingX">Рэйтынг: %s</string>
+  <string name="hidden">схаваны</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Згуляна %s раз</item>
+    <item quantity="few">Згуляна %s разы</item>
+    <item quantity="many">Згуляна %s разоў</item>
+    <item quantity="other">Згуляна %s разоў</item>
+  </plurals>
+  <string name="fromGameLink">З гульні %s</string>
+  <string name="continueTraining">Працягнуць трэніроўку</string>
+  <string name="difficultyLevel">Узровень складанасці</string>
+  <string name="normal">Нармальны</string>
+  <string name="easier">Лёгкі</string>
+  <string name="easiest">Найлягчэйшы</string>
+  <string name="harder">Цяжкі</string>
+  <string name="hardest">Найцяжэйшы</string>
+  <string name="example">Прыклад</string>
+  <string name="addAnotherTheme">Дадаць іншую тэму</string>
+  <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнага задання</string>
+  <string name="puzzleDashboard">Панэль заданняў</string>
+  <string name="improvementAreas">Напрамкі паляпшэння</string>
+  <string name="strengths">Моцныя бакі</string>
+  <string name="history">Гісторыя заданняў</string>
+  <string name="solved">рэшана</string>
+  <string name="failed">памылка</string>
+  <string name="streakDescription">Рашайце заданнi, якія паступова ўскладняюцца, і стварыце пераможную серыю. Тут няма гадзін, так што не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за сеанс.</string>
+  <string name="yourStreakX">Ваша серыя: %s</string>
+  <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>
+  <string name="continueTheStreak">Працягнуць серыю</string>
+  <string name="newStreak">Новая серыя</string>
+</resources>

@@ -57,8 +57,8 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
 Het wordt beschreven in sectie 3. (d) van de %2$s:
 	
 \"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig na deze voorgang en dit wordt \"en passant\" slaan genoemd.
-    
-  Zie de %3$s over deze zet om er wat mee te oefenen.</string>
+ 
+ Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="goodIntroduction">goede inleiding</string>
   <string name="officialRulesPDF">officiële regels (pdf)</string>
   <string name="lichessTraining">Lichess-training</string>
