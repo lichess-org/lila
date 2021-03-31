@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваша чарга</string>
   <string name="aiNameLevelAiLevel">%1$s узровень %2$s</string>
   <string name="level">Узровень</string>
+  <string name="strength">Складанасць</string>
   <string name="toggleTheChat">Укл./адкл. чат</string>
   <string name="toggleSound">Укл./адкл. гук</string>
   <string name="chat">Чат</string>

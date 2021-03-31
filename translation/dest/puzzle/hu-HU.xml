@@ -50,4 +50,9 @@
   <string name="history">Korábbi feladványok</string>
   <string name="solved">megoldva</string>
   <string name="failed">sikertelen</string>
+  <string name="streakDescription">Oldj meg egyre nehezedő feladványokat nyerő széria építéséhez. Nincs időkorlát, szánd rá az időt. Egyetlen hibás lépés és a játéknak vége. Viszont mindig egyet átugorhatsz.</string>
+  <string name="yourStreakX">Nyerő szériád: %s</string>
+  <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
+  <string name="continueTheStreak">Széria folytatása</string>
+  <string name="newStreak">Új széria</string>
 </resources>

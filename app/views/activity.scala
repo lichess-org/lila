@@ -85,7 +85,7 @@ object activity {
       scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty || u.perfs.dubiousPuzzle).map(ratingProgFrag)
+        p.score.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
       )
     )
 

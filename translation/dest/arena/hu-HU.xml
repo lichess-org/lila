@@ -39,4 +39,8 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="shareUrl">Ezt az URL-t oszd meg azokkal, akiket meg akarsz hívni: %s</string>
   <string name="drawStreak">Döntetlen sorozat: Ha egy játékos egymás után több döntetlent játszik, csak az elsőért jár pont, illetve amelyben legalább %s lépés volt. Ezt a sorozatot csak nyeréssel lehet megszakítani, vereséggel vagy döntetlennel nem.</string>
   <string name="history">Versenynapló</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Csapat megtekintése</item>
+    <item quantity="other">Mind a %s csapat megtekintése</item>
+  </plurals>
 </resources>

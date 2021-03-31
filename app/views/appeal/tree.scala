@@ -214,22 +214,39 @@ object tree {
     )
   }
 
+  private def altScreen(implicit ctx: Context) = div(cls := "leaf")(
+    h2("Your account was closed by moderators."),
+    div(cls := "content")(
+      p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
+      p(
+        "If you violated the terms of service on a previous account, then you are not allowed to make a new one, ",
+        "unless it was explicitely allowed by the moderation team during an appeal."
+      ),
+      p(
+        "If you never violated the terms of service, and didn't make several accounts, then you can appeal this account closure:"
+      )
+    ),
+    newAppeal()
+  )
+
   def apply(me: User, playban: Boolean)(implicit ctx: Context) =
     bits.layout("Appeal a moderation decision") {
       val query = isGranted(_.Appeals) ?? ctx.req.queryString.toMap
       main(cls := "page page-small box box-pad appeal")(
         h1("Appeal"),
         div(cls := "nav-tree")(
-          renderNode(
-            {
-              if (playban || query.contains("playban")) playbanMenu
-              else if (me.marks.engine || query.contains("engine")) engineMenu
-              else if (me.marks.boost || query.contains("boost")) boostMenu
-              else if (me.marks.troll || query.contains("shadowban")) muteMenu
-              else cleanMenu
-            },
-            none
-          )
+          if ((me.disabled && me.marks.alt) || query.contains("alt")) altScreen
+          else
+            renderNode(
+              {
+                if (playban || query.contains("playban")) playbanMenu
+                else if (me.marks.engine || query.contains("engine")) engineMenu
+                else if (me.marks.boost || query.contains("boost")) boostMenu
+                else if (me.marks.troll || query.contains("shadowban")) muteMenu
+                else cleanMenu
+              },
+              none
+            )
         ),
         div(cls := "appeal__rules")(
           p(cls := "text", dataIcon := "")(doNotMessageModerators()),
