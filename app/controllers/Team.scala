@@ -84,11 +84,15 @@ final class Team(
     )
 
   private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) = {
-    val team: Team = api.team(teamId)
-    if (!team.hideMembers || (oauth && belongsTo(Some(me), team))){
-      Action.async { implicit req =>
-        team flatMap {
-          _ ?? { team =>
+    val team: Fu[Option[TeamModel]] = api.team(teamId)
+    val userId: UserModel.ID = me match {
+      case Some(user) => user.id
+      case _ => ""
+    }
+    Action.async { implicit req =>
+      team flatMap {
+        _ ?? { team =>
+          if (!team.hideMembers || (userId && oauth && api.belongsTo(teamId, userId))){
             apiC.jsonStream {
               env.team
                 .memberStream(team, MaxPerSecond(20))
