@@ -79,26 +79,28 @@ final class Team(
 
   def users(teamId: String) =
     AnonOrScoped()(
-      anon = req => usersExport(teamId, none, req, oauth = false),
-      scoped = req => me => usersExport(teamId, me.some, req, oauth = true)
+      anon = req => usersExport(teamId, none, req),
+      scoped = req => me => usersExport(teamId, me.some, req)
     )
 
-  private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) = {
+  private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader) = {
     val team: Fu[Option[TeamModel]] = api.team(teamId)
-    val userId: UserModel.ID = me match {
-      case Some(user) => user.id
-      case _ => ""
-    }
-    Action.async { implicit req =>
-      team flatMap {
-        _ ?? { team =>
-          if (!team.hideMembers || (userId && oauth && api.belongsTo(teamId, userId))){
-            apiC.jsonStream {
-              env.team
-                .memberStream(team, MaxPerSecond(20))
-                .map(env.api.userApi.one)
-            }.fuccess
+    team flatMap {
+      _ ?? { team =>
+        val canView: Fu[Boolean] =
+          if (!team.hideMembers) fuccess(true)
+          else me match {
+            case Some(user) => api.belongsTo(team.id, user.id)
+            case _ => fuccess(false)
           }
+        if (canView.flatMap(_)){ //I know it's not flatmap but hmmm
+          apiC.jsonStream ({
+            env.team
+              .memberStream(team, MaxPerSecond(20))
+              .map(env.api.userApi.one)
+          }.fuccess)(req) //also know this breaks
+        } else {
+          Unauthorized
         }
       }
     }
