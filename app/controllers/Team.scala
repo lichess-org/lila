@@ -93,14 +93,13 @@ final class Team(
             case Some(user) => api.belongsTo(team.id, user.id)
             case _ => fuccess(false)
           }
-        if (canView.flatMap(_)){ //I know it's not flatmap but hmmm
-          apiC.jsonStream ({
+        canView map { 
+          case true => apiC.jsonStream (
             env.team
               .memberStream(team, MaxPerSecond(20))
               .map(env.api.userApi.one)
-          }.fuccess)(req) //also know this breaks
-        } else {
-          Unauthorized
+            )(req)
+          case false => Unauthorized
         }
       }
     }
