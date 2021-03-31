@@ -32,6 +32,13 @@
   <string name="eightVariants">8 varian catur</string>
   <string name="fideHandbookX">pedoman FIDE %s</string>
   <string name="discoveringEnPassant">Mengapa sebuah bidak dapat memakan bidak lain meski bidak tersebut sudah lewat? (en passant)</string>
+  <string name="explainingEnPassant">Ini merupakan gerakan legal yang dinamakan \"en passant\". Artikel Wikipedia memberikan sebuah %1$s.
+
+Gerakan ini dijelaskan dalam bagian 3.7 (d) dari %2$s:
+
+\"Sebuah bidak yang menempati petak pada baris yang sama dan pada lajur yang bersebelahan dengan bidan lawan yang baru saja maju dua petak dalam satu gerakan dari petak asalnya boleh menangkap bidak lawan tersebut seakan-akan yang terakhir baru saja melangkah satu petak. Tangkapan ini hanya diperbolehkan dalam langkah yang diambil setelah langkah maju ini dan disebut tangkapan \'en passant\'.\"
+
+Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
   <string name="goodIntroduction">pengenalan yang baik</string>
   <string name="officialRulesPDF">peraturan resmi (PDF)</string>
   <string name="lichessTraining">latihan Lichess</string>
@@ -39,6 +46,7 @@
   <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>
   <string name="threefoldRepetitionLowerCase">pengulangan tiga kali</string>
   <string name="positions">posisi</string>
+  <string name="configure">pengaturan</string>
   <string name="accounts">Akun</string>
   <string name="titlesAvailableOnLichess">Gelar apa saja yang terdapat pada Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess mengakui semua gelar FIDE yang diperoleh dari permainan di atas papan (over the board/OTB), serta %1$s. Berikut adalah daftar gelar FIDE:</string>
