@@ -36,7 +36,6 @@ final class Mailgun(
             "from"       -> Seq(msg.from | config.sender),
             "to"         -> Seq(msg.to.value),
             "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
-            "o:tag"      -> msg.tag.toSeq,
             "subject"    -> Seq(msg.subject),
             "text"       -> Seq(msg.text)
           ) ++ msg.htmlBody.?? { body =>
@@ -79,7 +78,6 @@ object Mailgun {
       htmlBody: Option[Frag] = none,
       from: Option[String] = none,
       replyTo: Option[String] = none,
-      tag: Option[String] = none,
       retriesLeft: Int = 3
   )
 
