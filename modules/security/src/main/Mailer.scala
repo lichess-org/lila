@@ -3,10 +3,10 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.mailer.{ Email, MailerClient }
-import scala.concurrent.duration._
+import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
+import scala.concurrent.duration.{ span => _, _ }
 import scala.concurrent.{ blocking, Future }
-import scalatags.Text.all.{ span => spanTag, _ }
+import scalatags.Text.all._
 
 import lila.common.config.Secret
 import lila.common.{ Chronometer, EmailAddress }
@@ -14,7 +14,6 @@ import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailer(
-    client: MailerClient,
     config: Mailer.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -23,6 +22,18 @@ final class Mailer(
 
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
+
+  private val client = new SMTPMailer(
+    SMTPConfiguration(
+      host = config.smtpHost,
+      port = config.smtpPort,
+      tlsRequired = config.smtpTls,
+      user = config.smtpUser.some,
+      password = config.smtpPassword.some,
+      mock = config.smtpMock,
+      timeout = Mailer.timeout.toMillis.toInt.some
+    )
+  )
 
   def send(msg: Mailer.Message): Funit =
     if (msg.to.isNoReply) {
@@ -59,8 +70,8 @@ object Mailer {
       @ConfigName("smtp.mock") smtpMock: Boolean,
       @ConfigName("smtp.host") smtpHost: String,
       @ConfigName("smtp.port") smtpPort: Int,
-      @ConfigName("smtp.user") smtpUser: String,
       @ConfigName("smtp.tls") smtpTls: Boolean,
+      @ConfigName("smtp.user") smtpUser: String,
       @ConfigName("smtp.password") smtpPassword: String,
       sender: String
   )
@@ -93,7 +104,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
     val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
-      spanTag(itemprop := "name")("lichess.org/contact")
+      span(itemprop := "name")("lichess.org/contact")
     )
 
     def serviceNote(implicit lang: Lang) =
@@ -120,7 +131,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     val noteLink = a(
       itemprop := "url",
       href := "https://lichess.org/"
-    )(spanTag(itemprop := "name")("lichess.org"))
+    )(span(itemprop := "name")("lichess.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(
