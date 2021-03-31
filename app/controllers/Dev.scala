@@ -10,7 +10,7 @@ final class Dev(env: Env) extends LilaController(env) {
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
-    env.security.mailerSecondaryPercentageSetting,
+    env.security.mailerSecondaryPermilleSetting,
     env.irwin.irwinThresholdsSetting,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdsSetting,

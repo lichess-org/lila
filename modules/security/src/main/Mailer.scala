@@ -15,7 +15,7 @@ import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailer(
     config: Mailer.Config,
-    getSecondaryPercentage: () => Int
+    getSecondaryPermille: () => Int
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -28,7 +28,7 @@ final class Mailer(
   private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
 
   private def randomClient(): SMTPMailer =
-    if (ThreadLocalRandom.nextInt(100) < getSecondaryPercentage()) secondaryClient
+    if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) secondaryClient
     else primaryClient
 
   def send(msg: Mailer.Message): Funit =

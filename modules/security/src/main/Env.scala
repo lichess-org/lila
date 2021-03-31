@@ -79,15 +79,15 @@ final class Env(
     mk(ugcArmedSetting.get _)
   }
 
-  lazy val mailerSecondaryPercentageSetting = settingStore[Int](
-    "mailerSecondaryPercentage",
+  lazy val mailerSecondaryPermilleSetting = settingStore[Int](
+    "mailerSecondaryPermille",
     default = 0,
-    text = "Percentage of mails to send using secondary SMTP configuration".some
+    text = "Permille of mails to send using secondary SMTP configuration".some
   )
 
   private lazy val mailer = new Mailer(
     config.mailer,
-    getSecondaryPercentage = () => mailerSecondaryPercentageSetting.get()
+    getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
   )
 
   lazy val emailConfirm: EmailConfirm =
