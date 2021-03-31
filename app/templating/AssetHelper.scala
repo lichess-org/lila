@@ -54,7 +54,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     )
 
   def jsModule(name: String): Frag =
-    jsAt(s"compiled/$name.js")
+    jsAt(s"compiled/${name}${isProd ?? ".min"}.js")
 
   lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
