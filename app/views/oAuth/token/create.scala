@@ -67,7 +67,7 @@ object create {
                 "For example: ",
                 a(href := url)(url),
                 br,
-                "ticks the challenge:create and preferences:read permissions, and sets the token description.",
+                "ticks the challenge:create and preference:read permissions, and sets the token description.",
                 br,
                 "The permission codes can be found in the HTML code of the form.",
                 br,
