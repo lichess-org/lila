@@ -35,7 +35,7 @@ object side {
         },
         span(
           h3(perfType.trans),
-          if (isPuzzle && u.perfs.dubiousPuzzle) st.rating("?")
+          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u)) st.rating("?")
           else
             st.rating(
               if (perf.glicko.clueless) strong("?")

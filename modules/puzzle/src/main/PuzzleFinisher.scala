@@ -36,7 +36,7 @@ final private[puzzle] class PuzzleFinisher(
       user: User,
       result: Result
   ): Fu[Option[(PuzzleRound, Perf)]] =
-    if (api.casual(user, id) || user.perfs.dubiousPuzzle) fuccess {
+    if (api.casual(user, id)) fuccess {
       PuzzleRound(
         id = PuzzleRound.Id(user.id, id),
         win = result.win,
@@ -69,7 +69,7 @@ final private[puzzle] class PuzzleFinisher(
                     null
                   )
                   updateRatings(userRating, puzzleRating, result.glicko)
-                  val newPuzzleGlicko = ponder
+                  val newPuzzleGlicko = !user.perfs.dubiousPuzzle ?? ponder
                     .puzzle(
                       theme,
                       result,
