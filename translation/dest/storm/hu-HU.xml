@@ -48,5 +48,5 @@
   <string name="raceYourFriends">Versenyezz a barátaiddal</string>
   <string name="skip">kihagy</string>
   <string name="skipHelp">ÚJ! Kihagyhatsz egy lépést versenyenként:</string>
-  <string name="skipExplanation">Lépés kihagyása a kombó megőrzéséhez! Csak egyszer használható versenyenként.</string>
+  <string name="skipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
 </resources>
