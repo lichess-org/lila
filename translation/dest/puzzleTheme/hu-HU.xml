@@ -8,7 +8,7 @@
   <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
   <string name="arabianMate">Arab matt</string>
   <string name="arabianMateDescription">Egy huszár és egy bástya közösen sarokba szorítják az ellenfél királyát.</string>
-  <string name="attackingF2F7">f2 vagy f7 támadása</string>
+  <string name="attackingF2F7">Az f2 vagy f7 támadása</string>
   <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
   <string name="attraction">Ráterelés</string>
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
