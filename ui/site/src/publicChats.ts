@@ -56,7 +56,7 @@ lichess.load.then(() => {
             reason: this.value,
             text: $wrap.find('.text').text(),
           }),
-        }).then(_ => reloadNow());
+        }).then(_ => setTimeout(reloadNow, 1000));
       });
     });
   };
