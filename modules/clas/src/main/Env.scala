@@ -43,7 +43,10 @@ final class Env(
       progressApi.onFinishGame(game).unit
     },
     "clas" -> { case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
-      promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
+      promise completeWith api.clas.isTeacherOf(teacher, student)
+    },
+    "clas" -> { case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      promise completeWith api.clas.areKidsInSameClass(kid1, kid2)
     }
   )
 }
