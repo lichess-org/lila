@@ -31,7 +31,8 @@ case class UserMarks(value: List[UserMark]) extends AnyVal {
   def alt                   = apply(UserMark.Alt)
 
   def nonEmpty = value.nonEmpty option this
-  def clean    = !value.exists(UserMark.bannable.contains)
+  def dirty    = value.exists(UserMark.bannable.contains)
+  def clean    = !dirty
 
   def set(sel: UserMark.type => UserMark, v: Boolean) =
     UserMarks {

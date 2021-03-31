@@ -109,6 +109,8 @@ object HTTPRequest {
     }
   }
 
+  def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
+
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers
     if (isXhr(req)) apiVersion(req).fold("xhr") { v =>

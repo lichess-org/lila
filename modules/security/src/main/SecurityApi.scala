@@ -22,6 +22,7 @@ final class SecurityApi(
     userRepo: UserRepo,
     store: Store,
     firewall: Firewall,
+    cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
@@ -103,12 +104,16 @@ final class SecurityApi(
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
-  def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
+  def restoreUser(req: RequestHeader): Fu[Option[Either[AppealUser, FingerPrintedUser]]] =
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
-      store.authInfo(sessionId) flatMap {
-        _ ?? { d =>
-          userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.hasFp) } }
-        }
+      appeal.authenticate(sessionId) match {
+        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
+        case None =>
+          store.authInfo(sessionId) flatMap {
+            _ ?? { d =>
+              userRepo byId d.user dmap { _ map { u => Right(FingerPrintedUser(u, d.hasFp)) } }
+            }
+          }
       }
     }
 
@@ -174,6 +179,28 @@ final class SecurityApi(
       ),
       ReadPreference.secondaryPreferred
     )
+
+  // special temporary auth for marked closed accounts so they can use appeal endpoints
+  object appeal {
+
+    private type SessionId = String
+
+    private val prefix = "appeal:"
+
+    private val store = cacheApi.notLoadingSync[SessionId, User.ID](256, "security.session.appeal")(
+      _.expireAfterAccess(7.days).build()
+    )
+
+    def authenticate(sessionId: SessionId): Option[User.ID] =
+      sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
+
+    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
+      val sessionId = s"$prefix${Random secureString 22}"
+      store.put(sessionId, userId)
+      logger.info(s"Appeal login by $userId")
+      fuccess(sessionId)
+    }
+  }
 }
 
 object SecurityApi {

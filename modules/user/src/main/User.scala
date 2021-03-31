@@ -36,7 +36,7 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}${!enabled ?? " closed"}"
 
   def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
@@ -79,7 +79,7 @@ case class User(
   def lameOrAlt        = lame || marks.alt
   def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
-  def canLogin = enabled || !lameOrTrollOrAlt
+  def canFullyLogin = enabled || !lameOrTrollOrAlt
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 

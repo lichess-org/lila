@@ -17,6 +17,8 @@ case class AuthInfo(user: User.ID, hasFp: Boolean)
 
 case class FingerPrintedUser(user: User, hasFingerPrint: Boolean)
 
+case class AppealUser(user: User)
+
 case class UserSession(
     _id: String,
     ip: IpAddress,
