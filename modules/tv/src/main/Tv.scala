@@ -89,7 +89,7 @@ object Tv {
         extends Channel(
           name = S.Bullet.name,
           icon = P.Bullet.iconChar.toString,
-          secondsSinceLastMove = 35,
+          secondsSinceLastMove = 40,
           filters = Seq(speed(S.Bullet), standardShogiRules, noBot)
         )
     case object Blitz
@@ -117,7 +117,7 @@ object Tv {
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.iconChar.toString,
-          secondsSinceLastMove = 20,
+          secondsSinceLastMove = 30,
           filters = Seq(speed(S.UltraBullet), standardShogiRules, noBot)
         )
     case object Bot

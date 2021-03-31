@@ -98,11 +98,11 @@ object faq {
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(30, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(180, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(480, "Blitz")),
-            li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
-            li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
+            li(inferiorThanXsEqualYtimeControl(60, "UltraBullet")),
+            li(inferiorThanXsEqualYtimeControl(300, "Bullet")),
+            li(inferiorThanXsEqualYtimeControl(900, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(2700, trans.rapid())),
+            li(superiorThanXsEqualYtimeControl(2700, trans.classical()))
           )
         ),
         //question( // todo variant

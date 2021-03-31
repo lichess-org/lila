@@ -242,9 +242,11 @@ object Clock {
     
     def berserkable = (incrementSeconds == 0 && byoyomiSeconds == 0) || limitSeconds > 0
 
-    def emergSeconds = math.min(60, math.max(10, limitSeconds / 8))
+    // Activate low time warning when between 10 and 90 seconds remain
+    def emergSeconds = math.min(90, math.max(10, limitSeconds / 6))
 
-    def estimateTotalSeconds = limitSeconds + 40 * incrementSeconds + 25 * periods * byoyomiSeconds
+    // Estimate 90 moves (per player) per game
+    def estimateTotalSeconds = limitSeconds + 90 * incrementSeconds + 25 * periods * byoyomiSeconds
 
     def estimateTotalTime = Centis.ofSeconds(estimateTotalSeconds)
 
@@ -285,12 +287,12 @@ object Clock {
     def startsAtZero = limitSeconds == 0 && hasByoyomi
 
     def berserkPenalty =
-      if (limitSeconds < 40 * incrementSeconds || limitSeconds < 40 * byoyomiSeconds) Centis(0)
+      if (limitSeconds < 60 * incrementSeconds || limitSeconds < 25 * byoyomiSeconds) Centis(0)
       else Centis(limitSeconds * (100 / 2))
 
     def initTime = {
-      if (limitSeconds == 0 && hasByoyomi) byoyomi atLeast Centis(300)
-      else if (limitSeconds == 0) increment atLeast Centis(300)
+      if (limitSeconds == 0 && hasByoyomi) byoyomi atLeast Centis(500)
+      else if (limitSeconds == 0) increment atLeast Centis(500)
       else limit
     }
   }
