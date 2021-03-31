@@ -58,7 +58,7 @@ object create {
           br,
           div {
             val url =
-              s"${netBaseUrl}${routes.OAuthToken.create()}?scopes[]=challenge:write&scopes[]=preferences:read&description=Prefilled+token+example"
+              s"${netBaseUrl}${routes.OAuthToken.create()}?scopes[]=challenge:write&scopes[]=preference:read&description=Prefilled+token+example"
             frag(
               h2("Note for the attention of developers only:"),
               p(
