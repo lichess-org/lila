@@ -10,13 +10,13 @@ import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class Reopen(
-    mailgun: Mailgun,
+    mailer: Mailer,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def prepare(
       username: String,
@@ -54,7 +54,7 @@ final class Reopen(
     tokener make user.id flatMap { token =>
       lila.mon.email.send.reopen.increment()
       val url = s"$baseUrl/account/reopen/login/$token"
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = s"Reopen your lichess.org account: ${user.username}",
         text = s"""
@@ -64,11 +64,11 @@ $url
 
 ${trans.common_orPaste.txt()}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
-          potentialAction(metaName("Log in"), Mailgun.html.url(url)),
+          potentialAction(metaName("Log in"), Mailer.html.url(url)),
           serviceNote
         ).some
       )

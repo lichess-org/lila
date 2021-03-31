@@ -13,11 +13,11 @@ import lila.base.LilaException
 
 final class AutomaticEmail(
     userRepo: UserRepo,
-    mailgun: Mailgun,
+    mailer: Mailer,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   val regards = """Regards,
 
@@ -27,13 +27,13 @@ The Lichess team"""
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
-    mailgun send Mailgun.Message(
+    mailer send Mailer.Message(
       to = email,
       subject = trans.welcome_subject.txt(user.username),
       text = s"""
 ${trans.welcome_text.txt(profileUrl, editUrl)}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
       htmlBody = standardEmail(
         trans.welcome_text.txt(profileUrl, editUrl)
@@ -57,13 +57,13 @@ $regards
       }
       _ <- emailOption ?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )
@@ -86,13 +86,13 @@ $regards
     userRepo email user.id flatMap {
       _ ?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = "Coach profile unlocked on lichess.org",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )
@@ -120,13 +120,13 @@ $regards
       }
       _ <- emailOption.?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = "Your private fishnet key",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )

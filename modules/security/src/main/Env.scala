@@ -4,6 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.mailer.{ MailerClient, SMTPConfiguration, SMTPMailer }
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -79,13 +80,25 @@ final class Env(
     mk(ugcArmedSetting.get _)
   }
 
-  private lazy val mailgun: Mailgun = wire[Mailgun]
+  private lazy val mailerClient: MailerClient = new SMTPMailer(
+    SMTPConfiguration(
+      host = config.mailer.smtpHost,
+      port = config.mailer.smtpPort,
+      tlsRequired = config.mailer.smtpTls,
+      user = config.mailer.smtpUser.some,
+      password = config.mailer.smtpPassword.some,
+      mock = config.mailer.smtpMock,
+      timeout = Mailer.timeout.toMillis.toInt.some
+    )
+  )
+
+  private lazy val mailer: Mailer = wire[Mailer]
 
   lazy val emailConfirm: EmailConfirm =
     if (config.emailConfirm.enabled)
-      new EmailConfirmMailgun(
+      new EmailConfirmMailer(
         userRepo = userRepo,
-        mailgun = mailgun,
+        mailer = mailer,
         baseUrl = baseUrl,
         tokenerSecret = config.emailConfirm.secret
       )

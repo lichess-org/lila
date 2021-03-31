@@ -3,71 +3,66 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
-import scala.concurrent.duration.{ span => _, _ }
-import scalatags.Text.all._
+import play.api.libs.mailer.{ Email, MailerClient }
+import scala.concurrent.duration._
+import scala.concurrent.{ blocking, Future }
+import scalatags.Text.all.{ span => spanTag, _ }
 
 import lila.common.config.Secret
-import lila.common.EmailAddress
+import lila.common.{ Chronometer, EmailAddress }
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
-final class Mailgun(
-    ws: StandaloneWSClient,
-    config: Mailgun.Config
+final class Mailer(
+    client: MailerClient,
+    config: Mailer.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
-  def send(msg: Mailgun.Message): Funit =
-    if (config.apiUrl.isEmpty) {
-      logger.info(s"$msg -> No mailgun API URL")
-      funit
-    } else if (msg.to.isNoReply) {
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
+
+  def send(msg: Mailer.Message): Funit =
+    if (msg.to.isNoReply) {
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     } else
-      ws.url(s"${config.apiUrl}/messages")
-        .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC)
-        .post(
-          Map(
-            "from"       -> Seq(msg.from | config.sender),
-            "to"         -> Seq(msg.to.value),
-            "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
-            "subject"    -> Seq(msg.subject),
-            "text"       -> Seq(msg.text)
-          ) ++ msg.htmlBody.?? { body =>
-            Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-          }
-        )
-        .addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment().unit
-          case _                            =>
-        }
-        .flatMap {
-          case res if res.status >= 300 =>
-            lila.mon.email.send.error(res.status.toString).increment()
-            fufail(s"""Can't send to mailgun: ${res.status} to: "${msg.to.value}" ${res.body take 500}""")
-          case _ => funit
-        }
-        .mon(_.email.send.time)
-        .recoverWith {
-          case _ if msg.retriesLeft > 0 =>
-            akka.pattern.after(15 seconds, system.scheduler) {
-              send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+      workQueue {
+        Future {
+          Chronometer.syncMon(_.email.send.time) {
+            blocking {
+              client
+                .send(
+                  Email(
+                    subject = msg.subject,
+                    from = config.sender,
+                    replyTo = Seq(config.sender),
+                    to = Seq(msg.to.value),
+                    bodyText = msg.text.some,
+                    bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
+                  )
+                )
+                .unit
             }
+          }
         }
+      }
 }
 
-object Mailgun {
+object Mailer {
+
+  val timeout = 10 seconds
 
   case class Config(
-      @ConfigName("api.url") apiUrl: String,
-      @ConfigName("api.key") apiKey: Secret,
-      sender: String,
-      @ConfigName("reply_to") replyTo: String
+      @ConfigName("smtp.mock") smtpMock: Boolean,
+      @ConfigName("smtp.host") smtpHost: String,
+      @ConfigName("smtp.port") smtpPort: Int,
+      @ConfigName("smtp.user") smtpUser: String,
+      @ConfigName("smtp.tls") smtpTls: Boolean,
+      @ConfigName("smtp.password") smtpPassword: String,
+      sender: String
   )
   implicit val configLoader = AutoConfig.loader[Config]
 
@@ -75,10 +70,7 @@ object Mailgun {
       to: EmailAddress,
       subject: String,
       text: String,
-      htmlBody: Option[Frag] = none,
-      from: Option[String] = none,
-      replyTo: Option[String] = none,
-      retriesLeft: Int = 3
+      htmlBody: Option[Frag] = none
   )
 
   object txt {
@@ -101,13 +93,13 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
     val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
-      span(itemprop := "name")("lichess.org/contact")
+      spanTag(itemprop := "name")("lichess.org/contact")
     )
 
     def serviceNote(implicit lang: Lang) =
       publisher(
         small(
-          trans.common_note(Mailgun.html.noteLink),
+          trans.common_note(Mailer.html.noteLink),
           " ",
           trans.common_contact(noteContact),
           " ",
@@ -128,7 +120,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     val noteLink = a(
       itemprop := "url",
       href := "https://lichess.org/"
-    )(span(itemprop := "name")("lichess.org"))
+    )(spanTag(itemprop := "name")("lichess.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(
@@ -137,7 +129,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         p(trans.common_orPaste(lang))
       )
 
-    private[Mailgun] def wrap(subject: String, body: Frag): Frag =
+    private[Mailer] def wrap(subject: String, body: Frag): Frag =
       frag(
         raw(s"""<!doctype html>
 <html>

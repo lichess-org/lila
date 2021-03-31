@@ -8,12 +8,12 @@ import lila.user.{ User, UserRepo }
 
 final class EmailChange(
     userRepo: UserRepo,
-    mailgun: Mailgun,
+    mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def send(user: User, email: EmailAddress): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
@@ -21,7 +21,7 @@ final class EmailChange(
       implicit val lang = user.realLang | lila.i18n.defaultLang
       val url           = s"$baseUrl/account/email/confirm/$token"
       lila.log("auth").info(s"Change email URL ${user.username} $email $url")
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = trans.emailChange_subject.txt(user.username),
         text = s"""
@@ -32,12 +32,12 @@ $url
 
 ${trans.common_orPaste.txt()}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
         htmlBody = emailMessage(
           pDesc(trans.emailChange_intro()),
           p(trans.emailChange_click()),
-          potentialAction(metaName("Change email address"), Mailgun.html.url(url)),
+          potentialAction(metaName("Change email address"), Mailer.html.url(url)),
           serviceNote
         ).some
       )
