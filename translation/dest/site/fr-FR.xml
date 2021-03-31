@@ -657,10 +657,10 @@
 	<string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
 	<string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
 	<string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
-	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
-	<string name="hostColorForEachGame">Host color for each game</string>
-	<string name="onlyMembersOfTeam">Only members of team</string>
-	<string name="simulDescription">Simul description</string>
+	<string name="numberOfByoyomiPeriods">Nombre de périodes byoyomi</string>
+	<string name="hostColorForEachGame">Côté d\'hôte pour chaque partie</string>
+	<string name="onlyMembersOfTeam">Seulement les membres de l\'equipe</string>
+	<string name="simulDescription">Description de la simultanée</string>
 	<string name="anythingTellParticipants">Vous voulez dire quelque chose aux participants ?</string>
 	<string name="lishogiTournaments">Tournois Lishogi</string>
 	<string name="tournamentFAQ">FAQ des tournois</string>

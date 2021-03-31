@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contact</string>
-  <string name="contactLishogi">Contact Lishogi</string>
+  <string name="contactLishogi">Makipag-ugnayan sa Lishogi</string>
   <string name="whatCanWeHelpYouWith">What can we help you with?</string>
   <string name="visitThisPage">Visit this page to solve the issue</string>
-  <string name="iCantLogIn">I can\'t log in</string>
-  <string name="noConfirmationEmail">I didn\'t receive my confirmation email</string>
-  <string name="forgotPassword">I forgot my password</string>
-  <string name="forgotUsername">I forgot my username</string>
+  <string name="iCantLogIn">Hindi ako maka log-in</string>
+  <string name="noConfirmationEmail">Wala ka pa akong natatanggap na email ng kumpirmasyon</string>
+  <string name="forgotPassword">Nakalimutan ko ang aking password</string>
+  <string name="forgotUsername">Nakalimutan ko ang aking username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
   <string name="lost2FA">I lost access to my two-factor authentication codes</string>
   <string name="doPasswordReset">Complete a password reset to remove your second factor</string>
@@ -27,11 +27,11 @@
   <string name="wantClearHistory">I want to clear my history or rating</string>
   <string name="cantClearHistory">It\'s not possible to clear your game history, puzzle history, or ratings.</string>
   <string name="wantReport">I want to report a player</string>
-  <string name="cheating">cheating</string>
+  <string name="cheating">pandaraya</string>
   <string name="sandbagging">sandbagging</string>
   <string name="trolling">trolling</string>
-  <string name="insults">insults</string>
-  <string name="otherReason">some other reason</string>
+  <string name="insults">nang-iinsulto</string>
+  <string name="otherReason">iba pang dahilan</string>
   <string name="toReportAPlayer">To report a player for %s, use the report form</string>
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
@@ -58,7 +58,7 @@
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
   <string name="errorPage">Error page</string>
-  <string name="reportErrorPage">If you faced an error page, you may report it:</string>
+  <string name="reportErrorPage">Kung may nakaharap ka na error page, maaaring ireport ito:</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>
@@ -75,6 +75,6 @@
   <string name="videosAndBooks">You can show it in your videos, and you can print screenshots of Lishogi in your books.</string>
   <string name="creditAppreciated">Credit is appreciated but not required.</string>
   <string name="noneOfTheAbove">None of the above</string>
-  <string name="sendEmailAt">Send us an email at %s.</string>
+  <string name="sendEmailAt">Magpadala ng email sa amin %s</string>
   <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your Lishogi username, and any information that could help us help you.</string>
 </resources>

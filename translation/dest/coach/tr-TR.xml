@@ -2,7 +2,8 @@
 <resources>
 	<string name="lishogiCoaches">Lishogi antrenörleri</string>
 	<string name="lishogiCoach">Lishogi antrenörü</string>
-	<string name="areYouCoach" comment="not sure if coaches will ever be a feature in lishogi. the original text in lichess is: &quot;Are you a great chess coach with a NM or FIDE title?&#10;Confirm your title here and we will review your application.&quot;">%s gibi bir ünvan sahibi, yetenekli bir shogi eğitmeni misiniz?</string>
+	<string name="areYouCoach">%s gibi bir ünvan sahibi, yetenekli bir shogi eğitmeni misiniz?</string>
+	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
 	<string name="nmOrFideTitle">ünvan</string>
 	<string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
 	<string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>

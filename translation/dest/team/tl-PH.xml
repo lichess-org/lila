@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Team</string>
-  <string name="teams">Teams</string>
+  <string name="team">Koponan</string>
+  <string name="teams">Mga Koponan</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s member</item>
-    <item quantity="other">%s members</item>
+    <item quantity="one">%s miyembro</item>
+    <item quantity="other">%s mga miyembro</item>
   </plurals>
-  <string name="allTeams">All teams</string>
-  <string name="newTeam">New team</string>
-  <string name="myTeams">My teams</string>
-  <string name="noTeamFound">No team found</string>
-  <string name="joinTeam">Join team</string>
-  <string name="quitTeam">Leave team</string>
-  <string name="anyoneCanJoin">Free for all</string>
-  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
-  <string name="joiningPolicy">Joining policy</string>
+  <string name="allTeams">Lahat ng mga koponan</string>
+  <string name="newTeam">Bagong koponan</string>
+  <string name="myTeams">Ang aking mga koponan</string>
+  <string name="noTeamFound">Walang koponan na nakita</string>
+  <string name="joinTeam">Sumali sa koponan</string>
+  <string name="quitTeam">Umalis sa koponan</string>
+  <string name="anyoneCanJoin">Libre para sa lahat</string>
+  <string name="aConfirmationIsRequiredToJoin">Isang kompirmasyon ang kailangan para makasali</string>
+  <string name="joiningPolicy">Patakaran ng Pagsali</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Team leader</item>
-    <item quantity="other">Team leaders</item>
+    <item quantity="one">Pinuno ng Koponan</item>
+    <item quantity="other">Mga pinuno ng koponan</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
-  <string name="teamRecentMembers">Recent members</string>
-  <string name="kickSomeone">Kick someone out of the team</string>
-  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <string name="teamBestPlayers">Pinakamagaling na mga manlalaro</string>
+  <string name="teamRecentMembers">Mga bagong miyembro</string>
+  <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
+  <string name="whoToKick">Sino ang gusto mong/ninyong sibakin mula sa koponan?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s join request</item>
+    <item quantity="one">%s kahilingang sumali</item>
     <item quantity="other">%s join requests</item>
   </plurals>
-  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
-  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
-  <string name="teamBattle">Team Battle</string>
-  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
-  <string name="teamTournament">Team tournament</string>
+  <string name="willBeReviewed">Ang iyong kahilingang sumali ay susuriin ng pinuno ng koponan.</string>
+  <string name="beingReviewed">Ang iyong kahilingang sumali ay sinusuri ng pinuno ng koponan.</string>
+  <string name="teamBattle">Labanan ng mga Koponan</string>
+  <string name="teamBattleOverview">Ang labanan ng mga koponan, ang bawat manlalaro ay iipon ng puntos para sa kanilang koponan.</string>
+  <string name="teamTournament">Mga torneong pangkoponan</string>
   <string name="teamTournamentOverview">Ang torneo sa Arena na tanging mga kasapi lamang ng iyong koponan ang maaaring sumali</string>
-  <string name="messageAllMembers">Message all members</string>
-  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
-  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
-You can use this to call players to join a tournament or a team battle.
-Players who don\'t like receiving your messages might leave the team.</string>
-  <string name="teamsIlead">Teams I lead</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
-  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
-  <string name="leadersChat">Leaders chat</string>
+  <string name="messageAllMembers">Magbigay ng mga mensahe sa lahat ng mga miyembro</string>
+  <string name="messageAllMembersOverview">Magpadala ng pribadong mensahe sa lahat ng mga miyembro ng koponan</string>
+  <string name="messageAllMembersLongDescription">Magpadala ng pribadong mensahe sa LAHAT ng mga kasapi ng koponan.
+Maaari mong gamitin ito para tawagin ang lahat ng mga manlalaro na sumali sa isang paligsahan o kaya ay labanan sa koponan.
+Ang mga manlalaro na ayaw tumanggap ng mga mensahe mo ay maaaring lumisan sa iyong koponan.</string>
+  <string name="teamsIlead">Mga koponan na pinamumunuan ko</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
+  <string name="usersWhoCanManageThisTeam">Ang mga user na maaaring mamahala sa koponang ito</string>
+  <string name="leadersChat">Chat ng mga pinuno</string>
 </resources>

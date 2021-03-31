@@ -3,7 +3,7 @@
 	<string name="search">Ara</string>
 	<string name="advancedSearch">Detaylı Arama</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">%s içinde Shogi oyunlarını ara</item>
+		<item quantity="one">%s shogi maçı içinde ara</item>
 		<item quantity="other">Search in %s shogi games</item>
 	</plurals>
 	<plurals name="xGamesFound">

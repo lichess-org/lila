@@ -7,7 +7,7 @@
 	<string name="knowingTheShogiBoard">Shogi tahtasının koordinatlarını bilmek çok önemli bir Shogi becerisidir:</string>
 	<string name="mostShogiCourses">Tüm shogi kursları ve çalışmaları bir kaç çeşit shogi notasyonu kullanır. Japon ve batı notasyonları arasından istediğini seçebilirsin.</string>
 	<string name="talkToYourShogiFriends">İkiniz de \'shogi dilini\' anladığınız için, shogi arkadaşlarınızla konuşmayı kolaylaştırır.</string>
-	<string name="youCanAnalyseAGameMoreEffectively">Eğer karelerin adlarını aramak zorunda kalmazsanız, oyunu daha etkili bir şekilde analiz edebilirsiniz.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Eğer karelerin koordinatlarını hızlıca tespit edebilirseniz oyun analizi daha verimli olacaktır.</string>
 	<string name="aSquareNameAppears">Bu alıştırma için tahta üzerinde adı görünen karelere tıklaman gerekiyor. 30 saniye içinde mümkün olduğunca çok kareyi bulmaya çalış!</string>
 	<string name="startTraining">Antrenmana başla</string>
 </resources>

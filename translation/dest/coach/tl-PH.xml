@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoaches">Mga Lishogi coach</string>
 	<string name="lishogiCoach">Lishogi coach</string>
-	<string name="areYouCoach" comment="not sure if coaches will ever be a feature in lishogi. the original text in lichess is: &quot;Are you a great chess coach with a NM or FIDE title?&#10;Confirm your title here and we will review your application.&quot;">Are you a great shogi coach with a %s?</string>
+	<string name="areYouCoach">Isa ka bang magaling na shogi coach na may %s?</string>
+	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
 	<string name="nmOrFideTitle">titulo</string>
-	<string name="confirmTitle">Confirm your title here and we will review your application.</string>
-	<string name="sendApplication">Send us an email at %s and we will review your application.</string>
+	<string name="confirmTitle">Kumpirmahin ang iyong title dito at aming susuriin ang iyong aplikasyon.</string>
+	<string name="sendApplication">Magpadala ng email sa amin %s at aming susuriin ang iyong aplikasyon.</string>
 	<string name="location">Lokasyon</string>
 	<string name="languages">Lengwahe</string>
 	<string name="rating">Rating</string>
-	<string name="hourlyRate">Hourly rate</string>
+	<string name="hourlyRate">Bayad bawat oras</string>
 	<string name="availability">Availability</string>
-	<string name="accepting">Accepting students</string>
-	<string name="notAccepting">Not accepting students at the moment</string>
-	<string name="xCoachesStudents">%s coaches shogi students</string>
-	<string name="viewXProfile">View %s Lishogi profile</string>
-	<string name="sendPM">Send a private message</string>
-	<string name="aboutMe">About me</string>
+	<string name="accepting">Tumatanggap ng mga estudyante</string>
+	<string name="notAccepting">Hindi tumatanggap ng mga estudyante sa ngayon</string>
+	<string name="xCoachesStudents">%s nagtuturo ng mga estudyante sa shogi</string>
+	<string name="viewXProfile">Tingnan %s Lishogi profile</string>
+	<string name="sendPM">Magpadala ng pribadong mensahe</string>
+	<string name="aboutMe">Tungkol sa akin</string>
 	<string name="playingExperience">Playing experience</string>
-	<string name="teachingExperience">Teaching experience</string>
-	<string name="otherExperiences">Other experiences</string>
+	<string name="teachingExperience">Karanasan sa pagtuturo</string>
+	<string name="otherExperiences">Iba pang mga karanasan</string>
 	<string name="bestSkills">Best skills</string>
-	<string name="teachingMethod">Teaching methodology</string>
+	<string name="teachingMethod">Paraan ng pagtuturo</string>
 	<string name="publicStudies">Public studies</string>
 	<string name="youtubeVideos">YouTube videos</string>
 	<plurals name="studentReviews">
-		<item quantity="one">One student review</item>
-		<item quantity="other">%s student reviews</item>
+		<item quantity="one">Isa
+Isang pagsusuri ng estudyante
+
+Iba pa
+%S Pagsusuri ng mga estudyante</item>
+		<item quantity="other">Isa
+Isang pagsusuri ng estudyante
+
+Iba pa
+%s Pagsusuri ng mga estudyante</item>
 	</plurals>
-	<string name="thankYouForReview">Thank you for the review!</string>
-	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
-	<string name="reviewCoach">Review this coach</string>
-	<string name="describeExperienceWith">Describe your coaching experience with %s</string>
+	<string name="thankYouForReview">Salamat sa iyong pagsusuri!</string>
+	<string name="xWillApproveIt">%s ay magiging aprubado sa lalong madaling panahon, o isang moderator ang titingin dito.</string>
+	<string name="reviewCoach">Suriin ang coach na ito</string>
+	<string name="describeExperienceWith">Ilarawan ang iyong karanasan sa coaching kasama si %s</string>
 </resources>

@@ -3,23 +3,23 @@
 	<string name="faqAbbreviation">FAQ</string>
 	<string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong</string>
 	<string name="whyIsLishogiCalledLishogi">Bakit tinawag na Lishogi ang Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="forkedFromLichess">Ang Lishogi ay isang open source na project galing sa lichess, ngunit dahil ito ay para sa paglalaro ng shogi, ito ay tinawag na lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Dahil ito ay galing sa Lichess. At ang Lichess ay tinawag na Lichess dahil ito ay isang combinasyon ng live/light/libre at chess. Ang Lishogi ay binibigkas nang ganito: %1$s.</string>
 	<string name="leechess">lee-shogi</string>
 	<string name="hearItPronouncedBySpecialist">Pakinggan itong ibinigkas ng isang espesyalista.</string>
 	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">Paano ako makakapag-ambag sa Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Ang Lishogi ay napapagana ng mga donasyon galing sa mga patron at mga pagsisikap ng isang grupo ng mga volunteers.</string>
-	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="findMoreAndSeeHowHelp">Maaaring higit pa na malaman tungkol sa %1$s. Kung gusto mo na tulungan ang Lishogi sa pamamagitan ng pag-alok ng iyong oras at mga kasanayan, maraming mga %2$s.</string>
+	<string name="beingAPatron">Maging isang patron</string>
 	<string name="breakdownOfOurCosts">breakdown of our costs</string>
-	<string name="otherWaysToHelp">other ways to help</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="otherWaysToHelp">iba pang paraan upang makatulong</string>
+	<string name="areThereWebsitesBasedOnLishogi">Mayroon bang mga website na base sa Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Oo. Ang Lishogi ay ang naging inspirasyon para sa mga ibang mga open-source na mga sites na ginagamit ang aming %1$s, %2$s o %3$s.</string>
 	<string name="fairPlay">Fair Play</string>
-	<string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
-	<string name="cheatDetectionMethods">Lishogi has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Bakit ako hinudyatan ng artipisyal na pagmamanipula ng rating (sandbagging o boosting) o kaya naman ay paggamit ng tulong ng isang kompyuter?</string>
+	<string name="cheatDetectionMethods">Ang Lishogi ay mayroong malalakas na paraan ng detection at masusing proseso sa pagsusuri ng lahat ng mga ebidensiya at paggawa ng desisyon. Ang proseso ay kadalasang may maraming mga moderator at maaaring maging matagal ang proseso. Maliban sa mismong marka, hindi kami pupunta nang malalim sa mga detalye tungkol sa mga ebidensiya o ang paggawa ng desisyon sa mga indibidwal na mga kaso. Kung ginawa namin ito\'y mas magiging madali iwasan ang detection sa hinaharap, at magiging imbitasyon sa mga debate na walang mga bunga. Ang oras at pagsisikap na iyon ay mas mabuti na gamitin sa iba pang mas importante na mga kaso. Ang mga user ay maaaring mag-apela sa pamamagitan ng pag-email sa %1$s, ngunit karamihan ng mga desisyon ay kadalasang hindi na binabago.</string>
 	<string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
 	<string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
   (For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points.</string>
@@ -36,8 +36,8 @@ For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 se
 	<string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-	<string name="whatVariantsCanIplay">What variants can I play on Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="whatVariantsCanIplay">Anong mga variant ang pwede kong laruin sa Lishogi?</string>
+	<string name="lishogiSupportChessAnd">Sinusuportahan ng Lishogi ang normal na shogi at %1$s.</string>
 	<string name="eightVariants">8 chess variants</string>
 	<string name="whatIsACPL">What is the average centipawn loss (ACPL)?</string>
 	<string name="acplExplanation">The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions.
@@ -62,8 +62,8 @@ It is described in section 3.7 (d) of the %2$s:
 \"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
 
 See the %3$s on this move for some practice with it.</string>
-	<string name="goodIntroduction">good introduction</string>
-	<string name="officialRulesPDF">official rules (PDF)</string>
+	<string name="goodIntroduction">magandang introduksyon</string>
+	<string name="officialRulesPDF">opisyal na mga panuntunan (PDF)</string>
 	<string name="lishogiTraining">Lishogi training</string>
 	<string name="threefoldRepetition">Threefold repetition</string>
 	<string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lishogi implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
@@ -85,23 +85,23 @@ Verifying as a titled player on Lishogi gives access to play in the Titled Arena
 Finally there is an honorary %2$s title.</string>
 	<string name="asWellAsManyNMtitles">many national master titles</string>
 	<string name="verificationForm">verification form</string>
-	<string name="canIbecomeLM">Can I get the Lishogi Master (LM) title?</string>
-	<string name="noUpperCaseDot">No.</string>
+	<string name="canIbecomeLM">Maaari ko bang makuha ang titulong Lishogi Master (LM)?</string>
+	<string name="noUpperCaseDot">Hindi.</string>
 	<string name="lMtitleComesToYouDoNotRequestIt">This honorific title is unofficial and only exists on Lishogi.
 
 We rarely award it to highly notable players who are good citizens of Lishogi, at our discretion. You don\'t get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline.
 
 Do not ask for the LM title.</string>
-	<string name="whatUsernameCanIchoose">What can my username be?</string>
-	<string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
-	<string name="guidelines">guidelines</string>
-	<string name="uniqueTrophies">Unique trophies</string>
+	<string name="whatUsernameCanIchoose">Ano ang pwedeng maging username ko?</string>
+	<string name="usernamesNotOffensive">Sa pangkalahatan, ang mga username ay hindi dapat nakakasakit sa iba, nagpapanggap bilang ibang tao, o isang advertisement. Maaari na basahin pa nang higit tungkol sa %1$s.</string>
+	<string name="guidelines">mga patnubay</string>
+	<string name="uniqueTrophies">Mga natatanging mga tropeo</string>
 	<string name="ownerUniqueTrophies">That trophy is unique in the history of Lishogi, nobody other than %1$s will ever have it.</string>
 	<string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>
 	<string name="aHourlyBulletTournament">a hourly Bullet tournament</string>
 	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="lishogiRatings">Mga Lishogi rating</string>
+	<string name="whichRatingSystemUsedByLishogi">Anong uri ng rating system ang ginagamit ng Lishogi?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
 
 Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
@@ -109,7 +109,7 @@ Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and 
 Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
 
 Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
-	<string name="whatIsProvisionalRating">Why is there a question mark (?) next to a rating?</string>
+	<string name="whatIsProvisionalRating">Bakit may tandang pananong (?) sa tabi ng isang rating?</string>
 	<string name="provisionalRatingExplanation">The question mark means the rating is provisional. Reasons include:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">The player has not yet finished enough rated games against %1$s in the rating category.</string>
 	<string name="similarOpponents">opponents of similar strength</string>
@@ -121,23 +121,23 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
 	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
-	<string name="beInTopTen">be in the top 10 in this rating.</string>
+	<string name="beInTopTen">maging parte ng top 10 sa rating na ito.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
 	<string name="whyAreRatingHigher">Why are ratings different compared to other sites and organisations such as 81Dojo and Shogi Club 24?</string>
 	<string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
 
 It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute\" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying \"I have X rating\" means nothing unless there are other players to compare that rating to.</string>
-	<string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
+	<string name="howToHideRatingWhilePlaying">Paano itago ang mga rating habang naglalaro?</string>
 	<string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressing %2$s during a game.</string>
-	<string name="displayPreferences">display preferences</string>
-	<string name="connexionLostCanIGetMyRatingBack">I lost a game due to lag/disconnection. Can I get my rating points back?</string>
-	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lishogi restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
+	<string name="displayPreferences">ipakita ang mga preperensiya</string>
+	<string name="connexionLostCanIGetMyRatingBack">Natalo ako dahil sa lag/pagdiskonekta. Maaari ko ba na mabawi ang aking mga rating points?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sa kasamaang palad, hindi namin maaaring maibalik ang mga rating points na nawala dahil sa lag o pagdiskonekta, kahit man ang problema ay nasa iyong panig o kaya naman ay sa amin. Ngunit, ang ikalawa ay bihirang mangyari. Dapat din tandaan na kapag ang Lishogi ay umulit at natalo ikaw dahil sa nawalang oras, pinawawalang bisa namin ang laro upang maiwasan ang hindi patas na mga pagkakatalo.</string>
 	<string name="howToThreeDots">Paano...</string>
 	<string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
 	<string name="viewSiteInformationPopUp">View site information popup</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Ang Lishogi ay may opsyon na magpadala ng mga popup na mga notipikasyon, halimbawa ay kung ikaw na ang gagalaw o kaya naman ay may nakuha ka na pribadong mensahe.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+I-click ang lock icon sa tabi ng lishogi.org na address sa URL bar ng iyong browser.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Pagkatapos ay pumili kung papayagan o i-block ang mga notipikasyon sa Lishogi.</string>
 </resources>
