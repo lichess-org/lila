@@ -212,7 +212,7 @@ object show {
                   )
                 )
               ),
-              t.enabled && (!t.hideMembers || info.mine || isGranted(_.ManageTeam)) && ctx.noKid option
+              t.enabled && (!t.hideForum || info.mine || isGranted(_.ManageTeam)) && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>

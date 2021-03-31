@@ -56,7 +56,8 @@ final class TeamApi(
         descPrivate = s.descPrivate,
         open = s.isOpen,
         createdBy = me,
-        hideMembers = s.hideMembers
+        hideMembers = s.hideMembers,
+        hideForum = s.hideForum
       )
       teamRepo.coll.insert.one(team) >>
         memberRepo.add(team.id, me.id) >>- {
@@ -79,7 +80,8 @@ final class TeamApi(
         descPrivate = e.descPrivate,
         open = e.isOpen,
         chat = e.chat,
-        hideMembers = e.hideMembers
+        hideMembers = e.hideMembers,
+        hideForum = e.hideForum
       ) pipe { team =>
         teamRepo.coll.update.one($id(team.id), team).void >>
           !team.leaders(me.id) ?? {
