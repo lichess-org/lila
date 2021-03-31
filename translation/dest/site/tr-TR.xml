@@ -838,9 +838,14 @@
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> sizi \"%1$s\" için davet etti.</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s sizi \"%2$s\" için davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\" için katılım başarılı.</string>
   <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">%1$s ile oyun</string>
+  <string name="resVsX">%1$s ile %2$s kapışması</string>
   <string name="youJustBecamePatron">Artık bir Lichess Destekçisisiniz.</string>
   <string name="patronAccountExpired">Kullanıcı hesabının süresi doldu</string>
   <string name="pleaseReconsiderRenewIt">Lütfen yenilemeyi düşünün!</string>
