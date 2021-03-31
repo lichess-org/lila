@@ -164,16 +164,16 @@ az ellenfél gyalog lépése
 után lehetséges.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant csak akkor lehetséges
 amikor a gyalogod az 5. sorban van.</string>
-  <string name="takeAllThePawnsEnPassant">Üsd ki az összes gyalogot en passant!</string>
+  <string name="takeAllThePawnsEnPassant">Üsd le az összes gyalogot en passant!</string>
   <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">A döntetlen játszma</string>
   <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
 A játszma döntetlen: senki sem győzött vagy vesztett.</string>
-  <string name="stalemateGoal">Hogy bepattoljuk sötétet:
-- Sötétnek nem lehet lépése
-- Nincs sakkban.</string>
-  <string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
+  <string name="stalemateGoal">Ha pattot adunk a sötétnek:
+- Sötétnek nem tud lépni
+- Nincs sakkban</string>
+  <string name="stalemateComplete">Gratulálunk! Jobb ha pattot kapsz mintha mattot!</string>
   <string name="advanced">Haladó</string>
   <string name="pieceValue">Figura érték</string>
   <string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>
