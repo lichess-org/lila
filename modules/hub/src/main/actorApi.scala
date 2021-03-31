@@ -43,6 +43,7 @@ package socket {
 package clas {
   case class AreKidsInSameClass(kid1: user.KidId, kid2: user.KidId, promise: Promise[Boolean])
   case class IsTeacherOf(teacher: String, student: String, promise: Promise[Boolean])
+  case class ClasMatesAndTeachers(kid: user.KidId, promise: Promise[Set[String]])
 }
 
 package report {

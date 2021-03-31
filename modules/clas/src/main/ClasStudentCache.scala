@@ -4,7 +4,6 @@ import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl._
 import bloomfilter.mutable.BloomFilter
-import play.api.Mode
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
@@ -17,8 +16,7 @@ import lila.user.User
 final class ClasStudentCache(colls: ClasColls, cacheApi: CacheApi)(implicit
     ec: ExecutionContext,
     scheduler: Scheduler,
-    mat: Materializer,
-    mode: Mode
+    mat: Materializer
 ) {
 
   private val falsePositiveRate = 0.00003
