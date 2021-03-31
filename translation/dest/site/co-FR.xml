@@ -6,11 +6,11 @@
   <string name="gameOver">Persu</string>
   <string name="waitingForOpponent">Aspittendu avversariu</string>
   <string name="waiting">Aspittendu</string>
-  <string name="yourTurn">U to turnu</string>
+  <string name="yourTurn">Tocca à tè</string>
   <string name="level">Livellu</string>
   <string name="toggleTheChat">Commutà u chat</string>
   <string name="toggleSound">Sonore toggle</string>
-  <string name="chat">Chattare</string>
+  <string name="chat">Discursata</string>
   <string name="resign">Dimissioni</string>
   <string name="checkmate">Checkmate</string>
   <string name="stalemate">Stazzu</string>
