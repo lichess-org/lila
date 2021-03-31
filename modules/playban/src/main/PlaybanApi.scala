@@ -18,6 +18,7 @@ final class PlaybanApi(
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
+    slackApi: lila.irc.SlackApi,
     messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -231,15 +232,15 @@ final class PlaybanApi(
     update match {
       case RageSit.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
-        (delta < 0) ?? {
-          if (record.rageSit.isTerrible) funit
-          else if (record.rageSit.isVeryBad) {
+        (delta < 0 && record.rageSit.isVeryBad) ?? {
+          messenger.postPreset(record.userId, MsgPreset.sittingAuto).void >>- {
             Bus.publish(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
-            messenger.postPreset(record.userId, MsgPreset.sittingAuto).void
-          } else funit
+            if (record.rageSit.isLethal && record.rageSitRecidive)
+              slackApi.publishRageSit(record.userId, record.rageSit.counterView).unit
+          }
         }
       case _ => funit
     }
