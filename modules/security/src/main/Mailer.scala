@@ -23,17 +23,7 @@ final class Mailer(
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
 
-  private val client = new SMTPMailer(
-    SMTPConfiguration(
-      host = config.smtpHost,
-      port = config.smtpPort,
-      tlsRequired = config.smtpTls,
-      user = config.smtpUser.some,
-      password = config.smtpPassword.some,
-      mock = config.smtpMock,
-      timeout = Mailer.timeout.toMillis.toInt.some
-    )
-  )
+  private val client = new SMTPMailer(config.primary.toClientConfig)
 
   def send(msg: Mailer.Message): Funit =
     if (msg.to.isNoReply) {
@@ -64,15 +54,30 @@ final class Mailer(
 
 object Mailer {
 
-  val timeout = 10 seconds
+  private val timeout = 10 seconds
+
+  case class Smtp(
+      mock: Boolean,
+      host: String,
+      port: Int,
+      tls: Boolean,
+      user: String,
+      password: String
+  ) {
+    def toClientConfig = SMTPConfiguration(
+      host = host,
+      port = port,
+      tlsRequired = tls,
+      user = user.some,
+      password = password.some,
+      mock = mock,
+      timeout = Mailer.timeout.toMillis.toInt.some
+    )
+  }
+  implicit val smtpLoader = AutoConfig.loader[Smtp]
 
   case class Config(
-      @ConfigName("smtp.mock") smtpMock: Boolean,
-      @ConfigName("smtp.host") smtpHost: String,
-      @ConfigName("smtp.port") smtpPort: Int,
-      @ConfigName("smtp.tls") smtpTls: Boolean,
-      @ConfigName("smtp.user") smtpUser: String,
-      @ConfigName("smtp.password") smtpPassword: String,
+      primary: Smtp,
       sender: String
   )
   implicit val configLoader = AutoConfig.loader[Config]
