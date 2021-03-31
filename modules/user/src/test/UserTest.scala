@@ -21,8 +21,6 @@ class UserTest extends Specification {
     }
 
     "bad prefix: cannot signup" in {
-      canSignup("000") must beFalse
-      canSignup("0foo") must beFalse
       canSignup("_foo") must beFalse
       canSignup("-foo") must beFalse
     }
@@ -51,6 +49,7 @@ class UserTest extends Specification {
       couldBeUsername("g-foo") must beTrue
       couldBeUsername("G_FOo") must beTrue
       couldBeUsername("g-foo") must beTrue
+      canSignup("930913") must beTrue
     }
   }
 
