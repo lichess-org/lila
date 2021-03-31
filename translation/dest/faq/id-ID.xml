@@ -30,6 +30,9 @@
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
+  <string name="officialRulesPDF">peraturan resmi (PDF)</string>
+  <string name="threefoldRepetition">Pengulangan tiga kali</string>
+  <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>
   <string name="noUpperCaseDot">Tidak.</string>
   <string name="ownerUniqueTrophies">Trofi itu unik dalam sejarah Lichess, tidak ada orang lain selain %1$s yang pernah memilikinya.</string>
   <string name="wayOfBerserkExplanation">Untuk mendapatkannya, hiimgosu menantang dirinya untuk berserk dan memenangkan game 100%% dari %s.</string>
