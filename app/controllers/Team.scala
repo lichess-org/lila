@@ -10,7 +10,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.team.{ Requesting, Team, TeamInfo => TeamModel }
+import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel, Holder }
 
 final class Team(
@@ -84,18 +84,17 @@ final class Team(
     )
 
   private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) = {
-    val Team = api.team(teamId)
-    me match {
-      case Some(m) if m  => 
-    }
-    Action.async { implicit req =>
-      api.team(teamId) flatMap {
-        _ ?? { team =>
-          apiC.jsonStream {
-            env.team
-              .memberStream(team, MaxPerSecond(20))
-              .map(env.api.userApi.one)
-          }.fuccess
+    val team: Team = api.team(teamId)
+    if (!team.hideMembers || (oauth && belongsTo(Some(me), team))){
+      Action.async { implicit req =>
+        team flatMap {
+          _ ?? { team =>
+            apiC.jsonStream {
+              env.team
+                .memberStream(team, MaxPerSecond(20))
+                .map(env.api.userApi.one)
+            }.fuccess
+          }
         }
       }
     }

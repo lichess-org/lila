@@ -169,7 +169,7 @@ object show {
                   trans.settings.settings()
                 )
             ),
-            t.enabled && (!t.hideMembers || info.mine || isGranted(_.Admin)) option div(cls := "team-show__members")(
+            t.enabled && (!t.hideMembers || info.mine || isGranted(_.ManageTeam)) option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
                 div(cls := "userlist infinite-scroll")(
@@ -212,7 +212,7 @@ object show {
                   )
                 )
               ),
-              t.enabled && (!t.hideMembers || info.mine || isGranted(_.Admin)) && ctx.noKid option
+              t.enabled && (!t.hideMembers || info.mine || isGranted(_.ManageTeam)) && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>
