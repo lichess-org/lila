@@ -84,8 +84,7 @@ final class Team(
     )
 
   private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader) = {
-    val team: Fu[Option[TeamModel]] = api.team(teamId)
-    team flatMap {
+    api.team(teamId) flatMap {
       _ ?? { team =>
         val canView: Fu[Boolean] =
           if (!team.hideMembers) fuccess(true)
