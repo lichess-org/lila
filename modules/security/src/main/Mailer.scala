@@ -9,12 +9,13 @@ import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all._
 
 import lila.common.config.Secret
-import lila.common.{ Chronometer, EmailAddress }
+import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailer(
-    config: Mailer.Config
+    config: Mailer.Config,
+    getSecondaryPercentage: () => Int
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -23,7 +24,12 @@ final class Mailer(
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
 
-  private val client = new SMTPMailer(config.primary.toClientConfig)
+  private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
+  private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
+
+  private def randomClient(): SMTPMailer =
+    if (ThreadLocalRandom.nextInt(100) < getSecondaryPercentage()) secondaryClient
+    else primaryClient
 
   def send(msg: Mailer.Message): Funit =
     if (msg.to.isNoReply) {
@@ -34,7 +40,7 @@ final class Mailer(
         Future {
           Chronometer.syncMon(_.email.send.time) {
             blocking {
-              client
+              randomClient()
                 .send(
                   Email(
                     subject = msg.subject,
@@ -78,6 +84,7 @@ object Mailer {
 
   case class Config(
       primary: Smtp,
+      secondary: Smtp,
       sender: String
   )
   implicit val configLoader = AutoConfig.loader[Config]
