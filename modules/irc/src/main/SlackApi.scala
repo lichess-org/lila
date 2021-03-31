@@ -201,7 +201,7 @@ final class SlackApi(
     SlackMessage(
       username = "Ragesit offender",
       icon = "babyrage",
-      text = linkifyUsers(s"$userId rageSit = $rageSit"),
+      text = linkifyUsers(s"${userLink(userId)} rageSit = $rageSit"),
       channel = rooms.tavernBots
     )
   )
