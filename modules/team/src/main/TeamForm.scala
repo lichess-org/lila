@@ -71,8 +71,8 @@ final private[team] class TeamForm(
       descPrivate = team.descPrivate,
       request = !team.open,
       chat = team.chat,
-      hideMembers = team.hideMembers,
-      hideForum = team.hideForum
+      hideMembers = team.hideMembers.has(true),
+      hideForum = team.hideForum.has(true)
     )
 
   def request(team: Team) = Form(

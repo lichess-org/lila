@@ -87,7 +87,7 @@ final class Team(
     api.team(teamId) flatMap {
       _ ?? { team =>
         val canView: Fu[Boolean] =
-          if (!team.hideMembers) fuccess(true)
+          if (team.publicMembers) fuccess(true)
           else me match {
             case Some(user) => api.belongsTo(team.id, user.id)
             case _ => fuccess(false)

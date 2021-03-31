@@ -20,8 +20,8 @@ case class Team(
     createdBy: User.ID,
     leaders: Set[User.ID],
     chat: Team.ChatFor,
-    hideMembers: Boolean,
-    hideForum: Boolean
+    hideMembers: Option[Boolean],
+    hideForum: Option[Boolean]
 ) {
 
   def id = _id
@@ -32,6 +32,10 @@ case class Team(
 
   def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
     chat == f(Team.ChatFor)
+
+  def publicMembers: Boolean = !hideMembers.has(true)
+
+  def publicForum: Boolean = !hideForum.has(true)
 }
 
 object Team {
@@ -88,8 +92,8 @@ object Team {
       descPrivate: Option[String],
       open: Boolean,
       createdBy: User,
-      hideMembers: Boolean,
-      hideForum: Boolean
+      hideMembers: Option[Boolean],
+      hideForum: Option[Boolean]
   ): Team =
     new Team(
       _id = id,
