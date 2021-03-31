@@ -50,5 +50,6 @@ export default class PuzzleStreak {
 
   skip = (): void => {
     this.data.skip = false;
+    this.store(this.data);
   };
 }
