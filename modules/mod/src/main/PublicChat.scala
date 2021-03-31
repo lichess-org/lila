@@ -4,17 +4,22 @@ import lila.chat.{ Chat, UserChat }
 import lila.report.Suspect
 import lila.simul.Simul
 import lila.tournament.Tournament
+import lila.user.{ User, UserRepo }
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
     tournamentApi: lila.tournament.TournamentApi,
-    simulEnv: lila.simul.Env
+    simulEnv: lila.simul.Env,
+    userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Simul, UserChat)])] =
     tournamentChats zip simulChats
 
-  def delete(suspect: Suspect): Funit =
+  def deleteAll(userId: User.ID): Funit =
+    userRepo byId userId map2 Suspect flatMap { _ ?? deleteAll }
+
+  def deleteAll(suspect: Suspect): Funit =
     all.flatMap { case (tours, simuls) =>
       (tours.map(_._2) ::: simuls.map(_._2))
         .filter(_ hasLinesOf suspect.user)

@@ -204,7 +204,7 @@ final class ChatApi(
             line foreach { l =>
               publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
             }
-            if (isMod(mod))
+            if (isMod(mod)) {
               lila.common.Bus.publish(
                 lila.hub.actorApi.mod.ChatTimeout(
                   mod = mod.id,
@@ -214,17 +214,22 @@ final class ChatApi(
                 ),
                 "chatTimeout"
               )
-            else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+              lila.common.Bus
+                .publish(lila.hub.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
+            } else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
           }
         }
       }
 
-    def delete(c: UserChat, user: User, busChan: BusChan.Select): Funit = {
-      val chat = c.markDeleted(user)
-      coll.update.one($id(chat.id), chat).void >>- {
-        cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
-      }
+    def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] = {
+      val chat   = c.markDeleted(user)
+      val change = chat != c
+      change.?? {
+        coll.update.one($id(chat.id), chat).void >>- {
+          cached invalidate chat.id
+          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+        }
+      } inject change
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)

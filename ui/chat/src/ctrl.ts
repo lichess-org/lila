@@ -38,7 +38,7 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
    * then select that tab over discussion */
   if (allTabs.length > 1 && vm.tab === 'discussion' && lichess.storage.get('nochat')) vm.tab = allTabs[1];
 
-  const post = function (text: string): boolean {
+  const post = (text: string): boolean => {
     text = text.trim();
     if (!text) return false;
     if (text == 'You too!' && !data.lines.some(l => l.u != data.userId)) return false;
@@ -50,23 +50,29 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     return true;
   };
 
-  const onTimeout = function (userId: string) {
+  const onTimeout = (userId: string) => {
+    let change = false;
     data.lines.forEach(l => {
-      if (l.u && l.u.toLowerCase() == userId) l.d = true;
+      if (l.u && l.u.toLowerCase() == userId) {
+        l.d = true;
+        change = true;
+      }
     });
-    if (userId == data.userId) vm.timeout = true;
-    data.domVersion++;
-    redraw();
+    if (userId == data.userId) vm.timeout = change = true;
+    if (change) {
+      data.domVersion++;
+      redraw();
+    }
   };
 
-  const onReinstate = function (userId: string) {
+  const onReinstate = (userId: string) => {
     if (userId == data.userId) {
       vm.timeout = false;
       redraw();
     }
   };
 
-  const onMessage = function (line: Line) {
+  const onMessage = (line: Line) => {
     data.lines.push(line);
     const nb = data.lines.length;
     if (nb > maxLines) {
@@ -76,12 +82,12 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   };
 
-  const onWriteable = function (v: boolean) {
+  const onWriteable = (v: boolean) => {
     vm.writeable = v;
     redraw();
   };
 
-  const onPermissions = function (obj: Permissions) {
+  const onPermissions = (obj: Permissions) => {
     let p: keyof Permissions;
     for (p in obj) opts.permissions[p] = obj[p];
     instanciateModeration();

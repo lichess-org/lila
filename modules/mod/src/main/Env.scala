@@ -118,8 +118,11 @@ final class Env(
         }
       case lila.hub.actorApi.security.GarbageCollect(userId) =>
         reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
-          api.garbageCollect(sus) >> publicChat.delete(sus)
+          api.garbageCollect(sus) >> publicChat.deleteAll(sus)
         }
+    },
+    "deletePublicChats" -> { case lila.hub.actorApi.security.DeletePublicChats(userId) =>
+      publicChat.deleteAll(userId).unit
     },
     "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(User.lichessId, userId, subject).unit

@@ -125,7 +125,7 @@ final class Mod(
   def deletePmsAndChats(username: String) =
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
-        env.mod.publicChat.delete(sus) >>
+        env.mod.publicChat.deleteAll(sus) >>
           env.msg.api.deleteAllBy(sus.user) map some
       }
     }(actionResult(username))

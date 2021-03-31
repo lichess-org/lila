@@ -57,6 +57,7 @@ package security {
   case class GarbageCollect(userId: String)
   case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
+  case class DeletePublicChats(userId: String)
 }
 
 package msg {
