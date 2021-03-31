@@ -21,11 +21,11 @@ hogy gyorsabb legyél!</string>
   <string name="rookComplete">Gratulálunk! Sikeresen elsajátítottad a bástya mozgását.</string>
   <string name="theBishop">A futó</string>
   <string name="itMovesDiagonally">Átlósan mozog</string>
-  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell manőverezni a futóval!</string>
-  <string name="youNeedBothBishops">Egyik világos mezős futó,
-másik sötét mezős futó.
+  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell lépni a futóval!</string>
+  <string name="youNeedBothBishops">Az egyik futó világos mezős,
+a másik futó sötét mezős.
 Mindkettőre szükséged van!</string>
-  <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
+  <string name="bishopComplete">Gratulálunk! Most már tudod irányítani a futót.</string>
   <string name="theQueen">A vezér</string>
   <string name="queenCombinesRookAndBishop">Vezér = bástya + futó</string>
   <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
