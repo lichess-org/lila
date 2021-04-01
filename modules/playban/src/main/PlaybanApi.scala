@@ -43,7 +43,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    Uptime.startedSinceMinutes(0) ?? {
+    Uptime.startedSinceMinutes(10) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
