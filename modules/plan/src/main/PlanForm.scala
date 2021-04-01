@@ -11,16 +11,16 @@ object PlanForm {
 
   val ipn = Form(
     mapping(
-      "txn_id"               -> optional(nonEmptyText),
-      "subscr_id"            -> optional(nonEmptyText),
-      "txn_type"             -> text.verifying("Invalid txn type", txnTypes contains _),
-      "mc_gross"             -> bigDecimal,
-      "mc_fee"               -> bigDecimal,
-      "custom"               -> optional(text),
-      "payer_email"          -> optional(nonEmptyText),
-      "first_name"           -> optional(text),
-      "last_name"            -> optional(text),
-      "address_country_code" -> optional(text)
+      "txn_id"            -> optional(nonEmptyText),
+      "subscr_id"         -> optional(nonEmptyText),
+      "txn_type"          -> text.verifying("Invalid txn type", txnTypes contains _),
+      "mc_gross"          -> bigDecimal,
+      "mc_fee"            -> bigDecimal,
+      "custom"            -> optional(text),
+      "payer_email"       -> optional(nonEmptyText),
+      "first_name"        -> optional(text),
+      "last_name"         -> optional(text),
+      "residence_country" -> optional(text)
     )(Ipn.apply)(Ipn.unapply)
   )
 

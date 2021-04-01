@@ -197,7 +197,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def payPalIpn =
     Action.async { implicit req =>
       import lila.plan.Patron.PayPal
-      lila.log("plan").info(s"PayPal IPN debug ${req.body.toString}")
       lila.plan.PlanForm.ipn
         .bindFromRequest()
         .fold(
