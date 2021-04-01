@@ -10,7 +10,7 @@
   <string name="forgotUsername">I forgot my username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
   <string name="lost2FA">I lost access to my two-factor authentication codes</string>
-  <string name="doPasswordReset">Do a password reset to remove your second factor</string>
+  <string name="doPasswordReset">Complete a password reset to remove your second factor</string>
   <string name="accountSupport">I need account support</string>
   <string name="wantTitle">I want my title displayed on Lichess</string>
   <string name="visitTitleConfirmation">To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page</string>
