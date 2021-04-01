@@ -45,7 +45,6 @@ final class Mailer(
                   Email(
                     subject = msg.subject,
                     from = config.sender,
-                    replyTo = Seq(config.sender),
                     to = Seq(msg.to.value),
                     bodyText = msg.text.some,
                     bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
