@@ -9,7 +9,7 @@
   <string name="newMonthlyHighscore">Új havi rekord!</string>
   <string name="newAllTimeHighscore">Új abszolút rekord!</string>
   <string name="previousHighscoreWasX">Az előző rekord %s volt</string>
-  <string name="playAgain">Újrajátszás</string>
+  <string name="playAgain">Játsz újra</string>
   <plurals name="xRuns">
     <item quantity="one">1 futam</item>
     <item quantity="other">%s futam</item>
@@ -22,25 +22,25 @@
   <string name="score">Pontszám</string>
   <string name="moves">Lépések</string>
   <string name="accuracy">Pontosság</string>
-  <string name="combo">Kombó</string>
-  <string name="time">Eltelt idő</string>
+  <string name="combo">Széria</string>
+  <string name="time">Idő</string>
   <string name="timePerMove">Idő lépésenként</string>
   <string name="highestSolved">Legnehezebb megoldott</string>
   <string name="puzzlesPlayed">Játszott feladványok</string>
   <string name="newRun">Új futam (gyorsbill.: Szóköz)</string>
-  <string name="endRun">Futam vége (gyorsbill.: Enter)</string>
+  <string name="endRun">Futam vége (gyorsbillentyü: Enter)</string>
   <string name="highscores">Toplista</string>
-  <string name="viewBestRuns">Legjobb futamok</string>
+  <string name="viewBestRuns">Nézd meg a legjobb futamokat</string>
   <string name="bestRunOfDay">Napi legjobb futam</string>
   <string name="runs">Futamok</string>
   <string name="getReady">Felkészülni!</string>
-  <string name="waitingForMorePlayers">Várakozás játékosok csatlakozására...</string>
+  <string name="waitingForMorePlayers">Várakozás további játékosok csatlakozására...</string>
   <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
   <string name="joinTheRace">Csatlakozz a versenyhez!</string>
   <string name="yourRankX">Helyezésed: %s</string>
   <string name="waitForRematch">Várj az újrajátszásig</string>
-  <string name="nextRace">Következő</string>
+  <string name="nextRace">Következő futam</string>
   <string name="joinRematch">Csatlakozás</string>
   <string name="waitingToStart">Várakozás a kezdésig</string>
   <string name="createNewGame">Új játék létrehozása</string>
@@ -48,5 +48,5 @@
   <string name="raceYourFriends">Versenyezz a barátaiddal</string>
   <string name="skip">kihagy</string>
   <string name="skipHelp">ÚJ! Kihagyhatsz egy lépést versenyenként:</string>
-  <string name="skipExplanation">Lépés kihagyása a kombó megőrzéséhez! Csak egyszer használható versenyenként.</string>
+  <string name="skipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
 </resources>

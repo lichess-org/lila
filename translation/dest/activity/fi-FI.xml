@@ -3,8 +3,8 @@
   <string name="activity">Toiminta</string>
   <string name="hostedALiveStream">Piti livestreamin</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">On tukenut lichess.orgia %1$s:n kuukauden ajan %2$s:ina</item>
-    <item quantity="other">On tukenut lichess.orgia %1$s:n kuukauden ajan %2$s:ina</item>
+    <item quantity="one">On tukenut lichess.orgia %1$s kuukauden ajan %2$sina</item>
+    <item quantity="other">On tukenut lichess.orgia %1$s kuukauden ajan %2$sina</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Harjoitteli %1$s %2$s -tilannetta</item>

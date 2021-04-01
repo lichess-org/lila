@@ -661,7 +661,7 @@
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a lichess között</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
@@ -840,8 +840,8 @@
   <string name="unsubscribe">Leiratkozás</string>
   <string name="mentionedYouInX"> megemlített itt: \"%1$s\".</string>
   <string name="xMentionedYouInY"> %1$s megemlített itt: \"%2$s\".</string>
-  <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> meghívott ide: \"%1$s\".</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>

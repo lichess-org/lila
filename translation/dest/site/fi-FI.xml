@@ -414,8 +414,8 @@
   <string name="winStreak">Voittoputki</string>
   <string name="createdBy">Tekijä:</string>
   <string name="tournamentIsStarting">Turnaus alkaa</string>
-  <string name="tournamentPairingsAreNowClosed">Paritus turnauksessa on päättynyt.</string>
-  <string name="standByX">Valmistaudu %s, pelaajia paritetaan!</string>
+  <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
+  <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
   <string name="berserkRate">Berserkprosentti</string>
@@ -706,7 +706,7 @@
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
   <string name="xCreatesStudyY">%1$s loi tutkielman %2$s</string>
-  <string name="quickPairing">Nopea paritus</string>
+  <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
   <string name="yourScore">Pisteesi: %s</string>

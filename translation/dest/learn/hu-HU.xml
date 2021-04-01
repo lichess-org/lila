@@ -17,15 +17,15 @@
   <string name="theFewerMoves">Minél kevesebbszer lépsz,
 annál több pontot kapsz!</string>
   <string name="useTwoRooks">Használd mindkét bástyát
-és gyorsítsd fel a dolgokat!</string>
+hogy gyorsabb legyél!</string>
   <string name="rookComplete">Gratulálunk! Sikeresen elsajátítottad a bástya mozgását.</string>
   <string name="theBishop">A futó</string>
   <string name="itMovesDiagonally">Átlósan mozog</string>
-  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell manőverezni a futóval!</string>
-  <string name="youNeedBothBishops">Egyik világos mezős futó,
-másik sötét mezős futó.
+  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell lépni a futóval!</string>
+  <string name="youNeedBothBishops">Az egyik futó világos mezős,
+a másik futó sötét mezős.
 Mindkettőre szükséged van!</string>
-  <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
+  <string name="bishopComplete">Gratulálunk! Most már tudod irányítani a futót.</string>
   <string name="theQueen">A vezér</string>
   <string name="queenCombinesRookAndBishop">Vezér = bástya + futó</string>
   <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
@@ -70,15 +70,15 @@ Nem kell átváltoztatni.</string>
   <string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
   <string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
   <string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le sötét figuráit!
-És ne veszítsd el a sajátaidat.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le a sötét figuráit!
+Ne veszíts figurát.</string>
   <string name="captureComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
   <string name="protection">Védelem</string>
   <string name="keepYourPiecesSafe">Védd meg a figuráidat</string>
   <string name="protectionIntro">Keresd meg az ellenfeled által megtámadott figurákat, és védd meg őket!</string>
   <string name="protectionComplete">Gratulálunk! Egy figura amit nem veszítesz el kész nyereség!</string>
   <string name="escape">Megtámadtak!
-Menekülj a fenyegtéstől!</string>
+Menekülj a fenyegetéstől!</string>
   <string name="noEscape">Nincs menekvés,
 de meg tudod védeni!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Ne engedd kiütni
@@ -124,8 +124,7 @@ A sarokban van a helyük.</string>
 A bástyák mellett állnak.</string>
   <string name="placeTheBishops">Majd a futókat!
 Ők a huszárok mellett állnak.</string>
-  <string name="placeTheQueen">Majd a vezért!
-Sajátmagával azonos színű mezőn áll.</string>
+  <string name="placeTheQueen">Hellyezd a vezért arra a mezőre, amilyen színű.</string>
   <string name="placeTheKing">Helyezd el a királyt!
 A vezér mellett áll.</string>
   <string name="pawnsFormTheFrontLine">A gyalogok alkotják a frontvonalat.
@@ -146,8 +145,8 @@ Először el kell lépned a figuráiddal.</string>
 Először el kell lépned a figuráiddal.</string>
   <string name="youCannotCastleIfMoved">Nem sáncolhatsz ha a király
 vagy a bástya már lépett.</string>
-  <string name="youCannotCastleIfAttacked">Nem sáncolhtasz ha
-a királyt menet közben támadás éri.
+  <string name="youCannotCastleIfAttacked">Nem sáncolhatsz ha
+a királyt támadás éri.
 Blokkold a sakkot és azután sáncolj!</string>
   <string name="findAWayToCastleKingSide">Találd meg a módját hogy
 a király-szárnyra sáncolj!</string>
@@ -156,25 +155,25 @@ a vezér-szárnyra sáncolj!</string>
   <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">A gyalog egyik speciális lépése</string>
-  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, ugyanúgy kiütheted mintha csak egyet lépett volna.</string>
+  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, leütheted mintha csak egyet lépett volna.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett
 két mezőt a gyaloggal
-Üsd ki en passant.</string>
+Üsd le en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant ütés csak közvetlenül
 az ellenfél gyalog lépése
 után lehetséges.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant csak akkor lehetséges
 amikor a gyalogod az 5. sorban van.</string>
-  <string name="takeAllThePawnsEnPassant">Üsd ki az összes gyalogot en passant!</string>
+  <string name="takeAllThePawnsEnPassant">Üsd le az összes gyalogot en passant!</string>
   <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">A döntetlen játszma</string>
   <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
 A játszma döntetlen: senki sem győzött vagy vesztett.</string>
-  <string name="stalemateGoal">Hogy bepattoljuk sötétet:
-- Sötétnek nem lehet lépése
-- Nincs sakkban.</string>
-  <string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
+  <string name="stalemateGoal">Ha pattot adunk a sötétnek:
+- Sötétnek nem tud lépni
+- Nincs sakkban</string>
+  <string name="stalemateComplete">Gratulálunk! Jobb ha pattot kapsz mintha mattot!</string>
   <string name="advanced">Haladó</string>
   <string name="pieceValue">Figura érték</string>
   <string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>

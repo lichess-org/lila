@@ -10,7 +10,7 @@
   <string name="forgotUsername">I forgot my username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
   <string name="lost2FA">I lost access to my two-factor authentication codes</string>
-  <string name="doPasswordReset">Do a password reset to remove your second factor</string>
+  <string name="doPasswordReset">Complete a password reset to remove your second factor</string>
   <string name="accountSupport">I need account support</string>
   <string name="wantTitle">I want my title displayed on Lichess</string>
   <string name="visitTitleConfirmation">To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page</string>
@@ -34,10 +34,10 @@
   <string name="doNotMessageModerators">Do not send direct messages to moderators.</string>
   <string name="onlyReports">Only reporting players through the report form is effective.</string>
   <string name="wantReportBug">I want to report a bug</string>
-  <string name="reportBugInForum">In the Lichess Feedback Forum</string>
+  <string name="reportBugInForum">In the Lichess Feedback section of the forum</string>
   <string name="reportWebsiteIssue">As a Lichess website issue on GitHub</string>
   <string name="reportMobileIssue">As a Lichess mobile app issue on GitHub</string>
-  <string name="reportBugInDiscord">In the Lichess discord server</string>
+  <string name="reportBugInDiscord">In the Lichess Discord server</string>
   <string name="howToReportBug">Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug.</string>
   <string name="illegalPawnCapture">Illegal pawn capture</string>
   <string name="calledEnPassant">It is called \"en passant\" and is one of the rules of chess.</string>
@@ -49,7 +49,7 @@
   <string name="castlingImported">If you imported the game, or started it from a position, make sure you correctly set the castling rights.</string>
   <string name="insufficientMaterial">Insufficient mating material</string>
   <string name="fideMate">According to the FIDE Laws of Chess §6.9, if a checkmate is possible with any legal sequence of moves, then the game is not a draw</string>
-  <string name="knightMate">It can be possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
+  <string name="knightMate">It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players\' ratings.</string>
   <string name="errorPage">Error page</string>
@@ -58,7 +58,7 @@
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>
   <string name="falsePositives">False positives do happen sometimes, and we\'re sorry about that.</string>
-  <string name="ifLegit">If your appeal is legit, we will lift the ban ASAP.</string>
+  <string name="ifLegit">If your appeal is legitimate, we will lift the ban ASAP.</string>
   <string name="accountLost">However if you indeed used engine assistance, even just once, then your account is unfortunately lost.</string>
   <string name="doNotDeny">Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake.</string>
   <string name="otherRestriction">Other restriction</string>

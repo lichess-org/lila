@@ -849,7 +849,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="congratsYouWon">Congratulations, you won!</string>
   <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">You just became a lichess Patron.</string>
+  <string name="youJustBecamePatron">You just became a Lichess Patron.</string>
   <string name="patronAccountExpired">Patron account expired</string>
   <string name="pleaseReconsiderRenewIt">Please consider renewing it!</string>
   <string name="someoneReviewedYourCoachProfile">Someone reviewed your coach profile.</string>

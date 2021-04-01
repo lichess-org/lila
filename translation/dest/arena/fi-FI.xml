@@ -23,10 +23,10 @@ Berserkkitila ei ole mahdollinen peleissä joissa on 0 sekuntia aikaa alun pitä
 Berserkkitilan lisäpisteen saa vain, jos pelaa vähintään seitsemän siirtoa pelissä.</string>
   <string name="howIsTheWinnerDecided">Kuinka voittaja määräytyy?</string>
   <string name="howIsTheWinnerDecidedAnswer">Pelaaja(t) jo(i)lla on eniten pisteitä turnausajan päättyessä julistetaan voittajaksi tai voittajiksi.</string>
-  <string name="howDoesPairingWork">Kuinka paritus toimii?</string>
-  <string name="howDoesPairingWorkAnswer">Turnauksen aluksi pelaajat paritetaan vajvuuslukujen perusteella.
-Kun saat pelin pelatuksi, palaa turnausaulaan. Sinut paritetaan sitten pelaajan kanssa, jonka sijoitus on lähellä omaasi. Tämä minimoi odotusajan, muttet välttämättä kohtaa kaikkia muita pelaajia turnaukseen osallistuvia.
-Pelaa nopeasti ja palaa aulaan niin voit pelata lisää pelejä ja ansaita lisää pisteitä.</string>
+  <string name="howDoesPairingWork">Kuinka peliparit määriytyvät?</string>
+  <string name="howDoesPairingWorkAnswer">Turnauksen alussa peliparit määriytyvät vahvuuslukujen perusteella.
+Kun pelisi on ohi, palaa turnausaulaan. Saat seuraavaksi vastustajaksesi pelaajan, jonka sijoitus on lähellä omaasi. Siten odotusaika pysyy mahdollisimman lyhyenä. Et välttämättä kuitenkaan kohtaa turnauksessa kaikkia siihen osallistuvia pelaajia.
+Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lisää pisteitä.</string>
   <string name="howDoesItEnd">Kuinka turnaus päättyy?</string>
   <string name="howDoesItEndAnswer">Turnauksella on kohti nollaa juokseva ajastin. Kun se menee nollaan, turnauksen sijoitukset virallistetaan ja voittaja julistetaan. Käynnissä olevat pelit tulee pelata loppuun, mutta ne eivät vaikuta sijoituksiin turnauksessa.</string>
   <string name="otherRules">Muita tärkeitä sääntöjä</string>

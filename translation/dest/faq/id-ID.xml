@@ -30,7 +30,44 @@
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
+  <string name="fideHandbookX">pedoman FIDE %s</string>
+  <string name="discoveringEnPassant">Mengapa sebuah bidak dapat memakan bidak lain meski bidak tersebut sudah lewat? (en passant)</string>
+  <string name="explainingEnPassant">Ini merupakan gerakan legal yang dinamakan \"en passant\". Artikel Wikipedia memberikan sebuah %1$s.
+
+Gerakan ini dijelaskan dalam bagian 3.7 (d) dari %2$s:
+
+\"Sebuah bidak yang menempati petak pada baris yang sama dan pada lajur yang bersebelahan dengan bidan lawan yang baru saja maju dua petak dalam satu gerakan dari petak asalnya boleh menangkap bidak lawan tersebut seakan-akan yang terakhir baru saja melangkah satu petak. Tangkapan ini hanya diperbolehkan dalam langkah yang diambil setelah langkah maju ini dan disebut tangkapan \'en passant\'.\"
+
+Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
+  <string name="goodIntroduction">pengenalan yang baik</string>
+  <string name="officialRulesPDF">peraturan resmi (PDF)</string>
+  <string name="lichessTraining">latihan Lichess</string>
+  <string name="threefoldRepetition">Pengulangan tiga kali</string>
+  <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">pengulangan tiga kali</string>
+  <string name="positions">posisi</string>
+  <string name="configure">pengaturan</string>
+  <string name="accounts">Akun</string>
+  <string name="titlesAvailableOnLichess">Gelar apa saja yang terdapat pada Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess mengakui semua gelar FIDE yang diperoleh dari permainan di atas papan (over the board/OTB), serta %1$s. Berikut adalah daftar gelar FIDE:</string>
+  <string name="showYourTitle">Jika Anda memiliki gelar di atas papan (OTB), Anda dapat mendaftar untuk menampilkannya pada akun Anda dengan melengkapi %1$s, termasuk dengan foto dokumen/kartu identifikasi yang jelas serta swafoto (selfie) Anda memegang dokumen/kartu tersebut.
+
+Verifikasi sebagai pemain bergelar di Lichess memberikan akses untuk bermain dalam event Titled Arena.
+
+Terakhir, terdapat gelar kehormatan %2$s.</string>
+  <string name="asWellAsManyNMtitles">berbagai gelar master nasional</string>
+  <string name="verificationForm">form verifikasi</string>
+  <string name="canIbecomeLM">Bisakah saya mendapatkan gelar Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Tidak.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Gelar kehormatan ini tidak resmi dan hanya terdapat di Lichess.
+
+Kami memberikan gelar tersebut pada pemain terkemuka yang merupakan warga Lichess yang baik, sesuai kebijakan kami. Anda tidak mencari gelar LM, gelar LM yang mencari Anda. Jika Anda memenuhi syarat, Anda akan mendapat pesan dari kami dan pilihan untuk menerima atau menolaknya.</string>
+  <string name="whatUsernameCanIchoose">Apa yang dapat digunakan sebagai username saya?</string>
+  <string name="usernamesNotOffensive">Secara umum, nama pengguna (username) tidak boleh: ofensif, berpura-pura menjadi orang lain, maupun bersifat iklan. Anda dapat membaca %1$s lebih lanjut.</string>
+  <string name="guidelines">pedoman</string>
+  <string name="canIChangeMyUsername">Apakah saya dapat mengubah nama pengguna saya?</string>
+  <string name="usernamesCannotBeChanged">Tidak, nama pengguna tidak dapat diubah untuk alasan praktis dan teknis. Nama pengguna digunakan di banyak tempat: database, export, catatan, dan pikiran orang-orang. Anda dapat mengatur kapitalisasi huruf sebanyak satu kali.</string>
+  <string name="uniqueTrophies">Trofi unik</string>
   <string name="ownerUniqueTrophies">Trofi itu unik dalam sejarah Lichess, tidak ada orang lain selain %1$s yang pernah memilikinya.</string>
   <string name="wayOfBerserkExplanation">Untuk mendapatkannya, hiimgosu menantang dirinya untuk berserk dan memenangkan game 100%% dari %s.</string>
   <string name="aHourlyBulletTournament">1 jam turnamen bulet</string>

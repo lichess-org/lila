@@ -4,7 +4,7 @@
   <string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
   <string name="whyIsLichessCalledLichess">Why is Lichess called Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is a combination of live/light/libre and chess. It is pronounced %1$s.</string>
-  <string name="leechess">LEE-CHESS</string>
+  <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
   <string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites.</string>
   <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
@@ -104,7 +104,7 @@ Do not ask for the LM title.</string>
 
 Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. When a player is just starting out, their rating estimate will change very dramatically, potentially several hundred points at a time. After some games against established players the confidence interval will narrow, and points gained/lost per game will decrease.
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
 
 Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points more rapidly to match any changes in your skill level over that time.</string>
   <string name="whatIsProvisionalRating">Why is there a question mark (?) next to a rating?</string>

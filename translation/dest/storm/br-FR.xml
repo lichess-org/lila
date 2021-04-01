@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="joinTheRace">Kregiñ gant ar redadeg!</string>
+  <string name="waitForRematch">Gortozit evit c\'hoari en dro</string>
+  <string name="nextRace">Ur redadeg c\'hoazh</string>
+  <string name="createNewGame">Krouiñ ur redadeg nevez</string>
+  <string name="joinPublicRace">Kemer perzh en ur redadeg foran</string>
+  <string name="raceYourFriends">Grit ar redadeg a-enep ho mignoned</string>
+  <string name="skipHelp">Gallout a rit lammat un taol eus pep redadeg:</string>
+  <string name="skipExplanation">Lammit war an taol-se evit derc\'hel ho kombo! Ur wech e pep redadeg hepken.</string>
+</resources>
