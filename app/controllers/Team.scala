@@ -78,17 +78,31 @@ final class Team(
     }
 
   def users(teamId: String) =
-    Action.async { implicit req =>
-      api.team(teamId) flatMap {
-        _ ?? { team =>
-          apiC.jsonStream {
+    AnonOrScoped()(
+      anon = req => usersExport(teamId, none, req),
+      scoped = req => me => usersExport(teamId, me.some, req)
+    )
+
+  private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader) = {
+    api.team(teamId) flatMap {
+      _ ?? { team =>
+        val canView: Fu[Boolean] =
+          if (team.publicMembers) fuccess(true)
+          else me match {
+            case Some(user) => api.belongsTo(team.id, user.id)
+            case _ => fuccess(false)
+          }
+        canView map { 
+          case true => apiC.jsonStream (
             env.team
               .memberStream(team, MaxPerSecond(20))
               .map(env.api.userApi.one)
-          }.fuccess
+            )(req)
+          case false => Unauthorized
         }
       }
     }
+  }
 
   def tournaments(teamId: String) =
     Open { implicit ctx =>
