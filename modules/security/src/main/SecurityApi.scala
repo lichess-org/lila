@@ -188,7 +188,7 @@ final class SecurityApi(
     private val prefix = "appeal:"
 
     private val store = cacheApi.notLoadingSync[SessionId, User.ID](256, "security.session.appeal")(
-      _.expireAfterAccess(7.days).build()
+      _.expireAfterAccess(2.days).build()
     )
 
     def authenticate(sessionId: SessionId): Option[User.ID] =
