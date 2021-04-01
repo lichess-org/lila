@@ -459,6 +459,7 @@
   <string name="cheat">作弊</string>
   <string name="insult">侮辱</string>
   <string name="troll">钓鱼</string>
+  <string name="ratingManipulation">操縱積分</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
@@ -548,6 +549,7 @@
   <string name="error.email_unique">电邮地址已被使用</string>
   <string name="error.email_different">這已經是您的電郵地址</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
+  <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
@@ -799,8 +801,8 @@
   <string name="unsubscribe">取消訂閱</string>
   <string name="mentionedYouInX"> 在 \"%1$s\" 中提到了您。</string>
   <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
-  <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
-  <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> 邀請您至\"%1$s\"。</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s 邀請您至\"%2$s\"。</string>
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="resVsX">%1$s vs %2$s</string>
