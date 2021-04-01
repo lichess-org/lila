@@ -15,26 +15,26 @@ import lila.user.User
 object inquiry {
 
   // simul game study relay tournament
-  private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""".r
+  private val commFlagRegex = new Regex("""\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""", "tpe", "id", "text")
 
-  def renderAtomText(atom: lila.report.Report.Atom, highlight: Boolean) = {
-    val text =
-      commFlagRegex.replaceAllIn(
-        atom.simplifiedText,
-        m => {
-          val id = m.group(2)
-          val path = m.group(1) match {
-            case "game"       => routes.Round.watcher(id, "white")
-            case "relay"      => routes.Relay.show("-", id)
-            case "tournament" => routes.Tournament.show(id)
-            case "swiss"      => routes.Swiss.show(id)
-            case _            => s"/${m.group(1)}/$id"
-          }
-          Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")
+  def renderAtomText(text: String, highlight: Boolean) = raw(
+    commFlagRegex.replaceAllIn(
+      text,
+      m => {
+        val id = m.group("id")
+        val path = m.group("tpe") match {
+          case "game"       => routes.Round.watcher(id, "white").url
+          case "relay"      => routes.Relay.show("-", id).url
+          case "tournament" => routes.Tournament.show(id).url
+          case "swiss"      => routes.Swiss.show(id).url
+          case _            => s"/${m.group("tpe")}/$id"
         }
-      )
-    if (highlight) communication.highlightBad(text) else richText(text)
-  }
+        val link     = a(href := s"$path")(path)
+        val userText = if (highlight) communication.highlightBad(m group "text") else frag(m group "text")
+        Regex.quoteReplacement(s"${link.render} ${userText.render}")
+      }
+    )
+  )
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
     def renderReport(r: lila.report.Report) =
@@ -49,7 +49,7 @@ object inquiry {
               " ",
               momentFromNow(atom.at)
             ),
-            p(renderAtomText(atom, r.isComm))
+            p(renderAtomText(atom.simplifiedText, r.isComm))
           )
         }
       )
