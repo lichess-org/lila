@@ -91,6 +91,7 @@ kys
 labia
 lamer?
 lesbo
+loo?ser
 masturbat(e|ion|ing)
 milf
 molest
