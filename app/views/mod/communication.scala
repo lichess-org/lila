@@ -174,9 +174,12 @@ object communication {
 
   // incompatible with richText
   def highlightBad(text: String): Frag = {
-    val words             = Analyser(text).badWords
-    val regex             = ("""(?i)\b""" + words.mkString("(", "|", ")") + """\b""").r
-    def tag(word: String) = s"<bad>$word</bad>"
-    raw(regex.replaceAllIn(text, m => tag(m.toString)))
+    val words = Analyser(text).badWords
+    if (words.isEmpty) frag(text)
+    else {
+      val regex             = ("""(?i)\b""" + words.mkString("(", "|", ")") + """\b""").r
+      def tag(word: String) = s"<bad>$word</bad>"
+      raw(regex.replaceAllIn(text, m => tag(m.toString)))
+    }
   }
 }
