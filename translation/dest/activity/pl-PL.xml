@@ -104,6 +104,6 @@
     <item quantity="one">Dołączenie do klubu</item>
     <item quantity="few">Dołączenie do %s klubów</item>
     <item quantity="many">Dołączenie do %s klubów</item>
-    <item quantity="other">Dołączenie do %s klubów</item>
+    <item quantity="other">Dołączono do %s zespołów</item>
   </plurals>
 </resources>
