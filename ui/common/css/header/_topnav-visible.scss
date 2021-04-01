@@ -54,7 +54,10 @@
 
         &:hover {
           background: $c-primary;
-          color: $c-primary-over;
+          &,
+          &::after {
+            color: $c-primary-over;
+          }
         }
 
         &:first-child {
