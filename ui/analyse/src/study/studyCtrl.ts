@@ -132,18 +132,18 @@ export default function (
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
   const studyDesc = new DescriptionCtrl(
     data.description,
-    t => {
+    debounce(t => {
       data.description = t;
       send('descStudy', t);
-    },
+    }, 500),
     redraw
   );
   const chapterDesc = new DescriptionCtrl(
     data.chapter.description,
-    t => {
+    debounce(t => {
       data.chapter.description = t;
       send('descChapter', { id: vm.chapterId, desc: t });
-    },
+    }, 500),
     redraw
   );
 
