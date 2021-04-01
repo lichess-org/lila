@@ -72,7 +72,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
                   'data-symbol': a.symbol,
                 }
               : {};
-            return h('tr' + (nb ? '.symbol' : ''), { attrs }, [h('td', '' + nb), h('th', trans(a.plural))]);
+            return h('tr' + (nb ? '.symbol' : ''), { attrs }, [h('td', '' + nb), h('th', trans(nb == 1 ? a.kind : a.plural))]);
           })
           .concat(h('tr', [h('td', '' + (defined(acpl) ? acpl : '?')), h('th', trans('averageCentipawnLoss'))]))
       ),
