@@ -334,7 +334,7 @@ object layout {
     def apply(playing: Boolean)(implicit ctx: Context) =
       header(id := "top")(
         div(cls := "site-title-nav")(
-          topnavToggle,
+          !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
