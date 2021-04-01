@@ -38,4 +38,8 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
   <string name="drawStreak">Beraberlik serisi: Bir oyuncu turnuvada üst üste berabere kaldığında yalnızca ilk beraberlikten veya %s hamleden uzun süren maçın sonunda elde edilen beraberlikten puan kazanır. Beraberlik serisi sadece oyuncu bir maç kazandığı vakit sona erer; mağlubiyet veya beraberlik ile sonuçlanan maçlarda bu seri devam eder.</string>
   <string name="history">Arena Geçmişi</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Takımı görüntüleyin</item>
+    <item quantity="other">Tüm %s takımlarını görüntüleyin</item>
+  </plurals>
 </resources>
