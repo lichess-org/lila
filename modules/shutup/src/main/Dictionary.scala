@@ -250,7 +250,6 @@ piç
 piçlik
 pu[sş]t
 salak
-salak
 sikecem
 sikiyonuz
 siktir
