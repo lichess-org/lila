@@ -1,4 +1,3 @@
-import { altCastles } from 'chess';
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
@@ -108,9 +107,17 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const glyph = glyphs[0];
       const svg = glyphToSvg[glyph.symbol];
       if (svg) {
-        const move = parseUci(altCastles.hasOwnProperty(uci!) ? altCastles[uci!] : uci!)!;
+        const pos = ctrl.position(ctrl.tree.parentNode(ctrl.path)).unwrap();
+        const move = parseUci(uci!)!;
+        const castleSide = pos.castlingSide(move);
+        console.warn("castling side ", castleSide);
+        console.warn("pos ", pos);
+        console.warn("turn ", pos.turn);
+        const destSquare =  castleSide ?
+          (pos.turn === 'white' ? (castleSide === 'a' ? 2 : 6) : castleSide === 'a' ? 58 : 62)
+        : move.to
         shapes = shapes.concat({
-          orig: makeSquare(move.to),
+          orig: makeSquare(destSquare),
           customSvg: svg,
         });
       }
