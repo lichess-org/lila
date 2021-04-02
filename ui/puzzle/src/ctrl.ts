@@ -9,7 +9,7 @@ import throttle from 'common/throttle';
 import { Api as CgApi } from 'shogiground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Shogi } from 'shogiops/shogi';
-import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, makeShogiFen, makeLishogiFen, parseLishogiUci } from 'shogiops/compat';
+import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, makeShogiFen, makeLishogiFen, parseLishogiUci, assureLishogiUci } from 'shogiops/compat';
 import { Config as CgConfig } from 'shogiground/config';
 import { Piece } from 'shogiground/types';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
@@ -158,7 +158,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function playUci(uci: Uci): void {
     console.log(uci);
-    sendMove(parseLishogiUci(uci)!);
+    sendMove(parseLishogiUci(assureLishogiUci(uci)!)!);
   }
 
   function playUserMove(orig: Key, dest: Key, promotion?: boolean): void {
@@ -476,7 +476,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // If the page loads while being hidden (like when changing settings),
   // shogiground is not displayed, and the first move is not fully applied.
   // Make sure shogiground is fully shown when the page goes back to being visible.
-  //document.addEventListener('visibilitychange', () => window.lishogi.requestIdleCallback(() => jump(vm.path), 500));
+  document.addEventListener('visibilitychange', () => window.lishogi.requestIdleCallback(() => jump(vm.path), 500));
 
   speech.setup();
 
@@ -494,6 +494,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     getData() {
       return data;
     },
+    data: opts, // for ceval
     getTree() {
       return tree;
     },

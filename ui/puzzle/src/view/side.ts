@@ -11,14 +11,16 @@ export function puzzleBox(ctrl: Controller): VNode {
 }
 
 function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
+  const isTsume = puzzle.themes.includes("tsume");
   return h(
     'div.infos.puzzle',
     {
-      attrs: dataIcon('-'),
+      attrs: dataIcon(isTsume ? '7' : '-'),
     },
     [
       h('div', [
         h('p', [
+          isTsume ? ctrl.trans.noarg('tsume') + " " : "",
           ...ctrl.trans.vdom(
             'puzzleId',
             h(

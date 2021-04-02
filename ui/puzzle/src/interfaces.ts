@@ -51,6 +51,7 @@ export interface Controller extends KeyboardController {
   showComputer(): boolean;
   trans: Trans;
   getData(): PuzzleData;
+  data: PuzzleOpts;
   getTree(): TreeWrapper;
   ground: Prop<CgApi | undefined>;
   makeCgOpts(): CgConfig;
