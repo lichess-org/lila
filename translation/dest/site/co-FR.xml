@@ -7,7 +7,9 @@
   <string name="waitingForOpponent">Aspittendu un avversariu</string>
   <string name="waiting">Aspittendu</string>
   <string name="yourTurn">Tocca à vò</string>
+  <string name="aiNameLevelAiLevel">%1$s livellu%2$s</string>
   <string name="level">Livellu</string>
+  <string name="strength">Forza</string>
   <string name="toggleTheChat">Commutà u chat</string>
   <string name="toggleSound">Commutà u sonu</string>
   <string name="chat">Discursata</string>
@@ -22,4 +24,10 @@
   <string name="blackIsVictorious">I neri anu vintu</string>
   <string name="youPlayTheWhitePieces">Ghjucate cù i pezzi bianchi</string>
   <string name="youPlayTheBlackPieces">Ghjucate cù i pezzi neri</string>
+  <string name="itsYourTurn">Tocca à vò!</string>
+  <string name="kingInTheCenter">Rè in u centru</string>
+  <string name="threeChecks">Trè scacchi</string>
+  <string name="raceFinished">Cora compia</string>
+  <string name="variantEnding">Fine di a variante</string>
+  <string name="newOpponent">Aversariu novu</string>
 </resources>
