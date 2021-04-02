@@ -73,6 +73,7 @@ incest
 jerk
 jizz?(um|)
 kike
+kill (yo)?urself
 kys
 labia
 lamer?
