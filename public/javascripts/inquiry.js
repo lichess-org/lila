@@ -35,4 +35,12 @@ $(function () {
   });
 
   Mousetrap.bind('d', () => $('#inquiry .actions.close form.process button[type="submit"]').trigger('click'));
+
+  $('#inquiry .atom p').each(function () {
+    $(this).html(
+      $(this)
+        .html()
+        .replaceAll(/lichess\.org\/([\w\/]{8,})/g, '<a href="/$1">$1</a>')
+    );
+  });
 });
