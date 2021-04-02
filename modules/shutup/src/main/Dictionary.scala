@@ -36,7 +36,7 @@ bugger
 buk?kake
 bull?shit
 cancer
-cheat(ed|er|s|)
+cheat(ing|ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -68,7 +68,7 @@ honkey
 hooker
 horny
 humping
-(?<!i'?m (such )?(an? )?)idiot
+idiot
 incest
 jerk
 jizz?(um|)
@@ -110,7 +110,7 @@ queer
 rape
 rapist
 rect(al|um)
-(?<!i'?m (such )?(an? )?)retard
+retard
 rimjob
 run
 scare
@@ -134,7 +134,7 @@ spick
 spooge
 spunk
 stfu
-(?<!i'?m (so )?stupid
+stupid
 suicide
 suck m[ey]
 terrorist
@@ -181,8 +181,7 @@ pid(a|o|)r
 хуит(а|е|ы)
 читак(и|ам|у)
 читер(|ила?|ить?|ишь?|ша|ы|ам?|у)
-"""
-    )
+""")
 
   def es = dict("""
 cabr[oó]na?
@@ -195,10 +194,14 @@ tramposo
 
   def it = dict("""
 baldracca
+bastardo
 cazzo
+cretino
 di merda
+figa
 putt?ana
 stronzo
+troia
 vaffanculo
 """)
 
