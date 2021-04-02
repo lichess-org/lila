@@ -2,15 +2,15 @@
 <resources>
   <string name="playWithAFriend">Ghjucà cun un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità à qualchissia à ghjucà, dà questu URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
-  <string name="waitingForOpponent">Aspittendu un avversariu</string>
+  <string name="waitingForOpponent">Aspittendu un aversariu</string>
   <string name="waiting">Aspittendu</string>
   <string name="yourTurn">Tocca à vò</string>
   <string name="aiNameLevelAiLevel">%1$s livellu%2$s</string>
   <string name="level">Livellu</string>
   <string name="strength">Forza</string>
-  <string name="toggleTheChat">Commutà u chat</string>
+  <string name="toggleTheChat">Commutà versu a discursata</string>
   <string name="toggleSound">Commutà u sonu</string>
   <string name="chat">Discursata</string>
   <string name="resign">Tralascià</string>
@@ -82,6 +82,16 @@
   <string name="averageRatingX">Livellu mezanu</string>
   <string name="recentGames">Partite recente</string>
   <string name="topGames">Partite di altu rangu</string>
+  <string name="masterDbExplanation">2 millioni di partite OTB di ghjucatori classificati à più di %1$s da %2$s à %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Scaccu mattu in %s mezzu colpu</item>
+    <item quantity="other">Scaccu mattu in %s mezzu colpi</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpu (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
+    <item quantity="other">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpi (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
+  </plurals>
+  <string name="noGameFound">Ùn ci hè partita</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
