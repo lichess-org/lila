@@ -3,10 +3,10 @@
 	<string name="search">Hledat</string>
 	<string name="advancedSearch">Pokročilé vyhledávání</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="few">Search in %s shogi games</item>
-		<item quantity="many">Search in %s shogi games</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">Hledat ve %s shogi hře</item>
+		<item quantity="few">Hledat ve %s shogi hrách</item>
+		<item quantity="many">Hledat ve %s shogi hrách</item>
+		<item quantity="other">Hledat ve %s shogi hrách</item>
 	</plurals>
 	<plurals name="xGamesFound">
 		<item quantity="one">Nalezena jedna hra</item>

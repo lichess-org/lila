@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="isLishogiLagging">Zasekává se Lishogi?</string>
   <string name="measurementInProgressThreeDot">Probíhá měření...</string>
   <string name="noAndYourNetworkIsGood">Ne. Vaše připojení je dostatečné.</string>
   <string name="noAndYourNetworkIsBad">Ne. Vaše připojení není dostatečné.</string>
   <string name="yesItWillBeFixedSoon">Ano. Brzy bude opraveno!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">A nyní dlouhá odpověď! Zpožďování hry se skládá ze dvou spolu nesouvisejících hodnot (nižší je lepší):</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatency">Zpoždění Lishogi serveru</string>
   <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
   <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
   <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>

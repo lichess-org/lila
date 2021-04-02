@@ -2,9 +2,9 @@
 <resources>
 	<string name="faqAbbreviation">Často kladené dotazy (FAQ)</string>
 	<string name="frequentlyAskedQuestions">Často kladené otázky</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="whyIsLishogiCalledLishogi">Proč se Lishogi nazývá Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi je projekt s otevřeným zdrojovým kódem vycházející z liShessu, ale protože je určen k hraní shogi, nazývá se lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Protože je to odvozeno od Liсhess. A Liсhess se nazývá Liсhess, protože je to kombinace live (živě)/light (lehkého)/libre (zdarma) a šachu. Lishogi se vyslovuje %1$s</string>
 	<string name="leechess">lee-shogi</string>
 	<string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
 	<string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lishogi má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
@@ -12,23 +12,23 @@
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="beingAPatron">Staňte se patronem</string>
 	<string name="breakdownOfOurCosts">rozložení našich nákladů</string>
 	<string name="otherWaysToHelp">další způsoby jak pomoci</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
-	<string name="fairPlay">Fair Play</string>
-	<string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
-	<string name="cheatDetectionMethods">Lishogi has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
-	<string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
-	<string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
-  (For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points.</string>
-	<string name="preventLeavingGameWithoutResigning">What is done about players leaving games without resigning?</string>
-	<string name="leavingGameWithoutResigningExplanation">If your opponent frequently aborts/leaves games, they get \"play banned\", which means they\'re temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.</string>
+	<string name="areThereWebsitesBasedOnLishogi">Existují nějaké webové stránky založené na Lichess?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, %2$s nebo %3$s.</string>
+	<string name="fairPlay">Férová hra</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Proč jsem podezřelý z manipulování s ratingem (úmyslné prohry a vnější pomoc) nebo z hraní za pomoci umělé intelegince?</string>
+	<string name="cheatDetectionMethods">Lishogi má silné metody detekce a velmi důkladný postup pro přezkoumání všech důkazů a rozhodování. Tento proces často zahrnuje mnoho moderátorů a může trvat delší dobu. V jednotlivých případech nebudeme s důvody rozhodnutí zacházet do podrobností o důkazech nebo rozhodovacím procesu. Takový postup by v budoucnu usnadnil obcházení detekcí a byl by pozvánkou k neproduktivním diskusím. Tento čas a úsilí je lépe využit na jiné důležité věci. Uživatelé se mohou odvolat e-mailem %1$s, ale rozhodnutí se zřídka mění.</string>
+	<string name="whenAmIEligibleRatinRefund">Kdy mám nárok na automatické vrácení hodnocení za zápasy s podvodníky?</string>
+	<string name="ratingRefundExplanation">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
+ (Například pokud se vaše hodnocení po těchto hrách mezitím výrazně zvyšovalo, je možné, že nedostanete nazpátek žádné body, a nebo jen jejich část.) Maximálně vám můžeme vrátit 150 bodů.</string>
+	<string name="preventLeavingGameWithoutResigning">Co děláte s hráči, kteří opouštějí rozehrané hry, aniž by se vzdali?</string>
+	<string name="leavingGameWithoutResigningExplanation">Hráčům, kteří často přerušují nebo ukončují hry, bude dočasně zakázáno hrát. Tato informace není veřejně uvedena na jejich profilu. Pokud v tomto chování pokračují, délka zákazu se prodlužuje a nakonec jim může být úplně uzavřen účet.</string>
 	<string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
-	<string name="youCannotApply">It’s not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
+	<string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">Na Lishogi je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít nápovědní knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lishogi ne.</string>
 	<string name="gameplay">Hraní hry</string>
 	<string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
 	<string name="basedOnGameDuration">Lishogi time controls are based on estimated game duration = %1$s

@@ -11,14 +11,14 @@
 	<string name="level">Úroveň</string>
 	<string name="toggleTheChat">Zapnout/vypnout chat</string>
 	<string name="toggleSound">Zapnout/vypnout zvuk</string>
-	<string name="chat">Chat</string>
+	<string name="chat">Konverzace</string>
 	<string name="resign">Vzdát se</string>
 	<string name="checkmate">Šach mat</string>
 	<string name="stalemate">Pat</string>
 	<string name="white">Bílý</string>
 	<string name="black">Černý</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate">Bílí hráč</string>
+	<string name="uwate">Černý hráč</string>
 	<string name="randomColor">Náhodná barva</string>
 	<string name="createAGame">Vytvořit hru</string>
 	<string name="whiteIsVictorious">Vyhrál bílý</string>
@@ -35,8 +35,8 @@
 	<string name="joinTheGame">Připojit se ke hře</string>
 	<string name="whitePlays">Bílý na tahu</string>
 	<string name="blackPlays">Černý na tahu</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">Bílý na tahu</string>
+	<string name="uwatePlays">Černý na tahu</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundu.</item>
 		<item quantity="few">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundy.</item>
@@ -190,7 +190,7 @@
 		<item quantity="other">%s hodin</item>
 	</plurals>
 	<string name="time">Tempo</string>
-	<string name="rating">Rating</string>
+	<string name="rating">Hodnocení</string>
 	<string name="ratingStats">Statistiky hodnocení</string>
 	<string name="username">Uživatelské jméno</string>
 	<string name="usernameOrEmail">Uživatelské jméno</string>
@@ -200,7 +200,7 @@
 	<string name="password">Heslo</string>
 	<string name="changePassword">Změnit heslo</string>
 	<string name="changeEmail">Změnit email</string>
-	<string name="email">Email</string>
+	<string name="email">E-mail</string>
 	<string name="passwordReset">Změna hesla</string>
 	<string name="forgotPassword">Zapomněl jste heslo?</string>
 	<string name="rank">Pořadí</string>
@@ -243,7 +243,7 @@
 	<string name="finishesX">končí za %s</string>
 	<string name="abortGame">Zrušit hru</string>
 	<string name="gameAborted">Hra byla zrušena</string>
-	<string name="standard">Standard</string>
+	<string name="standard">Standardní</string>
 	<string name="unlimited">Bez hodin</string>
 	<string name="mode">Režim hry</string>
 	<string name="casual">Jen tak</string>
@@ -263,7 +263,7 @@
 	<string name="confirmMove">Potvrdit tah</string>
 	<string name="play">Hrát</string>
 	<string name="inbox">Doručené</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">Správa streamu</string>
 	<string name="chatRoom">Chat</string>
 	<string name="loginToChat">Přihlaš se k chatování</string>
 	<string name="youHaveBeenTimedOut">Byli jste odhlášeni.</string>
@@ -274,9 +274,9 @@
 	<string name="recipient">Adresát</string>
 	<string name="send">Odeslat</string>
 	<string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
-	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
-	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="byoyomiInSeconds">Byoyomi v sekundách</string>
+	<string name="numberOfPeriods">Počet tahů</string>
+	<string name="freeOnlineChess">Shogi online zdarma</string>
 	<string name="spectators">Diváci:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s hodnocená</item>
@@ -378,7 +378,7 @@
 	<string name="mustBeInTeam">Musíte být členem týmu %s</string>
 	<string name="youAreNotInTeam">Nejste členem týmu %s</string>
 	<string name="backToGame">Zpět do hry</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">Shogi online zdarma. Hrajte přímo ve vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
 	<string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
 	<string name="xCreatedTeamY">%1$s založil tým %2$s</string>
 	<string name="xStartedStreaming">%s začal streamovat</string>
@@ -389,7 +389,7 @@
 	<string name="apply">Použít</string>
 	<string name="save">Uložit</string>
 	<string name="leaderboard">Žebříček</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">Vyberte znevýhodnění</string>
 	<string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
 	<string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
 	<string name="fromPosition">Z pozice</string>
@@ -397,17 +397,16 @@
 	<string name="toStudy">Do studie</string>
 	<string name="importGame">Importuj hru</string>
 	<string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifuExplanation">Vložení partie ve kifu vám umožní přehrání partii, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importovaná</item>
 		<item quantity="few">%s importované</item>
 		<item quantity="many">%s importovaných</item>
 		<item quantity="other">%s importovaných</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">Toto je shogi CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">Prosím vyřešte shogi captcha.</string>
 	<string name="notACheckmate">Toto není mat.</string>
 	<string name="whiteCheckmatesInOneMove">Bílý dá prvním tahem mat</string>
 	<string name="blackCheckmatesInOneMove">Černý dá prvním tahem mat</string>
@@ -466,7 +465,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="advancedSettings">Pokročilá nastavení</string>
 	<string name="safeTournamentName">Vyberte \"bezpečné\" jméno turnaje.</string>
 	<string name="inappropriateNameWarning">Cokoli i mírně nevhodného může způsobit uzavření vašeho účtu.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">Pokud jméno turnaje nevyplníte, bude pojmenován po náhodném velmistrovi.</string>
 	<string name="recommendNotTouching">Doporučujeme tato nastavení neměnit.</string>
 	<string name="fewerPlayers">Pokud nastavíte podmínky vstupu, zúčastní se vašeho turnaje méně hráčů.</string>
 	<string name="showAdvancedSettings">Zobrazit pokročilá nastavení</string>
@@ -496,17 +495,17 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="boardEditor">Editor šachovnice</string>
 	<string name="setTheBoard">Upravit šachovnici</string>
 	<string name="popularOpenings">Populární zahájení</string>
-	<string name="handicaps">Handicaps</string>
-	<string name="handicap">Handicap</string>
+	<string name="handicaps">Znevýhodnění</string>
+	<string name="handicap">Znevýhodnění</string>
 	<string name="startPosition">Základní postavení</string>
 	<string name="clearBoard">Prázdná šachovnice</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">Naplňte Gotovu ruku</string>
 	<string name="savePosition">Uložit pozici</string>
 	<string name="loadPosition">Nahrát pozici</string>
 	<string name="isPrivate">Soukromý</string>
 	<string name="reportXToModerators">Nahlásit %s moderátorům</string>
 	<string name="profileCompletion">Kompletace profilu: %s</string>
-	<string name="xRating">%s rating</string>
+	<string name="xRating">%s hodnocení</string>
 	<string name="ifNoneLeaveEmpty">Pokud nemáte, nechte pole volné</string>
 	<string name="gameCompletionRate">Dokončených her: %s</string>
 	<string name="profile">Profil</string>
@@ -517,8 +516,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="country">Země</string>
 	<string name="socialMediaLinks">Odkazy na sociální sítě</string>
 	<string name="inlineNotation">Notace v řádcích</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">Sledujte Lishogi TV</string>
+	<string name="previouslyOnLishogiTV">Předchozí na Lishogi TV</string>
 	<string name="onlinePlayers">Hráči online</string>
 	<string name="activeToday">Aktivní dnes</string>
 	<string name="activePlayers">Aktivní hráči</string>
@@ -540,7 +539,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="wasThisPuzzleAnyGood">Líbila se Vám tato úloha?</string>
 	<string name="pleaseVotePuzzle">Pomozte zlepšit Lishogi díky hlasování, pomocí šipek nahoru a dolů:</string>
 	<string name="thankYou">Děkujeme!</string>
-	<string name="ratingX">Rating: %s</string>
+	<string name="ratingX">Hodnocení %s:</string>
 	<string name="hidden">skryté</string>
 	<plurals name="playedXTimes">
 		<item quantity="one">Hráno %skrát</item>
@@ -605,7 +604,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="newPasswordAgain">Nové heslo (znovu)</string>
 	<string name="clockInitialTime">Počáteční čas</string>
 	<string name="clockIncrement">Přídavek</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi">Hodiny byoyomi</string>
 	<string name="privacy">Soukromí</string>
 	<string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
 	<string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
@@ -632,11 +631,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
 	<string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
 	<string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
-	<string name="timeline">Timeline</string>
+	<string name="timeline">Časová osa</string>
 	<string name="starting">Začíná:</string>
 	<string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>
 	<string name="yourCityRegionOrDepartment">Vaše město, nebo region.</string>
-	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
+	<string name="biographyDescription">Napiš o sobě, co máš na shogi rád, oblíbená zahájení, partie, hráče…</string>
 	<plurals name="maximumNbCharacters">
 		<item quantity="one">Maximum: %s znak.</item>
 		<item quantity="few">Maximum: %s znaky.</item>
@@ -656,7 +655,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clock">Čas</string>
 	<string name="unauthorizedError">Přístup není autorizovaný.</string>
 	<string name="noInternetConnection">Bez internetového připojení. Je možné hrát offline z menu.</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">Nyní jste připojeni do lishogi.org</string>
 	<string name="signedOut">Byli jste odhlášeni.</string>
 	<string name="loginSuccessful">Přihlášení úspěšné</string>
 	<string name="playOnTheBoardOffline">Na stole</string>
@@ -669,7 +668,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="tools">Nástroje</string>
 	<string name="increment">Navýšení</string>
 	<string name="byoyomi">Byoyomi</string>
-	<string name="periods">Periods</string>
+	<string name="periods">Interval</string>
 	<string name="sharePGN">Sdílet PGN</string>
 	<string name="playOnline">Hrát online</string>
 	<string name="playOffline">Hrát offline</string>
@@ -682,7 +681,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="error.email_different">Toto je již Vaše emailová adresa</string>
 	<string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
 	<string name="onlyFriends">Jenom přátelé</string>
-	<string name="menu">Menu</string>
+	<string name="menu">Nabídka</string>
 	<string name="castling">Rošáda</string>
 	<plurals name="nbForumPosts">
 		<item quantity="one">%s příspěvek na fóru</item>
@@ -700,7 +699,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="webmasters">Správci webu</string>
 	<string name="about">O aplikaci</string>
 	<string name="aboutX">O %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je bezplatný (%2$s), jednoduchý, bez reklam shogi server.</string>
 	<string name="really">opravdu</string>
 	<string name="contribute">Přispějte</string>
 	<string name="termsOfService">Podmínky používání</string>
@@ -724,9 +723,9 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Nastavení Fisherových hodin. Čím víc hráčů přijmete, tím víc času budete potřebovat.</string>
 	<string name="simulAddExtraTime">Můžete si přidat více času, abyste  tu simultánku lépe zvládli.</string>
 	<string name="simulHostExtraTime">Hostův bonusový čas</string>
-	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
-	<string name="hostColorForEachGame">Host color for each game</string>
-	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="numberOfByoyomiPeriods">Počet intervalů byoyomi</string>
+	<string name="hostColorForEachGame">Barva hosta pro každou hru</string>
+	<string name="onlyMembersOfTeam">Pouze členové týmu</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
