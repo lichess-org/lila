@@ -30,4 +30,8 @@
   <string name="raceFinished">Cora compia</string>
   <string name="variantEnding">Fine di a variante</string>
   <string name="newOpponent">Aversariu novu</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">U vostru aversariu vole ghjucà una partita nova cù voi</string>
+  <string name="joinTheGame">Ghjunghjite a partita</string>
+  <string name="whitePlays">Tocca à i bianchi</string>
+  <string name="blackPlays">Tocca à i neri</string>
 </resources>
