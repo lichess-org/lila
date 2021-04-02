@@ -237,15 +237,24 @@ wichser
   def tr = dict("""
 am[iı]na (koyay[iı]m|koydum)
 amc[iı]k
+anan[iı]n am[iı]
+ananizi s[ii̇]k[ii̇]y[ii̇]m
 aptal
 beyinsiz
+bok yedin
 gerizekal[iı]
 ibne
 ka[sş]ar
 orospu
 piç
+piçlik
+pu[sş]t
 salak
+salak
+sikecem
+sikiyonuz
 siktir
+yarra[gğ][iı] yediniz
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
