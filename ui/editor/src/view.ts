@@ -238,6 +238,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
+                    ctrl.redraw();
                   },
                 },
               },
