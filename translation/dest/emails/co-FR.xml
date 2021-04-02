@@ -10,4 +10,8 @@
   <string name="emailChange_intro">Avete dumandatu di cambià u vostru indirizzu elettronicu.</string>
   <string name="emailChange_click">Per cunfirmà ch\' è vo avete un accessu à issu mail, clicate nantu à a leia inghjò:</string>
   <string name="welcome_subject">Benvenutu nantu à lichess.org, %s</string>
+  <string name="welcome_text">Avete creatu u vostru contu nantu à https://lichess.org. Eccu a vostra pagina di prufile: %1$s. Pudete persunalizà lu clichendu quì %2$s. Campate vi! Ch\' elle trovinu sempre u so caminu versu u rè aversu e vostre pezze!</string>
+  <string name="logInToLichess">Identificate vi nantu à lichess.org, %s</string>
+  <string name="common_orPaste">(Ùn funziona micca u cliccu? Appicicate a leia in u vostru navigatore!)</string>
+  <string name="common_note">Hè un currieru elettronicu di u serviziu liatu à a vostra utilizazioni di %s.</string>
 </resources>
