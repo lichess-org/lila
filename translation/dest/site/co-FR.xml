@@ -50,4 +50,24 @@
   <string name="blackLeftTheGame">I neri lascianu a partita</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Carigate stu URL pè permette à i spettatori di vede a partita</string>
   <string name="theComputerAnalysisHasFailed">L\' analisa di l\' urdinatore ùn funziona micca</string>
+  <string name="viewTheComputerAnalysis">Feghjate l\' analisa di l\' urdinatore</string>
+  <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
+  <string name="computerAnalysis">Analisa di l\' urdinatore</string>
+  <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
+  <string name="analysis">Scacchera d\' analisa</string>
+  <string name="depthX">Prufundezza %s</string>
+  <string name="usingServerAnalysis">Aduprate l\' arnese d\' analisa</string>
+  <string name="loadingEngine">Si telecaricheghja l\' urdinatore...</string>
+  <string name="cloudAnalysis">Analisa di u nullu</string>
+  <string name="goDeeper">Analisa di modu più prufondu</string>
+  <string name="showThreat">Mustrà a minaccia</string>
+  <string name="inLocalBrowser">in u navigatore lucale</string>
+  <string name="toggleLocalEvaluation">Commutà versu a valutazione lucale</string>
+  <string name="promoteVariation">Palisà a variante</string>
+  <string name="makeMainLine">Fà ne a linea principale</string>
+  <string name="deleteFromHere">Sfassà partendu di quì</string>
+  <string name="forceVariation">Putenza di a variante</string>
+  <string name="move">Colpu</string>
+  <string name="variantLoss">Variante perdente</string>
+  <string name="variantWin">Variante guadagnante</string>
 </resources>
