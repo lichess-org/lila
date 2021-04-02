@@ -36,6 +36,9 @@ object bits {
       a(href := routes.Puzzle.home)(
         trans.puzzles()
       ),
+      a(href := routes.Puzzle.show("tsume"))(
+        trans.puzzleTheme.tsume()
+      ),
       a(cls := active.active("themes"), href := routes.Puzzle.themes)(
         trans.puzzle.puzzleThemes()
       ),

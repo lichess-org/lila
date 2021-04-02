@@ -58,6 +58,7 @@ object PuzzleTheme {
       endgame,
     ),
     trans.puzzle.motifs -> List(
+      tsume,
       fork,
       pin,
       sacrifice,
