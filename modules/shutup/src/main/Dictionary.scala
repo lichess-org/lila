@@ -68,7 +68,7 @@ honkey
 hooker
 horny
 humping
-idiot
+(?<!i'?m (such )?(an? )?)idiot
 incest
 jerk
 jizz?(um|)
@@ -80,14 +80,14 @@ lesbo
 masturbat(e|ion|ing)
 milf
 molest
-moron
+(?<!i'?m (such )?(an? )?)moron
 motherfuc?k(er|)
 mothers?
 mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
-noob(s|)
+(?<!i'?m (such )?(an? )?)noob
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
@@ -110,7 +110,7 @@ queer
 rape
 rapist
 rect(al|um)
-retard
+(?<!i'?m (such )?(an? )?)retard
 rimjob
 run
 scare
@@ -134,8 +134,7 @@ spick
 spooge
 spunk
 stfu
-stripper
-stupid
+(?<!i'?m (so )?stupid
 suicide
 suck m[ey]
 terrorist
@@ -186,8 +185,21 @@ pid(a|o|)r
     )
 
   def es = dict("""
-trampas?
-tramposos?
+cabr[oó]na?
+est[úu]pid[ao]
+mierda
+put[ao]
+trampa
+tramposo
+""")
+
+  def it = dict("""
+baldracca
+cazzo
+di merda
+putt?ana
+stronzo
+vaffanculo
 """)
 
   def hi = dict("""
@@ -197,6 +209,7 @@ gaa?nd
 """)
 
   def fr = dict("""
+fdp
 trich(eurs|)
 """)
 

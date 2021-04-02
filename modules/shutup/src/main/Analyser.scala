@@ -32,6 +32,11 @@ object Analyser {
       word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
     } ++
       Dictionary.es ++
+      Dictionary.hi ++
+      Dictionary.fr ++
+      Dictionary.de ++
+      Dictionary.tr ++
+      Dictionary.it ++
       bannedYoutubeIds
 
   private val latinBigRegex = {
