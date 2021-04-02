@@ -2,4 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Cunferma u to contu lichess.org, %s</string>
   <string name="emailConfirm_click">Clica nantu à a leia per validà u to contu Lichess:</string>
+  <string name="emailConfirm_ignore">S\'è ùn site micca arregistratu nantu à Lichess, pudete ignurà u missaghju.</string>
+  <string name="passwordReset_subject">Crea da torna a to parolla d\'intesa di lichess.org, %s</string>
+  <string name="passwordReset_intro">Avemu ricivutu una dumanda par creà da torna a parolla d\' intesa di u to contu.</string>
 </resources>
