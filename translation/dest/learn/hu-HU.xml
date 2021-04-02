@@ -38,13 +38,12 @@ Mindkettőre szükséged van!</string>
   <string name="kingComplete">Most már parancsolhatsz a parancsnoknak!</string>
   <string name="theKnight">A huszár</string>
   <string name="itMovesInAnLShape">L alakban mozog</string>
-  <string name="knightIntro">Itt van egy kihívás számodra.
-A huszár... trükkös figura.</string>
-  <string name="knightsHaveAFancyWay">A huszároknak megvan az a
-különös szokásuk hogy ugrálnak!</string>
+  <string name="knightIntro">Itt van a kihívásod.
+A huszár egy trükkös figura.</string>
+  <string name="knightsHaveAFancyWay">A huszárok specialitása hogy ugrálnak!</string>
   <string name="knightsCanJumpOverObstacles">A huszárok átugorhatják az akadályokat!
-Szökj ki és szerezd meg a csillagokat!</string>
-  <string name="knightComplete">Gratulálunk! Elsajátítottad a huszár mozgását.</string>
+Menekülj és szerezd meg a csillagokat!</string>
+  <string name="knightComplete">Gratulálunk! Most már a huszár mestere vagy!</string>
   <string name="thePawn">A gyalog</string>
   <string name="itMovesForwardOnly">Csak előre tud lépni</string>
   <string name="pawnIntro">A gyalogok gyengék, de nagy lehetőséget rejtenek.</string>
@@ -54,7 +53,7 @@ Viszont amikor elérik a tábla túlsó felét, erősebb figurává változnak!<
 De néha egy huszár is jól jöhet!</string>
   <string name="pawnsMoveForward">A gyalogok előre lépnek,
 de átlósan ütnek!</string>
-  <string name="captureThenPromote">Üsd ki, és változtasd át!</string>
+  <string name="captureThenPromote">Üsd le az ellenfelet, aztán változtasd át a gyalogodat!</string>
   <string name="useAllThePawns">Használd az összes gyalogot!
 Nem kell átváltoztatni.</string>
   <string name="aPawnOnTheSecondRank">A második sorban levő gyalogok kettőt is léphetnek!</string>
@@ -65,17 +64,17 @@ Nem kell átváltoztatni.</string>
   <string name="yourPawnReachedTheEndOfTheBoard">A gyalogod elérte a tábla szélét!</string>
   <string name="itNowPromotesToAStrongerPiece">És most átváltozik egy erősebb figurává.</string>
   <string name="selectThePieceYouWant">Válaszd ki a kívánt figurát!</string>
-  <string name="fundamentals">Alapfok</string>
+  <string name="fundamentals">Alapok</string>
   <string name="capture">Ütés</string>
-  <string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
+  <string name="takeTheEnemyPieces">Üsd le az ellenfél figuráit</string>
   <string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
   <string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le a sötét figuráit!
 Ne veszíts figurát.</string>
-  <string name="captureComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
+  <string name="captureComplete">Gratulálunk! Most már tudsz harcolni a sakkfigurákkal!</string>
   <string name="protection">Védelem</string>
   <string name="keepYourPiecesSafe">Védd meg a figuráidat</string>
-  <string name="protectionIntro">Keresd meg az ellenfeled által megtámadott figurákat, és védd meg őket!</string>
+  <string name="protectionIntro">Keresd meg a megtámadott figuráidat és védd meg őket!</string>
   <string name="protectionComplete">Gratulálunk! Egy figura amit nem veszítesz el kész nyereség!</string>
   <string name="escape">Megtámadtak!
 Menekülj a fenyegetéstől!</string>
