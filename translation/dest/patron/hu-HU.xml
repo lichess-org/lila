@@ -3,9 +3,9 @@
   <string name="donate">Adakozz</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Ingyenes fiók</string>
-  <string name="becomePatron">Legyél Te is Lichess Patron</string>
-  <string name="xBecamePatron">%s már Lichess Patron</string>
-  <string name="newPatrons">Új Patronok</string>
+  <string name="becomePatron">Támogasd a Lichesst</string>
+  <string name="xBecamePatron">%s már Lichess támogató</string>
+  <string name="newPatrons">Új támogatók</string>
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
   <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
