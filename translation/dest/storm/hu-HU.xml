@@ -8,7 +8,7 @@
   <string name="newWeeklyHighscore">Új heti rekord!</string>
   <string name="newMonthlyHighscore">Új havi rekord!</string>
   <string name="newAllTimeHighscore">Új abszolút rekord!</string>
-  <string name="previousHighscoreWasX">Az előző rekord %s volt</string>
+  <string name="previousHighscoreWasX">Az előző rekordod %s volt</string>
   <string name="playAgain">Játsz újra</string>
   <plurals name="xRuns">
     <item quantity="one">1 futam</item>
