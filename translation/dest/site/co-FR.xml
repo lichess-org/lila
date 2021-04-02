@@ -75,8 +75,16 @@
   <string name="capture">Cattura</string>
   <string name="close">Chjude</string>
   <string name="winning">Vince</string>
+  <string name="losing">Perdente</string>
+  <string name="drawn">Annullente</string>
+  <string name="database">Databasa</string>
+  <string name="whiteDrawBlack">Bianchi/ Patta/ Neri</string>
+  <string name="averageRatingX">Livellu mezanu</string>
+  <string name="recentGames">Partite recente</string>
+  <string name="topGames">Partite di altu rangu</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
+  <string name="computersAreNotAllowedToPlay">L\' urdinatore è i ghjocatori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucatore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucatori chì anu troppu conti seranu messi fora.</string>
 </resources>
