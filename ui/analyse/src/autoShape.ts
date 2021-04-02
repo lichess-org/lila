@@ -110,9 +110,15 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         const pos = ctrl.position(ctrl.tree.parentNode(ctrl.path)).unwrap();
         const move = parseUci(uci!)!;
         const castleSide = pos.castlingSide(move);
-        const destSquare =  castleSide ?
-          (pos.turn === 'white' ? (castleSide === 'a' ? 2 : 6) : castleSide === 'a' ? 58 : 62)
-        : move.to
+        const destSquare = castleSide
+          ? pos.turn === 'white'
+            ? castleSide === 'a'
+              ? 2
+              : 6
+            : castleSide === 'a'
+            ? 58
+            : 62
+          : move.to;
         shapes = shapes.concat({
           orig: makeSquare(destSquare),
           customSvg: svg,
