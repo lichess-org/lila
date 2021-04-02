@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Cunferma u to contu lichess.org, %s</string>
+  <string name="emailConfirm_click">Clica nantu à a leia per validà u to contu Lichess:</string>
+</resources>
