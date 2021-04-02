@@ -247,8 +247,7 @@ gerizekal[iı]
 ibne
 ka[sş]ar
 orospu
-piç
-piçlik
+piç(lik)?
 pu[sş]t
 salak
 sikecem
