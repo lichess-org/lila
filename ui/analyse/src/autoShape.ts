@@ -1,3 +1,4 @@
+import { altCastles } from 'chess';
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
@@ -107,7 +108,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const glyph = glyphs[0];
       const svg = glyphToSvg[glyph.symbol];
       if (svg) {
-        const move = parseUci(uci!)!;
+        const move = parseUci(altCastles.hasOwnProperty(uci!) ? altCastles[uci!] : uci!)!;
         shapes = shapes.concat({
           orig: makeSquare(move.to),
           customSvg: svg,
