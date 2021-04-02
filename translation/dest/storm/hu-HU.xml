@@ -34,7 +34,7 @@
   <string name="bestRunOfDay">Napi legjobb futam</string>
   <string name="runs">Futamok</string>
   <string name="getReady">Felkészülni!</string>
-  <string name="waitingForMorePlayers">Várakozás további játékosok csatlakozására...</string>
+  <string name="waitingForMorePlayers">További játékosok csatlakozására várunk...</string>
   <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
   <string name="joinTheRace">Csatlakozz a versenyhez!</string>
