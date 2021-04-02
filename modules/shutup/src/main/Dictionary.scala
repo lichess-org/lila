@@ -14,17 +14,14 @@ private object Dictionary {
 fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
-afraid
 anal(plug|sex|)
 anus
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
 aus?c?hwitz
-ball
 bastard?
 be[ea]+ch
-bewb
 bimbo
 bit?ch
 blow
@@ -37,44 +34,33 @@ bugger
 buk?kake
 bull?shit
 cancer
-cawk
 cheat(ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
-choad
 clit
 clitoris
 clown
 condom
 coon
 cock
-cooter
-cornhole
 coward?
-crap
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
-dong
 douche(bag|)
 dyke
 engine
 (f|ph)ag
 (f|ph)agg?ot
-fanny
-(f|ph)art
 foreskin
 gangbang
 gay
-genital
-genitalia
 gobshite?
 gook
 gypo
 handjob
-hell
 hitler+
 homm?o(sexual|)
 honkey
@@ -85,7 +71,6 @@ idiot
 incest
 jerk
 jizz?(um|)
-kaffir
 kike
 kys
 labia
@@ -108,7 +93,6 @@ pa?edo
 pa?edo(f|ph)ile
 paki
 pathetic
-pecker
 pederast
 pen(1|i)s
 pig
@@ -143,7 +127,6 @@ shag
 shemale
 shit(z|e|y|ty|bag|)
 sissy
-sister
 slag
 slave
 slut
@@ -151,15 +134,12 @@ spastic
 spaz
 sperm
 spick
-spoo
 spooge
 spunk
 stfu
 stripper
 stupid
 suicide
-taint
-tart
 terrorist
 tit(|t?ies|ty)(fuc?k)
 tosser
@@ -177,9 +157,7 @@ w?hore?
 wog
 """)
 
-  def ru =
-    dict(
-      """
+  def ru = dict("""
 сука
 пизда
 пидор(|ас)
@@ -210,6 +188,34 @@ pid(a|o|)r
   def es = dict("""
 trampas?
 tramposos?
+""")
+
+  def hi = dict("""
+(madar|be?hen|beti)chod
+chut(iya)?
+gaa?nd
+""")
+
+  def fr = dict("""
+trich(eurs)?
+""")
+
+  def de = dict("""
+hurensohn
+fotze
+arschloch
+schlampe
+schwuchtel
+neger
+schwanzlutscher
+wichser
+angsthase
+mistkerl
+drecksa(u|ck)
+trottel
+bl(ö|oe|o)dmann?
+pisser
+ficker
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
