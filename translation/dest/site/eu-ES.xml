@@ -838,4 +838,11 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
+  <string name="patronAccountExpired">Babesle kontua iraungi egin da</string>
+  <string name="pleaseReconsiderRenewIt">Berritzea aztertu ezazu!</string>
+  <string name="someoneReviewedYourCoachProfile">Entrenatzaile profila norbaitek errebisatu du.</string>
+  <string name="newPendingReview">Berrikusketa berri egiteke</string>
+  <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Itzulketa: %1$s %2$s puntu.</string>
+  <string name="timeAlmostUp">Denbora ia agortu da!</string>
 </resources>
