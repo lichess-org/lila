@@ -29,7 +29,7 @@
   <string name="puzzlesPlayed">Játszott feladványok</string>
   <string name="newRun">Új futam (gyorsbill.: Szóköz)</string>
   <string name="endRun">Futam vége (gyorsbillentyü: Enter)</string>
-  <string name="highscores">Toplista</string>
+  <string name="highscores">Legjobb pontszámaid</string>
   <string name="viewBestRuns">Napi legjobb futamjaid</string>
   <string name="bestRunOfDay">Napi legjobb futam</string>
   <string name="runs">Futamok</string>
