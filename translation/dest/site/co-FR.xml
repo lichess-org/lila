@@ -34,4 +34,20 @@
   <string name="joinTheGame">Ghjunghjite a partita</string>
   <string name="whitePlays">Tocca à i bianchi</string>
   <string name="blackPlays">Tocca à i neri</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">U vostru aversariu si n\' hè andatu. Pudete dumandà a vittoria da quì à %s seconde.</item>
+    <item quantity="other">I vostruaversariu si n\' hè andatu. Pudete dumandà a vittoria da quì à %s seconde.</item>
+  </plurals>
+  <string name="opponentLeftChoices">U vostru aversariu si n\' hè andatu. Pudete dumandà a vittoria, dichjarà a partita patta, o aspettà.</string>
+  <string name="makeYourOpponentResign">Fate tralascià u vostru aversariu</string>
+  <string name="forceResignation">Dumandà a vittoria</string>
+  <string name="forceDraw">Dichjarà a partita patta</string>
+  <string name="talkInChat">Pè piace, siate curtese in a discursata!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A prima persona chì ghjunghje issu URL hà da ghjucà cù voi.</string>
+  <string name="whiteResigned">I bianchi tralascianu</string>
+  <string name="blackResigned">I neri tralascianu</string>
+  <string name="whiteLeftTheGame">I bianchi lascianu a partita</string>
+  <string name="blackLeftTheGame">I neri lascianu a partita</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Carigate stu URL pè permette à i spettatori di vede a partita</string>
+  <string name="theComputerAnalysisHasFailed">L\' analisa di l\' urdinatore ùn funziona micca</string>
 </resources>
