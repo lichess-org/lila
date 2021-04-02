@@ -23,6 +23,7 @@ $board-files: (
   "solid-natural": "solid-natural.png",
   "whiteBoard": "white.png",
   "darkBoard": "dark.png",
+  "transparent": "transparent.png",
 );
 
 @each $color, $file in $board-files {

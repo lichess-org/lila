@@ -60,7 +60,8 @@ object Theme extends ThemeObject {
     "space2",
     "whiteBoard",
     "darkBoard",
-    "doubutsu"
+    "doubutsu",
+    "transparent",
   ) map { name =>
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }

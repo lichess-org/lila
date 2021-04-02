@@ -165,7 +165,7 @@ function configureSrc(url: string): string {
   const parsed = new URL(url, window.location.href);
   parsed.searchParams.append(
     "theme",
-    themes.find((theme) => document.body.classList.contains(theme))!
+    themes.find((theme) => document.body.classList.contains(theme)) ?? "wood1"
   );
   parsed.searchParams.append("bg", document.body.getAttribute("data-theme")!);
   return parsed.href;

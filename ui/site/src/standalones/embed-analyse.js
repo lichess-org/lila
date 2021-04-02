@@ -187,7 +187,7 @@ $(function () {
       "theme",
       themes.find(function (theme) {
         return document.body.classList.contains(theme);
-      })
+      }) ?? "wood1"
     );
     parsed.searchParams.append("bg", document.body.getAttribute("data-theme"));
     return parsed.href;
