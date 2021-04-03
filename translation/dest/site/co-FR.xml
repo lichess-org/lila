@@ -94,6 +94,7 @@
   </plurals>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
+  <string name="openingExplorer">Espluratore di l\' apertura</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
