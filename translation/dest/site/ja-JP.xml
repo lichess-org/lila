@@ -101,12 +101,12 @@
   <string name="deleteThisImportedGame">このPGNを削除しますか？</string>
   <string name="replayMode">対局再現速度</string>
   <string name="realtimeReplay">実時間</string>
-  <string name="byCPL">評価値変化</string>
+  <string name="byCPL">評価値で</string>
   <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
-  <string name="multipleLines">解析ライン数</string>
+  <string name="multipleLines">解析指し手数</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
@@ -120,18 +120,18 @@
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤の上下反転</string>
   <string name="threefoldRepetition">同形三復</string>
-  <string name="claimADraw">引き分けの申し立て</string>
-  <string name="offerDraw">引き分けの提案</string>
+  <string name="claimADraw">引き分けを申し立てる</string>
+  <string name="offerDraw">引き分けを提案する</string>
   <string name="draw">引き分け</string>
   <plurals name="nbPlayers">
-    <item quantity="other">現在%s人接続中</item>
+    <item quantity="other">%s人接続中</item>
   </plurals>
-  <string name="currentGames">現在対局中</string>
+  <string name="currentGames">対局中数</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s個の ブックマーク</item>
+    <item quantity="other">%s局が保存された</item>
   </plurals>
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
