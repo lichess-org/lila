@@ -114,8 +114,12 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisa infiinita</string>
   <string name="removesTheDepthLimit">Ùn ci hè limita di calculu, pò trascaldà u vostru urdinatore</string>
-  <string name="blunder">Sbagliu</string>
-  <string name="blunders">Sbagli</string>
+  <string name="blunder">Sbaglione</string>
+  <string name="blunders">Sbaglioni</string>
+  <string name="mistake">Sbagliu</string>
+  <string name="mistakes">Sbagli</string>
+  <string name="inaccuracy">Imprecisione</string>
+  <string name="inaccuracies">Imprecisioni</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
