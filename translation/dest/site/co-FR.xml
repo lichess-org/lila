@@ -94,7 +94,20 @@
   </plurals>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
-  <string name="openingExplorer">Espluratore di l\' apertura</string>
+  <string name="openingExplorer">Espluratore d\' apertura</string>
+  <string name="xOpeningExplorer">%s espluratore d\' apertura</string>
+  <string name="winPreventedBy50MoveRule">A regula di i 50 copli impedisce a vittoria</string>
+  <string name="lossSavedBy50MoveRule">A regula di i 50 colpi impedisce a difesa</string>
+  <string name="allSet">Hè prontu!</string>
+  <string name="importPgn">Impurtà u PGN</string>
+  <string name="delete">Sfassà</string>
+  <string name="deleteThisImportedGame">Sfassà issa partita impurtata?</string>
+  <string name="replayMode">Modu di rilettura</string>
+  <string name="realtimeReplay">Vitezza nurmale</string>
+  <string name="byCPL">Par (CPP) Centi Puntu Persu</string>
+  <string name="openStudy">Studià l\' apertura</string>
+  <string name="enable">Attivà</string>
+  <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
