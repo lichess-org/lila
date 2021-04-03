@@ -16,9 +16,9 @@
   <string name="resign">Tralascià</string>
   <string name="checkmate">Scaccu mattu</string>
   <string name="stalemate">Pattu</string>
-  <string name="white">Biancu</string>
-  <string name="black">Neru</string>
-  <string name="randomColor">Tirà u campu à a sorte</string>
+  <string name="white">Bianchi</string>
+  <string name="black">Neri</string>
+  <string name="randomColor">Tirà u campu à piripì</string>
   <string name="createAGame">Creà una partita</string>
   <string name="whiteIsVictorious">I bianchi anu vintu</string>
   <string name="blackIsVictorious">I neri anu vintu</string>
@@ -160,6 +160,7 @@
   <string name="timeControl">Cuntrollu di u tempu</string>
   <string name="realTime">Tempu reale</string>
   <string name="correspondence">Currispundenza</string>
+  <string name="oneDay">Un ghjornu</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
@@ -181,4 +182,9 @@
   <string name="composeMessage">Scrive un missaghju</string>
   <string name="noNewMessages">Ùn ci hè missaghju novu</string>
   <string name="subject">Sughjettu</string>
+  <string name="recipient">Destinatariu</string>
+  <string name="send">Mandà</string>
+  <string name="incrementInSeconds">Raghjunta in seconde</string>
+  <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
+  <string name="spectators">Spettatori:</string>
 </resources>
