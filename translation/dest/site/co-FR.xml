@@ -18,7 +18,7 @@
   <string name="stalemate">Pattu</string>
   <string name="white">Bianchi</string>
   <string name="black">Neri</string>
-  <string name="randomColor">Tirà u campu à piripì</string>
+  <string name="randomColor">Sceglie u campu à l\' imbusca</string>
   <string name="createAGame">Creà una partita</string>
   <string name="whiteIsVictorious">I bianchi anu vintu</string>
   <string name="blackIsVictorious">I neri anu vintu</string>
@@ -80,7 +80,7 @@
   <string name="unknown">Scunnusciutu</string>
   <string name="database">Databasa</string>
   <string name="whiteDrawBlack">Bianchi/ Patta/ Neri</string>
-  <string name="averageRatingX">Livellu mezanu</string>
+  <string name="averageRatingX">Livellu mezanu %s</string>
   <string name="recentGames">Partite recente</string>
   <string name="topGames">Partite di altu rangu</string>
   <string name="masterDbExplanation">2 millioni di partite OTB di ghjucatori classificati à più di %1$s da %2$s à %3$s</string>
@@ -104,13 +104,13 @@
   <string name="deleteThisImportedGame">Sfassà issa partita impurtata?</string>
   <string name="replayMode">Modu di rilettura</string>
   <string name="realtimeReplay">Vitezza nurmale</string>
-  <string name="byCPL">Par (CPP) Centi Puntu Persu</string>
+  <string name="byCPL">Par CPP Centi Puntu Persu</string>
   <string name="openStudy">Studià l\' apertura</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
   <string name="evaluationGauge">Stazza di valutazione</string>
   <string name="multipleLines">Parechje linee</string>
-  <string name="cpus">Parechji CPU (urdinatore d\' analisa)</string>
+  <string name="cpus">Parechji CPU urdinatore d\' analisa</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisa infiinita</string>
   <string name="removesTheDepthLimit">Ùn ci hè limita di calculu, pò trascaldà u vostru urdinatore</string>
