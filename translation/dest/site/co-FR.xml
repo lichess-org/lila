@@ -170,4 +170,15 @@
   <string name="rematchOfferCanceled">A pruposta d\' una altra partita hè annullata</string>
   <string name="rematchOfferDeclined">A pruposta d\' una altra partita hè ricusata</string>
   <string name="cancelRematchOffer">Annullà a pruposta d\' una altra partita</string>
+  <string name="viewRematch">Vede a rivincita</string>
+  <string name="confirmMove">Cunfirmà u colpu</string>
+  <string name="play">Ghjucà</string>
+  <string name="inbox">A scatula di ricezzione</string>
+  <string name="chatRoom">Salla di discursata</string>
+  <string name="loginToChat">Identificà si in a discursata</string>
+  <string name="youHaveBeenTimedOut">U tempu hè passatu.</string>
+  <string name="spectatorRoom">Salla di i spettatori</string>
+  <string name="composeMessage">Scrive un missaghju</string>
+  <string name="noNewMessages">Ùn ci hè missaghju novu</string>
+  <string name="subject">Sughjettu</string>
 </resources>
