@@ -43,4 +43,6 @@
   <string name="nextRace">Nästa lopp</string>
   <string name="joinRematch">Gå med i returmatch</string>
   <string name="waitingToStart">Väntar på att starta</string>
+  <string name="createNewGame">Skapa ett nytt lopp</string>
+  <string name="joinPublicRace">Gå med i ett öppet lopp</string>
 </resources>
