@@ -35,7 +35,7 @@
   <string name="whitePlays">白番です</string>
   <string name="blackPlays">黒番です</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
+    <item quantity="other">相手が退出したようです。後 %s 秒で投了させることができます。</item>
   </plurals>
   <string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
   <string name="makeYourOpponentResign">相手を投了させる</string>
@@ -49,13 +49,13 @@
   <string name="blackLeftTheGame">黒が退席しました</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、このURLを共有してください。</string>
   <string name="theComputerAnalysisHasFailed">コンピューター解析が失敗しました</string>
-  <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
+  <string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析が完成しました</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
-  <string name="usingServerAnalysis">サーバ解析を使用</string>
+  <string name="usingServerAnalysis">サーバ解析を使用中</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
@@ -66,22 +66,22 @@
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">ここから削除</string>
   <string name="forceVariation">変化として表示</string>
-  <string name="move">手</string>
+  <string name="move">指し手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
-  <string name="insufficientMaterial">戦力不足</string>
+  <string name="insufficientMaterial">駒が不足しています</string>
   <string name="pawnMove">ポーンの手</string>
   <string name="capture">駒取り</string>
   <string name="close">閉じる</string>
   <string name="winning">勝勢</string>
   <string name="losing">敗勢</string>
-  <string name="drawn">ドロー</string>
+  <string name="drawn">引き分け</string>
   <string name="unknown">不明</string>
   <string name="database">データベース</string>
-  <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
+  <string name="whiteDrawBlack">白勝 / 引き分け/ 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
-  <string name="recentGames">最近のゲーム</string>
-  <string name="topGames">トップのゲーム</string>
+  <string name="recentGames">最近の対局</string>
+  <string name="topGames">トップの対局</string>
   <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の 実戦 200 万局</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
@@ -339,7 +339,7 @@
   </plurals>
   <string name="noFriendsOnline">接続中の友達はいません</string>
   <string name="findFriends">友達を探す</string>
-  <string name="favoriteOpponents">お気に入りの対局相手</string>
+  <string name="favoriteOpponents">お気に入りの対戦相手</string>
   <string name="follow">フォローする</string>
   <string name="following">フォローしています</string>
   <string name="unfollow">フォローをやめる</string>
@@ -429,11 +429,11 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="success">成功</string>
+  <string name="success">正解</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局対局中</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに切り替える</string>
   <string name="autoSwitch">自動切り替え</string>
   <string name="puzzles">タクティクス問題</string>
   <string name="latestUpdates">最新情報</string>
