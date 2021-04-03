@@ -45,4 +45,8 @@
   <string name="waitingToStart">Väntar på att starta</string>
   <string name="createNewGame">Skapa ett nytt lopp</string>
   <string name="joinPublicRace">Gå med i ett öppet lopp</string>
+  <string name="raceYourFriends">Utmana dina vänner</string>
+  <string name="skip">skippa</string>
+  <string name="skipHelp">Du kan skippa ett drag per lopp:</string>
+  <string name="skipExplanation">Skippa detta drag för att bevara din kombo! Detta fungerar bara en gång per lopp.</string>
 </resources>
