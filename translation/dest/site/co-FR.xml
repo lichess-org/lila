@@ -120,6 +120,21 @@
   <string name="mistakes">Sbagli</string>
   <string name="inaccuracy">Imprecisione</string>
   <string name="inaccuracies">Imprecisioni</string>
+  <string name="moveTimes">Durata di u coplu</string>
+  <string name="flipBoard">Vultà a scacchera</string>
+  <string name="threefoldRepetition">Ripetutu trè volte</string>
+  <string name="claimADraw">Dumandà a partita patta</string>
+  <string name="offerDraw">Prupone a partita patta</string>
+  <string name="draw">Partita patta</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ghjucatore</item>
+    <item quantity="other">%s ghjucatori</item>
+  </plurals>
+  <string name="currentGames">Partite ghjucate avali</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partita</item>
+    <item quantity="other">%s partite</item>
+  </plurals>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
