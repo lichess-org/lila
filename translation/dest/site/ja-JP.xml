@@ -138,20 +138,20 @@
   <string name="signIn">ログイン</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
-  <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
-  <string name="games">ゲーム</string>
-  <string name="forum">フォーラム</string>
+  <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他人の助言は厳禁です。また、複数アカウントの使用も追放の可能性があります。</string>
+  <string name="games">局</string>
+  <string name="forum">掲示板</string>
   <string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
-  <string name="latestForumPosts">最新のフォーラム記事</string>
-  <string name="players">プレイヤー</string>
+  <string name="latestForumPosts">最新の掲示板記事</string>
+  <string name="players">ユーザー</string>
   <string name="friends">友達</string>
   <string name="discussions">トピック</string>
   <string name="today">今日</string>
   <string name="yesterday">昨日</string>
   <string name="minutesPerSide">持ち時間</string>
-  <string name="variant">バリアント</string>
+  <string name="variant">変則チェス</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持時間</string>
+  <string name="timeControl">持ち時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1 手あたり日数</string>
@@ -165,10 +165,10 @@
   <string name="time">時間</string>
   <string name="rating">レーティング</string>
   <string name="ratingStats">レーティングの統計</string>
-  <string name="username">アカウント名</string>
-  <string name="usernameOrEmail">ユーザー名</string>
+  <string name="username">ユーザー名</string>
+  <string name="usernameOrEmail">ユーザー名、またはメールアドレス</string>
   <string name="changeUsername">ユーザー名の変更</string>
-  <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
+  <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（例えばsatoutarou を SatouTarouに）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
@@ -179,19 +179,19 @@
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">順位は %s 分ごとに更新</item>
+    <item quantity="other">ランクは %s 分ごとに更新</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="other">%s タクティクス</item>
+    <item quantity="other">%s タクティクス問題</item>
   </plurals>
-  <string name="gamesPlayed">対局数</string>
+  <string name="gamesPlayed">過去の対局数</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
-  <string name="drawOfferSent">引き分けの申し込みを送信しました</string>
+  <string name="drawOfferSent">引き分けの提案を送信しました</string>
   <string name="drawOfferDeclined">引き分けの申し込みは拒否されました</string>
   <string name="drawOfferAccepted">引き分けの申し込みに合意しました</string>
   <string name="drawOfferCanceled">引き分けの申し込みをキャンセルしました</string>
