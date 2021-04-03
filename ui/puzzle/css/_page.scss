@@ -23,6 +23,7 @@
     @extend %box-radius;
 
     display: flex;
+    align-items: center;
     padding: 1.5em 1em 1.5em 0;
 
     &::before {
