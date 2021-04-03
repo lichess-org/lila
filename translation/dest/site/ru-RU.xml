@@ -163,7 +163,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -406,7 +406,7 @@
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s друзей онлайн</item>
+    <item quantity="one">%s друг онлайн</item>
     <item quantity="few">%s друга онлайн</item>
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
