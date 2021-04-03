@@ -10,7 +10,7 @@ private object Dictionary {
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)ag
 (f|ph)agg?ot
-[ck]oc?k(y|suc?ker|)
+cock(suc?ker|)
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
