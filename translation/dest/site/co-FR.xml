@@ -108,6 +108,14 @@
   <string name="openStudy">Studià l\' apertura</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
+  <string name="evaluationGauge">Stazza di valutazione</string>
+  <string name="multipleLines">Parechje linee</string>
+  <string name="cpus">Parechji CPU (urdinatore d\' analisa)</string>
+  <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analisa infiinita</string>
+  <string name="removesTheDepthLimit">Ùn ci hè limita di calculu, pò trascaldà u vostru urdinatore</string>
+  <string name="blunder">Sbagliu</string>
+  <string name="blunders">Sbagli</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
