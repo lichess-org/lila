@@ -21,8 +21,11 @@
 
   &__link {
     @extend %box-radius;
+    @include transition;
 
+    color: $c-font;
     display: flex;
+    align-items: center;
     padding: 1.5em 1em 1.5em 0;
 
     &::before {
