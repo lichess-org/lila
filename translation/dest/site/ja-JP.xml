@@ -82,25 +82,25 @@
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近の対局</string>
   <string name="topGames">トップの対局</string>
-  <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の 実戦 200 万局</string>
+  <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の対局が200 万局あります</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">%s プライでメイト</item>
+    <item quantity="other">%s 手メイト</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">次の駒取りかポーンの手まで %s プライ（50 手ルールのカウント更新までの手数）</item>
   </plurals>
-  <string name="noGameFound">ゲームが見つかりません</string>
+  <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openingExplorer">オープニング探索</string>
+  <string name="openingExplorer">オープニング定跡探索</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
-  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
-  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
+  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールで引き分け</string>
+  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールで引き分け</string>
   <string name="allSet">準備完了！</string>
   <string name="importPgn">PGNをインポート</string>
   <string name="delete">削除</string>
-  <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
-  <string name="replayMode">再現の方式</string>
-  <string name="realtimeReplay">リアルタイム</string>
+  <string name="deleteThisImportedGame">このPGNを削除しますか？</string>
+  <string name="replayMode">対局再現速度</string>
+  <string name="realtimeReplay">実時間</string>
   <string name="byCPL">評価値変化</string>
   <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
