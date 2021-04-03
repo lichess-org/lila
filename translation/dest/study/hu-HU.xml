@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privát</string>
-  <string name="myStudies">Saját tanulmányok</string>
-  <string name="studiesIContributeTo">Tanulmányok amikben közreműködöm</string>
-  <string name="myPublicStudies">Nyilvános tanulmányaim</string>
-  <string name="myPrivateStudies">Privát tanulmányaim</string>
-  <string name="myFavoriteStudies">Kedvenc tanulmányaim</string>
-  <string name="whatAreStudies">Mik azok a tanulmányok?</string>
-  <string name="allStudies">Összes tanulmány</string>
-  <string name="studiesCreatedByX">%s által készített tanulmányok</string>
-  <string name="noneYet">Még nincs.</string>
+  <string name="myStudies">Saját leckék</string>
+  <string name="studiesIContributeTo">Leckék amikben közreműködöm</string>
+  <string name="myPublicStudies">Nyilvános leckéim</string>
+  <string name="myPrivateStudies">Privát leckéim</string>
+  <string name="myFavoriteStudies">Kedvenc leckéim</string>
+  <string name="whatAreStudies">Mi a lecke?</string>
+  <string name="allStudies">Összes lecke</string>
+  <string name="studiesCreatedByX">%s által készített leckék</string>
+  <string name="noneYet">Még nincs ilyen lecke.</string>
   <string name="hot">Felkapott</string>
   <string name="dateAddedNewest">Hozzáadva (legújabb)</string>
   <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
