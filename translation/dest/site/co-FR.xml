@@ -159,4 +159,15 @@
   <string name="variants">Varianti</string>
   <string name="timeControl">Cuntrollu di u tempu</string>
   <string name="realTime">Tempu reale</string>
+  <string name="correspondence">Currispundenza</string>
+  <string name="ratedTournament">Classificatu</string>
+  <string name="thisGameIsRated">Issa partita hè classificata</string>
+  <string name="rematch">Ghjucà da torna</string>
+  <string name="rematchOfferSent">Offerta di rivincita mandata</string>
+  <string name="rematchOfferSentWhite">I bianchi pruponenu un altra partita</string>
+  <string name="rematchOfferSentBlack">I neri pruponenu un altra partita</string>
+  <string name="rematchOfferAccepted">A pruposta d\' una altra partita hè accettata</string>
+  <string name="rematchOfferCanceled">A pruposta d\' una altra partita hè annullata</string>
+  <string name="rematchOfferDeclined">A pruposta d\' una altra partita hè ricusata</string>
+  <string name="cancelRematchOffer">Annullà a pruposta d\' una altra partita</string>
 </resources>
