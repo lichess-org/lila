@@ -14,4 +14,10 @@
   <string name="rookGoal">رخ پرکلک کریں اور ستارے پر لے کر جائیں!</string>
   <string name="grabAllTheStars">تمام ستاروں کو پکڑیں!</string>
   <string name="theFewerMoves">جتنی کم چالیں چلیں گے اتنے زیادہ پوائنٹس آپ جیتیں گے!</string>
+  <string name="escape">آپ پر حملہ ہے! خطرے سے بچ جائیں!</string>
+  <string name="defendYourKing">اپنے بادشاہ کی دفاع کریں</string>
+  <string name="escapeWithTheKing">بادشاہ کے ساتھ فرار ہوں!</string>
+  <string name="theKingCannotEscapeButBlock">بادشاہ فرار نہیں ہوسکتا، مگر آپ حملے کو روک سکتے ہیں!</string>
+  <string name="howTheGameStarts">کھیل کیسے شروع ہوتا ہے</string>
+  <string name="boardSetupIntro">دونوں اجواج ایک دوسرے کا سامنا کر رہی ہیں، جنگ کے لیۓ تیار ہیں۔</string>
 </resources>
