@@ -45,5 +45,5 @@ export interface RacerVm {
 }
 
 export interface RacerConfig extends Config {
-  minFirstMoveTime:number
+  minFirstMoveTime: number;
 }

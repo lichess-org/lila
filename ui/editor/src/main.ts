@@ -3,7 +3,7 @@ import EditorCtrl from './ctrl';
 import { eventListenersModule } from 'snabbdom';
 import { classModule } from 'snabbdom';
 import menuHover from 'common/menuHover';
-import { propsModule }  from 'snabbdom';
+import { propsModule } from 'snabbdom';
 import view from './view';
 import { Chessground } from 'chessground';
 import { EditorConfig } from './interfaces';
