@@ -188,10 +188,13 @@ p[ie]d[aoe]?r
   def es = dict("""
 cabr[oó]na?
 est[úu]pid[ao]
+maric[oó]n
 mierda
+pendejo
 put[ao]
 trampa
-tramposo
+trampos[ao]
+verga
 """)
 
   def it = dict("""
