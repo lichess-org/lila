@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Ctrl, Tab } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';

@@ -2,7 +2,7 @@ import LobbyController from '../../ctrl';
 import { bind, perfIcons } from '../util';
 import { h } from 'snabbdom';
 import { Hook } from '../../interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 const percents = (v: number) => v + '%';
 

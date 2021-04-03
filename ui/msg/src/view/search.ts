@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';

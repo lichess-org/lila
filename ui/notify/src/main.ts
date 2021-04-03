@@ -1,14 +1,14 @@
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 import makeCtrl from './ctrl';
 import view from './view';
 import { NotifyOpts, Ctrl } from './interfaces';
 
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { classModule } from 'snabbdom';
+import { attributesModule } from 'snabbdom';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LichessNotify(element: Element, opts: NotifyOpts) {
   let vnode: VNode, ctrl: Ctrl;

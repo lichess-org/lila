@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Pieces } from 'chessground/types';
 import { Rank, File } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';

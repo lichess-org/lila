@@ -3,11 +3,11 @@ import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
 import { loading, loaded } from './view';
 import * as xhr from 'common/xhr';
 import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { VNode } from 'snabbdom';
+import { classModule } from 'snabbdom';
+import { attributesModule } from 'snabbdom';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LichessDasher(element: Element, opts: DasherOpts) {
   let vnode: VNode, ctrl: DasherCtrl;

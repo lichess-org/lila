@@ -1,5 +1,5 @@
 import { Role } from 'chessground/types';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Clock } from './clock';
 import { Combo } from './combo';
 import CurrentPuzzle from './current';

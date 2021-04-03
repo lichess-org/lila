@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import SwissCtrl from '../ctrl';
 import { PodiumPlayer } from '../interfaces';
 import { userName } from './util';

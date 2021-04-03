@@ -1,7 +1,7 @@
 import { bind, dataIcon } from '../util';
 import { Controller, MaybeVNodes } from '../interfaces';
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 const renderVote = (ctrl: Controller): VNode =>
   h(

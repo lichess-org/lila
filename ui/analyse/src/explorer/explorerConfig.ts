@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { prop } from 'common';
 import { storedProp, storedJsonProp } from 'common/storage';
 import { bind, dataIcon } from '../util';

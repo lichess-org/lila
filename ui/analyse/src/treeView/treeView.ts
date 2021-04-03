@@ -7,13 +7,13 @@ import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { enrichText, innerHTML, bindMobileTapHold, clearSelection } from '../util';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { isEmpty, defined } from 'common';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { path as treePath } from 'tree';
 import { playable } from 'game';
 import { storedProp, StoredProp } from 'common/storage';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;

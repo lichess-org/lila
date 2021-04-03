@@ -1,7 +1,7 @@
-import { Attrs } from 'snabbdom/modules/attributes';
+import { Attrs } from 'snabbdom';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
-import { VNode } from 'snabbdom/vnode';
+import { Hooks } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
 

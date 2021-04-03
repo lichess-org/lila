@@ -6,7 +6,7 @@ import { h } from 'snabbdom';
 import { numberSpread } from 'common/number';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 

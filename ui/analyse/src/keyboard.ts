@@ -4,7 +4,7 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { modal } from './modal';
 import { spinner } from './util';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;

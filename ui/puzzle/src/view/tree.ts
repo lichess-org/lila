@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Classes } from 'snabbdom/modules/class';
+import { VNode } from 'snabbdom';
+import { Classes } from 'snabbdom';
 import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';

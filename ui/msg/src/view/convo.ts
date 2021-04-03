@@ -5,7 +5,7 @@ import renderMsgs from './msgs';
 import { Convo } from '../interfaces';
 import { h } from 'snabbdom';
 import { userName, bindMobileMousedown } from './util';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

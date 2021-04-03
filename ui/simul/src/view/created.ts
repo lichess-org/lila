@@ -4,7 +4,7 @@ import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 import modal from 'common/modal';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export default function (showText: (ctrl: SimulCtrl) => VNode) {
   return (ctrl: SimulCtrl) => {

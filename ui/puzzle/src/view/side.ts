@@ -2,7 +2,7 @@ import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '..
 import { dataIcon, onInsert } from '../util';
 import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {

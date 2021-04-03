@@ -9,7 +9,7 @@ import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h } from 'snabbdom';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 const scrollMax = 99999,
   moveTag = 'u8t',

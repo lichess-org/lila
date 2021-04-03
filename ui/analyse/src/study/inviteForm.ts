@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { modal } from '../modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export function makeCtrl(
   send: SocketSend,

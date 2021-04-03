@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import * as xhr from './studyXhr';
 import { prop, Prop } from 'common';
 import throttle from 'common/throttle';

@@ -1,9 +1,9 @@
 import * as cg from 'chessground/types';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
-import { VNodeData } from 'snabbdom/vnode';
+import { VNodeData } from 'snabbdom';
 
 const pieceScores = {
   pawn: 1,

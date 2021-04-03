@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
+import { VNode } from 'snabbdom';
+import { Hooks } from 'snabbdom';
 import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';

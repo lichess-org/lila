@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { tds, bind } from './util';
 import LobbyController from '../ctrl';
 import { Seek, MaybeVNodes } from '../interfaces';

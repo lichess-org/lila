@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "dragscroll": "^0.0.8",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   },
   "scripts": {
     "dev": "rollup --config",

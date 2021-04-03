@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';

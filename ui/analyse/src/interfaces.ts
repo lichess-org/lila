@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'chessground/types';
 import { ForecastData } from './forecast/interfaces';
