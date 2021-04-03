@@ -39,7 +39,7 @@
   <string name="teamTournament">Клубный турнир</string>
   <string name="teamTournamentOverview">Арена, в которой могут участвовать только члены вашего клуба</string>
   <string name="messageAllMembers">Сообщение всем участникам</string>
-  <string name="messageAllMembersOverview">Отправить личное сообщение каждому участнику клуба</string>
+  <string name="messageAllMembersOverview">Отправить личное сообщение всем членам клуба</string>
   <string name="messageAllMembersLongDescription">Отправить личное сообщение всем членам клуба.
 Можно использовать для вызова игроков на турнир или в командный бой.
 Игроки, которым не нравится получать ваши сообщения, могут покинуть клуб.</string>
