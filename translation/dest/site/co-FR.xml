@@ -135,9 +135,28 @@
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s indetta</item>
+    <item quantity="other">%s indette</item>
+  </plurals>
+  <string name="viewInFullSize">Vede in taglia massima</string>
   <string name="logOut">Scunnette si</string>
   <string name="signIn">Cunnette si</string>
   <string name="youNeedAnAccountToDoThat">Ci vole à avè un contu per fà la</string>
   <string name="signUp">Arrigistrà si</string>
   <string name="computersAreNotAllowedToPlay">L\' urdinatore è i ghjocatori chì adopranu un urdinatore ùn anu u drittu di ghjucà. Pè piace, ùn aiutate vi nè d\' un urdinatore, nè d\' una databasa, nè di i cunsigli d\' un altru ghjucatore duranti e vostre partite. Eppò, annutate ch\' avè parechji conti hè assai malvistu. I ghjucatori chì anu troppu conti seranu messi fora.</string>
+  <string name="games">Partite</string>
+  <string name="forum">Foru</string>
+  <string name="xPostedInForumY">%1$s pustatu in u sughjettu %2$s</string>
+  <string name="latestForumPosts">Ultimi missaghji di u foru</string>
+  <string name="players">Ghjucatori</string>
+  <string name="friends">Amichi</string>
+  <string name="discussions">Discursate</string>
+  <string name="today">Oghje</string>
+  <string name="yesterday">Eri</string>
+  <string name="minutesPerSide">Minuti per ogni campu</string>
+  <string name="variant">Variante</string>
+  <string name="variants">Varianti</string>
+  <string name="timeControl">Cuntrollu di u tempu</string>
+  <string name="realTime">Tempu reale</string>
 </resources>
