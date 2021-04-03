@@ -29,15 +29,15 @@
     <item quantity="one">%s Tag</item>
     <item quantity="other">%s Tag</item>
   </plurals>
-  <string name="inviteToTheStudy">Meghívás tanulmányba</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Csak olyasvalakit hívj meg akit ismersz és aktívan részt venne a tanulmányban.</string>
+  <string name="inviteToTheStudy">Meghívás közremüködésre</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Csak azt hívd meg akit ismersz és aki részt akar venni a lecke elkészítésében.</string>
   <string name="searchByUsername">Keresés felhasználónév alapján</string>
   <string name="spectator">Néző</string>
-  <string name="contributor">Hozzájáruló</string>
-  <string name="kick">Kirúgás</string>
-  <string name="leaveTheStudy">Tanulmány elhagyása</string>
-  <string name="youAreNowAContributor">Mostmár közreműködő vagy</string>
-  <string name="youAreNowASpectator">Mostmár megfigyelő vagy</string>
+  <string name="contributor">Lecke készítö</string>
+  <string name="kick">Eltávolítás</string>
+  <string name="leaveTheStudy">Lecke elhagyása</string>
+  <string name="youAreNowAContributor">Közreműködő vagy</string>
+  <string name="youAreNowASpectator">Megfigyelő vagy</string>
   <string name="pgnTags">PGN címkék</string>
   <string name="like">Kedvel</string>
   <string name="newTag">Új címke</string>
