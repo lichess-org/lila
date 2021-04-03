@@ -1,5 +1,7 @@
 .user-link {
   @extend %nowrap-hidden;
+  display: flex;
+  align-items: center;
 
   color: $c-font;
 
