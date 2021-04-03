@@ -7,6 +7,8 @@
   <string name="anastasiaMate">Anastasijin mat</string>
   <string name="anastasiaMateDescription">Skakač in trnjava ali dama sodelujejo, da ujamejo nasprotnega kralja ob rob šahovnice in prijateljsko figuro v past.</string>
   <string name="arabianMate">Arabski mat</string>
+  <string name="bishopEndgame">Končnica lovcev</string>
+  <string name="castling">Rošada</string>
   <string name="equality">Enakost</string>
   <string name="equalityDescription">Vrnite se iz izgubljenega položaja in si zagotovite neodločen ali uravnotežen položaj. (vrednotenje ≤ 200 sk)</string>
   <string name="kingsideAttack">Napad po kraljevi strani</string>
