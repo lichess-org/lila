@@ -72,7 +72,14 @@ object post {
               dataIcon := "q",
               title := "Delete"
             )
-          else emptyFrag
+          else {
+            a(
+              titleOrText(trans.reportXToModerators.txt(post.userId.get)),
+              cls := "mod report button button-empty",
+              href := s"${routes.Report.form}?username=${post.userId.get}",
+              dataIcon := "!"
+            )
+          }
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),
