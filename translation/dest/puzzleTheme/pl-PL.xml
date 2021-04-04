@@ -69,5 +69,5 @@
   <string name="lishogiGames">Z partii na Lishogi</string>
   <string name="lishogiGamesDescription">Zadania wygenerowane z partii granych na Lishogi.</string>
   <string name="otherSources">Z innych źródeł</string>
-  <string name="otherSourcesDescription">Puzzles submitted by other users and sites - todo.</string>
+  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
 </resources>

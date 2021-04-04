@@ -55,7 +55,7 @@
   <string name="healthyMix">Healthy mix</string>
   <string name="healthyMixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>
   <string name="tsume">Tsume</string>
-  <string name="tsumeDescription">Your goal is to checkmate your opponent.</string>
+  <string name="tsumeDescription">Your goal is to checkmate your opponent. Every move you make has to be a check.</string>
   <string name="strikingPawn">Striking pawn</string>
   <string name="strikingPawnDescription">A tactitc involving dropping a pawn in front of opponent\'s piece and attacking it.</string>
   <string name="joiningPawn">Joining pawn</string>
@@ -69,5 +69,5 @@
   <string name="lishogiGames">From lishogi games</string>
   <string name="lishogiGamesDescription">Puzzles generated from games played on lishogi.</string>
   <string name="otherSources">From other sources</string>
-  <string name="otherSourcesDescription">Puzzles submitted by other users and sites - todo.</string>
+  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
 </resources>
