@@ -20,22 +20,20 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
    * 800,  900,  1000, 1100, 1200, 1270, 1340, 1410, 1480, 1550, 1620,
    * 1690, 1760, 1830, 1900, 2000, 2100, 2200, 2350, 2500, 2650, 2800
    */
-  private val highestBoundary = 2800
   private val buckets = List(
-    1000            -> 3,
-    1150            -> 4,
-    1300            -> 5,
-    1450            -> 6,
-    1600            -> 7,
-    1750            -> 8,
-    1900            -> 10,
-    2050            -> 13,
-    2199            -> 15,
-    2349            -> 17,
-    2499            -> 19,
-    2649            -> 21,
-    2799            -> 23,
-    highestBoundary -> 25
+    1000 -> 3,
+    1150 -> 4,
+    1300 -> 5,
+    1450 -> 6,
+    1600 -> 7,
+    1750 -> 8,
+    1900 -> 10,
+    2050 -> 13,
+    2199 -> 15,
+    2349 -> 17,
+    2499 -> 19,
+    2649 -> 21,
+    2799 -> 21
   )
   private val poolSize = buckets.map(_._2).sum
   private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
@@ -55,7 +53,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec:
                     Match(
                       $doc(
                         "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${if (rating == highestBoundary) 9999 else rating}%04d"
+                        "max" $gte f"${theme}_${tier}_${rating}%04d"
                       )
                     ),
                     Sample(samples),
