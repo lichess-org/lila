@@ -60,7 +60,6 @@ object coordinate {
         div(cls := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
-          div(cls := "next_coord", id := "next_coord2"),
           chessgroundBoard
         ),
         div(cls := "coord-trainer__table")(
