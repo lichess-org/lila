@@ -21,12 +21,12 @@
 	<string name="uwate">Uwate</string>
 	<string name="randomColor">Random side</string>
 	<string name="createAGame">Create a game</string>
-	<string name="whiteIsVictorious">Gote is victorious</string>
-	<string name="blackIsVictorious">Sente is victorious</string>
+	<string name="whiteIsVictorious">Gote is victorius</string>
+	<string name="blackIsVictorious">Sente is victorius</string>
 	<string name="youPlayTheWhitePieces">You play as gote</string>
 	<string name="youPlayTheBlackPieces">You play as sente</string>
 	<string name="itsYourTurn">It\'s your turn!</string>
-	<string name="kingInTheCenter">King in the centre</string>
+	<string name="kingInTheCenter">King in the center</string>
 	<string name="threeChecks">Three checks</string>
 	<string name="raceFinished">Race finished</string>
 	<string name="variantEnding">Variant ending</string>

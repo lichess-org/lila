@@ -50,7 +50,7 @@
   <string name="illegalCastling">Illegal or impossible castling</string>
   <string name="castlingPrevented">Castling is only prevented if the king goes through a controlled square.</string>
   <string name="castlingRules">Make sure you understand the castling rules</string>
-  <string name="tryCastling">Try this little interactive game to practice castling in chess</string>
+  <string name="tryCastling">Try this little interactive game to practice castling in chess.</string>
   <string name="castlingImported">If you imported the game, or started it from a position, make sure you correctly set the castling rights.</string>
   <string name="insufficientMaterial">Insufficient mating material</string>
   <string name="fideMate">According to the FIDE Laws of Chess §6.9, if a checkmate is possible with any legal sequence of moves, then the game is not a draw</string>
@@ -68,9 +68,9 @@
   <string name="doNotDeny">Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake.</string>
   <string name="otherRestriction">Other restriction</string>
   <string name="collaboration">Collaboration, legal, commercial</string>
-  <string name="monetizing">Monetising Lishogi</string>
+  <string name="monetizing">Monetizing Lishogi</string>
   <string name="buyingLishogi">Buying Lishogi</string>
-  <string name="authorizationToUse">Authorisation to use Lishogi</string>
+  <string name="authorizationToUse">Authorization to use Lishogi</string>
   <string name="welcomeToUse">You are welcome to use Lishogi for your activity, even commercial.</string>
   <string name="videosAndBooks">You can show it in your videos, and you can print screenshots of Lishogi in your books.</string>
   <string name="creditAppreciated">Credit is appreciated but not required.</string>

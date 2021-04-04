@@ -5,7 +5,7 @@
 	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
 	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
 	<string name="nmOrFideTitle">title</string>
-	<string name="confirmTitle">Confirm your title here and we will review your application.</string>
+	<string name="confirmTitle">Confirm your title here and we will review your application</string>
 	<string name="sendApplication">Send us an email at %s and we will review your application.</string>
 	<string name="location">Location</string>
 	<string name="languages">Languages</string>

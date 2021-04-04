@@ -34,8 +34,12 @@
   <string name="mateIn3Description">Deliver checkmate in three moves.</string>
   <string name="mateIn4">Mate in 4</string>
   <string name="mateIn4Description">Deliver checkmate in four moves.</string>
-  <string name="mateIn5">Mate in 5 or more</string>
+  <string name="mateIn5">Mate in 5</string>
   <string name="mateIn5Description">Naprawdę długa sekwencja matowa.</string>
+  <string name="mateIn7">Mate in 7</string>
+  <string name="mateIn7Description">Deliver checkmate in seven moves.</string>
+  <string name="mateIn9">Mate in 9 or more</string>
+  <string name="mateIn9Description">Figure out a long mating sequence.</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="middlegameDescription">Taktyka w drugiej fazie gry.</string>
   <string name="oneMove">Jednochodówka</string>
