@@ -132,7 +132,7 @@ object form {
         raw("Simul description"),
         help = frag("Anything you want to tell the participants?").some
       )(form3.textarea(_)(rows := 10)),
-      ctx.me.exists(_.hasTitle) option form3.checkbox(
+      ctx.me.exists(_.canBeFeatured) option form3.checkbox(
         form("featured"),
         frag("Feature on lichess.org/simul"),
         help = frag("Show your simul to everyone on lichess.org/simul. Disable for private simuls.").some

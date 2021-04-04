@@ -59,7 +59,7 @@ final class SimulApi(
       color = setup.color,
       text = setup.text,
       team = setup.team,
-      featurable = some(~setup.featured && canBeFeatured(me))
+      featurable = some(~setup.featured && me.canBeFeatured)
     )
     repo.create(simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
@@ -75,12 +75,10 @@ final class SimulApi(
       color = setup.color.some,
       text = setup.text,
       team = setup.team,
-      featurable = some(~setup.featured && canBeFeatured(me))
+      featurable = some(~setup.featured && me.canBeFeatured)
     )
     repo.update(simul) >>- publish() inject simul
   }
-
-  private def canBeFeatured(user: User) = user.hasTitle && !user.lameOrTroll
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
