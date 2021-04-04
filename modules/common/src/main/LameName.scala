@@ -10,7 +10,7 @@ object LameName {
   def tournament(name: String): Boolean = tournamentRegex find name
 
   private val lameTitlePrefix =
-    ".*[Ww]*[NCFIG1Lncfig1l]Mm.*".r.pattern
+    "_*[Ww]?[NCFIG1Lncfigl][Mm]_+|_+[Ww]?[NCFIG1Lncfigl][Mm]_*|(?<![A-Z])[W]?[NCFIG1L][M]".r.pattern
 
   private val baseWords = List(
     "1488",
