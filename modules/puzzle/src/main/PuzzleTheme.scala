@@ -38,10 +38,10 @@ object PuzzleTheme {
 
   val mate           = PuzzleTheme(Key("mate"), i.mate, i.mateDescription)
   val mateIn1        = PuzzleTheme(Key("mateIn1"), i.mateIn1, i.mateIn1Description)
-  val mateIn2        = PuzzleTheme(Key("mateIn2"), i.mateIn2, i.mateIn2Description)
   val mateIn3        = PuzzleTheme(Key("mateIn3"), i.mateIn3, i.mateIn3Description)
-  val mateIn4        = PuzzleTheme(Key("mateIn4"), i.mateIn4, i.mateIn4Description)
   val mateIn5        = PuzzleTheme(Key("mateIn5"), i.mateIn5, i.mateIn5Description)
+  val mateIn7        = PuzzleTheme(Key("mateIn7"), i.mateIn7, i.mateIn7Description)
+  val mateIn9        = PuzzleTheme(Key("mateIn9"), i.mateIn9, i.mateIn9Description)
 
   val tsume          = PuzzleTheme(Key("tsume"), i.tsume, i.tsumeDescription)
   val lishogiGames   = PuzzleTheme(Key("lishogiGames"), i.lishogiGames, i.lishogiGamesDescription)
@@ -69,10 +69,10 @@ object PuzzleTheme {
     trans.puzzle.mates -> List(
       mate,
       mateIn1,
-      mateIn2,
       mateIn3,
-      mateIn4,
       mateIn5,
+      mateIn7,
+      mateIn9,
     ),
     trans.puzzle.goals -> List(
       equality,
@@ -113,10 +113,10 @@ object PuzzleTheme {
     crushing,
     mate,
     mateIn1,
-    mateIn2,
     mateIn3,
-    mateIn4,
     mateIn5,
+    mateIn7,
+    mateIn9,
     oneMove,
     short,
     long,
@@ -124,6 +124,7 @@ object PuzzleTheme {
     opening,
     middlegame,
     endgame,
+    tsume,
     otherSources,
     lishogiGames
   ).map(_.key)
