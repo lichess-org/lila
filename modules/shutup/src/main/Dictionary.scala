@@ -71,7 +71,6 @@ idiot
 incest
 jerk
 jizz?(um|)
-kike
 kill (yo)?urself
 kys
 labia
