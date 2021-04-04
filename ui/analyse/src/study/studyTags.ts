@@ -1,5 +1,5 @@
 import { h, thunk } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import throttle from 'common/throttle';
 import { option, onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';

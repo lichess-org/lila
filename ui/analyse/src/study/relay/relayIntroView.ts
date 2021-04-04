@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../../ctrl';
 import { innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';

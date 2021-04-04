@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';

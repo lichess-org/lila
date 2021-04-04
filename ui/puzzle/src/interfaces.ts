@@ -8,7 +8,7 @@ import { Prop } from 'common';
 import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 
 export type MaybeVNode = VNode | string | null | undefined;

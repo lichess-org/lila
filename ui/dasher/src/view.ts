@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 import { DasherCtrl } from './dasher';
 import links from './links';

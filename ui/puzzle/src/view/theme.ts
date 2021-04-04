@@ -1,7 +1,7 @@
 import { bind, dataIcon } from '../util';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 

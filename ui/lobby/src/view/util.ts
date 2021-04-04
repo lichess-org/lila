@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { MaybeVNodes } from '../interfaces';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {

@@ -3,9 +3,9 @@ import AnalyseCtrl from '../../ctrl';
 import throttle from 'common/throttle';
 import { bind, iconTag } from '../../util';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { MaybeVNodes } from '../../interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (

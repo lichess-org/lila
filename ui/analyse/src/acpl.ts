@@ -1,5 +1,5 @@
 import { h, thunk } from 'snabbdom';
-import { VNode, VNodeData } from 'snabbdom/vnode';
+import { VNode, VNodeData } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';

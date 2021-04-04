@@ -53,4 +53,5 @@ export interface NewHigh {
 
 export interface StormConfig extends Config {
   timeToStart: number;
+  minFirstMoveTime: number;
 }

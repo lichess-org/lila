@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';

@@ -1,7 +1,7 @@
-import { Attrs } from 'snabbdom/modules/attributes';
+import { Attrs } from 'snabbdom';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
-import { VNode } from 'snabbdom/vnode';
+import { Hooks } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {

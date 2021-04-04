@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow } from './util';
 import { Pairing } from '../interfaces';
 import { isOutcome } from '../util';

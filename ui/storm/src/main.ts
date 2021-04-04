@@ -1,13 +1,13 @@
-import attributes from 'snabbdom/modules/attributes';
-import klass from 'snabbdom/modules/class';
+import { attributesModule } from 'snabbdom';
+import { classModule } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
 import { Chessground } from 'chessground';
 import { init } from 'snabbdom';
 import { StormOpts } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 

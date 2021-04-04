@@ -9,7 +9,7 @@ import { h } from 'snabbdom';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);

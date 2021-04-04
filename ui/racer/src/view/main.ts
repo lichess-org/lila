@@ -5,7 +5,7 @@ import { bind } from 'puz/util';
 import { h } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { MaybeVNodes } from 'puz/interfaces';
 import { renderBoard } from './board';
 import { povMessage } from 'puz/run';

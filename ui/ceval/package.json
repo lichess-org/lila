@@ -26,6 +26,6 @@
     "chessops": "^0.8.1",
     "common": "2.0.0",
     "idb-keyval": "^5.0.4",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   }
 }

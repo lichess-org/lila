@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
 import { teamName } from './battle';
 import * as status from 'game/status';

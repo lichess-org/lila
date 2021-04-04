@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import GamebookPlayCtrl from './gamebookPlayCtrl';
 import { bind, dataIcon, iconTag, richHTML } from '../../util';
 import { State } from './gamebookPlayCtrl';

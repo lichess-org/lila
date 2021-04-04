@@ -10,7 +10,7 @@ import { read as fenRead } from 'chessground/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 function renderMaterial(material: MaterialDiffSide, score: number, position: Position, checks?: number) {
   const children: VNode[] = [];

@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
 import getHours from 'date-fns/getHours';

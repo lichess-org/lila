@@ -5,7 +5,7 @@ import { h } from 'snabbdom';
 import { prop, Prop } from 'common';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;

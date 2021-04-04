@@ -4,7 +4,7 @@ import RoundController from '../ctrl';
 import { bind, justIcon } from '../util';
 import { ClockElements, ClockController, Millis } from './clockCtrl';
 import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 

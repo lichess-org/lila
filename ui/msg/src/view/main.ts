@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderContact from './contact';

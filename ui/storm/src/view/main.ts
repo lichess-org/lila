@@ -8,7 +8,7 @@ import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { getNow, onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');

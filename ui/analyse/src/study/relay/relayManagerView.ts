@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import RelayCtrl from './relayCtrl';
 import { dataIcon, bind, onInsert } from '../../util';
 import { LogEvent } from './interfaces';

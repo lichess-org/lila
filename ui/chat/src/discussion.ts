@@ -6,7 +6,7 @@ import { h, thunk } from 'snabbdom';
 import { lineAction as modLineAction } from './moderation';
 import { presetView } from './preset';
 import { userLink } from './util';
-import { VNode, VNodeData } from 'snabbdom/vnode';
+import { VNode, VNodeData } from 'snabbdom';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 

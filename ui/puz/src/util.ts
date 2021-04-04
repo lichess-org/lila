@@ -1,4 +1,4 @@
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 import { Puzzle } from './interfaces';
 import { opposite } from 'chessops';
 import { parseFen } from 'chessops/fen';

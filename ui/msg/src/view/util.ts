@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { User } from '../interfaces';
 
 export function userIcon(user: User, cls: string): VNode {

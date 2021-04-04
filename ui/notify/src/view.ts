@@ -1,7 +1,7 @@
 import { Ctrl, NotifyData, Notification } from './interfaces';
 import { h } from 'snabbdom';
 import makeRenderers from './renderers';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();

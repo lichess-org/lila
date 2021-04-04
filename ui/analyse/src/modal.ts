@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { bind, onInsert } from './util';
 

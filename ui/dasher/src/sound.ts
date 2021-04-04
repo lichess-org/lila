@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Redraw, Close, bind, header } from './util';
 import throttle from 'common/throttle';
 import * as xhr from 'common/xhr';
