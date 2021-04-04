@@ -22,6 +22,7 @@
     width: 100%;
     opacity: 0.75;
     overflow: hidden;
+    white-space: normal;
     @include transition;
     .car {
       position: relative;
