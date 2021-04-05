@@ -12,10 +12,6 @@
     "breakpoint-sass": "^2.7.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
-    "eslint": "^7.23.0",
-    "eslint-config-prettier": "^8.1.0",
     "glob": "^7.1.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -27,9 +23,5 @@
     "gulp-sass-inheritance": "^1.1",
     "gulp-size": "^3",
     "gulp-sourcemaps": "^3.0.0"
-  },
-  "scripts": {
-    "lint": "eslint . --ext .ts  --format visualstudio",
-    "lint-fix": "eslint . --ext .ts --fix"
   }
 }

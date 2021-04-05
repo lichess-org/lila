@@ -9,13 +9,8 @@ on:
       - 'translation/dest/**'
 
 jobs:
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: yarn install && yarn run check-format
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: cd ui && yarn install && yarn run lint
+      - run: yarn install && yarn run check-format && yarn run lint
