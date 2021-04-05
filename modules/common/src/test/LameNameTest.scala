@@ -15,6 +15,8 @@ class LameNameTest extends Specification {
       test("gmFoobar") must beTrue
       test("gm007") must beTrue
       test("GmFoo") must beTrue
+      test("nm_brianmatthews") must beTrue
+      test("the_nm_brianmatthews") must beTrue
     }
     "uppercase titles" in {
       test("GMfoo") must beTrue
@@ -22,6 +24,10 @@ class LameNameTest extends Specification {
       test("WFMfoo") must beTrue
       test("WIMfoo") must beTrue
       test("1Mfoo") must beTrue
+      test("BriaNMatthews") must beTrue
+      test("NMBrianMatthews") must beTrue
+      test("BrianMatthews_NM") must beTrue
+      test("BrianMatthewsNM") must beTrue
     }
     "gross" in {
       test("Shit") must beTrue
@@ -44,6 +50,9 @@ class LameNameTest extends Specification {
       test("agm-foo") must beFalse
       test("atf90") must beFalse
       test("a_b") must beFalse
+      test("BRIANMATTHEWS") must beFalse
+      test("BrianMatthews") must beFalse
+      test("BrianMatthewsnm") must beFalse
     }
   }
 }

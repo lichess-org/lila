@@ -5,12 +5,20 @@ import scala.util.matching.Regex
 object LameName {
 
   def username(name: String): Boolean =
-    usernameRegex.find(name.replaceIf('_', "")) || containsTitlePattern.matcher(name).lookingAt
+    usernameRegex.find(name.replaceIf('_', "")) || containsTitleRegex.matches(name)
 
   def tournament(name: String): Boolean = tournamentRegex find name
 
-  private val containsTitlePattern =
-    "_*[Ww]?[NCFIG1Lncfigl][Mm]_+|_+[Ww]?[NCFIG1Lncfigl][Mm]_*|(?<![A-Z])[W]?[NCFIG1L][M]".r.pattern
+  private val titlePattern = "W*(?:[NCFI1L]|I?G)"
+  private val containsTitleRegex = (
+    "^"
+    + "(?i:" + titlePattern + "M[^a-z].*)|"          // title at start, separated by non-letter
+    + "(?:(?i:" + titlePattern + ")m[^a-z].*)|"      // title at start with lowercase m, not followed by lowercase letter
+    + "(?i:.*[^a-z]" + titlePattern + "M)|"          // title at end, separated by non-letter
+    + "(?i:.*[^a-z]" + titlePattern + "M[^a-z].*)|"  // title in middle, surrounded non-letter
+    + "(?:(?:.*[^A-Z])?" + titlePattern + "M.*)"     // uppercase title not preceeded by uppercase letter
+    + "$"
+  ).r
 
   private val baseWords = List(
     "1488",
