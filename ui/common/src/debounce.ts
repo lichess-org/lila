@@ -5,7 +5,7 @@ export default function debounce(func: (...args: any[]) => any, wait: number, im
     lastBounce = 0;
   return function (this: any) {
     let context = this,
-      args = arguments,
+      args = [...arguments],
       elapsed = performance.now() - lastBounce;
     lastBounce = performance.now();
     let later = () => {
