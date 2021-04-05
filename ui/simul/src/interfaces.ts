@@ -35,7 +35,7 @@ export interface SimulData {
 }
 
 export interface Variant {
-  key: string;
+  key: VariantKey;
   name: string;
   icon: string;
 }

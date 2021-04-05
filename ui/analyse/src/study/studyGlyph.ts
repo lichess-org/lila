@@ -53,7 +53,7 @@ export function ctrl(root: AnalyseCtrl) {
       });
   }
 
-  const toggleGlyph = throttle(500, (id: string) => {
+  const toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
     root.study!.makeChange(
       'toggleGlyph',
       root.study!.withPosition({

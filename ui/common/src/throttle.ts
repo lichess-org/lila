@@ -1,11 +1,14 @@
 // Ensures calls to the wrapped function are spaced by the given delay.
 // Any extra calls are dropped, except the last one.
-export default function throttle(delay: number, callback: (...args: any[]) => void): (...args: any[]) => void {
+export default function throttle<T extends (...args: any) => void>(
+  delay: number,
+  callback: T
+): (...args: Parameters<T>) => void {
   let timer: number | undefined;
   let lastExec = 0;
 
-  return function (this: any, ...args: any[]): void {
-    const self: any = this;
+  return function (this: any, ...args: Parameters<T>): void {
+    const self = this;
     const elapsed = performance.now() - lastExec;
 
     function exec() {

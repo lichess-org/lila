@@ -174,7 +174,7 @@ function textareaHook(ctrl: AnalyseCtrl, field: string): Hooks {
         const node = ctrl.node;
         node.gamebook = node.gamebook || {};
         node.gamebook[field] = el.value.trim();
-        saveNode(ctrl, node.gamebook, 50);
+        saveNode(ctrl, node.gamebook);
       };
       vnode.data!.path = ctrl.path;
     },
