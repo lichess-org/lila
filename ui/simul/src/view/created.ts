@@ -247,14 +247,21 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         `Start (${accepted.length})`
       )
     : h(
-        'a.button.button-red.text',
+        'form',
         {
           attrs: {
-            'data-icon': 'L',
+            'method': 'post',
+            'action': `/simul/${ctrl.data.id}/abort`,
           },
-          hook: util.bind('click', () => {
-            if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
-          }),
         },
-        ctrl.trans('cancel')
+        h(
+          'button.button.button-red.text.confirm',
+          {
+            attrs: {
+              'data-icon': 'L',
+              'title': 'Delete this simul?',
+            },
+          },
+          ctrl.trans('cancel')
+        )
       );
