@@ -235,7 +235,7 @@ export function config(ctrl: Controller): MaybeVNode {
       {
         hook: bind('click', () => lichess.pubsub.emit('zen')),
       },
-      ctrl.trans('zenMode')
+      ctrl.trans.noarg('zenMode')
     ),
   ]);
 }
