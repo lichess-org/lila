@@ -122,6 +122,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/study/${studyId}/${chapter.id}.gif`,
+            download: true,
           },
         },
         'GIF'
