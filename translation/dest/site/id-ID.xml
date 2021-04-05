@@ -805,4 +805,6 @@
   <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>
   <string name="congratsYouWon">Selamat, kamu menang!</string>
+  <string name="newPendingReview">Tinjauan baru tertunda</string>
+  <string name="timeAlmostUp">Waktu hampir habis!</string>
 </resources>
