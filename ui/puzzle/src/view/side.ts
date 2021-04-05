@@ -3,7 +3,7 @@ import { dataIcon, onInsert, bind } from '../util';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
-
+2
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
@@ -230,12 +230,12 @@ export function config(ctrl: Controller): MaybeVNode {
           ]
         )
       : null,
-    h('a.puzzle__side__config__zen.button.button-empty', {
-      attrs: {
-        'data-icon': 'B',
-        title: ctrl.trans('newRun'),
+    h(
+      'a.puzzle__side__config__zen.button.button-empty',
+      {
+        hook: bind('click', () => lichess.pubsub.emit('zen')),
       },
-      hook: bind('click', () => lichess.pubsub.emit('zen')),
-    }),
+      ctrl.trans('zenMode')
+    ),
   ]);
 }
