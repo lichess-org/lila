@@ -5,13 +5,13 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile musi la o pana e ni tawa jan pona sina</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen tawa jan ante</string>
-  <string name="waiting">awen</string>
+  <string name="waiting">o awen</string>
   <string name="yourTurn">sina o musi</string>
-  <string name="aiNameLevelAiLevel">musi %1$s pi nanpa pona %2$s</string>
+  <string name="aiNameLevelAiLevel">ilo %1$s nanpa %2$s</string>
   <string name="level">mute pona</string>
   <string name="strength">wawa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
-  <string name="toggleSound">kalama</string>
+  <string name="toggleSound">kalama o lon ala lon?</string>
   <string name="chat">tomo toki</string>
   <string name="resign">o toki e \"mi anpa\"</string>
   <string name="checkmate">mije lawa li moli</string>
