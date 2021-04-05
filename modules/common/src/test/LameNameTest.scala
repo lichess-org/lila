@@ -28,6 +28,7 @@ class LameNameTest extends Specification {
       test("NMBrianMatthews") must beTrue
       test("BrianMatthews_NM") must beTrue
       test("BrianMatthewsNM") must beTrue
+      test("TheGMBrianMatthews") must beTrue
     }
     "gross" in {
       test("Shit") must beTrue
@@ -53,6 +54,7 @@ class LameNameTest extends Specification {
       test("BRIANMATTHEWS") must beFalse
       test("BrianMatthews") must beFalse
       test("BrianMatthewsnm") must beFalse
+      test("TheGMBRianMatthews") must beFalse
     }
   }
 }
