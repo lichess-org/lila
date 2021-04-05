@@ -25,7 +25,7 @@ export default class RelayCtrl {
     };
   }
 
-  setSync = (v: Boolean) => {
+  setSync = (v: boolean) => {
     this.send('relaySync', v);
     this.redraw();
   };
