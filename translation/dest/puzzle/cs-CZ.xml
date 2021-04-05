@@ -24,7 +24,7 @@
   <string name="keepGoing">Pokračujte…</string>
   <string name="puzzleSuccess">Úspěch!</string>
   <string name="puzzleComplete">Úloha dokončena!</string>
-  <string name="notTheMove">To není platný tah!</string>
+  <string name="notTheMove">To není správný tah!</string>
   <string name="trySomethingElse">Zkuste něco jiného.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skryté</string>
@@ -51,4 +51,9 @@
   <string name="history">Historie úloh</string>
   <string name="solved">vyřešeno</string>
   <string name="failed">nezdařilo se</string>
+  <string name="streakDescription">Vyřešte postupně těžší hádanky a vytvořte vítěznou sérii. Není tu žádný limit, takže si dejte na na čas. Jeden špatný tah a je to hra skončí! Můžete ale přeskočit jeden tah za běh.</string>
+  <string name="yourStreakX">Vaše série: %s</string>
+  <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Pokračovat v sérii</string>
+  <string name="newStreak">Nová série</string>
 </resources>
