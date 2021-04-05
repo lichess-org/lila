@@ -27,6 +27,8 @@
   <string name="youCanUseOpeningBookNoEngine">Di Lichess, perbedaan utama dalam aturan catur korespondensi adalah bahwa buku pembukaan diperbolehkan. Penggunaan mesin masih dilarang dan akan mengakibatkan plat merah untuk bantuan mesin. Meskipun ICCF mengizinkan penggunaan mesin dalam catur korespondensi, Lichess tidak</string>
   <string name="gameplay">Aspek permainan</string>
   <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
