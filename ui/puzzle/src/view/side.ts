@@ -124,7 +124,7 @@ export const userBox = (ctrl: Controller): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
-      h('button.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
+      h('a.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
