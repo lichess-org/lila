@@ -11,9 +11,9 @@
   <string name="hereWeGo">Daar gaan we!</string>
   <string name="allStreamers">Alle streamers</string>
   <string name="editPage">Wijzig streamer pagina</string>
-  <string name="yourPage">Je streamer pagina</string>
+  <string name="yourPage">Mijn streamer pagina</string>
   <string name="downloadKit">Download streamer kit</string>
-  <string name="xIsStreaming">%s is aan het streamen</string>
+  <string name="xIsStreaming">%s streamt nu</string>
   <string name="rules">Streaming regels</string>
   <string name="rule1">Voeg het trefwoord \"lichess.org\" toe aan uw stream titel wanneer je streamt op Lichess.</string>
   <string name="rule2">Verwijder het trefwoord wanneer u niet-Lichess dingen streamt.</string>
@@ -37,7 +37,7 @@ Als je stream in het Engels is, is het niet nodig om een taaltag toe te voegen.<
   <string name="youtubeChannel">Je YouTube kanaal ID of URL</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Houd het kort: maximaal %s teken</item>
+    <item quantity="one">Houd het kort: maximaal %s tekens</item>
     <item quantity="other">Houd het kort: maximaal %s tekens</item>
   </plurals>
   <string name="visibility">Zichtbaar op de streamers pagina</string>
