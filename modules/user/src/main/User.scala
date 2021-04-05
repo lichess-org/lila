@@ -80,6 +80,8 @@ case class User(
   def lameOrAlt        = lame || marks.alt
   def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
+  def canBeFeatured = hasTitle && !lameOrTroll
+
   def canFullyLogin = enabled || !lameOrTrollOrAlt
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
