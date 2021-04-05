@@ -3,6 +3,7 @@ import { dataIcon, onInsert } from '../util';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
+import { bind } from '../util';
 
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
@@ -230,5 +231,12 @@ export function config(ctrl: Controller): MaybeVNode {
           ]
         )
       : null,
+    h('a.puzzle__side__config__zen.button.button-empty', {
+      attrs: {
+        'data-icon': 'B',
+        title: ctrl.trans('newRun'),
+      },
+      hook: bind('click', () => lichess.pubsub.emit('zen')),
+    }),
   ]);
 }
