@@ -7,11 +7,12 @@ package lila.shutup
 private object Dictionary {
 
   def en = dict("""
-[ck]oc?k(y|suc?ker|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
+(f|ph)ag
+(f|ph)agg?ot
+cock(suc?ker|)
 [ck]um(shot|)
 [ck]unt(ing|)
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
-fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
 afraid
@@ -21,11 +22,8 @@ arse(hole|wipe|)
 ass
 ass?(hole|fag)
 aus?c?hwitz
-ball
 bastard?
 be[ea]+ch
-bewb
-bimbo
 bit?ch
 blow
 blowjob
@@ -37,44 +35,32 @@ bugger
 buk?kake
 bull?shit
 cancer
-cawk
-cheat(ed|er|s|)
+cheat(ing|ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
-choad
 clit
 clitoris
 clown
+cock
 condom
 coon
-cock
-cooter
-cornhole
 coward?
-crap
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
-dong
 douche(bag|)
 dyke
 engine
-(f|ph)ag
-(f|ph)agg?ot
-fanny
-(f|ph)art
+fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 foreskin
 gangbang
 gay
-genital
-genitalia
 gobshite?
 gook
 gypo
 handjob
-hell
 hitler+
 homm?o(sexual|)
 honkey
@@ -85,8 +71,7 @@ idiot
 incest
 jerk
 jizz?(um|)
-kaffir
-kike
+kill (yo)?urself
 kys
 labia
 lamer?
@@ -95,21 +80,19 @@ loo?ser
 masturbat(e|ion|ing)
 milf
 molest
-moron
-mothers?
+(?<!i'?m (such )?(an? )?)moron
 motherfuc?k(er|)
+mothers?
 mthrfckr
-muff
 nazi
 nigg?(er|a|ah)
 nonce
-noob(s|)
+(?<!i'?m (such )?(an? )?)noob
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
 paki
 pathetic
-pecker
 pederast
 pen(1|i)s
 pig
@@ -120,19 +103,17 @@ poon
 poop(face|)
 porn
 pric?k
-pron
 prostitute
 punani
 puss(i|y|ie|)
-queef
 queer
-quim
 rape
 rapist
 rect(al|um)
 retard
 rimjob
 run
+sandbagg?(er|ing|)
 scare
 schlong
 screw
@@ -144,7 +125,6 @@ shag
 shemale
 shit(z|e|y|ty|bag|)
 sissy
-sister
 slag
 slave
 slut
@@ -152,15 +132,13 @@ spastic
 spaz
 sperm
 spick
-spoo
 spooge
 spunk
+smurff?(er|ing|)
 stfu
-stripper
 stupid
 suicide
-taint
-tart
+suck m[ey]
 terrorist
 tit(|t?ies|ty)(fuc?k)
 tosser
@@ -171,46 +149,115 @@ vag
 vagin(a|al|)
 vibrator
 vulva
+w?hore?
 wanc?k(er|)
 weak
 wetback
-w?hore?
 wog
+(you|u) suck
 """)
 
-  def ru =
-    dict(
-      """
-сука
-пизда
-пидор(|ас)
-педераст
-pid(a|o|)r
-Лох
-Сосать
-Лопух
-Соси
-анус
-бля(|дь|ди|дина|дство)
-дерьмо
-(|отъ|вы|до|за|у)еба(л|ла|ли|лся|льник|ть|н|нул|нула|нулся)
-у(ё|е)бище
-(|от)муд(охать|охал|охала|охали|ак)
-(|от|с)пизд(ить|ил|ила|или|ошить|ошил|ошила|ошили|охать|охал|охала|охали|юлить|юлил|юлила|юлили|ярить|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецкий|абол|атый)
+  def ru = dict("""
+(|на|по)хуй(|ня)
+(|от)муд(охать|охал|охала|охали|аки?|акам|азвону?)
 (|от)хер(|ачить|ово|ня)
-охуе(л|ла|ли|ть)
+(|от|по)cос(и|ать|ала?|)
+(|от|с)пизд(а|ы|е|у|ить|ил|ила|или|ошить|ошил|ошила|ошили|охать|охал|охала|охали|юлить|юлил|юлила|юлили|ярить|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецкий|абол|атый)
+(|отъ|вы|до|за|у)(е|ё)ба(л|ла|ли|лся|льник|ть|на|нул|нула|нулся|нн?ый)
+(ё|е)бл(а|о|у|ану?)
+p[ie]d[aoe]?r
+анус
+бля(|дь|ди|де|динам?|дине|дство)
+г(а|о)ндон(|у|ам?|ы)
+дерьм(а|о|вый|вая|вое)
+Лопух
+Лох(|и|ам)
+охуе(л|ла|ли|ть|нн?о)
+педерасты?
+пид(о|а)р(а|ы|у|ам|асы?|асам?)
+пидр
 поебень
+сук(а|и|е|у|ам)
+у(ё|е)бищ(е|а|ам)
 ху(ё|е)(во|сос)
-хуй(|ня)
-читак
-читер(|ила?|ить?|ишь|ша)
-чмо
-"""
-    )
+хуит(а|е|ы)
+читак(и|ам|у)
+читер(|ила?|ить?|ишь?|ша|ы|ам?|у)
+""")
 
   def es = dict("""
-trampas?
-tramposos?
+cabr[oó]na?
+est[úu]pid[ao]
+maric[oó]n
+mierda
+pendejo
+put[ao]
+trampa
+trampos[ao]
+verga
+""")
+
+  def it = dict("""
+baldracca
+bastardo
+cazzo
+cretino
+di merda
+figa
+putt?ana
+stronzo
+troia
+vaffanculo
+""")
+
+  def hi = dict("""
+(madar|be?hen|beti)chod
+chut(iya|)
+gaa?nd
+""")
+
+  def fr = dict("""
+fdp
+trich(eurs|)
+""")
+
+  def de = dict("""
+angsthase
+arschloch
+bl(ö|oe|o)dmann?
+drecksa(u|ck)
+ficker
+fotze
+hurensohn
+mistkerl
+neger
+pisser
+schlampe
+schwanzlutscher
+schwuchtel
+trottel
+wichser
+""")
+
+  def tr = dict("""
+am[iı]na (koyay[iı]m|koydum)
+amc[iı]k
+anan[iı]n am[iı]
+ananizi s[ii̇]k[ii̇]y[ii̇]m
+aptal
+beyinsiz
+bok yedin
+gerizekal[iı]
+ibne
+ka[sş]ar
+orospu
+piç(lik)?
+pu[sş]t
+salak
+sikecem
+sikiyonuz
+siktir
+yarra[gğ][iı] yediniz
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
