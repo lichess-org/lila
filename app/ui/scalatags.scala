@@ -24,6 +24,8 @@ trait ScalatagsAttrs {
   val datetimeAttr   = attr("datetime")
   val dataBotAttr    = attr("data-bot").empty
   val deferAttr      = attr("defer").empty
+  val downloadAttr   = attr("download").empty
+
   object frame {
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
