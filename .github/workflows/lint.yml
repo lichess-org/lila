@@ -13,4 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: yarn install && yarn run check-format && yarn run lint
+      - run: yarn install
+      - run: yarn run lint
+      - run: yarn run check-format
