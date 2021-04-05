@@ -3,7 +3,7 @@ import { dataIcon, onInsert, bind } from '../util';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
-2
+
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
