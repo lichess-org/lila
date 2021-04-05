@@ -1,6 +1,6 @@
 type Debounced = (...args: any[]) => any;
 
-export default function debounce(func: (...args: any[]) => any, wait: number, immediate = false): Debounced {
+export default function debounce(func: Function, wait: number, immediate = false): Debounced {
   let timeout: Timeout | undefined,
     lastBounce = 0;
   return function (this: any) {
