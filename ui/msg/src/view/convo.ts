@@ -3,9 +3,8 @@ import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
 import { Convo } from '../interfaces';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { userName, bindMobileMousedown } from './util';
-import { VNode } from 'snabbdom';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

@@ -4,9 +4,8 @@ import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
 import * as xhr from './xhr';
 import { key2pos } from 'chessground/util';
-import { bind } from './util';
+import { bind, onInsert } from './util';
 import RoundController from './ctrl';
-import { onInsert } from './util';
 import { MaybeVNode } from './interfaces';
 
 interface Promoting {

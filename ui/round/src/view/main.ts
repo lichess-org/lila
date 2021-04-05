@@ -3,14 +3,13 @@ import * as promotion from '../promotion';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 import { read as fenRead } from 'chessground/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
-import { VNode } from 'snabbdom';
 
 function renderMaterial(material: MaterialDiffSide, score: number, position: Position, checks?: number) {
   const children: VNode[] = [];

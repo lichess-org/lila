@@ -1,15 +1,12 @@
-import { attributesModule } from 'snabbdom';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import boot from './boot';
-import { classModule } from 'snabbdom';
 import LichessChat from 'chat';
 import menuHover from 'common/menuHover';
 import MoveOn from './moveOn';
 import RoundController from './ctrl';
 import { Chessground } from 'chessground';
-import { init } from 'snabbdom';
 import { main as view } from './view/main';
 import { RoundOpts } from './interfaces';
-import { VNode } from 'snabbdom';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;

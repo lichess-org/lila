@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom';
+import { h, Hooks } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { bind, spinner } from './util';
 

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNodeData } from 'snabbdom';
+import { h, VNodeData } from 'snabbdom';
 import renderTabs from './tabs';
 import * as renderPools from './pools';
 import renderRealTime from './realTime/main';

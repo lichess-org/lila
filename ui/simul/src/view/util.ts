@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
 

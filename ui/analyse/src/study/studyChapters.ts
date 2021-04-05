@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import { bind, dataIcon, iconTag, scrollTo } from '../util';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';

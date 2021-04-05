@@ -2,8 +2,7 @@ import { renderIndexAndMove } from '../moveView';
 import { RetroCtrl } from './retroCtrl';
 import AnalyseCtrl from '../ctrl';
 import { bind, dataIcon, spinner } from '../util';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [

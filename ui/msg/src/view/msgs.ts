@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { Convo, Msg, Daily } from '../interfaces';
 import * as enhance from './enhance';
 import { scroller } from './scroller';

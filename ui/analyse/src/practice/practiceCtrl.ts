@@ -1,5 +1,4 @@
-import { winningChances } from 'ceval';
-import { Eval } from 'ceval';
+import { winningChances, Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';

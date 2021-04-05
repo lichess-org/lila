@@ -1,13 +1,10 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
-import { Ctx, Opts } from './treeView';
-import { renderGlyph } from '../moveView';
+import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine, Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -119,7 +116,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
       fixCrazySan(node.san!),
     ];
-  if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => content.push(renderGlyph(g)));
+  if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => content.push(moveView.renderGlyph(g)));
   return h(
     'move',
     {

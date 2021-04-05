@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
 import header from './header';

@@ -1,8 +1,7 @@
 import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
 import { dataIcon, onInsert } from '../util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
-import { VNode } from 'snabbdom';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {

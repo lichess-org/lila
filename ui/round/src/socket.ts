@@ -2,7 +2,6 @@ import * as game from 'game';
 import throttle from 'common/throttle';
 import modal from 'common/modal';
 import notify from 'common/notification';
-import { isPlayerTurn } from 'game';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
@@ -145,7 +144,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.opts.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        !isPlayerTurn(ctrl.data)
+        !game.isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
         sound.move();

@@ -1,7 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
-import { Hooks } from 'snabbdom';
-import { Attrs } from 'snabbdom';
+import { h, VNode, Hooks, Attrs } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
