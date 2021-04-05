@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 
 import * as xhr from 'common/xhr';
 import { Redraw, Open, bind, header } from './util';

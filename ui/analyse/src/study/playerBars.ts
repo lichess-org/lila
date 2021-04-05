@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { ops as treeOps } from 'tree';
 import { TagArray } from './interfaces';
 import renderClocks from '../clocks';

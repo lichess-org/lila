@@ -6,14 +6,12 @@ import isCol1 from 'common/isCol1';
 import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { enrichText, innerHTML, bindMobileTapHold, clearSelection } from '../util';
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
 import { isEmpty, defined } from 'common';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { path as treePath } from 'tree';
 import { playable } from 'game';
 import { storedProp, StoredProp } from 'common/storage';
-import { VNode } from 'snabbdom';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;

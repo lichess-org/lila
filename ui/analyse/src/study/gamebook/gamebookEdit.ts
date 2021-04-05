@@ -2,10 +2,8 @@ import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
 import throttle from 'common/throttle';
 import { bind, iconTag } from '../../util';
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom';
+import { h, Hooks, VNode } from 'snabbdom';
 import { MaybeVNodes } from '../../interfaces';
-import { VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (

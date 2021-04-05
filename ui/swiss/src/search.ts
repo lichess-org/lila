@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import TournamentController from './ctrl';
 import { bind, onInsert } from './view/util';
 

@@ -1,15 +1,13 @@
 import AnalyseCtrl from './ctrl';
-import { attributesModule } from 'snabbdom';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import boot from './boot';
-import { classModule } from 'snabbdom';
 import LichessChat from 'chat';
+// eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { Chessground } from 'chessground';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom';
 
 export const patch = init([classModule, attributesModule]);
 

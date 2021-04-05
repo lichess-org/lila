@@ -1,8 +1,6 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
-import { Hooks } from 'snabbdom';
+import { h, VNode, Hooks } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';

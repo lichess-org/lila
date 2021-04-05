@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';

@@ -1,9 +1,6 @@
 import view from './view/main';
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom';
-import { classModule } from 'snabbdom';
-import { attributesModule } from 'snabbdom';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';

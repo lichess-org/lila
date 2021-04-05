@@ -1,14 +1,9 @@
-import { attributesModule } from 'snabbdom';
+import { init, attributesModule, eventListenersModule, classModule, propsModule, VNode } from 'snabbdom';
 import EditorCtrl from './ctrl';
-import { eventListenersModule } from 'snabbdom';
-import { classModule } from 'snabbdom';
 import menuHover from 'common/menuHover';
-import { propsModule } from 'snabbdom';
 import view from './view';
 import { Chessground } from 'chessground';
 import { EditorConfig } from './interfaces';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 

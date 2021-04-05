@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { onInsert } from './util';
 import { ChatPlugin } from 'chat';
 import { Team, TourPlayer } from 'game';

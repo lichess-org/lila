@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
@@ -16,17 +15,15 @@ import {
   prefixSetting,
   boardSetting,
   positionSetting,
-} from 'nvui/chess';
-import {
   boardCommandsHandler,
   selectionHandler,
   arrowKeyHandler,
   positionJumpHandler,
   pieceJumpingHandler,
+  Style,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';

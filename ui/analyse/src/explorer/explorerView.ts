@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';

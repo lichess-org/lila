@@ -3,8 +3,7 @@ import resizeHandle from 'common/resize';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { Controller } from '../interfaces';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 
 export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {

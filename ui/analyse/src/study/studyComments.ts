@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';

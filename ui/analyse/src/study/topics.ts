@@ -1,11 +1,10 @@
 import * as modal from '../modal';
 import * as xhr from 'common/xhr';
 import { bind, bindSubmit, onInsert } from '../util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
-import { VNode } from 'snabbdom';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;

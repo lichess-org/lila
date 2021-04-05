@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { defined, prop, Prop } from 'common';
 import { Redraw } from '../interfaces';
 import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';

@@ -1,7 +1,4 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom';
-import { classModule } from 'snabbdom';
-import { attributesModule } from 'snabbdom';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { SimulOpts } from './interfaces';
 import SimulCtrl from './ctrl';
 import LichessChat from 'chat';

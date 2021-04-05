@@ -1,12 +1,9 @@
-import { attributesModule } from 'snabbdom';
-import { classModule } from 'snabbdom';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
 import { Chessground } from 'chessground';
 import { Controller, PuzzleOpts } from './interfaces';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom';
 
 const patch = init([classModule, attributesModule]);
 

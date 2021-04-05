@@ -1,7 +1,4 @@
-import { Attrs } from 'snabbdom';
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { Attrs, h, Hooks, VNode } from 'snabbdom';
 import { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
 

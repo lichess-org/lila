@@ -1,6 +1,5 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting()
