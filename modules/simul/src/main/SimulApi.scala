@@ -58,9 +58,10 @@ final class SimulApi(
       host = me,
       color = setup.color,
       text = setup.text,
-      team = setup.team
+      team = setup.team,
+      featurable = some(~setup.featured && canBeFeatured(me))
     )
-    repo.create(simul, canBeFeatured(me) && ~setup.featured) >>- publish() >>- {
+    repo.create(simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }
@@ -73,9 +74,10 @@ final class SimulApi(
       position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
-      team = setup.team
+      team = setup.team,
+      featurable = some(~setup.featured && canBeFeatured(me))
     )
-    repo.update(simul, some(canBeFeatured(me) && ~setup.featured)) >>- publish() inject simul
+    repo.update(simul) >>- publish() inject simul
   }
 
   private def canBeFeatured(user: User) = user.hasTitle && !user.lameOrTroll
@@ -271,7 +273,7 @@ final class SimulApi(
     }
 
   private def update(simul: Simul): Funit =
-    repo.update(simul, none) >>- socket.reload(simul.id) >>- publish()
+    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
       finding: Simul.ID => Fu[Option[Simul]],
