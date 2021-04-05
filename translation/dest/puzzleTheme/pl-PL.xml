@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advantage">Przewaga</string>
-  <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Seize your chance to get a decisive advantage.</string>
   <string name="castling">Castling</string>
   <string name="castlingDescription">Zabezpiecz swojego króla.</string>
   <string name="crushing">Decydująca przewaga</string>
-  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage.</string>
   <string name="equality">Równowaga</string>
-  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position.</string>
   <string name="defensiveMove">Ruch obronny</string>
   <string name="defensiveMoveDescription">Precyzyjne posunięcie lub ich ciąg, niezbędne by uniknąć straty materiału lub innej przewagi.</string>
   <string name="deflection">Odciągnięcie</string>
@@ -23,7 +23,7 @@
   <string name="hangingPiece">Wisząca figura</string>
   <string name="hangingPieceDescription">Taktyka wykorzystująca możliwość zbicia niebronionej lub niedostatecznie bronionej bierki przeciwnika.</string>
   <string name="long">Długie zadanie</string>
-  <string name="longDescription">Three moves to win.</string>
+  <string name="longDescription">Five moves to win.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
   <string name="mateIn1">Mat w 1 posunięciu</string>

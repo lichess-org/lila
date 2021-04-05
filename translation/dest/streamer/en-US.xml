@@ -37,7 +37,7 @@ As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
 If your stream is in English, there is no need to include a language tag.
 
-Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
+Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you\'ve streamed. If your streamer page has expired you must apply again and wait to be approved.
  </string>
   <string name="twitchUsername">Your Twitch username or URL</string>
   <string name="optionalOrEmpty">Optional. Leave empty if none</string>
