@@ -11,8 +11,8 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   padding: 1px;
-  width: 42px;
-  height: 26px;
+  width: 40px;
+  height: 24px;
   border: 1px solid $c-border;
   border-radius: 24px;
 }
@@ -54,8 +54,8 @@
 .cmn-toggle + label::after {
   @extend %metal;
 
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
   bottom: 0.1px;
@@ -69,5 +69,5 @@
 }
 
 .cmn-toggle:checked + label::after {
-  margin-left: 15px;
+  margin-left: 15.5px;
 }
