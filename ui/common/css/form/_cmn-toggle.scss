@@ -35,6 +35,8 @@
 .cmn-toggle + label::before {
   right: 1px;
   border-radius: 24px;
+  font-weight: bold;
+  color: if($theme-light, #fff, #ccc);
 }
 
 .cmn-toggle:focus + label {
@@ -68,6 +70,20 @@
   @include transition(margin);
 }
 
-.cmn-toggle:checked + label::after {
+.cmn-toggle:not(:checked) + label {
+  &::before {
+    content: '0';
+    padding-right: .35em;
+  }
+}
+
+.cmn-toggle:checked + label {
+  &::after {
   margin-left: 15.5px;
+  }
+
+  &::before {
+    content: '1';
+    padding-right: 1.6em;
+  }
 }
