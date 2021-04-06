@@ -22,7 +22,7 @@ export default function (ctrl: Controller, position: Position) {
   const pocket = shogi.pockets[opposite(color)];
 
   // The bottom player is always the active one
-  const usable = position === "bottom";
+  const usable = opposite(color) === shogi.turn;
   return h(
     `div.pocket.is2d.pocket-${position}`,
     {

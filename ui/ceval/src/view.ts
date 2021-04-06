@@ -6,7 +6,7 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
 import { Position } from 'shogiops/shogi';
-import { makeLishogiUci, makeShogiFen, makeLishogiFen } from 'shogiops/compat';
+import { makeLishogiUci, makeShogiFen, makeLishogiFen, assureUsi } from 'shogiops/compat';
 import { opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
 import { makeSanAndPlay } from 'shogiops/san';
@@ -395,7 +395,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
               )
             : null,
             // Add notation to shogiops?
-            h('span', pos.unwrap(pos => applyNotationToVariant(turn, makeExtendedMoveVariation(pos, pvs[i].moves.slice(0, 10).map(m => parseUsi(m)!)), notation), _ => '--'))
+            h('span', pos.unwrap(pos => applyNotationToVariant(turn, makeExtendedMoveVariation(pos, pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!)), notation), _ => '--'))
         ]
       );
     })

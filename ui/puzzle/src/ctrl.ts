@@ -99,7 +99,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function position(): Shogi {
     const setup = parseFen(makeShogiFen(vm.node.fen)).unwrap();
-    return Shogi.fromSetup(setup).unwrap();
+    return Shogi.fromSetup(setup, false).unwrap();
   }
 
   function makeCgOpts(): CgConfig {
@@ -140,6 +140,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function showGround(g: CgApi): void {
     g.set(makeCgOpts());
+  }
+
+  function tsumeLength(): number {
+    if (data.puzzle.themes.includes("tsume")){
+      const solLen = data.puzzle.solution.length;
+      const curPly = vm.node.ply;
+      return solLen - curPly;
+    }
+    return 0;
   }
 
   function userMove(orig: Key, dest: Key): void {
@@ -255,7 +264,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress) {
       vm.lastFeedback = 'good';
       setTimeout(() => {
-        const pos = Shogi.fromSetup(parseFen(makeShogiFen(progress.fen)).unwrap()).unwrap();
+        const pos = Shogi.fromSetup(parseFen(makeShogiFen(progress.fen)).unwrap(), false).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
@@ -339,6 +348,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   const doStartCeval = throttle(800, function () {
+    if(data.game.id)
+      vm.nodeList[0].fen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
@@ -389,7 +400,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           if (vm.node.san!.includes('x')) sound.capture();
           else sound.move();
         }
-        if (/\+|\#/.test(vm.node.san!)) sound.check();
+        if (vm.node.check) sound.check();
       }
       threatMode(false);
       ceval.stop();
@@ -397,6 +408,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     promotion.cancel();
     vm.justPlayed = undefined;
+    vm.justDropped = undefined;
     vm.autoScrollRequested = true;
     window.lishogi.pubsub.emit('ply', vm.node.ply);
   }
@@ -511,6 +523,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     pref: opts.pref,
     difficulty: opts.difficulty,
     trans: window.lishogi.trans(opts.i18n),
+    tsumeLength,
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
     outcome,

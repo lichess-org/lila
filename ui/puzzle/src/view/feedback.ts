@@ -22,14 +22,32 @@ function viewSolution(ctrl: Controller): VNode {
   );
 }
 
+function tsumeHint(ctrl: Controller, prefix: string = " - "): string | undefined {
+  const tl = ctrl.tsumeLength();
+  switch (tl) {
+    case 0:
+      return undefined;
+    case 1:
+      return prefix + ctrl.trans.noarg('mateIn1');
+    case 3:
+      return prefix + ctrl.trans.noarg('mateIn3');
+    case 5:
+        return prefix + ctrl.trans.noarg('mateIn5');
+    case 7:
+        return prefix + ctrl.trans.noarg('mateIn7');
+    default:
+      return prefix + ctrl.trans.noarg('mateIn9');
+  }
+}
+
 function initial(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.no-square', h('div.color-piece.' + ctrl.vm.pov)),
       h('div.instruction', [
-        h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-      ]),
+        h('strong', [ctrl.trans.noarg('yourTurn'), tsumeHint(ctrl)]),
+        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
+    ]),
     ]),
     viewSolution(ctrl),
   ]);
@@ -39,7 +57,13 @@ function good(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
-      h('div.instruction', [h('strong', ctrl.trans.noarg('bestMove')), h('em', ctrl.trans.noarg('keepGoing'))]),
+      h('div.instruction', [
+        h('strong', ctrl.trans.noarg('bestMove')),
+        h('em', [
+          ctrl.trans.noarg('keepGoing'),
+          tsumeHint(ctrl, " "),
+        ]),
+      ]),
     ]),
     viewSolution(ctrl),
   ]);
@@ -51,7 +75,10 @@ function fail(ctrl: Controller): VNode {
       h('div.icon', '✗'),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('notTheMove')),
-        h('em', ctrl.trans.noarg('trySomethingElse')),
+        h('em', [
+          ctrl.trans.noarg('trySomethingElse'),
+          tsumeHint(ctrl, " "),
+        ]),
       ]),
     ]),
     viewSolution(ctrl),

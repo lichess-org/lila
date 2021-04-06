@@ -35,7 +35,7 @@ export function fenToTree(sfen: string): Tree.Node {
 
 export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solution: Uci[], pov: Color): void {
   const initialNode = root.nodeAtPath(initialPath);
-  const pos = Shogi.fromSetup(parseFen(makeShogiFen(initialNode.fen)).unwrap()).unwrap();
+  const pos = Shogi.fromSetup(parseFen(makeShogiFen(initialNode.fen)).unwrap(), false).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
     console.log("mergeSolution: ", uci)

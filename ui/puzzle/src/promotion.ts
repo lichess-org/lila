@@ -84,7 +84,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
         }),
       },
       pieces.map(function (serverRole, i) {
-        let top = (color === orientation ? i : 8 - i) * 11.11 + 0.3;
+        let top = (i + cgUtil.key2pos(dest)[1]) * 11.11 + 0.3;
         if (orientation === "white")
           top = (9 - (i + cgUtil.key2pos(dest)[1])) * 11.11 + 0.35;
         return h(

@@ -50,6 +50,7 @@ export interface Controller extends KeyboardController {
   position(): Shogi;
   showComputer(): boolean;
   trans: Trans;
+  tsumeLength(): number,
   getData(): PuzzleData;
   data: PuzzleOpts;
   getTree(): TreeWrapper;

@@ -33,7 +33,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   
   for (const i in nodes) {
     const b: boolean = parseFen(makeShogiFen(nodes[i].fen)).unwrap(
-      (s) => Shogi.fromSetup(s).unwrap(
+      (s) => Shogi.fromSetup(s, false).unwrap(
         (sh) => sh.isCheckmate(),
         () => false
       ),
