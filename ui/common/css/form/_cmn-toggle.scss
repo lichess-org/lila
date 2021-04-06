@@ -74,7 +74,7 @@
     @extend %data-icon;
     content: 'L';
     color: $c-bad;
-    padding-right: 1.05em
+    padding-right: 1.05em;
   }
 }
 
@@ -93,6 +93,6 @@
     @extend %data-icon;
     content: 'E';
     color: $c-good;
-    padding-right: 0.1em
+    padding-right: 0.1em;
   }
 }
