@@ -17,6 +17,14 @@
   border-radius: 24px;
 }
 
+.cmn-toggle:not(:checked) + label {
+  background-color: $c-bad;
+}
+
+.cmn-toggle:checked + label {
+  background-color: $c-good;
+}
+
 .cmn-toggle + label::before,
 .cmn-toggle + label::after {
   display: block;
@@ -27,19 +35,18 @@
 
 .cmn-toggle + label::before {
   right: 1px;
-  background-color: $c-bad;
   border-radius: 24px;
 }
 
-.cmn-toggle:focus + label::before {
+.cmn-toggle:focus + label {
   @extend %focus-shadow;
 }
 
-.cmn-toggle--subtle + label::before {
+.cmn-toggle--subtle + label {
   background-color: $c-font-dimmer;
 }
 
-.cmn-toggle:hover + label::before {
+.cmn-toggle:hover + label {
   @extend %focus-shadow;
 
   @include transition(background);
@@ -58,10 +65,6 @@
   @extend %metal-hover;
 
   @include transition(margin);
-}
-
-.cmn-toggle:checked + label::before {
-  background-color: $c-good;
 }
 
 .cmn-toggle:checked + label::after {
