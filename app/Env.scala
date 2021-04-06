@@ -159,6 +159,7 @@ final class Env(
       _          <- coach.api.remove(u.id)
       reports    <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
       _          <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
+      _          <- appeal.api.onAccountClose(u)
       _ <- u.marks.troll ?? relation.api.fetchFollowing(u.id).flatMap {
         activity.write.unfollowAll(u, _)
       }

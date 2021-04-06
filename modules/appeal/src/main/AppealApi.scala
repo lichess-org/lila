@@ -85,4 +85,6 @@ final class AppealApi(
 
   def setUnreadById(userId: User.ID) =
     coll.byId[Appeal](userId) flatMap { _ ?? setUnread }
+
+  def onAccountClose(user: User) = setReadById(user.id)
 }
