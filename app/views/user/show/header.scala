@@ -22,14 +22,13 @@ object header {
   )(implicit ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
-        h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
-          if (u.isPatron)
-            frag(
-              a(href := routes.Plan.index)(patronIcon),
-              userSpan(u, withPowerTip = false, withOnline = false)
-            )
-          else userSpan(u, withPowerTip = false)
-        ),
+        if (u.isPatron)
+          h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
+            a(href := routes.Plan.index)(patronIcon),
+            userSpan(u, withPowerTip = false, withOnline = false)
+          )
+        else
+          h1(userSpan(u, withPowerTip = false)),
         div(
           cls := List(
             "trophies" -> true,
