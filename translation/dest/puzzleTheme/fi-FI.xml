@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla niin, että paljastushyökkäyksessäsi sekä liikkuva nappula että sen paljastama nappula uhkaavat vastustajan kuningasta.</string>
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
-  <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas vai lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
+  <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas voi lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
   <string name="exposedKing">Suojaton kuningas</string>
   <string name="exposedKingDescription">Taktiikka, jossa kuninkaan ympärillä on vain vähän puolustajia, ja joka usein johtaa mattiin.</string>
   <string name="fork">Haarukka</string>
