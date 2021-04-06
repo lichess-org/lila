@@ -29,7 +29,6 @@
 .cmn-toggle + label::after {
   display: block;
   position: absolute;
-  bottom: 0.1px;
   content: '';
 }
 
@@ -59,6 +58,8 @@
   height: 24px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+  bottom: 0.1px;
+  left: 0;
 }
 
 .cmn-toggle:hover + label::after {
@@ -68,5 +69,5 @@
 }
 
 .cmn-toggle:checked + label::after {
-  margin-left: 16px;
+  margin-left: 15px;
 }
