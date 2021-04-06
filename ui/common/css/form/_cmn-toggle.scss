@@ -35,8 +35,7 @@
 .cmn-toggle + label::before {
   right: 1px;
   border-radius: 24px;
-  font-weight: bold;
-  color: if($theme-light, #fff, #ccc);
+  z-index: 1;
 }
 
 .cmn-toggle:focus + label {
@@ -72,18 +71,22 @@
 
 .cmn-toggle:not(:checked) + label {
   &::before {
-    content: '0';
-    padding-right: .35em;
+    @extend %data-icon;
+    content: 'L';
+    color: $c-bad;
+    padding-right: 1.1em
   }
 }
 
 .cmn-toggle:checked + label {
   &::after {
-  margin-left: 15.5px;
+    margin-left: 15.5px;
   }
 
   &::before {
-    content: '1';
-    padding-right: 1.6em;
+    @extend %data-icon;
+    content: 'E';
+    color: $c-good;
+    padding-right: 0.1em
   }
 }
