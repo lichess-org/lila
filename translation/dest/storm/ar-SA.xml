@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">حَرِك لتبدأ</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">أنت تلعب القطع البيضاء في جميع الألغاز</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">أنت تلعب القطع السوداء في جميع الألغاز</string>
   <string name="puzzlesSolved">الألغاز المحلولة</string>
   <string name="newDailyHighscore">أعلى نتيجة يومية جديدة!</string>
   <string name="newWeeklyHighscore">أعلى نتيجة أسبوعية جديدة!</string>
