@@ -22,7 +22,7 @@
   <string name="clickToSolve">Dă click pentru a rezolva</string>
   <string name="goodMove">Mutare bună</string>
   <string name="bestMove">Cea mai bună mutare!</string>
-  <string name="keepGoing">Continuați…</string>
+  <string name="keepGoing">Continuați cu următoarea mutare…</string>
   <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Puzzle complet!</string>
   <string name="notTheMove">Nu este asta mișcarea!</string>
