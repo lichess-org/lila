@@ -121,6 +121,14 @@
     <item quantity="one">%s error grave</item>
     <item quantity="other">%s errores graves</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s error</item>
+    <item quantity="other">%s errores</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisión</item>
+    <item quantity="other">%s imprecisiones</item>
+  </plurals>
   <string name="moveTimes">Tiempo por movimiento</string>
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
