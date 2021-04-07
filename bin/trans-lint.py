@@ -135,6 +135,10 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if source.count(placeholder) < 1:
             ctx.error(f"unexpected {placeholder}")
 
+    if "%s" in dest:
+        for placeholder in re.findall(r"%\d+\$s", dest):
+            ctx.error(f"mixing placeholder styles: {placeholder} and %s")
+
     for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
