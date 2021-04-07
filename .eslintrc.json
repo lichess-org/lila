@@ -37,7 +37,6 @@
     "no-constant-condition": "off",
     "no-prototype-builtins": "off",
     "no-extra-boolean-cast": "off",
-    "no-async-promise-executor": "off",
-    "@typescript-eslint/adjacent-overload-signatures": "off"
+    "no-async-promise-executor": "off"
   }
 }
