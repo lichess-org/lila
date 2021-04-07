@@ -9,20 +9,20 @@ import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(
-    mailgun: Mailgun,
+    mailer: Mailer,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def send(user: User, email: EmailAddress): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url           = s"$baseUrl/auth/magic-link/login/$token"
       implicit val lang = user.realLang | lila.i18n.defaultLang
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
         text = s"""
@@ -32,11 +32,11 @@ $url
 
 ${trans.common_orPaste.txt()}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
-          potentialAction(metaName("Log in"), Mailgun.html.url(url)),
+          potentialAction(metaName("Log in"), Mailer.html.url(url)),
           serviceNote
         ).some
       )

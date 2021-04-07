@@ -79,13 +79,22 @@ final class Env(
     mk(ugcArmedSetting.get _)
   }
 
-  private lazy val mailgun: Mailgun = wire[Mailgun]
+  lazy val mailerSecondaryPermilleSetting = settingStore[Int](
+    "mailerSecondaryPermille",
+    default = 0,
+    text = "Permille of mails to send using secondary SMTP configuration".some
+  )
+
+  private lazy val mailer = new Mailer(
+    config.mailer,
+    getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
+  )
 
   lazy val emailConfirm: EmailConfirm =
     if (config.emailConfirm.enabled)
-      new EmailConfirmMailgun(
+      new EmailConfirmMailer(
         userRepo = userRepo,
-        mailgun = mailgun,
+        mailer = mailer,
         baseUrl = baseUrl,
         tokenerSecret = config.emailConfirm.secret
       )

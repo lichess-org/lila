@@ -3,71 +3,88 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
+import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scala.concurrent.duration.{ span => _, _ }
+import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all._
 
 import lila.common.config.Secret
-import lila.common.EmailAddress
+import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
-final class Mailgun(
-    ws: StandaloneWSClient,
-    config: Mailgun.Config
+final class Mailer(
+    config: Mailer.Config,
+    getSecondaryPermille: () => Int
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
-  def send(msg: Mailgun.Message): Funit =
-    if (config.apiUrl.isEmpty) {
-      logger.info(s"$msg -> No mailgun API URL")
-      funit
-    } else if (msg.to.isNoReply) {
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
+
+  private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
+  private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
+
+  private def randomClient(): SMTPMailer =
+    if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) secondaryClient
+    else primaryClient
+
+  def send(msg: Mailer.Message): Funit =
+    if (msg.to.isNoReply) {
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     } else
-      ws.url(s"${config.apiUrl}/messages")
-        .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC)
-        .post(
-          Map(
-            "from"       -> Seq(msg.from | config.sender),
-            "to"         -> Seq(msg.to.value),
-            "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
-            "subject"    -> Seq(msg.subject),
-            "text"       -> Seq(msg.text)
-          ) ++ msg.htmlBody.?? { body =>
-            Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-          }
-        )
-        .addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment().unit
-          case _                            =>
-        }
-        .flatMap {
-          case res if res.status >= 300 =>
-            lila.mon.email.send.error(res.status.toString).increment()
-            fufail(s"""Can't send to mailgun: ${res.status} to: "${msg.to.value}" ${res.body take 500}""")
-          case _ => funit
-        }
-        .mon(_.email.send.time)
-        .recoverWith {
-          case _ if msg.retriesLeft > 0 =>
-            akka.pattern.after(15 seconds, system.scheduler) {
-              send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+      workQueue {
+        Future {
+          Chronometer.syncMon(_.email.send.time) {
+            blocking {
+              randomClient()
+                .send(
+                  Email(
+                    subject = msg.subject,
+                    from = config.sender,
+                    to = Seq(msg.to.value),
+                    bodyText = msg.text.some,
+                    bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
+                  )
+                )
+                .unit
             }
+          }
         }
+      }
 }
 
-object Mailgun {
+object Mailer {
+
+  private val timeout = 10 seconds
+
+  case class Smtp(
+      mock: Boolean,
+      host: String,
+      port: Int,
+      tls: Boolean,
+      user: String,
+      password: String
+  ) {
+    def toClientConfig = SMTPConfiguration(
+      host = host,
+      port = port,
+      tlsRequired = tls,
+      user = user.some,
+      password = password.some,
+      mock = mock,
+      timeout = Mailer.timeout.toMillis.toInt.some
+    )
+  }
+  implicit val smtpLoader = AutoConfig.loader[Smtp]
 
   case class Config(
-      @ConfigName("api.url") apiUrl: String,
-      @ConfigName("api.key") apiKey: Secret,
-      sender: String,
-      @ConfigName("reply_to") replyTo: String
+      primary: Smtp,
+      secondary: Smtp,
+      sender: String
   )
   implicit val configLoader = AutoConfig.loader[Config]
 
@@ -75,10 +92,7 @@ object Mailgun {
       to: EmailAddress,
       subject: String,
       text: String,
-      htmlBody: Option[Frag] = none,
-      from: Option[String] = none,
-      replyTo: Option[String] = none,
-      retriesLeft: Int = 3
+      htmlBody: Option[Frag] = none
   )
 
   object txt {
@@ -107,7 +121,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     def serviceNote(implicit lang: Lang) =
       publisher(
         small(
-          trans.common_note(Mailgun.html.noteLink),
+          trans.common_note(Mailer.html.noteLink),
           " ",
           trans.common_contact(noteContact),
           " ",
@@ -137,7 +151,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         p(trans.common_orPaste(lang))
       )
 
-    private[Mailgun] def wrap(subject: String, body: Frag): Frag =
+    private[Mailer] def wrap(subject: String, body: Frag): Frag =
       frag(
         raw(s"""<!doctype html>
 <html>

@@ -27,15 +27,15 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
 
-final class EmailConfirmMailgun(
+final class EmailConfirmMailer(
     userRepo: UserRepo,
-    mailgun: Mailgun,
+    mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends EmailConfirm {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   def effective = true
 
@@ -46,7 +46,7 @@ final class EmailConfirmMailgun(
       lila.mon.email.send.confirmation.increment()
       val url = s"$baseUrl/signup/confirm/$token"
       lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
-      mailgun send Mailgun.Message(
+      mailer send Mailer.Message(
         to = email,
         subject = trans.emailConfirm_subject.txt(user.username),
         text = s"""
@@ -56,15 +56,15 @@ $url
 
 ${trans.common_orPaste.txt()}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 """,
         htmlBody = emailMessage(
           pDesc(trans.emailConfirm_click()),
-          potentialAction(metaName("Activate account"), Mailgun.html.url(url)),
+          potentialAction(metaName("Activate account"), Mailer.html.url(url)),
           publisher(
             small(
-              trans.common_note(Mailgun.html.noteLink),
+              trans.common_note(Mailer.html.noteLink),
               " ",
               trans.emailConfirm_ignore()
             )

@@ -276,7 +276,7 @@ lazy val oauth = smallModule("oauth",
 
 lazy val security = module("security",
   Seq(common, hub, db, user, i18n, irc, oauth),
-  Seq(scalatags, maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
+  Seq(scalatags, maxmind, hasher, uaparser, specs2, play.mailer) ++ reactivemongo.bundle
 )
 
 lazy val shutup = module("shutup",
