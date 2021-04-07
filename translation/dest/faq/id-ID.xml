@@ -36,6 +36,14 @@ Misalnya, perkiraan durasi permainan 5+3 adalah 5 × 60 + 40 × 3 = 420 detik.</
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
   <string name="whatIsACPL">Apa itu average centiawn loss (ACPL)?</string>
+  <string name="acplExplanation">Centipawn adalah satuan ukuran yang digunakan dalam catur sebagai representasi keunggulan. Centipawn sama dengan 1/100 pion. Oleh karena itu 100 centipawn = 1 pion. Nilai-nilai ini tidak memainkan peran formal dalam permainan tetapi berguna bagi pemain, dan penting dalam catur komputer, untuk mengevaluasi posisi.
+
+Gerakan komputer teratas akan kehilangan centipawn kosong, tetapi gerakan yang lebih sedikit akan menghasilkan penururan posisi akan diukur dalam centipawn.
+
+Nilai ini dapat digunakan sebagai indikator kualitas bermain. Semakin sedikit centipawn yang kalah per gerakan, semakin kuat permainannya.
+
+Analisis komputer pada Lichess didukung oleh Stockfish.</string>
+  <string name="insufficientMaterial">Kehabisan waktu, seri dan kurang materi</string>
   <string name="lichessFollowFIDErules">Jika salah satu pemainan kehabisan waktu, pemain tersebut biasanya akan kalah dalam permainan. Namun, permainan tersebut akan seri jika posisinya sedemikan rupa jika lawan tidak dapat menskakmat raja pemain dengan gerakan sah yang memungkinkan (%1$s).
 
 Dalam kasus yang jarang terjadi, ini akan menjadi sulit untuk diputuskan secara otomatis (garis paksa, benteng). Secara default kami berpihak pada pemain yang tidak kehabisan waktu.
