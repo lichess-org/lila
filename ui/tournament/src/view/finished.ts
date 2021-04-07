@@ -58,6 +58,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/api/tournament/${data.id}/games`,
+            download: true,
           },
         },
         'Download all games'
@@ -68,6 +69,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/api/tournament/${data.id}/results`,
+            download: true,
           },
         },
         'Download results'
