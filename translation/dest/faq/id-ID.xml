@@ -55,6 +55,7 @@ Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
   <string name="repeatedPositionsThatMatters">Pengulanan tiga kali lipat adalah tentang pengulangan %1$s, bukan gerakan. Pengulangan tidak harus terjadi secara berurutan.</string>
   <string name="positions">posisi</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Kami mengulangi posisi tiga kali. Kenapa permainan tidak remis?</string>
+  <string name="threeFoldHasToBeClaimed">Pengulangan harus diklaim oleh satu pemain. Anda dapat melakukan menekan tombol yang ditampilkan, atau menawarkan hasil seri sebelum gerakan berulang terakhir Anda, tidak masalah jika lawan Anda menolak tawaran seri, pengulangan tiga kali seri akan tetap diklaim. Anda juga dapat %1$s Lichess untuk mengklaim secara otomatis. Selain itu, pengulangan lima kali lipas selalu segera mengakhiri permainan.</string>
   <string name="configure">pengaturan</string>
   <string name="accounts">Akun</string>
   <string name="titlesAvailableOnLichess">Gelar apa saja yang terdapat pada Lichess?</string>
