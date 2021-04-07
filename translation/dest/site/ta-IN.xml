@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
   <string name="blunder">பெரிய தவறு</string>
-  <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistake">தவறு</string>
-  <string name="mistakes">பிழைகள்</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
-  <string name="inaccuracies">கச்சிதப்பிழைகள்</string>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
