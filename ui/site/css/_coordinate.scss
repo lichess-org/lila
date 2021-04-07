@@ -192,7 +192,7 @@ $mq-col3: $mq-x-large;
 
   &.init {
     @include breakpoint($mq-col1) {
-      .coord-trainer__score {
+      .coord-trainer__score, .coord-trainer__progress {
         display: none;
       }
 
@@ -206,7 +206,7 @@ $mq-col3: $mq-x-large;
       @extend %page-text-shadow !optional;
     }
 
-    .coord-trainer__score {
+    .coord-trainer__score, .coord-trainer__progress {
       opacity: 0;
     }
 
