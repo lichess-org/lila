@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Teka-teki</string>
+  <string name="puzzleThemes">Tema teka-teki</string>
   <string name="recommended">Direkomendasikan</string>
   <string name="phases">Tahapan</string>
   <string name="motifs">Tema</string>
@@ -40,4 +41,8 @@
   <string name="harder">Lebih sulit</string>
   <string name="hardest">Paling sulit</string>
   <string name="example">Contoh</string>
+  <string name="addAnotherTheme">Tambah tema lainnya</string>
+  <string name="strengths">Kekuatan</string>
+  <string name="history">Riwayat teka-teki</string>
+  <string name="failed">gagal</string>
 </resources>
