@@ -117,6 +117,10 @@
   <string name="blunder">Bukk</string>
   <string name="mistake">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s bukk</item>
+    <item quantity="other">%s bukker</item>
+  </plurals>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
