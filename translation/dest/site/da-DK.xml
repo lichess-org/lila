@@ -117,6 +117,18 @@
   <string name="blunder">Brøler</string>
   <string name="mistake">Fejl</string>
   <string name="inaccuracy">Unøjagtighed</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s brøler</item>
+    <item quantity="other">%s brølere</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fejl</item>
+    <item quantity="other">%s fejl</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøjagtighed</item>
+    <item quantity="other">%s unøjagtigheder</item>
+  </plurals>
   <string name="moveTimes">Træktider</string>
   <string name="flipBoard">Vend bræt</string>
   <string name="threefoldRepetition">Trefoldig gentagelse</string>
