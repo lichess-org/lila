@@ -19,7 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Fərdiləşdirilmiş tapmacalar üçün:</string>
   <string name="puzzleId">Tapmaca %s</string>
   <string name="puzzleOfTheDay">Günün tapmacası</string>
-  <string name="clickToSolve">Həll edin</string>
+  <string name="clickToSolve">Həll etmək üçün kliklə</string>
   <string name="goodMove">Yaxşı gediş</string>
   <string name="bestMove">Ən yaxşı gediş!</string>
   <string name="keepGoing">Davam edin…</string>
@@ -50,4 +50,7 @@
   <string name="history">Tapmaca keçmişi</string>
   <string name="solved">həll edilmiş</string>
   <string name="failed">uğursuz oldu</string>
+  <string name="streakDescription">Getdikcə çətinləşən pazlları yerinə yetir və qələbə seriyası yarat. Zaman məhdudiyyəri yoxdur, odur ki, tələsmə. Bir səhv gediş və oyun bitdi! Amma hər sessiyada bir gedişi buraxa bilərsən.</string>
+  <string name="yourStreakX">Qələbə seriyan: %s</string>
+  <string name="streakSkipExplanation">Qələbə seriyanı qorumaq üçün bu gedişi keç! Oyun başına yalnız bir dəfə işləyir.</string>
 </resources>
