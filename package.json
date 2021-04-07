@@ -34,8 +34,7 @@
   "scripts": {
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts"
   },
   "workspaces": [
     "ui",

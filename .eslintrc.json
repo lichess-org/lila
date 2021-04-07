@@ -15,6 +15,8 @@
     "no-duplicate-imports": "error",
     "prefer-spread": "off",
     "prefer-rest-params": "off",
+    "no-useless-escape": "off",
+    "no-constant-condition": ["warn", {"checkLoops": false}],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -23,8 +25,7 @@
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
 
-    "eqeqeq": "off",
-    "no-constant-condition": "off",
-    "no-async-promise-executor": "off"
+    "no-var": "warn",
+    "no-async-promise-executor": "warn"
   }
 }
