@@ -185,6 +185,15 @@
   <string name="username">Nome d\' utilizatore</string>
   <string name="usernameOrEmail">Nome d\' utilizatore o di currieru elettronicu</string>
   <string name="changeUsername">Cambià u so nome d\' utilizatore</string>
+  <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
+  <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
+  <string name="password">Parolla d\'intesa</string>
+  <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
+  <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
+  <string name="email">Currieru elettronicu</string>
+  <string name="passwordReset">Riinizializà a vostra parolla d\' intesa</string>
+  <string name="forgotPassword">Vi site scurdatu a vostra parolla d\' intesa?</string>
+  <string name="rank">Rangu</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
