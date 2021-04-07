@@ -59,7 +59,7 @@ final class Mailer(
 
 object Mailer {
 
-  private val timeout = 10 seconds
+  private val timeout = 5 seconds
 
   case class Smtp(
       mock: Boolean,
