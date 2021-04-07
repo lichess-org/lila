@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunder">Kobud Səhv</string>
-  <string name="blunders">Kobud Səhvlər</string>
   <string name="mistake">Səhv</string>
-  <string name="mistakes">Səhvlər</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
-  <string name="inaccuracies">Qeyri-dəqiqliklər</string>
   <string name="moveTimes">Gediş müddəti</string>
   <string name="flipBoard">Lövhəni fırlat</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
