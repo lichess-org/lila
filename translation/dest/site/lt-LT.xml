@@ -123,6 +123,24 @@
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s šiurkšti klaida</item>
+    <item quantity="few">%s šiurkščios klaidos</item>
+    <item quantity="many">%s šiurkščios klaidos</item>
+    <item quantity="other">%s šiurkščių klaidų</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s klaida</item>
+    <item quantity="few">%s klaidos</item>
+    <item quantity="many">%s klaidos</item>
+    <item quantity="other">%s klaidų</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s netikslumas</item>
+    <item quantity="few">%s netikslumai</item>
+    <item quantity="many">%s netikslumo</item>
+    <item quantity="other">%s netikslumų</item>
+  </plurals>
   <string name="moveTimes">Ėjimų trukmė</string>
   <string name="flipBoard">Apsukti lentą</string>
   <string name="threefoldRepetition">Pozicijos pasikartojimas tris kartus</string>
