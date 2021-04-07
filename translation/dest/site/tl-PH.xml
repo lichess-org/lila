@@ -175,7 +175,7 @@
 	</plurals>
 	<string name="time">Oras</string>
 	<string name="rating">Marka</string>
-	<string name="ratingStats">Istats ng Marka</string>
+	<string name="ratingStats">Istats ng rating</string>
 	<string name="username">Pangalan ng user</string>
 	<string name="usernameOrEmail">Pangalan ng gumamit o email</string>
 	<string name="changeUsername">Palitan ang iyong pangalan</string>

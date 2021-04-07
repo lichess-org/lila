@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">Ziehe, um zu beginnen</string>
+  <string name="puzzlesSolved">Aufgaben gelöst</string>
+  <string name="newDailyHighscore">Neuer Tagesrekord!</string>
+  <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
+  <string name="newMonthlyHighscore">Neuer Monatsrekord!</string>
+  <string name="newAllTimeHighscore">Neuer Allzeit-Rekord!</string>
+  <string name="previousHighscoreWasX">Dein vorheriger Rekord war %s</string>
+  <string name="playAgain">Nochmal spielen</string>
   <plurals name="xRuns">
     <item quantity="one">1 run</item>
     <item quantity="other">%s runs</item>
@@ -18,7 +18,7 @@
   </plurals>
   <string name="highscoreX">Highscore: %s</string>
   <string name="score">Score</string>
-  <string name="moves">Moves</string>
+  <string name="moves">Züge</string>
   <string name="accuracy">Accuracy</string>
   <string name="combo">Combo</string>
   <string name="time">Time</string>

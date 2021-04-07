@@ -561,7 +561,7 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	</plurals>
 	<string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
 	<string name="autoSwitch">Przełącz po ruchu</string>
-	<string name="puzzles">Zadania shogi</string>
+	<string name="puzzles">Zadania</string>
 	<string name="latestUpdates">Aktualności</string>
 	<string name="tournamentWinners">Zwycięzcy turniejów</string>
 	<string name="name">Nazwa</string>

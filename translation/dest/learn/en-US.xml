@@ -71,7 +71,7 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="goldSummary">Try to remember these moves, many pieces move the same way after they are promoted.</string>
 	<string name="goldComplete">Congratulations! You got this.</string>
 	<string name="theSilver">The silver general</string>
-	<string name="itMovesEitherForwardOrDiagonallyBack">The general moves either forward or diagonally black.</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">The general moves either forward or diagonally back.</string>
 	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
 	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
 	<string name="silverSummary">You will surely remember these moves with some practice.</string>
