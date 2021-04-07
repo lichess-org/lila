@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Přesunout na začátek</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Máte bílé figury ve všech úlohách.</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Máte černé figury ve všech úlohách.</string>
   <string name="puzzlesSolved">úloh vyřešeno</string>
@@ -26,5 +27,8 @@
   <string name="runs">Pokusy</string>
   <string name="getReady">Připravte se!</string>
   <string name="waitingForMorePlayers">Čeká se na připojení dalších hráčů...</string>
+  <string name="raceComplete">Závod dokončen!</string>
+  <string name="spectating">Sledování</string>
+  <string name="joinTheRace">Připojte se k závodu!</string>
   <string name="nextRace">Další závod</string>
 </resources>
