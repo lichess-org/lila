@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Analisa infiinita</string>
   <string name="removesTheDepthLimit">Ùn ci hè limita di calculu, pò trascaldà u vostru urdinatore</string>
   <string name="blunder">Sbaglione</string>
-  <string name="blunders">Sbaglioni</string>
   <string name="mistake">Sbagliu</string>
-  <string name="mistakes">Sbagli</string>
   <string name="inaccuracy">Imprecisione</string>
-  <string name="inaccuracies">Imprecisioni</string>
   <string name="moveTimes">Durata di u coplu</string>
   <string name="flipBoard">Vultà a scacchera</string>
   <string name="threefoldRepetition">Ripetutu trè volte</string>
