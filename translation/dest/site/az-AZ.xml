@@ -862,5 +862,7 @@
   <string name="pleaseReconsiderRenewIt">Zəhmət olmasa, bunu yeniləyin!</string>
   <string name="someoneReviewedYourCoachProfile">Kimsə məşqçi profilinə baxdı.</string>
   <string name="newPendingReview">Yeni gözləyən rəy</string>
+  <string name="lostAgainstTOSViolator">\"Liches\" xidmət şərtlərini pozana qarşı uduzdun</string>
+  <string name="refundXpointsTimeControlY">Geri qaytarma: \"%2$s\"-də %1$s reytinq xalı.</string>
   <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>
 </resources>
