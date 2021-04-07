@@ -126,9 +126,10 @@ final class Auth(
                           case None => InternalServerError("Authentication error").fuccess
                           case Some(u) if u.disabled =>
                             negotiate(
-                              html =
-                                if (u.marks.dirty) authenticateAppealUser(u, redirectTo)
-                                else redirectTo(routes.Account.reopen.url).fuccess,
+                              html = (u.marks.dirty ?? env.mod.logApi.closedByMod(u)) flatMap {
+                                case true => authenticateAppealUser(u, redirectTo)
+                                case _    => redirectTo(routes.Account.reopen.url).fuccess
+                              },
                               api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
                             )
                           case Some(u) =>

@@ -4,6 +4,7 @@ import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
+// eslint-disable-next-line no-duplicate-imports
 import { TournamentSocket } from './socket';
 
 interface CtrlTeamInfo {

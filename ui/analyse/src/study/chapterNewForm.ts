@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { defined, prop, Prop } from 'common';
 import { storedProp, StoredProp } from 'common/storage';
 import * as xhr from 'common/xhr';

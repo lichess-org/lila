@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { StudyCtrl } from './interfaces';
 import { bind, richHTML, onInsert } from '../util';
 

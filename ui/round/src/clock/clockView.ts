@@ -3,12 +3,10 @@ import * as game from 'game';
 import RoundController from '../ctrl';
 import { bind, justIcon } from '../util';
 import { ClockElements, ClockController, Millis } from './clockCtrl';
-import { h } from 'snabbdom';
-import { Hooks } from 'snabbdom/hooks';
-import { Player } from 'game';
+import { h, Hooks } from 'snabbdom';
 import { Position } from '../interfaces';
 
-export function renderClock(ctrl: RoundController, player: Player, position: Position) {
+export function renderClock(ctrl: RoundController, player: game.Player, position: Position) {
   const clock = ctrl.clock!,
     millis = clock.millisOf(player.color),
     isPlayer = ctrl.data.player.color === player.color,

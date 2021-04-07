@@ -1,9 +1,8 @@
 import { bind, titleNameToId, onInsert } from '../util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { modal } from '../modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
 
 export function makeCtrl(
   send: SocketSend,

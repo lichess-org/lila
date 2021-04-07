@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { currentComments } from './studyComments';
 import { nodeFullName, bind } from '../util';
 import { prop, Prop } from 'common';

@@ -1,14 +1,11 @@
-import attributes from 'snabbdom/modules/attributes';
-import klass from 'snabbdom/modules/class';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
 import { Chessground } from 'chessground';
 import { Controller, PuzzleOpts } from './interfaces';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function (opts: PuzzleOpts): void {
   const element = document.querySelector('main.puzzle') as HTMLElement;

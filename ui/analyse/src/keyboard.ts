@@ -1,10 +1,9 @@
 import * as control from './control';
 import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { modal } from './modal';
 import { spinner } from './util';
-import { VNode } from 'snabbdom/vnode';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.Mousetrap;

@@ -1,13 +1,10 @@
-import attributes from 'snabbdom/modules/attributes';
-import klass from 'snabbdom/modules/class';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import RacerCtrl from './ctrl';
 import { Chessground } from 'chessground';
-import { init } from 'snabbdom';
 import { RacerOpts } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 

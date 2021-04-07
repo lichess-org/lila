@@ -1,17 +1,15 @@
 import AnalyseCtrl from './ctrl';
-import attributes from 'snabbdom/modules/attributes';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import boot from './boot';
-import klass from 'snabbdom/modules/class';
 import LichessChat from 'chat';
+// eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { Chessground } from 'chessground';
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
 
-export const patch = init([klass, attributes]);
+export const patch = init([classModule, attributesModule]);
 
 export function start(opts: AnalyseOpts): AnalyseApi {
   opts.element = document.querySelector('main.analyse') as HTMLElement;

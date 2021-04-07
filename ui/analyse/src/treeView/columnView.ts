@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { isEmpty } from 'common';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
@@ -15,10 +14,10 @@ import {
   renderInlineCommentsOf,
   truncateComment,
   retroLine,
+  Ctx as BaseCtx,
+  Opts as BaseOpts,
 } from './treeView';
 import { enrichText, innerHTML } from '../util';
-import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
-import { renderGlyph } from '../moveView';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -154,7 +153,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     content: MaybeVNodes = [withIndex ? moveView.renderIndex(node.ply, true) : null, fixCrazySan(node.san!)],
     classes = nodeClasses(ctx, node, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
-  if (node.glyphs) node.glyphs.forEach(g => content.push(renderGlyph(g)));
+  if (node.glyphs) node.glyphs.forEach(g => content.push(moveView.renderGlyph(g)));
   return h(
     'move',
     {

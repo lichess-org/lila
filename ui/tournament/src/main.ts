@@ -1,14 +1,12 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { TournamentOpts } from './interfaces';
 import TournamentController from './ctrl';
 import LichessChat from 'chat';
 
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
+// eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
 import view from './view/main';
 

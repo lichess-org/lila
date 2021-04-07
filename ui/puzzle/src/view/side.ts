@@ -1,8 +1,7 @@
 import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
 import { dataIcon, onInsert } from '../util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
-import { VNode } from 'snabbdom/vnode';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
@@ -125,7 +124,7 @@ export const userBox = (ctrl: Controller): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
-      h('button.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
+      h('a.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { sanWriter, SanToUci } from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
@@ -21,9 +20,6 @@ import {
   prefixSetting,
   positionSetting,
   boardSetting,
-} from 'nvui/chess';
-import { renderSetting } from 'nvui/setting';
-import {
   boardCommandsHandler,
   possibleMovesHandler,
   lastCapturedCommandHandler,
@@ -31,9 +27,12 @@ import {
   arrowKeyHandler,
   positionJumpHandler,
   pieceJumpingHandler,
+  castlingFlavours,
+  supportedVariant,
+  Style,
 } from 'nvui/chess';
+import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import { throttled } from '../sound';
 

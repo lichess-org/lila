@@ -1,10 +1,7 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { Pieces } from 'chessground/types';
-import { Rank, File } from 'chessground/types';
+import { h, VNode } from 'snabbdom';
+import { Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
-import { files } from 'chessground/types';
 import { parseFen } from 'chessops/fen';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';

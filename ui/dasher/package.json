@@ -6,7 +6,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",

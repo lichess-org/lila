@@ -80,7 +80,7 @@ object SimulForm {
       color = simul.color | "random",
       text = simul.text,
       team = simul.team,
-      featured = host.hasTitle.some
+      featured = simul.featurable
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =

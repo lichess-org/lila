@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 
 export function userLink(u: string, title?: string): VNode {
   const trunc = u.substring(0, 14);

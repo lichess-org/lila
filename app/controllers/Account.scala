@@ -399,7 +399,7 @@ final class Account(
               err => BadRequest(renderReopen(err.some, none)).fuccess,
               data =>
                 env.security.reopen
-                  .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose) flatMap {
+                  .prepare(data.username, data.realEmail, env.mod.logApi.closedByMod) flatMap {
                   case Left((code, msg)) =>
                     lila.mon.user.auth.reopenRequest(code).increment()
                     BadRequest(renderReopen(none, msg.some)).fuccess

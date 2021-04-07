@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
 import { teamName } from './battle';

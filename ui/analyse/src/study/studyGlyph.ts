@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import * as xhr from './studyXhr';
 import { prop, Prop } from 'common';
 import throttle from 'common/throttle';
@@ -54,7 +53,7 @@ export function ctrl(root: AnalyseCtrl) {
       });
   }
 
-  const toggleGlyph = throttle(500, (id: string) => {
+  const toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
     root.study!.makeChange(
       'toggleGlyph',
       root.study!.withPosition({

@@ -5,11 +5,10 @@ import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import { VNode } from 'snabbdom/vnode';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);

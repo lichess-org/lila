@@ -80,6 +80,8 @@ object bits {
       trans.puzzle.ratingX,
       trans.puzzle.playedXTimes,
       trans.puzzle.continueTraining,
+      trans.puzzle.didYouLikeThisPuzzle,
+      trans.puzzle.voteToLoadNextOne,
       trans.analysis,
       trans.playWithTheMachine,
       // ceval
@@ -100,8 +102,6 @@ object bits {
       trans.puzzle.addAnotherTheme,
       trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.difficultyLevel,
-      trans.puzzle.didYouLikeThisPuzzle,
-      trans.puzzle.voteToLoadNextOne,
       trans.signUp,
       trans.puzzle.toGetPersonalizedPuzzles
     ).map(_.key) :::

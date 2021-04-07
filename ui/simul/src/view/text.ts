@@ -1,5 +1,4 @@
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks';
+import { VNode, Hooks } from 'snabbdom';
 
 export function richHTML(text: string): Hooks {
   return {

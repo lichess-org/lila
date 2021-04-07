@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "chessops": "^0.8.1",
-    "snabbdom": "^0.7.4",
+    "snabbdom": "^3.0.1",
     "chessground": "^7.11.0",
     "common": "2.0.0"
   },

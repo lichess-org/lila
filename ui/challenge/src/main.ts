@@ -1,14 +1,10 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import makeCtrl from './ctrl';
 import { loaded, loading } from './view';
 import { json } from 'common/xhr';
 import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
   let vnode: VNode, ctrl: Ctrl;

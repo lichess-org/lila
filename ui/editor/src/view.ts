@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
@@ -238,6 +237,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
+                    ctrl.redraw();
                   },
                 },
               },

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import * as studyView from '../study/studyView';
 import { nodeFullName, bind } from '../util';
 import AnalyseCtrl from '../ctrl';

@@ -3,12 +3,11 @@ import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
-import { Outcome } from 'chessops/types';
+import { Outcome, Role, Move } from 'chessops/types';
 import { Prop } from 'common';
-import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
 
 export type MaybeVNode = VNode | string | null | undefined;

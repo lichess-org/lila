@@ -29,11 +29,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
     add {
       Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
     }
-  // BC
-  def streamerFeature(mod: Mod, streamerId: User.ID, v: Boolean) =
-    add {
-      Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
-    }
 
   def practiceConfig(mod: User.ID) =
     add {
@@ -85,8 +80,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
       )
     }
 
-  def hasModClose(user: User.ID): Fu[Boolean] =
-    coll.exists($doc("user" -> user, "action" -> Modlog.closeAccount))
+  def closedByMod(user: User): Fu[Boolean] =
+    fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def reopenAccount(mod: User.ID, user: User.ID) =
     add {
@@ -293,7 +288,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
         val monitorType = m.action match {
-          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt | M.unalt =>
+          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt |
+              M.unalt =>
             SlackApi.MonitorType.Hunt
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
               M.enableTeam | M.setKidMode =>
