@@ -219,6 +219,19 @@
   <string name="blackOffersDraw">I neri pruponenu a partita patta</string>
   <string name="whiteDeclinesDraw">I bianchi ricusanu a partita patta</string>
   <string name="blackDeclinesDraw">I neri ricusanu a partita patta</string>
+  <string name="yourOpponentOffersADraw">U vostru aversariu prupone a partita patta</string>
+  <string name="accept">Accettà</string>
+  <string name="decline">Ricusà</string>
+  <string name="playingRightNow">Si ghjoca avà</string>
+  <string name="eventInProgress">Si ghjoca avà</string>
+  <string name="finished">Finita</string>
+  <string name="finishesX">finisce %s</string>
+  <string name="abortGame">Aburtì a partita</string>
+  <string name="gameAborted">Partita aburtita</string>
+  <string name="standard">Classica</string>
+  <string name="unlimited">Senza limita</string>
+  <string name="mode">Modu</string>
+  <string name="casual">Senza classifica</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
@@ -245,4 +258,7 @@
   <string name="incrementInSeconds">Raghjunta in seconde</string>
   <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
   <string name="spectators">Spettatori:</string>
+  <string name="apply">Sottumette</string>
+  <string name="save">Salvà</string>
+  <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
 </resources>
