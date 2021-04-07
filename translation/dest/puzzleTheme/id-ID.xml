@@ -21,6 +21,8 @@
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
+  <string name="doubleBishopMate">Skak gajah ganda</string>
+  <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Serangan raja</string>
   <string name="defensiveMove">Gerakan bertahan</string>
   <string name="discoveredAttack">Menemukan serangan</string>
