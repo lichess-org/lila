@@ -25,10 +25,16 @@
   <string name="equality">Kesetaraan</string>
   <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Serangan raja</string>
+  <string name="kingsideAttackDescription">Serangan raja lawan, setelah mereka berada di sisi raja.</string>
+  <string name="clearance">Pembersihan</string>
+  <string name="clearanceDescription">Sebuah gerakan, seringkali dengan tempo, file atau diagonal untuk ide taktis lanjutan.</string>
   <string name="defensiveMove">Gerakan bertahan</string>
+  <string name="deflection">Defleksi</string>
+  <string name="deflectionDescription">Gerakan yang mengalihkan perhatian bidak lawan dari tugas lain yang dilakukan, seperti menjaga kotak kunci. Kadang juga disebut \"overloading\".</string>
   <string name="discoveredAttack">Menemukan serangan</string>
   <string name="discoveredAttackDescription">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
   <string name="doubleCheck">Skak ganda</string>
+  <string name="endgame">Akhir permainan</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
   <string name="mate">Skakmat</string>
   <string name="mateDescription">Menangkan game dengan bergaya.</string>
