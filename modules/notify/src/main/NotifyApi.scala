@@ -10,6 +10,7 @@ import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.SendTo
 import lila.memo.CacheApi._
 import lila.user.UserRepo
+import lila.i18n.I18nLangPicker
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -102,6 +103,17 @@ final class NotifyApi(
   private def notifyUser(notifies: Notification.Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
       import play.api.libs.json.Json
-      Bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), "socketUsers")
+      Bus.publish(
+        SendTo.async(
+          notifies.value,
+          "notifications",
+          () => {
+            userRepo langOf notifies.value map I18nLangPicker.byStrOrDefault map { implicit lang =>
+              jsonHandlers(msg)
+            }
+          }
+        ),
+        "socketUsers"
+      )
     }
 }

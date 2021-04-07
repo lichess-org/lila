@@ -25,6 +25,9 @@ object I18nLangPicker {
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser
 
+  def byStrOrDefault(str: Option[String]): Lang =
+    str.flatMap(byStr) | defaultLang
+
   def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] = {
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }

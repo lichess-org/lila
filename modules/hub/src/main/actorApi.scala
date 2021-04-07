@@ -22,10 +22,14 @@ package map {
 }
 
 package socket {
+
   case class SendTo(userId: String, message: JsObject)
+  case class SendToAsync(userId: String, message: () => Fu[JsObject])
   object SendTo {
     def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
       SendTo(userId, Json.obj("t" -> typ, "d" -> data))
+    def async[A: Writes](userId: String, typ: String, data: () => Fu[A]): SendToAsync =
+      SendToAsync(userId, () => data() dmap { d => Json.obj("t" -> typ, "d" -> d) })
   }
   case class SendTos(userIds: Set[String], message: JsObject)
   object SendTos {
