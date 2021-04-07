@@ -14,5 +14,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn install
-      - run: yarn run lint --format visualstudio
+      - run: yarn run lint
       - run: yarn run check-format

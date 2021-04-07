@@ -16,7 +16,7 @@
     "prefer-spread": "off",
     "prefer-rest-params": "off",
     "no-useless-escape": "off",
-    "no-constant-condition": ["warn", {"checkLoops": false}],
+    "no-constant-condition": ["warn", { "checkLoops": false }],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
