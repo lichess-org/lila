@@ -854,4 +854,12 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="invitedYouToX"> li sin e sina tawa musi pi kama sona \"%1$s\".</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
+  <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. jan lawa li weka wawa e ona</string>
+  <string name="congratsYouWon">sina anpa e jan musi ante!</string>
+  <string name="gameVsX">musi pi jan %1$s</string>
+  <string name="resVsX">jan %1$s en jan %2$s</string>
+  <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>
+  <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
+  <string name="timeAlmostUp">tenpo lili li lon a!</string>
 </resources>
