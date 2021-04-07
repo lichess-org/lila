@@ -53,6 +53,6 @@
   <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it\'s game over! But you can skip one move per session.</string>
   <string name="yourStreakX">Your streak: %s</string>
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
-  <string name="continueTheStreak">Continue the streak</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continue the streak</string>
   <string name="newStreak">New streak</string>
 </resources>
