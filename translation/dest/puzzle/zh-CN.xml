@@ -52,6 +52,6 @@
   <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时的情况下，慢慢来。当您走错了一次，游戏将会结束！不过，每场游戏里可跳过一步。</string>
   <string name="yourStreakX">您的连胜纪录: %s</string>
   <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
-  <string name="continueTheStreak">继续连胜纪录</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>
 </resources>
