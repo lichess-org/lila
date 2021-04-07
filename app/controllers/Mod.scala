@@ -131,9 +131,9 @@ final class Mod(
     }(actionResult(username))
 
   def disableTwoFactor(username: String) =
-    Secure(_.DisableTwoFactor) { implicit ctx => me =>
-      modApi.disableTwoFactor(me.id, username) >> userC.modZoneOrRedirect(me, username)
-    }
+    OAuthMod(_.DisableTwoFactor) { _ => me =>
+      modApi.disableTwoFactor(me.id, username) map some
+    }(actionResult(username))
 
   def closeAccount(username: String) =
     OAuthMod(_.CloseAccount) { _ => me =>
