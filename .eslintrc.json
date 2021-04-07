@@ -16,9 +16,12 @@
   ],
   "rules": {
     "linebreak-style": ["error", "unix"],
-    "no-duplicate-imports": ["error"],
-    "no-var": "off",
+    "no-duplicate-imports": "error",
+    "@typescript-eslint/no-empty-function": "off",
+
+    "eqeqeq": "off",
     "prefer-const": "off",
+    "no-var": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -29,14 +32,7 @@
     "prefer-spread": "off",
     "prefer-rest-params": "off",
     "no-useless-escape": "off",
-    "no-empty": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "no-self-assign": "off",
-    "no-case-declarations": "off",
     "no-constant-condition": "off",
-    "no-prototype-builtins": "off",
-    "no-extra-boolean-cast": "off",
-    "no-async-promise-executor": "off",
-    "@typescript-eslint/adjacent-overload-signatures": "off"
+    "no-async-promise-executor": "off"
   }
 }

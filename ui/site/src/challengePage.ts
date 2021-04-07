@@ -61,9 +61,7 @@ export default function (opts: ChallengeOpts) {
 
   function pingNow() {
     if (document.getElementById('ping-challenge')) {
-      try {
-        lichess.socket.send('ping');
-      } catch (e) {}
+      lichess.socket.send('ping');
       setTimeout(pingNow, 9000);
     }
   }

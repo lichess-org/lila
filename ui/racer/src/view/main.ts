@@ -25,7 +25,7 @@ export default function (ctrl: RacerCtrl): VNode {
 const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
   const noarg = ctrl.trans.noarg;
   switch (ctrl.status()) {
-    case 'pre':
+    case 'pre': {
       const povMsg = h('p.racer__pre__message__pov', ctrl.trans(povMessage(ctrl.run)));
       return ctrl.race.lobby
         ? [
@@ -50,7 +50,8 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             ]),
             comboZone(ctrl),
           ];
-    case 'racing':
+    }
+    case 'racing': {
       const clock = renderClock(ctrl.run, ctrl.end, false);
       return ctrl.isPlayer()
         ? [playerScore(ctrl), h('div.puz-clock', [clock, renderSkip(ctrl)]), comboZone(ctrl)]
@@ -62,12 +63,14 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
             ]),
             comboZone(ctrl),
           ];
-    case 'post':
+    }
+    case 'post': {
       const nextRace = ctrl.race.lobby ? lobbyNext(ctrl) : friendNext(ctrl);
       const raceComplete = h('h2', noarg('raceComplete'));
       return ctrl.isPlayer()
         ? [playerScore(ctrl), h('div.racer__post', [raceComplete, yourRank(ctrl), nextRace]), comboZone(ctrl)]
         : [spectating(noarg), h('div.racer__post', [raceComplete, nextRace]), comboZone(ctrl)];
+    }
   }
 };
 

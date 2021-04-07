@@ -14,7 +14,6 @@ export interface ForecastStep {
 }
 
 export interface ForecastCtrl {
-  addNodes(fc);
   reloadToLastPly();
   truncate(fc: ForecastStep[]): ForecastStep[];
   playAndSave(node: ForecastStep);
