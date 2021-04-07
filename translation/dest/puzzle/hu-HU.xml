@@ -53,6 +53,6 @@
   <string name="streakDescription">Oldj meg egyre nehezedő feladványokat nyerő széria építéséhez. Nincs időkorlát, szánd rá az időt. Egyetlen hibás lépés és a játéknak vége. Viszont mindig egyet átugorhatsz.</string>
   <string name="yourStreakX">Nyerő szériád: %s</string>
   <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
-  <string name="continueTheStreak">Széria folytatása</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Széria folytatása</string>
   <string name="newStreak">Új széria</string>
 </resources>
