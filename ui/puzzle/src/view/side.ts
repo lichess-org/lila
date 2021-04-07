@@ -1,5 +1,5 @@
 import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
-import { dataIcon, onInsert } from '../util';
+import { dataIcon, onInsert, bind } from '../util';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
@@ -230,5 +230,12 @@ export function config(ctrl: Controller): MaybeVNode {
           ]
         )
       : null,
+    h(
+      'a.puzzle__side__config__zen.button.button-empty',
+      {
+        hook: bind('click', () => lichess.pubsub.emit('zen')),
+      },
+      ctrl.trans.noarg('zenMode')
+    ),
   ]);
 }

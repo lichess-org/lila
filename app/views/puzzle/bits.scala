@@ -84,6 +84,7 @@ object bits {
       trans.puzzle.voteToLoadNextOne,
       trans.analysis,
       trans.playWithTheMachine,
+      trans.preferences.zenMode,
       // ceval
       trans.depthX,
       trans.usingServerAnalysis,
