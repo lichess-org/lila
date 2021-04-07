@@ -123,6 +123,24 @@
   <string name="blunder">Зевок</string>
   <string name="mistake">Ошибка</string>
   <string name="inaccuracy">Неточность</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s зевок</item>
+    <item quantity="few">%s зевка</item>
+    <item quantity="many">%s зевков</item>
+    <item quantity="other">%s зевков</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ошибка</item>
+    <item quantity="few">%s ошибки</item>
+    <item quantity="many">%s ошибок</item>
+    <item quantity="other">%s ошибок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточность</item>
+    <item quantity="few">%s неточности</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
