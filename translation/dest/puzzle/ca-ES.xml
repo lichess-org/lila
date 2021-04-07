@@ -53,6 +53,6 @@
   <string name="streakDescription">Soluciona problemes cada vegada més difícils i aconsegueix una ratxa de victòries. No hi ha temps, pren-t\'ho amb calma. Si fas un moviment erroni, s\'acaba el joc! Però pots ometre un moviment per sessió.</string>
   <string name="yourStreakX">Victòries consecutives: %s</string>
   <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
-  <string name="continueTheStreak">Continua la sèrie</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continua la sèrie</string>
   <string name="newStreak">Nova sèrie</string>
 </resources>
