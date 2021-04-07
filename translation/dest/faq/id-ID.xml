@@ -36,6 +36,11 @@ Misalnya, perkiraan durasi permainan 5+3 adalah 5 × 60 + 40 × 3 = 420 detik.</
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
   <string name="whatIsACPL">Apa itu average centiawn loss (ACPL)?</string>
+  <string name="lichessFollowFIDErules">Jika salah satu pemainan kehabisan waktu, pemain tersebut biasanya akan kalah dalam permainan. Namun, permainan tersebut akan seri jika posisinya sedemikan rupa jika lawan tidak dapat menskakmat raja pemain dengan gerakan sah yang memungkinkan (%1$s).
+
+Dalam kasus yang jarang terjadi, ini akan menjadi sulit untuk diputuskan secara otomatis (garis paksa, benteng). Secara default kami berpihak pada pemain yang tidak kehabisan waktu.
+
+Perhatikan bahwa itu bisa memungkinkan skakmat dengan satu kuda atau gajah jika lawan memiliki bidak yang bisa menghalangi raja.</string>
   <string name="fideHandbookX">pedoman FIDE %s</string>
   <string name="discoveringEnPassant">Mengapa sebuah bidak dapat memakan bidak lain meski bidak tersebut sudah lewat? (en passant)</string>
   <string name="explainingEnPassant">Ini merupakan gerakan legal yang dinamakan \"en passant\". Artikel Wikipedia memberikan sebuah %1$s.
