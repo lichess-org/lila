@@ -117,6 +117,10 @@
   <string name="blunder">Error grave</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisión</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s error grave</item>
+    <item quantity="other">%s errores graves</item>
+  </plurals>
   <string name="moveTimes">Tiempo por movimiento</string>
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
