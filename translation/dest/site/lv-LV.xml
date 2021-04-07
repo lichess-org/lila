@@ -120,6 +120,21 @@
   <string name="blunder">Rupja kļūda</string>
   <string name="mistake">Kļūda</string>
   <string name="inaccuracy">Neprecizitāte</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s rupju kļūdu</item>
+    <item quantity="one">%s rupja kļūda</item>
+    <item quantity="other">%s rupjas kļūdas</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s kļūdu</item>
+    <item quantity="one">%s kļūda</item>
+    <item quantity="other">%s kļūdas</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s neprecizitāšu</item>
+    <item quantity="one">%s neprecizitāte</item>
+    <item quantity="other">%s neprecizitātes</item>
+  </plurals>
   <string name="moveTimes">Gājienu ilgumi</string>
   <string name="flipBoard">Apgriezt galdiņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
