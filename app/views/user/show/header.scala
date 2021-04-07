@@ -114,7 +114,8 @@ object header {
               cls := "btn-rack__btn",
               href := routes.Game.exportByUser(u.username),
               titleOrText(trans.exportGames.txt()),
-              dataIcon := "x"
+              dataIcon := "x",
+              downloadAttr
             )
           else
             (ctx.isAuth && ctx.noKid) option a(

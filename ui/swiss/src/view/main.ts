@@ -261,6 +261,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
               attrs: {
                 'data-icon': 'x',
                 href: `/swiss/${ctrl.data.id}.trf`,
+                download: true,
               },
             },
             'Download TRF file'
@@ -271,6 +272,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
               attrs: {
                 'data-icon': 'x',
                 href: `/api/swiss/${ctrl.data.id}/games`,
+                download: true,
               },
             },
             'Download all games'
@@ -281,6 +283,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
               attrs: {
                 'data-icon': 'x',
                 href: `/api/swiss/${ctrl.data.id}/results`,
+                download: true,
               },
             },
             'Download results'
