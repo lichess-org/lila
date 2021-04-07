@@ -261,4 +261,10 @@
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
+  <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
+  <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
+  <string name="fromPosition">Partendu di a pusizione</string>
+  <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
+  <string name="toStudy">Studià</string>
+  <string name="importGame">Impurtà a partita</string>
 </resources>
