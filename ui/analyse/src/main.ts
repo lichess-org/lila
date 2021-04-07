@@ -1,5 +1,4 @@
-import AnalyseCtrl from './ctrl';
-import { attributesModule, classModule, init, VNode } from 'snabbdom';
+import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
 import LichessChat from 'chat';
 // eslint-disable-next-line no-duplicate-imports
@@ -15,17 +14,15 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   opts.element = document.querySelector('main.analyse') as HTMLElement;
   opts.trans = lichess.trans(opts.i18n);
 
-  let vnode: VNode, ctrl: AnalyseCtrl;
+  const ctrl = new makeCtrl(opts, redraw);
+
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  let vnode = patch(opts.element, blueprint);
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
-
-  ctrl = new makeCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  vnode = patch(opts.element, blueprint);
 
   menuHover();
 

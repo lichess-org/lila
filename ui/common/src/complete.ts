@@ -51,8 +51,8 @@ export default function <Result>(opts: Opts<Result>) {
       if (selectedIndex !== null) $container.find('.complete-result').eq(selectedIndex).addClass('complete-selected');
     };
 
-  let $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input),
-    selectedIndex: number | null = null,
+  const $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input);
+  let selectedIndex: number | null = null,
     renderedResults: Result[] = [];
 
   opts.input.autocomplete = 'off';

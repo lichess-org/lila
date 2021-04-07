@@ -149,8 +149,8 @@ function sameLines(l1: Line, l2: Line) {
 }
 
 function selectLines(ctrl: Ctrl): Array<Line> {
-  let prev: Line,
-    ls: Array<Line> = [];
+  const ls: Array<Line> = [];
+  let prev: Line | undefined;
   ctrl.data.lines.forEach(line => {
     if (
       !line.d &&

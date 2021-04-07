@@ -340,12 +340,12 @@ export default class RoundController {
     const d = this.data;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = this.noarg('yourTurn'),
-          opponent = renderUser.userTxt(this, d.opponent);
+        let txt = this.noarg('yourTurn');
+        const opponent = renderUser.userTxt(this, d.opponent);
         if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
         else {
-          let move = d.steps[d.steps.length - 1].san,
-            turn = Math.floor((this.ply - 1) / 2) + 1;
+          let move = d.steps[d.steps.length - 1].san;
+          const turn = Math.floor((this.ply - 1) / 2) + 1;
           move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
           txt = `${opponent}\nplayed ${move}.\n${txt}`;
         }
