@@ -382,7 +382,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           if (vm.node.san!.includes('x')) sound.capture();
           else sound.move();
         }
-        if (/\+|\#/.test(vm.node.san!)) sound.check();
+        if (/\+|#/.test(vm.node.san!)) sound.check();
       }
       threatMode(false);
       ceval.stop();

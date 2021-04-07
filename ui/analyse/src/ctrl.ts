@@ -351,7 +351,7 @@ export default class AnalyseCtrl {
           if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
-        if (/\+|\#/.test(this.node.san!)) this.sound.check();
+        if (/\+|#/.test(this.node.san!)) this.sound.check();
       }
       this.threatMode(false);
       this.ceval.stop();
