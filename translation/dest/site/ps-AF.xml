@@ -46,9 +46,6 @@
   <string name="requestAComputerAnalysis">د کمپيوټر تحليل غوښتنه</string>
   <string name="computerAnalysis">کمپيوټر تحليل</string>
   <string name="analysis">تحلیل بورډ</string>
-  <string name="blunders">خطاوو</string>
-  <string name="mistakes">غلطي</string>
-  <string name="inaccuracies">ناسمه برخه</string>
   <string name="offerDraw">انډولست</string>
   <string name="draw">انډول</string>
   <plurals name="nbPlayers">
