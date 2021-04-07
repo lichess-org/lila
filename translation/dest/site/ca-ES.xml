@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Anàlisi infinit</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
   <string name="blunder">Error greu</string>
-  <string name="blunders">Errors greus</string>
   <string name="mistake">Error</string>
-  <string name="mistakes">Errades</string>
   <string name="inaccuracy">Imprecisions</string>
-  <string name="inaccuracies">Imprecisions</string>
   <string name="moveTimes">Temps dels moviments</string>
   <string name="flipBoard">Gira el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>
