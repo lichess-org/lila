@@ -53,6 +53,6 @@
   <string name="streakDescription">Resolva quebra-cabeças progressivamente mais difíceis e construa uma sequência de vitórias. Não há relógio, então tome seu tempo. Um movimento errado e o jogo acaba! Porém, você pode pular um movimento por sessão.</string>
   <string name="yourStreakX">Sua sequência: %s</string>
   <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por corrida.</string>
-  <string name="continueTheStreak">Continuar a sequência</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continuar a sequência</string>
   <string name="newStreak">Nova sequência</string>
 </resources>
