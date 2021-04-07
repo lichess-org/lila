@@ -117,6 +117,10 @@
   <string name="blunder">Blunder</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s fouten</item>
+  </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
