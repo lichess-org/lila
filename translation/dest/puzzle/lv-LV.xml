@@ -54,6 +54,6 @@
   <string name="streakDescription">Atrisiniet aizvien grūtākas puzles un veidojiet uzvaru sēriju. Varat domāt, cik ilgi vēlaties, jo laiks nav ierobežots. Viens nepareizs gājiens, un spēle galā! Taču varat izlaist vienu gājienu katrā sesijā.</string>
   <string name="yourStreakX">Jūsu uzvaru posms: %s</string>
   <string name="streakSkipExplanation">Izlaist gājienu, lai paturētu uzvaru sēriju. Darbojas tikai vienreiz katrā spēlē.</string>
-  <string name="continueTheStreak">Turpināt uzvaru sēriju</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Turpināt uzvaru sēriju</string>
   <string name="newStreak">Jauna uzvaru sērija</string>
 </resources>
