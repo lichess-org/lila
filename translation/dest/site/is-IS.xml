@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Djúp greining</string>
   <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
   <string name="blunder">Afleikur</string>
-  <string name="blunders">Afleikir</string>
   <string name="mistake">Mistök</string>
-  <string name="mistakes">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
-  <string name="inaccuracies">Ónákvæmni</string>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
