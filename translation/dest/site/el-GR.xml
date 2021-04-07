@@ -117,6 +117,18 @@
   <string name="blunder">Σοβαρό σφάλμα</string>
   <string name="mistake">Λάθος</string>
   <string name="inaccuracy">Ανακρίβεια</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s σοβαρό σφάλμα</item>
+    <item quantity="other">%s σοβαρά σφάλματα</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s λάθος</item>
+    <item quantity="other">%s λάθη</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ανακρίβεια</item>
+    <item quantity="other">%s ανακρίβειες</item>
+  </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
