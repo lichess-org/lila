@@ -146,6 +146,9 @@ lichess.load.then(() => {
 
     var tick = function () {
       var spent = Math.min(duration, new Date().getTime() - startAt);
+      var left = ((duration - spent) / 1000).toFixed(1);
+
+      $('.coord-trainer__timer').text(left.toString());
       $bar.css('width', (100 * spent) / duration + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
