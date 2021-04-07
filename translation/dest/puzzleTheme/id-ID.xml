@@ -35,4 +35,12 @@
   <string name="opening">Pembuka</string>
   <string name="openingDescription">Taktik selama fase pertama permainan.</string>
   <string name="queenEndgame">Ratu akhir permainan</string>
+  <string name="short">Teka-teki pendek</string>
+  <string name="shortDescription">Dua gerakan untuk menang.</string>
+  <string name="veryLong">Teka-teki yang sangat panjang</string>
+  <string name="veryLongDescription">Empat gerakan atau lebih untuk menang.</string>
+  <string name="xRayAttack">Serangan Sinar-X</string>
+  <string name="xRayAttackDescription">Bidak menyerang atau mempertahankan kotak, melalui bidak musuh.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="healthyMixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
 </resources>
