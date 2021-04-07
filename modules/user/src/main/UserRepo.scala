@@ -647,7 +647,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update
       .one(
         $id(user.id),
-        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind) ++ $set(
+        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind, F.bpass) ++ $set(
           F.enabled  -> false,
           F.erasedAt -> DateTime.now
         )
