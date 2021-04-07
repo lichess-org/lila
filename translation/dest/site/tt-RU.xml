@@ -111,11 +111,8 @@
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
-  <string name="blunders">Зур хаталар</string>
   <string name="mistake">Хата</string>
-  <string name="mistakes">Хаталар</string>
   <string name="inaccuracy">Җиңел хата</string>
-  <string name="inaccuracies">Җиңел хаталар</string>
   <string name="moveTimes">Йөреш вакыты</string>
   <string name="flipBoard">Тактаны әйләндерү</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
