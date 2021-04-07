@@ -121,11 +121,8 @@
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
   <string name="blunder">בלאנדר</string>
-  <string name="blunders">טעויות גסות</string>
   <string name="mistake">שגיאה</string>
-  <string name="mistakes">טעויות</string>
   <string name="inaccuracy">החמצה</string>
-  <string name="inaccuracies">החמצות</string>
   <string name="moveTimes">זמני המהלך</string>
   <string name="flipBoard">הפוך את הלוח</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
