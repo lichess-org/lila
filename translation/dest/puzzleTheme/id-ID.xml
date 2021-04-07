@@ -21,6 +21,11 @@
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
+  <string name="kingsideAttack">Serangan raja</string>
+  <string name="defensiveMove">Gerakan bertahan</string>
+  <string name="discoveredAttack">Menemukan serangan</string>
+  <string name="discoveredAttackDescription">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
+  <string name="doubleCheck">Skak ganda</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
   <string name="mate">Skakmat</string>
   <string name="mateDescription">Menangkan game dengan bergaya.</string>
