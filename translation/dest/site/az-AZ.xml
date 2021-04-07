@@ -847,10 +847,20 @@
   <string name="youCannotPostYetPlaySomeGames">Hələ forumlarda yazı göndərə bilməzsiniz. Biraz oyun oynayın!</string>
   <string name="subscribe">Abunə ol</string>
   <string name="unsubscribe">Abunəlikdən çıxın</string>
+  <string name="mentionedYouInX"> \"%1$s\"-da səni qeyd etdi.</string>
+  <string name="xMentionedYouInY"> %1$s səni \"%2$s\"-da səni qeyd etdi.</string>
+  <string name="invitedYouToX"> səni \"%1$s\"-ə dəvət etdi.</string>
+  <string name="xInvitedYouToY">%1$s səni \"%2$s\"-ə dəvət etdi.</string>
   <string name="youAreNowPartOfTeam">Siz artıq komandanın üzvüsünüz.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\"-yə qatıldın.</string>
   <string name="someoneYouReportedWasBanned">Şikayət etdiyiniz şəxsin hesabı ban edilmişdir</string>
   <string name="congratsYouWon">Təbriklər, siz qalib gəldiniz!</string>
+  <string name="gameVsX">%1$s-ya qarşı oyun</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Lichess patronları siyahısına siz də qoşuldunuz.</string>
   <string name="patronAccountExpired">Patron hesabınızın müddəti bitmişdir</string>
+  <string name="pleaseReconsiderRenewIt">Zəhmət olmasa, bunu yeniləyin!</string>
+  <string name="someoneReviewedYourCoachProfile">Kimsə məşqçi profilinə baxdı.</string>
+  <string name="newPendingReview">Yeni gözləyən rəy</string>
   <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>
 </resources>
