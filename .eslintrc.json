@@ -36,7 +36,6 @@
     "no-self-assign": "off",
     "no-constant-condition": "off",
     "no-prototype-builtins": "off",
-    "no-extra-boolean-cast": "off",
     "no-async-promise-executor": "off"
   }
 }
