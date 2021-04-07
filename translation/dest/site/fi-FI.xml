@@ -117,6 +117,18 @@
   <string name="blunder">Vakava virhe</string>
   <string name="mistake">Virhe</string>
   <string name="inaccuracy">Epätarkkuus</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s vakava virhe</item>
+    <item quantity="other">%s vakavaa virhettä</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s virhe</item>
+    <item quantity="other">%s virhettä</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s epätarkkuus</item>
+    <item quantity="other">%s epätarkkuutta</item>
+  </plurals>
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
