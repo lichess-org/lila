@@ -8,7 +8,7 @@ type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 type AltCastle = keyof typeof altCastles;
 
 function isAltCastle(str: string): str is AltCastle {
-  return altCastles.hasOwnProperty(str);
+  return str in altCastles;
 }
 
 export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {

@@ -35,7 +35,6 @@
     "@typescript-eslint/no-empty-function": "off",
     "no-self-assign": "off",
     "no-constant-condition": "off",
-    "no-prototype-builtins": "off",
     "no-async-promise-executor": "off"
   }
 }
