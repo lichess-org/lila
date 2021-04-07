@@ -57,7 +57,5 @@
   <string name="depthX">%s Saw\'</string>
   <string name="usingServerAnalysis">turwI\' poj lo\'taH</string>
   <string name="blunder">Qagh</string>
-  <string name="blunders">Qaghpu\'</string>
   <string name="inaccuracy">QaghHom</string>
-  <string name="inaccuracies">QaghHompu\'</string>
 </resources>
