@@ -33,7 +33,6 @@
     "no-useless-escape": "off",
     "no-empty": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "no-self-assign": "off",
     "no-constant-condition": "off",
     "no-async-promise-executor": "off"
   }

@@ -30,5 +30,5 @@ export const reload = () => {
   unload.expected = true;
   lichess.socket.disconnect();
   if (location.hash) location.reload();
-  else location.href = location.href;
+  else location.assign(location.href);
 };
