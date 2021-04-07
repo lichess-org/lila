@@ -53,6 +53,6 @@
   <string name="streakDescription">Ebatzi gero eta zailagoak diren ariketak eta garaipen-bolada lortu. Ez dago erlojurik, beraz hartu behar duzun denbora. Jokaldi oker bat eta akabo! Baina aldi bakoitzean behin salto egin dezakezu.</string>
   <string name="yourStreakX">Zure garaipen-bolada: %s</string>
   <string name="streakSkipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
-  <string name="continueTheStreak">Jarraitu garaipen-bolada</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Jarraitu garaipen-bolada</string>
   <string name="newStreak">Garaipen-bolada berria</string>
 </resources>
