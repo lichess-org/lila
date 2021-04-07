@@ -121,11 +121,8 @@
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a spôsobí zahrievanie Vášho počítača</string>
   <string name="blunder">Hrubá chyba</string>
-  <string name="blunders">Hrubé chyby</string>
   <string name="mistake">Chyba</string>
-  <string name="mistakes">Chyby</string>
   <string name="inaccuracy">Nepresnosť</string>
-  <string name="inaccuracies">Nepresnosti</string>
   <string name="moveTimes">Trvanie ťahov</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
