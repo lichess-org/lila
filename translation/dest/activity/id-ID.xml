@@ -47,6 +47,10 @@
   <plurals name="rankedInTournament">
     <item quantity="other">Peringkat #%1$s (atas %2$s%%) dengan %3$s permainan di %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="other">Sudah mengikuti %s turnamen swiss</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Peringkat #%1$s di %2$s</string>
   <string name="signedUp">Daftarkan untuk lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Bergabung %s tim</item>

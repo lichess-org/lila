@@ -35,4 +35,10 @@
   <string name="shareUrl">Поделитесь этой ссылкой, чтоб пригласить игроков: %s</string>
   <string name="drawStreak">Серия ничьих: Если игрок имеет несколько последовательных ничьих на Арене, то очко зачтётся только за первую ничью, или ничью, которая продлится больше, чем %s ходов. Серию ничьих можно прервать только победой, но не проигрышем или ещё одной ничьей.</string>
   <string name="history">История «Арены»</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Посмотреть клуб</item>
+    <item quantity="few">Посмотреть все %s клуба</item>
+    <item quantity="many">Посмотреть все %s клубов</item>
+    <item quantity="other">Посмотреть все %s клубов</item>
+  </plurals>
 </resources>

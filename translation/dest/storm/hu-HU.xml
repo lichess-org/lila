@@ -8,7 +8,7 @@
   <string name="newWeeklyHighscore">Új heti rekord!</string>
   <string name="newMonthlyHighscore">Új havi rekord!</string>
   <string name="newAllTimeHighscore">Új abszolút rekord!</string>
-  <string name="previousHighscoreWasX">Az előző rekord %s volt</string>
+  <string name="previousHighscoreWasX">Az előző rekordod %s volt</string>
   <string name="playAgain">Játsz újra</string>
   <plurals name="xRuns">
     <item quantity="one">1 futam</item>
@@ -29,12 +29,12 @@
   <string name="puzzlesPlayed">Játszott feladványok</string>
   <string name="newRun">Új futam (gyorsbill.: Szóköz)</string>
   <string name="endRun">Futam vége (gyorsbillentyü: Enter)</string>
-  <string name="highscores">Toplista</string>
-  <string name="viewBestRuns">Nézd meg a legjobb futamokat</string>
+  <string name="highscores">Legjobb pontszámaid</string>
+  <string name="viewBestRuns">Napi legjobb futamjaid</string>
   <string name="bestRunOfDay">Napi legjobb futam</string>
   <string name="runs">Futamok</string>
   <string name="getReady">Felkészülni!</string>
-  <string name="waitingForMorePlayers">Várakozás további játékosok csatlakozására...</string>
+  <string name="waitingForMorePlayers">További játékosok csatlakozására várunk...</string>
   <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
   <string name="joinTheRace">Csatlakozz a versenyhez!</string>

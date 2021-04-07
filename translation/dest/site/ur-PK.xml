@@ -199,6 +199,8 @@
     <item quantity="other">آپکے ساتھ %s مقابلے</item>
   </plurals>
   <string name="cancel">مسترد</string>
+  <string name="whiteTimeOut">سفید کا وقت ختم</string>
+  <string name="blackTimeOut">سیاہ کا وقت ختم</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
   <string name="drawOfferDeclined">مقابلہ برابری پر ختم کرنے کی پیشکش مسترد کردی گئی</string>
   <string name="drawOfferAccepted">مقابلہ برابری پر ختم کرنے کی پیشکش قبول کرلی گئي</string>
@@ -502,6 +504,7 @@
   <string name="currentPassword">موجودہ خفیہ کلمہ</string>
   <string name="newPassword">نیا خفیہ کلمہ</string>
   <string name="newPasswordAgain">نیا خفیہ کلمہ - دوبارہ</string>
+  <string name="newPasswordStrength">پاس ورڈ کی طاقت</string>
   <string name="clockInitialTime">ابتدائی وقت</string>
   <string name="clockIncrement">وقت میں اضافہ</string>
   <string name="privacy">آپ سے متعلقہ</string>
@@ -827,4 +830,6 @@
   <string name="youCannotPostYetPlaySomeGames">آپ فل حال فارم پر پوسٹ نہیں کر سکتے۔ پہلے کچھ بازیاں کھیلیں!</string>
   <string name="subscribe">سبسکرائب</string>
   <string name="unsubscribe">ان سبسکرائب</string>
+  <string name="congratsYouWon">مبارک ہو، آپ جیت گۓ ہیں!</string>
+  <string name="timeAlmostUp">وقت تقریبا ختم ہے!</string>
 </resources>

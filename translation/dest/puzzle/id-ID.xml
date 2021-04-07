@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Teka-teki</string>
+  <string name="puzzleThemes">Tema teka-teki</string>
   <string name="recommended">Direkomendasikan</string>
   <string name="phases">Tahapan</string>
   <string name="motifs">Tema</string>
@@ -8,6 +9,7 @@
   <string name="lengths">Panjang</string>
   <string name="mates">Mat</string>
   <string name="goals">Tujuan</string>
+  <string name="origin">Asal</string>
   <string name="specialMoves">Langkah spesial</string>
   <string name="didYouLikeThisPuzzle">Apakah anda menyukai teka-teki ini?</string>
   <string name="voteToLoadNextOne">Isi untuk memanggil yang satunya lagi!</string>
@@ -27,6 +29,9 @@
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">sembunyi</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Dimainkan %s kali</item>
+  </plurals>
   <string name="fromGameLink">Dari game %s</string>
   <string name="continueTraining">Lanjutkan latihan</string>
   <string name="difficultyLevel">Level Sulit</string>
@@ -36,4 +41,17 @@
   <string name="harder">Lebih sulit</string>
   <string name="hardest">Paling sulit</string>
   <string name="example">Contoh</string>
+  <string name="addAnotherTheme">Tambah tema lainnya</string>
+  <string name="jumpToNextPuzzleImmediately">Lompat ke teka-teki berikutnya segera</string>
+  <string name="puzzleDashboard">Beranda Teka-teki</string>
+  <string name="improvementAreas">Area Penyempurnaan</string>
+  <string name="strengths">Kekuatan</string>
+  <string name="history">Riwayat teka-teki</string>
+  <string name="solved">diselesaikan</string>
+  <string name="failed">gagal</string>
+  <string name="streakDescription">Pecahkan teka-teki yang semakin sulit dan bangun kemenangan beruntun. Tidak ada jam, jadi luangkan waktu Anda. Satu langkah salah, dan permainan berakir! Tapi Anda dapat melewati gerakan per sesi.</string>
+  <string name="yourStreakX">Garis Anda: %s</string>
+  <string name="streakSkipExplanation">Lewati gerakan ini untuk mempertahankan garis Anda! Hanya bekerja sekali per pertandingan.</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Lanjutkan garisnya</string>
+  <string name="newStreak">Garis baru</string>
 </resources>

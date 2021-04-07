@@ -53,7 +53,7 @@
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="hookMate">Kanca matı</string>
   <string name="hookMateDescription">Kale, at, piyon ve rakip şahın kaçışını engelleyen rakip piyonla yapılan mattır.</string>
-  <string name="interference">Müdahale</string>
+  <string name="interference">Yol Kesme</string>
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>
   <string name="intermezzoDescription">Beklenen hamleyi oynamadan önce rakibin derhal yanıt vermesi gereken başka bir tehdit oluştur. Bu taktik aynı zamanda \"Zwischenzug\" olarak da bilinir.</string>

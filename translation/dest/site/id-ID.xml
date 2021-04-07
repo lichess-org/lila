@@ -9,6 +9,7 @@
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Kekuatan</string>
   <string name="toggleTheChat">Ganti tampilan obrolan</string>
   <string name="toggleSound">Aktifkan/nonaktifkan suara</string>
   <string name="chat">Obrolan</string>
@@ -460,6 +461,7 @@
   <string name="cheat">Cheat</string>
   <string name="insult">Penghinaan</string>
   <string name="troll">Jebakan</string>
+  <string name="ratingManipulation">Manipulasi rating</string>
   <string name="other">Lainnya</string>
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
@@ -549,6 +551,7 @@
   <string name="error.email_unique">Alamat email ini telah digunakan</string>
   <string name="error.email_different">Ini sudah menjadi alamat email Anda</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
@@ -799,7 +802,21 @@
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
   <string name="mentionedYouInX"> membahas anda di \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s membahas anda di \"%2$s\".</string>
+  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s membahas anda di \"%2$s\".</string>
   <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> mengundang anda ke \"%1$s\".</string>
   <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s mengundang ke \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
+  <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>
+  <string name="congratsYouWon">Selamat, kamu menang!</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Game vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Anda baru saja menjadi Patron lichess.</string>
+  <string name="patronAccountExpired">Akun Patron kadaluarsa</string>
+  <string name="pleaseReconsiderRenewIt">Silakan pertimbangkan untuk memperbaharuinya!</string>
+  <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
+  <string name="newPendingReview">Tinjauan baru tertunda</string>
+  <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
+  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Pengembalian dana: %1$s %2$s poin rating.</string>
+  <string name="timeAlmostUp">Waktu hampir habis!</string>
 </resources>

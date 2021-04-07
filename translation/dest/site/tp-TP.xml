@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">o utala e jan pona</string>
+  <string name="playWithAFriend">o musi lon poka pi jan pona</string>
   <string name="playWithTheMachine">o musi lon poka ilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile musi la o pana e ni tawa jan pona sina</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen tawa jan ante</string>
-  <string name="waiting">awen</string>
+  <string name="waiting">o awen</string>
   <string name="yourTurn">sina o musi</string>
-  <string name="aiNameLevelAiLevel">musi %1$s pi nanpa pona %2$s</string>
+  <string name="aiNameLevelAiLevel">ilo %1$s nanpa %2$s</string>
   <string name="level">mute pona</string>
   <string name="strength">wawa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
-  <string name="toggleSound">kalama</string>
+  <string name="toggleSound">kalama o lon ala lon?</string>
   <string name="chat">tomo toki</string>
   <string name="resign">o toki e \"mi anpa\"</string>
   <string name="checkmate">mije lawa li moli</string>
@@ -460,7 +460,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="success">pini pona</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">musi %s li lon</item>
-    <item quantity="other">musi %s li lona</item>
+    <item quantity="other">musi %s li lon</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
@@ -491,6 +491,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="cheat">musi ike</string>
   <string name="insult">toki ike</string>
   <string name="troll">pakala e musi</string>
+  <string name="ratingManipulation">jan li ante ike e nanpa</string>
   <string name="other">ijo ante</string>
   <string name="reportDescriptionHelp">o pana e nimi nasin tawa musi. o toki e ni: jan li musi ike lon nasin seme? o toki ala e \"ona li toki kepeken ilo ike\". o toki e ni: sina kama sona e ni tan seme? sina toki kepeken toki Inli la, mi lukin e toki sina lon tenpo lili.</string>
   <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>

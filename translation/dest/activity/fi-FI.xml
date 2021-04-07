@@ -27,8 +27,8 @@
     <item quantity="other">Pelasi %1$s siirtoa</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">%1$s: ssa kirjeshakkipelissä</item>
-    <item quantity="other">%1$s: ssa kirjeshakkipeleissä</item>
+    <item quantity="one">%1$s kirjeshakkipelissä</item>
+    <item quantity="other">%1$s kirjeshakkipelissä</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Pelasi %s kirjeshakkipelin</item>

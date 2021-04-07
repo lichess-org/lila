@@ -50,4 +50,9 @@
   <string name="history">Ariketen historikoa</string>
   <string name="solved">ebatzita</string>
   <string name="failed">huts eginda</string>
+  <string name="streakDescription">Ebatzi gero eta zailagoak diren ariketak eta garaipen-bolada lortu. Ez dago erlojurik, beraz hartu behar duzun denbora. Jokaldi oker bat eta akabo! Baina aldi bakoitzean behin salto egin dezakezu.</string>
+  <string name="yourStreakX">Zure garaipen-bolada: %s</string>
+  <string name="streakSkipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
+  <string name="continueTheStreak">Jarraitu garaipen-bolada</string>
+  <string name="newStreak">Garaipen-bolada berria</string>
 </resources>

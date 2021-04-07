@@ -33,4 +33,20 @@
   <string name="viewBestRuns">Se bästa försök</string>
   <string name="bestRunOfDay">Dagens bästa försök</string>
   <string name="runs">Försök</string>
+  <string name="getReady">Gör dig redo!</string>
+  <string name="waitingForMorePlayers">Väntar på att fler spelare ska gå med...</string>
+  <string name="raceComplete">Loppet är klart!</string>
+  <string name="spectating">Åskådar</string>
+  <string name="joinTheRace">Gå med i loppet!</string>
+  <string name="yourRankX">Din placering: %s</string>
+  <string name="waitForRematch">Vänta på returmatch</string>
+  <string name="nextRace">Nästa lopp</string>
+  <string name="joinRematch">Gå med i returmatch</string>
+  <string name="waitingToStart">Väntar på att starta</string>
+  <string name="createNewGame">Skapa ett nytt lopp</string>
+  <string name="joinPublicRace">Gå med i ett öppet lopp</string>
+  <string name="raceYourFriends">Utmana dina vänner</string>
+  <string name="skip">skippa</string>
+  <string name="skipHelp">Du kan skippa ett drag per lopp:</string>
+  <string name="skipExplanation">Skippa detta drag för att bevara din kombo! Detta fungerar bara en gång per lopp.</string>
 </resources>

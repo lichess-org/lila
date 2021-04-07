@@ -68,7 +68,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="forceVariation">Сделать вариант главным</string>
+  <string name="forceVariation">Сделать вариантом</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -163,7 +163,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -222,8 +222,8 @@
     <item quantity="other">%s партий с вами</item>
   </plurals>
   <string name="cancel">Отменить</string>
-  <string name="whiteTimeOut">Время белых истекло</string>
-  <string name="blackTimeOut">Время чёрных истекло</string>
+  <string name="whiteTimeOut">Белые просрочили время</string>
+  <string name="blackTimeOut">Чёрные просрочили время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferDeclined">Предложение ничьей отклонено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -406,7 +406,7 @@
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s друзей онлайн</item>
+    <item quantity="one">%s друг онлайн</item>
     <item quantity="few">%s друга онлайн</item>
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
@@ -772,7 +772,7 @@
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
-  <string name="xLikesY">%1$s поставил лайк студии %2$s</string>
+  <string name="xLikesY">%1$s понравилось %2$s</string>
   <string name="xCreatesStudyY">%1$s создал студию %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
@@ -913,14 +913,14 @@
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
   <string name="mentionedYouInX"> упомянул вас в «%1$s».</string>
-  <string name="xMentionedYouInY"> %1$s упомянул вас в «%2$s».</string>
-  <string name="invitedYouToX"> пригласил вас в «%1$s».</string>
-  <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
+  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s упомянул вас в «%2$s».</string>
+  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> пригласил вас в «%1$s».</string>
+  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s пригласил вас в «%2$s».</string>
   <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
-  <string name="gameVsX">Партия против %1$s</string>
+  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Партия против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
   <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>

@@ -346,7 +346,7 @@
   <string name="importGame">Játszma importálása</string>
   <string name="importGameExplanation">Ha PGN formátumban adsz hozzá játszmát, visszanézheted a partit, elemezheted számítógéppel, chatelhetsz és linkkel meg tudod osztani másokkal.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Importált játszma</item>
+    <item quantity="one">%s importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ez egy sakkos CAPTCHA.</string>
@@ -839,7 +839,7 @@
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
   <string name="mentionedYouInX"> megemlített itt: \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s megemlített itt: \"%2$s\".</string>
+  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s megemlített itt: \"%2$s\".</string>
   <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
@@ -849,7 +849,7 @@
   <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Játszma %1$s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>
   <string name="youJustBecamePatron">Éppen Lichess Patronná váltál.</string>
-  <string name="patronAccountExpired">Lejárt a Patron hozzájárulás</string>
+  <string name="patronAccountExpired">Lejárt a Patron előfizetés</string>
   <string name="pleaseReconsiderRenewIt">Kérjük vedd fontolóra a megújítását!</string>
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>

@@ -15,12 +15,22 @@
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
+  <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
+  <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
+  <string name="actOfCreation">Да, ето тук е документът (на френски)</string>
+  <string name="otherMethods">Други начини за дарение?</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Дарител за един месец</item>
+    <item quantity="other">Lichess Дарител за %s месеца</item>
+  </plurals>
+  <string name="tyvm">Много Ви благодарим за подкрепата. Супер сте!</string>
   <string name="currentStatus">Сегашен статус</string>
   <string name="nextPayment">Следващо плащане</string>
   <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
   <string name="update">Актуализиране</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
+  <string name="cancelSupport">преустановете поддръжката си</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="paymentHistory">История на плащанията</string>
   <string name="paid">Платено</string>
