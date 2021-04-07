@@ -194,6 +194,31 @@
   <string name="passwordReset">Riinizializà a vostra parolla d\' intesa</string>
   <string name="forgotPassword">Vi site scurdatu a vostra parolla d\' intesa?</string>
   <string name="rank">Rangu</string>
+  <string name="rankX">Rangu: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">U rangu hè attualiztu ogni minuta</item>
+    <item quantity="other">U rangu hè attualiztu ogni %s minuti</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s prublemu</item>
+    <item quantity="other">%s prublemi</item>
+  </plurals>
+  <string name="gamesPlayed">Partite ghjucate</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partita cù voi</item>
+    <item quantity="other">%s partite cù voi</item>
+  </plurals>
+  <string name="cancel">Annullà</string>
+  <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
+  <string name="blackTimeOut">I neri ùn anu più tempu</string>
+  <string name="drawOfferSent">Offerta di partita patta mandata</string>
+  <string name="drawOfferDeclined">Offerta di patta scartata</string>
+  <string name="drawOfferAccepted">Offerta di patta accettata</string>
+  <string name="drawOfferCanceled">Offerta di patta annullata</string>
+  <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
+  <string name="blackOffersDraw">I neri pruponenu a partita patta</string>
+  <string name="whiteDeclinesDraw">I bianchi ricusanu a partita patta</string>
+  <string name="blackDeclinesDraw">I neri ricusanu a partita patta</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
