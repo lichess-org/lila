@@ -15,9 +15,9 @@ lichess.load.then(() => {
   }
 
   function userChoices(row) {
-    var options = ["<option value=''></option>"];
-    var isSelected = function (row, rowClassName, user, dataKey) {
-      var player = $form.data(dataKey);
+    const options = ["<option value=''></option>"];
+    const isSelected = function (row, rowClassName, user, dataKey) {
+      const player = $form.data(dataKey);
       return row.classList.contains(rowClassName) && player.length && user == player ? 'selected' : '';
     };
     getUsernames().forEach(function (user) {
@@ -42,7 +42,7 @@ lichess.load.then(() => {
   reloadUserChoices();
   $usernames.on('input paste', reloadUserChoices);
 
-  var toggleAiLevel = function () {
+  const toggleAiLevel = function () {
     $form.find('.opponent select').each(function (this: HTMLSelectElement) {
       $form.find('.aiLevel').toggleClass('none', this.value != '1');
       $form.find('.opponentName').toggleClass('none', this.value == '1');

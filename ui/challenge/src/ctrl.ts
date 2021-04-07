@@ -34,8 +34,8 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
   }
 
   function showUser(user: ChallengeUser) {
-    var rating = user.rating + (user.provisional ? '?' : '');
-    var fullName = (user.title ? user.title + ' ' : '') + user.name;
+    const rating = user.rating + (user.provisional ? '?' : '');
+    const fullName = (user.title ? user.title + ' ' : '') + user.name;
     return fullName + ' (' + rating + ')';
   }
 

@@ -6,11 +6,11 @@ import { bind, dataIcon, spinner } from '../util';
 import { fixCrazySan } from 'chess';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
-  var firstNode = cNodes[0];
+  const firstNode = cNodes[0];
   if (!firstNode) return;
-  var fcs = fctrl.findStartingWithNode(firstNode);
+  const fcs = fctrl.findStartingWithNode(firstNode);
   if (!fcs.length) return;
-  var lines = fcs.filter(function (fc) {
+  const lines = fcs.filter(function (fc) {
     return fc.length > 1;
   });
   return h(

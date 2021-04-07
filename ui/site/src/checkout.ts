@@ -1,12 +1,12 @@
 import * as xhr from 'common/xhr';
 
 export default function (publicKey: string) {
-  var $checkout = $('div.plan_checkout');
-  var lifetime = {
+  const $checkout = $('div.plan_checkout');
+  const lifetime = {
     cents: parseInt($checkout.data('lifetime-cents')),
     usd: $checkout.data('lifetime-usd'),
   };
-  var min = 100,
+  const min = 100,
     max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
@@ -22,7 +22,7 @@ export default function (publicKey: string) {
     $checkout.find('#plan_monthly_1000').trigger('click');
 
   const selectAmountGroup = function () {
-    var freq = getFreq();
+    const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
   };
@@ -38,7 +38,7 @@ export default function (publicKey: string) {
     } catch (e) {
       return false;
     }
-    var cents = Math.round(amount * 100);
+    let cents = Math.round(amount * 100);
     if (!cents) {
       $(this).text($(this).data('trans-other'));
       $checkout.find('#plan_monthly_1000').trigger('click');
@@ -46,7 +46,7 @@ export default function (publicKey: string) {
     }
     if (cents < min) cents = min;
     else if (cents > max) cents = max;
-    var usd = '$' + cents / 100;
+    const usd = '$' + cents / 100;
     $(this).text(usd);
     $(this).siblings('input').data('amount', cents).data('usd', usd);
   });
@@ -56,8 +56,8 @@ export default function (publicKey: string) {
       cents =
         freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
     if (!cents || cents < min || cents > max) return;
-    var amount = cents / 100;
-    var $form = $checkout.find('form.paypal_checkout.' + freq);
+    const amount = cents / 100;
+    const $form = $checkout.find('form.paypal_checkout.' + freq);
     $form.find('input.amount').val('' + amount);
     ($form[0] as HTMLFormElement).submit();
     $checkout.find('.service').html(lichess.spinnerHtml);

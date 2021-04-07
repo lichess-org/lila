@@ -315,7 +315,7 @@ export default class Setup {
         });
       });
       $daysInput.each(function (this: HTMLInputElement) {
-        var $input = $(this),
+        const $input = $(this),
           $value = $input.siblings('span'),
           $range = $input.siblings('.range');
         $value.text($input.val() as string);
@@ -370,7 +370,7 @@ export default class Setup {
     }
     $timeModeSelect
       .on('change', function (this: HTMLElement) {
-        var timeMode = $(this).val();
+        const timeMode = $(this).val();
         $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
         $form.find('.days_choice').toggle(timeMode == '2');
         toggleButtons();
@@ -378,11 +378,11 @@ export default class Setup {
       })
       .trigger('change');
 
-    var validateFen = debounce(() => {
+    const validateFen = debounce(() => {
       $fenInput.removeClass('success failure');
-      var fen = $fenInput.val() as string;
+      const fen = $fenInput.val() as string;
       if (fen) {
-        var [path, params] = $fenInput.parent().data('validate-url').split('?'); // Separate "strict=1" for AI match
+        const [path, params] = $fenInput.parent().data('validate-url').split('?'); // Separate "strict=1" for AI match
         xhr.text(xhr.url(path, { fen }) + (params ? `&${params}` : '')).then(
           data => {
             $fenInput.addClass('success');
@@ -406,7 +406,7 @@ export default class Setup {
     if (forceFormPosition) $variantSelect.val('' + 3);
     $variantSelect
       .on('change', function (this: HTMLElement) {
-        var isFen = $(this).val() == '3';
+        const isFen = $(this).val() == '3';
         $fenPosition.toggle(isFen);
         $modeChoicesWrap.toggle(!isFen);
         if (isFen) {
@@ -421,7 +421,7 @@ export default class Setup {
     $modeChoices.on('change', save);
 
     $form.find('div.level').each(function (this: HTMLElement) {
-      var $infos = $(this).find('.ai_info > div');
+      const $infos = $(this).find('.ai_info > div');
       $(this)
         .find('label')
         .on('mouseenter', function (this: HTMLElement) {
@@ -433,7 +433,7 @@ export default class Setup {
       $(this)
         .find('#config_level')
         .on('mouseleave', function (this: HTMLElement) {
-          var level = $(this).find('input:checked').val();
+          const level = $(this).find('input:checked').val();
           $infos
             .hide()
             .filter('.sf_level_' + level)

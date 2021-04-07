@@ -21,8 +21,8 @@ interface Glyph {
 }
 
 const autoScroll = throttle(150, (ctrl: Controller, el) => {
-  var cont = el.parentNode;
-  var target = el.querySelector('.active');
+  const cont = el.parentNode;
+  const target = el.querySelector('.active');
   if (!target) {
     cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
     return;

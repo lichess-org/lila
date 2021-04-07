@@ -5,14 +5,14 @@ import spinnerHtml from './component/spinner';
 import Tagify from '@yaireo/tagify';
 
 lichess.load.then(() => {
-  var $editor = $('.coach-edit');
+  const $editor = $('.coach-edit');
 
-  var todo = (function () {
-    var $overview = $editor.find('.overview');
-    var $el = $overview.find('.todo');
-    var $listed = $editor.find('#form3-listed');
+  const todo = (function () {
+    const $overview = $editor.find('.overview');
+    const $el = $overview.find('.todo');
+    const $listed = $editor.find('#form3-listed');
 
-    var must = [
+    const must = [
       {
         html: '<a href="/account/profile">Complete your lichess profile</a>',
         check() {
@@ -50,7 +50,7 @@ lichess.load.then(() => {
       const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
       const $ul = $el.find('ul').empty();
       points.forEach(p => $ul.append(p));
-      var fail = !!points.length;
+      const fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
       if (fail) $listed.prop('checked', false);
       $listed.prop('disabled', fail);

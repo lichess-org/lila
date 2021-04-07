@@ -110,9 +110,9 @@ function renderPromotion(
   color: Color,
   orientation: Color
 ): MaybeVNode {
-  var left = (7 - key2pos(dest)[0]) * 12.5;
+  let left = (7 - key2pos(dest)[0]) * 12.5;
   if (orientation === 'white') left = 87.5 - left;
-  var vertical = color === orientation ? 'top' : 'bottom';
+  const vertical = color === orientation ? 'top' : 'bottom';
 
   return h(
     'div#promotion-choice.' + vertical,
@@ -126,7 +126,7 @@ function renderPromotion(
       }),
     },
     roles.map((serverRole, i) => {
-      var top = (color === orientation ? i : 7 - i) * 12.5;
+      const top = (color === orientation ? i : 7 - i) * 12.5;
       return h(
         'square',
         {

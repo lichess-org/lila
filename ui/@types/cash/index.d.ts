@@ -313,7 +313,7 @@ interface CashStatic {
 declare module 'cash' {
   export = $;
 }
-declare var $: CashStatic;
+declare const $: CashStatic;
 /* export default cash; */
 /* export { Cash, CashStatic, Ele as Element, Selector, Comparator, Context }; */
 /* end hacks */

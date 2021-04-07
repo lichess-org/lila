@@ -152,13 +152,13 @@ export function toYouTubeEmbed(url: string): string | undefined {
 
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
-  var m = url.match(
+  const m = url.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i
   );
   if (!m) return;
-  var start = 0;
+  let start = 0;
   m[2].split('&').forEach(function (p) {
-    var s = p.split('=');
+    const s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
       else {
@@ -167,7 +167,7 @@ function toYouTubeEmbedUrl(url: string) {
       }
     }
   });
-  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3' + (start ? '&start=' + start : '');
+  const params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3' + (start ? '&start=' + start : '');
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 

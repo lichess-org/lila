@@ -21,7 +21,7 @@ function updateMeter(score: number): void {
   const meter = document.querySelector('.password-complexity-meter');
   const children = meter?.children || [];
 
-  for (var i = 0; i < children.length; i++) {
+  for (let i = 0; i < children.length; i++) {
     (children[i] as HTMLElement).style.backgroundColor = i < score ? color : '';
   }
 }

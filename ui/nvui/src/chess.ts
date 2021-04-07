@@ -204,7 +204,7 @@ export function lastCaptured(movesGenerator: () => string[], pieceStyle: PieceSt
   }
   const oldSplitFen = oldFen.split(' ')[0];
   const newSplitFen = newFen.split(' ')[0];
-  for (var p of 'kKqQrRbBnNpP') {
+  for (const p of 'kKqQrRbBnNpP') {
     const diff = oldSplitFen.split(p).length - 1 - (newSplitFen.split(p).length - 1);
     const pcolor = p.toUpperCase() === p ? 'white' : 'black';
     if (diff === 1) {

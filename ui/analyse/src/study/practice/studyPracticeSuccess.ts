@@ -17,7 +17,7 @@ function isWinning(node: Tree.Node, goalCp: number, color: Color): boolean | nul
 function myMateIn(node: Tree.Node, color: Color): number | boolean | null {
   if (!hasSolidEval(node)) return null;
   if (!node.ceval!.mate) return false;
-  var mateIn = node.ceval!.mate! * (color === 'white' ? 1 : -1);
+  const mateIn = node.ceval!.mate! * (color === 'white' ? 1 : -1);
   return mateIn > 0 ? mateIn : false;
 }
 

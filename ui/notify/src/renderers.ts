@@ -167,7 +167,7 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 }
 
 function drawTime(n: Notification) {
-  var date = new Date(n.date);
+  const date = new Date(n.date);
   return h(
     'time.timeago',
     {

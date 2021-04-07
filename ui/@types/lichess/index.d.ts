@@ -490,4 +490,4 @@ declare namespace PowerTip {
 
 declare module '@yaireo/tagify';
 
-declare var lichess: Lichess;
+declare const lichess: Lichess;

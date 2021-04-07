@@ -79,7 +79,7 @@ function splitOverlaping(lanes) {
   let ret: any[] = [],
     i: number;
   lanes.forEach(lane => {
-    var newLanes: any[] = [[]];
+    const newLanes: any[] = [[]];
     lane.forEach(tour => {
       let collision = true;
       for (i = 0; i < newLanes.length; i++) {

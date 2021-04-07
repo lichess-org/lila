@@ -20,7 +20,7 @@ export default function (token: string) {
     : 'san';
   const speechSynthesisOn = localStorage.getItem('dgt-speech-synthesis') == 'true';
   const voice = localStorage.getItem('dgt-speech-voice');
-  var keywords = {
+  let keywords = {
     K: 'King',
     Q: 'Queen',
     R: 'Rook',
@@ -56,15 +56,15 @@ export default function (token: string) {
   /**
    * GLOBAL VARIABLES - Lichess Connectivity
    */
-  var time = new Date(); //A Global time object
-  var currentGameId = ''; //Track which is the current Game, in case there are several open games
-  var currentGameColor = ''; //Track which color is being currently played by the player. 'white' or 'black'
-  var me: { id: string; username: string }; //Track my information
-  var gameInfoMap = new Map(); //A collection of key values to store game immutable information of all open games
-  var gameStateMap = new Map(); //A collection of key values to store the changing state of all open games
-  var gameConnectionMap = new Map<string, { connected: boolean; lastEvent: number }>(); //A collection of key values to store the network status of a game
-  var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boards representing the current board of the games
-  var eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
+  const time = new Date(); //A Global time object
+  let currentGameId = ''; //Track which is the current Game, in case there are several open games
+  let currentGameColor = ''; //Track which color is being currently played by the player. 'white' or 'black'
+  let me: { id: string; username: string }; //Track my information
+  const gameInfoMap = new Map(); //A collection of key values to store game immutable information of all open games
+  const gameStateMap = new Map(); //A collection of key values to store the changing state of all open games
+  const gameConnectionMap = new Map<string, { connected: boolean; lastEvent: number }>(); //A collection of key values to store the network status of a game
+  const gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boards representing the current board of the games
+  let eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
   const keywordsBase = [
     'white',
     'black',
@@ -86,20 +86,20 @@ export default function (token: string) {
     'illegal',
     'move',
   ];
-  var lastSanMove: { player: string; move: string; by: string }; //Track last move in SAN format. This is because there is no easy way to keep history of san moves
+  let lastSanMove: { player: string; move: string; by: string }; //Track last move in SAN format. This is because there is no easy way to keep history of san moves
   /**
    * Global Variables for DGT Board Connection (JACM)
    */
-  var localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half move behind Lichess or half move in advance
-  var DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
-  var boards = Array<{ serialnr: string; state: string }>(); //An array to store all the board recognized by DGT LiveChess
-  var liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
-  var isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
-  var currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
+  let localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half move behind Lichess or half move in advance
+  let DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
+  let boards = Array<{ serialnr: string; state: string }>(); //An array to store all the board recognized by DGT LiveChess
+  let liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket
+  let isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
+  let currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
   //subscription stores the information about the board being connected, most importantly the serialnr
-  var subscription = { id: 2, call: 'subscribe', param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } } };
-  var lastLegalParam: { board: string; san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
-  var lastLiveChessBoard: string; //Store last Board received by LiveChess
+  const subscription = { id: 2, call: 'subscribe', param: { feed: 'eboardevent', id: 1, param: { serialnr: '' } } };
+  let lastLegalParam: { board: string; san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
+  let lastLiveChessBoard: string; //Store last Board received by LiveChess
   /***
    * Bind console output to HTML pre Element
    */
@@ -121,7 +121,7 @@ export default function (token: string) {
       console[name] = function () {
         //Return a promise so execution is not delayed by string manipulation
         return new Promise<void>(resolve => {
-          var output = '';
+          let output = '';
           for (let i = 0; i < arguments.length; i++) {
             const arg = arguments[i];
             if (arg == '*' || arg == ':') {
@@ -236,12 +236,12 @@ export default function (token: string) {
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = value ? decoder.decode(value).split('\n') : [];
+      const jsonArray = value ? decoder.decode(value).split('\n') : [];
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
           try {
-            var data = JSON.parse(jsonArray[i]);
+            const data = JSON.parse(jsonArray[i]);
             //JSON data found, let's check if this is a game that started. field type is mandatory except on http 4xx
             if (data.type == 'gameStart') {
               if (verbose) console.log('connectToEventStream - gameStart event arrived. GameId: ' + data.game.id);
@@ -333,12 +333,12 @@ export default function (token: string) {
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = decoder.decode(value)!.split('\n');
+      const jsonArray = decoder.decode(value)!.split('\n');
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
           try {
-            var data = JSON.parse(jsonArray[i]);
+            const data = JSON.parse(jsonArray[i]);
             //The first line is always of type gameFull.
             if (data.type == 'gameFull') {
               if (!verbose) console.clear();
@@ -397,7 +397,7 @@ export default function (token: string) {
    */
   function formattedTimer(timer: number): string {
     // Pad function to pad with 0 to 2 or 3 digits, default is 2
-    var pad = (n: number, z = 2) => `00${n}`.slice(-z);
+    const pad = (n: number, z = 2) => `00${n}`.slice(-z);
     return pad((timer / 3.6e6) | 0) + ':' + pad(((timer % 3.6e6) / 6e4) | 0) + ':' + pad(((timer % 6e4) / 1000) | 0); //+ '.' + pad(timer % 1000, 3);
   }
 
@@ -438,7 +438,7 @@ export default function (token: string) {
   async function chooseCurrentGame() {
     //Determine new value for currentGameId. First create an array with only the started games
     //So then there is none or more than one started game
-    var playableGames = playableGamesArray();
+    const playableGames = playableGamesArray();
     //If there is only one started game, then its easy
     /*
     if (playableGames.length == 1) {
@@ -521,16 +521,16 @@ export default function (token: string) {
    */
   function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string } }) {
     try {
-      var initialFen: string = INITIAL_FEN;
+      let initialFen: string = INITIAL_FEN;
       if (data.initialFen != 'startpos') initialFen = data.initialFen;
-      var setup = parseFen(initialFen).unwrap();
-      var chess: Chess = Chess.fromSetup(setup).unwrap();
-      var moves = data.state.moves.split(' ');
+      const setup = parseFen(initialFen).unwrap();
+      const chess: Chess = Chess.fromSetup(setup).unwrap();
+      const moves = data.state.moves.split(' ');
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          var uciMove = <NormalMove>parseUci(moves[i]);
-          var normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+          const uciMove = <NormalMove>parseUci(moves[i]);
+          const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
           if (normalizedMove && chess.isLegal(normalizedMove)) chess.play(normalizedMove);
         }
       }
@@ -553,9 +553,9 @@ export default function (token: string) {
    */
   function updateChessBoard(gameId: string, currentState: { moves: string }, newState: { moves: string }) {
     try {
-      var chess = gameChessBoardMap.get(gameId);
+      const chess = gameChessBoardMap.get(gameId);
       if (chess) {
-        var pendingMoves: string;
+        let pendingMoves: string;
         if (!currentState.moves) {
           //No prior moves. Use the new moves
           pendingMoves = newState.moves;
@@ -563,12 +563,12 @@ export default function (token: string) {
           //Get all the moves on the newState that are not present on the currentState
           pendingMoves = newState.moves.substring(currentState.moves.length, newState.moves.length);
         }
-        var moves = pendingMoves.split(' ');
+        const moves = pendingMoves.split(' ');
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] != '') {
             //Make the new move
-            var uciMove = <NormalMove>parseUci(moves[i]);
-            var normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+            const uciMove = <NormalMove>parseUci(moves[i]);
+            const normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
               if (chess.turn == 'black')
@@ -622,7 +622,7 @@ export default function (token: string) {
     Timer: string;
     'Last Move': string;
   }> {
-    var playableGames: Array<{
+    const playableGames: Array<{
       gameId: string;
       versus: string;
       'vs rating': string;
@@ -630,17 +630,17 @@ export default function (token: string) {
       Timer: string;
       'Last Move': string;
     }> = [];
-    var keys = Array.from(gameConnectionMap.keys());
+    const keys = Array.from(gameConnectionMap.keys());
     //The for each iterator is not used since we don't want to continue execution. We want a synchronous result
     //for (let [gameId, networkState] of gameConnectionMap) {
     //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {
-    for (var i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length; i++) {
       if (gameConnectionMap.get(keys[i])?.connected && gameStateMap.get(keys[i])?.status == 'started') {
         //Game is good for commands
-        var gameInfo = gameInfoMap.get(keys[i]);
+        const gameInfo = gameInfoMap.get(keys[i]);
         //var gameState = gameStateMap.get(keys[i]);
-        var lastMove = getLastUCIMove(keys[i]);
-        var versus =
+        const lastMove = getLastUCIMove(keys[i]);
+        const versus =
           gameInfo.black.id == me.id
             ? (gameInfo.white.title !== null ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
             : (gameInfo.black.title !== null ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
@@ -669,9 +669,9 @@ export default function (token: string) {
    */
   function logGameState(gameId: string) {
     if (gameStateMap.has(gameId) && gameInfoMap.has(gameId)) {
-      var gameInfo = gameInfoMap.get(gameId);
-      var gameState = gameStateMap.get(gameId);
-      var lastMove = getLastUCIMove(gameId);
+      const gameInfo = gameInfoMap.get(gameId);
+      const gameState = gameStateMap.get(gameId);
+      const lastMove = getLastUCIMove(gameId);
       console.log(''); //process.stdout.write("\n"); Changed to support browser
       /* Log before migrating to browser
       if (verbose) console.table({
@@ -682,7 +682,7 @@ export default function (token: string) {
         'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
       });
       */
-      var innerTable =
+      const innerTable =
         `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
         `<tr><td>White</td><td>${gameInfo.white.title !== null ? gameInfo.white.title : '@'}</td><td>${
           gameInfo.white.name
@@ -747,11 +747,11 @@ export default function (token: string) {
    */
   function getLastUCIMove(gameId: string): { player: string; move: string; by: string } {
     if (gameStateMap.has(gameId) && gameInfoMap.has(gameId)) {
-      var gameInfo = gameInfoMap.get(gameId);
-      var gameState = gameStateMap.get(gameId);
+      const gameInfo = gameInfoMap.get(gameId);
+      const gameState = gameStateMap.get(gameId);
       //This is the original code that does not used chessops objects and can be used to get the UCI move but not SAN.
       if (String(gameState.moves).length > 1) {
-        var moves = gameState.moves.split(' ');
+        const moves = gameState.moves.split(' ');
         if (verbose)
           console.log(`getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`);
         if (moves.length % 2 == 0) return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
@@ -772,7 +772,7 @@ export default function (token: string) {
   function announcePlay(lastMove: { player: string; move: string; by: string }) {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
-    var moveText: string;
+    let moveText: string;
     if (announceMoveFormat && announceMoveFormat.toLowerCase() == 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
@@ -810,7 +810,7 @@ export default function (token: string) {
   }
 
   async function connectToLiveChess() {
-    var SANMove: string; //a move in san format returned by liveChess
+    let SANMove: string; //a move in san format returned by liveChess
     //Open the WebSocket
     liveChessConnection = new WebSocket(liveChessURL ? liveChessURL : 'ws://localhost:1982/api/v1.0');
 
@@ -836,7 +836,7 @@ export default function (token: string) {
 
     liveChessConnection.onmessage = async e => {
       if (verbose) console.info('Websocket onmessage with data:' + e.data);
-      var message = JSON.parse(e.data);
+      const message = JSON.parse(e.data);
       //Store last board if received
       if (message.response == 'feed' && !!message.param.board) {
         lastLiveChessBoard = message.param.board;
@@ -877,7 +877,7 @@ export default function (token: string) {
         //Received move from board
         if (verbose) console.info('onmessage - san: ' + message.param.san);
         //get last move known to lichess and avoid calling multiple times this function
-        var lastMove = getLastUCIMove(currentGameId);
+        const lastMove = getLastUCIMove(currentGameId);
         if (message.param.san.length == 0) {
           if (verbose) console.info('onmessage - san is empty');
         } else if (
@@ -891,7 +891,7 @@ export default function (token: string) {
           //A move was received
           //Get all the moves on the param.san that are not present on lastLegalParam.san
           //it is possible to receive two new moves on the message. Don't assume only the last move is pending.
-          var movesToProcess = 1;
+          let movesToProcess = 1;
           if (lastLegalParam !== undefined) movesToProcess = message.param.san.length - lastLegalParam.san.length;
           //Check border case in which DGT Board LiveChess detects the wrong move while pieces are still on the air
           if (movesToProcess > 1) {
@@ -900,7 +900,7 @@ export default function (token: string) {
             if (localBoard.turn == currentGameColor) {
               //If more than one move is received when its the DGT board player's turn this may be a invalid move
               //Move will be quarentined by 2.5 seconds
-              var quarentinedlastLegalParam = lastLegalParam;
+              const quarentinedlastLegalParam = lastLegalParam;
               await sleep(2500);
               //Check if a different move was recevied and processed during quarentine
               if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarentinedlastLegalParam.san)) {
@@ -1027,8 +1027,8 @@ export default function (token: string) {
    * @param chess - The chessops Chess object with the position on Lichess
    */
   async function sendBoardToLiveChess(chess: Chess) {
-    var fen = makeFen(chess.toSetup());
-    var setupMessage = {
+    const fen = makeFen(chess.toSetup());
+    const setupMessage = {
       id: 3,
       call: 'call',
       param: {
@@ -1080,7 +1080,7 @@ export default function (token: string) {
       await chooseCurrentGame();
     }
     //Now send the move
-    var command = makeUci(boardMove);
+    const command = makeUci(boardMove);
     sendMove(currentGameId, command);
   }
 
@@ -1100,7 +1100,7 @@ export default function (token: string) {
     if (uciMove.length > 1) {
       //Log intention
       //Automatically decline draws when making a move
-      var url = `/api/board/game/${gameId}/move/${uciMove}?offeringDraw=false`;
+      const url = `/api/board/game/${gameId}/move/${uciMove}?offeringDraw=false`;
       if (verbose) console.log('sendMove - About to call ' + url);
       fetch(url, {
         method: 'POST',
@@ -1133,7 +1133,7 @@ export default function (token: string) {
    * @returns {String} - The San move with words instead of letters
    */
   function replaceKeywords(sanMove) {
-    var extendedSanMove = sanMove;
+    let extendedSanMove = sanMove;
     for (let i = 0; i < keywordsBase.length; i++) {
       try {
         extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ');
@@ -1151,7 +1151,7 @@ export default function (token: string) {
    * @returns {String} - The move with spaces before the numbers for better TTS
    */
   function padBeforeNumbers(moveString: string) {
-    var paddedMoveString = '';
+    let paddedMoveString = '';
     for (const c of moveString) {
       Number.isInteger(+c) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
     }
@@ -1165,9 +1165,9 @@ export default function (token: string) {
     //Check if Voice is disabled
     if (verbose) console.log('TTS - for text: ' + text);
     if (!speechSynthesisOn) return;
-    var utterThis = new SpeechSynthesisUtterance(text);
-    var selectedOption = voice;
-    var availableVoices = speechSynthesis.getVoices();
+    const utterThis = new SpeechSynthesisUtterance(text);
+    const selectedOption = voice;
+    const availableVoices = speechSynthesis.getVoices();
     for (let i = 0; i < availableVoices.length; i++) {
       if (availableVoices[i].name === selectedOption) {
         utterThis.voice = availableVoices[i];
@@ -1192,14 +1192,14 @@ export default function (token: string) {
    */
   function compareMoves(lastMove: string, moveObject: NormalMove): boolean {
     try {
-      var uciMove = makeUci(moveObject);
+      const uciMove = makeUci(moveObject);
       if (verbose) console.log(`Comparing ${lastMove} with ${uciMove}`);
       if (lastMove == uciMove) {
         //it's the same move
         return true;
       }
       if (verbose) console.log('Moves look different. Check if this is a castling mismatch.');
-      var castlingSide = localBoard.castlingSide(moveObject);
+      const castlingSide = localBoard.castlingSide(moveObject);
       if (lastMove.length > 2 && castlingSide) {
         //It was a castling so it still may be the same move
         if (lastMove.startsWith(uciMove.substring(0, 2))) {

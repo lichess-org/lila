@@ -5,7 +5,7 @@ import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: Controller): VNode {
-  var data = ctrl.getData();
+  const data = ctrl.getData();
   return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle), gameInfos(ctrl, data.game, data.puzzle)]);
 }
 

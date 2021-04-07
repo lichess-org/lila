@@ -161,7 +161,7 @@ export function view(ctrl: StudyCtrl): VNode {
     isOwner = members.isOwner();
 
   function username(member: StudyMember) {
-    var u = member.user;
+    const u = member.user;
     return h(
       'span.user-link.ulpt',
       {
