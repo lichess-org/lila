@@ -474,7 +474,7 @@ final class SwissApi(
 
   def kill(swiss: Swiss): Funit = {
     if (swiss.isStarted)
-      finish(swiss) >>- systemChat(swiss.id, s"Tournament forcefully terminated by the director.")
+      finish(swiss) >>- systemChat(swiss.id, s"Tournament cancelled by its creator.")
     else if (swiss.isCreated) destroy(swiss)
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
