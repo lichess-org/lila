@@ -106,6 +106,7 @@ package mod {
 
 package playban {
   case class Playban(userId: String, mins: Int)
+  case class RageSitClose(userId: String)
 }
 
 package captcha {

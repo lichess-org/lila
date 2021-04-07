@@ -197,15 +197,6 @@ final class SlackApi(
       )
     )
 
-  def publishRageSit(userId: User.ID, rageSit: Int) = client(
-    SlackMessage(
-      username = "Ragesit offender",
-      icon = "babyrage",
-      text = linkifyUsers(s"${userLink(userId)} rageSit = $rageSit"),
-      channel = rooms.tavernBots
-    )
-  )
-
   private def link(url: String, name: String)         = s"<$url|$name>"
   private def lichessLink(path: String, name: String) = s"<https://lichess.org$path|$name>"
   private def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)

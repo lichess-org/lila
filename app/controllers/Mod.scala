@@ -34,7 +34,7 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user.id, self = false)
+          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user, me)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -139,8 +139,7 @@ final class Mod(
     OAuthMod(_.CloseAccount) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          modLogApi.closeAccount(me.id, user.id) >>
-            env.closeAccount(user.id, self = false) map some
+          env.closeAccount(user, me) map some
         }
       }
     }(actionResult(username))

@@ -9,7 +9,6 @@ case class RageSit(counter: Int) extends AnyVal {
   def isBad      = counter <= -40
   def isVeryBad  = counter <= -80
   def isTerrible = counter <= -160
-  def isLethal   = counter <= -200
 
   def goneWeight: Float =
     if (!isBad) 1f

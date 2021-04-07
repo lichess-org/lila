@@ -72,6 +72,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       } yield xx -> yy
     }
 
+  def lichessAnd(id: ID) = pair(User.lichessId, id) map2 { case (lichess, user) =>
+    Holder(lichess) -> user
+  }
+
   def namePair(x: ID, y: ID): Fu[Option[(User, User)]] =
     pair(normalize(x), normalize(y))
 

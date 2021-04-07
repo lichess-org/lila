@@ -11,8 +11,8 @@ final class Env(
     messenger: lila.msg.MsgApi,
     reporter: lila.hub.actors.Report,
     chatApi: lila.chat.ChatApi,
-    slackApi: lila.irc.SlackApi,
     userRepo: lila.user.UserRepo,
+    noteApi: lila.user.NoteApi,
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi

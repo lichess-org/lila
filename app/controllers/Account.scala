@@ -7,7 +7,7 @@ import scala.annotation.nowarn
 import lila.api.Context
 import lila.app._
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret }
+import lila.user.{ User => UserModel, TotpSecret, Holder }
 import views.html
 import lila.api.AnnounceStore
 
@@ -306,7 +306,7 @@ final class Account(
           FormFuResult(form) { err =>
             fuccess(html.account.close(me, err, managed = false))
           } { _ =>
-            env.closeAccount(me.id, self = true) inject {
+            env.closeAccount(me, Holder(me)) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
             }
           }

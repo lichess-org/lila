@@ -12,6 +12,7 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
+import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
@@ -139,40 +140,50 @@ final class Env(
 
   def scheduler = system.scheduler
 
-  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
+  def closeAccount(u: User, by: Holder): Funit =
     for {
-      u <- user.repo byId userId orFail s"No such user $userId"
-      badApple = u.lameOrTrollOrAlt
       playbanned <- playban.api.hasCurrentBan(u.id)
-      _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
-      _          <- relation.api.unfollowAll(u.id)
-      _          <- user.rankingApi.remove(u.id)
-      teamIds    <- team.api.quitAll(u.id)
-      _          <- challenge.api.removeByUserId(u.id)
-      _          <- tournament.api.withdrawAll(u)
-      _          <- swiss.api.withdrawAll(u, teamIds)
-      _          <- plan.api.cancel(u).nevermind
-      _          <- lobby.seekApi.removeByUser(u)
-      _          <- security.store.closeAllSessionsOf(u.id)
-      _          <- push.webSubscriptionApi.unsubscribeByUser(u)
-      _          <- streamer.api.demote(u.id)
-      _          <- coach.api.remove(u.id)
-      reports    <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
-      _          <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
-      _          <- appeal.api.onAccountClose(u)
+      selfClose = u.id == by.id
+      badApple  = u.lameOrTrollOrAlt || !selfClose
+      _       <- user.repo.disable(u, keepEmail = badApple || playbanned)
+      _       <- relation.api.unfollowAll(u.id)
+      _       <- user.rankingApi.remove(u.id)
+      teamIds <- team.api.quitAll(u.id)
+      _       <- challenge.api.removeByUserId(u.id)
+      _       <- tournament.api.withdrawAll(u)
+      _       <- swiss.api.withdrawAll(u, teamIds)
+      _       <- plan.api.cancel(u).nevermind
+      _       <- lobby.seekApi.removeByUser(u)
+      _       <- security.store.closeAllSessionsOf(u.id)
+      _       <- push.webSubscriptionApi.unsubscribeByUser(u)
+      _       <- streamer.api.demote(u.id)
+      _       <- coach.api.remove(u.id)
+      reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
+      _       <- selfClose ?? mod.logApi.selfCloseAccount(u.id, reports)
+      _       <- appeal.api.onAccountClose(u)
       _ <- u.marks.troll ?? relation.api.fetchFollowing(u.id).flatMap {
         activity.write.unfollowAll(u, _)
       }
+      _ <- !selfClose ?? mod.logApi.closeAccount(by.id, u.id)
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   Bus.subscribeFun("garbageCollect") { case lila.hub.actorApi.security.GarbageCollect(userId) =>
     // GC can be aborted by reverting the initial SB mark
     user.repo.isTroll(userId) foreach { troll =>
       if (troll) scheduler.scheduleOnce(1.second) {
-        closeAccount(userId, self = false).unit
+        lichessClose(userId).unit
       }
     }
   }
+  Bus.subscribeFun("rageSitClose") { case lila.hub.actorApi.playban.RageSitClose(userId) =>
+    lichessClose(userId).unit
+  }
+  private def lichessClose(userId: User.ID) =
+    user.repo.lichessAnd(userId) flatMap {
+      _ ?? { case (lichess, user) =>
+        closeAccount(user, lichess)
+      }
+    }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 }

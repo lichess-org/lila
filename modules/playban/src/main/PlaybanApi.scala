@@ -12,13 +12,14 @@ import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
+import lila.user.NoteApi
 
 final class PlaybanApi(
     coll: Coll,
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
+    noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.irc.SlackApi,
     messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -238,8 +239,16 @@ final class PlaybanApi(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
-            if (record.rageSit.isLethal && record.rageSitRecidive)
-              slackApi.publishRageSit(record.userId, record.rageSit.counterView).unit
+            if (record.isLethal)
+              userRepo
+                .byId(record.userId)
+                .flatMap {
+                  _ ?? { user =>
+                    noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
+                      Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
+                  }
+                }
+                .unit
           }
         }
       case _ => funit
