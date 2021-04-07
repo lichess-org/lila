@@ -117,6 +117,18 @@
   <string name="blunder">Durva hiba</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s súlyos hiba</item>
+    <item quantity="other">%s súlyos hiba</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s hiba</item>
+    <item quantity="other">%s hiba</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s pontatlanság</item>
+    <item quantity="other">%s pontatlanság</item>
+  </plurals>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
   <string name="threefoldRepetition">Háromszori lépésismétlés</string>
