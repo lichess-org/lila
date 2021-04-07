@@ -123,6 +123,18 @@
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepresnosť</string>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s chyba</item>
+    <item quantity="few">%s chyby</item>
+    <item quantity="many">%s chýb</item>
+    <item quantity="other">%s chýb</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepresnosť</item>
+    <item quantity="few">%s nepresnosti</item>
+    <item quantity="many">%s nepresností</item>
+    <item quantity="other">%s nepresností</item>
+  </plurals>
   <string name="moveTimes">Trvanie ťahov</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
