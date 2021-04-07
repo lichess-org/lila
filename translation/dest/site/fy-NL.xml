@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Ûneinige analyse</string>
   <string name="removesTheDepthLimit">Ferwideret de djipte limyt en hâldt dyn kompjûter waarm</string>
   <string name="blunder">Flater</string>
-  <string name="blunders">Flaters</string>
   <string name="mistake">Flater</string>
-  <string name="mistakes">Flaters</string>
   <string name="inaccuracy">Ûnkrekt</string>
-  <string name="inaccuracies">Ûnkrektheden</string>
   <string name="moveTimes">Set tiden</string>
   <string name="flipBoard">Draai boerd</string>
   <string name="threefoldRepetition">Trijefâldich deselde posysje</string>
