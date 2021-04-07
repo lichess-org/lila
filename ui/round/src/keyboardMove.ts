@@ -70,7 +70,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.chessground.cancelMove();
       sendPromotion(root, orig, dest, role, { premove: false });
     },
-    update(step, yourMove: boolean = false) {
+    update(step, yourMove = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
       else preHandlerBuffer = step.fen;
     },

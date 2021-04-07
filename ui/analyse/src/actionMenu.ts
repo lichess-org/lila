@@ -153,7 +153,7 @@ function studyButton(ctrl: AnalyseCtrl) {
 }
 
 export class ActionMenuCtrl {
-  open: boolean = false;
+  open = false;
   toggle = (): void => {
     this.open = !this.open;
   };

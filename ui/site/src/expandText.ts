@@ -76,7 +76,7 @@ lichess.load.then(() => {
     return $iframe;
   }
 
-  function expandYoutubes(as: Candidate[], wait: number = 100) {
+  function expandYoutubes(as: Candidate[], wait = 100) {
     var a = as.shift(),
       wait = Math.min(1500, wait);
     if (a)
@@ -103,7 +103,7 @@ lichess.load.then(() => {
       });
   }
 
-  function expandStudies(as: Candidate[], wait: number = 100) {
+  function expandStudies(as: Candidate[], wait = 100) {
     const a = as.shift();
     wait = Math.min(1500, wait);
     if (a)

@@ -63,7 +63,7 @@ const sound = new (class {
     return this.speechStorage.get();
   };
 
-  say = (text: any, cut: boolean = false, force: boolean = false) => {
+  say = (text: any, cut = false, force = false) => {
     if (!this.speechStorage.get() && !force) return false;
     const msg = text.text ? (text as SpeechSynthesisUtterance) : new SpeechSynthesisUtterance(text);
     msg.volume = this.getVolume();

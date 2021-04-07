@@ -15,7 +15,7 @@ interface StreakData {
 
 export default class PuzzleStreak {
   data: StreakData;
-  fail: boolean = false;
+  fail = false;
   store: StoredJsonProp<StreakData | null>;
 
   constructor(data: PuzzleData) {

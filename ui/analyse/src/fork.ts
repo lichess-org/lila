@@ -18,7 +18,7 @@ export interface ForkCtrl {
 
 export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
-  let selected: number = 0;
+  let selected = 0;
   function displayed() {
     return root.node.children.length > 1;
   }

@@ -4,7 +4,7 @@ import { isFinished } from '../studyChapters';
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
-  cooldown: boolean = false;
+  cooldown = false;
   clockInterval?: number;
   intro: RelayIntro;
 

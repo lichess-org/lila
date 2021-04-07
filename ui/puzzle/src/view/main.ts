@@ -29,7 +29,7 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: string, effect: string, disabled: boolean, glowing: boolean = false): VNode {
+function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
   return h('button.fbt', {
     class: { disabled, glowing },
     attrs: {

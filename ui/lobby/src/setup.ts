@@ -183,7 +183,7 @@ export default class Setup {
 
     const showRating = () => {
       const timeMode = $timeModeSelect.val();
-      let key: string = 'correspondence';
+      let key = 'correspondence';
       switch ($variantSelect.val()) {
         case '1':
         case '3':

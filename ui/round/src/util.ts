@@ -28,7 +28,7 @@ export const onInsert = (f: (el: HTMLElement) => void): Hooks => ({
   },
 });
 
-export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive: boolean = true): Hooks =>
+export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive = true): Hooks =>
   onInsert(el => {
     el.addEventListener(
       eventName,

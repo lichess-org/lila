@@ -164,7 +164,7 @@ export default function (token: string) {
    *
    * @param {number} ms - The number of milliseconds to sleep
    */
-  function sleep(ms: number = 0) {
+  function sleep(ms = 0) {
     return new Promise(r => setTimeout(r, ms));
   }
 

@@ -107,7 +107,7 @@ export function palantir(opts: PalantirOpts) {
     console.log('[palantir]', msg);
   }
 
-  function setState(s: State, msg: string = '') {
+  function setState(s: State, msg = '') {
     log(`state: ${state} -> ${s} ${msg}`);
     state = s;
     opts.redraw();

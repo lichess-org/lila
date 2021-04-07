@@ -76,16 +76,16 @@ export default class AnalyseCtrl {
   justPlayed?: string; // pos
   justDropped?: string; // role
   justCaptured?: JustCaptured;
-  autoScrollRequested: boolean = false;
-  redirecting: boolean = false;
-  onMainline: boolean = true;
+  autoScrollRequested = false;
+  redirecting = false;
+  onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
-  flipped: boolean = false;
+  flipped = false;
   embed: boolean;
-  showComments: boolean = true; // whether to display comments in the move tree
+  showComments = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);

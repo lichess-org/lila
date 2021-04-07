@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
 
 class Scroller {
-  enabled: boolean = false;
+  enabled = false;
   element?: HTMLElement;
   marker?: HTMLElement;
 

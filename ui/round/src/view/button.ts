@@ -212,7 +212,7 @@ export function cancelTakebackProposition(ctrl: RoundController) {
     : null;
 }
 
-function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: string = 'accept') {
+function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: I18nKey = 'accept') {
   const text = ctrl.noarg(i18nKey);
   return ctrl.nvui
     ? h(
@@ -230,7 +230,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void, 
         hook: util.bind('click', action),
       });
 }
-function declineButton(ctrl: RoundController, action: () => void, i18nKey: string = 'decline') {
+function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nKey = 'decline') {
   const text = ctrl.noarg(i18nKey);
   return ctrl.nvui
     ? h(

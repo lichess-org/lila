@@ -63,7 +63,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (root.threatMode()) root.toggleThreatMode();
   }
 
-  function commentable(node: Tree.Node, bonus: number = 0): boolean {
+  function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
     return ceval ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && ceval.millis > 3000) : false;
