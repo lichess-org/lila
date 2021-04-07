@@ -462,7 +462,7 @@ abstract private[controllers] class LilaController(val env: Env)
     negotiate(
       html = fuccess {
         Redirect(
-          if (HTTPRequest.isAppeal(ctx.req)) routes.Auth.login else routes.Auth.signup
+          if (HTTPRequest.isClosedLoginPath(ctx.req)) routes.Auth.login else routes.Auth.signup
         ) withCookies env.lilaCookie
           .session(env.security.api.AccessUri, ctx.req.uri)
       },
@@ -561,7 +561,7 @@ abstract private[controllers] class LilaController(val env: Env)
   type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     env.security.api restoreUser req dmap {
-      case Some(Left(AppealUser(user))) if HTTPRequest.isAppeal(req) =>
+      case Some(Left(AppealUser(user))) if HTTPRequest.isClosedLoginPath(req) =>
         FingerPrintedUser(user, true).some
       case Some(Right(d)) if !env.net.isProd =>
         d.copy(user =

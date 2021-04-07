@@ -250,9 +250,12 @@ object tree {
         ),
         div(cls := "appeal__rules")(
           p(cls := "text", dataIcon := "")(doNotMessageModerators()),
-          a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
-            "Read more about the appeal process"
-          )
+          p(
+            a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
+              "Read more about the appeal process"
+            )
+          ),
+          p(a(cls := "text", dataIcon := "x", href := routes.Account.data)("Export personal data"))
         )
       )
     }
