@@ -281,16 +281,15 @@ object mon {
   }
   object email {
     object send {
-      private val c           = counter("email.send")
-      val resetPassword       = c.withTag("type", "resetPassword")
-      val magicLink           = c.withTag("type", "magicLink")
-      val reopen              = c.withTag("type", "reopen")
-      val fix                 = c.withTag("type", "fix")
-      val change              = c.withTag("type", "change")
-      val confirmation        = c.withTag("type", "confirmation")
-      val welcome             = c.withTag("type", "welcome")
-      val time                = timer("email.send.time").withoutTags()
-      def error(name: String) = counter("email.error").withTag("name", name)
+      private val c     = counter("email.send")
+      val resetPassword = c.withTag("type", "resetPassword")
+      val magicLink     = c.withTag("type", "magicLink")
+      val reopen        = c.withTag("type", "reopen")
+      val fix           = c.withTag("type", "fix")
+      val change        = c.withTag("type", "change")
+      val confirmation  = c.withTag("type", "confirmation")
+      val welcome       = c.withTag("type", "welcome")
+      val time          = timer("email.send.time").withoutTags()
     }
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   }
