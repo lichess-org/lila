@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">अमर्यादित विश्लेषण</string>
   <string name="removesTheDepthLimit">खोली मर्यादा काढून टाकते आणि आपला संगणक उष्ण ठेवतो</string>
   <string name="blunder">घोडचूक</string>
-  <string name="blunders">घोडचूका</string>
   <string name="mistake">चुक</string>
-  <string name="mistakes">चुका</string>
   <string name="inaccuracy">अयोग्य चाल</string>
-  <string name="inaccuracies">अयोग्य चाली</string>
   <string name="moveTimes">चालीसाठी लागलेला वेळ</string>
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
