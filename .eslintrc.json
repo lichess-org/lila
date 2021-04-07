@@ -16,9 +16,11 @@
   ],
   "rules": {
     "linebreak-style": ["error", "unix"],
-    "no-duplicate-imports": ["error"],
-    "no-var": "off",
+    "no-duplicate-imports": "error",
+
+    "eqeqeq": "off",
     "prefer-const": "off",
+    "no-var": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -32,7 +34,6 @@
     "no-empty": "off",
     "@typescript-eslint/no-empty-function": "off",
     "no-self-assign": "off",
-    "no-case-declarations": "off",
     "no-constant-condition": "off",
     "no-prototype-builtins": "off",
     "no-extra-boolean-cast": "off",
