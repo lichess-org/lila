@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
   <string name="removesTheDepthLimit">গভীরতার সীমা অপসারণ করুন এবং আপনার কম্পিউটারকে গরম রাখুন</string>
   <string name="blunder">গুরুতর ভুল</string>
-  <string name="blunders">সাঙ্ঘাতিক ভুল</string>
   <string name="mistake">ভুল</string>
-  <string name="mistakes">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
-  <string name="inaccuracies">যথার্থতার অভাব</string>
   <string name="moveTimes">চালের সময়</string>
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
