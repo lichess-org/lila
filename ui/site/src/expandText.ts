@@ -77,8 +77,8 @@ lichess.load.then(() => {
   }
 
   function expandYoutubes(as: Candidate[], wait = 100) {
-    var a = as.shift(),
-      wait = Math.min(1500, wait);
+    wait = Math.min(1500, wait);
+    const a = as.shift();
     if (a)
       expandYoutube(a)
         .find('iframe')

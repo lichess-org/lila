@@ -94,7 +94,7 @@ function sanOf(board: Board, uci: string) {
 
   // pawn moves
   if (pt === 'p') {
-    var san: string;
+    let san: string;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
@@ -107,7 +107,7 @@ function sanOf(board: Board, uci: string) {
     else return 'O-O';
   }
 
-  var san = pt.toUpperCase();
+  let san = pt.toUpperCase();
 
   // disambiguate normal moves
   let candidates: number[] = [];

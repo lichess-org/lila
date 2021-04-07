@@ -930,8 +930,7 @@ export default function (token: string) {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
             if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-            var moveObject: NormalMove | undefined; //a move in chessops format
-            moveObject = <NormalMove>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            const moveObject = <NormalMove | undefined>parseSan(localBoard, SANMove); //get move from DGT LiveChess
             //if valid move on local chessops
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');

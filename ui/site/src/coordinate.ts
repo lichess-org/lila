@@ -144,7 +144,7 @@ lichess.load.then(() => {
           });
     };
 
-    var tick = function () {
+    const tick = function () {
       const spent = Math.min(duration, new Date().getTime() - startAt);
       $bar.css('width', (100 * spent) / duration + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
