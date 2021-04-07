@@ -123,7 +123,7 @@ export default function (token: string) {
         return new Promise<void>(resolve => {
           var output = '';
           for (let i = 0; i < arguments.length; i++) {
-            let arg = arguments[i];
+            const arg = arguments[i];
             if (arg == '*' || arg == ':') {
               output += arg;
             } else {
@@ -137,7 +137,7 @@ export default function (token: string) {
             }
           }
           //Added to keep on-screen log small
-          let maxLogBytes = verbose ? -1048576 : -8192;
+          const maxLogBytes = verbose ? -1048576 : -8192;
           let isScrolledToBottom = false;
           if (autoScroll) {
             isScrolledToBottom =
@@ -416,7 +416,7 @@ export default function (token: string) {
         //sleep 5 seconds and just listen to events
         await sleep(5000);
         //Check if any started games are disconnected
-        for (let [gameId, networkState] of gameConnectionMap) {
+        for (const [gameId, networkState] of gameConnectionMap) {
           if (!networkState.connected && gameStateMap.get(gameId).status == 'started') {
             //Game is not conencted and has not finished, reconnect
             if (verbose) console.log(`Started game is disconnected. Attempting reconnection for gameId: ${gameId}`);
@@ -468,7 +468,7 @@ export default function (token: string) {
       let index = -1;
       for (let i = 0; i < playableGames.length; i++) {
         //makeBoardFen return only the board, ideal for comparison
-        let tmpFEN = fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
+        const tmpFEN = fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
         if (verbose) console.log(`GameId: ${playableGames[i].gameId} FEN: ${tmpFEN}`);
         if (tmpFEN == lastLiveChessBoard) {
           index = i;
@@ -1152,7 +1152,7 @@ export default function (token: string) {
    */
   function padBeforeNumbers(moveString: string) {
     var paddedMoveString = '';
-    for (let c of moveString) {
+    for (const c of moveString) {
       Number.isInteger(+c) ? (paddedMoveString += ` ${c} `) : (paddedMoveString += c);
     }
     return paddedMoveString;

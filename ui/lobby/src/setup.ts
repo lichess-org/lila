@@ -115,7 +115,7 @@ export default class Setup {
   private hookToPoolMember = (color: string, form: HTMLFormElement) => {
     const data = Array.from(new FormData(form).entries());
     const hash: any = {};
-    for (let i in data) hash[data[i][0]] = data[i][1];
+    for (const i in data) hash[data[i][0]] = data[i][1];
     const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
       id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
     return valid && this.root.pools.find(p => p.id === id)

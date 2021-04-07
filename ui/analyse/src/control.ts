@@ -24,7 +24,7 @@ export function first(ctrl: AnalyseCtrl): void {
 }
 
 export function enterVariation(ctrl: AnalyseCtrl): void {
-  let child = ctrl.node.children[1];
+  const child = ctrl.node.children[1];
   if (child) ctrl.userJump(ctrl.path + child.id);
 }
 

@@ -11,7 +11,7 @@ lichess.load.then(() => {
         fen = cg.getFen(),
         destsObj = $board.data('moves'),
         dests = new Map();
-      for (let k in destsObj) dests.set(k, destsObj[k].match(/.{2}/g));
+      for (const k in destsObj) dests.set(k, destsObj[k].match(/.{2}/g));
       cg.set({
         turnColor: cg.state.orientation,
         movable: {

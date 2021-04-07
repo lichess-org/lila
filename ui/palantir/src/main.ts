@@ -145,7 +145,7 @@ export function palantir(opts: PalantirOpts) {
   }
   function closeDisconnectedCalls() {
     if (peer) {
-      for (let otherPeer in peer.connections) {
+      for (const otherPeer in peer.connections) {
         peer.connections[otherPeer].forEach(c => {
           if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
             log(`close disconnected call to ${c.peer}`);
@@ -159,7 +159,7 @@ export function palantir(opts: PalantirOpts) {
   function allOpenConnections() {
     if (!peer) return [];
     const conns: any[] = [];
-    for (let peerId in peer.connections) {
+    for (const peerId in peer.connections) {
       const c = findOpenConnectionTo(peerId);
       if (c) conns.push(c);
     }

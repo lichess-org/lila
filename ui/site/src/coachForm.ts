@@ -28,7 +28,7 @@ lichess.load.then(() => {
       {
         html: 'Fill in basic information',
         check() {
-          for (let name of ['profile.headline', 'languages']) {
+          for (const name of ['profile.headline', 'languages']) {
             if (!$editor.find('[name="' + name + '"]').val()) return false;
           }
           return true;

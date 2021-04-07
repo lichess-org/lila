@@ -304,7 +304,7 @@ export function renderBoard(
     return h('th', { attrs: { scope: 'row' } }, rank);
   };
   const doFileHeaders = (): VNode => {
-    let ths = files.map(file => h('th', { attrs: { scope: 'col' } }, file));
+    const ths = files.map(file => h('th', { attrs: { scope: 'col' } }, file));
     if (pov === 'black') ths.reverse();
     return h('tr', [h('td'), ...ths, h('td')]);
   };
@@ -344,14 +344,14 @@ export function renderBoard(
     }
   };
   const doRank = (pov: Color, rank: Rank): VNode => {
-    let rankElements = [];
+    const rankElements = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     rankElements.push(...files.map(file => doPiece(rank, file)));
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     if (pov === 'black') rankElements.reverse();
     return h(boardStyle === 'table' ? 'tr' : 'div', rankElements);
   };
-  let ranks: VNode[] = [];
+  const ranks: VNode[] = [];
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   ranks.push(...invRanks.map(rank => doRank(pov, rank)));
   if (boardStyle === 'table') ranks.push(doFileHeaders());

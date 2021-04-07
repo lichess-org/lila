@@ -21,7 +21,7 @@ interface Opts {
 
 function memberActivity(onIdle: () => void) {
   let timeout: Timeout;
-  let schedule = () => {
+  const schedule = () => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);
   };
@@ -32,7 +32,7 @@ function memberActivity(onIdle: () => void) {
 export function ctrl(opts: Opts) {
   const dict = prop<StudyMemberMap>(opts.initDict);
   const confing = prop<string | undefined>(undefined);
-  let active: { [id: string]: () => void } = {};
+  const active: { [id: string]: () => void } = {};
   let online: { [id: string]: boolean } = {};
   let spectatorIds: string[] = [];
   const max = 30;
@@ -150,7 +150,7 @@ export function ctrl(opts: Opts) {
     },
     hasOnlineContributor() {
       const members = dict();
-      for (let i in members) if (online[i] && members[i].role === 'w') return true;
+      for (const i in members) if (online[i] && members[i].role === 'w') return true;
       return false;
     },
   };

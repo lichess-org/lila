@@ -50,7 +50,7 @@ export interface DasherOpts {
 export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
   const trans = lichess.trans(data.i18n);
 
-  let mode: Prop<Mode> = prop(defaultMode as Mode);
+  const mode: Prop<Mode> = prop(defaultMode as Mode);
 
   function setMode(m: Mode) {
     mode(m);

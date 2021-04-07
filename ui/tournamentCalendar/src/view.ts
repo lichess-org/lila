@@ -69,7 +69,7 @@ function fitLane(lane: Tournament[], tour2: Tournament) {
 function makeLanes(tours: Tournament[]): Lanes {
   const lanes: Lanes = [];
   tours.forEach(t => {
-    let lane = lanes.find(l => fitLane(l, t));
+    const lane = lanes.find(l => fitLane(l, t));
     if (lane) lane.push(t);
     else lanes.push([t]);
   });

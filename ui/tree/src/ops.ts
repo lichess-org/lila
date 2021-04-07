@@ -41,7 +41,7 @@ export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undef
 
 export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
   let path = '';
-  for (let i in nodeList) {
+  for (const i in nodeList) {
     if (predicate(nodeList[i])) path += nodeList[i].id;
     else break;
   }

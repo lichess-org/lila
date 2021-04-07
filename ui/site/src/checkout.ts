@@ -67,8 +67,8 @@ export default function (publicKey: string) {
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
-  let stripe = window.Stripe(publicKey);
-  let showError = (error: string) => {
+  const stripe = window.Stripe(publicKey);
+  const showError = (error: string) => {
     // TODO: consider a more sophisticated error handling mechanism,
     //       for now, this should work just fine.
     alert(error);

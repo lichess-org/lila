@@ -12,7 +12,7 @@ export function loading(): VNode {
 }
 
 function renderContent(ctrl: Ctrl): VNode[] {
-  let d = ctrl.data();
+  const d = ctrl.data();
   const nb = d.in.length + d.out.length;
   return nb ? [allChallenges(ctrl, d, nb)] : [empty(), create()];
 }

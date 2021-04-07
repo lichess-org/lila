@@ -68,7 +68,7 @@ export function build(root: Tree.Node): TreeWrapper {
   function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
     var node,
       nodes = [];
-    for (let i in nodeList) {
+    for (const i in nodeList) {
       node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);

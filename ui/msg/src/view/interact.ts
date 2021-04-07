@@ -64,7 +64,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // hack to automatically resize the textarea based on content
   area.value = '';
-  let baseScrollHeight = area.scrollHeight;
+  const baseScrollHeight = area.scrollHeight;
   area.addEventListener(
     'input',
     throttle(500, () => {
