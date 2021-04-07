@@ -54,12 +54,16 @@
   <string name="opening">Pembuka</string>
   <string name="openingDescription">Taktik selama fase pertama permainan.</string>
   <string name="pawnEndgame">Pion permainan akhir</string>
+  <string name="promotion">Promosi</string>
   <string name="queenEndgame">Ratu akhir permainan</string>
+  <string name="quietMove">Gerakan tenang</string>
+  <string name="sacrifice">Sacrifice</string>
   <string name="short">Teka-teki pendek</string>
   <string name="shortDescription">Dua gerakan untuk menang.</string>
   <string name="superGM">Permainan super GM</string>
   <string name="superGMDescription">Teka-teki dari permainan yang dimainkan oleh pemain terbaik di seluruh dunia.</string>
   <string name="trappedPiece">Bidak yang terperangkap</string>
+  <string name="trappedPieceDescription">Bidak tidak bisa lolos dari penangkapan karena gerakannya dibatasi.</string>
   <string name="underPromotion">Dalam Promosi</string>
   <string name="underPromotionDescription">Promosi ke kuda, gajah, atau benteng.</string>
   <string name="veryLong">Teka-teki yang sangat panjang</string>
