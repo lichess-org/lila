@@ -120,6 +120,21 @@
   <string name="blunder">Velika greška</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s velika greška</item>
+    <item quantity="few">%s velike greške</item>
+    <item quantity="other">%s velike greške</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s greška</item>
+    <item quantity="few">%s greške</item>
+    <item quantity="other">%s greške</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepreciznost</item>
+    <item quantity="few">%s nepreciznosti</item>
+    <item quantity="other">%s nepreciznosti</item>
+  </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okrenite ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
