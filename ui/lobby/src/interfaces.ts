@@ -40,7 +40,7 @@ export interface NowPlaying {
   gameId: string;
   fen: Fen;
   color: Color;
-  lastMove: String;
+  lastMove: string;
   variant: {
     key: string;
     name: string;
