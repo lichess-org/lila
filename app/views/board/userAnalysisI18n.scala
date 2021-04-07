@@ -53,9 +53,6 @@ object userAnalysisI18n {
     trans.computerAnalysis,
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
-    trans.inaccuracies,
-    trans.mistakes,
-    trans.blunders,
     trans.viewTheSolution,
     trans.spectators,
     // action menu

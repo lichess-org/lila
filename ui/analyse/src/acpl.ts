@@ -1,4 +1,5 @@
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
+
 import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
@@ -9,7 +10,7 @@ type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
 interface Advice {
   kind: AdviceKind;
-  plural: string;
+  i18n: I18nKey;
   symbol: string;
 }
 
@@ -40,43 +41,35 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
 }
 
 const advices: Advice[] = [
-  { kind: 'inaccuracy', plural: 'inaccuracies', symbol: '?!' },
-  { kind: 'mistake', plural: 'mistakes', symbol: '?' },
-  { kind: 'blunder', plural: 'blunders', symbol: '??' },
+  { kind: 'inaccuracy', i18n: 'nbInaccuracies', symbol: '?!' },
+  { kind: 'mistake', i18n: 'nbMistakes', symbol: '?' },
+  { kind: 'blunder', i18n: 'nbBlunders', symbol: '??' },
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data,
-    trans = ctrl.trans.noarg;
+  const d = ctrl.data;
   const acpl = d.analysis![color].acpl;
-  return h(
-    'table',
-    {
-      hook: {
-        insert(vnode) {
-          lichess.powertip.manualUserIn(vnode.elm);
-        },
-      },
-    },
-    [
-      h('thead', h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))])),
-      h(
-        'tbody',
-        advices
-          .map(a => {
-            const nb: number = d.analysis![color][a.kind];
-            const attrs: VNodeData = nb
-              ? {
-                  'data-color': color,
-                  'data-symbol': a.symbol,
-                }
-              : {};
-            return h('tr' + (nb ? '.symbol' : ''), { attrs }, [h('td', '' + nb), h('th', trans(a.plural))]);
-          })
-          .concat(h('tr', [h('td', '' + (defined(acpl) ? acpl : '?')), h('th', trans('averageCentipawnLoss'))]))
-      ),
-    ]
-  );
+  return h('div.advice-summary__side', [
+    h('div.advice-summary__player', [h(`i.is.color-icon.${color}`), renderPlayer(ctrl, color)]),
+    ...advices.map(a => {
+      const nb: number = d.analysis![color][a.kind];
+      const attrs: VNodeData = nb
+        ? {
+            'data-color': color,
+            'data-symbol': a.symbol,
+          }
+        : {};
+      return h(
+        `div.advice-summary__mistake${nb ? '.symbol' : ''}`,
+        { attrs },
+        ctrl.trans.vdomPlural(a.i18n, nb, h('strong', nb))
+      );
+    }),
+    h('div.advice-summary__acpl', [
+      h('strong', '' + (defined(acpl) ? acpl : '?')),
+      h('span', ctrl.trans.noarg('averageCentipawnLoss')),
+    ]),
+  ]);
 }
 
 function doRender(ctrl: AnalyseCtrl): VNode {
@@ -85,7 +78,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     {
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'tr.symbol', function (this: Element) {
+          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: Element) {
             ctrl.jumpToGlyphSymbol($(this).data('color'), $(this).data('symbol'));
           });
         },

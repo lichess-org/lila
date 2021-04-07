@@ -81,6 +81,8 @@ interface Lichess {
   keyboardMove?: any;
 }
 
+type I18nKey = string;
+
 type I18nDict = { [key: string]: string };
 
 type RedirectTo = string | { url: string; cookie: Cookie };

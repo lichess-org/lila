@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunders</string>
   <string name="mistake">Mistake</string>
-  <string name="mistakes">Mistakes</string>
   <string name="inaccuracy">Inaccuracy</string>
-  <string name="inaccuracies">Inaccuracies</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunder</item>
+    <item quantity="other">%s blunders</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s mistake</item>
+    <item quantity="other">%s mistakes</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s inaccuracy</item>
+    <item quantity="other">%s inaccuracies</item>
+  </plurals>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
   <string name="threefoldRepetition">Threefold repetition</string>
