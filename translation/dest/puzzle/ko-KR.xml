@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">퍼즐</string>
+  <string name="puzzleThemes">퍼즐 테마</string>
   <string name="recommended">추천</string>
   <string name="lengths">길이</string>
+  <string name="goals">목표</string>
+  <string name="origin">출처</string>
+  <string name="yourPuzzleRatingX">퍼즐 레이팅: %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
+  <string name="clickToSolve">퍼즐 풀기</string>
+  <string name="goodMove">좋은 수 입니다.</string>
+  <string name="bestMove">가장 좋은 수입니다!</string>
+  <string name="keepGoing">계속하세요...</string>
   <string name="puzzleSuccess">성공!</string>
+  <string name="trySomethingElse">다른 것 시도하기</string>
+  <string name="ratingX">레이팅: %s</string>
+  <string name="hidden">숨겨짐</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">%s회 플레이</item>
+  </plurals>
   <string name="fromGameLink">게임 %s에서</string>
+  <string name="continueTraining">연습 계속하기</string>
   <string name="difficultyLevel">난이도</string>
   <string name="normal">보통</string>
   <string name="easier">쉬움</string>
@@ -13,4 +29,9 @@
   <string name="hardest">매우 어려움</string>
   <string name="example">예시</string>
   <string name="addAnotherTheme">새 테마 추가</string>
+  <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
+  <string name="puzzleDashboard">퍼즐 대시보드</string>
+  <string name="solved">해결함</string>
+  <string name="failed">실패함</string>
+  <string name="yourStreakX">연승 기록: %s</string>
 </resources>
