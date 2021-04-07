@@ -1,18 +1,21 @@
 {
+  "root": true,
   "env": {
-    "node": true
+    "browser": true,
+    "es2017": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
     "linebreak-style": ["error", "unix"],
-    "quotes": ["off", "single"],
-    "semi": ["error", "always"],
     "no-duplicate-imports": ["error"],
     "no-var": "off",
     "prefer-const": "off",
@@ -33,7 +36,6 @@
     "no-constant-condition": "off",
     "no-prototype-builtins": "off",
     "no-extra-boolean-cast": "off",
-    "@typescript-eslint/ban-types": "error",
     "no-async-promise-executor": "off",
     "@typescript-eslint/adjacent-overload-signatures": "off"
   }
