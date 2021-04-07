@@ -1,4 +1,4 @@
-import { parseUci, makeSquare } from 'chessops/util';
+import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
 import * as cg from 'chessground/types';
@@ -102,14 +102,23 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotation() && ctrl.showComputer()) {
-    const { uci, glyphs } = ctrl.node;
-    if (glyphs && glyphs.length > 0) {
+    const { uci, glyphs, san } = ctrl.node;
+    if (uci && san && glyphs && glyphs.length > 0) {
       const glyph = glyphs[0];
       const svg = glyphToSvg[glyph.symbol];
       if (svg) {
-        const move = parseUci(uci!)!;
+        const move = parseUci(uci)!;
+        const destSquare = san.startsWith('O-O') // castle, short or long
+          ? squareRank(move.to) === 0 // white castle
+            ? san === 'O-O-O'
+              ? 'c1'
+              : 'g1'
+            : san === 'O-O-O'
+            ? 'c8'
+            : 'g8'
+          : makeSquare(move.to);
         shapes = shapes.concat({
-          orig: makeSquare(move.to),
+          orig: destSquare,
           customSvg: svg,
         });
       }
