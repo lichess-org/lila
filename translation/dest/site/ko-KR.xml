@@ -112,11 +112,8 @@
   <string name="infiniteAnalysis">무한분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
   <string name="blunder">심각한 실수</string>
-  <string name="blunders">치명적 실수</string>
   <string name="mistake">실수</string>
-  <string name="mistakes">실수</string>
   <string name="inaccuracy">잘못된 판단</string>
-  <string name="inaccuracies">사소한 실수</string>
   <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
   <string name="threefoldRepetition">3회 동형반복</string>
