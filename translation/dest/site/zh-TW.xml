@@ -114,6 +114,15 @@
   <string name="blunder">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s 次漏著</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s 次失誤</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s 次輕微失誤</item>
+  </plurals>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
   <string name="threefoldRepetition">三次重複局面</string>
