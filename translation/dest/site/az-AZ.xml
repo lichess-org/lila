@@ -117,6 +117,18 @@
   <string name="blunder">Kobud Səhv</string>
   <string name="mistake">Səhv</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s kobud səhv</item>
+    <item quantity="other">%s kobud səhv</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s səhv</item>
+    <item quantity="other">%s səhv</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s qeyri-dəqiqlik</item>
+    <item quantity="other">%s qeyri-dəqiqlik</item>
+  </plurals>
   <string name="moveTimes">Gediş müddəti</string>
   <string name="flipBoard">Lövhəni fırlat</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
