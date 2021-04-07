@@ -121,6 +121,14 @@
     <item quantity="one">%s bukk</item>
     <item quantity="other">%s bukker</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s feil</item>
+    <item quantity="other">%s feil</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøyaktighet</item>
+    <item quantity="other">%s unøyaktigheter</item>
+  </plurals>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
