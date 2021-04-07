@@ -72,7 +72,9 @@ export default function (opts: CevalOpts): CevalCtrl {
       try {
         sharedMem.grow(8);
         growableSharedMem = true;
-      } catch (e) {}
+      } catch (e) {
+        // memory growth not supported
+      }
     }
   }
 
