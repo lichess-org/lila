@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
   <string name="removesTheDepthLimit">Chuqurlik cheagarasini olib tashlaydi va kompyuteringiz issiq tutadi</string>
   <string name="blunder">Qo\'pol xato</string>
-  <string name="blunders">Qo\'pol xatolar</string>
   <string name="mistake">Xato</string>
-  <string name="mistakes">Xatolar</string>
   <string name="inaccuracy">Noaniqlik</string>
-  <string name="inaccuracies">Noaniqlik</string>
   <string name="moveTimes">Yurishlar soni</string>
   <string name="flipBoard">Taxtani o\'girmoq</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>
