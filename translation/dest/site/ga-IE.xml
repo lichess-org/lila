@@ -126,6 +126,27 @@
   <string name="blunder">Meancóg</string>
   <string name="mistake">Botún</string>
   <string name="inaccuracy">Míchruinneas</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s botún</item>
+    <item quantity="two">%s bhotún</item>
+    <item quantity="few">%s mbotún</item>
+    <item quantity="many">%s botún</item>
+    <item quantity="other">%s botún</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s botún</item>
+    <item quantity="two">%s bhotún</item>
+    <item quantity="few">%s mbotún</item>
+    <item quantity="many">%s botún</item>
+    <item quantity="other">%s botún</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s míchruinneas</item>
+    <item quantity="two">%s mhíchruinneas</item>
+    <item quantity="few">%s míchruinneas</item>
+    <item quantity="many">%s míchruinneas</item>
+    <item quantity="other">%s míchruinneas</item>
+  </plurals>
   <string name="moveTimes">Amanna na mbearta</string>
   <string name="flipBoard">Cas an bord</string>
   <string name="threefoldRepetition">Athriocht faoi thrí</string>
