@@ -83,6 +83,11 @@ lichess.load.then(() => {
     });
 
     makeReady('form.xhr', (el: HTMLFormElement) => {
+      $(el)
+        .find('input.confirm, button.confirm')
+        .on('click', function (this: HTMLElement) {
+          return confirm(this.title || 'Confirm this action?');
+        });
       $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {
