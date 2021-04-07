@@ -127,11 +127,8 @@
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
   <string name="blunder">خطأ فادح</string>
-  <string name="blunders">أخطاء فادحة</string>
   <string name="mistake">خطأ</string>
-  <string name="mistakes">أخطاء</string>
   <string name="inaccuracy">غير دقيق</string>
-  <string name="inaccuracies">نقلات غير دقيقة</string>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>

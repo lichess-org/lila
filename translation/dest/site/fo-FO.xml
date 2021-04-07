@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Óendalig greining</string>
   <string name="removesTheDepthLimit">Tekur dýpdaravmarkingar burtur, og heldur telduna hjá tær heita</string>
   <string name="blunder">Bukkur</string>
-  <string name="blunders">Bukkar</string>
   <string name="mistake">Mistak</string>
-  <string name="mistakes">Mistøk</string>
   <string name="inaccuracy">Óneyvleiki</string>
-  <string name="inaccuracies">Óneyvleikar</string>
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>

@@ -112,11 +112,8 @@
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
   <string name="blunder">大悪手</string>
-  <string name="blunders">大悪手</string>
   <string name="mistake">悪手</string>
-  <string name="mistakes">悪手</string>
   <string name="inaccuracy">疑問手</string>
-  <string name="inaccuracies">疑問手</string>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤の上下反転</string>
   <string name="threefoldRepetition">同形三復</string>
@@ -803,14 +800,14 @@
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
   <string name="mentionedYouInX"> 「%1$s」であなたの名前が出ました。</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> 「%1$s」 への招待が来ました。</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s から 「%2$s」 への招待が来ました。</string>
+  <string name="xMentionedYouInY"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
+  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
+  <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
   <string name="someoneYouReportedWasBanned">あなたが通報した人が追放されました</string>
   <string name="congratsYouWon">おめでとう、あなたの勝ちです！</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">%1$s との対局</string>
+  <string name="gameVsX">%1$s との対局</string>
   <string name="resVsX">%1$s 対 %2$s</string>
   <string name="youJustBecamePatron">あなたは Lichess パトロンになりました。</string>
   <string name="patronAccountExpired">パトロン期間の終了です</string>
@@ -818,6 +815,6 @@
   <string name="someoneReviewedYourCoachProfile">誰かがあなたのコーチ・プロフィールを審査しました。</string>
   <string name="newPendingReview">現在審査中</string>
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">レーティングの復活：%1$s %2$s 点。</string>
+  <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>
 </resources>

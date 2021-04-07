@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Análisis infinito</string>
   <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
   <string name="blunder">Error grave</string>
-  <string name="blunders">Errores graves</string>
   <string name="mistake">Error</string>
-  <string name="mistakes">Errores</string>
   <string name="inaccuracy">Imprecisión</string>
-  <string name="inaccuracies">Imprecisiones</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s error grave</item>
+    <item quantity="other">%s errores graves</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s error</item>
+    <item quantity="other">%s errores</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisión</item>
+    <item quantity="other">%s imprecisiones</item>
+  </plurals>
   <string name="moveTimes">Tiempo por movimiento</string>
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
@@ -839,14 +848,14 @@
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Cancelar la suscripción</string>
   <string name="mentionedYouInX"> te mencionó en \"%1$s\".</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s te mencionó en \"%2$s\".</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> te invitó a \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s te invitó a \"%2$s\".</string>
+  <string name="xMentionedYouInY"> %1$s te mencionó en \"%2$s\".</string>
+  <string name="invitedYouToX"> te invitó a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ya estás en el equipo.</string>
   <string name="youHaveJoinedTeamX">Te has unido a «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Un usuario que denunciaste ha sido expulsado</string>
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Partida contra %1$s</string>
+  <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
   <string name="youJustBecamePatron">Ya eres patrocinador de Lichess.</string>
   <string name="patronAccountExpired">La cuenta de patrocinador ha vencido</string>
@@ -854,6 +863,6 @@
   <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
   <string name="newPendingReview">Nueva revisión pendiente</string>
   <string name="lostAgainstTOSViolator">Perdiste contra un usuario que no cumplió las condiciones del servicio de Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Has recuperado %1$s puntos en %2$s.</string>
+  <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
 </resources>

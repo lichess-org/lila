@@ -118,11 +118,8 @@
   <string name="infiniteAnalysis">Бесконачна анализа</string>
   <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
   <string name="blunder">Груба грешка</string>
-  <string name="blunders">Грубе грешке</string>
   <string name="mistake">Грешка</string>
-  <string name="mistakes">Грешке</string>
   <string name="inaccuracy">Непрецизност</string>
-  <string name="inaccuracies">Непрецизности</string>
   <string name="moveTimes">Време померања фигура</string>
   <string name="flipBoard">Обрни таблу</string>
   <string name="threefoldRepetition">Троструко понављање</string>

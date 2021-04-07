@@ -102,11 +102,8 @@
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="blunder">უხეში შეცდომა</string>
-  <string name="blunders">უხეში შეცდომები</string>
   <string name="mistake">შეცდომა</string>
-  <string name="mistakes">შეცდომები</string>
   <string name="inaccuracy">უზუსტობა</string>
-  <string name="inaccuracies">უზუსტობები</string>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
   <string name="threefoldRepetition">სამჯერადი გამეორება</string>

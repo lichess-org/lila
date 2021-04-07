@@ -22,6 +22,7 @@
   <string name="resetPassword">重設密碼</string>
   <string name="passwordX">密碼:%s</string>
   <string name="generateANewPassword">重設學生的密碼</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">%1$s被%2$s邀請</string>
   <string name="realName">真實名稱</string>
   <string name="addStudent">增加學生</string>
   <string name="inviteALichessAccount">邀請一位玩家</string>

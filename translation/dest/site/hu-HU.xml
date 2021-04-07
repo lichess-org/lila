@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Nincs mélységkorlát és melegszik a számítógéped</string>
   <string name="blunder">Durva hiba</string>
-  <string name="blunders">Durva hiba</string>
   <string name="mistake">Hiba</string>
-  <string name="mistakes">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
-  <string name="inaccuracies">Pontatlanság</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s súlyos hiba</item>
+    <item quantity="other">%s súlyos hiba</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s hiba</item>
+    <item quantity="other">%s hiba</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s pontatlanság</item>
+    <item quantity="other">%s pontatlanság</item>
+  </plurals>
   <string name="moveTimes">Lépésidők</string>
   <string name="flipBoard">Tábla megfordítása</string>
   <string name="threefoldRepetition">Háromszori lépésismétlés</string>
@@ -839,14 +848,14 @@
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
   <string name="mentionedYouInX"> megemlített itt: \"%1$s\".</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s megemlített itt: \"%2$s\".</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> meghívott ide: \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s meghívott ide: \"%2$s\".</string>
+  <string name="xMentionedYouInY"> %1$s megemlített itt: \"%2$s\".</string>
+  <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Játszma %1$s ellen</string>
+  <string name="gameVsX">Játszma %1$s ellen</string>
   <string name="resVsX">%1$s %2$s ellen</string>
   <string name="youJustBecamePatron">Éppen Lichess Patronná váltál.</string>
   <string name="patronAccountExpired">Lejárt a Patron előfizetés</string>
@@ -854,6 +863,6 @@
   <string name="someoneReviewedYourCoachProfile">Valaki értékelte az oktatói profilod.</string>
   <string name="newPendingReview">Új függőben lévő értékelés</string>
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Visszatérítve: %1$s %2$s értékpont.</string>
+  <string name="refundXpointsTimeControlY">Visszatérítve: %1$s %2$s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
 </resources>

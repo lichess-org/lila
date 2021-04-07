@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
   <string name="blunder">Gaffe</string>
-  <string name="blunders">Gaffes</string>
   <string name="mistake">Erreur</string>
-  <string name="mistakes">Erreurs</string>
   <string name="inaccuracy">Imprécision</string>
-  <string name="inaccuracies">Imprécisions</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s gaffe</item>
+    <item quantity="other">%s spodrsljajev</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s erreur</item>
+    <item quantity="other">%s napake</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprécision</item>
+    <item quantity="other">%s nepravilnosti</item>
+  </plurals>
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
@@ -846,7 +855,7 @@
   <string name="youHaveJoinedTeamX">Vous avez joint l\'équipe \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Quelqu\'un que vous avez signalé a été banni.</string>
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Partie contre %1$s</string>
+  <string name="gameVsX">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
   <string name="youJustBecamePatron">Vous êtes devenu un mécène de Lichess.</string>
   <string name="patronAccountExpired">Statut de mécène expiré</string>
@@ -854,6 +863,6 @@
   <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
   <string name="newPendingReview">Nouvelle évaluation en attente</string>
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Remboursement : %1$s point(s) de cote – %2$s.</string>
+  <string name="refundXpointsTimeControlY">Remboursement : %1$s point(s) de cote – %2$s.</string>
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
 </resources>

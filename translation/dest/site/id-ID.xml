@@ -112,11 +112,8 @@
   <string name="infiniteAnalysis">Menganalisa tanpa ada batasan</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunder</string>
   <string name="mistake">Kesalahan</string>
-  <string name="mistakes">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
-  <string name="inaccuracies">Ketidaktepatan</string>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
   <string name="threefoldRepetition">Pengulangan 3x posisi yang sama</string>
@@ -802,14 +799,14 @@
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
   <string name="mentionedYouInX"> membahas anda di \"%1$s\".</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s membahas anda di \"%2$s\".</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> mengundang anda ke \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s mengundang ke \"%2$s\".</string>
+  <string name="xMentionedYouInY"> %1$s membahas anda di \"%2$s\".</string>
+  <string name="invitedYouToX"> mengundang anda ke \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
   <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>
   <string name="congratsYouWon">Selamat, kamu menang!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Game vs %1$s</string>
+  <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Anda baru saja menjadi Patron lichess.</string>
   <string name="patronAccountExpired">Akun Patron kadaluarsa</string>
@@ -817,6 +814,6 @@
   <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
   <string name="newPendingReview">Tinjauan baru tertunda</string>
   <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Pengembalian dana: %1$s %2$s poin rating.</string>
+  <string name="refundXpointsTimeControlY">Pengembalian dana: %1$s %2$s poin rating.</string>
   <string name="timeAlmostUp">Waktu hampir habis!</string>
 </resources>

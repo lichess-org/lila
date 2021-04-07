@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunder">भयंकर गलती</string>
-  <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistake">गलती</string>
-  <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracy">गलती</string>
-  <string name="inaccuracies">त्रुटियाँ</string>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
@@ -851,7 +848,7 @@
   <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
   <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
   <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">खेल बनाम %1$s</string>
+  <string name="gameVsX">खेल बनाम %1$s</string>
   <string name="resVsX">%1$s बनाम %2$s</string>
   <string name="youJustBecamePatron">आप बस एक लिशेस पैट्रन बन गए।</string>
   <string name="patronAccountExpired">Patron खाता समाप्त हो गया</string>
@@ -859,6 +856,6 @@
   <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
   <string name="newPendingReview">नई लंबित समीक्षा</string>
   <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">%1$s %2$s वापसी की</string>
+  <string name="refundXpointsTimeControlY">%1$s %2$s वापसी की</string>
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
 </resources>

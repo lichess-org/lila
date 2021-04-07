@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">sona musi pi pini ala</string>
   <string name="removesTheDepthLimit">o pini sona musi. taso, ilo nanpa sina li seli</string>
   <string name="blunder">pali pakala suli</string>
-  <string name="blunders">pakala</string>
   <string name="mistake">pali pakala</string>
-  <string name="mistakes">pakala</string>
   <string name="inaccuracy">pakala lili</string>
-  <string name="inaccuracies">pali pi ken ike</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">tawa %s pi ike suli</item>
+    <item quantity="other">tawa %s pi ike suli</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">tawa ike %s</item>
+    <item quantity="other">tawa ike %s</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">tawa %s pi ike lili</item>
+    <item quantity="other">tawa %s pi ike lili</item>
+  </plurals>
   <string name="moveTimes">tenpo tawa</string>
   <string name="flipBoard">kule ante</string>
   <string name="threefoldRepetition">sama li mute</string>
@@ -840,4 +849,17 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="youCannotPostYetPlaySomeGames">sina wile toki lon tomo toki la, o musi e musi mute a!</string>
   <string name="subscribe">o kama jo e sona</string>
   <string name="unsubscribe">o pini e sona pi kama sin</string>
+  <string name="mentionedYouInX"> li toki e sina lon toki \"%1$s\".</string>
+  <string name="xMentionedYouInY"> jan %1$s li toki e sina lon toki \"%1$s\".</string>
+  <string name="invitedYouToX"> li sin e sina tawa musi pi kama sona \"%1$s\".</string>
+  <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
+  <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. jan lawa li weka wawa e ona</string>
+  <string name="congratsYouWon">sina anpa e jan musi ante!</string>
+  <string name="gameVsX">musi pi jan %1$s</string>
+  <string name="resVsX">jan %1$s en jan %2$s</string>
+  <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>
+  <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
+  <string name="timeAlmostUp">tenpo lili li lon a!</string>
 </resources>

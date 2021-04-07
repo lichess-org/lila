@@ -40,4 +40,8 @@ Daha çox oyun oynamaq və daha çox xal qazanmaq üçün sürətli oynayın və
   <string name="shareUrl">Dəvət etmək üçün, linki paylaş: %s</string>
   <string name="drawStreak">Ardıcıl heç-heçələr: Bir oyunçu arenada ardıcıl heç-heçə etdikdə, yalnız ilk heç-heçə və ya %s gedişdən çox oynanılan bir oyunun sonunda heç-heçə olarsa xalla nəticələnəcək. Heç-heçə seriyası yalnız qələbə ilə pozula bilər, məğlubiyyət və heç-heçə ilə deyil.</string>
   <string name="history">Arena Keçmişi</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Komandaya bax</item>
+    <item quantity="other">Bütün %s komandaya bax</item>
+  </plurals>
 </resources>

@@ -121,11 +121,26 @@
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
-  <string name="blunders">Зевки</string>
   <string name="mistake">Ошибка</string>
-  <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
-  <string name="inaccuracies">Неточности</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s зевок</item>
+    <item quantity="few">%s зевка</item>
+    <item quantity="many">%s зевков</item>
+    <item quantity="other">%s зевков</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ошибка</item>
+    <item quantity="few">%s ошибки</item>
+    <item quantity="many">%s ошибок</item>
+    <item quantity="other">%s ошибок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточность</item>
+    <item quantity="few">%s неточности</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
@@ -913,14 +928,14 @@
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
   <string name="mentionedYouInX"> упомянул вас в «%1$s».</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s упомянул вас в «%2$s».</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> пригласил вас в «%1$s».</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s пригласил вас в «%2$s».</string>
+  <string name="xMentionedYouInY"> %1$s упомянул вас в «%2$s».</string>
+  <string name="invitedYouToX"> пригласил вас в «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
   <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Партия против %1$s</string>
+  <string name="gameVsX">Партия против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
   <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
@@ -928,6 +943,6 @@
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Ожидают рассмотрения</string>
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Возврат: %1$s %2$s рейтинговых очков.</string>
+  <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>

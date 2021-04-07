@@ -107,11 +107,8 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analysis infinitum</string>
   <string name="blunder">Peccatus</string>
-  <string name="blunders">Gravia errata</string>
   <string name="mistake">Erratum</string>
-  <string name="mistakes">Errata</string>
   <string name="inaccuracy">Menda</string>
-  <string name="inaccuracies">Minuscula errata</string>
   <string name="moveTimes">Duratio actionum</string>
   <string name="flipBoard">Tabulam vertere</string>
   <string name="threefoldRepetition">Triplex repetitio</string>

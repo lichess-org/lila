@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">Analîza bêdawî</string>
   <string name="removesTheDepthLimit">Sînora kûrahiyê radike, û kombersa te germ digire</string>
   <string name="blunder">Şelipan</string>
-  <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
-  <string name="mistakes">Çewtî</string>
   <string name="inaccuracy">Hemleya nerast</string>
-  <string name="inaccuracies">Hemleyên nerast</string>
   <string name="moveTimes">Demên hemleyan</string>
   <string name="flipBoard">Texteyê biqulipîne</string>
   <string name="threefoldRepetition">Tekrarkirina sêcarî</string>

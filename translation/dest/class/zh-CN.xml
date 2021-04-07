@@ -29,9 +29,11 @@
   <string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
   <string name="generateANewPassword">为学生生成一个新密码</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">%1$s 被 %2$s 邀请</string>
   <string name="realName">真实姓名</string>
   <string name="privateWillNeverBeShown">隐私。永远不会在课外显示。有助回忆学生是谁。</string>
   <string name="addStudent">添加学生</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%2$s is the real name of the student (only visible for the teacher)">为 %2$s 创建的 Lichess 档案 %1$s。</string>
   <string name="studentCredentials">学生：%1$s
 用户名：%2$s
 密码：%3$s</string>

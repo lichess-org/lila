@@ -111,11 +111,8 @@
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
   <string name="blunder">พลาดมหันต์</string>
-  <string name="blunders">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
-  <string name="mistakes">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
-  <string name="inaccuracies">ไม่แม่นยำ</string>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
   <string name="flipBoard">หมุนกระดาน</string>
   <string name="threefoldRepetition">เดินซ้ำสามรอบ</string>

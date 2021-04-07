@@ -111,11 +111,8 @@
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
   <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
   <string name="blunder">اشتباه فاحش</string>
-  <string name="blunders">اشتباهات فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="mistakes">اشتباهات</string>
   <string name="inaccuracy">بی دقتی</string>
-  <string name="inaccuracies">بی‌ دقتی‌ ها</string>
   <string name="moveTimes">مدت زمان حركت</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>

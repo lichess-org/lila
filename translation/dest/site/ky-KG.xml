@@ -105,11 +105,8 @@
   <string name="memory">Эс-тутум</string>
   <string name="infiniteAnalysis">Чексиз анализ</string>
   <string name="blunder">Одоно жаңылыштык</string>
-  <string name="blunders">Одоно ката</string>
   <string name="mistake">Жыңылыштык</string>
-  <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracy">Так эместик</string>
-  <string name="inaccuracies">Так эместик</string>
   <string name="moveTimes">Жүрүштөрдүн убактысы</string>
   <string name="flipBoard">Досканы оодаруу</string>
   <string name="threefoldRepetition">Позициянын үч ирет кайталануусу</string>

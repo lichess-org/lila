@@ -52,4 +52,9 @@
   <string name="history">Užduočių istorija</string>
   <string name="solved">išspręsta</string>
   <string name="failed">nepavyko</string>
+  <string name="streakDescription">Spręskite vis sunkėjančias užduotis ir kaupkite pergalių seriją. Galite neskubėti, kadangi nėra laikrodžio. Vienas neteisingas ėjimas ir žaidimas baigtas! Per sesiją galite praleisti vieną ėjimą.</string>
+  <string name="yourStreakX">Jūsų serija: %s</string>
+  <string name="streakSkipExplanation">Praleiskite ėjimą norėdami išsaugoti savo seriją! Veikia tik vieną kartą per bandymą.</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Tęsti seriją</string>
+  <string name="newStreak">Nauja serija</string>
 </resources>

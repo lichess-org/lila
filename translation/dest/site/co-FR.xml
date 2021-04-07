@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Analisa infiinita</string>
   <string name="removesTheDepthLimit">Ùn ci hè limita di calculu, pò trascaldà u vostru urdinatore</string>
   <string name="blunder">Sbaglione</string>
-  <string name="blunders">Sbaglioni</string>
   <string name="mistake">Sbagliu</string>
-  <string name="mistakes">Sbagli</string>
   <string name="inaccuracy">Imprecisione</string>
-  <string name="inaccuracies">Imprecisioni</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s sbaglione</item>
+    <item quantity="other">%s sbaglioni</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s sbagliu</item>
+    <item quantity="other">%s sbagli</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisione</item>
+    <item quantity="other">%s imprecisioni</item>
+  </plurals>
   <string name="moveTimes">Durata di u coplu</string>
   <string name="flipBoard">Vultà a scacchera</string>
   <string name="threefoldRepetition">Ripetutu trè volte</string>
@@ -160,7 +169,69 @@
   <string name="timeControl">Cuntrollu di u tempu</string>
   <string name="realTime">Tempu reale</string>
   <string name="correspondence">Currispundenza</string>
+  <string name="daysPerTurn">Ghjorni per ghjucà</string>
   <string name="oneDay">Un ghjornu</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ghjornu</item>
+    <item quantity="other">%s ghjorni</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ora</item>
+    <item quantity="other">%s ore</item>
+  </plurals>
+  <string name="time">Tempu</string>
+  <string name="rating">Classifica</string>
+  <string name="ratingStats">Statistichi di classifica</string>
+  <string name="username">Nome d\' utilizatore</string>
+  <string name="usernameOrEmail">Nome d\' utilizatore o di currieru elettronicu</string>
+  <string name="changeUsername">Cambià u so nome d\' utilizatore</string>
+  <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
+  <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
+  <string name="password">Parolla d\'intesa</string>
+  <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
+  <string name="changeEmail">Cambià u vostru currieru elettronicu</string>
+  <string name="email">Currieru elettronicu</string>
+  <string name="passwordReset">Riinizializà a vostra parolla d\' intesa</string>
+  <string name="forgotPassword">Vi site scurdatu a vostra parolla d\' intesa?</string>
+  <string name="rank">Rangu</string>
+  <string name="rankX">Rangu: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">U rangu hè attualiztu ogni minuta</item>
+    <item quantity="other">U rangu hè attualiztu ogni %s minuti</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s prublemu</item>
+    <item quantity="other">%s prublemi</item>
+  </plurals>
+  <string name="gamesPlayed">Partite ghjucate</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partita cù voi</item>
+    <item quantity="other">%s partite cù voi</item>
+  </plurals>
+  <string name="cancel">Annullà</string>
+  <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
+  <string name="blackTimeOut">I neri ùn anu più tempu</string>
+  <string name="drawOfferSent">Offerta di partita patta mandata</string>
+  <string name="drawOfferDeclined">Offerta di patta scartata</string>
+  <string name="drawOfferAccepted">Offerta di patta accettata</string>
+  <string name="drawOfferCanceled">Offerta di patta annullata</string>
+  <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
+  <string name="blackOffersDraw">I neri pruponenu a partita patta</string>
+  <string name="whiteDeclinesDraw">I bianchi ricusanu a partita patta</string>
+  <string name="blackDeclinesDraw">I neri ricusanu a partita patta</string>
+  <string name="yourOpponentOffersADraw">U vostru aversariu prupone a partita patta</string>
+  <string name="accept">Accettà</string>
+  <string name="decline">Ricusà</string>
+  <string name="playingRightNow">Si ghjoca avà</string>
+  <string name="eventInProgress">Si ghjoca avà</string>
+  <string name="finished">Finita</string>
+  <string name="finishesX">finisce %s</string>
+  <string name="abortGame">Aburtì a partita</string>
+  <string name="gameAborted">Partita aburtita</string>
+  <string name="standard">Classica</string>
+  <string name="unlimited">Senza limita</string>
+  <string name="mode">Modu</string>
+  <string name="casual">Senza classifica</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
@@ -187,4 +258,13 @@
   <string name="incrementInSeconds">Raghjunta in seconde</string>
   <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
   <string name="spectators">Spettatori:</string>
+  <string name="apply">Sottumette</string>
+  <string name="save">Salvà</string>
+  <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
+  <string name="pasteTheFenStringHere">Incollà a u testu FEN qì</string>
+  <string name="pasteThePgnStringHere">Incollà u testu PGN quì</string>
+  <string name="fromPosition">Partendu di a pusizione</string>
+  <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
+  <string name="toStudy">Studià</string>
+  <string name="importGame">Impurtà a partita</string>
 </resources>

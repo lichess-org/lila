@@ -121,11 +121,8 @@
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
   <string name="blunder">Hrubá chyba</string>
-  <string name="blunders">Hrubky</string>
   <string name="mistake">Chyba</string>
-  <string name="mistakes">Omyly</string>
   <string name="inaccuracy">Nepřesnost</string>
-  <string name="inaccuracies">Nepřesnosti</string>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
@@ -914,9 +911,9 @@
   <string name="unsubscribe">Zrušit odběr</string>
   <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Partie proti %1$s</string>
+  <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>
   <string name="youJustBecamePatron">Právě jste se stal patronem (podporovatelem) Lichess.</string>
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Vráceno %1$s %2$s ratingových bodů.</string>
+  <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
 </resources>

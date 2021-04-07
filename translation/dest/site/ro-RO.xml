@@ -118,11 +118,8 @@
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
   <string name="blunder">Gafă</string>
-  <string name="blunders">Gafe</string>
   <string name="mistake">Greșeală</string>
-  <string name="mistakes">Greșeli</string>
   <string name="inaccuracy">Inexactitate</string>
-  <string name="inaccuracies">Inexactități</string>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
@@ -891,6 +888,6 @@
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
   <string name="newPendingReview">Revizuire nouă în așteptare</string>
   <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Rambursare: %1$s puncte de evaluare %2$s.</string>
+  <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
 </resources>

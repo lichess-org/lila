@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
   <string name="blunder">Erarego</string>
-  <string name="blunders">Eraregoj</string>
   <string name="mistake">Eraro</string>
-  <string name="mistakes">Eraroj</string>
   <string name="inaccuracy">Erareto</string>
-  <string name="inaccuracies">Eraretoj</string>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>

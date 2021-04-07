@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Elimina lo limite de profundidat de l\'analisi y fa treballar de firme lo tuyo ordinador</string>
   <string name="blunder">Error grieu</string>
-  <string name="blunders">Errors grieus</string>
   <string name="mistake">Error</string>
-  <string name="mistakes">Errors</string>
   <string name="inaccuracy">Imprecisión</string>
-  <string name="inaccuracies">Imprecisions</string>
   <string name="moveTimes">Tiempo per movimiento</string>
   <string name="flipBoard">Chirar lo escaquero</string>
   <string name="threefoldRepetition">Triple repetición</string>

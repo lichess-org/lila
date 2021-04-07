@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playAgain">다시 플레이</string>
+  <string name="accuracy">정확도</string>
+  <string name="highscores">하이스코어</string>
+  <string name="skip">건너뛰기</string>
+  <string name="skipHelp">레이스 당 한 번 건너뛸 수 있습니다:</string>
+</resources>

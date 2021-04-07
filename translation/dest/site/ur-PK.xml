@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">لامحدود تجزیہ</string>
   <string name="removesTheDepthLimit">گہرائی کی حد ختم کریں، یہ آپ کے کمپیوٹر کو گرم رکھے گا</string>
   <string name="blunder">احمقانہ غلطی</string>
-  <string name="blunders">بڑی غلطیاں</string>
   <string name="mistake">غلطی</string>
-  <string name="mistakes">غلطیاں</string>
   <string name="inaccuracy">کمزور چال</string>
-  <string name="inaccuracies">کمزور چالیں</string>
   <string name="moveTimes">چالوں کا دورانیہ</string>
   <string name="flipBoard">بساط کا رخ تبدیل کریں</string>
   <string name="threefoldRepetition">چالوں کی سہ بار تکرار</string>

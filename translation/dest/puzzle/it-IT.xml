@@ -53,6 +53,6 @@
   <string name="streakDescription">Risolvi tattiche progressivamente più difficili e costruisci una striscia vincente. Non c\'è l\'orologio, quindi prenditi il tuo tempo. Una mossa sbagliata ed è game over! Ma puoi saltare una mossa per sessione.</string>
   <string name="yourStreakX">La tua striscia: %s</string>
   <string name="streakSkipExplanation">Salta la prossima mossa per mantenere la striscia positiva! È possibile farlo solo una volta per sessione.</string>
-  <string name="continueTheStreak">Continua la striscia</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continua la striscia</string>
   <string name="newStreak">Nuova striscia</string>
 </resources>

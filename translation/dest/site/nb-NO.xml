@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
   <string name="blunder">Bukk</string>
-  <string name="blunders">Bukker</string>
   <string name="mistake">Feil</string>
-  <string name="mistakes">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>
-  <string name="inaccuracies">Unøyaktigheter</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s bukk</item>
+    <item quantity="other">%s bukker</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s feil</item>
+    <item quantity="other">%s feil</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøyaktighet</item>
+    <item quantity="other">%s unøyaktigheter</item>
+  </plurals>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
@@ -839,16 +848,16 @@
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
   <string name="mentionedYouInX"> nevnte deg i «%1$s».</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s nevnte deg i «%2$s».</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> inviterte deg til «%1$s».</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s inviterte deg til «%2$s».</string>
+  <string name="xMentionedYouInY"> %1$s nevnte deg i «%2$s».</string>
+  <string name="invitedYouToX"> inviterte deg til «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s inviterte deg til «%2$s».</string>
   <string name="youAreNowPartOfTeam">Du er nå med på laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Noen du rapporterte, ble utestengt</string>
   <string name="congratsYouWon">Gratulerer, du vant!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Parti mot %1$s</string>
+  <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
   <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refusjon: %1$s ratingpoeng i %2$s.</string>
+  <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>
 </resources>

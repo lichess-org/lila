@@ -55,11 +55,8 @@
   <string name="noGameFound">Пӗр вӑйӑ та тупӑнман</string>
   <string name="delete">Катерт</string>
   <string name="enable">Пултар</string>
-  <string name="blunders">Тӳрккес йӑнӑшсем</string>
   <string name="mistake">Йӑнӑш</string>
-  <string name="mistakes">Йӑнӑшсем</string>
   <string name="inaccuracy">Кӳрӗнмелле йӑнӑш</string>
-  <string name="inaccuracies">Кӳрӗнмелле йӑнӑшсем</string>
   <string name="moveTimes">Шутланӑ вӑхӑт хушшисем</string>
   <string name="flipBoard">Хӑмана валтӑрт</string>
   <string name="threefoldRepetition">Пӗр лартӑмах виҫ хут лекни</string>

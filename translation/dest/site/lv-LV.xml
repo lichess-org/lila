@@ -118,11 +118,23 @@
   <string name="infiniteAnalysis">Bezgalīga analīze</string>
   <string name="removesTheDepthLimit">Noņem dziļuma ierobežojumu un uztur tavu datoru siltu</string>
   <string name="blunder">Rupja kļūda</string>
-  <string name="blunders">Rupjas kļūdas</string>
   <string name="mistake">Kļūda</string>
-  <string name="mistakes">Kļūdas</string>
   <string name="inaccuracy">Neprecizitāte</string>
-  <string name="inaccuracies">Neprecizitātes</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s rupju kļūdu</item>
+    <item quantity="one">%s rupja kļūda</item>
+    <item quantity="other">%s rupjas kļūdas</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s kļūdu</item>
+    <item quantity="one">%s kļūda</item>
+    <item quantity="other">%s kļūdas</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s neprecizitāšu</item>
+    <item quantity="one">%s neprecizitāte</item>
+    <item quantity="other">%s neprecizitātes</item>
+  </plurals>
   <string name="moveTimes">Gājienu ilgumi</string>
   <string name="flipBoard">Apgriezt galdiņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
@@ -883,7 +895,7 @@
   <string name="youHaveJoinedTeamX">Pievienojāties \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Lietotājam, ko nosūdzējāt, tika slēgts konts</string>
   <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Spēle pret %1$s</string>
+  <string name="gameVsX">Spēle pret %1$s</string>
   <string name="resVsX">%1$s pret %2$s</string>
   <string name="youJustBecamePatron">Tikko kļuvāt par Lichess Sponsoru.</string>
   <string name="patronAccountExpired">Sponsora statuss beidzās</string>
@@ -891,6 +903,6 @@
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
   <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Atlīdzība: %1$s %2$s reitinga punkti.</string>
+  <string name="refundXpointsTimeControlY">Atlīdzība: %1$s %2$s reitinga punkti.</string>
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
 </resources>

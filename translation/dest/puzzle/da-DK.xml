@@ -53,6 +53,6 @@
   <string name="streakDescription">Løs gradvist sværere opgaver og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe et træk over per session.</string>
   <string name="yourStreakX">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
-  <string name="continueTheStreak">Fortsæt stimen</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Fortsæt stimen</string>
   <string name="newStreak">Ny stime</string>
 </resources>

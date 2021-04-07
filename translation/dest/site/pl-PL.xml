@@ -121,11 +121,26 @@
   <string name="infiniteAnalysis">Nieograniczona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
-  <string name="blunders">Błędy</string>
   <string name="mistake">Pomyłka</string>
-  <string name="mistakes">Pomyłki</string>
   <string name="inaccuracy">Niedokładność</string>
-  <string name="inaccuracies">Niedokładności</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s błąd</item>
+    <item quantity="few">%s błędy</item>
+    <item quantity="many">%s błędów</item>
+    <item quantity="other">%s błędów</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s pomyłka</item>
+    <item quantity="few">%s pomyłki</item>
+    <item quantity="many">%s pomyłek</item>
+    <item quantity="other">%s pomyłek</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s niedokładność</item>
+    <item quantity="few">%s niedokładności</item>
+    <item quantity="many">%s niedokładności</item>
+    <item quantity="other">%s niedokładności</item>
+  </plurals>
   <string name="moveTimes">Tempo gry</string>
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
@@ -928,6 +943,6 @@
   <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Zwrot: %1$s %2$s punktów rankingu.</string>
+  <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
 </resources>

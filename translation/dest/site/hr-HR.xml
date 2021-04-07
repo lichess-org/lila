@@ -118,11 +118,8 @@
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunder">Gruba greška</string>
-  <string name="blunders">Grube greške</string>
   <string name="mistake">Greška</string>
-  <string name="mistakes">Pogreške</string>
   <string name="inaccuracy">Nepreciznost</string>
-  <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>

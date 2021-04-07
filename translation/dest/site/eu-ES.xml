@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
   <string name="blunder">Akats larria</string>
-  <string name="blunders">Akats larriak</string>
   <string name="mistake">Akatsa</string>
-  <string name="mistakes">Akatsak</string>
   <string name="inaccuracy">Oker txikia</string>
-  <string name="inaccuracies">Ez zehatzak</string>
   <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
@@ -839,14 +836,14 @@
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
   <string name="mentionedYouInX"> \"%1$s\" -n aipatu zaituzte.</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> \"%1$s\" taldera sartzeko gonbidapena.</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
+  <string name="xMentionedYouInY"> %1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
+  <string name="invitedYouToX"> \"%1$s\" taldera sartzeko gonbidapena.</string>
+  <string name="xInvitedYouToY">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
   <string name="youAreNowPartOfTeam">Taldearen parte zara.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" taldera sartu zara.</string>
   <string name="someoneYouReportedWasBanned">Zuk salatutako jokalari bat bota egin dugu</string>
   <string name="congratsYouWon">Zorionak, irabazi egin duzu!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">%1$s jokalarien aurkako partida</string>
+  <string name="gameVsX">%1$s jokalarien aurkako partida</string>
   <string name="resVsX">%1$s vs. %2$s</string>
   <string name="youJustBecamePatron">Lichess babesle bihurtu zara.</string>
   <string name="patronAccountExpired">Babesle kontua iraungi egin da</string>
@@ -854,6 +851,6 @@
   <string name="someoneReviewedYourCoachProfile">Entrenatzaile profila norbaitek errebisatu du.</string>
   <string name="newPendingReview">Berrikusketa berri egiteke</string>
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Itzulketa: %1$s %2$s puntu.</string>
+  <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
 </resources>
