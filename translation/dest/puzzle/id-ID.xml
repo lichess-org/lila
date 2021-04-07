@@ -42,7 +42,9 @@
   <string name="hardest">Paling sulit</string>
   <string name="example">Contoh</string>
   <string name="addAnotherTheme">Tambah tema lainnya</string>
+  <string name="puzzleDashboard">Beranda Teka-teki</string>
   <string name="strengths">Kekuatan</string>
   <string name="history">Riwayat teka-teki</string>
+  <string name="solved">diselesaikan</string>
   <string name="failed">gagal</string>
 </resources>
