@@ -456,6 +456,7 @@
   <string name="cheat">부정행위</string>
   <string name="insult">모욕</string>
   <string name="troll">분란 조장</string>
+  <string name="ratingManipulation">레이팅 조작</string>
   <string name="other">기타</string>
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
@@ -478,6 +479,7 @@
   <string name="clockInitialTime">기본 시간</string>
   <string name="clockIncrement">한 수당 증가하는 시간</string>
   <string name="privacy">보안</string>
+  <string name="privacyPolicy">개인정보취급방침</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
   <string name="letOtherPlayersChallengeYou">다른 사람이 나에게 도전할 수 있게 함</string>
   <string name="letOtherPlayersInviteYouToStudy">다른 플레이어들이 나를 학습에 초대할 수 있음</string>
@@ -792,4 +794,6 @@
   <string name="youCannotPostYetPlaySomeGames">이 포럼에 글을 올리시기에는 게임 수가 부족합니다.</string>
   <string name="subscribe">구독</string>
   <string name="unsubscribe">구독 취소</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
 </resources>
