@@ -22,4 +22,17 @@
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
+  <string name="mate">Skakmat</string>
+  <string name="mateDescription">Menangkan game dengan bergaya.</string>
+  <string name="mateIn1">Mati dalam 1 Langkah</string>
+  <string name="mateIn1Description">Berikan skakmat dalam satu gerakan.</string>
+  <string name="mateIn2">Mati dalam 2 Langkah</string>
+  <string name="mateIn2Description">Berikan skakmat dalam dua gerakan.</string>
+  <string name="middlegame">Setengah permainan</string>
+  <string name="middlegameDescription">Taktik selama fase kedua permainan.</string>
+  <string name="oneMove">Teka-teki satu gerakan</string>
+  <string name="oneMoveDescription">Teka-teki yang hanya satu gerakan panjang.</string>
+  <string name="opening">Pembuka</string>
+  <string name="openingDescription">Taktik selama fase pertama permainan.</string>
+  <string name="queenEndgame">Ratu akhir permainan</string>
 </resources>
