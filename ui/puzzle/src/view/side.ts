@@ -231,9 +231,12 @@ export function config(ctrl: Controller): MaybeVNode {
         )
       : null,
     h(
-      'a.puzzle__side__config__zen.button.button-empty',
+      'a.puzzle__side__config__zen',
       {
         hook: bind('click', () => lichess.pubsub.emit('zen')),
+        attrs: {
+          title: 'Keyboard: z',
+        },
       },
       ctrl.trans.noarg('zenMode')
     ),
