@@ -13,9 +13,10 @@ function startUserAnalysis(cfg) {
 }
 
 function startAnalyse(cfg) {
+  let analyse;
   lichess.socket = new StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
   });
   cfg.socketSend = li.socket.send;
-  const analyse = window.LichessAnalyse.start(cfg);
+  analyse = window.LichessAnalyse.start(cfg);
 }

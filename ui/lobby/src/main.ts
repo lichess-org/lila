@@ -1,6 +1,7 @@
-import { init, classModule, attributesModule } from 'snabbdom';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { LobbyOpts, Tab } from './interfaces';
+import LobbyController from './ctrl';
 
 export const patch = init([classModule, attributesModule]);
 
@@ -9,15 +10,17 @@ import makeCtrl from './ctrl';
 import view from './view/main';
 
 export default function main(opts: LobbyOpts) {
-  const ctrl = new makeCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  let vnode = patch(opts.element, blueprint);
+  let vnode: VNode, ctrl: LobbyController;
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
+
+  ctrl = new makeCtrl(opts, redraw);
+
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
 
   return {
     socketReceive: ctrl.socket.receive,

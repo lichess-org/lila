@@ -12,12 +12,12 @@ export default function (env: any) {
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 
-  const ctrl = {
-    data: () => env.data,
-    trans: lichess.trans(env.i18n),
-  };
+  let vnode: VNode,
+    ctrl = {
+      data: () => env.data,
+      trans: lichess.trans(env.i18n),
+    };
 
-  let vnode: VNode;
   function redraw() {
     vnode = patch(vnode || element, view(ctrl));
   }

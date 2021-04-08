@@ -16,12 +16,12 @@ export function app(element: HTMLElement, env: any) {
       };
   });
 
-  const ctrl: Ctrl = {
-    data: env.data,
-    trans: lichess.trans(env.i18n),
-  };
+  let vnode: VNode,
+    ctrl: Ctrl = {
+      data: env.data,
+      trans: lichess.trans(env.i18n),
+    };
 
-  let vnode: VNode;
   function redraw() {
     vnode = patch(vnode || element, view(ctrl));
   }

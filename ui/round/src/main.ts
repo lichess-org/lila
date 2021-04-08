@@ -1,4 +1,4 @@
-import { attributesModule, classModule, init } from 'snabbdom';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import boot from './boot';
 import LichessChat from 'chat';
 import menuHover from 'common/menuHover';
@@ -20,15 +20,17 @@ export interface RoundMain {
 const patch = init([classModule, attributesModule]);
 
 export function app(opts: RoundOpts): RoundApi {
-  const ctrl = new RoundController(opts, redraw);
-
-  const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  let vnode = patch(opts.element, blueprint);
+  let vnode: VNode, ctrl: RoundController;
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
+
+  ctrl = new RoundController(opts, redraw);
+
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
 
   window.addEventListener('resize', redraw); // col1 / col2+ transition
 

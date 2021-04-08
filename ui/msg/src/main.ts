@@ -1,6 +1,6 @@
 import view from './view/main';
 
-import { init, classModule, attributesModule } from 'snabbdom';
+import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
 import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
@@ -13,15 +13,17 @@ export default function LichessMsg(opts: MsgOpts) {
   window.addEventListener('resize', appHeight);
   appHeight();
 
-  const ctrl = new MsgCtrl(upgradeData(opts.data), lichess.trans(opts.i18n), redraw);
-
-  const blueprint = view(ctrl);
-  element.innerHTML = '';
-  let vnode = patch(element, blueprint);
+  let vnode: VNode, ctrl: MsgCtrl;
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
+
+  ctrl = new MsgCtrl(upgradeData(opts.data), lichess.trans(opts.i18n), redraw);
+
+  const blueprint = view(ctrl);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
 
   redraw();
 }

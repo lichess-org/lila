@@ -29,18 +29,20 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       }, 50);
     });
     lichess.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
-      const $chart = $('#acpl-chart');
+      let chart,
+        point,
+        $chart = $('#acpl-chart');
       if (fen && fen !== lastFen) {
         inputFen.value = fen;
         lastFen = fen;
       }
       if ($chart.length) {
-        const chart = $chart[0]!['highcharts'];
+        chart = $chart[0]!['highcharts'];
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
             else {
-              const point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtTurn];
+              point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtTurn];
               if (defined(point)) point.select();
               else unselect(chart);
             }
@@ -49,7 +51,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
       if ($timeChart.length) {
-        const chart = $timeChart[0]!['highcharts'];
+        chart = $timeChart[0]!['highcharts'];
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
@@ -57,7 +59,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
               const white = mainlinePly % 2 !== 0;
               const serie = white ? 0 : 1;
               const turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
-              const point = chart.series[serie].data[turn];
+              point = chart.series[serie].data[turn];
               if (defined(point)) point.select();
               else unselect(chart);
             }

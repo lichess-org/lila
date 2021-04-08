@@ -1,4 +1,4 @@
-import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
+import { init, attributesModule, eventListenersModule, classModule, propsModule, VNode } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
@@ -8,15 +8,17 @@ import { EditorConfig } from './interfaces';
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export default function LichessEditor(element: HTMLElement, config: EditorConfig) {
-  const ctrl = new EditorCtrl(config, redraw);
+  let vnode: VNode, ctrl: EditorCtrl;
+
+  const redraw = () => {
+    vnode = patch(vnode, view(ctrl));
+  };
+
+  ctrl = new EditorCtrl(config, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');
   element.appendChild(inner);
-  let vnode = patch(inner, view(ctrl));
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
+  vnode = patch(inner, view(ctrl));
 
   menuHover();
 
