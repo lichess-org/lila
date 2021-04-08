@@ -120,6 +120,21 @@
   <string name="blunder">Gafă</string>
   <string name="mistake">Greșeală</string>
   <string name="inaccuracy">Inexactitate</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s gafă</item>
+    <item quantity="few">%s gafe</item>
+    <item quantity="other">%s de gafe</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s greșeală</item>
+    <item quantity="few">%s greșeli</item>
+    <item quantity="other">%s de greșeli</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s inexactitate</item>
+    <item quantity="few">%s inexactități</item>
+    <item quantity="other">%s de inexactități</item>
+  </plurals>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
