@@ -435,4 +435,14 @@
   <string name="help">Булышу:</string>
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
+  <string name="posts">Хәбәрләр</string>
+  <string name="lastPost">Соңгы хәбәрләр</string>
+  <string name="views">Карамаклар</string>
+  <string name="replies">Җаваплар</string>
+  <string name="replyToThisTopic">Бу сәрхәүгә җавап</string>
+  <string name="reply">Җавап</string>
+  <string name="message">Хәбәр</string>
+  <string name="createTheTopic">Сәрхәү ачу</string>
+  <string name="reportAUser">Кулланучыны белделергә</string>
+  <string name="user">Кулланучы</string>
 </resources>
