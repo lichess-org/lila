@@ -850,5 +850,11 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
   <string name="mentionedYouInX"> foste mencionado em \"%1$s\".</string>
   <string name="xMentionedYouInY"> %1$s mencionou-te em \"%2$s\".</string>
+  <string name="invitedYouToX"> convidou-te para \"%1$s\".</string>
+  <string name="patronAccountExpired">A conta de Patron expirou</string>
+  <string name="pleaseReconsiderRenewIt">Por favor, considera renová-la!</string>
+  <string name="newPendingReview">Nova revisão pendente</string>
+  <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
+  <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
 </resources>
