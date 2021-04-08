@@ -1,20 +1,17 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { init, classModule, attributesModule } from 'snabbdom';
 import makeCtrl from './ctrl';
 import view from './view';
-import { NotifyOpts, Ctrl } from './interfaces';
+import { NotifyOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
 export default function LichessNotify(element: Element, opts: NotifyOpts) {
-  let vnode: VNode, ctrl: Ctrl;
+  const ctrl = makeCtrl(opts, redraw);
+  let vnode = patch(element, view(ctrl));
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
-
-  ctrl = makeCtrl(opts, redraw);
-
-  vnode = patch(element, view(ctrl));
 
   if (opts.data) ctrl.update(opts.data, opts.incoming);
   else ctrl.loadPage(1);

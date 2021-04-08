@@ -1,8 +1,8 @@
-import { init, attributesModule, classModule, VNode } from 'snabbdom';
+import { init, attributesModule, classModule } from 'snabbdom';
 
 import makeCtrl from './ctrl';
 import view from './view';
-import { ChatOpts, Ctrl } from './interfaces';
+import { ChatOpts } from './interfaces';
 import { PresetCtrl } from './preset';
 
 export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
@@ -15,17 +15,15 @@ export default function LichessChat(
 } {
   const patch = init([classModule, attributesModule]);
 
-  let vnode: VNode, ctrl: Ctrl;
+  const ctrl = makeCtrl(opts, redraw);
+
+  const blueprint = view(ctrl);
+  element.innerHTML = '';
+  let vnode = patch(element, blueprint);
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
-
-  ctrl = makeCtrl(opts, redraw);
-
-  const blueprint = view(ctrl);
-  element.innerHTML = '';
-  vnode = patch(element, blueprint);
 
   return ctrl;
 }

@@ -52,9 +52,9 @@ export default function (publicKey: string) {
   });
 
   $checkout.find('button.paypal').on('click', function () {
-    const freq = getFreq();
-    const cents =
-      freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
+    const freq = getFreq(),
+      cents =
+        freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
     if (!cents || cents < min || cents > max) return;
     const amount = cents / 100;
     const $form = $checkout.find('form.paypal_checkout.' + freq);
@@ -70,14 +70,9 @@ export default function (publicKey: string) {
     alert(error);
   };
   $checkout.find('button.stripe').on('click', function () {
-    let freq = getFreq(),
-      amount: number;
-    if (freq == 'lifetime') {
-      amount = lifetime.cents;
-    } else {
-      var $input = $checkout.find('group.amount input:checked');
-      amount = parseInt($input.data('amount'));
-    }
+    const freq = getFreq(),
+      amount =
+        freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
     if (amount < min || amount > max) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
