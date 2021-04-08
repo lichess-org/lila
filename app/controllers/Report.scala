@@ -160,7 +160,7 @@ final class Report(
               case (Some(u), Some(pid)) =>  form.fill(lila.report.ReportSetup(user=u.light, "", text=pid, "", ""))
               case _ =>  form
             }
-            Ok(html.report.form(form, user, captcha)).pp("form")
+            Ok(html.report.form(filledForm, user, captcha))
           }
       }
     }

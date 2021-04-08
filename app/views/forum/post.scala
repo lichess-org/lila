@@ -78,7 +78,7 @@ object post {
                 a(
                   titleOrText(trans.reportXToModerators.txt(userId)),
                   cls := "mod report button button-empty",
-                  href := s"${routes.Report.form}?username=${userId}&postUrl=${post.categId}%2F${topic.name}%23${post.number}",
+                  href := s"${routes.Report.form}?username=${userId}&postUrl=lichess.org%2Fforum%2F${post.categId}%2F${topic.name}%23${post.number}",
                   dataIcon := "!"
                 )
             }
