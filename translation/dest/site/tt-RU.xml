@@ -477,6 +477,16 @@
   <string name="blog">Шәлкемлек</string>
   <string name="questionsAndAnswers">Сораулар &amp; Җаваплар</string>
   <string name="notes">Искәрмәләр</string>
+  <string name="invalidUsernameOrPassword">Кулланучы исеме яки серсүз яраксыз</string>
+  <string name="incorrectPassword">Бозык серсүз</string>
+  <string name="invalidAuthenticationCode">Аутһентикация коды яраксыз</string>
+  <string name="emailMeALink">Сылтама белән миңа хат</string>
+  <string name="currentPassword">Хәзерге серсүз</string>
+  <string name="newPassword">Яңа серсүз</string>
+  <string name="newPasswordAgain">Яңа серсүз (яңадан)</string>
+  <string name="newPasswordsDontMatch">Яңа серсүз килешми</string>
+  <string name="newPasswordStrength">Серсүз ныклыгы</string>
+  <string name="privacy">Шәхсилек</string>
   <string name="privacyPolicy">Хосуслык сәясәте</string>
   <string name="sound">Тавыш</string>
   <string name="none">Юк</string>
