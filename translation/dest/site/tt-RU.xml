@@ -421,4 +421,16 @@
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="watchLichessTV">Кара Личес ТВ</string>
   <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
+  <string name="onlinePlayers">Юрдә уйнаучылар</string>
+  <string name="activeToday">Актив бүген</string>
+  <string name="activePlayers">Актив уйнаучылар</string>
+  <string name="puzzles">Башваткычлар</string>
+  <string name="latestUpdates">Соңгы яңартулар</string>
+  <string name="tournamentWinners">Бәйге җиңүчеселәре</string>
+  <string name="name">Исем</string>
+  <string name="description">Тафсиры</string>
+  <string name="descPrivate">Шәхси тафсиры</string>
+  <string name="no">Юк</string>
+  <string name="yes">Әе</string>
+  <string name="help">Булышу:</string>
 </resources>
