@@ -36,10 +36,10 @@ final class Env(
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
 
-  private def recaptchaPublicConfig = config.recaptcha.public
+  private def hcaptchaPublicConfig = config.hcaptcha.public
 
-  def recaptcha[A](formId: String, form: play.api.data.Form[A]) =
-    RecaptchaForm(form, formId, config.recaptcha.public)
+  def hcaptcha[A](form: play.api.data.Form[A]) =
+    HcaptchaForm(form, config.hcaptcha.public)
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
@@ -48,9 +48,9 @@ final class Env(
 
   lazy val flood = wire[Flood]
 
-  lazy val recaptcha: Recaptcha =
-    if (config.recaptcha.enabled) wire[RecaptchaGoogle]
-    else RecaptchaSkip
+  lazy val hcaptcha: Hcaptcha =
+    if (config.hcaptcha.enabled) wire[HcaptchaReal]
+    else HcaptchaSkip
 
   lazy val forms = wire[SecurityForm]
 

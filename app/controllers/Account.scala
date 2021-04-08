@@ -391,8 +391,8 @@ final class Account(
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.recaptcha.verify() flatMap {
-        _.ok ?? {
+      env.security.hcaptcha.verify() flatMap { captcha =>
+        if (captcha.ok)
           env.security.forms.reopen.form
             .bindFromRequest()
             .fold(
@@ -412,7 +412,7 @@ final class Account(
                     }(rateLimitedFu)
                 }
             )
-        }
+        else BadRequest(renderReopen(none, none)).fuccess
       }
     }
 

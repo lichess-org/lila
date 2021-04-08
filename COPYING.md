@@ -104,6 +104,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [detectlanguage.com](https://detectlanguage.com/)
 - Fallback to [Google Fonts](https://fonts.google.com/)
 - [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
-- [reCAPTCHA](https://www.google.com/recaptcha/)
+- [hCaptcha](https://hcaptcha.com)
 - [PeerJS](https://peerjs.com/) for voice chat
 - [crowdin](https://crowdin.com/project/lichess) for localization
