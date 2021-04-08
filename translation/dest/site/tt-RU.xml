@@ -9,6 +9,7 @@
   <string name="yourTurn">Сез йөрисез</string>
   <string name="aiNameLevelAiLevel">%1$s дәрәҗәсе %2$s</string>
   <string name="level">Дәрәҗә</string>
+  <string name="strength">Ныгыту</string>
   <string name="toggleTheChat">Чатны ачу/ябу</string>
   <string name="toggleSound">Аваз күчү/сүндерү</string>
   <string name="chat">Хәбәр җибәрү</string>
@@ -113,6 +114,11 @@
   <string name="blunder">Зур хата</string>
   <string name="mistake">Хата</string>
   <string name="inaccuracy">Җиңел хата</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s хата
+
+%s хаталар</item>
+  </plurals>
   <string name="moveTimes">Йөреш вакыты</string>
   <string name="flipBoard">Тактаны әйләндерү</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
@@ -411,4 +417,8 @@
   <string name="gameCompletionRate">Тәмамланган уеннар: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
+  <string name="thankYou">Рәхмәт!</string>
+  <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
+  <string name="watchLichessTV">Кара Личес ТВ</string>
+  <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
 </resources>
