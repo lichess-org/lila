@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Přesunout na začátek</string>
+  <string name="moveToStart">Zahrajte tah pro zahájení</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Ve všech úlohách máte bílé figury</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Ve všech úlohách máte černé figury</string>
   <string name="puzzlesSolved">úloh vyřešeno</string>
@@ -8,18 +8,18 @@
   <string name="newWeeklyHighscore">Nové týdenní maximum!</string>
   <string name="newMonthlyHighscore">Nové měsíční maximum!</string>
   <string name="newAllTimeHighscore">Nový osobní rekord!</string>
-  <string name="previousHighscoreWasX">Předchozí rekord byl %s</string>
+  <string name="previousHighscoreWasX">Předchozí osobní rekord byl %s</string>
   <string name="playAgain">Hrát znovu</string>
   <plurals name="xRuns">
-    <item quantity="one">1 běh</item>
+    <item quantity="one">1 pokus</item>
     <item quantity="few">%s běhy</item>
     <item quantity="many">%s běhů</item>
     <item quantity="other">%s běhů</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Odehrán jeden běh z %2$s</item>
-    <item quantity="few">Odehrány %1$s běhy z %2$s</item>
-    <item quantity="many">Odehráno %1$s běhů z %2$s</item>
+    <item quantity="one">Odehrán jeden %2$s</item>
+    <item quantity="few">Odehrány %1$s pokusy %2$s</item>
+    <item quantity="many">Odehráno %1$s her %2$s</item>
     <item quantity="other">Odehráno %1$s běhů z %2$s</item>
   </plurals>
   <string name="highscoreX">Nejvyšší skóre: %s</string>
