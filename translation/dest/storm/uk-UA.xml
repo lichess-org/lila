@@ -40,4 +40,16 @@
   <string name="getReady">Приготуйтеся!</string>
   <string name="waitingForMorePlayers">Очікуємо інших гравців...</string>
   <string name="raceComplete">Гонка завершена!</string>
+  <string name="joinTheRace">Приєднатися до гонки!</string>
+  <string name="yourRankX">Ваше місце: %s</string>
+  <string name="waitForRematch">Очікування реваншу</string>
+  <string name="nextRace">Наступна гонка</string>
+  <string name="joinRematch">Приєднатися до реваншу</string>
+  <string name="waitingToStart">Очікування початку</string>
+  <string name="createNewGame">Створити нову гру</string>
+  <string name="joinPublicRace">Приєднатися до публічної гонки</string>
+  <string name="raceYourFriends">Гонка з друзями</string>
+  <string name="skip">пропустити</string>
+  <string name="skipHelp">Ви можете пропустити один хід за гонку:</string>
+  <string name="skipExplanation">Пропустіть цей хід, щоб зберегти вашу серію! Можна використати тільки один раз.</string>
 </resources>
