@@ -433,4 +433,6 @@
   <string name="no">Юк</string>
   <string name="yes">Әе</string>
   <string name="help">Булышу:</string>
+  <string name="createANewTopic">Яңа сәрхаү ачу</string>
+  <string name="topics">Сәрхәү</string>
 </resources>
