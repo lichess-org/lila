@@ -445,9 +445,17 @@
   <string name="createTheTopic">Сәрхәү ачу</string>
   <string name="reportAUser">Кулланучыны белделергә</string>
   <string name="user">Кулланучы</string>
+  <string name="reason">Сәбаб</string>
+  <string name="whatIsIheMatter">Нәрсә булды?</string>
+  <string name="cheat">Алдамак</string>
+  <string name="insult">Хурламак</string>
   <string name="troll">Троль</string>
   <string name="ratingManipulation">Рейтинг белән уйнамак</string>
   <string name="other">Бүтән</string>
+  <string name="by">%sдан</string>
+  <string name="blog">Шәлкемлек</string>
+  <string name="questionsAndAnswers">Сораулар &amp; Җаваплар</string>
+  <string name="notes">Искәрмәләр</string>
   <string name="always">Һәрвакыт</string>
   <string name="never">Беркачанда</string>
   <string name="difficultyEasy">Җиңел</string>
@@ -457,4 +465,6 @@
   <string name="xAskedY">%1$s сорады %2$s</string>
   <string name="xAnsweredY">%1$s җавап бирде %2$s</string>
   <string name="xCommentedY">%1$s коммент калдырды %2$s</string>
+  <string name="victory">Җиңү</string>
+  <string name="defeat">Җиңелде</string>
 </resources>
