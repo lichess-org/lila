@@ -21,7 +21,7 @@
   <string name="combo">कॉम्बो</string>
   <string name="time">समय</string>
   <string name="timePerMove">समय प्रति चाल</string>
-  <string name="highestSolved">उच्चतम रेटेड पहेली की रेटिंग को सही ढंग से हल किया गया।</string>
+  <string name="highestSolved">सबसे ऊंचा हल</string>
   <string name="puzzlesPlayed">पहेलियां खेलीं</string>
   <string name="newRun">नया रन (हॉटकी: स्पेस)</string>
   <string name="endRun">अंत रन (हॉटकी: दर्ज करें)</string>
