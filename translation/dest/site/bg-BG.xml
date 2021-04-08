@@ -117,6 +117,18 @@
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Неточност</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s груба грешка</item>
+    <item quantity="other">%s груби грешки</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s грешка</item>
+    <item quantity="other">%s грешки</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточност</item>
+    <item quantity="other">%s неточности</item>
+  </plurals>
   <string name="moveTimes">Време за ход</string>
   <string name="flipBoard">Завърти дъската</string>
   <string name="threefoldRepetition">Тройно повторение</string>
