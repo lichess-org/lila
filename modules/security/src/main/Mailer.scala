@@ -9,20 +9,16 @@ import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all._
 
 import lila.common.config.Secret
-import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
+import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailer(
     config: Mailer.Config,
     getSecondaryPermille: () => Int
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
-) {
+)(implicit system: ActorSystem) {
 
-  private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 512, timeout = Mailer.timeout * 2, name = "mailer")
+  implicit private val blockingExecutionContext = system.dispatchers.lookup("blocking-smtp-dispatcher")
 
   private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
@@ -36,22 +32,20 @@ final class Mailer(
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     } else
-      workQueue {
-        Future {
-          Chronometer.syncMon(_.email.send.time) {
-            blocking {
-              randomClient()
-                .send(
-                  Email(
-                    subject = msg.subject,
-                    from = config.sender,
-                    to = Seq(msg.to.value),
-                    bodyText = msg.text.some,
-                    bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
-                  )
+      Future {
+        Chronometer.syncMon(_.email.send.time) {
+          blocking {
+            randomClient()
+              .send(
+                Email(
+                  subject = msg.subject,
+                  from = config.sender,
+                  to = Seq(msg.to.value),
+                  bodyText = msg.text.some,
+                  bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
                 )
-                .unit
-            }
+              )
+              .unit
           }
         }
       }
