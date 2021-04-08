@@ -30,7 +30,7 @@
   <string name="raceFinished">レースが終了しました</string>
   <string name="variantEnding">終局</string>
   <string name="newOpponent">新しい相手</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したい</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したいと言っています</string>
   <string name="joinTheGame">対局に参加する</string>
   <string name="whitePlays">白番です</string>
   <string name="blackPlays">黒番です</string>
@@ -198,8 +198,8 @@
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">引き分けの提案を送信しました</string>
-  <string name="drawOfferDeclined">引き分けを拒否されました</string>
-  <string name="drawOfferAccepted">引き分けを承諾されました</string>
+  <string name="drawOfferDeclined">ドロー提案が拒否されました</string>
+  <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
   <string name="drawOfferCanceled">引き分けの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
@@ -226,7 +226,7 @@
   <string name="rematchOfferSent">再対局を提案しました</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
-  <string name="rematchOfferAccepted">再対局の提案を承諾されました</string>
+  <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
   <string name="cancelRematchOffer">再対局の提案をキャンセル</string>
