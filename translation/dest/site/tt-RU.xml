@@ -429,6 +429,7 @@
   <string name="country">Ил</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
+  <string name="inlineNotation">Кертелгән билгеләнеш</string>
   <string name="watchLichessTV">Кара Личес ТВ</string>
   <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
   <string name="onlinePlayers">Юрдә уйнаучылар</string>
@@ -447,6 +448,7 @@
   <string name="name">Исем</string>
   <string name="description">Тафсиры</string>
   <string name="descPrivate">Шәхси тафсиры</string>
+  <string name="descPrivateHelp">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
   <string name="no">Юк</string>
   <string name="yes">Әе</string>
   <string name="help">Булышу:</string>
