@@ -4,4 +4,8 @@
   <string name="twoFactorHelp">Ике факторлы аутентификация сезнең хисапка тагын бер куркынычсызлык катламы өсти.</string>
   <string name="twoFactorApp">Ике факторлы аутентификация өчен әсбап куегыз, мәсәлән, %1$s andOTP өчен яки %2$s Google Authenticator өчен.</string>
   <string name="scanTheCode">Әсбап белән QR кодыгызны төшерегез.</string>
+  <string name="enterPassword">Урнаштыруны тәмамлау өчен серсүзне һәм кушымта ясаган аутһентикация кодын кертегез. Сез кергән саен аутһентикация коды кирәк булачак.</string>
+  <string name="ifYouCannotScanEnterX">Әгәр дә сез кодны төшерә алмыйсыз икән, кушымтагызга %s серен кертегез.</string>
+  <string name="authenticationCode">Аутһентикаөия коды</string>
+  <string name="ifYouLoseAccess">Искәрмә: Әгәр сез ике факторлы аутһентитикация кодларына керү мөмкинлеген югалтсагыз, серсүзне электрон почта аша яңадан урнаштыра аласыз.</string>
 </resources>
