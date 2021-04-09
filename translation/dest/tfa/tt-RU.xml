@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Ике-факторлы аутһентикация</string>
+  <string name="twoFactorHelp">Ике факторлы аутентификация сезнең хисапка тагын бер куркынычсызлык катламы өсти.</string>
+  <string name="twoFactorApp">Ике факторлы аутентификация өчен әсбап куегыз, мәсәлән, %1$s andOTP өчен яки %2$s Google Authenticator өчен.</string>
+  <string name="scanTheCode">Әсбап белән QR кодыгызны төшерегез.</string>
+</resources>
