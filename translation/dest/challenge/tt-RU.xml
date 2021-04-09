@@ -2,7 +2,11 @@
 <resources>
   <string name="challenges">Сынаулар</string>
   <string name="challengeToPlay">Сынаулар уенда</string>
+  <string name="challengeDeclined">Сынаулар кире кагылды</string>
   <string name="challengeAccepted">Сынаулар алынды!</string>
   <string name="challengeCanceled">Сынауны кире кактылар.</string>
   <string name="registerToSendChallenges">Зинһар теркәл сынаулар җибәрер өчен.</string>
+  <string name="youCannotChallengeX">Сез сыный алмыйсыз %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s сезнең сынауны кире какты.</string>
+  <string name="yourXRatingIsTooFarFromY">Сезнең %1$s рейтингыгыз %2$s дан оглы ара.</string>
 </resources>
