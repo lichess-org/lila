@@ -11,4 +11,7 @@
   <string name="fullDescription">전체 이벤트 설명</string>
   <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">출처 URL 또는 게임 ID</string>
   <string name="roundNumber">라운드 수</string>
+  <string name="startDate">본인 시간대 기준 시작일</string>
+  <string name="cloneBroadcast">방송 복사하기</string>
+  <string name="resetBroadcast">방송 초기화</string>
 </resources>
