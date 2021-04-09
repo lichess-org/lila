@@ -16,7 +16,6 @@ inThisBuild(
     semanticdbVersion := scalafixSemanticdb.revision // use Scalafix compatible version
   )
 )
-addCompilerPlugin(scalafixSemanticdb)
 
 // shorter prod classpath
 scriptClasspath := Seq("*")
