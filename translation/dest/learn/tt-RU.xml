@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Шахмат уйнап,</string>
+  <string name="learnChess">Шахмат уйнап</string>
   <string name="byPlaying">өйрәнегез!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Үтелгән: %s</string>
@@ -14,4 +14,20 @@
   <string name="rookGoal">Турага басыгыз
 һәм аны йолдызга алып китерегез!</string>
   <string name="grabAllTheStars">Бөтен йолдызларны җыеп алыгыз!</string>
+  <string name="queenCombinesRookAndBishop">Әби = тура + вәзир</string>
+  <string name="queenIntro">Иң көчле шаһмат кисәге керә. Аның биеклеге Әби!</string>
+  <string name="queenComplete">Тәбриклийм! Әби сере юк Синең өчен.</string>
+  <string name="theKing">Шаһ</string>
+  <string name="theMostImportantPiece">Иң мөһим сөякләр</string>
+  <string name="kingIntro">Ул Шаһ. Әгәр дә сез сугышта егылса, уен җиңелә.</string>
+  <string name="theKingIsSlow">Шаһ әкрен.</string>
+  <string name="theKnight">Атчы</string>
+  <string name="capture">Алу</string>
+  <string name="stalemate">Пат</string>
+  <string name="advanced">Өстәмә</string>
+  <string name="register">Теркәлү</string>
+  <string name="videos">Видеолар</string>
+  <string name="letsGo">Әйдә!</string>
+  <string name="next">Киләсе</string>
+  <string name="retry">Кабатла</string>
 </resources>

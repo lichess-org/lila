@@ -92,6 +92,13 @@
     <item quantity="many">Досяг #%1$s місця (кращі %2$s%%), зіграна %3$s ігор, турнір: %4$s</item>
     <item quantity="other">Досяг #%1$s місця (кращі %2$s%%), зіграно %3$s ігор, турнір: %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Завершив %s турнір за швейцарською системою</item>
+    <item quantity="few">Завершив %s турніри за швейцарською системою</item>
+    <item quantity="many">Завершив %s турнірів за швейцарською системою</item>
+    <item quantity="other">Завершив %s турніри за швейцарською системою</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Зайняв #%1$s місце в %2$s</string>
   <string name="signedUp">Зареєструвався на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Приєднався до %s команди</item>

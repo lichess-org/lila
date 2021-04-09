@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
   <string name="level">レベル</string>
   <string name="strength">強さ</string>
-  <string name="toggleTheChat">チャットの切り替え</string>
+  <string name="toggleTheChat">チャットのオン・オフ</string>
   <string name="toggleSound">音声のオン・オフ</string>
   <string name="chat">チャット</string>
   <string name="resign">投了</string>
@@ -30,7 +30,7 @@
   <string name="raceFinished">レースが終了しました</string>
   <string name="variantEnding">終局</string>
   <string name="newOpponent">新しい相手</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したい</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したいと言っています</string>
   <string name="joinTheGame">対局に参加する</string>
   <string name="whitePlays">白番です</string>
   <string name="blackPlays">黒番です</string>
@@ -66,7 +66,7 @@
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">ここから削除</string>
   <string name="forceVariation">変化として表示</string>
-  <string name="move">指し手</string>
+  <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
   <string name="insufficientMaterial">駒が不足しています</string>
@@ -78,20 +78,20 @@
   <string name="drawn">ドロー</string>
   <string name="unknown">不明</string>
   <string name="database">データベース</string>
-  <string name="whiteDrawBlack">白勝 / 引き分け/ 黒勝</string>
+  <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近の対局</string>
   <string name="topGames">トップの対局</string>
   <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の対局が200 万局あります</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">%s 手メイト</item>
+    <item quantity="other">%s プライでメイト</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">次の駒取りかポーンの手まで %s プライ（50 手ルールのカウント更新までの手数）</item>
   </plurals>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openingExplorer">オープニング定跡探索</string>
+  <string name="openingExplorer">オープニング探索</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールで引き分け</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールで引き分け</string>
@@ -114,6 +114,15 @@
   <string name="blunder">大悪手</string>
   <string name="mistake">悪手</string>
   <string name="inaccuracy">疑問手</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s 大悪手</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s 悪手</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s 緩手</item>
+  </plurals>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤の上下反転</string>
   <string name="threefoldRepetition">同形三復</string>
@@ -123,7 +132,7 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s人接続中</item>
   </plurals>
-  <string name="currentGames">対局中数</string>
+  <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
   </plurals>
@@ -137,9 +146,9 @@
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中にチェスエンジン、データベース、他人の助言は厳禁です。また、複数アカウントの使用も追放の可能性があります。</string>
   <string name="games">局</string>
-  <string name="forum">掲示板</string>
+  <string name="forum">フォーラム</string>
   <string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
-  <string name="latestForumPosts">最新の掲示板記事</string>
+  <string name="latestForumPosts">最新のフォーラム記事</string>
   <string name="players">プレイヤー</string>
   <string name="friends">友達</string>
   <string name="discussions">トピック</string>
@@ -176,12 +185,12 @@
   <string name="rank">ランク</string>
   <string name="rankX">ランク: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">ランクは %s 分ごとに更新</item>
+    <item quantity="other">順位は %s 分ごとに更新</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス問題</item>
   </plurals>
-  <string name="gamesPlayed">過去の対局数</string>
+  <string name="gamesPlayed">対局数</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
@@ -189,8 +198,8 @@
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">引き分けの提案を送信しました</string>
-  <string name="drawOfferDeclined">引き分けを拒否されました</string>
-  <string name="drawOfferAccepted">引き分けを承諾されました</string>
+  <string name="drawOfferDeclined">ドロー提案が拒否されました</string>
+  <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
   <string name="drawOfferCanceled">引き分けの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
@@ -217,7 +226,7 @@
   <string name="rematchOfferSent">再対局を提案しました</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
-  <string name="rematchOfferAccepted">再対局の提案を承諾されました</string>
+  <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
   <string name="cancelRematchOffer">再対局の提案をキャンセル</string>

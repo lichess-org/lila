@@ -850,7 +850,7 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="subscribe">o kama jo e sona</string>
   <string name="unsubscribe">o pini e sona pi kama sin</string>
   <string name="mentionedYouInX"> li toki e sina lon toki \"%1$s\".</string>
-  <string name="xMentionedYouInY"> jan %1$s li toki e sina lon toki \"%1$s\".</string>
+  <string name="xMentionedYouInY"> jan %1$s li toki e sina lon toki \"%2$s\".</string>
   <string name="invitedYouToX"> li sin e sina tawa musi pi kama sona \"%1$s\".</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>

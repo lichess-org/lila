@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Яшерен</string>
+  <string name="hot">Кайнар</string>
+  <string name="like">Ошый</string>
+  <string name="previous">Алдагы</string>
+  <string name="next">Киләсе</string>
+  <string name="open">Ачу</string>
+  <string name="orientation">Урнашу</string>
+  <string name="noPinnedComment">Бернинди дә</string>
+  <string name="empty">Буш</string>
+  <string name="automatic">Автоматик</string>
+  <string name="visibility">Küreneş</string>
+  <string name="start">Башла</string>
+  <string name="save">Сакла</string>
+</resources>

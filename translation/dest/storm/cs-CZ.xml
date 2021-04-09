@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Přesunout na začátek</string>
+  <string name="moveToStart">Zahrajte tah pro zahájení</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Ve všech úlohách máte bílé figury</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Ve všech úlohách máte černé figury</string>
   <string name="puzzlesSolved">úloh vyřešeno</string>
@@ -8,18 +8,18 @@
   <string name="newWeeklyHighscore">Nové týdenní maximum!</string>
   <string name="newMonthlyHighscore">Nové měsíční maximum!</string>
   <string name="newAllTimeHighscore">Nový osobní rekord!</string>
-  <string name="previousHighscoreWasX">Předchozí rekord byl %s</string>
+  <string name="previousHighscoreWasX">Předchozí osobní rekord byl %s</string>
   <string name="playAgain">Hrát znovu</string>
   <plurals name="xRuns">
-    <item quantity="one">1 běh</item>
+    <item quantity="one">1 pokus</item>
     <item quantity="few">%s běhy</item>
     <item quantity="many">%s běhů</item>
     <item quantity="other">%s běhů</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Odehrán jeden běh z %2$s</item>
-    <item quantity="few">Odehrány %1$s běhy z %2$s</item>
-    <item quantity="many">Odehráno %1$s běhů z %2$s</item>
+    <item quantity="one">Odehrán jeden %2$s</item>
+    <item quantity="few">Odehrány %1$s pokusy %2$s</item>
+    <item quantity="many">Odehráno %1$s her %2$s</item>
     <item quantity="other">Odehráno %1$s běhů z %2$s</item>
   </plurals>
   <string name="highscoreX">Nejvyšší skóre: %s</string>
@@ -29,8 +29,8 @@
   <string name="combo">Kombo</string>
   <string name="time">Čas</string>
   <string name="timePerMove">Čas na tah</string>
-  <string name="highestSolved">Nejtěžší vyřešená</string>
-  <string name="puzzlesPlayed">Odehráno úloh</string>
+  <string name="highestSolved">Nejtěžší vyřešená úloha</string>
+  <string name="puzzlesPlayed">Přehrané úlohy</string>
   <string name="newRun">Nový pokus (klávesa: Mezerník)</string>
   <string name="endRun">Ukončit pokus (klávesa: Enter)</string>
   <string name="highscores">Nejvyšší skóre</string>
@@ -39,18 +39,18 @@
   <string name="runs">Pokusy</string>
   <string name="getReady">Připravte se!</string>
   <string name="waitingForMorePlayers">Čeká se na připojení dalších hráčů...</string>
-  <string name="raceComplete">Závod dokončen!</string>
+  <string name="raceComplete">Závod ukončen!</string>
   <string name="spectating">Sledování</string>
   <string name="joinTheRace">Připojte se k závodu!</string>
-  <string name="yourRankX">Vaše hodnost: %s</string>
+  <string name="yourRankX">Pořadí v závodu: %s</string>
   <string name="waitForRematch">Počkejte na další kolo</string>
   <string name="nextRace">Další závod</string>
   <string name="joinRematch">Připojit se k odvetě</string>
-  <string name="waitingToStart">Čekám na zahájení</string>
-  <string name="createNewGame">Vytvořit novou hru</string>
+  <string name="waitingToStart">Čeká se na zahájení</string>
+  <string name="createNewGame">Vytvořit nový závod</string>
   <string name="joinPublicRace">Připojit se k veřejnému závodu</string>
   <string name="raceYourFriends">Závodit s přáteli</string>
   <string name="skip">přeskočit</string>
   <string name="skipHelp">V každém závodě můžete přeskočit jeden tah:</string>
-  <string name="skipExplanation">Přeskočte tento krok pro zachování své série! Funguje pouze jednou za každý závod.</string>
+  <string name="skipExplanation">Přeskočte tento tah pro zachování své série! Funguje pouze jednou za závod.</string>
 </resources>

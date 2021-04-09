@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Сынаулар</string>
+  <string name="challengeToPlay">Сынаулар уенда</string>
+  <string name="challengeAccepted">Сынаулар алынды!</string>
+  <string name="challengeCanceled">Сынауны кире кактылар.</string>
+  <string name="registerToSendChallenges">Зинһар теркәл сынаулар җибәрер өчен.</string>
+</resources>

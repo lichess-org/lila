@@ -52,17 +52,36 @@ Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. 
 Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má kámen, který by mohl králi zatarasit únikovou cestu.</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
+  <string name="explainingEnPassant">Tento tah je však platný a podle pravidel, a nazává se \"en passant\", neboli braní mimochodem. Můžete si přečíst tento článek na Wikipedii: %1$s.
+
+Braní mimochodem je také popsáno v článku 3.7 (d) %2$s:
+\"Pěšec ohrožující pole, které přešel soupeřův pěšec, jenž ze základního pole postoupil jedním tahem o dvě pole, může tohoto soupeřova pěšce brát, jako by tento pěšec postoupil pouze o jedno pole. Toto braní lze provést pouze jako bezprostřední odpověď a nazývá se „braní mimochodem“.\"
+Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
+  <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
+  <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojí opakování pozice</string>
   <string name="notRepeatedMoves">Neopakovali jsme tahy, i tak ale hra skončila remízou pro opakování tahů? Proč?</string>
+  <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Jaké tituly jsou na Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro živou hru (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
+  <string name="showYourTitle">Jestliže máte šachový titul, který Lichess uznává, můžete vyplněním %1$s získat odznak titulovaného hráče, resp. Váš titul bude zobrazen před Vaším uživatelským jménem. 
+Jako ověřený titulovaný hráč se můžete účastnit tzv. Titled Arena turnaje na Lichess.
+
+Nakonec existuje ještě čestný titul %2$s.</string>
+  <string name="asWellAsManyNMtitles">mnoho titulů jednotlivých národních federací</string>
+  <string name="verificationForm">ověřovacího formuláře</string>
   <string name="canIbecomeLM">Mohu získat titul mistra Lichess (LM)?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tento čestný titul je neoficiální a existuje pouze na Lichess.
+Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili o rozšiřování komunity Lichess. Titul Vám přidělíme my, požádat o něj nelze, ale můžete jej i odmítnout.</string>
+  <string name="whatUsernameCanIchoose">Jaké si mám zvolit uživatelské jméno?</string>
+  <string name="usernamesNotOffensive">Obecně platí, že uživatelská jména by neměla být: urážlivá, uživatel by se vydávat za někoho jiného, a neměla by sloužit jako reklama. Více si o tom můžete přečíst %1$s.</string>
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
@@ -73,6 +92,9 @@ Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdc
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">odehrát alespoň 30 hodnocených partií v dané časové kontrole,</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
+  <string name="enableZenMode">V %1$s si zapněte zen-mód, či stiskněte %2$s během partie.</string>
+  <string name="displayPreferences">předvolbách</string>
+  <string name="connexionLostCanIGetMyRatingBack">Kvůli pomalému připojení/ztrátě připojení jsem prohrál partii, mohu získat své ratingové body zpátky?</string>
   <string name="howToThreeDots">Jak...</string>
   <string name="enableDisableNotificationPopUps">Povolit nebo zakázat oznámení?</string>
 </resources>

@@ -117,6 +117,18 @@
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s erro grave</item>
+    <item quantity="other">%s erros graves</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s erro</item>
+    <item quantity="other">%s erros</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisão</item>
+    <item quantity="other">%s imprecisões</item>
+  </plurals>
   <string name="moveTimes">Tempo das jogadas</string>
   <string name="flipBoard">Inverter o tabuleiro</string>
   <string name="threefoldRepetition">Repetição tripla</string>
@@ -466,6 +478,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
+  <string name="descPrivate">Descrição privada</string>
+  <string name="descPrivateHelp">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="help">Ajuda:</string>
@@ -486,6 +500,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cheat">Batota</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulação do Elo</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Inclui o link do(s) jogo(s) e explica o que há de errado com o comportamento deste utilizador. Não digas apenas \"ele faz batota\"; informa-nos como chegaste a essa conclusão. A tua denúncia será processada mais rapidamente se for escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
@@ -577,6 +592,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="error.email_unique">Este endereço de e-mail já foi usado</string>
   <string name="error.email_different">Este já é o teu e-mail</string>
   <string name="ifRatingIsPlusMinusX">Se a pontuação for ± %s</string>
+  <string name="onlyExistingConversations">Apenas conversas existentes</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
@@ -832,4 +848,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
   <string name="subscribe">Subscrever-se</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
+  <string name="mentionedYouInX"> foste mencionado em \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mencionou-te em \"%2$s\".</string>
+  <string name="invitedYouToX"> convidou-te para \"%1$s\".</string>
+  <string name="patronAccountExpired">A conta de Patron expirou</string>
+  <string name="pleaseReconsiderRenewIt">Por favor, considera renová-la!</string>
+  <string name="newPendingReview">Nova revisão pendente</string>
+  <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
+  <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
+  <string name="timeAlmostUp">O tempo está quase a terminar!</string>
 </resources>

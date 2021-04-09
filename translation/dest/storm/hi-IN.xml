@@ -17,13 +17,11 @@
   <string name="highscoreX">सर्वश्रेष्ठ स्कोर: %s</string>
   <string name="score">स्कोर</string>
   <string name="moves">चाल</string>
-  <string name="accuracy">सटीकता आपके अन्य आँकड़ों के साथ एक पहेली भीड़ को पूरा करने के बाद प्रदर्शित की जाती है</string>
-  <string name="combo">एक \"कॉम्बो\" सही ढंग से हल की गई पहेली का एक अनुमानात्मक अनुक्रम है। प्रत्येक सही कदम कॉम्बो बार को भरता है। जब बार भरा होता है, तो आपको एक समय बोनस मिलता है, और आप अगले बोनस के मूल्य में वृद्धि करते हैं।
-
-यह स्ट्रिंग आपके सबसे अच्छे कॉम्बो का शीर्षक है, जो कि आँकड़ों के पेज में दिखाया गया है, जो एक पहेली तूफान का एक रन पूरा करने के बाद है।</string>
+  <string name="accuracy">शुद्धता</string>
+  <string name="combo">कॉम्बो</string>
   <string name="time">समय</string>
   <string name="timePerMove">समय प्रति चाल</string>
-  <string name="highestSolved">उच्चतम रेटेड पहेली की रेटिंग को सही ढंग से हल किया गया।</string>
+  <string name="highestSolved">सबसे ऊंचा हल</string>
   <string name="puzzlesPlayed">पहेलियां खेलीं</string>
   <string name="newRun">नया रन (हॉटकी: स्पेस)</string>
   <string name="endRun">अंत रन (हॉटकी: दर्ज करें)</string>

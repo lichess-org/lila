@@ -123,6 +123,24 @@
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepřesnost</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s hrubá chyba</item>
+    <item quantity="few">%s hrubé chyby</item>
+    <item quantity="many">%s hrubých chyb</item>
+    <item quantity="other">%s hrubých chyb</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s chyba</item>
+    <item quantity="few">%s chyby</item>
+    <item quantity="many">%s chyb</item>
+    <item quantity="other">%s chyb</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepřesnost</item>
+    <item quantity="few">%s nepřesnosti</item>
+    <item quantity="many">%s nepřesností</item>
+    <item quantity="other">%s nepřesností</item>
+  </plurals>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
@@ -909,11 +927,17 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
+  <string name="mentionedYouInX"> vás zmínil v \"%1$s\".</string>
+  <string name="invitedYouToX"> vás pozval ke studii \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
+  <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
   <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>
   <string name="youJustBecamePatron">Právě jste se stal patronem (podporovatelem) Lichess.</string>
+  <string name="someoneReviewedYourCoachProfile">Někdo přidal recenzi na váš profil trenéra.</string>
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
+  <string name="timeAlmostUp">Čas vám běží!</string>
 </resources>
