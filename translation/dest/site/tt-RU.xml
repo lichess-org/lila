@@ -477,6 +477,7 @@
   <string name="blog">Шәлкемлек</string>
   <string name="questionsAndAnswers">Сораулар &amp; Җаваплар</string>
   <string name="notes">Искәрмәләр</string>
+  <string name="typePrivateNotesHere">Шәхси язма монда калдырыгыз</string>
   <string name="invalidUsernameOrPassword">Кулланучы исеме яки серсүз яраксыз</string>
   <string name="incorrectPassword">Бозык серсүз</string>
   <string name="invalidAuthenticationCode">Аутһентикация коды яраксыз</string>
@@ -486,6 +487,8 @@
   <string name="newPasswordAgain">Яңа серсүз (яңадан)</string>
   <string name="newPasswordsDontMatch">Яңа серсүз килешми</string>
   <string name="newPasswordStrength">Серсүз ныклыгы</string>
+  <string name="clockInitialTime">Сәгатьнең баштагы вакыты</string>
+  <string name="clockIncrement">Сәгатьнең артуы</string>
   <string name="privacy">Шәхсилек</string>
   <string name="privacyPolicy">Хосуслык сәясәте</string>
   <string name="sound">Тавыш</string>
