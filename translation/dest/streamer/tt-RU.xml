@@ -39,6 +39,12 @@
   <plurals name="keepItShort">
     <item quantity="other">Кыскартып саклагыз: азагында %s билге</item>
   </plurals>
+  <string name="visibility">Күрсәтә алган агымчы бите</string>
+  <string name="whenApproved">Модераторлар тарафыннан расланган вакытта</string>
+  <string name="headline">Атамасы</string>
+  <string name="tellUsAboutTheStream">Агым турында бер җөмләдә сөйләгез</string>
+  <string name="longDescription">Озын тасвирлау</string>
+  <string name="xStreamerPicture">%s агым рәсеме</string>
   <string name="changePicture">Алыштырырга/бетерергә сезнең рәсемне</string>
   <string name="uploadPicture">Кертергә рәсам</string>
   <string name="deletePicture">Рәсемне бетерергә</string>
