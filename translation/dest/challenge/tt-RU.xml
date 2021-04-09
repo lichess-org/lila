@@ -9,4 +9,11 @@
   <string name="youCannotChallengeX">Сез сыный алмыйсыз %s.</string>
   <string name="xDoesNotAcceptChallenges">%s сезнең сынауны кире какты.</string>
   <string name="yourXRatingIsTooFarFromY">Сезнең %1$s рейтингыгыз %2$s дан оглы ара.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Сынау вакытлы %s рейтингыгыз аркасында кыенлыклар тудыра алмый.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s ала сынаулар дустлардан гына.</string>
+  <string name="declineGeneric">Мин алмыйм сынауларны бу вакытта.</string>
+  <string name="declineLater">Бу минем өчен дөрес вакыт түгел, зинһар, соңрак кабат сорагыз.</string>
+  <string name="declineTooFast">Бу вакыт тикшерүе бик тиз минем өчен, зинһар сынагыз яңадан озаграк уен белән.</string>
+  <string name="declineTooSlow">Бу вакыт тикшерүе бик озак минем өчен, зинһар сынагыз яңадан тиз уен белән.</string>
+  <string name="declineTimeControl">Мин алмыйм сынауларны вакыт тикшерүе белән.</string>
 </resources>
