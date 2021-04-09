@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Сәгать саен Тиз Мәйдан</string>
+  <string name="hourlyRapid">Сәгать саен Тиз</string>
+  <string name="hourlyXArena">Сәгать саен %s Мәйдан</string>
+  <string name="hourlyX">Сәгать саен %s</string>
+  <string name="dailyRapidArena">Көн саен Тиз Мәйдан</string>
+  <string name="dailyRapid">Көн саен Тиз</string>
+  <string name="dailyClassicalArena">Көн саен Хуп Мәйдан</string>
+  <string name="dailyClassical">Көн саен Хуп</string>
+  <string name="dailyXArena">Көн саен %s Мәйдан</string>
+  <string name="dailyX">Көн саен %s</string>
+  <string name="easternRapidArena">Көнчыгыш Тиз Мәйдан</string>
+  <string name="easternRapid">Көнчыгыш Тиз</string>
+  <string name="easternClassicalArena">Көнчыгыш Хуп Мәйдан</string>
+  <string name="easternClassical">Көнчыгыш Хуп</string>
+  <string name="easternXArena">Көнчыгыш %s Мәйдан</string>
+  <string name="easternX">Көнчыгыш %s</string>
+  <string name="weeklyRapidArena">Атна саен Тиз Мәйдан</string>
+  <string name="weeklyRapid">Атна саен Тиз</string>
+  <string name="weeklyClassicalArena">Атна саен Хуп Мәйдан</string>
+  <string name="weeklyClassical">Атна саен Хуп</string>
+  <string name="weeklyXArena">Атна саен %s Мәйдан</string>
+  <string name="weeklyX">Атна саен %s</string>
+  <string name="monthlyRapidArena">Ай саен Тиз Мәйдан</string>
+</resources>
