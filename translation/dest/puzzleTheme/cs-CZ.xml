@@ -33,6 +33,8 @@
   <string name="exposedKing">Ohrožený král</string>
   <string name="fork">Vidlička</string>
   <string name="hangingPiece">Visící figura</string>
+  <string name="interference">Překrytí</string>
+  <string name="interferenceDescription">Tah figurou na pole mezi dvě soupeřovy figury, aby jedna z nich byla nechráněná, například tah jezdcem na chráněné pole mezi dvě soupeřovy věže.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="knightEndgame">Jezdcové koncovky</string>
   <string name="knightEndgameDescription">Koncovka jen s jezdci a pěšci.</string>
