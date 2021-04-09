@@ -552,6 +552,14 @@
   <string name="zeroAdvertisement">Сәрмая юк</string>
   <string name="fullFeatured">Барлык үзенчәлекләр</string>
   <string name="phoneAndTablet">Кәрәзле телефон һәм планшет</string>
+  <string name="bulletBlitzClassical">Мәрми, яшенчә, хуп</string>
+  <string name="correspondenceChess">Язылу шаһматы</string>
+  <string name="onlineAndOfflinePlay">Чилтәрдә һәм чилтәрсез уйнамак</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="other">%s телдә бар!</item>
+  </plurals>
+  <string name="gameAnalysis">Уенны уйланырга</string>
+  <string name="xHostsY">%1$s хуҗасы %2$s</string>
   <string name="language">Тел</string>
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
