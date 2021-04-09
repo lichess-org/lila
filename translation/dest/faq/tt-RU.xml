@@ -7,6 +7,11 @@
   <string name="leechess">lee-шаһмат</string>
   <string name="hearItPronouncedBySpecialist">Аны белгеч игълан иткәнне ишетегез.</string>
   <string name="whyLiveLightLibre">Яши, чөнки уеннар чын вакытта 24 сәгать уйныйлар һәм карыйлар; Lichess ачык чыганаклы булуы һәм бүтән вебсайтларны җәберләүче милек кирәксезлеге өчен җиңел.</string>
+  <string name="whyIsLilaCalledLila">Шулай ук, Lichess өчен чыганак коды,%1$s, li[chess scа]la дигәнне аңлата, чөнки Lichessның күпчелек өлеше интуитив программалаштыру теле %2$s белән язылган.</string>
+  <string name="fideHandbookX">FIDE кулланмасы %s</string>
+  <string name="goodIntroduction">якшы кереш сүз</string>
+  <string name="officialRulesPDF">төпләнгән кагыйдәләр (PDF)</string>
+  <string name="lichessTraining">Lichess күнегүе</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
   <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
 </resources>
