@@ -20,11 +20,12 @@ object BuildSettings {
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
       // No bloop project for tests
-      bloopGenerate in Test := None,
+      Test / bloopGenerate := None,
       // disable publishing doc and sources
-      sources in (Compile, doc) := Seq.empty,
-      publishArtifact in (Compile, packageDoc) := false,
-      publishArtifact in (Compile, packageSrc) := false,
+      Compile / sources := Seq.empty,
+      doc / sources := Seq.empty,
+      packageDoc / publishArtifact := false,
+      Compile / publishArtifact := false,
       javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
@@ -98,8 +99,8 @@ object BuildSettings {
   )
 
   val srcMain = Seq(
-    scalaSource in Compile := (sourceDirectory in Compile).value,
-    scalaSource in Test := (sourceDirectory in Test).value
+    Compile / scalaSource := (Compile / sourceDirectory).value,
+    Test / scalaSource := (Test / sourceDirectory).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

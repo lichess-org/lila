@@ -13,7 +13,7 @@ lazy val root = Project("lila", file("."))
 // shorter prod classpath
 scriptClasspath := Seq("*")
 maintainer := "contact@lichess.org"
-resourceDirectory in Compile := baseDirectory.value / "conf"
+Compile / resourceDirectory := baseDirectory.value / "conf"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
@@ -48,20 +48,20 @@ lazy val api = module("api",
   moduleCPDeps,
   Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce, specs2) ++ reactivemongo.bundle
 ).settings(
-  aggregate in Runtime := false,
-  aggregate in Test := true  // Test <: Runtime
+  Runtime / aggregate := false,
+  Test / aggregate := true  // Test <: Runtime
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = smallModule("i18n",
   Seq(common, db, hub),
   Seq(scalatags, specs2)
 ).settings(
-  sourceGenerators in Compile += Def.task {
+  Compile / sourceGenerators += Def.task {
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
       dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm".split(' ').toList,
-      compileTo = (sourceManaged in Compile).value
+      compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
 )
