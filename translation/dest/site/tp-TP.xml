@@ -85,7 +85,7 @@
   <string name="topGames">musi pi jan wawa</string>
   <string name="masterDbExplanation">jan musi pi nanpa wawa %1$s (anu sewi) li musi lon tenpo mute mute tan tenpo sike nanpa %2$s tawa tenpo sike nanpa %3$s.</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">lawa mije li moli lon tawa %s</item>
+    <item quantity="one">mije lawa li moli lon tawa kama %s</item>
     <item quantity="other">lawa mije li moli lon tawa %s</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
