@@ -68,7 +68,7 @@ object BuildSettings {
     "-language:postfixOps",
     "-Ymacro-annotations",
     // Warnings as errors!
-    // "-Xfatal-warnings",
+    "-Xfatal-warnings",
     // Linting options
     "-unchecked",
     "-Xcheckinit",
@@ -92,9 +92,9 @@ object BuildSettings {
     // "-Wunused:imports",
     // "-Wunused:locals",
     "-Wunused:patvars",
-    // "-Wunused:privates", // unfortunately doesn't work with macros
-    // "-Wunused:implicits",
-    // "-Wunused:params"
+    // "-Wunused:privates",  // unfortunately doesn't work with wire macros
+    // "-Wunused:implicits", // unfortunately doesn't work with wire macros
+    // "-Wunused:params"     // unfortunately doesn't work with wire macros
     "-Wvalue-discard"
   )
 
