@@ -641,9 +641,23 @@
   <string name="xWasPlayed">%s уйнады</string>
   <string name="findBetterMoveForWhite">Эзлә иң якшы хәрәкәтне аклар өчен</string>
   <string name="findBetterMoveForBlack">Эзлә иң якшы хәрәкәтне каралар өчен</string>
+  <string name="resumeLearning">Өйрәнүгә кайту</string>
+  <string name="noMistakesFoundForBlack">Табылмады караларның хаталары</string>
+  <string name="doneReviewingWhiteMistakes">Аклар хаталарын карау булды</string>
+  <string name="doneReviewingBlackMistakes">Каралар хаталарын карау булды</string>
+  <string name="doItAgain">Кабат ясарга</string>
+  <string name="reviewWhiteMistakes">Тагын карарга аклар хаталарын</string>
+  <string name="reviewBlackMistakes">Тагын карарга каралар хаталарын</string>
+  <string name="advantage">Өстенлек</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s секунд</item>
   </plurals>
+  <string name="opening">Башлагыч</string>
+  <string name="middlegame">Урта уен</string>
+  <string name="endgame">Уен азагы</string>
+  <string name="playX">Уйнау %s</string>
+  <string name="sorry">Юаныч :(</string>
+  <string name="why">Нигә?</string>
   <string name="edit">Үзгәртү</string>
   <string name="classical">Классика</string>
 </resources>
