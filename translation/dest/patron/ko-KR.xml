@@ -8,7 +8,19 @@
   <string name="freeChess">무료 체스를 모두에게, 영원히!</string>
   <string name="noAdsNoSubs">광고와 구독이 없습니다. 하지만 오픈소스이고 열정이 있죠.</string>
   <string name="thankYou">기부해 주셔서 감사합니다!</string>
+  <string name="youHaveLifetime">당신은 평생 후원 계정입니다. 엄청나네요!</string>
+  <string name="patronUntil">당신은 %s까지 후원 계정입니다.</string>
+  <string name="ifNotRenewed">갱신하지 않는다면 무료 계정으로 다운그레이드 됩니다.</string>
+  <string name="weAreNonProfit">우리는 비영리 단체입니다. 모두가 세계적 수준의 무료 체스 플랫폼을 이용할 수 있어야 한다고 믿기 때문입니다.</string>
+  <string name="weRelyOnSupport">우리는 이를 가능하게 하기 위해 여러분과 같은 사람들의 지원에 의존합니다. Lichess를 즐긴다면 기부하고 후원자가 되어 지원해주세요!</string>
+  <string name="lifetime">평생</string>
+  <string name="monthly">매월</string>
+  <string name="onetime">한번</string>
+  <string name="otherAmount">기타</string>
+  <string name="pleaseEnterAmount">금액을 미국 달러로 입력해주세요.</string>
   <string name="withCreditCard">신용카드</string>
+  <string name="withPaypal">페이팔</string>
+  <string name="weAreSmallTeam">우리는 작은 팀이기 때문에 당신의 지원이 큰 차이를 만듭니다!</string>
   <string name="currentStatus">현재 상태</string>
   <string name="nextPayment">다음 결제일</string>
 </resources>
