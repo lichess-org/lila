@@ -22,6 +22,57 @@
   .notifications.scrolling {
     opacity: 0.5;
   }
+
+  .pager {
+    display: block;
+    padding: 0.5rem;
+    text-align: center;
+
+    &.disabled::before {
+      opacity: 0.3;
+    }
+
+    &:not(.disabled) {
+      cursor: pointer;
+      color: $c-link;
+
+      @include transition;
+    }
+
+    &:not(.disabled):hover {
+      background: $c-primary;
+      color: $c-primary-over;
+    }
+
+    &.prev {
+      border-bottom: $border;
+    }
+  }
+
+  .browser-notification {
+    display: block;
+    padding: 0.5em 1em;
+    background: $c-brag;
+    color: $c-brag-over;
+  }
+
+  .content {
+    flex: 0 1 100%;
+
+    span:first-child {
+      @extend %flex-between;
+    }
+
+    span:last-child {
+      @extend %ellipsis;
+
+      display: block;
+    }
+
+    time {
+      @extend %roboto;
+    }
+  }
 }
 
 .site_notification {
@@ -60,56 +111,5 @@
     font-size: 2em;
     opacity: 0.5;
     margin-right: 1rem;
-  }
-}
-
-.pager {
-  display: block;
-  padding: 0.5rem;
-  text-align: center;
-
-  &.disabled::before {
-    opacity: 0.3;
-  }
-
-  &:not(.disabled) {
-    cursor: pointer;
-    color: $c-link;
-
-    @include transition;
-  }
-
-  &:not(.disabled):hover {
-    background: $c-primary;
-    color: $c-primary-over;
-  }
-
-  &.prev {
-    border-bottom: $border;
-  }
-}
-
-.browser-notification {
-  display: block;
-  padding: 0.5em 1em;
-  background: $c-brag;
-  color: $c-brag-over;
-}
-
-.content {
-  flex: 0 1 100%;
-
-  span:first-child {
-    @extend %flex-between;
-  }
-
-  span:last-child {
-    @extend %ellipsis;
-
-    display: block;
-  }
-
-  time {
-    @extend %roboto;
   }
 }
