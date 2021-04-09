@@ -515,8 +515,12 @@
   <string name="xCommentedY">%1$s коммент калдырды %2$s</string>
   <string name="victory">Җиңү</string>
   <string name="defeat">Җиңелде</string>
+  <string name="victoryVsYInZ">%3$s монда %1$s каршы %2$s</string>
+  <string name="defeatVsYInZ">%3$s монда %1$s каршы %2$s</string>
+  <string name="drawVsYInZ">%3$s монда %1$s каршы %2$s</string>
   <string name="timeline">Вакыт узуы</string>
   <string name="starting">Башлануы:</string>
+  <string name="allInformationIsPublicAndOptional">Барлык мәгълүмат җәмәгать һәм өстәмә.</string>
   <string name="yourCityRegionOrDepartment">Сезнең шәһәрегез, өлкәгез, яки төбәгегез.</string>
   <string name="biographyDescription">Сөйләгез үзегез хакында, сезнең кызыксындырулар турында, Ни сез яратасыз шаһматта, сезнең яраткан ачылышыгыз, кулланучыгыз,...</string>
   <plurals name="maximumNbCharacters">
@@ -525,6 +529,7 @@
   <plurals name="blocks">
     <item quantity="other">%s кисетелгән</item>
   </plurals>
+  <string name="listBlockedPlayers">Язмасындагы кулланучыларны сез кисәттегез</string>
   <string name="human">Кеше</string>
   <string name="computer">К</string>
   <string name="side">Як</string>
@@ -542,20 +547,25 @@
   <string name="practice">Практика</string>
   <string name="community">Җәмәгать</string>
   <string name="tools">Кораллар</string>
+  <string name="increment">Артуы</string>
   <string name="sharePGN">Җибәрергә PGN</string>
   <string name="playOnline">Уйнарга челтәрдә</string>
   <string name="playOffline">Уйнарга челтәрсез</string>
+  <string name="allowAnalytics">Аноним статистикага рөхсәт итегез</string>
   <string name="shareGameURL">Җибәрергә уен URL</string>
   <string name="error.required">Бу алан кирәкле</string>
   <string name="error.email">Бу почта адресы дөрес түгел</string>
   <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
+  <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
+  <string name="castling">Ныгытма</string>
   <string name="whiteCastlingKingside">Аклар O-O</string>
   <string name="blackCastlingKingside">Каралар O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s аралашу хәбәры</item>
   </plurals>
+  <string name="watchGames">Кара уеннарны</string>
   <string name="watch">Кара</string>
   <string name="videoLibrary">Видео җиентыгы</string>
   <string name="streamersMenu">Алып баручылар</string>
@@ -565,6 +575,7 @@
   <string name="aboutX">%s турында</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ул азат (%2$s), ирекле, комерциясез, ачык чыганаклы шаһмат серверы.</string>
   <string name="really">чыннанда</string>
+  <string name="termsOfService">Куллану шартлары</string>
   <string name="sourceCode">Кодның чыганагы</string>
   <string name="host">Хуҗа</string>
   <string name="hostANewSimul">Яңа симулның хуҗасы</string>
