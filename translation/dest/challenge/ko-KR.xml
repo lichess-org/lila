@@ -18,6 +18,8 @@
   <string name="declineTimeControl">이 시간으로는 도전을 받지 않습니다.</string>
   <string name="declineRated">대신 레이팅 대전을 신청해주세요.</string>
   <string name="declineCasual">대신 캐주얼 대전을 신청해주세요.</string>
+  <string name="declineStandard">지금은 변형 체스 도전을 받지 않고 있습니다.</string>
+  <string name="declineVariant">지금은 이 변형 체스를 하고 싶지 않습니다.</string>
   <string name="declineNoBot">봇의 도전은 받지 않습니다.</string>
   <string name="declineOnlyBot">봇의 도전만 받고 있습니다.</string>
 </resources>
