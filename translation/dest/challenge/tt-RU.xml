@@ -2,4 +2,7 @@
 <resources>
   <string name="challenges">Сынаулар</string>
   <string name="challengeToPlay">Сынаулар уенда</string>
+  <string name="challengeAccepted">Сынаулар алынды!</string>
+  <string name="challengeCanceled">Сынауны кире кактылар.</string>
+  <string name="registerToSendChallenges">Зинһар теркәл сынаулар җибәрер өчен.</string>
 </resources>
