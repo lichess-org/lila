@@ -12,7 +12,6 @@ import lila.base._
 
 trait Lilaisms
     extends LilaTypes
-    with TupleFutureUnzip
     with scalalib.Common
     with scalalib.OrnicarOption
     with scalalib.Regex
