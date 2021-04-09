@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Башваткычлар</string>
+  <string name="puzzleThemes">Башваткыч бизәкләре</string>
+  <string name="recommended">Тәкдим ителә</string>
+  <string name="phases">Фазалар</string>
+  <string name="motifs">Зәхәриф</string>
   <string name="advanced">Өстәмә</string>
+  <string name="lengths">Озынлык</string>
+  <string name="mates">Иптәшләр</string>
+  <string name="goals">Морады</string>
+  <string name="origin">Чыгыш</string>
+  <string name="specialMoves">Максус хәрәкәтләр</string>
+  <string name="didYouLikeThisPuzzle">Сезгә ошадымы башваткыч?</string>
   <string name="normal">Нормаль</string>
 </resources>
