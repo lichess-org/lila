@@ -655,9 +655,17 @@
   <string name="opening">Башлагыч</string>
   <string name="middlegame">Урта уен</string>
   <string name="endgame">Уен азагы</string>
+  <string name="conditionalPremoves">Шартлы хәрәкәтләр</string>
+  <string name="noConditionalPremoves">Юк шартлы хәрәкәтләр</string>
   <string name="playX">Уйнау %s</string>
   <string name="sorry">Юаныч :(</string>
   <string name="why">Нигә?</string>
   <string name="edit">Үзгәртү</string>
   <string name="classical">Классика</string>
+  <string name="rapidDesc">Тиз уеннар 8дән 25минутка кадәр</string>
+  <string name="puzzleDesc">Шаһмат тактикалар остасы</string>
+  <string name="important">Мөһим</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
+  <string name="inTheFAQ">Еш Сорый торган Сорауларда</string>
+  <string name="useTheReportForm">куллан җибәрү формасын</string>
 </resources>
