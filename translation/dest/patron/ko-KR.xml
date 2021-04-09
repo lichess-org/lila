@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">기부</string>
+  <string name="lichessPatron">Lichess 후원자</string>
   <string name="freeAccount">무료 계정</string>
   <string name="becomePatron">Lichess 후원자가 되세요</string>
   <string name="xBecamePatron">%s가 Lichess 후원자가 되었습니다</string>
@@ -14,6 +15,9 @@
   <string name="weAreNonProfit">우리는 비영리 단체입니다. 모두가 세계적 수준의 무료 체스 플랫폼을 이용할 수 있어야 한다고 믿기 때문입니다.</string>
   <string name="weRelyOnSupport">우리는 이를 가능하게 하기 위해 여러분과 같은 사람들의 지원에 의존합니다. Lichess를 즐긴다면 기부하고 후원자가 되어 지원해주세요!</string>
   <string name="lifetime">평생</string>
+  <string name="payLifetimeOnce">%s를 한번 후원하고 영원히 Lichess 후원자가 됩니다!</string>
+  <string name="lifetimePatron">평생 Lichess 후원자</string>
+  <string name="makeExtraDonation">추가 기부를 하시겠어요?</string>
   <string name="monthly">매월</string>
   <string name="onetime">한번</string>
   <string name="singleDonation">일회성 기부는 한 달 동안 후원자 날개를 달아줍니다.</string>
@@ -43,10 +47,27 @@
   <plurals name="patronForMonths">
     <item quantity="other">%s달 동안 리체스의 후원자가 되었습니다</item>
   </plurals>
+  <string name="youSupportWith">당신은 lichess.org에 매달 %s를 지원합니다.</string>
   <string name="tyvm">당신의 지원에 대단히 감사합니다. 예압!</string>
   <string name="currentStatus">현재 상태</string>
   <string name="nextPayment">다음 결제일</string>
   <string name="youWillBeChargedXOnY">%1$s가 %2$s에 결제될 예정입니다.</string>
   <string name="makeAdditionalDonation">지금 추가 기부하기</string>
   <string name="update">업데이트</string>
+  <string name="changeMonthlyAmount">월 금액 변경(%s)</string>
+  <string name="xOrY">%1$s 또는 %2$s</string>
+  <string name="decideHowMuch">Lichess의 가치를 결정해주세요:</string>
+  <string name="stopPayments">신용카드를 취소하고 지불을 중지:</string>
+  <string name="noLongerSupport">더 이상 Lichess를 지원하지 않습니다</string>
+  <string name="paymentHistory">결제 내역</string>
+  <string name="paid">결제됨</string>
+  <string name="viewOthers">다른 Lichess 후원자 보기</string>
+  <string name="date">날짜</string>
+  <string name="amount">금액</string>
+  <string name="transactionCompleted">거래가 완료되었으며, 기부 영수증이 당신에게 이메일로 보내졌습니다.</string>
+  <string name="permanentPatron">당신은 이제 영구적인 후원자입니다.</string>
+  <string name="checkOutProfile">프로필 페이지를 확인하세요!</string>
+  <string name="nowLifetime">당신은 이제 평생 Lichess 후원자입니다!</string>
+  <string name="nowOneMonth">당신은 이제 한 달간 Lichess 후원자입니다!</string>
+  <string name="downgradeNextMonth">한달 안에 다시 지불하지 않는다면 당신의 Lichess 계정은 일반 계정으로 전환됩니다.</string>
 </resources>
