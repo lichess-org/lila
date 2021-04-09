@@ -12,10 +12,10 @@
   <string name="welcome_subject">Vítejte na lichess.org, %s</string>
   <string name="welcome_text">Úspěšně jste vytvořili svůj účet na https://lichess.org.
 
-Zde naleznete stránku s Vašim profilem: %1$s. Přizpůsobit si jej můžete zde - %2$s.
+Zde naleznete stránku s Vašim profilem: %1$s. Přizpůsobit si jej můžete zde – %2$s.
 
-Hodně zábavy a ať si Vaše figury vždy najdou cestu k soupeřovu králi!</string>
-  <string name="logInToLichess">Přihlaste se k lichess.org, %s</string>
+Hodně zábavy a ať Vaše figury vždy najdou cestu k soupeřovu králi!</string>
+  <string name="logInToLichess">Přihlaste se na lichess.org, %s</string>
   <string name="common_orPaste">(Odkaz nefunguje? Zkuste jej zkopírovat do vašeho prohlížeče!)</string>
   <string name="common_note">Tohle je automatický e-mail související s vaším používáním %s.</string>
   <string name="common_contact">Chcete-li nás kontaktovat, použijte prosím %s.</string>
