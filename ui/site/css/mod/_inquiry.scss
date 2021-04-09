@@ -177,17 +177,12 @@ body.no-inquiry {
   }
 
   form.note {
-    margin-bottom: 2em;
-
+    padding-top: 1em;
     textarea {
       width: 100%;
       resize: vertical;
-      padding: 5px;
-      height: 80px;
-    }
-
-    .submission {
-      text-align: right;
+      padding: 0.5em 1em;
+      height: 8em;
     }
   }
 
