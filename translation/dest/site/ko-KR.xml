@@ -812,12 +812,15 @@
   <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
   <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>
+  <string name="someoneYouReportedWasBanned">당신이 신고한 플레이어가 차단되었습니다.</string>
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
   <string name="patronAccountExpired">Patron 계정 만료됨</string>
+  <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
   <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
+  <string name="newPendingReview">새 대기중 리뷰</string>
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
