@@ -107,5 +107,5 @@ final class HcaptchaReal(
         logger.info(s"hcaptcha ${res.status} ${res.body}")
         Result.Fail
     }
-  }.thenPp
+  }
 }
