@@ -32,18 +32,18 @@
   <string name="newOpponent">jan ante sin</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">jan ante li wile musi sin</string>
   <string name="joinTheGame">o kama lon musi</string>
-  <string name="whitePlays">walo li musi</string>
-  <string name="blackPlays">pimeja li musi</string>
+  <string name="whitePlays">tenpo ni la walo o musi</string>
+  <string name="blackPlays">tenpo ni la pimeja o musi</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">jan ante li weka tan musi. musi li %s kama pini.</item>
+    <item quantity="one">jan ante li weka. sina ken pini pona lon tenpo lili %s kama.</item>
     <item quantity="other">jan ante li weka tan musi. sina awen la sina ken %s kama pini.</item>
   </plurals>
-  <string name="opponentLeftChoices">jan ante li weka tan musi. sina ken pini sewi anu pini sama anu awen.</string>
-  <string name="makeYourOpponentResign">jan ante, o toki e \"mi anpa\"</string>
-  <string name="forceResignation">o pini e musi</string>
+  <string name="opponentLeftChoices">jan ante li weka. sina ken pini pona anu pini sama anu awen.</string>
+  <string name="makeYourOpponentResign">jan ante o pini e musi tan anpa</string>
+  <string name="forceResignation">o kama jo e pini pona</string>
   <string name="forceDraw">o pini sama</string>
-  <string name="talkInChat">o toki pona!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">jan pi nanpa wan lon nimi open ni li musi tawa sina</string>
+  <string name="talkInChat">o pona tawa jan!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">jan nanpa wan li kepeken linja ni la ona li musi lon poka sina.</string>
   <string name="whiteResigned">jan walo li toki e \"mi anpa\"</string>
   <string name="blackResigned">jan pimeja li toki e \"mi anpa\"</string>
   <string name="whiteLeftTheGame">walo li weka tan musi</string>
