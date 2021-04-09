@@ -515,7 +515,16 @@
   <string name="xCommentedY">%1$s коммент калдырды %2$s</string>
   <string name="victory">Җиңү</string>
   <string name="defeat">Җиңелде</string>
+  <string name="timeline">Вакыт узуы</string>
   <string name="starting">Башлануы:</string>
+  <string name="yourCityRegionOrDepartment">Сезнең шәһәрегез, өлкәгез, яки төбәгегез.</string>
+  <string name="biographyDescription">Сөйләгез үзегез хакында, сезнең кызыксындырулар турында, Ни сез яратасыз шаһматта, сезнең яраткан ачылышыгыз, кулланучыгыз,...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="other">Азагында %s билге.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="other">%s кисетелгән</item>
+  </plurals>
   <string name="human">Кеше</string>
   <string name="computer">К</string>
   <string name="side">Як</string>
@@ -533,6 +542,7 @@
   <string name="practice">Практика</string>
   <string name="community">Җәмәгать</string>
   <string name="tools">Кораллар</string>
+  <string name="sharePGN">Җибәрергә PGN</string>
   <string name="playOnline">Уйнарга челтәрдә</string>
   <string name="playOffline">Уйнарга челтәрсез</string>
   <string name="shareGameURL">Җибәрергә уен URL</string>
