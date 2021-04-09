@@ -2,20 +2,14 @@ $(function () {
   const noteStore = lichess.storage.make('inquiry-note');
   const noteTextArea = $('#inquiry .notes').find('textarea')[0];
 
-  $('#inquiry .notes').on('mouseenter', function () {
+  $('#inquiry .notes').on('mouseenter', () => {
     noteTextArea.focus();
     noteTextArea.value = noteStore.get();
   });
 
-  $('#inquiry .notes').on('keydown', function () {
-    setTimeout(function () {
-      noteStore.set(noteTextArea.value);
-    }, 5);
-  });
+  $('#inquiry .notes').on('change', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
 
-  $('#inquiry .notes').on('submit', function () {
-    noteStore.remove();
-  });
+  $('#inquiry .notes').on('submit', () => noteStore.remove);
 
   $('#inquiry .costello').on('click', () => {
     $('#inquiry').toggleClass('hidden');
