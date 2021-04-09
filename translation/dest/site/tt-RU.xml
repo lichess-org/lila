@@ -520,9 +520,18 @@
   <string name="computer">К</string>
   <string name="side">Як</string>
   <string name="clock">Сәгать</string>
+  <string name="unauthorizedError">Рөхсәт авторизациясез.</string>
+  <string name="noInternetConnection">Интернетка тоташу юк. Сез һаманда челтәрсез уйный аласыз сайламышта.</string>
+  <string name="connectedToLichess">Сез хәзер тоташкан lichess.org ка</string>
+  <string name="signedOut">Сез чыгарылдыгыз</string>
+  <string name="loginSuccessful">Сез керелгәнсез</string>
+  <string name="playOnTheBoardOffline">Такта өстендә</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Көндәшегез</string>
+  <string name="learnMenu">Өйрәнү</string>
   <string name="studyMenu">Өйрәнү</string>
+  <string name="practice">Практика</string>
+  <string name="community">Җәмәгать</string>
   <string name="tools">Кораллар</string>
   <string name="playOnline">Уйнарга челтәрдә</string>
   <string name="playOffline">Уйнарга челтәрсез</string>
@@ -530,7 +539,13 @@
   <string name="error.required">Бу алан кирәкле</string>
   <string name="error.email">Бу почта адресы дөрес түгел</string>
   <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
+  <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
+  <string name="whiteCastlingKingside">Аклар O-O</string>
+  <string name="blackCastlingKingside">Каралар O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s аралашу хәбәры</item>
+  </plurals>
   <string name="watch">Кара</string>
   <string name="videoLibrary">Видео җиентыгы</string>
   <string name="streamersMenu">Алып баручылар</string>
