@@ -42,6 +42,7 @@
   <string name="addAnotherTheme">새 테마 추가</string>
   <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
   <string name="puzzleDashboard">퍼즐 대시보드</string>
+  <string name="improvementAreas">개선이 필요한 부분</string>
   <string name="strengths">강점</string>
   <string name="history">퍼즐 히스토리</string>
   <string name="solved">해결함</string>
