@@ -16,4 +16,10 @@
   <string name="declineTooFast">Бу вакыт тикшерүе бик тиз минем өчен, зинһар сынагыз яңадан озаграк уен белән.</string>
   <string name="declineTooSlow">Бу вакыт тикшерүе бик озак минем өчен, зинһар сынагыз яңадан тиз уен белән.</string>
   <string name="declineTimeControl">Мин алмыйм сынауларны вакыт тикшерүе белән.</string>
+  <string name="declineRated">Зинһар җибәрегез миңа рейтинглы сынау урнына.</string>
+  <string name="declineCasual">Зинһар җибәрегез миңа бәяләүсез сынау урнына.</string>
+  <string name="declineStandard">Мин алмыйм вариантлы сынаулар хәзер.</string>
+  <string name="declineVariant">Мин тәләп куймыйм уйнарга бу вариантка хәзер.</string>
+  <string name="declineNoBot">Мин алмыйм сынаулар боттан.</string>
+  <string name="declineOnlyBot">Мин алам сынаулар боттан гына.</string>
 </resources>
