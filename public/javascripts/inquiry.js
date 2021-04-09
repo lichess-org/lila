@@ -40,7 +40,7 @@ $(function () {
     $(this).html(
       $(this)
         .html()
-        .replaceAll(/lichess\.org\/([\w\/]{8,})/g, '<a href="/$1">$1</a>')
+        .replaceAll(/(?:https:\/\/)?lichess\.org\/([\w\/]+)/g, '<a href="/$1">lichess.org/$1</a>')
     );
   });
 });
