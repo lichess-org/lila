@@ -70,7 +70,7 @@ final class Account(
             env.round.proxyRepo.urgentGames(me) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.playban.api.currentBan(me.id) map {
-              case nbFollowers ~ prefs ~ povs ~ nbChallenges ~ playban =>
+              case ((((nbFollowers, prefs), povs), nbChallenges), playban) =>
                 Ok {
                   import lila.pref.JsonView._
                   env.user.jsonView(me) ++ Json

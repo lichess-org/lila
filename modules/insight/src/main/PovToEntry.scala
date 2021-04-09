@@ -105,7 +105,7 @@ final private class PovToEntry(
     }
     val timeCvs = slidingMoveTimesCvs(movetimes)
     movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
-      case movetime ~ role ~ board ~ blur ~ timeCv ~ i =>
+      case (((((movetime, role), board), blur), timeCv), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {

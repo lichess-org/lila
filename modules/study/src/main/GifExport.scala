@@ -41,7 +41,6 @@ final class GifExport(
   @annotation.tailrec
   private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
     nodes match {
-      case Nil => arr
       case node +: tail =>
         framesRec(
           tail,
@@ -53,5 +52,6 @@ final class GifExport(
             .add("lastMove", node.moveOption.map(_.uci.uci))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )
+      case _ => arr
     }
 }

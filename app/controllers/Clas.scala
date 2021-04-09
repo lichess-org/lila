@@ -227,7 +227,7 @@ final class Clas(
             val studentIds = students.map(_.user.id)
             env.learn.api.completionPercent(studentIds) zip
               env.practice.api.progress.completionPercent(studentIds) zip
-              env.coordinate.api.bestScores(studentIds) map { case basic ~ practice ~ coords =>
+              env.coordinate.api.bestScores(studentIds) map { case ((basic, practice), coords) =>
                 views.html.clas.teacherDashboard.learn(clas, students, basic, practice, coords)
               }
           }

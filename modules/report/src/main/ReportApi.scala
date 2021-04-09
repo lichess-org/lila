@@ -148,7 +148,7 @@ final class ReportApi(
     getSuspect(userId) zip
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
-        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+        case ((Some(suspect), reporter), atoms) if atoms.forall(_.byHuman) =>
           lila.mon.cheat.autoReport.increment()
           create(
             Candidate(
@@ -163,7 +163,7 @@ final class ReportApi(
 
   def autoCheatDetectedReport(userId: User.ID, cheatedGames: Int): Funit =
     userRepo.byId(userId) zip getLichessReporter flatMap {
-      case Some(user) ~ reporter if !user.marks.engine =>
+      case (Some(user), reporter) if !user.marks.engine =>
         lila.mon.cheat.autoReport.increment()
         create(
           Candidate(
@@ -202,7 +202,7 @@ final class ReportApi(
             userRepo.byId(userId) zip
               getLichessReporter zip
               findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-                case Some(abuser) ~ reporter ~ past if past.isEmpty =>
+                case ((Some(abuser), reporter), past) if past.isEmpty =>
                   create(
                     Candidate(
                       reporter = reporter,
@@ -242,7 +242,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
-        case isSame ~ Some((winner, loser)) ~ reporter if !winner.lame && !loser.lame =>
+        case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
           val loginsText =
             if (isSame) "Found matching IP/print"
             else "No IP/print match found"
@@ -259,7 +259,7 @@ final class ReportApi(
 
   def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID): Funit =
     userRepo.byId(loserId) zip getLichessReporter flatMap {
-      case Some(loser) ~ reporter if !loser.lame =>
+      case (Some(loser), reporter) if !loser.lame =>
         create(
           Candidate(
             reporter = reporter,

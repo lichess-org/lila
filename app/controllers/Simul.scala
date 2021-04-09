@@ -18,19 +18,19 @@ final class Simul(env: Env) extends LilaController(env) {
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls(ctx.me) flatMap { case pending ~ created ~ started ~ finished =>
+    fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
       Ok(html.simul.home(pending, created, started, finished)).fuccess
     }
   }
 
   val apiList = Action.async {
-    fetchSimuls(none) flatMap { case pending ~ created ~ started ~ finished =>
+    fetchSimuls(none) flatMap { case (((pending, created), started), finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
   }
 
   val homeReload = Open { implicit ctx =>
-    fetchSimuls(ctx.me) map { case pending ~ created ~ started ~ finished =>
+    fetchSimuls(ctx.me) map { case (((pending, created), started), finished) =>
       Ok(html.simul.homeInner(pending, created, started, finished))
     }
   }

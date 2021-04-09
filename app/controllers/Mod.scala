@@ -255,7 +255,7 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")) zip
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              } map { case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry ~ logins =>
+              } map { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if (priv) {
                   if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
                     env.irc.slack.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))

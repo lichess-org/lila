@@ -149,7 +149,7 @@ final class ChatApi(
         busChan: BusChan.Select
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => funit
       }

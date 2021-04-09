@@ -55,7 +55,7 @@ final class JsonView(
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byId) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map { case socket ~ opponentUser ~ takebackable ~ moretimeable =>
+      moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
         import pov._
         Json
           .obj(

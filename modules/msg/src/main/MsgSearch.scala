@@ -23,7 +23,7 @@ final class MsgSearch(
     if (me.kid) forKid(me, q)
     else
       searchThreads(me, q) zip searchFriends(me, q) zip searchUsers(me, q) map {
-        case threads ~ friends ~ users =>
+        case ((threads, friends), users) =>
           MsgSearch
             .Result(
               threads,
