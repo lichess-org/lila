@@ -494,11 +494,16 @@
   <string name="privacy">Шәхсилек</string>
   <string name="privacyPolicy">Хосуслык сәясәте</string>
   <string name="letOtherPlayersFollowYou">Башка уенчылар сезгә иярсәләр</string>
+  <string name="letOtherPlayersChallengeYou">Башка кулланучылар сезне сынамышка чакырсалар</string>
+  <string name="letOtherPlayersInviteYouToStudy">Башка кулланучылар укырга чакырсалар</string>
   <string name="sound">Тавыш</string>
   <string name="none">Юк</string>
   <string name="fast">Тиз</string>
   <string name="normal">Гадәттәгечә</string>
   <string name="slow">Акрын</string>
+  <string name="insideTheBoard">Тактаның эчендә</string>
+  <string name="outsideTheBoard">Тактаның тышында</string>
+  <string name="onSlowGames">Тыныч уеннарда</string>
   <string name="always">Һәрвакыт</string>
   <string name="never">Беркачанда</string>
   <string name="difficultyEasy">Җиңел</string>
@@ -510,4 +515,5 @@
   <string name="xCommentedY">%1$s коммент калдырды %2$s</string>
   <string name="victory">Җиңү</string>
   <string name="defeat">Җиңелде</string>
+  <string name="watch">Кара</string>
 </resources>
