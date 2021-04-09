@@ -557,6 +557,7 @@
   <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
   <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
