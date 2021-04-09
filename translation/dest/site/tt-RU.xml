@@ -471,6 +471,8 @@
   <string name="troll">Троль</string>
   <string name="ratingManipulation">Рейтинг белән уйнамак</string>
   <string name="other">Бүтән</string>
+  <string name="reportDescriptionHelp">Уен(нар) сылтамаларын кертегез һәм бу кулланучының тәртибендә дөрес булмаганны аңлатыгыз. \"Алдакчы\" дип кенә әйтмәгез, бу нәтиҗәгә ничек килгәнегезне әйтегез. Сезнең җибәрүегез инглизчә язылган очракта тизрәк эшкәртеләчәк.</string>
+  <string name="error.provideOneCheatedGameLink">Зинһар, алданган уенга ким дигәндә бер сылтама бирегез.</string>
   <string name="by">%sдан</string>
   <string name="thisTopicIsNowClosed">Бу сәрхәү хәзер ябык.</string>
   <string name="theming">Темалык</string>
@@ -491,6 +493,7 @@
   <string name="clockIncrement">Сәгатьнең артуы</string>
   <string name="privacy">Шәхсилек</string>
   <string name="privacyPolicy">Хосуслык сәясәте</string>
+  <string name="letOtherPlayersFollowYou">Башка уенчылар сезгә иярсәләр</string>
   <string name="sound">Тавыш</string>
   <string name="none">Юк</string>
   <string name="fast">Тиз</string>
