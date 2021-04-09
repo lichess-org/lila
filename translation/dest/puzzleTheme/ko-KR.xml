@@ -20,12 +20,17 @@
   <string name="endgame">엔드게임</string>
   <string name="exposedKing">노출된 킹</string>
   <string name="fork">포크</string>
+  <string name="long">긴 퍼즐</string>
   <string name="master">마스터 게임</string>
+  <string name="masterVsMaster">마스터 vs 마스터 게임</string>
   <string name="mate">체크메이트</string>
   <string name="mateIn1">1수 메이트</string>
   <string name="mateIn1Description">한 수만에 체크메이트하세요.</string>
   <string name="mateIn2">2수 메이트</string>
   <string name="mateIn2Description">두 수만에 체크메이트하세요.</string>
+  <string name="mateIn3">3수 메이트</string>
+  <string name="mateIn4">4수 메이트</string>
+  <string name="mateIn5">5수+ 메이트</string>
   <string name="middlegame">미들게임</string>
   <string name="oneMove">1수 퍼즐</string>
   <string name="opening">오프닝</string>
@@ -41,6 +46,7 @@
   <string name="short">짧은 퍼즐</string>
   <string name="skewer">스큐어</string>
   <string name="smotheredMate">질식 체크메이트</string>
+  <string name="superGM">슈퍼GM 게임</string>
   <string name="trappedPiece">갇힌 기물</string>
   <string name="underPromotion">하향 승진</string>
   <string name="veryLong">아주 긴 퍼즐</string>
