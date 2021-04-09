@@ -46,4 +46,7 @@
   <string name="tyvm">당신의 지원에 대단히 감사합니다. 예압!</string>
   <string name="currentStatus">현재 상태</string>
   <string name="nextPayment">다음 결제일</string>
+  <string name="youWillBeChargedXOnY">%1$s가 %2$s에 결제될 예정입니다.</string>
+  <string name="makeAdditionalDonation">지금 추가 기부하기</string>
+  <string name="update">업데이트</string>
 </resources>
