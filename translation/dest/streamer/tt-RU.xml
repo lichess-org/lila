@@ -21,6 +21,12 @@
   <string name="perks">Ачкыч сүз белән агымның өстенлекләре</string>
   <string name="perk1">Личесс профилегездә ялкынлы агым иконасын алыгыз.</string>
   <string name="perk2">Агымчылар исемлегенең башына менегез.</string>
+  <string name="perk3">Хәбәр итү Личесс иярүчеләрен.</string>
+  <string name="perk4">Күрсәтергә сезнең агымда сезнең уеннарны, бәйгеләрне һәм өйрәнүләр.</string>
+  <string name="approved">Сезнең агым расланган.</string>
+  <string name="pendingReview">Сезнең агым модераторлар тарафыннан карала.</string>
+  <string name="pleaseFillIn">Зинһар, агымдагы мәгълүматны тутырыгыз һәм рәсем йөкләгез.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Сез Lichess агымы исемлегенә керергә әзер булгач, %s</string>
   <string name="changePicture">Алыштырырга/бетерергә сезнең рәсемне</string>
   <string name="uploadPicture">Кертергә рәсам</string>
   <string name="deletePicture">Рәсемне бетерергә</string>
