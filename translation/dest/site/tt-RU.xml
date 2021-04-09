@@ -516,4 +516,10 @@
   <string name="victory">Җиңү</string>
   <string name="defeat">Җиңелде</string>
   <string name="watch">Кара</string>
+  <string name="videoLibrary">Видео җиентыгы</string>
+  <string name="streamersMenu">Алып баручылар</string>
+  <string name="mobileApp">Кәрәзле Әсбап</string>
+  <string name="webmasters">Вебмастерлар</string>
+  <string name="about">Хакында</string>
+  <string name="sourceCode">Кодның чыганагы</string>
 </resources>
