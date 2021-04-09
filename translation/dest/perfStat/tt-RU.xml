@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">%s статистикасы</string>
+  <string name="viewTheGames">Карарга уеннарны</string>
+  <string name="totalGames">Бөтен уеннар</string>
+  <string name="ratedGames">Рейтинглы уеннар</string>
+  <string name="tournamentGames">Бәйге уеннары</string>
   <string name="averageOpponent">Уртача ярышучы</string>
+  <string name="victories">Җиңүләр</string>
+  <string name="defeats">Җиңелүләр</string>
   <string name="now">хәзер</string>
 </resources>
