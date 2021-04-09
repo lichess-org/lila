@@ -544,7 +544,9 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="youHaveAlreadyRegisteredTheEmail">Сезнең хәзер теркәлгән почтагыз бар: %s</string>
   <string name="kidMode">Сабыйлар осулы</string>
+  <string name="enableKidMode">Балалар осулын куй</string>
   <string name="security">Хәвефсезлек</string>
   <string name="asFreeAsLichess">Личесс кебек азат</string>
   <string name="builtForTheLoveOfChessNotMoney">Төздек шаһмат яратучылары өчен, акча түгел</string>
@@ -560,11 +562,17 @@
   </plurals>
   <string name="gameAnalysis">Уенны уйланырга</string>
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
+  <string name="lobby">Көндәшләр</string>
+  <string name="anonymous">Билгесез</string>
   <string name="language">Тел</string>
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
   <string name="dark">Караңгы</string>
   <string name="transparent">Үтә күренмәле</string>
+  <string name="boardGeometry">Такта һәнсәдәсе</string>
+  <string name="boardTheme">Такта бизәге</string>
+  <string name="boardSize">Такта зурлыгы</string>
+  <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
