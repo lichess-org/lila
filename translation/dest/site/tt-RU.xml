@@ -541,7 +541,13 @@
   <string name="newTournament">Яңа бәйге</string>
   <string name="tournamentNotFound">Бәйге табылмаган</string>
   <string name="returnToTournamentsHomepage">Бәйгеләр албитенә барырга</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
+  </plurals>
+  <string name="kidMode">Сабыйлар осулы</string>
   <string name="security">Хәвефсезлек</string>
+  <string name="asFreeAsLichess">Личесс кебек азат</string>
+  <string name="builtForTheLoveOfChessNotMoney">Төздек шаһмат яратучылары өчен, акча түгел</string>
   <string name="language">Тел</string>
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
