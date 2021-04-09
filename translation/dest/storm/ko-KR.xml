@@ -20,8 +20,19 @@
   <string name="highestSolved">최고 해결 레이팅</string>
   <string name="puzzlesPlayed">플레이한 퍼즐</string>
   <string name="highscores">하이스코어</string>
+  <string name="getReady">준비!</string>
+  <string name="waitingForMorePlayers">더 많은 플레이어를 기다리는 중...</string>
+  <string name="raceComplete">레이스 완료!</string>
+  <string name="spectating">관전</string>
+  <string name="joinTheRace">레이스에 참가!</string>
+  <string name="yourRankX">당신의 순위: %s</string>
+  <string name="waitForRematch">재경기를 위해 대기</string>
+  <string name="nextRace">다음 레이스</string>
+  <string name="joinRematch">재경기 참가</string>
   <string name="waitingToStart">시작 대기 중</string>
   <string name="createNewGame">새로운 게임 만들기</string>
+  <string name="joinPublicRace">공개 레이스에 참가</string>
+  <string name="raceYourFriends">친구와 레이스</string>
   <string name="skip">건너뛰기</string>
   <string name="skipHelp">레이스 당 한 번 건너뛸 수 있습니다:</string>
 </resources>
