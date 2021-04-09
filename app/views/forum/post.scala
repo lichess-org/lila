@@ -75,11 +75,14 @@ object post {
           else
             post.userId map { userId =>
               val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
-              a(
-                titleOrText(trans.reportXToModerators.txt(userId)),
-                cls := "mod report button button-empty",
-                href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}",
-                dataIcon := "!"
+              frag(
+                nbsp,
+                a(
+                  titleOrText(trans.reportXToModerators.txt(userId)),
+                  cls := "mod report button button-empty",
+                  href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}",
+                  dataIcon := "!"
+                )
               )
             }
         ),
