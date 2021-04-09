@@ -36,6 +36,7 @@
   <string name="interference">Překrytí</string>
   <string name="interferenceDescription">Tah figurou na pole mezi dvě soupeřovy figury, aby jedna z nich byla nechráněná, například tah jezdcem na chráněné pole mezi dvě soupeřovy věže.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Namísto zahrání očekávaného tahu je nejdřív zahrán tah představující bezprostřední hrozbu (např. šach či napadení), na který musí soupeř odpovědět. Tomuto motivu se také říká Zwischenzug.</string>
   <string name="knightEndgame">Jezdcové koncovky</string>
   <string name="knightEndgameDescription">Koncovka jen s jezdci a pěšci.</string>
   <string name="long">Dlouhá úloha</string>
