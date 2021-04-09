@@ -29,5 +29,18 @@
   <string name="trySomethingElse">Башка нәрсәне сынап карагыз.</string>
   <string name="ratingX">Рейтингы: %s</string>
   <string name="hidden">качырылган</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Уйналган %s вакыт</item>
+  </plurals>
+  <string name="fromGameLink">%s уендан</string>
+  <string name="continueTraining">Күнегүләр дәвамы</string>
+  <string name="difficultyLevel">Авырлык дәрәҗәсе</string>
   <string name="normal">Нормаль</string>
+  <string name="easier">Җиңелрәк</string>
+  <string name="easiest">Иң җиңелрәге</string>
+  <string name="harder">Авыррак</string>
+  <string name="hardest">Иң авыры</string>
+  <string name="example">Мәсәлән</string>
+  <string name="addAnotherTheme">Икенче тһеманы өстәргә</string>
+  <string name="jumpToNextPuzzleImmediately">Киләсе Башваткычка шунда ук сикерегез</string>
 </resources>
