@@ -548,6 +548,10 @@
   <string name="security">Хәвефсезлек</string>
   <string name="asFreeAsLichess">Личесс кебек азат</string>
   <string name="builtForTheLoveOfChessNotMoney">Төздек шаһмат яратучылары өчен, акча түгел</string>
+  <string name="everybodyGetsAllFeaturesForFree">Һәркайсы алы барлык әйберләрен азат</string>
+  <string name="zeroAdvertisement">Сәрмая юк</string>
+  <string name="fullFeatured">Барлык үзенчәлекләр</string>
+  <string name="phoneAndTablet">Кәрәзле телефон һәм планшет</string>
   <string name="language">Тел</string>
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
