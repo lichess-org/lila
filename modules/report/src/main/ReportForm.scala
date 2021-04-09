@@ -68,7 +68,7 @@ private[report] case class ReportFlag(
     text: String
 )
 
-private[report] case class ReportSetup(
+case class ReportSetup(
     user: LightUser,
     reason: String,
     text: String,
