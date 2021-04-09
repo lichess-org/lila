@@ -612,6 +612,7 @@
   <string name="bulletBlitzClassical">Мәрми, яшенчә, хуп</string>
   <string name="correspondenceChess">Язылу шаһматы</string>
   <string name="onlineAndOfflinePlay">Чилтәрдә һәм чилтәрсез уйнамак</string>
+  <string name="followAndChallengeFriends">Иярергә һәм сынарга дутларны</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s телдә бар!</item>
   </plurals>
@@ -632,9 +633,14 @@
   <string name="coaches">Тренерлар</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
+  <string name="getAHint">Этәргеч алырга</string>
   <string name="whiteWinsGame">Аклар җиңүләре</string>
   <string name="blackWinsGame">Каралар җиңүләре</string>
+  <string name="skipThisMove">Төшереп калдыру бу хәрәкәтне</string>
   <string name="next">Киләсе</string>
+  <string name="xWasPlayed">%s уйнады</string>
+  <string name="findBetterMoveForWhite">Эзлә иң якшы хәрәкәтне аклар өчен</string>
+  <string name="findBetterMoveForBlack">Эзлә иң якшы хәрәкәтне каралар өчен</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s секунд</item>
   </plurals>
