@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess 지도자들</string>
-  <string name="lichessCoach">Lichess 지도자들</string>
+  <string name="lichessCoaches">Lichess 코치들</string>
+  <string name="lichessCoach">리체스 코치</string>
+  <string name="location">지역</string>
   <string name="languages">언어</string>
+  <string name="rating">레이팅</string>
+  <string name="hourlyRate">시간당 비용</string>
+  <string name="sendPM">비공개 메시지 보내기</string>
+  <string name="aboutMe">자기소개</string>
+  <string name="playingExperience">플레이 경험</string>
+  <string name="teachingExperience">교습 경험</string>
   <string name="otherExperiences">또 다른 경력</string>
+  <string name="teachingMethod">교육 방법론</string>
+  <string name="youtubeVideos">YouTube 동영상</string>
+  <string name="thankYouForReview">평가해 주셔서 감사합니다.</string>
+  <string name="reviewCoach">코치 리뷰하기</string>
+  <string name="describeExperienceWith">%s와의 코칭 경험을 작성해주세요.</string>
 </resources>
