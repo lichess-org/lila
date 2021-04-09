@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="search">Эзлә</string>
+  <string name="source">Чыганак</string>
+  <string name="date">Вакыт</string>
+  <string name="sortBy">Тәртипләү</string>
+</resources>
