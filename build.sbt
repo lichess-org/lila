@@ -10,6 +10,14 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
+inThisBuild(
+  List(
+    semanticdbEnabled := true,                       // enable SemanticDB
+    semanticdbVersion := scalafixSemanticdb.revision // use Scalafix compatible version
+  )
+)
+addCompilerPlugin(scalafixSemanticdb)
+
 // shorter prod classpath
 scriptClasspath := Seq("*")
 maintainer := "contact@lichess.org"

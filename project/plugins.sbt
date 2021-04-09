@@ -5,3 +5,4 @@ resolvers += Resolver.url(
 addSbtPlugin("com.typesafe.play" % "sbt-plugin"   % "2.8.7-lila_1.6")
 addSbtPlugin("org.scalameta"     % "sbt-scalafmt" % "2.4.2")
 addSbtPlugin("ch.epfl.scala"     % "sbt-bloop"    % "1.4.8")
+addSbtPlugin("ch.epfl.scala"     % "sbt-scalafix" % "0.9.27")

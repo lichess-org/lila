@@ -95,7 +95,9 @@ object BuildSettings {
     // "-Wunused:privates", // unfortunately doesn't work with macros
     // "-Wunused:implicits",
     // "-Wunused:params"
-    "-Wvalue-discard"
+    "-Wvalue-discard",
+    "-Yrangepos",          // required by SemanticDB compiler plugin
+    "-Ywarn-unused-import" // required by `RemoveUnused` rule
   )
 
   val srcMain = Seq(
