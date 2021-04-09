@@ -12,5 +12,22 @@
   <string name="origin">Чыгыш</string>
   <string name="specialMoves">Максус хәрәкәтләр</string>
   <string name="didYouLikeThisPuzzle">Сезгә ошадымы башваткыч?</string>
+  <string name="voteToLoadNextOne">Киләсе йөкләү өчен тавыш бирегез!</string>
+  <string name="yourPuzzleRatingX">Сезнең башваткыч рейтингы: %s</string>
+  <string name="findTheBestMoveForWhite">Тап якшы хәрәкәт аклар өчен.</string>
+  <string name="findTheBestMoveForBlack">Тап якшы хәрәкәт каралар өчен.</string>
+  <string name="toGetPersonalizedPuzzles">Персональләштерелгән башваткычлар алу өчен:</string>
+  <string name="puzzleId">Башваткыч %s</string>
+  <string name="puzzleOfTheDay">Бүгенге башваткыч</string>
+  <string name="clickToSolve">Чишер өчен сук</string>
+  <string name="goodMove">Якшы хәрәкәт</string>
+  <string name="bestMove">Иң яхшы хәрәкәт!</string>
+  <string name="keepGoing">Юлга дәвам…</string>
+  <string name="puzzleSuccess">Уңышлы!</string>
+  <string name="puzzleComplete">Башваткыч чишелгән!</string>
+  <string name="notTheMove">Бу хәрәкәт түгел!</string>
+  <string name="trySomethingElse">Башка нәрсәне сынап карагыз.</string>
+  <string name="ratingX">Рейтингы: %s</string>
+  <string name="hidden">качырылган</string>
   <string name="normal">Нормаль</string>
 </resources>
