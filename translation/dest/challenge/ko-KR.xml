@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">도전</string>
+  <string name="challengeToPlay">도전 신청</string>
+  <string name="challengeDeclined">도전 거절됨</string>
+  <string name="challengeAccepted">도전 수락!</string>
+  <string name="challengeCanceled">도전 취소됨.</string>
+  <string name="registerToSendChallenges">도전을 하려면 가입하십시오.</string>
+</resources>
