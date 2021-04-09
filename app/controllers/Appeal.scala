@@ -1,6 +1,5 @@
 package controllers
 
-
 import play.api.mvc.Result
 import views._
 
@@ -77,7 +76,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
                 preset = getPresets.findLike(text)
                 _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
                 _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
-              } yield Redirect(routes.Appeal.show(username)).flashSuccess
+              } yield Redirect(s"${routes.Appeal.show(username)}#appeal-actions")
           )
       }
     }

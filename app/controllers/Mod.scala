@@ -312,7 +312,7 @@ final class Mod(
             if (isAppeal) env.report.api.inquiries.appeal _
             else env.report.api.inquiries.spontaneous _
           f(me, Suspect(user)) inject {
-            if (isAppeal) Redirect(routes.Appeal.show(user.username))
+            if (isAppeal) Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
             else redirect(user.username, mod = true)
           }
         }
