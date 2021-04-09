@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
   <string name="gameOver">Уен бетте</string>
   <string name="waitingForOpponent">Ярышучыны көтәбез</string>
-  <string name="waiting">Көтәбез</string>
+  <string name="waiting">Көтү</string>
   <string name="yourTurn">Сез йөрисез</string>
   <string name="aiNameLevelAiLevel">%1$s дәрәҗәсе %2$s</string>
   <string name="level">Дәрәҗә</string>
@@ -577,6 +577,7 @@
   <string name="really">чыннанда</string>
   <string name="termsOfService">Куллану шартлары</string>
   <string name="sourceCode">Кодның чыганагы</string>
+  <string name="simultaneousExhibitions">Синхрон күргәзмәләр</string>
   <string name="host">Хуҗа</string>
   <string name="hostANewSimul">Яңа симулның хуҗасы</string>
   <string name="noSimulFound">Симул табылмады</string>
@@ -593,6 +594,8 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="withNobody">Беркем беләндә түгел</string>
+  <string name="withFriends">Дустлар белән</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Сезнең хәзер теркәлгән почтагыз бар: %s</string>
   <string name="kidMode">Сабыйлар осулы</string>
   <string name="enableKidMode">Балалар осулын куй</string>
