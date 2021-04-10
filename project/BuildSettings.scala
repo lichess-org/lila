@@ -88,13 +88,14 @@ object BuildSettings {
     "-Wdead-code",
     "-Wextra-implicit",
     // "-Wnumeric-widen",
-    // "-Wunused:imports",
     // "-Wunused:locals",
     "-Wunused:patvars",
     // "-Wunused:privates",  // unfortunately doesn't work with wire macros
     // "-Wunused:implicits", // unfortunately doesn't work with wire macros
     // "-Wunused:params"     // unfortunately doesn't work with wire macros
-    "-Wvalue-discard"
+    "-Wvalue-discard",
+    "-Yrangepos",      // required by SemanticDB compiler plugin
+    "-Wunused:imports" // required by `RemoveUnused` rule
   )
 
   val srcMain = Seq(
