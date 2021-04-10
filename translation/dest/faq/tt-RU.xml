@@ -9,6 +9,17 @@
   <string name="whyLiveLightLibre">Яши, чөнки уеннар чын вакытта 24 сәгать уйныйлар һәм карыйлар; Lichess ачык чыганаклы булуы һәм бүтән вебсайтларны җәберләүче милек кирәксезлеге өчен җиңел.</string>
   <string name="whyIsLilaCalledLila">Шулай ук, Lichess өчен чыганак коды,%1$s, li[chess scа]la дигәнне аңлата, чөнки Lichessның күпчелек өлеше интуитив программалаштыру теле %2$s белән язылган.</string>
   <string name="howCanIContributeToLichess">Lichessка ничек ярдәм итә алам?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess иганәчеләрнең иганәләре һәм өмәчеләр төркеме көче белән эшләнә.</string>
+  <string name="findMoreAndSeeHowHelp">Сез %1$s турында күбрәк белә аласыз (шул исәптән %2$s). Әгәр дә сез вакытыгызны һәм осталыгыгызны волонтер итеп Lichessка булышырга телисез икән, бик күп %3$s бар.</string>
+  <string name="beingAPatron">иганәче булу</string>
+  <string name="breakdownOfOurCosts">чыгымнарыбызны бүлү</string>
+  <string name="otherWaysToHelp">ярдәм итүнең башка ысуллары</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichessка нигезләнгән вебсайтлар бармы?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Әйе. Lichess чыннан да безнең %1$s, %2$s, яки %3$s кулланган бүтән ачык чыганак сайтларын рухландырды.</string>
+  <string name="fairPlay">Гадел уен</string>
+  <string name="whenAmIEligibleRatinRefund">Кайчан мин алдакчылардан автоматик рейтингны кире кайтарырга хокуклы?</string>
+  <string name="gameplay">Уенуйнамак</string>
+  <string name="eightVariants">8 шаһмат варианты</string>
   <string name="fideHandbookX">FIDE кулланмасы %s</string>
   <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
   <string name="goodIntroduction">якшы кереш сүз</string>
