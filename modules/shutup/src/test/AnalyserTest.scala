@@ -14,7 +14,7 @@ class AnalyserTest extends Specification {
       find("well fuck me") must_== List("fuck")
     }
     "find many bad words" in {
-      find("fucked that shit") must_== List("fucked", "shit")
+      find("fucked that shit") must_== List("fucked")
       find("Beat them cunting nigger faggots with a communist dick") must_==
         List("cunting", "nigger", "faggots", "dick")
     }
@@ -52,7 +52,7 @@ class AnalyserTest extends Specification {
       find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
     }
     "compute ratio" in {
-      ratio("fuck that shit") must_== 2d / 3
+      ratio("fuck that shit") must_== 1d / 3
       ratio("Beat them cunting nigger faggots with a communist dick") must_== 4d / 9
       ratio("hello there") must_== 0d
       ratio("") must_== 0d
