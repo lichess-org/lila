@@ -2,4 +2,17 @@
 <resources>
   <string name="arenaTournaments">Бәйгеләр мәйданы</string>
   <string name="isItRated">Бу рейтинглы?</string>
+  <string name="howAreScoresCalculated">Баллар ничек исәпләнә?</string>
+  <string name="howAreScoresCalculatedAnswer">Җиңүнең төп баллы 2 балл, тигез исәп 1 балл, һәм югалту бернинди баллга да лаек түгел.
+Әгәр сез бер-бер артлы ике уенда җиңсәгез, ялкын иконасы белән күрсәтелгән икеләтә нокта башлыйсыз.
+Киләсе уеннар икеләтә җиңүгә ирешәчәк, сез уенда җиңә алмаганчы.
+Ягъни, җиңү 4 нокта, 2 нокта белән тигез булачак, һәм югалту әле бер балл да бирмәячәк.
+
+Мәсәлән, ике җиңү 6 нокта булачак: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Яман Мәйдан</string>
+  <string name="howDoesItEnd">Ничек бетә?</string>
+  <string name="history">Мәйдан тарихы</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="other">Карарга барлык %s төркемләрне</item>
+  </plurals>
 </resources>
