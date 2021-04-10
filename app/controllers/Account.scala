@@ -449,7 +449,7 @@ final class Account(
             apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress ctx.req)(
               env.api.personalDataExport(user)
             ) { source =>
-              Ok.chunked(source)
+              Ok.chunked(source.map(_ + "\n"))
                 .withHeaders(
                   noProxyBufferHeader,
                   CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
