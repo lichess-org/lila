@@ -10,16 +10,15 @@ import controllers.routes
 
 object bits {
 
-  def data(u: User, raw: String)(implicit ctx: Context) =
+  def data(u: User)(implicit ctx: Context) =
     account.layout(title = s"${u.username} - personal data", active = "security") {
       div(cls := "account security personal-data box box-pad")(
         h1("My personal data"),
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
-          a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1")(trans.downloadRaw())
-        ),
-        st.section(
-          pre(cls := "raw-text")(raw)
+          a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr)(
+            trans.downloadRaw()
+          )
         )
       )
     }

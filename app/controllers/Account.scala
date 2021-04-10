@@ -441,15 +441,15 @@ final class Account(
       val userId = get("user")
         .map(lila.user.User.normalize)
         .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
-      env.user.repo byId userId flatMap {
+      env.user.repo byId userId map {
         _ ?? { user =>
-          env.api.personalDataExport(user) map { raw =>
-            if (getBool("text"))
-              Ok(raw)
-                .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt")
-                .as(TEXT)
-            else Ok(html.account.bits.data(user, raw))
-          }
+          if (getBool("text"))
+            Ok.chunked(env.api.personalDataExport(user))
+              .withHeaders(
+                noProxyBufferHeader,
+                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
+              )
+          else Ok(html.account.bits.data(user))
         }
       }
     }
