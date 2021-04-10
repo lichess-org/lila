@@ -257,15 +257,6 @@ final class ChatApi(
           }
         case _ => none
       }
-
-    def findLinesBy(chatId: Chat.Id, userId: User.ID): Fu[List[String]] =
-      coll.find($id(chatId)).one[UserChat](ReadPreference.secondaryPreferred) map {
-        _ ?? {
-          _.lines.collect {
-            case l if l.userId == userId => l.text
-          }
-        }
-      }
   }
 
   object playerChat {

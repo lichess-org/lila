@@ -78,15 +78,33 @@ final class PersonalDataExport(
     val gameChats =
       Source(List(textTitle("Game chat messages"))) concat
         gameEnv.gameRepo.coll
-          .find($doc(Game.BSONFields.playerUids -> user.id), $id(true).some)
-          .cursor[Bdoc](ReadPreference.secondaryPreferred)
-          .documentSource()
-          .map { doc => ~doc.string("_id") }
-          .throttle(heavyPerSecond, 1 second)
-          .mapAsyncUnordered(8) { id =>
-            chatEnv.api.userChat.findLinesBy(Chat.Id(id), user.id)
+          .aggregateWith[Bdoc](
+            readPreference = ReadPreference.secondaryPreferred
+          ) { framework =>
+            import framework._
+            List(
+              Match($doc(Game.BSONFields.playerUids -> user.id)),
+              Project($id(true)),
+              PipelineOperator(
+                $doc(
+                  "$lookup" -> $doc(
+                    "from"         -> chatEnv.coll.name,
+                    "as"           -> "chat",
+                    "localField"   -> "_id",
+                    "foreignField" -> "_id"
+                  )
+                )
+              ),
+              Unwind("chat"),
+              ReplaceRootField("chat"),
+              Project($doc("_id" -> false, "l" -> true)),
+              Unwind("l"),
+              Match("l" $startsWith s"${user.id} ")
+            )
           }
-          .mapConcat(identity)
+          .documentSource()
+          .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+          .throttle(heavyPerSecond, 1 second)
 
     val outro = Source(List(textTitle("That's all we got.")))
 
