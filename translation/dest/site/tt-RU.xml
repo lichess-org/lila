@@ -115,9 +115,7 @@
   <string name="mistake">Хата</string>
   <string name="inaccuracy">Җиңел хата</string>
   <plurals name="nbBlunders">
-    <item quantity="other">%s хата
-
-%s хаталар</item>
+    <item quantity="other">%s хата</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s хата</item>
