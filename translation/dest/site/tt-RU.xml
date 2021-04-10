@@ -556,6 +556,7 @@
   <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
   <string name="error.email_unique">Бу почта тамгасы теркәлү үткән</string>
   <string name="error.email_different">Бу инде сезнең ел. почта адресыгыз</string>
+  <string name="ifRatingIsPlusMinusX">Әгәр рейтингың ± %s</string>
   <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
@@ -565,6 +566,7 @@
   <plurals name="nbForumPosts">
     <item quantity="other">%s аралашу хәбәры</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">Уйнау өчен вакыт: %s</string>
   <string name="watchGames">Кара уеннарны</string>
   <string name="watch">Кара</string>
   <string name="videoLibrary">Видео җиентыгы</string>
