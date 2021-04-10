@@ -556,6 +556,7 @@
   <string name="error.required">Бу алан кирәкле</string>
   <string name="error.email">Бу почта адресы дөрес түгел</string>
   <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
+  <string name="error.email_unique">Бу почта тамгасы теркәлү үткән</string>
   <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
