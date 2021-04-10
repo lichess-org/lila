@@ -3,17 +3,19 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import views.html
 
+import lila.api.AnnounceStore
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ User => UserModel, TotpSecret, Holder }
-import views.html
-import lila.api.AnnounceStore
 
 final class Account(
     env: Env,
-    auth: Auth
+    auth: Auth,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def profile =
@@ -444,11 +446,15 @@ final class Account(
       env.user.repo byId userId map {
         _ ?? { user =>
           if (getBool("text"))
-            Ok.chunked(env.api.personalDataExport(user))
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
-              )
+            apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress ctx.req)(
+              env.api.personalDataExport(user)
+            ) { source =>
+              Ok.chunked(source)
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
+                )
+            }
           else Ok(html.account.bits.data(user))
         }
       }

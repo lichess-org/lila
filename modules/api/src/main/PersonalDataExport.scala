@@ -106,7 +106,7 @@ final class PersonalDataExport(
           .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
           .throttle(heavyPerSecond, 1 second)
 
-    val outro = Source(List(textTitle("That's all we got.")))
+    val outro = Source(List(textTitle("End of data export.")))
 
     List(intro, connections, followedUsers, forumPosts, privateMessages, gameChats, outro)
       .foldLeft(Source.empty[String])(_ concat _)
