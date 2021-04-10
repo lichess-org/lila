@@ -2,6 +2,8 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.bson.{ BSONHandler, Macros }
 import reactivemongo.api.CursorProducer
 import reactivemongo.api.ReadPreference
@@ -11,7 +13,6 @@ import scala.concurrent.duration._
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.user.User
-import reactivemongo.api.bson.BSONNull
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -119,12 +120,11 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .cursor[UserSession]()
       .gather[List](nb)
 
-  def allSessions(userId: User.ID): Fu[List[UserSession]] =
+  def allSessions(userId: User.ID): AkkaStreamCursor[UserSession] =
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
       .cursor[UserSession](ReadPreference.secondaryPreferred)
-      .gather[List](200)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {

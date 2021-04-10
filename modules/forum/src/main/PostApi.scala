@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining._
 
@@ -230,12 +231,11 @@ final class PostApi(
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
-  def allByUser(userId: User.ID) =
+  def allByUser(userId: User.ID): AkkaStreamCursor[Post] =
     env.postRepo.coll
       .find($doc("userId" -> userId))
       .sort($doc("createdAt" -> -1))
       .cursor[Post](ReadPreference.secondaryPreferred)
-      .list(2000)
 
   private def recentUserIds(topic: Topic, newPostNumber: Int) =
     env.postRepo.coll

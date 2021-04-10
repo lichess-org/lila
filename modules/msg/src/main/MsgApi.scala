@@ -2,6 +2,7 @@ package lila.msg
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.Try
 
@@ -9,8 +10,8 @@ import lila.common.config.MaxPerPage
 import lila.common.LilaStream
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
 import lila.user.Holder
+import lila.user.{ User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
@@ -228,7 +229,7 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def allMessagesOf(userId: User.ID): Fu[Vector[(String, DateTime)]] =
+  def allMessagesOf(userId: User.ID): Source[(String, DateTime), _] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
@@ -248,7 +249,15 @@ final class MsgApi(
                       "$expr" -> $doc(
                         "$and" -> $arr(
                           $doc("$eq" -> $arr("$user", userId)),
-                          $doc("$eq" -> $arr("$tid", "$$t"))
+                          $doc("$eq" -> $arr("$tid", "$$t")),
+                          $doc(
+                            "$not" -> $doc(
+                              "$regexMatch" -> $doc(
+                                "input" -> "$text",
+                                "regex" -> "You received this because you are subscribed to messages of the team"
+                              )
+                            )
+                          )
                         )
                       )
                     )
@@ -262,14 +271,13 @@ final class MsgApi(
           Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
       }
-      .collect[Vector](maxDocs = 9000)
-      .map { docs =>
-        for {
-          doc  <- docs
+      .documentSource()
+      .mapConcat { doc =>
+        (for {
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[DateTime]("date")
-        } yield (text, date)
+        } yield (text, date)).toList
       }
 }
 
