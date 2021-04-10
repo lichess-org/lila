@@ -90,8 +90,6 @@ object Chat {
 
   case class Setup(id: Id, publicSource: PublicSource)
 
-  case class MaxLines(value: Int) extends AnyVal with IntValue
-
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
   def simulSetup(simulId: String)     = Setup(Id(simulId), PublicSource.Simul(simulId))
 

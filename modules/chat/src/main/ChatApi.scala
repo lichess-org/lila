@@ -20,7 +20,6 @@ final class ChatApi(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
-    maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext, actorSystem: akka.actor.ActorSystem) {
 
@@ -319,7 +318,7 @@ final class ChatApi(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
               "$each"  -> List(line),
-              "$slice" -> -maxLinesPerChat.value
+              "$slice" -> -200
             )
           )
         ),
