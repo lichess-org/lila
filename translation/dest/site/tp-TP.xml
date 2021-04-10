@@ -194,7 +194,7 @@
   <string name="passwordReset">weka sona la o ante e nimi open len</string>
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
   <string name="rank">nanpa</string>
-  <string name="rankX">sona jan musi: %s</string>
+  <string name="rankX">nanpa: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">nanpa ni li sin lon tenpo Minuta %s</item>
     <item quantity="other">nanpa ni li sin lon tenpo Minuta %s</item>
