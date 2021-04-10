@@ -3,11 +3,11 @@ package html.puzzle
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsObject, JsString, Json }
+import play.api.libs.json.{ JsString, Json }
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ JsDump, MessageKey }
+import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {

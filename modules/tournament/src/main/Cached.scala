@@ -7,7 +7,6 @@ import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
 import lila.user.User
-import play.api.libs.json.JsArray
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,

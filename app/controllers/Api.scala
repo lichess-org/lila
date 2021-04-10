@@ -9,7 +9,6 @@ import scala.util.chaining._
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, IpAddress }
 
 final class Api(

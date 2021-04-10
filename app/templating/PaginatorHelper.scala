@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.paginator.Paginator
 
 trait PaginatorHelper {
 

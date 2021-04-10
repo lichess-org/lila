@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, Strings }
+import lila.common.Strings
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 import lila.user.{ Authenticator, UserRepo }

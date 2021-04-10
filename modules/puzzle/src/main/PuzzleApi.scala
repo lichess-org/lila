@@ -6,11 +6,9 @@ import scala.concurrent.duration._
 
 import lila.common.paginator.Paginator
 import lila.common.config.MaxPerPage
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.memo.CacheApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class PuzzleApi(
     colls: PuzzleColls,

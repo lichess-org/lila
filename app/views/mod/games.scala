@@ -10,7 +10,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
-import lila.tournament.Tournament
 import lila.user.User
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.swiss.Swiss

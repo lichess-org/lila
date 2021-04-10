@@ -1,13 +1,9 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.ThreadLocalRandom
 import lila.db.dsl._
-import lila.memo.CacheApi
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 // mobile app BC
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit

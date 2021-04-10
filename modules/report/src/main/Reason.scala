@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.{ Holder, User }
+import lila.user.Holder
 
 sealed trait Reason {
 

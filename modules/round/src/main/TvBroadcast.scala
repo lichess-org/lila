@@ -2,7 +2,6 @@ package lila.round
 
 import akka.actor._
 import akka.stream.scaladsl._
-import chess.format.FEN
 import chess.format.Forsyth
 import play.api.libs.json._
 

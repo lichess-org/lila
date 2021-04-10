@@ -7,14 +7,14 @@ import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
-import Relay.Sync.{ Upstream, UpstreamIds, UpstreamUrl }
+import Relay.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.memo.CacheApi
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
-import lila.game.{ Game, GameRepo, PgnDump }
+import lila.game.{ GameRepo, PgnDump }
 import lila.round.GameProxyRepo
 
 final private class RelayFetch(

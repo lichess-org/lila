@@ -1,7 +1,6 @@
 package lila.activity
 
 import lila.db.dsl._
-import lila.db.ignoreDuplicateKey
 import lila.game.Game
 import lila.study.Study
 import lila.user.User

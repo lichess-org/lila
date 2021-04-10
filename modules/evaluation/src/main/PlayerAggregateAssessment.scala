@@ -1,12 +1,9 @@
 package lila.evaluation
 
 import cats.implicits._
-import chess.Color
-import org.joda.time.DateTime
 import scala.math.sqrt
 
 import lila.user.User
-import lila.game.Game
 
 case class PlayerAggregateAssessment(
     user: User,

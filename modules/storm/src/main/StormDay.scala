@@ -1,7 +1,5 @@
 package lila.storm
 
-import org.joda.time.DateTime
-import org.joda.time.Days
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus

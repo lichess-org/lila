@@ -1,6 +1,5 @@
 package views.html.tv
 
-import controllers.routes
 
 import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig

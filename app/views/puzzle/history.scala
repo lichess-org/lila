@@ -2,14 +2,13 @@ package views
 package html.puzzle
 
 import controllers.routes
-import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
-import lila.puzzle.{ PuzzleRound, PuzzleTheme }
+import lila.puzzle.PuzzleTheme
 import lila.user.User
 
 object history {

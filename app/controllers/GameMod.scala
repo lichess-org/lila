@@ -2,9 +2,7 @@ package controllers
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.mvc._
 import scala.concurrent.duration._
-import views._
 
 import lila.api.Context
 import lila.app._

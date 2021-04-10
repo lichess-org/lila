@@ -9,7 +9,6 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
-import lila.common.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,

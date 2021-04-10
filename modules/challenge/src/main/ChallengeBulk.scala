@@ -2,8 +2,7 @@ package lila.challenge
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl._
-import chess.variant.Variant
-import chess.{ Clock, Mode, Situation, Speed }
+import chess.{ Situation, Speed }
 import org.joda.time.DateTime
 import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._

@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress, IpV4Address, ThreadLocalRandom }
+import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.user.User
 import reactivemongo.api.bson.BSONNull

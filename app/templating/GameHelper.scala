@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
-import lila.user.{ Title, User }
+import lila.user.Title
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 

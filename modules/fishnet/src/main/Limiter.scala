@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 
 import lila.common.IpAddress
 import lila.db.dsl._
-import lila.user.User
 
 final private class Limiter(
     analysisColl: Coll,

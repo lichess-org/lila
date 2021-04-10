@@ -3,7 +3,6 @@ package lila.storm
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ numberIn, stringIn }
 
 object StormForm {
 

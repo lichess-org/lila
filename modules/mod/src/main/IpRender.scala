@@ -1,6 +1,5 @@
 package lila.mod
 
-import com.github.blemale.scaffeine.Cache
 import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration._
 import scala.jdk.CollectionConverters._

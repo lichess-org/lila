@@ -1,8 +1,7 @@
 package lila.irc
 
-import org.joda.time.DateTime
 
-import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
+import lila.common.LightUser
 import lila.user.User
 
 final class DiscordApi(

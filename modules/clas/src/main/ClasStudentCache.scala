@@ -4,7 +4,7 @@ import akka.actor.Scheduler
 import akka.stream.Materializer
 import akka.stream.scaladsl._
 import bloomfilter.mutable.BloomFilter
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext

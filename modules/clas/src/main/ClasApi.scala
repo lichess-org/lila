@@ -2,7 +2,6 @@ package lila.clas
 
 import org.joda.time.DateTime
 import reactivemongo.api._
-import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress

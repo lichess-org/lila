@@ -1,12 +1,10 @@
 package lila.puzzle
 
-import org.apache.http.protocol
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.memo.CacheApi
-import reactivemongo.api.ReadPreference
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
