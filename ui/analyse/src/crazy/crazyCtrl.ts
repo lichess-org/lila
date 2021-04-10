@@ -31,6 +31,7 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   e.stopPropagation();
   e.preventDefault();
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
+  console.log("killerd analyze/src/crazy/crazyCtrl drag");
 }
 
 export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
@@ -43,10 +44,12 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent):
   if (!ctrl.selected || ctrl.selected[1] !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
     ctrl.selected = [color, role];
+    console.log("killerd analyze/src/crazy/crazyCtrl selecToDrop true?");
   }
   else {
     ctrl.selected = undefined;
     cancelDropMode(ctrl.shogiground.state);
+    console.log("killerd analyze/src/crazy/crazyCtrl selectToDrop cancelDropMode");
   }
   e.stopPropagation();
   e.preventDefault();
