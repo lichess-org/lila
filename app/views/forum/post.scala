@@ -72,7 +72,19 @@ object post {
               dataIcon := "q",
               title := "Delete"
             )
-          else emptyFrag
+          else
+            post.userId map { userId =>
+              val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+              frag(
+                nbsp,
+                a(
+                  titleOrText(trans.reportXToModerators.txt(userId)),
+                  cls := "mod report button button-empty",
+                  href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}",
+                  dataIcon := "!"
+                )
+              )
+            }
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),

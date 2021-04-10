@@ -372,7 +372,6 @@ GET   /fishnet/status                         controllers.Fishnet.status
 POST  /pref/:name                             controllers.Pref.set(name: String)
 GET   /account/preferences/:categ             controllers.Pref.form(categ: String)
 POST  /account/preferences                    controllers.Pref.formApply
-POST  /account/preferences/verify-title       controllers.Pref.verifyTitle
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm

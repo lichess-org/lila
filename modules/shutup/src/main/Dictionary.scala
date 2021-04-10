@@ -187,7 +187,9 @@ p[ie]d[aoe]?r
 
   def es = dict("""
 cabr[oó]na?
+chupame
 est[úu]pid[ao]
+imbecil
 maric[oó]n
 mierda
 pendejo
@@ -218,7 +220,9 @@ gaa?nd
 
   def fr = dict("""
 fdp
-trich(eurs|)
+pd
+triche
+tricheurs?
 """)
 
   def de = dict("""

@@ -22,10 +22,9 @@ object BuildSettings {
       // No bloop project for tests
       Test / bloopGenerate := None,
       // disable publishing doc and sources
-      Compile / sources := Seq.empty,
-      doc / sources := Seq.empty,
-      packageDoc / publishArtifact := false,
-      Compile / publishArtifact := false,
+      Compile / doc / sources := Seq.empty,
+      Compile / packageDoc / publishArtifact := false,
+      Compile / packageSrc / publishArtifact := false,
       javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
@@ -92,12 +91,10 @@ object BuildSettings {
     // "-Wunused:imports",
     // "-Wunused:locals",
     "-Wunused:patvars",
-    // "-Wunused:privates", // unfortunately doesn't work with macros
-    // "-Wunused:implicits",
-    // "-Wunused:params"
-    "-Wvalue-discard",
-    "-Yrangepos",          // required by SemanticDB compiler plugin
-    "-Ywarn-unused-import" // required by `RemoveUnused` rule
+    // "-Wunused:privates",  // unfortunately doesn't work with wire macros
+    // "-Wunused:implicits", // unfortunately doesn't work with wire macros
+    // "-Wunused:params"     // unfortunately doesn't work with wire macros
+    "-Wvalue-discard"
   )
 
   val srcMain = Seq(

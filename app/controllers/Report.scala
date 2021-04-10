@@ -9,6 +9,8 @@ import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lila.user.{ User => UserModel, Holder }
 
+import play.api.data._
+
 final class Report(
     env: Env,
     userC: => User,
@@ -154,7 +156,11 @@ final class Report(
         if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
-            Ok(html.report.form(form, user, captcha))
+            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
+              case (Some(u), Some(pid)) =>  form.fill(lila.report.ReportSetup(user=u.light, "", text=pid, "", ""))
+              case _ =>  form
+            }
+            Ok(html.report.form(filledForm, user, captcha))
           }
       }
     }
