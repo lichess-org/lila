@@ -22,10 +22,9 @@ object BuildSettings {
       // No bloop project for tests
       Test / bloopGenerate := None,
       // disable publishing doc and sources
-      Compile / sources := Seq.empty,
-      doc / sources := Seq.empty,
-      packageDoc / publishArtifact := false,
-      Compile / publishArtifact := false,
+      Compile / doc / sources := Seq.empty,
+      Compile / packageDoc / publishArtifact := false,
+      Compile / packageSrc / publishArtifact := false,
       javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
