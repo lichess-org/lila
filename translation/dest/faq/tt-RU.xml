@@ -26,6 +26,8 @@
   <string name="youCannotApply">Модератор булу өчен гариза бирү мөмкин түгел. Әгәр дә без модератор буларак яхшы булыр дип уйлаган кешене күрсәк, без алар белән турыдан-туры элемтәгә керербез.</string>
   <string name="isCorrespondenceDifferent">Хат алышу гадәти шахматтан аерылып торамы?</string>
   <string name="gameplay">Уенуйнамак</string>
+  <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
+  <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
   <string name="eightVariants">8 шаһмат варианты</string>
   <string name="fideHandbookX">FIDE кулланмасы %s</string>
   <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
@@ -33,5 +35,9 @@
   <string name="officialRulesPDF">төпләнгән кагыйдәләр (PDF)</string>
   <string name="lichessTraining">Lichess күнегүе</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
+  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 (d) статьясында күрсәтелгәнчә.</string>
+  <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
+  <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
+  <string name="positions">позициясе</string>
   <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
 </resources>
