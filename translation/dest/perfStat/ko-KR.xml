@@ -10,6 +10,7 @@
   <string name="totalGames">총 게임</string>
   <string name="ratedGames">레이팅 게임</string>
   <string name="tournamentGames">토너먼트 게임</string>
+  <string name="berserkedGames">버서크 게임</string>
   <string name="timeSpentPlaying">플레이한 시간</string>
   <string name="averageOpponent">상대의 평균 레이팅</string>
   <string name="victories">승리</string>
