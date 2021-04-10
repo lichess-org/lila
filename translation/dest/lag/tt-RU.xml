@@ -11,4 +11,6 @@
   <string name="networkBetweenLichessAndYou">Lichess белән сезнең арада челтәр</string>
   <string name="networkBetweenLichessAndYouExplanation">Сезнең компьютерыгыздан Lichess серверына хәрәкәт җибәрү һәм җавапны кире кайтару өчен вакыт кирәк. Бу сезнең Lichess (Франция) ераклыгыгызга, һәм Интернетка тоташу сыйфаты өчен хас. Lichess ясаучылар сезнең wifiгызны төзәтә алмыйлар яки яктылыкны тизрәк ясый алмыйлар.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Сез бу кыймәтләрне теләсә кайсы вакытта таба аласыз, өске сызыктагы кулланучы исеменә басып.</string>
+  <string name="lagCompensation">Тоткалаку өчен компенсация</string>
+  <string name="lagCompensationExplanation">Lichess челтәр артта калуны компенсацияли. Бу үз эченә тотрыклы артта калу һәм вакыт-вакыт артта калу. Вакыт тикшеруе һәм компенсацияләнгән артта калу нигезендә чикләр һәм эвристика бар, нәтиҗә ике уенчы өчен дә акыллы булырга тиеш. Нәтиҗәдә, көндәшеңнән югарырак челтәрдә калу зыянлык түгел!</string>
 </resources>
