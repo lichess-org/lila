@@ -38,7 +38,9 @@
   <string name="theKnight">Атчы</string>
   <string name="thePawn">Җәяүле</string>
   <string name="capture">Алу</string>
+  <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
+  <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
