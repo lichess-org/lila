@@ -123,7 +123,7 @@ semen
 sex
 shag
 shemale
-(((you ((is|are) )?)shit)|(shit(?!\b)))(z|e|y|ty|bag|)
+(((you'? ?((is|a?re) )?)shit)|(shit(?!\b)))(z|e|y|ty|bag|)
 sissy
 slag
 slave
@@ -258,9 +258,9 @@ orospu
 piç(lik)?
 pu[sş]t
 salak
-sikecem
+s[ii̇]kecem
 sikiyonuz
-siktir
+s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
 """)
 
