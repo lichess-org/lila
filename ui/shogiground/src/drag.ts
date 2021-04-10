@@ -85,8 +85,11 @@ export function start(s: State, e: cg.MouchEvent): void {
       util.setVisible(ghost, true);
     }
     processDrag(s);
-    cancelDropMode(s);
+    if (s.dropmode.active) cancelDropMode(s);
   } else {
+    // killerd: should we also call cancelDropMode here?
+    // I think you arrive here when you click an empty square
+    // That might never happen if you have a dropmode piece active
     if (hadPremove) board.unsetPremove(s);
     if (hadPredrop) board.unsetPredrop(s);
   }
