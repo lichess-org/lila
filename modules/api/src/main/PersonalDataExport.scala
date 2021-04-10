@@ -103,7 +103,7 @@ final class PersonalDataExport(
             )
           }
           .documentSource()
-          .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+          .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) + "\n" }
           .throttle(heavyPerSecond, 1 second)
 
     val outro = Source(List(textTitle("End of data export.")))
