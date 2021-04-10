@@ -14,8 +14,14 @@
   <string name="rookGoal">Турага басыгыз
 һәм аны йолдызга алып китерегез!</string>
   <string name="grabAllTheStars">Бөтен йолдызларны җыеп алыгыз!</string>
+  <string name="theFewerMoves">Сез азрак хәрәкәт итәсез,
+күбрәк балл җыйсаң!</string>
+  <string name="useTwoRooks">Куллан ике тураны
+эшне тизләтергә!</string>
+  <string name="rookComplete">Котлыйбыз! Сез тураны уңышлы үзләштердегез.</string>
   <string name="theBishop">Фил</string>
   <string name="itMovesDiagonally">Ул хәрәкәт итә диагональ буенча</string>
+  <string name="bishopIntro">Алга таба без фил белән идарә итәргә өйрәнербез!</string>
   <string name="theQueen">Вәзир</string>
   <string name="queenCombinesRookAndBishop">Вәзир = тура + фил</string>
   <string name="queenIntro">Иң көчле шаһмат сөяге керә. Аның дәрәҗәсе вәзир!</string>
