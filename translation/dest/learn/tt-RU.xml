@@ -22,6 +22,10 @@
   <string name="theBishop">Фил</string>
   <string name="itMovesDiagonally">Ул хәрәкәт итә диагональ буенча</string>
   <string name="bishopIntro">Алга таба без фил белән идарә итәргә өйрәнербез!</string>
+  <string name="youNeedBothBishops">Бер ак-шакмаклардагы фил
+бер кара-шакмаклардагы фил
+Сиңа кирәк икеседә!</string>
+  <string name="bishopComplete">Котлыйбыз! Сез филгә боерык бирә аласыз.</string>
   <string name="theQueen">Вәзир</string>
   <string name="queenCombinesRookAndBishop">Вәзир = тура + фил</string>
   <string name="queenIntro">Иң көчле шаһмат сөяге керә. Аның дәрәҗәсе вәзир!</string>
@@ -30,9 +34,11 @@
   <string name="theMostImportantPiece">Иң мөһим сөякләр</string>
   <string name="kingIntro">Ул Шаһ. Әгәр дә сез сугышта егылса, уен җиңелә.</string>
   <string name="theKingIsSlow">Шаһ әкрен.</string>
+  <string name="lastOne">Соңгысы!</string>
   <string name="theKnight">Атчы</string>
   <string name="thePawn">Җәяүле</string>
   <string name="capture">Алу</string>
+  <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
