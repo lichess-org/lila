@@ -146,15 +146,15 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">ilo %s pi lukin sin</item>
-    <item quantity="other">ilo %s pi lukin sin</item>
+    <item quantity="other">ilo awen %s</item>
   </plurals>
-  <string name="viewInFullSize">lukin ale</string>
-  <string name="logOut">tawa tan ni</string>
-  <string name="signIn">open</string>
+  <string name="viewInFullSize">o suli</string>
+  <string name="logOut">o weka tan linluwi</string>
+  <string name="signIn">o kepeken nimi sina</string>
   <string name="youNeedAnAccountToDoThat">sina wile pali e ni la sina wile jo e lipu jan</string>
-  <string name="signUp">kama jan pi ma ni</string>
-  <string name="computersAreNotAllowedToPlay">sina wile musi la, o kepeken ala e ilo sona e lipu sona e jan sona. kin la, sina pali e jan mute lon lipu ni la, ni li ken ike.</string>
-  <string name="games">o lukin e musi</string>
+  <string name="signUp">o kama jan pi ma ni</string>
+  <string name="computersAreNotAllowedToPlay">sina wile musi la, o kepeken ala e ilo sona e lipu sona e jan sona. kin la, sina pali e nimi mute lon lipu ni la, ni li ken ike.</string>
+  <string name="games">musi</string>
   <string name="forum">ma toki</string>
   <string name="xPostedInForumY">jan %1$s li sitelen lon ma toki %2$s</string>
   <string name="latestForumPosts">toki sin lon ma toki</string>
