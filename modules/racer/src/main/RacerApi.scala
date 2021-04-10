@@ -98,7 +98,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
     }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
-    if (score >= 140) logger.warn(s"$id $player score: $score")
+    if (score >= 125) logger.warn(s"$id $player score: $score")
     else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
   }
 
