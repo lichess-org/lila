@@ -7,7 +7,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.user.User
 
-import controllers.routes
 
 object upcoming {
 

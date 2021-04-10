@@ -1,16 +1,12 @@
 package lila.racer
 
 import com.softwaremill.macwire._
-import play.api.Configuration
 
-import lila.common.config._
 import lila.common.LightUser
 import lila.db.AsyncColl
-import lila.db.dsl.Coll
 import lila.storm.StormJson
 import lila.storm.StormSelector
 import lila.storm.StormSign
-import lila.user.UserRepo
 
 @Module
 final class Env(

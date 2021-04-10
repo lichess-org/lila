@@ -2,7 +2,6 @@ package lila.racer
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
-import lila.user.User
 
 final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akka.actor.ActorSystem) {
 

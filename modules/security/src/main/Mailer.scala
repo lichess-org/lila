@@ -8,7 +8,6 @@ import scala.concurrent.duration.{ span => _, _ }
 import scala.concurrent.{ blocking, Future }
 import scalatags.Text.all._
 
-import lila.common.config.Secret
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.i18n.I18nKeys.{ emails => trans }

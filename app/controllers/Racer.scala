@@ -8,8 +8,6 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.racer.RacerPlayer
 import lila.racer.RacerRace
-import lila.socket.Socket
-import lila.common.LilaCookie
 
 final class Racer(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 

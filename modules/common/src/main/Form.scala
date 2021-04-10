@@ -4,7 +4,6 @@ import chess.format.FEN
 import chess.format.Forsyth
 import io.lemonlabs.uri._
 import org.joda.time.{ DateTime, DateTimeZone }
-import play.api.data.FieldMapping
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
 import play.api.data.Forms._

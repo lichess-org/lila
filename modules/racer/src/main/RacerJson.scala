@@ -1,14 +1,10 @@
 package lila.racer
 
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 
-import lila.common.Json._
 import lila.common.LightUser
 import lila.storm.StormJson
-import lila.storm.StormPuzzle
 import lila.storm.StormSign
-import lila.user.User
 
 final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: LightUser.GetterSync) {
 

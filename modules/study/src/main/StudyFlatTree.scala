@@ -5,8 +5,6 @@ import Node.Children
 
 import lila.common.Chronometer
 import lila.db.dsl._
-import lila.tree.Eval
-import lila.tree.Eval.Score
 
 private object StudyFlatTree {
 

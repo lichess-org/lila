@@ -5,7 +5,6 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
 import lila.analyse.Analysis
-import lila.analyse.Analysis.Analyzed
 import lila.analyse.AnalysisRepo
 import lila.common.Bus
 import lila.db.dsl._

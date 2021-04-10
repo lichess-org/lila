@@ -1,7 +1,6 @@
 package lila.study
 
 import play.api.libs.json._
-import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 

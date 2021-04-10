@@ -1,6 +1,5 @@
 package lila.swiss
 
-import chess.Clock.{ Config => ClockConfig }
 import chess.Color
 import chess.format.FEN
 import reactivemongo.api.bson._

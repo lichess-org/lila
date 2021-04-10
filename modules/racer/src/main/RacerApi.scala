@@ -3,11 +3,7 @@ package lila.racer
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.puzzle.Puzzle
-import lila.socket.Socket
-import lila.storm.StormPuzzle
 import lila.storm.StormSelector
 import lila.user.User
 import lila.common.Bus
@@ -18,7 +14,6 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
 ) {
 
   import RacerRace.Id
-  import RacerBsonHandlers._
 
   private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race")(
     _.expireAfterAccess(30 minutes).build()

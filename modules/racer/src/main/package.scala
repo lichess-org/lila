@@ -1,6 +1,5 @@
 package lila
 
-import lila.user.User
 
 package object racer extends PackageObject {
 

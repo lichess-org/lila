@@ -3,7 +3,6 @@ package controllers
 import chess.format.FEN
 import chess.White
 import play.api.mvc._
-import scala.concurrent.duration._
 import views._
 
 import lila.api.Context

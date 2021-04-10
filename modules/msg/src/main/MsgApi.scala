@@ -3,7 +3,6 @@ package lila.msg
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.common.config.MaxPerPage

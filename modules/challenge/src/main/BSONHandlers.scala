@@ -2,7 +2,6 @@ package lila.challenge
 
 import reactivemongo.api.bson._
 
-import chess.Mode
 import chess.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }

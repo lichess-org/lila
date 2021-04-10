@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.libs.json._
 
 import lila.app._
 import lila.notify.Notification.Notifies

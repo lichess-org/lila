@@ -1,6 +1,5 @@
 package views.html.analyse
 
-import lila.analyse.Advice.Judgement
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._

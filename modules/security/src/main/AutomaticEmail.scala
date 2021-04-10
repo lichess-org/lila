@@ -1,6 +1,5 @@
 package lila.security
 
-import cats.implicits._
 import play.api.i18n.Lang
 import scala.util.chaining._
 

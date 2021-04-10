@@ -2,8 +2,6 @@ package lila.racer
 
 import org.joda.time.DateTime
 
-import lila.user.User
-import lila.puzzle.Puzzle
 import lila.storm.StormPuzzle
 
 case class RacerRace(
