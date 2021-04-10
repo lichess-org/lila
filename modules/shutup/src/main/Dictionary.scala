@@ -87,7 +87,7 @@ mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
-(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)noob
+(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)noo+b
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
