@@ -568,6 +568,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Уйнау өчен вакыт: %s</string>
   <string name="watchGames">Кара уеннарны</string>
+  <string name="tpTimeSpentOnTV">ТВдан күрсәтелгән вакыт: %s</string>
   <string name="watch">Кара</string>
   <string name="videoLibrary">Видео җиентыгы</string>
   <string name="streamersMenu">Алып баручылар</string>
@@ -577,12 +578,15 @@
   <string name="aboutX">%s турында</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ул азат (%2$s), ирекле, комерциясез, ачык чыганаклы шаһмат серверы.</string>
   <string name="really">чыннанда</string>
+  <string name="contribute">Игътибар итегез</string>
   <string name="termsOfService">Куллану шартлары</string>
   <string name="sourceCode">Кодның чыганагы</string>
   <string name="simultaneousExhibitions">Синхрон күргәзмәләр</string>
   <string name="host">Хуҗа</string>
+  <string name="createdSimuls">Яңа гына ачылган симул</string>
   <string name="hostANewSimul">Яңа симулның хуҗасы</string>
   <string name="noSimulFound">Симул табылмады</string>
+  <string name="returnToSimulHomepage">Симул ал битенә кайтырга</string>
   <string name="create">Ячарга</string>
   <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
