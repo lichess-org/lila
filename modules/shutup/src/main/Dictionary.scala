@@ -80,14 +80,14 @@ loo?ser
 masturbat(e|ion|ing)
 milf
 molest
-(?<!i'?m (such )?(an? )?)moron
+moron
 motherfuc?k(er|)
 mothers?
 mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
-(?<!i'?m (such )?(an? )?)noob
+noob
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
