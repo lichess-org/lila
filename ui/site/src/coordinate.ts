@@ -162,6 +162,7 @@ lichess.load.then(() => {
     $start.on('click', () => {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
+      $timer.removeClass('hurry');
       showColor();
       clearCoords();
       centerRight();
