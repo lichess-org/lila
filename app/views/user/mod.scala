@@ -613,14 +613,15 @@ object mod {
     )
   }
 
-  def identification(mod: Holder, logins: UserLogins)(implicit
+  def identification(mod: Holder, user: User, logins: UserLogins)(implicit
       ctx: Context,
       renderIp: RenderIp
   ): Frag = {
-    val canIpBan = isGranted(_.IpBan)
-    val canFpBan = isGranted(_.PrintBan)
+    val canIpBan  = isGranted(_.IpBan)
+    val canFpBan  = isGranted(_.PrintBan)
+    val canLocate = isGranted(_.Admin) || user.lameOrTrollOrAlt
     mzSection("identification")(
-      div(cls := "spy_locs")(
+      canLocate option div(cls := "spy_locs")(
         table(cls := "slist slist--sort")(
           thead(
             tr(
@@ -645,7 +646,7 @@ object mod {
           )
         )
       ),
-      div(cls := "spy_uas")(
+      canLocate option div(cls := "spy_uas")(
         table(cls := "slist slist--sort")(
           thead(
             tr(
