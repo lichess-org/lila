@@ -9,6 +9,7 @@ import scala.concurrent.ExecutionContext
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
+import reactivemongo.core.errors.DatabaseException
 
 final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(implicit
     ec: ExecutionContext,
@@ -107,4 +108,8 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
         } yield mates ++ teachers
       }
       .dmap(~_)
+      .recover {
+        // can happen, probably in case of student cache bloom filter false positive
+        case e: DatabaseException if e.getMessage.contains("resulting value was: MISSING") => Set.empty
+      }
 }

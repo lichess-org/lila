@@ -107,11 +107,8 @@
   <string name="infiniteAnalysis">Ukuhlaziywa okungenamkhawulo</string>
   <string name="removesTheDepthLimit">Isusa umkhawulo wokujula, futhi igcina ikhompyutha yakho ifudumele</string>
   <string name="blunder">Ukuphaphalaza</string>
-  <string name="blunders">Amaphutha</string>
   <string name="mistake">Iphutha</string>
-  <string name="mistakes">Isiphosiso</string>
   <string name="inaccuracy">Ukunemba</string>
-  <string name="inaccuracies">Ukungafanele</string>
   <string name="moveTimes">Izikhathi ze-Movie</string>
   <string name="flipBoard">Ibhodi le-Flip</string>
   <string name="threefoldRepetition">Ukuphindaphinda kathathu</string>

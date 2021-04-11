@@ -121,6 +121,11 @@
         border: none;
       }
     }
+
+    &__zen {
+      display: inline-block;
+      margin-top: 2vmin;
+    }
   }
 
   &__replay {

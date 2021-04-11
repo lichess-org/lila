@@ -1,20 +1,14 @@
+import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8',
-};
-
 type AltCastle = keyof typeof altCastles;
 
 function isAltCastle(str: string): str is AltCastle {
-  return altCastles.hasOwnProperty(str);
+  return str in altCastles;
 }
 
 export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {

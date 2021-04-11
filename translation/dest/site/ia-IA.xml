@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Analyse infinite</string>
   <string name="removesTheDepthLimit">Remove le limite de profunditate del analyse e mantene tu computator calide</string>
   <string name="blunder">Error grave</string>
-  <string name="blunders">Errores grave</string>
   <string name="mistake">Error</string>
-  <string name="mistakes">Errores</string>
   <string name="inaccuracy">Imprecision</string>
-  <string name="inaccuracies">Imprecisiones</string>
   <string name="moveTimes">Tempore per movimento</string>
   <string name="flipBoard">Girar le tabuliero</string>
   <string name="threefoldRepetition">Repetition triple</string>

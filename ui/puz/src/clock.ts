@@ -5,7 +5,7 @@ export class Clock {
   startAt: number | undefined;
   initialMillis: number;
 
-  public constructor(readonly config: Config, startedMillisAgo: number = 0) {
+  public constructor(readonly config: Config, startedMillisAgo = 0) {
     this.initialMillis = config.clock.initial * 1000 - (startedMillisAgo || 0);
   }
 

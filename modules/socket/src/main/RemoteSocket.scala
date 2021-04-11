@@ -1,7 +1,6 @@
 package lila.socket
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
-import cats.data.NonEmptyList
 import chess.{ Centis, Color }
 import io.lettuce.core._
 import io.lettuce.core.pubsub.{ StatefulRedisPubSubConnection => PubSub }
@@ -19,7 +18,7 @@ import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
-import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendTos }
+import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToAsync, SendTos }
 
 final class RemoteSocket(
     redisClient: RedisClient,
@@ -93,8 +92,12 @@ final class RemoteSocket(
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
-    case SendTo(userId, payload) if onlineUserIds.get.contains(userId) =>
-      send(Out.tellUser(userId, payload))
+    case SendTo(userId, payload) =>
+      if (onlineUserIds.get.contains(userId)) send(Out.tellUser(userId, payload))
+    case SendToAsync(userId, makePayload) =>
+      if (onlineUserIds.get.contains(userId)) makePayload() foreach { payload =>
+        send(Out.tellUser(userId, payload))
+      }
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(micros) =>

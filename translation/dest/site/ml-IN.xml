@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
   <string name="removesTheDepthLimit">ആഴം കുറിച്ച് കംപ്യൂട്ടറിനെ ചൂടാക്കി വെയ്ക്കുന്നു</string>
   <string name="blunder">മണ്ടത്തരം</string>
-  <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
-  <string name="mistakes">തെറ്റുകൾ</string>
   <string name="inaccuracy">പിഴവ്</string>
-  <string name="inaccuracies">പിഴകൾ</string>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
   <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
@@ -846,7 +843,7 @@
   <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>
   <string name="someoneYouReportedWasBanned">നിങ്ങൾ റിപ്പോർട്ടുചെയ്‌ത ഒരു കളിക്കാരനെ നിരോധിച്ചിരിക്കുന്നു</string>
   <string name="congratsYouWon">അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ജയിച്ചു!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">%1$s ഇന് എതിരെയുള്ള കളി</string>
+  <string name="gameVsX">%1$s ഇന് എതിരെയുള്ള കളി</string>
   <string name="resVsX">%1$s വസ് %2$s</string>
   <string name="youJustBecamePatron">നിങ്ങളൊരു ലിചെസ്സ് രക്ഷധികാരി ആയിരിക്കുന്നു.</string>
   <string name="patronAccountExpired">രക്ഷധികാരി അക്കൗണ്ട് കആലഹരണപെട്ടിരിക്കുന്നു</string>
@@ -854,6 +851,6 @@
   <string name="someoneReviewedYourCoachProfile">ആരോ നിങ്ങളുടെ കോച്ച് പ്രൊഫൈൽ പുതുക്കിയിരിക്കുന്നു.</string>
   <string name="newPendingReview">തീർച്ചപ്പെടുത്താത്ത റിവ്യൂ</string>
   <string name="lostAgainstTOSViolator">ലിചെസ്സ് ടോസ് ലങ്കിച്ച ഒരാളുമായി നിങ്ങൾ പരാജയപ്പെട്ടിരിക്കുന്നു</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
+  <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
 </resources>

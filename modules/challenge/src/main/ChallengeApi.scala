@@ -9,6 +9,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
+import lila.i18n.I18nLangPicker
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -153,10 +154,8 @@ final class ChallengeApi(
 
   private def notify(userId: User.ID): Funit =
     for {
-      all <- allFor(userId)
-      lang <- userRepo langOf userId map {
-        _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
-      }
+      all  <- allFor(userId)
+      lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
     } yield Bus.publish(
       SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
       "socketUsers"

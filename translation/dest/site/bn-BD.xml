@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
   <string name="removesTheDepthLimit">গভীরতার সীমা অপসারণ করুন এবং আপনার কম্পিউটারকে গরম রাখুন</string>
   <string name="blunder">গুরুতর ভুল</string>
-  <string name="blunders">সাঙ্ঘাতিক ভুল</string>
   <string name="mistake">ভুল</string>
-  <string name="mistakes">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
-  <string name="inaccuracies">যথার্থতার অভাব</string>
   <string name="moveTimes">চালের সময়</string>
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
@@ -852,4 +849,7 @@
   <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
   <string name="subscribe">সাবস্ক্রাইব</string>
   <string name="unsubscribe">আনসাবস্ক্রাইব</string>
+  <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
+  <string name="youJustBecamePatron">আপনি এইমাত্র লিচেসের পৃষ্ঠপোষক হলেন।</string>
+  <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
 </resources>

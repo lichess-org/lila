@@ -53,7 +53,7 @@ lichess.load.then(() => {
                 // Initially we only autocomplete by participants in the thread. As the user types more,
                 // we can autocomplete against all users on the site.
                 threadParticipants.then(function (participants) {
-                  var forumParticipantCandidates = searchCandidates(term, participants);
+                  const forumParticipantCandidates = searchCandidates(term, participants);
 
                   if (forumParticipantCandidates.length != 0) {
                     // We always prefer a match on the forum thread partcipants' usernames

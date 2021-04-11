@@ -9,6 +9,8 @@ import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lila.user.{ User => UserModel, Holder }
 
+import play.api.data._
+
 final class Report(
     env: Env,
     userC: => User,
@@ -37,8 +39,8 @@ final class Report(
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
   private def renderList(me: Holder, room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(asMod(me), 12, Room(room)) zip
-      getScores flatMap { case (reports, scores ~ streamers ~ appeals) =>
+    api.openAndRecentWithFilter(asMod(me), 12, Room(room)) zip getScores flatMap {
+      case (reports, ((scores, streamers), appeals)) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
           Ok(
             html.report
@@ -50,7 +52,7 @@ final class Report(
                 appeals
               )
           )
-      }
+    }
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
@@ -154,7 +156,11 @@ final class Report(
         if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
         else
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
-            Ok(html.report.form(form, user, captcha))
+            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
+              case (Some(u), Some(pid)) =>  form.fill(lila.report.ReportSetup(user=u.light, "", text=pid, "", ""))
+              case _ =>  form
+            }
+            Ok(html.report.form(filledForm, user, captcha))
           }
       }
     }

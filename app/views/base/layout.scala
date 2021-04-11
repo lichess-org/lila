@@ -83,7 +83,13 @@ object layout {
     )
       "Disable"
     else "Enable"} blind mode</button></form>""")
-  private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
+
+  private def zenToggle(implicit ctx: Context) =
+    spaceless(s"""
+  <a data-icon="E" id="zentog" class="text fbt active">
+    ${trans.preferences.zenMode.txt()}
+  </a>""")
+
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),

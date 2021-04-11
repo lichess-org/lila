@@ -106,11 +106,8 @@
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="removesTheDepthLimit">Վերացնում է խորության սահմանափակումը և տաք պահում ձեր համակարգիչը</string>
   <string name="blunder">Վրիպում</string>
-  <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistake">Սխալ</string>
-  <string name="mistakes">Սխալներ</string>
   <string name="inaccuracy">Անճշտություն</string>
-  <string name="inaccuracies">Անճշտություններ</string>
   <string name="moveTimes">Քայլի տևողություն</string>
   <string name="flipBoard">Շրջել խաղատախտակը</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>

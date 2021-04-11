@@ -121,11 +121,26 @@
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
   <string name="blunder">Hrubá chyba</string>
-  <string name="blunders">Hrubky</string>
   <string name="mistake">Chyba</string>
-  <string name="mistakes">Omyly</string>
   <string name="inaccuracy">Nepřesnost</string>
-  <string name="inaccuracies">Nepřesnosti</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s hrubá chyba</item>
+    <item quantity="few">%s hrubé chyby</item>
+    <item quantity="many">%s hrubých chyb</item>
+    <item quantity="other">%s hrubých chyb</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s chyba</item>
+    <item quantity="few">%s chyby</item>
+    <item quantity="many">%s chyb</item>
+    <item quantity="other">%s chyb</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepřesnost</item>
+    <item quantity="few">%s nepřesnosti</item>
+    <item quantity="many">%s nepřesností</item>
+    <item quantity="other">%s nepřesností</item>
+  </plurals>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
@@ -912,4 +927,22 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
+  <string name="mentionedYouInX"> vás zmínil v \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
+  <string name="invitedYouToX"> vás pozval ke studii \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
+  <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
+  <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
+  <string name="gameVsX">Partie proti %1$s</string>
+  <string name="resVsX">%1$s vs. %2$s</string>
+  <string name="youJustBecamePatron">Právě jste se stal patronem (podporovatelem) Lichess.</string>
+  <string name="patronAccountExpired">Platnost účtu Patrona vypršela</string>
+  <string name="pleaseReconsiderRenewIt">Zvažte prosím jeho obnovení!</string>
+  <string name="someoneReviewedYourCoachProfile">Někdo přidal recenzi na váš profil trenéra.</string>
+  <string name="newPendingReview">Nový, čeká na kontrolu</string>
+  <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
+  <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
+  <string name="timeAlmostUp">Čas vám běží!</string>
 </resources>

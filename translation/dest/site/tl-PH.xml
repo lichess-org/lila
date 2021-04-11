@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">Walang katapusang pagsusuri</string>
   <string name="removesTheDepthLimit">Tanggalin ang lalim, at panatilihin na mainit ang iyong kompyuter</string>
   <string name="blunder">Pagkakamali</string>
-  <string name="blunders">Mga pagkakamali</string>
   <string name="mistake">Pagkakamali</string>
-  <string name="mistakes">Mga Pagkakamali</string>
   <string name="inaccuracy">Hindi tama</string>
-  <string name="inaccuracies">Mga hindi tama</string>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
   <string name="threefoldRepetition">Tatlong pag-uulit</string>

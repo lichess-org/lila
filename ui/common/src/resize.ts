@@ -2,7 +2,7 @@ import * as cg from 'chessground/types';
 import * as xhr from './xhr';
 import debounce from './debounce';
 
-export type MouchEvent = MouseEvent & TouchEvent;
+type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
@@ -60,7 +60,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
 }
 
 function eventPosition(e: MouchEvent): [number, number] | undefined {
-  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
-  if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
-  return undefined;
+  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY!];
+  if (e.targetTouches?.[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
+  return;
 }

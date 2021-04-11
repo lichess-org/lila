@@ -99,6 +99,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/study/${studyId}.pgn`,
+            download: true,
           },
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')
@@ -109,6 +110,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/study/${studyId}/${chapter.id}.pgn`,
+            download: true,
           },
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
@@ -119,6 +121,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           attrs: {
             'data-icon': 'x',
             href: `/study/${studyId}/${chapter.id}.gif`,
+            download: true,
           },
         },
         'GIF'

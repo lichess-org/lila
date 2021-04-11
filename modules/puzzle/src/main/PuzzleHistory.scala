@@ -1,12 +1,8 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike

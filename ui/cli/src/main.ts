@@ -24,7 +24,7 @@ function execute(q: string) {
 }
 
 function command(q: string) {
-  var parts = q.split(' '),
+  const parts = q.split(' '),
     exec = parts[0];
 
   const is = function (commands: string) {

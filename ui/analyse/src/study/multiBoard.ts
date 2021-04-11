@@ -7,10 +7,10 @@ import { bind, spinner } from '../util';
 import * as domData from 'common/data';
 
 export class MultiBoardCtrl {
-  loading: boolean = false;
-  page: number = 1;
+  loading = false;
+  page = 1;
   pager?: Paginator<ChapterPreview>;
-  playing: boolean = false;
+  playing = false;
 
   constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
 

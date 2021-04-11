@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
-import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 
 final private class GameJson(
     gameRepo: GameRepo,

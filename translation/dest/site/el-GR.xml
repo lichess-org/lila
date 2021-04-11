@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
-  <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistake">Λάθος</string>
-  <string name="mistakes">Λάθη</string>
   <string name="inaccuracy">Ανακρίβεια</string>
-  <string name="inaccuracies">Ανακρίβειες</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s σοβαρό σφάλμα</item>
+    <item quantity="other">%s σοβαρά σφάλματα</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s λάθος</item>
+    <item quantity="other">%s λάθη</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ανακρίβεια</item>
+    <item quantity="other">%s ανακρίβειες</item>
+  </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
@@ -855,6 +864,6 @@
   <string name="someoneReviewedYourCoachProfile">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
   <string name="newPendingReview">Νέα κριτική σε αναμονή</string>
   <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
+  <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
 </resources>

@@ -2,6 +2,8 @@
 <resources>
   <string name="settings">বিন্যাস</string>
   <string name="closeAccount">একাউন্ট বন্ধ করুন</string>
+  <string name="closingIsDefinitive">একাউন্ট বন্ধ সুনিশ্চিত। আর ফেরত যাওয়ার উপায় নেই। আপনি কি নিশ্চিত?</string>
   <string name="changedMindDoNotCloseAccount">আমি নিজের মত পরিবর্তন করেছি এবং আমার একাউন্ট বন্ধ করতে চাই না</string>
+  <string name="closeAccountExplanation">আপনি কি নিশ্চিত যে আপনি নিজের একাউন্টটি বন্ধ করতে চান? আপনার একাউন্ট বন্ধ করবার সিদ্ধান্তটি স্থায়ী হবে। আপনি আর কখনও লগ ইন করতে সক্ষম হবেন না।</string>
   <string name="thisAccountIsClosed">এই একাউন্টটি বন্ধ করা হয়েছে</string>
 </resources>

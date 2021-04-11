@@ -7,6 +7,8 @@
   <string name="anastasiaMate">Anastasijin mat</string>
   <string name="anastasiaMateDescription">Skakač in trnjava ali dama sodelujejo, da ujamejo nasprotnega kralja ob rob šahovnice in prijateljsko figuro v past.</string>
   <string name="arabianMate">Arabski mat</string>
+  <string name="bishopEndgame">Končnica lovcev</string>
+  <string name="castling">Rošada</string>
   <string name="equality">Enakost</string>
   <string name="equalityDescription">Vrnite se iz izgubljenega položaja in si zagotovite neodločen ali uravnotežen položaj. (vrednotenje ≤ 200 sk)</string>
   <string name="kingsideAttack">Napad po kraljevi strani</string>
@@ -22,10 +24,14 @@
   <string name="doubleCheck">Dvojni šah</string>
   <string name="doubleCheckDescription">Napad na kralja z dvema figurama naenkrat, kot rezultat odkritega napada, kjer tako premikajoča se figura kot tudi razkrita figura napadata nasprotnikovega kralja.</string>
   <string name="endgame">Končnica</string>
+  <string name="knightEndgame">Končnica skakačev</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
   <string name="masterVsMaster">Igre mojster proti mojstru</string>
   <string name="masterVsMasterDescription">Uganke iz iger med igralci z nazivom.</string>
+  <string name="mate">Mat</string>
+  <string name="mateDescription">Zmagati igro v stilu.</string>
+  <string name="mateIn2">Mat v 2</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
 </resources>

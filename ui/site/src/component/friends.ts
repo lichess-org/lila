@@ -14,7 +14,7 @@ interface Friend {
 
 export default class OnlineFriends {
   titleEl: HTMLElement;
-  loaded: boolean = false;
+  loaded = false;
   trans: Trans;
   users: Map<string, Friend>;
 

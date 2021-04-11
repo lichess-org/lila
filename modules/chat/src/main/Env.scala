@@ -11,7 +11,6 @@ import lila.common.config._
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
     @ConfigName("collection.timeout") timeoutColl: CollName,
-    @ConfigName("max_lines") maxLines: Chat.MaxLines,
     @ConfigName("actor.name") actorName: String,
     @ConfigName("timeout.duration") timeoutDuration: FiniteDuration,
     @ConfigName("timeout.check_every") timeoutCheckEvery: FiniteDuration
@@ -32,8 +31,7 @@ final class Env(
     system: ActorSystem
 ) {
 
-  implicit private val maxPerLineLoader = intLoader(Chat.MaxLines.apply)
-  private val config                    = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
+  private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config._
 
   lazy val timeout = new ChatTimeout(
@@ -41,17 +39,9 @@ final class Env(
     duration = timeoutDuration
   )
 
-  lazy val api = new ChatApi(
-    coll = db(chatColl),
-    userRepo = userRepo,
-    chatTimeout = timeout,
-    flood = flood,
-    spam = spam,
-    shutup = shutup,
-    cacheApi = cacheApi,
-    maxLinesPerChat = maxLines,
-    netDomain = netDomain
-  )
+  lazy val coll = db(chatColl)
+
+  lazy val api = wire[ChatApi]
 
   lazy val panic = wire[ChatPanic]
 

@@ -68,7 +68,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="forceVariation">Сделать вариант главным</string>
+  <string name="forceVariation">Сделать вариантом</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -121,11 +121,26 @@
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
-  <string name="blunders">Зевки</string>
   <string name="mistake">Ошибка</string>
-  <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
-  <string name="inaccuracies">Неточности</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s зевок</item>
+    <item quantity="few">%s зевка</item>
+    <item quantity="many">%s зевков</item>
+    <item quantity="other">%s зевков</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ошибка</item>
+    <item quantity="few">%s ошибки</item>
+    <item quantity="many">%s ошибок</item>
+    <item quantity="other">%s ошибок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточность</item>
+    <item quantity="few">%s неточности</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
@@ -163,7 +178,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -222,8 +237,8 @@
     <item quantity="other">%s партий с вами</item>
   </plurals>
   <string name="cancel">Отменить</string>
-  <string name="whiteTimeOut">Время белых истекло</string>
-  <string name="blackTimeOut">Время чёрных истекло</string>
+  <string name="whiteTimeOut">Белые просрочили время</string>
+  <string name="blackTimeOut">Чёрные просрочили время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferDeclined">Предложение ничьей отклонено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -406,7 +421,7 @@
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s друзей онлайн</item>
+    <item quantity="one">%s друг онлайн</item>
     <item quantity="few">%s друга онлайн</item>
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
@@ -772,7 +787,7 @@
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
-  <string name="xLikesY">%1$s поставил лайк студии %2$s</string>
+  <string name="xLikesY">%1$s понравилось %2$s</string>
   <string name="xCreatesStudyY">%1$s создал студию %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
@@ -928,6 +943,6 @@
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Ожидают рассмотрения</string>
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Возврат: %1$s %2$s рейтинговых очков.</string>
+  <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>

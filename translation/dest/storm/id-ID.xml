@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Melangkah untuk memulai</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Anda memainkan bidak putih di semua taktik</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Anda memainkan bidak hitam di semua taktik</string>
   <string name="puzzlesSolved">teka-teki terpecahkan</string>
   <string name="newDailyHighscore">Skor tertinggi harian terbaru!</string>
   <string name="newWeeklyHighscore">Skor tertinggi mingguan terbaru!</string>
@@ -29,4 +31,20 @@
   <string name="viewBestRuns">Lihat hasil terbaik</string>
   <string name="bestRunOfDay">Hasil terbaik hari ini</string>
   <string name="runs">Berjalan</string>
+  <string name="getReady">Ayo mulai!</string>
+  <string name="waitingForMorePlayers">Menunggu pemain lain untuk bergabung...</string>
+  <string name="raceComplete">Pertandingan selesai!</string>
+  <string name="spectating">Menonton</string>
+  <string name="joinTheRace">Ikuti pertandingan!</string>
+  <string name="yourRankX">Peringkat anda: %s</string>
+  <string name="waitForRematch">Tunggu permainan ulang</string>
+  <string name="nextRace">Balapan selanjutnya</string>
+  <string name="joinRematch">Gabung permainan ulang</string>
+  <string name="waitingToStart">Tunggu mulai</string>
+  <string name="createNewGame">Buat permainan baru</string>
+  <string name="joinPublicRace">Ikut pertandingan umum</string>
+  <string name="raceYourFriends">Tanding teman Anda</string>
+  <string name="skip">lewati</string>
+  <string name="skipHelp">Anda dapat melewati satu gerakan per pertandingan:</string>
+  <string name="skipExplanation">Lewati gerakan ini untuk mempertahankan kombo Anda! Hanya bekerja sekali per pertandingan.</string>
 </resources>

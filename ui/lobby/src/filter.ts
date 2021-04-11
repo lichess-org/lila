@@ -15,7 +15,7 @@ interface Filtered {
 export default class Filter {
   store: FormStore;
   data: FilterData | null;
-  open: boolean = false;
+  open = false;
 
   constructor(storage: LichessStorage, readonly root: LobbyController) {
     this.store = makeStore(storage);

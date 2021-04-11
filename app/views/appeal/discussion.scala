@@ -39,7 +39,7 @@ object discussion {
           inquiry = inquiry.map(_.mod).exists(ctx.userId.has),
           presets.some
         ),
-        div(cls := "appeal__actions")(
+        div(cls := "appeal__actions", id := "appeal-actions")(
           inquiry match {
             case None =>
               postForm(action := routes.Mod.spontaneousInquiry(appeal.id))(

@@ -116,11 +116,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function checkCeval(): void {
-    var node = root.node,
+    const node = root.node,
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
-      var diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval);
+      const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval);
       if (diff > -0.035) onWin();
       else onFail();
     }

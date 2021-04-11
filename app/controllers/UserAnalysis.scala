@@ -113,7 +113,7 @@ final class UserAnalysis(
       val owner = isMyPov(pov)
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap { case _ ~ analysis ~ crosstable =>
+        env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
           import lila.game.JsonView.crosstableWrites
           env.api.roundApi.review(
             pov,

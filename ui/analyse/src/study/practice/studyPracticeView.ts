@@ -65,11 +65,10 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
-      const next = ctrl.nextChapter();
       return [
         h(
           'a.feedback.win',
-          next
+          ctrl.nextChapter()
             ? {
                 hook: bind('click', p.goToNext),
               }

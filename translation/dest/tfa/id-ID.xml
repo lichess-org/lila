@@ -12,4 +12,5 @@
   <string name="disableTwoFactor">Non-aktifkan otentikasi dua-langkah</string>
   <string name="twoFactorEnabled">Otentikasi dua-langkah telah diaktifkan</string>
   <string name="twoFactorDisable">Anda memerlukan kata sandi dan kode otentikasi dari aplikasi otentikator untuk menonaktifkan otentikasi dua-langkah. Jika Anda kehilangan akses ke kode otentikasi Anda, Anda juga dapat melakukan reset kata sandi melalui email.</string>
+  <string name="openTwoFactorApp">Buka aplikasi otentikasi dua faktor di perangkat anda untuk melihat kode otentikasi dan verifikasi identitas anda.</string>
 </resources>

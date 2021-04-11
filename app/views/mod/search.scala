@@ -10,13 +10,16 @@ import lila.security.FingerHash
 import lila.mod.IpRender.RenderIp
 
 import controllers.routes
+import lila.user.User
+import lila.security.Granter
+import lila.user.Holder
 
 object search {
 
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(form: Form[_], users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
+  def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc")
@@ -34,14 +37,15 @@ object search {
             ),
             form3.select(form("as"), lila.mod.UserSearch.asChoices)
           ),
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
   def print(
+      mod: Holder,
       fh: FingerHash,
-      users: List[lila.user.User.WithEmails],
+      users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
   )(implicit ctx: Context) =
@@ -71,12 +75,13 @@ object search {
           ),
           br,
           br,
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
   def ip(
+      mod: Holder,
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
@@ -108,15 +113,12 @@ object search {
           ),
           br,
           br,
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
-  def clas(
-      c: lila.clas.Clas,
-      users: List[lila.user.User.WithEmails]
-  )(implicit ctx: Context) =
+  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc")
@@ -130,12 +132,12 @@ object search {
           ),
           br,
           br,
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
-  private def userTable(users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
+  private def userTable(mod: Holder, users: List[User.WithEmails])(implicit ctx: Context) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -150,11 +152,13 @@ object search {
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            td(
-              userLink(u, withBestRating = true, params = "?mod"),
-              (isGranted(_.Admin) && isGranted(_.SetEmail)) option
-                email(emails.list.map(_.value).mkString(", "))
-            ),
+            if (Granter.canViewAltUsername(mod, u))
+              td(
+                userLink(u, withBestRating = true, params = "?mod"),
+                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                  email(emails.list.map(_.value).mkString(", "))
+              )
+            else td,
             td(u.count.game.localize),
             td(
               u.marks.alt option mark("ALT"),

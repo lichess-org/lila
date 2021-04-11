@@ -112,11 +112,8 @@
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
   <string name="blunder">Sai lầm</string>
-  <string name="blunders">Sai lầm nghiêm trọng</string>
   <string name="mistake">Lỗi</string>
-  <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracy">Thiếu chính xác</string>
-  <string name="inaccuracies">Nước đi không chính xác</string>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ</string>

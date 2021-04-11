@@ -3,17 +3,19 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import views.html
 
+import lila.api.AnnounceStore
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret }
-import views.html
-import lila.api.AnnounceStore
+import lila.user.{ User => UserModel, TotpSecret, Holder }
 
 final class Account(
     env: Env,
-    auth: Auth
+    auth: Auth,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def profile =
@@ -70,7 +72,7 @@ final class Account(
             env.round.proxyRepo.urgentGames(me) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.playban.api.currentBan(me.id) map {
-              case nbFollowers ~ prefs ~ povs ~ nbChallenges ~ playban =>
+              case ((((nbFollowers, prefs), povs), nbChallenges), playban) =>
                 Ok {
                   import lila.pref.JsonView._
                   env.user.jsonView(me) ++ Json
@@ -306,7 +308,7 @@ final class Account(
           FormFuResult(form) { err =>
             fuccess(html.account.close(me, err, managed = false))
           } { _ =>
-            env.closeAccount(me.id, self = true) inject {
+            env.closeAccount(me, Holder(me)) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
             }
           }
@@ -391,8 +393,8 @@ final class Account(
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.recaptcha.verify() flatMap {
-        _.ok ?? {
+      env.security.hcaptcha.verify() flatMap { captcha =>
+        if (captcha.ok)
           env.security.forms.reopen.form
             .bindFromRequest()
             .fold(
@@ -412,7 +414,7 @@ final class Account(
                     }(rateLimitedFu)
                 }
             )
-        }
+        else BadRequest(renderReopen(none, none)).fuccess
       }
     }
 
@@ -441,15 +443,19 @@ final class Account(
       val userId = get("user")
         .map(lila.user.User.normalize)
         .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
-      env.user.repo byId userId flatMap {
+      env.user.repo byId userId map {
         _ ?? { user =>
-          env.api.personalDataExport(user) map { raw =>
-            if (getBool("text"))
-              Ok(raw)
-                .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt")
-                .as(TEXT)
-            else Ok(html.account.bits.data(user, raw))
-          }
+          if (getBool("text"))
+            apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress ctx.req)(
+              env.api.personalDataExport(user)
+            ) { source =>
+              Ok.chunked(source.map(_ + "\n"))
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
+                )
+            }
+          else Ok(html.account.bits.data(user))
         }
       }
     }

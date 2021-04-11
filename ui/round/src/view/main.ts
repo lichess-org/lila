@@ -46,7 +46,7 @@ export function main(ctrl: RoundController): VNode {
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: MaterialDiff,
-    score: number = 0;
+    score = 0;
   if (d.pref.showCaptured) {
     const pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);

@@ -61,7 +61,6 @@
   <string name="drawn">သရေ</string>
   <string name="cpus">cpu အရေအတွက်</string>
   <string name="inaccuracy">မတိကျမှု</string>
-  <string name="inaccuracies">မတိကျမှုများ</string>
   <string name="moveTimes">အလှည့်ကြာချိန်</string>
   <string name="flipBoard">ကစားခုံလှန်ပါ</string>
   <string name="threefoldRepetition">အနေအထား  သုံးကြိမ် ထပ်သည်</string>

@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
   <string name="blunder">Flater</string>
-  <string name="blunders">Flaters</string>
   <string name="mistake">Fout</string>
-  <string name="mistakes">Foute</string>
   <string name="inaccuracy">Onakkuraatheid</string>
-  <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>

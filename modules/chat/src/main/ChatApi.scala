@@ -20,7 +20,6 @@ final class ChatApi(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
-    maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext, actorSystem: akka.actor.ActorSystem) {
 
@@ -149,7 +148,7 @@ final class ChatApi(
         busChan: BusChan.Select
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => funit
       }
@@ -258,15 +257,6 @@ final class ChatApi(
           }
         case _ => none
       }
-
-    def findLinesBy(chatId: Chat.Id, userId: User.ID): Fu[List[String]] =
-      coll.find($id(chatId)).one[UserChat](ReadPreference.secondaryPreferred) map {
-        _ ?? {
-          _.lines.collect {
-            case l if l.userId == userId => l.text
-          }
-        }
-      }
   }
 
   object playerChat {
@@ -319,7 +309,7 @@ final class ChatApi(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
               "$each"  -> List(line),
-              "$slice" -> -maxLinesPerChat.value
+              "$slice" -> -200
             )
           )
         ),

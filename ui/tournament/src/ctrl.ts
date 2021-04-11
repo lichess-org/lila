@@ -21,12 +21,12 @@ export default class TournamentController {
   pages: Pages = {};
   lastPageDisplayed: number | undefined;
   focusOnMe: boolean;
-  joinSpinner: boolean = false;
+  joinSpinner = false;
   playerInfo: PlayerInfo = {};
   teamInfo: CtrlTeamInfo = {};
-  disableClicks: boolean = true;
-  searching: boolean = false;
-  joinWithTeamSelector: boolean = false;
+  disableClicks = true;
+  searching = false;
+  joinWithTeamSelector = false;
   redraw: () => void;
 
   private lastStorage = lichess.storage.make('last-redirect');

@@ -5,7 +5,7 @@ import { bind, richHTML, onInsert } from '../util';
 export type Save = (string) => void;
 
 export class DescriptionCtrl {
-  edit: boolean = false;
+  edit = false;
 
   constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) {}
 

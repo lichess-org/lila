@@ -631,7 +631,7 @@ export default function (
     nextChapter(): StudyChapterMeta | undefined {
       const chapters = data.chapters,
         currentId = currentChapter().id;
-      for (let i in chapters) if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      for (const i in chapters) if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
       return undefined;
     },
     setGamebookOverride(o) {

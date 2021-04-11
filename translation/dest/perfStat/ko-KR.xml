@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s 통계</string>
+  <string name="viewTheGames">게임 보기</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">임시</string>
+  <string name="notEnoughRatedGames">신뢰할만한 레이팅을 설정하기에 충분한 만큼의 레이팅 게임을 플레이하지 않았습니다.</string>
+  <string name="progressOverLastXGames">최근 %s 게임 동안:</string>
+  <string name="ratingDeviation">레이팅 편차: %s.</string>
+  <string name="ratingDeviationHelp">낮은 값일수록 레이팅이 안정적입니다. 값이 %s 이상이면 임시 레이팅으로 간주합니다.</string>
+  <string name="totalGames">총 게임</string>
+  <string name="ratedGames">레이팅 게임</string>
+  <string name="tournamentGames">토너먼트 게임</string>
+  <string name="berserkedGames">버서크 게임</string>
+  <string name="timeSpentPlaying">플레이한 시간</string>
+  <string name="averageOpponent">상대의 평균 레이팅</string>
+  <string name="victories">승리</string>
+  <string name="defeats">패배</string>
+  <string name="disconnections">연결 끊김</string>
+  <string name="notEnoughGames">충분한 게임을 하지 않으셨습니다</string>
+  <string name="highestRating">최고 레이팅: %s</string>
+  <string name="lowestRating">최저 레이팅: %s</string>
+  <string name="fromXToY">%1$s에서 %2$s</string>
+  <string name="winningStreak">연승</string>
+  <string name="losingStreak">연패</string>
+  <string name="longestStreak">최고 기록: %s</string>
+  <string name="currentStreak">현재 기록: %s</string>
+  <string name="bestRated">승리한 최고 레이팅</string>
+  <string name="worstRated">패배한 최저 레이팅</string>
+  <string name="gamesInARow">연속 게임 플레이</string>
+  <string name="lessThanOneHour">게임 사이가 1시간 미만인 경우</string>
+  <string name="maxTimePlaying">게임을 한 최대 시간</string>
+  <string name="now">지금</string>
+</resources>

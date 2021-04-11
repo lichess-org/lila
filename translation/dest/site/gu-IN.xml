@@ -111,11 +111,8 @@
   <string name="infiniteAnalysis">અનંત વિશ્લેષણ</string>
   <string name="removesTheDepthLimit">ગહનતાનિ મર્યાદા હટાવે, અને તમારા કમ્પ્યુટરને ગરમ રાખે છે</string>
   <string name="blunder">મોટી ભૂલ</string>
-  <string name="blunders">મોટી ભૂલો</string>
   <string name="mistake">ભૂલ</string>
-  <string name="mistakes">ભૂલો</string>
   <string name="inaccuracy">ચૂક</string>
-  <string name="inaccuracies">અચોક્સાઈ</string>
   <string name="moveTimes">ચાલ સમય</string>
   <string name="flipBoard">બોર્ડ ફેરવો</string>
   <string name="threefoldRepetition">ત્રણગણું નકલ</string>

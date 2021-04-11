@@ -7,7 +7,6 @@ import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.ThreadLocalRandom
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment }

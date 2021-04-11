@@ -18,13 +18,11 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function findStartingWithNode(node: ForecastStep): ForecastStep[][] {
-    return forecasts.filter(function (fc) {
-      return contains(fc, [node]);
-    });
+    return forecasts.filter(fc => contains(fc, [node]));
   }
 
   function collides(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
-    for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
+    for (let i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
       if (fc1[i].uci !== fc2[i].uci) {
         if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
         return i % 2 === 1;
@@ -74,9 +72,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   function isCandidate(fc: ForecastStep[]): boolean {
     fc = truncate(fc);
     if (!isLongEnough(fc)) return false;
-    var collisions = forecasts.filter(function (f) {
-      return contains(f, fc);
-    });
+    const collisions = forecasts.filter(f => contains(f, fc));
     if (collisions.length) return false;
     return true;
   }

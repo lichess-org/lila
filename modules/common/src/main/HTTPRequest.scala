@@ -108,7 +108,11 @@ object HTTPRequest {
     }
   }
 
-  def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
+  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+
+  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
+
+  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

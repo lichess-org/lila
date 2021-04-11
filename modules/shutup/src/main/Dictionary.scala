@@ -80,14 +80,14 @@ loo?ser
 masturbat(e|ion|ing)
 milf
 molest
-(?<!i'?m (such )?(an? )?)moron
+moron
 motherfuc?k(er|)
 mothers?
 mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
-(?<!i'?m (such )?(an? )?)noob
+noo+b
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
@@ -123,7 +123,7 @@ semen
 sex
 shag
 shemale
-shit(z|e|y|ty|bag|)
+(((you'? ?((is|a?re) )?)shit)|(shit(?!\b)))(z|e|y|ty|bag|)
 sissy
 slag
 slave
@@ -177,7 +177,7 @@ p[ie]d[aoe]?r
 пид(о|а)р(а|ы|у|ам|асы?|асам?)
 пидр
 поебень
-сук(а|и|е|у|ам)
+[сc][уy][кk](а|a|и|е|у|ам)
 у(ё|е)бищ(е|а|ам)
 ху(ё|е)(во|сос)
 хуит(а|е|ы)
@@ -187,7 +187,9 @@ p[ie]d[aoe]?r
 
   def es = dict("""
 cabr[oó]na?
+chupame
 est[úu]pid[ao]
+imbecil
 maric[oó]n
 mierda
 pendejo
@@ -218,7 +220,9 @@ gaa?nd
 
   def fr = dict("""
 fdp
-trich(eurs|)
+pd
+triche
+tricheurs?
 """)
 
   def de = dict("""
@@ -254,9 +258,9 @@ orospu
 piç(lik)?
 pu[sş]t
 salak
-sikecem
+s[ii̇]kecem
 sikiyonuz
-siktir
+s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
 """)
 

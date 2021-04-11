@@ -54,11 +54,11 @@ export default class StrongSocket {
   connectSchedule: Timeout;
   ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   lastPingTime: number = performance.now();
-  pongCount: number = 0;
-  averageLag: number = 0;
-  tryOtherUrl: boolean = false;
-  autoReconnect: boolean = true;
-  nbConnects: number = 0;
+  pongCount = 0;
+  averageLag = 0;
+  tryOtherUrl = false;
+  autoReconnect = true;
+  nbConnects = 0;
   storage: LichessStorage = makeStorage.make('surl15');
   private _sign?: string;
 

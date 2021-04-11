@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Postouplý pěšec</string>
+  <string name="advancedPawnDescription">Jeden z Vašich pěšců je hluboko v poli protihráče, a možná hrozí proměnou.</string>
   <string name="advantage">Výhoda</string>
   <string name="advantageDescription">Využijte své šance získat rozhodující výhodu. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastáziin mat</string>
+  <string name="anastasiaMateDescription">Jezdec a věž nebo královna se spojí, aby obklíčili protihráčova krále mezi krajem šachovnice a přátelskou figurou.</string>
   <string name="arabianMate">Arabský mat</string>
   <string name="arabianMateDescription">Jezdec a věž dají mat soupěrovu králi na kraji šachovnice.</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="attackingF2F7Description">Útok zaměřený na pěšce f2, resp. f7, například jako při tzv. Šustrmatu (Ovčáckém matu).</string>
+  <string name="attractionDescription">Výměna nebo obětování figur, která podpoří nebo vynutí figuru protihráče postoupit na pole, jenž umožňuje další taktický postup.</string>
   <string name="backRankMate">Mat na poslední řadě</string>
   <string name="bishopEndgame">Střelcové koncovky</string>
   <string name="bishopEndgameDescription">Koncovka jen se střelci a pěšci.</string>
@@ -20,6 +23,7 @@
   <string name="doubleBishopMate">Mat dvěma střelci</string>
   <string name="doubleBishopMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi.</string>
   <string name="dovetailMate">Coziův mat</string>
+  <string name="dovetailMateDescription">Dáma matuje sousedícího krále, jehož jediná dvě ústupová pole blokují přátelské figurky.</string>
   <string name="equality">Vyrovnání pozice</string>
   <string name="equalityDescription">Zremízování či zisk vyrovnané pozice z dříve prohrané pozice. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Útok na královském křídle</string>
@@ -33,7 +37,10 @@
   <string name="exposedKing">Ohrožený král</string>
   <string name="fork">Vidlička</string>
   <string name="hangingPiece">Visící figura</string>
+  <string name="interference">Překrytí</string>
+  <string name="interferenceDescription">Tah figurou na pole mezi dvě soupeřovy figury, aby jedna z nich byla nechráněná, například tah jezdcem na chráněné pole mezi dvě soupeřovy věže.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Namísto zahrání očekávaného tahu je nejdřív zahrán tah představující bezprostřední hrozbu (např. šach či napadení), na který musí soupeř odpovědět. Tomuto motivu se také říká Zwischenzug.</string>
   <string name="knightEndgame">Jezdcové koncovky</string>
   <string name="knightEndgameDescription">Koncovka jen s jezdci a pěšci.</string>
   <string name="long">Dlouhá úloha</string>

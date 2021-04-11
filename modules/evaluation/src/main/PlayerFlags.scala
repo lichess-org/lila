@@ -1,7 +1,5 @@
 package lila.evaluation
 
-import lila.db.dsl._
-import lila.db.BSONReadOnly
 
 case class PlayerFlags(
     suspiciousErrorRate: Boolean,

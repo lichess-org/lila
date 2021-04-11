@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Jouez un coup pour commencer</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Vous avez les pièces blanches dans tous les problèmes.</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Vous avez les pièces noires dans tous les problèmes.</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vous avez les pièces blanches dans tous les problèmes</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vous avez les pièces noires dans tous les problèmes</string>
   <string name="puzzlesSolved">problèmes résolus</string>
-  <string name="newDailyHighscore">Nouveau record du jour!</string>
-  <string name="newWeeklyHighscore">Nouveau record de la semaine!</string>
-  <string name="newMonthlyHighscore">Nouveau record du mois!</string>
+  <string name="newDailyHighscore">Nouveau record du jour !</string>
+  <string name="newWeeklyHighscore">Nouveau record de la semaine !</string>
+  <string name="newMonthlyHighscore">Nouveau record du mois !</string>
   <string name="newAllTimeHighscore">Nouveau record absolu!</string>
   <string name="previousHighscoreWasX">Le record précédent était %s</string>
   <string name="playAgain">Rejouer</string>

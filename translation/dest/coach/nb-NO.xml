@@ -14,7 +14,7 @@
   <string name="accepting">Åpen for nye elever</string>
   <string name="notAccepting">Ikke åpen for nye elever</string>
   <string name="xCoachesStudents">%s trener sjakkelever</string>
-  <string name="viewXProfile">Sjekk %s\'s Lichess-profil</string>
+  <string name="viewXProfile">Vis profilen til %s</string>
   <string name="sendPM">Send en direktemelding</string>
   <string name="aboutMe">Om meg</string>
   <string name="playingExperience">Erfaring som spiller</string>

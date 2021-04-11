@@ -7,14 +7,14 @@ function doCountDown(targetTime: number) {
   let started = false;
 
   return function curCounter() {
-    let secondsToStart = (targetTime - performance.now()) / 1000;
+    const secondsToStart = (targetTime - performance.now()) / 1000;
 
     // always play the 0 sound before completing.
-    let bestTick = Math.max(0, Math.round(secondsToStart));
+    const bestTick = Math.max(0, Math.round(secondsToStart));
     if (bestTick <= 10) lichess.sound.play('countDown' + bestTick);
 
     if (bestTick > 0) {
-      let nextTick = Math.min(10, bestTick - 1);
+      const nextTick = Math.min(10, bestTick - 1);
       countDownTimeout = setTimeout(curCounter, 1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick)));
     }
 

@@ -76,7 +76,7 @@ object UserInfo {
         } zip
         ctx.userId.?? { myId =>
           relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
-        } dmap { case relation ~ notes ~ followable ~ blocked =>
+        } dmap { case (((relation, notes), followable), blocked) =>
           Social(relation, notes, followable, blocked)
         }
   }
@@ -102,7 +102,7 @@ object UserInfo {
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
         gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
         bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
-          case crosstable ~ playing ~ imported ~ bookmark =>
+          case (((crosstable, playing), imported), bookmark) =>
             NbGames(
               crosstable,
               playing = playing,
@@ -148,31 +148,33 @@ object UserInfo {
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
-          case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ hasSimul ~ ranks =>
-            new UserInfo(
-              user = user,
-              ranks = ranks,
-              nbs = nbs,
-              hasSimul = hasSimul,
-              ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
-              nbBlockers = nbBlockers,
-              nbPosts = nbPosts,
-              nbStudies = nbStudies,
-              trophies = trophies ::: trophyApi.roleBasedTrophies(
-                user,
-                Granter(_.PublicMod)(user),
-                Granter(_.Developer)(user),
-                Granter(_.Verified)(user)
-              ),
-              shields = shields,
-              revolutions = revols,
-              teamIds = teamIds,
-              isStreamer = isStreamer,
-              isCoach = isCoach,
-              insightVisible = insightVisible,
-              completionRate = completionRate
-            )
+          // format: off
+          case ((((((((((((((ratingChart, nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          // format: on
+          new UserInfo(
+            user = user,
+            ranks = ranks,
+            nbs = nbs,
+            hasSimul = hasSimul,
+            ratingChart = ratingChart,
+            nbFollowers = nbFollowers,
+            nbBlockers = nbBlockers,
+            nbPosts = nbPosts,
+            nbStudies = nbStudies,
+            trophies = trophies ::: trophyApi.roleBasedTrophies(
+              user,
+              Granter(_.PublicMod)(user),
+              Granter(_.Developer)(user),
+              Granter(_.Verified)(user)
+            ),
+            shields = shields,
+            revolutions = revols,
+            teamIds = teamIds,
+            isStreamer = isStreamer,
+            isCoach = isCoach,
+            insightVisible = insightVisible,
+            completionRate = completionRate
+          )
         }
   }
 }

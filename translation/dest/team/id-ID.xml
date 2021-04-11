@@ -12,6 +12,7 @@
   <string name="joinTeam">Gabung tim</string>
   <string name="quitTeam">Keluar dari tim</string>
   <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Tinjau permintaan masuk secara manual</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Jika dicentang, pemain harus menulis permintaan untuk bergabung tim, yang dapat kamu tolak atau terima.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Ketua Tim</item>
   </plurals>
@@ -39,4 +40,8 @@ Pemain yang tidak suka menerima pesan anda dapat meninggalkan tim.</string>
   <string name="leadersChat">Obrolan Pemimpin</string>
   <string name="closeTeam">Bubarkan tim</string>
   <string name="closeTeamDescription">Bubarkan tim selamanya.</string>
+  <string name="teamPassword">Kata sandi tim</string>
+  <string name="teamPasswordDescriptionForLeader">(Opsi) Kata sandi yang harus diketahui anggota baru untuk bergabung tim ini.</string>
+  <string name="incorrectTeamPassword">Kata sandi tim salah.</string>
+  <string name="teamAlreadyExists">Tim ini sudah ada.</string>
 </resources>

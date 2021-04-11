@@ -1,7 +1,6 @@
 package views.html
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.api.Context
@@ -10,7 +9,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.i18n.I18nKeys.{ storm => s }
 import lila.racer.RacerRace
-import lila.user.User
 
 object racer {
 

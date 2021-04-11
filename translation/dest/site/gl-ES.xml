@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
   <string name="blunder">Pifia</string>
-  <string name="blunders">Erros grandes</string>
   <string name="mistake">Erro</string>
-  <string name="mistakes">Erros</string>
   <string name="inaccuracy">Imprecisión</string>
-  <string name="inaccuracies">Imprecisións</string>
   <string name="moveTimes">Tempos por movemento</string>
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>

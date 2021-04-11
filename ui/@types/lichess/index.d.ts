@@ -82,6 +82,7 @@ interface Lichess {
 }
 
 type I18nDict = { [key: string]: string };
+type I18nKey = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 
@@ -148,8 +149,8 @@ interface Trans {
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
-  vdom<T>(key: string, ...args: T[]): (string | T)[];
-  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
+  vdom<T>(key: string, ...args: T[]): Array<string | T>;
+  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
 
 type PubsubCallback = (...data: any[]) => void;
@@ -489,4 +490,4 @@ declare namespace PowerTip {
 
 declare module '@yaireo/tagify';
 
-declare var lichess: Lichess;
+declare const lichess: Lichess;

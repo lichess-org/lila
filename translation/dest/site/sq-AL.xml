@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq limitin e thellesise, dhe e mban kompjuterin e ngrohte</string>
   <string name="blunder">Gabim trashanik</string>
-  <string name="blunders">Gafat</string>
   <string name="mistake">Gabim</string>
-  <string name="mistakes">Gabimet</string>
   <string name="inaccuracy">Mungesë saktësie</string>
-  <string name="inaccuracies">Pasaktësitë</string>
   <string name="moveTimes">Koha e lëvizjeve</string>
   <string name="flipBoard">Kthe fushën</string>
   <string name="threefoldRepetition">Levizje e përsëritur 3 (herë)</string>
@@ -840,13 +837,13 @@
   <string name="unsubscribe">Ç\'abonohu</string>
   <string name="mentionedYouInX"> ju permendi tek \"%1$s\".</string>
   <string name="xMentionedYouInY"> %1$s ju permendi tek \"%2$s\".</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> ju ftoj tek \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s ju ftoj tek \"%2$s\".</string>
+  <string name="invitedYouToX"> ju ftoj tek \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s ju ftoj tek \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tani je pjese e skuadres.</string>
   <string name="youHaveJoinedTeamX">Ju u antaresuat tek \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Dikush qe raportuat u ndalua</string>
   <string name="congratsYouWon">Urime, ju fituat!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Loja vs %1$s</string>
+  <string name="gameVsX">Loja vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Ju sapo u bëtë një Patron i lichess.</string>
   <string name="patronAccountExpired">Llogaria e Patron skadoi</string>
@@ -854,6 +851,6 @@
   <string name="someoneReviewedYourCoachProfile">Dikush vleresoi profilin tuaj të trajnerit.</string>
   <string name="newPendingReview">Në pritje të shqyrtimit</string>
   <string name="lostAgainstTOSViolator">Ti ke humbur nga dikush që shkeli rregullat e Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Kompensim: %1$s pikë %2$s.</string>
+  <string name="refundXpointsTimeControlY">Kompensim: %1$s pikë %2$s.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>
 </resources>

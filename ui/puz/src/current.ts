@@ -6,7 +6,7 @@ import { getNow } from './util';
 export default class CurrentPuzzle {
   line: Uci[];
   startAt: number;
-  moveIndex: number = 0;
+  moveIndex = 0;
   pov: Color;
 
   constructor(readonly index: number, readonly puzzle: Puzzle) {

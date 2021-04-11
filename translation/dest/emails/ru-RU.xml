@@ -15,7 +15,7 @@
 Вот ссылка на ваш профиль: %1$s. Вы можете настроить его здесь: %2$s.
 
 Удачи, и да найдут ваши фигуры путь к королю соперника!</string>
-  <string name="logInToLichess">Вход на lichess.org, %s</string>
+  <string name="logInToLichess">Войдите на lichess.org, %s</string>
   <string name="common_orPaste">(Ссылка в письме не работает? Попробуйте скопировать её и вставить в адресную строку браузера!)</string>
   <string name="common_note">Это служебное письмо, связанное с вашим использованием %s.</string>
   <string name="common_contact">Воспользуйтесь %s для связи с нами.</string>

@@ -3,22 +3,18 @@ package lila.racer
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.puzzle.Puzzle
-import lila.socket.Socket
-import lila.storm.StormPuzzle
 import lila.storm.StormSelector
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.common.Bus
 
-final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: CacheApi)(implicit
+final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
+    implicit
     ec: ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
 
   import RacerRace.Id
-  import RacerBsonHandlers._
 
   private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race")(
     _.expireAfterAccess(30 minutes).build()
@@ -92,13 +88,14 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
         lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
         player.userId.ifTrue(player.score > 0) foreach { userId =>
           Bus.publish(lila.hub.actorApi.puzzle.RacerRun(userId, player.score), "racerRun")
+          userRepo.addRacerRun(userId, player.score)
         }
       }
       publish(race)
     }
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit = {
-    if (score >= 140) logger.warn(s"$id $player score: $score")
+    if (score >= 125) logger.warn(s"$id $player score: $score")
     else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
   }
 

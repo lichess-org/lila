@@ -34,7 +34,7 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user.id, self = false)
+          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user, me)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -131,16 +131,15 @@ final class Mod(
     }(actionResult(username))
 
   def disableTwoFactor(username: String) =
-    Secure(_.DisableTwoFactor) { implicit ctx => me =>
-      modApi.disableTwoFactor(me.id, username) >> userC.modZoneOrRedirect(me, username)
-    }
+    OAuthMod(_.DisableTwoFactor) { _ => me =>
+      modApi.disableTwoFactor(me.id, username) map some
+    }(actionResult(username))
 
   def closeAccount(username: String) =
     OAuthMod(_.CloseAccount) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          modLogApi.closeAccount(me.id, user.id) >>
-            env.closeAccount(user.id, self = false) map some
+          env.closeAccount(user, me) map some
         }
       }
     }(actionResult(username))
@@ -256,7 +255,7 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")) zip
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              } map { case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry ~ logins =>
+              } map { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if (priv) {
                   if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
                     env.irc.slack.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
@@ -313,7 +312,7 @@ final class Mod(
             if (isAppeal) env.report.api.inquiries.appeal _
             else env.report.api.inquiries.spontaneous _
           f(me, Suspect(user)) inject {
-            if (isAppeal) Redirect(routes.Appeal.show(user.username))
+            if (isAppeal) Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
             else redirect(user.username, mod = true)
           }
         }
@@ -337,32 +336,32 @@ final class Mod(
     }
 
   def search =
-    SecureBody(_.UserSearch) { implicit ctx => _ =>
+    SecureBody(_.UserSearch) { implicit ctx => me =>
       implicit def req = ctx.body
       val f            = UserSearch.form
       f.bindFromRequest()
         .fold(
-          err => BadRequest(html.mod.search(err, Nil)).fuccess,
-          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+          err => BadRequest(html.mod.search(me, err, Nil)).fuccess,
+          query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
         )
     }
 
-  protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
+  protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
     val query = UserSearch exact q
     env.mod.search(query) map { users =>
-      Ok(html.mod.search(UserSearch.form fill query, users))
+      Ok(html.mod.search(me, UserSearch.form fill query, users))
     }
   }
 
   def print(fh: String) =
-    SecureBody(_.ViewPrintNoIP) { implicit ctx => _ =>
+    SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       val hash = FingerHash(fh)
       for {
         uids       <- env.security.api recentUserIdsByFingerHash hash
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.repo withEmailsU users
         uas        <- env.security.api.printUas(hash)
-      } yield Ok(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
+      } yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
     }
 
   def printBan(v: Boolean, fh: String) =
@@ -380,7 +379,7 @@ final class Mod(
           users      <- env.user.repo usersFromSecondary uids.reverse
           withEmails <- env.user.repo withEmailsU users
           uas        <- env.security.api.ipUas(address)
-        } yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+        } yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
       }
     }
 

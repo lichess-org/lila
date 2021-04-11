@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, Strings }
+import lila.common.Strings
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 import lila.user.{ Authenticator, UserRepo }
@@ -36,10 +36,10 @@ final class Env(
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
 
-  private def recaptchaPublicConfig = config.recaptcha.public
+  private def hcaptchaPublicConfig = config.hcaptcha.public
 
-  def recaptcha[A](formId: String, form: play.api.data.Form[A]) =
-    RecaptchaForm(form, formId, config.recaptcha.public)
+  def hcaptcha[A](form: play.api.data.Form[A]) =
+    HcaptchaForm(form, config.hcaptcha.public)
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
@@ -48,9 +48,9 @@ final class Env(
 
   lazy val flood = wire[Flood]
 
-  lazy val recaptcha: Recaptcha =
-    if (config.recaptcha.enabled) wire[RecaptchaGoogle]
-    else RecaptchaSkip
+  lazy val hcaptcha: Hcaptcha =
+    if (config.hcaptcha.enabled) wire[HcaptchaReal]
+    else HcaptchaSkip
 
   lazy val forms = wire[SecurityForm]
 
@@ -79,13 +79,22 @@ final class Env(
     mk(ugcArmedSetting.get _)
   }
 
-  private lazy val mailgun: Mailgun = wire[Mailgun]
+  lazy val mailerSecondaryPermilleSetting = settingStore[Int](
+    "mailerSecondaryPermille",
+    default = 0,
+    text = "Permille of mails to send using secondary SMTP configuration".some
+  )
+
+  private lazy val mailer = new Mailer(
+    config.mailer,
+    getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
+  )
 
   lazy val emailConfirm: EmailConfirm =
     if (config.emailConfirm.enabled)
-      new EmailConfirmMailgun(
+      new EmailConfirmMailer(
         userRepo = userRepo,
-        mailgun = mailgun,
+        mailer = mailer,
         baseUrl = baseUrl,
         tokenerSecret = config.emailConfirm.secret
       )

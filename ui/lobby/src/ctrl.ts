@@ -19,8 +19,8 @@ export default class LobbyController {
   mode: Mode;
   sort: Sort;
   stepHooks: Hook[] = [];
-  stepping: boolean = false;
-  redirecting: boolean = false;
+  stepping = false;
+  redirecting = false;
   poolMember?: PoolMember;
   trans: Trans;
   pools: Pool[];

@@ -60,16 +60,15 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function longestValidPathFrom(node: Tree.Node, path: Tree.Path): Tree.Path {
-    var id = treePath.head(path);
+    const id = treePath.head(path);
     const child = ops.childById(node, id);
     return child ? id + longestValidPathFrom(child, treePath.tail(path)) : '';
   }
 
   function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
-    var node,
-      nodes = [];
-    for (let i in nodeList) {
-      node = nodeList[i];
+    const nodes = [];
+    for (const i in nodeList) {
+      const node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);
     }
@@ -151,10 +150,10 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function promoteAt(path: Tree.Path, toMainline: boolean): void {
-    var nodes = getNodeList(path);
-    for (var i = nodes.length - 2; i >= 0; i--) {
-      var node = nodes[i + 1];
-      var parent = nodes[i];
+    const nodes = getNodeList(path);
+    for (let i = nodes.length - 2; i >= 0; i--) {
+      const node = nodes[i + 1];
+      const parent = nodes[i];
       if (parent.children[0].id !== node.id) {
         ops.removeChild(parent, node.id);
         parent.children.unshift(node);
@@ -181,7 +180,7 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function deleteCommentAt(id: string, path: Tree.Path) {
     return updateAt(path, function (node) {
-      var comments = (node.comments || []).filter(function (c) {
+      const comments = (node.comments || []).filter(function (c) {
         return c.id !== id;
       });
       node.comments = comments.length ? comments : undefined;

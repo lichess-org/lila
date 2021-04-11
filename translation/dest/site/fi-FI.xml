@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Loputon analyysi</string>
   <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
   <string name="blunder">Vakava virhe</string>
-  <string name="blunders">Vakavat virheet</string>
   <string name="mistake">Virhe</string>
-  <string name="mistakes">Virheet</string>
   <string name="inaccuracy">Epätarkkuus</string>
-  <string name="inaccuracies">Epätarkkuudet</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s vakava virhe</item>
+    <item quantity="other">%s vakavaa virhettä</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s virhe</item>
+    <item quantity="other">%s virhettä</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s epätarkkuus</item>
+    <item quantity="other">%s epätarkkuutta</item>
+  </plurals>
   <string name="moveTimes">Siirtoihin käytetty aika</string>
   <string name="flipBoard">Käännä lauta</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
@@ -839,19 +848,19 @@
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
   <string name="mentionedYouInX"> mainitsi sinut \"%1$s\":ssa.</string>
-  <string name="xMentionedYouInY" comment="xMentionedYouInY&#10;&#10;%1$s is the name of the mentioning user.&#10;%2$s is the topic title in a forum post"> %1$s mainitsi sinut viestissä \"%2$s\".</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> kutsui sinut tutkielmaan \"%1$s\".</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mainitsi sinut viestissä \"%2$s\".</string>
+  <string name="invitedYouToX"> kutsui sinut tutkielmaan \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s kutsui sinut tutkielmaan \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Olet nyt joukkueen jäsen.</string>
   <string name="youHaveJoinedTeamX">Olet liittynyt joukkueeseen \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ilmoittamasi pelaaja on saanut porttikiellon</string>
   <string name="congratsYouWon">Onnittelut, sinä voitit!</string>
-  <string name="gameVsX" comment="gameVsX&#10;&#10;%1$s is the name of the opponent in a game.&#10;&#10;Examples of where this string appears:&#10;- Notification of a game that has ended (&quot;You won/Defeat/Draw [in] Game against ChessMaster99&quot;&#10;- Notification that time has almost elapsed in a correspondence game (&quot;Time is almost up [in] Game against ChessMaster99&quot;">Peli käyttäjää %1$s vastaan</string>
+  <string name="gameVsX">Peli käyttäjää %1$s vastaan</string>
   <string name="resVsX">%1$s vastaan %2$s</string>
   <string name="youJustBecamePatron">Olet nyt Lichessin tukija.</string>
   <string name="patronAccountExpired">Tukijatili on vanhentunut</string>
   <string name="pleaseReconsiderRenewIt">Harkitsethan sen uusimista!</string>
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
+  <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
 </resources>

@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="removesTheDepthLimit">Анализът ще е безкраен, а компютърът ви - топъл</string>
   <string name="blunder">Груба грешка</string>
-  <string name="blunders">Гафове</string>
   <string name="mistake">Грешка</string>
-  <string name="mistakes">Грешки</string>
   <string name="inaccuracy">Неточност</string>
-  <string name="inaccuracies">Неточности</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s груба грешка</item>
+    <item quantity="other">%s груби грешки</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s грешка</item>
+    <item quantity="other">%s грешки</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточност</item>
+    <item quantity="other">%s неточности</item>
+  </plurals>
   <string name="moveTimes">Време за ход</string>
   <string name="flipBoard">Завърти дъската</string>
   <string name="threefoldRepetition">Тройно повторение</string>
@@ -855,6 +864,6 @@
   <string name="someoneReviewedYourCoachProfile">Някой прегледа Вашия треньорски профил.</string>
   <string name="newPendingReview">В очакване на преглед</string>
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Възстановяване: %1$s %2$s точки.</string>
+  <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
 </resources>

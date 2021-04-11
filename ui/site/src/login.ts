@@ -60,12 +60,23 @@ export function signupStart() {
       xhr.json(xhr.url('/player/autocomplete', { term: name, exists: 1 })).then(res => $exists.toggle(res));
   }, 300);
 
-  $form.on('submit', () =>
-    $form.find('button.submit').prop('disabled', true).removeAttr('data-icon').addClass('frameless').html(spinnerHtml)
-  );
+  $form.on('submit', () => {
+    if ($form.find('[name="h-captcha-response"]').val())
+      $form
+        .find('button.submit')
+        .prop('disabled', true)
+        .removeAttr('data-icon')
+        .addClass('frameless')
+        .html(spinnerHtml);
+    else return false;
+  });
 
   window.signupSubmit = () => {
     const form = document.getElementById('signup-form') as HTMLFormElement;
     if (form.reportValidity()) form.submit();
   };
+
+  lichess
+    .loadModule('passwordComplexity')
+    .then(() => window['passwordComplexity'].addPasswordChangeListener('form3-password'));
 }

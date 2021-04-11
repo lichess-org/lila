@@ -112,11 +112,17 @@
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
   <string name="blunder">嚴重錯誤</string>
-  <string name="blunders">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
-  <string name="mistakes">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
-  <string name="inaccuracies">輕微失誤</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s 次漏著</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s 次失誤</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s 次輕微失誤</item>
+  </plurals>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
   <string name="threefoldRepetition">三次重複局面</string>
@@ -801,12 +807,12 @@
   <string name="unsubscribe">取消訂閱</string>
   <string name="mentionedYouInX"> 在 \"%1$s\" 中提到了您。</string>
   <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
-  <string name="invitedYouToX" comment="invitedYouToX&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the name of the study."> 邀請您至\"%1$s\"。</string>
-  <string name="xInvitedYouToY" comment="xInvitedYouToY&#10;&#10;This appears in a notification when the user is invited to join a study. %1$s is the user that invited you. %2$s is the name of the study.">%1$s 邀請您至\"%2$s\"。</string>
+  <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
+  <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">退回 %1$s %2$s 等級分。</string>
+  <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
 </resources>

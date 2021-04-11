@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunders</string>
   <string name="mistake">Fout</string>
-  <string name="mistakes">Fouten</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
-  <string name="inaccuracies">Imperfecties</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunder</item>
+    <item quantity="other">%s blunders</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s fouten</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s onnauwkeurigheid</item>
+    <item quantity="other">%s onnauwkeurigheden</item>
+  </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
@@ -854,6 +863,6 @@
   <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
   <string name="newPendingReview">In afwachting van beoordeling</string>
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Teruggekregen: %1$s %2$s ratingpunten.</string>
+  <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
 </resources>

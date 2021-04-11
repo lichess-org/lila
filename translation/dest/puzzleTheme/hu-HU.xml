@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Előretört gyalog</string>
-  <string name="advancedPawnDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
+  <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére és át is változhat.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anasztázia mattja</string>
@@ -21,7 +21,7 @@
   <string name="castling">Sáncolás</string>
   <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
   <string name="capturingDefender">A védő leütése</string>
-  <string name="capturingDefenderDescription">Egy olyan figura leütése, amelyik elengedhetetlen egy másik védelméhez, így a védtelen figura a következő lépésben szabadon levehető.</string>
+  <string name="capturingDefenderDescription">Egy másik védelméhez elengedhetetlen figura leütése, így a védtelen figura a következő lépésben szabadon levehető.</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
   <string name="doubleBishopMate">Futópár matt</string>
@@ -44,11 +44,11 @@
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
   <string name="endgame">Végjáték</string>
   <string name="endgameDescription">Taktikák a játszma utolsó fázisában.</string>
-  <string name="enPassantDescription">Az en passant szabályt kihasználó taktikák, mikor egy gyalog leütheti a mellette elhaladó alapállásból kettőt lépő ellenfél gyalogot.</string>
+  <string name="enPassantDescription">Az en passant szabályt kihasználó taktika, mikor egy gyalog leütheti a mellette elhaladó, alapállásból kettőt lépő ellenfél gyalogját.</string>
   <string name="exposedKing">Kiszolgáltatott király</string>
-  <string name="exposedKingDescription">Olyan taktikák, amik kihasználják a király körüli kevés védőt, gyakran matthoz vezetnek.</string>
+  <string name="exposedKingDescription">Olyan taktika, ami kihasználja a király körüli kevés védőt, gyakran matthoz vezet.</string>
   <string name="fork">Villa</string>
-  <string name="forkDescription">Olyan lépés ahol mozgatott figura egyszerre két ellenséges figurát támad.</string>
+  <string name="forkDescription">Olyan lépés amivel a mozgatott figura egyszerre két ellenséges figurát támad.</string>
   <string name="hangingPiece">Lógó figura</string>
   <string name="hangingPieceDescription">Azok a taktikák amik védtelen vagy elégtelenül bevédett, ezért szabadon levehető figurákon alapulnak.</string>
   <string name="hookMate">Horog matt</string>

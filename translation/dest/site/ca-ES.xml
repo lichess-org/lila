@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Anàlisi infinit</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
   <string name="blunder">Error greu</string>
-  <string name="blunders">Errors greus</string>
   <string name="mistake">Error</string>
-  <string name="mistakes">Errades</string>
   <string name="inaccuracy">Imprecisions</string>
-  <string name="inaccuracies">Imprecisions</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s errada greu</item>
+    <item quantity="other">%s errades greus</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s errada</item>
+    <item quantity="other">%s errades</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisió</item>
+    <item quantity="other">%s imprecisions</item>
+  </plurals>
   <string name="moveTimes">Temps dels moviments</string>
   <string name="flipBoard">Gira el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>

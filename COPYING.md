@@ -54,15 +54,15 @@ public/piece/merida | Armando Hernandez Marroquin | [GPLv2+](https://www.gnu.org
 public/piece/shapes | [flugsio](https://github.com/flugsio/chess_shapes) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 public/piece/pixel | [therealqtpi](https://twitter.com/therealqtpi) | AGPLv3+
 public/piece/california | [Jerry S.](https://sites.google.com/view/jerrychess/home) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/maestro | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/fresca | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/cardinal | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/icpieces | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/gioco | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/tatiana | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/staunty | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/dubrovny | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-public/piece/libra | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/maestro | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/fresca | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/cardinal | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/icpieces | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/gioco | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/tatiana | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/staunty | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/dubrovny | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/libra | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -100,10 +100,10 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 - [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 - [mailcheck.p.rapidapi.com](https://rapidapi.com/Top-Rated/api/e-mail-check-invalid-or-disposable-domain)
-- [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
+- [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - Fallback to [Google Fonts](https://fonts.google.com/)
 - [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
-- [reCAPTCHA](https://www.google.com/recaptcha/)
+- [hCaptcha](https://hcaptcha.com)
 - [PeerJS](https://peerjs.com/) for voice chat
 - [crowdin](https://crowdin.com/project/lichess) for localization

@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
   <string name="blunder">Өрескел қателік</string>
-  <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
-  <string name="mistakes">Қателер</string>
   <string name="inaccuracy">Жеңіл қате</string>
-  <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>

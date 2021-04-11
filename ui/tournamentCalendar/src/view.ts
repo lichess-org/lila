@@ -69,7 +69,7 @@ function fitLane(lane: Tournament[], tour2: Tournament) {
 function makeLanes(tours: Tournament[]): Lanes {
   const lanes: Lanes = [];
   tours.forEach(t => {
-    let lane = lanes.find(l => fitLane(l, t));
+    const lane = lanes.find(l => fitLane(l, t));
     if (lane) lane.push(t);
     else lanes.push([t]);
   });
@@ -127,11 +127,9 @@ function timeString(hour) {
 }
 
 function makeGroups(days: Date[]): Date[][] {
-  const groups: Date[][] = [];
-  let i: number,
-    j: number,
+  const groups: Date[][] = [],
     chunk = 10;
-  for (i = 0, j = days.length; i < j; i += chunk) groups.push(days.slice(i, i + chunk));
+  for (let i = 0; i < days.length; i += chunk) groups.push(days.slice(i, i + chunk));
   return groups;
 }
 

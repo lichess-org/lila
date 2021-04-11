@@ -12,10 +12,10 @@ export default class SwissCtrl {
   pages: Pages = {};
   lastPageDisplayed: number | undefined;
   focusOnMe: boolean;
-  joinSpinner: boolean = false;
+  joinSpinner = false;
   playerInfoId?: string;
-  disableClicks: boolean = true;
-  searching: boolean = false;
+  disableClicks = true;
+  searching = false;
 
   private lastStorage = lichess.storage.make('last-redirect');
 

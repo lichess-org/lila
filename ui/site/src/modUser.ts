@@ -62,7 +62,7 @@ lichess.load.then(() => {
   function userMod($inZone: Cash) {
     lichess.contentLoaded($inZone[0]);
 
-    const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls: string = 'ready') => {
+    const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
         f($(this).addClass(cls)[0] as HTMLElement, i);
       });
@@ -83,6 +83,11 @@ lichess.load.then(() => {
     });
 
     makeReady('form.xhr', (el: HTMLFormElement) => {
+      $(el)
+        .find('input.confirm, button.confirm')
+        .on('click', function (this: HTMLElement) {
+          return confirm(this.title || 'Confirm this action?');
+        });
       $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {

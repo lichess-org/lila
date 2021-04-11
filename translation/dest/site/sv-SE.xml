@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
-  <string name="mistakes">Misstag</string>
   <string name="inaccuracy">Felaktighet</string>
-  <string name="inaccuracies">Felaktigheter</string>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
   <string name="threefoldRepetition">Trefaldig upprepning</string>

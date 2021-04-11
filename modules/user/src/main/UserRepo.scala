@@ -72,6 +72,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       } yield xx -> yy
     }
 
+  def lichessAnd(id: ID) = pair(User.lichessId, id) map2 { case (lichess, user) =>
+    Holder(lichess) -> user
+  }
+
   def namePair(x: ID, y: ID): Fu[Option[(User, User)]] =
     pair(normalize(x), normalize(y))
 
@@ -211,16 +215,20 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
-  private val incStormRuns = $inc("perfs.storm.runs" -> 1)
-  def addStormRun(userId: User.ID, newHighScore: Option[Int]): Funit =
+  def addStormRun  = addStormLikeRun("storm") _
+  def addRacerRun  = addStormLikeRun("racer") _
+  def addStreakRun = addStormLikeRun("streak") _
+
+  private def addStormLikeRun(field: String)(userId: User.ID, score: Int): Funit = {
+    val inc = $inc(s"perfs.$field.runs" -> 1)
     coll.update
       .one(
         $id(userId),
-        newHighScore.fold(incStormRuns) { score =>
-          incStormRuns ++ $set("perfs.storm.score" -> score)
-        }
+        $inc(s"perfs.$field.runs" -> 1) ++
+          $doc("$max"             -> $doc(s"perfs.$field.score" -> score))
       )
       .void
+  }
 
   def setProfile(id: ID, profile: Profile): Funit =
     coll.update
@@ -647,7 +655,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update
       .one(
         $id(user.id),
-        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind) ++ $set(
+        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind, F.bpass) ++ $set(
           F.enabled  -> false,
           F.erasedAt -> DateTime.now
         )

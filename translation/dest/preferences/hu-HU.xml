@@ -4,7 +4,7 @@
   <string name="gameDisplay">Játék megjelenítése</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
-  <string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
+  <string name="boardHighlights">Kiemelés a táblán (utolsó lépés és sakk)</string>
   <string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
   <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>

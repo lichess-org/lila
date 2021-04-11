@@ -121,11 +121,8 @@
   <string name="infiniteAnalysis">Бясконцы аналіз</string>
   <string name="removesTheDepthLimit">Здымае абмежаванне на глыбіню. Асцярожна, ваш камп’ютар можа перагрэцца!</string>
   <string name="blunder">Грубая памылка</string>
-  <string name="blunders">Грубыя памылкі</string>
   <string name="mistake">Памылка</string>
-  <string name="mistakes">Памылкі</string>
   <string name="inaccuracy">Недакладнасць</string>
-  <string name="inaccuracies">Недакладнасці</string>
   <string name="moveTimes">Час на ход</string>
   <string name="flipBoard">Перавярнуць дошку</string>
   <string name="threefoldRepetition">Трохразовы паўтор</string>

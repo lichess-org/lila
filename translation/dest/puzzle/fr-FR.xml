@@ -53,6 +53,6 @@
   <string name="streakDescription">Résolvez des problèmes de plus en plus difficiles et obtenez une série de victoires. Prenez votre temps, il n\'y a pas de pendule. Un mauvais coup et c\'est terminé ! Mais vous pouvez passer un coup par session.</string>
   <string name="yourStreakX">Votre série gagnante : %s</string>
   <string name="streakSkipExplanation">Sautez ce coup pour préserver votre série gagnante! Possible une seule fois par session.</string>
-  <string name="continueTheStreak">Continuer la série</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continuer la série</string>
   <string name="newStreak">Nouvelle série</string>
 </resources>

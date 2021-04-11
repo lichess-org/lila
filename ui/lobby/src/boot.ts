@@ -26,7 +26,6 @@ export default function LichessLobby(opts: LobbyOpts) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-  let lobby: any;
   lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
     receive(t: string, d: any) {
       lobby.socketReceive(t, d);
@@ -68,7 +67,7 @@ export default function LichessLobby(opts: LobbyOpts) {
   opts.blindMode = $('body').hasClass('blind-mode');
   opts.trans = lichess.trans(opts.i18n);
   opts.socketSend = lichess.socket.send;
-  lobby = main(opts);
+  const lobby = main(opts);
 
   const $startButtons = $('.lobby__start'),
     clickEvent = opts.blindMode ? 'click' : 'mousedown';

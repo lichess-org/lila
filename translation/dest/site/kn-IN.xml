@@ -111,11 +111,8 @@
   <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="removesTheDepthLimit">ಆಳ ನಿರ್ಬಂಧಿನೆ ತೆಗೆಯುತ್ತದೆ, ಕಂಪ್ಯೂಟರ್ ಬಿಸಿಯಾಗಬಹುದು</string>
   <string name="blunder">ಪ್ರಮಾದ</string>
-  <string name="blunders">ಪ್ರಮಾದಗಳು</string>
   <string name="mistake">ತಪ್ಪು</string>
-  <string name="mistakes">ತಪ್ಪುಗಳು</string>
   <string name="inaccuracy">ತಪ್ಪಾಗಿದೆ</string>
-  <string name="inaccuracies">ನಿಖರವಾಗಿಲ್ಲ</string>
   <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="draw">ಡ್ರಾ</string>

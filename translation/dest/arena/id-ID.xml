@@ -25,4 +25,7 @@
   <string name="shareUrl">Berbagi URL ini agar orang lain bisa bergabung: %s</string>
   <string name="drawStreak">Remis beruntun: Ketika pemain memiliki remis beruntun, hanya remis pertama yang akan mendapat satu poin, atau remis dengan lebih dari %s langkah. Remis beruntun hanya dapat dibatalkan dengan menang, bukan kalah atau remis.</string>
   <string name="history">Riwayat Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="other">Lihat semua %s tim</item>
+  </plurals>
 </resources>

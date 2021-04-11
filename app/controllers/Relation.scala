@@ -22,7 +22,7 @@ final class Relation(
   private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
     (ctx.userId ?? { api.fetchRelation(_, userId) }) zip
       (ctx.isAuth ?? { env.pref.api followable userId }) zip
-      (ctx.userId ?? { api.fetchBlocks(userId, _) }) flatMap { case relation ~ followable ~ blocked =>
+      (ctx.userId ?? { api.fetchBlocks(userId, _) }) flatMap { case ((relation, followable), blocked) =>
         negotiate(
           html = fuccess(Ok {
             if (mini)

@@ -28,7 +28,7 @@ export const onInsert = (f: (el: HTMLElement) => void): Hooks => ({
   },
 });
 
-export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive: boolean = true): Hooks =>
+export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive = true): Hooks =>
   onInsert(el => {
     el.addEventListener(
       eventName,
@@ -80,7 +80,7 @@ export const noChecks: CheckCount = {
 
 export function countChecks(steps: Step[], ply: Ply): CheckCount {
   const checks: CheckCount = { ...noChecks };
-  for (let step of steps) {
+  for (const step of steps) {
     if (ply < step.ply) break;
     if (step.check) {
       if (step.ply % 2 === 1) checks.white++;

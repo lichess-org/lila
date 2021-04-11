@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Сәгать саен Тиз Мәйдан</string>
+  <string name="hourlyRapid">Сәгать саен Тиз</string>
+  <string name="hourlyXArena">Сәгать саен %s Мәйдан</string>
+  <string name="hourlyX">Сәгать саен %s</string>
+  <string name="dailyRapidArena">Көн саен Тиз Мәйдан</string>
+  <string name="dailyRapid">Көн саен Тиз</string>
+  <string name="dailyClassicalArena">Көн саен Хуп Мәйдан</string>
+  <string name="dailyClassical">Көн саен Хуп</string>
+  <string name="dailyXArena">Көн саен %s Мәйдан</string>
+  <string name="dailyX">Көн саен %s</string>
+  <string name="easternRapidArena">Көнчыгыш Тиз Мәйдан</string>
+  <string name="easternRapid">Көнчыгыш Тиз</string>
+  <string name="easternClassicalArena">Көнчыгыш Хуп Мәйдан</string>
+  <string name="easternClassical">Көнчыгыш Хуп</string>
+  <string name="easternXArena">Көнчыгыш %s Мәйдан</string>
+  <string name="easternX">Көнчыгыш %s</string>
+  <string name="weeklyRapidArena">Атна саен Тиз Мәйдан</string>
+  <string name="weeklyRapid">Атна саен Тиз</string>
+  <string name="weeklyClassicalArena">Атна саен Хуп Мәйдан</string>
+  <string name="weeklyClassical">Атна саен Хуп</string>
+  <string name="weeklyXArena">Атна саен %s Мәйдан</string>
+  <string name="weeklyX">Атна саен %s</string>
+  <string name="monthlyRapidArena">Ай саен Тиз Мәйдан</string>
+  <string name="monthlyRapid">Ай саен Тиз</string>
+  <string name="monthlyClassicalArena">Ай саен Хуп Мәйдан</string>
+  <string name="monthlyClassical">Ай саен Хуп</string>
+  <string name="monthlyXArena">Ай саен %s Мәйдан</string>
+  <string name="monthlyX">Ай саен %s</string>
+  <string name="yearlyRapidArena">Ел саен Тиз Мәйдан</string>
+  <string name="yearlyRapid">Ел саен Тиз</string>
+  <string name="yearlyClassicalArena">Ел саен Хуп Мәйдан</string>
+  <string name="yearlyClassical">Ел саен Хуп</string>
+  <string name="yearlyXArena">Ел саен %s Мәйдан</string>
+  <string name="yearlyX">Ел саен %s</string>
+  <string name="rapidShieldArena">Тиз Калкан Мәйдан</string>
+  <string name="rapidShield">Тиз Калкан</string>
+  <string name="classicalShieldArena">Хуп Калкан Мәйданы</string>
+  <string name="classicalShield">Хуп Калкан</string>
+  <string name="xShieldArena">%s Калкан Мәйданы</string>
+  <string name="xShield">%s Калкан</string>
+  <string name="openingRapidArena">%s Тиз Мәйдан</string>
+  <string name="openingRapid">%s Тиз</string>
+  <string name="xTeamBattle">%s Төркем Сугышы</string>
+  <string name="eliteXArena">Абруйлы %s Мәйдан</string>
+  <string name="eliteX">Абруйлы %s</string>
+  <string name="xArena">%s Мәйданы</string>
+</resources>

@@ -10,7 +10,7 @@ const ratingLog = (a: number) => Math.log(a / 150 + 1);
 function ratingY(e: number) {
   const rating = Math.max(1000, Math.min(2200, e || 1500));
   let ratio: number;
-  let mid = 2 / 5;
+  const mid = 2 / 5;
   if (rating == 1500) {
     ratio = mid;
   } else if (rating > 1500) {

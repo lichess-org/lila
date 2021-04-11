@@ -43,7 +43,7 @@ final class Round(
                 (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
                 env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
-                  case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+                  case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
                     simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
                     Ok(
                       html.round.player(
@@ -67,7 +67,7 @@ final class Round(
             pov.game.playableByAi ?? env.fishnet.player(pov.game)
             gameC.preloadUsers(pov.game) zip
               env.api.roundApi.player(pov, tour, apiVersion) zip
-              getPlayerChat(pov.game, none) map { case _ ~ data ~ chat =>
+              getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
                 Ok {
                   data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
                 }
@@ -171,7 +171,7 @@ final class Round(
                 getWatcherChat(pov.game) zip
                 (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-                  case tour ~ simul ~ chat ~ crosstable ~ bookmarked =>
+                  case ((((tour, simul), chat), crosstable), bookmarked) =>
                     env.api.roundApi.watcher(
                       pov,
                       tour,
@@ -286,7 +286,7 @@ final class Round(
           env.game.gameRepo.initialFen(pov.game) zip
           env.game.crosstableApi.withMatchup(pov.game) zip
           env.bookmark.api.exists(pov.game, ctx.me) map {
-            case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
+            case ((((tour, simul), initialFen), crosstable), bookmarked) =>
               Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
           }
       }

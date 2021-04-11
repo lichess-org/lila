@@ -21,7 +21,7 @@ object layout {
     ) {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
+        ctx.me.exists(_.enabled) option st.nav(cls := "page-menu__menu subnav")(
           lila.pref.PrefCateg.all.map { categ =>
             a(activeCls(categ.slug), href := routes.Pref.form(categ.slug))(
               bits.categName(categ)

@@ -29,9 +29,11 @@
   <string name="makeSureToCopy">Parolingizni nushalang yoki toʻgʻriligini tekshiring. Uni siz boshqa koʻrmaysiz!</string>
   <string name="passwordX">Parol: %s</string>
   <string name="generateANewPassword">Oʻquvchiga yangi parol generatsiya qilish</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">%2$s tomonidan %1$s ga taklif yuborildi</string>
   <string name="realName">Haqiqiy nomi</string>
   <string name="privateWillNeverBeShown">Yashirin. Hech qachon dars tashqarisida koʻrsatilmaydi. Oʻquvchi kimligini eslashga yordam beradi.</string>
   <string name="addStudent">Oʻquvchi qoʻshish</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%2$s is the real name of the student (only visible for the teacher)">%1$s Lichess profili %2$s uchun yaratildi.</string>
   <string name="studentCredentials">Oʻquvchi:  %1$s
 Foydalanuvchi nomi: %2$s
 Paroli: %3$s</string>

@@ -17,7 +17,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { Ctrl as ActionMenuCtrl } from './actionMenu';
+import { ActionMenuCtrl } from './actionMenu';
 import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop } from 'common';
@@ -76,16 +76,16 @@ export default class AnalyseCtrl {
   justPlayed?: string; // pos
   justDropped?: string; // role
   justCaptured?: JustCaptured;
-  autoScrollRequested: boolean = false;
-  redirecting: boolean = false;
-  onMainline: boolean = true;
+  autoScrollRequested = false;
+  redirecting = false;
+  onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
-  flipped: boolean = false;
+  flipped = false;
   embed: boolean;
-  showComments: boolean = true; // whether to display comments in the move tree
+  showComments = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
@@ -351,7 +351,7 @@ export default class AnalyseCtrl {
           if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
-        if (/\+|\#/.test(this.node.san!)) this.sound.check();
+        if (/\+|#/.test(this.node.san!)) this.sound.check();
       }
       this.threatMode(false);
       this.ceval.stop();

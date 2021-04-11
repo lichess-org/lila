@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Walay katapusan ng pagtuki</string>
   <string name="removesTheDepthLimit">Kwaa ang nagpugong sa kalawmon, ug ipabilin ng init imong kompyuter</string>
   <string name="blunder">Kasaypanan</string>
-  <string name="blunders">Mga Kasaypanan</string>
   <string name="mistake">Sayup</string>
-  <string name="mistakes">Mga Sayup</string>
   <string name="inaccuracy">Dli sakto</string>
-  <string name="inaccuracies">Mga dli sakto</string>
   <string name="moveTimes">Kadaghan sa mga paglihok</string>
   <string name="flipBoard">Baliha ang board</string>
   <string name="threefoldRepetition">Katulo nga pagbali-bali</string>

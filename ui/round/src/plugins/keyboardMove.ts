@@ -122,7 +122,7 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
 function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
+  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 

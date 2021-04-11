@@ -2,12 +2,10 @@ package views.html
 package appeal
 
 import controllers.routes
-import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.report.Report.Inquiry
 import lila.user.User
 
 object tree {
@@ -250,9 +248,12 @@ object tree {
         ),
         div(cls := "appeal__rules")(
           p(cls := "text", dataIcon := "")(doNotMessageModerators()),
-          a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
-            "Read more about the appeal process"
-          )
+          p(
+            a(cls := "text", dataIcon := "", href := routes.Page.loneBookmark("appeal"))(
+              "Read more about the appeal process"
+            )
+          ),
+          p(a(cls := "text", dataIcon := "x", href := routes.Account.data)("Export personal data"))
         )
       )
     }

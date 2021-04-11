@@ -113,7 +113,8 @@ object header {
               cls := "btn-rack__btn",
               href := routes.Game.exportByUser(u.username),
               titleOrText(trans.exportGames.txt()),
-              dataIcon := "x"
+              dataIcon := "x",
+              downloadAttr
             )
           else
             (ctx.isAuth && ctx.noKid) option a(
@@ -177,8 +178,6 @@ object header {
             )
           }
       ),
-      ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !u.isBot && !ctx.pref.hasSeenVerifyTitle) option
-        views.html.user.bits.claimTitle,
       isGranted(_.UserModView) option div(cls := "mod-zone none"),
       standardFlash(),
       angle match {

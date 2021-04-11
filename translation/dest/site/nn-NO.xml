@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
   <string name="blunder">Bukk</string>
-  <string name="blunders">Bukkar</string>
   <string name="mistake">Mistak</string>
-  <string name="mistakes">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
-  <string name="inaccuracies">Småfeil</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s bukk</item>
+    <item quantity="other">%s bukkar</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s feil</item>
+    <item quantity="other">%s feil</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøyaktigheit</item>
+    <item quantity="other">%s unøyaktigheitar</item>
+  </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trefaldig trekkgjentaking</string>
@@ -858,6 +867,6 @@ i %3$s</string>
   <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
   <string name="newPendingReview">Ventar på ny gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
-  <string name="refundXpointsTimeControlY" comment="refundXpointsTimeControlY&#10;&#10;%1$s is the number of points refunded&#10;%2$s is the type of the rating - bullet, blitz and classical games have separate ratings.&#10;&#10;Ratings are refunded when Lichess detects that a player has lost points due to another player's cheating.">Refundering: %1$s %2$s ratingpoeng.</string>
+  <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
 </resources>

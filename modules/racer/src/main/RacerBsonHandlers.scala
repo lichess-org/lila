@@ -7,7 +7,6 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.puzzle.BsonHandlers.PuzzleIdBSONHandler
 import lila.puzzle.Puzzle
-import lila.rating.Glicko
 import lila.storm.StormPuzzle
 
 private object RacerBsonHandlers {

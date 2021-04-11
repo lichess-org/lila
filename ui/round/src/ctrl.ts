@@ -61,11 +61,11 @@ export default class RoundController {
   moveOn: MoveOn;
 
   ply: number;
-  firstSeconds: boolean = true;
-  flip: boolean = false;
-  loading: boolean = false;
+  firstSeconds = true;
+  flip = false;
+  loading = false;
   loadingTimeout: number;
-  redirecting: boolean = false;
+  redirecting = false;
   transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
@@ -74,10 +74,10 @@ export default class RoundController {
   drawConfirm?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
-  challengeRematched: boolean = false;
+  challengeRematched = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
-  shouldSendMoveTime: boolean = false;
+  shouldSendMoveTime = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
@@ -340,12 +340,12 @@ export default class RoundController {
     const d = this.data;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = this.noarg('yourTurn'),
-          opponent = renderUser.userTxt(this, d.opponent);
+        let txt = this.noarg('yourTurn');
+        const opponent = renderUser.userTxt(this, d.opponent);
         if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
         else {
-          let move = d.steps[d.steps.length - 1].san,
-            turn = Math.floor((this.ply - 1) / 2) + 1;
+          let move = d.steps[d.steps.length - 1].san;
+          const turn = Math.floor((this.ply - 1) / 2) + 1;
           move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
           txt = `${opponent}\nplayed ${move}.\n${txt}`;
         }
@@ -615,7 +615,7 @@ export default class RoundController {
     this.redraw();
   };
 
-  setLoading = (v: boolean, duration: number = 1500) => {
+  setLoading = (v: boolean, duration = 1500) => {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;

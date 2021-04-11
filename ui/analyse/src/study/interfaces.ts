@@ -112,8 +112,8 @@ export interface StudySettings {
   explorer: UserSelection;
   cloneable: UserSelection;
   chat: UserSelection;
-  sticky: Boolean;
-  description: Boolean;
+  sticky: boolean;
+  description: boolean;
 }
 
 export interface ReloadData {

@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
   <string name="blunder">Глупа грешка</string>
-  <string name="blunders">Глупи грешки</string>
   <string name="mistake">Грешка</string>
-  <string name="mistakes">Грешки</string>
   <string name="inaccuracy">Непрецизност</string>
-  <string name="inaccuracies">Непрецизности</string>
   <string name="moveTimes">Време по потег</string>
   <string name="flipBoard">Сврти ја таблата</string>
   <string name="threefoldRepetition">Тројно повторување</string>

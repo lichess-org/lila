@@ -12,7 +12,7 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, PuzzleStreak, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleDifficulty, PuzzleReplay, PuzzleStreak, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -132,7 +132,10 @@ final class Puzzle(
                       if score > 0
                       _ = lila.mon.streak.run.score(ctx.isAuth).record(score)
                       userId <- ctx.userId
-                    } lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+                    } {
+                      lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+                      env.user.repo.addStreakRun(userId, score)
+                    }
                     renderJson(puzzle, theme) map { nextJson =>
                       Json.obj("next" -> nextJson)
                     }

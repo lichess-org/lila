@@ -2,7 +2,6 @@ package views
 package html.puzzle
 
 import controllers.routes
-import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._

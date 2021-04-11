@@ -3,7 +3,6 @@ package controllers
 import chess.format.FEN
 import chess.White
 import play.api.mvc._
-import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
@@ -52,40 +51,41 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
-              env.api.roundApi.review(
-                pov,
-                lila.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u =>
-                  lila.round.OnUserTv(u.id)
-                },
-                analysis,
-                initialFenO = initialFen.some,
-                withFlags = WithFlags(
-                  movetimes = true,
-                  clocks = true,
-                  division = true,
-                  opening = true
-                )
-              ) map { data =>
-                EnableSharedArrayBuffer(
-                  Ok(
-                    html.analyse.replay(
-                      pov,
-                      data,
-                      initialFen,
-                      env.analyse.annotator(pgn, pov.game, analysis).toString,
-                      analysis,
-                      analysisInProgress,
-                      simul,
-                      crosstable,
-                      userTv,
-                      chat,
-                      bookmarked = bookmarked
+            ) flatMap {
+              case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
+                env.api.roundApi.review(
+                  pov,
+                  lila.api.Mobile.Api.currentVersion,
+                  tv = userTv.map { u =>
+                    lila.round.OnUserTv(u.id)
+                  },
+                  analysis,
+                  initialFenO = initialFen.some,
+                  withFlags = WithFlags(
+                    movetimes = true,
+                    clocks = true,
+                    division = true,
+                    opening = true
+                  )
+                ) map { data =>
+                  EnableSharedArrayBuffer(
+                    Ok(
+                      html.analyse.replay(
+                        pov,
+                        data,
+                        initialFen,
+                        env.analyse.annotator(pgn, pov.game, analysis).toString,
+                        analysis,
+                        analysisInProgress,
+                        simul,
+                        crosstable,
+                        userTv,
+                        chat,
+                        bookmarked = bookmarked
+                      )
                     )
                   )
-                )
-              }
+                }
             }
         }
       }

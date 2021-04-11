@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">अनन्त विश्लेषण</string>
   <string name="removesTheDepthLimit">गहिराइको हद हटाएर कम्प्युटर तातो राख्छ</string>
   <string name="blunder">ठुलो भुल</string>
-  <string name="blunders">ठुला भुलहरु</string>
   <string name="mistake">सानो भुल</string>
-  <string name="mistakes">साना भुलहरु</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
-  <string name="inaccuracies">धेरै साना भुलहरु</string>
   <string name="moveTimes">हरेक चालको समय</string>
   <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
   <string name="threefoldRepetition">तेस्रो दोहोर्याई</string>

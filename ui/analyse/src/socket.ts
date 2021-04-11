@@ -69,7 +69,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   }
 
   function addStudyData(req: Req, isWrite = false): void {
-    var c = currentChapterId();
+    const c = currentChapterId();
     if (c) {
       req.ch = c;
       if (isWrite) {

@@ -48,7 +48,7 @@ final class Tv(
         html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
           env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             env.game.crosstableApi.withMatchup(game) zip
-            env.tv.tv.getChampions map { case data ~ cross ~ champions =>
+            env.tv.tv.getChampions map { case ((data, cross), champions) =>
               NoCache {
                 Ok(html.tv.index(channel, champions, pov, data, cross, history))
               }

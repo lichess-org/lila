@@ -60,7 +60,7 @@ lichess.load.then(() => {
       };
     matches = a.href.match(gameRegex);
     if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
-      var src = '/embed/' + matches[1];
+      let src = '/embed/' + matches[1];
       if (matches[2]) src += '/' + matches[2]; // orientation
       if (matches[3]) src += matches[3]; // ply hash
       return {
@@ -71,14 +71,14 @@ lichess.load.then(() => {
   }
 
   function expandYoutube(a: Candidate) {
-    var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
+    const $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   }
 
-  function expandYoutubes(as: Candidate[], wait: number = 100) {
-    var a = as.shift(),
-      wait = Math.min(1500, wait);
+  function expandYoutubes(as: Candidate[], wait = 100) {
+    wait = Math.min(1500, wait);
+    const a = as.shift();
     if (a)
       expandYoutube(a)
         .find('iframe')
@@ -103,7 +103,7 @@ lichess.load.then(() => {
       });
   }
 
-  function expandStudies(as: Candidate[], wait: number = 100) {
+  function expandStudies(as: Candidate[], wait = 100) {
     const a = as.shift();
     wait = Math.min(1500, wait);
     if (a)

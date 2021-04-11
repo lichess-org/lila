@@ -36,12 +36,12 @@ case class LocatedSession(session: UserSession, location: Option[Location])
 
 case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
 
-case class RecaptchaPublicConfig(key: String, enabled: Boolean)
+case class HcaptchaPublicConfig(key: String, enabled: Boolean)
 
-case class RecaptchaForm[A](form: Form[A], formId: String, config: RecaptchaPublicConfig) {
+case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig) {
   def enabled                    = config.enabled
   def apply(key: String)         = form(key)
-  def withForm[B](form: Form[B]) = RecaptchaForm(form, formId, config)
+  def withForm[B](form: Form[B]) = HcaptchaForm(form, config)
 }
 
 case class LameNameCheck(value: Boolean) extends AnyVal

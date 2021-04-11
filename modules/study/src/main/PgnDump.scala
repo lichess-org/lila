@@ -162,7 +162,7 @@ object PgnDump {
   ): Vector[chessPgn.Turn] =
     line
       .grouped(2)
-      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case variations ~ turns ~ pair =>
+      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case ((variations, turns), pair) =>
         pair.headOption.fold(variations -> turns) { first =>
           pair
             .lift(1)
