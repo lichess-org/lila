@@ -64,7 +64,6 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   }
   else{
     cancelDropMode(ctrl.shogiground.state);
-    console.log("killerd round/src/crazy/crazyCtrl selectToDrop cancelDropMode");
   }
   e.stopPropagation();
   e.preventDefault();
@@ -137,7 +136,6 @@ export function init(ctrl: RoundController) {
       document.body.classList.add(activeCursor);
     } else {
       cancelDropMode(ctrl.shogiground.state);
-      console.log("killerd crazyCtrl setDrop cancelDropMode");
       activeCursor = undefined;
     }
   };

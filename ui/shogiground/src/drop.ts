@@ -10,15 +10,12 @@ export function setDropMode(s: State, piece?: cg.Piece): void {
     piece,
   };
   dragCancel(s);
-  console.log("killerd drop.ts setDropMode");
 }
 
 export function cancelDropMode(s: State): void {
-  console.log("killerd drop.ts cancelDropMode 1");
   s.dropmode = {
     active: false,
   };
-  console.log("killerd drop.ts cancelDropMode 2");
 }
 
 export function drop(s: State, e: cg.MouchEvent): void {
