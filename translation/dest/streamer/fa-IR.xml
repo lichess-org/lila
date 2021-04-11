@@ -4,6 +4,7 @@
   <string name="lichessStreamer">استریمر لیچس</string>
   <string name="live">زنده</string>
   <string name="offline">افلاین</string>
+  <string name="lastStream">آخرین استریم</string>
   <string name="becomeStreamer">تبدیل شدن به استریمر</string>
   <string name="doYouHaveStream">ایا شما استریم دارید؟</string>
   <string name="hereWeGo">اینجا برویم</string>
