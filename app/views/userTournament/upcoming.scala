@@ -7,7 +7,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.user.User
 
-
 object upcoming {
 
   def apply(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: Context) =

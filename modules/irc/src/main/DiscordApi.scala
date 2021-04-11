@@ -1,6 +1,5 @@
 package lila.irc
 
-
 import lila.common.LightUser
 import lila.user.User
 
