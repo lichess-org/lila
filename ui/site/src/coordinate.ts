@@ -174,12 +174,12 @@ lichess.load.then(() => {
                 $score.text(score);
                 advanceCoords();
               } else {
-                $('#next_coord0').addClass('nope');
+                $trainer.addClass('wrong');
+
                 setTimeout(function () {
-                  $('#next_coord0').removeClass('nope');
+                  $trainer.removeClass('wrong');
                 }, 500);
               }
-              $trainer.toggleClass('wrong', !hit);
             },
           },
         });

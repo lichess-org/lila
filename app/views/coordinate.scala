@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.pref.Pref.Color
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -55,9 +56,7 @@ object coordinate {
                 )
               }
             )
-          ),
-          div(cls := "coord-trainer__score")(0),
-          div(cls := "coord-trainer__timer")(0)
+          )
         ),
         div(cls := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
@@ -74,7 +73,15 @@ object coordinate {
             ),
             p(trans.coordinates.aSquareNameAppears())
           ),
-          button(cls := "start button button-fat")(trans.coordinates.startTraining())
+          button(cls := "start button button-fat")(trans.coordinates.startTraining()),
+          div(cls := "box current-status")(
+            h1(trans.storm.score()),
+            div(cls := "coord-trainer__score")(0)
+          ),
+          div(cls := "box current-status")(
+            h1(trans.time()),
+            div(cls := "coord-trainer__timer")(30.0)
+          )
         ),
         div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))
       )
