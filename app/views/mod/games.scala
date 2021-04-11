@@ -39,6 +39,13 @@ object games {
             form(method := "get", action := routes.GameMod.index(user.id), cls := "mod-games__filter-form")(
               form3.input(filterForm("opponents"))(placeholder := "Opponents"),
               form3.select(
+                filterForm("speed"),
+                chess.Speed.all.map { s =>
+                  s.key -> s.name
+                },
+                "Time control".some
+              ),
+              form3.select(
                 filterForm("arena"),
                 arenas.map(t =>
                   t.tour.id -> List(
@@ -48,7 +55,7 @@ object games {
                     t.tour.name()
                   ).mkString(" / ")
                 ),
-                pluralize("recent arena", arenas.size).some,
+                pluralize("arena", arenas.size).some,
                 disabled = arenas.isEmpty
               ),
               form3.select(
@@ -56,7 +63,7 @@ object games {
                 swisses.map { case (swiss, rank) =>
                   swiss.id.value -> s"rank ${rank} / ${swiss.name}"
                 },
-                s"${swisses.size} recent swiss".some,
+                s"${swisses.size} swiss".some,
                 disabled = swisses.isEmpty
               )
             )

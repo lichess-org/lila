@@ -12,7 +12,7 @@ import lila.api.GameApiV2
 import lila.common.config
 import lila.user.Holder
 
-final class GameMod(env: Env) extends LilaController(env) {
+final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
 
   import GameMod._
 
@@ -24,17 +24,31 @@ final class GameMod(env: Env) extends LilaController(env) {
         val filter       = form.fold(_ => emptyFilter, identity)
         env.tournament.leaderboardApi.recentByUser(user, 1) zip
           env.activity.read.recentSwissRanks(user.id) zip
-          env.game.gameRepo.recentPovsByUserFromSecondary(
-            user,
-            100,
-            toDbSelect(filter) ++ lila.game.Query.finished
-          ) flatMap { case ((arenas, swisses), povs) =>
+          fetchGames(user, filter) flatMap { case ((arenas, swisses), povs) =>
             env.mod.assessApi.makeAndGetFullOrBasicsFor(povs) map { games =>
               Ok(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
             }
           }
       }
     }
+
+  private def fetchGames(user: lila.user.User, filter: Filter) = {
+    val select = toDbSelect(filter) ++ lila.game.Query.finished
+    filter.speed
+      .flatMap(k => chess.Speed.all.find(_.key == k))
+      .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, nbGames, select)) { speed =>
+        import akka.stream.scaladsl._
+        env.game.gameRepo
+          .recentGamesByUserFromSecondaryCursor(user, select)
+          .documentSource(10_000)
+          .filter(_.speed == speed)
+          .take(nbGames)
+          .mapConcat { g => lila.game.Pov(g, user).toList }
+          .toMat(Sink.seq)(Keep.right)
+          .run()
+          .map(_.toList)
+      }
+  }
 
   def post(username: String) =
     SecureBody(_.Hunter) { implicit ctx => me =>
@@ -89,7 +103,14 @@ final class GameMod(env: Env) extends LilaController(env) {
 
 object GameMod {
 
-  case class Filter(arena: Option[String], swiss: Option[String], opponents: Option[String]) {
+  val nbGames = 100
+
+  case class Filter(
+      arena: Option[String],
+      swiss: Option[String],
+      speed: Option[String],
+      opponents: Option[String]
+  ) {
     def opponentIds: List[lila.user.User.ID] =
       (~opponents)
         .take(800)
@@ -103,7 +124,7 @@ object GameMod {
         .distinct
   }
 
-  val emptyFilter = Filter(none, none, none)
+  val emptyFilter = Filter(none, none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
     lila.game.Query.notSimul ++ lila.game.Query.clock(true) ++ filter.arena.?? { id =>
@@ -121,6 +142,7 @@ object GameMod {
       mapping(
         "arena"     -> optional(nonEmptyText),
         "swiss"     -> optional(nonEmptyText),
+        "speed"     -> optional(nonEmptyText),
         "opponents" -> optional(nonEmptyText)
       )(Filter.apply)(Filter.unapply _)
     )
