@@ -15,6 +15,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     stormJson: StormJson,
     stormSign: StormSign,
+    userRepo: lila.user.UserRepo,
     lightUserGetter: LightUser.GetterSync,
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db

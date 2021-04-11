@@ -77,8 +77,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
               coll.update.one($id(day._id), day, upsert = true)
             }
             .flatMap { _ =>
-              val (high, newHigh) = highApi.update(u.id, prevHigh, data.score)
-              userRepo.addStormRun(u.id, high.allTime.some.filter(prevHigh.allTime <)) inject newHigh
+              val high = highApi.update(u.id, prevHigh, data.score)
+              userRepo.addStormRun(u.id, data.score) inject high
             }
         }
       } else {
