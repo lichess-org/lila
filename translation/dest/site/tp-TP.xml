@@ -203,7 +203,7 @@
     <item quantity="one">musi lili %s</item>
     <item quantity="other">musi lili %s</item>
   </plurals>
-  <string name="gamesPlayed">sina pini e musi ni</string>
+  <string name="gamesPlayed">sina pini e mute musi ni</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">musi %s pi sina en ona</item>
     <item quantity="other">musi %s pi sina en ona</item>
