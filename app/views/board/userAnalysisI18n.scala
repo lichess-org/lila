@@ -166,6 +166,9 @@ object userAnalysisI18n {
   ).map(_.key)
 
   private val advantageChartTranslations: Vector[MessageKey] = Vector(
+    trans.nbInaccuracies,
+    trans.nbMistakes,
+    trans.nbBlunders,
     trans.advantage,
     trans.opening,
     trans.middlegame,
