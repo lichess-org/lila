@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Шахмат уйнап</string>
-  <string name="byPlaying">өйрәнегез!</string>
+  <string name="byPlaying">уйныйлар!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Үтелгән: %s</string>
   <string name="resetMyProgress">Яңадан башларга</string>
@@ -10,19 +10,37 @@
   <string name="chessPieces">Шахмат сыннары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Туры юл буенча йөри</string>
-  <string name="rookIntro">Тура - көчле таш. Сез аның белән уйнарга әзерме?</string>
+  <string name="rookIntro">Тура - көчле сөяк. Сез аның белән уйнарга әзерме?</string>
   <string name="rookGoal">Турага басыгыз
 һәм аны йолдызга алып китерегез!</string>
   <string name="grabAllTheStars">Бөтен йолдызларны җыеп алыгыз!</string>
-  <string name="queenCombinesRookAndBishop">Әби = тура + вәзир</string>
-  <string name="queenIntro">Иң көчле шаһмат кисәге керә. Аның биеклеге Әби!</string>
-  <string name="queenComplete">Тәбриклийм! Әби сере юк Синең өчен.</string>
+  <string name="theFewerMoves">Сез азрак хәрәкәт итәсез,
+күбрәк балл җыйсаң!</string>
+  <string name="useTwoRooks">Куллан ике тураны
+эшне тизләтергә!</string>
+  <string name="rookComplete">Котлыйбыз! Сез тураны уңышлы үзләштердегез.</string>
+  <string name="theBishop">Фил</string>
+  <string name="itMovesDiagonally">Ул хәрәкәт итә диагональ буенча</string>
+  <string name="bishopIntro">Алга таба без фил белән идарә итәргә өйрәнербез!</string>
+  <string name="youNeedBothBishops">Бер ак-шакмаклардагы фил
+бер кара-шакмаклардагы фил
+Сиңа кирәк икеседә!</string>
+  <string name="bishopComplete">Котлыйбыз! Сез филгә боерык бирә аласыз.</string>
+  <string name="theQueen">Вәзир</string>
+  <string name="queenCombinesRookAndBishop">Вәзир = тура + фил</string>
+  <string name="queenIntro">Иң көчле шаһмат сөяге керә. Аның дәрәҗәсе вәзир!</string>
+  <string name="queenComplete">Тәбриклийм! Вәзирнең сере Синең өчен.</string>
   <string name="theKing">Шаһ</string>
   <string name="theMostImportantPiece">Иң мөһим сөякләр</string>
   <string name="kingIntro">Ул Шаһ. Әгәр дә сез сугышта егылса, уен җиңелә.</string>
   <string name="theKingIsSlow">Шаһ әкрен.</string>
+  <string name="lastOne">Соңгысы!</string>
   <string name="theKnight">Атчы</string>
+  <string name="thePawn">Җәяүле</string>
   <string name="capture">Алу</string>
+  <string name="combat">Сугыш</string>
+  <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
+  <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>

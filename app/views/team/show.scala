@@ -169,7 +169,9 @@ object show {
                   trans.settings.settings()
                 )
             ),
-            t.enabled && (t.publicMembers || info.mine || isGranted(_.ManageTeam)) option div(cls := "team-show__members")(
+            t.enabled && (t.publicMembers || info.mine || isGranted(_.ManageTeam)) option div(
+              cls := "team-show__members"
+            )(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
                 div(cls := "userlist infinite-scroll")(

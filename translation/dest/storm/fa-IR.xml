@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">برای شروع حرکت کنید</string>
+  <string name="createNewGame">ایجاد یک بازی جدید</string>
+  <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
+  <string name="skip">رد کردن</string>
+</resources>

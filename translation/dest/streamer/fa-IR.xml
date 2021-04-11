@@ -4,6 +4,7 @@
   <string name="lichessStreamer">استریمر لیچس</string>
   <string name="live">زنده</string>
   <string name="offline">افلاین</string>
+  <string name="lastStream">آخرین استریم %s</string>
   <string name="becomeStreamer">تبدیل شدن به استریمر</string>
   <string name="doYouHaveStream">ایا شما استریم دارید؟</string>
   <string name="hereWeGo">اینجا برویم</string>
@@ -24,6 +25,10 @@
   <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
   <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
+  <string name="anotherLanguage">اگر زبان استریم شما زبانی غیر از انگلیسی است, برچسب زبان صحیح (%s) را که در پرانتز قرار دارد ، اضافه کنید.
+به عنوان مثال ، می توانید \"[RU]\" برای روسی ، \"[TR]\" برای ترکی ، \"[FR]\" برای فرانسوی و غیره وارد کنید.
+این را در صفحه ی استریم توییچ یا یوتیوب قرار دهید, یا در تنظیمات استریم لیچس 
+اگر استریم شما به انگلیسی است, نیازی به درج برچسب زبان نیست.</string>
   <string name="twitchUsername">نام کاربری شما در توییچ</string>
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
   <string name="youtubeChannel">ایدی شما در یوتیوب ویا کانال .</string>

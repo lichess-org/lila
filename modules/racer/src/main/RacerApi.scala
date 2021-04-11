@@ -5,10 +5,11 @@ import scala.concurrent.ExecutionContext
 
 import lila.memo.CacheApi
 import lila.storm.StormSelector
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.common.Bus
 
-final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: CacheApi)(implicit
+final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserRepo, cacheApi: CacheApi)(
+    implicit
     ec: ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
@@ -87,6 +88,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, cacheApi: Cache
         lila.mon.racer.score(lobby = race.isLobby, auth = player.userId.isDefined).record(player.score)
         player.userId.ifTrue(player.score > 0) foreach { userId =>
           Bus.publish(lila.hub.actorApi.puzzle.RacerRun(userId, player.score), "racerRun")
+          userRepo.addRacerRun(userId, player.score)
         }
       }
       publish(race)

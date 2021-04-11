@@ -117,6 +117,18 @@
   <string name="blunder">Error greu</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisions</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s errada greu</item>
+    <item quantity="other">%s errades greus</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s errada</item>
+    <item quantity="other">%s errades</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisió</item>
+    <item quantity="other">%s imprecisions</item>
+  </plurals>
   <string name="moveTimes">Temps dels moviments</string>
   <string name="flipBoard">Gira el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>

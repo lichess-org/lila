@@ -137,7 +137,7 @@ final class User(
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
-      case None if isGranted(_.UserModView)                 => modC.searchTerm(username.trim)
+      case None if isGranted(_.UserModView)                 => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
       case None                                             => notFound
       case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
       case Some(u) =>
@@ -397,7 +397,7 @@ final class User(
         }
         val identification = userLoginsFu map { logins =>
           Granter.is(_.ViewPrintNoIP)(holder) ??
-            html.user.mod.identification(holder, logins)
+            html.user.mod.identification(holder, user, logins)
         }
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
           _ ?? { reps =>

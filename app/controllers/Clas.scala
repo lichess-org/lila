@@ -87,7 +87,7 @@ final class Clas(
               _ ?? { clas =>
                 env.clas.api.student.allWithUsers(clas) flatMap { students =>
                   env.user.repo.withEmailsU(students.map(_.user)) map { users =>
-                    Ok(html.mod.search.clas(clas, users))
+                    Ok(html.mod.search.clas(Holder(me), clas, users))
                   }
                 }
               }

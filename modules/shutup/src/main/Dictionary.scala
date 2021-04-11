@@ -80,14 +80,14 @@ loo?ser
 masturbat(e|ion|ing)
 milf
 molest
-(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)moron
+moron
 motherfuc?k(er|)
 mothers?
 mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
-(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)noo+b
+noo+b
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
@@ -110,7 +110,7 @@ queer
 rape
 rapist
 rect(al|um)
-(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)retard
+retard
 rimjob
 run
 sandbagg?(er|ing|)
@@ -136,7 +136,7 @@ spooge
 spunk
 smurff?(er|ing|)
 stfu
-(?<!((i( a)?'?m?)|me) ((such|so) )?(an? )?)stupid
+stupid
 suicide
 suck m[ey]
 terrorist

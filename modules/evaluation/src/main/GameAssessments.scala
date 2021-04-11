@@ -1,6 +1,5 @@
 package lila.evaluation
 
-
 sealed trait GameAssessment {
   val id: Int
   val description: String

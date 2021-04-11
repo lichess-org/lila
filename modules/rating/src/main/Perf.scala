@@ -101,9 +101,22 @@ case object Perf {
   case class Storm(score: Int, runs: Int) {
     def nonEmpty = runs > 0
   }
-
   object Storm {
     val default = Storm(0, 0)
+  }
+
+  case class Racer(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+  object Racer {
+    val default = Racer(0, 0)
+  }
+
+  case class Streak(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+  object Streak {
+    val default = Streak(0, 0)
   }
 
   implicit val perfBSONHandler = new BSON[Perf] {
@@ -129,5 +142,7 @@ case object Perf {
       )
   }
 
-  implicit val stormBSONHandler = Macros.handler[Storm]
+  implicit val stormBSONHandler  = Macros.handler[Storm]
+  implicit val racerBSONHandler  = Macros.handler[Racer]
+  implicit val streakBSONHandler = Macros.handler[Streak]
 }

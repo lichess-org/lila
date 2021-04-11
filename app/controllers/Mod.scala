@@ -336,32 +336,32 @@ final class Mod(
     }
 
   def search =
-    SecureBody(_.UserSearch) { implicit ctx => _ =>
+    SecureBody(_.UserSearch) { implicit ctx => me =>
       implicit def req = ctx.body
       val f            = UserSearch.form
       f.bindFromRequest()
         .fold(
-          err => BadRequest(html.mod.search(err, Nil)).fuccess,
-          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+          err => BadRequest(html.mod.search(me, err, Nil)).fuccess,
+          query => env.mod.search(query) map { html.mod.search(me, f.fill(query), _) }
         )
     }
 
-  protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
+  protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
     val query = UserSearch exact q
     env.mod.search(query) map { users =>
-      Ok(html.mod.search(UserSearch.form fill query, users))
+      Ok(html.mod.search(me, UserSearch.form fill query, users))
     }
   }
 
   def print(fh: String) =
-    SecureBody(_.ViewPrintNoIP) { implicit ctx => _ =>
+    SecureBody(_.ViewPrintNoIP) { implicit ctx => me =>
       val hash = FingerHash(fh)
       for {
         uids       <- env.security.api recentUserIdsByFingerHash hash
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.repo withEmailsU users
         uas        <- env.security.api.printUas(hash)
-      } yield Ok(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
+      } yield Ok(html.mod.search.print(me, hash, withEmails, uas, env.security.printBan blocks hash))
     }
 
   def printBan(v: Boolean, fh: String) =
@@ -379,7 +379,7 @@ final class Mod(
           users      <- env.user.repo usersFromSecondary uids.reverse
           withEmails <- env.user.repo withEmailsU users
           uas        <- env.security.api.ipUas(address)
-        } yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+        } yield Ok(html.mod.search.ip(me, address, withEmails, uas, env.security.firewall blocksIp address))
       }
     }
 
