@@ -1,6 +1,5 @@
 package controllers
 
-
 import lila.app._
 import lila.notify.Notification.Notifies
 

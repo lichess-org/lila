@@ -1,6 +1,5 @@
 package lila.evaluation
 
-
 case class PlayerFlags(
     suspiciousErrorRate: Boolean,
     alwaysHasAdvantage: Boolean,
