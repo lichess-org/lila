@@ -32,6 +32,6 @@
   </plurals>
   <string name="thankYouForReview">Děkujeme za hodnocení!</string>
   <string name="xWillApproveIt">%s to schválí velmi brzy, nebo se na to podívá moderátor.</string>
-  <string name="reviewCoach">Zkontrolovat tohoto trenéra</string>
-  <string name="describeExperienceWith">Popište svůj zážitek z koučování s %s</string>
+  <string name="reviewCoach">Poslat recenzi</string>
+  <string name="describeExperienceWith">Popište svůj zážitek z trénováním s %s</string>
 </resources>
