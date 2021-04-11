@@ -9,16 +9,18 @@ lichess.load.then(() => {
     const $side = $('.coord-trainer__side');
     const $right = $('.coord-trainer__table');
     const $bar = $trainer.find('.progress_bar');
-    const $coords = [$('#next_coord0'), $('#next_coord1'), $('#next_coord2')];
+    const $coords = [$('#next_coord0'), $('#next_coord1')];
     const $start = $right.find('.start');
     const $explanation = $right.find('.explanation');
     const $score = $('.coord-trainer__score');
+    const $timer = $('.coord-trainer__timer');
     const scoreUrl = $trainer.data('score-url');
     const duration = 30 * 1000;
     const tickDelay = 50;
     let colorPref = $trainer.data('color-pref');
     let color;
     let startAt, score;
+    let wrongTimeout;
 
     const showColor = function () {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
@@ -146,6 +148,12 @@ lichess.load.then(() => {
 
     const tick = function () {
       const spent = Math.min(duration, new Date().getTime() - startAt);
+      var left = ((duration - spent) / 1000).toFixed(1);
+      if (+left < 10) {
+        $timer.addClass('hurry');
+      }
+
+      $timer.text(left);
       $bar.css('width', (100 * spent) / duration + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
@@ -154,6 +162,7 @@ lichess.load.then(() => {
     $start.on('click', () => {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
+      $timer.removeClass('hurry');
       showColor();
       clearCoords();
       centerRight();
@@ -171,12 +180,13 @@ lichess.load.then(() => {
                 $score.text(score);
                 advanceCoords();
               } else {
-                $('#next_coord0').addClass('nope');
-                setTimeout(function () {
-                  $('#next_coord0').removeClass('nope');
+                clearTimeout(wrongTimeout);
+                $trainer.addClass('wrong');
+
+                wrongTimeout = setTimeout(function () {
+                  $trainer.removeClass('wrong');
                 }, 500);
               }
-              $trainer.toggleClass('wrong', !hit);
             },
           },
         });
