@@ -56,6 +56,14 @@ object coordinate {
                 )
               }
             )
+          ),
+          div(cls := "box current-status")(
+            h1(trans.storm.score()),
+            div(cls := "coord-trainer__score")(0)
+          ),
+          div(cls := "box current-status")(
+            h1(trans.time()),
+            div(cls := "coord-trainer__timer")(30.0)
           )
         ),
         div(cls := "coord-trainer__board main-board")(
@@ -73,15 +81,7 @@ object coordinate {
             ),
             p(trans.coordinates.aSquareNameAppears())
           ),
-          button(cls := "start button button-fat")(trans.coordinates.startTraining()),
-          div(cls := "box current-status")(
-            h1(trans.storm.score()),
-            div(cls := "coord-trainer__score")(0)
-          ),
-          div(cls := "box current-status")(
-            h1(trans.time()),
-            div(cls := "coord-trainer__timer")(30.0)
-          )
+          button(cls := "start button button-fat")(trans.coordinates.startTraining())
         ),
         div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))
       )

@@ -39,8 +39,10 @@ $mq-col3: $mq-x-large;
     font-family: 'storm';
     font-size: 5em;
     margin: $block-gap;
+  }
 
-    @include transition;
+  .hurry {
+    color: $c-bad !important;
   }
 
   grid-template-areas: 'board' 'progress' 'score' 'table' 'side';

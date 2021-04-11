@@ -13,12 +13,14 @@ lichess.load.then(() => {
     var $start = $right.find('.start');
     var $explanation = $right.find('.explanation');
     var $score = $('.coord-trainer__score');
+    var $timer = $('.coord-trainer__timer');
     var scoreUrl = $trainer.data('score-url');
     var duration = 30 * 1000;
     var tickDelay = 50;
     var colorPref = $trainer.data('color-pref');
     var color;
     var startAt, score;
+    var wrongTimeout;
 
     var showColor = function () {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
@@ -147,8 +149,11 @@ lichess.load.then(() => {
     var tick = function () {
       var spent = Math.min(duration, new Date().getTime() - startAt);
       var left = ((duration - spent) / 1000).toFixed(1);
+      if (+left < 10) {
+        $timer.addClass('hurry');
+      }
 
-      $('.coord-trainer__timer').text(left.toString());
+      $timer.text(left);
       $bar.css('width', (100 * spent) / duration + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
@@ -174,9 +179,10 @@ lichess.load.then(() => {
                 $score.text(score);
                 advanceCoords();
               } else {
+                clearTimeout(wrongTimeout);
                 $trainer.addClass('wrong');
 
-                setTimeout(function () {
+                wrongTimeout = setTimeout(function () {
                   $trainer.removeClass('wrong');
                 }, 500);
               }
