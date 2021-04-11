@@ -61,11 +61,10 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
     oKeys.map((role) => {
       let nb = pocket[role] || 0;
       const sp = (role == shadowPiece?.role && color == shadowPiece?.color);
-      const selectedSquare: boolean = (
-          ctrl.shogiground?.state.dropmode.active &&
-          ctrl.shogiground?.state.dropmode.piece?.color === color &&
-          ctrl.shogiground?.state.dropmode.piece?.role === role &&
-          ctrl.shogiground.state.movable.color === ctrl.shogiground?.state.dropmode.piece.color);
+      const selectedSquare: boolean = (ctrl.shogiground?.state.dropmode.active &&
+        ctrl.shogiground?.state.dropmode.piece?.color === color &&
+        ctrl.shogiground?.state.dropmode.piece?.role === role &&
+        ctrl.shogiground.state.movable.color === ctrl.shogiground?.state.dropmode.piece.color);
       if (activeColor) {
         if (dropped === role) nb--;
         if (captured && captured.role === role) nb++;

@@ -50,7 +50,6 @@ import {
   JustCaptured,
   NvuiPlugin,
   Redraw,
-  Selected,
 } from "./interfaces";
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
@@ -126,8 +125,6 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
-
-  selected: Selected = undefined;
 
   // misc
   cgConfig: any; // latest shogiground config (useful for revert)
@@ -527,7 +524,6 @@ export default class AnalyseCtrl {
       this.preparePremoving();
     } else this.jump(this.path);
     cancelDropMode(this.shogiground.state);
-    this.selected = undefined;
     this.redraw();
   };
 
