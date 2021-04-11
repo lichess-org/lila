@@ -445,6 +445,8 @@
   <string name="tournamentWinners">토너먼트 승리자</string>
   <string name="name">팀 이름</string>
   <string name="description">설명</string>
+  <string name="descPrivate">비공개 설명</string>
+  <string name="descPrivateHelp">팀 멤버만 볼 수 있는 텍스트입니다. 설정된다면, 팀 멤버에게는 공개 설명 대신 보이게 됩니다.</string>
   <string name="no">아니오</string>
   <string name="yes">예</string>
   <string name="help">힌트:</string>
@@ -555,6 +557,7 @@
   <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
   <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
@@ -630,6 +633,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
+  <string name="readAboutOur">%s를 읽어보세요.</string>
   <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 서버에서 한 수를 계산하는 데 걸리는 시간</string>
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
@@ -803,8 +807,22 @@
   <string name="youCannotPostYetPlaySomeGames">이 포럼에 글을 올리시기에는 게임 수가 부족합니다.</string>
   <string name="subscribe">구독</string>
   <string name="unsubscribe">구독 취소</string>
+  <string name="mentionedYouInX"> 당신이 %1$s에서 언급됨</string>
+  <string name="xMentionedYouInY"> %1$s가 당신을 \"%2$s\"에서 언급했습니다.</string>
+  <string name="invitedYouToX"> %1$s에 초대합니다.</string>
+  <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
+  <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>
+  <string name="someoneYouReportedWasBanned">당신이 신고한 플레이어가 차단되었습니다.</string>
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
+  <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
   <string name="patronAccountExpired">Patron 계정 만료됨</string>
+  <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
+  <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
+  <string name="newPendingReview">새 대기중 리뷰</string>
+  <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
+  <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
 </resources>

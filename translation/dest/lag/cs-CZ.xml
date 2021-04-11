@@ -9,5 +9,6 @@
   <string name="lichessServerLatency">Zpoždění Lichess serveru</string>
   <string name="lichessServerLatencyExplanation">Čas, který trvá zpracovat tah na serveru. Je stejný pro všechny, a závisí pouze na vytížení serveru. Čím více hráčů, tím větší bude, ale Lichess vývojáři dělají vše, co je v jejich silách, aby tento čas zůstal nízký. Zřídka přesahuje 10 ms.</string>
   <string name="networkBetweenLichessAndYou">Připojení mezi Lichessem a vámi</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Obě tyto hodnoty můžete zjistit kdykoli kliknutím na své uživatelské jméno v horní liště.</string>
   <string name="lagCompensation">Kompezace lagu (prodlevy připojení)</string>
 </resources>

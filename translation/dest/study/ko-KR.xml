@@ -2,9 +2,11 @@
 <resources>
   <string name="private">개인</string>
   <string name="myStudies">나의 연구</string>
+  <string name="studiesIContributeTo">내가 기여한 연구</string>
   <string name="myPublicStudies">내 공개 연구</string>
   <string name="myPrivateStudies">내 개인 연구</string>
   <string name="myFavoriteStudies">내가 즐겨찾는 연구</string>
+  <string name="whatAreStudies">연구가 무엇인가요?</string>
   <string name="allStudies">모든 연구</string>
   <string name="noneYet">아직 없음</string>
   <string name="hot">인기있는</string>

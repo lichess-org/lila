@@ -2,6 +2,7 @@
 <resources>
   <string name="twoFactorAuth">2단계 인증</string>
   <string name="twoFactorHelp">2 단계 인증은 계정에 또 다른 보안 계층을 추가합니다.</string>
+  <string name="scanTheCode">앱으로 QR 코드 스캔</string>
   <string name="enterPassword">설정을 완료하려면 앱에서 생성 한 비밀번호와 인증 코드를 입력하세요. 로그인 할 때마다 인증 코드가 필요합니다.</string>
   <string name="authenticationCode">인증 코드</string>
   <string name="enableTwoFactor">2단계 인증 활성화</string>

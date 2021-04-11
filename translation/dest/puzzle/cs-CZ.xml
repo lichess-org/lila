@@ -16,6 +16,7 @@
   <string name="yourPuzzleRatingX">Váš rating v úlohách: %s</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah za bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah za černého.</string>
+  <string name="toGetPersonalizedPuzzles">Personalizované úlohy:</string>
   <string name="puzzleId">Úloha %s</string>
   <string name="puzzleOfTheDay">Úloha dne</string>
   <string name="clickToSolve">Klikněte pro vyřešení</string>

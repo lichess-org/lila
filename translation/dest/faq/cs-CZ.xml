@@ -85,16 +85,21 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
+  <string name="ownerUniqueTrophies">Tato trofej je jedinečná, a nikdo jiný než %1$s ji nikdy mít nebude.</string>
   <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrétně to znamená, že odchylka Glicko-2 je větší než 110. Tuto odchylka ukazuje, jak moc si je systém jistý ratingem daného hráčů. Čím menší odchylka, tím stabilnější daný rating je.</string>
   <string name="howDoLeaderoardsWork">Jak fungují žebříčky?</string>
   <string name="inOrderToAppearsYouMust">Chcete-li se dostat na %1$s , musíte:</string>
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">odehrát alespoň 30 hodnocených partií v dané časové kontrole,</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
+  <string name="howToHideRatingWhilePlaying">Jak skrýt rating během hraní partie?</string>
   <string name="enableZenMode">V %1$s si zapněte zen-mód, či stiskněte %2$s během partie.</string>
   <string name="displayPreferences">předvolbách</string>
   <string name="connexionLostCanIGetMyRatingBack">Kvůli pomalému připojení/ztrátě připojení jsem prohrál partii, mohu získat své ratingové body zpátky?</string>
   <string name="howToThreeDots">Jak...</string>
   <string name="enableDisableNotificationPopUps">Povolit nebo zakázat oznámení?</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess vám také může posílat oznámení, například když jste na tahu či po obdržení soukromé zprávy. 
+Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vyberte zda zablokovat či povolit oznámení.</string>
 </resources>

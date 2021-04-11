@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Еш сораулар</string>
+  <string name="frequentlyAskedQuestions">Еш бирелә торган сораулар</string>
+  <string name="whyIsLichessCalledLichess">Ни өчен Lichess, Lichess дип атала?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess - яши/яктылык/китапханә һәм шаһматның берләшүе. Бу %1$s дип әйтелә.</string>
+  <string name="leechess">lee-шаһмат</string>
+  <string name="hearItPronouncedBySpecialist">Аны белгеч игълан иткәнне ишетегез.</string>
+  <string name="whyLiveLightLibre">Яши, чөнки уеннар чын вакытта 24 сәгать уйныйлар һәм карыйлар; Lichess ачык чыганаклы булуы һәм бүтән вебсайтларны җәберләүче милек кирәксезлеге өчен җиңел.</string>
+  <string name="whyIsLilaCalledLila">Шулай ук, Lichess өчен чыганак коды,%1$s, li[chess scа]la дигәнне аңлата, чөнки Lichessның күпчелек өлеше интуитив программалаштыру теле %2$s белән язылган.</string>
+  <string name="howCanIContributeToLichess">Lichessка ничек ярдәм итә алам?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess иганәчеләрнең иганәләре һәм өмәчеләр төркеме көче белән эшләнә.</string>
+  <string name="findMoreAndSeeHowHelp">Сез %1$s турында күбрәк белә аласыз (шул исәптән %2$s). Әгәр дә сез вакытыгызны һәм осталыгыгызны волонтер итеп Lichessка булышырга телисез икән, бик күп %3$s бар.</string>
+  <string name="beingAPatron">иганәче булу</string>
+  <string name="breakdownOfOurCosts">чыгымнарыбызны бүлү</string>
+  <string name="otherWaysToHelp">ярдәм итүнең башка ысуллары</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichessка нигезләнгән вебсайтлар бармы?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Әйе. Lichess чыннан да безнең %1$s, %2$s, яки %3$s кулланган бүтән ачык чыганак сайтларын рухландырды.</string>
+  <string name="fairPlay">Гадел уен</string>
+  <string name="whenAmIEligibleRatinRefund">Кайчан мин алдакчылардан автоматик рейтингны кире кайтарырга хокуклы?</string>
+  <string name="ratingRefundExplanation">Уенчы билгеләнгәннән соң бер минуттан соңгы 3 көн эчендә аларның иң соңгы 40 уены алынды. Әгәр дә сез бу уеннарда көндәш булсагыз, сез рейтингны югалттыгыз (оттыру яки җирәбә аркасында), һәм сезнең рейтинг вакытлыча булмаган, сез рейтингны кире кайтарасыз. Кире кайтару сезнең иң югары рейтингыгызга һәм уеннан соң сезнең рейтингыгызга нигезләнеп ясала.
+   (Мәсәлән, бу уеннардан соң сезнең рейтингыгыз зурайган булса, сез кире кайтарырга яки өлешчә кире кайтарырга мөмкин түгел.) Кире кайтару беркайчан да 150 ноктадан артмас.</string>
+  <string name="preventLeavingGameWithoutResigning">Ни әйтеп була уеннан истифа бирмичә чыгып киткән уенчылар турында?</string>
+  <string name="leavingGameWithoutResigningExplanation">Әгәр көндәшегез уеннарны еш туктатса / калдырса, алар \"тыелган уйнау\" алалар, димәк, аларга уен уйнау вакытлыча тыелган. Бу аларның профилендә ачык күрсәтелми. Әгәр дә бу тәртип дәвам итсә, плейбанның озынлыгы арта - һәм бу табигатьнең озак тотышы хисап ябылуга китерергә мөмкин.</string>
+  <string name="howCanIBecomeModerator">Ничек мин модератор була алам?</string>
+  <string name="youCannotApply">Модератор булу өчен гариза бирү мөмкин түгел. Әгәр дә без модератор буларак яхшы булыр дип уйлаган кешене күрсәк, без алар белән турыдан-туры элемтәгә керербез.</string>
+  <string name="isCorrespondenceDifferent">Хат алышу гадәти шахматтан аерылып торамы?</string>
+  <string name="gameplay">Уенуйнамак</string>
+  <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
+  <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
+  <string name="eightVariants">8 шаһмат варианты</string>
+  <string name="fideHandbookX">FIDE кулланмасы %s</string>
+  <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
+  <string name="goodIntroduction">якшы кереш сүз</string>
+  <string name="officialRulesPDF">төпләнгән кагыйдәләр (PDF)</string>
+  <string name="lichessTraining">Lichess күнегүе</string>
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
+  <string name="threefoldRepetitionExplanation">Әгәр дә позиция өч тапкыр килеп чыкса, уенчылар %1$s белән җирәбә таләп итә ала. Lichess рәсми FIDE кагыйдәләрен тормышка ашыра, %2$s ның 9.2 (d) статьясында күрсәтелгәнчә.</string>
+  <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
+  <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
+  <string name="positions">позициясе</string>
   <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
 </resources>

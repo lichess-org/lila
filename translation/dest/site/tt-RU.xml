@@ -115,9 +115,7 @@
   <string name="mistake">Хата</string>
   <string name="inaccuracy">Җиңел хата</string>
   <plurals name="nbBlunders">
-    <item quantity="other">%s хата
-
-%s хаталар</item>
+    <item quantity="other">%s хаталар</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s хата</item>
@@ -556,6 +554,9 @@
   <string name="error.required">Бу алан кирәкле</string>
   <string name="error.email">Бу почта адресы дөрес түгел</string>
   <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
+  <string name="error.email_unique">Бу почта тамгасы теркәлү үткән</string>
+  <string name="error.email_different">Бу инде сезнең ел. почта адресыгыз</string>
+  <string name="ifRatingIsPlusMinusX">Әгәр рейтингың ± %s</string>
   <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
   <string name="menu">Меню</string>
@@ -565,7 +566,9 @@
   <plurals name="nbForumPosts">
     <item quantity="other">%s аралашу хәбәры</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">Уйнау өчен вакыт: %s</string>
   <string name="watchGames">Кара уеннарны</string>
+  <string name="tpTimeSpentOnTV">ТВдан күрсәтелгән вакыт: %s</string>
   <string name="watch">Кара</string>
   <string name="videoLibrary">Видео җиентыгы</string>
   <string name="streamersMenu">Алып баручылар</string>
@@ -575,12 +578,15 @@
   <string name="aboutX">%s турында</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ул азат (%2$s), ирекле, комерциясез, ачык чыганаклы шаһмат серверы.</string>
   <string name="really">чыннанда</string>
+  <string name="contribute">Игътибар итегез</string>
   <string name="termsOfService">Куллану шартлары</string>
   <string name="sourceCode">Кодның чыганагы</string>
   <string name="simultaneousExhibitions">Синхрон күргәзмәләр</string>
   <string name="host">Хуҗа</string>
+  <string name="createdSimuls">Яңа гына ачылган симул</string>
   <string name="hostANewSimul">Яңа симулның хуҗасы</string>
   <string name="noSimulFound">Симул табылмады</string>
+  <string name="returnToSimulHomepage">Симул ал битенә кайтырга</string>
   <string name="create">Ячарга</string>
   <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>

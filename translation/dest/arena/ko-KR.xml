@@ -39,4 +39,5 @@
   <string name="thisIsPrivate">이 토너먼트는 비공개 토너먼트 입니다.</string>
   <string name="shareUrl">모두가 참여할 수 있게 이 URL을 공유해 주세요: %s</string>
   <string name="drawStreak">연속 무승부: 플레이어가 2게임 이상 연속으로 무승부를 기록할 경우, 첫 무승부 또는 %s수 이상을 두고 발생한 무승부에만 점수가 주어질 것입니다. 연속 무승부는 게임에서 승리하면 초기화됩니다.</string>
+  <string name="history">아레나 히스토리</string>
 </resources>
