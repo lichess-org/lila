@@ -34,4 +34,5 @@
   <string name="bestRunOfDay">Melhor partida do dia</string>
   <string name="runs">Partidas</string>
   <string name="getReady">Preparar!</string>
+  <string name="yourRankX">A tua posição: %s</string>
 </resources>
