@@ -137,7 +137,7 @@ final class User(
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
-      case None if isGranted(_.UserModView)                 => modC.searchTerm(username.trim)
+      case None if isGranted(_.UserModView)                 => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
       case None                                             => notFound
       case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
       case Some(u) =>
