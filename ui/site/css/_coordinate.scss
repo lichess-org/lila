@@ -35,7 +35,8 @@ $mq-col3: $mq-x-large;
     grid-area: progress;
   }
 
-  &__score, &__timer {
+  &__score,
+  &__timer {
     font-family: 'storm';
     font-size: 5em;
     margin: $block-gap;
@@ -192,7 +193,8 @@ $mq-col3: $mq-x-large;
 
   &.init {
     @include breakpoint($mq-col1) {
-      .coord-trainer__score, .coord-trainer__progress {
+      .coord-trainer__score,
+      .coord-trainer__progress {
         display: none;
       }
 
@@ -206,7 +208,9 @@ $mq-col3: $mq-x-large;
       @extend %page-text-shadow !optional;
     }
 
-    .coord-trainer__score, .coord-trainer__progress, .current-status {
+    .coord-trainer__score,
+    .coord-trainer__progress,
+    .current-status {
       opacity: 0;
     }
 
