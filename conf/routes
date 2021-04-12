@@ -392,6 +392,7 @@ POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String)
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
+GET   /challenge/to/:username          controllers.Challenge.toUser(username: String)
 
 # Notify
 GET /notify                            controllers.Notify.recent(page: Int ?= 1)

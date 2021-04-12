@@ -442,4 +442,13 @@ final class Challenge(
         }
       }
     }
+
+  def toUser(username: String) =
+    Open { implicit ctx =>
+      OptionFuResult(env.user.repo.enabledNamed(username)) { user =>
+        api.createdByDestId(user.id) map { challenges =>
+          Ok(views.html.challenge.toUser(user, challenges))
+        }
+      }
+    }
 }
