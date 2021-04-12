@@ -37,8 +37,8 @@
   <string name="waitingForMorePlayers">À espera de mais jogadores...</string>
   <string name="spectating">A assistir</string>
   <string name="yourRankX">A tua posição: %s</string>
-  <string name="waitForRematch">Espere pela desforra</string>
+  <string name="waitForRematch">Espera pela desforra</string>
   <string name="nextRace">Próxima corrida</string>
-  <string name="joinPublicRace">Junte-se a uma corrida pública</string>
+  <string name="joinPublicRace">Junta-te a uma corrida pública</string>
   <string name="skip">ignorar</string>
 </resources>
