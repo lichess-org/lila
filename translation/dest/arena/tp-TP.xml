@@ -42,4 +42,8 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
   <string name="shareUrl">o pana e nimi open tawa jan la jan li ken kama: %s</string>
   <string name="drawStreak">pini sama mute: musi li pini sama lon tenpo mute la ni li kama: sina li jo e nanpa tan musi pi nanpa wan e nanpa tan musi pi tawa %s taso. sina li pini pona la sina ken kama jo e nanpa. sina li pini ike li pini sama la sina li kama jo e nanpa ala.</string>
   <string name="history">ma utala pi tenpo pini</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">o lukin e kulupu</item>
+    <item quantity="other">o lukin e kulupu %s</item>
+  </plurals>
 </resources>
