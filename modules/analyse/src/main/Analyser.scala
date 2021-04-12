@@ -26,17 +26,14 @@ final class Analyser(
               sendAnalysisProgress(analysis, complete = true) >>- {
                 Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
                 Bus.publish(InsertGame(game), "gameSearchInsert")
-                val cost = analysis.uid.fold(1) { requester =>
-                  if (game.userIds has requester) 1 else 2
-                }
-                requesterApi.save(analysis, cost).unit
+                requesterApi.save(analysis, game.userIds).unit
               }
           }
         }
       case Some(_) =>
         analysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>-
-          requesterApi.save(analysis, 1).unit
+          requesterApi.save(analysis, Nil).unit
     }
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)

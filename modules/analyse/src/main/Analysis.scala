@@ -10,16 +10,8 @@ case class Analysis(
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    uid: Option[User.ID], // requester lichess ID
-    by: Option[User.ID],  // analyser lichess ID
     date: DateTime
 ) {
-
-  def requestedBy = uid | "lichess"
-
-  def providedBy = by | "lichess"
-
-  def providedByLichess = by exists (_ startsWith "lichess-")
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
@@ -64,8 +56,6 @@ object Analysis {
         studyId = r strO "studyId",
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
-        uid = r strO "uid",
-        by = r strO "by",
         date = r date "date"
       )
     }
@@ -75,8 +65,6 @@ object Analysis {
         "studyId" -> o.studyId,
         "data"    -> Info.encodeList(o.infos),
         "ply"     -> w.intO(o.startPly),
-        "uid"     -> o.uid,
-        "by"      -> o.by,
         "date"    -> w.date(o.date)
       )
   }
