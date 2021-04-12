@@ -547,6 +547,18 @@ final class Tournament(
       }
     }
 
+  def apiDelete(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      implicit def lang = reqLang
+      repo byId id flatMap {
+        _ ?? {
+          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
+            api kill tour inject { Ok(_) }
+          case _ => BadRequest(jsonError("Can't delete that tournament.")).fuccess
+        }
+      }
+    }
+
   def byTeam(id: String) =
     Action.async { implicit req =>
       implicit val lang = reqLang

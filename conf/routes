@@ -591,60 +591,61 @@ POST  /appeal/:username/notify-slack   controllers.Appeal.notifySlack(username: 
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 
 # API
-GET   /api                             controllers.Api.index
-POST  /api/users                       controllers.Api.usersByIds
-GET   /api/user/puzzle-activity        controllers.Puzzle.activity
-GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
-GET   /api/puzzle/activity             controllers.Puzzle.activity
-GET   /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int)
-GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
-GET   /api/user/:name                  controllers.Api.user(name: String)
-GET   /api/user/:name/activity         controllers.Api.activity(name: String)
-GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
-GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
-POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
-GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
-GET   /api/user/:name/current-game     controllers.User.tvExport(name: String)
-GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/tournament                  controllers.Api.currentTournaments
-GET   /api/tournament/:id              controllers.Api.tournament(id: String)
-GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
-GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
-GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: String)
-POST  /api/tournament                  controllers.Tournament.apiCreate
-POST  /api/tournament/:id              controllers.Tournament.apiUpdate(id: String)
-POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id: String)
-POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
-GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
-GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
-GET   /api/simul                       controllers.Simul.apiList
-GET   /api/status                      controllers.Api.status
-GET   /api/users/status                controllers.Api.usersStatus
-GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
-POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
-GET   /api/stream/event                controllers.Api.eventStream
-GET   /api/account                     controllers.Account.apiMe
-GET   /api/account/playing             controllers.Account.apiNowPlaying
-GET   /api/account/email               controllers.Account.apiEmail
-GET   /api/account/kid                 controllers.Account.apiKid
-POST  /api/account/kid                 controllers.Account.apiKidPost
-GET   /api/account/preferences         controllers.Pref.apiGet
-POST  /api/challenge/ai                controllers.Setup.apiAi
-POST  /api/challenge/open              controllers.Challenge.openCreate
-POST  /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
-POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
-POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
-POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
-POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: String)
-POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
-POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
-GET   /api/cloud-eval                  controllers.Api.cloudEval
-GET   /api/broadcast                   controllers.Relay.apiIndex
-POST  /api/import                      controllers.Importer.apiSendGame
-GET   /api/bulk-pairing                controllers.BulkPairing.list
-POST  /api/bulk-pairing                controllers.BulkPairing.create
+GET    /api                             controllers.Api.index
+POST   /api/users                       controllers.Api.usersByIds
+GET    /api/user/puzzle-activity        controllers.Puzzle.activity
+GET    /api/puzzle/daily                controllers.Puzzle.apiDaily
+GET    /api/puzzle/activity             controllers.Puzzle.activity
+GET    /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int)
+GET    /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
+GET    /api/user/:name                  controllers.Api.user(name: String)
+GET    /api/user/:name/activity         controllers.Api.activity(name: String)
+GET    /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
+GET    /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
+POST   /api/user/:name/note             controllers.User.apiWriteNote(name: String)
+GET    /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
+GET    /api/user/:name/current-game     controllers.User.tvExport(name: String)
+GET    /api/game/:id                    controllers.Api.game(id: String)
+GET    /api/tournament                  controllers.Api.currentTournaments
+GET    /api/tournament/:id              controllers.Api.tournament(id: String)
+GET    /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
+GET    /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
+GET    /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: String)
+POST   /api/tournament                  controllers.Tournament.apiCreate
+POST   /api/tournament/:id              controllers.Tournament.apiUpdate(id: String)
+DELETE /api/tournament/:id              controllers.Tournament.apiDelete(id: String)
+POST   /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id: String)
+POST   /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
+GET    /api/swiss/:id/games             controllers.Api.swissGames(id: String)
+GET    /api/swiss/:id/results           controllers.Api.swissResults(id: String)
+GET    /api/simul                       controllers.Simul.apiList
+GET    /api/status                      controllers.Api.status
+GET    /api/users/status                controllers.Api.usersStatus
+GET    /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
+POST   /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+GET    /api/stream/event                controllers.Api.eventStream
+GET    /api/account                     controllers.Account.apiMe
+GET    /api/account/playing             controllers.Account.apiNowPlaying
+GET    /api/account/email               controllers.Account.apiEmail
+GET    /api/account/kid                 controllers.Account.apiKid
+POST   /api/account/kid                 controllers.Account.apiKidPost
+GET    /api/account/preferences         controllers.Pref.apiGet
+POST   /api/challenge/ai                controllers.Setup.apiAi
+POST   /api/challenge/open              controllers.Challenge.openCreate
+POST   /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
+POST   /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
+POST   /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
+POST   /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
+POST   /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: String)
+POST   /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
+POST   /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
+GET    /api/cloud-eval                  controllers.Api.cloudEval
+GET    /api/broadcast                   controllers.Relay.apiIndex
+POST   /api/import                      controllers.Importer.apiSendGame
+GET    /api/bulk-pairing                controllers.BulkPairing.list
+POST   /api/bulk-pairing                controllers.BulkPairing.create
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id: String)
-POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id: String)
+POST   /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id: String)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 
