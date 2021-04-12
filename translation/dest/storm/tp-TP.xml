@@ -40,4 +40,8 @@
   <string name="yourRankX">nanpa sina: %s</string>
   <string name="waitForRematch">o awen tawa musi sin</string>
   <string name="nextRace">musi sin</string>
+  <string name="joinRematch">musi sin</string>
+  <string name="waitingToStart">awen tawa open</string>
+  <string name="createNewGame">o pali e musi sin</string>
+  <string name="raceYourFriends">o utala e jan pona sina</string>
 </resources>
