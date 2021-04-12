@@ -8,8 +8,8 @@ private object Dictionary {
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
+(f|ph)ag(g?ot)
 (f|ph)ag
-(f|ph)agg?ot
 cock(suc?ker|)
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -48,6 +48,7 @@ coon
 coward?
 cunn?ilingu
 dic?k(head|face|suc?ker|)
+die irl
 dildo
 dogg?ystyle
 douche(bag|)
@@ -65,13 +66,15 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
+ho?pe (yo)?u(r family)? die
 horny
+human garbage
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-kill (yo)?urself
+(kill|hang) (yo)?urself
 kys
 labia
 lamer?
@@ -123,7 +126,7 @@ semen
 sex
 shag
 shemale
-(((you'? ?((is|a?re) )?)shit)|(shit(?!\b)))(z|e|y|ty|bag|)
+shit
 sissy
 slag
 slave
@@ -244,17 +247,17 @@ wichser
 """)
 
   def tr = dict("""
-am[iı]na (koyay[iı]m|koydum)
+am[iı]na (koyay[iı]m|koy?dum)
 amc[iı]k
 anan[iı]n am[iı]
-ananizi s[ii̇]k[ii̇]y[ii̇]m
+ann?an[iı](zi)? s[ii̇]k[eii̇]y[ii̇]m
 aptal
 beyinsiz
 bok yedin
 gerizekal[iı]
 ibne
 ka[sş]ar
-orospu
+orospu( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
 pu[sş]t
 salak
