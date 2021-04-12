@@ -38,8 +38,8 @@ final private class FishnetLimiter(
       case _ => fuFalse
     }
 
-  private val maxPerDay  = 30
-  private val maxPerWeek = 150
+  private val maxPerDay  = 35
+  private val maxPerWeek = 160
 
   private def perDayCheck(sender: Work.Sender) =
     sender match {
