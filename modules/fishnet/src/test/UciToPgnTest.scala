@@ -208,9 +208,8 @@ final class UciToPgnTest extends Specification {
           Info(29, Eval(None, Some(Mate(-2)), None), List())
         ),
         0,
-        None,
-        None,
-        now
+        now,
+        None
       )
 
       val pgn =
