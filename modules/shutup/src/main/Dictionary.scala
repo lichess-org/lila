@@ -126,7 +126,7 @@ semen
 sex
 shag
 shemale
-shit
+shit(z|e|y|ty|bag|)
 sissy
 slag
 slave
