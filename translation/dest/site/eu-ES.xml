@@ -117,6 +117,14 @@
   <string name="blunder">Akats larria</string>
   <string name="mistake">Akatsa</string>
   <string name="inaccuracy">Oker txikia</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">Hanka-sartze %s</item>
+    <item quantity="other">%s hanka-sartze</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">Akats %s</item>
+    <item quantity="other">%s akats</item>
+  </plurals>
   <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
