@@ -40,7 +40,7 @@ object profile {
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
           ),
           form3.split(
-            List("fide", "uscf", "ecf").map { rn =>
+            List("fide", "uscf", "ecf", "rcf").map { rn =>
               form3.group(
                 form(s"${rn}Rating"),
                 trans.xRating(rn.toUpperCase),
