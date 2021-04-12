@@ -8,8 +8,7 @@ private object Dictionary {
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
-(f|ph)ag(g?ot)
-(f|ph)ag
+(f|ph)agg?(ot|)
 cock(suc?ker|)
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -25,8 +24,7 @@ aus?c?hwitz
 bastard?
 be[ea]+ch
 bit?ch
-blow
-blowjob
+blow(job|)
 blumpkin
 bollock
 boner
@@ -48,7 +46,6 @@ coon
 coward?
 cunn?ilingu
 dic?k(head|face|suc?ker|)
-die irl
 dildo
 dogg?ystyle
 douche(bag|)
@@ -66,9 +63,8 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-ho?pe (yo)?u(r family)? die
+(ho?pe (yo)?u(r family)? die|dies? irl)
 horny
-human garbage
 humping
 idiot
 incest
@@ -92,8 +88,7 @@ nigg?(er|a|ah)
 nonce
 noo+b
 nutsac?k
-pa?edo
-pa?edo(f|ph)ile
+pa?edo((f|ph)ile|)
 paki
 pathetic
 pederast
