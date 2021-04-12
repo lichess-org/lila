@@ -392,6 +392,19 @@ final class Tournament(
       }
     }
 
+  def apiTerminate(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      repo byId id flatMap {
+        _ ?? {
+          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+            api
+              .kill(tour)
+              .map(_ => jsonOkResult)
+          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).fuccess
+        }
+      }
+    }
+
   def teamBattleEdit(id: String) =
     Auth { implicit ctx => me =>
       repo byId id flatMap {
