@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
   <string name="toGetPersonalizedPuzzles">Per ottenere tattiche personalizzate:</string>
-  <string name="puzzleId">Tattica %s</string>
+  <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Tattica del giorno</string>
   <string name="clickToSolve">Clicca per vedere la soluzione</string>
   <string name="goodMove">Buona mossa</string>
