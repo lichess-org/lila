@@ -318,7 +318,7 @@ object activity {
   private def renderStream(u: User)(implicit ctx: Context) =
     ctx.noKid option entryTag(
       iconTag(""),
-      a(href := routes.Streamer.show(u.username))(trans.activity.hostedALiveStream())
+      a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
     )
 
   private def renderSignup(implicit ctx: Context) =
