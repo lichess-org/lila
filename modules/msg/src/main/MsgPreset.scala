@@ -1,6 +1,5 @@
 package lila.msg
 
-
 case class MsgPreset(name: String, text: String)
 
 object MsgPreset {

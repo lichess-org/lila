@@ -88,15 +88,17 @@ final class Team(
       _ ?? { team =>
         val canView: Fu[Boolean] =
           if (team.publicMembers) fuccess(true)
-          else me match {
-            case Some(user) => api.belongsTo(team.id, user.id)
-            case _ => fuccess(false)
-          }
-        canView map { 
-          case true => apiC.jsonStream (
-            env.team
-              .memberStream(team, MaxPerSecond(20))
-              .map(env.api.userApi.one)
+          else
+            me match {
+              case Some(user) => api.belongsTo(team.id, user.id)
+              case _          => fuccess(false)
+            }
+        canView map {
+          case true =>
+            apiC.jsonStream(
+              env.team
+                .memberStream(team, MaxPerSecond(20))
+                .map(env.api.userApi.one)
             )(req)
           case false => Unauthorized
         }

@@ -46,10 +46,20 @@ object replay {
       )
     }
     val pgnLinks = div(
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1", downloadAttr)(
+      a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?literate=1",
+        downloadAttr
+      )(
         trans.downloadAnnotated()
       ),
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", downloadAttr)(
+      a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
+        downloadAttr
+      )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
