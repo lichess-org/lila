@@ -6,15 +6,17 @@ import scala.concurrent.duration._
 import lila.common.IpAddress
 import lila.db.dsl._
 
-final private class Limiter(
+final private class FishnetLimiter(
     analysisColl: Coll,
     requesterApi: lila.analyse.RequesterApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
+  def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Boolean] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
       case false => fuFalse
       case true  => perDayCheck(sender)
+    } flatMap { accepted =>
+      (accepted ?? requesterApi.add(sender.userId, ownGame)) inject accepted
     }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](

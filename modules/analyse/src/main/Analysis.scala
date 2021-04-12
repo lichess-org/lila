@@ -10,7 +10,8 @@ case class Analysis(
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    date: DateTime
+    date: DateTime,
+    fk: Option[Analysis.FishnetKey]
 ) {
 
   lazy val infoAdvices: InfoAdvices = {
@@ -45,7 +46,8 @@ object Analysis {
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
-  type ID = String
+  type ID         = String
+  type FishnetKey = String
 
   implicit val analysisBSONHandler = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {
@@ -56,16 +58,18 @@ object Analysis {
         studyId = r strO "studyId",
         infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
         startPly = startPly,
-        date = r date "date"
+        date = r date "date",
+        fk = r strO "fk"
       )
     }
-    def writes(w: BSON.Writer, o: Analysis) =
+    def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
-        "_id"     -> o.id,
-        "studyId" -> o.studyId,
-        "data"    -> Info.encodeList(o.infos),
-        "ply"     -> w.intO(o.startPly),
-        "date"    -> w.date(o.date)
+        "_id"     -> a.id,
+        "studyId" -> a.studyId,
+        "data"    -> Info.encodeList(a.infos),
+        "ply"     -> w.intO(a.startPly),
+        "date"    -> w.date(a.date),
+        "fk"      -> a.fk
       )
   }
 }

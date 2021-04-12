@@ -79,7 +79,7 @@ final class Env(
     mk(config.movePlies)
   }
 
-  private val limiter = wire[Limiter]
+  private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
 

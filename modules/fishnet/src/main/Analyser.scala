@@ -12,7 +12,7 @@ final class Analyser(
     gameRepo: lila.game.GameRepo,
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
-    limiter: Limiter
+    limiter: FishnetLimiter
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -27,7 +27,11 @@ final class Analyser(
       case true                  => fuFalse
       case _ if !game.analysable => fuFalse
       case _ =>
-        limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
+        limiter(
+          sender,
+          ignoreConcurrentCheck = false,
+          ownGame = game.userIds contains sender.userId
+        ) flatMap { accepted =>
           accepted ?? {
             makeWork(game, sender) flatMap { work =>
               workQueue {
@@ -62,33 +66,34 @@ final class Analyser(
       case _ =>
         import req._
         val sender = Work.Sender(req.userId, none, mod = false, system = false)
-        (fuccess(req.unlimited) >>| limiter(sender, ignoreConcurrentCheck = true)) flatMap { accepted =>
-          if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
-          accepted ?? {
-            val work = makeWork(
-              game = Work.Game(
-                id = chapterId,
-                initialFen = initialFen,
-                studyId = studyId.some,
-                variant = variant,
-                moves = moves take maxPlies map (_.uci) mkString " "
-              ),
-              // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.flatMap(_.color).??(_.fold(0, 1)),
-              sender = sender
-            )
-            workQueue {
-              repo getSimilarAnalysis work flatMap {
-                _.isEmpty ?? {
-                  lila.mon.fishnet.analysis.requestCount("study").increment()
-                  evalCache skipPositions work.game flatMap { skipPositions =>
-                    lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                    repo addAnalysis work.copy(skipPositions = skipPositions)
+        (fuccess(req.unlimited) >>| limiter(sender, ignoreConcurrentCheck = true, ownGame = false)) flatMap {
+          accepted =>
+            if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
+            accepted ?? {
+              val work = makeWork(
+                game = Work.Game(
+                  id = chapterId,
+                  initialFen = initialFen,
+                  studyId = studyId.some,
+                  variant = variant,
+                  moves = moves take maxPlies map (_.uci) mkString " "
+                ),
+                // if black moves first, use 1 as startPly so the analysis doesn't get reversed
+                startPly = initialFen.flatMap(_.color).??(_.fold(0, 1)),
+                sender = sender
+              )
+              workQueue {
+                repo getSimilarAnalysis work flatMap {
+                  _.isEmpty ?? {
+                    lila.mon.fishnet.analysis.requestCount("study").increment()
+                    evalCache skipPositions work.game flatMap { skipPositions =>
+                      lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                      repo addAnalysis work.copy(skipPositions = skipPositions)
+                    }
                   }
                 }
               }
-            }
-          } inject accepted
+            } inject accepted
         }
     }
 
