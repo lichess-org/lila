@@ -181,10 +181,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
         .list(nb)
     }
 
-  // heavy AF. Only use for GDPR.
-  private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
-    coll(_.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId), readPref))
-
   def recentByContributor(userId: User.ID, nb: Int) =
     coll {
       _.find(selectContributorId(userId), idNameProjection.some)

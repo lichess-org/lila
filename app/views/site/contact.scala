@@ -324,8 +324,7 @@ object contact {
                 ),
                 p(
                   s"Then send us an email at $contactEmail to request the definitive erasure of all data linked to the account."
-                ),
-                p("Note that games are facts, not personal information. And as such they are never deleted.")
+                )
               )
             ),
             Leaf(

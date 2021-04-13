@@ -8,7 +8,7 @@ import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }
 import ornicar.scalalib.Random.approximately
 
-final class Player(
+final class FishnetPlayer(
     redis: FishnetRedis,
     gameRepo: GameRepo,
     uciMemo: UciMemo,

@@ -233,6 +233,10 @@ object User {
 
   def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
 
+  def isGhost(name: String) = name.headOption has '!'
+
+  def noGhost(name: String) = !isGhost(name)
+
   object BSONFields {
     val id                    = "_id"
     val username              = "username"

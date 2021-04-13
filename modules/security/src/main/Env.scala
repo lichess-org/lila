@@ -178,12 +178,7 @@ final class Env(
 
   def cli = wire[Cli]
 
-  lila.common.Bus.subscribeFuns(
-    "fishnet" -> { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-      automaticEmail.onFishnetKey(userId, key).unit
-    },
-    "gdprErase" -> { case lila.user.User.GDPRErase(user) =>
-      store.definitelyEraseAllUserInfo(user).unit
-    }
-  )
+  lila.common.Bus.subscribeFun("fishnet") { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+    automaticEmail.onFishnetKey(userId, key).unit
+  }
 }

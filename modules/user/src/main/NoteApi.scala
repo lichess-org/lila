@@ -98,6 +98,4 @@ final class NoteApi(
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
   def delete(id: String) = coll.delete.one($id(id))
-
-  def erase(user: User) = coll.delete.one($doc("from" -> user.id))
 }

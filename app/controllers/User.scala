@@ -149,7 +149,6 @@ final class User(
           api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
         )
     }
-
   def showMini(username: String) =
     Open { implicit ctx =>
       OptionFuResult(env.user.repo named username) { user =>

@@ -176,8 +176,6 @@ final class ActivityWriteApi(
       update(userId) { a => a.copy(swisses = Some(~a.swisses + SwissRank(id, rank))).some }
     }.sequenceFu
 
-  def erase(user: User) = coll.delete.one(regexId(user.id))
-
   private def simulParticipant(simul: lila.simul.Simul, userId: String) =
     update(userId) { a =>
       a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some

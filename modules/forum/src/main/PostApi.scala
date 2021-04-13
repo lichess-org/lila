@@ -253,20 +253,12 @@ final class PostApi(
     env.postRepo.coll.update.one($id(post.id), post.erase).void >>-
       (indexer ! RemovePost(post.id))
 
-  def eraseAllOf(user: User): Funit =
-    env.postRepo.coll.update
-      .one(
-        $doc("userId" -> user.id),
-        $unset("userId", "editHistory", "lang", "ip") ++
-          $set("text" -> "", "erasedAt" -> DateTime.now),
-        multi = true
-      )
-      .void >>
-      env.postRepo.coll
-        .distinctEasy[Post.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
-        .map { ids =>
-          indexer ! RemovePosts(ids)
-        }
+  def eraseFromSearchIndex(user: User): Funit =
+    env.postRepo.coll
+      .distinctEasy[Post.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
+      .map { ids =>
+        indexer ! RemovePosts(ids)
+      }
 
   def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamID]] =
     env.postRepo.coll.byId[Post](postId) flatMap {

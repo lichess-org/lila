@@ -54,7 +54,6 @@ final class Env(
         white ?? api.setRating
         black ?? api.setRating
       }.unit
-    case lila.user.User.GDPRErase(user) => api.reviews.deleteAllBy(user.id).unit
   }
 
   def cli =

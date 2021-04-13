@@ -143,11 +143,11 @@ final class Streamer(
     }
 
   def pictureApply =
-    AuthBody(parse.multipartFormData) { implicit ctx => _ =>
+    AuthBody(parse.multipartFormData) { implicit ctx => me =>
       AsStreamer { s =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(s.streamer, pic) recover { case e: Exception =>
+            api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
               BadRequest(html.streamer.picture(s, e.getMessage.some))
             } inject Redirect(routes.Streamer.edit)
           case None => fuccess(Redirect(routes.Streamer.edit))

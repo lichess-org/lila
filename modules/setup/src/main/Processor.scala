@@ -10,7 +10,7 @@ final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: lila.game.GameRepo,
     maxPlaying: Max,
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
