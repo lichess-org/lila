@@ -24,7 +24,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
 
-  def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
+  def byId(id: ID): Fu[Option[User]] = User.noGhost(id) ?? coll.byId[User](id)
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
@@ -89,14 +89,15 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
   def enabledById(id: ID): Fu[Option[User]] =
-    coll.one[User](enabledSelect ++ $id(id))
+    User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
 
   def disabledById(id: ID): Fu[Option[User]] =
-    coll.one[User](disabledSelect ++ $id(id))
+    User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
 
-  def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username)) recover {
-    case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
-  }
+  def named(username: String): Fu[Option[User]] =
+    User.noGhost(username) ?? coll.byId[User](normalize(username)) recover {
+      case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
+    }
 
   def enabledNameds(usernames: List[String]): Fu[List[User]] =
     coll

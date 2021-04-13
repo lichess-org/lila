@@ -150,6 +150,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           player.rating.ifTrue(withRating) map { rating => s" ($rating)" },
           statusIcon
         )
+      case Some(user) if user.id == "ghost" =>
+        span(cls := "user-link")(
+          "Ghost",
+          (player.ratingDiff ifTrue withDiff) map { d =>
+            frag(" ", showRatingDiff(d))
+          }
+        )
       case Some(user) =>
         frag(
           (if (link) a else span)(
