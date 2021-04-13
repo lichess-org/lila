@@ -1,17 +1,18 @@
 // CONFIGURE ME!
-mainDb = Mongo().getDB('lichess');
-puzzleDb = Mongo().getDB('puzzler');
-studyDb = Mongo().getDB('lichess');
+mainDb = Mongo('127.0.0.1:27017').getDB('lichess');
+oauthDb = Mongo('127.0.0.1:27017').getDB('lichess');
+studyDb = Mongo('127.0.0.1:27017').getDB('lichess');
+puzzleDb = Mongo('127.0.0.1:27017').getDB('puzzler');
 // CONFIG END
 
 if (typeof user == 'undefined') throw 'Usage: mongo lichess --eval \'user="username"\' script.js';
 
 user = db.user4.findOne({ _id: user });
 
-// if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
+if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
 
-// print(`\n\n Delete user ${user.username}!\n\n`);
-// sleep(5000);
+print(`\n\n Delete user ${user.username} and all references to their username!\n\n`);
+sleep(5000);
 
 const newGhostId = () => {
   const idChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -81,6 +82,50 @@ deleteAll('history3', '_id');
 
 deleteAll('image', 'createdBy');
 
+if (!tos) deleteAll('irwin_report', '_id');
+
+deleteAll('learn_progress', '_id');
+
+deleteAll('matchup', '_id', new RegExp(`^${userId}/`));
+
+/*
+We decided not to delete PMs out of legit interest of the correspondents
+and also to be able to comply to data requests from law enforcement
+
+const msgThreadIds = scrub('msg_thread')(c => {
+  const ids = c.distinct('_id', { users: userId });
+  c.remove({ users: userId });
+  return ids;
+});
+scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds } }));
+*/
+
+deleteAll('note', 'from');
+
+scrub('note')(c => c.remove({ to: userId, mod: false }));
+
+deleteAll('notify', 'notifies');
+
+replaceWithNewGhostIds('oauth_client', 'author');
+
+deleteAll('oauth_access_token', 'user_id');
+
+deleteAll('perf_stat', new RegExp(`^${userId}/`));
+
+replaceWithNewGhostIds('plan_charge', 'userId');
+
+deleteAll('plan_patron', '_id');
+
+deleteAll('playban', '_id');
+
+deleteAll('player_assessment', 'userId');
+
+deleteAll('practice_progress', '_id');
+
+deleteAll('pref', '_id');
+
+deleteAll('push_device', 'userId');
+
 scrub(
   'puzzle2_puzzle',
   puzzleDb
@@ -96,6 +141,11 @@ scrub(
 
 deleteAll('puzzle2_round', '_id', new RegExp(`^${userId}:`));
 
+deleteAll('ranking', new RegExp(`^${userId}:`));
+
+deleteAll('relation', 'u1');
+deleteAll('relation', 'u2');
+
 scrub('report2')(c => {
   c.find({ 'atoms.by': userId }, { atoms: 1 }).forEach(doc => {
     const reportGhostId = newGhostId();
@@ -107,6 +157,26 @@ scrub('report2')(c => {
   });
   !tos && c.updateMany({ user: userId }, { $set: { user: newGhostId() } });
 });
+
+if (!tos) deleteAll('security', 'user');
+
+deleteAll('seek', 'user.id');
+
+deleteAll('shutup', '_id');
+
+replaceWithNewGhostIds('simul', 'hostId');
+scrub('simul')(c =>
+  c.find({ 'pairings.player.user': userId }, { pairings: 1 }).forEach(doc => {
+    doc.pairings.forEach(p => {
+      if (p.player.user == userId) p.player.user = newGhostId();
+    });
+    c.update(byId(doc), { $set: { pairings: doc.pairings } });
+  })
+);
+
+deleteAll('storm_day', '_id', new RegExp(`^${userId}:`));
+
+deleteAll('streamer', '_id');
 
 replaceWithNewGhostIds('study', 'ownerId', studyDb);
 const studyIds = scrub(
@@ -126,15 +196,7 @@ scrub(
   c.find({ _id: { $in: studyIds }, ownerId: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, 'ownerId'))
 );
 
-replaceWithNewGhostIds('simul', 'hostId');
-scrub('simul')(c =>
-  c.find({ 'pairings.player.user': userId }, { pairings: 1 }).forEach(doc => {
-    doc.pairings.forEach(p => {
-      if (p.player.user == userId) p.player.user = newGhostId();
-    });
-    c.update(byId(doc), { $set: { pairings: doc.pairings } });
-  })
-);
+scrub('study_user_topic', studyDb)(c => c.remove({ _id: userId }));
 
 replaceWithNewGhostIds('swiss', 'winnerId');
 
@@ -179,14 +241,6 @@ if (arenaIds.length) {
   deleteAll('tournament_leaderboard', 'u');
 }
 
-/*
-We decided not to delete PMs out of legit interest of the correspondents
-and also to be able to comply to data requests from law enforcement
+deleteAll('trophy', 'user');
 
-const msgThreadIds = scrub('msg_thread')(c => {
-  const ids = c.distinct('_id', { users: userId });
-  c.remove({ users: userId });
-  return ids;
-});
-scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds } }));
-*/
+deleteAll('video_view', 'u');
