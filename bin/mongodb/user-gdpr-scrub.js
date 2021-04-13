@@ -183,23 +183,18 @@ deleteAll('storm_day', '_id', new RegExp(`^${userId}:`));
 
 deleteAll('streamer', '_id');
 
-replaceWithNewGhostIds('study', 'ownerId', studyDb);
 const studyIds = scrub(
   'study',
   studyDb
 )(c => {
+  const ids = c.distinct('_id', { ownerId: userId });
+  c.remove({ ownerId: userId });
   c.updateMany({ likers: userId }, { $pull: { likers: userId } });
-  const ids = c.distinct('_id', { uids: userId });
   c.updateMany({ uids: userId }, { $pull: { uids: userId }, $unset: { [`members.${userId}`]: true } });
   return ids;
 });
 
-scrub(
-  'study_chapter_flat',
-  studyDb
-)(c =>
-  c.find({ _id: { $in: studyIds }, ownerId: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, 'ownerId'))
-);
+scrub('study_chapter_flat', studyDb)(c => c.remove({ studyId: { $in: studyIds } }));
 
 deleteAllIn(studyDb, 'study_user_topic', '_id');
 
