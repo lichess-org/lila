@@ -9,6 +9,7 @@ case class Profile(
     fideRating: Option[Int] = None,
     uscfRating: Option[Int] = None,
     ecfRating: Option[Int] = None,
+    rcfRating: Option[Int] = None,
     links: Option[String] = None
 ) {
 
@@ -36,7 +37,8 @@ case class Profile(
   def officialRating: Option[OfficialRating] =
     fideRating.map { OfficialRating("fide", _) } orElse
       uscfRating.map { OfficialRating("uscf", _) } orElse
-      ecfRating.map { OfficialRating("ecf", _) }
+      ecfRating.map { OfficialRating("ecf", _) } orElse
+      rcfRating.map { OfficialRating("rcf", _) }
 
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
