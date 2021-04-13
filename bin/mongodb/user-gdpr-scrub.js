@@ -32,12 +32,33 @@ const ghostId = `!${randomId()}`;
 const tos =
   user.marks && (user.marks.engine || user.marks.boost || user.marks.troll || user.marks.rankban || user.marks.alt);
 
+// Let us scrub.
+
+scrub('activity')(c => c.remove({ _id: new RegExp(`^${userId}:`) }));
+
+scrub('analysis_requester')(c => c.remove({ _id: userId }));
+
+scrub('bookmark')(c => c.remove({ u: userId }));
+
+scrub('challenge')(c => {
+  c.remove({ 'challenger.id': userId });
+  c.remove({ 'destUser.id': userId });
+});
+
 scrub('clas_clas')(c => {
   c.updateMany({ 'created.by': userId }, { $set: { 'created.by': ghostId } });
   c.updateMany({ teachers: userId }, { $pull: { teachers: userId } });
 });
 
 scrub('clas_student')(c => c.remove({ userId: userId }));
+
+scrub('coach')(c => c.remove({ _id: userId }));
+
+scrub('coach_review')(c => c.remove({ userId: userId }));
+
+scrub('config')(c => c.remove({ _id: userId }));
+
+scrub('coordinate_score')(c => c.remove({ _id: userId }));
 
 scrub('crosstable2')(c => c.remove({ _id: new RegExp(`^${userId}/`) }));
 
