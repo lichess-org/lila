@@ -34,6 +34,8 @@ final class TeamApi(
 
   def team(id: Team.ID) = teamRepo byId id
 
+  def teamEnabled(id: Team.ID) = teamRepo enabled id
+
   def leaderTeam(id: Team.ID) = teamRepo.coll.byId[LeaderTeam](id, $doc("name" -> true))
 
   def lightsByLeader = teamRepo.lightsByLeader _
@@ -143,7 +145,7 @@ final class TeamApi(
 
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] =
     for {
-      teamOption <- teamRepo.coll.byId[Team](teamId)
+      teamOption <- teamEnabled(teamId)
       able       <- teamOption.??(requestable(_, user))
     } yield teamOption ifTrue able
 
