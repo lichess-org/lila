@@ -604,13 +604,25 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="downloadImported">Импортны йөкләү</string>
+  <string name="printFriendlyPDF">Басма өчен уңайлы PDF</string>
+  <string name="crosstable">Кросстабель</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сез шулай ук уенга күчү өчен такта өстенә әйләндерә аласыз.</string>
+  <string name="analysisShapesHowTo">Тактада түгәрәкләр һәм уклар сызу өчен shift + чирттерү яки уң төймәгә+чирттерү.</string>
+  <string name="letOtherPlayersMessageYou">Башка уенчылар сезгә хәбәр итсеннәр</string>
+  <string name="shareYourInsightsData">Шаһмат мәгълүматлары белән уртаклашыгыз</string>
   <string name="withNobody">Беркем беләндә түгел</string>
   <string name="withFriends">Дустлар белән</string>
+  <string name="withEverybody">Барысы белән</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Сезнең хәзер теркәлгән почтагыз бар: %s</string>
   <string name="kidMode">Сабыйлар осулы</string>
+  <string name="kidModeExplanation">Бу куркынычсызлык турында. Балалар режимында барлык сайт элемтәләре дә сүндерелгән. Моны балаларыгыз һәм мәктәп укучылары өчен рөхсәт итегез, аларны бүтән интернет кулланучылардан саклагыз.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Балалар усулында Lichess тамгасы %s иконасын ала, шуңа күрә сез балаларыгызның куркынычсыз булуын беләсез.</string>
   <string name="enableKidMode">Балалар осулын куй</string>
   <string name="disableKidMode">Сабый осулын кирегә куй</string>
   <string name="security">Хәвефсезлек</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бу сезнең хисапка кергән җайланмалар исемлеге. Сез танымаган сессияләрне кире кагарга.</string>
+  <string name="alternativelyYouCanX">Альтернатив рәвештә сез %s эшли аласыз.</string>
   <string name="revokeAllSessions">һәр сессиядан чыгу</string>
   <string name="playChessEverywhere">Уйна шаһмат бөтен җирдә</string>
   <string name="asFreeAsLichess">Личесс кебек азат</string>
@@ -641,6 +653,7 @@
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
+  <string name="invalidFen">Бозык FEN</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
   <string name="getAHint">Этәргеч алырга</string>
