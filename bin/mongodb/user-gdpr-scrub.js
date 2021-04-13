@@ -102,8 +102,8 @@ scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds
 */
 
 scrub('note')(c => {
-  c.remove({ from: userId, mod: false });
-  c.remove({ to: userId, mod: false });
+  c.remove({ from: userId, mod: { $ne: true } });
+  c.remove({ to: userId, mod: { $ne: true } });
 });
 
 deleteAll('notify', 'notifies');
