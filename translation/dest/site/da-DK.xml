@@ -636,7 +636,7 @@
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
-  <string name="tournamentFAQ">Arena-turnering FAQ</string>
+  <string name="tournamentFAQ">Arenaturnering FAQ</string>
   <string name="tournamentOfficial">Officiel</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>

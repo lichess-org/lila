@@ -12,7 +12,7 @@
   <string name="cannotChallengeDueToProvisionalXRating">No puedes desafiar a otros jugadores debido a que tu puntuación de %s es provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
   <string name="declineGeneric">No estoy aceptando desafíos por el momento.</string>
-  <string name="declineLater">No estoy aceptando desafíos ahora mismo, por favor pregunta de nuevo más tarde.</string>
+  <string name="declineLater">Este no es el momento adecuado para mí, por favor pregunta de nuevo más tarde.</string>
   <string name="declineTooFast">Este control de tiempo es demasiado rápido para mí, por favor desafíame de nuevo a una partida más lenta.</string>
   <string name="declineTooSlow">Este control de tiempo es demasiado lento para mí, por favor desafíame de nuevo a una partida más rápida.</string>
   <string name="declineTimeControl">No estoy aceptando desafíos con este control de tiempo.</string>

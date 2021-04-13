@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">o tawa la o open</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">sona lili ale la ijo walo li sina</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">sona lili ale la ijo pimeja li sina</string>
   <string name="puzzlesSolved">nanpa pi musi lili pini</string>
   <string name="newDailyHighscore">sina pini pona sewi lon tenpo suno ni!</string>
   <string name="newWeeklyHighscore">sina pini pona sewi lon tenpo suno pi luka tu ni!</string>
@@ -31,4 +33,15 @@
   <string name="viewBestRuns">o lukin e musi sewi</string>
   <string name="bestRunOfDay">musi sewi pi tenpo suno ni</string>
   <string name="runs">musi</string>
+  <string name="waitingForMorePlayers">mi awen tawa ni: jan mute li lon ni...</string>
+  <string name="raceComplete">musi li pini!</string>
+  <string name="spectating">sina lukin</string>
+  <string name="joinTheRace">o kama lon musi!</string>
+  <string name="yourRankX">nanpa sina: %s</string>
+  <string name="waitForRematch">o awen tawa musi sin</string>
+  <string name="nextRace">musi sin</string>
+  <string name="joinRematch">musi sin</string>
+  <string name="waitingToStart">awen tawa open</string>
+  <string name="createNewGame">o pali e musi sin</string>
+  <string name="raceYourFriends">o utala e jan pona sina</string>
 </resources>

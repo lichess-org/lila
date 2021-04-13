@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">AI と対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
-  <string name="waitingForOpponent">対戦相手を待っています...</string>
+  <string name="waitingForOpponent">相手を待っています</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -26,7 +26,7 @@
   <string name="youPlayTheBlackPieces">あなたは黒です</string>
   <string name="itsYourTurn">あなたの手番です！</string>
   <string name="kingInTheCenter">キングが中央マスに入りました</string>
-  <string name="threeChecks">3回チェック成功</string>
+  <string name="threeChecks">3 回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
   <string name="variantEnding">終局</string>
   <string name="newOpponent">新しい相手</string>
@@ -69,7 +69,7 @@
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
-  <string name="insufficientMaterial">駒が不足しています</string>
+  <string name="insufficientMaterial">戦力不足</string>
   <string name="pawnMove">ポーンの手</string>
   <string name="capture">駒取り</string>
   <string name="close">閉じる</string>
@@ -93,14 +93,14 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">オープニング探索</string>
   <string name="xOpeningExplorer">%s オープニング探索</string>
-  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールで引き分け</string>
-  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールで引き分け</string>
+  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
+  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="allSet">準備完了！</string>
   <string name="importPgn">PGNをインポート</string>
   <string name="delete">削除</string>
-  <string name="deleteThisImportedGame">このPGNを削除しますか？</string>
+  <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
   <string name="replayMode">再現の方式</string>
-  <string name="realtimeReplay">実時間</string>
+  <string name="realtimeReplay">リアルタイム</string>
   <string name="byCPL">評価値で</string>
   <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
@@ -137,7 +137,7 @@
     <item quantity="other">%s 局</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s局が保存された</item>
+    <item quantity="other">%s個の ブックマーク</item>
   </plurals>
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
@@ -157,7 +157,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
-  <string name="timeControl">持ち時間</string>
+  <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">1 手あたり日数</string>
@@ -205,7 +205,7 @@
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
   <string name="whiteDeclinesDraw">白が引き分けを拒否しました</string>
   <string name="blackDeclinesDraw">黒が引き分けを拒否しました</string>
-  <string name="yourOpponentOffersADraw">相手が引き分けを提案しました</string>
+  <string name="yourOpponentOffersADraw">相手が引き分けを申し込みました</string>
   <string name="accept">承諾</string>
   <string name="decline">拒否</string>
   <string name="playingRightNow">対局中</string>
@@ -223,7 +223,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局を提案しました</string>
+  <string name="rematchOfferSent">再対局の申し込みです</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>

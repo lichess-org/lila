@@ -851,8 +851,17 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="mentionedYouInX"> foste mencionado em \"%1$s\".</string>
   <string name="xMentionedYouInY"> %1$s mencionou-te em \"%2$s\".</string>
   <string name="invitedYouToX"> convidou-te para \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s convidou-te para \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Já fazes parte da equipa.</string>
+  <string name="youHaveJoinedTeamX">Juntaste-te a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Alguém que denunciaste foi banido</string>
+  <string name="congratsYouWon">Parabéns! Ganhaste!</string>
+  <string name="gameVsX">Jogo vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Acabaste de te tornar num patrono do Lichess.</string>
   <string name="patronAccountExpired">A conta de Patron expirou</string>
   <string name="pleaseReconsiderRenewIt">Por favor, considera renová-la!</string>
+  <string name="someoneReviewedYourCoachProfile">Alguém avaliou o teu perfil de treinador.</string>
   <string name="newPendingReview">Nova revisão pendente</string>
   <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
   <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
