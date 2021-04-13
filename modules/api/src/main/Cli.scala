@@ -42,7 +42,7 @@ final private[api] class Cli(
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
           Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
-          s"Erasing all data about ${user.username} now"
+          s"Erasing all search data about ${user.username} now"
       }
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none

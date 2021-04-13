@@ -94,7 +94,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def disabledById(id: ID): Fu[Option[User]] =
     coll.one[User](disabledSelect ++ $id(id))
 
-  def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
+  def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username)) recover {
+    case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
+  }
 
   def enabledNameds(usernames: List[String]): Fu[List[User]] =
     coll
@@ -650,17 +652,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       case _          => none
     }
   }
-
-  def erase(user: User): Funit =
-    coll.update
-      .one(
-        $id(user.id),
-        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind, F.bpass) ++ $set(
-          F.enabled  -> false,
-          F.erasedAt -> DateTime.now
-        )
-      )
-      .void
 
   def isErased(user: User): Fu[User.Erased] =
     user.disabled ?? {

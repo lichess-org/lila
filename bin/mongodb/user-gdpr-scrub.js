@@ -9,7 +9,7 @@ if (typeof user == 'undefined') throw 'Usage: mongo lichess --eval \'user="usern
 
 user = db.user4.findOne({ _id: user });
 
-if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
+// if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
 
 print(`\n\n Delete user ${user.username} and all references to their username!\n\n`);
 sleep(5000);
@@ -36,8 +36,7 @@ const replaceWithNewGhostIds = (collName, field, inDb) =>
   scrub(collName, inDb)(c => c.find({ [field]: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, field)));
 
 const userId = user._id;
-const tos =
-  user.marks && (user.marks.engine || user.marks.boost || user.marks.troll || user.marks.rankban || user.marks.alt);
+const tosViolation = user.marks && user.marks.length;
 
 // Let us scrub.
 
@@ -83,7 +82,7 @@ deleteAll('history3', '_id');
 
 deleteAll('image', 'createdBy');
 
-if (!tos) deleteAll('irwin_report', '_id');
+if (!tosViolation) deleteAll('irwin_report', '_id');
 
 deleteAll('learn_progress', '_id');
 
@@ -157,10 +156,10 @@ scrub('report2')(c => {
     }));
     c.update(byId(doc), { $set: { atoms: newAtoms } });
   });
-  !tos && c.updateMany({ user: userId }, { $set: { user: newGhostId() } });
+  !tosViolation && c.updateMany({ user: userId }, { $set: { user: newGhostId() } });
 });
 
-if (!tos) deleteAll('security', 'user');
+if (!tosViolation) deleteAll('security', 'user');
 
 deleteAll('seek', 'user.id');
 
@@ -245,20 +244,42 @@ if (arenaIds.length) {
 
 deleteAll('trophy', 'user');
 
-// Delete everything from the user document, with the following exceptions:
-// - username, as to prevent signing up with the same username again. Usernames must NOT be reused.
-// - email, which is only kept in case of TOS violation, to prevent sign up from the same email again.
-// - prevEmail and createdAt, to prevent mass-creation of accounts reusing the same email address.
-// - GDPR erasure date for book-keeping.
 scrub('user4')(c =>
   c.update(
     { _id: userId },
-    {
-      email: user.email,
-      prevEmail: user.prevEmail,
-      createdAt: user.createdAt,
-      erasedAt: new Date(),
-    }
+    // If the user was banned for TOS violations, delete the following fields:
+    tosViolation
+      ? {
+          $unset: {
+            profile: 1,
+            roles: 1,
+            toints: 1,
+            time: 1,
+            kid: 1,
+            lang: 1,
+            title: 1,
+            plan: 1,
+            totp: 1,
+            changedCase: 1,
+            blind: 1,
+            salt: 1,
+            bpass: 1,
+            mustConfirmEmail: 1,
+            colorIt: 1,
+          },
+          $set: {
+            erasedAt: new Date(),
+          },
+        }
+      : // Else, delete everything from the user document, with the following exceptions:
+        // - username, as to prevent signing up with the same username again. Usernames must NOT be reused.
+        // - prevEmail and createdAt, to prevent mass-creation of accounts reusing the same email address.
+        // - GDPR erasure date for book-keeping.
+        {
+          prevEmail: user.prevEmail,
+          createdAt: user.createdAt,
+          erasedAt: new Date(),
+        }
   )
 );
 

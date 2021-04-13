@@ -59,7 +59,6 @@ final class Env(
     "relation",
     "startStudy",
     "streamStart",
-    "gdprErase",
     "swissFinish"
   ) {
     case lila.forum.actorApi.CreatePost(post)             => write.forumPost(post).unit
@@ -74,7 +73,6 @@ final class Env(
     case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId).unit
     case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
-    case lila.user.User.GDPRErase(user)                   => write.erase(user).unit
     case lila.swiss.SwissFinish(swissId, ranking)         => write.swiss(swissId, ranking).unit
   }
 }

@@ -91,8 +91,7 @@ final class Env(
       }
     }
 
-  lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress") {
-    case lila.user.User.GDPRErase(user) => api.erase(user).unit
+  lila.common.Bus.subscribeFun("studyAnalysisProgress") {
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
       serverEvalMerger(analysis, complete).unit
   }
