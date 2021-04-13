@@ -33,7 +33,7 @@ final class Env(
     bookmark: actors.Bookmark,
     tournamentApi: actors.TournamentApi,
     chatApi: lila.chat.ChatApi,
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
