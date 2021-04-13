@@ -583,11 +583,15 @@
   <string name="sourceCode">Кодның чыганагы</string>
   <string name="simultaneousExhibitions">Синхрон күргәзмәләр</string>
   <string name="host">Хуҗа</string>
+  <string name="hostColorX">Алып бару төсе %s</string>
   <string name="createdSimuls">Яңа гына ачылган симул</string>
   <string name="hostANewSimul">Яңа симулның хуҗасы</string>
   <string name="noSimulFound">Симул табылмады</string>
+  <string name="noSimulExplanation">Бер үк вакыттагы күргәзмә юк.</string>
   <string name="returnToSimulHomepage">Симул ал битенә кайтырга</string>
   <string name="create">Ячарга</string>
+  <string name="lichessTournaments">Личесс бәйгеләре</string>
+  <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
   <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
   <string name="keyboardShortcuts">Керткечнең эзмәләре</string>
