@@ -31,7 +31,7 @@ const scrub = (collName, inDb) => f => {
 const byId = doc => ({ _id: doc._id });
 const deleteAllIn = (db, collName, field, value) => scrub(collName, db)(c => c.remove({ [field]: value || userId }));
 const deleteAll = (collName, field, value) => deleteAllIn(mainDb, collName, field, value);
-const setNewGhostId = (coll, doc, field) => coll.update(byId(doc), { $set: { [field]: randomId() } });
+const setNewGhostId = (coll, doc, field) => coll.update(byId(doc), { $set: { [field]: newGhostId() } });
 const replaceWithNewGhostIds = (collName, field, inDb) =>
   scrub(collName, inDb)(c => c.find({ [field]: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, field)));
 
@@ -64,7 +64,11 @@ deleteAll('coordinate_score', '_id');
 
 deleteAll('crosstable2', '_id', new RegExp(`^${userId}/`));
 
-replaceWithNewGhostIds('f_post', 'userId');
+scrub('f_post')(c =>
+  c
+    .find({ userId: userId }, { _id: 1 })
+    .forEach(doc => coll.update(byId(doc), { $set: { userId: newGhostId(), text: '', erasedAt: new Date() } }))
+);
 
 scrub('game5')(c =>
   c.find({ us: userId }, { us: 1, wid: 1 }).forEach(doc => {
