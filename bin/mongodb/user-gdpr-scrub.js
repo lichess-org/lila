@@ -101,9 +101,10 @@ const msgThreadIds = scrub('msg_thread')(c => {
 scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds } }));
 */
 
-deleteAll('note', 'from');
-
-scrub('note')(c => c.remove({ to: userId, mod: false }));
+scrub('note')(c => {
+  c.remove({ from: userId, mod: false });
+  c.remove({ to: userId, mod: false });
+});
 
 deleteAll('notify', 'notifies');
 
