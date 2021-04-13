@@ -129,7 +129,7 @@ final class Coach(env: Env) extends LilaController(env) {
       OptionFuResult(api findOrInit me) { c =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
+            api.uploadPicture(c, pic, me.user) recover { case e: lila.base.LilaException =>
               BadRequest(html.coach.picture(c, e.message.some))
             } inject Redirect(routes.Coach.edit)
           case None => fuccess(Redirect(routes.Coach.edit))

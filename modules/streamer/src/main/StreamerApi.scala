@@ -113,8 +113,8 @@ final class StreamerApi(
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
-    photographer(s.id.value, picture).flatMap { pic =>
+  def uploadPicture(s: Streamer, picture: Photographer.Uploaded, by: User): Funit =
+    photographer(s.id.value, picture, createdBy = by.id).flatMap { pic =>
       coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
     }
 
