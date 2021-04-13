@@ -29,7 +29,8 @@ const scrub = (collName, inDb) => f => {
 };
 
 const byId = doc => ({ _id: doc._id });
-const deleteAll = (collName, field, value) => scrub(collName)(c => c.remove({ [field]: value || userId }));
+const deleteAllIn = (db, collName, field, value) => scrub(collName, db)(c => c.remove({ [field]: value || userId }));
+const deleteAll = (collName, field, value) => deleteAllIn(mainDb, collName, field, value);
 const setNewGhostId = (coll, doc, field) => coll.update(byId(doc), { $set: { [field]: randomId() } });
 const replaceWithNewGhostIds = (collName, field, inDb) =>
   scrub(collName, inDb)(c => c.find({ [field]: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, field)));
@@ -106,9 +107,9 @@ scrub('note')(c => c.remove({ to: userId, mod: false }));
 
 deleteAll('notify', 'notifies');
 
-replaceWithNewGhostIds('oauth_client', 'author');
+replaceWithNewGhostIds('oauth_client', 'author', oauthDb);
 
-deleteAll('oauth_access_token', 'user_id');
+deleteAllIn(oauthDb, 'oauth_access_token', 'user_id');
 
 deleteAll('perf_stat', new RegExp(`^${userId}/`));
 
@@ -139,7 +140,7 @@ scrub(
   )
 );
 
-deleteAll('puzzle2_round', '_id', new RegExp(`^${userId}:`));
+deleteAllIn(puzzleDb, 'puzzle2_round', '_id', new RegExp(`^${userId}:`));
 
 deleteAll('ranking', new RegExp(`^${userId}:`));
 
@@ -196,7 +197,7 @@ scrub(
   c.find({ _id: { $in: studyIds }, ownerId: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, 'ownerId'))
 );
 
-scrub('study_user_topic', studyDb)(c => c.remove({ _id: userId }));
+deleteAllIn(studyDb, 'study_user_topic', '_id');
 
 replaceWithNewGhostIds('swiss', 'winnerId');
 
