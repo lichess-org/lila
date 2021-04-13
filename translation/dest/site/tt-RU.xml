@@ -656,7 +656,19 @@
   <string name="invalidFen">Бозык FEN</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
+  <string name="notifications">Хәбәр итүләр</string>
+  <string name="perfRatingX">Рейтингы: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>
+  </plurals>
+  <string name="practiceWithComputer">Компьютер белән практикалаштыру</string>
+  <string name="resumePractice">Дәвам итергә практиканы</string>
+  <string name="theGameIsADraw">Бу уен җиңүсез.</string>
+  <string name="computerThinking">Компьютер саный ...</string>
+  <string name="seeBestMove">Иң якшы хәрәкәтне кара</string>
+  <string name="hideBestMove">Иң якшы хәрәкәтне качырырга</string>
   <string name="getAHint">Этәргеч алырга</string>
+  <string name="evaluatingYourMove">Сезнең хәрәкәтне бәяләү ...</string>
   <string name="whiteWinsGame">Аклар җиңүләре</string>
   <string name="blackWinsGame">Каралар җиңүләре</string>
   <string name="skipThisMove">Төшереп калдыру бу хәрәкәтне</string>
