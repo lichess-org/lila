@@ -36,6 +36,8 @@
   <string name="theKingIsSlow">Шаһ әкрен.</string>
   <string name="lastOne">Соңгысы!</string>
   <string name="theKnight">Атчы</string>
+  <string name="itMovesInAnLShape">Ул L шикелле хәрәкәт кыла</string>
+  <string name="knightIntro">Менә сезнең өчен бәйге. Ат... хәйләкәр сөяк.</string>
   <string name="thePawn">Җәяүле</string>
   <string name="capture">Алу</string>
   <string name="combat">Сугыш</string>
