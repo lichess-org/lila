@@ -42,6 +42,7 @@ final class UserForm(authenticator: Authenticator) {
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
+      "cfcRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(Profile.unapply)
   )
