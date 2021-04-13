@@ -91,7 +91,7 @@ deleteAll('matchup', '_id', new RegExp(`^${userId}/`));
 
 /*
 We decided not to delete PMs out of legit interest of the correspondents
-and also to be able to comply to data requests from law enforcement
+and also to be able to comply with data requests from law enforcement
 
 const msgThreadIds = scrub('msg_thread')(c => {
   const ids = c.distinct('_id', { users: userId });
@@ -244,5 +244,22 @@ if (arenaIds.length) {
 }
 
 deleteAll('trophy', 'user');
+
+// Delete everything from the user document, with the following exceptions:
+// - username, as to prevent signing up with the same username again. Usernames must NOT be reused.
+// - email, which is only kept in case of TOS violation, to prevent sign up from the same email again.
+// - prevEmail and createdAt, to prevent mass-creation of accounts reusing the same email address.
+// - GDPR erasure date for book-keeping.
+scrub('user4')(c =>
+  c.update(
+    { _id: userId },
+    {
+      email: user.email,
+      prevEmail: user.prevEmail,
+      createdAt: user.createdAt,
+      erasedAt: new Date(),
+    }
+  )
+);
 
 deleteAll('video_view', 'u');
