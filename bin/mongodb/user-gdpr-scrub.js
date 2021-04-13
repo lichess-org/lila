@@ -13,73 +13,102 @@ user = db.user4.findOne({ _id: user });
 // print(`\n\n Delete user ${user.username}!\n\n`);
 // sleep(5000);
 
-const randomId = () => {
+const newGhostId = () => {
   const idChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const idLength = 8;
-  let result = '';
-  for (let i = idLength; i > 0; --i) result += idChars[Math.floor(Math.random() * idChars.length)];
-  return result;
+  let id = '';
+  for (let i = idLength; i > 0; --i) id += idChars[Math.floor(Math.random() * idChars.length)];
+  return `!${id}`;
 };
 
 const scrub = (collName, inDb) => f => {
   print(`- ${collName}`);
-  // sleep(500);
+  sleep(200);
   return f((inDb || mainDb)[collName]);
 };
 
+const byId = doc => ({ _id: doc._id });
+const deleteAll = (collName, field, value) => scrub(collName)(c => c.remove({ [field]: value || userId }));
+const setNewGhostId = (coll, doc, field) => coll.update(byId(doc), { $set: { [field]: randomId() } });
+const replaceWithNewGhostIds = (collName, field, inDb) =>
+  scrub(collName, inDb)(c => c.find({ [field]: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, field)));
+
 const userId = user._id;
-const ghostId = `!${randomId()}`;
 const tos =
   user.marks && (user.marks.engine || user.marks.boost || user.marks.troll || user.marks.rankban || user.marks.alt);
 
 // Let us scrub.
 
-scrub('activity')(c => c.remove({ _id: new RegExp(`^${userId}:`) }));
+deleteAll('activity', '_id', new RegExp(`^${userId}:`));
 
-scrub('analysis_requester')(c => c.remove({ _id: userId }));
+deleteAll('analysis_requester', '_id');
 
-scrub('bookmark')(c => c.remove({ u: userId }));
+deleteAll('bookmark', 'u');
 
-scrub('challenge')(c => {
-  c.remove({ 'challenger.id': userId });
-  c.remove({ 'destUser.id': userId });
-});
+deleteAll('challenge', 'challenger.id');
+deleteAll('challenge', 'destUser.id');
 
-scrub('clas_clas')(c => {
-  c.updateMany({ 'created.by': userId }, { $set: { 'created.by': ghostId } });
-  c.updateMany({ teachers: userId }, { $pull: { teachers: userId } });
-});
+replaceWithNewGhostIds('clas_clas', 'created.by');
+scrub('clas_clas')(c => c.updateMany({ teachers: userId }, { $pull: { teachers: userId } }));
 
-scrub('clas_student')(c => c.remove({ userId: userId }));
+deleteAll('clas_student', 'userId');
 
-scrub('coach')(c => c.remove({ _id: userId }));
+deleteAll('coach', '_id');
 
-scrub('coach_review')(c => c.remove({ userId: userId }));
+deleteAll('coach_review', 'userId');
 
-scrub('config')(c => c.remove({ _id: userId }));
+deleteAll('config', '_id');
 
-scrub('coordinate_score')(c => c.remove({ _id: userId }));
+deleteAll('coordinate_score', '_id');
 
-scrub('crosstable2')(c => c.remove({ _id: new RegExp(`^${userId}/`) }));
+deleteAll('crosstable2', '_id', new RegExp(`^${userId}/`));
 
-scrub('eval_cache')(c => c.updateMany({ 'evals.by': userId }, { $set: { 'evals.$.by': ghostId } }));
+replaceWithNewGhostIds('f_post', 'userId');
 
-scrub('f_post')(c => c.updateMany({ userId: userId }, { $set: { userId: ghostId } }));
+scrub('game5')(c =>
+  c.find({ us: userId }, { us: 1, wid: 1 }).forEach(doc => {
+    const gameGhostId = newGhostId();
+    c.update(byId(doc), {
+      $set: {
+        [`us.${doc.us.indexOf(userId)}`]: gameGhostId, // replace player usernames
+        ...(doc.wid == userId ? { wid: gameGhostId } : {}), // replace winner username
+      },
+    });
+  })
+);
 
-scrub('game5')(c => {
-  c.updateMany({ wid: userId }, { $set: { wid: ghostId } });
-  c.updateMany({ us: userId }, { $set: { 'us.$': ghostId } });
-});
+deleteAll('history3', '_id');
 
-scrub('puzzle2_puzzle', puzzleDb)(c => c.updateMany({ users: userId }, { $set: { 'users.$': ghostId } }));
+deleteAll('image', 'createdBy');
 
-scrub('puzzle2_round', puzzleDb)(c => c.remove({ _id: new RegExp(`^${userId}:`) }));
+scrub(
+  'puzzle2_puzzle',
+  puzzleDb
+)(c =>
+  c.find({ userId: userId }, { users: 1 }).forEach(doc =>
+    c.update(byId(doc), {
+      $set: {
+        [`users.${doc.users.indexOf(userId)}`]: newGhostId(),
+      },
+    })
+  )
+);
+
+deleteAll('puzzle2_round', '_id', new RegExp(`^${userId}:`));
 
 scrub('report2')(c => {
-  c.updateMany({ 'atoms.by': userId }, { $set: { 'atoms.$.by': ghostId } });
-  !tos && c.updateMany({ user: userId }, { $set: { user: ghostId } });
+  c.find({ 'atoms.by': userId }, { atoms: 1 }).forEach(doc => {
+    const reportGhostId = newGhostId();
+    const newAtoms = doc.atoms.map(a => ({
+      ...a,
+      by: a.by == userId ? reportGhostId : a.by,
+    }));
+    c.update(byId(doc), { $set: { atoms: newAtoms } });
+  });
+  !tos && c.updateMany({ user: userId }, { $set: { user: newGhostId() } });
 });
 
+replaceWithNewGhostIds('study', 'ownerId', studyDb);
 const studyIds = scrub(
   'study',
   studyDb
@@ -87,62 +116,67 @@ const studyIds = scrub(
   c.updateMany({ likers: userId }, { $pull: { likers: userId } });
   const ids = c.distinct('_id', { uids: userId });
   c.updateMany({ uids: userId }, { $pull: { uids: userId }, $unset: { [`members.${userId}`]: true } });
-  c.updateMany({ ownerId: userId }, { $set: { ownerId: ghostId } });
   return ids;
 });
 
 scrub(
   'study_chapter_flat',
   studyDb
-)(c => {
-  c.updateMany({ _id: { $in: studyIds }, ownerId: userId }, { $set: { ownerId: ghostId } });
-});
+)(c =>
+  c.find({ _id: { $in: studyIds }, ownerId: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, 'ownerId'))
+);
 
-scrub('simul')(c => {
-  c.updateMany({ hostId: userId }, { $set: { hostId: ghostId } });
-  c.updateMany({ 'pairings.player.user': userId }, { $set: { 'pairings.$.player.user': ghostId } });
-});
+replaceWithNewGhostIds('simul', 'hostId');
+scrub('simul')(c =>
+  c.find({ 'pairings.player.user': userId }, { pairings: 1 }).forEach(doc => {
+    doc.pairings.forEach(p => {
+      if (p.player.user == userId) p.player.user = newGhostId();
+    });
+    c.update(byId(doc), { $set: { pairings: doc.pairings } });
+  })
+);
 
-const swissIds = scrub('swiss')(c => {
-  c.updateMany({ winnerId: userId }, { $set: { winnerId: ghostId } });
-  return db.swiss_player.distinct('s', { u: userId });
-});
+replaceWithNewGhostIds('swiss', 'winnerId');
+
+const swissIds = scrub('swiss_player')(c => c.distinct('s', { u: userId }));
 
 if (swissIds.length) {
+  // here we use a single ghost ID for all swiss players and pairings,
+  // because the mapping of swiss player to swiss pairings must be preserved
+  const swissGhostId = newGhostId();
   scrub('swiss_player')(c => {
     c.find({ _id: { $in: swissIds.map(s => `${s}:${userId}`) } }).forEach(p => {
       c.remove({ _id: p._id });
-      p._id = `${p.s}:${ghostId}`;
-      p.u = ghostId;
+      p._id = `${p.s}:${swissGhostId}`;
+      p.u = swissGhostId;
       c.insert(p);
     });
   });
-  scrub('swiss_pairing')(c => c.updateMany({ s: { $in: swissIds }, p: userId }, { $set: { 'p.$': ghostId } }));
+  scrub('swiss_pairing')(c => c.updateMany({ s: { $in: swissIds }, p: userId }, { $set: { 'p.$': swissGhostId } }));
 }
 
-scrub('team')(c => {
-  c.updateMany({ createdBy: userId }, { $set: { createdBy: ghostId } });
-  c.updateMany({ leaders: userId }, { $pull: { leaders: userId } });
-});
+replaceWithNewGhostIds('team', 'createdBy');
+scrub('team')(c => c.updateMany({ leaders: userId }, { $pull: { leaders: userId } }));
 
-scrub('team_request')(c => c.remove({ user: userId }));
+deleteAll('team_request', 'user');
 
-scrub('team_member')(c => c.remove({ user: userId }));
+deleteAll('team_member', 'user');
 
-scrub('timeline_entry')(c => c.remove({ users: userId }));
+replaceWithNewGhostIds('tournament2', 'createdBy');
+replaceWithNewGhostIds('tournament2', 'winnerId');
 
-scrub('tournament2')(c => {
-  c.updateMany({ winnerId: userId }, { $set: { winnerId: ghostId } });
-  c.updateMany({ createdBy: userId }, { $set: { createdBy: ghostId } });
-});
-const arenaIds = scrub('tournament_leaderboard')(c => {
-  const ids = c.distinct('t', { u: userId });
-  c.remove({ u: userId });
-  return ids;
-});
+const arenaIds = scrub('tournament_leaderboard')(c => c.distinct('t', { u: userId }));
 if (arenaIds.length) {
-  scrub('tournament_player')(c => c.updateMany({ tid: { $in: arenaIds }, uid: userId }, { $set: { uid: ghostId } }));
-  scrub('tournament_pairing')(c => c.updateMany({ tid: { $in: arenaIds }, u: userId }, { $set: { 'u.$': ghostId } }));
+  // here we use a single ghost ID for all arena players and pairings,
+  // because the mapping of arena player to arena pairings must be preserved
+  const arenaGhostId = newGhostId();
+  scrub('tournament_player')(c =>
+    c.updateMany({ tid: { $in: arenaIds }, uid: userId }, { $set: { uid: arenaGhostId } })
+  );
+  scrub('tournament_pairing')(c =>
+    c.updateMany({ tid: { $in: arenaIds }, u: userId }, { $set: { 'u.$': arenaGhostId } })
+  );
+  deleteAll('tournament_leaderboard', 'u');
 }
 
 /*
