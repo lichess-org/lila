@@ -95,7 +95,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
 
   def named(username: String): Fu[Option[User]] =
-    User.noGhost(username) ?? coll.byId[User](normalize(username)) recover {
+    User.noGhost(username) ?? coll.byId[User](normalize(username)).recover {
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
@@ -667,6 +667,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
       ReadPreference.secondaryPreferred
     )
+
+  def setErasedAt(user: User) =
+    coll.updateField($id(user.id), F.erasedAt, DateTime.now plusDays 1).void
 
   private def newUser(
       username: String,

@@ -163,6 +163,7 @@ object User {
   val anonymous                    = "Anonymous"
   val lichessId                    = "lichess"
   val broadcasterId                = "broadcaster"
+  val ghostId                      = "ghost"
   def isOfficial(username: String) = normalize(username) == lichessId || normalize(username) == broadcasterId
 
   val seenRecently = 2.minutes
@@ -227,13 +228,13 @@ object User {
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
+  def couldBeUsername(str: User.ID) = noGhost(str) && historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
 
   def validateId(name: String): Option[User.ID] = couldBeUsername(name) option normalize(name)
 
-  def isGhost(name: String) = name.headOption has '!'
+  def isGhost(name: String) = normalize(name) == ghostId || name.headOption.has('!')
 
   def noGhost(name: String) = !isGhost(name)
 

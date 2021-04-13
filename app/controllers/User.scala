@@ -136,19 +136,25 @@ final class User(
     }
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.user.repo named username flatMap {
-      case None if isGranted(_.UserModView)                 => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
-      case None                                             => notFound
-      case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
-      case Some(u) =>
-        negotiate(
-          html = env.user.repo isErased u flatMap { erased =>
-            if (erased.value) notFound
-            else NotFound(html.user.show.page.disabled(u)).fuccess
-          },
-          api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
-        )
-    }
+    if (UserModel.isGhost(username))
+      negotiate(
+        html = Ok(html.site.bits.ghost).fuccess,
+        api = _ => notFoundJson("Deleted user")
+      )
+    else
+      env.user.repo named username flatMap {
+        case None if isGranted(_.UserModView)                 => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
+        case None                                             => notFound
+        case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
+        case Some(u) =>
+          negotiate(
+            html = env.user.repo isErased u flatMap { erased =>
+              if (erased.value) notFound
+              else NotFound(html.user.show.page.disabled(u)).fuccess
+            },
+            api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+          )
+      }
   def showMini(username: String) =
     Open { implicit ctx =>
       OptionFuResult(env.user.repo named username) { user =>

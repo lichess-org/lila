@@ -1,6 +1,5 @@
 package lila.user
 
-
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.Success

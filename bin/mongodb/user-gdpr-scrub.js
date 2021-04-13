@@ -9,11 +9,12 @@ if (typeof user == 'undefined') throw 'Usage: mongo lichess --eval \'user="usern
 
 user = db.user4.findOne({ _id: user });
 
-// if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
+if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
 
 print(`\n\n Delete user ${user.username} and all references to their username!\n\n`);
 sleep(5000);
 
+const ghostId = 'ghost';
 const newGhostId = () => {
   const idChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const idLength = 8;
@@ -31,9 +32,8 @@ const scrub = (collName, inDb) => f => {
 const byId = doc => ({ _id: doc._id });
 const deleteAllIn = (db, collName, field, value) => scrub(collName, db)(c => c.remove({ [field]: value || userId }));
 const deleteAll = (collName, field, value) => deleteAllIn(mainDb, collName, field, value);
-const setNewGhostId = (coll, doc, field) => coll.update(byId(doc), { $set: { [field]: newGhostId() } });
-const replaceWithNewGhostIds = (collName, field, inDb) =>
-  scrub(collName, inDb)(c => c.find({ [field]: userId }, { _id: 1 }).forEach(doc => setNewGhostId(c, doc, field)));
+const replaceWithGhostId = (collName, field, inDb) =>
+  scrub(collName, inDb)(c => c.updateMany({ [field]: userId }, { $set: { [field]: ghostId } }));
 
 const userId = user._id;
 const tosViolation = user.marks && user.marks.length;
@@ -49,7 +49,7 @@ deleteAll('bookmark', 'u');
 deleteAll('challenge', 'challenger.id');
 deleteAll('challenge', 'destUser.id');
 
-replaceWithNewGhostIds('clas_clas', 'created.by');
+replaceWithGhostId('clas_clas', 'created.by');
 scrub('clas_clas')(c => c.updateMany({ teachers: userId }, { $pull: { teachers: userId } }));
 
 deleteAll('clas_student', 'userId');
@@ -64,20 +64,15 @@ deleteAll('coordinate_score', '_id');
 
 deleteAll('crosstable2', '_id', new RegExp(`^${userId}/`));
 
-scrub('f_post')(c =>
-  c
-    .find({ userId: userId }, { _id: 1 })
-    .forEach(doc => coll.update(byId(doc), { $set: { userId: newGhostId(), text: '', erasedAt: new Date() } }))
-);
+scrub('f_post')(c => c.updateMany({ userId: userId }, { $set: { userId: ghostId, text: '', erasedAt: new Date() } }));
 
 scrub('game5')(c =>
   c.find({ us: userId }, { us: 1, wid: 1 }).forEach(doc => {
-    const gameGhostId = newGhostId();
     c.update(byId(doc), {
       $set: {
-        [`us.${doc.us.indexOf(userId)}`]: gameGhostId, // replace player usernames
-        ...(doc.wid == userId ? { wid: gameGhostId } : {}), // replace winner username
+        [`us.${doc.us.indexOf(userId)}`]: ghostId, // replace in player usernames
       },
+      ...(doc.wid == userId ? { $unset: { wid: 1 } } : {}), // remove winner username
     });
   })
 );
@@ -111,13 +106,13 @@ scrub('note')(c => {
 
 deleteAll('notify', 'notifies');
 
-replaceWithNewGhostIds('oauth_client', 'author', oauthDb);
+replaceWithGhostId('oauth_client', 'author', oauthDb);
 
 deleteAllIn(oauthDb, 'oauth_access_token', 'user_id');
 
 deleteAll('perf_stat', new RegExp(`^${userId}/`));
 
-replaceWithNewGhostIds('plan_charge', 'userId');
+replaceWithGhostId('plan_charge', 'userId');
 
 deleteAll('plan_patron', '_id');
 
@@ -131,18 +126,7 @@ deleteAll('pref', '_id');
 
 deleteAll('push_device', 'userId');
 
-scrub(
-  'puzzle2_puzzle',
-  puzzleDb
-)(c =>
-  c.find({ userId: userId }, { users: 1 }).forEach(doc =>
-    c.update(byId(doc), {
-      $set: {
-        [`users.${doc.users.indexOf(userId)}`]: newGhostId(),
-      },
-    })
-  )
-);
+scrub('puzzle2_puzzle', puzzleDb)(c => c.updateMany({ users: userId }, { $set: { 'users.$': ghostId } }));
 
 deleteAllIn(puzzleDb, 'puzzle2_round', '_id', new RegExp(`^${userId}:`));
 
@@ -153,14 +137,13 @@ deleteAll('relation', 'u2');
 
 scrub('report2')(c => {
   c.find({ 'atoms.by': userId }, { atoms: 1 }).forEach(doc => {
-    const reportGhostId = newGhostId();
     const newAtoms = doc.atoms.map(a => ({
       ...a,
-      by: a.by == userId ? reportGhostId : a.by,
+      by: a.by == userId ? ghostId : a.by,
     }));
     c.update(byId(doc), { $set: { atoms: newAtoms } });
   });
-  !tosViolation && c.updateMany({ user: userId }, { $set: { user: newGhostId() } });
+  !tosViolation && c.updateMany({ user: userId }, { $set: { user: ghostId } });
 });
 
 if (!tosViolation) deleteAll('security', 'user');
@@ -169,15 +152,8 @@ deleteAll('seek', 'user.id');
 
 deleteAll('shutup', '_id');
 
-replaceWithNewGhostIds('simul', 'hostId');
-scrub('simul')(c =>
-  c.find({ 'pairings.player.user': userId }, { pairings: 1 }).forEach(doc => {
-    doc.pairings.forEach(p => {
-      if (p.player.user == userId) p.player.user = newGhostId();
-    });
-    c.update(byId(doc), { $set: { pairings: doc.pairings } });
-  })
-);
+replaceWithGhostId('simul', 'hostId');
+scrub('simul')(c => c.updateMany({ 'pairings.player.user': userId }, { $set: { 'pairings.$.player.user': ghostId } }));
 
 deleteAll('storm_day', '_id', new RegExp(`^${userId}:`));
 
@@ -198,7 +174,7 @@ scrub('study_chapter_flat', studyDb)(c => c.remove({ studyId: { $in: studyIds } 
 
 deleteAllIn(studyDb, 'study_user_topic', '_id');
 
-replaceWithNewGhostIds('swiss', 'winnerId');
+replaceWithGhostId('swiss', 'winnerId');
 
 const swissIds = scrub('swiss_player')(c => c.distinct('s', { u: userId }));
 
@@ -217,15 +193,15 @@ if (swissIds.length) {
   scrub('swiss_pairing')(c => c.updateMany({ s: { $in: swissIds }, p: userId }, { $set: { 'p.$': swissGhostId } }));
 }
 
-replaceWithNewGhostIds('team', 'createdBy');
+replaceWithGhostId('team', 'createdBy');
 scrub('team')(c => c.updateMany({ leaders: userId }, { $pull: { leaders: userId } }));
 
 deleteAll('team_request', 'user');
 
 deleteAll('team_member', 'user');
 
-replaceWithNewGhostIds('tournament2', 'createdBy');
-replaceWithNewGhostIds('tournament2', 'winnerId');
+replaceWithGhostId('tournament2', 'createdBy');
+replaceWithGhostId('tournament2', 'winnerId');
 
 const arenaIds = scrub('tournament_leaderboard')(c => c.distinct('t', { u: userId }));
 if (arenaIds.length) {

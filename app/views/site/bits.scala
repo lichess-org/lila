@@ -53,4 +53,18 @@ object bits {
         )
       )
     }
+
+  def ghost(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("ghost"),
+      title = "Deleted user"
+    ) {
+      main(cls := "page-small box box-pad page")(
+        h1("Deleted user"),
+        div(
+          p("This player account is gone!"),
+          p("Nothing to see here, move along.")
+        )
+      )
+    }
 }
