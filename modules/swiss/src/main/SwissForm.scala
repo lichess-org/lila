@@ -21,7 +21,7 @@ final class SwissForm(implicit mode: Mode) {
         "name" -> optional(eventName(2, 30)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
-          "increment" -> number(min = 0, max = 600).verifying(256 != _)
+          "increment" -> number(min = 0, max = 120)
         )(ClockConfig.apply)(ClockConfig.unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"          -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
