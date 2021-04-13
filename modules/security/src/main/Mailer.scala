@@ -22,9 +22,9 @@ final class Mailer(
   private val primaryClient   = new SMTPMailer(config.primary.toClientConfig)
   private val secondaryClient = new SMTPMailer(config.secondary.toClientConfig)
 
-  private def randomClient(): SMTPMailer =
-    if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) secondaryClient
-    else primaryClient
+  private def randomClient(): (SMTPMailer, Mailer.Smtp) =
+    if (ThreadLocalRandom.nextInt(1000) < getSecondaryPermille()) (secondaryClient, config.secondary)
+    else (primaryClient, config.primary)
 
   def send(msg: Mailer.Message): Funit =
     if (msg.to.isNoReply) {
@@ -34,7 +34,8 @@ final class Mailer(
       Future {
         Chronometer.syncMon(_.email.send.time) {
           blocking {
-            randomClient()
+            val (client, config) = randomClient()
+            client
               .send(
                 Email(
                   subject = msg.subject,
@@ -60,6 +61,7 @@ object Mailer {
       port: Int,
       tls: Boolean,
       user: String,
+      sender: String,
       password: String
   ) {
     def toClientConfig = SMTPConfiguration(
@@ -76,8 +78,7 @@ object Mailer {
 
   case class Config(
       primary: Smtp,
-      secondary: Smtp,
-      sender: String
+      secondary: Smtp
   )
   implicit val configLoader = AutoConfig.loader[Config]
 
