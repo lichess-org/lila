@@ -291,6 +291,10 @@
     <item quantity="one">%s certaminis punctum</item>
     <item quantity="other">%s certaminis puncta</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s notus</item>
+    <item quantity="other">%s noti</item>
+  </plurals>
   <string name="viewTournament">Certamen videre</string>
   <string name="backToTournament">Referre ad torneamento</string>
   <string name="thematic">Thematicus</string>
