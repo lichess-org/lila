@@ -101,7 +101,11 @@
 һөҗүмләнгән сөяген алып.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Бу Атчы тикшермәктә
 сезнең химаягыз аркылы!</string>
+  <string name="escapeOrBlock">Шаһ белән качыш
+яки хөҗүмне той!</string>
+  <string name="outOfCheckComplete">Котлыйбыз! Сезнең шаһны беркайчан да алып булмый, тикшерелгән саклый алуыгызга инаныгыз!</string>
   <string name="mateInOne">Мат бер</string>
+  <string name="defeatTheOpponentsKing">Рәкыйпнең шаһы җиңелә</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
