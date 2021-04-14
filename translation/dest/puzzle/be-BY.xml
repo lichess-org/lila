@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Заданні</string>
-  <string name="puzzleThemes">Тэмы заданняў</string>
+  <string name="puzzles">Задачы</string>
+  <string name="puzzleThemes">Тэмы задач</string>
   <string name="recommended">Рэкамендаваныя</string>
   <string name="phases">Стадыі гульні</string>
   <string name="motifs">Матывы</string>
@@ -11,20 +11,20 @@
   <string name="goals">Мэты</string>
   <string name="origin">Паходжанне</string>
   <string name="specialMoves">Адмысловыя хады</string>
-  <string name="didYouLikeThisPuzzle">Ці спадабалася заданне?</string>
-  <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнага!</string>
-  <string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні заданняў: %s</string>
+  <string name="didYouLikeThisPuzzle">Ці спадабалася задача?</string>
+  <string name="voteToLoadNextOne">Прагаласуйце, каб перайсці да наступнай!</string>
+  <string name="yourPuzzleRatingX">Ваш рэйтынг у вырашэнні задач: %s</string>
   <string name="findTheBestMoveForWhite">Знайдзіце лепшы ход за белых.</string>
   <string name="findTheBestMoveForBlack">Знайдзіце лепшы ход за чорных.</string>
-  <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя заданні:</string>
-  <string name="puzzleId">Заданне %s</string>
-  <string name="puzzleOfTheDay">Заданне дня</string>
+  <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
+  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
   <string name="clickToSolve">Націсніце, каб рашыць</string>
   <string name="goodMove">Добры ход</string>
   <string name="bestMove">Лепшы ход!</string>
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
-  <string name="puzzleComplete">Заданне рэшана!</string>
+  <string name="puzzleComplete">Задача рэшана!</string>
   <string name="notTheMove">Гэта не ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
@@ -45,14 +45,14 @@
   <string name="hardest">Найцяжэйшы</string>
   <string name="example">Прыклад</string>
   <string name="addAnotherTheme">Дадаць іншую тэму</string>
-  <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнага задання</string>
-  <string name="puzzleDashboard">Панэль заданняў</string>
+  <string name="jumpToNextPuzzleImmediately">Адразу перайсці да наступнай задачы</string>
+  <string name="puzzleDashboard">Панэль задач</string>
   <string name="improvementAreas">Напрамкі паляпшэння</string>
   <string name="strengths">Моцныя бакі</string>
-  <string name="history">Гісторыя заданняў</string>
+  <string name="history">Гісторыя задач</string>
   <string name="solved">рэшана</string>
   <string name="failed">памылка</string>
-  <string name="streakDescription">Рашайце заданнi, якія паступова ўскладняюцца, і стварыце пераможную серыю. Тут няма гадзін, так што не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за сеанс.</string>
+  <string name="streakDescription">Рашайце задачы, якія паступова ўскладняюцца, і стварыце пераможную серыю. Тут няма гадзін, так што не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за сеанс.</string>
   <string name="yourStreakX">Ваша серыя: %s</string>
   <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>
   <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Працягнуць серыю</string>
