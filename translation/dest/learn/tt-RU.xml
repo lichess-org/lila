@@ -95,6 +95,8 @@
   <string name="defendYourKing">Шаһыгызны химәя кыл</string>
   <string name="outOfCheckIntro">Сез тикшерәсез! Сез һөҗүмнән качарга яки блокларга тиеш.</string>
   <string name="escapeWithTheKing">Шаһ белән качыш!</string>
+  <string name="theKingCannotEscapeButBlock">Шаһ кача алмады,
+ләкин сез хөҗүмне тыя аласыз!</string>
   <string name="mateInOne">Мат бер</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
