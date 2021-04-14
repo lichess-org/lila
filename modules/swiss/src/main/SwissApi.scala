@@ -93,8 +93,8 @@ final class SwissApi(
       val swiss =
         old.copy(
           name = data.name | old.name,
-          clock = data.clock,
-          variant = data.realVariant,
+          clock = if (old.isCreated) data.clock else old.clock,
+          variant = if (old.isCreated && data.variant.isDefined) data.realVariant else old.variant,
           startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
           nextRoundAt =
             if (old.isCreated) Some(data.startsAt | old.startsAt)
