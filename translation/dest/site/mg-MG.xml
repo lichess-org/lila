@@ -24,6 +24,10 @@
   <string name="blackIsVictorious">Naharesy ny mainty</string>
   <string name="youPlayTheWhitePieces">Milalao ny fotsy ianao</string>
   <string name="youPlayTheBlackPieces">Milalao ny mainty ianao</string>
+  <string name="itsYourTurn">Anjaranao izao!</string>
+  <string name="kingInTheCenter">Mpanjakalahy eo afoavoany</string>
+  <string name="threeChecks">In-telo \"checks\"</string>
+  <string name="raceFinished">Vita  ny hazakazaka</string>
   <string name="newOpponent">Mpifanandrina vaovao</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Te hanomboka lalao vaovao ny mpifanandrina aminao</string>
   <string name="joinTheGame">Idiro ny lalao</string>
