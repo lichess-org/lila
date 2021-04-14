@@ -70,7 +70,7 @@ idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang) (yo)?urself
+(kill|hang) (yo)?ur(self| family)
 kys
 labia
 lamer?
