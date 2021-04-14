@@ -25,8 +25,7 @@ aus?c?hwitz
 bastard?
 be[ea]+ch
 bit?ch
-blow
-blowjob
+blow(job|)
 blumpkin
 bollock
 boner
@@ -39,8 +38,7 @@ cheat(ing|ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
-clit
-clitoris
+clit(oris|)
 clown
 cock
 condom
@@ -81,8 +79,7 @@ masturbat(e|ion|ing)
 milf
 molest
 moron
-motherfuc?k(er|)
-mothers?
+mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?(er|a|ah)
@@ -93,14 +90,14 @@ pa?edo
 pa?edo(f|ph)ile
 paki
 pathetic
-pederast
-pen(1|i)s
+pa?ederast
+penis
 pig
-pimps?
+pimp
 piss
 poof
 poon
-poop(face|)
+poo+p(face|)
 porn
 pric?k
 prostitute
@@ -222,7 +219,7 @@ gaa?nd
 fdp
 pd
 triche
-tricheurs?
+tricheur
 """)
 
   def de = dict("""
