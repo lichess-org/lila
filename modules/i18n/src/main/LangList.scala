@@ -129,7 +129,13 @@ object LangList {
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
-  lazy val choices: List[(String, String)] = popularNoRegion.toList
+  lazy val allChoices: List[(String, String)] = all.toList
+    .map { case (l, name) =>
+      l.code -> name
+    }
+
+  lazy val popularChoices: List[(String, String)] = popularNoRegion.toList
+    .take(20)
     .flatMap { l =>
       all.get(l).map { name =>
         l.code -> s"${l.code} $name"
