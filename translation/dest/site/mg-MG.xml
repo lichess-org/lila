@@ -168,6 +168,7 @@
   <string name="playingRightNow">Milalao amin\'izao fotoana</string>
   <string name="eventInProgress">Milalao amin\'izao fotoana</string>
   <string name="finished">Vita</string>
+  <string name="finishesX">tapitra afaka %s</string>
   <string name="abortGame">Ajanona ny lalao</string>
   <string name="gameAborted">Tapaka ny lalao</string>
   <string name="standard">Standard</string>
@@ -175,14 +176,19 @@
   <string name="mode">Mode</string>
   <string name="casual">Lalaom-pirahalahiana</string>
   <string name="rated">Misy laharana</string>
+  <string name="casualTournament">Lalaom-pirahalahiana</string>
+  <string name="ratedTournament">Misy naoty</string>
   <string name="thisGameIsRated">Misy laharana ity lalao ity</string>
   <string name="rematch">Lalao miverina</string>
   <string name="rematchOfferSent">Lasa ny fangatahana lalao miverina</string>
+  <string name="rematchOfferSentWhite">Mangataka lalao miverina ny fotsy</string>
+  <string name="rematchOfferSentBlack">Mangataka lalao miverina ny mainty</string>
   <string name="rematchOfferAccepted">Ekena ny fangatahana lalao miverina</string>
   <string name="rematchOfferCanceled">Najanona ny fangatahana lalao miverina</string>
   <string name="rematchOfferDeclined">Lavo ny fangatahana lalao miverina</string>
   <string name="cancelRematchOffer">Ajanona ny fangatahana lalao miverina</string>
   <string name="viewRematch">Jereo ny lalao miverina</string>
+  <string name="confirmMove">Manamarina ny hetsika</string>
   <string name="play">Milalaova</string>
   <string name="inbox">Mailaka/Hafatra voaray</string>
   <string name="chatRoom">Chat room</string>
@@ -195,6 +201,10 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
   <string name="spectators">Mpijery:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s lalao misy naoty</item>
+    <item quantity="other">%s lalao misy naoty</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">Fandresena %s</item>
     <item quantity="other">Fandresena %s</item>
@@ -207,12 +217,17 @@
     <item quantity="one">Lalao sahala %s</item>
     <item quantity="other">Lalao sahala %s</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s lalao</item>
+    <item quantity="other">%s lalao</item>
+  </plurals>
   <string name="exportGames">Exporter-o ny lalao</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Omeo %s segondra</item>
     <item quantity="other">Omeo %s segondra</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Nandika ny lalàna ny Lichess Terms of Service ity kaonty ity</string>
   <string name="takeback">Averina ny fihetsehana farany teo</string>
   <string name="proposeATakeback">Angataho ny famerenana ny fihetsehana farany teo</string>
   <string name="takebackPropositionSent">Lasa ny famerenana ny fihetsehana farany teo</string>
@@ -224,7 +239,17 @@
   <string name="tournament">Fifaninanana</string>
   <string name="tournaments">Fifaninanana</string>
   <string name="tournamentPoints">Isa azo tamin\'ny fifaninanana</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s isa azo tamin\'ny fifaninanana</item>
+    <item quantity="other">%s isa azo tamin\'ny fifaninanana</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s fianarana</item>
+    <item quantity="other">%s fianarana</item>
+  </plurals>
   <string name="viewTournament">Jereo ny fifaninanana</string>
+  <string name="backToTournament">Hiverina amin\'ny fifaninanana</string>
+  <string name="thematic">Lohahevitra</string>
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
   <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
   <string name="xJoinedTeamY">%1$s dia niditra tao amin\'ny %2$s</string>
