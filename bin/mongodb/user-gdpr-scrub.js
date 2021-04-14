@@ -1,19 +1,20 @@
 // Usage:
-// mongo --eval 'mainDb="localhost/lichess";oauthDb="localhost/lichess";studyDb="localhost/lichess";puzzleDb="localhost/puzzler";user="username"' bin/mongodb/user-gdpr-scrub.js
+// mongo --eval 'mainDb="localhost/lichess";oauthDb="localhost/lichess";studyDb="localhost/lichess";puzzleDb="localhost/puzzler"' bin/mongodb/user-gdpr-scrub.js
+// Run it as a cron script every 10m or so
 
 mainDb = connect(mainDb);
 oauthDb = connect(oauthDb);
 studyDb = connect(studyDb);
 puzzleDb = connect(puzzleDb);
 
-if (typeof user == 'undefined') throw 'Missing user argument';
-
-user = db.user4.findOne({ _id: user });
-
-if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first.';
+const user = mainDb.user4.findOne({ eraseAt: { $lt: new Date() } });
+if (!user) quit();
+if (user.enabled || user.erasedAt) {
+  mainDb.update({ _id: user._id }, { $unset: { eraseAt: 1 } });
+  quit();
+}
 
 print(`\n\n Delete user ${user.username} and all references to their username!\n\n`);
-sleep(5000);
 
 const userId = user._id;
 const tosViolation = user.marks && user.marks.length;
@@ -252,6 +253,9 @@ scrub('user4')(c =>
             mustConfirmEmail: 1,
             colorIt: 1,
           },
+          $set: {
+            erasedAt: new Date(),
+          },
         }
       : // Else, delete everything from the user document, with the following exceptions:
         // - _id, as to prevent signing up with the same username again. Usernames must NOT be reused.
@@ -259,6 +263,7 @@ scrub('user4')(c =>
         {
           prevEmail: user.prevEmail,
           createdAt: user.createdAt,
+          erasedAt: new Date(),
         }
   )
 );

@@ -269,6 +269,7 @@ object User {
     val totpSecret            = "totp"
     val changedCase           = "changedCase"
     val marks                 = "marks"
+    val eraseAt               = "eraseAt"
     val erasedAt              = "erasedAt"
     val blind                 = "blind"
   }

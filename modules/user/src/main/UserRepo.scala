@@ -668,8 +668,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       ReadPreference.secondaryPreferred
     )
 
-  def setErasedAt(user: User) =
-    coll.updateField($id(user.id), F.erasedAt, DateTime.now plusDays 1).void
+  def setEraseAt(user: User) =
+    coll.updateField($id(user.id), F.eraseAt, DateTime.now plusDays 1).void
 
   private def newUser(
       username: String,
