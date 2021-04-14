@@ -100,7 +100,7 @@ final class PersonalDataExport(
               ReplaceRootField("chat"),
               Project($doc("_id" -> false, "l" -> true)),
               Unwind("l"),
-              Match("l" $startsWith s"${user.id} ")
+              Match("l".$startsWith(s"${user.id} ", "i"))
             )
           }
           .documentSource()
