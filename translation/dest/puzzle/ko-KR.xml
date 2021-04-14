@@ -12,9 +12,11 @@
   <string name="origin">출처</string>
   <string name="specialMoves">특수 행마</string>
   <string name="didYouLikeThisPuzzle">이 퍼즐이 괜찮았나요?</string>
+  <string name="voteToLoadNextOne">다음 퍼즐을 위해 투표해주세요!</string>
   <string name="yourPuzzleRatingX">퍼즐 레이팅: %s</string>
   <string name="findTheBestMoveForWhite">흰색을 위한 최고의 수를 찾아보세요.</string>
   <string name="findTheBestMoveForBlack">흑색을 위한 최고의 수를 찾아보세요.</string>
+  <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
   <string name="clickToSolve">퍼즐 풀기</string>
@@ -50,5 +52,6 @@
   <string name="streakDescription">점점 더 어려워지는 퍼즐을 풀고 연승을 쌓으세요. 시간 제한은 없습니다. 한번의 잘못된 수 만으로 게임이 끝납니다! 그러나 세션당 한 수를 건너 뛸 수 있습니다.</string>
   <string name="yourStreakX">연승 기록: %s</string>
   <string name="streakSkipExplanation">이 수를 건너뛰고 연승 기록을 보존하세요! 한 도전에 한 번만 가능합니다.</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">계속하기</string>
   <string name="newStreak">새 연승 도전</string>
 </resources>
