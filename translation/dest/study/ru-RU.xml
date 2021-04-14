@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Частная</string>
-  <string name="myStudies">Мои разборы</string>
-  <string name="studiesIContributeTo">Разборы с моим участием</string>
-  <string name="myPublicStudies">Мои публичные разборы</string>
-  <string name="myPrivateStudies">Мои частные разборы</string>
-  <string name="myFavoriteStudies">Мои отмеченные разборы</string>
+  <string name="myStudies">Мои студии</string>
+  <string name="studiesIContributeTo">Студии с моим участием</string>
+  <string name="myPublicStudies">Мои публичные студии</string>
+  <string name="myPrivateStudies">Мои частные студии</string>
+  <string name="myFavoriteStudies">Мои отмеченные студии</string>
   <string name="whatAreStudies">Что такое «студии»?</string>
   <string name="allStudies">Все студии</string>
   <string name="studiesCreatedByX">Студии, созданные %s</string>
