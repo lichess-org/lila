@@ -50,6 +50,16 @@
 Ләкин тактага икенче якка җиткәч, алар көчлерәк сөяккә әйләнәләр!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Күпчелек вакытта вәзир күтәрелү иң яхшысы.
 Ләкин кайвакыт атчы ярдәмгә килергә мөмкин!</string>
+  <string name="pawnsMoveForward">Җәяүле алга хәрәкәт итә,
+әмма диагональ белән кулга алына!</string>
+  <string name="captureThenPromote">Кулга алыгыз, аннары алга җибәрегез!</string>
+  <string name="useAllThePawns">Барлык җәяүле кулланыгыз!
+Алга җибәрергә кирәкми.</string>
+  <string name="aPawnOnTheSecondRank">Икенче дәрәҗәдәге җәяүле берьюлы 2 квадратны күчерә ала!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Барлык йолдызларны тот!
+Алга җибәрергә кирәкми.</string>
+  <string name="pawnComplete">Котлыйбыз! Җәяүләрнең сезнең өчен серләре юк.</string>
+  <string name="pawnPromotion">Җәяүләрне тәргыйп колыш</string>
   <string name="capture">Алу</string>
   <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
