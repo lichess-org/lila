@@ -112,7 +112,7 @@ replaceWithGhostId('oauth_client', 'author', oauthDb);
 
 deleteAllIn(oauthDb, 'oauth_access_token', 'user_id');
 
-deleteAll('perf_stat', new RegExp(`^${userId}/`));
+deleteAll('perf_stat', '_id', new RegExp(`^${userId}/`));
 
 replaceWithGhostId('plan_charge', 'userId');
 
@@ -132,7 +132,7 @@ scrub('puzzle2_puzzle', puzzleDb)(c => c.updateMany({ users: userId }, { $set: {
 
 deleteAllIn(puzzleDb, 'puzzle2_round', '_id', new RegExp(`^${userId}:`));
 
-deleteAll('ranking', new RegExp(`^${userId}:`));
+deleteAll('ranking', '_id', new RegExp(`^${userId}:`));
 
 deleteAll('relation', 'u1');
 deleteAll('relation', 'u2');
