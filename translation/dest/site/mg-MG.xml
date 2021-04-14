@@ -33,6 +33,10 @@
   <string name="joinTheGame">Idiro ny lalao</string>
   <string name="whitePlays">Milalao ny fotsy</string>
   <string name="blackPlays">Milalao ny mainty</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Niala ny mpifaninana aminao. Afaka mitaky fandresena ianao afaka %s segondra.</item>
+    <item quantity="other">Niala ny mpifaninana aminao. Afaka mitaky fandresena ianao afaka %s segondra.</item>
+  </plurals>
   <string name="opponentLeftChoices">Mety nandao ny lalao ny mpifanandrina. Afaka mitaky ny fandresena na miandry ny fiverenany, na manery azy hiala ilany ianao.</string>
   <string name="makeYourOpponentResign">Manao ny mpifanandrina aminao ho resy</string>
   <string name="forceResignation">Takio ny fandresena</string>
@@ -48,6 +52,13 @@
   <string name="viewTheComputerAnalysis">Jereo ny fanadihadiana nataon\'ny solosaina</string>
   <string name="requestAComputerAnalysis">Angataho ny fanadihadian\'ny solosaina</string>
   <string name="computerAnalysis">Fanadihadian\'ny solosaina</string>
+  <string name="computerAnalysisAvailable">Misy ny fandinihan\'ny solosaina</string>
+  <string name="analysis">Solaitra fanadihadiana</string>
+  <string name="depthX">Alalina %s</string>
+  <string name="usingServerAnalysis">Mampiasa ny fandinihan\'ny mpizara</string>
+  <string name="goDeeper">Mandehana lalina kokoa</string>
+  <string name="showThreat">Ampisehoy ny fampitahorana</string>
+  <string name="deleteFromHere">Fafao manomboka eto</string>
   <string name="moveTimes">Fotoana nihetsehana</string>
   <string name="flipBoard">Atsimbadiho ny échiquier</string>
   <string name="threefoldRepetition">Famerenana in-telo</string>
