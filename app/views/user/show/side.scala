@@ -70,7 +70,7 @@ object side {
         showPerf(u.perfs.rapid, PerfType.Rapid),
         showPerf(u.perfs.classical, PerfType.Classical),
         showPerf(u.perfs.correspondence, PerfType.Correspondence),
-        if (!u.hasVariantRating) hr,
+        if (u.hasVariantRating) hr,
         showNonEmptyPerf(u.perfs.crazyhouse, PerfType.Crazyhouse),
         showNonEmptyPerf(u.perfs.chess960, PerfType.Chess960),
         showNonEmptyPerf(u.perfs.kingOfTheHill, PerfType.KingOfTheHill),
