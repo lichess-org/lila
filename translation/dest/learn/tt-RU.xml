@@ -77,9 +77,15 @@
   <string name="protectionComplete">Котлыйбыз! Югалтмаган кисәк - сез җиңгән кисәк!</string>
   <string name="escape">Сезгә хөҗүм колынмауда!
 Таһдиддән котыл!</string>
+  <string name="noEscape">Качыш юк,
+ләкин сез химая кола аласыз!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Аларны алышка юл колма
+һәр химәяләнмәгән сөяк!</string>
   <string name="combat">Сугыш</string>
+  <string name="captureAndDefendPieces">Сөякләрне кулга ал һәм химәя кол</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
+  <string name="mateInOne">Мат бер</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
