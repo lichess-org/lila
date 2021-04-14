@@ -45,6 +45,11 @@
   <string name="knightComplete">Тәбриклийбез! Сез Атчыны үзләштердегез.</string>
   <string name="thePawn">Җәяүле</string>
   <string name="itMovesForwardOnly">Ул фәкать алдында хәрәкәтләнә</string>
+  <string name="pawnIntro">Җәяүле зәгыйфь, ләкин алар бик күп имкәнияткә ия.</string>
+  <string name="pawnsMoveOneSquareOnly">Җәяүлеләр бер квадратны гына хәрәкәт итәләр.
+Ләкин тактага икенче якка җиткәч, алар көчлерәк сөяккә әйләнәләр!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Күпчелек вакытта вәзир күтәрелү иң яхшысы.
+Ләкин кайвакыт атчы ярдәмгә килергә мөмкин!</string>
   <string name="capture">Алу</string>
   <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
