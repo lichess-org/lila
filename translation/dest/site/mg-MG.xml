@@ -9,6 +9,7 @@
   <string name="yourTurn">Anjaranao izao</string>
   <string name="aiNameLevelAiLevel">%1$s ambaratonga %2$s</string>
   <string name="level">Ambaratonga</string>
+  <string name="strength">Hamafisana</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
@@ -21,6 +22,8 @@
   <string name="createAGame">Mamorona lalao</string>
   <string name="whiteIsVictorious">Naharesy ny fotsy</string>
   <string name="blackIsVictorious">Naharesy ny mainty</string>
+  <string name="youPlayTheWhitePieces">Milalao ny fotsy ianao</string>
+  <string name="youPlayTheBlackPieces">Milalao ny mainty ianao</string>
   <string name="newOpponent">Mpifanandrina vaovao</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Te hanomboka lalao vaovao ny mpifanandrina aminao</string>
   <string name="joinTheGame">Idiro ny lalao</string>
