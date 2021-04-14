@@ -19,6 +19,7 @@ final class PersonalDataExport(
     msgEnv: lila.msg.Env,
     forumEnv: lila.forum.Env,
     gameEnv: lila.game.Env,
+    roundEnv: lila.round.Env,
     chatEnv: lila.chat.Env,
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
@@ -106,9 +107,46 @@ final class PersonalDataExport(
           .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
           .throttle(heavyPerSecond, 1 second)
 
+    val gameNotes =
+      Source(List(textTitle("Game notes"))) concat
+        gameEnv.gameRepo.coll
+          .aggregateWith[Bdoc](
+            readPreference = ReadPreference.secondaryPreferred
+          ) { framework =>
+            import framework._
+            List(
+              Match($doc(Game.BSONFields.playerUids -> user.id)),
+              Project($id(true)),
+              PipelineOperator(
+                $doc(
+                  "$lookup" -> $doc(
+                    "from" -> roundEnv.noteApi.collName,
+                    "as"   -> "note",
+                    "let"  -> $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
+                    "pipeline" -> $arr(
+                      $doc(
+                        "$match" -> $doc(
+                          "$expr" -> $doc(
+                            "$eq" -> $arr("$_id", "$$id")
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
+              Unwind("note"),
+              ReplaceRootField("note"),
+              Project($doc("_id" -> false, "t" -> true))
+            )
+          }
+          .documentSource()
+          .map { doc => ~doc.string("t") }
+          .throttle(heavyPerSecond, 1 second)
+
     val outro = Source(List(textTitle("End of data export.")))
 
-    List(intro, connections, followedUsers, forumPosts, privateMessages, gameChats, outro)
+    List(intro, connections, followedUsers, forumPosts, privateMessages, gameChats, gameNotes, outro)
       .foldLeft(Source.empty[String])(_ concat _)
   }
 
