@@ -76,6 +76,11 @@
     }
   }
 
+  hr {
+    margin: $block-gap auto;
+    width: 15em;
+  }
+
   h3 {
     @extend %roboto;
 
@@ -109,7 +114,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
 
-    br,
+    hr,
     .rank {
       display: none;
     }
