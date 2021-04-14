@@ -18,7 +18,6 @@ case class UserInfo(
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
     nbFollowers: Int,
-    nbBlockers: Option[Int],
     nbPosts: Int,
     nbStudies: Int,
     trophies: Trophies,
@@ -131,10 +130,6 @@ object UserInfo {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
       (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
-        (ctx.me.filterNot(user.is) ?? Granter(_.UserModView) ?? {
-          relationApi.countBlockers(user.id) dmap some
-        })
-          .mon(_.user segment "nbBlockers") zip
         postApi.nbByUser(user.id).mon(_.user segment "nbPosts") zip
         studyRepo.countByOwner(user.id).nevermind.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
@@ -151,7 +146,7 @@ object UserInfo {
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
           // format: off
-          case ((((((((((((((ratingChart, nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          case (((((((((((((ratingChart, nbFollowers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
           // format: on
           new UserInfo(
             user = user,
@@ -160,7 +155,6 @@ object UserInfo {
             hasSimul = hasSimul,
             ratingChart = ratingChart,
             nbFollowers = nbFollowers,
-            nbBlockers = nbBlockers,
             nbPosts = nbPosts,
             nbStudies = nbStudies,
             trophies = trophies ::: trophyApi.roleBasedTrophies(
