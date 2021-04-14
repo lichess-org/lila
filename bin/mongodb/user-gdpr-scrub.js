@@ -1,11 +1,12 @@
-// CONFIGURE ME!
-mainDb = Mongo('127.0.0.1:27017').getDB('lichess');
-oauthDb = Mongo('127.0.0.1:27017').getDB('lichess');
-studyDb = Mongo('127.0.0.1:27017').getDB('lichess');
-puzzleDb = Mongo('127.0.0.1:27017').getDB('puzzler');
-// CONFIG END
+// Usage:
+// mongo --eval 'mainDb="localhost/lichess";oauthDb="localhost/lichess";studyDb="localhost/lichess";puzzleDb="localhost/puzzler";user="username"' bin/mongodb/user-gdpr-scrub.js
 
-if (typeof user == 'undefined') throw 'Usage: mongo --eval \'user="username"\' script.js';
+mainDb = connect(mainDb);
+oauthDb = connect(oauthDb);
+studyDb = connect(studyDb);
+puzzleDb = connect(puzzleDb);
+
+if (typeof user == 'undefined') throw 'Missing user argument';
 
 user = db.user4.findOne({ _id: user });
 
