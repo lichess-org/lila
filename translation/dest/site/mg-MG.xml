@@ -132,13 +132,28 @@
   <string name="usernameOrEmail">Solon\'anarana</string>
   <string name="password">Teny miafina</string>
   <string name="changePassword">Ovay ny teny miafina</string>
+  <string name="changeEmail">Anova mailaka</string>
+  <string name="email">Mailaka</string>
+  <string name="passwordReset">Amerina teny miafina</string>
+  <string name="forgotPassword">Nanadino teny miafina?</string>
   <string name="rank">Laharana</string>
+  <string name="rankX">Laharana: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Miova isaky ny minitra ny laharana</item>
+    <item quantity="other">Miova isaky ny %s minitra ny laharana</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s piozila</item>
+    <item quantity="other">%s piozila</item>
+  </plurals>
   <string name="gamesPlayed">Lalao nolalaovina</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s lalao niaraka taminao</item>
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <string name="cancel">Cancel</string>
+  <string name="whiteTimeOut">Lany fotoana ny fotsy</string>
+  <string name="blackTimeOut">Lany fotoana ny mainty</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferDeclined">Lavo ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
@@ -151,6 +166,7 @@
   <string name="accept">Ekena</string>
   <string name="decline">Lavina</string>
   <string name="playingRightNow">Milalao amin\'izao fotoana</string>
+  <string name="eventInProgress">Milalao amin\'izao fotoana</string>
   <string name="finished">Vita</string>
   <string name="abortGame">Ajanona ny lalao</string>
   <string name="gameAborted">Tapaka ny lalao</string>
