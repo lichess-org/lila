@@ -67,6 +67,12 @@
   <string name="capture">Алу</string>
   <string name="takeTheEnemyPieces">Дошман сөякләрен алыгыз</string>
   <string name="captureIntro">Рәкыйбнең якланмаган сөякләрен аныклагыз, һәм аларны кулга алыгыз!</string>
+  <string name="takeTheBlackPieces">Кара сөякләрне алыгыз!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Кара сөякләрне алыгыз!
+Һәм үзегезнекен югалтма.</string>
+  <string name="captureComplete">Котлыйбыз! Сез шаһмат сөякләре белән кандай көрәшә беләсез!</string>
+  <string name="protection">Химәя колу</string>
+  <string name="keepYourPiecesSafe">Ихтият сөякләрне әмәнәтле</string>
   <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
