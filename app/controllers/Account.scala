@@ -446,7 +446,7 @@ final class Account(
       env.user.repo byId userId map {
         _ ?? { user =>
           if (getBool("text"))
-            apiC.GlobalConcurrencyLimitPerUser(me.id)(
+            apiC.GlobalConcurrencyLimitUser(me.id)(
               env.api.personalDataExport(user)
             ) { source =>
               Ok.chunked(source.map(_ + "\n"))
