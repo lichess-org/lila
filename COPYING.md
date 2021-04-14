@@ -93,13 +93,13 @@ public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/style
 Lichess as deployed on https://lichess.org/ also uses these external services:
 
 - [Cloudflare](https://www.cloudflare.com/) to serve static assets, DNS lookups for email validation
-- [Mailgun](https://www.mailgun.com/) for transactional email
 - [prismic.io](https://prismic.io/) for help/documentation pages and the blog
 - [twitch](https://www.twitch.tv/) for featured livestreams
 - [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
 - [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 - [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 - [mailcheck.p.rapidapi.com](https://rapidapi.com/Top-Rated/api/e-mail-check-invalid-or-disposable-domain)
+- [Amazon SES](https://aws.amazon.com/ses/) for transactional email
 - [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - Fallback to [Google Fonts](https://fonts.google.com/)
