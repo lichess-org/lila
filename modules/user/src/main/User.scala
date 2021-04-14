@@ -55,6 +55,8 @@ case class User(
 
   def titleUsername = title.fold(username)(t => s"$t $username")
 
+  def hasVariantRating = PerfType.variants.exists(perfs.apply(_).nonEmpty)
+
   def titleUsernameWithBestRating =
     title.fold(usernameWithBestRating) { t =>
       s"$t $usernameWithBestRating"
