@@ -9,11 +9,15 @@
     <item quantity="other">%s개의 게임을 찾았습니다</item>
   </plurals>
   <string name="opponentName">상대 이름</string>
+  <string name="loser">패배자</string>
+  <string name="from">From</string>
+  <string name="to">To</string>
   <string name="humanOrComputer">플레이어의 상대가 인간인지 컴퓨터인지 여부</string>
   <string name="aiLevel">인공지능 레벨</string>
   <string name="source">출처</string>
   <string name="nbTurns">턴 수</string>
   <string name="result">결과</string>
+  <string name="winnerColor">승리한 색</string>
   <string name="date">날짜</string>
   <string name="sortBy">다음으로 정렬:</string>
   <string name="analysis">분석</string>
