@@ -73,6 +73,10 @@
   <string name="captureComplete">Котлыйбыз! Сез шаһмат сөякләре белән кандай көрәшә беләсез!</string>
   <string name="protection">Химәя колу</string>
   <string name="keepYourPiecesSafe">Ихтият сөякләрне әмәнәтле</string>
+  <string name="protectionIntro">Рәкыйпнең хөҗүм колган сөякләр аныклагыз, һәм аларны химәя колыгыз!</string>
+  <string name="protectionComplete">Котлыйбыз! Югалтмаган кисәк - сез җиңгән кисәк!</string>
+  <string name="escape">Сезгә хөҗүм колынмауда!
+Таһдиддән котыл!</string>
   <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
