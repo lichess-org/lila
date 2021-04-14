@@ -97,6 +97,10 @@
   <string name="escapeWithTheKing">Шаһ белән качыш!</string>
   <string name="theKingCannotEscapeButBlock">Шаһ кача алмады,
 ләкин сез хөҗүмне тыя аласыз!</string>
+  <string name="youCanGetOutOfCheckByTaking">Сез тикшерүдән чыга аласыз
+һөҗүмләнгән сөяген алып.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Бу Атчы тикшермәктә
+сезнең химаягыз аркылы!</string>
   <string name="mateInOne">Мат бер</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
