@@ -79,6 +79,14 @@ scrub('game5')(c =>
   })
 );
 
+scrub('game5')(c => {
+  const importedIds = c.distinct('_id', { 'pgni.user': userId });
+  if (importedIds.length) {
+    c.remove({ 'pgni.user': userId });
+    scrub('analysis2')(a => a.remove({ _id: { $in: importedIds } }));
+  }
+});
+
 deleteAll('history3', '_id');
 
 deleteAll('image', 'createdBy');
