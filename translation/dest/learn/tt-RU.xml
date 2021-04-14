@@ -36,11 +36,77 @@
   <string name="theKingIsSlow">Шаһ әкрен.</string>
   <string name="lastOne">Соңгысы!</string>
   <string name="theKnight">Атчы</string>
+  <string name="itMovesInAnLShape">Ул L шикелле хәрәкәт кыла</string>
+  <string name="knightIntro">Менә сезнең өчен бәйге. Атчы... хәйләкәр сөяк.</string>
+  <string name="knightsHaveAFancyWay">Атчыларның матур ысулы бар
+сикерү!</string>
+  <string name="knightsCanJumpOverObstacles">Рыцарьлар киртәләр өстеннән сикерергә мөмкин!
+Йолдызлардан качыгыз һәм җиңегез!</string>
+  <string name="knightComplete">Тәбриклийбез! Сез Атчыны үзләштердегез.</string>
   <string name="thePawn">Җәяүле</string>
+  <string name="itMovesForwardOnly">Ул фәкать алдында хәрәкәтләнә</string>
+  <string name="pawnIntro">Җәяүле зәгыйфь, ләкин алар бик күп имкәнияткә ия.</string>
+  <string name="pawnsMoveOneSquareOnly">Җәяүлеләр бер квадратны гына хәрәкәт итәләр.
+Ләкин тактага икенче якка җиткәч, алар көчлерәк сөяккә әйләнәләр!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Күпчелек вакытта вәзир күтәрелү иң яхшысы.
+Ләкин кайвакыт атчы ярдәмгә килергә мөмкин!</string>
+  <string name="pawnsMoveForward">Җәяүле алга хәрәкәт итә,
+әмма диагональ белән кулга алына!</string>
+  <string name="captureThenPromote">Кулга алыгыз, аннары алга җибәрегез!</string>
+  <string name="useAllThePawns">Барлык җәяүле кулланыгыз!
+Алга җибәрергә кирәкми.</string>
+  <string name="aPawnOnTheSecondRank">Икенче дәрәҗәдәге җәяүле берьюлы 2 квадратны күчерә ала!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Барлык йолдызларны тот!
+Алга җибәрергә кирәкми.</string>
+  <string name="pawnComplete">Котлыйбыз! Җәяүләрнең сезнең өчен серләре юк.</string>
+  <string name="pawnPromotion">Җәяүләрне тәргыйп колыш</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Сезнең җәяүлеләр тактаның ахырына етте!</string>
+  <string name="itNowPromotesToAStrongerPiece">Хәзер ул көчлерәк сөяккә күтәрелә.</string>
+  <string name="selectThePieceYouWant">Сез теләгән сөякне сайлагыз!</string>
+  <string name="fundamentals">Нигезләр</string>
   <string name="capture">Алу</string>
+  <string name="takeTheEnemyPieces">Дошман сөякләрен алыгыз</string>
+  <string name="captureIntro">Рәкыйбнең якланмаган сөякләрен аныклагыз, һәм аларны кулга алыгыз!</string>
+  <string name="takeTheBlackPieces">Кара сөякләрне алыгыз!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Кара сөякләрне алыгыз!
+Һәм үзегезнекен югалтма.</string>
+  <string name="captureComplete">Котлыйбыз! Сез шаһмат сөякләре белән кандай көрәшә беләсез!</string>
+  <string name="protection">Химәя колу</string>
+  <string name="keepYourPiecesSafe">Ихтият сөякләрне әмәнәтле</string>
+  <string name="protectionIntro">Рәкыйпнең хөҗүм колган сөякләр аныклагыз, һәм аларны химәя колыгыз!</string>
+  <string name="protectionComplete">Котлыйбыз! Югалтмаган кисәк - сез җиңгән кисәк!</string>
+  <string name="escape">Сезгә хөҗүм колынмауда!
+Таһдиддән котыл!</string>
+  <string name="noEscape">Качыш юк,
+ләкин сез химая кола аласыз!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Аларны алышка юл колма
+һәр химәяләнмәгән сөяк!</string>
   <string name="combat">Сугыш</string>
+  <string name="captureAndDefendPieces">Сөякләрне кулга ал һәм химәя кол</string>
+  <string name="combatIntro">Якшы яңчы хөҗүмне һәм химәяне беләдер!</string>
+  <string name="combatComplete">Котлыйбыз! Сез шаһмат сөякләре белән көрәшергә беләсез!</string>
+  <string name="checkInOne">Берсендә тикшерегез</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
+  <string name="checkInOneGoal">Рәкыйпнең шаһына каратың
+бер хәрәкәттә!</string>
+  <string name="checkInOneComplete">Котлыйбыз! Сез рәкыйпне тикшердегез, аларны шаһын якларга мәҗбүр иттегез!</string>
+  <string name="outOfCheck">Тикшерелгән</string>
+  <string name="defendYourKing">Шаһыгызны химәя кыл</string>
+  <string name="outOfCheckIntro">Сез тикшерәсез! Сез һөҗүмнән качарга яки блокларга тиеш.</string>
+  <string name="escapeWithTheKing">Шаһ белән качыш!</string>
+  <string name="theKingCannotEscapeButBlock">Шаһ кача алмады,
+ләкин сез хөҗүмне тыя аласыз!</string>
+  <string name="youCanGetOutOfCheckByTaking">Сез тикшерүдән чыга аласыз
+һөҗүмләнгән сөяген алып.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Бу Атчы тикшермәктә
+сезнең химаягыз аркылы!</string>
+  <string name="escapeOrBlock">Шаһ белән качыш
+яки хөҗүмне той!</string>
+  <string name="outOfCheckComplete">Котлыйбыз! Сезнең шаһны беркайчан да алып булмый, тикшерелгән саклый алуыгызга инаныгыз!</string>
+  <string name="mateInOne">Мат бер</string>
+  <string name="defeatTheOpponentsKing">Рәкыйпнең шаһы җиңелә</string>
+  <string name="mateInOneIntro">Рәкыйбыгыз хамая кыла алмаса тикшерүдә сез җиңдегез.</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
