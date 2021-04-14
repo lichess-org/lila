@@ -250,6 +250,24 @@
   <string name="viewTournament">Jereo ny fifaninanana</string>
   <string name="backToTournament">Hiverina amin\'ny fifaninanana</string>
   <string name="thematic">Lohahevitra</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s lalao misy naoty</item>
+    <item quantity="other">≥ %s lalao misy naoty</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s lalao misy naoty</item>
+    <item quantity="other">≥ %1$s %2$s lalao misy naoty</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Mila milalao %1$s fanampiny amin\'ny %2$s misy naoty ianao</item>
+    <item quantity="other">Mila milalao %1$s fanampiny amin\'ny %2$s misy naoty ianao</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Mila milalao %s misy naoty fanampiny ianao</item>
+    <item quantity="other">Mila milalao %s misy naoty fanampiny ianao</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ny laharanao faha %s dia vonjimaika</string>
+  <string name="yourPerfRatingIsTooHigh">Ny laharanao amin\'ny %1$s (%2$s) dia ambony loatra</string>
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
   <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
   <string name="xJoinedTeamY">%1$s dia niditra tao amin\'ny %2$s</string>
@@ -264,6 +282,7 @@
   <string name="pasteThePgnStringHere">Apetaho eto ny PGN</string>
   <string name="fromPosition">Avy amina toerana</string>
   <string name="continueFromHere">Tohizo avy amin\'ito toerana ito</string>
+  <string name="toStudy">Fianarana</string>
   <string name="importGame">Ampidiro ny lalao</string>
   <plurals name="nbImportedGames">
     <item quantity="one">Lalao nampidirina %s</item>
@@ -276,6 +295,7 @@
   <string name="reconnecting">Reconnecting</string>
   <string name="noFriendsOnline">Tsy misy namana connectés</string>
   <string name="findFriends">Mitadiava namana</string>
+  <string name="favoriteOpponents">Mpifanandrina ankafizina</string>
   <string name="follow">Araho</string>
   <string name="following">Manaraka</string>
   <string name="unfollow">Tsy manaraka</string>
@@ -347,11 +367,24 @@
   <string name="no">Tsia</string>
   <string name="yes">Eny</string>
   <string name="help">Fanampiana:</string>
+  <string name="topics">Lohahevitra</string>
+  <string name="views">Jery</string>
   <string name="replies">Ireo valin-kafatra</string>
+  <string name="replyToThisTopic">Hamaly ity lohahevitra ity</string>
   <string name="reply">Valin-kafatra</string>
   <string name="message">Hafatra</string>
+  <string name="createTheTopic">Hamorona lohahevitra</string>
+  <string name="reportAUser">Hitatitra mpilalao</string>
+  <string name="user">Mampiasa</string>
   <string name="reason">Antony</string>
+  <string name="whatIsIheMatter">Inona ny olana?</string>
+  <string name="cheat">Fanambakana</string>
+  <string name="insult">Fanopana</string>
+  <string name="troll">Fananihanina</string>
+  <string name="ratingManipulation">Fanovana laharana</string>
   <string name="other">Antony hafa</string>
+  <string name="thisTopicIsNowClosed">Mikatona ity lohahevitra ity.</string>
+  <string name="blog">Bilaogy</string>
   <string name="questionsAndAnswers">Fanontaniana &amp; valiny</string>
   <string name="notes">Naoty</string>
   <string name="invalidUsernameOrPassword">Anarana na teny miafina diso</string>
