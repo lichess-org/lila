@@ -70,7 +70,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
           "date" -> DateTime.now,
           "up"   -> up,
           "api"  -> apiVersion.map(_.value),
-          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
+          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(FingerHash.fingerHashHandler.writeOpt)
         )
       )
       .void
@@ -224,12 +224,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
 
 object Store {
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: DateTime) {
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)
   }
 
-  implicit val fingerHashBSONHandler: BSONHandler[FingerHash] = stringIsoHandler[FingerHash]
-  implicit val InfoReader                                     = Macros.reader[Info]
+  import FingerHash.fingerHashHandler
+  import UserAgent.userAgentHandler
+  implicit val InfoReader = Macros.reader[Info]
 }

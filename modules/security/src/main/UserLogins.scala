@@ -3,8 +3,6 @@ package lila.security
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import org.uaparser.scala.{ Parser => UAParser }
-import org.uaparser.scala.Client
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl._
@@ -13,7 +11,7 @@ import lila.user.{ User, UserRepo }
 case class UserLogins(
     ips: List[UserLogins.IPData],
     prints: List[UserLogins.FPData],
-    uas: List[Dated[UserLogins.UaAndClient]],
+    uas: List[Dated[UserAgent]],
     otherUsers: List[UserLogins.OtherUser]
 ) {
 
@@ -47,6 +45,15 @@ final class UserLoginsApi(
     store.chronoInfoByUser(user) flatMap { infos =>
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
+      val fpClients: Map[FingerHash, UserAgent.Client] = infos.view.flatMap { i =>
+        i.fp map { fp =>
+          fp -> i.ua.client
+        }
+      }.toMap
+      val ipClients: Map[IpAddress, Set[UserAgent.Client]] =
+        infos.foldLeft(Map.empty[IpAddress, Set[UserAgent.Client]]) { case (acc, info) =>
+          acc.updated(info.ip, acc.get(info.ip).fold(Set(info.ua.client))(_ + info.ua.client))
+        }
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map { case (otherUsers, proxies) =>
           val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { case (acc, other) =>
@@ -66,19 +73,19 @@ final class UserLoginsApi(
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
                 proxies(ip.value),
-                Alts(othersByIp.getOrElse(ip.value, Set.empty))
+                Alts(othersByIp.getOrElse(ip.value, Set.empty)),
+                ipClients.getOrElse(ip.value, Set.empty)
               )
             }.toList,
             prints = fps.map { fp =>
               FPData(
                 fp,
                 printBan blocks fp.value,
-                Alts(othersByFp.getOrElse(fp.value, Set.empty))
+                Alts(othersByFp.getOrElse(fp.value, Set.empty)),
+                fpClients.getOrElse(fp.value, UserAgent.Client.PC)
               )
             }.toList,
-            uas = distinctRecent(infos.map(_.datedUa map { ua =>
-              UaAndClient(ua, parseUa(ua))
-            })).toList,
+            uas = distinctRecent(infos.map(_.datedUa)).toList,
             otherUsers = otherUsers
           )
         }
@@ -86,8 +93,6 @@ final class UserLoginsApi(
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
     store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp" $exists true))
-
-  private val parseUa = UAParser.default.parse _
 
   private def fetchOtherUsers(
       user: User,
@@ -98,7 +103,7 @@ final class UserLoginsApi(
     ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
-        import FingerHash.fpHandler
+        import FingerHash.fingerHashHandler
         Match(
           $doc(
             $or(
@@ -206,7 +211,8 @@ object UserLogins {
       blocked: Boolean,
       location: Location,
       proxy: Boolean,
-      alts: Alts
+      alts: Alts,
+      clients: Set[UserAgent.Client]
   ) {
     def datedLocation = Dated(location, ip.date)
   }
@@ -214,13 +220,9 @@ object UserLogins {
   case class FPData(
       fp: Dated[FingerHash],
       banned: Boolean,
-      alts: Alts
+      alts: Alts,
+      client: UserAgent.Client
   )
-
-  case class UaAndClient(ua: String, client: Client) {
-    def mobile = ua contains "Mobile"
-    def app    = ua contains "lichobile"
-  }
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
