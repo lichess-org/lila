@@ -5,7 +5,7 @@ studyDb = Mongo('127.0.0.1:27017').getDB('lichess');
 puzzleDb = Mongo('127.0.0.1:27017').getDB('puzzler');
 // CONFIG END
 
-if (typeof user == 'undefined') throw 'Usage: mongo lichess --eval \'user="username"\' script.js';
+if (typeof user == 'undefined') throw 'Usage: mongo --eval \'user="username"\' script.js';
 
 user = db.user4.findOne({ _id: user });
 
@@ -13,6 +13,9 @@ if (!user || user.enabled || !user.erasedAt) throw 'Erase with lichess CLI first
 
 print(`\n\n Delete user ${user.username} and all references to their username!\n\n`);
 sleep(5000);
+
+const userId = user._id;
+const tosViolation = user.marks && user.marks.length;
 
 const ghostId = 'ghost';
 const newGhostId = () => {
@@ -35,9 +38,6 @@ const deleteAll = (collName, field, value) => deleteAllIn(mainDb, collName, fiel
 const replaceWithGhostId = (collName, field, inDb) =>
   scrub(collName, inDb)(c => c.updateMany({ [field]: userId }, { $set: { [field]: ghostId } }));
 
-const userId = user._id;
-const tosViolation = user.marks && user.marks.length;
-
 // Let us scrub.
 
 deleteAll('activity', '_id', new RegExp(`^${userId}:`));
@@ -57,6 +57,7 @@ deleteAll('clas_student', 'userId');
 deleteAll('coach', '_id');
 
 deleteAll('coach_review', 'userId');
+deleteAll('coach_review', 'coachId');
 
 deleteAll('config', '_id');
 
@@ -81,7 +82,7 @@ deleteAll('history3', '_id');
 
 deleteAll('image', 'createdBy');
 
-if (!tosViolation) deleteAll('irwin_report', '_id');
+deleteAll('irwin_report', '_id');
 
 deleteAll('learn_progress', '_id');
 
@@ -170,7 +171,7 @@ const studyIds = scrub(
   return ids;
 });
 
-scrub('study_chapter_flat', studyDb)(c => c.remove({ studyId: { $in: studyIds } }));
+if (studyIds.length) scrub('study_chapter_flat', studyDb)(c => c.remove({ studyId: { $in: studyIds } }));
 
 deleteAllIn(studyDb, 'study_user_topic', '_id');
 
@@ -242,18 +243,13 @@ scrub('user4')(c =>
             mustConfirmEmail: 1,
             colorIt: 1,
           },
-          $set: {
-            erasedAt: new Date(),
-          },
         }
       : // Else, delete everything from the user document, with the following exceptions:
-        // - username, as to prevent signing up with the same username again. Usernames must NOT be reused.
+        // - _id, as to prevent signing up with the same username again. Usernames must NOT be reused.
         // - prevEmail and createdAt, to prevent mass-creation of accounts reusing the same email address.
-        // - GDPR erasure date for book-keeping.
         {
           prevEmail: user.prevEmail,
           createdAt: user.createdAt,
-          erasedAt: new Date(),
         }
   )
 );
