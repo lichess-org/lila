@@ -40,12 +40,12 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent):
   const role = el.getAttribute("data-role") as cg.Role,
     number = el.getAttribute("data-nb");
   if (!role || number === "0") return;
-  if (!ctrl.selected || ctrl.selected[1] !== role) {
+  const dropMode = ctrl.shogiground?.state.dropmode;
+  const dropPiece = ctrl.shogiground?.state.dropmode.piece;
+  if (!dropMode.active || dropPiece?.role !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
-    ctrl.selected = [color, role];
   }
   else {
-    ctrl.selected = undefined;
     cancelDropMode(ctrl.shogiground.state);
   }
   e.stopPropagation();

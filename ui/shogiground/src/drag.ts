@@ -1,4 +1,5 @@
 import { State } from "./state";
+import { cancelDropMode } from "./drop";
 import * as board from "./board";
 import * as util from "./util";
 import { clear as drawClear } from "./draw";
@@ -84,6 +85,7 @@ export function start(s: State, e: cg.MouchEvent): void {
       util.setVisible(ghost, true);
     }
     processDrag(s);
+    if (s.dropmode.active) cancelDropMode(s);
   } else {
     if (hadPremove) board.unsetPremove(s);
     if (hadPredrop) board.unsetPredrop(s);
