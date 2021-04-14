@@ -167,7 +167,9 @@ object event {
         )
       ),
       form3.split(
-        form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
+        form3.group(form("lang"), raw("Language"), half = true)(
+          form3.select(_, lila.i18n.LangList.popularChoices)
+        ),
         form3.group(
           form("hostedBy"),
           raw("Hosted by Lichess user"),
