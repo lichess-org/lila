@@ -84,8 +84,12 @@
   <string name="combat">Сугыш</string>
   <string name="captureAndDefendPieces">Сөякләрне кулга ал һәм химәя кол</string>
   <string name="combatIntro">Якшы яңчы хөҗүмне һәм химәяне беләдер!</string>
+  <string name="combatComplete">Котлыйбыз! Сез шаһмат сөякләре белән көрәшергә беләсез!</string>
+  <string name="checkInOne">Берсендә тикшерегез</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
+  <string name="checkInOneGoal">Рәкыйпнең шаһына каратың
+бер хәрәкәттә!</string>
   <string name="mateInOne">Мат бер</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
