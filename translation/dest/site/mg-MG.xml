@@ -68,6 +68,21 @@
   <string name="recentGames">Lalao vao aingana</string>
   <string name="noGameFound">Tsy misy lalao hita</string>
   <string name="delete">Fafao</string>
+  <string name="blunder">Fahadisoana goavana</string>
+  <string name="mistake">Fahadisoana</string>
+  <string name="inaccuracy">Tsy fahatomombanana</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s fahadisoana goavana</item>
+    <item quantity="other">%s fahadisoana goavana</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fahadisoana</item>
+    <item quantity="other">%s fahadisoana</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s tsy fahatomombanana</item>
+    <item quantity="other">%s tsy fahatomombanana</item>
+  </plurals>
   <string name="moveTimes">Fotoana nihetsehana</string>
   <string name="flipBoard">Atsimbadiho ny échiquier</string>
   <string name="threefoldRepetition">Famerenana in-telo</string>
@@ -92,10 +107,13 @@
   <string name="signIn">Midira</string>
   <string name="youNeedAnAccountToDoThat">Mila kaonty ianao mba hanaovana an\'izay</string>
   <string name="signUp">Mamorona kaonty</string>
+  <string name="computersAreNotAllowedToPlay">Ny solosaina sy ireo mpilalao mampiasa solosaina dia tsy azo ekena hilalao. Azafady mba tsy hampiasa fanampiana avy amin\'ny solosaina, angona, na avy amin\'ny mpilalao hafa mandritra ny lalao. Fantaro fa tsy ekena ny fananana kaonty maromaro, mety hitarika amin\'ny fandroahana izany.</string>
   <string name="games">Lalao</string>
   <string name="forum">Serasera</string>
   <string name="xPostedInForumY">%1$s dia niserasera tao amin\'ny dinika %2$s</string>
   <string name="players">Ireo mpilalao</string>
+  <string name="friends">Namana</string>
+  <string name="discussions">Resaka</string>
   <string name="today">Androany</string>
   <string name="yesterday">Omaly</string>
   <string name="minutesPerSide">Minitra ho an\'ny mpilalao tsirairay</string>
