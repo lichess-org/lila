@@ -60,7 +60,13 @@
 Алга җибәрергә кирәкми.</string>
   <string name="pawnComplete">Котлыйбыз! Җәяүләрнең сезнең өчен серләре юк.</string>
   <string name="pawnPromotion">Җәяүләрне тәргыйп колыш</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Сезнең җәяүлеләр тактаның ахырына етте!</string>
+  <string name="itNowPromotesToAStrongerPiece">Хәзер ул көчлерәк сөяккә күтәрелә.</string>
+  <string name="selectThePieceYouWant">Сез теләгән сөякне сайлагыз!</string>
+  <string name="fundamentals">Нигезләр</string>
   <string name="capture">Алу</string>
+  <string name="takeTheEnemyPieces">Дошман сөякләрен алыгыз</string>
+  <string name="captureIntro">Рәкыйбнең якланмаган сөякләрен аныклагыз, һәм аларны кулга алыгыз!</string>
   <string name="combat">Сугыш</string>
   <string name="attackTheOpponentsKing">Көндәш шаһына һөҗүм</string>
   <string name="checkInOneIntro">Көндәшеңне тикшерү өчен, аларның шаһына һөҗүм ит. Алар аны якларга тиеш!</string>
