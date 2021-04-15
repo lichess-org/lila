@@ -5,6 +5,7 @@
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="endgame">ท้ายเกม</string>
   <string name="fork">การโจมตีสองทาง</string>
+  <string name="hangingPiece">หมากลอย</string>
   <string name="mate">รุกจน</string>
   <string name="mateDescription">ชนะเกมอย่างมีสไตล์!</string>
   <string name="mateIn1">รุกจนใน 1 ตา</string>
