@@ -55,7 +55,9 @@
   <string name="shareAndExport">แชร์ &amp; ส่งออก</string>
   <string name="cloneStudy">ทำสำเนา</string>
   <string name="studyPgn">PGN กรณีศึกษา</string>
+  <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
   <string name="chapterPgn">PGN บท</string>
+  <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
