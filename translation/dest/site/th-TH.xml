@@ -771,4 +771,6 @@
   <string name="classical">คลาสสิก</string>
   <string name="important">สำคัญ</string>
   <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
+  <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
+  <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
 </resources>
