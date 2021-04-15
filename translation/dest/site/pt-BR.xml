@@ -675,7 +675,7 @@
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
-  <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
+  <string name="printFriendlyPDF">Versão para impressão em PDF</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
@@ -694,7 +694,7 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é uma lista de dispositivos com os quais você logou em sua conta. Revogue qualquer sessão que você não reconheça.</string>
   <string name="alternativelyYouCanX">Como alternativa, você pode %s.</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
-  <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>
+  <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos usam grátis todos os recursos</string>
@@ -703,7 +703,7 @@
   <string name="phoneAndTablet">Celular e tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
-  <string name="onlineAndOfflinePlay">Jogue online e offline.</string>
+  <string name="onlineAndOfflinePlay">Jogue online e offline</string>
   <string name="viewTheSolution">Ver solução</string>
   <string name="followAndChallengeFriends">Siga e desafie amigos</string>
   <plurals name="availableInNbLanguages">
