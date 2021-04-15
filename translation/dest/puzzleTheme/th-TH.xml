@@ -17,7 +17,10 @@
   <string name="mateIn4">รุกจนใน 4 ตา</string>
   <string name="mateIn4Description">รุกจนให้ได้โดยการเดินสี่ครั้ง</string>
   <string name="mateIn5">รุกจนใน 5 ตาหรือมากกว่านั้น</string>
+  <string name="middlegame">กลางเกม</string>
+  <string name="opening">การเปิดเกม</string>
   <string name="pin">การกด</string>
   <string name="sacrifice">การเสียเพื่อแลก</string>
   <string name="trappedPiece">หมากที่ถูกดักไว้</string>
+  <string name="zugzwang">บังคับให้เดินเสียเปรียบ</string>
 </resources>
