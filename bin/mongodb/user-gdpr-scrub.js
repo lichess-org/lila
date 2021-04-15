@@ -6,6 +6,8 @@ mainDb = connect(mainDb);
 oauthDb = connect(oauthDb);
 studyDb = connect(studyDb);
 puzzleDb = connect(puzzleDb);
+allGames = typeof allGames == 'undefined' ? false : true; // set to true to scrub username from all games
+allPms = typeof allPms == 'undefined' ? false : true; // set to true to erase all PM conversations
 
 const user = mainDb.user4.findOne({ eraseAt: { $lt: new Date() } });
 if (!user) quit();
@@ -65,28 +67,32 @@ deleteAll('config', '_id');
 
 deleteAll('coordinate_score', '_id');
 
-deleteAll('crosstable2', '_id', new RegExp(`^${userId}/`));
+if (allGames) deleteAll('crosstable2', '_id', new RegExp(`^${userId}/`));
 
 scrub('f_post')(c => c.updateMany({ userId: userId }, { $set: { userId: ghostId, text: '', erasedAt: new Date() } }));
 
-scrub('game5')(c =>
-  c.find({ us: userId }, { us: 1, wid: 1 }).forEach(doc => {
-    c.update(byId(doc), {
-      $set: {
-        [`us.${doc.us.indexOf(userId)}`]: ghostId, // replace in player usernames
-      },
-      ...(doc.wid == userId ? { $unset: { wid: 1 } } : {}), // remove winner username
-    });
-  })
-);
+const deleteGamesByQuery = query => {
+  const ids = scrub('game5')(c => c.distinct('_id', query));
+  if (!ids.length) return;
+  scrub('game5')(c => c.remove({ _id: { $in: ids } }));
+  scrub('analysis2')(c => c.remove({ _id: { $in: ids } }));
+  scrub('bookmark')(c => c.remove({ g: { $in: ids } }));
+};
 
-scrub('game5')(c => {
-  const importedIds = c.distinct('_id', { 'pgni.user': userId });
-  if (importedIds.length) {
-    c.remove({ 'pgni.user': userId });
-    scrub('analysis2')(a => a.remove({ _id: { $in: importedIds } }));
-  }
-});
+deleteGamesByQuery({ us: userId, $or: [{ 'p0.ai': { $exists: 1 } }, { 'p1.ai': { $exists: 1 } }] });
+deleteGamesByQuery({ 'pgni.user': userId });
+
+if (allGames)
+  scrub('game5')(c =>
+    c.find({ us: userId }, { us: 1, wid: 1 }).forEach(doc => {
+      c.update(byId(doc), {
+        $set: {
+          [`us.${doc.us.indexOf(userId)}`]: ghostId, // replace in player usernames
+        },
+        ...(doc.wid == userId ? { $unset: { wid: 1 } } : {}), // remove winner username
+      });
+    })
+  );
 
 deleteAll('history3', '_id');
 
@@ -101,14 +107,15 @@ deleteAll('matchup', '_id', new RegExp(`^${userId}/`));
 /*
 We decided not to delete PMs out of legit interest of the correspondents
 and also to be able to comply with data requests from law enforcement
-
-const msgThreadIds = scrub('msg_thread')(c => {
-  const ids = c.distinct('_id', { users: userId });
-  c.remove({ users: userId });
-  return ids;
-});
-scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds } }));
 */
+if (allPms) {
+  const msgThreadIds = scrub('msg_thread')(c => {
+    const ids = c.distinct('_id', { users: userId });
+    c.remove({ users: userId });
+    return ids;
+  });
+  scrub('msg_msg')(c => msgThreadIds.length && c.remove({ tid: { $in: msgThreadIds } }));
+}
 
 scrub('note')(c => {
   c.remove({ from: userId, mod: { $ne: true } });
