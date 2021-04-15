@@ -228,7 +228,7 @@ object home {
       i("?"),
       p(
         strong("Can players late-join?"),
-        "Yes, until more than half the rounds have started; for example in a 11-rounds swiss player can join before round 6 starts and in a 12-rounds before round starts.",
+        "Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round starts.",
         br,
         "Late joiners get a single bye, even if they missed several rounds."
       )
