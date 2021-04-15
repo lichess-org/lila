@@ -117,6 +117,18 @@
   <string name="blunder">Capivarada</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s capivarada</item>
+    <item quantity="other">%s capivaradas</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s erro</item>
+    <item quantity="other">%s erros</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisão</item>
+    <item quantity="other">%s imprecisões</item>
+  </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
   <string name="threefoldRepetition">Tripla repetição</string>
