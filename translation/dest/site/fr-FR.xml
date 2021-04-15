@@ -119,15 +119,15 @@
   <string name="inaccuracy">Imprécision</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s gaffe</item>
-    <item quantity="other">%s spodrsljajev</item>
+    <item quantity="other">%s gaffes</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erreur</item>
-    <item quantity="other">%s napake</item>
+    <item quantity="other">%s erreurs</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imprécision</item>
-    <item quantity="other">%s nepravilnosti</item>
+    <item quantity="other">%s imprécisions</item>
   </plurals>
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
