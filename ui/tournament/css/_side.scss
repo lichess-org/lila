@@ -7,6 +7,9 @@
 
     @include breakpoint($mq-col2) {
       min-height: inherit;
+      &:hover {
+        min-height: 20em;
+      }
     }
   }
 }
