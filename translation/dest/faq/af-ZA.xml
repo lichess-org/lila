@@ -102,9 +102,9 @@ Moenie om die LM-titel vra nie.</string>
   <string name="whichRatingSystemUsedByLichess">Watter graderingstelsel gebruik Lichess?</string>
   <string name="ratingSystemUsedByLichess">Graderings word bereken volgens die Glicko-2-graderingsmetode wat deur Mark Glickman ontwikkel is. Dit is \'n baie gewilde beoordelingsmetode en word deur \'n aansienlike aantal skaakorganisasies gebruik (FIDE is \'n noemenswaardige teenvoorbeeld, aangesien hulle steeds die gedateerde Elo-graderingstelsel gebruik).
 
-Fundamenteel gebruik Glicko-graderings \"vertrouensintervalle\" wanneer u die gradering bereken en voorstel. Wanneer u die webwerf vir die eerste keer begin gebruik, begin u gradering by 1500 ± 700. Die 1500 verteenwoordig u gradering en die 700 stel die vertrouensinterval voor.
+Fundamenteel gebruik Glicko-graderings \"vertrouensintervalle\" wanneer u die gradering bereken en voorstel. Wanneer u die webwerf vir die eerste keer begin gebruik, begin u gradering by 1500 ± 500. Die 1500 verteenwoordig u gradering en die 500 stel die vertrouensinterval voor.
 
-Die stelsel is basies 90% seker dat u gradering tussen 800 en 2200 is. Dit is ongelooflik onseker. As gevolg hiervan, as \'n speler net begin, sal die gradering daarvan dramaties verander, en moontlik \'n paar honderd punte op \'n slag. Maar na sommige wedstryde teen gevestigde spelers sal die vertrouensinterval verklein en die hoeveelheid punte wat u na elke wedstryd opgedoen / verloor het, verminder.
+Die stelsel is basies 90% seker dat u gradering tussen 1000 en 2000 is. Dit is ongelooflik onseker. As gevolg hiervan, as \'n speler net begin, sal die gradering daarvan dramaties verander, en moontlik \'n paar honderd punte op \'n slag. Maar na sommige wedstryde teen gevestigde spelers sal die vertrouensinterval verklein en die hoeveelheid punte wat u na elke wedstryd opgedoen / verloor het, verminder.
 
 \'N Ander punt om op te let, is dat die vertrouensinterval mettertyd sal toeneem namate die tyd verbygaan. Dit stel u in staat om vinniger puntepunte te verwerf of te verloor om aan te pas by enige veranderinge in u vaardigheidsvlak gedurende daardie tyd.</string>
   <string name="whatIsProvisionalRating">Waarom is daar \'n vraagteken (?) Langs \'n gradering?</string>
