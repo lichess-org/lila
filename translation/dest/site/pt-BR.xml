@@ -569,7 +569,7 @@
   <string name="unauthorizedError">Acesso negado.</string>
   <string name="noInternetConnection">Sem conexão. Você ainda pode jogar offline a partir do menu.</string>
   <string name="connectedToLichess">Você está conectado ao lichess.org</string>
-  <string name="signedOut">Você fez logoff</string>
+  <string name="signedOut">Voce foi desconectado</string>
   <string name="loginSuccessful">Login efetuado</string>
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
@@ -587,7 +587,7 @@
   <string name="shareGameURL">Compartilhar URL do Jogo</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de email é inválido</string>
-  <string name="error.email_acceptable">Este endereço de email não é aceitável. Reconfira e tente novamente.</string>
+  <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>
   <string name="error.email_unique">Este endereço de email já existe</string>
   <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
@@ -622,7 +622,7 @@
   <string name="createdSimuls">Simultâneas recentemente criadas</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
-  <string name="noSimulExplanation">Esta exibição simultânea não existe</string>
+  <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Retornar à página inicial da simultânea</string>
   <string name="aboutSimul">A simultânea envolve um único jogador contra vários oponentes ao mesmo tempo.</string>
   <string name="aboutSimulImage">Contra 50 oponentes, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
