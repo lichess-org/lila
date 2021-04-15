@@ -6,4 +6,5 @@
   <string name="highscoreX">คะแนนสูงสุด: %s</string>
   <string name="accuracy">ความแม่นยำ</string>
   <string name="highscores">คะแนนสูงสุด</string>
+  <string name="skip">ข้าม</string>
 </resources>
