@@ -286,7 +286,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço da Lichess</string>
+  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço do Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
@@ -301,8 +301,8 @@
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s ponto(s) de torneio</item>
-    <item quantity="other">%s ponto(s) de torneio</item>
+    <item quantity="one">%s ponto de torneio</item>
+    <item quantity="other">%s pontos de torneio</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s estudo</item>
@@ -361,7 +361,7 @@
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA enxadrístico.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer seu lance, provando que é humano.</string>
   <string name="captcha.fail">Por favor, resolva o captcha enxadrístico.</string>
-  <string name="notACheckmate">Não é xeque-mate.</string>
+  <string name="notACheckmate">Não é xeque-mate</string>
   <string name="whiteCheckmatesInOneMove">Xeque-mate em um lance para as brancas</string>
   <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
@@ -501,7 +501,7 @@
   <string name="troll">Troll</string>
   <string name="ratingManipulation">Manipulação de rating</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
+  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
