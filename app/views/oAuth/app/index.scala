@@ -62,7 +62,7 @@ object index {
             a(href := "https://lichess.org/api")(
               "Lichess' API documentation"
             ),
-            " to get an idea on how lishogi's API looks."
+            " to get an idea on how Lishogi's API looks."
           ),
           table(cls := "slist slist-pad")(
             made.map { t =>
