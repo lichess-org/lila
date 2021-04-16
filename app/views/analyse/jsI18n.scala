@@ -40,6 +40,7 @@ private object jsI18n {
     trans.averageCentipawnLoss,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
+    trans.spectators,
     // ceval (also uses gameOver)
     trans.depthX,
     trans.usingServerAnalysis,
