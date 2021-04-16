@@ -27,5 +27,6 @@
   <string name="shortDescription">ปริศนาที่มี 2 ตาเดิน</string>
   <string name="trappedPiece">หมากที่ถูกดักไว้</string>
   <string name="veryLong">4 ตาเดินหรือมากกว่านั้น</string>
+  <string name="veryLongDescription">ปริศนาที่มี 4 ตาเดินขึ้นไป</string>
   <string name="zugzwang">บังคับให้เดินเสียเปรียบ</string>
 </resources>
