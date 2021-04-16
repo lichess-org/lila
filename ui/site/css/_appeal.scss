@@ -59,4 +59,22 @@
     padding: 2em 3em;
     background: $c-bg-zebra;
   }
+
+  @keyframes reveal {
+    0%,
+    95% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  #help-engine-deny form {
+    opacity: 0;
+  }
+  #help-engine-deny:target form {
+    animation: 20s reveal;
+    animation-fill-mode: forwards;
+  }
 }
