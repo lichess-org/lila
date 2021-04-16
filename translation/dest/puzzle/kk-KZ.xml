@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
   <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
-  <string name="findTheBestMoveForWhite">Ақтың пайдасына ең дұрыс жүрісті табыңыз.</string>
-  <string name="findTheBestMoveForBlack">Қараның пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForWhite">Ақтың пайдасына ең тиімді жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForBlack">Қараның пайдасына ең тиімді жүрісті табыңыз.</string>
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
   <string name="puzzleId">Жұмбақ %s</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
