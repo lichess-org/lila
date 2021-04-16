@@ -179,7 +179,7 @@ GET   /features                        controllers.Plan.features
 GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
-GET   /practice                                   controllers.Page.notSupported
+#GET   /practice                                   controllers.Page.notSupported
 #GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: String, chapterId: String)
 #GET   /practice/config                            controllers.Practice.config
 #POST  /practice/config                            controllers.Practice.configSave
