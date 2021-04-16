@@ -581,6 +581,7 @@ GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(us
 # Appeal
 GET   /appeal                          controllers.Appeal.home
 POST  /appeal                          controllers.Appeal.post
+GET   /appeal/landing                  controllers.Appeal.landing
 GET   /appeal/queue                    controllers.Appeal.queue
 GET   /appeal/:username                controllers.Appeal.show(username: String)
 POST  /appeal/:username                controllers.Appeal.reply(username: String)
