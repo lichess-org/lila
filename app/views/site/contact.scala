@@ -108,8 +108,7 @@ object contact {
             Leaf(
               "title",
               wantTitle(),
-              p(
-                a(href := routes.Page.notSupported())(visitTitleConfirmation()), // master
+              p((visitTitleConfirmation()), // master
                 "."
               )
             ),

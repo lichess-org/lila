@@ -70,7 +70,7 @@ object features {
               a(href := routes.Learn.index())("All shogi basics lessons")
             ),
             tr(unlimited)(
-              a(href := routes.Page.notSupported())("Tactical puzzles from user games - coming soon")
+              a(href := routes.Puzzle.home())("Tactical puzzles from user games")
             ),
             //tr(unlimited)(
             //  a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),

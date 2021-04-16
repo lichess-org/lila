@@ -35,7 +35,7 @@ object faq {
           howCanIContributeToLishogi.txt(),
           p(lishogiPoweredByDonationsAndVolunteers()),
           p(
-            a(href := routes.Page.patron())(beingAPatron()), // patron
+            a(href := routes.Page.help())(beingAPatron()), // patron
           )
         ),
         // question(
