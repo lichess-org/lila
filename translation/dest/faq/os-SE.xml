@@ -8,9 +8,9 @@
   <string name="hearItPronouncedBySpecialist">Байхъус æй зæгъгонд специалистæй.</string>
   <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтæм нæ кæсгæйæ.</string>
   <string name="otherWaysToHelp">баххуыс кæнын æндæр амалтæ</string>
-  <string name="fairPlay">Растаг Хъазт</string>
-  <string name="gameplay">Хъазты райхæлд</string>
-  <string name="howBulletBlitzEtcDecided">Пуля, блиц æмæ æндæр сахаты контрольтæ куыд рабæрæг конд \'сты?</string>
+  <string name="fairPlay">Рæстаг Хъазт</string>
+  <string name="gameplay">Хъазты арæзт</string>
+  <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд \'сты?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
