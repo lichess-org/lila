@@ -8,4 +8,8 @@
   <string name="registerToSendChallenges">ക്ഷണം അയക്കാൻ ദയവായി രജിസ്റ്റർ ചെയ്യൂ.</string>
   <string name="youCannotChallengeX">നിങ്ങൾക്ക് %s -നെ ക്ഷണിക്കുക സാധ്യമല്ല.</string>
   <string name="xDoesNotAcceptChallenges">%s ക്ഷണം സ്വീകരിക്കുന്നില്ല.</string>
+  <string name="yourXRatingIsTooFarFromY">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s-യുടേതില്‍ നിന്നും വളരെ അകലെയാണ്.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">നിങ്ങളുടെ %s റേറ്റിംഗ് താത്കാലികമായതിനാല്‍ ക്ഷണിക്കാന്‍ സാധിക്കില്ല.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s സുഹൃത്തുക്കളിൽ നിന്ന് മാത്രമേ ക്ഷണങ്ങള്‍ സ്വീകരിക്കുന്നുള്ളൂ.</string>
+  <string name="declineGeneric">ഞാന്‍ ഇപ്പോള്‍ ക്ഷണങ്ങള്‍ സ്വീകരിക്കുന്നില്ല.</string>
 </resources>
