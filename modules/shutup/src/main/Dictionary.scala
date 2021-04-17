@@ -9,7 +9,6 @@ private object Dictionary {
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)agg?(ot|)
-cock(suc?ker|)
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -33,13 +32,13 @@ bugger
 buk?kake
 bull?shit
 cancer
-cheat(ing|ed|er|s|)
+cheat(ing|ed|er|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
 clit(oris|)
 clown
-cock
+cock(suc?ker|)
 condom
 coon
 coward?
@@ -74,7 +73,7 @@ kys
 labia
 lamer?
 lesbo
-loo?ser
+lo+ser
 masturbat(e|ion|ing)
 milf
 molest
@@ -97,7 +96,7 @@ piss
 poof
 poon
 poo+p(face|)
-porn
+porn(hub|)
 pric?k
 prostitute
 punani
@@ -136,8 +135,9 @@ stupid
 suicide
 suck m[ey]
 terrorist
-tit(|t?ies|ty)(fuc?k)
+tit(t?ies|ty|)(fuc?k)
 tosser
+trann(y|ie)
 trash
 turd
 twat
@@ -235,8 +235,7 @@ gaa?nd
   def fr = dict("""
 fdp
 pd
-triche
-tricheur
+triche(ur|)
 """)
 
   def de = dict("""
