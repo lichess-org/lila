@@ -79,6 +79,7 @@ object bits {
     trans.ratedTournament,
     trans.casualTournament,
     trans.password,
-    trans.arena.viewAllXTeams
+    trans.arena.viewAllXTeams,
+    trans.spectators
   ).map(_.key)
 }

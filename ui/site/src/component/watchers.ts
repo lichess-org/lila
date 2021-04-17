@@ -14,16 +14,19 @@ export default function watchers(element: HTMLElement) {
 
   const set = (data: Data) => {
     watchersData = data;
-    if (!data || !data.nb) return element.classList.add('none');
+    if (!data || !data.nb || data.nb <= 1) return element.classList.add('none');
     if (numberEl) numberEl.textContent = '' + data.nb;
-    if (data.users && listEl) {
-      const tags = data.users.map(u =>
-        u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
-      );
-      if (data.anons === 1) tags.push('Anonymous');
-      else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
-      listEl.innerHTML = tags.join(', ');
-    } else if (!numberEl && listEl) listEl.innerHTML = `${data.nb} players in the chat`;
+    if (listEl) {
+      if (data.users) {
+        const tags = data.users.map(u =>
+          u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
+        );
+        if (data.anons === 1) tags.push('Anonymous');
+        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
+        listEl.innerHTML = ': ' + tags.join(', ');
+      } else if (!numberEl) listEl.innerHTML = `${data.nb} players in the chat`;
+      else listEl.innerHTML = '';
+    }
     element.classList.remove('none');
   };
 

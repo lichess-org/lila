@@ -440,7 +440,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
             {
               hook: onInsert(lichess.watchers),
             },
-            [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')]
+            [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators').replace(':', ''), h('span.list')]
           ),
     ]
   );

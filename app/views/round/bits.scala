@@ -52,8 +52,7 @@ object bits {
       )(
         span(cls := "number")(nbsp),
         " ",
-        trans.spectators.txt(),
-        " ",
+        trans.spectators.txt().replace(":", ""),
         span(cls := "list")
       ),
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(

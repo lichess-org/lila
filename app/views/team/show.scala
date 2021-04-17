@@ -91,8 +91,7 @@ object show {
               )(
                 span(cls := "number")(nbsp),
                 " ",
-                trans.spectators.txt(),
-                " ",
+                trans.spectators.txt().replace(":", ""),
                 span(cls := "list")
               )
             ),

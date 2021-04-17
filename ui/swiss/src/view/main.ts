@@ -39,8 +39,7 @@ export default function (ctrl: SwissCtrl) {
         ? h('div.chat__members.none', [
             h('span.number', '\xa0'),
             ' ',
-            ctrl.trans.noarg('spectators'),
-            ' ',
+            ctrl.trans.noarg('spectators').replace(":", ""),
             h('span.list'),
           ])
         : null,
