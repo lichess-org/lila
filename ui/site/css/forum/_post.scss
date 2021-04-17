@@ -41,6 +41,10 @@
     }
 
     font-size: 0.9em;
+    color: $c-font;
+    &:hover {
+      color: $c-bad;
+    }
 
     &.postip {
       margin-left: 1rem;
