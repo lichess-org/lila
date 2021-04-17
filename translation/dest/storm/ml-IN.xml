@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">തുടങ്ങാനായി കരു നീക്കുക</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ വെള്ള കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ കറുത്ത കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
+  <string name="puzzlesSolved">ഉത്തരം ശരിയാണ്</string>
+  <string name="newDailyHighscore">പുതിയ ഡെയിലി ഹൈസ്കോര്‍!</string>
+</resources>
