@@ -9,4 +9,5 @@
   <string name="newMonthlyHighscore">പ്രതിവാരപുതിയ പ്രതിമാസ ഹൈസ്കോര്‍!</string>
   <string name="newAllTimeHighscore">പുതിയ ഏറ്റവും മികച്ച സ്കോര്‍!</string>
   <string name="previousHighscoreWasX">പഴയ മികച്ച സ്കോര്‍ %s ആയിരുന്നു</string>
+  <string name="playAgain">വീണ്ടും കളിക്കൂക</string>
 </resources>
