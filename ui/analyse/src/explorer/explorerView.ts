@@ -3,6 +3,7 @@ import { numberFormat } from 'common/number';
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
+import { MaybeVNode } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
 import {
   isOpening,
@@ -30,8 +31,6 @@ function resultBar(move: OpeningMoveStats): VNode {
   }
   return h('div.bar', ['white', 'draws', 'black'].map(section));
 }
-
-let lastShow: VNode;
 
 function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   return {
@@ -220,7 +219,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveStats[], fen: Fen): VNode[] {
+function showTablebase(ctrl: AnalyseCtrl, fen: Fen, title: string, moves: TablebaseMoveStats[]): VNode[] {
   if (!moves.length) return [];
   return [
     h('div.title', title),
@@ -260,9 +259,9 @@ function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
 function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
   if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
-  else if (move.stalemate) return h('result.draws', trans('stalemate'));
   else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
   else if (move.variant_loss) return h('result.' + winnerOf(fen, move), trans('variantWin'));
+  else if (move.stalemate) return h('result.draws', trans('stalemate'));
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
@@ -321,7 +320,9 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   ]);
 }
 
-function show(ctrl: AnalyseCtrl) {
+let lastShow: MaybeVNode;
+
+function show(ctrl: AnalyseCtrl): MaybeVNode {
   const trans = ctrl.trans.noarg,
     data = ctrl.explorer.current();
   if (data && isOpening(data)) {
@@ -346,42 +347,61 @@ function show(ctrl: AnalyseCtrl) {
         topTable,
         recentTable,
       ]);
-    else lastShow = showEmpty(ctrl, data && data.opening);
+    else lastShow = showEmpty(ctrl, data.opening);
   } else if (data && isTablebase(data)) {
     const halfmoves = parseInt(data.fen.split(' ')[4], 10) + 1;
     const zeroed = halfmoves === 1;
     const moves = data.moves;
+    const immediateWin = m => m.checkmate || m.variant_loss;
     const dtz = m => (m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz);
+    const row = (title: string, moves: TablebaseMoveStats[]) => showTablebase(ctrl, data.fen, title, moves);
     if (moves.length)
-      lastShow = h(
-        'div.data',
-        ([
-          [trans('winning'), m => m.wdl === -2 && m.dtz !== null && (zeroed || dtz(m) - halfmoves > -100)],
-          [trans('unknown'), m => m.wdl === null || m.dtz === null],
-          [
-            'Winning or 50 moves by prior mistake',
-            m => m.wdl === -2 && m.dtz !== null && !zeroed && dtz(m) - halfmoves === -100,
-          ],
-          [
-            trans('winPreventedBy50MoveRule'),
-            m => m.dtz !== null && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)),
-          ],
-          [trans('drawn'), m => m.wdl === 0],
-          [
-            trans('lossSavedBy50MoveRule'),
-            m => m.dtz !== null && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)),
-          ],
-          [
-            'Losing or 50 moves by prior mistake',
-            m => m.wdl === 2 && m.dtz !== null && !zeroed && dtz(m) + halfmoves === 100,
-          ],
-          [trans('losing'), m => m.wdl === 2 && m.dtz !== null && (zeroed || dtz(m) + halfmoves < 100)],
-        ] as [string, (move: TablebaseMoveStats) => boolean][])
-          .map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
-          .reduce(function (a, b) {
-            return a.concat(b);
-          }, [])
-      );
+      lastShow = h('div.data', [
+        ...row(
+          trans('winning'),
+          moves.filter(
+            m => immediateWin(m) || (m.wdl === -2 && m.dtz !== null && (zeroed || dtz(m) - halfmoves > -100))
+          )
+        ),
+        ...row(
+          trans('unknown'),
+          moves.filter(
+            m =>
+              !immediateWin(m) &&
+              !m.variant_win &&
+              !m.insufficient_material &&
+              !m.stalemate &&
+              m.wdl === null &&
+              m.dtz === null
+          )
+        ),
+        ...row(
+          'Winning or 50 moves by prior mistake',
+          moves.filter(m => m.wdl === -2 && m.dtz !== null && !zeroed && dtz(m) - halfmoves === -100)
+        ),
+        ...row(
+          trans('winPreventedBy50MoveRule'),
+          moves.filter(m => m.dtz !== null && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)))
+        ),
+        ...row(
+          trans('drawn'),
+          moves.filter(
+            m => !immediateWin(m) && !m.variant_win && (m.insufficient_material || m.stalemate || m.wdl === 0)
+          )
+        ),
+        ...row(
+          trans('lossSavedBy50MoveRule'),
+          moves.filter(m => m.dtz !== null && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)))
+        ),
+        ...row(
+          'Losing or 50 moves by prior mistake',
+          moves.filter(m => m.wdl === 2 && m.dtz !== null && !zeroed && dtz(m) + halfmoves === 100)
+        ),
+        ...row(
+          trans('losing'),
+          moves.filter(m => m.variant_win || (m.wdl === 2 && m.dtz !== null && (zeroed || dtz(m) + halfmoves < 100)))
+        ),
+      ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
     else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'));
     else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
