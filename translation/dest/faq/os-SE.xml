@@ -15,5 +15,6 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
   <string name="lichessSupportChessAnd">Lichess-мæ ис хуымæтæг шахмæттæ æмæ %1$s.</string>
-  <string name="canIChangeMyUsername">Ис дзы мæ бон аккаунты ном баивын?</string>
+  <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
+  <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты базæты, экспорты, логты æмæ адæмы хъуыдыты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
 </resources>
