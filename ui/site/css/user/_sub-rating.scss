@@ -76,6 +76,11 @@
     }
   }
 
+  hr {
+    margin: $block-gap auto;
+    width: 80%;
+  }
+
   h3 {
     @extend %roboto;
 
@@ -99,6 +104,7 @@
 
     a > i,
     h3,
+    hr,
     rating .rp,
     rating span {
       display: none;
@@ -109,7 +115,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
 
-    br,
+    hr,
     .rank {
       display: none;
     }

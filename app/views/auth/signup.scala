@@ -23,7 +23,14 @@ object signup {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
-        postForm(id := "signup-form", cls := "form3", action := routes.Auth.signupPost)(
+        postForm(
+          id := "signup-form",
+          cls := List(
+            "form3"             -> true,
+            "h-captcha-enabled" -> form.config.enabled
+          ),
+          action := routes.Auth.signupPost
+        )(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(

@@ -11,7 +11,7 @@ import lila.game.Game.PlayerId
 import cats.data.Validated
 
 final private class Player(
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo

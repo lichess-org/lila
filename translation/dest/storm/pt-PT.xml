@@ -34,4 +34,11 @@
   <string name="bestRunOfDay">Melhor partida do dia</string>
   <string name="runs">Partidas</string>
   <string name="getReady">Preparar!</string>
+  <string name="waitingForMorePlayers">À espera de mais jogadores...</string>
+  <string name="spectating">A assistir</string>
+  <string name="yourRankX">A tua posição: %s</string>
+  <string name="waitForRematch">Espera pela desforra</string>
+  <string name="nextRace">Próxima corrida</string>
+  <string name="joinPublicRace">Junta-te a uma corrida pública</string>
+  <string name="skip">ignorar</string>
 </resources>

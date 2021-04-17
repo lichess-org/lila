@@ -14,7 +14,7 @@ object bits {
     ) {
       main(
         iframe(
-          src := "https://docs.google.com/forms/d/e/1FAIpQLSeSAp51tSaW9JlPGVX0o8dcScAuxGMhNOL9eEUIfARGzpITmA/viewform?embedded=true",
+          src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
           style := "width:100%;height:1400px",
           st.frameborder := 0
         )(spinner)
@@ -50,6 +50,20 @@ object bits {
           "If the problem persists, please ",
           a(href := s"${routes.Main.contact}#help-error-page")("report the bug"),
           "."
+        )
+      )
+    }
+
+  def ghost(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("ghost"),
+      title = "Deleted user"
+    ) {
+      main(cls := "page-small box box-pad page")(
+        h1("Deleted user"),
+        div(
+          p("This player account is gone!"),
+          p("Nothing to see here, move along.")
         )
       )
     }

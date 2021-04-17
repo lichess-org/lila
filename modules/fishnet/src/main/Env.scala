@@ -75,11 +75,11 @@ final class Env(
   lazy val api: FishnetApi = wire[FishnetApi]
 
   lazy val player = {
-    def mk = (plies: Int) => wire[Player]
+    def mk = (plies: Int) => wire[FishnetPlayer]
     mk(config.movePlies)
   }
 
-  private val limiter = wire[Limiter]
+  private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
 

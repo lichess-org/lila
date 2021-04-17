@@ -11,7 +11,7 @@ final class Page(
   val tos    = menuBookmark("tos")
   val master = menuBookmark("master")
 
-  private def bookmark(name: String, active: Option[String]) =
+  def bookmark(name: String, active: Option[String]) =
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC getBookmark name) { case (doc, resolver) =>

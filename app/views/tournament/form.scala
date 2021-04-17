@@ -204,7 +204,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
-  def disabledAfterStart = tour.exists(!_.isCreated)
+  private def disabledAfterStart = tour.exists(!_.isCreated)
 
   def name =
     form3.group(form("name"), trans.name()) { f =>

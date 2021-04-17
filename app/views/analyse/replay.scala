@@ -168,10 +168,7 @@ object replay {
                 game.analysable option
                   span(
                     cls := "computer-analysis",
-                    dataPanel := "computer-analysis",
-                    title := analysis.map { a =>
-                      s"Provided by ${usernameOrId(a.providedBy)}"
-                    }
+                    dataPanel := "computer-analysis"
                   )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),

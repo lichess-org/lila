@@ -51,9 +51,6 @@ object header {
           a(cls := "nm-item", href := routes.Relation.followers(u.username))(
             splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
           ),
-          info.nbBlockers.map { nb =>
-            a(cls := "nm-item")(splitNumber(s"$nb Blockers"))
-          },
           u.noBot option a(
             href := routes.UserTournament.path(u.username, "recent"),
             cls := "nm-item tournament_stats",

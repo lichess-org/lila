@@ -2,21 +2,24 @@ package lila.analyse
 
 import org.joda.time._
 import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
+import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.CacheApi
 import lila.user.User
 
 final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val formatter = format.DateTimeFormat.forPattern("yyyy-MM-dd")
 
-  def save(analysis: Analysis, value: Int): Funit =
+  def add(requester: User.ID, ownGame: Boolean): Funit =
     coll.update
       .one(
-        $id(analysis.uid | "anonymous"),
-        $inc("total"                         -> 1) ++
-          $inc(formatter.print(DateTime.now) -> value) ++
-          $set("last" -> analysis.id),
+        $id(requester),
+        $inc(
+          "total"                       -> 1,
+          formatter.print(DateTime.now) -> (if (ownGame) 1 else 2)
+        ),
         upsert = true
       )
       .void

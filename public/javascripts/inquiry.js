@@ -9,7 +9,7 @@ $(function () {
 
   $('#inquiry .notes').on('change', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
 
-  $('#inquiry .notes').on('submit', () => noteStore.remove);
+  $('#inquiry .notes').on('submit', noteStore.remove);
 
   $('#inquiry .costello').on('click', () => {
     $('#inquiry').toggleClass('hidden');

@@ -123,6 +123,24 @@
   <string name="blunder">Грубая памылка</string>
   <string name="mistake">Памылка</string>
   <string name="inaccuracy">Недакладнасць</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s зявок</item>
+    <item quantity="few">%s зяўка</item>
+    <item quantity="many">%s зяўкоў</item>
+    <item quantity="other">%s зяўкоў</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s памылка</item>
+    <item quantity="few">%s памылкі</item>
+    <item quantity="many">%s памылак</item>
+    <item quantity="other">%s памылак</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s недакладнасць</item>
+    <item quantity="few">%s недакладнасці</item>
+    <item quantity="many">%s недакладнасцяў</item>
+    <item quantity="other">%s недакладнасцяў</item>
+  </plurals>
   <string name="moveTimes">Час на ход</string>
   <string name="flipBoard">Перавярнуць дошку</string>
   <string name="threefoldRepetition">Трохразовы паўтор</string>

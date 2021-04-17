@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena-turneringer</string>
+  <string name="arenaTournaments">Arenaturneringer</string>
   <string name="isItRated">Er det ratet?</string>
   <string name="willBeNotified">Du får besked, når turneringen starter, derfor er det sikkert at spille i en anden fane imens du venter.</string>
   <string name="isRated">Denne turnering er rated og vil påvirke din rating.</string>
@@ -38,7 +38,7 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="shareUrl">Del denne URL for at lade folk deltage: %s</string>
   <string name="drawStreak">Remis på stribe: Spiller man en ubrudt række remis\'er i en arena, gives der kun point for den første remis eller ved remis\'er efter mere end %s træk. En remis-stribe kan kun brydes af en sejr, ikke et nederlag eller en remis.</string>
   <string name="history">Arena-historik</string>
-  <plurals name="viewAllXTeams">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Se holdet</item>
     <item quantity="other">Se alle %s hold</item>
   </plurals>

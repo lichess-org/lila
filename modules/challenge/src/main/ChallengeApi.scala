@@ -89,7 +89,9 @@ final class ChallengeApi(
       color: Option[chess.Color] = None
   ): Fu[Option[Pov]] =
     acceptQueue {
-      if (c.challengerIsOpen)
+      if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
+        fuccess(none)
+      else if (c.challengerIsOpen)
         repo.setChallenger(c.setChallenger(user, sid), color) inject none
       else
         joiner(c, user, color).flatMap {

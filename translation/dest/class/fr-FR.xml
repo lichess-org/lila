@@ -65,7 +65,7 @@ Voici le lien pour accéder à la classe.</string>
   <string name="upgradeFromManaged">Passer le compte de géré à autonome</string>
   <string name="release">Libérer</string>
   <string name="releaseTheAccount">Rendre le compte autonome pour que l\'élève puisse le gérer librement.</string>
-  <string name="releaseDesc1">Un compte autonome ne peut plus être géré. L\'élève pourra changer le mode enfant et changer son mot-de-passe lui-même.</string>
+  <string name="releaseDesc1">Un compte autonome ne peut plus être géré. L\'élève pourra choisir d\'utiliser ou non le mode enfant et changer son mot-de-passe lui-même.</string>
   <string name="releaseDesc2">L\'élève restera dans la classe après que son compte ait été libéré.</string>
   <string name="realUniqueEmail">Adresse email réelle de l\'élève. Nous lui enverrons une mail de confirmation, avec un lien pour rendre le compte autonome.</string>
   <string name="teachers">Enseignants</string>

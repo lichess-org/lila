@@ -14,7 +14,7 @@
   <string name="toggleSound">kalama o lon ala lon?</string>
   <string name="chat">tomo toki</string>
   <string name="resign">o pini e musi tan anpa</string>
-  <string name="checkmate">mije lawa li moli</string>
+  <string name="checkmate">jan lawa li moli</string>
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
   <string name="black">pimeja</string>
@@ -203,7 +203,7 @@
     <item quantity="one">musi lili %s</item>
     <item quantity="other">musi lili %s</item>
   </plurals>
-  <string name="gamesPlayed">sina pini e musi ni</string>
+  <string name="gamesPlayed">sina pini e mute musi ni</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">musi %s pi sina en ona</item>
     <item quantity="other">musi %s pi sina en ona</item>
@@ -859,6 +859,11 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
   <string name="resVsX">jan %1$s en jan %2$s</string>
+  <string name="youJustBecamePatron">tenpo ni la sina kama e jan Patron pi ilo Lichess.</string>
+  <string name="patronAccountExpired">sina kama e jan Patron ala</string>
+  <string name="pleaseReconsiderRenewIt">ken la o kama sin!</string>
+  <string name="someoneReviewedYourCoachProfile">jan li lukin e pali sina pi kama sona.</string>
+  <string name="newPendingReview">lukin sin</string>
   <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>
   <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>

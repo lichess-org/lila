@@ -61,7 +61,7 @@ export function signupStart() {
   }, 300);
 
   $form.on('submit', () => {
-    if ($form.find('[name="h-captcha-response"]').val())
+    if ($form.find('[name="h-captcha-response"]').val() || !$form.hasClass('h-captcha-enabled'))
       $form
         .find('button.submit')
         .prop('disabled', true)

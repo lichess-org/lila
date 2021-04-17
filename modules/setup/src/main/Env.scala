@@ -11,7 +11,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     oauthServer: OAuthServer

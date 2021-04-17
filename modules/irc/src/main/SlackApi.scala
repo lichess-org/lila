@@ -197,6 +197,16 @@ final class SlackApi(
       )
     )
 
+  def gdprErase(user: User): Funit =
+    client(
+      SlackMessage(
+        username = "lichess",
+        icon = "scream2",
+        text = "GDPR erasure scheduled",
+        channel = rooms.gdprLog
+      )
+    )
+
   private def link(url: String, name: String)         = s"<$url|$name>"
   private def lichessLink(path: String, name: String) = s"<https://lichess.org$path|$name>"
   private def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
@@ -309,9 +319,9 @@ object SlackApi {
     val tavernLog                       = "tavern-log"
     val signups                         = "signups"
     val broadcast                       = "broadcast"
-    val devNoise                        = "dev-noise"
     def tavernMonitor(tpe: MonitorType) = s"tavern-monitor-${tpe.toString.toLowerCase}"
     val tavernMonitorAll                = "tavern-monitor-all"
+    val gdprLog                         = "gdpr-log"
   }
 
   private[irc] object stage {

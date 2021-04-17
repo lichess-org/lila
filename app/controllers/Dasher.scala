@@ -60,7 +60,7 @@ final class Dasher(env: Env) extends LilaController(env) {
                 "lang" -> Json.obj(
                   "current"  -> ctx.lang.code,
                   "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
-                  "list"     -> LangList.choices
+                  "list"     -> LangList.allChoices
                 ),
                 "sound" -> Json.obj(
                   "list" -> lila.pref.SoundSet.list.map { set =>

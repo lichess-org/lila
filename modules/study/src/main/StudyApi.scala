@@ -838,13 +838,6 @@ final class StudyApi(
   def adminInvite(studyId: Study.Id, me: Holder): Funit =
     sequenceStudy(studyId) { inviter.admin(_, me) }
 
-  def erase(user: User) =
-    studyRepo.allIdsByOwner(user.id) flatMap { ids =>
-      chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
-      studyRepo.deleteByIds(ids) >>
-        chapterRepo.deleteByStudyIds(ids)
-    }
-
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")
 

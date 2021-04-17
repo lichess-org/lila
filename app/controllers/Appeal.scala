@@ -8,7 +8,7 @@ import lila.app._
 import lila.report.Suspect
 import play.api.data.Form
 
-final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
+final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends LilaController(env) {
 
   private def form(implicit ctx: Context) =
     if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
@@ -17,6 +17,16 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
   def home =
     Auth { implicit ctx => me =>
       renderAppealOrTree(me) map { Ok(_) }
+    }
+
+  def landing =
+    Auth { implicit ctx => me =>
+      if (ctx.isAppealUser || isGranted(_.Appeals)) {
+        pageHit
+        OptionOk(prismicC getBookmark "appeal-landing") { case (doc, resolver) =>
+          views.html.site.page.lone(doc, resolver)
+        }
+      } else notFound
     }
 
   private def renderAppealOrTree(

@@ -31,7 +31,7 @@ object EventForm {
       "description"   -> optional(text(minLength = 5, maxLength = 4000)),
       "homepageHours" -> number(min = 0, max = 24),
       "url"           -> nonEmptyText,
-      "lang"          -> text.verifying(l => LangList.choices.exists(_._1 == l)),
+      "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,

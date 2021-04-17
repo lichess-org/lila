@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Tournoi au système suisse</string>
-  <plurals name="viewAllXRounds">
-    <item quantity="one">Voir la manche</item>
-    <item quantity="other">Voir toutes les manches de %s</item>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Voir la ronde</item>
+    <item quantity="other">Voir les %s rondes en détail</item>
   </plurals>
 </resources>

@@ -139,6 +139,19 @@ final class Swiss(
         }
     }
 
+  def apiTerminate(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+        _ ?? {
+          case swiss if swiss.createdBy == me.id || isGranted(_.ManageTournament, me) =>
+            env.swiss.api
+              .kill(swiss)
+              .map(_ => jsonOkResult)
+          case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied")).fuccess
+        }
+      }
+    }
+
   def join(id: String) =
     AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {

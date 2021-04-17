@@ -64,7 +64,10 @@ final class SecurityForm(
         )
       )
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
-      .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).await(3 seconds, "signupUsername"))
+      .verifying(
+        "usernameAlreadyUsed",
+        u => !User.isGhost(u) && !userRepo.nameExists(u).await(3 seconds, "signupUsername")
+      )
 
     private val agreementBool = boolean.verifying(b => b)
 

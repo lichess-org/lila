@@ -19,6 +19,7 @@
   <string name="lifetimePatron">평생 Lichess 후원자</string>
   <string name="makeExtraDonation">추가 기부를 하시겠어요?</string>
   <string name="monthly">매월</string>
+  <string name="recurringBilling">매월 청구되며, 당신의 후원자 날개가 갱신됩니다.</string>
   <string name="onetime">한번</string>
   <string name="singleDonation">일회성 기부는 한 달 동안 후원자 날개를 달아줍니다.</string>
   <string name="otherAmount">기타</string>

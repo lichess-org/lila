@@ -18,7 +18,7 @@ object form {
       moreCss = cssTag("swiss.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new SwissFields(form)
+      val fields = new SwissFields(form, none)
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
           h1("New Swiss tournament"),
@@ -53,7 +53,7 @@ object form {
       moreCss = cssTag("swiss.form"),
       moreJs = jsModule("tourForm")
     ) {
-      val fields = new SwissFields(form)
+      val fields = new SwissFields(form, swiss.some)
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
           h1("Edit ", swiss.name),
@@ -113,7 +113,9 @@ object form {
     )
 }
 
-final private class SwissFields(form: Form[_])(implicit ctx: Context) {
+final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ctx: Context) {
+
+  private def disabledAfterStart = swiss.exists(!_.isCreated)
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -149,15 +151,19 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
-      form3.select(_, translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2))
+      form3.select(
+        _,
+        translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2),
+        disabled = disabledAfterStart
+      )
     )
   def clock =
     form3.split(
       form3.group(form("clock.limit"), trans.clockInitialTime(), half = true)(
-        form3.select(_, SwissForm.clockLimitChoices)
+        form3.select(_, SwissForm.clockLimitChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
-        form3.select(_, TournamentForm.clockIncrementChoices)
+        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
       )
     )
   def roundInterval =

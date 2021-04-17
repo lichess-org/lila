@@ -10,8 +10,17 @@
   <string name="whyIsLilaCalledLila">sama la nimi pi toki ilo tan li \"%1$s\" tan ni: kon nimi ni li \"li[chess in sca]la\". jan li sitelen mute e lipu Lichess kepeken toki ilo %2$s. ona li pona tawa kama sona.</string>
   <string name="howCanIContributeToLichess">mi ken pona seme e lipu Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">lipu Lichess li kama wawa tan ni: jan li pana e mani tawa ni. jan wile li pali lon lipu Lichess.</string>
+  <string name="findMoreAndSeeHowHelp">sina ken sona mute e %1$s (e %2$s). sina wile pona e Lichess kepeken tenpo sina en pona ilo sina la, %3$s mute li lon.</string>
+  <string name="breakdownOfOurCosts">sona pi esun mi</string>
+  <string name="otherWaysToHelp">nasin pona ante</string>
+  <string name="areThereWebsitesBasedOnLichess">pali ni li lon anu seme: ni li pali kepeken ilo Lichess?</string>
   <string name="fairPlay">musi pona</string>
+  <string name="whenAmIEligibleRatinRefund">tenpo seme la mi ken kama jo e nanpa wawa sin tan jan pi musi ike?</string>
+  <string name="preventLeavingGameWithoutResigning">sina seme tawa ni: jan li weka ni tawa musi: ona li toki ala e \"mi anpa\"?</string>
   <string name="gameplay">musi</string>
+  <string name="whatVariantsCanIplay">mi ken musi e musi ante seme?</string>
+  <string name="lichessSupportChessAnd">sina ken musi e nasin pi ante ala e %1$s.</string>
+  <string name="eightVariants">nasin ante 8.</string>
   <string name="positions">lon</string>
   <string name="configure">ante</string>
   <string name="accounts">lipu sina</string>

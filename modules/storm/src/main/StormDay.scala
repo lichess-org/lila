@@ -110,9 +110,6 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
       MaxPerPage(30)
     )
 
-  def eraseAllFor(user: User) =
-    coll.delete.one(idRegexFor(user.id)).void
-
   def apiHistory(userId: User.ID, days: Int): Fu[List[StormDay]] =
     coll
       .find(idRegexFor(userId))

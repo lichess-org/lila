@@ -19,6 +19,7 @@ final class PersonalDataExport(
     msgEnv: lila.msg.Env,
     forumEnv: lila.forum.Env,
     gameEnv: lila.game.Env,
+    roundEnv: lila.round.Env,
     chatEnv: lila.chat.Env,
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
@@ -75,8 +76,53 @@ final class PersonalDataExport(
             s"${textDate(date)}\n$text$bigSep"
           }
 
-    val gameChats =
-      Source(List(textTitle("Game chat messages"))) concat
+    def gameChatsLookup(lookup: Bdoc) =
+      gameEnv.gameRepo.coll
+        .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          List(
+            Match($doc(Game.BSONFields.playerUids -> user.id)),
+            Project($id(true)),
+            PipelineOperator(lookup),
+            Unwind("chat"),
+            ReplaceRootField("chat"),
+            Project($doc("_id" -> false, "l" -> true)),
+            Unwind("l"),
+            Match("l".$startsWith(s"${user.id} ", "i"))
+          )
+        }
+        .documentSource()
+        .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+        .throttle(heavyPerSecond, 1 second)
+
+    val privateGameChats =
+      Source(List(textTitle("Private game chat messages"))) concat
+        gameChatsLookup(
+          $doc(
+            "$lookup" -> $doc(
+              "from"         -> chatEnv.coll.name,
+              "as"           -> "chat",
+              "localField"   -> "_id",
+              "foreignField" -> "_id"
+            )
+          )
+        )
+
+    val spectatorGameChats =
+      Source(List(textTitle("Spectator game chat messages"))) concat
+        gameChatsLookup(
+          $doc(
+            "$lookup" -> $doc(
+              "from"     -> chatEnv.coll.name,
+              "as"       -> "chat",
+              "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
+              "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
+            )
+          )
+        )
+
+    val gameNotes =
+      Source(List(textTitle("Game notes"))) concat
         gameEnv.gameRepo.coll
           .aggregateWith[Bdoc](
             readPreference = ReadPreference.secondaryPreferred
@@ -88,28 +134,35 @@ final class PersonalDataExport(
               PipelineOperator(
                 $doc(
                   "$lookup" -> $doc(
-                    "from"         -> chatEnv.coll.name,
-                    "as"           -> "chat",
-                    "localField"   -> "_id",
-                    "foreignField" -> "_id"
+                    "from"     -> roundEnv.noteApi.collName,
+                    "as"       -> "note",
+                    "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
+                    "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
                   )
                 )
               ),
-              Unwind("chat"),
-              ReplaceRootField("chat"),
-              Project($doc("_id" -> false, "l" -> true)),
-              Unwind("l"),
-              Match("l" $startsWith s"${user.id} ")
+              Unwind("note"),
+              ReplaceRootField("note"),
+              Project($doc("_id" -> false, "t" -> true))
             )
           }
           .documentSource()
-          .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+          .map { doc => ~doc.string("t") }
           .throttle(heavyPerSecond, 1 second)
 
     val outro = Source(List(textTitle("End of data export.")))
 
-    List(intro, connections, followedUsers, forumPosts, privateMessages, gameChats, outro)
-      .foldLeft(Source.empty[String])(_ concat _)
+    List(
+      intro,
+      connections,
+      followedUsers,
+      forumPosts,
+      privateMessages,
+      privateGameChats,
+      spectatorGameChats,
+      gameNotes,
+      outro
+    ).foldLeft(Source.empty[String])(_ concat _)
   }
 
   private val bigSep = "\n------------------------------------------\n"

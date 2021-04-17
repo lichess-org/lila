@@ -105,9 +105,6 @@ final class RelationApi(
   def countBlocking(userId: ID) =
     coll.countSel($doc("u1" -> userId, "r" -> Block))
 
-  def countBlockers(userId: ID) =
-    coll.countSel($doc("u2" -> userId, "r" -> Block))
-
   def followingPaginatorAdapter(userId: ID) =
     new CachedAdapter[Followed](
       adapter = new Adapter[Followed](

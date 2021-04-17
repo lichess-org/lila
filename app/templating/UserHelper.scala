@@ -227,8 +227,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case _ => ""
     }
 
-  private def userUrl(username: String, params: String = "") =
-    s"""${routes.User.show(username)}$params"""
+  private def userUrl(username: String, params: String = ""): Option[String] =
+    (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
   protected def userClass(
       userId: String,
@@ -236,11 +236,13 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
-      "user-link" -> true,
-      ~cssClass   -> cssClass.isDefined,
-      "ulpt"      -> withPowerTip
-    )
+    if (userId == "ghost") List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    else
+      (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+        "user-link" -> true,
+        ~cssClass   -> cssClass.isDefined,
+        "ulpt"      -> withPowerTip
+      )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
