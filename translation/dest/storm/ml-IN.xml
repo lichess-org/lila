@@ -30,6 +30,11 @@
   <string name="endRun">അവസാനിപ്പിക്കുക (ഹോട്ട്കീ: എന്റര്‍)</string>
   <string name="highscores">താങ്കളുടെ മികച്ച സ്കോറുകള്‍</string>
   <string name="viewBestRuns">മികച്ച ശ്രമങ്ങള്‍ കാണിക്കുക</string>
-  <string name="bestRunOfDay">ഇന്നത്തെ മികച്ച ശ്രമം</string>
+  <string name="bestRunOfDay">ദിവസത്തെ മികച്ച ശ്രമം</string>
   <string name="runs">ആകെ ശ്രമങ്ങള്‍</string>
+  <string name="getReady">തയ്യാറായി നില്ക്കു‍ക!</string>
+  <string name="waitingForMorePlayers">മറ്റു കളിക്കാര്‍ക്കായി കാത്തുനില്‍ക്കുന്നു...</string>
+  <string name="raceComplete">മത്സരം അവസാനിച്ചു!</string>
+  <string name="joinTheRace">മത്സരത്തില്‍ ചേരുക!</string>
+  <string name="yourRankX">നിങ്ങളുടെ സ്ഥാനം: %s</string>
 </resources>
