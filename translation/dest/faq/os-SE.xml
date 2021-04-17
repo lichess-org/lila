@@ -14,4 +14,5 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
+  <string name="lichessSupportChessAnd">Lichess-мæ ис хуымæтæг шахмæттæ æмæ %1$s.</string>
 </resources>
