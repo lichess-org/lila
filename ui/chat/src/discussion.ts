@@ -124,11 +124,9 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
       const el = e.target as HTMLInputElement,
         txt = el.value;
 
-      try {
-        storage.set(txt);
-      } catch {}
       el.removeAttribute('placeholder');
       if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      storage.set(txt);
     })
   );
 
