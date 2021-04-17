@@ -489,7 +489,7 @@ declare namespace PowerTip {
 }
 
 interface Dictionary<T> {
-  [key: string]: T | undefined,
+  [key: string]: T | undefined;
 }
 
 declare module '@yaireo/tagify';

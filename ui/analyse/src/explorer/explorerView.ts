@@ -355,15 +355,14 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     const zeroed = halfmoves === 1;
     const moves = data.moves;
     const immediateWin = (m: TablebaseMoveStats) => m.checkmate || m.variant_loss;
-    const dtz = (m: TablebaseMoveStatsWithDtz) => (m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz);
+    const dtz = (m: TablebaseMoveStatsWithDtz) =>
+      m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz;
     const row = (title: string, moves: TablebaseMoveStats[]) => showTablebase(ctrl, data.fen, title, moves);
     if (moves.length)
       lastShow = h('div.data', [
         ...row(
           trans('winning'),
-          moves.filter(
-            m => immediateWin(m) || (m.wdl === -2 && hasDtz(m) && (zeroed || dtz(m) - halfmoves > -100))
-          )
+          moves.filter(m => immediateWin(m) || (m.wdl === -2 && hasDtz(m) && (zeroed || dtz(m) - halfmoves > -100)))
         ),
         ...row(
           trans('unknown'),

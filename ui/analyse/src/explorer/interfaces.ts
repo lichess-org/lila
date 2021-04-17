@@ -11,8 +11,8 @@ export type ExplorerDb = 'lichess' | 'masters';
 export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
 export interface ExplorerOpts {
-  endpoint: string,
-  tablebaseEndpoint: string,
+  endpoint: string;
+  tablebaseEndpoint: string;
 }
 
 export interface ExplorerConfigData {
