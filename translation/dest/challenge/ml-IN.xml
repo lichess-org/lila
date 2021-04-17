@@ -5,4 +5,7 @@
   <string name="challengeDeclined">ക്ഷണം നിരസിച്ചു</string>
   <string name="challengeAccepted">ക്ഷണം സ്വീകരിച്ചു!</string>
   <string name="challengeCanceled">ക്ഷണം പിന്‍വലിച്ചു.</string>
+  <string name="registerToSendChallenges">ക്ഷണം അയക്കാൻ ദയവായി രജിസ്റ്റർ ചെയ്യൂ.</string>
+  <string name="youCannotChallengeX">നിങ്ങൾക്ക് %s -നെ ക്ഷണിക്കുക സാധ്യമല്ല.</string>
+  <string name="xDoesNotAcceptChallenges">%s ക്ഷണം സ്വീകരിക്കുന്നില്ല.</string>
 </resources>
