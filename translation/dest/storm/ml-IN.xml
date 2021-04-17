@@ -40,4 +40,10 @@
   <string name="nextRace">അടുത്ത മത്സരം</string>
   <string name="joinRematch">റീമാച്ചില്‍ പങ്കെടുക്കുക</string>
   <string name="waitingToStart">തുടങ്ങാനായി കാത്തുനില്‍ക്കുന്നു</string>
+  <string name="createNewGame">പുതിയ മത്സരം തുടങ്ങുക</string>
+  <string name="joinPublicRace">പൊതു മത്സരത്തില്‍ പങ്കെടുക്കുക</string>
+  <string name="raceYourFriends">സുഹൃത്തുക്കളുമായി മത്സരിക്കുക</string>
+  <string name="skip">ഒഴിവാക്കുക</string>
+  <string name="skipHelp">നിങ്ങള്‍ക്ക്‌ ഒരു മത്സരത്തില്‍ ഒരു നീക്കം ഒഴിവാക്കാം:</string>
+  <string name="skipExplanation">ഈ നീക്കം ഒഴിവാക്കി തുടര്‍ച്ച നിലനിര്‍ത്തുക! ഒരു മത്സരത്തില്‍ ഒരു തവണ മാത്രം.</string>
 </resources>
