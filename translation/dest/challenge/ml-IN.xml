@@ -12,4 +12,7 @@
   <string name="cannotChallengeDueToProvisionalXRating">നിങ്ങളുടെ %s റേറ്റിംഗ് താത്കാലികമായതിനാല്‍ ക്ഷണിക്കാന്‍ സാധിക്കില്ല.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s സുഹൃത്തുക്കളിൽ നിന്ന് മാത്രമേ ക്ഷണങ്ങള്‍ സ്വീകരിക്കുന്നുള്ളൂ.</string>
   <string name="declineGeneric">ഞാന്‍ ഇപ്പോള്‍ ക്ഷണങ്ങള്‍ സ്വീകരിക്കുന്നില്ല.</string>
+  <string name="declineTooFast">ഈ സമയനിയന്ത്രണം എനിക്ക് വേഗം കൂടുതലാണ്, ദയവായി വേഗം കുറഞ്ഞ കളിക്ക് ക്ഷണിക്കുക.</string>
+  <string name="declineTooSlow">ഈ സമയനിയന്ത്രണം എനിക്ക് വേഗം കുറവാണു, ദയവായി വേഗം കൂടിയ കളിക്ക് ക്ഷണിക്കുക.</string>
+  <string name="declineTimeControl">ഞാന്‍ ഈ സമയ നിയന്ത്രണത്തിലെ ക്ഷണങ്ങള്‍ സ്വീകരിക്കുന്നില്ല.</string>
 </resources>
