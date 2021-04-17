@@ -37,4 +37,7 @@
   <string name="raceComplete">മത്സരം അവസാനിച്ചു!</string>
   <string name="joinTheRace">മത്സരത്തില്‍ ചേരുക!</string>
   <string name="yourRankX">നിങ്ങളുടെ സ്ഥാനം: %s</string>
+  <string name="nextRace">അടുത്ത മത്സരം</string>
+  <string name="joinRematch">റീമാച്ചില്‍ പങ്കെടുക്കുക</string>
+  <string name="waitingToStart">തുടങ്ങാനായി കാത്തുനില്‍ക്കുന്നു</string>
 </resources>
