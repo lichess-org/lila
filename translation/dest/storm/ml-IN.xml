@@ -21,4 +21,15 @@
   <string name="highscoreX">മികച്ച സ്കോര്‍: %s</string>
   <string name="score">സ്കോര്‍</string>
   <string name="moves">കരു നീക്കങ്ങള്‍</string>
+  <string name="accuracy">കൃത്യത</string>
+  <string name="combo">തുടര്‍ച്ച</string>
+  <string name="time">സമയം</string>
+  <string name="timePerMove">ഓരോ നീക്കത്തിനും എടുത്ത സമയം</string>
+  <string name="highestSolved">ശരിയാക്കിയത്തില്‍ ഏറ്റവും ഉയര്‍ന്നത്</string>
+  <string name="newRun">വീണ്ടും കളിക്കുക (ഹോട്ട്കീ: സ്പേസ്)</string>
+  <string name="endRun">അവസാനിപ്പിക്കുക (ഹോട്ട്കീ: എന്റര്‍)</string>
+  <string name="highscores">താങ്കളുടെ മികച്ച സ്കോറുകള്‍</string>
+  <string name="viewBestRuns">മികച്ച ശ്രമങ്ങള്‍ കാണിക്കുക</string>
+  <string name="bestRunOfDay">ഇന്നത്തെ മികച്ച ശ്രമം</string>
+  <string name="runs">ആകെ ശ്രമങ്ങള്‍</string>
 </resources>
