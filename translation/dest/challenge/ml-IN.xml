@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">മത്സര ക്ഷണങ്ങള്‍</string>
+  <string name="challengeToPlay">ഒരു മത്സരത്തിനു ക്ഷണിക്കുക</string>
+</resources>
