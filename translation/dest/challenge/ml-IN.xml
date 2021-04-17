@@ -2,4 +2,7 @@
 <resources>
   <string name="challenges">മത്സര ക്ഷണങ്ങള്‍</string>
   <string name="challengeToPlay">ഒരു മത്സരത്തിനു ക്ഷണിക്കുക</string>
+  <string name="challengeDeclined">ക്ഷണം നിരസിച്ചു</string>
+  <string name="challengeAccepted">ക്ഷണം സ്വീകരിച്ചു!</string>
+  <string name="challengeCanceled">ക്ഷണം പിന്‍വലിച്ചു.</string>
 </resources>
