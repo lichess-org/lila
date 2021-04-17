@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Сфидар кæн дæ lichess.org аккаунт, %s</string>
+  <string name="common_note">Уый у сервисы фыстæг, дæ %s спайдакæнынмæ баст кæй у, ахæм.</string>
   <string name="common_contact">Махимæ цæмæй хи сбæттын, %s пайда кæн.</string>
 </resources>
