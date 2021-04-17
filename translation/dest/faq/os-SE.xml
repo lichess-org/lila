@@ -28,4 +28,6 @@ LM хуындады райстыл ма кур.</string>
   <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
   <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты базæты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
   <string name="uniqueTrophies">Уникалон трофейтæ</string>
+  <string name="ownerUniqueTrophies">Уыцы трофей у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн ис кæнæ уыдзæн ахæм.</string>
+  <string name="howToThreeDots">Базон, куыд...</string>
 </resources>
