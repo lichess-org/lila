@@ -10,4 +10,15 @@
   <string name="newAllTimeHighscore">പുതിയ ഏറ്റവും മികച്ച സ്കോര്‍!</string>
   <string name="previousHighscoreWasX">പഴയ മികച്ച സ്കോര്‍ %s ആയിരുന്നു</string>
   <string name="playAgain">വീണ്ടും കളിക്കൂക</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 തവണ</item>
+    <item quantity="other">%s തവണകള്‍</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">%2$s ഒരു തവണ കളിച്ചു</item>
+    <item quantity="other">%2$s %1$s തവണ കളിച്ചു</item>
+  </plurals>
+  <string name="highscoreX">മികച്ച സ്കോര്‍: %s</string>
+  <string name="score">സ്കോര്‍</string>
+  <string name="moves">കരു നീക്കങ്ങള്‍</string>
 </resources>
