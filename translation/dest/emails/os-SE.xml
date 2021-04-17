@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Сфидар кæн дæ lichess.org аккаунт, %s</string>
+  <string name="emailChange_click">Цæмæй дæ пост сфидар кæнай, æрæлхъив уыцы дæнцæг:</string>
   <string name="welcome_subject">Æгас цу lichess.org-мæ, %s</string>
   <string name="welcome_text">Æнтыстджынæй дæ lichess.org аккаунт сарæзтай.
 
