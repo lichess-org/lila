@@ -4,5 +4,7 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ വെള്ള കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">തുടര്‍ന്നുള്ള എല്ലാ പസ്സിലുകളിലും നിങ്ങള്‍ കറുത്ത കരുക്കള്‍ ആണ് നിയന്ത്രിക്കുക</string>
   <string name="puzzlesSolved">ഉത്തരം ശരിയാണ്</string>
-  <string name="newDailyHighscore">പുതിയ ഡെയിലി ഹൈസ്കോര്‍!</string>
+  <string name="newDailyHighscore">പുതിയ  പ്രതിദിന ഹൈസ്കോര്‍!</string>
+  <string name="newWeeklyHighscore">പുതിയ പ്രതിവാര ഹൈസ്കോര്‍!</string>
+  <string name="newMonthlyHighscore">പ്രതിവാരപുതിയ പ്രതിമാസ ഹൈസ്കോര്‍!</string>
 </resources>
