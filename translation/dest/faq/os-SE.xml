@@ -3,6 +3,7 @@
   <string name="faqAbbreviation">АФ</string>
   <string name="frequentlyAskedQuestions">Арæх Фарстатæ</string>
   <string name="whyIsLichessCalledLichess">Lichess-æн йæ ном цæмæн у \"Lichess\"?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" (удæгас [хъаз]/рог [программæ]/сæрибар [ахæлиу] англисагау) æмæ \"chess\" (шахмæттæ англисагау). Дзурын хъæуы афтæ: %1$s.</string>
-  <string name="leechess">ли-чец</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\" — \"удæгас [хъаз]/рог [программæ]/сæрибар [ахæлиу]\" æмæ \"шахмæттæ\" англисагау. Дзурын хъæуы афтæ: %1$s.</string>
+  <string name="leechess">личец</string>
+  <string name="hearItPronouncedBySpecialist">Байхъус æй зæгъгонд специалистæй.</string>
 </resources>
