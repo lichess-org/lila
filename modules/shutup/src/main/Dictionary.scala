@@ -69,7 +69,7 @@ idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang) (yo)?ur(self| family)
+(kill|hang) (yo)?ur ?(self|family)
 kys
 labia
 lamer?
@@ -203,6 +203,7 @@ p[ie]d[aoe]?r
   def es = dict("""
 cabr[oó]na?
 chupame
+cobarde
 est[úu]pid[ao]
 imbecil
 maric[oó]n
