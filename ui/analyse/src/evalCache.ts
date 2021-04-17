@@ -1,5 +1,6 @@
 import { defined, prop } from 'common';
 import throttle from 'common/throttle';
+import { CachedEval } from './interfaces';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
@@ -13,7 +14,7 @@ export interface EvalCacheOpts {
 export interface EvalCache {
   onCeval(): void;
   fetch(path: Tree.Path, multiPv: number): void;
-  onCloudEval(serverEval): void;
+  onCloudEval(serverEval: CachedEval): void;
 }
 
 const evalPutMinDepth = 20;
@@ -67,7 +68,7 @@ function toCeval(e: Tree.ServerEval) {
 }
 
 export function make(opts: EvalCacheOpts): EvalCache {
-  const fetchedByFen = {};
+  const fetchedByFen: Dictionary<CachedEval> = {};
   const upgradable = prop(false);
   lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
@@ -95,7 +96,7 @@ export function make(opts: EvalCacheOpts): EvalCache {
       if (upgradable()) obj.up = true;
       opts.send('evalGet', obj);
     },
-    onCloudEval(serverEval) {
+    onCloudEval(serverEval: CachedEval) {
       fetchedByFen[serverEval.fen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
     },

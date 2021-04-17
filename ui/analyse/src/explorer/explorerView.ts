@@ -13,6 +13,8 @@ import {
   OpeningMoveStats,
   OpeningGame,
   Opening,
+  TablebaseMoveStatsWithDtz,
+  hasDtz,
 } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -352,15 +354,15 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     const halfmoves = parseInt(data.fen.split(' ')[4], 10) + 1;
     const zeroed = halfmoves === 1;
     const moves = data.moves;
-    const immediateWin = m => m.checkmate || m.variant_loss;
-    const dtz = m => (m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz);
+    const immediateWin = (m: TablebaseMoveStats) => m.checkmate || m.variant_loss;
+    const dtz = (m: TablebaseMoveStatsWithDtz) => (m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz);
     const row = (title: string, moves: TablebaseMoveStats[]) => showTablebase(ctrl, data.fen, title, moves);
     if (moves.length)
       lastShow = h('div.data', [
         ...row(
           trans('winning'),
           moves.filter(
-            m => immediateWin(m) || (m.wdl === -2 && m.dtz !== null && (zeroed || dtz(m) - halfmoves > -100))
+            m => immediateWin(m) || (m.wdl === -2 && hasDtz(m) && (zeroed || dtz(m) - halfmoves > -100))
           )
         ),
         ...row(
@@ -377,11 +379,11 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         ),
         ...row(
           'Winning or 50 moves by prior mistake',
-          moves.filter(m => m.wdl === -2 && m.dtz !== null && !zeroed && dtz(m) - halfmoves === -100)
+          moves.filter(m => m.wdl === -2 && hasDtz(m) && !zeroed && dtz(m) - halfmoves === -100)
         ),
         ...row(
           trans('winPreventedBy50MoveRule'),
-          moves.filter(m => m.dtz !== null && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)))
+          moves.filter(m => hasDtz(m) && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)))
         ),
         ...row(
           trans('drawn'),
@@ -391,15 +393,15 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         ),
         ...row(
           trans('lossSavedBy50MoveRule'),
-          moves.filter(m => m.dtz !== null && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)))
+          moves.filter(m => hasDtz(m) && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)))
         ),
         ...row(
           'Losing or 50 moves by prior mistake',
-          moves.filter(m => m.wdl === 2 && m.dtz !== null && !zeroed && dtz(m) + halfmoves === 100)
+          moves.filter(m => m.wdl === 2 && hasDtz(m) && !zeroed && dtz(m) + halfmoves === 100)
         ),
         ...row(
           trans('losing'),
-          moves.filter(m => m.variant_win || (m.wdl === 2 && m.dtz !== null && (zeroed || dtz(m) + halfmoves < 100)))
+          moves.filter(m => m.variant_win || (m.wdl === 2 && hasDtz(m) && (zeroed || dtz(m) + halfmoves < 100)))
         ),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));

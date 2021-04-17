@@ -10,6 +10,11 @@ export type ExplorerDb = 'lichess' | 'masters';
 
 export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
+export interface ExplorerOpts {
+  endpoint: string,
+  tablebaseEndpoint: string,
+}
+
 export interface ExplorerConfigData {
   open: Prop<boolean>;
   db: {
@@ -103,12 +108,18 @@ export interface TablebaseMoveStats extends MoveStats {
   insufficient_material: boolean;
   zeroing: boolean;
 }
+export interface TablebaseMoveStatsWithDtz extends TablebaseMoveStats {
+  dtz: number;
+}
 
 export function isOpening(m: ExplorerData): m is OpeningData {
   return !!m.isOpening;
 }
 export function isTablebase(m: ExplorerData): m is TablebaseData {
   return !!m.tablebase;
+}
+export function hasDtz(m: TablebaseMoveStats): m is TablebaseMoveStatsWithDtz {
+  return m.dtz !== null;
 }
 
 export interface SimpleTablebaseHit {
