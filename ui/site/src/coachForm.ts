@@ -95,7 +95,7 @@ lichess.load.then(() => {
 
   const langInput = document.getElementById('form3-languages') as HTMLInputElement;
   const whitelistJson = langInput.getAttribute('data-all');
-  const whitelist = whitelistJson ? JSON.parse(whitelistJson) as Tagify.TagData[] : undefined;
+  const whitelist = whitelistJson ? (JSON.parse(whitelistJson) as Tagify.TagData[]) : undefined;
   const tagify = new Tagify(langInput, {
     maxTags: 10,
     whitelist,

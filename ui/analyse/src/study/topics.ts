@@ -15,7 +15,12 @@ export interface TopicsCtrl {
   redraw: Redraw;
 }
 
-export function ctrl(save: (data: string[]) => void, getTopics: () => Topic[], trans: Trans, redraw: Redraw): TopicsCtrl {
+export function ctrl(
+  save: (data: string[]) => void,
+  getTopics: () => Topic[],
+  trans: Trans,
+  redraw: Redraw
+): TopicsCtrl {
   const open = prop(false);
 
   return {

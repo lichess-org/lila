@@ -436,8 +436,8 @@
 
           &::before {
             box-shadow: 0 0 0 $tag-inset-shadow-size rgba($tag-remove, 0.3) inset !important;
-            box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-remove-bg, rgba($tag-remove, .3))
-              inset !important;
+            box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size)
+              var(--tag-remove-bg, rgba($tag-remove, 0.3)) inset !important;
             transition: 0.2s;
           }
         }
