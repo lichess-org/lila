@@ -79,7 +79,7 @@
   <string name="losing">Zaudējošs</string>
   <string name="drawn">Neizšķirts</string>
   <string name="unknown">Neskaidrs</string>
-  <string name="database">Datubāze</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Datubāze</string>
   <string name="whiteDrawBlack">Baltie / Neizšķirts / Melnie</string>
   <string name="averageRatingX">Vidējais reitings: %s</string>
   <string name="recentGames">Nesenas spēles</string>
@@ -650,7 +650,7 @@
   <string name="really">patiešām</string>
   <string name="contribute">Dot ieguldījumu</string>
   <string name="termsOfService">Pakalpojuma noteikumi</string>
-  <string name="sourceCode">Pirmkods</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Pirmkods</string>
   <string name="simultaneousExhibitions">Simultānseansi</string>
   <string name="host">Vadītājs</string>
   <string name="hostColorX">Vadītāja krāsa: %s</string>
