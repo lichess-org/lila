@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\" — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
   <string name="leechess">личец</string>
   <string name="hearItPronouncedBySpecialist">Байхъус специалист æй куыд дзуры.</string>
-  <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтæм нæ кæсгæйæ.</string>
+  <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтытæм нæ кæсгæйæ.</string>
   <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess у фыст %2$s-йæ, æнцонæмбарон программон æвзагæй.</string>
   <string name="howCanIContributeToLichess">Куыд баххуыс кæнон Lichess-æн?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess цæры хъазджыты снывондытæй æмæ волонтёрты куыстæй.</string>
@@ -15,7 +15,7 @@
   <string name="breakdownOfOurCosts">нæ хардзыты хыгъдлæвæрд</string>
   <string name="otherWaysToHelp">æндæр амалтæ баххуыс кæнын</string>
   <string name="areThereWebsitesBasedOnLichess">Ис дзы æндæр Lichess-вебсайтытæ?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">О, Lichess ныфс радта æндæр гом сайтытæм, кæй пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">О, Lichess ныфс радта æндæр æргом сайтытæм, кæй пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
   <string name="gameplay">Хъазты арæзт</string>
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд \'сты?</string>
