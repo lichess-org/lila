@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class EventApi(
     coll: Coll,
@@ -55,8 +56,8 @@ final class EventApi(
       EventForm.Data make event
     }
 
-  def update(old: Event, data: EventForm.Data): Fu[Int] =
-    (coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit()).map(_.n)
+  def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
+    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).map(_.n)
 
   def createForm = EventForm.form
 

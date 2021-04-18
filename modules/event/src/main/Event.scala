@@ -16,6 +16,8 @@ case class Event(
     enabled: Boolean,
     createdBy: Event.UserId,
     createdAt: DateTime,
+    updatedBy: Option[Event.UserId],
+    updatedAt: Option[DateTime],
     startsAt: DateTime,
     finishesAt: DateTime,
     hostedBy: Option[User.ID] = None,

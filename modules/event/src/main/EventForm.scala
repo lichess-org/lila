@@ -70,7 +70,7 @@ object EventForm {
       countdown: Boolean
   ) {
 
-    def update(event: Event) =
+    def update(event: Event, by: User) =
       event.copy(
         title = title,
         headline = headline,
@@ -83,7 +83,9 @@ object EventForm {
         finishesAt = finishesAt,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
-        countdown = countdown
+        countdown = countdown,
+        updatedAt = DateTime.now.some,
+        updatedBy = Event.UserId(by.id).some
       )
 
     def make(userId: String) =
@@ -100,6 +102,8 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
+        updatedAt = none,
+        updatedBy = none,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown
