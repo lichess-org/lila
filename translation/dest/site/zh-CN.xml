@@ -77,7 +77,7 @@
   <string name="losing">输棋</string>
   <string name="drawn">和棋</string>
   <string name="unknown">结局未知</string>
-  <string name="database">数据库</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
   <string name="recentGames">最近对局</string>
@@ -580,7 +580,7 @@
   <string name="really">不信？</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
-  <string name="sourceCode">源代码</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">源代码</string>
   <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持</string>
   <string name="hostColorX">主持颜色：%s</string>
