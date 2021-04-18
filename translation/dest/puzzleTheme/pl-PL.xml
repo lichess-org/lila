@@ -69,7 +69,7 @@
   <string name="edgeAttack">Atak po krawędzi</string>
   <string name="edgeAttackDescription">Taktyka obejmująca atak na przeciwnika wzdłuż pierwszej lub dziewiątej kolumny.</string>
   <string name="veryLong">Bardzo długie zadanie</string>
-  <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
+  <string name="veryLongDescription">Siedem ruchów lub więcej, aby wygrać.</string>
   <string name="lishogiGames">Z partii na Lishogi</string>
   <string name="lishogiGamesDescription">Zadania wygenerowane z partii granych na Lishogi.</string>
   <string name="otherSources">Z innych źródeł</string>

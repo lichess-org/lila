@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Team</string>
-  <string name="teams">Teams</string>
+  <string name="team">टीम</string>
+  <string name="teams">टीम</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s member</item>
-    <item quantity="other">%s members</item>
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
   </plurals>
-  <string name="allTeams">All teams</string>
-  <string name="newTeam">New team</string>
-  <string name="myTeams">My teams</string>
-  <string name="noTeamFound">No team found</string>
-  <string name="joinTeam">Join team</string>
-  <string name="quitTeam">Leave team</string>
-  <string name="anyoneCanJoin">Free for all</string>
-  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
-  <string name="joiningPolicy">Joining policy</string>
+  <string name="allTeams">सभी टीम</string>
+  <string name="newTeam">नया टीम</string>
+  <string name="myTeams">मेरे टीम</string>
+  <string name="noTeamFound">कोई टीम नही मिला</string>
+  <string name="joinTeam">टीम में शामिल हों</string>
+  <string name="quitTeam">टीम को छोड़ दें</string>
+  <string name="anyoneCanJoin">कोई भी शामिल हो सकते हैं</string>
+  <string name="aConfirmationIsRequiredToJoin">शामिल होने के लिए एक पुष्टिकरण (confirmation) जरूरी है</string>
+  <string name="joiningPolicy">नीति में शामिल होना</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Team leader</item>
-    <item quantity="other">Team leaders</item>
+    <item quantity="one">टीम के नेता</item>
+    <item quantity="other">टीम के नेता</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
-  <string name="teamRecentMembers">Recent members</string>
-  <string name="kickSomeone">Kick someone out of the team</string>
-  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <string name="teamBestPlayers">सबसे अच्छे खिलाडी</string>
+  <string name="teamRecentMembers">नए सदस्य</string>
+  <string name="kickSomeone">किसी को टीम से बाहर करे</string>
+  <string name="whoToKick">आप किसे टीम से बाहर करना चाहते हैं ?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s join request</item>
-    <item quantity="other">%s join requests</item>
+    <item quantity="one">%s अनुरोध में शामिल हुए</item>
+    <item quantity="other">%s अनुरोध शामिल हों</item>
   </plurals>
-  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
-  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
-  <string name="teamBattle">Team Battle</string>
-  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
-  <string name="teamTournament">Team tournament</string>
-  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
-  <string name="messageAllMembers">Message all members</string>
-  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
-  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
-You can use this to call players to join a tournament or a team battle.
-Players who don\'t like receiving your messages might leave the team.</string>
-  <string name="teamsIlead">Teams I lead</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
-  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
-  <string name="leadersChat">Leaders chat</string>
+  <string name="willBeReviewed">आपके सम्मिलित अनुरोध की समीक्षा टीम लीडर द्वारा की जाएगी।</string>
+  <string name="beingReviewed">टीम लीडर द्वारा आपके सम्मिलित अनुरोध की समीक्षा की जा रही है।</string>
+  <string name="teamBattle">टीम युद्ध</string>
+  <string name="teamBattleOverview">कई टीमों की लड़ाई, प्रत्येक खिलाड़ी अपनी टीम के लिए स्कोर करता है</string>
+  <string name="teamTournament">टीम टूर्नामेंट</string>
+  <string name="teamTournamentOverview">एक एरिना टूर्नामेंट जिसमें आपकी टीम के सदस्य ही शामिल हो सकते हैं</string>
+  <string name="messageAllMembers">सभी सदस्यों को संदेश दें</string>
+  <string name="messageAllMembersOverview">टीम के प्रत्येक सदस्य को एक निजी संदेश भेजें</string>
+  <string name="messageAllMembersLongDescription">टीम के सभी सदस्यों को एक निजी संदेश भेजें।
+आप इसका उपयोग खिलाड़ियों को टूर्नामेंट या टीम की लड़ाई में शामिल होने के लिए बुला सकते हैं।
+जो खिलाड़ी आपके संदेश प्राप्त करना पसंद नहीं करते वे टीम छोड़ सकते हैं।</string>
+  <string name="teamsIlead">जो टीम मैं नेतृत्व हूं</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">आप इन आगामी टूर्नामेंटों में से किसी एक को जोड़ना चाह सकते हैं ?</string>
+  <string name="usersWhoCanManageThisTeam">जो उपयोगकर्ता इस टीम का प्रबंधन कर सकते हैं</string>
+  <string name="leadersChat">नेताओं के चैट</string>
 </resources>

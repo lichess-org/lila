@@ -2,7 +2,7 @@
 <resources>
   <string name="advantage">Advantage</string>
   <string name="advantageDescription">Seize your chance to get a decisive advantage.</string>
-  <string name="castling">Castling</string>
+  <string name="castling">王车易位</string>
   <string name="castlingDescription">Bring the king to safety.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage.</string>
@@ -44,10 +44,10 @@
   <string name="middlegameDescription">A tactic during the second phase of the game.</string>
   <string name="oneMove">One-move puzzle</string>
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
-  <string name="opening">Opening</string>
-  <string name="openingDescription">A tactic during the first phase of the game.</string>
-  <string name="pin">Pin</string>
-  <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
+  <string name="opening">开局</string>
+  <string name="openingDescription">对局第一阶段的战术。</string>
+  <string name="pin">牵制</string>
+  <string name="pinDescription">一种涉及牵制的策略，一个棋子不能移动否则背后更高价值棋子将被攻击。</string>
   <string name="quietMove">Quiet move</string>
   <string name="quietMoveDescription">A move that does not make a check or capture, but does prepare an unavoidable threat for a later move.</string>
   <string name="rookEndgame">Rook endgame</string>

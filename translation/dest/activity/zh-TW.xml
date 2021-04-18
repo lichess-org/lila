@@ -2,7 +2,7 @@
 <resources>
   <string name="activity">活動</string>
   <string name="hostedALiveStream">主持一個現場直播</string>
-  <plurals name="supportedNbMonths">
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="other">以%2$s的身分支持lishogi.org%1$s個月</item>
   </plurals>
   <plurals name="practicedNbPositions">
@@ -18,7 +18,7 @@
     <item quantity="other">在%2$s發表了%1$s則訊息</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="other">下了%1$s步</item>
+    <item quantity="other">下了%1$s手</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="other">在%1$s場長時間棋局中</item>

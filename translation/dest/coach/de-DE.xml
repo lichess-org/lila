@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi Tutoren</string>
-	<string name="lishogiCoach">Lishogi Tutor</string>
+	<string name="lishogiCoaches">Lishogi Trainer</string>
+	<string name="lishogiCoach">Lishogi Trainer</string>
 	<string name="areYouCoach">Bist du einen tollen Shogi Tutor mit einem %s?</string>
-	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
+	<string name="becomeACoach">Sind Sie ein Shogi-Trainer mit viel Erfahrung und wollen Ihr Wissen auf lishogi weitergeben?</string>
 	<string name="nmOrFideTitle">Titel</string>
 	<string name="confirmTitle">Bestätige hier deinen Titel und wir werden deine Bewerbung überprüfen.</string>
 	<string name="sendApplication">Sende uns eine Mail an %s und wir werden deine Bewerbung überprüfen.</string>

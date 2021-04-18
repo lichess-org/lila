@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="faqAbbreviation">FAQ</string>
-	<string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
-	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
-	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
-	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
-	<string name="breakdownOfOurCosts">breakdown of our costs</string>
-	<string name="otherWaysToHelp">other ways to help</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
-	<string name="fairPlay">Fair Play</string>
-	<string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
-	<string name="cheatDetectionMethods">Lishogi has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
-	<string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
-	<string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
-  (For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points.</string>
-	<string name="preventLeavingGameWithoutResigning">What is done about players leaving games without resigning?</string>
-	<string name="leavingGameWithoutResigningExplanation">If your opponent frequently aborts/leaves games, they get \"play banned\", which means they\'re temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.</string>
-	<string name="howCanIBecomeModerator">How can I become a moderator?</string>
-	<string name="youCannotApply">It’s not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
-	<string name="gameplay">Gameplay</string>
-	<string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
-	<string name="basedOnGameDuration">Lishogi time controls are based on estimated game duration = %1$s
-For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
-	<string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
-	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-	<string name="whatVariantsCanIplay">What variants can I play on Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
-	<string name="eightVariants">8 chess variants</string>
-	<string name="whatIsACPL">What is the average centipawn loss (ACPL)?</string>
-	<string name="acplExplanation">The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions.
+	<string name="faqAbbreviation">फऐक्यू (FAQ)</string>
+	<string name="frequentlyAskedQuestions">अक्सर पूछे जाने वाले प्रश्न</string>
+	<string name="whyIsLishogiCalledLishogi">Lishogi को Lishogi क्यों कहा जाता है?</string>
+	<string name="forkedFromLichess">Lishogi ओपन सोर्स प्रोजेक्ट (Open Source Project) है, जो Lichess से लिया गया है, लेकिन चूंकि यह shogi खेलने के लिए है, इसलिए इसे Lishogi कहा जाता है।</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">क्योंकि यह Liсhess से लिया गया है। और Liсhess को Liсhess कहा जाता है क्योंकि यह लाइव (live)/ लाइट(light) / लिबर्रे(libre) और शतरंज का संयोजन है। Lishogi का उच्चारण %1$s है।</string>
+	<string name="leechess">ली-शोगी (lee-shogi)</string>
+	<string name="hearItPronouncedBySpecialist">किसी विशेषज्ञ द्वारा उच्चारित इसे सुनें।</string>
+	<string name="whyLiveLightLibre">लाइव, क्योंकि गेम वास्तविक समय 24/7 में खेले और देखे जाते हैं; इस तथ्य के लिए कि Lishogi ओपन-सोर्स है और स्वामित्व वाली कबाड़ से अप्रभावित है जो अन्य वेबसाइटों को नुकसान पहुंचाती है।</string>
+	<string name="whyIsLilaCalledLila">इसी तरह, lishogi के लिए सोर्स कोड, %1$s, li[shogi in sca]la हे, यह देखते हुए कि lishogi के थोक को %2$s मे हे, एक सहज ज्ञान युक्त प्रोग्रामिंग भाषा में लिखा गया है।</string>
+	<string name="howCanIContributeToLishogi">मैं lishogi में कैसे योगदान कर सकता हूं ?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi संरक्षक और स्वयंसेवकों की एक टीम के प्रयासों से दान द्वारा संचालित है।</string>
+	<string name="findMoreAndSeeHowHelp">आप %1$s के बारे में अधिक जानकारी प्राप्त कर सकते हैं। यदि आप अपने समय और कौशल को स्वयं सहायता करके lishogi की मदद करना चाहते हैं, तो कई %2$s हैं।</string>
+	<string name="beingAPatron">संरक्षक (Patron) बनें</string>
+	<string name="breakdownOfOurCosts">हमारी लागतों का विभाजन</string>
+	<string name="otherWaysToHelp">मदद करने के अन्य तरीके</string>
+	<string name="areThereWebsitesBasedOnLishogi">क्या लाइकस पर आधारित वेबसाइटें हैं ?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">हाँ। Lishogi ने वास्तव में अन्य ओपन-सोर्स साइटों को प्रेरित किया है जो हमारे %1$s, %2$s, या %3$s का उपयोग करते हैं।</string>
+	<string name="fairPlay">फेयर प्ले (Fair Play)</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">मुझे कृत्रिम रेटिंग हेरफेर (सैंडबैगिंग और बूस्टिंग) या कंप्यूटर सहायता के लिए क्यों ध्वजांकित किया गया है?</string>
+	<string name="cheatDetectionMethods">Lishogi के पास मजबूत पहचान के तरीके हैं और सभी सबूतों की समीक्षा करने और निर्णय लेने के लिए एक बहुत ही गहन प्रक्रिया है। प्रक्रिया में अक्सर कई मध्यस्थ शामिल होते हैं और इसमें लंबा समय लग सकता है। निशान के अलावा, हम सबूत या व्यक्तिगत मामलों के लिए निर्णय लेने की प्रक्रिया के बारे में विवरण में नहीं जाएंगे। ऐसा करने से भविष्य में पता लगाने से बचना आसान होगा, और अनुत्पादक बहस का निमंत्रण हो सकता है। वह समय और प्रयास अन्य महत्वपूर्ण मामलों पर बेहतर ढंग से खर्च होता है। उपयोगकर्ता %1$s को ईमेल करके अपील कर सकते हैं, लेकिन निर्णय शायद ही कभी पलट दिए जाते हैं।</string>
+	<string name="whenAmIEligibleRatinRefund">मैं कब थिएटर से स्वचालित रेटिंग वापसी के लिए योग्य हूं?</string>
+	<string name="ratingRefundExplanation">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
+  (उदाहरण के लिए, यदि उन खेलों के बाद आपकी रेटिंग बहुत बढ़ गई, तो आपको कोई रिफंड या केवल आंशिक धनवापसी नहीं मिल सकती है।) रिफंड कभी भी 150 अंकों से अधिक नहीं होगा।</string>
+	<string name="preventLeavingGameWithoutResigning">बिना इस्तीफा दिए खेल छोड़ने वाले खिलाड़ियों के बारे में क्या किया जाता है ?</string>
+	<string name="leavingGameWithoutResigningExplanation">यदि आपका प्रतिद्वंद्वी अक्सर खेल को छोड़ देता है / अबोर्ट देता है, तो उन्हें \"प्ले प्रतिबंधित\" मिल जाता है, जिसका अर्थ है कि वे अस्थायी रूप से गेम खेलने से प्रतिबंधित हैं। यह उनके प्रोफ़ाइल पर पारंपरिक रूप से इंगित नहीं किया गया है। यदि यह व्यवहार जारी रहता है, तो प्लेबन की लंबाई बढ़ जाती है - और इस प्रकृति के लंबे समय तक व्यवहार के कारण खाता बंद हो सकता है।</string>
+	<string name="howCanIBecomeModerator">मैं एक मॉडरेटर कैसे बन सकता हूं ?</string>
+	<string name="youCannotApply">मॉडरेटर बनने के लिए आवेदन करना संभव नहीं है। यदि हम किसी ऐसे व्यक्ति को देखते हैं जो हमें लगता है कि एक मध्यस्थ के रूप में अच्छा होगा, तो हम उनसे सीधे संपर्क करेंगे।</string>
+	<string name="isCorrespondenceDifferent">क्या पत्राचार सामान्य shogi से अलग है ?</string>
+	<string name="youCanUseOpeningBookNoEngine">Lishogi पर, पत्राचार shogi के नियमों में मुख्य अंतर यह है कि एक उद्घाटन पुस्तक की अनुमति है। इंजन का उपयोग अभी भी निषिद्ध है और इसके परिणामस्वरूप इंजन सहायता के लिए ध्वजांकित किया जाएगा। हालांकि ICCF पत्राचार में इंजन के उपयोग की अनुमति देता है, lishogi नहीं करता है।</string>
+	<string name="gameplay">गेमप्ले (Gameplay)</string>
+	<string name="howBulletBlitzEtcDecided">बुलेट(Bullet), ब्लिट्ज(blitz) और अन्य समय नियंत्रण कैसे तय किए जाते हैं?</string>
+	<string name="basedOnGameDuration">Lishogi समय नियंत्रण अनुमानित खेल अवधि = %1$s पर आधारित है।
+उदाहरण के लिए, 5 + 3 गेम की अनुमानित अवधि 5 × 60 + 40 × 3 = 420 सेकंड है।</string>
+	<string name="durationFormula">(घड़ी प्रारंभिक समय) + 40 × (घड़ी की वृद्धि)</string>
+	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
+	<string name="whatVariantsCanIplay">Lishogi पर मैं कौन से संस्करण (variants) खेल सकता हूं ?</string>
+	<string name="lishogiSupportChessAnd">Lishogi मानक shogi और %1$s का समर्थन करता है।</string>
+	<string name="eightVariants">८ shogi वेरिएंट</string>
+	<string name="whatIsACPL">औसत सेंटीपोन हानि (एसीपीएल) क्या है?</string>
+	<string name="acplExplanation">सेंटपिपेन shogi में इस्तेमाल की जाने वाली माप की इकाई है जो कि लाभ का प्रतिनिधित्व करती है। एक सेंटिपोन एक मोहरे के 1/100 वें हिस्से के बराबर है। इसलिए 100 सेंटीपोन्स = 1 मोहरा। ये मूल्य खेल में कोई औपचारिक भूमिका नहीं निभाते हैं, लेकिन खिलाड़ियों के लिए उपयोगी होते हैं, और पदों के मूल्यांकन के लिए कंप्यूटर shogi में आवश्यक हैं।
 
-The top computer move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns.
+शीर्ष कंप्यूटर चाल शून्य सेंटीप्पों को खो देगी, लेकिन कम चालों से स्थिति खराब हो जाएगी, जो सेंटीमोन्स में मापा जाएगा।
 
-This value can be used as an indicator of the quality of play. The fewer centipawns one loses per move, the stronger the play.
+इस मूल्य का उपयोग खेलने की गुणवत्ता के संकेतक के रूप में किया जा सकता है। कम सेंटीपॉवर्स प्रति चाल खो देता है, जितना मजबूत नाटक।
 
-The computer analysis on Lishogi is powered by Stockfish.</string>
-	<string name="insufficientMaterial">Losing on time, drawing and insufficient material</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+लिचेस पर कंप्यूटर विश्लेषण Stockfish द्वारा संचालित है।</string>
+	<string name="insufficientMaterial">समय पर हार, ड्राइंग और अपर्याप्त सामग्री</string>
+	<string name="lishogiFollowFIDErules">एक खिलाड़ी के समय से बाहर होने की स्थिति में, वह खिलाड़ी आमतौर पर खेल खो देगा। हालाँकि, खेल तब खींचा जाता है जब स्थिति ऐसी होती है कि प्रतिद्वंद्वी खिलाड़ी के राजा को किसी भी कानूनी कदम (%1$s) की संभावित श्रृंखला द्वारा जाँच नहीं कर सकता है।
 
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+दुर्लभ मामलों में यह स्वचालित रूप से तय करने के लिए मुश्किल हो सकता है (मजबूर लाइनें, किले)। डिफ़ॉल्ट रूप से हम हमेशा उस खिलाड़ी के साथ होते हैं जो समय से बाहर नहीं भागता था।
 
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">FIDE handbook §6.9, PDF</string>
-	<string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
-	<string name="explainingEnPassant">This is a legal move known as \"en passant\". The Wikipedia article gives a %1$s.
+ध्यान दें कि एक एकल नाइट या बिशप के साथ संभोग करना संभव हो सकता है यदि प्रतिद्वंद्वी के पास एक टुकड़ा है जो राजा को अवरुद्ध कर सकता है।</string>
+	<string name="linkToFIDErules">फाइड (FIDE) हैंडबुक §6.9, पीडीएफ (PDF)</string>
+	<string name="discoveringEnPassant">जब पहले से ही पास हो तो कोई मोहरा दूसरे मोहरे पर कब्जा क्यों कर सकता है ? (एन पासेंट)</string>
+	<string name="explainingEnPassant">यह एक कानूनी कदम है जिसे \"एन पासेंट\" के रूप में जाना जाता है। विकिपीडिया लेख एक %1$s देता है।
 
-It is described in section 3.7 (d) of the %2$s:
+इसे %2$s की धारा 3.7 (d) में वर्णित किया गया है:
 
-\"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
+\" एक प्यादा पर एक वर्ग के कब्जे के रूप में और एक प्रतिद्वंद्वी के मोहरे के लिए एक आसन्न फ़ाइल पर, जो अपने मूल वर्ग से एक चाल में दो वर्गों को उन्नत करता है, इस प्रतिद्वंद्वी के मोहरे को पकड़ सकता है जैसे कि बाद वाले को केवल एक वर्ग में ले जाया गया था।\" इस अग्रिम के बाद इस कदम पर कब्जा केवल कानूनी है और इसे \'एन पासेंट\' कैप्चर कहा जाता है।”
 
-See the %3$s on this move for some practice with it.</string>
-	<string name="goodIntroduction">good introduction</string>
-	<string name="officialRulesPDF">official rules (PDF)</string>
-	<string name="lishogiTraining">Lishogi training</string>
-	<string name="threefoldRepetition">Threefold repetition</string>
-	<string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lishogi implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">threefold repetition</string>
+इसके साथ कुछ अभ्यास के लिए इस कदम पर %3$s देखें।</string>
+	<string name="goodIntroduction">अच्छा परिचय</string>
+	<string name="officialRulesPDF">आधिकारिक नियम (पीडीएफ)</string>
+	<string name="lishogiTraining">Lishogi प्रशिक्षण</string>
+	<string name="threefoldRepetition">तिगुना दोहराव (Threefold repetition)</string>
+	<string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी %1$s द्वारा ड्रा का दावा कर सकते हैं। Lishogi आधिकारिक FIDE नियमों को लागू करता है, जैसा कि %2$s के अनुच्छेद 9.2 (d) में वर्णित है।</string>
+	<string name="threefoldRepetitionLowerCase">तिगुना दोहराव (Threefold repetition)</string>
 	<string name="handBookPDF">handbook (PDF)</string>
 	<string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
 	<string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
@@ -134,10 +134,10 @@ It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute
 	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lishogi restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
 	<string name="howToThreeDots">How to...</string>
 	<string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
-	<string name="viewSiteInformationPopUp">View site information popup</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="viewSiteInformationPopUp">साइट की जानकारी पॉपअप देखें</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi वैकल्पिक रूप से पॉपअप सूचनाएं भेज सकता है, उदाहरण के लिए जब आपकी बारी हो या आपको एक निजी संदेश प्राप्त हो।
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+अपने ब्राउज़र के URL बार में lishogi.org पते के आगे लॉक आइकन पर क्लिक करें।
 
-Then select whether to allow or block notifications from Lishogi.</string>
+फिर चयन करें कि क्या lishogi से नोटिफिकेशन या ब्लॉक करना है।</string>
 </resources>

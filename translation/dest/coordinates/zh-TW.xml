@@ -2,11 +2,11 @@
 <resources>
 	<string name="coordinates">座標</string>
 	<string name="coordinateTraining">座標訓練</string>
-	<string name="averageScoreAsWhiteX">白棋方平均分數: %s</string>
-	<string name="averageScoreAsBlackX">黑棋方平均分數: %s</string>
-	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
-	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
-	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="averageScoreAsWhiteX">後手方平均分數: %s</string>
+	<string name="averageScoreAsBlackX">先手方平均分數: %s</string>
+	<string name="knowingTheShogiBoard">知道棋盤上的座標是一項很重要的技巧。</string>
+	<string name="mostShogiCourses">所有將棋課程與練習都仰賴將棋記譜方法。您可以選擇您習慣的記譜方法。</string>
+	<string name="talkToYourShogiFriends">這讓你跟和棋友更容易聊天，因為你們都知道\"將棋的語言\"。</string>
 	<string name="youCanAnalyseAGameMoreEffectively">如果能夠快速地辨認座標，可以更有效率的分析一場棋局。</string>
 	<string name="aSquareNameAppears">一個座標會出現在棋盤上，你必須點擊相對應的格子。你要在30秒內點擊正確的格子，越多越好！</string>
 	<string name="startTraining">開始訓練</string>

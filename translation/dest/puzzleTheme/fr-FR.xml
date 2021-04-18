@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advantage">Advantage</string>
+  <string name="advantage">Avantage</string>
   <string name="advantageDescription">Seize your chance to get a decisive advantage.</string>
-  <string name="castling">Castling</string>
+  <string name="castling">Roque</string>
   <string name="castlingDescription">Bring the king to safety.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage.</string>
@@ -26,30 +26,30 @@
   <string name="longDescription">Five moves to win.</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Win the game with style.</string>
-  <string name="mateIn1">Mate in 1</string>
+  <string name="mateIn1">Mat en 1</string>
   <string name="mateIn1Description">Deliver checkmate in one move.</string>
-  <string name="mateIn2">Mate in 2</string>
+  <string name="mateIn2">Mat en 2</string>
   <string name="mateIn2Description">Deliver checkmate in two moves.</string>
-  <string name="mateIn3">Mate in 3</string>
+  <string name="mateIn3">Mat en 3</string>
   <string name="mateIn3Description">Deliver checkmate in three moves.</string>
-  <string name="mateIn4">Mate in 4</string>
+  <string name="mateIn4">Mat en 4</string>
   <string name="mateIn4Description">Deliver checkmate in four moves.</string>
-  <string name="mateIn5">Mate in 5</string>
+  <string name="mateIn5">Mat en 5</string>
   <string name="mateIn5Description">Deliver checkmate in five moves.</string>
-  <string name="mateIn7">Mate in 7</string>
+  <string name="mateIn7">Mat en 7</string>
   <string name="mateIn7Description">Deliver checkmate in seven moves.</string>
-  <string name="mateIn9">Mate in 9 or more</string>
+  <string name="mateIn9">Mate en 9 ou plus</string>
   <string name="mateIn9Description">Figure out a long mating sequence.</string>
-  <string name="middlegame">Middlegame</string>
-  <string name="middlegameDescription">A tactic during the second phase of the game.</string>
+  <string name="middlegame">Milieu de jeu</string>
+  <string name="middlegameDescription">Une tactique pendant la seconde phase de la partie.</string>
   <string name="oneMove">One-move puzzle</string>
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">A tactic during the first phase of the game.</string>
-  <string name="pin">Pin</string>
-  <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
-  <string name="quietMove">Quiet move</string>
-  <string name="quietMoveDescription">A move that does not make a check or capture, but does prepare an unavoidable threat for a later move.</string>
+  <string name="pin">Clouage</string>
+  <string name="pinDescription">Une tactique impliquant des clouages, où une pièce est incapable de se déplacer sans découvrir une attaque sur une pièce de valeur supérieure.</string>
+  <string name="quietMove">Coup silencieux</string>
+  <string name="quietMoveDescription">Un coup qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
   <string name="rookEndgame">Rook endgame</string>
   <string name="rookEndgameDescription">An endgame with only rooks and pawns.</string>
   <string name="sacrifice">Sacrifice</string>
@@ -73,5 +73,5 @@
   <string name="lishogiGames">From lishogi games</string>
   <string name="lishogiGamesDescription">Puzzles generated from games played on lishogi.</string>
   <string name="otherSources">From other sources</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
+  <string name="otherSourcesDescription">Un grand merci à tous ceux qui ont permis lishogi à utiliser leurs problèmes !</string>
 </resources>

@@ -3,7 +3,7 @@
 	<string name="lishogiCoaches">Coaches sur Lishogi</string>
 	<string name="lishogiCoach">Coach sur Lishogi</string>
 	<string name="areYouCoach">Êtes-vous entraîneur de shogi avec un %s ?</string>
-	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
+	<string name="becomeACoach">Êtes-vous un expérimenté entraîneur de shogi ? Souhaitez-vous être recommandé par lishogi ?</string>
 	<string name="nmOrFideTitle">titre</string>
 	<string name="confirmTitle">Confirmez votre titre ici, nous le passerons en revue votre demande.</string>
 	<string name="sendApplication">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>

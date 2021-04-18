@@ -24,8 +24,8 @@
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
   <string name="long">長手数問題</string>
   <string name="longDescription">Five moves to win.</string>
-  <string name="mate">Mate</string>
-  <string name="mateDescription">Win the game with style.</string>
+  <string name="mate">詰み</string>
+  <string name="mateDescription">きれいに勝ちを決める。</string>
   <string name="mateIn1">1 手詰</string>
   <string name="mateIn1Description">1 手で詰みにします。</string>
   <string name="mateIn2">Mate in 2</string>
@@ -57,12 +57,12 @@
   <string name="short">短手数問題</string>
   <string name="shortDescription">3 手で勝ちになります。</string>
   <string name="healthyMix">混合</string>
-  <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
+  <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！実戦と同じです。</string>
   <string name="tsume">詰将棋</string>
   <string name="tsumeDescription">Your goal is to checkmate your opponent. Every move you make has to be a check.</string>
-  <string name="strikingPawn">Striking pawn</string>
+  <string name="strikingPawn">叩きの歩</string>
   <string name="strikingPawnDescription">A tactitc involving dropping a pawn in front of opponent\'s piece and attacking it.</string>
-  <string name="joiningPawn">Joining pawn</string>
+  <string name="joiningPawn">継ぎ歩</string>
   <string name="joiningPawnDescription">A tactic in which a pawn is sacrificially dropped in front of opponent\'s piece.</string>
   <string name="dancingPawns">Dancing pawns</string>
   <string name="dancingPawnsDescription">A tactic to capture opponent\'s gold with sacrificing a pawn.</string>
@@ -71,7 +71,7 @@
   <string name="veryLong">超長手数問題</string>
   <string name="veryLongDescription">7 手以上で勝ちになります。</string>
   <string name="lishogiGames">Lishogiの対局から</string>
-  <string name="lishogiGamesDescription">Puzzles generated from games played on lishogi.</string>
-  <string name="otherSources">From other sources</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
+  <string name="lishogiGamesDescription">lishogiの対局から生成された問題。</string>
+  <string name="otherSources">他のソースから</string>
+  <string name="otherSourcesDescription">これらの問題を提供し、lishogiでの使用を許可してくださった全ての方々に感謝いたします！</string>
 </resources>

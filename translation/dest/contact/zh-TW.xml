@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">聯繫我們</string>
-  <string name="contactLishogi">Contact Lishogi</string>
+  <string name="contactLishogi">聯絡Lishogi</string>
   <string name="whatCanWeHelpYouWith">有什麼我們能幫您的地方？</string>
   <string name="visitThisPage">觀看這個頁面以獲取解答</string>
   <string name="iCantLogIn">我無法登錄。</string>
   <string name="noConfirmationEmail">我沒有收到我的電子郵件確認信</string>
   <string name="forgotPassword">我忘記了密碼</string>
-  <string name="forgotUsername">我忘了自己的用戶名</string>
+  <string name="forgotUsername">我忘了自己的帳號</string>
   <string name="youCanLoginWithEmail">您可以使用之前註冊的電子郵件登入</string>
   <string name="lost2FA">我無法取得兩步驟驗證碼</string>
   <string name="doPasswordReset">輸入密碼以移除兩步驟驗證</string>

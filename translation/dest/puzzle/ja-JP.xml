@@ -22,7 +22,7 @@
   <string name="clickToSolve">問題を解く</string>
   <string name="goodMove">好手</string>
   <string name="bestMove">最善手！</string>
-  <string name="keepGoing">続ける</string>
+  <string name="keepGoing">続ける…</string>
   <string name="puzzleSuccess">成功！</string>
   <string name="puzzleComplete">問題終了！</string>
   <string name="notTheMove">その手は違います！</string>

@@ -3,7 +3,7 @@
 	<string name="lishogiCoaches">Lishogi के कोच</string>
 	<string name="lishogiCoach">Lishogi के कोच</string>
 	<string name="areYouCoach">आप %s उपाधि के साथ एक महान शतरंज कोच हैं?</string>
-	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
+	<string name="becomeACoach">क्या आप अनुभव के साथ एक महान shogi कोच हैं और क्या आप Lishogi में चित्रित होना चाहते हैं?</string>
 	<string name="nmOrFideTitle">शीर्षक</string>
 	<string name="confirmTitle">यहां अपने शीर्षक की पुष्टि करें और हम आपके आवेदन की समीक्षा करेंगे।</string>
 	<string name="sendApplication">हमें %s पर एक ईमेल भेजें और हम आपके आवेदन की समीक्षा करेंगे।</string>

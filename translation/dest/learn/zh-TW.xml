@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
+	<string name="learnShogi">學習將棋</string>
 	<string name="byPlaying">邊學邊玩！</string>
 	<string name="menu">選單</string>
 	<string name="progressX">進度：%s</string>
 	<string name="resetMyProgress">重設我的進度</string>
 	<string name="youWillLoseAllYourProgress">您的進度將會被清空！</string>
 	<string name="play">玩！</string>
-	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntoduction">Introduction</string>
-	<string name="introBasics">Let\'s learn some basics.</string>
-	<string name="introIntro">Your journey begins here.</string>
+	<string name="shogiPieces">棋子</string>
+	<string name="theIntoduction">簡介</string>
+	<string name="introBasics">讓我們從基礎開始。</string>
+	<string name="introIntro">您的旅程從這裡開始</string>
 	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
 To do that click on the cog wheel or your username(top right corner) and then click on \'piece set\'.</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
@@ -63,14 +63,14 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
 	<string name="lanceSummary">Moves forward, this is really easy.</string>
 	<string name="planceSummary">It\'s the same as the gold general.</string>
-	<string name="lanceComplete">Great job!</string>
-	<string name="theGold">The gold general</string>
+	<string name="lanceComplete">太棒了！</string>
+	<string name="theGold">金將</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
 	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
 	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
 	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
 	<string name="goldComplete">Congratulations! You got this.</string>
-	<string name="theSilver">The silver general</string>
+	<string name="theSilver">銀將</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
 	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
 	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>

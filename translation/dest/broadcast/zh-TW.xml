@@ -13,7 +13,7 @@
   <string name="sourceUrl">來源網址</string>
   <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="roundNumber">Round number</string>
-  <string name="startDate">Start date in your own timezone</string>
+  <string name="startDate">開始日期 (當地時間)</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
   <string name="cloneBroadcast">Clone the broadcast</string>
