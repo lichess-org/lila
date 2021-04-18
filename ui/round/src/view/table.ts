@@ -18,7 +18,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
     ? h("div.user-link.online.ruser.ruser-" + position, [
         h(`div.player-color.${player.color}`, {
           attrs: {
-            title: player.color === "white" ? "Black" : "White",
+            title: player.color === "sente" ? "Sente" : "Gote",
           },
         }),
         h("i.line"),

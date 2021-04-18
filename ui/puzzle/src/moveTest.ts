@@ -1,9 +1,10 @@
-import { lishogiCharToRole, makeShogiFen, parseLishogiUci } from 'shogiops/compat';
+import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 import { isDrop, Role, Shogi, SquareSet } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
 import {opposite} from 'shogiground/util';
+import {plyColor} from './util';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
@@ -22,7 +23,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   if (vm.mode === 'view') return;
   if (!pathOps.contains(vm.path, vm.initialPath)) return;
 
-  const playedByColor = vm.node.ply % 2 === 1 ? 'white' : 'black';
+  const playedByColor = opposite(plyColor(vm.node.ply));
   if (playedByColor !== vm.pov) return;
 
   const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
@@ -32,7 +33,7 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   }));
   
   for (const i in nodes) {
-    const b: boolean = parseFen(makeShogiFen(nodes[i].fen)).unwrap(
+    const b: boolean = parseFen(nodes[i].fen).unwrap(
       (s) => Shogi.fromSetup(s, false).unwrap(
         (sh) => sh.isCheckmate(),
         () => false

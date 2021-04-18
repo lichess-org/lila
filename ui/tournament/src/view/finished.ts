@@ -29,13 +29,13 @@ function stats(data: TournamentData, noarg: any): VNode {
     numberRow(noarg("gamesPlayed"), data.stats.games),
     numberRow(noarg("movesPlayed"), data.stats.moves),
     numberRow(
-      noarg("whiteWins"),
-      [data.stats.whiteWins, data.stats.games],
+      noarg("blackWins"),
+      [data.stats.senteWins, data.stats.games],
       "percent"
     ),
     numberRow(
-      noarg("blackWins"),
-      [data.stats.blackWins, data.stats.games],
+      noarg("whiteWins"),
+      [data.stats.goteWins, data.stats.games],
       "percent"
     ),
     numberRow(noarg("draws"), [data.stats.draws, data.stats.games], "percent"),

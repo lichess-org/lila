@@ -9,7 +9,7 @@ import throttle from 'common/throttle';
 import { Api as CgApi } from 'shogiground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Shogi } from 'shogiops/shogi';
-import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, makeShogiFen, makeLishogiFen, parseLishogiUci, assureLishogiUci } from 'shogiops/compat';
+import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, parseLishogiUci, assureLishogiUci } from 'shogiops/compat';
 import { Config as CgConfig } from 'shogiground/config';
 import { Piece } from 'shogiground/types';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
@@ -23,6 +23,7 @@ import { Move, Outcome, PocketRole } from 'shogiops/types';
 import { storedProp } from 'common/storage';
 import { cancelDropMode } from "shogiground/drop";
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import {plyColor} from './util';
 
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
@@ -67,11 +68,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.next = defer();
     vm.round = undefined;
     vm.justPlayed = undefined;
+    vm.justDropped = undefined;
+    vm.dropmodeActive = false;
     vm.resultSent = false;
     vm.lastFeedback = 'init';
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
-    vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    vm.pov = plyColor(vm.initialNode.ply);
     console.log("vm: ", vm);
 
     setPath(treePath.init(initialPath));
@@ -98,13 +101,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function position(): Shogi {
-    const setup = parseFen(makeShogiFen(vm.node.fen)).unwrap();
+    const setup = parseFen(vm.node.fen).unwrap();
     return Shogi.fromSetup(setup, false).unwrap();
   }
 
   function makeCgOpts(): CgConfig {
     const node = vm.node;
-    const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
+    const color = plyColor(node.ply);
     const dests = shogigroundDests(position());
     const nextNode = vm.node.children[0];
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
@@ -143,12 +146,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function tsumeLength(): number {
-    if (data.puzzle.themes.includes("tsume")){
-      const solLen = data.puzzle.solution.length;
-      const curPly = vm.node.ply;
-      return solLen - curPly;
-    }
-    return 0;
+    return data.puzzle.themes.includes("tsume") ?
+      data.puzzle.solution.length - vm.node.ply : 0;
   }
 
   function userMove(orig: Key, dest: Key): void {
@@ -163,6 +162,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     else jump(vm.path)
     cancelDropMode(ground()!.state);
+    vm.dropmodeActive = false;
   }
 
   function playUci(uci: Uci): void {
@@ -190,14 +190,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendMoveAt(path: Tree.Path, pos: Shogi, move: Move): void {
-    console.log("SM: ", move);
     const san = makeSanAndPlay(pos, move);
     console.log(san);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
       {
         ply: pos.fullmoves - 1,
-        fen: makeLishogiFen(makeFen(pos.toSetup())),
+        fen: makeFen(pos.toSetup()),
         id: scalashogiCharPair(move),
         uci: makeLishogiUci(move),
         san,
@@ -209,7 +208,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | [Key] | undefined {
-    // assuming standard shogi
     return defined(uci) ? (uci[1] === '*' ? [uci.substr(2, 2) as Key] : [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key]) : undefined;
   }
 
@@ -264,7 +262,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress) {
       vm.lastFeedback = 'good';
       setTimeout(() => {
-        const pos = Shogi.fromSetup(parseFen(makeShogiFen(progress.fen)).unwrap(), false).unwrap();
+        const pos = Shogi.fromSetup(parseFen(progress.fen).unwrap(), false).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
@@ -348,14 +346,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   const doStartCeval = throttle(800, function () {
-    if(data.game.id)
-      vm.nodeList[0].fen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
   function nextNodeBest() {
     return treeOps.withMainlineChild(vm.node, function (n) {
-      // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
   }
@@ -542,6 +537,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     },
     getOrientation() {
       return withGround(g => g.state.orientation)!;
+    },
+    getDropmodeActive() {
+      return withGround(g => g.state.dropmode.active)!;
     },
     getNode() {
       return vm.node;

@@ -8,8 +8,8 @@ import * as cg from "./types";
 export interface State {
   pieces: cg.Pieces;
   pockets?: cg.Pockets;
-  orientation: cg.Color; // board orientation. white | black
-  turnColor: cg.Color; // turn to play. white | black
+  orientation: cg.Color; // board orientation. sente | gote
+  turnColor: cg.Color; // turn to play. sente | gote
   check?: cg.Key; // square currently in check "a2"
   lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
   selected?: cg.Key; // square currently selected "a1"
@@ -31,7 +31,7 @@ export interface State {
   };
   movable: {
     free: boolean; // all moves are valid - board editor
-    color?: cg.Color | "both"; // color that can move. white | black | both
+    color?: cg.Color | "both"; // color that can move. sente | gote | both
     dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     showDests: boolean; // whether to add the move-dest class on squares
     events: {
@@ -96,7 +96,7 @@ export interface State {
   events: {
     change?: () => void; // called after the situation changes on the board
     // called after a piece has been moved.
-    // capturedPiece is undefined or like {color: 'white'; 'role': 'queen'}
+    // capturedPiece is undefined or like {color: 'sente'; 'role': 'lance'}
     move?: (orig: cg.Key, dest: cg.Key, capturedPiece?: cg.Piece) => void;
     dropNewPiece?: (piece: cg.Piece, key: cg.Key) => void;
     select?: (key: cg.Key) => void; // called when a square is selected
@@ -111,8 +111,8 @@ export interface State {
 export function defaults(): Partial<State> {
   return {
     pieces: fen.read(fen.initial),
-    orientation: "white",
-    turnColor: "white",
+    orientation: "sente",
+    turnColor: "sente",
     coordinates: true,
     autoCastle: true,
     viewOnly: false,

@@ -1,5 +1,4 @@
 import { State } from "./state";
-import { cancelDropMode } from "./drop";
 import * as board from "./board";
 import * as util from "./util";
 import { clear as drawClear } from "./draw";
@@ -26,7 +25,7 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
   const bounds = s.dom.bounds(),
     position = util.eventPosition(e)!,
-    orig = board.getKeyAtDomPos(position, board.whitePov(s), bounds);
+    orig = board.getKeyAtDomPos(position, board.sentePov(s), bounds);
   if (!orig) return;
   const piece = s.pieces.get(orig);
   const previouslySelected = s.selected;
@@ -80,12 +79,11 @@ export function start(s: State, e: cg.MouchEvent): void {
       ghost.className = `ghost ${piece.color} ${piece.role}`;
       util.translateAbs(
         ghost,
-        util.posToTranslateAbs(bounds)(util.key2pos(orig), board.whitePov(s))
+        util.posToTranslateAbs(bounds)(util.key2pos(orig), board.sentePov(s))
       );
       util.setVisible(ghost, true);
     }
     processDrag(s);
-    if (s.dropmode.active) cancelDropMode(s);
   } else {
     if (hadPremove) board.unsetPremove(s);
     if (hadPredrop) board.unsetPredrop(s);
@@ -94,11 +92,11 @@ export function start(s: State, e: cg.MouchEvent): void {
 }
 
 function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
-  const asWhite = board.whitePov(s),
+  const asSente = board.sentePov(s),
     bounds = s.dom.bounds(),
     radiusSq = Math.pow(bounds.width / 9, 2);
   for (const key in s.pieces) {
-    const center = computeSquareCenter(key as cg.Key, asWhite, bounds);
+    const center = computeSquareCenter(key as cg.Key, asSente, bounds);
     if (util.distanceSq(center, pos) <= radiusSq) return true;
   }
   return false;
@@ -194,7 +192,7 @@ export function end(s: State, e: cg.MouchEvent): void {
   const eventPos = util.eventPosition(e) || cur.pos;
   const dest = board.getKeyAtDomPos(
     eventPos,
-    board.whitePov(s),
+    board.sentePov(s),
     s.dom.bounds()
   );
   if (dest && cur.started && cur.orig !== dest) {
@@ -237,11 +235,11 @@ function removeDragElements(s: State): void {
 
 function computeSquareCenter(
   key: cg.Key,
-  asWhite: boolean,
+  asSente: boolean,
   bounds: ClientRect
 ): cg.NumberPair {
   const pos = util.key2pos(key);
-  if (!asWhite) {
+  if (!asSente) {
     pos[0] = 8 - pos[0];
     pos[1] = 8 - pos[1];
   }

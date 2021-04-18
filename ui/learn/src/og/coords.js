@@ -14,7 +14,7 @@ function renderCoords(elems, klass, orient) {
 module.exports = function (data, el) {
   util.requestAnimationFrame(function () {
     var coords = document.createDocumentFragment();
-    var orientClass = data.orientation === "black" ? " black" : "";
+    var orientClass = data.orientation === "gote" ? " gote" : "";
     const westernNotation = ["9", "8", "7", "6", "5", "4", "3", "2", "1"];
     const japaneseNotation = [
       "九",
@@ -49,6 +49,6 @@ module.exports = function (data, el) {
     orientation = o;
     var coords = el.querySelectorAll("coords");
     for (var i = 0; i < coords.length; ++i)
-      coords[i].classList.toggle("black", o === "black");
+      coords[i].classList.toggle("gote", o === "gote");
   };
 };

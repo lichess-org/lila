@@ -4,7 +4,9 @@ import { Api as CgApi } from 'shogiground/api';
 import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
-import { Prop } from 'common';
+import { defined, Prop } from 'common';
+import { canPiecePromote, promote as sPromote } from 'shogiops/util'
+import { parseChessSquare } from 'shogiops/compat';
 
 export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
   let promoting: any = false;
@@ -12,17 +14,8 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom?: Boolean) => void) {
     const g = getGround(),
       piece = g.state.pieces.get(dest);
-    if (piece &&
-        ["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(
-          piece.role
-        ) && (((["7", "8", "9"].includes(dest[1]) ||
-        ["7", "8", "9"].includes(orig[1])) &&
-        g.state.turnColor === "black") || // opposite color
-        ((["1", "2", "3"].includes(dest[1]) ||
-          ["1", "2", "3"].includes(orig[1])) &&
-          g.state.turnColor === "white")
-          )
-    ) {
+    if (!defined(piece)) return false;
+    if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
       promoting = {
         orig: orig,
         dest: dest,
@@ -71,7 +64,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
     if (!promoting) return;
 
     let left = (8 - cgUtil.key2pos(dest)[0]) * 11.11 - cgUtil.key2pos(dest)[0] * 0.04;
-    if (orientation === "white")
+    if (orientation === "sente")
       left = cgUtil.key2pos(dest)[0] * 11.11 - cgUtil.key2pos(dest)[0] * 0.04;
     const vertical = color === orientation ? "top" : "bottom";
 
@@ -85,7 +78,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
       },
       pieces.map(function (serverRole, i) {
         let top = (i + cgUtil.key2pos(dest)[1]) * 11.11 + 0.3;
-        if (orientation === "white")
+        if (orientation === "sente")
           top = (9 - (i + cgUtil.key2pos(dest)[1])) * 11.11 + 0.35;
         return h(
           'square',
@@ -104,23 +97,6 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
     );
   }
 
-  function promotesTo(role: Role | undefined): Role {
-    switch (role) {
-      case "silver":
-        return "promotedSilver";
-      case "knight":
-        return "promotedKnight";
-      case "lance":
-        return "promotedLance";
-      case "bishop":
-        return "horse";
-      case "rook":
-        return "dragon";
-      default:
-        return "tokin";
-    }
-  }
-
   return {
     start,
     cancel,
@@ -128,9 +104,9 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
       if (!promoting) return;
 
       const pieces: Role[] =
-      getGround().state.turnColor === "white" ?
-      [promotesTo(promoting.role), promoting.role] :
-      [promoting.role, promotesTo(promoting.role)];
+      getGround().state.turnColor === "sente" ?
+      [sPromote(promoting.role), promoting.role] :
+      [promoting.role, sPromote(promoting.role)];
 
       return renderPromotion(
         promoting.dest,

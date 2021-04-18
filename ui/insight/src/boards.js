@@ -5,7 +5,7 @@ function miniGame(game) {
     "a",
     {
       key: game.id,
-      href: "/" + game.id + (game.color === "white" ? "" : "/black"),
+      href: "/" + game.id + (game.color === "sente" ? "" : "/gote"),
     },
     [
       m("span", {

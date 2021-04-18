@@ -112,7 +112,7 @@ export function view(root: AnalyseCtrl): VNode {
         'Commenting position after ',
         h('a', {
           hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw)
-        }, nodeFullName(current.node))
+        }, nodeFullName(current.node, root.data.pref.pieceNotation ?? 0))
       ]) : null,
       h('div.form-group', [
         h('textarea#comment-text.form-control', {

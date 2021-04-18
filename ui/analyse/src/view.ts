@@ -1,7 +1,6 @@
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { parseFen } from "shogiops/fen";
-import { makeShogiFen, makeLishogiFen } from "shogiops/compat";
 import * as shogiground from "./ground";
 //import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from "./util";
 import { bind, onInsert, spinner, bindMobileMousedown } from "./util";
@@ -45,10 +44,10 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30)
     switch (ctrl.data.game.winner) {
-      case "white":
+      case "sente":
         result = "1-0";
         break;
-      case "black":
+      case "gote":
         result = "0-1";
         break;
       default:
@@ -64,8 +63,8 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
         winner
           ? ", " +
             ctrl.trans(
-              winner.color == "white"
-                ? "blackIsVictorious" // swapped
+              winner.color == "sente"
+                ? "blackIsVictorious"
                 : "whiteIsVictorious"
             )
           : null,
@@ -133,30 +132,30 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           insert: (vnode) => {
             const el = vnode.elm as HTMLInputElement;
             el.value = defined(ctrl.fenInput)
-              ? makeShogiFen(ctrl.fenInput)
-              : makeShogiFen(ctrl.node.fen);
+              ? ctrl.fenInput
+              : ctrl.node.fen;
             el.addEventListener("change", (_) => {
               if (
-                makeLishogiFen(el.value) !== ctrl.node.fen &&
+                el.value !== ctrl.node.fen &&
                 el.reportValidity()
               )
-                ctrl.changeFen(makeLishogiFen(el.value.trim()));
+                ctrl.changeFen(el.value.trim());
             });
             el.addEventListener("input", (_) => {
               ctrl.fenInput = el.value;
               el.addEventListener('input', _ => {
                 ctrl.fenInput = el.value;
-                el.setCustomValidity(parseFen(makeShogiFen(el.value.trim())).isOk ? '' : 'Invalid FEN');
+                el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid SFEN');
               });
             });
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
-              el.value = makeShogiFen(ctrl.node.fen);
+              el.value = ctrl.node.fen;
               el.setCustomValidity("");
-            } else if (el.value != makeShogiFen(ctrl.fenInput)) {
-              el.value = makeShogiFen(ctrl.fenInput);
+            } else if (el.value != ctrl.fenInput) {
+              el.value = ctrl.fenInput;
             }
           },
         },
@@ -399,9 +398,9 @@ export default function (ctrl: AnalyseCtrl): VNode {
           },
           [
             ...(clocks || []),
-            playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
+            playerBars ? playerBars[ctrl.bottomIsSente() ? 1 : 0] : null,
             shogiground.render(ctrl),
-            playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
+            playerBars ? playerBars[ctrl.bottomIsSente() ? 0 : 1] : null,
             renderPromotion(ctrl),
           ]
         ),

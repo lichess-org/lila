@@ -12,20 +12,20 @@ module.exports = {
   levels: [
     {
       goal: "theKingIsSlow",
-      fen: "9/9/9/9/9/9/3K5/9/9 w -",
+      fen: "9/9/9/9/9/9/3K5/9/9 b -",
       apples: "e6",
       nbMoves: 3,
       shapes: [arrow("d3d4"), arrow("d4d5"), arrow("d5e6")],
     },
     {
       goal: "grabAllTheStars",
-      fen: "9/9/9/5K3/9/9/9/9/9 w -",
+      fen: "9/9/9/5K3/9/9/9/9/9 b -",
       apples: "d7 e8 f7 f8",
       nbMoves: 4,
     },
     {
       goal: "kingSummary",
-      fen: "9/9/9/9/4K4/9/9/9/9 w -",
+      fen: "9/9/9/9/4K4/9/9/9/9 b -",
       apples: "e7",
       nbMoves: 2,
       shapes: [

@@ -37,7 +37,7 @@ export function miniBoard(game) {
     {
       key: game.id,
       attrs: {
-        href: "/" + game.id + (game.color === "white" ? "" : "/black"),
+        href: "/" + game.id + (game.color === "sente" ? "" : "/gote"),
         "data-color": game.color,
         "data-fen": game.fen,
         "data-lastmove": game.lastMove,

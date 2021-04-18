@@ -47,7 +47,7 @@ const feedback = {
             showGlyphs: true,
             showEval: false
           }, ctrl.current().fault.node, ctrl.notation)!))),
-          h('em', ctrl.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
+          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'findBetterMoveForSente' : 'findBetterMoveForWhite')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -75,7 +75,7 @@ const feedback = {
         h('div.icon', '✗'),
         h('div.instruction', [
           h('strong', ctrl.noarg('youCanDoBetter')),
-          h('em', ctrl.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
+          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'tryAnotherMoveForBlack' : 'tryAnotherMoveForWhite')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -136,15 +136,15 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h('em', nothing ?
-            ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack') :
-            ctrl.noarg(ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes')),
+            ctrl.noarg(ctrl.color === 'sente' ? 'noMistakesFoundForBlack' : 'noMistakesFoundForWhite') :
+            ctrl.noarg(ctrl.color === 'sente'  ? 'doneReviewingBlackMistakes' : 'doneReviewingWhiteMistakes')),
           h('div.choices.end', [
             nothing ? null : h('a', {
               hook: bind('click', ctrl.reset)
             }, ctrl.noarg('doItAgain')),
             h('a', {
               hook: bind('click', () => ctrl.flip())
-            }, ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'))
+            }, ctrl.noarg(ctrl.color === 'sente' ? 'reviewWhiteMistakes' : 'reviewBlackMistakes'))
           ])
         ])
       ])

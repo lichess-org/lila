@@ -48,8 +48,8 @@ import { cancelDropMode } from "shogiground/drop";
 import { notationStyle } from "common/notation";
 
 interface GoneBerserk {
-  white?: boolean;
-  black?: boolean;
+  sente?: boolean;
+  gote?: boolean;
 }
 
 type Timeout = number;
@@ -89,7 +89,7 @@ export default class RoundController {
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
 
-  selectedPiece?: cg.Piece;
+  dropmodeActive: boolean = false;
 
   private music?: any;
 
@@ -181,7 +181,7 @@ export default class RoundController {
     if (!promotion.start(this, orig, dest, meta))
       this.sendMove(orig, dest, false, meta);
     cancelDropMode(this.shogiground.state);
-    this.selectedPiece = undefined;
+    this.dropmodeActive = false;
   };
 
   private onUserNewPiece = (
@@ -193,7 +193,7 @@ export default class RoundController {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
     cancelDropMode(this.shogiground.state);
-    this.selectedPiece = undefined;
+    this.dropmodeActive = false;
     this.redraw();
   };
 
@@ -260,7 +260,7 @@ export default class RoundController {
         fen: s.fen,
         lastMove: util.uci2move(s.uci),
         check: !!s.check,
-        turnColor: this.ply % 2 === 0 ? "white" : "black",
+        turnColor: this.ply % 2 === 0 ? "sente" : "gote",
       };
     if (this.replaying()) this.shogiground.stop();
     else
@@ -403,13 +403,13 @@ export default class RoundController {
       playing = this.isPlaying();
 
     d.game.turns = o.ply;
-    d.game.player = o.ply % 2 === 0 ? "white" : "black";
-    const playedColor = o.ply % 2 === 0 ? "black" : "white",
+    d.game.player = o.ply % 2 === 0 ? "sente" : "gote";
+    const playedColor = o.ply % 2 === 0 ? "gote" : "sente",
       activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
-    this.playerByColor("white").offeringDraw = o.wDraw;
-    this.playerByColor("black").offeringDraw = o.bDraw;
+    this.playerByColor("sente").offeringDraw = o.sDraw;
+    this.playerByColor("gote").offeringDraw = o.gDraw;
     d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
@@ -425,17 +425,9 @@ export default class RoundController {
           o.uci.substr(2, 2) as cg.Key
         );
       else {
-        // This block needs to be idempotent, even for castling moves in
-        // Chess960.
-        const keys = util.uci2move(o.uci)!,
-          pieces = this.shogiground.state.pieces;
-        if (
-          !o.castle ||
-          (pieces.get(o.castle.king[0])?.role === "king" &&
-            pieces.get(o.castle.rook[0])?.role === "rook")
-        ) {
-          this.shogiground.move(keys[0], keys[1]);
-        }
+        // This block needs to be idempotent
+        const keys = util.uci2move(o.uci)!;
+        this.shogiground.move(keys[0], keys[1]);
       }
       if (o.promotion) {
         ground.promote(this.shogiground, util.uci2move(o.uci)![1]);
@@ -469,8 +461,8 @@ export default class RoundController {
       this.shouldSendMoveTime = true;
       const oc = o.clock,
         delay = playing && activeColor ? 0 : oc.lag || 1;
-      if (this.clock) this.clock.setClock(d, oc.white, oc.black, oc.wPer, oc.bPer, delay);
-      else if (this.corresClock) this.corresClock.update(oc.white, oc.black);
+      if (this.clock) this.clock.setClock(d, oc.sente, oc.gote, oc.sPer, oc.gPer, delay);
+      else if (this.corresClock) this.corresClock.update(oc.sente, oc.gote);
     }
     if (this.data.expiration) {
       if (this.data.steps.length > 2) this.data.expiration = undefined;
@@ -517,9 +509,9 @@ export default class RoundController {
     this.data = d;
     this.clearJust();
     this.shouldSendMoveTime = false;
-    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black, d.clock!.wPeriods, d.clock!.bPeriods);
+    if (this.clock) this.clock.setClock(d, d.clock!.sente, d.clock!.gote, d.clock!.sPeriods, d.clock!.gPeriods);
     if (this.corresClock)
-      this.corresClock.update(d.correspondence.white, d.correspondence.black);
+      this.corresClock.update(d.correspondence.sente, d.correspondence.gote);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
     this.moveOn.next();
@@ -554,7 +546,7 @@ export default class RoundController {
     this.setQuietMode();
     this.setLoading(false);
     if (this.clock && o.clock)
-      this.clock.setClock(d, o.clock.wc * 0.01, o.clock.bc * 0.01, o.clock.wp, o.clock.bp);
+      this.clock.setClock(d, o.clock.sc * 0.01, o.clock.gc * 0.01, o.clock.sp, o.clock.gp);
     this.redraw();
     this.autoScroll();
     this.onChange();

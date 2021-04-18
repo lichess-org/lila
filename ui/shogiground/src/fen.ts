@@ -4,15 +4,6 @@ import * as cg from "./types";
 export const initial: cg.FEN =
   "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL";
 
-//const roles: { [letter: string]: cg.Role } = {
-//  'p': 'pawn', 'l': 'lance', 'n': 'knight', 's': 'silver', 'g': 'gold', 'b': 'bishop', 'r': 'rook', 'k': 'king',
-//  '+p': 'tokin', '+l': 'promotedLance', '+n': 'promotedKnight', '+s': 'promotedSilver', '+b': 'horse', '+r': 'dragon'
-//};
-//
-//const letters = {
-//  pawn: 'p', lance: 'l', knight: 'n', silver: 's', gold: 'g', bishop: 'b', rook: 'r', king: 'k',
-//  tokin: '+p', promotedLance: '+l', promotedKnight: '+n', promotedSilver: '+s', horse: '+b', dragon: '+r'
-//};
 const roles: { [letter: string]: cg.Role } = {
   p: "pawn",
   l: "lance",
@@ -24,12 +15,12 @@ const roles: { [letter: string]: cg.Role } = {
   k: "king",
   "+p": "tokin",
   t: "tokin",
-  "+l": "promotedLance",
-  u: "promotedLance",
-  "+n": "promotedKnight",
-  m: "promotedKnight",
-  "+s": "promotedSilver",
-  a: "promotedSilver",
+  "+l": "promotedlance",
+  u: "promotedlance",
+  "+n": "promotedknight",
+  m: "promotedknight",
+  "+s": "promotedsilver",
+  a: "promotedsilver",
   "+b": "horse",
   h: "horse",
   "+r": "dragon",
@@ -45,12 +36,12 @@ const letters = {
   bishop: "b",
   rook: "r",
   king: "k",
-  tokin: "t",
-  promotedLance: "u",
-  promotedKnight: "m",
-  promotedSilver: "a",
-  horse: "h",
-  dragon: "d",
+  tokin: "+p",
+  promotedlance: "+l",
+  promotedknight: "+n",
+  promotedsilver: "+s",
+  horse: "+b",
+  dragon: "+r",
 };
 
 export function read(sfen: cg.FEN): cg.Pieces {
@@ -68,10 +59,6 @@ export function read(sfen: cg.FEN): cg.Pieces {
         if (row < 0) return pieces;
         col = 0;
         break;
-      case "~":
-        const piece = pieces.get(pos2key([col, row]));
-        if (piece) piece.promoted = true;
-        break;
       default:
         const nb = sfen[i].charCodeAt(0);
         if (nb < 58 && nb != 43) col += nb - 48;
@@ -81,7 +68,7 @@ export function read(sfen: cg.FEN): cg.Pieces {
               ? "+" + sfen[++i].toLowerCase()
               : sfen[i].toLowerCase();
           const color =
-            sfen[i] === role || "+" + sfen[i] === role ? "black" : "white";
+            sfen[i] === role || "+" + sfen[i] === role ? "gote" : "sente";
           pieces.set(pos2key([col, row]), {
             role: roles[role],
             color: color,
@@ -101,7 +88,7 @@ export function write(pieces: cg.Pieces): cg.FEN {
           const piece = pieces.get((x + y) as cg.Key);
           if (piece) {
             const letter = letters[piece.role];
-            return piece.color === "white" ? letter.toUpperCase() : letter;
+            return piece.color === "sente" ? letter.toUpperCase() : letter;
           } else return "1";
         })
         .join("")

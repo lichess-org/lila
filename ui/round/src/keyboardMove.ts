@@ -69,7 +69,7 @@ export function ctrl(
       // Square occupied
       if (!role || !crazyData || cgState.pieces[key]) return;
       // Piece not in Pocket
-      if (!crazyData.pockets[color === "white" ? 0 : 1][role]) return;
+      if (!crazyData.pockets[color === "sente" ? 0 : 1][role]) return;
       if (!crazyValid(root, role, key)) return;
       root.shogiground.cancelMove();
       root.shogiground.newPiece({ role, color }, key);

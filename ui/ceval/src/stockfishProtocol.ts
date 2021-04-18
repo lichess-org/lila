@@ -1,5 +1,5 @@
 import { WorkerOpts, Work } from "./types";
-import { assureUsi, makeShogiFen } from "shogiops/compat";
+import { assureUsi } from "shogiops/compat";
 import { Deferred, defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(
@@ -127,17 +127,16 @@ export default class Protocol {
     this.expectedPvs = 1;
     if (this.opts.threads) this.setOption("Threads", this.opts.threads());
     if (this.opts.hashSize) this.setOption("Hash", this.opts.hashSize());
-    const sfen = makeShogiFen(this.work.initialFen);
     const usiMoves = this.work.moves.map(m => assureUsi(m)!);
     console.log(
       "sending this sfen: ",
-      sfen,
+      this.work.initialFen,
       "and these moves",
       usiMoves
     );
     this.setOption("MultiPV", this.work.multiPv);
     this.send(
-      ["position", "sfen", sfen, "moves"]
+      ["position", "sfen", this.work.initialFen, "moves"]
         .concat(usiMoves)
         .join(" ")
     );

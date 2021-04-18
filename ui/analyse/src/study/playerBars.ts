@@ -7,8 +7,8 @@ import AnalyseCtrl from '../ctrl';
 import { isFinished, findTag, resultOf } from './studyChapters';
 
 interface PlayerNames {
-  white: string;
-  black: string;
+  sente: string;
+  gote: string;
 }
 
 export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
@@ -16,20 +16,20 @@ export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!study || ctrl.embed) return;
   const tags = study.data.chapter.tags,
    playerNames = {
-    white: findTag(tags, 'white')!,
-    black: findTag(tags, 'black')!
+    sente: findTag(tags, 'sente')!,
+    gote: findTag(tags, 'gote')!
   };
-  if (!playerNames.white && !playerNames.black && !treeOps.findInMainline(ctrl.tree.root, n => !!n.clock)) return;
+  if (!playerNames.sente && !playerNames.gote && !treeOps.findInMainline(ctrl.tree.root, n => !!n.clock)) return;
   const clocks = renderClocks(ctrl),
   ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
-  return (['white', 'black'] as Color[]).map(color =>
+  return (['sente', 'gote'] as Color[]).map(color =>
     renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color));
 }
 
 function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, playerNames: PlayerNames, color: Color, ticking: boolean, top: boolean): VNode {
   const title = findTag(tags, `${color}title`),
   elo = findTag(tags, `${color}elo`),
-  result = resultOf(tags, color === 'white');
+  result = resultOf(tags, color === 'sente');
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, {
     class: { ticking }
   }, [
@@ -41,6 +41,6 @@ function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, play
         elo && h('span.elo', elo)
       ])
     ]),
-    clocks && clocks[color === 'white' ? 0 : 1]
+    clocks && clocks[color === 'sente' ? 0 : 1]
   ]);
 }

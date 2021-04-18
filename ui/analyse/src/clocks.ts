@@ -9,33 +9,33 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
   if (ctrl.embed || ctrl.data.game.id === "synthetic" || ctrl.data.forecast) return;
   const node = ctrl.node,
   clock = node.clock,
-  whitePov = ctrl.bottomIsWhite(),
-  isWhiteTurn = node.ply % 2 === 0;
+  sentePov = ctrl.bottomIsSente(),
+  isSenteTurn = node.ply % 2 === 0;
 
   if (!clock && clock !== 0)
     return [
-      renderOnlyName(ctrl, isWhiteTurn, whitePov ? 'bottom' : 'top', "white"),
-      renderOnlyName(ctrl, !isWhiteTurn, whitePov ? 'top' : 'bottom', "black")
+      renderOnlyName(ctrl, isSenteTurn, sentePov ? 'bottom' : 'top', "sente"),
+      renderOnlyName(ctrl, !isSenteTurn, sentePov ? 'top' : 'bottom', "gote")
     ];
 
   const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
     centis: Array<number | undefined> = [parentClock, clock];
 
-  if (!isWhiteTurn) centis.reverse();
+  if (!isSenteTurn) centis.reverse();
 
   const study = ctrl.study,
     relay = study && study.data.chapter.relay;
   if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter)) {
     const spent = (Date.now() - relay.lastMoveAt) / 10;
-    const i = isWhiteTurn ? 0 : 1;
+    const i = isSenteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
   const showTenths = !ctrl.study || !ctrl.study.relay;
 
   return [
-    renderClock(ctrl, centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', "white", showTenths),
-    renderClock(ctrl, centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', "black", showTenths)
+    renderClock(ctrl, centis[0], isSenteTurn, sentePov ? 'bottom' : 'top', "sente", showTenths),
+    renderClock(ctrl, centis[1], !isSenteTurn,  sentePov ? 'top' : 'bottom', "gote", showTenths)
   ];
 }
 

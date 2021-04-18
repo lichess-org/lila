@@ -39,7 +39,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
         h("div.nvui", [
           h("h1", "Textual representation"),
           h("h2", "Game info"),
-          ...["white", "black"].map((color: Color) =>
+          ...["sente", "gote"].map((color: Color) =>
             h("p", [
               color + " player: ",
               renderPlayer(ctrl, playerByColor(d, color)),
@@ -189,7 +189,7 @@ function renderAcpl(
     (n.glyphs || []).find((g) => analysisGlyphs.includes(g.symbol))
   );
   const res: Array<VNode> = [];
-  ["white", "black"].forEach((color: Color) => {
+  ["sente", "gote"].forEach((color: Color) => {
     const acpl = anal[color].acpl;
     res.push(h("h3", `${color} player: ${acpl} ACPL`));
     res.push(
@@ -202,7 +202,7 @@ function renderAcpl(
           }),
         },
         analysisNodes
-          .filter((n) => (n.ply % 2 === 1) === (color === "white"))
+          .filter((n) => (n.ply % 2 === 1) === (color === "sente"))
           .map((node) =>
             h(
               "option",

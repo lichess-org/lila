@@ -12,27 +12,27 @@ module.exports = {
   levels: [
     {
       goal: "pawnsMoveOneSquareOnly",
-      fen: "9/9/9/9/9/9/2P6/9/9 w -",
+      fen: "9/9/9/9/9/9/2P6/9/9 b -",
       apples: "c6",
       nbMoves: 3,
       shapes: [arrow("c3c4"), arrow("c4c5"), arrow("c5c6")],
     },
     {
       goal: "pawnPromotion",
-      fen: "9/9/9/9/9/9/6P2/9/9 w -",
+      fen: "9/9/9/9/9/9/6P2/9/9 b -",
       apples: "h7",
       nbMoves: 5,
     },
     {
       goal: "pawnSummary",
-      fen: "9/9/9/9/9/4P4/9/9/9 w -",
+      fen: "9/9/9/9/9/4P4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [circle("e5")],
     },
     {
       goal: "tokinSummary",
-      fen: "9/9/9/9/9/4T4/9/9/9 w -",
+      fen: "9/9/9/9/9/4+P4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [

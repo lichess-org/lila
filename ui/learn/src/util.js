@@ -3,29 +3,13 @@ var m = require("mithril");
 module.exports = {
   toLevel: function (l, it) {
     l.id = it + 1;
-    if (!l.color) l.color = / w /.test(l.fen) ? "white" : "black";
+    if (!l.color) l.color = / b /.test(l.fen) ? "sente" : "gote";
     if (l.apples) l.detectCapture = false;
     else l.apples = [];
     if (typeof l.detectCapture === "undefined") l.detectCapture = "unprotected";
     return l;
   },
   assetUrl: $("body").data("asset-url") + "/assets/",
-  roleToSan: {
-    pawn: "P",
-    lance: "L",
-    knight: "N",
-    silver: "S",
-    gold: "G",
-    bishop: "B",
-    rook: "R",
-    king: "K",
-    horse: "H",
-    dragon: "D",
-    tokin: "T",
-    promotedLance: "U",
-    promotedSilver: "A",
-    promotedKnight: "M",
-  },
   arrow: function (vector, brush) {
     return {
       brush: brush || "paleGreen",
@@ -43,10 +27,10 @@ module.exports = {
     return typeof keys === "string" ? keys.split(" ") : keys;
   },
   setFenTurn: function (fen, turn) {
-    return fen.replace(/ (w|b) /, " " + turn + " ");
+    return fen.replace(/ (b|w) /, " " + turn + " ");
   },
   pieceImg: function (role) {
-    return m("div.is2d.no-square", m("piece.white." + role));
+    return m("div.is2d.no-square", m("piece.sente." + role));
   },
   roundSvg: function (url) {
     return m(

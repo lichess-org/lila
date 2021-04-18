@@ -11,16 +11,16 @@ var roles = {
   k: "king",
   b: "bishop",
   r: "rook",
-  u: "promotedLance",
-  m: "promotedKnight",
-  a: "promotedSilver",
+  u: "promotedlance",
+  m: "promotedknight",
+  a: "promotedsilver",
   h: "horse",
   d: "dragon",
   t: "tokin",
 
-  "+l": "promotedLance",
-  "+n": "promotedKnight",
-  "+s": "promotedSilver",
+  "+l": "promotedlance",
+  "+n": "promotedknight",
+  "+s": "promotedsilver",
   "+b": "promotedBishop",
   "+r": "promotedRook",
   "+p": "tokin",
@@ -36,35 +36,44 @@ var letters = {
   rook: "r",
   king: "k",
   tokin: "t",
-  promotedLance: "u",
-  promotedKnight: "m",
-  promotedSilver: "a",
-  horse: "h",
-  dragon: "d",
+  promotedlance: "+l",
+  promotedknight: "+n",
+  promotedsilver: "+s",
+  horse: "+b",
+  dragon: "+r",
 };
 
-function read(fen) {
-  if (fen === "start") fen = initial;
-  var pieces = {};
-  fen
-    .replace(/ .+$/, "")
-    .replace(/~/g, "")
-    .split("/")
-    .forEach(function (row, y) {
-      var x = 0;
-      row.split("").forEach(function (v) {
-        var nb = parseInt(v);
-        if (nb) x += nb;
+function read(sfen) {
+  if (sfen === "start") sfen = initial;
+  const pieces = {};
+  let row = 8, col = 0;
+  for (let i = 0; i < sfen.length; i++) {
+    switch (sfen[i]) {
+      case " ":
+      case "_":
+        return pieces;
+      case "/":
+        --row;
+        if (row < 0) return pieces;
+        col = 0;
+        break;
+      default:
+        const nb = sfen[i].charCodeAt(0);
+        if (nb < 58 && nb != 43) col += nb - 48;
         else {
-          x++; //todo
-          pieces[util.pos2key([x, 9 - y])] = {
-            role: roles[v.toLowerCase()],
-            color: v === v.toLowerCase() ? "black" : "white",
+          const role =
+            sfen[i] === "+" && sfen.length > i + 1
+              ? "+" + sfen[++i].toLowerCase()
+              : sfen[i].toLowerCase();
+          const color = sfen[i] === role || "+" + sfen[i] === role ? "gote" : "sente";
+          pieces[util.pos2key([col + 1, row + 1])] = {
+            role: roles[role],
+            color: color,
           };
+          ++col;
         }
-      });
-    });
-
+    }
+  }
   return pieces;
 }
 
@@ -80,7 +89,7 @@ function write(pieces) {
             var piece = pieces[util.pos2key([x, y])];
             if (piece) {
               var letter = letters[piece.role];
-              return piece.color === "white" ? letter.toUpperCase() : letter;
+              return piece.color === "sente" ? letter.toUpperCase() : letter;
             } else return "1";
           })
           .join("");

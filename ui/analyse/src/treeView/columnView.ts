@@ -236,8 +236,8 @@ function renderMainlineCommentsOf(
 
   const colorClass = withColor
     ? node.ply % 2 === 0
-      ? ".black "
-      : ".white "
+      ? ".gote "
+      : ".sente "
     : "";
 
   return node.comments!.map((comment) => {

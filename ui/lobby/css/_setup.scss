@@ -121,10 +121,10 @@ $c-slider: $c-setup;
         height: 50px;
         background-size: 50px 50px;
       }
-      &.white i {
+      &.sente i {
         background-image: img-url("../images/blackPiece.svg");
       }
-      &.black i {
+      &.gote i {
         background-image: img-url("../images/whitePiece.svg");
       }
       &.random {

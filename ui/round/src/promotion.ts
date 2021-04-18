@@ -8,6 +8,7 @@ import { bind } from "./util";
 import RoundController from "./ctrl";
 import { onInsert } from "./util";
 import { MaybeVNode } from "./interfaces";
+import { promote as sPromote } from "shogiops/util";
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -56,21 +57,21 @@ export function start(
         ))) &&
     (((["7", "8", "9"].includes(dest[1]) ||
       ["7", "8", "9"].includes(orig[1])) &&
-      d.player.color === "white") ||
+      d.player.color === "sente") ||
       ((["1", "2", "3"].includes(dest[1]) ||
         ["1", "2", "3"].includes(orig[1])) &&
-        d.player.color === "black"))
+        d.player.color === "gote"))
   ) {
     if (
       piece &&
       ((["pawn", "lance"].includes(piece.role) &&
-        ((dest[1] === "9" && piece.color === "white") ||
-          (dest[1] === "1" && piece.color === "black"))) ||
+        ((dest[1] === "9" && piece.color === "sente") ||
+          (dest[1] === "1" && piece.color === "gote"))) ||
         (piece.role === "knight" &&
-          ((["8", "9"].includes(dest[1]) && piece.color === "white") ||
-            (["1", "2"].includes(dest[1]) && piece.color === "black"))))
+          ((["8", "9"].includes(dest[1]) && piece.color === "sente") ||
+            (["1", "2"].includes(dest[1]) && piece.color === "gote"))))
     ) {
-      return sendPromotion(ctrl, orig, dest, promotesTo(piece.role), meta);
+      return sendPromotion(ctrl, orig, dest, sPromote(piece.role), meta);
     }
     if (prePromotionRole && meta && meta.premove)
       return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
@@ -81,7 +82,7 @@ export function start(
       ctrl.keyboardMove.justSelected()
     ) {
       if (premovePiece)
-        setPrePromotion(ctrl, dest, promotesTo(premovePiece.role));
+        setPrePromotion(ctrl, dest, sPromote(premovePiece.role));
       return true;
     }
     const promotionRole = premovePiece
@@ -153,7 +154,7 @@ function renderPromotion(
   orientation: Color
 ): MaybeVNode {
   var left = (8 - key2pos(dest)[0]) * 11.11 - key2pos(dest)[0] * 0.04;
-  if (orientation === "white")
+  if (orientation === "sente")
     left = key2pos(dest)[0] * 11.11 - key2pos(dest)[0] * 0.04;
   var vertical = color === orientation ? "top" : "bottom";
 
@@ -170,7 +171,7 @@ function renderPromotion(
     },
     roles.map((serverRole, i) => {
       var top = (i + key2pos(dest)[1]) * 11.11 + 0.3;
-      if (orientation === "white")
+      if (orientation === "sente")
         top = (9 - (i + key2pos(dest)[1])) * 11.11 + 0.35;
       return h(
         "square",
@@ -189,29 +190,12 @@ function renderPromotion(
   );
 }
 
-function promotesTo(role: typeof prePromotionRole): cg.Role {
-  switch (role) {
-    case "silver":
-      return "promotedSilver";
-    case "knight":
-      return "promotedKnight";
-    case "lance":
-      return "promotedLance";
-    case "bishop":
-      return "horse";
-    case "rook":
-      return "dragon";
-    default:
-      return "tokin";
-  }
-}
-
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
   const roles: cg.Role[] =
-    ctrl.shogiground.state.orientation === "black" ?
-    [promotesTo(promoting.role), promoting.role] :
-    [promoting.role, promotesTo(promoting.role)];
+    ctrl.shogiground.state.orientation === "gote" ?
+    [sPromote(promoting.role), promoting.role] :
+    [promoting.role, sPromote(promoting.role)];
   return renderPromotion(
     ctrl,
     promoting.move[1],

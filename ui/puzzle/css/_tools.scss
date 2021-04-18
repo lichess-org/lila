@@ -79,10 +79,10 @@
   }
   .color-piece{
     height: 100%;
-    &.white{
+    &.sente{
       background-image: img-url("../images/blackPiece.svg");
     }
-    &.black{
+    &.gote{
       background-image: img-url("../images/whitePiece.svg");
     }
   }

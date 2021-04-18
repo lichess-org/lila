@@ -3,7 +3,7 @@ import { Controller, MaybeVNode } from '../interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-const studyUrl = 'https://lishogi.org/study/viiWlKjv'; // change
+// const studyUrl = 'https://lishogi.org/study/viiWlKjv'; // change
 
 export default function theme(ctrl: Controller): MaybeVNode {
   const t = ctrl.getData().theme;
@@ -13,17 +13,17 @@ export default function theme(ctrl: Controller): MaybeVNode {
         h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
         h('p', [
           t.desc,
-          t.chapter &&
-            h(
-              'a.puzzle__side__theme__chapter.text',
-              {
-                attrs: {
-                  href: `${studyUrl}/${t.chapter}`,
-                  target: '_blank',
-                },
-              },
-              [' ', ctrl.trans.noarg('example')]
-            ),
+          //t.chapter &&
+          //  h(
+          //    'a.puzzle__side__theme__chapter.text',
+          //    {
+          //      attrs: {
+          //        href: `${studyUrl}/${t.chapter}`,
+          //        target: '_blank',
+          //      },
+          //    },
+          //    [' ', ctrl.trans.noarg('example')]
+          //  ),
         ]),
         ctrl.vm.mode != 'view' || ctrl.autoNexting() ? null : editor(ctrl),
       ]);
@@ -136,17 +136,17 @@ const editor = (ctrl: Controller): VNode => {
               ),
             ]
           ),
-          h(
-            'a.puzzle__themes__study.text',
-            {
-              attrs: {
-                'data-icon': '',
-                href: studyUrl,
-                target: '_blank',
-              },
-            },
-            'About puzzle themes'
-          ),
+          //h(
+          //  'a.puzzle__themes__study.text',
+          //  {
+          //    attrs: {
+          //      'data-icon': '',
+          //      href: studyUrl,
+          //      target: '_blank',
+          //    },
+          //  },
+          //  'About puzzle themes'
+          //),
         ]
       : []),
   ]);

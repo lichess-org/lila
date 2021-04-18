@@ -15,20 +15,20 @@ module.exports = {
   illustration: util.roundSvg(imgUrl),
   levels: [{
     goal: twoMoves,
-    fen: '2k5/2pb4/8/2R5/8/8/8/8 w - -',
+    fen: '2k5/2pb4/8/2R5/8/8/8/8 b -',
     shapes: [arrow('c5a5'), arrow('a5a8')]
   }, {
     goal: twoMoves,
-    fen: '8/8/5k2/8/8/1N6/5b2/8 w - -',
+    fen: '8/8/5k2/8/8/1N6/5b2/8 b -',
   }, {
     goal: twoMoves,
-    fen: 'r3k3/7b/8/4B3/8/8/4N3/4R3 w - -',
+    fen: 'r3k3/7b/8/4B3/8/8/4N3/4R3 b -',
   }, {
     goal: twoMoves,
-    fen: 'r1bqkb1r/pppp1p1p/2n2np1/4p3/2B5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
+    fen: 'r1bqkb1r/pppp1p1p/2n2np1/4p3/2B5/4PN2/PPPP1PPP/RNBQK2R b KQkq -',
   }, {
     goal: twoMoves,
-    fen: '8/8/8/2k5/q7/4N3/3B4/8 w - -',
+    fen: '8/8/8/2k5/q7/4N3/3B4/8 b -',
   }].map(function(l, i) {
     l.nbMoves = 2;
     l.failure = assert.noCheckIn(2);

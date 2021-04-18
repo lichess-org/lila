@@ -15,8 +15,8 @@ import {
 } from "./interfaces";
 
 function resultBar(move: OpeningMoveStats): VNode {
-  const sum = move.white + move.draws + move.black;
-  function section(key: "white" | "black" | "draws") {
+  const sum = move.sente + move.draws + move.gote;
+  function section(key: "sente" | "gote" | "draws") {
     const percent = (move[key] * 100) / sum;
     return percent === 0
       ? null
@@ -31,7 +31,7 @@ function resultBar(move: OpeningMoveStats): VNode {
           percent > 12 ? Math.round(percent) + (percent > 20 ? "%" : "") : ""
         );
   }
-  return h("div.bar", ["white", "draws", "black"].map(section));
+  return h("div.bar", ["sente", "draws", "gote"].map(section));
 }
 
 let lastShow: VNode;
@@ -101,7 +101,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
             h("td", move.san[0] === "P" ? move.san.slice(1) : move.san),
             h(
               "td",
-              window.lishogi.numberFormat(move.white + move.draws + move.black)
+              window.lishogi.numberFormat(move.sente + move.draws + move.gote)
             ),
             h("td", resultBar(move)),
           ]
@@ -112,8 +112,8 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
 }
 
 function showResult(winner?: Color): VNode {
-  if (winner === "white") return h("result.white", "1-0");
-  if (winner === "black") return h("result.black", "0-1");
+  if (winner === "sente") return h("result.sente", "1-0");
+  if (winner === "gote") return h("result.gote", "0-1");
   return h("result.draws", "½-½");
 }
 
@@ -151,11 +151,11 @@ function showGameTable(
               [
                 h(
                   "td",
-                  [game.white, game.black].map((p) => h("span", "" + p.rating))
+                  [game.sente, game.gote].map((p) => h("span", "" + p.rating))
                 ),
                 h(
                   "td",
-                  [game.white, game.black].map((p) => h("span", p.name))
+                  [game.sente, game.gote].map((p) => h("span", p.name))
                 ),
                 h("td", showResult(game.winner)),
                 h("td", [game.year]),
@@ -195,7 +195,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
         [
           h(
             "div.game_title",
-            `${game.white.name} - ${game.black.name}, ${
+            `${game.sente.name} - ${game.gote.name}, ${
               showResult(game.winner).text
             }, ${game.year}`
           ),

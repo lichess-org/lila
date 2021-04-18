@@ -87,7 +87,7 @@ export function make(
       hit &&
       (hit.winner
         ? {
-            mate: hit.winner === "white" ? 10 : -10,
+            mate: hit.winner === "sente" ? 10 : -10,
           }
         : { cp: 0 })
     );

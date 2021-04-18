@@ -53,7 +53,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       authorDom(by),
       ...(node.san ? [
         ' on ',
-        h('span.node', nodeFullName(node))
+        h('span.node', nodeFullName(node, ctrl.data.pref.pieceNotation ?? 0))
       ] : []),
       ': ',
       h('div.text', { hook: richHTML(comment.text) })

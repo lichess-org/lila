@@ -31,7 +31,7 @@ export function drop(s: State, e: cg.MouchEvent): void {
     const position = util.eventPosition(e);
     const dest =
       position &&
-      board.getKeyAtDomPos(position, board.whitePov(s), s.dom.bounds());
+      board.getKeyAtDomPos(position, board.sentePov(s), s.dom.bounds());
     if (dest) board.dropNewPiece(s, "a0", dest);
   }
   s.dom.redraw();

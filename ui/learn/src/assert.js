@@ -18,7 +18,7 @@ function pieceOnAnyOf(matcher, keys) {
 function fenToMatcher(fenPiece) {
   return {
     type: fenPiece.toLowerCase(),
-    color: fenPiece.toLowerCase() === fenPiece ? "b" : "w",
+    color: fenPiece.toLowerCase() === fenPiece ? "w" : "b",
   };
 }
 
@@ -41,14 +41,14 @@ module.exports = {
       return false;
     };
   },
-  whitePawnOnAnyOf: function (keys) {
+  sentePawnOnAnyOf: function (keys) {
     return pieceOnAnyOf(fenToMatcher("P"), readKeys(keys));
   },
   extinct: function (color) {
     return function (level) {
       var fen = level.shogi.fen().split(" ")[0].replace(/\//g, "");
       return (
-        fen === (color === "white" ? fen.toLowerCase() : fen.toUpperCase())
+        fen === (color === "sente" ? fen.toLowerCase() : fen.toUpperCase())
       );
     };
   },

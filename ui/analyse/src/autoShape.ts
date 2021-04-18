@@ -48,7 +48,7 @@ export function makeShapesFromUci(
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color = ctrl.node.fen.includes(" w ") ? "white" : "black"; //todo
+  const color = ctrl.node.fen.includes(" w ") ? "gote" : "sente";
   const rcolor = opposite(color);
   const pieces = ctrl.shogiground.state.pieces;
 

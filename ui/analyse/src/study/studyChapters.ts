@@ -86,13 +86,13 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
 
 export function resultOf(
   tags: TagArray[],
-  isWhite: boolean
+  isSente: boolean
 ): string | undefined {
   switch (findTag(tags, "result")) {
     case "1-0":
-      return isWhite ? "1" : "0";
+      return isSente ? "1" : "0";
     case "0-1":
-      return isWhite ? "0" : "1";
+      return isSente ? "0" : "1";
     case "1/2-1/2":
       return "1/2";
     default:

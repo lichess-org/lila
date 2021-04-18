@@ -12,27 +12,27 @@ module.exports = {
   levels: [
     {
       goal: "knightsHaveAFancyWay",
-      fen: "9/9/9/9/9/9/9/9/1N7 w -",
+      fen: "9/9/9/9/9/9/9/9/1N7 b -",
       apples: "c3 b5",
       nbMoves: 2,
       shapes: [arrow("b1c3"), arrow("c3b5")],
     },
     {
       goal: "knightPromotion",
-      fen: "9/9/9/9/9/9/9/1N7/9 w -",
+      fen: "9/9/9/9/9/9/9/1N7/9 b -",
       apples: "c4 b6 c8 d8 d7",
       nbMoves: 5,
     },
     {
       goal: "knightSummary",
-      fen: "9/9/9/9/9/4N4/9/9/9 w -",
+      fen: "9/9/9/9/9/4N4/9/9/9 b -",
       apples: "f6",
       nbMoves: 1,
       shapes: [circle("f6"), circle("d6")],
     },
     {
       goal: "pknightSummary",
-      fen: "9/9/9/9/9/4M4/9/9/9 w -",
+      fen: "9/9/9/9/9/4+N4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [

@@ -56,8 +56,8 @@ function renderSquare(key, classes, ctx) {
 
 function posToTranslate(pos, ctx) {
   return [
-    ((ctx.asWhite ? pos[0] - 1 : 9 - pos[0]) * ctx.bounds.width) / 9,
-    ((ctx.asWhite ? 9 - pos[1] : pos[1] - 1) * ctx.bounds.height) / 9,
+    ((ctx.asSente ? pos[0] - 1 : 9 - pos[0]) * ctx.bounds.width) / 9,
+    ((ctx.asSente ? 9 - pos[1] : pos[1] - 1) * ctx.bounds.height) / 9,
   ];
 }
 
@@ -165,7 +165,7 @@ function renderContent(ctrl) {
   var d = ctrl.data;
   if (!d.bounds) return;
   var ctx = {
-    asWhite: d.orientation === "white",
+    asSente: d.orientation === "sente",
     bounds: d.bounds(),
     transformProp: util.transformProp(),
   };
@@ -177,7 +177,7 @@ function renderContent(ctrl) {
 
   // must insert pieces in the right order
   // for 3D to display correctly
-  var keys = ctx.asWhite ? util.allKeys : util.invKeys;
+  var keys = ctx.asSente ? util.allKeys : util.invKeys;
   var i = 0;
   if (d.items) {
     for (i = 0; i < 81; i++) {

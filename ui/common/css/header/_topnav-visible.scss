@@ -76,4 +76,16 @@
       }
     }
   }
+  #topnav section.new-feature > a{
+    &:after{
+      content: "NEW";
+      font-size: 0.7rem;
+      transform: rotate(37deg);
+      position: absolute;
+      color: #d64f00;
+      font-weight: bold;
+      top: -10px;
+      right: 0;
+    }
+  }
 }

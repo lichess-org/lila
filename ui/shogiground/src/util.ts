@@ -15,9 +15,9 @@ export const invRanks: readonly cg.Rank[] = [
 const promotions: { [role: string]: cg.Role } = {
   rook: "dragon",
   bishop: "horse",
-  silver: "promotedSilver",
-  knight: "promotedKnight",
-  lance: "promotedLance",
+  silver: "promotedsilver",
+  knight: "promotedknight",
+  lance: "promotedlance",
   pawn: "tokin",
 };
 
@@ -63,7 +63,7 @@ export const timer = (): cg.Timer => {
 };
 
 export const opposite = (c: cg.Color): cg.Color =>
-  c === "white" ? "black" : "white";
+  c === "sente" ? "gote" : "sente";
 
 export const distanceSq = (pos1: cg.Pos, pos2: cg.Pos): number => {
   const dx = pos1[0] - pos2[0],
@@ -83,26 +83,26 @@ export const validProm = (p1: cg.Piece, p2: cg.Piece): boolean => {
 
 const posToTranslateBase = (
   pos: cg.Pos,
-  asWhite: boolean,
+  asSente: boolean,
   xFactor: number,
   yFactor: number
 ): cg.NumberPair => [
-  (asWhite ? pos[0] : 8 - pos[0]) * xFactor,
-  (asWhite ? 8 - pos[1] : pos[1]) * yFactor,
+  (asSente ? pos[0] : 8 - pos[0]) * xFactor,
+  (asSente ? 8 - pos[1] : pos[1]) * yFactor,
 ];
 
 export const posToTranslateAbs = (
   bounds: ClientRect
-): ((pos: cg.Pos, asWhite: boolean) => cg.NumberPair) => {
+): ((pos: cg.Pos, asSente: boolean) => cg.NumberPair) => {
   const xFactor = bounds.width / 9,
     yFactor = bounds.height / 9;
-  return (pos, asWhite) => posToTranslateBase(pos, asWhite, xFactor, yFactor);
+  return (pos, asSente) => posToTranslateBase(pos, asSente, xFactor, yFactor);
 };
 
 export const posToTranslateRel = (
   pos: cg.Pos,
-  asWhite: boolean
-): cg.NumberPair => posToTranslateBase(pos, asWhite, 100, 100);
+  asSente: boolean
+): cg.NumberPair => posToTranslateBase(pos, asSente, 100, 100);
 
 export const translateAbs = (el: HTMLElement, pos: cg.NumberPair): void => {
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;

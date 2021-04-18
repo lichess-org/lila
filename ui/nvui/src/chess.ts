@@ -37,9 +37,9 @@ const roles: { [letter: string]: string } = {
   S: "silver",
   L: "lance",
   T: "tokin",
-  A: "promotedSilver",
-  M: "promotedKnight",
-  U: "promotedLance",
+  A: "promotedsilver",
+  M: "promotedknight",
+  U: "promotedlance",
   H: "horse",
   D: "dragon",
 };
@@ -53,9 +53,9 @@ const letters = {
   silver: "s",
   lance: "l",
   tokin: "t",
-  promotedSilver: "a",
-  promotedKnight: "m",
-  promotedLance: "u",
+  promotedsilver: "a",
+  promotedknight: "m",
+  promotedlance: "u",
   horse: "h",
   dragon: "d",
 };
@@ -115,7 +115,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style) {
 export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h(
     "div",
-    ["white", "black"].map((color) => {
+    ["sente", "gote"].map((color) => {
       const lists: any = [];
       [
         "king",
@@ -127,9 +127,9 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
         "silver",
         "lance",
         "tokin",
-        "promotedSilver",
-        "promotedKnight",
-        "promotedLance",
+        "promotedsilver",
+        "promotedknight",
+        "promotedlance",
         "horse",
         "dragon",
       ].forEach((role) => {
@@ -161,7 +161,7 @@ export function renderPieceKeys(
   p: string,
   style: Style
 ): string {
-  const name = `${p === p.toUpperCase() ? "white" : "black"} ${
+  const name = `${p === p.toUpperCase() ? "sente" : "gote"} ${
     roles[p.toUpperCase()]
   }`;
   const res: Key[] = [];
@@ -198,13 +198,13 @@ export function renderBoard(pieces: Pieces, pov: Color): string {
       const piece = pieces.get(key);
       if (piece) {
         const letter = letters[piece.role];
-        line.push(piece.color === "white" ? letter.toUpperCase() : letter);
+        line.push(piece.color === "sente" ? letter.toUpperCase() : letter);
       } else line.push((key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? "-" : "+");
     }
     board.push(["" + rank, ...line, "" + rank]);
   }
   board.push([" ", ...files, " "]);
-  if (pov === "black") {
+  if (pov === "gote") {
     board.reverse();
     board.forEach((r) => r.reverse());
   }

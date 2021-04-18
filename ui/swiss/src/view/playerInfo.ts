@@ -93,7 +93,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               "tr.glpt." + (res === "1" ? ".win" : res === "0" ? ".loss" : ""),
               {
                 key: round,
-                attrs: { "data-href": "/" + p.g + (p.c ? "" : "/black") },
+                attrs: { "data-href": "/" + p.g + (p.c ? "" : "/gote") },
                 hook: {
                   destroy: (vnode) =>
                     $.powerTip.destroy(vnode.elm as HTMLElement),
@@ -103,7 +103,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
                 h("th", "" + round),
                 h("td", userName(p.user)),
                 h("td", "" + p.rating),
-                h("td.is.color-icon." + (p.c ? "white" : "black")),
+                h("td.is.color-icon." + (p.c ? "sente" : "gote")),
                 h("td", res),
               ]
             );

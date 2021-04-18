@@ -65,32 +65,6 @@ export function view(ctrl: StudyShareCtrl): VNode {
     embedUrl += '#' + p;
   }
   return h('div.study__share', [
-    h('div.downloads', [
-      ctrl.cloneable ? h('a.button.text', {
-        attrs: {
-          'data-icon': '4',
-          href: `/study/${studyId}/clone`
-        }
-      }, ctrl.trans.noarg('cloneStudy')) : null,
-      h('a.button.text', {
-        attrs: {
-          'data-icon': 'x',
-          href: `/study/${studyId}.pgn`
-        }
-      }, ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')),
-      h('a.button.text', {
-        attrs: {
-          'data-icon': 'x',
-          href: `/study/${studyId}/${chapter.id}.pgn`
-        }
-      }, ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')),
-      h('a.button.text', {
-        attrs: {
-          'data-icon': 'x',
-          href: `/study/${studyId}/${chapter.id}.gif`
-        }
-      }, 'GIF')
-    ]),
     h('form.form3', [
       h('div.form-group', [
         h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'broadcastUrl' : 'studyUrl')),
@@ -136,7 +110,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         ] : [])
       ),
       h('div.form-group', [
-        h('label.form-label', 'FEN'),
+        h('label.form-label', 'SFEN'),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -144,6 +118,14 @@ export function view(ctrl: StudyShareCtrl): VNode {
           },
         })
       ])
-    ])
+    ]),
+    h('div.downloads', [
+      ctrl.cloneable ? h('a.button.text', {
+        attrs: {
+          'data-icon': '4',
+          href: `/study/${studyId}/clone`
+        }
+      }, ctrl.trans.noarg('cloneStudy')) : null,
+    ]),
   ]);
 }

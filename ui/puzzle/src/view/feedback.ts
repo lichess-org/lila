@@ -23,7 +23,7 @@ function viewSolution(ctrl: Controller): VNode {
 }
 
 function tsumeHint(ctrl: Controller, prefix: string = " - "): string | undefined {
-  const tl = ctrl.tsumeLength();
+  const tl = ctrl.tsumeLength() > 0 ? ((ctrl.tsumeLength() - 1) | 1) : 0;
   switch (tl) {
     case 0:
       return undefined;
@@ -46,7 +46,7 @@ function initial(ctrl: Controller): VNode {
       h('div.no-square', h('div.color-piece.' + ctrl.vm.pov)),
       h('div.instruction', [
         h('strong', [ctrl.trans.noarg('yourTurn'), tsumeHint(ctrl)]),
-        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
+        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
     ]),
     ]),
     viewSolution(ctrl),

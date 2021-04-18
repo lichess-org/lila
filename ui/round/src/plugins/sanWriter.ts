@@ -1,6 +1,3 @@
-function fixCrazySan(san) {
-  return san; //[0] === 'P' ? san.slice(1) : san;
-}
 
 function decomposeUci(uci) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
@@ -22,13 +19,12 @@ function readFen(fen) {
   var parts = fen.split(' ');
   var board = {
     pieces: {},
-    turn: parts[1] === 'w'
+    turn: parts[1] === 'b'
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function (row, y) {
+  parts[0].split('/').slice(0, 9).forEach(function (row, y) {
     var x = 0;
     row.split('').forEach(function (v) {
-      if (v == '~') return;
       var nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
@@ -71,7 +67,7 @@ function slidingMovesTo(s: number, deltas: number[], board): number[] {
 }
 
 function sanOf(board, uci) {
-  if (uci.includes('*')) return fixCrazySan(uci);
+  if (uci.includes('*')) return uci;
 
   var move = decomposeUci(uci);
   var from = square(move[0]);

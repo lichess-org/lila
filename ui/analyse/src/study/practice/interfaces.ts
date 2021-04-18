@@ -41,7 +41,7 @@ export interface StudyPracticeCtrl {
   success: Prop<boolean | null>;
   nbMoves: Prop<number>;
   reset(): void;
-  isWhite(): boolean;
+  isSente(): boolean;
   analysisUrl: Prop<string>;
   autoNext: StoredBooleanProp;
   goToNext(): void;

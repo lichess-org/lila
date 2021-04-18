@@ -28,10 +28,9 @@ function linkReplace(url: string, scheme: string) {
 }
 
 const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
-const pawnDropPattern = /^[a-i][2-8]$/;
 
 function userLinkReplace(orig: string, prefix: String, user: string) {
-  if (user.length > 20 || user.match(pawnDropPattern)) return orig;
+  if (user.length > 20) return orig;
   return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
 }
 
@@ -41,10 +40,10 @@ function autoLink(html: string) {
     .replace(linkPattern, linkReplace);
 }
 
-const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK])?)\+?\#?[!\?=]{0,5}/gi;
-function moveReplacer(match: string, turn: number, dots: string) {
+const movePattern = /\b(\d+)\s*(\.)\s*(([1-9][a-i])[1-9][a-i](\+|=)?)[!\?]{0,5}/gi;
+function moveReplacer(match: string, turn: number) {
   if (turn < 1 || turn > 200) return match;
-  const ply = turn * 2 - (dots.length > 1 ? 0 : 1);
+  const ply = turn - 1;
   return '<a class="jump" data-ply="' + ply + '">' + match + "</a>";
 }
 

@@ -150,5 +150,15 @@
     /* actually don't, since on mobile devices the scrool bar
      * has no width, and that menu is mainly for mobile. */
   // padding-right: 15px;
-}
+  }
+  #topnav section.new-feature > a{
+    &:after{
+      content: "NEW";
+      font-size: 0.7rem;
+      transform: rotate(37deg);
+      position: absolute;
+      color: #d64f00;
+      font-weight: bold;
+    }
+  }
 }

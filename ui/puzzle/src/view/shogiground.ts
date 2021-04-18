@@ -45,6 +45,12 @@ function makeConfig(ctrl: Controller): CgConfig {
         resizeHandle(elements, 2, ctrl.vm.node.ply, _ => true);
         if (ctrl.pref.coords == 1) changeColorHandle();
       },
+      select: () => {
+        if(ctrl.vm.dropmodeActive && !ctrl.getDropmodeActive()){
+          ctrl.vm.dropmodeActive = false;
+          ctrl.redraw();
+        }
+      }
     },
     premovable: {
       enabled: opts.premovable!.enabled,

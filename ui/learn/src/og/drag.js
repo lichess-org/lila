@@ -10,7 +10,7 @@ function hashPiece(piece) {
 
 function computeSquareBounds(data, bounds, key) {
   var pos = util.key2pos(key);
-  if (data.orientation !== "white") {
+  if (data.orientation !== "sente") {
     pos[0] = 10 - pos[0];
     pos[1] = 10 - pos[1];
   }

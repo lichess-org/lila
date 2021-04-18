@@ -370,18 +370,18 @@ export function stop(state: State): void {
 
 export function getKeyAtDomPos(
   pos: cg.NumberPair,
-  asWhite: boolean,
+  asSente: boolean,
   bounds: ClientRect
 ): cg.Key | undefined {
   let file = Math.floor((9 * (pos[0] - bounds.left)) / bounds.width);
-  if (!asWhite) file = 8 - file;
+  if (!asSente) file = 8 - file;
   let rank = 8 - Math.floor((9 * (pos[1] - bounds.top)) / bounds.height);
-  if (!asWhite) rank = 8 - rank;
+  if (!asSente) rank = 8 - rank;
   return file >= 0 && file < 9 && rank >= 0 && rank < 9
     ? pos2key([file, rank])
     : undefined;
 }
 
-export function whitePov(s: State): boolean {
-  return s.orientation === "white";
+export function sentePov(s: State): boolean {
+  return s.orientation === "sente";
 }

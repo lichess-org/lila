@@ -4,8 +4,9 @@ import AnalyseCtrl from "../ctrl";
 import * as cg from "shogiground/types";
 import { Shogi } from "shogiops/shogi"; 
 import { parseFen } from "shogiops/fen";
-import { makeShogiFen, parseChessSquare } from "shogiops/compat";
+import { parseChessSquare } from "shogiops/compat";
 import { PocketRole } from "shogiops/types";
+import {defined} from "common";
 
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
@@ -40,13 +41,17 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent):
   const role = el.getAttribute("data-role") as cg.Role,
     number = el.getAttribute("data-nb");
   if (!role || number === "0") return;
-  const dropMode = ctrl.shogiground?.state.dropmode;
-  const dropPiece = ctrl.shogiground?.state.dropmode.piece;
+  if (!defined(ctrl.shogiground)) return;
+  const dropMode = ctrl.shogiground.state.dropmode;
+  const dropPiece = ctrl.shogiground.state.dropmode.piece;
+
   if (!dropMode.active || dropPiece?.role !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
+    ctrl.dropmodeActive = true;
   }
   else {
     cancelDropMode(ctrl.shogiground.state);
+    ctrl.dropmodeActive = false;
   }
   e.stopPropagation();
   e.preventDefault();
@@ -58,12 +63,12 @@ export function valid(
   piece: cg.Piece,
   pos: Key
 ): boolean {
-  const sfen = parseFen(makeShogiFen(fen)).unwrap();
+  const sfen = parseFen(fen).unwrap();
   const shogi = Shogi.fromSetup(sfen, false);
   return shogi.unwrap(
     (s) => {
-      return s.turn !== piece.color && s.isLegal({role: piece.role as PocketRole, to: parseChessSquare(pos)!})
+      return s.turn === piece.color && s.isLegal({role: piece.role as PocketRole, to: parseChessSquare(pos)!})
     },
-    (_) => true // for weird positions
+    (_) => true
   );
 }

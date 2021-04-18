@@ -6,7 +6,7 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
 import { Position } from 'shogiops/shogi';
-import { makeLishogiUci, makeShogiFen, makeLishogiFen, assureUsi } from 'shogiops/compat';
+import { makeLishogiUci, assureUsi } from 'shogiops/compat';
 import { opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
 import { makeSanAndPlay } from 'shogiops/san';
@@ -142,7 +142,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   const bestEv = getBestEval(ctrl.currentEvals());
   let ev;
   if (bestEv) {
-    ev = winningChances.povChances("white", bestEv);
+    ev = winningChances.povChances("sente", bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return h(
@@ -150,11 +150,11 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     {
       class: {
         empty: ev === null,
-        reverse: ctrl.getOrientation() === "black",
+        reverse: ctrl.getOrientation() === "gote",
       },
     },
     [
-      h("div.black", {
+      h("div.gote", {
         attrs: { style: `height: ${100 - cubicRegressionEval(ev) * 50}%` },
       }),
       ...gaugeTicks,
@@ -312,7 +312,7 @@ function makeExtendedMoveVariation(pos: Position, variation: Move[]): ExtendedMo
   const extendedLine = [];
   for (let i = 0; i < variation.length; i++) {
     const san = makeSanAndPlay(pos, variation[i]);
-    const fen = makeLishogiFen(makeFen(pos.toSetup()));
+    const fen = makeFen(pos.toSetup());
     extendedLine.push({san: san, uci: makeLishogiUci(pos.lastMove!), fen: fen});
     if (san === '--') return extendedLine;
     if (i === variation.length - 1 && pos.outcome()?.winner) extendedLine.push({san: '投了', uci: '投了', fen: '投了'});
@@ -338,7 +338,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
-    setup = parseFen(makeShogiFen(node.fen)).unwrap();
+    setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {

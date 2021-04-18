@@ -9,7 +9,6 @@ import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
 import { bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
-import { makeShogiFen } from 'shogiops/compat';
 
 interface AutoplaySpeed {
   name: string;
@@ -267,13 +266,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
         canContinue ? h('div.continue-with.none.g_' + d.game.id, [
           h('a.button', {
             attrs: {
-              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + makeShogiFen(ctrl.node.fen),
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
               rel: 'nofollow'
             }
           }, noarg('playWithTheMachine')),
           h('a.button', {
             attrs: {
-              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + makeShogiFen(ctrl.node.fen),
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
               rel: 'nofollow'
             }
           }, noarg('playWithAFriend'))

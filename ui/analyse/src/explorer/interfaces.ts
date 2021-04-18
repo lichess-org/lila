@@ -58,8 +58,8 @@ export interface Opening {
 
 export interface OpeningGame {
   id: string;
-  white: OpeningPlayer;
-  black: OpeningPlayer;
+  sente: OpeningPlayer;
+  gote: OpeningPlayer;
   winner?: Color;
   year?: string;
 }
@@ -87,8 +87,8 @@ export interface MoveStats {
 }
 
 export interface OpeningMoveStats extends MoveStats {
-  white: number;
-  black: number;
+  sente: number;
+  gote: number;
   draws: number;
   averageRating: number;
 }

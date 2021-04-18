@@ -78,8 +78,8 @@ export interface Player {
 }
 
 export interface TournamentRanks {
-  white: number;
-  black: number;
+  sente: number;
+  gote: number;
 }
 
 export interface Tournament {
@@ -125,8 +125,8 @@ export interface Clock {
 export interface CorrespondenceClock {
   daysPerTurn: number;
   increment: number;
-  white: number;
-  black: number;
+  sente: number;
+  gote: number;
 }
 
 export type Source = "import" | "lobby" | "pool" | "friend";

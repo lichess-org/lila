@@ -103,12 +103,12 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: 'Multiboard',
         icon: iconTag('')
       }),
-      //toolButton({
-      //  ctrl,
-      //  tab: 'share',
-      //  hint: noarg('shareAndExport'),
-      //  icon: iconTag('$')
-      //}),
+      toolButton({
+        ctrl,
+        tab: 'share',
+        hint: noarg('shareAndExport'),
+        icon: iconTag('$')
+      }),
       !ctrl.relay ? h('span.help', {
         attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
         hook: bind('click', ctrl.startTour)

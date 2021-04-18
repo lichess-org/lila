@@ -1,5 +1,5 @@
 import { Role, Square, Color } from 'shogiops/types';
-import { lishogiCharToRole, parseChessSquare, makeShogiFen, makeLishogiFen } from 'shogiops/compat';
+import { lishogiCharToRole, parseChessSquare } from 'shogiops/compat';
 import { squareFile, squareRank, makeSquare, opposite } from 'shogiops/util';
 import { parseFen, makeFen } from 'shogiops/fen';
 import { SquareSet } from 'shogiops/squareSet';
@@ -47,9 +47,9 @@ const JAPANESE_ROLE_SYMBOLS: RoleMap = {
     'bishop': "角",
     'rook': "飛",
     'gold': "金",
-    'promotedLance': "成香",
-    'promotedKnight': "成桂",
-    'promotedSilver': "成銀",
+    'promotedlance': "成香",
+    'promotedknight': "成桂",
+    'promotedsilver': "成銀",
     'tokin': "と",
     'horse': "馬",
     'dragon': "龍",
@@ -64,9 +64,9 @@ const WESTERN_ROLE_SYMBOLS: RoleMap = {
     'gold': "G",
     "bishop": "B",
     "rook": "R",
-    'promotedLance': "+L",
-    'promotedKnight': "+N",
-    'promotedSilver': "+S",
+    'promotedlance': "+L",
+    'promotedknight': "+N",
+    'promotedsilver': "+S",
     'tokin': "+P",
     'horse': "+B",
     'dragon': "+R",
@@ -89,8 +89,8 @@ function parseMove(san: string, uci: string): ParsedMove {
 }
 
 function fenColor(fen: string): Color {
-    if(fen.split(' ')[1] === 'w') return 'white'
-    else return 'black';
+    if(fen.split(' ')[1] === 'w') return 'gote'
+    else return 'sente';
 }
 
 function sanContainsOrigin(san: string): boolean {
@@ -105,13 +105,13 @@ function kawasakiShogiNotation(move: ExtendedMoveInfo): string {
         (`(${NUMBER_FILE_RANKS[squareFile(parsed.orig)]}${NUMBER_FILE_RANKS[squareRank(parsed.orig)]})`) : "";
     const connector = parsed.capture ? "x" : parsed.drop ? "*" : "-";
     const dest = `${NUMBER_FILE_RANKS[squareFile(parsed.dest)]}${NUMBER_FILE_RANKS[squareRank(parsed.dest)]}`;
-    const color = fenColor(move.fen);
+    const color = opposite(fenColor(move.fen));
     // hackish solution, requires refresh if you change dark/light theme
     let colorSymbol;
     if (document.getElementsByClassName("dark")[0])
-        colorSymbol = color === "white" ? "☗" : "☖";
+        colorSymbol = color === "gote" ? "☗" : "☖";
     else
-        colorSymbol = color === "white" ? "☖" : "☗";
+        colorSymbol = color === "gote" ? "☖" : "☗";
 
     return `${colorSymbol}${piece}${origin}${connector}${dest}${parsed.promotion}`;
 }
@@ -141,16 +141,16 @@ function japaneseShogiNotation(move: ExtendedMoveInfo): string {
     const parsed = parseMove(move.san, move.uci);
     const piece = JAPANESE_ROLE_SYMBOLS[parsed.role];
     const dropped = parsed.drop && isDropAmbiguos(move.fen, parsed.role, parsed.dest) ? "打" : "";
-    const color = fenColor(move.fen);
+    const color = opposite(fenColor(move.fen));
     const ambiguity = sanContainsOrigin(move.san) ? resolveAmbiguity(move.fen, parsed.role, parsed.orig, parsed.dest) : "";
     const dest = `${FULL_WIDTH_NUMBER_FILE_RANKS[squareFile(parsed.dest)]}${JAPANESE_NUMBER_RANKS[squareRank(parsed.dest)]}`;
     const promotion = parsed.promotion === "+" ? "成" : parsed.promotion === "=" ? "不成" : "";
     // hackish solution, requires refresh if you change dark/light theme
     let colorSymbol;
     if (document.getElementsByClassName("dark")[0])
-        colorSymbol = color === "white" ? "☗" : "☖";
+        colorSymbol = color === "gote" ? "☗" : "☖";
     else
-        colorSymbol = color === "white" ? "☖" : "☗";
+        colorSymbol = color === "gote" ? "☖" : "☗";
 
     return `${colorSymbol}${dest}${piece}${dropped}${ambiguity}${promotion}`;
 }
@@ -166,8 +166,8 @@ interface Resolution {
 // assumes sente orientation for simplicity
 function resolveAmbiguity(fen: string, role: Role, orig: Square, dest: Square) : string {
     const ambiguous = getAmbiguousPieces(fen, role, dest, orig);
-    const resolution = explicitDirection(orig, dest, ambiguous); 
-    return distinctionToSymbol(role, orig, dest, fenColor(fen) === "white" ? flipDirection(resolution) : resolution);
+    const resolution = explicitDirection(orig, dest, ambiguous);
+    return distinctionToSymbol(role, orig, dest, opposite(fenColor(fen)) === "gote" ? flipDirection(resolution) : resolution);
 }
 
 function distinctionToSymbol(role: Role, orig: Square, dest: Square, resolution: Resolution) : string {
@@ -175,9 +175,9 @@ function distinctionToSymbol(role: Role, orig: Square, dest: Square, resolution:
     switch (role) {
         case 'gold':
         case 'silver':
-        case 'promotedLance':
-        case 'promotedKnight':
-        case 'promotedSilver':
+        case 'promotedlance':
+        case 'promotedknight':
+        case 'promotedsilver':
         case 'tokin':
             if(Math.abs(orig - dest) === 9 && resolution.vertical === 'up') return '直';
             if(resolution.vertical) symbol += resolution.vertical === 'up' ? '上' :
@@ -263,8 +263,8 @@ function relativeVerticalPosition(sq: Square, dest: Square): vertical {
 }
 
 function getAmbiguousPieces(fen: string, role: Role, dest: Square, orig?: Square): SquareSet {
-    fen = undoMove(fen, dest, orig); 
-    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false).unwrap();
+    const previousFen = undoMove(fen, dest, orig); 
+    const pos = Shogi.fromSetup(parseFen(previousFen).unwrap(), false).unwrap();
 
     let ambiguous: SquareSet = SquareSet.empty();
     for(const p of pos.board.pieces(pos.turn, role))
@@ -276,11 +276,11 @@ function getAmbiguousPieces(fen: string, role: Role, dest: Square, orig?: Square
 }
 
 function undoMove(fen: string, dest: Square, orig?: Square): string {
-    const pos = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false).unwrap();
+    const pos = Shogi.fromSetup(parseFen(fen).unwrap(), false).unwrap();
     const piece = pos.board.take(dest);
     if(orig) pos.board.set(orig, piece!);
     pos.turn = opposite(pos.turn);
-    return makeLishogiFen(makeFen(pos.toSetup()));
+    return makeFen(pos.toSetup());
 }
 
 function isDropAmbiguos(fen: string, role: Role, dest: Square) : boolean {

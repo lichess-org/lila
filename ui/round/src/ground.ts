@@ -20,7 +20,7 @@ export function makeConfig(ctrl: RoundController): Config {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
-    turnColor: step.ply % 2 === 0 ? "white" : "black",
+    turnColor: step.ply % 2 === 0 ? "sente" : "gote",
     lastMove: util.uci2move(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
@@ -36,13 +36,18 @@ export function makeConfig(ctrl: RoundController): Config {
         resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
         if (data.pref.coords == 1) changeColorHandle();
       },
+      select: () => {
+        if(ctrl.dropmodeActive && !ctrl.shogiground?.state.dropmode.active){
+          ctrl.dropmodeActive = false;
+          ctrl.redraw();
+        }
+      }
     },
     movable: {
       free: false,
       color: playing ? data.player.color : undefined,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
       showDests: data.pref.destination,
-      rookCastle: data.pref.rookCastle,
       events: {
         after: hooks.onUserMove,
         afterNewPiece: hooks.onUserNewPiece,
@@ -73,10 +78,6 @@ export function makeConfig(ctrl: RoundController): Config {
     draggable: {
       enabled: data.pref.moveEvent > 0,
       showGhost: data.pref.highlight,
-    },
-    dropmode: {
-      active: !!ctrl.selectedPiece,
-      piece: ctrl.selectedPiece,
     },
     selectable: {
       enabled: data.pref.moveEvent !== 1,

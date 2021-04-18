@@ -1,7 +1,7 @@
 import { drag, shadowDrop, selectToDrop } from "./crazyCtrl";
 import { h } from "snabbdom";
 import { MouchEvent } from "shogiground/types";
-import { onInsert, plyColor } from "../util";
+import { onInsert } from "../util";
 import { Controller } from "../interfaces";
 import { PocketRole } from "shogiops/types";
 import { opposite } from "shogiops/util";
@@ -16,13 +16,14 @@ const oKeys = ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"];
 type Position = "top" | "bottom";
 
 export default function (ctrl: Controller, position: Position) {
-  const color = position === "bottom" ? plyColor(ctrl.vm.initialNode.ply) :
-    opposite(plyColor(ctrl.vm.initialNode.ply));
   const shogi = ctrl.position();
-  const pocket = shogi.pockets[opposite(color)];
+  // We are solving from the bottom, initial color is our color
+  console.log("Starting color: ", ctrl.vm.pov);
+  const color = position === "bottom" ? ctrl.vm.pov :
+  opposite(ctrl.vm.pov);
+  const pocket = shogi.pockets[color];
 
-  // The bottom player is always the active one
-  const usable = opposite(color) === shogi.turn;
+  const usable = color === shogi.turn;
   return h(
     `div.pocket.is2d.pocket-${position}`,
     {

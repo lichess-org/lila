@@ -43,7 +43,7 @@ export function userHtml(
           `div.player-color.${player.color}`,
           {
             attrs: {
-              title: player.color === "white" ? "Black" : "White",
+              title: player.color === "sente" ? "Sente" : "Gote",
             },
           },
           []
@@ -106,7 +106,7 @@ export function userHtml(
         `div.player-color.${player.color}`,
         {
           attrs: {
-            title: player.color === "white" ? "Black" : "White",
+            title: player.color === "sente" ? "Sente" : "Gote",
           },
         },
         []

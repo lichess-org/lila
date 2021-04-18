@@ -156,7 +156,7 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
     },
 
     getKeyAtDomPos(pos): cg.Key | undefined {
-      return board.getKeyAtDomPos(pos, board.whitePov(state), state.dom.bounds());
+      return board.getKeyAtDomPos(pos, board.sentePov(state), state.dom.bounds());
     },
 
     redrawAll,

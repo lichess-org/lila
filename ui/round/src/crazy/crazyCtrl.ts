@@ -2,11 +2,10 @@ import { isPlayerTurn } from "game/game";
 import { dragNewPiece } from "shogiground/drag";
 import { setDropMode, cancelDropMode } from "shogiground/drop";
 import RoundController from "../ctrl";
-import * as cg from "shogiground/types";
-//import { RoundData } from "../interfaces";
+import * as cg from "shogiground/types"
 import { Shogi } from "shogiops/shogi"; 
 import { parseFen } from "shogiops/fen";
-import { makeShogiFen, parseChessSquare } from "shogiops/compat";
+import { parseChessSquare } from "shogiops/compat";
 import { PocketRole } from 'shogiops/types'
 
 const li = window.lishogi;
@@ -60,10 +59,11 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   const dropPiece = ctrl.shogiground?.state.dropmode.piece;
   if(!dropMode.active || dropPiece?.role !== role){
     setDropMode(ctrl.shogiground.state, { color, role });
-    ctrl.selectedPiece = {color, role};
+    ctrl.dropmodeActive = true;
   }
   else{
     cancelDropMode(ctrl.shogiground.state);
+    ctrl.dropmodeActive = false;
   }
   e.stopPropagation();
   e.preventDefault();
@@ -82,10 +82,10 @@ export function valid(
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
   const move = {role: role as PocketRole, to: parseChessSquare(key)!};
-  const color = ctrl.ply % 2 === 0 ? "white" : "black";
-
+  
   // Unless reload event occurs we have only board fen, so we have to fake the rest
-  const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
+  console.log("lastStep fen: ", lastStep.fen);
+  //const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
 
   if (crazyKeys.length === 0) dropWithDrag = true;
   else
@@ -93,7 +93,7 @@ export function valid(
 
   if (!isPlayerTurn(data)) return false;
 
-  const shogi = Shogi.fromSetup(parseFen(makeShogiFen(fen)).unwrap(), false);
+  const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false);
   const l = shogi.unwrap(
     (s) => s.isLegal(move!),
     _ => true // for weird positions
@@ -130,7 +130,7 @@ export function init(ctrl: RoundController) {
         crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;
 
-      const nb = crazyData.pockets[color === "white" ? 0 : 1][role];
+      const nb = crazyData.pockets[color === "sente" ? 0 : 1][role];
       setDropMode(ctrl.shogiground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);

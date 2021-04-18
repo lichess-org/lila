@@ -15,17 +15,17 @@
     font-family: lishogi;
     font-size: 1.2em;
     @if $theme-light {
-      &.white::before {
+      &.sente::before {
         content: "☗";
       }
-      &.black::before {
+      &.gote::before {
         content: "☖";
       }
     } @else {
-      &.white::before {
+      &.sente::before {
         content: "☖";
       }
-      &.black::before {
+      &.gote::before {
         content: "☗";
       }
     }

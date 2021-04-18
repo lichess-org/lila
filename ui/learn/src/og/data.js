@@ -4,8 +4,8 @@ var configure = require("./configure");
 module.exports = function (cfg) {
   var defaults = {
     pieces: fen.read(fen.initial),
-    orientation: "white", // board orientation. white | black
-    turnColor: "white", // turn to play. white | black
+    orientation: "sente", // board orientation. sente | gote
+    turnColor: "sente", // turn to play. sente | gote
     check: null, // square currently in check "a2" | null
     lastMove: null, // squares part of the last move ["c3", "c4"] | null
     selected: null, // square currently selected "a1" | null
@@ -40,7 +40,7 @@ module.exports = function (cfg) {
        *      pos: [80, 120], // position relative to the board
        *      opacity: 0.34,
        *      role: 'rook',
-       *      color: 'black'
+       *      color: 'gote'
        *    }
        *  }
        *}*/
@@ -48,7 +48,7 @@ module.exports = function (cfg) {
     },
     movable: {
       free: true, // all moves are valid - board editor
-      color: "both", // color that can move. white | black | both | null
+      color: "both", // color that can move. sente | gote | both | null
       dests: {}, // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]} | null
       dropOff: "revert", // when a piece is dropped outside the board. "revert" | "trash"
       dropped: [], // last dropped [orig, dest], not to be animated
@@ -105,7 +105,7 @@ module.exports = function (cfg) {
     events: {
       change: function () {}, // called after the situation changes on the board
       // called after a piece has been moved.
-      // capturedPiece is null or like {color: 'white', 'role': 'queen'}
+      // capturedPiece is null or like {color: 'sente', 'role': 'queen'}
       move: function (orig, dest, capturedPiece) {},
       dropNewPiece: function (role, pos) {},
       capture: function (key, piece) {}, // DEPRECATED called when a piece has been captured

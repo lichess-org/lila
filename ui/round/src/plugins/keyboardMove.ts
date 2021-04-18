@@ -156,7 +156,7 @@ function focusChat() {
 
 function readClocks(clockCtrl: any | undefined) {
   if (!clockCtrl) return;
-  const msgs = ["white", "black"].map((color) => {
+  const msgs = ["sente", "gote"].map((color) => {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
     const msg =

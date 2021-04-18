@@ -12,8 +12,8 @@ export default function status(ctrl: Ctrl): string {
       return noarg("checkmate");
     case "resign":
       return noarg(
-        d.game.winner == "white" ? "whiteResigned" : "blackResigned"
-      ); // swapped
+        d.game.winner == "sente" ? "whiteResigned" : "blackResigned"
+      );
     case "stalemate":
       return noarg("stalemate");
     case "impasse":
@@ -22,10 +22,10 @@ export default function status(ctrl: Ctrl): string {
       return "Perpetual check (Illegal move)";
     case "timeout":
       switch (d.game.winner) {
-        case "black":
+        case "sente":
+          return noarg("whiteLeftTheGame");
+        case "gote":
           return noarg("blackLeftTheGame");
-        case "white":
-          return noarg("whiteLeftTheGame"); // swapped
       }
       return noarg("draw");
     case "draw":
@@ -33,7 +33,7 @@ export default function status(ctrl: Ctrl): string {
     case "outoftime":
       return noarg("timeOut");
     case "noStart":
-      return (d.game.winner == "white" ? "Gote" : "Sente") + " didn't move"; // swapped
+      return (d.game.winner == "sente" ? "Gote" : "Sente") + " didn't move";
     case "cheat":
       return "Cheat detected";
     case "variantEnd":

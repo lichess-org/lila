@@ -1,6 +1,5 @@
 import { FormStore, toFormLines, makeStore } from "./form";
 import LobbyController from "./ctrl";
-import { makeLishogiFen, makeShogiFen } from 'shogiops/compat';
 
 const li = window.lishogi;
 
@@ -225,12 +224,7 @@ export default class Setup {
       },
       resetPeriods = function() {
         if($byoyomiInput.val() == 0) updatePeriods(1);
-      }
-      ;
-    // This switches the color in sfen that is being sent to the server, make it better if you can
-    $submits.click(() => {
-      $fenInput.val(makeLishogiFen($fenInput.val()));
-    })
+      };
     const c = this.stores[typ].get();
     if (c) {
       Object.keys(c).forEach((k) => {
@@ -251,38 +245,13 @@ export default class Setup {
         case "1":
         case "3":
           if (timeMode == "1") {
-            // Estimate 90 moves (per player) per game
-            const time = 60 * $timeInput.val() + 90 * $incrementInput.val() + 25 * $byoyomiInput.val() * $periodsInput.filter(":checked").val();
+            const time = $timeInput.val() * 60 + $incrementInput.val() * 60 + $byoyomiInput.val() * 25 * $periodsInput.filter(":checked").val();
             if (time < 60) key = "ultraBullet";
             else if (time < 300) key = "bullet";
-            else if (time < 900) key = "blitz";
-            else if (time < 2700) key = "rapid";
+            else if (time < 599) key = "blitz";
+            else if (time < 1500) key = "rapid";
             else key = "classical";
           } else key = "correspondence";
-          break;
-        case "10":
-          key = "crazyhouse";
-          break;
-        case "2":
-          key = "chess960";
-          break;
-        case "4":
-          key = "kingOfTheHill";
-          break;
-        case "5":
-          key = "threeCheck";
-          break;
-        case "6":
-          key = "antichess";
-          break;
-        case "7":
-          key = "atomic";
-          break;
-        case "8":
-          key = "horde";
-          break;
-        case "9":
-          key = "racingKings";
           break;
       }
       $ratings
@@ -443,7 +412,7 @@ export default class Setup {
 
     var validateFen = li.debounce(function () {
       $fenInput.removeClass("success failure");
-      var fen = makeLishogiFen($fenInput.val());
+      var fen = $fenInput.val();
       if (fen) {
         $.ajax({
           url: $fenInput.parent().data("validate-url"),
@@ -484,9 +453,9 @@ export default class Setup {
     $fenInput.on("keyup", validateFenWrapper(true));
 
     var setHandicap = function() {
-      const hcSfen = makeShogiFen($handicapSelect.val());
+      const hcSfen = $handicapSelect.val();
       if (hcSfen) {
-        $fenInput.val(makeShogiFen($handicapSelect.val()));
+        $fenInput.val($handicapSelect.val());
         validateFenWrapper(false)();
       }
     }

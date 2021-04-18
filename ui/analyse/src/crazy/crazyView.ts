@@ -3,6 +3,7 @@ import { h } from "snabbdom";
 import { MouchEvent } from "shogiground/types";
 import { onInsert } from "../util";
 import AnalyseCtrl from "../ctrl";
+import {unpromote} from "shogiops/util";
 
 const eventNames1 = ["mousedown", "touchmove"];
 const eventNames2 = ["click"];
@@ -13,27 +14,13 @@ type Position = "top" | "bottom";
 
 export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy) return;
-  const pocket = ctrl.node.crazy.pockets[color === "white" ? 0 : 1];
+  const pocket = ctrl.node.crazy.pockets[color === "sente" ? 0 : 1];
   const dropped = ctrl.justDropped;
   const shadowPiece = ctrl.shogiground?.state.drawable.piece;
   let captured = ctrl.justCaptured;
 
   if (captured)
-    captured.role =
-      captured &&
-      (!captured["promoted"]
-        ? captured.role
-        : captured.role === "tokin"
-          ? "pawn"
-          : captured.role === "promotedLance"
-            ? "lance"
-            : captured.role === "promotedKnight"
-              ? "knight"
-              : captured.role === "promotedSilver"
-                ? "silver"
-                : captured.role === "horse"
-                  ? "bishop"
-                  : "rook");
+    captured.role = unpromote(captured.role)!;
 
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
@@ -61,10 +48,10 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
     oKeys.map((role) => {
       let nb = pocket[role] || 0;
       const sp = (role == shadowPiece?.role && color == shadowPiece?.color);
-      const selectedSquare: boolean = (ctrl.shogiground?.state.dropmode.active &&
-        ctrl.shogiground?.state.dropmode.piece?.color === color &&
-        ctrl.shogiground?.state.dropmode.piece?.role === role &&
-        ctrl.shogiground.state.movable.color === ctrl.shogiground?.state.dropmode.piece.color);
+      const selectedSquare: boolean = (ctrl.shogiground && ctrl.shogiground.state.dropmode.active &&
+        ctrl.shogiground.state.dropmode.piece?.color === color &&
+        ctrl.shogiground.state.dropmode.piece?.role === role &&
+        ctrl.shogiground.state.movable.color === ctrl.shogiground.state.dropmode.piece.color);
       if (activeColor) {
         if (dropped === role) nb--;
         if (captured && captured.role === role) nb++;

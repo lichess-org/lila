@@ -1,6 +1,6 @@
 import { State } from "./state";
 import { key2pos, createEl } from "./util";
-import { whitePov } from "./board";
+import { sentePov } from "./board";
 import * as util from "./util";
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from "./anim";
 import { DragCurrent } from "./drag";
@@ -14,7 +14,7 @@ type SquareClasses = Map<cg.Key, string>;
 // ported from https://github.com/veloce/lichobile/blob/master/src/js/shogiground/view.js
 // in case of bugs, blame @veloce
 export function render(s: State): void {
-  const asWhite: boolean = whitePov(s),
+  const asSente: boolean = sentePov(s),
     posToTranslate = s.dom.relative
       ? util.posToTranslateRel
       : util.posToTranslateAbs(s.dom.bounds()),
@@ -59,7 +59,7 @@ export function render(s: State): void {
       // if piece not being dragged anymore, remove dragging style
       if (el.cgDragging && (!curDrag || curDrag.orig !== k)) {
         el.classList.remove("dragging");
-        translate(el, posToTranslate(key2pos(k), asWhite));
+        translate(el, posToTranslate(key2pos(k), asSente));
         el.cgDragging = false;
       }
       // remove fading class if it still remains
@@ -76,13 +76,13 @@ export function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
           el.classList.add("anim");
-          translate(el, posToTranslate(pos, asWhite));
+          translate(el, posToTranslate(pos, asSente));
         } else if (el.cgAnimating) {
           el.cgAnimating = false;
           el.classList.remove("anim");
-          translate(el, posToTranslate(key2pos(k), asWhite));
+          translate(el, posToTranslate(key2pos(k), asSente));
           if (s.addPieceZIndex)
-            el.style.zIndex = posZIndex(key2pos(k), asWhite);
+            el.style.zIndex = posZIndex(key2pos(k), asSente);
         }
         // same piece: flag as same
         if (
@@ -119,7 +119,7 @@ export function render(s: State): void {
     if (!sameSquares.has(sk)) {
       sMvdset = movedSquares.get(className);
       sMvd = sMvdset && sMvdset.pop();
-      const translation = posToTranslate(key2pos(sk), asWhite);
+      const translation = posToTranslate(key2pos(sk), asSente);
       if (sMvd) {
         sMvd.cgKey = sk;
         translate(sMvd, translation);
@@ -148,14 +148,14 @@ export function render(s: State): void {
           pMvd.cgFading = false;
         }
         const pos = key2pos(k);
-        if (s.addPieceZIndex) pMvd.style.zIndex = posZIndex(pos, asWhite);
+        if (s.addPieceZIndex) pMvd.style.zIndex = posZIndex(pos, asSente);
         if (anim) {
           pMvd.cgAnimating = true;
           pMvd.classList.add("anim");
           pos[0] += anim[2];
           pos[1] += anim[3];
         }
-        translate(pMvd, posToTranslate(pos, asWhite));
+        translate(pMvd, posToTranslate(pos, asSente));
       }
       // no piece in moved obj: insert the new piece
       // assumes the new piece is not being dragged
@@ -171,9 +171,9 @@ export function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
         }
-        translate(pieceNode, posToTranslate(pos, asWhite));
+        translate(pieceNode, posToTranslate(pos, asSente));
 
-        if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asWhite);
+        if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asSente);
         boardEl.appendChild(pieceNode);
       }
     }
@@ -182,7 +182,7 @@ export function render(s: State): void {
   if (s.pockets && pockets) {
     for (const i of [0, 1]) {
       // add pockets if nonexistent yet
-      const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "white" : "black");
+      const pocket = pockets[i].firstElementChild || addPocketEl(s, pockets[i], i === 0 ? "sente" : "gote");
       const pocketPieces = pocket.getElementsByTagName("piece");
       for (let j = 0; j < pocketPieces.length; j++) {
         const role = pocketPieces[j].getAttribute("data-role");
@@ -198,7 +198,7 @@ export function render(s: State): void {
 
 export function updateBounds(s: State): void {
   if (s.dom.relative) return;
-  const asWhite: boolean = whitePov(s),
+  const asSente: boolean = sentePov(s),
     posToTranslate = util.posToTranslateAbs(s.dom.bounds());
   let el = s.dom.elements.board.firstChild as
     | cg.PieceNode
@@ -206,7 +206,7 @@ export function updateBounds(s: State): void {
     | undefined;
   while (el) {
     if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
-      util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asWhite));
+      util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente));
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
@@ -223,9 +223,9 @@ function removeNodes(s: State, nodes: HTMLElement[]): void {
   for (const node of nodes) s.dom.elements.board.removeChild(node);
 }
 
-function posZIndex(pos: cg.Pos, asWhite: boolean): string {
+function posZIndex(pos: cg.Pos, asSente: boolean): string {
   let z = 2 + pos[1] * 9 + (8 - pos[0]);
-  if (asWhite) z = 84 - z; //67
+  if (asSente) z = 84 - z; //67
   return z + "";
 }
 

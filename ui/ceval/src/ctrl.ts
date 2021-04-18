@@ -13,7 +13,6 @@ import { defined, prop } from "common";
 import { storedProp } from "common/storage";
 import throttle from "common/throttle";
 import { povChances } from "./winningChances";
-import { sanIrreversible } from "./util";
 
 const li = window.lishogi;
 
@@ -186,7 +185,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(
       ev.pvs,
-      work.ply % 2 === (work.threatMode ? 1 : 0) ? "white" : "black"
+      work.ply % 2 === (work.threatMode ? 1 : 0) ? "sente" : "gote"
     );
     npsRecorder(ev);
     curEval = ev;
@@ -236,18 +235,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     };
 
     if (threatMode) {
-      const c = step.ply % 2 === 1 ? "w" : "b";
-      const fen = step.fen.replace(/ (w|b) /, " " + c + " ");
+      const c = step.ply % 2 === 1 ? "b" : "w";
+      const fen = step.fen.replace(/ (b|w) /, " " + c + " ");
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
       // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
         const s = steps[i];
-        if (sanIrreversible(opts.variant.key, s.san!)) {
-          work.moves = [];
-          work.initialFen = s.fen;
-        } else work.moves.push(s.uci!);
+        work.moves.push(s.uci!);
       }
     }
 

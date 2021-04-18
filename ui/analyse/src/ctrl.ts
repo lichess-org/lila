@@ -23,7 +23,6 @@ import { make as makeForecast } from "./forecast/forecastCtrl";
 import {
   ctrl as cevalCtrl,
   isEvalBetter,
-  sanIrreversible,
   CevalCtrl,
   Work as CevalWork,
   CevalOpts,
@@ -54,7 +53,7 @@ import {
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
 import { cancelDropMode } from "shogiground/drop";
-import { lishogiVariantRules, makeShogiFen, assureLishogiUci, parseLishogiUci, makeChessSquare } from "shogiops/compat";
+import { lishogiVariantRules, assureLishogiUci, parseLishogiUci, makeChessSquare } from "shogiops/compat";
 import { opposite, roleToChar } from 'shogiops/util';
 import { Outcome, isNormal } from 'shogiops/types';
 import { parseFen } from 'shogiops/fen';
@@ -126,6 +125,7 @@ export default class AnalyseCtrl {
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
 
+  dropmodeActive: boolean = false;
   // misc
   cgConfig: any; // latest shogiground config (useful for revert)
   music?: any;
@@ -276,7 +276,7 @@ export default class AnalyseCtrl {
       : this.data.orientation;
   }
 
-  bottomIsWhite = () => this.bottomColor() === "white";
+  bottomIsSente = () => this.bottomColor() === "sente";
 
   getOrientation(): Color {
     // required by ui/ceval
@@ -524,13 +524,13 @@ export default class AnalyseCtrl {
       this.preparePremoving();
     } else this.jump(this.path);
     cancelDropMode(this.shogiground.state);
+    this.dropmodeActive = false;
     this.redraw();
   };
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    //const piece = this.shogiground.state.pieces.get(dest);
     const isCapture = capture;
     this.sound[isCapture ? "capture" : "move"]();
     if (!promotion.start(this, orig, dest, capture, this.sendMove))
@@ -634,7 +634,7 @@ export default class AnalyseCtrl {
   }
 
   encodeNodeFen(): Fen {
-    const sfen = makeShogiFen(this.node.fen);
+    const sfen = this.node.fen;
     return sfen.replace(/\s/g, "_").replace(/\+/, '%2B');
   }
 
@@ -715,7 +715,7 @@ export default class AnalyseCtrl {
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
-    const setup = parseFen(makeShogiFen(node.fen)).unwrap();
+    const setup = parseFen(node.fen).unwrap();
     return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup);
   }
 
@@ -901,8 +901,6 @@ export default class AnalyseCtrl {
       const node = this.nodeList[i];
       const fen = node.fen.split(" ").slice(0, 4).join(" ");
       if (fens.has(fen)) return false;
-      if (node.san && sanIrreversible(this.data.game.variant.key, node.san))
-        return true;
       fens.add(fen);
     }
     return true;

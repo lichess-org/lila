@@ -64,7 +64,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
         [
           h("h1", gameText(ctrl)),
           h("h2", "Game info"),
-          ...["white", "black"].map((color: Color) =>
+          ...["sente", "gote"].map((color: Color) =>
             h("p", [
               color + " player: ",
               playerHtml(ctrl, ctrl.playerByColor(color)),

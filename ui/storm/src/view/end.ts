@@ -119,7 +119,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                   target: '_blank',
                 },
                 hook: onInsert(e => {
-                  const pos = Shogi.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
+                  const pos = Shogi.fromSetup(parseFen(round.puzzle.fen).unwrap(), false).unwrap();
                   const uci = round.puzzle.line.split(' ')[0];
                   pos.play(parseLishogiUci(uci)!);
                   miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);

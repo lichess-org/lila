@@ -19,7 +19,7 @@ export default function (
       if (
         piece &&
         piece.role == 'pawn' &&
-        ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
+        ((dest[1] == '8' && g.state.turnColor == 'gote') || (dest[1] == '1' && g.state.turnColor == 'sente'))
       ) {
         promoting = {
           orig: orig,
@@ -69,7 +69,7 @@ export default function (
     if (!promoting) return;
 
     let left = (7 - cgUtil.key2pos(dest)[0]) * 12.5;
-    if (orientation === 'white') left = 87.5 - left;
+    if (orientation === 'sente') left = 87.5 - left;
 
     const vertical = color === orientation ? 'top' : 'bottom';
 

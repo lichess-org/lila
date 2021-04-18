@@ -31,7 +31,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   };
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = color == 'white' ? 1 : 0;
+    const colorModulo = color == 'sente' ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
   };
@@ -68,7 +68,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         const cur = current();
         const ucis: Uci[] = [];
         res!.moves.forEach(m => {
-          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
+          if (m.sente + m.draws + m.gote > 1) ucis.push(m.uci);
         });
         if (ucis.includes(fault.node.uci!)) {
           explorerCancelPlies.push(fault.node.ply);
@@ -156,7 +156,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function hideComputerLine(node: Tree.Node): boolean {
-    return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
+    return (node.ply % 2 === 0) !== (color === 'sente') && !isPlySolved(node.ply);
   };
 
   function showBadNode(): Tree.Node | undefined {

@@ -27,7 +27,7 @@ $(function () {
     var showColor = function () {
       color =
         colorPref == "random"
-          ? ["white", "black"][Math.round(Math.random())]
+          ? ["sente", "gote"][Math.round(Math.random())]
           : colorPref;
       if (!ground)
         ground = Shogiground($board[0], {
@@ -41,7 +41,7 @@ $(function () {
           addPieceZIndex: $("#main-wrap").hasClass("is3d"),
         });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
-      $trainer.removeClass("white black").addClass(color);
+      $trainer.removeClass("sente gote").addClass(color);
     };
     showColor();
 
@@ -50,9 +50,9 @@ $(function () {
       $form.find("input").on("change", function () {
         var selected = $form.find("input:checked").val();
         var c = {
-          1: "white",
+          1: "sente",
           2: "random",
-          3: "black",
+          3: "gote",
         }[selected];
         if (c !== colorPref) $.ajax(window.lishogi.formAjax($form));
         colorPref = c;

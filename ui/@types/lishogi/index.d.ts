@@ -232,7 +232,7 @@ declare type Perf =
   | "correspondence"
   | "fromPosition";
 
-declare type Color = "white" | "black";
+declare type Color = "sente" | "gote";
 
 declare type Key =
   | "a0"

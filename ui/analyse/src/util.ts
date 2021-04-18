@@ -2,11 +2,12 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { Hooks } from "snabbdom/hooks";
 import { Attrs } from "snabbdom/modules/attributes";
+import { notationStyle } from "common/notation";
 
 export const emptyRedButton = "button.button.button-red.button-empty";
 
 export function plyColor(ply: number): Color {
-  return ply % 2 === 0 ? "white" : "black";
+  return ply % 2 === 0 ? "sente" : "gote";
 }
 
 export function bindMobileMousedown(
@@ -84,13 +85,18 @@ export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function nodeFullName(node: Tree.Node) {
+export function nodeFullName(node: Tree.Node, notation: number) {
   if (node.san)
     return (
-      plyToTurn(node.ply) +
-      (node.ply % 2 === 1 ? "." : "...") +
+      node.ply + "." +
       " " +
-      node.san
+      notationStyle(notation)(
+        {
+          san: node.san,
+          fen: node.fen,
+          uci: node.uci!
+        }
+      )
     );
   return "Initial position";
 }

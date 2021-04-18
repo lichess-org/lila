@@ -8,9 +8,9 @@ function miniPairing(ctrl) {
     var player = pairing.player;
     var result =
       pairing.game.status >= status.ids.mate
-        ? pairing.winnerColor === "white"
+        ? pairing.winnerColor === "sente"
           ? "1-0"
-          : pairing.winnerColor === "black"
+          : pairing.winnerColor === "gote"
           ? "0-1"
           : "½/½"
         : "*";

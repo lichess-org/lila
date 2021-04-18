@@ -49,8 +49,8 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
 }
 
 const emptyMaterialDiff: MaterialDiff = {
-  white: {},
-  black: {},
+  sente: {},
+  gote: {},
 };
 
 export function main(ctrl: RoundController): VNode {
@@ -65,7 +65,7 @@ export function main(ctrl: RoundController): VNode {
       ? cgState.pieces
       : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
-    score = util.getScore(pieces) * (bottomColor === "white" ? 1 : -1);
+    score = util.getScore(pieces) * (bottomColor === "sente" ? 1 : -1);
   } else material = emptyMaterialDiff;
 
   const checks: CheckCount =

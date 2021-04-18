@@ -17,7 +17,7 @@ $mq-col3: $mq-x-large;
 
   overflow: hidden; // coords cause mobile to have horiz scrolling
 
-  &.white {
+  &.sente {
     .bottom_color {
       width: 32px;
       height: 32px;
@@ -27,7 +27,7 @@ $mq-col3: $mq-x-large;
       top: 110%;
     }
   }
-  &.black {
+  &.gote {
     .bottom_color {
       width: 32px;
       height: 32px;

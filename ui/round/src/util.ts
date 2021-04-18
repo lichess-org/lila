@@ -21,7 +21,7 @@ export function justIcon(icon: string): VNodeData {
 
 export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
-  if (uci[1] === '*' || uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
+  if (uci[1] === '*') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 }
 
@@ -54,11 +54,11 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   return dec;
 }
 
-// {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
+// {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
   const diff: MaterialDiff = {
-    white: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-    black: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    sente: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    gote: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
   for (const p of pieces.values()) {
     const them = diff[opposite(p.color)];
@@ -71,14 +71,14 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
 export function getScore(pieces: cg.Pieces): number {
   let score = 0;
   for (const p of pieces.values()) {
-    score += pieceScores[p.role] * (p.color === 'white' ? 1 : -1);
+    score += pieceScores[p.role] * (p.color === 'sente' ? 1 : -1);
   }
   return score;
 }
 
 export const noChecks: CheckCount = {
-  white: 0,
-  black: 0
+  sente: 0,
+  gote: 0
 }
 
 export function countChecks(steps: Step[], ply: Ply): CheckCount {
@@ -86,8 +86,8 @@ export function countChecks(steps: Step[], ply: Ply): CheckCount {
   for (let step of steps) {
     if (ply < step.ply) break;
     if (step.check) {
-      if (step.ply % 2 === 1) checks.white++;
-      else checks.black++;
+      if (step.ply % 2 === 1) checks.sente++;
+      else checks.gote++;
     }
   }
   return checks;

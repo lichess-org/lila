@@ -66,7 +66,7 @@ function view(opts: Opts, coords: Coords): VNode {
       postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords)
     }
   }, [
-    h('p.title', nodeFullName(node)),
+    h('p.title', nodeFullName(node, ctrl.data.pref.pieceNotation ?? 0)),
     onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
     onMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
     action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path))

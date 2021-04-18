@@ -1,5 +1,4 @@
 var shogi = require('shogiops');
-var compat = require('shogiops/compat');
 var sfen = require('shogiops/fen');
 var util = require('shogiops/util');
 
@@ -41,7 +40,7 @@ $(function () {
             if (data == 1) {
               const key = solution.slice(3, 5);
               const piece = cg.state.pieces.get(key);
-              const mySetup = sfen.parseFen(compat.makeShogiFen(cg.getFen() + " " + util.opposite(piece.color)[0])).unwrap();
+              const mySetup = sfen.parseFen(cg.getFen() + " " + util.opposite(piece.color)[0])).unwrap();
               const pos = shogi.Shogi.fromSetup(mySetup, false);
               if(pos.isOk && !pos.unwrap().isCheckmate()) {
                 cg.setPieces(

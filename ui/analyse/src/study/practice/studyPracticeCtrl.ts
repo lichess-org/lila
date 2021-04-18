@@ -101,7 +101,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
       onLoad();
       root.practice!.resume();
     },
-    isWhite: root.bottomIsWhite,
+    isSente: root.bottomIsSente,
     analysisUrl,
     autoNext,
     goToNext

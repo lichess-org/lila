@@ -58,6 +58,12 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       insert(elements) {
         if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
         if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColorHandle();
+      },
+      select: () => {
+        if(ctrl.dropmodeActive && !ctrl.shogiground?.state.dropmode.active) {
+          ctrl.dropmodeActive = false;
+          ctrl.redraw();
+        }
       }
     },
     premovable: {

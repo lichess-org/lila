@@ -49,7 +49,7 @@ export function addPocketEl(
   element: HTMLElement,
   color: string
 ): HTMLElement {
-  const position = (s.orientation === "white") !== (color == "white") ? "top" : "bottom",
+  const position = (s.orientation === "sente") !== (color == "sente") ? "top" : "bottom",
     pocket = createEl("div", "pocket is2d pocket-" + position);
   element.appendChild(pocket);
   for (const role of droppableRoles) {

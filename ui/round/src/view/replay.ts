@@ -10,6 +10,7 @@ import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
 import { notationStyle } from 'common/notation';
+import {opposite} from "shogiops/util";
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -52,7 +53,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, 
           {
             san: step.san,
             uci: step.uci,
-            fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + color[0]
+            fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + color === 'sente' ? 'b' : 'w' 
           }
         )
       )
@@ -65,22 +66,17 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data))
     switch (ctrl.data.game.winner) {
-      case "white":
+      case "sente":
         result = "1-0";
         break;
-      case "black":
+      case "gote":
         result = "0-1";
         break;
       default:
         result = "½-½";
     }
   if (result || status.aborted(ctrl.data)) {
-    const winner =
-      ctrl.data.game.winner === "white"
-        ? "black"
-        : ctrl.data.game.winner === "black"
-        ? "white"
-        : ctrl.data.game.winner; // swapped
+    const winner = ctrl.data.game.winner;
     return h("div.result-wrap", [
       h("p.result", result || ""),
       h(
@@ -93,7 +89,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         },
         [
           viewStatus(ctrl),
-          winner ? " • " + ctrl.trans.noarg(winner + "IsVictorious") : "",
+          winner ? " • " + ctrl.trans.noarg((winner === "sente" ? "black" : "white") + "IsVictorious") : "",
         ]
       ),
     ]);
@@ -105,8 +101,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
     lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === "undefined") return [];
-  const color = ctrl.data.game.initialFen?.split(' ')[1] == "w" ? "white" : "black";
-  const oppositeColor = color === "white" ? "black" : "white";
+  const color = ctrl.data.game.initialFen?.split(' ')[1] == "b" ? "sente" : "gote";
+  const oppositeColor = opposite(color);
 
   const move: Array<any> = [];
   const els: MaybeVNodes = [],
@@ -213,11 +209,11 @@ function initMessage(d: RoundData, trans: TransNoArg) {
     ? h("div.message", util.justIcon(""), [
         h("div", [
           trans(
-            d.player.color === "white" // swapped
+            d.player.color === "sente"
               ? "youPlayTheBlackPieces"
               : "youPlayTheWhitePieces"
           ),
-          ...(d.player.color === "white"
+          ...(d.player.color === "sente"
             ? [h("br"), h("strong", trans("itsYourTurn"))]
             : []),
         ]),

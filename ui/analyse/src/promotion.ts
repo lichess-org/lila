@@ -3,8 +3,10 @@ import * as ground from "./ground";
 import { bind, onInsert } from "./util";
 import * as util from "shogiground/util";
 import { Role } from "shogiground/types";
+import { canPiecePromote, promote as sPromote } from "shogiops/util";
 import AnalyseCtrl from "./ctrl";
 import { MaybeVNode, JustCaptured } from "./interfaces";
+import { parseChessSquare } from "shogiops/compat";
 
 interface Promoting {
   orig: Key;
@@ -32,24 +34,13 @@ export function start(
 ): boolean {
   const s = ctrl.shogiground.state;
   const piece = s.pieces.get(dest);
-  const role = piece ? piece.role : "pawn";
-  if (
-    piece &&
-    ["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(
-      piece.role
-    ) &&
-    (((["7", "8", "9"].includes(dest[1]) ||
-      ["7", "8", "9"].includes(orig[1])) &&
-      s.turnColor === "black") ||
-      ((["1", "2", "3"].includes(dest[1]) ||
-        ["1", "2", "3"].includes(orig[1])) &&
-        s.turnColor === "white"))
-  ) {
+  if(!piece) return false;
+  if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
     promoting = {
-      orig,
-      dest,
-      capture,
-      role,
+      orig: orig,
+      dest: dest,
+      capture: capture,
+      role: piece.role,
       callback,
     };
     ctrl.redraw();
@@ -93,7 +84,7 @@ function renderPromotion(
   if (!promoting) return;
 
   let left = (8 - util.key2pos(dest)[0]) * 11.11 - util.key2pos(dest)[0] * 0.04;
-  if (orientation === "white")
+  if (orientation === "sente")
     left = util.key2pos(dest)[0] * 11.11 - util.key2pos(dest)[0] * 0.04;
 
   const vertical = color === orientation ? "top" : "bottom";
@@ -108,7 +99,7 @@ function renderPromotion(
     },
     pieces.map(function (serverRole: Role, i) {
       let top = (i + util.key2pos(dest)[1]) * 11.11 + 0.3;
-      if (orientation === "white")
+      if (orientation === "sente")
         top = (9 - (i + util.key2pos(dest)[1])) * 11.11 + 0.35;
       return h(
         "square",
@@ -127,36 +118,19 @@ function renderPromotion(
   );
 }
 
-function promotesTo(role: Role): Role {
-  switch (role) {
-    case "silver":
-      return "promotedSilver";
-    case "knight":
-      return "promotedKnight";
-    case "lance":
-      return "promotedLance";
-    case "bishop":
-      return "horse";
-    case "rook":
-      return "dragon";
-    default:
-      return "tokin";
-  }
-}
-
 export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
   const roles: Role[] =
-    ctrl.shogiground.state.orientation === "black" ?
-    [promotesTo(promoting.role), promoting.role] :
-    [promoting.role, promotesTo(promoting.role)];
+    ctrl.shogiground.state.orientation === "gote" ?
+    [sPromote(promoting.role), promoting.role] :
+    [promoting.role, sPromote(promoting.role)];
   
   return renderPromotion(
     ctrl,
     promoting.dest,
     roles,
-    promoting.dest[1] >= "7" ? "white" : "black",
+    promoting.dest[1] >= "7" ? "sente" : "gote",
     ctrl.shogiground.state.orientation
   );
 }

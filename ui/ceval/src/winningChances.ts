@@ -1,7 +1,7 @@
 import { Eval } from './types';
 
 function toPov(color: Color, diff: number): number {
-  return color === 'white' ? diff : -diff;
+  return color === 'sente' ? diff : -diff;
 }
 
 /**

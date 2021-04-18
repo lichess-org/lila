@@ -5,7 +5,7 @@ function diff(a, b) {
 }
 
 function pawn(color, x1, y1, x2, y2) {
-  return color === "white"
+  return color === "sente"
     ? x1 === x2 && y1 + 1 === y2
     : x1 === x2 && y1 - 1 === y2;
 }
@@ -14,7 +14,7 @@ function knight(color, x1, y1, x2, y2) {
   return (
     diff(x1, x2) === 1 &&
     diff(y1, y2) === 2 &&
-    (color === "white" ? y2 > y1 : y2 < y1)
+    (color === "sente" ? y2 > y1 : y2 < y1)
   );
 }
 
@@ -31,7 +31,7 @@ function king(x1, y1, x2, y2) {
 }
 
 function lance(color, x1, y1, x2, y2) {
-  return x1 == x2 && (color === "white" ? y2 > y1 : y1 > y2);
+  return x1 == x2 && (color === "sente" ? y2 > y1 : y1 > y2);
 }
 
 function silver(color, x1, y1, x2, y2) {
@@ -39,7 +39,7 @@ function silver(color, x1, y1, x2, y2) {
     diff(x1, x2) < 2 &&
     diff(y1, y2) < 2 &&
     y1 != y2 &&
-    (color === "white" ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1)
+    (color === "sente" ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1)
   );
 }
 
@@ -47,7 +47,7 @@ function gold(color, x1, y1, x2, y2) {
   return (
     diff(x1, x2) < 2 &&
     diff(y1, y2) < 2 &&
-    (color === "white" ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2)
+    (color === "sente" ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2)
   );
 }
 

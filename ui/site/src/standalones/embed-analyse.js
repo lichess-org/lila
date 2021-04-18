@@ -30,7 +30,7 @@ $(function () {
     domain + "/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b"
   );
   var gameRegex = new RegExp(
-    domain + "/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b"
+    domain + "/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b"
   );
   var notGames = [
     "training",

@@ -13,7 +13,7 @@ export function nextGlyphSymbol(color: Color, symbol: string, mainline: Tree.Nod
   const fromIndex = fromPly - mainline[0].ply;
   for (var i = 1; i < len; i++) {
     const node = mainline[(fromIndex + i) % len];
-    const found = (node.ply % 2 === (color === 'white' ? 1 : 0)) && node.glyphs && node.glyphs.find(function(g) {
+    const found = (node.ply % 2 === (color === 'sente' ? 1 : 0)) && node.glyphs && node.glyphs.find(function(g) {
       return g.symbol === symbol;
     });
     if (found) return node;
@@ -28,7 +28,7 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
     var node = mainline[i];
     var prev = mainline[i - 1];
     if (nodeFilter(node) && node.eval && prev.eval) {
-      var diff = Math.abs(winningChances.povDiff('white', prev.eval, node.eval));
+      var diff = Math.abs(winningChances.povDiff('sente', prev.eval, node.eval));
       if (diff > threshold && hasCompChild(prev)) found.push(node);
     }
   }

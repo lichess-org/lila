@@ -20,20 +20,20 @@ export interface ClockData {
   increment: Seconds;
   byoyomi: Seconds;
   periods: number;
-  white: Seconds;
-  black: Seconds;
+  sente: Seconds;
+  gote: Seconds;
   emerg: Seconds;
   showTenths: TenthsPref;
   clockCountdown: Seconds;
   showBar: boolean;
   moretime: number;
-  wPeriods: number;
-  bPeriods: number;
+  sPeriods: number;
+  gPeriods: number;
 }
 
 interface Times {
-  white: Millis;
-  black: Millis;
+  sente: Millis;
+  gote: Millis;
   activeColor?: Color;
   lastUpdate: Millis;
 }
@@ -55,8 +55,8 @@ interface EmergSound {
   next?: number;
   delay: Millis;
   playable: {
-    white: boolean;
-    black: boolean;
+    sente: boolean;
+    gote: boolean;
   };
 }
 
@@ -67,8 +67,8 @@ export class ClockController {
     tick: window.lishogi.sound.tick,
     delay: 20000,
     playable: {
-      white: true,
-      black: true,
+      sente: true,
+      gote: true,
     },
   };
 
@@ -82,8 +82,8 @@ export class ClockController {
   byoEmergeS: Seconds;
 
   elements = {
-    white: {},
-    black: {},
+    sente: {},
+    gote: {},
   } as ColorMap<ClockElements>;
 
   byoyomi: number;
@@ -107,18 +107,18 @@ export class ClockController {
     this.initial = cdata.initial;
 
     this.startPeriod = cdata.periods;
-    this.curPeriods["white"] = cdata.wPeriods ?? 0;
-    this.curPeriods["black"] = cdata.bPeriods ?? 0;
+    this.curPeriods["sente"] = cdata.sPeriods ?? 0;
+    this.curPeriods["gote"] = cdata.gPeriods ?? 0;
 
-    this.showBar["white"] = cdata.showBar && !this.opts.nvui && this.curPeriods["white"] === 0;
-    this.showBar["black"] = cdata.showBar && !this.opts.nvui && this.curPeriods["black"] === 0;
+    this.showBar["sente"] = cdata.showBar && !this.opts.nvui && this.curPeriods["sente"] === 0;
+    this.showBar["gote"] = cdata.showBar && !this.opts.nvui && this.curPeriods["gote"] === 0;
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
     this.byoEmergeS = cdata.clockCountdown ?? 3;
 
-    this.setClock(d, cdata.white, cdata.black, cdata.wPeriods, cdata.bPeriods);
+    this.setClock(d, cdata.sente, cdata.gote, cdata.sPeriods, cdata.gPeriods);
   }
 
   isUsingByo = (color: Color): boolean => this.byoyomi > 0 && (this.curPeriods[color] > 0 || this.initial === 0);
@@ -128,10 +128,10 @@ export class ClockController {
 
   setClock = (
     d: RoundData,
-    white: Seconds,
-    black: Seconds,
-    wPer: number,
-    bPer: number,
+    sente: Seconds,
+    gote: Seconds,
+    sPer: number,
+    gPer: number,
     delay: Centis = 0
   ) => {
     const isClockRunning =
@@ -139,13 +139,13 @@ export class ClockController {
       delayMs = delay * 10;
 
     this.times = {
-      white: white * 1000,
-      black: black * 1000,
+      sente: sente * 1000,
+      gote: gote * 1000,
       activeColor: isClockRunning ? d.game.player : undefined,
       lastUpdate: performance.now() + delayMs,
     };
-    this.curPeriods["white"] = wPer;
-    this.curPeriods["black"] = bPer;
+    this.curPeriods["sente"] = sPer;
+    this.curPeriods["gote"] = gPer;
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };

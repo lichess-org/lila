@@ -108,8 +108,8 @@ export interface Board {
   fen: string;
   color: Color;
   lastMove?: string;
-  white: BoardPlayer;
-  black: BoardPlayer;
+  sente: BoardPlayer;
+  gote: BoardPlayer;
 }
 
 export interface BoardPlayer extends BasePlayer {
@@ -146,8 +146,8 @@ export interface PlayerExt extends Player {
 
 export interface Stats {
   games: number;
-  whiteWins: number;
-  blackWins: number;
+  senteWins: number;
+  goteWins: number;
   draws: number;
   byes: number;
   absences: number;

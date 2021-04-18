@@ -12,27 +12,27 @@ module.exports = {
   levels: [
     {
       goal: "lancesAreStraighforward",
-      fen: "9/9/9/9/9/9/9/9/4L4 w -",
+      fen: "9/9/9/9/9/9/9/9/4L4 b -",
       apples: "e3 e6",
       nbMoves: 2,
       shapes: [arrow("e1e3"), arrow("e3e6")],
     },
     {
       goal: "lancePromotion",
-      fen: "9/9/9/9/9/9/9/9/L7L w -",
+      fen: "9/9/9/9/9/9/9/9/L7L b -",
       apples: "a8 b9 i8 h9",
       nbMoves: 4,
     },
     {
       goal: "lanceSummary",
-      fen: "9/9/9/9/9/4L4/9/9/9 w -",
+      fen: "9/9/9/9/9/4L4/9/9/9 b -",
       apples: "e6",
       nbMoves: 1,
       shapes: [arrow("e4e9", "green")],
     },
     {
       goal: "planceSummary",
-      fen: "9/9/9/9/9/4U4/9/9/9 w -",
+      fen: "9/9/9/9/9/4+L4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [

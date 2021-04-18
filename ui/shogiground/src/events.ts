@@ -1,10 +1,10 @@
 import { State } from './state'
 import * as drag from './drag'
 import * as draw from './draw'
-import { drop } from './drop'
+import { cancelDropMode, drop } from './drop'
 import { eventPosition, isRightButton } from './util'
 import * as cg from './types'
-import {getKeyAtDomPos, whitePov} from './board'
+import {getKeyAtDomPos, sentePov} from './board'
 
 type MouchBind = (e: cg.MouchEvent) => void;
 type StateMouchBind = (d: State, e: cg.MouchEvent) => void;
@@ -70,7 +70,10 @@ function startDragOrDraw(s: State): MouchBind {
     else if (e.shiftKey || isRightButton(e)) { if (s.drawable.enabled) draw.start(s, e); }
     else if (!s.viewOnly) {
       if (s.dropmode.active && !squareOccupied(s,e)) drop(s, e);
-      else drag.start(s, e);
+      else {
+        cancelDropMode(s);
+        drag.start(s, e)
+      };
     }
   };
 }
@@ -84,7 +87,7 @@ function dragOrDraw(s: State, withDrag: StateMouchBind, withDraw: StateMouchBind
 
 function squareOccupied(s: State, e: cg.MouchEvent): boolean {
   const position = eventPosition(e);
-  const dest = position && getKeyAtDomPos(position, whitePov(s), s.dom.bounds());
+  const dest = position && getKeyAtDomPos(position, sentePov(s), s.dom.bounds());
   if(dest && s.pieces.has(dest)) return true;
   return false;
 }

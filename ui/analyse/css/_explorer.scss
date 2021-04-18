@@ -77,7 +77,7 @@
     line-height: 14px;
     font-size: .9em;
   }
-  .white {
+  .sente {
     background: if($theme-light, #fff, #ccc);
     box-shadow: 0 -5px 7px rgba(0,0,0,if($theme-light, .1, .25)) inset;
     @if $theme-dark {
@@ -85,14 +85,14 @@
     }
   }
   .draws,
-  .black {
+  .gote {
     color: if($theme-light, #fff, #ddd);
     box-shadow: 0 5px 7px rgba(255,255,255, if($theme-light, .2, .1)) inset;
   }
   .draws {
     background: if($theme-light, #a0a0a0, #666);
   }
-  .black {
+  .gote {
     background: if($theme-light, #555, #333);
     color: #ddd;
   }

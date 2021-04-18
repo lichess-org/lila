@@ -45,6 +45,7 @@ export interface Controller extends KeyboardController {
   ongoing: boolean;
   playUci(uci: string): void;
   getOrientation(): Color;
+  getDropmodeActive(): boolean;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;
   position(): Shogi;
@@ -85,6 +86,7 @@ export interface Vm {
   next: Deferred<PuzzleData>;
   justPlayed?: Key;
   justDropped?: Piece;
+  dropmodeActive: boolean;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   initialPath: Tree.Path;

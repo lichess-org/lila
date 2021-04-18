@@ -135,7 +135,7 @@ export function setGone(
 }
 
 export function nbMoves(data: GameData, color: Color): number {
-  return Math.floor((data.game.turns + (color == "white" ? 1 : 0)) / 2);
+  return Math.floor((data.game.turns + (color == "sente" ? 1 : 0)) / 2);
 }
 
 export function isSwitchable(data: GameData): boolean {

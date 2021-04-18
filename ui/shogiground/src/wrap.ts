@@ -42,8 +42,8 @@ export function renderWrap(
   if (isMiniBoard(element)) {
     if (s.pockets) {
     pockets = [createEl("cg-pocket"), createEl("cg-pocket")];
-    helper.insertBefore(pockets[s.orientation === "white" ? 1 : 0], container);
-    helper.insertBefore(pockets[s.orientation === "white" ? 0 : 1], container.nextSibling);
+    helper.insertBefore(pockets[s.orientation === "sente" ? 1 : 0], container);
+    helper.insertBefore(pockets[s.orientation === "sente" ? 0 : 1], container.nextSibling);
     } else {
       element.classList.add("no-pockets");
     }
@@ -62,7 +62,7 @@ export function renderWrap(
   }
 
   if (s.coordinates) {
-    const orientClass = s.orientation === "black" ? " black" : "";
+    const orientClass = s.orientation === "gote" ? " gote" : "";
     if(s.notation === Notation.WESTERN || s.notation === Notation.KAWASAKI){
       container.appendChild(
         renderCoords(

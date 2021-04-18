@@ -1,4 +1,4 @@
-export type Color = "white" | "black";
+export type Color = "sente" | "gote";
 export type Role =
   | "king"
   | "rook"
@@ -10,9 +10,9 @@ export type Role =
   | "pawn"
   | "dragon"
   | "horse"
-  | "promotedSilver"
-  | "promotedKnight"
-  | "promotedLance"
+  | "promotedsilver"
+  | "promotedknight"
+  | "promotedlance"
   | "tokin";
 export type Key =
   | "a0"
@@ -200,7 +200,7 @@ export type Unbind = () => void;
 export type Milliseconds = number;
 export type KHz = number;
 
-export const colors: readonly Color[] = ["white", "black"];
+export const colors: readonly Color[] = ["sente", "gote"];
 export const files: readonly File[] = [
   "a",
   "b",

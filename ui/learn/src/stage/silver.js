@@ -12,32 +12,32 @@ module.exports = {
   levels: [
     {
       goal: "grabAllTheStars",
-      fen: "9/9/9/9/9/4S4/9/9/9 w -",
+      fen: "9/9/9/9/9/4S4/9/9/9 b -",
       apples: "e5 d6 b4",
       nbMoves: 4,
       shapes: [arrow("e4e5"), arrow("e5d6"), arrow("d6c5"), arrow("c5b4")],
     },
     {
       goal: "grabAllTheStars",
-      fen: "9/9/9/4S4/9/9/9/9/9 w -",
+      fen: "9/9/9/4S4/9/9/9/9/9 b -",
       apples: "f5 e4 d3 e2 f1",
       nbMoves: 5,
     },
     {
       goal: "theFewerMoves",
-      fen: "9/9/9/9/3S5/6S2/9/9/9 w -",
+      fen: "9/9/9/9/3S5/6S2/9/9/9 b -",
       apples: "d4 d3 e4 g5 h4",
       nbMoves: 5,
     },
     {
       goal: "silverPromotion",
-      fen: "9/9/9/6S2/9/9/9/9/9 w -",
+      fen: "9/9/9/6S2/9/9/9/9/9 b -",
       apples: "e6 f6 f7",
       nbMoves: 3,
     },
     {
       goal: "silverSummary",
-      fen: "9/9/9/9/9/4S4/9/9/9 w -",
+      fen: "9/9/9/9/9/4S4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [
@@ -50,7 +50,7 @@ module.exports = {
     },
     {
       goal: "psilverSummary",
-      fen: "9/9/9/9/9/4A4/9/9/9 w -",
+      fen: "9/9/9/9/9/4+S4/9/9/9 b -",
       apples: "e6",
       nbMoves: 2,
       shapes: [

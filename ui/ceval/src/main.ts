@@ -3,7 +3,7 @@ import * as view from "./view";
 import * as winningChances from "./winningChances";
 
 export { CevalCtrl, NodeEvals, Eval, Work, CevalOpts } from "./types";
-export { isEvalBetter, renderEval, sanIrreversible } from "./util";
+export { isEvalBetter, renderEval } from "./util";
 export { ctrl, view, winningChances };
 
 // stop when another tab starts. Listen only once here,

@@ -71,7 +71,7 @@ function arrow(brush, orig, dest, current, bounds) {
 function piece(cfg, pos, piece, bounds) {
   var o = pos2px(pos, bounds);
   var size = (bounds.width / 9) * (piece.scale || 1);
-  var name = piece.color === "white" ? "w" : "b";
+  var name = piece.color === "sente" ? "b" : "w";
   name += (piece.role === "knight" ? "n" : piece.role[0]).toUpperCase();
   var href = cfg.baseUrl + name + ".svg";
   return {
@@ -118,7 +118,7 @@ function defs(brushes) {
 }
 
 function orient(pos, color) {
-  return color === "white" ? pos : [10 - pos[0], 10 - pos[1]];
+  return color === "sente" ? pos : [10 - pos[0], 10 - pos[1]];
 }
 
 function renderShape(data, current, bounds) {

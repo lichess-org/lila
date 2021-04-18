@@ -1,16 +1,16 @@
 .color-icon {
   @if $theme-light {
-    &.white::before {
+    &.sente::before {
       content: "☗";
     }
-    &.black::before {
+    &.gote::before {
       content: "☖";
     }
   } @else {
-    &.white::before {
+    &.sente::before {
       content: "☖";
     }
-    &.black::before {
+    &.gote::before {
       content: "☗";
     }
   }

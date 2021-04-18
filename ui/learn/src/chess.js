@@ -6,8 +6,8 @@ var squareSet = require("shogiops/squareSet");
 
 
 module.exports = function (fen, appleKeys) {
-  if(fen.split(' ').length === 1) fen += ' w'
-  var shogi = Shogi.fromSetup(fenUtil.parseFen(compat.makeShogiFen(fen)).unwrap(), false).unwrap();
+  if(fen.split(' ').length === 1) fen += ' b'
+  var shogi = Shogi.fromSetup(fenUtil.parseFen(fen).unwrap(), false).unwrap();
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
@@ -21,11 +21,11 @@ module.exports = function (fen, appleKeys) {
   }
 
   function getColor() {
-    return util.opposite(shogi.turn);
+    return shogi.turn;
   }
 
   function setColor(c) {
-    shogi.turn = c === "white" ? "black" : "white";
+    shogi.turn = c;
   }
 
   function findKing(c) {
@@ -38,12 +38,12 @@ module.exports = function (fen, appleKeys) {
       for (const s of d){
         if(shogi.board[util.opposite(shogi.turn)].has(s))
           allCaptures.push({ orig: compat.makeChessSquare(o), dest: compat.makeChessSquare(s) });
+        }
       }
-    }
     return allCaptures;
   };
 
-  // This will be moved to shogiops later
+  // This might be moved to shogiops later
   var illegalMoves = function () {
     const result = new Map();
     const illegalDests = shogi.allDests({
@@ -76,7 +76,7 @@ module.exports = function (fen, appleKeys) {
       else return getColor();
     },
     fen: function () {
-      return compat.makeLishogiFen(fenUtil.makeFen(shogi.toSetup()));
+      return fenUtil.makeFen(shogi.toSetup());
     },
     move: function (orig, dest, prom) {
       shogi.play({from: compat.parseChessSquare(orig), to: compat.parseChessSquare(dest), promotion: prom});

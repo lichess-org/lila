@@ -9,7 +9,6 @@ import { chapter as chapterTour } from "./studyTour";
 import { StudyChapterMeta } from "./interfaces";
 import { Redraw } from "../interfaces";
 import AnalyseCtrl from "../ctrl";
-import { makeShogiFen, makeLishogiFen } from "shogiops/compat";
 
 export const modeChoices = [
   ["normal", "normalAnalysis"],
@@ -258,22 +257,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             : null,
           activeTab === "fen"
             ? h("div.form-group", [
-              h("input#chapter-hiddenFen.form-control", {
-                attrs: {
-                  value: makeShogiFen(ctrl.root.node.fen),
-                  placeholder: noarg("loadAPositionFromFen"),
-                },
-                hook: bind("keyup", () => {
-                  $("#chapter-fen").val(makeLishogiFen($("#chapter-hiddenFen").val()))
+                h("input#chapter-fen.form-control", {
+                  attrs: {
+                    value: ctrl.root.node.fen,
+                    placeholder: noarg("loadAPositionFromFen"),
+                  },
                 }),
-              }),
-              h("input#chapter-fen.form-control", {
-                attrs: {
-                  type: "hidden",
-                  value: ctrl.root.node.fen,
-                  placeholder: noarg("loadAPositionFromFen"),
-                },
-              }),
             ])
             : null,
           activeTab === "pgn"
@@ -307,35 +296,32 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 : null,
             ])
             : null,
-          h("div.form-split", [
-            h("div.form-group.form-half", []),
-            h("div.form-group.form-half", [
-              h(
-                "label.form-label",
-                {
-                  attrs: { for: "chapter-orientation" },
-                },
-                noarg("orientation")
-              ),
-              h(
-                "select#chapter-orientation.form-control",
-                {
-                  hook: bind("change", (e) => {
-                    ctrl.vm.editor &&
-                      ctrl.vm.editor.setOrientation(
-                        (e.target as HTMLInputElement).value
-                      );
-                  }),
-                },
-                ["black", "white"].map(function (color) {
-                  return option(
-                    color == 'white' ? 'black' : 'white',
-                    currentChapter.setup.orientation,
-                    noarg(color)
-                  );
-                })
-              ),
-            ]),
+          h("div.form-group", [
+            h(
+              "label.form-label",
+              {
+                attrs: { for: "chapter-orientation" },
+              },
+              noarg("orientation")
+            ),
+            h(
+              "select#chapter-orientation.form-control",
+              {
+                hook: bind("change", (e) => {
+                  ctrl.vm.editor &&
+                    ctrl.vm.editor.setOrientation(
+                      (e.target as HTMLInputElement).value
+                    );
+                }),
+              },
+              ["sente", "gote"].map(function (color) {
+                return option(
+                  color,
+                  currentChapter.setup.orientation,
+                  noarg(color === "sente" ? "black" : "white")
+                );
+              })
+            ),
           ]),
           h("div.form-group", [
             h(

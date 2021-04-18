@@ -87,8 +87,8 @@ export interface Division {
 
 export interface Analysis {
   id: string;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  sente: AnalysisSide;
+  gote: AnalysisSide;
   partial: boolean;
 }
 
@@ -127,5 +127,3 @@ export type Conceal = boolean | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export type Redraw = () => void;
-
-export type Selected = undefined | [cg.Color, cg.Role];

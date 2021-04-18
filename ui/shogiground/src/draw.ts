@@ -1,5 +1,5 @@
 import { State } from './state'
-import { unselect, cancelMove, getKeyAtDomPos, whitePov } from './board'
+import { unselect, cancelMove, getKeyAtDomPos, sentePov } from './board'
 import { eventPosition, isRightButton } from './util'
 import * as cg from './types'
 
@@ -67,7 +67,7 @@ export function start(state: State, e: cg.MouchEvent): void {
   e.preventDefault();
   e.ctrlKey ? unselect(state) : cancelMove(state);
   const pos = eventPosition(e)!,
-    orig = getKeyAtDomPos(pos, whitePov(state), state.dom.bounds()),
+    orig = getKeyAtDomPos(pos, sentePov(state), state.dom.bounds()),
     piece = state.drawable.piece;
   if (!orig) return;
   state.drawable.current = {
@@ -83,7 +83,7 @@ export function processDraw(state: State): void {
   requestAnimationFrame(() => {
     const cur = state.drawable.current;
     if (cur) {
-      const mouseSq = getKeyAtDomPos(cur.pos, whitePov(state), state.dom.bounds());
+      const mouseSq = getKeyAtDomPos(cur.pos, sentePov(state), state.dom.bounds());
       if (mouseSq !== cur.mouseSq) {
         cur.mouseSq = mouseSq;
         cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;

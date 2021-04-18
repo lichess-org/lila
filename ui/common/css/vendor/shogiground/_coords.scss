@@ -22,7 +22,7 @@ coords {
     right: 0; // a negative value creates empty space on the right side in mobile browsers
     height: 100%;
     width: 1.1em;
-    &.black {
+    &.gote {
       flex-flow: column;
     }
     z-index: 1;
@@ -35,7 +35,7 @@ coords {
     flex-flow: row;
     width: 100%;
     height: 1.4em;
-    &.black {
+    &.gote {
       flex-flow: row-reverse;
     }
     coord {

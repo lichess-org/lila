@@ -90,15 +90,15 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
-        ctrl.corresClock.update(o.white, o.black);
+        ctrl.data.correspondence.sente = o.sente;
+        ctrl.data.correspondence.gote = o.gote;
+        ctrl.corresClock.update(o.sente, o.gote);
         ctrl.redraw();
       }
     },
     crowd(o) {
-      game.setOnGame(ctrl.data, "white", o["white"]);
-      game.setOnGame(ctrl.data, "black", o["black"]);
+      game.setOnGame(ctrl.data, "sente", o["sente"]);
+      game.setOnGame(ctrl.data, "gote", o["gote"]);
       ctrl.redraw();
     },
     endData: ctrl.endWithData,
@@ -129,9 +129,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     goneIn: ctrl.setGone,
     checkCount(e) {
       ctrl.data.player.checks =
-        ctrl.data.player.color == "white" ? e.white : e.black;
+        ctrl.data.player.color == "sente" ? e.sente : e.gote;
       ctrl.data.opponent.checks =
-        ctrl.data.opponent.color == "white" ? e.white : e.black;
+        ctrl.data.opponent.color == "sente" ? e.sente : e.gote;
       ctrl.redraw();
     },
     simulPlayerMove(gameId: string) {

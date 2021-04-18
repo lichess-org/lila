@@ -323,23 +323,23 @@ function getKeyAtDomPos(data, pos, bounds) {
   if (!bounds && !data.bounds) return;
   bounds = bounds || data.bounds(); // use provided value, or compute it
   var file = Math.ceil(9 * ((pos[0] - bounds.left) / bounds.width));
-  file = data.orientation === "white" ? file : 10 - file;
+  file = data.orientation === "sente" ? file : 10 - file;
   var rank = Math.ceil(9 - 9 * ((pos[1] - bounds.top) / bounds.height));
-  rank = data.orientation === "white" ? rank : 10 - rank;
+  rank = data.orientation === "sente" ? rank : 10 - rank;
   if (file > 0 && file <= 9 && rank > 0 && rank <= 9)
     return util.pos2key([file, rank]);
 }
 
-// {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
+// {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}
 function getMaterialDiff(data) {
   var counts = {
     king: 0,
     lance: 0,
     silver: 0,
     gold: 0,
-    promotedSilver: 0,
-    promotedKnight: 0,
-    promotedLance: 0,
+    promotedsilver: 0,
+    promotedknight: 0,
+    promotedlance: 0,
     dragon: 0,
     horse: 0,
     rook: 0,
@@ -350,16 +350,16 @@ function getMaterialDiff(data) {
   };
   for (var k in data.pieces) {
     var p = data.pieces[k];
-    counts[p.role] += p.color === "white" ? 1 : -1;
+    counts[p.role] += p.color === "sente" ? 1 : -1;
   }
   var diff = {
-    white: {},
-    black: {},
+    sente: {},
+    gote: {},
   };
   for (var role in counts) {
     var c = counts[role];
-    if (c > 0) diff.white[role] = c;
-    else if (c < 0) diff.black[role] = -c;
+    if (c > 0) diff.sente[role] = c;
+    else if (c < 0) diff.gote[role] = -c;
   }
   return diff;
 }
@@ -369,9 +369,9 @@ var pieceScores = {
   lance: 1,
   silver: 1,
   gold: 1,
-  promotedSilver: 1,
-  promotedKnight: 1,
-  promotedLance: 1,
+  promotedsilver: 1,
+  promotedknight: 1,
+  promotedlance: 1,
   dragon: 5,
   horse: 5,
   rook: 5,
@@ -386,7 +386,7 @@ function getScore(data) {
   for (var k in data.pieces) {
     score +=
       pieceScores[data.pieces[k].role] *
-      (data.pieces[k].color === "white" ? 1 : -1);
+      (data.pieces[k].color === "sente" ? 1 : -1);
   }
   return score;
 }

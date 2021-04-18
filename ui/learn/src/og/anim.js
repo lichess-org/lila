@@ -38,7 +38,7 @@ function computePlan(prev, current) {
     news = [],
     invert = prev.orientation !== current.orientation,
     prePieces = {},
-    white = current.orientation === "white";
+    sente = current.orientation === "sente";
   for (var pk in prev.pieces) {
     var piece = makePiece(pk, prev.pieces[pk], invert);
     prePieces[piece.key] = piece;
@@ -61,8 +61,8 @@ function computePlan(prev, current) {
   news.forEach(function (newP) {
     var preP = closer(newP, missings.filter(util.partial(samePiece, newP)));
     if (preP) {
-      var orig = white ? preP.pos : newP.pos;
-      var dest = white ? newP.pos : preP.pos;
+      var orig = sente ? preP.pos : newP.pos;
+      var dest = sente ? newP.pos : preP.pos;
       var vector = [(orig[0] - dest[0]) * width, (dest[1] - orig[1]) * height];
       anims[newP.key] = [vector, vector];
       animedOrigs.push(preP.key);

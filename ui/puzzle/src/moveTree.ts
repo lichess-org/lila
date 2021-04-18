@@ -1,7 +1,7 @@
 import { Shogi } from 'shogiops/shogi';
 import { INITIAL_FEN, makeFen, parseFen } from 'shogiops/fen';
 import { makeSan, parseSan } from 'shogiops/san';
-import { scalashogiCharPair, parseLishogiUci, makeLishogiUci, makeChessSquare, makeShogiFen, makeLishogiFen } from 'shogiops/compat';
+import { scalashogiCharPair, parseLishogiUci, makeLishogiUci, makeChessSquare } from 'shogiops/compat';
 import { TreeWrapper } from 'tree';
 import { Move } from 'shogiops/types';
 
@@ -25,8 +25,9 @@ export function pgnToTree(pgn: San[]): Tree.Node {
 }
 
 export function fenToTree(sfen: string): Tree.Node {
+  const startPly = (parseInt(sfen.split(' ')[3]) - 1) ?? 0;
   return {
-    ply: 0,
+    ply: startPly,
     id: '',
     fen: sfen,
     children: [],
@@ -35,7 +36,7 @@ export function fenToTree(sfen: string): Tree.Node {
 
 export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solution: Uci[], pov: Color): void {
   const initialNode = root.nodeAtPath(initialPath);
-  const pos = Shogi.fromSetup(parseFen(makeShogiFen(initialNode.fen)).unwrap(), false).unwrap();
+  const pos = Shogi.fromSetup(parseFen(initialNode.fen).unwrap(), false).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
     console.log("mergeSolution: ", uci)
@@ -45,7 +46,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
     console.log(san);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
-    if ((pov == 'white') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
+    if ((pov == 'sente') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
@@ -54,7 +55,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
 const makeNode = (pos: Shogi, move: Move, ply: number, san: San) => ({
   ply,
   san,
-  fen: makeLishogiFen(makeFen(pos.toSetup())),
+  fen: makeFen(pos.toSetup()),
   id: scalashogiCharPair(move),
   uci: makeLishogiUci(move),
   check: pos.isCheck() ? makeChessSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,

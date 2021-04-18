@@ -64,7 +64,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         )
       : null,
     h(
-      "button.fbt.rematch.white",
+      "button.fbt.rematch.sente",
       {
         class: {
           me,

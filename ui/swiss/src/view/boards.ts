@@ -16,9 +16,9 @@ export function top(boards: Board[]): VNode {
 
 const renderBoard = (board: Board): VNode =>
   h("div.swiss__board", [
-    boardPlayer(board.black),
+    boardPlayer(board.gote),
     miniBoard(board),
-    boardPlayer(board.white),
+    boardPlayer(board.sente),
   ]);
 
 const boardPlayer = (player: BoardPlayer) =>
@@ -35,7 +35,7 @@ function miniBoard(board: Board) {
       attrs: {
         href: "/" + board.id,
         "data-live": board.id,
-        "data-color": "white",
+        "data-color": "sente",
         "data-fen": board.fen,
         "data-lastmove": board.lastMove,
       },

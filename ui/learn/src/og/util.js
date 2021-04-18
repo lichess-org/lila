@@ -38,7 +38,7 @@ var allKeys = allPos.map(pos2key);
 var invKeys = allKeys.slice(0).reverse();
 
 function opposite(color) {
-  return color === "white" ? "black" : "white";
+  return color === "sente" ? "gote" : "sente";
 }
 
 function containsX(xs, x) {

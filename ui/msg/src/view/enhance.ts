@@ -69,7 +69,7 @@ type LinkType = "game";
 
 const domain = window.location.host;
 const gameRegex = new RegExp(
-  `(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`
+  `(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?$`
 );
 const notGames = [
   "training",

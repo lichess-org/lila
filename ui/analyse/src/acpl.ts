@@ -113,7 +113,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
       },
     },
     [
-      playerTable(ctrl, "white"),
+      playerTable(ctrl, "sente"),
       h("div.hidden", "-"),
       // i don't think it's worth it considering the current browser engine
       /*
@@ -129,7 +129,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
             ctrl.trans.noarg("learnFromYourMistakes")
           ),
           */
-      playerTable(ctrl, "black"),
+      playerTable(ctrl, "gote"),
     ]
   );
 }

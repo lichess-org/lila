@@ -204,8 +204,8 @@ export interface ChapterPreview {
   id: string
   name: string
   players?: {
-    white: ChapterPreviewPlayer
-    black: ChapterPreviewPlayer
+    sente: ChapterPreviewPlayer
+    gote: ChapterPreviewPlayer
   }
   orientation: Color
   fen: string

@@ -24,7 +24,7 @@ export default function pocket(
     dropPiece = ctrl.shogiground?.state.dropmode.piece,
     shadowPiece = ctrl.shogiground?.state.drawable.piece,
     preDropRole = ctrl.preDrop,
-    pocket = step.crazy.pockets[color === "white" ? 0 : 1],
+    pocket = step.crazy.pockets[color === "sente" ? 0 : 1],
     usablePos = position === (ctrl.flip ? "top" : "bottom"),
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
@@ -35,11 +35,11 @@ export default function pocket(
       ? capturedPiece.role
       : capturedPiece.role === "tokin"
       ? "pawn"
-      : capturedPiece.role === "promotedLance"
+      : capturedPiece.role === "promotedlance"
       ? "lance"
-      : capturedPiece.role === "promotedKnight"
+      : capturedPiece.role === "promotedknight"
       ? "knight"
-      : capturedPiece.role === "promotedSilver"
+      : capturedPiece.role === "promotedsilver"
       ? "silver"
       : capturedPiece.role === "horse"
       ? "bishop"

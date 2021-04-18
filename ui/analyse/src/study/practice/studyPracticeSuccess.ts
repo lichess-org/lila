@@ -11,13 +11,13 @@ function isDrawish(node: Tree.Node): boolean | null {
 function isWinning(node: Tree.Node, goalCp: number, color: Color): boolean | null {
   if (!hasSolidEval(node)) return null;
   const cp = node.ceval!.mate! > 0 ? 99999 : (node.ceval!.mate! < 0 ? -99999 : node.ceval!.cp);
-  return color === 'white' ? cp! >= goalCp : cp! <= goalCp;
+  return color === 'sente' ? cp! >= goalCp : cp! <= goalCp;
 }
 // returns null if not deep enough to know
 function myMateIn(node: Tree.Node, color: Color): number | boolean | null {
   if (!hasSolidEval(node)) return null;
   if (!node.ceval!.mate) return false;
-  var mateIn = node.ceval!.mate! * (color === 'white' ? 1 : -1);
+  var mateIn = node.ceval!.mate! * (color === 'sente' ? 1 : -1);
   return mateIn > 0 ? mateIn : false;
 }
 

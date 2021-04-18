@@ -14,7 +14,7 @@ module.exports = {
   illustration: util.roundSvg(imgUrl),
   levels: [{
     goal: 'stalemateGoal',
-    fen: '7k1/9/9/9/5R3/9/9/2K6/6L1L w - 1',
+    fen: '7k1/9/9/9/5R3/9/9/2K6/6L1L b - 1',
     shapes: [arrow('f5f8')],
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
@@ -29,7 +29,7 @@ module.exports = {
     showFailureFollowUp: true
   }, {
     goal: 'stalemateGoal',
-    fen: '8/7p/4N2k/8/8/3N4/8/1K6 w - -',
+    fen: '8/7p/4N2k/8/8/3N4/8/1K6 b -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
     scenario: [{
@@ -43,7 +43,7 @@ module.exports = {
     showFailureFollowUp: true
   }, {
     goal: 'stalemateGoal',
-    fen: '4k3/6p1/5p2/p4P2/PpB2N2/1K6/8/3R4 w - -',
+    fen: '4k3/6p1/5p2/p4P2/PpB2N2/1K6/8/3R4 b -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
     scenario: [{
@@ -56,7 +56,7 @@ module.exports = {
     showFailureFollowUp: true
   }, {
     goal: 'stalemateGoal',
-    fen: '8/6pk/6np/7K/8/3B4/8/1R6 w - -',
+    fen: '8/6pk/6np/7K/8/3B4/8/1R6 b -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
     scenario: [{
@@ -70,7 +70,7 @@ module.exports = {
     showFailureFollowUp: true
   }, {
     goal: 'stalemateGoal',
-    fen: '7R/pk6/p1pP4/K7/3BB2p/7p/1r5P/8 w - -',
+    fen: '7R/pk6/p1pP4/K7/3BB2p/7p/1r5P/8 b -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
     scenario: [{
