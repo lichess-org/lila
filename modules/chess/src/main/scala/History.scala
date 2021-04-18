@@ -3,23 +3,23 @@ package chess
 import format.Uci
 
 // Checks received by the respective side.
-case class CheckCount(white: Int = 0, black: Int = 0) {
+case class CheckCount(sente: Int = 0, gote: Int = 0) {
   def add(color: Color) =
     copy(
-      white = white + color.fold(1, 0),
-      black = black + color.fold(0, 1)
+      sente = sente + color.fold(1, 0),
+      gote = gote + color.fold(0, 1)
     )
 
-  def nonEmpty = white > 0 || black > 0
+  def nonEmpty = sente > 0 || gote > 0
 
-  def apply(color: Color) = color.fold(white, black)
+  def apply(color: Color) = color.fold(sente, gote)
 
   def reset(color: Color) = {
-    if(color.white){
-      copy(white = 0)
+    if(color.sente){
+      copy(sente = 0)
     }
     else{
-      copy(black = 0)
+      copy(gote = 0)
     }
   }
 }
@@ -27,7 +27,7 @@ case class CheckCount(white: Int = 0, black: Int = 0) {
 case class UnmovedRooks(pos: Set[Pos]) extends AnyVal
 
 object UnmovedRooks {
-  val default = UnmovedRooks((Pos.whiteBackrank ::: Pos.blackBackrank).toSet)
+  val default = UnmovedRooks((Pos.senteBackrank ::: Pos.goteBackrank).toSet)
 }
 
 case class History(
@@ -96,15 +96,15 @@ object History {
   def castle(color: Color, kingSide: Boolean, queenSide: Boolean) =
     History(
       castles = color match {
-        case White =>
+        case Sente =>
           Castles.init.copy(
-            whiteKingSide = kingSide,
-            whiteQueenSide = queenSide
+            senteKingSide = kingSide,
+            senteQueenSide = queenSide
           )
-        case Black =>
+        case Gote =>
           Castles.init.copy(
-            blackKingSide = kingSide,
-            blackQueenSide = queenSide
+            goteKingSide = kingSide,
+            goteQueenSide = queenSide
           )
       }
     )

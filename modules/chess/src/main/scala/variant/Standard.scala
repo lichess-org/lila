@@ -10,7 +10,7 @@ case object Standard
       name = "Standard",
       shortName = "Std",
       title = "Standard rules of shogi",
-      standardInitialPosition = false
+      standardInitialPosition = true
     ) {
   
   val pieces: Map[Pos, Piece] = Variant.symmetricRank(backRank, backRank2)

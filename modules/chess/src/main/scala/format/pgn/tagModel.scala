@@ -74,8 +74,8 @@ object Tags {
     Tag.Site,
     Tag.Date,
     Tag.Round,
-    Tag.White,
-    Tag.Black,
+    Tag.Sente,
+    Tag.Gote,
     Tag.Result
   )
   val tagIndex: Map[TagType, Int] = sevenTagRoster.zipWithIndex.toMap
@@ -95,19 +95,19 @@ object Tag {
     val format = DateTimeFormat forPattern "HH:mm:ss" withZone DateTimeZone.UTC
   }
   case object Round           extends TagType
-  case object White           extends TagType
-  case object Black           extends TagType
+  case object Sente           extends TagType
+  case object Gote            extends TagType
   case object TimeControl     extends TagType
-  case object WhiteClock      extends TagType
-  case object BlackClock      extends TagType
-  case object WhiteElo        extends TagType
-  case object BlackElo        extends TagType
-  case object WhiteRatingDiff extends TagType
-  case object BlackRatingDiff extends TagType
-  case object WhiteTitle      extends TagType
-  case object BlackTitle      extends TagType
-  case object WhiteTeam       extends TagType
-  case object BlackTeam       extends TagType
+  case object SenteClock      extends TagType
+  case object GoteClock       extends TagType
+  case object SenteElo        extends TagType
+  case object GoteElo         extends TagType
+  case object SenteRatingDiff extends TagType
+  case object GoteRatingDiff  extends TagType
+  case object SenteTitle      extends TagType
+  case object GoteTitle       extends TagType
+  case object SenteTeam       extends TagType
+  case object GoteTeam        extends TagType
   case object Result          extends TagType
   case object FEN             extends TagType
   case object Variant         extends TagType
@@ -128,19 +128,19 @@ object Tag {
     UTCDate,
     UTCTime,
     Round,
-    White,
-    Black,
+    Sente,
+    Gote,
     TimeControl,
-    WhiteClock,
-    BlackClock,
-    WhiteElo,
-    BlackElo,
-    WhiteRatingDiff,
-    BlackRatingDiff,
-    WhiteTitle,
-    BlackTitle,
-    WhiteTeam,
-    BlackTeam,
+    SenteClock,
+    GoteClock,
+    SenteElo,
+    GoteElo,
+    SenteRatingDiff,
+    GoteRatingDiff,
+    SenteTitle,
+    GoteTitle,
+    SenteTeam,
+    GoteTeam,
     Result,
     FEN,
     Variant,

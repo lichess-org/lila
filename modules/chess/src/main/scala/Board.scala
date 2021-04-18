@@ -23,8 +23,8 @@ case class Board(
   }
 
   lazy val actorsOf: Color.Map[Seq[Actor]] = {
-    val (w, b) = actors.values.toSeq.partition { _.color.white }
-    Color.Map(w, b)
+    val (s, g) = actors.values.toSeq.partition { _.color.sente }
+    Color.Map(s, g)
   }
 
   def rolesOf(c: Color): List[Role] =
@@ -49,10 +49,10 @@ case class Board(
 
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
-  def check(c: Color): Boolean = c.white.fold(checkWhite, checkBlack)
+  def check(c: Color): Boolean = c.sente.fold(checkSente, checkGote)
 
-  lazy val checkWhite = checkOf(White)
-  lazy val checkBlack = checkOf(Black)
+  lazy val checkSente = checkOf(Sente)
+  lazy val checkGote  = checkOf(Gote)
 
   private def checkOf(c: Color): Boolean =
     kingPosOf(c) exists { kingPos =>
@@ -146,8 +146,8 @@ case class Board(
   def fixCastles: Board =
     withCastles {
       if (variant.allowsCastling) {
-        val wkPos   = kingPosOf(White)
-        val bkPos   = kingPosOf(Black)
+        val wkPos   = kingPosOf(Sente)
+        val bkPos   = kingPosOf(Gote)
         val wkReady = wkPos.fold(false)(_.y == 1)
         val bkReady = bkPos.fold(false)(_.y == 8)
         def rookReady(color: Color, kPos: Option[Pos], left: Boolean) =
@@ -159,10 +159,10 @@ case class Board(
             }
           }
         Castles(
-          whiteKingSide = castles.whiteKingSide && wkReady && rookReady(White, wkPos, false),
-          whiteQueenSide = castles.whiteQueenSide && wkReady && rookReady(White, wkPos, true),
-          blackKingSide = castles.blackKingSide && bkReady && rookReady(Black, bkPos, false),
-          blackQueenSide = castles.blackQueenSide && bkReady && rookReady(Black, bkPos, true)
+          senteKingSide = castles.senteKingSide && wkReady && rookReady(Sente, wkPos, false),
+          senteQueenSide = castles.senteQueenSide && wkReady && rookReady(Sente, wkPos, true),
+          goteKingSide = castles.goteKingSide && bkReady && rookReady(Gote, bkPos, false),
+          goteQueenSide = castles.goteQueenSide && bkReady && rookReady(Gote, bkPos, true)
         )
       } else Castles.none
     }
@@ -173,34 +173,33 @@ case class Board(
   def count(c: Color): Int = pieces.values count (_.color == c)
 
   def kingsEntered: Boolean = {
-    ((kingPosOf(Black) exists (pos => Black.promotableZone contains pos.y)) &&
-    (kingPosOf(White) exists (pos => White.promotableZone contains pos.y)))
+    ((kingPosOf(Gote) exists (pos => Gote.promotableZone contains pos.y)) &&
+    (kingPosOf(Sente) exists (pos => Sente.promotableZone contains pos.y)))
   }
 
-  def tryRule: Boolean = {
-    (kingPosOf(White) == posAt(5, 9)) || (kingPosOf(Black) == posAt(5, 1))
-  }
+  def tryRule: Boolean =
+    (kingPosOf(Sente) == posAt(5, 9)) || (kingPosOf(Gote) == posAt(5, 1))
 
   def tryRuleColor: Option[Color] =
-    if (kingPosOf(White) == posAt(5, 9)) White.some
-    else if(kingPosOf(Black) == posAt(5, 1)) Black.some
+    if (kingPosOf(Sente) == posAt(5, 9)) Sente.some
+    else if(kingPosOf(Gote) == posAt(5, 1)) Gote.some
     else none
 
   def perpetualCheckColor: Option[Color] = {
     val checks = history.checkCount
-    if(checks.white >= 4 && checks.black >=4)
+    if(checks.sente >= 4 && checks.gote >=4)
       return None
-    else if(checks.white >= 4)
-      return Some(White)
-    else if(checks.black >= 4)
-      return Some(Black)
+    else if(checks.sente >= 4)
+      return Some(Sente)
+    else if(checks.gote >= 4)
+      return Some(Gote)
     else
       return None
   }
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount
-    history.fivefoldRepetition && (checks.white >= 4 || checks.black >=4)
+    history.fivefoldRepetition && (checks.sente >= 4 || checks.gote >=4)
   }
 
   def autoDraw: Boolean = {

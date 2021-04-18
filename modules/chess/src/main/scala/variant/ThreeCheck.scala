@@ -17,13 +17,13 @@ case object ThreeCheck
 
   override def finalizeBoard(board: Board, uci: format.Uci, capture: Option[Piece], color: Color): Board =
     board updateHistory {
-      _.withCheck(Color.White, board.checkWhite).withCheck(Color.Black, board.checkBlack)
+      _.withCheck(Color.Sente, board.checkSente).withCheck(Color.Gote, board.checkGote)
     }
 
   override def specialEnd(situation: Situation) =
     situation.check && {
       val checks = situation.board.history.checkCount
-      situation.color.fold(checks.white, checks.black) >= 3
+      situation.color.fold(checks.sente, checks.gote) >= 3
     }
 
   /**

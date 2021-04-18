@@ -327,17 +327,17 @@ object Variant {
         (
           pos,
           y match {
-            case 1 => White - rank1(x - 1)
-            case 3 => White.pawn
-            case 7 => Black.pawn
-            case 9 => Black - rank1(x - 1)
+            case 1 => Sente - rank1(x - 1)
+            case 3 => Sente.pawn
+            case 7 => Gote.pawn
+            case 9 => Gote - rank1(x - 1)
           }
         )
       }
     }).flatten.toMap ++ Map(
-      posAt(2, 2).get -> (White - rank2(1)),
-      posAt(8, 2).get -> (White - rank2(0)),
-      posAt(2, 8).get -> (Black - rank2(0)),
-      posAt(8, 8).get -> (Black - rank2(1))
+      posAt(2, 2).get -> (Sente - rank2(1)),
+      posAt(8, 2).get -> (Sente - rank2(0)),
+      posAt(2, 8).get -> (Gote - rank2(0)),
+      posAt(8, 8).get -> (Gote - rank2(1))
     )
 }

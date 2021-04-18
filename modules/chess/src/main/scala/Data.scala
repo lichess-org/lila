@@ -13,7 +13,6 @@ case class Data(
     def store(piece: Piece, from: Pos) =
       copy(
         pockets = pockets store Piece(piece.color, Role.demotesTo(piece.role)),
-        promoted = promoted - from
       )
 
     def promote(pos: Pos) = copy(promoted = promoted + pos)
@@ -26,26 +25,32 @@ case class Data(
 
 object Data {
     val init = Data(Pockets(Pocket(Nil), Pocket(Nil)), Set.empty)
-    val storableRoles = List(Pawn, Knight, Silver, Gold, Bishop, Rook, Lance)
+    // correct order
+    val storableRoles = List(Rook, Bishop, Gold, Silver, Knight, Lance, Pawn)
 }
 
-case class Pockets(white: Pocket, black: Pocket) {
-  def apply(color: Color) = color.fold(white, black)
+case class Pockets(sente: Pocket, gote: Pocket) {
+  def apply(color: Color) = color.fold(sente, gote)
   def take(piece: Piece): Option[Pockets] =
     piece.color.fold(
-      white take piece.role map { np =>
-        copy(white = np)
+      sente take piece.role map { np =>
+        copy(sente = np)
       },
-      black take piece.role map { np =>
-        copy(black = np)
+      gote take piece.role map { np =>
+        copy(gote = np)
       }
     )
   def store(piece: Piece) =
     piece.color.fold(
-      copy(black = black store piece.role),
-      copy(white = white store piece.role)
+      copy(gote = gote store piece.role),
+      copy(sente = sente store piece.role)
     )
-  def keys: String = white.roles.map(_.forsyth).mkString("").toUpperCase() + black.roles.map(_.forsyth).mkString("").toLowerCase()
+  def keys: String = sente.roles.map(_.forsyth).mkString("").toUpperCase() + gote.roles.map(_.forsyth).mkString("").toLowerCase()
+  def exportPockets: String = {
+    val pocketStr = sente.exportPocket.toUpperCase() + gote.exportPocket.toLowerCase()
+    if(pocketStr == "") "-"
+    else pocketStr
+  }
 }
 
 case class Pocket(roles: List[Role]) {
@@ -55,4 +60,11 @@ case class Pocket(roles: List[Role]) {
   def store(role: Role) =
     if (Data.storableRoles contains role) copy(roles = role :: roles)
     else this
+  def exportPocket: String =
+    Data.storableRoles.map{ r =>
+      val cnt = roles.count(_ == r)
+      if (cnt == 1) r.forsythFull
+      else if (cnt > 1) cnt.toString + r.forsythFull
+      else ""
+    } mkString ""
 }

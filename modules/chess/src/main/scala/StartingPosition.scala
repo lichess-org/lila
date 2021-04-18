@@ -29,7 +29,7 @@ object StartingPosition {
         StartingPosition(
           "香落ち",
           "Lance",
-          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -37,7 +37,7 @@ object StartingPosition {
         StartingPosition(
           "角落ち",
           "Bishop",
-          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -45,7 +45,7 @@ object StartingPosition {
         StartingPosition(
           "飛車落ち",
           "Rook",
-          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -53,7 +53,7 @@ object StartingPosition {
         StartingPosition(
           "飛香落ち",
           "Rook-Lance",
-          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -61,7 +61,7 @@ object StartingPosition {
         StartingPosition(
           "二枚落ち",
           "2-piece",
-          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -69,7 +69,7 @@ object StartingPosition {
         StartingPosition(
           "四枚落ち",
           "4-piece",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -77,7 +77,7 @@ object StartingPosition {
         StartingPosition(
           "六枚落ち",
           "6-piece",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -85,7 +85,7 @@ object StartingPosition {
         StartingPosition(
           "八枚落ち",
           "8-piece",
-          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -93,7 +93,7 @@ object StartingPosition {
         StartingPosition(
           "十枚落ち",
           "10-piece",
-          "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -101,7 +101,7 @@ object StartingPosition {
         StartingPosition(
           "歩三兵",
           "3 Pawns",
-          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppp 1",
+          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w ppp 2",
           "Handicap_(shogi)",
           "",
           false
@@ -109,7 +109,7 @@ object StartingPosition {
         StartingPosition(
           "裸玉",
           "Naked King",
-          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -117,7 +117,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋桂香",
           "Dragonfly + NL",
-          "ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -125,7 +125,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ＋香",
           "Dragonfly + L",
-          "l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -133,7 +133,7 @@ object StartingPosition {
         StartingPosition(
           "トンボ",
           "Dragonfly",
-          "4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
           "Handicap_(shogi)",
           "",
           false
@@ -141,7 +141,7 @@ object StartingPosition {
         StartingPosition(
           "香得",
           "Lance Gained",
-          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b L 1",
+          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w L 2",
           "Handicap_(shogi)",
           "",
           false
@@ -149,7 +149,7 @@ object StartingPosition {
         StartingPosition(
           "角得",
           "Bishop Gained",
-          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b B 1",
+          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w B 2",
           "Handicap_(shogi)",
           "",
           false
@@ -157,7 +157,7 @@ object StartingPosition {
         StartingPosition(
           "飛車得",
           "Rook Gained",
-          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b R 1",
+          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w R 2",
           "Handicap_(shogi)",
           "",
           false
@@ -165,7 +165,7 @@ object StartingPosition {
         StartingPosition(
           "飛香得",
           "Rook-Lance Gained",
-          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RL 1",
+          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RL 2",
           "Handicap_(shogi)",
           "",
           false
@@ -173,7 +173,7 @@ object StartingPosition {
         StartingPosition(
           "二枚得",
           "2-piece Gained",
-          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB 1",
+          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RB 2",
           "Handicap_(shogi)",
           "",
           false
@@ -181,7 +181,7 @@ object StartingPosition {
         StartingPosition(
           "四枚得",
           "4-piece Gained",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLL 1",
+          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RBLL 2",
           "Handicap_(shogi)",
           "",
           false
@@ -189,7 +189,7 @@ object StartingPosition {
         StartingPosition(
           "六枚得",
           "6-piece Gained",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLLNN 1",
+          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RBLLNN 2",
           "Handicap_(shogi)",
           "",
           false
@@ -197,7 +197,7 @@ object StartingPosition {
         StartingPosition(
           "八枚得",
           "8-piece Gained",
-          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLLNNSS 1",
+          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w RBLLNNSS 2",
           "Handicap_(shogi)",
           "",
           false
@@ -208,7 +208,7 @@ object StartingPosition {
 
   val all: IndexedSeq[StartingPosition] = categories.flatMap(_.positions).toIndexedSeq
 
-  val initial = StartingPosition("---", "Initial position", format.Forsyth.initial, "Chess", "")
+  val initial = StartingPosition("---", "Initial position", format.Forsyth.initial, "Shogi", "")
 
   def allWithInitial = initial +: all
 
@@ -226,20 +226,4 @@ object StartingPosition {
 
   def isFENHandicap(fen: Option[format.FEN]): Boolean = searchHandicapByFen(fen).isDefined
 
-  object presets {
-    val halloween = StartingPosition(
-      "C47",
-      "Halloween Gambit",
-      "r1bqkb1r/pppp1ppp/2n2n2/4N3/4P3/2N5/PPPP1PPP/R1BQKB1R b KQkq - 1 4",
-      "Halloween_Gambit",
-      "1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Nxe5"
-    )
-    val frankenstein = StartingPosition(
-      "C27",
-      "Frankenstein-Dracula Variation",
-      "rnbqkb1r/pppp1ppp/8/4p3/2B1n3/2N5/PPPP1PPP/R1BQK1NR w KQkq - 0 4",
-      "Frankenstein-Dracula_Variation",
-      "1. e4 e5 2. Nc3 Nf6 3. Bc4 Nxe4"
-    )
-  }
 }

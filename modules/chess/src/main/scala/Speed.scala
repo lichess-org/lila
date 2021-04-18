@@ -14,12 +14,12 @@ sealed abstract class Speed(
 object Speed {
 
   case object UltraBullet
-      extends Speed(0, "ultraBullet", 0 to 59, "UltraBullet", "Insanely fast games: less than 1 minute")
-  case object Bullet extends Speed(1, "bullet", 60 to  299, "Bullet", "Very fast games: less than 5 minutes")
-  case object Blitz  extends Speed(2, "blitz", 300 to  899, "Blitz",  "Fast games: 5 to 15 minutes")
-  case object Rapid  extends Speed(5, "rapid", 900 to 2699, "Rapid",  "Rapid games: 15 to 45 minutes")
+      extends Speed(0, "ultraBullet", 0 to 59, "UltraBullet", "Insanely fast games: less than 60 seconds")
+  case object Bullet extends Speed(1, "bullet", 60 to 299, "Bullet", "Very fast games: less than 5 minutes")
+  case object Blitz  extends Speed(2, "blitz", 300 to 599, "Blitz", "Fast games: 5 to 10 minutes")
+  case object Rapid  extends Speed(5, "rapid", 600 to 1499, "Rapid", "Rapid games: 10 to 25 minutes")
   case object Classical
-      extends Speed(3, "classical", 2700 to 21599, "Classical", "Classical games: at least 45 minutes")
+      extends Speed(3, "classical", 1500 to 21599, "Classical", "Classical games: 25 minutes and more")
   case object Correspondence
       extends Speed(
         4,

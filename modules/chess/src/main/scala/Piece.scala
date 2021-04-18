@@ -11,7 +11,8 @@ case class Piece(color: Color, role: Role) {
   def isMinor = oneOf(Set(Knight, Bishop))
   def isMajor = oneOf(Set(Rook))
 
-  def forsyth: Char = if (color == White) role.forsythUpper else role.forsyth
+  def forsyth: Char = if (color == Sente) role.forsythUpper else role.forsyth
+  def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
 
   // attackable positions assuming empty board
   def eyes(from: Pos, to: Pos): Boolean =
@@ -22,34 +23,34 @@ case class Piece(color: Color, role: Role) {
 
       case Bishop => from onSameDiagonal to
 
-      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == White =>
+      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == Sente =>
         (from touches to) && (to.y >= from.y || (to ?| from))
-      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == Black =>
+      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == Gote =>
         (from touches to) && (to.y <= from.y || (to ?| from))
 
-      case Silver if color == White =>
+      case Silver if color == Sente =>
         (from touches to) && from.y != to.y && (from.x != to.x || to.y > from.y)
-      case Silver if color == Black =>
+      case Silver if color == Gote =>
         (from touches to) && from.y != to.y && (from.x != to.x || to.y < from.y)
 
-      case Knight if color == White =>
+      case Knight if color == Sente =>
         from.color != to.color && {
           val xd = from xDist to
           val yd = from yDist to
           (xd == 1 && yd == 2 && from.y < to.y) // march only forward
         }
-      case Knight if color == Black =>
+      case Knight if color == Gote =>
         from.color != to.color && {
           val xd = from xDist to
           val yd = from yDist to
           (xd == 1 && yd == 2 && from.y > to.y) // march only forward
         }
 
-      case Lance if color == White => (from ?| to) && (from ?+ to)
-      case Lance if color == Black => (from ?| to) && (from ?^ to)
+      case Lance if color == Sente => (from ?| to) && (from ?+ to)
+      case Lance if color == Gote => (from ?| to) && (from ?^ to)
 
-      case Pawn if color == White => from.y + 1 == to.y && from ?| to
-      case Pawn if color == Black => from.y - 1 == to.y && from ?| to
+      case Pawn if color == Sente => from.y + 1 == to.y && from ?| to
+      case Pawn if color == Gote => from.y - 1 == to.y && from ?| to
 
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)

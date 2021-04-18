@@ -10,8 +10,8 @@ object KifuUtils {
     Tag.Site -> "場所",
     Tag.TimeControl -> "持ち時間",
     Tag.Handicap -> "手合割",
-    Tag.White -> "先手",
-    Tag.Black -> "後手",
+    Tag.Sente -> "先手",
+    Tag.Gote -> "後手",
     Tag.Opening -> "戦型"
   )
 
@@ -20,8 +20,8 @@ object KifuUtils {
     Tag.Site,
     Tag.TimeControl,
     Tag.Handicap,
-    Tag.White,
-    Tag.Black,
+    Tag.Sente,
+    Tag.Gote,
     Tag.Opening
   ) map { _.name }).zipWithIndex.toMap
 

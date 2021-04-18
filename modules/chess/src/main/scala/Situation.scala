@@ -107,5 +107,5 @@ case class Situation(board: Board, color: Color) {
 
 object Situation {
 
-  def apply(variant: chess.variant.Variant): Situation = Situation(Board init variant, White)
+  def apply(variant: chess.variant.Variant): Situation = Situation(Board init variant, Sente)
 }

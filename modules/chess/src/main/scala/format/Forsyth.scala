@@ -13,7 +13,7 @@ import variant.{ Standard, Variant }
   */
 object Forsyth {
 
-  val initial = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"
+  val initial = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
 
   def <<@(variant: Variant, rawSource: String): Option[Situation] =
     read(rawSource) { fen =>
@@ -22,8 +22,8 @@ object Forsyth {
         val colorOption = splitted lift 1 flatMap (_ lift 0) flatMap Color.apply
         val situation = colorOption match {
           case Some(color)             => Situation(board, color)
-          case _ if board.check(Black) => Situation(board, Black) // user in check will move first
-          case _                       => Situation(board, White)
+          case _ if board.check(Gote)  => Situation(board, Gote) // user in check will move first
+          case _                       => Situation(board, Sente)
         }
         situation withHistory {
           History(lastMove = None, positionHashes = Array.empty)
@@ -33,34 +33,35 @@ object Forsyth {
 
   def <<(rawSource: String): Option[Situation] = <<@(Standard, rawSource)
 
-  case class SituationPlus(situation: Situation, fullMoveNumber: Int) {
+  case class SituationPlus(situation: Situation, moveNumber: Int) {
 
-    def turns = fullMoveNumber * 2 - (if (situation.color.white) 2 else 1)
+    def turns = fullMoveNumber * 2 - (if (situation.color.sente) 2 else 1)
+
+    def fullMoveNumber = 1 + (moveNumber - 1) / 2
+
   }
 
   def <<<@(variant: Variant, rawSource: String): Option[SituationPlus] =
     read(rawSource) { source =>
       <<@(variant, source) map { sit =>
-        val splitted       = source.split(' ').drop(3).dropWhile(_.contains('+'))
-        val fullMoveNumber = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
-        val halfMoveClock  = splitted lift 0 flatMap parseIntOption map (_ max 0 min 500)
+        val splitted       = source.split(' ').drop(3)
+        val moveNumber     = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
         SituationPlus(
-          halfMoveClock.map(sit.history.setHalfMoveClock).fold(sit)(sit.withHistory),
-          fullMoveNumber getOrElse 1
+          sit,
+          moveNumber getOrElse 1
         )
       }
     }
 
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
-  def fixSfen(sfen: String): String =
+  def singleCharSfen(sfen: String): String =
     sfen.replaceAll("\\+S", "A").replaceAll("\\+s", "a").replaceAll("\\+N", "M").replaceAll("\\+n", "m").replaceAll("\\+L", "U").replaceAll("\\+l", "u").replaceAll("\\+P", "T").replaceAll("\\+p", "t").replaceAll("\\+R", "D").replaceAll("\\+r", "d").replaceAll("\\+B", "H").replaceAll("\\+b", "h")
 
-  // only cares about pieces positions on the board (first part of FEN string)
   def makeBoard(variant: Variant, rawSource: String): Option[Board] =
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
-      val positions = fixSfen(splitted.lift(0).get)
+      val positions = singleCharSfen(splitted.lift(0).get)
       if (positions.count('/' ==) != 8) {
         return None
       }
@@ -70,13 +71,13 @@ object Forsyth {
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
             val pockets        = pocketStringList(splitted.lift(2).get.toList)
-            val (white, black) = pockets.flatMap(Piece.fromChar).partition(_ is White)
+            val (sente, gote)  = pockets.flatMap(Piece.fromChar).partition(_ is Sente)
             import chess.{ Data, Pocket, Pockets }
             board.withCrazyData(
               _.copy(
                 pockets = Pockets(
-                  white = Pocket(white.map(_.role)),
-                  black = Pocket(black.map(_.role))
+                  sente = Pocket(sente.map(_.role)),
+                  gote = Pocket(gote.map(_.role))
                 )
               )
             )
@@ -117,36 +118,31 @@ object Forsyth {
       case SituationPlus(situation, _) => >>(Game(situation, turns = parsed.turns))
     }
 
-  def >>(game: Game): String = {
+  def >>(game: Game): String =
     List(
       exportBoard(game.board),
       game.player.letter,
       exportCrazyPocket(game.board),
-      game.fullMoveNumber
-    ) ::: List()
-  } mkString " "
+      game.moveNumber
+    ) mkString " "
 
-  def exportStandardPositionTurnPocket(situation: Situation): String =
+  def exportSituation(situation: Situation): String =
     List(
       exportBoard(situation.board),
       situation.color.letter,
       exportCrazyPocket(situation.board)
     ) mkString " "
 
-  def exportCrazyPocket(board: Board) = {
-    val pocketStr = board.crazyData match {
-      case Some(chess.Data(pockets, _)) =>
-        pockets.white.roles.map(_.forsythUpper).mkString +
-        pockets.black.roles.map(_.forsyth).mkString
-      case _ => ""
+  def exportCrazyPocket(board: Board) =
+    board.crazyData match {
+      case Some(chess.Data(pockets, _)) => pockets.exportPockets
+      case _ => "-"
     }
-    if (pocketStr != "") pocketStr else "-"
-  }
 
   implicit private val posOrdering = Ordering.by[Pos, Int](_.x)
 
   def exportBoard(board: Board): String = {
-    val fen   = new scala.collection.mutable.StringBuilder(2 * 89)
+    val fen   = new scala.collection.mutable.StringBuilder(256)
     var empty = 0
     for (y <- 9 to 1 by -1) {
       empty = 0
@@ -154,9 +150,9 @@ object Forsyth {
         board(x, y) match {
           case None => empty = empty + 1
           case Some(piece) =>
-            if (empty == 0) fen append piece.forsyth.toString
+            if (empty == 0) fen append piece.forsythFull
             else {
-              fen append (empty.toString + piece.forsyth)
+              fen append (empty.toString + piece.forsythFull)
               empty = 0
             }
         }
@@ -167,7 +163,7 @@ object Forsyth {
     fen.toString
   }
 
-  def getFullMove(rawSource: String): Option[Int] =
+  def getMoveNumber(rawSource: String): Option[Int] =
     read(rawSource) { fen =>
       fen.split(' ').lift(3) flatMap parseIntOption
     }
@@ -179,8 +175,8 @@ object Forsyth {
 
   def getPly(rawSource: String): Option[Int] =
     read(rawSource) { fen =>
-      getFullMove(fen) map { fullMove =>
-        fullMove * 2 - (if (getColor(fen).exists(_.white)) 2 else 1)
+      getMoveNumber(fen) map { moveNumber =>
+        moveNumber - 1
       }
     }
 

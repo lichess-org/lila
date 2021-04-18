@@ -16,13 +16,12 @@ object FullOpeningDB {
       .to(Map)
 
   def findByFen(fen: FEN): Option[FullOpening] =
-    fen.value.split(' ').take(4) match {
-      case Array(boardPocket, turn, castle, ep) =>
+    fen.value.split(' ').take(3) match {
+      case Array(boardPocket, turn, pocket) =>
         val board =
-          if (boardPocket.contains('[')) boardPocket.takeWhile('[' !=)
-          else if (boardPocket.count('/' ==) == 8) boardPocket.split('/').take(8).mkString("/")
+          if (boardPocket.count('/' ==) == 9) boardPocket.split('/').take(9).mkString("/")
           else boardPocket
-        byFen get List(board, turn, castle, ep).mkString(" ")
+        byFen get List(board, turn, pocket).mkString(" ")
       case _ => None
     }
 
@@ -32,7 +31,7 @@ object FullOpeningDB {
   def search(moveStrs: Iterable[String]): Option[FullOpening.AtPly] =
     chess.Replay
       .situations(
-        moveStrs.take(SEARCH_MAX_PLIES).takeWhile(san => !san.contains('*')),
+        moveStrs.take(SEARCH_MAX_PLIES),
         None,
         variant.Standard
       )
@@ -40,9 +39,8 @@ object FullOpeningDB {
       .flatMap {
         _.zipWithIndex.drop(1).foldRight(none[FullOpening.AtPly]) {
           case ((situation, ply), None) =>
-            val color = if (ply % 2 == 0) " w " else " b "
-            val fen = format.Forsyth.exportBoard(situation.board) +
-            color + format.Forsyth.exportCrazyPocket(situation.board) + ply
+            val color = if (ply % 2 == 0) " b " else " w "
+            val fen = format.Forsyth.exportSituation(situation)
             byFen get fen map (_ atPly ply)
           case (_, found) => found
         }

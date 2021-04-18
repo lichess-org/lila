@@ -31,7 +31,7 @@ case class Pgn(
 
   def moves =
     turns.flatMap { t =>
-      List(t.white, t.black).flatten
+      List(t.sente, t.gote).flatten
     }
 
   def withEvent(title: String) =
@@ -74,33 +74,33 @@ object Initial {
 
 case class Turn(
     number: Int,
-    white: Option[Move],
-    black: Option[Move]
+    sente: Option[Move],
+    gote: Option[Move]
 ) {
 
   def update(color: Color, f: Move => Move) =
     color.fold(
-      copy(white = white map f),
-      copy(black = black map f)
+      copy(sente = sente map f),
+      copy(gote = gote map f)
     )
 
   def updateLast(f: Move => Move) = {
-    black.map(m => copy(black = f(m).some)) orElse
-      white.map(m => copy(white = f(m).some))
+    gote.map(m => copy(gote = f(m).some)) orElse
+      sente.map(m => copy(sente = f(m).some))
   } | this
 
-  def isEmpty = white.isEmpty && black.isEmpty
+  def isEmpty = sente.isEmpty && gote.isEmpty
 
   def plyOf(color: Color) = number * 2 - color.fold(1, 0)
 
-  def count = List(white, black) count (_.isDefined)
+  def count = List(sente, gote) count (_.isDefined)
 
   override def toString = {
-    val text = (white, black) match {
-      case (Some(w), Some(b)) if w.isLong => s" $w $number... $b"
-      case (Some(w), Some(b))             => s" $w $b"
-      case (Some(w), None)                => s" $w"
-      case (None, Some(b))                => s".. $b"
+    val text = (sente, gote) match {
+      case (Some(s), Some(g)) if s.isLong => s" $s $number... $g"
+      case (Some(s), Some(g))             => s" $s $g"
+      case (Some(s), None)                => s" $s"
+      case (None, Some(g))                => s".. $g"
       case _                              => ""
     }
     s"$number.$text"
@@ -116,7 +116,7 @@ object Turn {
       case ((Nil, p), move) =>
         (Turn((p + 1) / 2, none, move.some) :: Nil) -> (p + 1)
       case ((t :: tt, p), move) =>
-        (t.copy(black = move.some) :: tt) -> (p + 1)
+        (t.copy(gote = move.some) :: tt) -> (p + 1)
     }
   }._1.reverse
 }

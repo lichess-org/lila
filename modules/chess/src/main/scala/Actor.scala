@@ -19,36 +19,36 @@ final case class Actor(
   // not optimal
   def trustedMoves(withCastle: Boolean): List[Move] = {
     val moves = piece.role match {
-      case Pawn if piece.color == White => shortRange(Pawn.dirs)
-      case Pawn if piece.color == Black => shortRange(Pawn.dirsOpposite)
+      case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
+      case Pawn if piece.color == Gote => shortRange(Pawn.dirsOpposite)
 
-      case Lance if piece.color == White => longRange(Lance.dirs)
-      case Lance if piece.color == Black => longRange(Lance.dirsOpposite)
+      case Lance if piece.color == Sente => longRange(Lance.dirs)
+      case Lance if piece.color == Gote => longRange(Lance.dirsOpposite)
 
-      case Gold if piece.color == White => shortRange(Gold.dirs)
-      case Gold if piece.color == Black => shortRange(Gold.dirsOpposite)
+      case Gold if piece.color == Sente => shortRange(Gold.dirs)
+      case Gold if piece.color == Gote => shortRange(Gold.dirsOpposite)
 
-      case Silver if piece.color == White => shortRange(Silver.dirs)
-      case Silver if piece.color == Black => shortRange(Silver.dirsOpposite)
+      case Silver if piece.color == Sente => shortRange(Silver.dirs)
+      case Silver if piece.color == Gote => shortRange(Silver.dirsOpposite)
 
       case Bishop => longRange(Bishop.dirs)
 
       case Rook => longRange(Rook.dirs)
 
-      case Knight if piece.color == White => shortRange(Knight.dirs)
-      case Knight if piece.color == Black => shortRange(Knight.dirsOpposite)
+      case Knight if piece.color == Sente => shortRange(Knight.dirs)
+      case Knight if piece.color == Gote => shortRange(Knight.dirsOpposite)
 
-      case Tokin if piece.color == White => shortRange(Tokin.dirs)
-      case Tokin if piece.color == Black => shortRange(Tokin.dirsOpposite)
+      case Tokin if piece.color == Sente => shortRange(Tokin.dirs)
+      case Tokin if piece.color == Gote => shortRange(Tokin.dirsOpposite)
 
-      case PromotedSilver if piece.color == White => shortRange(PromotedSilver.dirs)
-      case PromotedSilver if piece.color == Black => shortRange(PromotedSilver.dirsOpposite)
+      case PromotedSilver if piece.color == Sente => shortRange(PromotedSilver.dirs)
+      case PromotedSilver if piece.color == Gote => shortRange(PromotedSilver.dirsOpposite)
 
-      case PromotedLance if piece.color == White => shortRange(PromotedLance.dirs)
-      case PromotedLance if piece.color == Black => shortRange(PromotedLance.dirsOpposite)
+      case PromotedLance if piece.color == Sente => shortRange(PromotedLance.dirs)
+      case PromotedLance if piece.color == Gote => shortRange(PromotedLance.dirsOpposite)
 
-      case PromotedKnight if piece.color == White => shortRange(PromotedKnight.dirs)
-      case PromotedKnight if piece.color == Black => shortRange(PromotedKnight.dirsOpposite)
+      case PromotedKnight if piece.color == Sente => shortRange(PromotedKnight.dirs)
+      case PromotedKnight if piece.color == Gote => shortRange(PromotedKnight.dirsOpposite)
 
       case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
       case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)

@@ -143,7 +143,7 @@ object Binary {
         (dropPieceInts(piece) << 5) + 1
       )
 
-    // 1. 1(1), positionTo(7); 2. pieceType(4), check(2), capture(1), 0(0); 3. positionFrom(7)
+    // 1. 1(1), positionTo(7); 2. pieceType(4), check(2), capture(1), 1(1); 3. positionFrom(7)
     def fullPiece(piece: String, orig: String, pos: String, capture: String, check: String) =
       List(
         (1 << 7) + posInt(pos),
@@ -166,17 +166,13 @@ object Binary {
       }
 
     val pieceR       = "([KRNBSLAMUDHTGP])"
-    //val fileR        = "(?:([a-i])x)?"
     val posR         = "([a-i][1-9])"
     val captureR     = "(x?)"
     val checkR       = "([\\+=]?)"
-    //val promotionR   = "(?:\\=?([AMUDHT]))?"
     val origR        = "([a-i][1-9])".r
 
     // todo - checkR will be promotion
-    //val SimplePieceR = s"^$pieceR$captureR$posR$checkR$promotionR$$".r
     val SimplePieceR = s"^$pieceR$captureR$posR$checkR$$".r
-    //val FullPieceR   = s"^$pieceR$origR$captureR$posR$checkR$promotionR$$".r
     val FullPieceR   = s"^$pieceR$origR$captureR$posR$checkR$$".r
     val DropR        = s"^([RNBSGLP])\\*$posR$$".r
   }

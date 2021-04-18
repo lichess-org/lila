@@ -243,10 +243,10 @@ object Clock {
     def berserkable = (incrementSeconds == 0 && byoyomiSeconds == 0) || limitSeconds > 0
 
     // Activate low time warning when between 10 and 90 seconds remain
-    def emergSeconds = math.min(90, math.max(10, limitSeconds / 6))
+    def emergSeconds = math.min(90, math.max(10, limitSeconds / 8))
 
-    // Estimate 90 moves (per player) per game
-    def estimateTotalSeconds = limitSeconds + 90 * incrementSeconds + 25 * periods * byoyomiSeconds
+    // Estimate 60 moves (per player) per game
+    def estimateTotalSeconds = limitSeconds + 60 * incrementSeconds + 25 * periods * byoyomiSeconds
 
     def estimateTotalTime = Centis.ofSeconds(estimateTotalSeconds)
 
@@ -323,7 +323,7 @@ object Clock {
     val player = ClockPlayer.withConfig(config)
     Clock(
       config = config,
-      color = White,
+      color = Sente,
       players = Color.Map(player, player),
       timer = None
     )

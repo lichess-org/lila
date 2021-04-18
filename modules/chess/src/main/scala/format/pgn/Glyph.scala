@@ -81,22 +81,22 @@ object Glyph {
   object PositionAssessment {
     val equal               = new Glyph(10, "=", "Equal position") with PositionAssessment
     val unclear             = new Glyph(13, "∞", "Unclear position") with PositionAssessment
-    val whiteSlightlyBetter = new Glyph(14, "⩲", "White is slightly better") with PositionAssessment
-    val blackSlightlyBetter = new Glyph(15, "⩱", "Black is slightly better") with PositionAssessment
-    val whiteQuiteBetter    = new Glyph(16, "±", "White is better") with PositionAssessment
-    val blackQuiteBetter    = new Glyph(17, "∓", "Black is better") with PositionAssessment
-    val whiteMuchBetter     = new Glyph(18, "+−", "White is winning") with PositionAssessment
-    val blackMuchBetter     = new Glyph(19, "-+", "Black is winning") with PositionAssessment
+    val senteSlightlyBetter = new Glyph(14, "⩲", "Sente is slightly better") with PositionAssessment
+    val goteSlightlyBetter = new Glyph(15, "⩱", "Gote is slightly better") with PositionAssessment
+    val senteQuiteBetter    = new Glyph(16, "±", "Sente is better") with PositionAssessment
+    val goteQuiteBetter    = new Glyph(17, "∓", "Gote is better") with PositionAssessment
+    val senteMuchBetter     = new Glyph(18, "+−", "Sente is winning") with PositionAssessment
+    val goteMuchBetter     = new Glyph(19, "-+", "Gote is winning") with PositionAssessment
 
     val all = List(
       equal,
       unclear,
-      whiteSlightlyBetter,
-      blackSlightlyBetter,
-      whiteQuiteBetter,
-      blackQuiteBetter,
-      whiteMuchBetter,
-      blackMuchBetter
+      senteSlightlyBetter,
+      goteSlightlyBetter,
+      senteQuiteBetter,
+      goteQuiteBetter,
+      senteMuchBetter,
+      goteMuchBetter
     )
     val byId: Map[Int, Glyph] = all
       .map { g =>

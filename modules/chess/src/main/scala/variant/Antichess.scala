@@ -59,27 +59,27 @@ case object Antichess
     val bishopsAndPawns = board.pieces.values.forall(p => p.is(Bishop) || p.is(Pawn)) &&
       board.pieces.values.exists(_.is(Bishop))
 
-    lazy val drawnBishops = board.actors.values.partition(_.is(White)) match {
-      case (whitePieces, blackPieces) =>
-        val whiteBishops    = whitePieces.filter(_.is(Bishop))
-        val blackBishops    = blackPieces.filter(_.is(Bishop))
-        lazy val whitePawns = whitePieces.filter(_.is(Pawn))
-        lazy val blackPawns = blackPieces.filter(_.is(Pawn))
+    lazy val drawnBishops = board.actors.values.partition(_.is(Sente)) match {
+      case (sentePieces, gotePieces) =>
+        val senteBishops    = sentePieces.filter(_.is(Bishop))
+        val goteBishops    = gotePieces.filter(_.is(Bishop))
+        lazy val sentePawns = sentePieces.filter(_.is(Pawn))
+        lazy val gotePawns = gotePieces.filter(_.is(Pawn))
 
         // We consider the case where a player has two bishops on the same diagonal after promoting.
         if (
-          whiteBishops.map(_.pos.color).to(Set).size != 1 ||
-          blackBishops.map(_.pos.color).to(Set).size != 1
+          senteBishops.map(_.pos.color).to(Set).size != 1 ||
+          goteBishops.map(_.pos.color).to(Set).size != 1
         ) false
         else {
           for {
-            whiteSquareColor <- whiteBishops.headOption map (_.pos.color)
-            blackSquareColor <- blackBishops.headOption map (_.pos.color)
+            senteSquareColor <- senteBishops.headOption map (_.pos.color)
+            goteSquareColor <- goteBishops.headOption map (_.pos.color)
           } yield {
-            whiteSquareColor != blackSquareColor && whitePawns.forall(
-              pawnNotAttackable(_, blackSquareColor, board)
+            senteSquareColor != goteSquareColor && sentePawns.forall(
+              pawnNotAttackable(_, goteSquareColor, board)
             ) &&
-            blackPawns.forall(pawnNotAttackable(_, whiteSquareColor, board))
+            gotePawns.forall(pawnNotAttackable(_, senteSquareColor, board))
           }
         } getOrElse false
     }

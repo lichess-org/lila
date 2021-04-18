@@ -78,11 +78,13 @@ case class Game(
 
   /**
     * Fullmove number: The number of the full move.
-    * It starts at 1, and is incremented after Black's move.
+    * It starts at 1, and is incremented after Gote's move.
     */
   def fullMoveNumber: Int = 1 + turns / 2
 
-  def moveString = s"${fullMoveNumber}${player.fold(".", "...")}"
+  def moveNumber: Int = 1 + turns
+
+  def moveString = s"${moveNumber}."
 
   def withBoard(b: Board) = copy(situation = situation.copy(board = b))
 
@@ -96,10 +98,10 @@ case class Game(
 object Game {
   def apply(variant: chess.variant.Variant): Game =
     new Game(
-      Situation(Board init variant, White)
+      Situation(Board init variant, Sente)
     )
 
-  def apply(board: Board): Game = apply(board, White)
+  def apply(board: Board): Game = apply(board, Sente)
 
   def apply(board: Board, color: Color): Game = new Game(Situation(board, color))
 

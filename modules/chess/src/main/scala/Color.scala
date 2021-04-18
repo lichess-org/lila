@@ -4,7 +4,7 @@ sealed trait Color {
 
   def -(role: Role) = Piece(this, role)
 
-  def fold[A](w: => A, b: => A): A = if (white) w else b
+  def fold[A](s: => A, g: => A): A = if (sente) s else g
 
   val unary_! : Color
 
@@ -26,90 +26,92 @@ sealed trait Color {
   def tokin          = this - Tokin
   def dragon         = this - Dragon
   def horse          = this - Horse
-  def promotedSilver = this - PromotedSilver
-  def promotedKnight = this - PromotedKnight
-  def promotedLance  = this - PromotedLance
+  def promotedsilver = this - PromotedSilver
+  def promotedknight = this - PromotedKnight
+  def promotedlance  = this - PromotedLance
   def king           = this - King
 
-  val white = this == Color.White
-  val black = this == Color.Black
+  val sente = this == Color.Sente
+  val gote = this == Color.Gote
 }
 
 object Color {
 
-  case class Map[A](white: A, black: A) {
-    def apply(color: Color) = if (color.white) white else black
+  case class Map[A](sente: A, gote: A) {
+    def apply(color: Color) = if (color.sente) sente else gote
 
     def update(color: Color, f: A => A) = {
-      if (color.white) copy(white = f(white))
-      else copy(black = f(black))
+      if (color.sente) copy(sente = f(sente))
+      else copy(gote = f(gote))
     }
 
-    def map[B](fw: A => B, fb: A => B) = copy(white = fw(white), black = fb(black))
+    def map[B](fs: A => B, fg: A => B) = copy(sente = fs(sente), gote = fg(gote))
 
     def map[B](f: A => B): Map[B] = map(f, f)
 
-    def all: Seq[A] = Seq(white, black)
+    def all: Seq[A] = Seq(sente, gote)
 
-    def reduce[B](f: (A, A) => B) = f(white, black)
+    def reduce[B](f: (A, A) => B) = f(sente, gote)
 
-    def forall(pred: A => Boolean) = pred(white) && pred(black)
+    def forall(pred: A => Boolean) = pred(sente) && pred(gote)
 
-    def exists(pred: A => Boolean) = pred(white) || pred(black)
+    def exists(pred: A => Boolean) = pred(sente) || pred(gote)
   }
 
   object Map {
-    def apply[A](f: Color => A): Map[A] = Map(white = f(White), black = f(Black))
+    def apply[A](f: Color => A): Map[A] = Map(sente = f(Sente), gote = f(Gote))
   }
 
-  case object White extends Color {
+  case object Sente extends Color {
 
-    lazy val unary_! = Black
+    lazy val unary_! = Gote
 
     val passablePawnY  = 5
     val promotableZone = List(7, 8, 9)
     val backrankY      = 9
     val backrankY2     = 8
 
-    val letter = 'w'
-    val name   = "white"
+    val letter    = 'b'
+    val engName   = "black"
+    val name      = "sente"
 
     override val hashCode = 1
   }
 
-  case object Black extends Color {
+  case object Gote extends Color {
 
-    val unary_! = White
+    val unary_! = Sente
 
     val passablePawnY  = 4
     val promotableZone = List(1, 2, 3)
     val backrankY      = 1
     val backrankY2     = 2
 
-    val letter = 'b'
-    val name   = "black"
+    val letter    = 'w'
+    val engName   = "white"
+    val name      = "gote"
 
     override val hashCode = 2
   }
 
   def fromPly(ply: Int) = apply((ply & 1) == 0)
 
-  def apply(b: Boolean): Color = if (b) White else Black
+  def apply(b: Boolean): Color = if (b) Sente else Gote
 
   def apply(n: String): Option[Color] =
-    if (n == "white") Some(White)
-    else if (n == "black") Some(Black)
+    if (n == "black" || n == "sente") Some(Sente)
+    else if (n == "white" || n == "gote") Some(Gote)
     else None
 
   def apply(c: Char): Option[Color] =
-    if (c == 'w') Some(White)
-    else if (c == 'b') Some(Black)
+    if (c == 'b') Some(Sente)
+    else if (c == 'w') Some(Gote)
     else None
 
-  val white: Color = White
-  val black: Color = Black
+  val sente: Color = Sente
+  val gote: Color = Gote
 
-  val all = List(White, Black)
+  val all = List(Sente, Gote)
 
   val names = all map (_.name)
 
@@ -117,15 +119,15 @@ object Color {
 
   def showResult(color: Option[Color]) =
     color match {
-      case Some(chess.White) => "1-0"
-      case Some(chess.Black) => "0-1"
+      case Some(chess.Sente) => "1-0"
+      case Some(chess.Gote) => "0-1"
       case None              => "1/2-1/2"
     }
 
   def fromResult(result: String): Option[Color] =
     result match {
-      case "1-0" => Some(chess.White)
-      case "0-1" => Some(chess.Black)
+      case "1-0" => Some(chess.Sente)
+      case "0-1" => Some(chess.Gote)
       case _     => None
     }
 }
