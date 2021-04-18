@@ -117,6 +117,10 @@
   <string name="blunder">பெரிய தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s பெரிய தவறு</item>
+    <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
