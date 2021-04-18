@@ -859,10 +859,10 @@
   <string name="resVsX">%1$s contra %2$s</string>
   <string name="youJustBecamePatron">Ya eres patrocinador de Lichess.</string>
   <string name="patronAccountExpired">La cuenta de patrocinador ha vencido</string>
-  <string name="pleaseReconsiderRenewIt">¡Sería genial que la renovaras!</string>
+  <string name="pleaseReconsiderRenewIt">¡Sería estupendo que la renovaras!</string>
   <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
   <string name="newPendingReview">Nueva revisión pendiente</string>
-  <string name="lostAgainstTOSViolator">Perdiste contra un usuario que no cumplió las condiciones del servicio de Lichess</string>
+  <string name="lostAgainstTOSViolator">Has perdido contra un usuario que no cumplió las condiciones de servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
 </resources>

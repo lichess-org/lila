@@ -19,7 +19,12 @@
   <string name="timePerMove">한 수당 시간</string>
   <string name="highestSolved">최고 해결 레이팅</string>
   <string name="puzzlesPlayed">플레이한 퍼즐</string>
+  <string name="newRun">새로 시작(단축키: 스페이스바)</string>
+  <string name="endRun">끝내기(단축키: 엔터)</string>
   <string name="highscores">하이스코어</string>
+  <string name="viewBestRuns">최고 기록 보기</string>
+  <string name="bestRunOfDay">일일 최고기록</string>
+  <string name="runs">도전 횟수</string>
   <string name="getReady">준비!</string>
   <string name="waitingForMorePlayers">더 많은 플레이어를 기다리는 중...</string>
   <string name="raceComplete">레이스 완료!</string>

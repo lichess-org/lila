@@ -117,6 +117,18 @@
   <string name="blunder">Capivarada</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s capivarada</item>
+    <item quantity="other">%s capivaradas</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s erro</item>
+    <item quantity="other">%s erros</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisão</item>
+    <item quantity="other">%s imprecisões</item>
+  </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
   <string name="threefoldRepetition">Tripla repetição</string>
@@ -274,7 +286,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço da Lichess</string>
+  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço do Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
@@ -289,8 +301,8 @@
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s ponto(s) de torneio</item>
-    <item quantity="other">%s ponto(s) de torneio</item>
+    <item quantity="one">%s ponto de torneio</item>
+    <item quantity="other">%s pontos de torneio</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s estudo</item>
@@ -349,7 +361,7 @@
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA enxadrístico.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer seu lance, provando que é humano.</string>
   <string name="captcha.fail">Por favor, resolva o captcha enxadrístico.</string>
-  <string name="notACheckmate">Não é xeque-mate.</string>
+  <string name="notACheckmate">Não é xeque-mate</string>
   <string name="whiteCheckmatesInOneMove">Xeque-mate em um lance para as brancas</string>
   <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
@@ -487,9 +499,9 @@
   <string name="cheat">Trapaça</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulação de avaliação</string>
+  <string name="ratingManipulation">Manipulação de rating</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
+  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
@@ -557,7 +569,7 @@
   <string name="unauthorizedError">Acesso negado.</string>
   <string name="noInternetConnection">Sem conexão. Você ainda pode jogar offline a partir do menu.</string>
   <string name="connectedToLichess">Você está conectado ao lichess.org</string>
-  <string name="signedOut">Você fez logoff</string>
+  <string name="signedOut">Voce foi desconectado</string>
   <string name="loginSuccessful">Login efetuado</string>
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
@@ -575,7 +587,7 @@
   <string name="shareGameURL">Compartilhar URL do Jogo</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de email é inválido</string>
-  <string name="error.email_acceptable">Este endereço de email não é aceitável. Reconfira e tente novamente.</string>
+  <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>
   <string name="error.email_unique">Este endereço de email já existe</string>
   <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
@@ -610,7 +622,7 @@
   <string name="createdSimuls">Simultâneas recentemente criadas</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
-  <string name="noSimulExplanation">Esta exibição simultânea não existe</string>
+  <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Retornar à página inicial da simultânea</string>
   <string name="aboutSimul">A simultânea envolve um único jogador contra vários oponentes ao mesmo tempo.</string>
   <string name="aboutSimulImage">Contra 50 oponentes, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
@@ -663,7 +675,7 @@
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
-  <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
+  <string name="printFriendlyPDF">Versão para impressão em PDF</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
@@ -682,7 +694,7 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é uma lista de dispositivos com os quais você logou em sua conta. Revogue qualquer sessão que você não reconheça.</string>
   <string name="alternativelyYouCanX">Como alternativa, você pode %s.</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
-  <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>
+  <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos usam grátis todos os recursos</string>
@@ -691,7 +703,7 @@
   <string name="phoneAndTablet">Celular e tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
-  <string name="onlineAndOfflinePlay">Jogue online e offline.</string>
+  <string name="onlineAndOfflinePlay">Jogue online e offline</string>
   <string name="viewTheSolution">Ver solução</string>
   <string name="followAndChallengeFriends">Siga e desafie amigos</string>
   <plurals name="availableInNbLanguages">
@@ -721,7 +733,7 @@
   <string name="usernameAlreadyUsed">Este nome de usuário já está registado, por favor, escolha outro.</string>
   <string name="usernamePrefixInvalid">O nome de usuário deve começar com uma letra.</string>
   <string name="usernameSuffixInvalid">O nome de usuário deve terminar com uma letra ou um número.</string>
-  <string name="usernameCharsInvalid">Nomes de usuário só podem conter letras, números, sublinhados e hífens.</string>
+  <string name="usernameCharsInvalid">Nomes de usuário só podem conter letras, números, sublinhados e hifens.</string>
   <string name="usernameUnacceptable">Este nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
   <string name="playChessInStyle">Jogue com estilo</string>

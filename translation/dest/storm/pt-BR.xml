@@ -15,7 +15,7 @@
     <item quantity="other">%s séries</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Jogou %1$s tentativas de %2$s</item>
+    <item quantity="one">Jogou uma tentativa de %2$s</item>
     <item quantity="other">Jogou %1$s tentativas de %2$s</item>
   </plurals>
   <string name="highscoreX">Recorde: %s</string>

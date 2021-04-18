@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Выклікі</string>
+  <string name="challengeToPlay">Выклікаць на гульню</string>
+  <string name="challengeDeclined">Выклік адхілены</string>
+  <string name="challengeAccepted">Выклік прыняты!</string>
+  <string name="challengeCanceled">Выклік скасаваны.</string>
+  <string name="registerToSendChallenges">Зарэгіструйцеся, каб выклікаць супернікаў на гульню.</string>
+  <string name="youCannotChallengeX">Вы не можаце выклікаць на гульню %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не прымае выклікі.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рэйтынг у рэжыме «%1$s» значна адрозніваецца ад %2$s.</string>
+</resources>

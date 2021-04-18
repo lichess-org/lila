@@ -22,10 +22,10 @@
   <string name="score">Punktestand</string>
   <string name="moves">Züge</string>
   <string name="accuracy">Genauigkeit</string>
-  <string name="combo">Erfolgsfolge</string>
+  <string name="combo">Kombo</string>
   <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
-  <string name="highestSolved">Schwierigste, gelöste Aufgabe</string>
+  <string name="highestSolved">Schwierigste gelöste Aufgabe</string>
   <string name="puzzlesPlayed">Gespielte Aufgaben</string>
   <string name="newRun">Neuer Durchlauf (drücke: Leertaste)</string>
   <string name="endRun">Beende den Durchlauf (drücke: Eingabetaste)</string>
@@ -41,9 +41,9 @@
   <string name="yourRankX">Deine Platzierung: %s</string>
   <string name="waitForRematch">Warte auf ein neues Rennen</string>
   <string name="nextRace">Nächstes Rennen</string>
-  <string name="joinRematch">Teilnahme am nächsten Rennen</string>
+  <string name="joinRematch">Am nächsten Rennen teilnehmen</string>
   <string name="waitingToStart">Warte auf den Start</string>
-  <string name="createNewGame">Erstelle ein neues Rennen</string>
+  <string name="createNewGame">Ein neues Rennen erstellen</string>
   <string name="joinPublicRace">An einem öffentlichen Rennen teilnehmen</string>
   <string name="raceYourFriends">Lade deine Freunde zu einem Rennen ein</string>
   <string name="skip">überspringen</string>

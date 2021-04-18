@@ -561,6 +561,7 @@
   <string name="cheat">Чмуцтва</string>
   <string name="insult">Абраза</string>
   <string name="troll">Троль</string>
+  <string name="ratingManipulation">Махінацыі з рэйтынгам</string>
   <string name="other">Іншае</string>
   <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку сама менш на адну гульню, дзе, на вашу думку, былі парушаны правілы.</string>
@@ -578,9 +579,12 @@
   <string name="currentPassword">Бягучы пароль</string>
   <string name="newPassword">Новы пароль</string>
   <string name="newPasswordAgain">Новы пароль (яшчэ раз)</string>
+  <string name="newPasswordsDontMatch">Новыя паролі не супадаюць</string>
+  <string name="newPasswordStrength">Надзейнасць пароля</string>
   <string name="clockInitialTime">Пачатковы час на часах</string>
   <string name="clockIncrement">Дадатак часу</string>
   <string name="privacy">Прыватнасць</string>
+  <string name="privacyPolicy">Палітыка прыватнасці</string>
   <string name="letOtherPlayersFollowYou">Дазволіць іншых гульцам падпісвацца на вас</string>
   <string name="letOtherPlayersChallengeYou">Дазволіць іншым гульцам выклікаць вас на гульню</string>
   <string name="letOtherPlayersInviteYouToStudy">Дазволіць іншым гульцам запрасіць вас на даследаванне</string>
@@ -653,6 +657,7 @@
   <string name="error.email_unique">Гэты адрас ужо заняты</string>
   <string name="error.email_different">Гэты адрас ужо пазначаны як ваш бягучы</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
+  <string name="onlyExistingConversations">Толькі існыя размовы</string>
   <string name="onlyFriends">Толькі з сябрамі</string>
   <string name="menu">Меню</string>
   <string name="castling">Ракіроўка</string>
@@ -911,7 +916,23 @@
   <string name="inTheFAQ">у FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
+  <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
+  <string name="teamNamedX">каманда %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
+  <string name="mentionedYouInX"> вас згадалі ў «%1$s».</string>
+  <string name="xMentionedYouInY"> %1$s вас згадаў у «%2$s».</string>
+  <string name="invitedYouToX"> вас запрасілі ў «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>
+  <string name="youAreNowPartOfTeam">Цяпер вы з\'яўляецеся часткай каманды.</string>
+  <string name="youHaveJoinedTeamX">Вы далучыліся да %1$s.</string>
+  <string name="congratsYouWon">Віншуем, вы перамаглі!</string>
+  <string name="gameVsX">Партыя супраць %1$s</string>
+  <string name="resVsX">%1$s супраць %2$s</string>
+  <string name="youJustBecamePatron">Вы толькі што сталі Патронам lichess.</string>
+  <string name="patronAccountExpired">Тэрмін дзеяння ўліковага запісу Патрон скончыўся</string>
+  <string name="pleaseReconsiderRenewIt">Калі ласка, падумайце пра яго абнаўленне!</string>
+  <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш профіль трэнера.</string>
+  <string name="timeAlmostUp">Час амаль выйшаў!</string>
 </resources>

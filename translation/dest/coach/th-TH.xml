@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="aboutMe">เกี่ยวกับฉัน</string>
+  <string name="playingExperience">ประสบการณ์การเล่น</string>
+  <string name="teachingExperience">ประสบการณ์การสอน</string>
+  <string name="otherExperiences">ประสบการณ์อย่างอื่น</string>
+</resources>

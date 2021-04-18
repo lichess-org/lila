@@ -756,8 +756,8 @@
   <string name="skipThisMove">Осы жүрісті елемеу</string>
   <string name="next">Келесі</string>
   <string name="xWasPlayed">%s ойналды</string>
-  <string name="findBetterMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз</string>
-  <string name="findBetterMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз</string>
+  <string name="findBetterMoveForWhite">Ақ пайдасына ең тиімді жүрісті табыңыз</string>
+  <string name="findBetterMoveForBlack">Қара пайдасына ең тиімді жүрісті табыңыз</string>
   <string name="resumeLearning">Үйренуді қорытындылау</string>
   <string name="youCanDoBetter">Тағы талпынып көріңіз</string>
   <string name="tryAnotherMoveForWhite">Ақтар пайдасына басқаша жүріп көріңіз</string>
