@@ -80,7 +80,7 @@
   <string name="losing">Izgubljeno</string>
   <string name="drawn">Remi</string>
   <string name="unknown">Neznano</string>
-  <string name="database">Baza</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Baza</string>
   <string name="whiteDrawBlack">Beli / Remi / Črni</string>
   <string name="averageRatingX">Povprečni rating: %s</string>
   <string name="recentGames">Nedavne igre</string>
@@ -670,7 +670,7 @@ v %3$s</string>
   <string name="really">resnično</string>
   <string name="contribute">Prispevaj</string>
   <string name="termsOfService">Pogoji uporabe</string>
-  <string name="sourceCode">Izvorna koda</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Izvorna koda</string>
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Gostitelj</string>
   <string name="hostColorX">Gostiteljeva barva:%s</string>
