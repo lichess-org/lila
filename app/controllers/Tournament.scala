@@ -207,7 +207,11 @@ final class Tournament(
     AuthBody(parse.json) { implicit ctx => implicit me =>
       NoLameOrBot {
         NoPlayban {
-          doJoin(id, me)(ctx.body) flatMap { result =>
+          val data = TournamentForm.TournamentJoin(
+            password = ctx.body.body.\("p").asOpt[String],
+            team = ctx.body.body.\("team").asOpt[String]
+          )
+          doJoin(id, data, me) flatMap { result =>
             negotiate(
               html = fuccess {
                 result.error match {
@@ -231,18 +235,21 @@ final class Tournament(
   def apiJoin(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
-      else
-        doJoin(id, me) map { result =>
+      else {
+        val data =
+          TournamentForm.joinForm
+            .bindFromRequest()
+            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+        doJoin(id, data, me) map { result =>
           result.error match {
             case None        => jsonOkResult
             case Some(error) => BadRequest(Json.obj("error" -> error))
           }
         }
+      }
     }
 
-  private def doJoin(tourId: Tour.ID, me: UserModel)(implicit req: Request[_]) = {
-    val data =
-      TournamentForm.joinForm.bindFromRequest().fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+  private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
     data.team
       .?? { env.team.cached.isLeader(_, me.id) }
       .flatMap { isLeader =>
@@ -255,11 +262,6 @@ final class Tournament(
           isLeader
         )
       }
-  }
-
-//     val password = req.body.\("password").asOpt[String]
-//     val teamId   = req.body.\("team").asOpt[String]
-  // }
 
   def pause(id: String) =
     Auth { implicit ctx => me =>
