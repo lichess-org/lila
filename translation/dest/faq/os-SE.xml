@@ -17,6 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Ис дзы æндæр Lichess-вебсайтытæ?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">О, Lichess ныфс радта æндæр æргом сайтытæм, кæй пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
+  <string name="whenAmIEligibleRatinRefund">Сайæгой мæ кæд рамбулдзæн, уæд мын мæ рейтинг фæстæмæ ратдзыстут?</string>
   <string name="gameplay">Хъазты арæзт</string>
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд ысты?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
