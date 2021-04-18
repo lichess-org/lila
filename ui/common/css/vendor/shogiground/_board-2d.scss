@@ -24,6 +24,7 @@ $board-files: (
   "whiteBoard": "white.png",
   "darkBoard": "dark.png",
   "transparent": "transparent.png",
+  "transparent-white": "transparent-white.png",
 );
 
 @each $color, $file in $board-files {
