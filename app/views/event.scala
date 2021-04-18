@@ -194,7 +194,7 @@ object event {
           raw("Hours on homepage before the start (0 to 24)"),
           half = true,
           help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
-        )(form3.input(_, typ = "number"))
+        )(form3.input(_, typ = "number")(step := ".01"))
       ),
       form3.action(form3.submit(trans.apply()))
     )

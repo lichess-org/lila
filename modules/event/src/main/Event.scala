@@ -10,7 +10,7 @@ case class Event(
     title: String,
     headline: String,
     description: Option[String],
-    homepageHours: Int,
+    homepageHours: Double,
     url: String,
     lang: Lang,
     enabled: Boolean,
@@ -30,7 +30,7 @@ case class Event(
       (startsAt.getSeconds - nowSeconds).toInt
     }
 
-  def featureSince = startsAt minusHours homepageHours
+  def featureSince = startsAt minusMinutes (homepageHours * 60).toInt
 
   def featureNow = featureSince.isBeforeNow && !isFinishedSoon
 
