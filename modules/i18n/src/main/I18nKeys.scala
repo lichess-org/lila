@@ -835,7 +835,7 @@ val `resetMyProgress` = new I18nKey("learn:resetMyProgress")
 val `youWillLoseAllYourProgress` = new I18nKey("learn:youWillLoseAllYourProgress")
 val `play` = new I18nKey("learn:play")
 val `shogiPieces` = new I18nKey("learn:shogiPieces")
-val `theIntoduction` = new I18nKey("learn:theIntoduction")
+val `theIntroduction` = new I18nKey("learn:theIntroduction")
 val `introBasics` = new I18nKey("learn:introBasics")
 val `introIntro` = new I18nKey("learn:introIntro")
 val `choosePieceDesign` = new I18nKey("learn:choosePieceDesign")
@@ -1886,6 +1886,7 @@ val `history` = new I18nKey("puzzle:history")
 val `solved` = new I18nKey("puzzle:solved")
 val `failed` = new I18nKey("puzzle:failed")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
+val `xMovesLeft` = new I18nKey("puzzle:xMovesLeft")
 }
 
 object puzzleTheme {

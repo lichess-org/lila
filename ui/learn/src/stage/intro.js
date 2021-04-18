@@ -2,8 +2,8 @@ var util = require("../util");
 var arrow = util.arrow;
 
 module.exports = {
-  key: "intoduction",
-  title: "theIntoduction",
+  key: "introduction",
+  title: "theIntroduction",
   subtitle: "introBasics",
   image: util.assetUrl + "images/learn/pieces/I.svg",
   intro: "introIntro",
@@ -11,14 +11,14 @@ module.exports = {
   levels: [
     {
       goal: "choosePieceDesign",
-      fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -",
+      fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -",
       nbMoves: 0,
       text: "Click here after you've chosen the piece design you like.",
       end: true,
     },
     {
       goal: "promotionZone",
-      fen: "9/9/9/4P4/9/9/9/9/9 w -",
+      fen: "9/9/9/4P4/9/9/9/9/9 b -",
       nbMoves: 1,
       shapes: [arrow("e6e7", "blue")],
       lastMoves: [
@@ -53,7 +53,7 @@ module.exports = {
     },
     {
       goal: "senteGoesFirst",
-      fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -",
+      fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -",
       nbMoves: 1,
     },
   ].map(util.toLevel),
