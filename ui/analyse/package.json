@@ -15,11 +15,12 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/yaireo__tagify": "^4.0.1"
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
-    "@yaireo/tagify": "^3.22.1",
+    "@yaireo/tagify": "^4.0.5",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",

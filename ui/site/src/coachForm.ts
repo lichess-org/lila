@@ -93,10 +93,12 @@ lichess.load.then(() => {
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
-  const langInput = document.getElementById('form3-languages')!;
+  const langInput = document.getElementById('form3-languages') as HTMLInputElement;
+  const whitelistJson = langInput.getAttribute('data-all');
+  const whitelist = whitelistJson ? JSON.parse(whitelistJson) as Tagify.TagData[] : undefined;
   const tagify = new Tagify(langInput, {
     maxTags: 10,
-    whitelist: JSON.parse(langInput.getAttribute('data-all') || ''),
+    whitelist,
     enforceWhitelist: true,
     dropdown: {
       enabled: 1,
@@ -106,8 +108,8 @@ lichess.load.then(() => {
     langInput
       .getAttribute('data-value')
       ?.split(',')
-      .map(code => tagify.settings.whitelist.find(l => l.code == code))
-      .filter(notNull)
+      .map(code => whitelist?.find(l => l.code == code))
+      .filter(notNull) as Tagify.TagData[]
   );
 
   todo();
