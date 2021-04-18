@@ -78,7 +78,7 @@
   <string name="losing">Perdedor</string>
   <string name="drawn">Leva a táboas</string>
   <string name="unknown">Descoñecido</string>
-  <string name="database">Base de datos</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Base de datos</string>
   <string name="whiteDrawBlack">Brancas / Táboas / Negras</string>
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -604,7 +604,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuír</string>
   <string name="termsOfService">Termos do Servizo</string>
-  <string name="sourceCode">Código Fonte</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Código Fonte</string>
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Cor do anfitrión: %s</string>
