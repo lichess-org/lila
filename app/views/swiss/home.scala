@@ -118,7 +118,7 @@ object home {
         td("Yes"),
         td("Yes until more than half the rounds have started")
       ),
-       tr(
+      tr(
         th("Pause"),
         td("Yes"),
         td("Yes but might reduce the number of rounds")
