@@ -36,7 +36,7 @@ types = {
   'png' => 'png;base64,'
 }
 roles = ['FU', 'GI', 'GY', 'HI', 'KA', 'KE', 'KI', 'KY', 'NG', 'NK', 'NY', 'OU', 'RY', 'TO', 'UM']
-colors = ['white', 'black']
+colors = ['sente', 'gote']
 
 stanRoles = {
   'FU' => 'pawn',
@@ -47,9 +47,9 @@ stanRoles = {
   'KE' => 'knight',
   'KI' => 'gold',
   'KY' => 'lance',
-  'NG' => 'promotedSilver',
-  'NK' => 'promotedKnight',
-  'NY' => 'promotedLance',
+  'NG' => 'promotedsilver',
+  'NK' => 'promotedknight',
+  'NY' => 'promotedlance',
   'OU' => 'king',
   'RY' => 'dragon',
   'TO' => 'tokin',
@@ -57,46 +57,35 @@ stanRoles = {
 }
 
 def classes(color, role)
-  if color == 'white'
-    if ['promotedSilver', 'promotedKnight', 'promotedLance'].include?(role)
-      "piece.#{role.downcase}.white,
-      piece.#{role}.white,
-      .cg-wrap.orientation-white piece.#{role.downcase}.white,
-      .cg-wrap.orientation-white piece.#{role}.white,
-      .cg-wrap.orientation-black piece.#{role.downcase}.black,
-      .cg-wrap.orientation-black piece.#{role}.black,
-      #promotion-choice piece.#{role.downcase},
-      #promotion-choice piece.#{role}"
-    elsif role == 'king'
-      "piece.king.white,
-      .cg-wrap.orientation-black piece.king.black"
+  if color == 'sente' # facing up
+    if role == 'king'
+      ".cg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom piece.king.gote"
     elsif role == 'tama'
-      '.cg-wrap.orientation-white piece.king.white'
+      "piece.king.sente,
+      .cg-wrap.orientation-sente piece.king.sente"
     else
-      "piece.#{role}.white,
-      .cg-wrap.orientation-white piece.#{role}.white,
-      .cg-wrap.orientation-black piece.#{role}.black,
-      .pocket-bottom piece.#{role}.black,
-      #promotion-choice piece.#{role}"
+      "piece.#{role}.sente,
+      .cg-wrap.orientation-sente piece.#{role}.sente,
+      .cg-wrap.orientation-gote piece.#{role}.gote,
+      .pocket-bottom piece.#{role}.gote,
+      #promotion-choice.top piece.#{role},
+      .spare-bottom piece.#{role}.gote"
     end
-  else
-    if ['promotedSilver', 'promotedKnight', 'promotedLance'].include?(role)
-      "piece.#{role.downcase}.black,
-      piece.#{role}.black,
-      .cg-wrap.orientation-white piece.#{role.downcase}.black,
-      .cg-wrap.orientation-white piece.#{role}.black,
-      .cg-wrap.orientation-black piece.#{role.downcase}.white,
-      .cg-wrap.orientation-black piece.#{role}.white"
-    elsif role == 'king'
-      "piece.king.black,
-      .cg-wrap.orientation-white piece.king.black"
+  else # facing down
+    if role == 'king'
+      "piece.king.gote,
+      .cg-wrap.orientation-sente piece.king.gote"
     elsif role == 'tama'
-      '.cg-wrap.orientation-black piece.king.white'
+      ".cg-wrap.orientation-gote piece.king.sente,
+      .spare-top piece.king.sente"
     else
-      "piece.#{role}.black,
-      .cg-wrap.orientation-white piece.#{role}.black,
-      .cg-wrap.orientation-black piece.#{role}.white,
-      .pocket-top piece.#{role}"
+      "piece.#{role}.gote,
+      .cg-wrap.orientation-sente piece.#{role}.gote,
+      .cg-wrap.orientation-gote piece.#{role}.sente,
+      .pocket-top piece.#{role},
+      #promotion-choice.bottom piece.#{role},
+      .spare-top piece.#{role}.sente"
     end
   end
 end
@@ -107,7 +96,7 @@ themes.map { |theme|
   ext = theme[1]
   classes = colors.map { |color|
     roles.map { |role|
-      piece = (color == 'white' ? '0' : '1') + role
+      piece = (color == 'sente' ? '0' : '1') + role
       file = source_dir + name + '/' + piece + '.' + ext
       File.open(file, 'r') do|image_file|
         image = image_file.read
@@ -118,4 +107,18 @@ themes.map { |theme|
     }
   }.flatten
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}
+
+# external SVG
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = (color == 'sente' ? '0' : '1') + role
+      classes(color, stanRoles[role]) + ' {' +
+        "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
+    }
+  }.flatten
+  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
