@@ -2,6 +2,9 @@
 <resources>
   <string name="private">Яшерен</string>
   <string name="hot">Кайнар</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s Уен</item>
+  </plurals>
   <string name="like">Ошый</string>
   <string name="previous">Алдагы</string>
   <string name="next">Киләсе</string>
