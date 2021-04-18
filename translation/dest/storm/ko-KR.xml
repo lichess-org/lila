@@ -20,6 +20,7 @@
   <string name="highestSolved">최고 해결 레이팅</string>
   <string name="puzzlesPlayed">플레이한 퍼즐</string>
   <string name="highscores">하이스코어</string>
+  <string name="viewBestRuns">최고 기록 보기</string>
   <string name="getReady">준비!</string>
   <string name="waitingForMorePlayers">더 많은 플레이어를 기다리는 중...</string>
   <string name="raceComplete">레이스 완료!</string>
