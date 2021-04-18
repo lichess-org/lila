@@ -83,7 +83,7 @@ object StudyForm {
       def orientation = orientationStr.flatMap(chess.Color.fromName) | chess.White
 
       def toChapterDatas =
-        MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>
+        MultiPgn.split(pgn, max = 32).value.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
