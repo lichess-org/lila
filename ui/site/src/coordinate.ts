@@ -148,7 +148,7 @@ lichess.load.then(() => {
 
     const tick = function () {
       const spent = Math.min(duration, new Date().getTime() - startAt);
-      var left = ((duration - spent) / 1000).toFixed(1);
+      const left = ((duration - spent) / 1000).toFixed(1);
       if (+left < 10) {
         $timer.addClass('hurry');
       }
