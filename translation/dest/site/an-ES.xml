@@ -247,7 +247,6 @@
   <string name="send">Ninviar</string>
   <string name="incrementInSeconds">Segundos d\'incremento</string>
   <string name="freeOnlineChess">Escaques en linia gratis</string>
-  <string name="spectators">Espectadors:</string>
   <plurals name="nbRated">
     <item quantity="one">%s per puntos</item>
     <item quantity="other">%s per puntos</item>

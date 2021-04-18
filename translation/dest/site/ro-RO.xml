@@ -273,7 +273,6 @@
   <string name="send">Trimite</string>
   <string name="incrementInSeconds">Adaos de timp în secunde</string>
   <string name="freeOnlineChess">Șah Online Gratuit</string>
-  <string name="spectators">Spectatori:</string>
   <plurals name="nbRated">
     <item quantity="one">%s evaluat</item>
     <item quantity="few">%s evaluate</item>

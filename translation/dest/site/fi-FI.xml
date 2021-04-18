@@ -259,7 +259,6 @@
   <string name="send">Lähetä</string>
   <string name="incrementInSeconds">Lisäaika sekunteina</string>
   <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
-  <string name="spectators">Katsojat:</string>
   <plurals name="nbRated">
     <item quantity="one">%s pisteytetty</item>
     <item quantity="other">%s pisteytettyä</item>

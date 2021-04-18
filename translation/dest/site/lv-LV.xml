@@ -273,7 +273,6 @@
   <string name="send">Sūtīt</string>
   <string name="incrementInSeconds">Pieaugums sekundēs</string>
   <string name="freeOnlineChess">Bezmaksas šahs tiešsaistē</string>
-  <string name="spectators">Skatītāji:</string>
   <plurals name="nbRated">
     <item quantity="zero">%s vērtētas</item>
     <item quantity="one">%s vērtēta</item>

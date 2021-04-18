@@ -260,7 +260,14 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
-  <string name="spectators">Spectators:</string>
+  <plurals name="nbSpectators">
+    <item quantity="one">%s spectator</item>
+    <item quantity="other">%s spectators</item>
+  </plurals>
+  <plurals name="nbPlayersInChat">
+    <item quantity="one">%s player in the chat</item>
+    <item quantity="other">%s players in the chat</item>
+  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s rated</item>
     <item quantity="other">%s rated</item>

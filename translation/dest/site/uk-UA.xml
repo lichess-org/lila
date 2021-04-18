@@ -269,7 +269,6 @@
   <string name="send">Надіслати</string>
   <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="freeOnlineChess">Безкоштовні Інтернет-шахи</string>
-  <string name="spectators">Глядачі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтингова</item>
     <item quantity="few">%s рейтингові</item>

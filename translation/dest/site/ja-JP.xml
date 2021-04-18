@@ -245,7 +245,6 @@
   <string name="send">送信する</string>
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
   <string name="freeOnlineChess">無料オンラインチェス</string>
-  <string name="spectators">観覧者:</string>
   <plurals name="nbRated">
     <item quantity="other">%s 局レート戦</item>
   </plurals>

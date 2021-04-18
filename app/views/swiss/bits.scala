@@ -83,7 +83,7 @@ object bits {
         )
     }
 
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
+  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys ++ views.html.chat.spectatorsI18nKeys)
 
   private val i18nKeys = List(
     trans.join,
@@ -102,7 +102,6 @@ object bits {
     trans.averageOpponent,
     trans.tournamentComplete,
     trans.password,
-    trans.swiss.viewAllXRounds,
-    trans.spectators
+    trans.swiss.viewAllXRounds
   ).map(_.key)
 }

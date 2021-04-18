@@ -1,10 +1,12 @@
 package views.html
 
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
 import lila.i18n.I18nKeys
 
 object chat {
@@ -91,4 +93,22 @@ object chat {
       withNote option I18nKeys.notes,
       withNote option I18nKeys.typePrivateNotesHere
     )
+
+  def spectatorsFrag(implicit lang: Lang) =
+    div(
+      cls := "chat__members none",
+      aria.live := "off",
+      aria.relevant := "additions removals text",
+      attr("data-i18n") := safeJsonValue(i18nJsObject(spectatorsI18nKeys))
+    )(
+      span(cls := "number")(nbsp),
+      " ",
+      span(cls := "list")
+    )
+
+  val spectatorsI18nKeys = Vector(
+    trans.nbSpectators,
+    trans.anonymous,
+    trans.nbPlayersInChat
+  ).map(_.key)
 }

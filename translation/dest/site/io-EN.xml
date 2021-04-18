@@ -94,7 +94,6 @@
   <string name="composeMessage">Kompozar mesajo</string>
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
   <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
-  <string name="spectators">Spekteri:</string>
   <plurals name="nbWins">
     <item quantity="one">%s vinko</item>
     <item quantity="other">%s vinki</item>

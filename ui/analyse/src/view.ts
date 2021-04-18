@@ -438,9 +438,9 @@ export default function (ctrl: AnalyseCtrl): VNode {
         : h(
             'div.chat__members.none',
             {
-              hook: onInsert(lichess.watchers),
+              hook: onInsert(el => lichess.watchers(el, ctrl.trans)),
             },
-            [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators').replace(':', ''), h('span.list')]
+            [h('span.number', '\xa0'), ' ', h('span.list')]
           ),
     ]
   );

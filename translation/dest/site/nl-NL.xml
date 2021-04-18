@@ -259,7 +259,6 @@
   <string name="send">Verstuur</string>
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
-  <string name="spectators">Toeschouwers:</string>
   <plurals name="nbRated">
     <item quantity="one">%s met rating</item>
     <item quantity="other">%s met rating</item>

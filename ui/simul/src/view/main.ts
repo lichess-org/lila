@@ -37,7 +37,7 @@ export default function (ctrl: SimulCtrl) {
       h(
         'div.chat__members.none',
         {
-          hook: util.onInsert(lichess.watchers),
+          hook: util.onInsert(el => lichess.watchers(el, ctrl.trans)),
         },
         h('span.list')
       ),

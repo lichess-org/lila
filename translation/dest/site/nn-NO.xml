@@ -259,7 +259,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
-  <string name="spectators">Tilskodarar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rata</item>
     <item quantity="other">%s rata</item>

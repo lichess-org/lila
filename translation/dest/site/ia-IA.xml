@@ -247,7 +247,6 @@
   <string name="send">Inviar</string>
   <string name="incrementInSeconds">Incremento in secundas</string>
   <string name="freeOnlineChess">Chacos in linea gratis</string>
-  <string name="spectators">Spectatores:</string>
   <plurals name="nbRated">
     <item quantity="one">%s partitas classificatori</item>
     <item quantity="other">%s partitas classificatori</item>

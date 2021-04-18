@@ -235,7 +235,6 @@
   <string name="send">Илгээх</string>
   <string name="incrementInSeconds">Секундын нэмэгдэл</string>
   <string name="freeOnlineChess">Нээлттэй эхийн, үнэ төлбөргүй шатрын хуудас</string>
-  <string name="spectators">Үзэгчид:</string>
   <plurals name="nbWins">
     <item quantity="one">%s ялалт</item>
     <item quantity="other">%s ялалт</item>

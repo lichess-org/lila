@@ -245,7 +245,6 @@
   <string name="send">전송</string>
   <string name="incrementInSeconds">턴 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
-  <string name="spectators">관전자:</string>
   <plurals name="nbRated">
     <item quantity="other">%s번의 레이팅 대국</item>
   </plurals>

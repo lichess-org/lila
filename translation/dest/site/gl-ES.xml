@@ -247,7 +247,6 @@
   <string name="send">Enviar</string>
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
-  <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puntuadas</item>
     <item quantity="other">%s puntuadas</item>

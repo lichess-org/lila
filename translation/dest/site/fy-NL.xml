@@ -230,7 +230,6 @@
   <string name="send">Stjoer</string>
   <string name="incrementInSeconds">Bytelling yn sekonden</string>
   <string name="freeOnlineChess">Fergees Online Skake</string>
-  <string name="spectators">Taskôgers:</string>
   <plurals name="nbPlaying">
     <item quantity="one">%s Spyljende</item>
     <item quantity="other">%s spyljende</item>

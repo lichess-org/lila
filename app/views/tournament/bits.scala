@@ -50,7 +50,7 @@ object bits {
         "If it has prizes, Lichess is NOT responsible for paying them."
       )
 
-  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
+  def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys ++ views.html.chat.spectatorsI18nKeys)
 
   private val i18nKeys = List(
     trans.standing,
@@ -79,7 +79,6 @@ object bits {
     trans.ratedTournament,
     trans.casualTournament,
     trans.password,
-    trans.arena.viewAllXTeams,
-    trans.spectators
+    trans.arena.viewAllXTeams
   ).map(_.key)
 }

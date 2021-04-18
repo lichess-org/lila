@@ -236,7 +236,6 @@
   <string name="send">Hantar</string>
   <string name="incrementInSeconds">Penaikan dalam saat</string>
   <string name="freeOnlineChess">Catur Percuma Dalam Talian</string>
-  <string name="spectators">Senarai penonton:</string>
   <plurals name="nbRated">
     <item quantity="other">%s rated</item>
   </plurals>

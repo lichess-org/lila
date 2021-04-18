@@ -236,7 +236,6 @@
   <string name="send">Gửi</string>
   <string name="incrementInSeconds">Thêm giây</string>
   <string name="freeOnlineChess">Chơi cờ miễn phí online</string>
-  <string name="spectators">Khán giả:</string>
   <plurals name="nbRated">
     <item quantity="other">%s tính elo</item>
   </plurals>
