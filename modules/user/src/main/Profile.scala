@@ -40,7 +40,7 @@ case class Profile(
       uscfRating.map { OfficialRating("uscf", _) } orElse
       ecfRating.map { OfficialRating("ecf", _) } orElse
       rcfRating.map { OfficialRating("rcf", _) } orElse
-      cfcRating.map { OfficialRating("rcf", _) }
+      cfcRating.map { OfficialRating("cfc", _) }
 
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
