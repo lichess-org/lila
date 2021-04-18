@@ -27,7 +27,7 @@ export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
   const accepted = new Set(data.accepted);
   return {
     list() {
-      return [...data.list.filter(lang => accepted.has(lang[0])), ...data.list.filter(lang => !accepted.has(lang[0]))];
+      return [...data.list.filter(lang => accepted.has(lang[0])), ...data.list];
     },
     current: data.current,
     accepted,
