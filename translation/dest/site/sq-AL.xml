@@ -78,7 +78,7 @@
   <string name="losing">Humbes</string>
   <string name="drawn">barazim</string>
   <string name="unknown">I panjohur</string>
-  <string name="database">Baza e të dhënave</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Baza e të dhënave</string>
   <string name="whiteDrawBlack">e bardhë/barazim/e zezë</string>
   <string name="averageRatingX">mesatare pikë:%s</string>
   <string name="recentGames">Lojra te meparshme</string>
@@ -603,7 +603,7 @@
   <string name="really">për vërtetë</string>
   <string name="contribute">Ndihmo</string>
   <string name="termsOfService">Kushtet e përdorimit</string>
-  <string name="sourceCode">Source Code</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Source Code</string>
   <string name="simultaneousExhibitions">Simultane</string>
   <string name="host">Pritës</string>
   <string name="hostColorX">Ngjyra e mikpritesit: %s</string>
