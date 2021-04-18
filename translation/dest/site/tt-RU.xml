@@ -653,6 +653,7 @@
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
+  <string name="invalidPgn">Бозык PGN</string>
   <string name="invalidFen">Бозык FEN</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
