@@ -80,7 +80,7 @@
   <string name="losing">מפסיד</string>
   <string name="drawn">תיקו</string>
   <string name="unknown">לא ידוע</string>
-  <string name="database">מסד נתונים</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">מסד נתונים</string>
   <string name="whiteDrawBlack">שחור / תיקו / לבן</string>
   <string name="averageRatingX">דירוג ממוצע: %s</string>
   <string name="recentGames">משחקים אחרונים</string>
@@ -667,7 +667,7 @@
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
   <string name="termsOfService">תנאים לשימוש באתר</string>
-  <string name="sourceCode">קוד מקור</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">קוד מקור</string>
   <string name="simultaneousExhibitions">משחקים בו-זמנית</string>
   <string name="host">מארח</string>
   <string name="hostColorX">צבע המארח: %s</string>
