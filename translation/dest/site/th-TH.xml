@@ -76,7 +76,7 @@
   <string name="losing">การแพ้</string>
   <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่แน่ชัด</string>
-  <string name="database">ฐานข้อมูล</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ฐานข้อมูล</string>
   <string name="whiteDrawBlack">ขาวชนะ / เสมอ / ดำชนะ</string>
   <string name="averageRatingX">แต้มเฉลี่ยอยู่ที่ %s แต้ม</string>
   <string name="recentGames">เกมเมื่อเร็ว ๆ นี้</string>
@@ -567,7 +567,7 @@
   <string name="really">จริง ๆ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
-  <string name="sourceCode">ซอร์สโค้ด</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ซอร์สโค้ด</string>
   <string name="simultaneousExhibitions">มหกรรมไซมัลเทเนียส</string>
   <string name="host">โฮสต์</string>
   <string name="hostColorX">สีโฮสต์: %s</string>
