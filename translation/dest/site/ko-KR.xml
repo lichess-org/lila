@@ -531,7 +531,7 @@
   <string name="human">인간</string>
   <string name="computer">인공지능</string>
   <string name="side">진영</string>
-  <string name="clock">시간 제한</string>
+  <string name="clock">시계</string>
   <string name="unauthorizedError">접속이 불허되었습니다.</string>
   <string name="noInternetConnection">인터넷 연결이 없습니다. 메뉴을 통해 오프라인 게임은 할 수 있습니다.</string>
   <string name="connectedToLichess">lichess.org에 접속했습니다</string>
