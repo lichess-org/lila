@@ -246,7 +246,6 @@
   <string name="send">Ipadala</string>
   <string name="incrementInSeconds">Nadadagdagn ng segundos</string>
   <string name="freeOnlineChess">Libreng Online Chess</string>
-  <string name="spectators">Manonood</string>
   <plurals name="nbRated">
     <item quantity="one">%s namarkahan</item>
     <item quantity="other">%s namarkahan</item>

@@ -247,7 +247,6 @@
   <string name="send">पाठवा</string>
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
-  <string name="spectators">प्रेक्षक</string>
   <plurals name="nbRated">
     <item quantity="one">%s गुणांकित</item>
     <item quantity="other">%s औपचारिक</item>

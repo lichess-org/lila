@@ -251,7 +251,6 @@
   <string name="send">அனுப்பு</string>
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
   <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
-  <string name="spectators">பார்வையாளர்கள்</string>
   <plurals name="nbRated">
     <item quantity="one">%s முக்கியமான விளையாட்டுகள்</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள்</item>

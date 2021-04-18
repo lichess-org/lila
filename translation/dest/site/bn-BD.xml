@@ -247,7 +247,6 @@
   <string name="send">পাঠান</string>
   <string name="incrementInSeconds">প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি</string>
   <string name="freeOnlineChess">ফ্রি অনলাইন দাবা</string>
-  <string name="spectators">দর্শক</string>
   <plurals name="nbRated">
     <item quantity="one">%s অনুপাত</item>
     <item quantity="other">%s অনুপাত</item>
