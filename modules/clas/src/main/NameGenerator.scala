@@ -55,10 +55,11 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
   def pieces =
     Vector(
       "Pawn",
-      "Bishop",
+      "Lance",
       "Knight",
+      "General",
+      "Bishop",
       "Rook",
-      "Queen",
       "King"
     )
 
