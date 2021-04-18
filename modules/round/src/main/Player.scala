@@ -96,6 +96,7 @@ final private class Player(
           case MoveApplied(progress, moveOrDrop) =>
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
+              lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
               notifyMove(moveOrDrop, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else
