@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">АФ</string>
+  <string name="faqAbbreviation">АрФар</string>
   <string name="frequentlyAskedQuestions">Арæх Фарстатæ</string>
   <string name="whyIsLichessCalledLichess">Lichess-æн йæ ном цæмæн у \"Lichess\"?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\" — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
