@@ -9,11 +9,10 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
   xhr
     .textRaw('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
-      body: JSON.stringify({
-        p: password || null,
+      body: xhr.form({
+        password: password || null,
         team: team || null,
       }),
-      headers: { 'Content-Type': 'application/json' },
     })
     .then(res => {
       if (!res.ok)
