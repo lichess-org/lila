@@ -80,8 +80,6 @@ object StudyForm {
         pgn: String
     ) {
 
-      def orientation = orientationStr.flatMap(chess.Color.fromName) | chess.White
-
       def toChapterDatas =
         MultiPgn.split(pgn, max = 32).value.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
@@ -89,7 +87,7 @@ object StudyForm {
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
-            orientation = orientation.name,
+            orientation = "auto",
             mode = mode,
             initial = initial && index == 0
           )

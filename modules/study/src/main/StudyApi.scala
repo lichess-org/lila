@@ -652,7 +652,12 @@ final class StudyApi(
                 case (Some(_), false) => None
                 case _                => chapter.conceal
               },
-              setup = chapter.setup.copy(orientation = data.realOrientation),
+              setup = chapter.setup.copy(
+                orientation = data.realOrientation match {
+                  case ChapterMaker.Orientation.Fixed(color) => color
+                  case _                                     => chapter.setup.orientation
+                }
+              ),
               description = data.hasDescription option {
                 chapter.description | "-"
               }
