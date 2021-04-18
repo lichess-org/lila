@@ -136,7 +136,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1(id := "embed-study")("Embed a shogi analysis in your site"),
-            raw(s"""<iframe src="/study/embed/4XssSDlR?bg=auto&theme=auto" $args></iframe>"""),
+            raw(s"""<iframe src="/study/embed/O591ZfdK/ciASxN2A?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
               a(href := routes.Study.allDefault(1))("a study"),
@@ -167,16 +167,6 @@ $('#asset-version-message').text(lishogi.info.message);"""
           p(
             raw(
               """WIP - Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
-            )
-          )
-        ),
-        br,
-        div(cls := "box box-pad developers body")(
-          h1(id := "widgets")("Lishogi Widgets"),
-          p("Let your website/blog visitors know that you're playing on lishogi!"),
-          p(
-            raw(
-              """See <a href="https://rubenwardy.com/lishogi_widgets/" class="blue">https://rubenwardy.com/lishogi_widgets/</a> for widgets with your username and rating."""
             )
           )
         )
@@ -212,8 +202,8 @@ $('#asset-version-message').text(lishogi.info.message);"""
           a(activeCls("source"), href := routes.Page.source())(trans.sourceCode()),
           a(activeCls("help"), href := routes.Page.help())(trans.contribute()),
           a(activeCls("thanks"), href := routes.Page.thanks())(trans.thankYou()),
-          //sep,
-          //a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
+          sep,
+          a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
           //a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
           //a(activeCls("api"), href := routes.Api.index())("API", external),
           sep,
