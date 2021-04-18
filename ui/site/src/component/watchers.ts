@@ -9,7 +9,7 @@ let watchersData: Data | undefined;
 
 export default function watchers(element: HTMLElement, ctrlTrans?: Trans) {
   if (element.dataset.watched) return;
-  element.dataset.watched = "1";
+  element.dataset.watched = '1';
 
   const listEl: HTMLElement | null = element.querySelector('.list');
   const numberEl: HTMLElement | null = element.querySelector('.number');
