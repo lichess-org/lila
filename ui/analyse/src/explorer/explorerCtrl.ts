@@ -15,6 +15,7 @@ import {
   OpeningData,
   TablebaseData,
   SimpleTablebaseHit,
+  ExplorerOpts,
 } from './interfaces';
 
 function pieceCount(fen: Fen) {
@@ -44,7 +45,7 @@ function tablebaseRelevant(variant: VariantKey, fen: Fen) {
   return pieceCount(fen) - 1 <= tablebasePieces(variant);
 }
 
-export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
+export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow),
     enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
     loading = prop(true),
@@ -55,7 +56,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
 
   if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
 
-  let cache = {};
+  let cache: Dictionary<ExplorerData> = {};
   function onConfigClose() {
     root.redraw();
     cache = {};
@@ -103,9 +104,10 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
     true
   );
 
-  const empty = {
+  const empty: ExplorerData = {
     isOpening: true,
-    moves: {},
+    moves: [],
+    fen: '',
   };
 
   function setNode() {
@@ -163,9 +165,10 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
       root.setAutoShapes();
     },
     fetchMasterOpening: (() => {
-      const masterCache = {};
+      const masterCache: Dictionary<OpeningData> = {};
       return (fen: Fen): Promise<OpeningData> => {
-        if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
+        const val = masterCache[fen];
+        if (val) return Promise.resolve(val);
         return xhr
           .opening({
             endpoint: opts.endpoint,

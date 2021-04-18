@@ -24,7 +24,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
 }
 
 export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  let longPressCountdown;
+  let longPressCountdown: number;
 
   el.addEventListener('touchstart', e => {
     longPressCountdown = setTimeout(() => {

@@ -6,6 +6,7 @@ import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interf
 import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
 import { ChatCtrl } from 'chat';
+import { ExplorerOpts } from './explorer/interfaces';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -53,6 +54,14 @@ export interface ServerEvalData {
   analysis?: Analysis;
   tree: Tree.Node;
   division?: Division;
+}
+
+export interface CachedEval {
+  fen: Fen;
+  knodes: number;
+  depth: number;
+  pvs: Tree.PvData[];
+  path: string;
 }
 
 // similar, but not identical, to game/Game
@@ -106,7 +115,7 @@ export interface AnalyseOpts {
   userId: string | null;
   hunter: boolean;
   embed: boolean;
-  explorer: boolean;
+  explorer: ExplorerOpts;
   socketSend: SocketSend;
   trans: Trans;
   study?: any;
@@ -126,7 +135,7 @@ export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
 }
 
-export type Conceal = boolean | 'conceal' | 'hide' | null;
+export type Conceal = false | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export type Redraw = () => void;
