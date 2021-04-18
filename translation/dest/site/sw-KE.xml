@@ -71,7 +71,7 @@
   <string name="losing">Inapoteza</string>
   <string name="drawn">Inaisha na usawa</string>
   <string name="unknown">Haijulikani</string>
-  <string name="database">Databesi</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Databesi</string>
   <string name="whiteDrawBlack">Nyeupe/Usawa/Nyeusi</string>
   <string name="delete">Futa</string>
   <string name="realtimeReplay">Moja kwa moja</string>
