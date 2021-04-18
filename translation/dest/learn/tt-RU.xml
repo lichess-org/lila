@@ -112,6 +112,8 @@
   <string name="register">Теркәлү</string>
   <string name="videos">Видеолар</string>
   <string name="letsGo">Әйдә!</string>
+  <string name="yesYesYes">Афәрин!</string>
   <string name="next">Киләсе</string>
+  <string name="backToMenu">Минюга кайту</string>
   <string name="retry">Кабатла</string>
 </resources>
