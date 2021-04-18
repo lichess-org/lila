@@ -78,7 +78,7 @@
   <string name="losing">हार</string>
   <string name="drawn">ड्रॉ</string>
   <string name="unknown">अज्ञात</string>
-  <string name="database">डेटाबेस</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">डेटाबेस</string>
   <string name="whiteDrawBlack">सफ़ेद / ड्रॉ / काला</string>
   <string name="averageRatingX">औसत रेटिंग: %s</string>
   <string name="recentGames">हाल के खेल</string>
@@ -608,7 +608,7 @@
   <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
   <string name="termsOfService">नियम और शर्तें</string>
-  <string name="sourceCode">सोर्स कोड</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">सोर्स कोड</string>
   <string name="simultaneousExhibitions">एकसमयी प्रदर्शनी</string>
   <string name="host">मेजबानी  करें</string>
   <string name="hostColorX">मेजबान रंग: %s</string>
