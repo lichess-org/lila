@@ -309,6 +309,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
   <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்கள் சிறந்த வாராந்திர %1$s மதிப்பீடு (%2$s) மிக அதிகமாக உள்ளது</string>
   <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
@@ -372,6 +373,8 @@
   <string name="createANewTournament">புதுப்போட்டி ஒன்றைப் படை</string>
   <string name="conditionOfEntry">நுழைவதற்கு தேவை:</string>
   <string name="advancedSettings">மேம்பட்ட அமைப்புகள்</string>
+  <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
+  <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
   <string name="points">புள்ளிகள்</string>
