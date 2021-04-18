@@ -19,8 +19,8 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     lastPly = prop<number | false>(false),
     chartEl = prop<HTMLElement | null>(null);
 
-  function unselect(chart) {
-    chart.getSelectedPoints().forEach(p => p.select(false));
+  function unselect(chart: any) {
+    chart.getSelectedPoints().forEach((p: any) => p.select(false));
   }
 
   lichess.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {

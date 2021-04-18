@@ -1,3 +1,4 @@
+import { Config as CgConfig } from 'chessground/config';
 import { prop } from 'common';
 import throttle from 'common/throttle';
 import debounce from 'common/debounce';
@@ -64,7 +65,7 @@ export default function (
 
   const members = memberCtrl({
     initDict: data.members,
-    myId: practiceData ? null : ctrl.opts.userId,
+    myId: practiceData ? undefined : ctrl.opts.userId,
     ownerId: data.ownerId,
     send,
     tab: vm.tab,
@@ -200,9 +201,15 @@ export default function (
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    'position name visibility features settings chapter likes liked description'.split(' ').forEach(key => {
-      data[key] = s[key];
-    });
+    data.position = s.position;
+    data.name = s.name;
+    data.visibility = s.visibility;
+    data.features = s.features;
+    data.settings = s.settings;
+    data.chapter = s.chapter;
+    data.likes = s.likes;
+    data.liked = s.liked;
+    data.description = s.description;
     chapterDesc.set(data.chapter.description);
     studyDesc.set(data.description);
     document.title = data.name;
@@ -283,7 +290,7 @@ export default function (
   }
   instanciateGamebookPlay();
 
-  function mutateCgConfig(config) {
+  function mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>) {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
@@ -313,10 +320,11 @@ export default function (
     vm.updatedAt = Date.now();
   }
 
-  function withPosition(obj: any) {
-    obj.ch = vm.chapterId;
-    obj.path = ctrl.path;
-    return obj;
+  function withPosition<T extends {}>(obj: T): T & { ch: string; path: string } {
+    const o = obj as any;
+    o.ch = vm.chapterId;
+    o.path = ctrl.path;
+    return o;
   }
 
   const likeToggler = debounce(() => send('like', { liked: data.liked }), 1000);

@@ -1,3 +1,4 @@
+import { Config as CgConfig } from 'chessground/config';
 import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
@@ -12,6 +13,10 @@ import { TopicsCtrl } from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
+import { StudyShareCtrl } from './studyShare';
+import { TagsCtrl } from './studyTags';
+import { StudyFormCtrl } from './studyForm';
+import { StudyMemberCtrl } from './studyMembers';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -20,16 +25,16 @@ export interface StudyCtrl {
   vm: StudyVm;
   relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
-  form: any;
-  members: any;
+  form: StudyFormCtrl;
+  members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   notif: NotifCtrl;
   commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   topics: TopicsCtrl;
   serverEval: ServerEvalCtrl;
-  share: any;
-  tags: any;
+  share: StudyShareCtrl;
+  tags: TagsCtrl;
   studyDesc: DescriptionCtrl;
   chapterDesc: DescriptionCtrl;
   toggleLike(): void;
@@ -37,7 +42,7 @@ export interface StudyCtrl {
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
-  withPosition(obj: any): any;
+  withPosition<T extends {}>(obj: T): T & { ch: string; path: string };
   setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
@@ -53,7 +58,7 @@ export interface StudyCtrl {
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
   nextChapter(): StudyChapterMeta | undefined;
-  mutateCgConfig(config: any): void;
+  mutateCgConfig(config: Required<Pick<CgConfig, "drawable">>): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;

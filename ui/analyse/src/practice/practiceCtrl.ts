@@ -32,11 +32,11 @@ export interface PracticeCtrl {
   onJump(): void;
   isMyTurn(): boolean;
   comment: Prop<Comment | null>;
-  running;
-  hovering;
-  hinting;
-  resume;
-  playableDepth;
+  running: Prop<boolean>;
+  hovering: Prop<{ uci: string } | null>;
+  hinting: Prop<Hinting | null>;
+  resume(): void;
+  playableDepth(): number;
   reset(): void;
   preUserJump(from: Tree.Path, to: Tree.Path): void;
   postUserJump(from: Tree.Path, to: Tree.Path): void;
@@ -53,7 +53,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   const variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
-    hovering = prop<any>(null),
+    hovering = prop<{ uci: string } | null>(null),
     hinting = prop<Hinting | null>(null),
     played = prop(false);
 

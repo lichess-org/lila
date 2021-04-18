@@ -4,13 +4,23 @@ import { modal } from '../modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 
+export interface StudyInviteFormCtrl {
+  open: Prop<boolean>;
+  members: Prop<StudyMemberMap>;
+  spectators: Prop<string[]>;
+  toggle(): void;
+  invite(titleName: string): void;
+  redraw(): void;
+  trans: Trans;
+}
+
 export function makeCtrl(
   send: SocketSend,
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,
   trans: Trans
-) {
+): StudyInviteFormCtrl {
   const open = prop(false),
     spectators = prop<string[]>([]);
   return {

@@ -4,6 +4,12 @@ import { option, onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 
+export interface TagsCtrl {
+  submit(type: string): (tag: string) => void;
+  getChapter(): StudyChapter;
+  types: string[];
+}
+
 function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
     key: value, // force to redraw on change, to visibly update the input value
@@ -15,8 +21,8 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
       el.onblur = function () {
         submit(el.value, el);
       };
-      el.onkeypress = function (e) {
-        if ((e.keyCode || e.which) == 13) el.blur();
+      el.onkeydown = function (e) {
+        if (e.key === 'Enter') el.blur();
       };
     }),
   });
@@ -30,7 +36,12 @@ let selectedType: string;
 
 type TagRow = (string | VNode)[];
 
-function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
+function renderPgnTags(
+  chapter: StudyChapter,
+  submit: ((type: string) => (tag: string) => void) | false,
+  types: string[],
+  trans: Trans
+): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(chapter.tags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
@@ -93,7 +104,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Tr
   );
 }
 
-export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
+export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: string[]): TagsCtrl {
   const submit = throttle(500, function (name, value) {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
@@ -118,7 +129,7 @@ function doRender(root: StudyCtrl): VNode {
 }
 
 export function view(root: StudyCtrl): VNode {
-  const chapter = root.tags.getChapter(),
+  const chapter = root.tags.getChapter() as StudyChapter,
     tagKey = chapter.tags.map(t => t[1]).join(','),
     key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.' + chapter.id, doRender, [root, key]);

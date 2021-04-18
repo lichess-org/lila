@@ -17,6 +17,10 @@ export interface EvalCache {
   onCloudEval(serverEval: CachedEval): void;
 }
 
+interface PutData extends Tree.ServerEval {
+  variant?: string;
+}
+
 const evalPutMinDepth = 20;
 const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
@@ -28,8 +32,8 @@ function qualityCheck(ev: Tree.ClientEval): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant: VariantKey, ev: Tree.ClientEval) {
-  const data: any = {
+function toPutData(variant: VariantKey, ev: Tree.ClientEval): PutData {
+  const data: PutData = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
     depth: ev.depth,
@@ -46,14 +50,15 @@ function toPutData(variant: VariantKey, ev: Tree.ClientEval) {
 }
 
 // from server eval to client eval
-function toCeval(e: Tree.ServerEval) {
+function toCeval(e: Tree.ServerEval): Tree.ClientEval {
+  // TODO: this type is not quite right
   const res: any = {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,
     pvs: e.pvs.map(from => {
-      const to: any = {
-        moves: (from.moves as any).split(' '), // moves come from the server as a single string
+      const to: Tree.PvData = {
+        moves: from.moves.split(' '), // moves come from the server as a single string
       };
       if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;

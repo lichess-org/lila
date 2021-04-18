@@ -60,7 +60,7 @@ export interface CachedEval {
   fen: Fen;
   knodes: number;
   depth: number;
-  pvs: Tree.PvData[];
+  pvs: Tree.PvDataServer[];
   path: string;
 }
 
@@ -112,7 +112,7 @@ export interface AnalysisSide {
 export interface AnalyseOpts {
   element: HTMLElement;
   data: AnalyseData;
-  userId: string | null;
+  userId?: string;
   hunter: boolean;
   embed: boolean;
   explorer: ExplorerOpts;

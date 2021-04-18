@@ -104,7 +104,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       console.log(data);
       clearTimeout(anaDestsTimeout);
     },
-    fen(e) {
+    fen(e: GameUpdate) {
       if (ctrl.forecast && e.id === ctrl.data.game.id && treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0) {
         ctrl.forecast.reloadToLastPly();
       }

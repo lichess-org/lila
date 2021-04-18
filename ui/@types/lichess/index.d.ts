@@ -45,7 +45,7 @@ interface Lichess {
   miniGame: {
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: { fen: string; lm: string; wc?: number; bc?: number }): void;
+    update(node: HTMLElement, data: GameUpdate): void;
     finish(node: HTMLElement, win?: Color): void;
   };
   ab?: any;
@@ -378,7 +378,13 @@ declare namespace Tree {
     fen: Fen;
     knodes: number;
     depth: number;
-    pvs: PvData[];
+    pvs: PvDataServer[];
+  }
+
+  export interface PvDataServer {
+    moves: string;
+    mate?: number;
+    cp?: number;
   }
 
   export interface PvData {
@@ -486,6 +492,19 @@ declare namespace PowerTip {
     openEvents?: string[];
     closeEvents?: string[];
   }
+}
+
+interface GameUpdate {
+  /** Game ID */
+  id: string;
+  /** New position */
+  fen: Fen;
+  /** Last move */
+  lm: Uci;
+  /** White clock */
+  wc?: number;
+  /** Black clock */
+  bc?: number;
 }
 
 interface Dictionary<T> {

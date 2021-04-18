@@ -35,7 +35,7 @@ const cplSpeed: AutoplaySpeed = {
   delay: 'cpl',
 };
 
-function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefined {
+function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
   const g = ctrl.data.game;
   if (g.source === 'import' && g.importedBy && g.importedBy === userId)
     return h(

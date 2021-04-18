@@ -158,7 +158,7 @@ export default class AnalyseCtrl {
 
     keyboard.bind(this);
 
-    lichess.pubsub.on('jump', (ply: any) => {
+    lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });

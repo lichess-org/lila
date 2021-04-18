@@ -3,9 +3,15 @@ import AnalyseCtrl from '../ctrl';
 import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
-function authorDom(author) {
+type AuthorObj = {
+  id: string;
+  name: string;
+};
+type Author = AuthorObj | string | undefined;
+
+function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
-  if (!author.name) return author;
+  if (typeof author === 'string') return author;
   return h(
     'span.user-link.ulpt',
     {
@@ -15,9 +21,9 @@ function authorDom(author) {
   );
 }
 
-export function authorText(author): string {
+export function authorText(author: Author): string {
   if (!author) return 'Unknown';
-  if (!author.name) return author;
+  if (typeof author === 'string') return author;
   return author.name;
 }
 
