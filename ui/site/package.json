@@ -9,12 +9,13 @@
     "@build/rollupProject": "2.0.0",
     "@rollup/plugin-replace": "^2.3.4",
     "@types/fnando__sparkline": "^0.3.2",
+    "@types/yaireo__tagify": "^4.0.1",
     "@types/zxcvbn": "^4.4.0",
     "rollup-plugin-copy": "^3.3.0"
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@yaireo/tagify": "^3.22.1",
+    "@yaireo/tagify": "^4.0.5",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.9",
     "highcharts": "=4.2.5",

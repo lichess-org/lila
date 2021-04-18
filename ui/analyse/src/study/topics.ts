@@ -5,22 +5,28 @@ import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
+import type Tagify from '@yaireo/tagify';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;
   getTopics(): Topic[];
-  save(data: string): void;
+  save(data: string[]): void;
   trans: Trans;
   redraw: Redraw;
 }
 
-export function ctrl(save: (data: string) => void, getTopics: () => Topic[], trans: Trans, redraw: Redraw): TopicsCtrl {
+export function ctrl(
+  save: (data: string[]) => void,
+  getTopics: () => Topic[],
+  trans: Trans,
+  redraw: Redraw
+): TopicsCtrl {
   const open = prop(false);
 
   return {
     open,
     getTopics,
-    save(data: string) {
+    save(data: string[]) {
       save(data);
       open(false);
     },
@@ -52,7 +58,7 @@ export function view(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-let tagify: any | undefined;
+let tagify: Tagify | undefined;
 
 export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
   return modal.modal({
@@ -98,21 +104,21 @@ function setupTagify(elm: HTMLElement, userId?: string) {
     tagify = new window.Tagify(elm, {
       pattern: /.{2,}/,
       maxTags: 30,
-    });
-    let abortCtrl: AbortController; // for aborting the call
+    }) as Tagify;
+    let abortCtrl: AbortController | undefined; // for aborting the call
     tagify.on('input', e => {
       const term = e.detail.value.trim();
       if (term.length < 2) return;
-      tagify.settings.whitelist.length = 0; // reset the whitelist
+      tagify!.settings.whitelist!.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
-      tagify.loading(true).dropdown.hide.call(tagify);
+      tagify!.loading(true).dropdown.hide.call(tagify);
       xhr
         .json(xhr.url('/study/topic/autocomplete', { term, user: userId }), { signal: abortCtrl.signal })
         .then(list => {
-          tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
-          tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
+          tagify!.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagify!.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
         });
     });
     $('.tagify__input').each(function (this: HTMLInputElement) {
