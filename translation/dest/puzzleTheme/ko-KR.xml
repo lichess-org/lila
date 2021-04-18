@@ -25,6 +25,7 @@
   <string name="endgameDescription">게임 종반부에서의 전략</string>
   <string name="exposedKing">노출된 킹</string>
   <string name="fork">포크</string>
+  <string name="forkDescription">이동한 기물이 두 개의 상대 기물을 동시에 공격하는 수입니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>
   <string name="long">긴 퍼즐</string>
@@ -61,6 +62,7 @@
   <string name="queenRookEndgame">퀸과 룩</string>
   <string name="queenRookEndgameDescription">퀸과 룩, 폰만 있는 엔드게임</string>
   <string name="queensideAttack">퀸사이드 공격</string>
+  <string name="queensideAttackDescription">상대 킹이 퀸사이드 캐슬링을 한 뒤의 공격.</string>
   <string name="quietMove">조용한 수</string>
   <string name="rookEndgame">룩 엔딩</string>
   <string name="rookEndgameDescription">룩과 폰만 있는 엔드게임</string>
