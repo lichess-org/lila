@@ -39,7 +39,7 @@
 또는 %s를 할 수 있습니다.</string>
   <string name="contactSupport">Lichess 지원팀에 문의</string>
   <string name="otherMethods">다른 기부 방법이 있나요?</string>
-  <string name="bankTransfers">계좌 이체도 가능합니다.</string>
+  <string name="bankTransfers">계좌 이체도 가능합니다</string>
   <string name="bitcoin">그리고 여기 비트코인 주소입니다: %s</string>
   <string name="patronFeatures">후원자 전용 기능도 있나요?</string>
   <string name="noPatronFeatures">아니오. Lichess는 완전히, 영원히, 모두에게 무료입니다. 이것은 약속입니다.
