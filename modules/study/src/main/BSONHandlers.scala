@@ -129,15 +129,15 @@ object BSONHandlers {
         Data(
           promoted = r.getsD[Pos]("o").toSet,
           pockets = Pockets(
-            white = readPocket(r.strD("w")),
-            black = readPocket(r.strD("b"))
+            sente = readPocket(r.strD("w")),
+            gote = readPocket(r.strD("b"))
           )
         )
       def writes(w: Writer, s: Data) =
         $doc(
           "o" -> w.listO(s.promoted.toList),
-          "w" -> w.strO(writePocket(s.pockets.white)),
-          "b" -> w.strO(writePocket(s.pockets.black))
+          "w" -> w.strO(writePocket(s.pockets.sente)),
+          "b" -> w.strO(writePocket(s.pockets.gote))
         )
     }
 

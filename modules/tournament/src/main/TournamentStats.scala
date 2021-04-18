@@ -38,8 +38,8 @@ final class TournamentStatsApi(
 case class TournamentStats(
     games: Int,
     moves: Int,
-    whiteWins: Int,
-    blackWins: Int,
+    senteWins: Int,
+    goteWins: Int,
     draws: Int,
     berserks: Int,
     averageRating: Int
@@ -64,8 +64,8 @@ private object TournamentStats {
     TournamentStats(
       games = colorStats.foldLeft(0)(_ + _._2.games),
       moves = colorStats.foldLeft(0)(_ + _._2.moves),
-      whiteWins = colorStats.get(Color.White.some).??(_.games),
-      blackWins = colorStats.get(Color.Black.some).??(_.games),
+      senteWins = colorStats.get(Color.Sente.some).??(_.games),
+      goteWins = colorStats.get(Color.Gote.some).??(_.games),
       draws = colorStats.get(none).??(_.games),
       berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
       averageRating = rating

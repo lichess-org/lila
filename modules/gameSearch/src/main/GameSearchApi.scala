@@ -62,8 +62,8 @@ final class GameSearchApi(
         Fields.clockInc      -> game.clock.map(_.incrementSeconds),
         Fields.clockByo      -> game.clock.map(_.byoyomiSeconds),
         Fields.analysed      -> analysed,
-        Fields.whiteUser     -> game.whitePlayer.userId,
-        Fields.blackUser     -> game.blackPlayer.userId,
+        Fields.senteUser     -> game.sentePlayer.userId,
+        Fields.goteUser      -> game.gotePlayer.userId,
         Fields.source        -> game.source.map(_.id)
       )
       .noNull

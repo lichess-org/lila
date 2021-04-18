@@ -112,7 +112,7 @@ object EvalCacheEntry {
     private[evalCache] def raw(str: String) = new SmallFen(str)
     def make(variant: Variant, fen: FEN): SmallFen = {
       val base = fen.value.split(' ').take(3).mkString("").filter { c =>
-        c != '/' && c != '-' && c != 'w'
+        c != '/' && c != '-' && c != 'b'
       }
       new SmallFen(base)
     }

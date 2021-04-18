@@ -207,8 +207,8 @@ final class SimulApi(
     for {
       user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
       hostColor  = simul.hostColor
-      whiteUser  = hostColor.fold(host, user)
-      blackUser  = hostColor.fold(user, host)
+      senteUser  = hostColor.fold(host, user)
+      goteUser  = hostColor.fold(user, host)
       clock      = simul.clock.chessClockOf(hostColor)
       perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
       game1 = Game.make(
@@ -221,8 +221,8 @@ final class SimulApi(
             fen = simul.position.map(_.fen)
           )
           .copy(clock = clock.start.some),
-        whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-        blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
+        sentePlayer = lila.game.Player.make(chess.Sente, senteUser.some, perfPicker),
+        gotePlayer = lila.game.Player.make(chess.Gote, goteUser.some, perfPicker),
         mode = chess.Mode.Casual,
         source = lila.game.Source.Simul,
         pgnImport = None

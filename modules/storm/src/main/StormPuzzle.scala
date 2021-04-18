@@ -24,5 +24,5 @@ case class StormPuzzle(
     } yield FEN(Forsyth >> sit2)
   } err s"Can't apply puzzle $id first move"
 
-  def color = Forsyth.getColor(fen).fold[chess.Color](chess.White)(!_)
+  def color = Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
 }

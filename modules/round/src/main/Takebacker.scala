@@ -36,7 +36,7 @@ final private class Takebacker(
               g.updatePlayer(color, _ proposeTakeback g.turns)
             }
             proxy.save(progress) >>- publishTakebackOffer(pov) inject
-              List(Event.TakebackOffers(color.white, color.black))
+              List(Event.TakebackOffers(color.sente, color.gote))
           } dmap (_ -> situation)
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
       }

@@ -125,12 +125,12 @@ final private class Finisher(
       ) >>
       userRepo
         .pair(
-          g.whitePlayer.userId,
-          g.blackPlayer.userId
+          g.sentePlayer.userId,
+          g.gotePlayer.userId
         )
         .flatMap {
-          case (whiteO, blackO) => {
-            val finish = FinishGame(g, whiteO, blackO)
+          case (senteO, goteO) => {
+            val finish = FinishGame(g, senteO, goteO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
               gameRepo game g.id foreach { newGame =>
@@ -145,11 +145,11 @@ final private class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
-      (finish.white |@| finish.black).tupled ?? { case (white, black) =>
-        crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
+      (finish.sente |@| finish.gote).tupled ?? { case (sente, gote) =>
+        crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, sente, gote) dmap (_._2)
       } zip
-        (finish.white ?? incNbGames(finish.game)) zip
-        (finish.black ?? incNbGames(finish.game)) dmap (_._1._1)
+        (finish.sente ?? incNbGames(finish.game)) zip
+        (finish.gote ?? incNbGames(finish.game)) dmap (_._1._1)
     }
 
   private def incNbGames(game: Game)(user: User): Funit =

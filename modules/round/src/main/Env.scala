@@ -69,8 +69,8 @@ final class Env(
     if (!game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1))
       fuccess(1f -> 1f)
     else
-      game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
-        game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
+      game.sentePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
+        game.gotePlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
   private val isSimulHost = new IsSimulHost(userId =>
     Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId)

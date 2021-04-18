@@ -140,9 +140,9 @@ final private class RelaySync(
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
       val name = {
         for {
-          w <- game.tags(_.White)
-          b <- game.tags(_.Black)
-        } yield s"$w - $b"
+          s <- game.tags(_.Sente)
+          g <- game.tags(_.Gote)
+        } yield s"$s - $g"
       } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
@@ -150,7 +150,7 @@ final private class RelaySync(
         setup = Chapter.Setup(
           none,
           game.variant,
-          chess.Color.White
+          chess.Color.Sente
         ),
         root = game.root,
         tags = game.tags,
@@ -179,7 +179,7 @@ final private class RelaySync(
 
   private val sri = Sri("")
 
-  private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
+  private def vs(tags: Tags) = s"${tags(_.Sente) | "?"} - ${tags(_.Gote) | "?"}"
 
   private def showSC(study: Study, chapter: Chapter) =
     s"#${study.id} chapter[${chapter.relay.fold("?")(_.index.toString)}]"

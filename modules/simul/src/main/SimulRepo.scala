@@ -32,7 +32,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         gameId = r str "gameId",
         status = r.get[Status]("status"),
         wins = r boolO "wins",
-        hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.White
+        hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.Sente
       )
     def writes(w: BSON.Writer, o: SimulPairing) =
       $doc(

@@ -74,7 +74,7 @@ final class Analyser(
                 variant = variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
-              // if black moves first, use 1 as startPly so the analysis doesn't get reversed
+              // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
               startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
               sender = sender
             )

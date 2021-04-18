@@ -13,18 +13,18 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
   def getScore(userId: User.ID): Fu[Score] =
     scoreColl.byId[Score](userId) map (_ | Score(userId))
 
-  def addScore(userId: User.ID, white: Boolean, hits: Int): Funit =
+  def addScore(userId: User.ID, sente: Boolean, hits: Int): Funit =
     scoreColl.update
       .one(
         $id(userId),
         $push(
           $doc(
-            "white" -> BSONDocument(
-              "$each"  -> (white ?? List(BSONInteger(hits))),
+            "sente" -> BSONDocument(
+              "$each"  -> (sente ?? List(BSONInteger(hits))),
               "$slice" -> -20
             ),
-            "black" -> BSONDocument(
-              "$each"  -> (!white ?? List(BSONInteger(hits))),
+            "gote" -> BSONDocument(
+              "$each"  -> (!sente ?? List(BSONInteger(hits))),
               "$slice" -> -20
             )
           )
@@ -43,8 +43,8 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
         Match($doc("_id" $in userIds)) -> List(
           Project(
             $doc(
-              "white" -> $doc("$max" -> "$white"),
-              "black" -> $doc("$max" -> "$black")
+              "sente" -> $doc("$max" -> "$sente"),
+              "gote" -> $doc("$max" -> "$gote")
             )
           )
         )
@@ -53,8 +53,8 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
         _.flatMap { doc =>
           doc.string("_id") map {
             _ -> chess.Color.Map(
-              ~doc.int("white"),
-              ~doc.int("black")
+              ~doc.int("sente"),
+              ~doc.int("gote")
             )
           }
         }.toMap

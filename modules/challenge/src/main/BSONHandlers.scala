@@ -14,13 +14,13 @@ private object BSONHandlers {
 
   implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
     {
-      case 1 => ColorChoice.White
-      case 2 => ColorChoice.Black
+      case 1 => ColorChoice.Sente
+      case 2 => ColorChoice.Gote
       case _ => ColorChoice.Random
     },
     {
-      case ColorChoice.White  => 1
-      case ColorChoice.Black  => 2
+      case ColorChoice.Sente  => 1
+      case ColorChoice.Gote  => 2
       case ColorChoice.Random => 0
     }
   )

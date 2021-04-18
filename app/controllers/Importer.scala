@@ -38,7 +38,7 @@ final class Importer(env: Env) extends LilaController(env) {
                     system = false
                   )
                 )
-              } inject Redirect(routes.Round.watcher(game.id, "white"))
+              } inject Redirect(routes.Round.watcher(game.id, "sente"))
           } recover {
             case e =>
               lila

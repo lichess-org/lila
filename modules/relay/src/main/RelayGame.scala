@@ -34,5 +34,5 @@ private object RelayGame {
 
   val lishogiDomains = List("lishogi.org", "lishogi.dev")
 
-  val staticTags = List("white", "black", "round", "event", "site")
+  val staticTags = List("sente", "gote", "round", "event", "site")
 }

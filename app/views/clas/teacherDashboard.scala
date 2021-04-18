@@ -206,9 +206,9 @@ object teacherDashboard {
                       practiceCompletion.getOrElse(user.id, 0).toString,
                       "%"
                     ),
-                    td(dataSort := coord.white, cls := "coords")(
-                      i(cls := "color-icon is white")(coord.white),
-                      i(cls := "color-icon is black")(coord.black)
+                    td(dataSort := coord.sente, cls := "coords")(
+                      i(cls := "color-icon is sente")(coord.sente),
+                      i(cls := "color-icon is gote")(coord.gote)
                     )
                   )
               }

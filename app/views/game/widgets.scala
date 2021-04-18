@@ -59,9 +59,9 @@ object widgets {
             )
           ),
           div(cls := "versus")(
-            gamePlayer(g.whitePlayer),
+            gamePlayer(g.sentePlayer),
             div(cls := "swords", dataIcon := "U"),
-            gamePlayer(g.blackPlayer)
+            gamePlayer(g.gotePlayer)
           ),
           div(cls := "result")(
             if (g.isBeingPlayed) trans.playingRightNow()
@@ -72,11 +72,11 @@ object widgets {
                   g.winner.map { winner =>
                     frag(
                       ", ",
-                      winner.color.fold(trans.blackIsVictorious(), trans.whiteIsVictorious()) // swapped
+                      winner.color.fold(trans.blackIsVictorious(), trans.whiteIsVictorious())
                     )
                   }
                 )
-              else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+              else g.turnColor.fold(trans.blackPlays(), trans.whitePlays())
             }
           ),
           // if (g.turns > 0) {

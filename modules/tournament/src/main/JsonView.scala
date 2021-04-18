@@ -275,15 +275,15 @@ final class JsonView(
     }
     Json.obj(
       "id"  -> game.id,
-      "fen" -> (chess.format.Forsyth exportBoard game.board),
+      "fen" -> (chess.format.Forsyth exportSituation game.situation),
       "pockets" -> (chess.format.Forsyth exportCrazyPocket game.board),
       "color" -> (game.variant match {
-        case chess.variant.RacingKings => chess.White
+        case chess.variant.RacingKings => chess.Sente
         case _                         => game.firstColor
       }).name,
       "lastMove" -> ~game.lastMoveKeys,
-      "white"    -> ofPlayer(featured.white, game player chess.White),
-      "black"    -> ofPlayer(featured.black, game player chess.Black)
+      "sente"    -> ofPlayer(featured.sente, game player chess.Sente),
+      "gote"     -> ofPlayer(featured.gote, game player chess.Gote)
     )
   }
 

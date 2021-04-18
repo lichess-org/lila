@@ -593,11 +593,11 @@ final class TournamentApi(
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
       ~ {
-        game.whitePlayer.userId.ifTrue(tour.isStarted) flatMap { whiteId =>
-          game.blackPlayer.userId map { blackId =>
+        game.sentePlayer.userId.ifTrue(tour.isStarted) flatMap { senteId =>
+          game.gotePlayer.userId map { goteId =>
             cached ranking tour map { ranking =>
-              ranking.get(whiteId) |@| ranking.get(blackId) apply {
-                case (whiteR, blackR) => GameRanks(whiteR + 1, blackR + 1)
+              ranking.get(senteId) |@| ranking.get(goteId) apply {
+                case (senteR, goteR) => GameRanks(senteR + 1, goteR + 1)
               }
             }
           }

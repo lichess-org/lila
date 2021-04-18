@@ -127,13 +127,13 @@ final private class ExplorerIndexer(
 
   private def makeFastPgn(game: Game, botUserIds: Set[User.ID]): Fu[Option[String]] =
     ~(for {
-      whiteRating <- stableRating(game.whitePlayer)
-      blackRating <- stableRating(game.blackPlayer)
+      senteRating <- stableRating(game.sentePlayer)
+      goteRating <- stableRating(game.gotePlayer)
       minPlayerRating  = if (game.variant.exotic) 1400 else 1500
       minAverageRating = if (game.variant.exotic) 1520 else 1600
-      if whiteRating >= minPlayerRating
-      if blackRating >= minPlayerRating
-      averageRating = (whiteRating + blackRating) / 2
+      if senteRating >= minPlayerRating
+      if goteRating >= minPlayerRating
+      averageRating = (senteRating + goteRating) / 2
       if averageRating >= minAverageRating
       if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
@@ -152,10 +152,10 @@ final private class ExplorerIndexer(
           s"[LishogiID ${game.id}]",
           s"[Variant ${game.variant.name}]",
           s"[TimeControl $timeControl]",
-          s"[White ${username(chess.White)}]",
-          s"[Black ${username(chess.Black)}]",
-          s"[WhiteElo $whiteRating]",
-          s"[BlackElo $blackRating]",
+          s"[Sente ${username(chess.Sente)}]",
+          s"[Gote ${username(chess.Gote)}]",
+          s"[SenteElo $senteRating]",
+          s"[GoteElo $goteRating]",
           s"[Result ${PgnDump.result(game)}]",
           s"[Date ${pgnDateFormat.print(game.createdAt)}]"
         )

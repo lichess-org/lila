@@ -176,7 +176,7 @@ private object bits {
     )
 
   val dataRandomColorVariants =
-    attr("data-random-color-variants") := lila.game.Game.variantsWhereWhiteIsBetter.map(_.id).mkString(",")
+    attr("data-random-color-variants") := lila.game.Game.variantsWhereSenteIsBetter.map(_.id).mkString(",")
 
   val dataAnon        = attr("data-anon")
   val dataMin         = attr("data-min")

@@ -9,7 +9,7 @@ case class PlayerAssessment(
     _id: String,
     gameId: String,
     userId: String,
-    white: Boolean,
+    sente: Boolean,
     assessment: GameAssessment,
     date: DateTime,
     // meta
@@ -25,7 +25,7 @@ case class PlayerAssessment(
     tcFactor: Option[Double]
 ) {
 
-  val color = Color(white)
+  val color = Color(sente)
 }
 
 case class PlayerAggregateAssessment(

@@ -36,7 +36,7 @@ object RageSit {
           case _                       => 0
         }
       } * {
-        if (loser.white) 1 else -1
+        if (loser.sente) 1 else -1
       } * {
         if (game.speed <= Speed.Bullet) 5
         else if (game.speed == Speed.Blitz) 10

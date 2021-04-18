@@ -46,11 +46,11 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
           p.toIntOption flatMap rankingSwap.get map { userId =>
             Left(SwissPairing.Bye(userId))
           }
-        case Array(w, b) =>
+        case Array(s, g) =>
           for {
-            white <- w.toIntOption flatMap rankingSwap.get
-            black <- b.toIntOption flatMap rankingSwap.get
-          } yield Right(SwissPairing.Pending(white, black))
+            sente <- s.toIntOption flatMap rankingSwap.get
+            gote <- g.toIntOption flatMap rankingSwap.get
+          } yield Right(SwissPairing.Pending(sente, gote))
       }
       .flatten
 

@@ -68,8 +68,8 @@ final class UserAnalysis(
             situation = from.situation,
             turns = from.turns
           ),
-          whitePlayer = lila.game.Player.make(chess.White, none),
-          blackPlayer = lila.game.Player.make(chess.Black, none),
+          sentePlayer = lila.game.Player.make(chess.Sente, none),
+          gotePlayer = lila.game.Player.make(chess.Gote, none),
           mode = chess.Mode.Casual,
           source = lila.game.Source.Api,
           pgnImport = None
@@ -82,7 +82,7 @@ final class UserAnalysis(
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, chess.Color(color == "sente"))
           negotiate(
             html =
               if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
@@ -146,7 +146,7 @@ final class UserAnalysis(
                 err => BadRequest(jsonError(err.toString)).fuccess,
                 {
                   case (game, fen) =>
-                    val pov = Pov(game, chess.White)
+                    val pov = Pov(game, chess.Sente)
                     env.api.roundApi.userAnalysisJson(
                       pov,
                       ctx.pref,

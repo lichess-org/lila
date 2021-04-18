@@ -112,8 +112,8 @@ private[analyse] case class MateAdvice(
 private[analyse] object MateAdvice {
 
   def apply(prev: Info, info: Info): Option[MateAdvice] = {
-    def invertCp(cp: Cp)       = cp invertIf info.color.black
-    def invertMate(mate: Mate) = mate invertIf info.color.black
+    def invertCp(cp: Cp)       = cp invertIf info.color.gote
+    def invertMate(mate: Mate) = mate invertIf info.color.gote
     def prevCp                 = prev.cp.map(invertCp).??(_.centipawns)
     def nextCp                 = info.cp.map(invertCp).??(_.centipawns)
     MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>

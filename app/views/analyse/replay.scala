@@ -17,7 +17,7 @@ import controllers.routes
 object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
-    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
+    s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${pov.game.opening
       .fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   def apply(
@@ -52,7 +52,7 @@ object replay {
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
       ),*/
-      game.variant == chess.variant.Standard option a(dataIcon := "x", cls := "text", href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}", attr("download") := s"${game.createdAt}-${game.whitePlayer.userId | "Anonymous"}-vs-${game.blackPlayer.userId | "Anonymous"}.kifu")(
+      game.variant == chess.variant.Standard option a(dataIcon := "x", cls := "text", href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}", attr("download") := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kifu")(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(

@@ -181,10 +181,10 @@ final private class LobbyTrouper(
     private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
     @nowarn("cat=unused") def register(g: Game) =
       for {
-        w <- g.whitePlayer.userId
-        b <- g.blackPlayer.userId
+        sp <- g.sentePlayer.userId
+        gp <- g.gotePlayer.userId
         if g.fromLobby
-      } cache.put(makeKey(w, b))
+      } cache.put(makeKey(sp, gp))
     def exists(u1: User.ID, u2: User.ID) = cache.get(makeKey(u1, u2))
   }
 

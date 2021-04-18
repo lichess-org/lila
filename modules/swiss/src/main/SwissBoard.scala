@@ -7,8 +7,8 @@ import lila.game.Game
 
 private case class SwissBoard(
     gameId: Game.ID,
-    white: SwissBoard.Player,
-    black: SwissBoard.Player
+    sente: SwissBoard.Player,
+    gote: SwissBoard.Player
 )
 
 private object SwissBoard {
@@ -60,16 +60,16 @@ final private class SwissBoardApi(
                 .take(displayBoards)
                 .flatMap { pairing =>
                   for {
-                    p1 <- playerMap get pairing.white
-                    p2 <- playerMap get pairing.black
+                    p1 <- playerMap get pairing.sente
+                    p2 <- playerMap get pairing.gote
                     u1 <- lightUserApi sync p1.userId
                     u2 <- lightUserApi sync p2.userId
                     r1 <- ranks get p1.userId
                     r2 <- ranks get p2.userId
                   } yield SwissBoard(
                     pairing.gameId,
-                    white = SwissBoard.Player(u1, r1, p1.rating),
-                    black = SwissBoard.Player(u2, r2, p2.rating)
+                    sente = SwissBoard.Player(u1, r1, p1.rating),
+                    gote = SwissBoard.Player(u2, r2, p2.rating)
                   )
                 }
             )

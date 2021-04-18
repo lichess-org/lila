@@ -40,7 +40,7 @@ case class HookConfig(
       color =
         if (
           mode == Mode.Rated &&
-          lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+          lila.game.Game.variantsWhereSenteIsBetter(variant) &&
           color != Color.Random
         ) Color.Random
         else color

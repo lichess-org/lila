@@ -91,7 +91,7 @@ object communication {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
-                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "white"))("Game #", id)
+                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "sente"))("Game #", id)
                   case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },

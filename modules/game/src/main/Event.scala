@@ -61,8 +61,8 @@ object Event {
         .add("winner" -> state.winner)
         .add("check" -> check)
         .add("threefold" -> threefold)
-        .add("wDraw" -> state.whiteOffersDraw)
-        .add("bDraw" -> state.blackOffersDraw)
+        .add("sDraw" -> state.senteOffersDraw)
+        .add("gDraw" -> state.goteOffersDraw)
         .add("crazyhouse" -> crazyData)
         .add("drops" -> possibleDrops.map { squares =>
           JsString(squares.map(_.key).mkString)
@@ -96,8 +96,6 @@ object Event {
             "san" -> san
           )
           .add("promotion" -> promotion)
-          .add("enpassant" -> enpassant.map(_.data))
-          .add("castle" -> castle.map(_.data))
       }
     }
     override def moveBy = Some(!state.color)
@@ -114,7 +112,7 @@ object Event {
         orig = move.orig,
         dest = move.dest,
         san = chess.format.pgn.Dumper(move),
-        fen = chess.format.Forsyth.exportBoard(situation.board),
+        fen = chess.format.Forsyth.exportSituation(situation),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion,
@@ -168,7 +166,7 @@ object Event {
         role = drop.piece.role,
         pos = drop.pos,
         san = chess.format.pgn.Dumper(drop),
-        fen = chess.format.Forsyth.exportBoard(situation.board),
+        fen = chess.format.Forsyth.exportSituation(situation),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         state = state,
@@ -283,16 +281,16 @@ object Event {
         )
         .add("clock" -> game.clock.map { c =>
           Json.obj(
-            "wc" -> c.remainingTime(Color.White).centis,
-            "bc" -> c.remainingTime(Color.Black).centis,
-            "wp" -> c.curPeriod(Color.White),
-            "bp" -> c.curPeriod(Color.Black)
+            "sc" -> c.remainingTime(Color.Sente).centis,
+            "gc" -> c.remainingTime(Color.Gote).centis,
+            "sp" -> c.curPeriod(Color.Sente),
+            "gp" -> c.curPeriod(Color.Gote)
           )
         })
         .add("ratingDiff" -> ratingDiff.map { rds =>
           Json.obj(
-            Color.White.name -> rds.white,
-            Color.Black.name -> rds.black
+            Color.Sente.name -> rds.sente,
+            Color.Gote.name -> rds.gote
           )
         })
         .add("boosted" -> game.boosted)
@@ -338,25 +336,25 @@ object Event {
 
   sealed trait ClockEvent extends Event
 
-  case class Clock(white: Centis, black: Centis, wPer: Int = 0, bPer: Int = 0, nextLagComp: Option[Centis] = None) extends ClockEvent {
+  case class Clock(sente: Centis, gote: Centis, sPer: Int = 0, gPer: Int = 0, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data =
       Json
         .obj(
-          "white" -> white.toSeconds,
-          "black" -> black.toSeconds,
-          "wPer"  -> wPer,
-          "bPer"  -> bPer
+          "sente" -> sente.toSeconds,
+          "gote" -> gote.toSeconds,
+          "sPer"  -> sPer,
+          "gPer"  -> gPer
         )
         .add("lag"  -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock =
       Clock(
-        white = clock remainingTime Color.White,
-        black = clock remainingTime Color.Black,
-        wPer = clock curPeriod Color.White,
-        bPer = clock curPeriod Color.Black,
+        sente = clock remainingTime Color.Sente,
+        gote = clock remainingTime Color.Gote,
+        sPer = clock curPeriod Color.Sente,
+        gPer = clock curPeriod Color.Gote,
         nextLagComp = clock lagCompEstimate clock.color
       )
   }
@@ -366,21 +364,21 @@ object Event {
     def data = Json.toJson(color)
   }
 
-  case class CorrespondenceClock(white: Float, black: Float) extends ClockEvent {
+  case class CorrespondenceClock(sente: Float, gote: Float) extends ClockEvent {
     def typ  = "cclock"
-    def data = Json.obj("white" -> white, "black" -> black)
+    def data = Json.obj("sente" -> sente, "gote" -> gote)
   }
   object CorrespondenceClock {
     def apply(clock: lila.game.CorrespondenceClock): CorrespondenceClock =
-      CorrespondenceClock(clock.whiteTime, clock.blackTime)
+      CorrespondenceClock(clock.senteTime, clock.goteTime)
   }
 
-  case class CheckCount(white: Int, black: Int) extends Event {
+  case class CheckCount(sente: Int, gote: Int) extends Event {
     def typ = "checkCount"
     def data =
       Json.obj(
-        "white" -> white,
-        "black" -> black
+        "sente" -> sente,
+        "gote" -> gote
       )
   }
 
@@ -389,8 +387,8 @@ object Event {
       turns: Int,
       status: Option[Status],
       winner: Option[Color],
-      whiteOffersDraw: Boolean,
-      blackOffersDraw: Boolean
+      senteOffersDraw: Boolean,
+      goteOffersDraw: Boolean
   ) extends Event {
     def typ = "state"
     def data =
@@ -401,34 +399,34 @@ object Event {
         )
         .add("status" -> status)
         .add("winner" -> winner)
-        .add("wDraw" -> whiteOffersDraw)
-        .add("bDraw" -> blackOffersDraw)
+        .add("sDraw" -> senteOffersDraw)
+        .add("gDraw" -> goteOffersDraw)
   }
 
   case class TakebackOffers(
-      white: Boolean,
-      black: Boolean
+      sente: Boolean,
+      gote: Boolean
   ) extends Event {
     def typ = "takebackOffers"
     def data =
       Json
         .obj()
-        .add("white" -> white)
-        .add("black" -> black)
+        .add("sente" -> sente)
+        .add("gote" -> gote)
     override def owner = true
   }
 
   case class Crowd(
-      white: Boolean,
-      black: Boolean,
+      sente: Boolean,
+      gote: Boolean,
       watchers: Option[JsValue]
   ) extends Event {
     def typ = "crowd"
     def data =
       Json
         .obj(
-          "white" -> white,
-          "black" -> black
+          "sente" -> sente,
+          "gote" -> gote
         )
         .add("watchers" -> watchers)
   }

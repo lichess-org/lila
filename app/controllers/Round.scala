@@ -120,7 +120,7 @@ final class Round(
           case None =>
             fuccess(Redirect(currentGame.simulId match {
               case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, "white")
+              case None          => routes.Round.watcher(gameId, "sente")
             }))
         }
       }
@@ -138,7 +138,7 @@ final class Round(
                 case (Some(player), Some(_)) if player == requestedPov =>
                   Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
                 case _ =>
-                  Redirect(routes.Round.watcher(gameId, "white")).fuccess
+                  Redirect(routes.Round.watcher(gameId, "sente")).fuccess
               }
             case None => {
               watch(pov)
@@ -158,8 +158,8 @@ final class Round(
   ): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
-        Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
+      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.gote =>
+        Redirect(routes.Round.watcher(pov.gameId, "sente")).fuccess
       case _ =>
         negotiate(
           html = {

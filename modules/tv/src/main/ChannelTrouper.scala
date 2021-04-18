@@ -90,8 +90,8 @@ final private[tv] class ChannelTrouper(
   private val turnBox      = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    ratingHeuristic(Color.White) -> 1.2f,
-    ratingHeuristic(Color.Black) -> 1.2f,
+    ratingHeuristic(Color.Sente) -> 1.2f,
+    ratingHeuristic(Color.Gote)  -> 1.2f,
     progressHeuristic            -> 0.7f
   )
 

@@ -128,7 +128,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       _id = game.id + "/" + color.name,
       gameId = game.id,
       userId = ~game.player(color).userId,
-      white = (color == Color.White),
+      sente = (color == Color.Sente),
       assessment = rankCheating,
       date = DateTime.now,
       // meta

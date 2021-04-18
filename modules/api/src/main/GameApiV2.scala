@@ -73,8 +73,8 @@ final class GameApiV2(
         fileR.replaceAllIn(
           "lishogi_pgn_%s_%s_vs_%s.%s.%s".format(
             Tag.UTCDate.format.print(game.createdAt),
-            pgnDump.dumper.player(game.whitePlayer, wu),
-            pgnDump.dumper.player(game.blackPlayer, bu),
+            pgnDump.dumper.player(game.sentePlayer, wu),
+            pgnDump.dumper.player(game.gotePlayer, bu),
             game.id,
             format.toString.toLowerCase
           ),
@@ -183,8 +183,8 @@ final class GameApiV2(
                       )
                     else json
                   toJson(game, fen, analysis, config.flags, teams) dmap
-                    addBerserk(chess.White) dmap
-                    addBerserk(chess.Black) dmap { json =>
+                    addBerserk(chess.Sente) dmap
+                    addBerserk(chess.Gote) dmap { json =>
                     s"${Json.stringify(json)}\n"
                   }
               }
@@ -310,7 +310,7 @@ final class GameApiV2(
       })
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
+    (game.sentePlayer.userId ?? getLightUser) zip (game.gotePlayer.userId ?? getLightUser)
 }
 
 object GameApiV2 {

@@ -42,22 +42,22 @@ final private class GameStarter(
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
       case (perf1, perf2) =>
         for {
-          p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
-          (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
-          (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
+          p1Sente <- userRepo.firstGetsSente(p1.userId, p2.userId)
+          (sentePerf, gotePerf)     = if (p1Sente) perf1 -> perf2 else perf2 -> perf1
+          (senteMember, goteMember) = if (p1Sente) p1 -> p2 else p2 -> p1
           game = makeGame(
             id,
             pool,
-            whiteMember.userId -> whitePerf,
-            blackMember.userId -> blackPerf
+            senteMember.userId -> sentePerf,
+            goteMember.userId -> gotePerf
           ).start
           _ <- gameRepo insertDenormalized game
         } yield {
           onStart(Game.Id(game.id))
           Pairing(
             game,
-            whiteSri = whiteMember.sri,
-            blackSri = blackMember.sri
+            senteSri = senteMember.sri,
+            goteSri = goteMember.sri
           ).some
         }
     }
@@ -66,8 +66,8 @@ final private class GameStarter(
   private def makeGame(
       id: Game.ID,
       pool: PoolConfig,
-      whiteUser: (User.ID, Perf),
-      blackUser: (User.ID, Perf)
+      senteUser: (User.ID, Perf),
+      goteUser: (User.ID, Perf)
   ) =
     Game(
       id = id,
@@ -75,8 +75,8 @@ final private class GameStarter(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      whitePlayer = Player.make(chess.White, whiteUser),
-      blackPlayer = Player.make(chess.Black, blackUser),
+      sentePlayer = Player.make(chess.Sente, senteUser),
+      gotePlayer = Player.make(chess.Gote, goteUser),
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,

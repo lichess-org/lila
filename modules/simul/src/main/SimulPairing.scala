@@ -36,6 +36,6 @@ private[simul] object SimulPairing {
       gameId = IdGenerator.uncheckedGame,
       status = chess.Status.Created,
       wins = none,
-      hostColor = chess.White
+      hostColor = chess.Sente
     )
 }

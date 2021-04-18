@@ -68,8 +68,8 @@ final private class ExplorerGame(
 
   private def gameTitle(g: Game): String = {
     val pgn    = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
-    val white  = pgn.flatMap(_.tags(_.White)) | Namer.playerTextBlocking(g.whitePlayer)(lightUserApi.sync)
-    val black  = pgn.flatMap(_.tags(_.Black)) | Namer.playerTextBlocking(g.blackPlayer)(lightUserApi.sync)
+    val sente  = pgn.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
+    val gote  = pgn.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
     val result = chess.Color.showResult(g.winnerColor)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {
@@ -77,6 +77,6 @@ final private class ExplorerGame(
         case (Some(event), Some(year))                         => s"$event, $year".some
         case (eventO, yearO)                                   => eventO orElse yearO
       }
-    s"$white - $black, $result, ${event | "-"}"
+    s"$sente - $gote, $result, ${event | "-"}"
   }
 }

@@ -8,8 +8,8 @@ import lila.db.dsl._
 
 case class SwissStats(
     games: Int = 0,
-    whiteWins: Int = 0,
-    blackWins: Int = 0,
+    senteWins: Int = 0,
+    goteWins: Int = 0,
     draws: Int = 0,
     byes: Int = 0,
     absences: Int = 0,
@@ -51,15 +51,15 @@ final class SwissStatsApi(
           .toMat(Sink.fold(SwissStats()) {
             case (stats, (player, pairings, sheet)) =>
               pairings.values.foldLeft((0, 0, 0, 0)) {
-                case ((games, whiteWins, blackWins, draws), pairing) =>
+                case ((games, senteWins, goteWins, draws), pairing) =>
                   (
                     games + 1,
-                    whiteWins + pairing.whiteWins.??(1),
-                    blackWins + pairing.blackWins.??(1),
+                    senteWins + pairing.senteWins.??(1),
+                    goteWins + pairing.goteWins.??(1),
                     draws + pairing.isDraw.??(1)
                   )
               } match {
-                case (games, whiteWins, blackWins, draws) =>
+                case (games, senteWins, goteWins, draws) =>
                   sheet.outcomes.foldLeft((0, 0)) {
                     case ((byes, absences), outcome) =>
                       (
@@ -70,8 +70,8 @@ final class SwissStatsApi(
                     case (byes, absences) =>
                       stats.copy(
                         games = stats.games + games,
-                        whiteWins = stats.whiteWins + whiteWins,
-                        blackWins = stats.blackWins + blackWins,
+                        senteWins = stats.senteWins + senteWins,
+                        goteWins = stats.goteWins + goteWins,
                         draws = stats.draws + draws,
                         byes = stats.byes + byes,
                         absences = stats.absences + absences,

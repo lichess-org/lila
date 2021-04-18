@@ -24,14 +24,14 @@ object bits {
       vstext(pov)(ctx.some)
     )
 
-  def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag =
+  def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.Sente): Frag =
     div(
       cls := "mini-board parse-fen cg-wrap is2d",
       dataColor := color.name,
       dataFen := fen.value
     )(cgWrapContent)
 
-  def miniTag(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+  def miniTag(fen: chess.format.FEN, color: chess.Color = chess.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
       cls := "mini-board parse-fen cg-wrap is2d",
       dataColor := color.name,

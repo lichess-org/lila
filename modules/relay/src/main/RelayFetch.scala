@@ -226,22 +226,22 @@ private object RelayFetch {
           List(fname, mname, lname).flatten mkString " "
         }.filter(_.nonEmpty)
     }
-    case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String) {
+    case class RoundJsonPairing(sente: PairingPlayer, gote: PairingPlayer, result: String) {
       import chess.format.pgn._
       def tags =
         Tags(
           List(
-            white.fullName map { v =>
-              Tag(_.White, v)
+            sente.fullName map { v =>
+              Tag(_.Sente, v)
             },
-            white.title map { v =>
-              Tag(_.WhiteTitle, v)
+            sente.title map { v =>
+              Tag(_.SenteTitle, v)
             },
-            black.fullName map { v =>
-              Tag(_.Black, v)
+            gote.fullName map { v =>
+              Tag(_.Gote, v)
             },
-            black.title map { v =>
-              Tag(_.BlackTitle, v)
+            gote.title map { v =>
+              Tag(_.GoteTitle, v)
             },
             Tag(_.Result, result).some
           ).flatten

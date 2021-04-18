@@ -36,8 +36,8 @@ final class BotJsonView(
         },
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.whitePov),
-        "black"      -> playerJson(game.blackPov),
+        "sente"      -> playerJson(game.sentePov),
+        "gote"       -> playerJson(game.gotePov),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("tournamentId" -> game.tournamentId)
@@ -50,13 +50,13 @@ final class BotJsonView(
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> millisOf(game.whitePov),
-          "btime"  -> millisOf(game.blackPov),
-          "winc"   -> game.clock.??(_.config.increment.millis),
+          "btime"  -> millisOf(game.sentePov),
+          "wtime"  -> millisOf(game.gotePov),
           "binc"   -> game.clock.??(_.config.increment.millis),
+          "winc"   -> game.clock.??(_.config.increment.millis),
           "byo"    -> game.clock.??(_.config.byoyomi.millis),
-          "wdraw"  -> game.whitePlayer.isOfferingDraw,
-          "bdraw"  -> game.blackPlayer.isOfferingDraw,
+          "sdraw"  -> game.sentePlayer.isOfferingDraw,
+          "gdraw"  -> game.gotePlayer.isOfferingDraw,
           "status" -> game.status.name
         )
         .add("winner" -> game.winnerColor)

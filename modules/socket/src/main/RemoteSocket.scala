@@ -277,7 +277,7 @@ object RemoteSocket {
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
-      def color(c: chess.Color): String       = c.fold("w", "b")
+      def color(c: chess.Color): String       = c.fold("b", "w")
       def optional(str: Option[String])       = str getOrElse "-"
     }
   }

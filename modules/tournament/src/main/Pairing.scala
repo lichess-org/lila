@@ -43,8 +43,8 @@ case class Pairing(
   def draw: Boolean                     = finished && winner.isEmpty
 
   def colorOf(userId: User.ID): Option[Color] =
-    if (userId == user1) Color.White.some
-    else if (userId == user2) Color.Black.some
+    if (userId == user1) Color.Sente.some
+    else if (userId == user2) Color.Gote.some
     else none
 
   def berserkOf(userId: User.ID): Boolean =
@@ -80,8 +80,8 @@ private[tournament] object Pairing {
     )
 
   case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID)(firstGetsWhite: Boolean): Pairing =
-      if (firstGetsWhite) make(gameId, tourId, user1, user2)
+    def toPairing(gameId: Game.ID)(firstGetsSente: Boolean): Pairing =
+      if (firstGetsSente) make(gameId, tourId, user1, user2)
       else make(gameId, tourId, user2, user1)
   }
 

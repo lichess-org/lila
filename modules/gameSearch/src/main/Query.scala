@@ -26,8 +26,8 @@ case class Query(
     clock: Clocking = Clocking(),
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
-    whiteUser: Option[String] = None,
-    blackUser: Option[String] = None
+    senteUser: Option[String] = None,
+    goteUser: Option[String] = None
 ) {
 
   def nonEmpty =
@@ -103,7 +103,7 @@ object Query {
     options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
 
-  val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
+  val winnerColors = List(1 -> "Sente", 2 -> "Gote", 3 -> "None")
 
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
@@ -136,11 +136,13 @@ object Query {
     options(1 to 5, "y", "%d year{s} ago")
 
   val statuses = Status.finishedNotCheated.map {
-    case s if s.is(_.Timeout)       => none
-    case s if s.is(_.NoStart)       => none
-    case s if s.is(_.UnknownFinish) => none
-    case s if s.is(_.Outoftime)     => Some(s.id -> "Clock Flag")
-    case s if s.is(_.VariantEnd)    => Some(s.id -> "Variant End")
-    case s                          => Some(s.id -> s.toString)
+    case s if s.is(_.Timeout)        => none
+    case s if s.is(_.NoStart)        => none
+    case s if s.is(_.UnknownFinish)  => none
+    case s if s.is(_.VariantEnd)     => none
+    case s if s.is(_.Draw)           => none
+    case s if s.is(_.Outoftime)      => Some(s.id -> "Clock Flag")
+    case s if s.is(_.PerpetualCheck) => Some(s.id -> "Perpetual Check")
+    case s                           => Some(s.id -> s.toString)
   }.flatten
 }

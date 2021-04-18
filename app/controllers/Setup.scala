@@ -116,7 +116,7 @@ final class Setup(
                     (env.challenge.api create challenge) flatMap {
                       case true =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                          html = fuccess(Redirect(routes.Round.watcher(challenge.id, "sente"))),
                           api = _ => challengeC showChallenge challenge
                         )
                       case false =>
@@ -285,7 +285,7 @@ final class Setup(
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
-    val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
+    val redir = Redirect(routes.Round.watcher(pov.gameId, "sente"))
     if (ctx.isAuth) redir
     else
       redir withCookies env.lilaCookie.cookie(

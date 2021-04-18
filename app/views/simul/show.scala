@@ -68,8 +68,8 @@ object show {
               pluralize("minute", sim.clock.hostExtraMinutes),
               br,
               trans.hostColorX(sim.color match {
-                case Some("black") => trans.white.txt() + "/" + trans.uwate.txt()
-                case Some("white") => trans.black.txt() + "/" + trans.shitate.txt()
+                case Some("gote")  => trans.white.txt() + "/" + trans.uwate.txt()
+                case Some("sente") => trans.black.txt() + "/" + trans.shitate.txt()
                 case _             => trans.randomColor()
               }),
               sim.position map { pos =>

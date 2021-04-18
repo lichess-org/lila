@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Color, White }
+import chess.{ Gote, Color, Sente }
 import org.joda.time.DateTime
 import scala.util.chaining._
 
@@ -33,13 +33,13 @@ final private class SwissDirector(
             }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map {
-              case (SwissPairing.Pending(w, b), id) =>
+              case (SwissPairing.Pending(s, g), id) =>
                 SwissPairing(
                   id = id,
                   swissId = swiss.id,
                   round = swiss.round,
-                  white = w,
-                  black = b,
+                  sente = s,
+                  gote = g,
                   status = Left(SwissPairing.Ongoing)
                 )
             }
@@ -96,8 +96,8 @@ final private class SwissDirector(
             startedAtTurn = turns
           )
         },
-        whitePlayer = makePlayer(White, players get pairing.white err s"Missing pairing white $pairing"),
-        blackPlayer = makePlayer(Black, players get pairing.black err s"Missing pairing black $pairing"),
+        sentePlayer = makePlayer(Sente, players get pairing.sente err s"Missing pairing sente $pairing"),
+        gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
         mode = chess.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
         pgnImport = None

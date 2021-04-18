@@ -20,4 +20,4 @@ case class GameView(
     swiss: Swiss,
     ranks: Option[GameRanks]
 )
-case class GameRanks(whiteRank: Int, blackRank: Int)
+case class GameRanks(senteRank: Int, goteRank: Int)

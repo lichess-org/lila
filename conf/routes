@@ -22,7 +22,7 @@ GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
-GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
+GET   /tv/$gameId<\w{8}>/$color<sente|gote>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
@@ -83,7 +83,6 @@ POST  /training/coordinate/color       controllers.Coordinate.color
 GET   /training                        controllers.Puzzle.home
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
 GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
@@ -203,24 +202,24 @@ POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
 GET   /streamer/:username              controllers.Streamer.show(username: String)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
-GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
+GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "sente")
+GET   /$gameId<\w{8}>/$color<sente|gote>         controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: String, color: String)
+GET   /$gameId<\w{8}>/$color<sente|gote>/sides   controllers.Round.sides(gameId: String, color: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "white")
-GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: String, color: String)
+GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: String, color: String = "sente")
+GET   /$gameId<\w{8}>/$color<sente|gote>/mini    controllers.Round.mini(gameId: String, color: String)
 GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
+GET   /$gameId<\w{8}>/$color<sente|gote>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: String)
 POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: String, uci: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
-GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "white")
-GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId: String, color: String)
+GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "sente")
+GET   /embed/$gameId<\w{8}>/$color<sente|gote>  controllers.Analyse.embed(gameId: String, color: String)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 
@@ -333,8 +332,8 @@ GET   /game/export/$gameId<\w{8}>                             controllers.Game.e
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
 # GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
 # GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
-# GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
-# GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
+# GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "sente")
+# GET   /game/export/gif/$color<sente|gote>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)

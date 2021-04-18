@@ -41,8 +41,8 @@ final private class Joiner(
           val game = Game
             .make(
               chess = chessGame,
-              whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
-              blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
+              sentePlayer = Player.make(chess.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
+              gotePlayer = Player.make(chess.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
               mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
               source = Source.Friend,
               daysPerTurn = c.daysPerTurn,

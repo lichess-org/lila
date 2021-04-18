@@ -5,7 +5,7 @@ import scalaz.NonEmptyList
 case class Captcha(
     gameId: String,
     fen: String,
-    white: Boolean,
+    sente: Boolean,
     solutions: Captcha.Solutions,
     moves: Map[String, String]
 ) {
@@ -20,7 +20,7 @@ object Captcha {
   val default = Captcha(
     gameId = "00000000",
     fen = "9/k1b6/1PH6/9/9/9/9/9/9",
-    white = true,
+    sente = true,
     solutions = NonEmptyList("c7 b8"),
     moves = Map("c7" -> "b8")
   )

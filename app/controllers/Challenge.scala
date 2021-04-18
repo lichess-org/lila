@@ -88,12 +88,12 @@ final class Challenge(
           .flatMap {
             case Some(pov) =>
               negotiate(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("sente")(_.name))).fuccess,
                 api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
             case None =>
               negotiate(
-                html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(c.id, cc.fold("sente")(_.name))).fuccess,
                 api = _ => notFoundJson("Someone else accepted the challenge")
               )
           }
@@ -306,8 +306,8 @@ final class Challenge(
               case true =>
                 JsonOk(
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
+                    "urlSente" -> s"${env.net.baseUrl}/${challenge.id}?color=sente",
+                    "urlGote"  -> s"${env.net.baseUrl}/${challenge.id}?color=gote"
                   )
                 )
               case false =>

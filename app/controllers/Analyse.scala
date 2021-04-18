@@ -99,7 +99,7 @@ final class Analyse(
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, chess.Color(color == "sente"))
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,

@@ -25,7 +25,7 @@ object Rewind {
       val rewindedGame = replay.state
       val color        = game.turnColor
       val prevTurn     = game.chess.fullMoveNumber
-      //val prevTurn     = if(color == chess.Color.Black) game.chess.fullMoveNumber else game.chess.fullMoveNumber -1
+      //val prevTurn     = if(color == chess.Color.Gote) game.chess.fullMoveNumber else game.chess.fullMoveNumber -1
       val refundPeriod = (game.clockHistory map (_.turnIsPresent(color, prevTurn))).getOrElse(false)
       val newClock = game.clock.map(_.takeback(refundPeriod)) map { clk =>
         game.clockHistory.flatMap(_.last(color)).fold(clk) { t => {
@@ -39,8 +39,8 @@ object Rewind {
       }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
-        whitePlayer = rewindPlayer(game.whitePlayer),
-        blackPlayer = rewindPlayer(game.blackPlayer),
+        sentePlayer = rewindPlayer(game.sentePlayer),
+        gotePlayer = rewindPlayer(game.gotePlayer),
         chess = rewindedGame.copy(clock = newClock),
         binaryMoveTimes = game.binaryMoveTimes.map { binary =>
           val moveTimes = BinaryFormat.moveTime.read(binary, game.playedTurns)

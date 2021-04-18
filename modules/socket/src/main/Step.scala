@@ -41,7 +41,7 @@ object Step {
     )
   }
   implicit private val crazyhouseDataWriter: OWrites[Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    Json.obj("pockets" -> List(v.pockets.sente, v.pockets.gote))
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>

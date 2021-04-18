@@ -143,14 +143,14 @@ object Pref {
   }
 
   object Color {
-    val WHITE  = 1
+    val SENTE  = 1
     val RANDOM = 2
-    val BLACK  = 3
+    val GOTE  = 3
 
     val choices = Seq(
-      WHITE  -> "White",
+      SENTE  -> "Sente",
       RANDOM -> "Random",
-      BLACK  -> "Black"
+      GOTE   -> "Gote"
     )
   }
 

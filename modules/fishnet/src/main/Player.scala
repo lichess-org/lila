@@ -3,7 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 import org.joda.time.DateTime
 
-import chess.{ Black, Clock, White }
+import chess.{ Gote, Clock, Sente }
 
 import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -64,8 +64,8 @@ final class Player(
             level = level,
             clock = game.clock.map { clk =>
               Work.Clock(
-                wtime = clk.remainingTime(White).centis,
-                btime = clk.remainingTime(Black).centis,
+                btime = clk.remainingTime(Sente).centis,
+                wtime = clk.remainingTime(Gote).centis,
                 inc = clk.incrementSeconds,
                 byo = clk.byoyomiSeconds
               )

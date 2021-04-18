@@ -30,13 +30,13 @@ object SimulForm {
   val periodsDefault   = 1
   val periodsChoices = options(periods, "%d period{s}")
 
-  val colors = List("white", "random", "black")
+  val colors = List("sente", "random", "gote")
   val colorChoices = List(
-    "white"  -> "Sente/Shitate",
+    "sente"  -> "Sente/Shitate",
     "random" -> "Random",
-    "black"  -> "Gote/Uwate"
+    "gote"  -> "Gote/Uwate"
   )
-  val colorDefault = "black"
+  val colorDefault = "gote"
 
   private def nameType(host: User) =
     clean(text).verifying(

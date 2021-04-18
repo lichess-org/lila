@@ -13,18 +13,18 @@ sealed abstract class Color(val name: String) {
 
 object Color {
 
-  object White extends Color("white") {
+  object Sente extends Color("sente") {
 
-    def resolve = chess.White
+    def resolve = chess.Sente
 
-    def unary_! = Black
+    def unary_! = Gote
   }
 
-  object Black extends Color("black") {
+  object Gote extends Color("gote") {
 
-    def resolve = chess.Black
+    def resolve = chess.Gote
 
-    def unary_! = White
+    def unary_! = Sente
   }
 
   object Random extends Color("random") {
@@ -40,7 +40,7 @@ object Color {
 
   def orDefault(name: Option[String]) = name.flatMap(apply) | default
 
-  val all = List(White, Black, Random)
+  val all = List(Sente, Gote, Random)
 
   val names = all map (_.name)
 

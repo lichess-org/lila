@@ -102,13 +102,13 @@ private object BsonHandlers {
     import SwissPairing.Fields._
     def reads(r: BSON.Reader) =
       r.get[List[User.ID]](players) match {
-        case List(w, b) =>
+        case List(s, g) =>
           SwissPairing(
             id = r str id,
             swissId = r.get[Swiss.Id](swissId),
             round = r.get[SwissRound.Number](round),
-            white = w,
-            black = b,
+            sente = s,
+            gote = g,
             status = r.getO[SwissPairing.Status](status) | Right(none)
           )
         case _ => sys error "Invalid swiss pairing users"

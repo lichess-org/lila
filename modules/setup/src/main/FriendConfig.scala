@@ -73,7 +73,7 @@ object FriendConfig extends BaseHumanConfig {
         periods = r intD "p",
         days = r int "d",
         mode = Mode orDefault (r int "m"),
-        color = Color.White,
+        color = Color.Sente,
         fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
       )
 

@@ -59,7 +59,7 @@ object Preset {
       )
     ),
     Preset(
-      "What is the Win-Rate of my favourite openings as white?",
+      "What is the Win-Rate of my favourite openings as sente?",
       Question(
         D.Opening,
         M.Result,
@@ -68,7 +68,7 @@ object Preset {
             D.Perf,
             List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
           ),
-          Filter(D.Color, List(chess.White))
+          Filter(D.Color, List(chess.Sente))
         )
       )
     ),

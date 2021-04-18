@@ -44,7 +44,7 @@ object Query {
 
   def clock(c: Boolean): Bdoc = F.clock $exists c
 
-  def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
+  def clockHistory(c: Boolean): Bdoc = F.senteClockHistory $exists c
 
   def lastMoveNotDrop: Bdoc = F.historyLastMove $regex "[a-i][1-9][a-i][1-9]"
 
@@ -110,13 +110,13 @@ object Query {
 
   lazy val variantStandard = variant(chess.variant.Standard)
 
-  lazy val notHordeOrSincePawnsAreWhite: Bdoc = $or(
+  lazy val notHordeOrSincePawnsAreSente: Bdoc = $or(
     F.variant $ne chess.variant.Horde.id,
-    sinceHordePawnsAreWhite
+    sinceHordePawnsAreSente
   )
 
-  lazy val sinceHordePawnsAreWhite: Bdoc =
-    createdSince(Game.hordeWhitePawnsSince)
+  lazy val sinceHordePawnsAreSente: Bdoc =
+    createdSince(Game.hordeSentePawnsSince)
 
   val notFromPosition: Bdoc =
     F.variant $ne chess.variant.FromPosition.id

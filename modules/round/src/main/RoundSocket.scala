@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 import actorApi._
 import actorApi.round._
 import chess.format.Uci
-import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
+import chess.{ Gote, Centis, Color, MoveMetrics, Speed, Sente }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
@@ -223,7 +223,7 @@ object RoundSocket {
       import chess.variant._
       (pov.game.chess.board.materialImbalance, pov.game.variant) match {
         case (_, Antichess | Horde)                                   => 1
-        case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
+        case (i, _) if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
         case _                                                                     => 1
       }
     } / {
@@ -317,8 +317,8 @@ object RoundSocket {
         else s.toIntOption map Centis.apply
 
       private def readColor(s: String) =
-        if (s == "w") Some(White)
-        else if (s == "b") Some(Black)
+        if (s == "b") Some(Sente)
+        else if (s == "w") Some(Gote)
         else None
     }
 
@@ -336,8 +336,8 @@ object RoundSocket {
         if (e.watcher) flags += 's'
         else if (e.owner) flags += 'p'
         else
-          e.only.map(_.fold('w', 'b')).orElse {
-            e.moveBy.map(_.fold('W', 'B'))
+          e.only.map(_.fold('b', 'w')).orElse {
+            e.moveBy.map(_.fold('B', 'W'))
           } foreach flags.+=
         if (e.troll) flags += 't'
         if (flags.isEmpty) flags += '-'

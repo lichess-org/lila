@@ -111,7 +111,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           coll.update.one(
             $id(p.id),
             $set(
-              "w" -> p.colorOf(userId).map(_.black)
+              "w" -> p.colorOf(userId).map(_.gote)
             )
           )
         }.sequenceFu
@@ -174,7 +174,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           $id(g.id),
           $set(
             "s" -> g.status.id,
-            "w" -> g.winnerColor.map(_.white),
+            "w" -> g.winnerColor.map(_.sente),
             "t" -> g.turns
           )
         )

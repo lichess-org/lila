@@ -27,8 +27,8 @@ final class GifExport(
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white"       -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "sente"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
+            "gote"        -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
             "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> pov.color.name,
             "delay"       -> targetMedianTime.centis, // default delay for frames
@@ -46,8 +46,8 @@ final class GifExport(
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
       "fen"         -> (Forsyth >> game.chess),
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+      "sente"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
+      "gote"        -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
       "orientation" -> game.firstColor.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },

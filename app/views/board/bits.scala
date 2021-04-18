@@ -14,13 +14,13 @@ object bits {
 
   private val dataState = attr("data-state")
 
-  def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+  def mini(fen: chess.format.FEN, color: chess.Color = chess.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
       cls := "mini-board mini-board--init cg-wrap is2d",
       dataState := s"${fen.value},${color.name},$lastMove"
     )(cgWrapContent)
 
-  def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "") =
+  def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.Sente, lastMove: String = "") =
     mini(fen, color, lastMove)(span)
 
   def jsData(
@@ -33,10 +33,10 @@ object bits {
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
       "castles" -> Json.obj(
-        "K" -> (sit canCastle chess.White on chess.KingSide),
-        "Q" -> (sit canCastle chess.White on chess.QueenSide),
-        "k" -> (sit canCastle chess.Black on chess.KingSide),
-        "q" -> (sit canCastle chess.Black on chess.QueenSide)
+        "K" -> (sit canCastle chess.Sente on chess.KingSide),
+        "Q" -> (sit canCastle chess.Sente on chess.QueenSide),
+        "k" -> (sit canCastle chess.Gote on chess.KingSide),
+        "q" -> (sit canCastle chess.Gote on chess.QueenSide)
       ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis

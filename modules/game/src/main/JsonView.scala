@@ -80,7 +80,7 @@ object JsonView {
   }
 
   implicit val crazyhouseDataWriter: OWrites[Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+    Json.obj("pockets" -> List(v.pockets.sente, v.pockets.gote))
   }
 
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
@@ -105,10 +105,10 @@ object JsonView {
       "increment" -> c.incrementSeconds,
       "byoyomi"   -> c.byoyomiSeconds,
       "periods"   -> c.periods,
-      "bPeriods"  -> c.curPeriod(Color.Black),
-      "wPeriods"  -> c.curPeriod(Color.White),
-      "white"     -> c.remainingTime(Color.White).toSeconds,
-      "black"     -> c.remainingTime(Color.Black).toSeconds,
+      "sPeriods"  -> c.curPeriod(Color.Sente),
+      "gPeriods"  -> c.curPeriod(Color.Gote),
+      "sente"     -> c.remainingTime(Color.Sente).toSeconds,
+      "gote"      -> c.remainingTime(Color.Gote).toSeconds,
       "emerg"     -> c.config.emergSeconds
     )
   }
@@ -117,8 +117,8 @@ object JsonView {
     Json.obj(
       "daysPerTurn" -> c.daysPerTurn,
       "increment"   -> c.increment,
-      "white"       -> c.whiteTime,
-      "black"       -> c.blackTime
+      "sente"       -> c.senteTime,
+      "gote"       -> c.goteTime
     )
   }
 

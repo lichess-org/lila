@@ -154,7 +154,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .one(
         $id(pov.gameId),
         $set(
-          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
+          s"${pov.color.fold(F.sentePlayer, F.gotePlayer)}.${Player.BSONFields.berserk}" -> true
         )
       )
       .void
@@ -181,8 +181,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update.one(
       $id(id),
       $set(
-        s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.white,
-        s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
+        s"${F.sentePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.sente,
+        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.gote
       )
     )
 
@@ -271,22 +271,22 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $doc(
         F.id -> game.id,
         $or(
-          holdAlertField(chess.White) $exists true,
-          holdAlertField(chess.Black) $exists true
+          holdAlertField(chess.Sente) $exists true,
+          holdAlertField(chess.Gote) $exists true
         )
       ),
       $doc(
         F.id                        -> false,
-        holdAlertField(chess.White) -> true,
-        holdAlertField(chess.Black) -> true
+        holdAlertField(chess.Sente) -> true,
+        holdAlertField(chess.Gote) -> true
       )
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>
         def holdAlertOf(playerField: String) =
           doc.child(playerField).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
         Color.Map(
-          white = holdAlertOf("p0"),
-          black = holdAlertOf("p1")
+          sente = holdAlertOf("p0"),
+          gote = holdAlertOf("p1")
         )
       }
     }
@@ -324,7 +324,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         "$set",
         $doc(
           F.winnerId    -> winnerId,
-          F.winnerColor -> winnerColor.map(_.white),
+          F.winnerColor -> winnerColor.map(_.sente),
           F.status      -> status
         )
       ) ++ $doc(

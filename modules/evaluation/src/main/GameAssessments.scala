@@ -3,13 +3,13 @@ package lila.evaluation
 import chess.Color
 
 case class PlayerAssessments(
-    white: Option[PlayerAssessment],
-    black: Option[PlayerAssessment]
+    sente: Option[PlayerAssessment],
+    gote: Option[PlayerAssessment]
 ) {
   def color(c: Color) =
     c match {
-      case Color.White => white
-      case _           => black
+      case Color.Sente => sente
+      case _           => gote
     }
 }
 

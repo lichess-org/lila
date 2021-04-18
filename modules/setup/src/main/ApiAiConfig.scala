@@ -41,13 +41,13 @@ final case class ApiAiConfig(
       Game
         .make(
           chess = chessGame,
-          whitePlayer = creatorColor.fold(
-            Player.make(chess.White, user, perfPicker),
-            Player.make(chess.White, level.some)
+          sentePlayer = creatorColor.fold(
+            Player.make(chess.Sente, user, perfPicker),
+            Player.make(chess.Sente, level.some)
           ),
-          blackPlayer = creatorColor.fold(
-            Player.make(chess.Black, level.some),
-            Player.make(chess.Black, user, perfPicker)
+          gotePlayer = creatorColor.fold(
+            Player.make(chess.Gote, level.some),
+            Player.make(chess.Gote, user, perfPicker)
           ),
           mode = chess.Mode.Casual,
           source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,

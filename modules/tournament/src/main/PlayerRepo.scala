@@ -168,10 +168,10 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
 
   def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds ?? {
-      case (w, b) =>
-        teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-          (m.get(w) |@| m.get(b)).tupled ?? {
-            case (wt, bt) => TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
+      case (s, g) =>
+        teamsOfPlayers(tourId, List(s, g)).dmap(_.toMap) map { m =>
+          (m.get(s) |@| m.get(g)).tupled ?? {
+            case (st, gt) => TeamBattle.TeamVs(chess.Color.Map(st, gt)).some
           }
         }
     }

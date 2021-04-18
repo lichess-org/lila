@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import actorApi._, round._
-import chess.{ Black, Centis, Color, White }
+import chess.{ Gote, Centis, Color, Sente }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
@@ -104,21 +104,21 @@ final private[round] class RoundDuct(
     def isBotConnected = botConnected
   }
 
-  private val whitePlayer = new Player(White)
-  private val blackPlayer = new Player(Black)
+  private val sentePlayer = new Player(Sente)
+  private val gotePlayer = new Player(Gote)
 
   def getGame: Fu[Option[Game]]          = proxy.game
   def updateGame(f: Game => Game): Funit = proxy update f
 
   val process: Duct.ReceiveAsync = {
 
-    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
+    case SetGameInfo(game, (senteGoneWeight, goteGoneWeight)) =>
       fuccess {
-        whitePlayer.userId = game.player(White).userId
-        blackPlayer.userId = game.player(Black).userId
+        sentePlayer.userId = game.player(Sente).userId
+        gotePlayer.userId = game.player(Gote).userId
         mightBeSimul = game.isSimul
-        whitePlayer.goneWeight = whiteGoneWeight
-        blackPlayer.goneWeight = blackGoneWeight
+        sentePlayer.goneWeight = senteGoneWeight
+        gotePlayer.goneWeight = goteGoneWeight
         if (game.playableByAi) player.requestFishnet(game, this)
       }
 
@@ -140,10 +140,10 @@ final private[round] class RoundDuct(
         version = v
       }
 
-    case RoomCrowd(white, black) =>
+    case RoomCrowd(sente, gote) =>
       fuccess {
-        whitePlayer setOnline white
-        blackPlayer setOnline black
+        sentePlayer setOnline sente
+        gotePlayer setOnline gote
       }
 
     case IsOnGame(color, promise) =>
@@ -152,22 +152,22 @@ final private[round] class RoundDuct(
       }
 
     case GetSocketStatus(promise) =>
-      whitePlayer.isLongGone zip blackPlayer.isLongGone map {
-        case (whiteIsGone, blackIsGone) =>
+      sentePlayer.isLongGone zip gotePlayer.isLongGone map {
+        case (senteIsGone, goteIsGone) =>
           promise success SocketStatus(
             version = version,
-            whiteOnGame = whitePlayer.isOnline,
-            whiteIsGone = whiteIsGone,
-            blackOnGame = blackPlayer.isOnline,
-            blackIsGone = blackIsGone
+            senteOnGame = sentePlayer.isOnline,
+            senteIsGone = senteIsGone,
+            goteOnGame = gotePlayer.isOnline,
+            goteIsGone = goteIsGone
           )
       }
 
     case HasUserId(userId, promise) =>
       fuccess {
         promise success {
-          (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
-          (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
+          (sentePlayer.userId.has(userId) && sentePlayer.isOnline) ||
+          (gotePlayer.userId.has(userId) && gotePlayer.isOnline)
         }
       }
 
@@ -478,7 +478,7 @@ final private[round] class RoundDuct(
     case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
   }
 
-  private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+  private def getPlayer(color: Color): Player = color.fold(sentePlayer, gotePlayer)
 
   private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns & 30) == 10) {

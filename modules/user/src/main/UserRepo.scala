@@ -138,7 +138,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
   }
 
-  def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] =
+  def firstGetsSente(u1: User.ID, u2: User.ID): Fu[Boolean] =
     coll.ext
       .find(
         $inIds(List(u1, u2)),
@@ -156,9 +156,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         incColor(u2, if (v) -1 else 1)
       }
 
-  def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
+  def firstGetsSente(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
     (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean())) {
-      case (u1, u2) => firstGetsWhite(u1, u2)
+      case (u1, u2) => firstGetsSente(u1, u2)
     }
 
   def incColor(userId: User.ID, value: Int): Unit =

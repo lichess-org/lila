@@ -236,7 +236,7 @@ object SwissJson {
       )
       .add("o" -> pairing.isOngoing)
       .add("w" -> pairing.resultFor(player.userId))
-      .add("c" -> (pairing.white == player.userId))
+      .add("c" -> (pairing.sente == player.userId))
 
   private def pairingJsonOrOutcome(
       player: SwissPlayer
@@ -260,8 +260,8 @@ object SwissJson {
       "id"       -> b.game.id,
       "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
       "lastMove" -> ~b.game.lastMoveKeys,
-      "white"    -> boardPlayerJson(b.board.white),
-      "black"    -> boardPlayerJson(b.board.black)
+      "sente"    -> boardPlayerJson(b.board.sente),
+      "gote"    -> boardPlayerJson(b.board.gote)
     )
 
   private def boardPlayerJson(player: SwissBoard.Player) =

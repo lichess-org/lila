@@ -270,11 +270,11 @@ final class SwissApi(
 
   private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
     ~ {
-      game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
-        game.blackPlayer.userId map { blackId =>
+      game.sentePlayer.userId.ifTrue(swiss.isStarted) flatMap { senteId =>
+        game.gotePlayer.userId map { goteId =>
           rankingApi(swiss) map { ranking =>
-            ranking.get(whiteId) |@| ranking.get(blackId) apply {
-              case (whiteR, blackR) => GameRanks(whiteR, blackR)
+            ranking.get(senteId) |@| ranking.get(goteId) apply {
+              case (senteR, goteR) => GameRanks(senteR, goteR)
             }
           }
         }

@@ -212,7 +212,7 @@ object Player {
               )
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) pipe { p =>
+      o(chess.Sente)("0000")(none)(none) pipe { p =>
         BSONDocument(
           aiLevel           -> p.aiLevel,
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),

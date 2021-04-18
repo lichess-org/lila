@@ -3,7 +3,7 @@ package lila.round
 import chess.format.{ FEN, Forsyth }
 import chess.variant._
 import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data }
-import ChessColor.{ Black, White }
+import ChessColor.{ Gote, Sente }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
 import scala.concurrent.duration._
@@ -95,7 +95,7 @@ final private class Rematcher(
     pov.opponent.userId foreach { forId =>
       Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
     }
-    offers.put(pov.gameId, Offers(white = pov.color.white, black = pov.color.black))
+    offers.put(pov.gameId, Offers(sente = pov.color.sente, gote = pov.color.gote))
     List(Event.RematchOffer(by = pov.color.some))
   }
 
@@ -109,15 +109,15 @@ final private class Rematcher(
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       }
-      wPlayer = returnPlayer(pov.game, White, users)
-      bPlayer = returnPlayer(pov.game, Black, users)
+      sPlayer = returnPlayer(pov.game, Sente, users)
+      gPlayer = returnPlayer(pov.game, Gote, users)
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
             board = Board(pieces, variant = pov.game.variant).withCrazyData {
               situation.fold[Option[chess.Data]](Some(Data.init))(_.situation.board.crazyData)
             },
-            color = situation.fold[chess.Color](White)(_.situation.color)
+            color = situation.fold[chess.Color](Sente)(_.situation.color)
           ),
           clock = pov.game.clock map { c =>
             Clock(c.config)
@@ -125,8 +125,8 @@ final private class Rematcher(
           turns = situation ?? (_.turns),
           startedAtTurn = situation ?? (_.turns)
         ),
-        whitePlayer = if(isHandicap) bPlayer else wPlayer,
-        blackPlayer = if(isHandicap) wPlayer else bPlayer,
+        sentePlayer = if(isHandicap) gPlayer else sPlayer,
+        gotePlayer = if(isHandicap) sPlayer else gPlayer,
         mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
@@ -148,11 +148,11 @@ final private class Rematcher(
     }
 
   private def redirectEvents(game: Game, isHandicap: Boolean = false): Events = {
-    val whiteId = game fullIdOf White
-    val blackId = game fullIdOf Black
+    val senteId = game fullIdOf Sente
+    val goteId = game fullIdOf Gote
     List(
-      Event.RedirectOwner(if (isHandicap) Black else White, blackId, AnonCookie.json(game pov Black)),
-      Event.RedirectOwner(if (isHandicap) White else Black, whiteId, AnonCookie.json(game pov White)),
+      Event.RedirectOwner(if (isHandicap) Gote else Sente, goteId, AnonCookie.json(game pov Gote)),
+      Event.RedirectOwner(if (isHandicap) Sente else Gote, senteId, AnonCookie.json(game pov Sente)),
       // tell spectators about the rematch
       Event.RematchTaken(game.id)
     )
@@ -167,7 +167,7 @@ final private class Rematcher(
 
 private object Rematcher {
 
-  case class Offers(white: Boolean, black: Boolean) {
-    def apply(color: chess.Color) = color.fold(white, black)
+  case class Offers(sente: Boolean, gote: Boolean) {
+    def apply(color: chess.Color) = color.fold(sente, gote)
   }
 }

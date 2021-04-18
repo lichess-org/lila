@@ -13,20 +13,20 @@ private object Chess960 {
         }
 
       rankMatches {
-        case Some(Piece(White, King | Rook | Knight | Bishop)) => true
+        case Some(Piece(Sente, King | Rook | Knight | Bishop)) => true
         case _                                                         => false
       }(1) &&
       rankMatches {
-        case Some(Piece(White, Pawn)) => true
+        case Some(Piece(Sente, Pawn)) => true
         case _                        => false
       }(2) &&
       List(3, 4, 5, 6).forall(rankMatches(_.isEmpty)) &&
       rankMatches {
-        case Some(Piece(Black, Pawn)) => true
+        case Some(Piece(Gote, Pawn)) => true
         case _                        => false
       }(7) &&
       rankMatches {
-        case Some(Piece(Black, King | Rook | Knight | Bishop)) => true
+        case Some(Piece(Gote, King | Rook | Knight | Bishop)) => true
         case _                                                         => false
       }(8)
     }

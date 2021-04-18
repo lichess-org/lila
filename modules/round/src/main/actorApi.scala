@@ -14,16 +14,16 @@ case class ByePlayer(playerId: PlayerId)
 case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
     version: SocketVersion,
-    whiteOnGame: Boolean,
-    whiteIsGone: Boolean,
-    blackOnGame: Boolean,
-    blackIsGone: Boolean
+    senteOnGame: Boolean,
+    senteIsGone: Boolean,
+    goteOnGame: Boolean,
+    goteIsGone: Boolean
 ) {
-  def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
-  def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
+  def onGame(color: Color)     = color.fold(senteOnGame, goteOnGame)
+  def isGone(color: Color)     = color.fold(senteIsGone, goteIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
-case class RoomCrowd(white: Boolean, black: Boolean)
+case class RoomCrowd(sente: Boolean, gote: Boolean)
 case class BotConnected(color: Color, v: Boolean)
 
 package round {

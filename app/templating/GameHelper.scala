@@ -34,7 +34,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def titleGame(g: Game) = {
     val speed   = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
-    s"$speed$variant Shogi • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
+    s"$speed$variant Shogi • ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -178,7 +178,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
         game.loser match {
-          case Some(p) if p.color.white => trans.blackResigned.txt() // swapped
+          case Some(p) if p.color.sente => trans.blackResigned.txt()
           case _                        => trans.whiteResigned.txt()
         }
       case S.UnknownFinish => trans.finished.txt()
@@ -187,14 +187,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.PerpetualCheck=> "Perpetual Check"
       case S.Timeout =>
         game.loser match {
-          case Some(p) if p.color.white => trans.blackLeftTheGame.txt() // swapped
+          case Some(p) if p.color.sente => trans.blackLeftTheGame.txt()
           case Some(_)                  => trans.whiteLeftTheGame.txt()
           case None                     => trans.draw.txt()
         }
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
       case S.NoStart => {
-        val color = if(game.loser.fold(Color.black)(_.color).name.capitalize == "White") "Sente" else "Gote" // swapped   
+        val color = game.loser.fold(Color.sente)(_.color).name.capitalize  
         s"$color didn't move"
       }
       case S.Cheat => "Cheat detected"
@@ -218,10 +218,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$u1 vs $u2$clock$variant"
   }
 
-  // whiteUsername 1-0 blackUsername
-  def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
+  // senteUsername 1-0 goteUsername
+  def gameSummary(senteUserId: String, goteUserId: String, finished: Boolean, result: Option[Boolean]) = {
     val res = if (finished) chess.Color.showResult(result map Color.apply) else "*"
-    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
+    s"${usernameOrId(senteUserId)} $res ${usernameOrId(goteUserId)}"
   }
 
   def gameResult(game: Game) =
@@ -263,7 +263,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(game.board),
+      dataFen := Forsyth.exportSituation(game.situation),
       dataLastmove := ~game.lastMoveKeys,
       dataPocket := ~game.pocketsKeys
     )(cgWrapContent)
@@ -281,7 +281,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(pov.game.board),
+      dataFen := Forsyth.exportSituation(pov.game.situation),
       dataLastmove := ~pov.game.lastMoveKeys,
       dataPocket := ~pov.game.pocketsKeys,
       target := blank.option("_blank")
@@ -308,7 +308,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def challengeOpenGraph(c: lila.challenge.Challenge) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
-      url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
+      url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.Sente.name).url}",
       description = "Join the challenge or watch the game here."
     )
 }

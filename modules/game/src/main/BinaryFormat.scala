@@ -43,8 +43,8 @@ object BinaryFormat {
     def read(start: Centis, bw: ByteArray, bb: ByteArray, pe: PeriodEntries, flagged: Option[Color]) =
       Try {
         ClockHistory(
-          readSide(start, bw, flagged has White),
-          readSide(start, bb, flagged has Black),
+          readSide(start, bw, flagged has Sente),
+          readSide(start, bb, flagged has Gote),
           pe
         )
       }.fold(
@@ -96,12 +96,12 @@ object BinaryFormat {
 
     def write(clock: Clock): ByteArray = {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
-        writeSignedInt24(legacyElapsed(clock, White).centis) ++
-        writeSignedInt24(legacyElapsed(clock, Black).centis) ++
+        writeSignedInt24(legacyElapsed(clock, Sente).centis) ++
+        writeSignedInt24(legacyElapsed(clock, Gote).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(clock.byoyomiSeconds.toByte, clock.periods.toByte)
     }
 
-    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
+    def read(ba: ByteArray, senteBerserk: Boolean, goteBerserk: Boolean): Color => Clock =
       color => {
         val ia = ba.value map toInt
 
@@ -128,20 +128,20 @@ object BinaryFormat {
         ia match {
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
             val config      = Clock.Config(readClockLimit(b1), b2, byo, per)
-            val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
-            val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
+            val legacySente = Centis(readSignedInt24(b3, b4, b5))
+            val legacyGote  = Centis(readSignedInt24(b6, b7, b8))
             Clock(
               config = config,
               color = color,
               players = Color.Map(
                 ClockPlayer
                   .withConfig(config)
-                  .copy(berserk = whiteBerserk)
-                  .setRemaining(computeRemaining(config, legacyWhite)),
+                  .copy(berserk = senteBerserk)
+                  .setRemaining(computeRemaining(config, legacySente)),
                 ClockPlayer
                   .withConfig(config)
-                  .copy(berserk = blackBerserk)
-                  .setRemaining(computeRemaining(config, legacyBlack))
+                  .copy(berserk = goteBerserk)
+                  .setRemaining(computeRemaining(config, legacyGote))
               ),
               timer = timer
             )
@@ -322,13 +322,13 @@ object BinaryFormat {
     def write(o: UnmovedRooks): ByteArray = {
       if (o.pos.isEmpty) emptyByteArray
       else {
-        var white = 0
-        var black = 0
+        var sente = 0
+        var gote = 0
         o.pos.foreach { pos =>
-          if (pos.y == 1) white = white | (1 << (9 - pos.x))
-          else black = black | (1 << (9 - pos.x))
+          if (pos.y == 1) sente = sente | (1 << (9 - pos.x))
+          else gote = gote | (1 << (9 - pos.x))
         }
-        Array(white.toByte, black.toByte)
+        Array(sente.toByte, gote.toByte)
       }
     }
 
@@ -336,8 +336,8 @@ object BinaryFormat {
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 8
-    private val whiteStd   = Set(Pos.A1, Pos.I1)
-    private val blackStd   = Set(Pos.A9, Pos.I9)
+    private val senteStd   = Set(Pos.A1, Pos.I1)
+    private val goteStd   = Set(Pos.A9, Pos.I9)
 
     def read(ba: ByteArray) =
       UnmovedRooks {
@@ -345,7 +345,7 @@ object BinaryFormat {
         arrIndexes.foreach { i =>
           val int = ba.value(i).toInt
           if (int != 0) {
-            if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
+            if (int == -127) set = if (i == 0) senteStd else set ++ goteStd
             else
               bitIndexes.foreach { j =>
                 if (bitAt(int, j) == 1) set = set + Pos.posAt(9 - j, 1 + 8 * i).get

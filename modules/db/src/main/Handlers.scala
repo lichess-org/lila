@@ -114,5 +114,5 @@ trait Handlers {
   implicit val normalizedEmailAddressHandler =
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
-  implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.apply, _.white)
+  implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.apply, _.sente)
 }

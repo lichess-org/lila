@@ -143,9 +143,9 @@ object Challenge {
   sealed trait ColorChoice
   object ColorChoice {
     case object Random extends ColorChoice
-    case object White  extends ColorChoice
-    case object Black  extends ColorChoice
-    def apply(c: Color) = c.fold[ColorChoice](White, Black)
+    case object Sente  extends ColorChoice
+    case object Gote  extends ColorChoice
+    def apply(c: Color) = c.fold[ColorChoice](Sente, Gote)
   }
 
   private def speedOf(timeControl: TimeControl) =
@@ -189,8 +189,8 @@ object Challenge {
       rematchOf: Option[String]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
-      case "white" => ColorChoice.White  -> chess.White
-      case "black" => ColorChoice.Black  -> chess.Black
+      case "sente" => ColorChoice.Sente  -> chess.Sente
+      case "gote" => ColorChoice.Gote  -> chess.Gote
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {

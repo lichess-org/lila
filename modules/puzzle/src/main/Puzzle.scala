@@ -42,8 +42,8 @@ case class Puzzle(
 
   def color: chess.Color =
     gameId match {
-      case Some(_) => Forsyth.getColor(fen).fold[chess.Color](chess.White)(!_)
-      case None => Forsyth.getColor(fen).getOrElse(chess.White)
+      case Some(_) => Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
+      case None => Forsyth.getColor(fen).getOrElse(chess.Sente)
     }
   
   def lastMove: String =

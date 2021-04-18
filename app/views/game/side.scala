@@ -105,7 +105,7 @@ object side {
             game.winner.map { winner =>
               frag(
                 separator,
-                winner.color.fold(trans.blackIsVictorious, trans.whiteIsVictorious)() // swapped color
+                winner.color.fold(trans.blackIsVictorious, trans.whiteIsVictorious)()
               )
             }
           )

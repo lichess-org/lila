@@ -74,7 +74,7 @@ final private[tournament] class PairingSystem(
           .zip(ids)
           .map {
             case (prep, id) =>
-              userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
+              userRepo.firstGetsSente(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
           }
           .sequenceFu
       else

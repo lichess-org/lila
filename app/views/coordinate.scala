@@ -52,7 +52,7 @@ object coordinate {
           ),
           form(cls := "color buttons", action := routes.Coordinate.color())(
             st.group(cls := "radio")(
-              List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
+              List(Color.GOTE, Color.RANDOM, Color.SENTE).map { id =>
                 div(
                   input(
                     tpe := "radio",
@@ -94,8 +94,8 @@ object coordinate {
   def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
     frag(
       List(
-        (trans.coordinates.averageScoreAsWhiteX, score.black), // swapped
-        (trans.coordinates.averageScoreAsBlackX, score.white)
+        (trans.coordinates.averageScoreAsWhiteX, score.gote),
+        (trans.coordinates.averageScoreAsBlackX, score.sente)
       ).map {
         case (averageScoreX, s) =>
           div(cls := "chart_container")(
