@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="otherAmount">Башка</string>
+  <string name="withPaypal">PayPal</string>
   <string name="update">Яңарту</string>
+  <string name="xOrY">%1$s яки %2$s</string>
   <string name="date">Вакыт</string>
 </resources>
