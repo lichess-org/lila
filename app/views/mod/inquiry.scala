@@ -206,13 +206,15 @@ object inquiry {
               ),
               autoNextInput
             ),
-            div(cls := "separator"),
-            lila.report.Snooze.Duration.all.map { snooze =>
-              postForm(action := routes.Report.snooze(in.report.id, snooze.toString))(
-                submitButton(cls := "fbt")(s"Snooze ${snooze.name}"),
-                autoNextInput
-              )
-            }
+            !in.report.isAppeal option frag(
+              div(cls := "separator"),
+              lila.report.Snooze.Duration.all.map { snooze =>
+                postForm(action := routes.Report.snooze(in.report.id, snooze.toString))(
+                  submitButton(cls := "fbt")(s"Snooze ${snooze.name}"),
+                  autoNextInput
+                )
+              }
+            )
           )
         )
       ),
