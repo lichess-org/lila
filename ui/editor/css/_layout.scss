@@ -11,7 +11,9 @@
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
   'spare-top'
+  'pocket-top'
   'board'
+  'pocket-bot'
   'spare-bottom'
   'tools'
   'copyables';
@@ -20,11 +22,12 @@
     grid-template-columns: minmax(30vmin, $board-width) 2vmin minmax(200px, 300px);
     grid-template-rows: min-content auto min-content;
     grid-template-areas:
-    '.            . tools'
+    'spare-top    . pocket-top'
     'spare-top    . tools'
     'board        . tools'
     'spare-bottom . tools'
-    '.            . tools'
+    'spare-bottom . pocket-bot'
+    '.            . .    '
     'copyables    . .    ';
   }
 }

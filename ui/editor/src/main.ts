@@ -12,8 +12,6 @@ import eventlisteners from "snabbdom/modules/eventlisteners";
 import { menuHover } from "common/menuHover";
 import { Shogiground } from "shogiground";
 
-menuHover();
-
 const patch = init([klass, attributes, props, eventlisteners]);
 
 export default function LishogiEditor(
@@ -31,6 +29,8 @@ export default function LishogiEditor(
   const inner = document.createElement("div");
   element.appendChild(inner);
   vnode = patch(inner, view(ctrl));
+
+  menuHover();
 
   return {
     getFen: ctrl.getFen.bind(ctrl),

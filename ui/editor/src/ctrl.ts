@@ -8,15 +8,15 @@ import {
 } from "./interfaces";
 import { Api as CgApi } from "shogiground/api";
 import {Role} from "shogiground/types";
-import { Rules, PocketRole } from 'shogiops/types';
+import { Rules, PocketRole, PROMOTABLE_ROLES, POCKET_ROLES, PromotableRole } from 'shogiops/types';
 import { Board } from 'shogiops/board';
 import { Setup, Material, MaterialSide } from 'shogiops/setup';
 import { setupPosition } from 'shogiops/variant';
-import { Shogi } from 'shogiops/shogi';
 import { makeFen, parseFen, INITIAL_FEN, INITIAL_EPD, EMPTY_FEN } from 'shogiops/fen';
-import { lishogiBoardToShogiBoard, makeShogiFen, makeLishogiFen } from "shogiops/compat";
 
-import { prop, Prop } from "common";
+import { defined, prop, Prop } from "common";
+import { promote, unpromote } from "shogiops/util";
+import {opposite} from "shogiground/util";
 
 export default class EditorCtrl {
   cfg: EditorConfig;
@@ -35,7 +35,6 @@ export default class EditorCtrl {
 
   constructor(cfg: EditorConfig, redraw: Redraw) {
     this.cfg = cfg;
-    this.cfg.fen = makeShogiFen(cfg.fen);
     this.options = cfg.options || {};
 
     this.trans = window.lishogi.trans(this.cfg.i18n);
@@ -43,8 +42,8 @@ export default class EditorCtrl {
     this.selected = prop("pointer");
     this.extraPositions = [
       {
-        fen: makeLishogiFen(INITIAL_FEN),
-        epd: makeLishogiFen(INITIAL_EPD),
+        fen: INITIAL_FEN,
+        epd: INITIAL_EPD,
         name: this.trans("startPosition"),
       },
       {
@@ -61,8 +60,7 @@ export default class EditorCtrl {
 
     window.Mousetrap.bind("f", (e: Event) => {
       e.preventDefault();
-      if (this.shogiground) this.shogiground.toggleOrientation();
-      redraw();
+      if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
     });
     this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'shogi';
 
@@ -73,6 +71,7 @@ export default class EditorCtrl {
 
   onChange(): void {
     const fen = this.getFen();
+    this.cfg.fen = fen;
     if (!this.cfg.embed) {
       if (fen == INITIAL_FEN) window.history.replaceState("", "", "/editor");
       else window.history.replaceState("", "", this.makeUrl("/editor/", fen));
@@ -83,7 +82,7 @@ export default class EditorCtrl {
 
   private getSetup(): Setup {
     const boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
-    const board = parseFen(lishogiBoardToShogiBoard(boardFen)).unwrap(setup => setup.board, _ => Board.empty());
+    const board = parseFen(boardFen).unwrap(setup => setup.board, _ => Board.empty());
     return {
       board,
       pockets: this.pockets,
@@ -97,20 +96,16 @@ export default class EditorCtrl {
   }
 
   private getLegalFen(): string | undefined {
-    return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
-      return makeFen(pos.toSetup());
-    }, _ => undefined);
+    return setupPosition(this.rules, this.getSetup()).unwrap(
+      pos => {
+        return makeFen(pos.toSetup());
+      },
+      _ => undefined
+      );
   }
 
   private isPlayable(): boolean {
     return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
-  }
-
-  private tsumeFen(): string | undefined {
-    return Shogi.fromSetup(this.getSetup(), false).unwrap(
-      pos => {if(pos.board.king.size() > 0) return this.getFen(); else return undefined; },
-      _ => undefined
-    );
   }
 
   getState(): EditorState {
@@ -118,17 +113,15 @@ export default class EditorCtrl {
       fen: this.getFen(),
       legalFen: this.getLegalFen(),
       playable: this.rules == 'shogi' && this.isPlayable(),
-      tsumeFen: this.tsumeFen(),
-      standardPieceNumber: this.standardNumberOfPiecesOrLess()
     };
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    return this.makeUrl(`/analysis/`, makeLishogiFen(legalFen));
+    return this.makeUrl(`/analysis/`, this.encodeFen(legalFen));
   }
 
   encodeFen(fen: string): string {
-    return encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/");
+    return encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/").replace(/%2B/g, "+");
   }
 
   makeUrl(baseUrl: string, fen: string): string {
@@ -141,7 +134,7 @@ export default class EditorCtrl {
   bottomColor(): Color {
     return this.shogiground
       ? this.shogiground.state.orientation
-      : this.options.orientation || "white";
+      : this.options.orientation || "sente";
   }
 
   setTurn(turn: Color): void {
@@ -150,9 +143,7 @@ export default class EditorCtrl {
   }
 
   startPosition(): void {
-    this.setFen(
-      INITIAL_FEN
-    );
+    this.setFen(INITIAL_FEN);
   }
 
   clearBoard(): void {
@@ -179,36 +170,45 @@ export default class EditorCtrl {
     }, _ => false);
   }
 
-  standardNumberOfPiecesOrLess(): boolean {
+  canFillGoteHand(): boolean {
     const setup = this.getSetup();
-    return setup.board.pawn.size() + setup.board.tokin.size() + this.pockets['black'].pawn <= 18 &&
-      setup.board.lance.size() + setup.board.promotedLance.size() + this.pockets['black'].lance <= 4 &&
-      setup.board.knight.size() + setup.board.promotedKnight.size() + this.pockets['black'].knight <= 4 &&
-      setup.board.silver.size() + setup.board.promotedSilver.size() + this.pockets['black'].silver <= 4 &&
-      setup.board.gold.size() + this.pockets['black'].gold <= 4 &&
-      setup.board.bishop.size() + setup.board.horse.size() + this.pockets['black'].bishop <= 2 &&
-      setup.board.rook.size() + setup.board.dragon.size() + this.pockets['black'].rook <= 2 &&
-      setup.board.king.size() <= 2 
+    return this.countPieces('pawn', setup) <= 18 &&
+      this.countPieces('lance', setup) <= 4 &&
+      this.countPieces('knight', setup) <= 4 &&
+      this.countPieces('silver', setup) <= 4 &&
+      this.countPieces('gold', setup) <= 4 &&
+      this.countPieces('bishop', setup) <= 2 &&
+      this.countPieces('rook', setup) <= 2 &&
+      setup.board.occupied.size() + setup.pockets.count() < 38 + this.countPieces('king', setup);
+  }
+
+  countPieces(role: Role, setup?: Setup): number {
+    if(!defined(setup))
+      setup = this.getSetup();
+    role = unpromote(role)!;
+    return setup.board[role].size() +
+      ((POCKET_ROLES as ReadonlyArray<string>).includes(role) ? (setup.pockets.sente[role as PocketRole] + setup.pockets.gote[role as PocketRole]) : 0) +
+      ((PROMOTABLE_ROLES as ReadonlyArray<string>).includes(role) ? (setup.board[promote(role as PromotableRole)].size()) : 0);
   }
 
   fillGotesHand(): void {
     const setup = this.getSetup();
-    const senteHand = this.pockets['black'];
+    const senteHand = this.pockets['sente'];
     
     const pieceCounts: {[index: string]:number} = {
-      "lance": 4 - setup.board.lance.size() - setup.board.promotedLance.size() - senteHand.lance,
-      "knight": 4 - setup.board.knight.size() - setup.board.promotedKnight.size() - senteHand.knight,
-      "silver": 4 - setup.board.silver.size() - setup.board.promotedSilver.size() - senteHand.silver,
+      "lance": 4 - setup.board.lance.size() - setup.board.promotedlance.size() - senteHand.lance,
+      "knight": 4 - setup.board.knight.size() - setup.board.promotedknight.size() - senteHand.knight,
+      "silver": 4 - setup.board.silver.size() - setup.board.promotedsilver.size() - senteHand.silver,
       "gold": 4 - setup.board.gold.size() - senteHand.gold,
       "pawn": 18 - setup.board.pawn.size() - setup.board.tokin.size() - senteHand.pawn,
       "bishop": 2 - setup.board.bishop.size() - setup.board.horse.size() - senteHand.bishop,
       "rook": 2 - setup.board.rook.size() - setup.board.dragon.size() - senteHand.rook
     };
-    this.pockets['white'] = MaterialSide.empty();
+    this.pockets['gote'] = MaterialSide.empty();
 
     for (const p in pieceCounts) {
       if (pieceCounts[p] > 0)
-        this.pockets['white'][p as PocketRole] = pieceCounts[p];
+        this.pockets['gote'][p as PocketRole] = pieceCounts[p];
     }
     this.onChange();
   }

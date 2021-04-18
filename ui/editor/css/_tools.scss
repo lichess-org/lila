@@ -21,16 +21,8 @@
       .color {
         margin-bottom: 1em;
       }
-      .castling {
-        div {
-          @extend %flex-between;
-        }
-        label,
-        input {
-          display:inline-block;
-          margin: 3px;
-          vertical-align: middle;
-        }
+      .piece-counter {
+        white-space: normal;
       }
     }
     .actions {

@@ -114,7 +114,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
     fen: ctrl.cfg.fen,
-    orientation: ctrl.options.orientation || 'white',
+    orientation: ctrl.options.orientation || 'sente',
     coordinates: !ctrl.cfg.embed,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
@@ -141,10 +141,10 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     highlight: {
       lastMove: false
     },
+    notation: ctrl.cfg.pieceNotation,
     events: {
       change: ctrl.onChange.bind(ctrl),
       insert: changeColorHandle
     },
-    notation: ctrl.cfg.pieceNotation
   };
 }

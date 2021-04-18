@@ -1,40 +1,4 @@
-.editorPocket {
-  width: 100%;
-  .no-square {
-    flex: 0 0 calc(100% / 7) !important;
-  }
-  min-height: 50px;
-  piece {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-    @include transition();
-    &::after {
-      @extend %active, %box-radius;
-      content: attr(data-nb);
-      bottom: 0;
-      right: 0;
-      position: absolute;
-      line-height: 0.9em;
-      padding: 3px 0.3em;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-    &[data-nb="0"] {
-      cursor: auto;
-      opacity: 0.1;
-      &::after {
-        content: none;
-      }
-    }
-    &.premove {
-      background-color: #555;
-    }
-  }
-}
-
-.board-editor .spare,
-.editorPocket {
+.board-editor .spare {
   @extend %box-radius;
   display: flex;
   flex-wrap: wrap;
@@ -49,7 +13,7 @@
     margin-top: 2vh;
   }
   .no-square {
-    flex: 0 0 calc(100% / 9);
+    flex: 0 0 calc(100% / 8);
     @include transition();
     &:hover {
       background: fade-out($c-primary, 0.8);
