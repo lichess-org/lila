@@ -732,4 +732,5 @@
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
   <string name="inTheFAQ">Еш Сорый торган Сорауларда</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
+  <string name="resVsX">%1$s vs %2$s</string>
 </resources>
