@@ -34,7 +34,7 @@ case class FreqWinners(
 case class AllWinners(
     hyperbullet: FreqWinners,
     bullet: FreqWinners,
-    hyperblitz: FreqWinners,
+    superblitz: FreqWinners,
     blitz: FreqWinners,
     hyperrapid: FreqWinners,
     rapid: FreqWinners,
@@ -44,7 +44,7 @@ case class AllWinners(
 ) {
 
   lazy val top: List[Winner] = List(
-    List(hyperbullet, bullet, hyperblitz, blitz, hyperrapid, rapid).flatMap(_.top),
+    List(hyperbullet, bullet, superblitz, blitz, hyperrapid, rapid).flatMap(_.top),
     List(elite.headOption, marathon.headOption).flatten,
     WinnersApi.variants.flatMap { v =>
       variants get v.key flatMap (_.top)
@@ -52,7 +52,7 @@ case class AllWinners(
   ).flatten
 
   def userIds =
-    List(hyperbullet, bullet, hyperblitz, blitz, hyperrapid, rapid).flatMap(_.userIds) :::
+    List(hyperbullet, bullet, superblitz, blitz, hyperrapid, rapid).flatMap(_.userIds) :::
       elite.map(_.userId) ::: marathon.map(_.userId) :::
       variants.values.toList.flatMap(_.userIds)
 }
@@ -110,7 +110,7 @@ final class WinnersApi(
       AllWinners(
         hyperbullet = standardFreqWinners(Speed.HyperBullet),
         bullet = standardFreqWinners(Speed.Bullet),
-        hyperblitz = standardFreqWinners(Speed.HyperBlitz),
+        superblitz = standardFreqWinners(Speed.SuperBlitz),
         blitz = standardFreqWinners(Speed.Blitz),
         hyperrapid = standardFreqWinners(Speed.HyperRapid),
         rapid = standardFreqWinners(Speed.Rapid),

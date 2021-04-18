@@ -50,7 +50,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       "Lishogi "    -> "",
       "Marathon"    -> icon('\\'),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
-      "HyperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}",
+      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}",
       "HyperRapid"  -> s"S${icon(PerfType.Rapid.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
       pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)

@@ -100,9 +100,9 @@ object faq {
           ul(
             li(inferiorThanXsEqualYtimeControl(60, "UltraBullet")),
             li(inferiorThanXsEqualYtimeControl(300, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(900, "Blitz")),
-            li(inferiorThanXsEqualYtimeControl(2700, trans.rapid())),
-            li(superiorThanXsEqualYtimeControl(2700, trans.classical()))
+            li(inferiorThanXsEqualYtimeControl(600, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
+            li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
         ),
         //question( // todo variant

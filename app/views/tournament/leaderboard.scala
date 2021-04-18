@@ -81,7 +81,7 @@ object leaderboard {
             eliteWinners,
             freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
             freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
-            freqWinners(winners.hyperblitz, PerfType.Blitz, "HyperBlitz"),
+            freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
             freqWinners(winners.hyperrapid, PerfType.Rapid, "HyperRapid"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),

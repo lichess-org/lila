@@ -95,7 +95,7 @@ Thank you all, you rock!"""
       List( // yearly tournaments!
         secondWeekOf(JANUARY).withDayOfWeek(MONDAY)      -> Bullet,
         secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY)    -> Blitz,
-        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY)     -> HyperRapid,
+        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY)     -> SuperBlitz,
         secondWeekOf(APRIL).withDayOfWeek(THURSDAY)      -> Rapid,
         secondWeekOf(MAY).withDayOfWeek(FRIDAY)          -> Classical,
         secondWeekOf(JUNE).withDayOfWeek(SATURDAY)       -> HyperRapid,
@@ -104,7 +104,7 @@ Thank you all, you rock!"""
         secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> HyperRapid,
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
-        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperRapid
+        secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> Blitz
       ).flatMap {
         case (day, speed) =>
           at(day, 13) filter farFuture.isAfter map { date =>
@@ -114,9 +114,9 @@ Thank you all, you rock!"""
       List(thisMonth, nextMonth).flatMap { month =>
         List(
           List( // monthly standard tournaments!
-            month.lastWeek.withDayOfWeek(MONDAY)    -> Rapid,
-            month.lastWeek.withDayOfWeek(TUESDAY)   -> Blitz,
-            month.lastWeek.withDayOfWeek(WEDNESDAY) -> HyperRapid,
+            month.lastWeek.withDayOfWeek(MONDAY)    -> HyperRapid,
+            month.lastWeek.withDayOfWeek(TUESDAY)   -> SuperBlitz,
+            month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.lastWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap {
@@ -127,8 +127,8 @@ Thank you all, you rock!"""
           },
           List( // shield tournaments!
             month.firstWeek.withDayOfWeek(MONDAY)    -> Bullet,
-            month.firstWeek.withDayOfWeek(TUESDAY)   -> Blitz,
-            month.firstWeek.withDayOfWeek(WEDNESDAY) -> HyperRapid,
+            month.firstWeek.withDayOfWeek(TUESDAY)   -> SuperBlitz,
+            month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.firstWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap {
@@ -146,8 +146,8 @@ Thank you all, you rock!"""
       },
       List( // weekly standard tournaments!
         nextMonday    -> Bullet,
-        nextTuesday   -> Blitz,
-        nextWednesday -> HyperRapid,
+        nextTuesday   -> SuperBlitz,
+        nextWednesday -> Blitz,
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
       ).flatMap {
@@ -157,8 +157,8 @@ Thank you all, you rock!"""
           }
       },
       List( // week-end elite tournaments!
-        nextSaturday -> HyperRapid,
-        nextSunday   -> Bullet
+        nextSaturday -> Blitz,
+        nextSunday   -> HyperRapid
       ).flatMap {
         case (day, speed) =>
           at(day, 13) map { date =>
@@ -190,10 +190,10 @@ Thank you all, you rock!"""
           Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 4) map { date =>
-          Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
-          Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 8) map { date =>
           Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
@@ -211,7 +211,7 @@ Thank you all, you rock!"""
       //   val hour = date.getHourOfDay
       //   List(
       //     at(date, hour) map { date =>
-      //       Schedule(Hourly, HyperRapid, Standard, std, date).plan
+      //       Schedule(Hourly, Blitz, Standard, std, date).plan
       //     },
       //     at(date, hour) collect {
       //       case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, std, date).plan
@@ -225,8 +225,8 @@ Thank you all, you rock!"""
       //    val hour = date.getHourOfDay
       //    val speed = hour % 4 match {
       //      case 0 => Bullet
-      //      case 1 => Blitz
-      //      case 2 => HyperRapid
+      //      case 1 => SuperBlitz
+      //      case 2 => Blitz
       //      case _ => Rapid
       //    }
       //    List(
