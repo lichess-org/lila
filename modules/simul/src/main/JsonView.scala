@@ -126,7 +126,7 @@ final class JsonView(
     Json.obj(
       "id"       -> g.id,
       "status"   -> g.status.id,
-      "fen"      -> (chess.format.Forsyth exportBoard g.board),
+      "fen"      -> (chess.format.Forsyth exportSituation g.situation),
       "pockets"  -> (chess.format.Forsyth exportCrazyPocket g.board),
       "lastMove" -> ~g.lastMoveKeys,
       "orient"   -> g.playerByUserId(hostId).map(_.color)

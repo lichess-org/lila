@@ -240,13 +240,13 @@ final private[api] class GameApi(
         "opening"  -> withFlags.opening.??(g.opening),
         "fens" -> (withFlags.fens && g.finished) ?? {
           chess.Replay
-            .boards(
+            .situations(
               moveStrs = g.pgnMoves,
               initialFen = initialFen,
               variant = g.variant
             )
-            .toOption map { boards =>
-            JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
+            .toOption map { sits =>
+            JsArray(sits map chess.format.Forsyth.exportSituation map JsString.apply)
           }
         },
         "winner" -> g.winnerColor.map(_.name),

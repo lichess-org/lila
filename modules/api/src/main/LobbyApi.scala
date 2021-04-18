@@ -34,7 +34,7 @@ final class LobbyApi(
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "fen"      -> (chess.format.Forsyth exportSituation pov.game.situation),
         "pockets"  -> (chess.format.Forsyth exportCrazyPocket pov.game.board),
         "color"    -> pov.color.name,
         "lastMove" -> ~pov.game.lastMoveKeys,
