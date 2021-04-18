@@ -10,7 +10,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
         };
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
-        if (data.player.color === "white") blurs.reverse();
+        if (data.player.color === "sente") blurs.reverse();
 
         var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;
@@ -77,8 +77,8 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               animation: false,
             },
             area: {
-              fillColor: Highcharts.theme.lishogi.area.white,
-              negativeFillColor: Highcharts.theme.lishogi.area.black,
+              fillColor: Highcharts.theme.lishogi.area.sente,
+              negativeFillColor: Highcharts.theme.lishogi.area.gote,
               threshold: 0,
               lineWidth: 1,
               color: "#d85000",

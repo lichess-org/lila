@@ -28,8 +28,8 @@ $(function () {
       option.push("<option value='" + user + "'");
       option.push(isSelected(row, "winner", user, "req-winner"));
       option.push(isSelected(row, "loser", user, "req-loser"));
-      option.push(isSelected(row, "whiteUser", user, "req-white"));
-      option.push(isSelected(row, "blackUser", user, "req-black"));
+      option.push(isSelected(row, "senteUser", user, "req-sente"));
+      option.push(isSelected(row, "goteUser", user, "req-gote"));
       option.push(">" + user + "</option>");
       options.push(option.join(""));
     });

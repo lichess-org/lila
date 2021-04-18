@@ -11,8 +11,8 @@ lishogi.movetimeChart = function (data, trans, notation) {
             var $this = $(this).addClass("rendered");
 
             var series = {
-              white: [],
-              black: [],
+              sente: [],
+              gote: [],
             };
 
             var tree = data.treeParts;
@@ -22,7 +22,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
             var logC = Math.pow(Math.log(3), 2);
 
             var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
-            if (data.player.color === "white") blurs.reverse();
+            if (data.player.color === "sente") blurs.reverse();
 
             data.game.moveCentis.forEach(function (time, i) {
               var node = tree[i + 1];
@@ -54,7 +54,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
                 point.name += " [blur]";
               }
 
-              series[color ? "white" : "black"].push(point);
+              series[color ? "sente" : "gote"].push(point);
             });
 
             var disabled = {
@@ -68,12 +68,12 @@ lishogi.movetimeChart = function (data, trans, notation) {
               legend: disabled,
               series: [
                 {
-                  name: "White",
-                  data: series.white,
+                  name: "Sente",
+                  data: series.sente,
                 },
                 {
-                  name: "Black",
-                  data: series.black,
+                  name: "Gote",
+                  data: series.gote,
                 },
               ],
               chart: {
@@ -97,8 +97,8 @@ lishogi.movetimeChart = function (data, trans, notation) {
                   animation: false,
                 },
                 area: {
-                  fillColor: Highcharts.theme.lishogi.area.white,
-                  negativeFillColor: Highcharts.theme.lishogi.area.black,
+                  fillColor: Highcharts.theme.lishogi.area.sente,
+                  negativeFillColor: Highcharts.theme.lishogi.area.gote,
                   fillOpacity: 1,
                   threshold: 0,
                   lineWidth: 1,
