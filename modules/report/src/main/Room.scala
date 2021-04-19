@@ -25,7 +25,8 @@ object Room {
     (v.key, v)
   } toMap
 
-  val allButXfiles: List[Room] = all.filter(Xfiles !=)
+  val allButXfiles: List[Room]         = all.filter(Xfiles !=)
+  val allButXfilesAndPrint: List[Room] = allButXfiles.filter(Print !=)
 
   implicit val roomIso = lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
 

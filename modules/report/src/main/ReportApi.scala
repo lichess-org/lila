@@ -354,7 +354,7 @@ final class ReportApi(
   private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
-        Room.allButXfiles
+        Room.allButXfilesAndPrint
           .map { room =>
             coll // hits the best_open partial index
               .primitiveOne[Float](
