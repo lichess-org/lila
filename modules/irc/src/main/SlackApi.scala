@@ -200,7 +200,7 @@ final class SlackApi(
   def gdprErase(user: User): Funit =
     client(
       SlackMessage(
-        username = "lichess",
+        username = user.username,
         icon = "scream2",
         text = "GDPR erasure scheduled",
         channel = rooms.gdprLog
