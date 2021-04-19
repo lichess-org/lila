@@ -7,12 +7,13 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
+import lila.mod.IpRender.RenderIp
 import lila.mod.ModPresets
 import lila.playban.RageSit
 import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
 import lila.user.{ Holder, User }
-import lila.mod.IpRender.RenderIp
+import lila.appeal.Appeal
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
@@ -525,7 +526,7 @@ object mod {
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
-  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData)(implicit
+  def otherUsers(mod: Holder, u: User, data: UserLogins.TableData, appeals: List[Appeal])(implicit
       ctx: Context,
       renderIp: RenderIp
   ): Tag = {
@@ -552,6 +553,7 @@ object mod {
             sortNumberTh(closed)(cls := "i", title := "Closed"),
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
+            sortNumberTh(iconTag("6"))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
             isGranted(_.CloseAccount) option th
@@ -561,6 +563,7 @@ object mod {
           othersWithEmail.others.map { case other @ UserLogins.OtherUser(o, _, _) =>
             val userNotes =
               notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Admin)))
+            val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
               cls := (o == u) option "same"
@@ -598,6 +601,18 @@ object mod {
                   )
                 )
               } getOrElse td(dataSort := 0),
+              userAppeal match {
+                case None => td(dataSort := 0)
+                case Some(appeal) =>
+                  td(dataSort := 1)(
+                    a(
+                      href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
+                      cls := "text",
+                      dataIcon := "6",
+                      title := pluralize("appeal message", appeal.msgs.size)
+                    )(appeal.msgs.size)
+                  )
+              },
               td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
               isGranted(_.CloseAccount) option td(

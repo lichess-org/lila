@@ -22,6 +22,7 @@ object communication {
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
       logins: lila.security.UserLogins.TableData,
+      appeals: List[lila.appeal.Appeal],
       priv: Boolean
   )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
@@ -58,7 +59,9 @@ object communication {
         ),
         isGranted(_.UserModView) option frag(
           div(cls := "mod-zone none"),
-          views.html.user.mod.otherUsers(mod, u, logins)(ctx, renderIp)(cls := "communication__logins")
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+            cls := "communication__logins"
+          )
         ),
         history.nonEmpty option frag(
           h2("Moderation history"),

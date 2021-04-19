@@ -395,11 +395,12 @@ final class User(
           html.user.mod.actions(user, emails, erased, env.mod.presets.pmPresets.get())
         }
         val userLoginsFu = env.security.userLogins(user, nbOthers)
-        val others = userLoginsFu flatMap { userLogins =>
-          loginsTableData(user, userLogins, nbOthers) map {
-            html.user.mod.otherUsers(holder, user, _)
-          }
-        }
+        val others = for {
+          userLogins <- userLoginsFu
+          appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
+          data       <- loginsTableData(user, userLogins, nbOthers)
+        } yield html.user.mod.otherUsers(holder, user, data, appeals)
+
         val identification = userLoginsFu map { logins =>
           Granter.is(_.ViewPrintNoIP)(holder) ??
             html.user.mod.identification(holder, user, logins)

@@ -44,11 +44,6 @@ object message {
       "Sorry, boosters and sandbaggers are not allowed here."
     }
 
-  def blacklisted(implicit ctx: Context) =
-    apply("IP address blacklisted") {
-      blacklistedMessage
-    }
-
   def blacklistedMessage(implicit ctx: Context) =
     s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
 

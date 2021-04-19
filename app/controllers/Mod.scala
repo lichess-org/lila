@@ -255,7 +255,7 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")) zip
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              } map { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
+              } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if (priv) {
                   if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
                     env.irc.slack.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
@@ -268,19 +268,22 @@ final class Mod(
                       )
                   }
                 }
-                html.mod.communication(
-                  me,
-                  user,
-                  (povs zip chats) collect {
-                    case (p, Some(c)) if c.nonEmpty => p -> c
-                  } take 15,
-                  convos,
-                  publicLines,
-                  notes.filter(_.from != "irwin"),
-                  history,
-                  logins,
-                  priv
-                )
+                env.appeal.api.byUserIds(user.id :: logins.userLogins.otherUserIds) map { appeals =>
+                  html.mod.communication(
+                    me,
+                    user,
+                    (povs zip chats) collect {
+                      case (p, Some(c)) if c.nonEmpty => p -> c
+                    } take 15,
+                    convos,
+                    publicLines,
+                    notes.filter(_.from != "irwin"),
+                    history,
+                    logins,
+                    appeals,
+                    priv
+                  )
+                }
               }
           }
       }
