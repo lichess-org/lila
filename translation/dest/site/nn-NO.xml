@@ -78,7 +78,7 @@
   <string name="losing">Tapar</string>
   <string name="drawn">Remis</string>
   <string name="unknown">Ukjend</string>
-  <string name="database">Database</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Database</string>
   <string name="whiteDrawBlack">Kvit / Remis / Svart</string>
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
@@ -619,7 +619,7 @@ i %3$s</string>
   <string name="really">verkeleg</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Brukarvilkår</string>
-  <string name="sourceCode">Kjeldekode</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Kjeldekode</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>

@@ -78,7 +78,7 @@
   <string name="losing">இழந்து</string>
   <string name="drawn">சமநிலை அடைந்தது</string>
   <string name="unknown">தெரியவில்லை</string>
-  <string name="database">தரவுத்தளம்</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">தரவுத்தளம்</string>
   <string name="whiteDrawBlack">வெள்ளை / காயடைப்புநிலை / கருப்பு</string>
   <string name="averageRatingX">சராசரி மதிப்பெண்கள்: %s</string>
   <string name="recentGames">சமீபத்திய விளையாட்டு</string>
@@ -117,6 +117,10 @@
   <string name="blunder">பெரிய தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s பெரிய தவறு</item>
+    <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
@@ -309,6 +313,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
   <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்கள் சிறந்த வாராந்திர %1$s மதிப்பீடு (%2$s) மிக அதிகமாக உள்ளது</string>
   <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
@@ -372,6 +377,8 @@
   <string name="createANewTournament">புதுப்போட்டி ஒன்றைப் படை</string>
   <string name="conditionOfEntry">நுழைவதற்கு தேவை:</string>
   <string name="advancedSettings">மேம்பட்ட அமைப்புகள்</string>
+  <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
+  <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
   <string name="points">புள்ளிகள்</string>
@@ -487,7 +494,7 @@
   <string name="really">உண்மையாக</string>
   <string name="contribute">பங்களிப்பு</string>
   <string name="termsOfService">விதிமுறைகள்</string>
-  <string name="sourceCode">மூலக் குறியீடு</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">மூலக் குறியீடு</string>
   <string name="create">உருவாக்கு</string>
   <string name="yourRating">உங்கள் மதிப்பீடு</string>
   <string name="glicko2Rating">க்ளிக்க்கோ-2 மதிப்பீடு</string>

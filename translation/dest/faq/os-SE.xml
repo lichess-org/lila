@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">АФ</string>
+  <string name="faqAbbreviation">АрФар</string>
   <string name="frequentlyAskedQuestions">Арæх Фарстатæ</string>
   <string name="whyIsLichessCalledLichess">Lichess-æн йæ ном цæмæн у \"Lichess\"?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\" — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
   <string name="leechess">личец</string>
   <string name="hearItPronouncedBySpecialist">Байхъус специалист æй куыд дзуры.</string>
-  <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтæм нæ кæсгæйæ.</string>
+  <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтытæм нæ кæсгæйæ.</string>
   <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess у фыст %2$s-йæ, æнцонæмбарон программон æвзагæй.</string>
   <string name="howCanIContributeToLichess">Куыд баххуыс кæнон Lichess-æн?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess цæры хъазджыты снывондытæй æмæ волонтёрты куыстæй.</string>
+  <string name="findMoreAndSeeHowHelp">Дæ бон у базонын %1$s, уый (æмæ %2$s дæр). Кæд дæ фæнды баххуысын Lichess-æн дæ рæстæгæй æмæ арæхстытæй, уæд дзы ис %3$s.</string>
   <string name="beingAPatron">аххуысгæнæгæй куыд суын</string>
+  <string name="breakdownOfOurCosts">нæ хардзыты хыгъдлæвæрд</string>
   <string name="otherWaysToHelp">æндæр амалтæ баххуыс кæнын</string>
+  <string name="areThereWebsitesBasedOnLichess">Ис дзы æндæр Lichess-вебсайтытæ?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">О, Lichess ныфс радта æндæр æргом сайтытæм, кæй пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
+  <string name="whenAmIEligibleRatinRefund">Сайæгой мæ кæд рамбулдзæн, уæд мын мæ рейтинг фæстæмæ ратдзыстут?</string>
   <string name="gameplay">Хъазты арæзт</string>
-  <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд \'сты?</string>
+  <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд ысты?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
@@ -30,8 +35,8 @@ LM хуындады райстыл ма кур.</string>
   <string name="usernamesNotOffensive">Æмткæй зæгъгæйæ, пайдакæнæджыты нæмттæ хъуамæ нæ уой: æфхæрæн, рекламæ кæнæн, ави дæу æндæр адæймаджы хуызæн æвдисгæ кæй кæнынц, ахæмтæ. Дæ бон у фылдæр бакæсын нæ %1$s.</string>
   <string name="guidelines">рекомендациты</string>
   <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
-  <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты базæты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
-  <string name="uniqueTrophies">Уникалон трофейтæ</string>
-  <string name="ownerUniqueTrophies">Уыцы трофей у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн ис кæнæ уыдзæн ахæм.</string>
+  <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
+  <string name="uniqueTrophies">Уникалон лæвартæ</string>
+  <string name="ownerUniqueTrophies">Уыцы лæвар у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн уыдзæн ахæм.</string>
   <string name="howToThreeDots">Базон, куыд...</string>
 </resources>

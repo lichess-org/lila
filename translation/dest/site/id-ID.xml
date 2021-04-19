@@ -77,7 +77,7 @@
   <string name="losing">Kekalahan</string>
   <string name="drawn">Langkah remis</string>
   <string name="unknown">Tak diketahui</string>
-  <string name="database">Basis Data</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Basis Data</string>
   <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
   <string name="averageRatingX">Rata-rata rating: %s</string>
   <string name="recentGames">Permainan terkini</string>
@@ -571,7 +571,7 @@
   <string name="really">benar-benar</string>
   <string name="contribute">Kontribusi</string>
   <string name="termsOfService">Ketentuan Layanan (ToS)</string>
-  <string name="sourceCode">Kode Sumber</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Kode Sumber</string>
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
   <string name="host">Penyedia</string>
   <string name="hostColorX">Warna host: %s</string>

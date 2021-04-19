@@ -78,7 +78,7 @@
   <string name="losing">Besig om te verloor</string>
   <string name="drawn">Gelykop gespeel</string>
   <string name="unknown">Onbekend</string>
-  <string name="database">Databasis</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Databasis</string>
   <string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
   <string name="averageRatingX">Gemiddelde Gradering: %s</string>
   <string name="recentGames">Onlangse wedstryde</string>
@@ -601,7 +601,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="really">regtig</string>
   <string name="contribute">Dra by</string>
   <string name="termsOfService">Bepalings en Voorwaardes</string>
-  <string name="sourceCode">Bron Kode</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Bron Kode</string>
   <string name="simultaneousExhibitions">Gelyktydige uitstallings(Simul)</string>
   <string name="host">Gasheer</string>
   <string name="hostColorX">Gasheer kleur: %s</string>

@@ -80,7 +80,7 @@
   <string name="losing">Пройгрышныя</string>
   <string name="drawn">Нічыя</string>
   <string name="unknown">Невядома</string>
-  <string name="database">База звестак</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">База звестак</string>
   <string name="whiteDrawBlack">Белыя / нічыя / чорныя</string>
   <string name="averageRatingX">Сярэдні рэйтынг: %s</string>
   <string name="recentGames">Нядаўнія гульні</string>
@@ -683,7 +683,7 @@
   <string name="really">чыстая праўда!</string>
   <string name="contribute">Зрабіць унёсак</string>
   <string name="termsOfService">Умовы карыстання</string>
-  <string name="sourceCode">Зыходны код</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Зыходны код</string>
   <string name="simultaneousExhibitions">Паралельныя гульні</string>
   <string name="host">Арганізатар</string>
   <string name="hostColorX">Колер арганізатара: %s</string>

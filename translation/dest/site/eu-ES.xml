@@ -78,7 +78,7 @@
   <string name="losing">Galtzailea</string>
   <string name="drawn">Berdinketa</string>
   <string name="unknown">Ezezaguna</string>
-  <string name="database">Datu-basea</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Datu-basea</string>
   <string name="whiteDrawBlack">Zuriak / Berdinketa / Beltzak</string>
   <string name="averageRatingX">Bataz besteko puntuazioa: %s</string>
   <string name="recentGames">Azken partidak</string>
@@ -611,7 +611,7 @@
   <string name="really">benetan</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="termsOfService">ToS</string>
-  <string name="sourceCode">Iturburu kodea</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Iturburu kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>
   <string name="hostColorX">Emango duenaren kolorea: %s</string>

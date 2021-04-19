@@ -80,7 +80,7 @@
   <string name="losing">Przegrywa</string>
   <string name="drawn">Remisuje</string>
   <string name="unknown">Nieznany</string>
-  <string name="database">Baza danych</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Baza danych</string>
   <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
@@ -685,7 +685,7 @@
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="termsOfService">Regulamin</string>
-  <string name="sourceCode">Kod źródłowy</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
   <string name="hostColorX">Kolor symultanisty: %s</string>

@@ -74,7 +74,7 @@
   <string name="losing">Colli</string>
   <string name="drawn">Cyfartal</string>
   <string name="unknown">Ddim yn glir</string>
-  <string name="database">Bas data</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Bas data</string>
   <string name="whiteDrawBlack">Gwyn / Cyfartal / Du</string>
   <string name="averageRatingX">Cyfartaledd gradd: %s</string>
   <string name="recentGames">Gemau diweddar</string>
@@ -503,7 +503,7 @@
   <string name="really">go iawn</string>
   <string name="contribute">Cyfrannu</string>
   <string name="termsOfService">Telerau gwasanaeth</string>
-  <string name="sourceCode">Côd gwreiddiol</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Côd gwreiddiol</string>
   <string name="simultaneousExhibitions">Cystadleuaeth cyfochrog</string>
   <string name="host">Gweinydd</string>
   <string name="hostColorX">Lliw y gwesteiwr: %s</string>

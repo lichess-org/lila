@@ -55,7 +55,7 @@
   <string name="close">ବନ୍ଦ</string>
   <string name="winning">ଜିତିବା</string>
   <string name="losing">ହାରିବା</string>
-  <string name="database">ଡାଟାବେସ୍</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ଡାଟାବେସ୍</string>
   <string name="recentGames">ସାମ୍ପ୍ରତିକ ଖେଳଗୁଡିକ</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>

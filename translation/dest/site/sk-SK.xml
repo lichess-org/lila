@@ -80,7 +80,7 @@
   <string name="losing">Prehráva</string>
   <string name="drawn">Remizuje</string>
   <string name="unknown">Neznáme</string>
-  <string name="database">Databáza</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Databáza</string>
   <string name="whiteDrawBlack">Biely / Remíza / Čierny</string>
   <string name="averageRatingX">Priemerný rating: %s</string>
   <string name="recentGames">Nedávne partie</string>
@@ -679,7 +679,7 @@
   <string name="really">naozaj</string>
   <string name="contribute">Prispieť</string>
   <string name="termsOfService">Podmienky služby</string>
-  <string name="sourceCode">Zdrojový kód</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Zdrojový kód</string>
   <string name="simultaneousExhibitions">Simultánne exhibície</string>
   <string name="host">Hostiteľ</string>
   <string name="hostColorX">Farba simultánneho hráča: %s</string>

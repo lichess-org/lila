@@ -77,7 +77,7 @@
   <string name="losing">敗勢</string>
   <string name="drawn">ドロー</string>
   <string name="unknown">不明</string>
-  <string name="database">データベース</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">データベース</string>
   <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近の対局</string>
@@ -581,7 +581,7 @@
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
-  <string name="sourceCode">ソースコード</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
   <string name="hostColorX">ホストの色: %s</string>

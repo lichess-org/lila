@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">அமைப்புகள்</string>
   <string name="closeAccount">கணக்கு மூடவும்</string>
+  <string name="closingIsDefinitive">நிச்சயமாக மூடப்படும். மாற்ற முடியாது. உறுதிப்படுத்தவா?</string>
   <string name="changedMindDoNotCloseAccount">என் மனதை மாற்றிநேன் என் கணக்கு மூட வேண்டாம்</string>
   <string name="thisAccountIsClosed">இந்த கணக்கு மூடப்பட்டுள்ளது.</string>
 </resources>
