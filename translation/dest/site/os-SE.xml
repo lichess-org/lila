@@ -27,6 +27,11 @@
   <string name="itsYourTurn">Дæ цыд!</string>
   <string name="kingInTheCenter">Къарол центры</string>
   <string name="threeChecks">Æртæ шахы</string>
+  <string name="raceFinished">Ерысæй дугъ фæци</string>
+  <string name="variantEnding">Парти фæци</string>
+  <string name="newOpponent">Ног ныхмæлæууæджы ссарын</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Дæ ныхмæлæууæгæн фæнды ногæй ахъазын</string>
+  <string name="joinTheGame">Расидт райсын</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
