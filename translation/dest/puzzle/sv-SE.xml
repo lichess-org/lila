@@ -50,4 +50,5 @@
   <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
   <string name="failed">olöst</string>
+  <string name="streakDescription">Lös gradvis svårare pussel och bygg en vinstserie. Det finns ingen klocka, så ta din tid. Ett feldrag och spelet är över! Men du kan skippa ett drag per session.</string>
 </resources>
