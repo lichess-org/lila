@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Равдисын ныхас</string>
   <string name="toggleSound">Зæл скусын/ахуыссын кæнын</string>
   <string name="chat">Фыстæг арвитын</string>
-  <string name="resign">Хи раттын</string>
+  <string name="resign">Банымайын мæ дæрæн</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Урсытæ</string>
@@ -43,6 +43,11 @@
   <string name="forceResignation">Расидын дæ уæлахиз</string>
   <string name="forceDraw">Цыма ничи рамбулдта, афтæ зæгъын</string>
   <string name="talkInChat">Ныхасы уæздан у!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Демæ хъаздзæн фыццаг адæймаг, ацы дæнцæгæй чи æрбацæудзæн.</string>
+  <string name="whiteResigned">Урсытæ банымадтой сæ дæрæн</string>
+  <string name="blackResigned">Саутæ банымадтой сæ дæрæн</string>
+  <string name="whiteLeftTheGame">Урсытæ ныууагътой хъазт</string>
+  <string name="blackLeftTheGame">Саутæ ныууагътой хъазт</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
