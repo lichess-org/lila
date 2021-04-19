@@ -135,7 +135,7 @@ object list {
                 countTag(appeals),
                 "Appeals"
               ),
-              streamers > 0 option
+              (isGranted(_.Streamers) && streamers > 0) option
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
                   "Streamers"
