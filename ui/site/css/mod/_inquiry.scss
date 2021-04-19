@@ -139,6 +139,13 @@ body.no-inquiry {
     margin: 0;
   }
 
+  .doc.note {
+    margin-top: 1em;
+    p {
+      margin: 0;
+    }
+  }
+
   .report .atom {
     margin-bottom: 0.8em;
     border-bottom: 1px solid #777;
