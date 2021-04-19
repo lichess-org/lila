@@ -19,6 +19,11 @@
   <string name="white">Урсытæ</string>
   <string name="black">Саутæ</string>
   <string name="randomColor">Æрхаугæ хуыз</string>
+  <string name="createAGame">Хъазт саразын</string>
+  <string name="whiteIsVictorious">Урсыты уæлахиз</string>
+  <string name="blackIsVictorious">Сауты уæлахиз</string>
+  <string name="youPlayTheWhitePieces">Ды хъазыс урс фигурæтæй</string>
+  <string name="youPlayTheBlackPieces">Ды хъазыс сау фигурæтæй</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
