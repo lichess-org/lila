@@ -61,6 +61,13 @@
   <string name="cloudAnalysis">Мигъон иртасæн</string>
   <string name="goDeeper">Иртасын арфдæр</string>
   <string name="showThreat">Равдисын дзуаппы æртхъирæн</string>
+  <string name="inLocalBrowser">браузеры</string>
+  <string name="toggleLocalEvaluation">Скусын бынæттон иртасæн</string>
+  <string name="promoteVariation">Хуыздæрыл нымайын ацы вариант</string>
+  <string name="makeMainLine">Сæйрагæй райсын ацы вариант</string>
+  <string name="deleteFromHere">Адде кæнын</string>
+  <string name="forceVariation">Вариантæй скæнын</string>
+  <string name="move">Цыд</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
