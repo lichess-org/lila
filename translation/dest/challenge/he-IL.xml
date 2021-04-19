@@ -8,5 +8,5 @@
   <string name="registerToSendChallenges">אנא הירשמו על מנת לשלוח הזמנות למשחקים.</string>
   <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל הזמנות למשחקים.</string>
-  <string name="declineOnlyBot">%s מאשר הזמנות למשחק רק מבוטים.</string>
+  <string name="declineOnlyBot">מאשר הזמנות למשחק רק מבוטים.</string>
 </resources>
