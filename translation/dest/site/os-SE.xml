@@ -6,6 +6,11 @@
   <string name="gameOver">Хъазт фæци</string>
   <string name="waitingForOpponent">Ныхмæлæууæгмæ æнхъæлмæкæсын</string>
   <string name="waiting">Æнхъæлмæкæсын</string>
+  <string name="yourTurn">Дæ цыд</string>
+  <string name="aiNameLevelAiLevel">%1$s, бæрц %2$s</string>
+  <string name="level">Бæрц</string>
+  <string name="strength">Тых</string>
+  <string name="toggleTheChat">Равдисын ныхас</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
