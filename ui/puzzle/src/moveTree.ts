@@ -34,13 +34,13 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
-    if ((pov == 'white') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
+    if ((pov == 'white') == (node.ply % 2 == 1)) node.puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Chess, move: Move, ply: number, san: San) => ({
+const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => ({
   ply,
   san,
   fen: makeFen(pos.toSetup()),
