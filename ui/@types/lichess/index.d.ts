@@ -466,6 +466,14 @@ declare namespace Tree {
   export interface Shape {}
 }
 
+interface GameUpdate {
+  id: string;
+  fen: Fen;
+  lm: Uci;
+  wc?: number;
+  bc?: number;
+}
+
 interface CashStatic {
   powerTip: any;
 }
@@ -498,19 +506,6 @@ declare namespace PowerTip {
 
 interface HighchartsHTMLElement extends HTMLElement {
   highcharts: Highcharts.ChartObject;
-}
-
-interface GameUpdate {
-  /** Game ID */
-  id: string;
-  /** New position */
-  fen: Fen;
-  /** Last move */
-  lm: Uci;
-  /** White clock */
-  wc?: number;
-  /** Black clock */
-  bc?: number;
 }
 
 declare namespace Prefs {
