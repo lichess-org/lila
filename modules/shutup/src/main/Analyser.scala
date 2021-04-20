@@ -46,7 +46,7 @@ object Analyser {
   }.r
 
   private val ruBigRegex = {
-    """(?i)\b""" +
+    """(?iu)\b""" +
       Dictionary.ru.mkString("(", "|", ")") +
       """\b"""
   }.r
