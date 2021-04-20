@@ -3,7 +3,7 @@
 import { VNode, Hooks } from 'snabbdom';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-export const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+export const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex = /\n/g;
 export const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
 
@@ -47,14 +47,16 @@ export function userLinkReplace(orig: string, prefix: string, user: string) {
   return prefix + linkReplace("/@/'" + user + "'", '@' + user);
 }
 
-// TODO simul text.ts
-const toHtml = (text: string) => autolink(lichess.escapeHtml(text).replace(newLineRegex, '<br>'), toLink);
-
-export function richHTML(text: string): Hooks {
-  return innerHTML(text, toHtml);
+export function enrichText(text: string, allowNewlines = true): string {
+  let html = autolink(lichess.escapeHtml(text), toLink);
+  if (allowNewlines) html = html.replace(newLineRegex, '<br>');
+  return html;
 }
 
-// TODO chat enhance.ts
+export function richHTML(text: string, newLines = true): Hooks {
+  return innerHTML(text, t => enrichText(t, newLines));
+}
+
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
 const movePattern = /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
@@ -81,9 +83,6 @@ export function enhance(text: string, parseMoves: boolean): string {
   return plied;
 }
 
-// TODO msg enhance.ts
-// ported from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
 
@@ -106,7 +105,7 @@ const expandLink = (url: string) => linkReplace(url, url.replace(/^https?:\/\//,
 const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
 
 const expandUrls = (html: string) =>
-  html.replace(urlRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
+  html.replace(linkRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
 
 const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
@@ -118,17 +117,6 @@ const expandGameIds = (html: string) =>
 
 export const enhanceAll = (str: string) =>
   expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(newLineRegex, '<br>');
-
-// TODO analyse util.ts
-export function enrichText(text: string, allowNewlines = true): string {
-  let html = autolink(lichess.escapeHtml(text), toLink);
-  if (allowNewlines) html = html.replace(newLineRegex, '<br>');
-  return html;
-}
-
-export function richHTML2(text: string, newLines = true): Hooks {
-  return innerHTML(text, t => enrichText(t, newLines));
-}
 
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
