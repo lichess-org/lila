@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.event.{ Event, EventForm }
+import lila.i18n.LangList
 
 object event {
 
@@ -171,7 +172,12 @@ object event {
       ),
       form3.split(
         form3.group(form("lang"), raw("Language"), half = true)(
-          form3.select(_, lila.i18n.LangList.popularChoices)
+          form3.select(
+            _,
+            lila.i18n.LangList.popularNoRegion.map { l =>
+              l.code -> s"${l.language.toUpperCase} ${LangList name l}"
+            }
+          )
         ),
         form3.group(
           form("hostedBy"),
