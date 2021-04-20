@@ -86,5 +86,17 @@
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
+  <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
+  <string name="yourPerfRatingIsTooLow">Дæ %1$s рейтинг (%2$s) æгæр гыццыл у</string>
+  <string name="xRating">Рейтинг %s</string>
+  <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
+  <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
+  <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
+  <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>
+  <string name="yourRating">Дæ рейтинг</string>
+  <string name="glicko2Rating">Glicko-2 рейтинг</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
 </resources>
