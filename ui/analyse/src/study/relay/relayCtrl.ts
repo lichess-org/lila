@@ -68,12 +68,12 @@ export default class RelayCtrl {
     },
   };
 
-  socketHandler(t: string, d: any) {
+  socketHandler = (t: string, d: any): boolean => {
     const handler = (this.socketHandlers as SocketHandlers)[t];
     if (handler && d.id === this.data.id) {
       handler(d);
       return true;
     }
     return false;
-  }
+  };
 }
