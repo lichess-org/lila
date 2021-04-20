@@ -50,4 +50,9 @@
   <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
   <string name="failed">olöst</string>
+  <string name="streakDescription">Lös gradvis svårare pussel och bygg en vinstserie. Det finns ingen klocka, så ta din tid. Ett feldrag och spelet är över! Men du kan skippa ett drag per session.</string>
+  <string name="yourStreakX">Din vinstserie: %s</string>
+  <string name="streakSkipExplanation">Skippa detta drag för att bevara din vinstserie! Fungerar bara en gång per spel.</string>
+  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Fortsätt vinstserien</string>
+  <string name="newStreak">Ny vinstserie</string>
 </resources>

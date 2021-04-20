@@ -909,4 +909,9 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
+  <string name="mentionedYouInX"> ציינו אותכם ב- %1$s.</string>
+  <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
+  <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
+  <string name="gameVsX">משחק נגד %1$s</string>
+  <string name="resVsX">%1$s נגד %2$s</string>
 </resources>

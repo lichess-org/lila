@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Potwierdź swoje konto na lichess.org, %s</string>
-  <string name="emailConfirm_click">Kliknij w link aby aktywować swoje konto Lichess:</string>
-  <string name="emailConfirm_ignore">Zignoruj tę wiadomość, jeśli nie rejestrowałeś/-aś się na lichess.org.</string>
+  <string name="emailConfirm_click">Użyj poniższego odnośnika, aby aktywować swoje konto Lichess:</string>
+  <string name="emailConfirm_ignore">Jeśli nie rejestrowałeś się na Lichess, możesz bezpiecznie zignorować tą wiadomość.</string>
   <string name="passwordReset_subject">%s, zresetuj swoje hasło na lichess.org</string>
   <string name="passwordReset_intro">Otrzymaliśmy prośbę o zmianę hasła do Twojego konta.</string>
-  <string name="passwordReset_clickOrIgnore">Jeśli Ty ją wysłałeś, użyj poniższego odnośnika. W przeciwnym razie zignoruj ten e-mail.</string>
+  <string name="passwordReset_clickOrIgnore">Jeśli Ty ją wysłałeś, użyj poniższego odnośnika. W przeciwnym razie możesz zignorować ten e-mail.</string>
   <string name="emailChange_subject">Potwierdzenie nowego adresu e-mail użytkownika %s</string>
   <string name="emailChange_intro">Poprosiłeś o zmianę swojego adresu e-mail.</string>
-  <string name="emailChange_click">Aby potwierdzić, że masz dostęp do skrzynki pod tym adresem e-mail, użyj poniższego odnośnika:</string>
+  <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego adresu email, użyj poniższego odnośnika:</string>
   <string name="welcome_subject">Witamy na lichess.org, %s</string>
   <string name="welcome_text">Właśnie utworzyłeś konto na lichess.org.
 
-Oto strona Twojego profilu: %1$s. Możesz ją spersonalizować na %2$s.
+Oto Twoja strona profilowa: %1$s. Możesz ją spersonalizować na %2$s.
 
 Baw się dobrze i niech Twoje figury zawsze znajdą drogę do króla przeciwnika!</string>
   <string name="logInToLichess">Zaloguj się do lichess.org, %s</string>
   <string name="common_orPaste">(Odnośnik jest nieaktywny? Spróbuj wkleić go do paska adresu przeglądarki)</string>
-  <string name="common_note">To jest e-mail serwisowy związany z Twoim kontem na %s.</string>
+  <string name="common_note">To jest e-mail serwisowy związany z Twoim kontem %s.</string>
   <string name="common_contact">Możesz skontaktować się z nami pisząc na adres %s.</string>
 </resources>

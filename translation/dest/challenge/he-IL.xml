@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">הזמנות למשחק</string>
+  <string name="challengeToPlay">הזמן למשחק</string>
+  <string name="challengeDeclined">ההזמנה למשחק נדחתה</string>
+  <string name="challengeAccepted">ההזמנה למשחק התקבלה!</string>
+  <string name="challengeCanceled">ההזמנה למשחק התבטלה.</string>
+  <string name="registerToSendChallenges">אנא הירשמו על מנת לשלוח הזמנות למשחקים.</string>
+  <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
+  <string name="xDoesNotAcceptChallenges">%s לא מקבל הזמנות למשחקים.</string>
+  <string name="declineOnlyBot">מאשר הזמנות למשחק רק מבוטים.</string>
+</resources>
