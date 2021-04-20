@@ -5,17 +5,20 @@ $(function () {
     var ground;
     var $side = $(".coord-trainer__side");
     var $right = $(".coord-trainer__table");
+    var $button = $(".coord-trainer__button");
     var $bar = $trainer.find(".progress_bar");
-    var $coords = [$("#next_coord0"), $("#next_coord1"), $("#next_coord2")];
-    var $start = $right.find(".start");
+    var $coords = [$('#next_coord0'), $('#next_coord1')];
+    var $start = $button.find('.start');
     var $explanation = $right.find(".explanation");
     var $score = $(".coord-trainer__score");
+    var $timer = $('.coord-trainer__timer');
     var scoreUrl = $trainer.data("score-url");
     var duration = 30 * 1000;
     var tickDelay = 50;
     var colorPref = $trainer.data("color-pref");
     var color;
     var startAt, score;
+    var wrongTimeout;
     const notation = $(".notation-0")[0]
       ? 0
       : $(".notation-1")[0]
@@ -67,8 +70,8 @@ $(function () {
         type: "line",
         width: "100%",
         height: "80px",
-        lineColor: dark ? "#4444ff" : "#0000ff",
-        fillColor: dark ? "#222255" : "#ccccff",
+        lineColor: dark ? "#3692e7" : "#1b78d0",
+        fillColor: dark ? "#293a49" : "#d1e4f6",
       };
       $side.find(".user_chart").each(function () {
         $(this).sparkline($(this).data("points"), theme);
@@ -141,6 +144,11 @@ $(function () {
 
     var tick = function () {
       var spent = Math.min(duration, new Date() - startAt);
+      var left = ((duration - spent) / 1000).toFixed(1);
+      if (+left < 10) {
+        $timer.addClass('hurry');
+      }
+      $timer.text(left);
       $bar.css("width", (100 * spent) / duration + "%");
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
@@ -211,6 +219,7 @@ $(function () {
     $start.click(function () {
       $explanation.remove();
       $trainer.addClass("play").removeClass("init");
+      $timer.removeClass('hurry');
       showColor();
       clearCoords();
       centerRight();
@@ -228,12 +237,13 @@ $(function () {
                 $score.text(score);
                 advanceCoords();
               } else {
-                $("#next_coord0").addClass("nope");
-                setTimeout(function () {
-                  $("#next_coord0").removeClass("nope");
+                clearTimeout(wrongTimeout);
+                $trainer.addClass('wrong');
+
+                wrongTimeout = setTimeout(function () {
+                  $trainer.removeClass('wrong');
                 }, 500);
               }
-              $trainer.toggleClass("wrong", !hit);
             },
           },
         });

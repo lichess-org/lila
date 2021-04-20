@@ -2,6 +2,8 @@ $mq-col1: $mq-not-medium;
 $mq-col2: $mq-medium;
 $mq-col3: $mq-x-large;
 
+@import '../../puz/css/font';
+
 #main-wrap {
   --main-max-width: calc(
     100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}
@@ -17,26 +19,6 @@ $mq-col3: $mq-x-large;
 
   overflow: hidden; // coords cause mobile to have horiz scrolling
 
-  &.sente {
-    .bottom_color {
-      width: 32px;
-      height: 32px;
-      background-image: url(../images/blackPiece.svg);
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 110%;
-    }
-  }
-  &.gote {
-    .bottom_color {
-      width: 32px;
-      height: 32px;
-      background-image: url(../images/whitePiece.svg);
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 110%;
-    }
-  }
 
   &__side {
     grid-area: side;
@@ -50,14 +32,24 @@ $mq-col3: $mq-x-large;
   &__progress {
     grid-area: progress;
   }
-  &__score {
-    grid-area: score;
+  &__button {
+    grid-area: button;
+  }
+  &__score,
+  &__timer {
+    font-family: 'storm';
+    font-size: 5em;
+    margin: $block-gap;
+  }
+
+  .hurry {
+    color: $c-bad !important;
   }
 
   grid-template-areas:
     "board"
     "progress"
-    "score"
+    "button"
     "table"
     "side";
   grid-row-gap: $block-gap;
@@ -67,28 +59,35 @@ $mq-col3: $mq-x-large;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       "board    . table"
-      "board    . side"
-      "progress . ."
-      "score    . .";
+      "board    . button"
+      "progress . side"
+      ".        . side";
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
       "side . board    . table"
-      ".    . progress . ."
-      ".    . score    . .";
+      "side . board    . button"
+      ".    . progress . .";
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
 
   .box {
-    padding: $block-gap;
+    padding-top: $block-gap;
+    margin-top: $block-gap;
     h1 {
       font-size: 1.5em;
       padding: 0 !important;
       text-align: center;
     }
     p {
-      margin-top: 1em;
+      margin: 1em;
+    }
+    &.current-status {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
@@ -129,29 +128,14 @@ $mq-col3: $mq-x-large;
     color: #eee;
     text-shadow: 0 10px 10px #444;
     opacity: 0.8;
-    @include transition();
-    &.nope {
-      color: $c-bad !important;
-    }
   }
   #next_coord0 {
     color: #fff;
   }
   #next_coord1 {
-    left: 32%;
-    top: 10%;
-    font-size: 50px;
-    opacity: 0.7;
-  }
-  #next_coord2 {
-    transition: none;
-    left: 43%;
-    top: 13%;
-    font-size: 24px;
-    opacity: 0.4;
+    display: none; // Remove completely, if no one wants it back
   }
   #next_coord1,
-  #next_coord2,
   #next_coord0 {
     user-select: none;
   }
@@ -159,7 +143,7 @@ $mq-col3: $mq-x-large;
     @extend %box-radius;
     width: 100%;
     height: 10px;
-    background-color: $c-secondary;
+    background-color: $c-font-dim;
   }
   &__table {
     @extend %flex-center;
@@ -169,23 +153,15 @@ $mq-col3: $mq-x-large;
       margin: 0.5em 0 0.5em 1em;
     }
   }
-  &__score {
-    @extend %roboto, %flex-center, %box-radius;
+  &__button {
+    @extend %flex-center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 70px;
-    margin: auto;
-    width: 110px;
-    height: 110px;
-    line-height: 110px;
-    background-color: $c-secondary;
-    color: $c-secondary-over;
-    @include transition();
   }
-  &.wrong .progress_bar,
-  &.wrong .coord-trainer__score {
-    background-color: $c-bad;
+  &.wrong .coord-trainer__score,
+  &.wrong #next_coord0 {
+    color: $c-bad !important;
   }
+
   &.play .start,
   #next_coord,
   &.play form.color {
@@ -194,19 +170,31 @@ $mq-col3: $mq-x-large;
   &.play #next_coord {
     display: block;
   }
+    
+  &.play.sente .coord-trainer__button .current-color {
+    width: 64px;
+    height: 64px;
+    background-image: url(../images/blackPiece.svg);
+    background-repeat: no-repeat;
+  }
+  &.play.gote .coord-trainer__button .current-color {
+    width: 64px;
+    height: 64px;
+    background-image: url(../images/whitePiece.svg);
+    background-repeat: no-repeat;
+  }
 
   &.init {
     @include breakpoint($mq-col1) {
-      .coord-trainer__score {
-        display: none;
-      }
       .explanation {
-        order: 2;
-        margin-top: 1em;
+        margin: 1em;
       }
     }
-    .coord-trainer__score {
-      opacity: 0;
+    .coord-trainer__score,
+    .coord-trainer__progress,
+    .current-color,
+    .current-status {
+      display: none;
     }
     form.color {
       margin-bottom: $block-gap;
