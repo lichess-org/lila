@@ -29,28 +29,35 @@ final private class PushApi(
         .map { userId =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              asyncOpponentName(pov) flatMap { opponent =>
-                pushToAll(
-                  userId,
-                  _.finish,
-                  PushApi.Data(
-                    title = pov.win match {
-                      case Some(true)  => "You won!"
-                      case Some(false) => "You lost."
-                      case _           => "It's a draw."
-                    },
-                    body = s"Your game with $opponent is over.",
-                    stacking = Stacking.GameFinish,
-                    payload = Json.obj(
-                      "userId" -> userId,
-                      "userData" -> Json.obj(
-                        "type"   -> "gameFinish",
-                        "gameId" -> game.id,
-                        "fullId" -> pov.fullId
+              userRepo.byId(userId) flatMap {
+                _ ?? { user =>
+                  proxyRepo.urgentGames(user) flatMap { urgent =>
+                    asyncOpponentName(pov) flatMap { opponent =>
+                      pushToAll(
+                        userId,
+                        _.finish,
+                        PushApi.Data(
+                          title = pov.win match {
+                            case Some(true)  => "You won!"
+                            case Some(false) => "You lost."
+                            case _           => "It's a draw."
+                          },
+                          body = s"Your game with $opponent is over.",
+                          stacking = Stacking.GameFinish,
+                          payload = Json.obj(
+                            "userId" -> userId,
+                            "userData" -> Json.obj(
+                              "type"   -> "gameFinish",
+                              "gameId" -> game.id,
+                              "fullId" -> pov.fullId
+                            )
+                          ),
+                          iosBadge = Option(urgent.filter(_.isMyTurn).length)
+                        )
                       )
-                    )
-                  )
-                )
+                    }
+                  }
+                }
               }
             }
           }
@@ -65,21 +72,28 @@ final private class PushApi(
           val pov = Pov(game, game.player.color)
           game.player.userId ?? { userId =>
             IfAway(pov) {
-              asyncOpponentName(pov) flatMap { opponent =>
-                game.pgnMoves.lastOption ?? { sanMove =>
-                  pushToAll(
-                    userId,
-                    _.move,
-                    PushApi.Data(
-                      title = "It's your turn!",
-                      body = s"$opponent played $sanMove",
-                      stacking = Stacking.GameMove,
-                      payload = Json.obj(
-                        "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameMove")
-                      )
-                    )
-                  )
+              userRepo.byId(userId) flatMap {
+                _ ?? { user =>
+                  proxyRepo.urgentGames(user) flatMap { urgent =>
+                    asyncOpponentName(pov) flatMap { opponent =>
+                      game.pgnMoves.lastOption ?? { sanMove =>
+                        pushToAll(
+                          userId,
+                          _.move,
+                          PushApi.Data(
+                            title = "It's your turn!",
+                            body = s"$opponent played $sanMove",
+                            stacking = Stacking.GameMove,
+                            payload = Json.obj(
+                              "userId"   -> userId,
+                              "userData" -> corresGameJson(pov, "gameMove")
+                            ),
+                            iosBadge = Option(urgent.filter(_.isMyTurn).length)
+                          )
+                        )
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -290,6 +304,7 @@ private object PushApi {
       title: String,
       body: String,
       stacking: Stacking,
-      payload: JsObject
+      payload: JsObject,
+      iosBadge: Option[Int] = None
   )
 }
