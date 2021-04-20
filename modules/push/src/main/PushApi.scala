@@ -16,7 +16,8 @@ final private class PushApi(
     webPush: WebPush,
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
+    gameRepo: lila.game.GameRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -29,7 +30,7 @@ final private class PushApi(
         .map { userId =>
           Pov.ofUserId(game, userId) ?? { pov =>
             IfAway(pov) {
-              proxyRepo.urgentGames(userId) flatMap { urgent =>
+              gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   pushToAll(
                     userId,
@@ -50,7 +51,7 @@ final private class PushApi(
                           "fullId" -> pov.fullId
                         )
                       ),
-                      iosBadge = Option(urgent.filter(_.isMyTurn).length)
+                      iosBadge = nbMyTurn.some.filter(0 <)
                     )
                   )
                 }
@@ -68,7 +69,7 @@ final private class PushApi(
           val pov = Pov(game, game.player.color)
           game.player.userId ?? { userId =>
             IfAway(pov) {
-              proxyRepo.urgentGames(userId) flatMap { urgent =>
+              gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   game.pgnMoves.lastOption ?? { sanMove =>
                     pushToAll(
@@ -82,7 +83,7 @@ final private class PushApi(
                           "userId"   -> userId,
                           "userData" -> corresGameJson(pov, "gameMove")
                         ),
-                        iosBadge = Option(urgent.filter(_.isMyTurn).length)
+                        iosBadge = nbMyTurn.some.filter(0 <)
                       )
                     )
                   }

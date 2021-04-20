@@ -193,12 +193,25 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
-    urgentPovsUnsorted(user.id)
-
-  def urgentPovsUnsorted(userId: User.ID): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying userId, Game.maxPlayingRealtime) dmap {
-      _ flatMap { Pov(_, userId) }
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
+      _ flatMap { Pov(_, user) }
     }
+
+  def countWhereUserTurn(userId: User.ID): Fu[Int] =
+    coll
+      .countSel(
+        // important, hits the index!
+        Query.nowPlaying(userId) ++ $doc(
+          "$or" ->
+            List(0, 1).map { rem =>
+              $doc(
+                s"${Game.BSONFields.playingUids}.$rem" -> userId,
+                Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
+              )
+            }
+        )
+      )
+      .dmap(_.toInt)
 
   def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
     coll.distinctEasy[Game.ID, List](
