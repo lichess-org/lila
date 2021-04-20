@@ -343,13 +343,13 @@ final class ReportApi(
       $doc("room" -> r)
     }
 
-  private def selectOpenInRoom(room: Option[Room]) =
-    $doc("open" -> true) ++ roomSelect(room)
-
-  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
-    selectOpenInRoom(room) ++ $doc("inquiry" $exists false) ++ {
+  private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
+    $doc("open" -> true) ++ roomSelect(room) ++ {
       exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
     }
+
+  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.ID]) =
+    selectOpenInRoom(room, exceptIds) ++ $doc("inquiry" $exists false)
 
   private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
@@ -440,7 +440,7 @@ final class ReportApi(
 
   def openAndRecentWithFilter(mod: Mod, nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
     for {
-      opens <- findBest(nb, selectOpenAvailableInRoom(room, snoozer snoozedIdsOf mod))
+      opens <- findBest(nb, selectOpenInRoom(room, snoozer snoozedIdsOf mod))
       nbClosed = nb - opens.size
       closed <-
         if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
