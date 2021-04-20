@@ -43,8 +43,6 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
     if (b) return (vm.node.puzzle = 'win');
     const uci = nodes[i].uci!,
       solUci = puzzle.solution[i];
-    console.log(nodes[i]);
-    console.log(solUci, "?==", uci)
     const role = nodes[i].san[0] as Role;
     if (uci != solUci && !isForcedPromotion(uci, solUci, opposite(playedByColor), lishogiCharToRole(role)))
       return (vm.node.puzzle = 'fail');

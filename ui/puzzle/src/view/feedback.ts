@@ -28,13 +28,10 @@ function tsumeHint(ctrl: Controller, prefix: string = " - "): string | undefined
     case 0:
       return undefined;
     case 1:
-      return prefix + ctrl.trans.noarg('mateIn1');
     case 3:
-      return prefix + ctrl.trans.noarg('mateIn3');
     case 5:
-        return prefix + ctrl.trans.noarg('mateIn5');
     case 7:
-        return prefix + ctrl.trans.noarg('mateIn7');
+        return prefix + ctrl.trans.noarg('mateIn' + tl);
     default:
       return prefix + ctrl.trans.noarg('mateIn9');
   }

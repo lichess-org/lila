@@ -131,7 +131,7 @@ POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: String, chapterId: String)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: String, chapterId: String)
+#GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
 POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
@@ -219,7 +219,7 @@ POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.foreca
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "sente")
-GET   /embed/$gameId<\w{8}>/$color<sente|gote>  controllers.Analyse.embed(gameId: String, color: String)
+GET   /embed/$gameId<\w{8}>/$color<sente|gote>   controllers.Analyse.embed(gameId: String, color: String)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: String)
 
@@ -711,8 +711,8 @@ GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
-GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
-GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA")
+#GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
+#GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA")
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)

@@ -5090,6 +5090,13 @@ shogiops@^0.2.1:
   dependencies:
     "@badrap/result" "^0.2.6"
 
+shogiops@^0.2.2, shogiops@~0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.2.2.tgz#39eeaf9c722f507c71ea8542c5e7250724ca3977"
+  integrity sha512-7L1SBTDZvgSf9nYBSRRv7AKxbdd72wjdGy7dHLRdAh3AZv72U+zGxzhYO06MIwDBlfWjJ6oZs38hQ/lnvIi77Q==
+  dependencies:
+    "@badrap/result" "^0.2.6"
+
 signal-exit@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
