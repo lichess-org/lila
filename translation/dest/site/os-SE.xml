@@ -82,6 +82,7 @@
   <string name="whiteDrawBlack">Урсытæ / Хæрæгсаст / Саутæ</string>
   <string name="averageRatingX">Астæуккаг рейтинг: %s</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъауы бафтауын фылдæр хъæзтыты настройкæты?</string>
+  <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
   <string name="rank">Бынат</string>
@@ -90,6 +91,7 @@
     <item quantity="other">Бынат сног вæййы алы %s минуты</item>
   </plurals>
   <string name="cancel">Аивын</string>
+  <string name="unlimited">Нæй</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
@@ -101,6 +103,8 @@
   <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
+  <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
+  <string name="showAdvancedSettings">Равдисын баххæстæг настройкæтæ</string>
   <string name="performance">Ахадæн</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
@@ -114,6 +118,7 @@
   <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>
   <string name="yourRating">Дæ рейтинг</string>
+  <string name="cumulative">Æдæппæт</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>
