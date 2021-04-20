@@ -180,7 +180,7 @@ object communication {
     val words = Analyser(text).badWords
     if (words.isEmpty) frag(text)
     else {
-      val regex             = ("""(?i)\b""" + words.mkString("(", "|", ")") + """\b""").r
+      val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(text, m => tag(m.toString)))
     }
