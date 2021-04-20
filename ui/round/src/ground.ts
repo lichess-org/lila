@@ -68,12 +68,17 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     predroppable: {
       enabled: data.pref.enablePremove,
+      showDropDests: data.pref.destination && data.pref.dropDestination,
       events: {
         set: hooks.onPredrop,
         unset() {
           hooks.onPredrop(undefined);
         },
       },
+    },
+    dropmode: {
+      showDropDests: data.pref.destination && data.pref.dropDestination,
+      dropDests: playing ? util.getDropDests(step.fen) : new Map(),
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,

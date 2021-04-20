@@ -10,7 +10,7 @@ import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
 import { notationStyle } from 'common/notation';
-import {opposite} from "shogiops/util";
+import {opposite, toBW} from "shogiops/util";
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -53,7 +53,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, 
           {
             san: step.san,
             uci: step.uci,
-            fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + color === 'sente' ? 'b' : 'w' 
+            fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + toBW(color) 
           }
         )
       )

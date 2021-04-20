@@ -4,6 +4,9 @@ import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'shogiground/types'
 import { opposite } from 'shogiground/util';
 import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
+import {Shogi} from 'shogiops';
+import {parseFen} from 'shogiops/fen';
+import {shogigroundDropDests} from 'shogiops/compat';
 
 const pieceScores = {
   pawn: 1,
@@ -52,6 +55,18 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
     }
   else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
   return dec;
+}
+
+export function getDropDests(fen: string): cg.DropDests {
+  const m = parseFen(fen).unwrap(
+    s => Shogi.fromSetup(s).unwrap(
+      sh => shogigroundDropDests(sh),
+      _ => new Map()
+    ),
+    _ => new Map()
+  );
+  console.log("DOPRDETS: ", m);
+  return m;
 }
 
 // {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}

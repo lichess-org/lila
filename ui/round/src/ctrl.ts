@@ -263,11 +263,15 @@ export default class RoundController {
         turnColor: this.ply % 2 === 0 ? "sente" : "gote",
       };
     if (this.replaying()) this.shogiground.stop();
-    else
+    else {
       config.movable = {
         color: this.isPlaying() ? this.data.player.color : undefined,
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
+      config.dropmode = {
+        dropDests: this.isPlaying() ? util.getDropDests(s.fen) : new Map(),
+      };
+    }
     this.shogiground.set(config);
     if (s.san && isForwardStep) {
       if (s.san.includes("x")) sound.capture();
@@ -436,6 +440,9 @@ export default class RoundController {
         turnColor: d.game.player,
         movable: {
           dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
+        },
+        dropmode: {
+          dropDests: playing && activeColor ? util.getDropDests(o.fen) : new Map(),
         },
         check: !!o.check,
       });

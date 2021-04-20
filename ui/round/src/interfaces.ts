@@ -162,6 +162,7 @@ export interface Pref {
   confirmResign: boolean;
   coords: 0 | 1 | 2;
   destination: boolean;
+  dropDestination: boolean;
   enablePremove: boolean;
   highlight: boolean;
   is3d: boolean;
