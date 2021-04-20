@@ -68,6 +68,10 @@ object pref {
               radios(form("display.destination"), booleanChoices)
             ),
             setting(
+              dropDestinations(),
+              radios(form("display.dropDestination"), booleanChoices)
+            ),
+            setting(
               boardCoordinates(),
               radios(form("display.coords"), translatedBoardCoordinateChoices)
             ),

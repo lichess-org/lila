@@ -21,6 +21,7 @@ final class StormJson(sign: StormSign) {
     Json.obj(
       "coords"        -> p.coords,
       "destination"   -> p.destination,
+      "dropDestination" -> p.dropDestination,
       "moveEvent"     -> p.moveEvent,
       "highlight"     -> p.highlight,
       "pieceNotation" -> p.pieceNotation,

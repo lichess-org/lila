@@ -42,6 +42,7 @@ object FormCompatLayer {
           "captured",
           "highlight",
           "destination",
+          "dropDestination",
           "coords",
           "replay",
           "pieceNotation",

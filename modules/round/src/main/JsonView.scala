@@ -109,6 +109,7 @@ final class JsonView(
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("submitMove" -> {
@@ -202,6 +203,7 @@ final class JsonView(
               .add("clockBar" -> pref.clockBar)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
