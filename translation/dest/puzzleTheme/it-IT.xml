@@ -30,8 +30,8 @@
   <string name="dovetailMateDescription">Una donna dà matto al re in una casa adiacente, mentre le due uniche case di fuga sono occupate da suoi pezzi.</string>
   <string name="equality">Eguaglianza</string>
   <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione equa. (valutazione ≥ 200cp)</string>
-  <string name="kingsideAttack">Attacco sul lato di re</string>
-  <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
+  <string name="kingsideAttack">Attacco sull\'ala di re</string>
+  <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato corto.</string>
   <string name="clearance">Sgombero</string>
   <string name="clearanceDescription">Una mossa, spesso con tempo, che libera una casa, una colonna, una traversa o una diagonale per una successiva idea tattica.</string>
   <string name="defensiveMove">Mossa difensiva</string>
@@ -93,8 +93,8 @@
   <string name="queenEndgameDescription">Un finale con sole donne e pedoni.</string>
   <string name="queenRookEndgame">Finale di donna e torre</string>
   <string name="queenRookEndgameDescription">Un finale con sole donne, torri e pedoni.</string>
-  <string name="queensideAttack">Attacco sul lato di donna</string>
-  <string name="queensideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di donna.</string>
+  <string name="queensideAttack">Attacco sull\'ala di donna</string>
+  <string name="queensideAttackDescription">Un attacco al re avversario, dopo che ha arroccato lungo.</string>
   <string name="quietMove">Mossa calma</string>
   <string name="quietMoveDescription">Una mossa che non dà scacco e non cattura nulla, ma prepara una successiva minaccia inevitabile.</string>
   <string name="rookEndgame">Finale di torre</string>
