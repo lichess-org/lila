@@ -9,7 +9,7 @@ import throttle from 'common/throttle';
 import { Api as CgApi } from 'shogiground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Shogi } from 'shogiops/shogi';
-import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, parseLishogiUci, assureLishogiUci } from 'shogiops/compat';
+import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, parseLishogiUci, assureLishogiUci, shogigroundDropDests } from 'shogiops/compat';
 import { Config as CgConfig } from 'shogiground/config';
 import { Piece } from 'shogiground/types';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
@@ -109,6 +109,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const node = vm.node;
     const color = plyColor(node.ply);
     const dests = shogigroundDests(position());
+    const dropDests = shogigroundDropDests(position());
     const nextNode = vm.node.children[0];
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
@@ -120,6 +121,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
           color: undefined,
           dests: new Map(),
         };
+    const dropmode = canMove 
+      ? {
+        dropDests: dropDests,
+      }
+      : {
+        dropDests: new Map(),
+      };
     const config = {
       fen: node.fen,
       orientation: vm.pov,
@@ -128,6 +136,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       premovable: {
         enabled: false,
       },
+      predroppable: {
+        enabled: false,
+      },
+      dropmode: dropmode,
       check: !!node.check,
       lastMove: uciToLastMove(node.uci),
     };

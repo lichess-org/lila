@@ -21,7 +21,7 @@
     "chart.js": "^2.9",
     "common": "2.0.0",
     "shogiground": "^7.8.1",
-    "shogiops": "^0.2.1",
+    "shogiops": "^0.2.2",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"
   },

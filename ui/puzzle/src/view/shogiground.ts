@@ -55,6 +55,13 @@ function makeConfig(ctrl: Controller): CgConfig {
     premovable: {
       enabled: opts.premovable!.enabled,
     },
+    predroppable: {
+      enabled: opts.predroppable!.enabled,
+    },
+    dropmode: {
+      dropDests: opts.dropmode!.dropDests,
+      showDropDests: ctrl.pref.destination && ctrl.pref.dropDestination
+    },
     drawable: {
       enabled: true,
     },
