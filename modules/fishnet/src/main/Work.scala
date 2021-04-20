@@ -43,7 +43,7 @@ object Work {
     override def toString = s"by $userId at $date"
   }
 
-  case class Game(
+  private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
       initialFen: Option[FEN],
       studyId: Option[String],
