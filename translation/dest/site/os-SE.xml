@@ -89,6 +89,7 @@
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourPerfRatingIsTooLow">Дæ %1$s рейтинг (%2$s) æгæр гыццыл у</string>
+  <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
@@ -99,4 +100,5 @@
   <string name="yourRating">Дæ рейтинг</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>
 </resources>
