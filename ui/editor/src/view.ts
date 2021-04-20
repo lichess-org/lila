@@ -7,7 +7,7 @@ import { parseFen, EMPTY_FEN } from 'chessops/fen';
 import modal from 'common/modal';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
-import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
+import { Selected, CastlingToggle, EditorState } from './interfaces';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -87,7 +87,7 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const position2option = function (pos: OpeningPosition): VNode {
+  const position2option = function (pos: Editor.OpeningPosition): VNode {
     return h(
       'option',
       {

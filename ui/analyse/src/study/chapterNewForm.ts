@@ -27,7 +27,7 @@ export interface StudyChapterNewFormCtrl {
     open: boolean;
     initial: Prop<boolean>;
     tab: StoredProp<string>;
-    editor: any;
+    editor: LichessEditor | null;
     editorFen: Prop<Fen | null>;
     isDefaultName: boolean;
   };
@@ -215,7 +215,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           orientation: currentChapter.setup.orientation,
                           onChange: ctrl.vm.editorFen,
                         };
-                        ctrl.vm.editor = window['LichessEditor'](vnode.elm as HTMLElement, data);
+                        ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
                         ctrl.vm.editorFen(ctrl.vm.editor.getFen());
                       });
                     },
@@ -308,7 +308,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 'select#chapter-orientation.form-control',
                 {
                   hook: bind('change', e => {
-                    ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
+                    ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
                   }),
                 },
                 ['white', 'black'].map(function (color) {
