@@ -92,7 +92,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
-    let verdict: Verdict, best;
+    let verdict: Verdict, best: Uci | undefined;
     const outcome = root.outcome(node);
 
     if (outcome && outcome.winner) verdict = 'goodMove';
@@ -102,8 +102,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
-      best = nodeBestUci(prev)!;
-      if (best === node.uci || (node.san!.startsWith('O-O') && best === altCastles[node.uci!])) best = null;
+      best = nodeBestUci(prev);
+      if (best === node.uci || (node.san!.startsWith('O-O') && best === (altCastles as Dictionary<Uci>)[node.uci!]))
+        best = undefined;
 
       if (!best) verdict = 'goodMove';
       else if (shift < 0.025) verdict = 'goodMove';
@@ -121,7 +122,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         ? {
             uci: best,
             san: root.position(prev).unwrap(
-              pos => makeSan(pos, parseUci(best)!),
+              pos => makeSan(pos, parseUci(best!)!),
               _ => '--'
             ),
           }

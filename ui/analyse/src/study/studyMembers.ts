@@ -4,6 +4,7 @@ import { prop, Prop } from 'common';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
+import { AnalyseSocketSend } from '../socket';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
@@ -31,7 +32,7 @@ interface Opts {
   initDict: StudyMemberMap;
   myId: string | undefined;
   ownerId: string;
-  send: SocketSend;
+  send: AnalyseSocketSend;
   tab: Prop<Tab>;
   startTour(): void;
   notif: NotifCtrl;

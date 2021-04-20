@@ -58,9 +58,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const hovering = ctrl.explorer.hovering() || instance.hovering();
   const { eval: nEval = {} as Partial<Tree.ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
-  let shapes: DrawShape[] = [];
-  if (ctrl.retro && ctrl.retro.showBadNode()) {
-    return makeShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
+  let shapes: DrawShape[] = [],
+    badNode;
+  if (ctrl.retro && (badNode = ctrl.retro.showBadNode())) {
+    return makeShapesFromUci(color, badNode.uci!, 'paleRed', {
       lineWidth: 8,
     });
   }

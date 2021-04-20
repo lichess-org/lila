@@ -1,4 +1,5 @@
 import { Config as CgConfig } from 'chessground/config';
+import { DrawShape } from 'chessground/draw';
 import { prop } from 'common';
 import throttle from 'common/throttle';
 import debounce from 'common/debounce';
@@ -9,7 +10,7 @@ import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
 import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
-import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
+import { ctrl as studyFormCtrl } from './studyForm';
 import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
@@ -18,13 +19,57 @@ import { ctrl as serverEvalCtrl } from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import {
+  StudyCtrl,
+  StudyVm,
+  Tab,
+  ToolTab,
+  TagTypes,
+  StudyData,
+  StudyChapterMeta,
+  ReloadData,
+  WithWhoAndPos,
+  WithChapterId,
+  WithWhoAndChap,
+  WithWho,
+  WithPosition,
+  TagArray,
+  StudyChapterRelay,
+} from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
-import { Req } from '../socket';
+import { StudySocketSendParams } from '../socket';
+import { Opening } from '../explorer/interfaces';
+
+interface Handlers {
+  path(d: WithWhoAndPos): void;
+  addNode(d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay }): void;
+  deleteNode(d: WithWhoAndPos): void;
+  promote(d: WithWhoAndPos & { toMainline: boolean }): void;
+  liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
+  shapes(d: WithWhoAndPos & { s: DrawShape[] }): void;
+  members(d: { [id: string]: { user: { name: string; id: string }; role: 'r' | 'w' } }): void;
+  setComment(d: WithWhoAndPos & { c: Tree.Comment }): void;
+  deleteComment(d: WithWhoAndPos & { id: string }): void;
+  glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
+  clock(d: WithWhoAndPos & { c?: number }): void;
+  forceVariation(d: WithWhoAndPos & { force: boolean }): void;
+  chapters(d: StudyChapterMeta[]): void;
+  reload(d: null | WithChapterId): void;
+  changeChapter(d: WithWhoAndPos): void;
+  updateChapter(d: WithWhoAndChap): void;
+  descChapter(d: WithWhoAndChap & { desc?: string }): void;
+  descStudy(d: WithWho & { desc?: string }): void;
+  setTopics(d: WithWho & { topics: string[] }): void;
+  addChapter(d: WithWhoAndPos & { s: boolean }): void;
+  conceal(d: WithPosition & { ply: Ply }): void;
+  setTags(d: WithWhoAndChap & { tags: TagArray[] }): void;
+  validationError(d: { error: string }): void;
+  error(msg: string): void;
+}
 
 // data.position.path represents the server state
 // ctrl.path is the client state
@@ -90,7 +135,7 @@ export default function (
   function currentChapter(): StudyChapterMeta {
     return chapters.get(vm.chapterId)!;
   }
-  function isChapterOwner() {
+  function isChapterOwner(): boolean {
     return ctrl.opts.userId === data.chapter.ownerId;
   }
 
@@ -98,7 +143,7 @@ export default function (
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
-  const form: StudyFormCtrl = studyFormCtrl(
+  const form = studyFormCtrl(
     (d, isNew) => {
       send('editStudy', d);
       if (
@@ -120,9 +165,9 @@ export default function (
     return vm.mode.write && !isGamebookPlay();
   }
 
-  function makeChange(t: string, d: any): boolean {
+  function makeChange(...args: StudySocketSendParams): boolean {
     if (isWriting()) {
-      send(t, d);
+      send(...args);
       return true;
     }
     return (vm.mode.sticky = false);
@@ -157,9 +202,11 @@ export default function (
     redraw
   );
 
-  function addChapterId(req: Req) {
-    req.ch = vm.chapterId;
-    return req;
+  function addChapterId<T>(req: T): T & { ch: string } {
+    return {
+      ...req,
+      ch: vm.chapterId,
+    };
   }
 
   function isGamebookPlay() {
@@ -306,13 +353,13 @@ export default function (
     };
   }
 
-  function wrongChapter(serverData) {
+  function wrongChapter(serverData: WithPosition & { s?: boolean }): boolean {
     if (serverData.p.chapterId !== vm.chapterId) {
       // sticky should really be on the same chapter
-      if (vm.mode.sticky && serverData.sticky) xhrReload();
+      if (vm.mode.sticky && serverData.s) xhrReload();
       return true;
     }
-    return undefined;
+    return false;
   }
 
   function setMemberActive(who?: { u: string }) {
@@ -320,16 +367,13 @@ export default function (
     vm.updatedAt = Date.now();
   }
 
-  function withPosition<T extends {}>(obj: T): T & { ch: string; path: string } {
-    const o = obj as any;
-    o.ch = vm.chapterId;
-    o.path = ctrl.path;
-    return o;
+  function withPosition<T>(obj: T): T & { ch: string; path: string } {
+    return { ...obj, ch: vm.chapterId, path: ctrl.path };
   }
 
   const likeToggler = debounce(() => send('like', { liked: data.liked }), 1000);
 
-  const socketHandlers = {
+  const socketHandlers: Handlers = {
     path(d) {
       const position = d.p,
         who = d.w;
@@ -457,7 +501,7 @@ export default function (
       const position = d.p,
         who = d.w;
       setMemberActive(who);
-      if (wrongChapter(d)) return;
+      if (d.p.chapterId !== vm.chapterId) return;
       if (who && who.s === lichess.sri) return;
       ctrl.tree.setShapes(d.s, ctrl.path);
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
@@ -659,7 +703,7 @@ export default function (
     redraw,
     trans: ctrl.trans,
     socketHandler: (t: string, d: any) => {
-      const handler = socketHandlers[t];
+      const handler = ((socketHandlers as any) as SocketHandlers)[t];
       if (handler) {
         handler(d);
         return true;

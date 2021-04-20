@@ -2,6 +2,7 @@ import AnalyseCtrl from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { Prop, prop, defined } from 'common';
 import { spinner, bind, onInsert } from '../util';
+import Highcharts from 'highcharts';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
@@ -9,7 +10,7 @@ export interface ServerEvalCtrl {
   chapterId(): string;
   request(): void;
   onMergeAnalysisData(): void;
-  chartEl: Prop<HTMLElement | null>;
+  chartEl: Prop<HighchartsHTMLElement | null>;
   reset(): void;
   lastPly: Prop<number | false>;
 }
@@ -17,17 +18,17 @@ export interface ServerEvalCtrl {
 export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
   const requested = prop(false),
     lastPly = prop<number | false>(false),
-    chartEl = prop<HTMLElement | null>(null);
+    chartEl = prop<HighchartsHTMLElement | null>(null);
 
-  function unselect(chart: any) {
-    chart.getSelectedPoints().forEach((p: any) => p.select(false));
+  function unselect(chart: Highcharts.ChartObject) {
+    chart.getSelectedPoints().forEach(p => p.select(false));
   }
 
   lichess.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
     if (!lichess.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
       el = chartEl(),
-      chart = el && el['highcharts'];
+      chart = el && el.highcharts;
     if (chart) {
       if (lp === false) unselect(chart);
       else {
@@ -73,7 +74,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
           () =>
             lichess.loadScript('javascripts/chart/acpl.js').then(() => {
               lichess.advantageChart!(ctrl.root.data, ctrl.root.trans, el);
-              ctrl.chartEl(el);
+              ctrl.chartEl(el as HighchartsHTMLElement);
             }),
           800
         );

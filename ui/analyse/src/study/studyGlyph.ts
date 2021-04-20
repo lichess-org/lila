@@ -13,7 +13,7 @@ interface AllGlyphs {
 
 export interface GlyphCtrl {
   root: AnalyseCtrl;
-  all: Prop<AllGlyphs>;
+  all: Prop<AllGlyphs | null>;
   loadGlyphs(): void;
   toggleGlyph(id: Tree.GlyphId): void;
   redraw(): void;
@@ -42,8 +42,8 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
   };
 }
 
-export function ctrl(root: AnalyseCtrl) {
-  const all = prop<any | null>(null);
+export function ctrl(root: AnalyseCtrl): GlyphCtrl {
+  const all = prop<AllGlyphs | null>(null);
 
   function loadGlyphs() {
     if (!all())

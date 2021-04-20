@@ -105,7 +105,7 @@ function renderPgnTags(
 }
 
 export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types: string[]): TagsCtrl {
-  const submit = throttle(500, function (name, value) {
+  const submit = throttle(500, function (name: string, value: string) {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,

@@ -17,8 +17,15 @@ export interface StudyFormCtrl {
   relay?: RelayCtrl;
 }
 
-interface FormData {
-  [key: string]: string;
+export interface FormData {
+  name: string;
+  visibility: string;
+  computer: string;
+  explorer: string;
+  cloneable: string;
+  chat: string;
+  sticky: 'true' | 'false';
+  description: 'true' | 'false';
 }
 
 interface Select {
@@ -119,12 +126,24 @@ export function view(ctrl: StudyFormCtrl): VNode {
         'form.form3',
         {
           hook: bindSubmit(e => {
-            const obj: FormData = {};
-            'name visibility computer explorer cloneable chat sticky description'.split(' ').forEach(n => {
-              const el = (e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement;
-              if (el) obj[n] = el.value;
-            });
-            ctrl.save(obj, isNew);
+            const getVal = (name: string): string => {
+              const el = (e.target as HTMLElement).querySelector('#study-' + name) as HTMLInputElement;
+              if (el) return el.value;
+              else throw `Missing form input: ${name}`;
+            };
+            ctrl.save(
+              {
+                name: getVal('name'),
+                visibility: getVal('visibility'),
+                computer: getVal('computer'),
+                explorer: getVal('explorer'),
+                cloneable: getVal('cloneable'),
+                chat: getVal('chat'),
+                sticky: getVal('sticky') as 'true' | 'false',
+                description: getVal('description') as 'true' | 'false',
+              },
+              isNew
+            );
           }, ctrl.redraw),
         },
         [

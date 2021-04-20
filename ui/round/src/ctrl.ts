@@ -253,8 +253,8 @@ export default class RoundController {
   replayEnabledByPref = (): boolean => {
     const d = this.data;
     return (
-      d.pref.replay === 2 ||
-      (d.pref.replay === 1 &&
+      d.pref.replay === Prefs.Replay.Always ||
+      (d.pref.replay === Prefs.Replay.OnlySlowGames &&
         (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence'))
     );
   };

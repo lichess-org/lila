@@ -1,11 +1,12 @@
 import { defined, prop } from 'common';
 import throttle from 'common/throttle';
-import { CachedEval } from './interfaces';
+import { CachedEval, EvalGetData, EvalPutData } from './interfaces';
+import { AnalyseSocketSend } from './socket';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
   receive(ev: Tree.ClientEval, path: Tree.Path): void;
-  send(t: string, d: any): void;
+  send: AnalyseSocketSend;
   getNode(): Tree.Node;
   canPut(): boolean;
   canGet(): boolean;
@@ -15,10 +16,6 @@ export interface EvalCache {
   onCeval(): void;
   fetch(path: Tree.Path, multiPv: number): void;
   onCloudEval(serverEval: CachedEval): void;
-}
-
-interface PutData extends Tree.ServerEval {
-  variant?: string;
 }
 
 const evalPutMinDepth = 20;
@@ -32,8 +29,8 @@ function qualityCheck(ev: Tree.ClientEval): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant: VariantKey, ev: Tree.ClientEval): PutData {
-  const data: PutData = {
+function toPutData(variant: VariantKey, ev: Tree.ClientEval): EvalPutData {
+  const data: EvalPutData = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
     depth: ev.depth,
@@ -92,7 +89,7 @@ export function make(opts: EvalCacheOpts): EvalCache {
       else if (node.fen in fetchedByFen) return;
       // waiting for response
       else fetchedByFen[node.fen] = undefined; // mark as waiting
-      const obj: any = {
+      const obj: EvalGetData = {
         fen: node.fen,
         path,
       };

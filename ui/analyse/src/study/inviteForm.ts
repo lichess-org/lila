@@ -3,6 +3,7 @@ import { h, VNode } from 'snabbdom';
 import { modal } from '../modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
+import { AnalyseSocketSend } from '../socket';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -15,7 +16,7 @@ export interface StudyInviteFormCtrl {
 }
 
 export function makeCtrl(
-  send: SocketSend,
+  send: AnalyseSocketSend,
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,

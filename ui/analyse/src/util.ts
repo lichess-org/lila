@@ -222,13 +222,12 @@ export function scrollTo(el: HTMLElement | undefined, target: HTMLElement | null
   if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 }
 
-export function treeReconstruct(parts: any): Tree.Node {
+export function treeReconstruct(parts: Tree.Node[]): Tree.Node {
   const root = parts[0],
     nb = parts.length;
-  let node = root,
-    i: number;
+  let node = root;
   root.id = '';
-  for (i = 1; i < nb; i++) {
+  for (let i = 1; i < nb; i++) {
     const n = parts[i];
     if (node.children) node.children.unshift(n);
     else node.children = [n];

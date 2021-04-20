@@ -1,3 +1,4 @@
+import * as cg from 'chessground/types';
 import { Config as CgConfig } from 'chessground/config';
 import { Prop } from 'common';
 import { NotifCtrl } from './notif';
@@ -17,6 +18,8 @@ import { StudyShareCtrl } from './studyShare';
 import { TagsCtrl } from './studyTags';
 import { StudyFormCtrl } from './studyForm';
 import { StudyMemberCtrl } from './studyMembers';
+import { Opening } from '../explorer/interfaces';
+import { StudySocketSendParams } from '../socket';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -42,7 +45,7 @@ export interface StudyCtrl {
   isChapterOwner(): boolean;
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
-  withPosition<T extends {}>(obj: T): T & { ch: string; path: string };
+  withPosition<T>(obj: T): T & { ch: string; path: string };
   setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
@@ -51,14 +54,14 @@ export interface StudyCtrl {
   toggleSticky(): void;
   toggleWrite(): void;
   isWriting(): boolean;
-  makeChange(t: string, d: any): boolean;
+  makeChange(...args: StudySocketSendParams): boolean;
   startTour(): void;
   userJump(path: Tree.Path): void;
   currentNode(): Tree.Node;
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
   nextChapter(): StudyChapterMeta | undefined;
-  mutateCgConfig(config: Required<Pick<CgConfig, "drawable">>): void;
+  mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;
@@ -69,6 +72,7 @@ export interface StudyCtrl {
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
+export type Visibility = 'public' | 'unlisted' | 'private';
 
 export interface StudyVm {
   loading: boolean;
@@ -93,7 +97,7 @@ export interface StudyData {
   position: Position;
   ownerId: string;
   settings: StudySettings;
-  visibility: 'public' | 'unlisted' | 'private';
+  visibility: Visibility;
   createdAt: number;
   from: string;
   likes: number;
@@ -225,3 +229,69 @@ export interface ChapterPreviewPlayer {
   title?: string;
   rating?: number;
 }
+
+export type Orientation = 'black' | 'white' | 'auto';
+export type ChapterMode = 'normal' | 'practice' | 'gamebook' | 'conceal';
+
+export interface ChapterData {
+  name: string;
+  game?: string;
+  variant?: VariantKey;
+  fen?: Fen | null;
+  pgn?: string;
+  orientation: Orientation;
+  mode: ChapterMode;
+  initial: boolean;
+  isDefaultName: boolean;
+}
+
+export interface EditChapterData {
+  id: string;
+  name: string;
+  orientation: Orientation;
+  mode: ChapterMode;
+  description: string;
+}
+
+export interface AnaDests {
+  dests: string;
+  path: string;
+  ch?: string;
+  opening?: Opening;
+}
+
+export interface AnaMove {
+  orig: string;
+  dest: string;
+  fen: Fen;
+  path: string;
+  variant?: VariantKey;
+  ch?: string;
+  promotion?: cg.Role;
+}
+
+export interface AnaDrop {
+  role: cg.Role;
+  pos: Key;
+  variant?: VariantKey;
+  fen: Fen;
+  path: string;
+  ch?: string;
+}
+export interface WithWho {
+  w: {
+    s: string;
+    u: string;
+  };
+}
+
+export interface WithPosition {
+  p: Position;
+}
+
+export interface WithChapterId {
+  chapterId: string;
+}
+
+export type WithWhoAndPos = WithWho & WithPosition;
+export type WithWhoAndChap = WithWho & WithChapterId;

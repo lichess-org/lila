@@ -1,6 +1,8 @@
 import { RelayData, LogEvent, RelayIntro } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
+import { StudyMemberCtrl } from '../studyMembers';
+import { AnalyseSocketSend } from '../../socket';
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
@@ -10,9 +12,9 @@ export default class RelayCtrl {
 
   constructor(
     public data: RelayData,
-    readonly send: SocketSend,
+    readonly send: AnalyseSocketSend,
     readonly redraw: () => void,
-    readonly members: any,
+    readonly members: StudyMemberCtrl,
     chapter: StudyChapter
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
@@ -54,7 +56,6 @@ export default class RelayCtrl {
       this.redraw();
     },
     relayLog: (event: LogEvent) => {
-      if (event.id !== this.data.id) return;
       this.data.sync.log.push(event);
       this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;
@@ -67,12 +68,12 @@ export default class RelayCtrl {
     },
   };
 
-  socketHandler = (t: string, d: any) => {
-    const handler = this.socketHandlers[t];
+  socketHandler(t: string, d: any) {
+    const handler = (this.socketHandlers as SocketHandlers)[t];
     if (handler && d.id === this.data.id) {
       handler(d);
       return true;
     }
     return false;
-  };
+  }
 }

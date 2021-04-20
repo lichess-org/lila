@@ -3,11 +3,11 @@ import AnalyseCtrl from '../ctrl';
 import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
-type AuthorObj = {
+export type AuthorObj = {
   id: string;
   name: string;
 };
-type Author = AuthorObj | string | undefined;
+export type Author = AuthorObj | string;
 
 function authorDom(author: Author): string | VNode {
   if (!author) return 'Unknown';
@@ -21,7 +21,11 @@ function authorDom(author: Author): string | VNode {
   );
 }
 
-export function authorText(author: Author): string {
+export function isAuthorObj(author: Author): author is AuthorObj {
+  return typeof author === 'object';
+}
+
+export function authorText(author?: Author): string {
   if (!author) return 'Unknown';
   if (typeof author === 'string') return author;
   return author.name;
@@ -37,8 +41,8 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
   return h(
     'div',
     comments.map((comment: Tree.Comment) => {
-      const by: any = comment.by;
-      const isMine = by.id && ctrl.opts.userId === by.id;
+      const by: Author = comment.by;
+      const isMine = isAuthorObj(by) && by.id === ctrl.opts.userId;
       if (!includingMine && isMine) return;
       const canDelete = isMine || study.members.isOwner();
       return h('div.study__comment.' + comment.id, [
