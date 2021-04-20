@@ -193,8 +193,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
-      _ flatMap { Pov(_, user) }
+    urgentPovsUnsorted(user.id)
+
+  def urgentPovsUnsorted(userId: User.ID): Fu[List[Pov]] =
+    coll.list[Game](Query nowPlaying userId, Game.maxPlayingRealtime) dmap {
+      _ flatMap { Pov(_, userId) }
     }
 
   def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =

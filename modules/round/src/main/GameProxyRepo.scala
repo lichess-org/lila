@@ -1,6 +1,7 @@
 package lila.round
 
 import lila.game.{ Game, PlayerRef, Pov }
+import lila.user.User
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -9,7 +10,7 @@ final class GameProxyRepo(
 
   def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
-  def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
+  def pov(gameId: Game.ID, user: User): Fu[Option[Pov]] =
     game(gameId) dmap { _ flatMap { Pov(_, user) } }
 
   def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
@@ -44,8 +45,11 @@ final class GameProxyRepo(
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-  def urgentGames(user: lila.user.User): Fu[List[Pov]] =
-    gameRepo urgentPovsUnsorted user flatMap {
+  def urgentGames(user: User): Fu[List[Pov]] =
+    urgentGames(user.id)
+
+  def urgentGames(userId: User.ID): Fu[List[Pov]] =
+    gameRepo urgentPovsUnsorted userId flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) dmap { _.fold(pov)(pov.withGame) }
       }.sequenceFu map { povs =>
