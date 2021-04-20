@@ -76,7 +76,6 @@ lichess.load.then(() => {
     $('body').addClass('playing'); // for zen
     window.Mousetrap.bind('z', () => {
       lichess.pubsub.emit('zen');
-      console.log("test");
     })
 
     $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
