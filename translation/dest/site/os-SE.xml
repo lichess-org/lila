@@ -99,8 +99,15 @@
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
   <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
+  <string name="conditionOfEntry">Хайады домæнтæ:</string>
+  <string name="advancedSettings">Баххæстæг настройкæтæ</string>
+  <string name="performance">Ахадæн</string>
   <string name="xRating">Рейтинг %s</string>
+  <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
+  <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
+  <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
+  <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
   <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
