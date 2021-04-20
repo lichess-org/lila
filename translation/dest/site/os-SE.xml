@@ -38,10 +38,10 @@
     <item quantity="one">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз %s секундæйы фæстæ.</item>
     <item quantity="other">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз %s секундæйы фæстæ.</item>
   </plurals>
-  <string name="opponentLeftChoices">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз, æнхъæлмæ фæкæсын, кæнæ, цыма ничи рамбулдта, афтæ зæгъын.</string>
+  <string name="opponentLeftChoices">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз, æнхъæлмæ фæкæсын, кæнæ хæрæгсаст фæуын.</string>
   <string name="makeYourOpponentResign">Банымайын ныхмæлæууæгæн йæ дæрæн</string>
   <string name="forceResignation">Расидын дæ уæлахиз</string>
-  <string name="forceDraw">Цыма ничи рамбулдта, афтæ зæгъын</string>
+  <string name="forceDraw">Хæрæгсаст фæуын</string>
   <string name="talkInChat">Ныхасы уæздан у!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Демæ хъаздзæн фыццаг адæймаг, ацы дæнцæгæй чи æрбацæудзæн.</string>
   <string name="whiteResigned">Урсытæ банымадтой сæ дæрæн</string>
@@ -80,5 +80,11 @@
   <string name="unknown">Бæрæг нæу</string>
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="whiteDrawBlack">Урсытæ / Хæрæгсаст / Саутæ</string>
+  <string name="averageRatingX">Астæуккаг рейтинг: %s</string>
+  <string name="rating">Рейтинг</string>
+  <string name="ratingStats">Рейтингы райуæрст</string>
+  <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
+  <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
 </resources>
