@@ -73,6 +73,13 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
         set: ctrl.onPremoveSet
       }
     },
+    predroppable: {
+      enabled: opts.predroppable!.enabled,
+      showDropDests: pref.dropDestination && pref.destination
+    },
+    dropmode: {
+      showDropDests: pref.dropDestination && pref.destination
+    },
     drawable: {
       enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice

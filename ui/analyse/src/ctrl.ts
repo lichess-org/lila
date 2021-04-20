@@ -53,7 +53,7 @@ import {
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
 import { cancelDropMode } from "shogiground/drop";
-import { lishogiVariantRules, assureLishogiUci, parseLishogiUci, makeChessSquare } from "shogiops/compat";
+import { lishogiVariantRules, assureLishogiUci, parseLishogiUci, makeChessSquare, shogigroundDropDests } from "shogiops/compat";
 import { opposite, roleToChar } from 'shogiops/util';
 import { Outcome, isNormal } from 'shogiops/types';
 import { parseFen } from 'shogiops/fen';
@@ -321,6 +321,13 @@ export default class AnalyseCtrl {
       });
   });
 
+  private getDropDests(): cg.DropDests {
+    return this.position(this.node).unwrap(
+      s => shogigroundDropDests(s),
+      _ => new Map()
+    )
+  };
+
   makeCgOpts(): ShogigroundConfig {
     const node = this.node,
       color = this.turnColor(),
@@ -345,6 +352,13 @@ export default class AnalyseCtrl {
             color: movableColor,
             dests: (movableColor === color && dests) || new Map(),
           },
+        dropmode: this.embed
+          ? {
+            dropDests: undefined,
+          }
+          : {
+            dropDests: (movableColor === color && this.getDropDests()) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci),
       };
@@ -355,6 +369,10 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
+      enabled:
+        config.movable!.color && config.turnColor !== config.movable!.color,
+    };
+    config.predroppable = {
       enabled:
         config.movable!.color && config.turnColor !== config.movable!.color,
     };
@@ -635,7 +653,7 @@ export default class AnalyseCtrl {
 
   encodeNodeFen(): Fen {
     const sfen = this.node.fen;
-    return sfen.replace(/\s/g, "_").replace(/\+/, '%2B');
+    return sfen.replace(/\s/g, "_");
   }
 
   currentEvals() {
