@@ -243,7 +243,7 @@
 	<string name="incrementInSeconds">步时</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">免税线上将棋</string>
+	<string name="freeOnlineChess">免费线上将棋</string>
 	<string name="spectators">观众：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s排位赛</item>

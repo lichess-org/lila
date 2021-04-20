@@ -8,7 +8,7 @@
 	<string name="youWillLoseAllYourProgress">Perdràs tot el teu progrés!</string>
 	<string name="play">juga!</string>
 	<string name="shogiPieces">Peces de shogi</string>
-	<string name="theIntoduction">Introducció</string>
+	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Anem a aprendre algunes coses bàsiques</string>
 	<string name="introIntro">El teu viatge comença aquí.</string>
 	<string name="choosePieceDesign">És important que puguis diferenciar les peces, estigues segur que tries l\'estil correcte.\nPer fer això, clica en l\'engranatge o el teu nom d\'usuari (cantonada superior dreta) i després clicar a conjunt de peces.</string>

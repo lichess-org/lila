@@ -8,7 +8,7 @@
 	<string name="youWillLoseAllYourProgress">すべての進捗数字がゼロになります！</string>
 	<string name="play">ここ！</string>
 	<string name="shogiPieces">将棋の駒</string>
-	<string name="theIntoduction">はじめに</string>
+	<string name="theIntroduction">はじめに</string>
 	<string name="introBasics">基本を学びましょう。</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
 	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>

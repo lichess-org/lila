@@ -17,8 +17,8 @@
 	<string name="stalemate">Pat</string>
 	<string name="white">Bílý</string>
 	<string name="black">Černý</string>
-	<string name="shitate">Bílí hráč</string>
-	<string name="uwate">Černý hráč</string>
+	<string name="shitate">Slabší hráč</string>
+	<string name="uwate">Omezený hráč</string>
 	<string name="randomColor">Náhodná barva</string>
 	<string name="createAGame">Vytvořit hru</string>
 	<string name="whiteIsVictorious">Vyhrál bílý</string>
