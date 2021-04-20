@@ -70,6 +70,7 @@ lichess.load.then(() => {
       $('body').toggleClass('zen', zen);
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
+      requestAnimationFrame(showCharts);
     });
 
     $('body').addClass('playing'); // for zen
