@@ -570,7 +570,7 @@ You received this because you are subscribed to messages of the team $url."""
       teamId: String
   )(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     WithOwnedTeam(teamId) { team =>
-      if (team.enabled) f(team)
+      if (team.enabled || isGranted(_.ManageTeam)) f(team)
       else notFound
     }
 }
