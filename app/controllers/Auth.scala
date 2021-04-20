@@ -126,7 +126,7 @@ final class Auth(
                           case None => InternalServerError("Authentication error").fuccess
                           case Some(u) if u.disabled =>
                             negotiate(
-                              html = (u.marks.dirty ?? env.mod.logApi.closedByMod(u)) flatMap {
+                              html = env.mod.logApi.closedByMod(u) flatMap {
                                 case true => authenticateAppealUser(u, redirectTo)
                                 case _    => redirectTo(routes.Account.reopen.url).fuccess
                               },
