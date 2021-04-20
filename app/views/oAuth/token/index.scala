@@ -39,9 +39,11 @@ object index {
           a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
             "personal token app example"
           ),
-          " and the ",
-          a(href := routes.Page.notSupported())("API documentation"),
-          "."
+          " and ",
+          a(href := "https://lichess.org/api")(
+            "Lichess' API documentation"
+          ),
+          " to get an idea on how Lishogi's API looks."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(

@@ -166,7 +166,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
           h1("HTTP API"),
           p(
             raw(
-              """WIP - Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+              """WIP - Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read <a href="https://lichess.org/api" class="blue">Lichess' HTTP API documentation</a> to get an idea on how Lishogi's API looks."""
             )
           )
         )
