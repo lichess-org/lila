@@ -34,6 +34,7 @@ final class Dasher(env: Env) extends LilaController(env) {
   private val translationsAuth = List(
     trans.profile,
     trans.inbox,
+    trans.streamerManager,
     trans.preferences.preferences,
     trans.logOut
   ).map(_.key) ::: translationsBase
