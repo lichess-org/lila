@@ -36,9 +36,9 @@ object faq {
           p(lishogiPoweredByDonationsAndVolunteers()),
           p(
             a(href := routes.Page.patron())(beingAPatron()), // patron
-          )
+          ),
           p(
-            a(herf := routes.Page.help())(otherWaysToContribute()), // other ways to contribute
+            a(href := routes.Page.help())(otherWaysToContribute()), // other ways to contribute
           )
         ),
         // question(
