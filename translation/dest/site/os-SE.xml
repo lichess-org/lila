@@ -81,8 +81,10 @@
   <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Бæрæггæнæнты æвæрæн</string>
   <string name="whiteDrawBlack">Урсытæ / Хæрæгсаст / Саутæ</string>
   <string name="averageRatingX">Астæуккаг рейтинг: %s</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъауы бафтауын фылдæр хъæзтыты настройкæты?</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
+  <string name="rank">Бынат</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
