@@ -1,7 +1,6 @@
 import * as util from "./util";
 import * as cg from "./types";
 
-// todo
 type Mobility = (x1: number, y1: number, x2: number, y2: number) => boolean;
 
 function diff(a: number, b: number): number {
@@ -94,4 +93,31 @@ export function premove(pieces: cg.Pieces, key: cg.Key): cg.Key[] {
         mobility(pos[0], pos[1], pos2[0], pos2[1])
     )
     .map(util.pos2key);
+}
+
+function lastRow(key: cg.Key, color: cg.Color): boolean {
+  return color === 'sente' ? key[1] === '9' : key[1] === '1';
+}
+
+function lastTwoRows(key: cg.Key, color: cg.Color): boolean {
+  return color === 'sente' ?
+    (key[1] === '8' || key[1] === '9') :
+    (key[1] === '1' || key[1] === '2');
+}
+
+export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece): cg.Key[] {
+  const color = dropPiece.color;
+  const role = dropPiece.role;
+  return util.allKeys.filter(
+    (key) => {
+      const p = pieces.get(key);
+      return (!p || p.color !== color) && (
+        (role === 'pawn' || role === 'lance')
+        ? !lastRow(key, color)
+        : role === 'knight'
+        ? !lastTwoRows(key, color)
+        : true
+      )
+    }
+  );
 }

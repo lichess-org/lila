@@ -3,19 +3,21 @@ import * as cg from "./types";
 import * as board from "./board";
 import * as util from "./util";
 import { cancel as dragCancel } from "./drag";
+import {predrop} from "./premove";
 
 export function setDropMode(s: State, piece?: cg.Piece): void {
-  s.dropmode = {
-    active: true,
-    piece,
-  };
+  s.dropmode.active = true;
+  s.dropmode.piece = piece;
   dragCancel(s);
+  board.unselect(s);
+  if(piece && board.isPredroppable(s)){
+    s.predroppable.dropDests = predrop(s.pieces, piece);
+  }
 }
 
 export function cancelDropMode(s: State): void {
-  s.dropmode = {
-    active: false,
-  };
+  s.dropmode.active = false;
+  s.dropmode.piece = undefined;
 }
 
 export function drop(s: State, e: cg.MouchEvent): void {

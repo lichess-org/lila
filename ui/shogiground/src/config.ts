@@ -6,7 +6,7 @@ import { makePockets } from './pocket'
 import * as cg from './types'
 
 export interface Config {
-  fen?: cg.FEN; // chess position in Forsyth notation
+  fen?: cg.FEN; // shogi position in Forsyth notation
   hasPockets?: boolean;
   pockets?: string;
   orientation?: cg.Color; // board orientation. sente | gote
@@ -52,6 +52,8 @@ export interface Config {
   };
   predroppable?: {
     enabled?: boolean; // allow predrops for color that can not move
+    showDropDests?: boolean; // whether to add the premove-dest class on squares for drops
+    dropDests?: cg.Key[]; // premove destinations for the drop selection
     events?: {
       set?: (role: cg.Role, key: cg.Key) => void; // called after the predrop has been set
       unset?: () => void; // called after the predrop has been unset
@@ -80,6 +82,8 @@ export interface Config {
   dropmode?:{
     active?: boolean;
     piece?: cg.Piece;
+    showDropDests?: boolean; // whether to add the move-dest class on squares for drops
+    dropDests?: cg.DropDests; // valid drops. {"pawn" ["a3" "a4"] "lance" ["a3" "c3"]}
   },
   drawable?: {
     enabled?: boolean; // can draw
@@ -100,6 +104,7 @@ export function configure(state: State, config: Config): void {
 
   // don't merge destinations. Just override.
   if (config.movable?.dests) state.movable.dests = undefined;
+  if (config.dropmode?.dropDests) state.dropmode.dropDests = undefined;
 
   merge(state, config);
 

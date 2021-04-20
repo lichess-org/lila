@@ -138,6 +138,7 @@ export interface Rect {
 }
 
 export type Dests = Map<Key, Key[]>;
+export type DropDests = Map<Role, Key[]>;
 
 export interface Elements {
   pockets: HTMLElement[];

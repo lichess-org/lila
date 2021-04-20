@@ -4,6 +4,7 @@ import * as util from "./util";
 import { clear as drawClear } from "./draw";
 import * as cg from "./types";
 import { anim } from "./anim";
+import {predrop} from "./premove";
 
 export interface DragCurrent {
   orig: cg.Key; // orig key of dragging piece
@@ -50,7 +51,7 @@ export function start(s: State, e: cg.MouchEvent): void {
     /* eslint-disable-line */
     e.preventDefault();
   const hadPremove = !!s.premovable.current;
-  const hadPredrop = !!s.predroppable.current;
+  const hadPredrop = !!s.predroppable.current || !!s.predroppable.dropDests;
   s.stats.ctrlKey = e.ctrlKey;
   if (s.selected && board.canMove(s, s.selected, orig)) {
     anim((state) => board.selectSquare(state, orig), s);
@@ -110,6 +111,7 @@ export function dragNewPiece(
 ): void {
   const key: cg.Key = "a0";
   s.pieces.set(key, piece);
+  board.unselect(s);
   s.dom.redraw();
 
   const position = util.eventPosition(e)!;
@@ -125,6 +127,9 @@ export function dragNewPiece(
     newPiece: true,
     force: !!force,
   };
+  if(piece && board.isPredroppable(s)){
+    s.predroppable.dropDests = predrop(s.pieces, piece);
+  }
   processDrag(s);
 }
 

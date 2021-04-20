@@ -64,7 +64,7 @@ export interface Api {
   // only useful when CSS changes the board width/height ratio (for 3D)
   redrawAll: cg.Redraw;
 
-  // for crazyhouse and board editors
+  // for piece dropping and board editors
   dragNewPiece(piece: cg.Piece, event: cg.MouchEvent, force?: boolean): void;
 
   // unbinds all events
