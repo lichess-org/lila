@@ -85,12 +85,19 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
   <string name="rank">Бынат</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Бынат сног вæййы алы минут</item>
+    <item quantity="other">Бынат сног вæййы алы %s минуты</item>
+  </plurals>
+  <string name="cancel">Аивын</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourPerfRatingIsTooLow">Дæ %1$s рейтинг (%2$s) æгæр гыццыл у</string>
+  <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
   <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
