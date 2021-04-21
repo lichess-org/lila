@@ -119,12 +119,17 @@
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
+  <string name="aboutSimulSettings">Æмрæстгон хъазтыты нæй рейтинг партиты. Ногæй ахъазын, цыдтæ аивын кæнæ рæстæг бафтауын дæ бон нæй.</string>
   <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
   <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>
   <string name="yourRating">Дæ рейтинг</string>
   <string name="cumulative">Æдæппæт</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
+  <string name="background">Бындурон хуыз</string>
+  <string name="boardGeometry">Фæйнæджы хуыз æмæ бæрц</string>
+  <string name="boardTheme">Фæйнæджы бакаст</string>
+  <string name="boardSize">Фæйнæджы бæрц</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>
 </resources>
