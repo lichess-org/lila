@@ -62,14 +62,14 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-(ho?pe ((yo)?[uy](r family)?( and ?)*)+ (die|burn)s?|((die|burn)s? irl))
+(ho?pe ((yo)?[uy](r family)?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 horny
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and ?)?)+
+(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and )?)+
 kys
 labia
 lamer?
