@@ -182,15 +182,27 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
   <string name="username">Пайдакæнæджы ном</string>
-  <string name="usernameOrEmail">Логин кæнæ пост</string>
+  <string name="usernameOrEmail">Логин кæнæ электронон пост</string>
   <string name="changeUsername">Аивын пайдагæнæджы ном</string>
   <string name="password">Парол</string>
   <string name="changePassword">Аивын парол</string>
-  <string name="changeEmail">Баив електронон пост</string>
+  <string name="changeEmail">Аивын электронон пост</string>
+  <string name="email">Электронон пост</string>
+  <string name="passwordReset">Раппарын парол</string>
+  <string name="forgotPassword">Ферох кодтай парол?</string>
   <string name="rank">Бынат</string>
+  <string name="rankX">Бынат: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Бынат сног вæййы алы минут</item>
     <item quantity="other">Бынат сног вæййы алы %s минуты</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s этюд</item>
+    <item quantity="other">%s этюды</item>
+  </plurals>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s хъазт демæ</item>
+    <item quantity="other">%s хъазты демæ</item>
   </plurals>
   <string name="cancel">Аивын</string>
   <string name="unlimited">Нæй</string>
@@ -203,6 +215,7 @@
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
   <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
+  <string name="reset">Раппарын</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
