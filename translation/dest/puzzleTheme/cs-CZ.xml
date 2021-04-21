@@ -7,11 +7,12 @@
   <string name="anastasiaMate">Anastáziin mat</string>
   <string name="anastasiaMateDescription">Jezdec a věž nebo královna se spojí, aby obklíčili protihráčova krále mezi krajem šachovnice a přátelskou figurou.</string>
   <string name="arabianMate">Arabský mat</string>
-  <string name="arabianMateDescription">Jezdec a věž dají mat soupěrovu králi na kraji šachovnice.</string>
+  <string name="arabianMateDescription">Jezdec a věž dají mat soupeřovu králi na kraji šachovnice.</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="attackingF2F7Description">Útok zaměřený na pěšce f2, resp. f7, například jako při tzv. Šustrmatu (Ovčáckém matu).</string>
   <string name="attractionDescription">Výměna nebo obětování figur, která podpoří nebo vynutí figuru protihráče postoupit na pole, jenž umožňuje další taktický postup.</string>
   <string name="backRankMate">Mat na poslední řadě</string>
+  <string name="backRankMateDescription">Mat krále na poslední řadě, kde je uvězněn vlastními figurami.</string>
   <string name="bishopEndgame">Střelcové koncovky</string>
   <string name="bishopEndgameDescription">Koncovka jen se střelci a pěšci.</string>
   <string name="bodenMate">Bodenův mat</string>
@@ -49,9 +50,11 @@
   <string name="long">Dlouhá úloha</string>
   <string name="longDescription">Tři tahy k výhře.</string>
   <string name="master">Partie mistrů</string>
+  <string name="masterDescription">Úlohy z partií šachistů s oficiálním titulem.</string>
   <string name="masterVsMaster">Úlohy z mistrovských partií</string>
   <string name="masterVsMasterDescription">Úlohy z partií šachistů s oficiálním titulem.</string>
   <string name="mate">Mat</string>
+  <string name="mateDescription">Vyhrajte hru stylově.</string>
   <string name="mateIn1">Mat 1. tahem</string>
   <string name="mateIn1Description">Dejte mat prvním tahem.</string>
   <string name="mateIn2">Mat 2. tahem</string>
