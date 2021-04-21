@@ -118,7 +118,7 @@
   <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="onlyExistingConversations">Æрмæст дæууон ныхастæ</string>
-  <string name="onlyFriends">Æрмæст æмбалтæ</string>
+  <string name="onlyFriends">Æрмæст æмбалттæ</string>
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
