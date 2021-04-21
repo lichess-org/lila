@@ -29,6 +29,7 @@
   <string name="kingsideAttack">Útok na královském křídle</string>
   <string name="kingsideAttackDescription">Útok na soupeřova krále poté, co udělal malou rošádu.</string>
   <string name="defensiveMove">Obranný tah</string>
+  <string name="defensiveMoveDescription">Přesný tah nebo pořadí tahů, které jsou potřebné k tomu, aby nedošlo ke ztrátě materiálu nebo jiné výhody.</string>
   <string name="discoveredAttack">Odtažný útok</string>
   <string name="doubleCheck">Dvojný šach</string>
   <string name="doubleCheckDescription">Šach dvěma figurami zároveň, často důsledkem odtahu. Obě figury dávají šach soupeřovu králi.</string>
