@@ -116,6 +116,25 @@
   <string name="removesTheDepthLimit">Адде кæны арфады арæнæвæрд, фæлæ уаргъ æвæры дæ компьютерыл</string>
   <string name="blunder">Хæлиудзыхдзинад</string>
   <string name="mistake">Рæдыд</string>
+  <string name="inaccuracy">Æнæдырысдзинад</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s хæлиудзыхдзинад</item>
+    <item quantity="other">%s хæлиудзыхдзинæдты</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s рæдыд</item>
+    <item quantity="other">%s рæдыдтыты</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s æнæдырысдзинад</item>
+    <item quantity="other">%s æнæдырысдзинæдты</item>
+  </plurals>
+  <string name="moveTimes">Рæстæг цыдæн</string>
+  <string name="flipBoard">Фæйнæг разилын</string>
+  <string name="threefoldRepetition">Æртæхатты позицийы фæлхатын</string>
+  <string name="claimADraw">Æрдомын хæрæгсаст</string>
+  <string name="offerDraw">Бахъарын хæрæгсаст</string>
+  <string name="draw">Хæрæгсаст</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
   <string name="rank">Бынат</string>
