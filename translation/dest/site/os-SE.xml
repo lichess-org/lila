@@ -70,7 +70,7 @@
   <string name="move">Цыд</string>
   <string name="variantLoss">Дæрæн цыд</string>
   <string name="variantWin">Уæлахиз цыд</string>
-  <string name="insufficientMaterial">Æнæфаг æрмæг матæн</string>
+  <string name="insufficientMaterial">Æнæфаг æрмæджы матæн</string>
   <string name="pawnMove">Пешкæйы цыд</string>
   <string name="capture">Райст</string>
   <string name="close">Сæхгæнын</string>
@@ -84,6 +84,10 @@
   <string name="recentGames">Æрæджыон хъæзтытæ</string>
   <string name="topGames">Иуыл хуыздæр хъæзтытæ</string>
   <string name="masterDbExplanation">Дыууæ миллионы хъæзтыты FIDE хъазджытæй %1$s+ рейтингимæ %2$s-æй %3$s-мæ</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
+    <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
+  </plurals>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъауы бафтауын фылдæр хъæзтыты настройкæты?</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
