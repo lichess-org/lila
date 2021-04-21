@@ -95,6 +95,13 @@
   <string name="noGameFound">Нæ ссардтам партитæ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъæуы бафтауын фылдæр хъæзтыты настройкæты?</string>
   <string name="openingExplorer">Райдайæнты æвæрæн</string>
+  <string name="xOpeningExplorer">%s райдайæнты æвæрæн</string>
+  <string name="winPreventedBy50MoveRule">Нæ æнтысы рамбулын 50 цыдты уагы тыххæй</string>
+  <string name="lossSavedBy50MoveRule">Æнтысы амбылд аирвæзын 50 цыдты уагы тыххæй</string>
+  <string name="allSet">Цæттæ!</string>
+  <string name="importPgn">Импорт кæнын PGN</string>
+  <string name="delete">Адде кæнын</string>
+  <string name="deleteThisImportedGame">Адде кæнын ацы импортгонд хъазт?</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
