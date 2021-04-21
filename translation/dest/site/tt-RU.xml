@@ -589,6 +589,7 @@
   <string name="noSimulFound">Симул табылмады</string>
   <string name="noSimulExplanation">Бер үк вакыттагы күргәзмә юк.</string>
   <string name="returnToSimulHomepage">Симул ал битенә кайтырга</string>
+  <string name="aboutSimul">Симуляцияда бер генэ кеше уйныйала, шул вакытта кайберлэр кешелэр белэн уйный аларга ярый.</string>
   <string name="create">Ячарга</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
@@ -650,6 +651,7 @@
   <string name="boardGeometry">Такта һәнсәдәсе</string>
   <string name="boardTheme">Такта бизәге</string>
   <string name="boardSize">Такта зурлыгы</string>
+  <string name="pieceSet">Эйберлэр</string>
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
