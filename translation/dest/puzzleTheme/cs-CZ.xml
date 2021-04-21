@@ -36,7 +36,9 @@
   <string name="endgameDescription">Taktický obrat během poslední fáze hry.</string>
   <string name="exposedKing">Ohrožený král</string>
   <string name="fork">Vidlička</string>
+  <string name="forkDescription">Tah, kterým tažená figura útočí na dvě protivníkovy figury najednou.</string>
   <string name="hangingPiece">Visící figura</string>
+  <string name="hangingPieceDescription">Taktika zahrnující nechráněnou nebo nedostatečně chráněnou a zdarma získatelnou protivníkovu figuru.</string>
   <string name="interference">Překrytí</string>
   <string name="interferenceDescription">Tah figurou na pole mezi dvě soupeřovy figury, aby jedna z nich byla nechráněná, například tah jezdcem na chráněné pole mezi dvě soupeřovy věže.</string>
   <string name="intermezzo">Intermezzo</string>
