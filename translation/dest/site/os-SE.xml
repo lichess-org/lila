@@ -102,6 +102,13 @@
   <string name="importPgn">Импорт кæнын PGN</string>
   <string name="delete">Адде кæнын</string>
   <string name="deleteThisImportedGame">Адде кæнын ацы импортгонд хъазт?</string>
+  <string name="replayMode">Фæлхатын кæсын</string>
+  <string name="realtimeReplay">Партийы хуызæн</string>
+  <string name="byCPL">Рæдыдтытæй</string>
+  <string name="openStudy">Байгом кæнын студийы</string>
+  <string name="enable">Ссудзын</string>
+  <string name="bestMoveArrow">Æвдисын иуыл хуыздæр цыдтæ фатæгтæй</string>
+  <string name="evaluationGauge">Аргъы шкала</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
