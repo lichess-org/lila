@@ -78,7 +78,7 @@
   <string name="losing">तोट्याचा</string>
   <string name="drawn">अनिर्णीत</string>
   <string name="unknown">अज्ञात</string>
-  <string name="database">माहितीसंच</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">माहितीसंच</string>
   <string name="whiteDrawBlack">पांढरा / बरोबरी / काळा</string>
   <string name="averageRatingX">सरासरी दर्जा: %s</string>
   <string name="recentGames">अलीकडचे खेळ</string>
@@ -600,7 +600,7 @@
   <string name="really">खरंच</string>
   <string name="contribute">हातभार लावा</string>
   <string name="termsOfService">सेवा अटी</string>
-  <string name="sourceCode">सोर्स कोड</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">सोर्स कोड</string>
   <string name="simultaneousExhibitions">एकाचवेळी प्रदर्शन</string>
   <string name="host">यजमान</string>
   <string name="hostColorX">यजमानाचा रंग: %s</string>

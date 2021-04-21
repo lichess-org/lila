@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Эзлә</string>
+  <string name="loser">Җиңелгән</string>
+  <string name="to">Бу датага кадәр</string>
   <string name="source">Чыганак</string>
   <string name="date">Вакыт</string>
   <string name="sortBy">Тәртипләү</string>

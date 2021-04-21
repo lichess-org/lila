@@ -80,7 +80,7 @@
   <string name="losing">Pralaimintis</string>
   <string name="drawn">Lygiosios</string>
   <string name="unknown">Nežinomas</string>
-  <string name="database">Duomenų bazė</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Duomenų bazė</string>
   <string name="whiteDrawBlack">Baltieji / Lygiosios / Juodieji</string>
   <string name="averageRatingX">Vidutinis reitingas: %s</string>
   <string name="recentGames">Paskiausios partijos</string>
@@ -686,7 +686,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
-  <string name="sourceCode">Pirminis kodas</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Pirminis kodas</string>
   <string name="simultaneousExhibitions">Simulai</string>
   <string name="host">Šeimininkas</string>
   <string name="hostColorX">Šeimininko spalva: %s</string>

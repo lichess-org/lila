@@ -102,9 +102,9 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").
 
-\"Glicko\" reitingi izmanto ticamības intervālus, lai aprēķinātu un attēlotu jūsu reitingu. Sākot izmantot vietni, jūsu reitings ir 1500 ± 700. Šeit 1500 ir jūsu reitings, un 700 ir ticamības intervāls.
+\"Glicko\" reitingi izmanto ticamības intervālus, lai aprēķinātu un attēlotu jūsu reitingu. Sākot izmantot vietni, jūsu reitings ir 1500 ± 1000. Šeit 1500 ir jūsu reitings, un 1000 ir ticamības intervāls.
 
-Būtībā sistēma ir 90% pārliecināta, ka jūsu reitings ir starp 800 un 2200. Tas ir ļoti nenoteikts. Tādēļ, kad spēlētājs ir tikai sācis spēlēt, tā reitings mainīsies ļoti dramatiski, iespējams pat par vairākiem simtiem punktu reizē. Taču pēc dažām spēlēm pret spēlētājiem ar skaidrāku reitingu, jaunā spēlētāja ticamības intervāls sašaurināsies, un pēc katras spēles iegūtie vai zaudētie punkti samazināsies.
+Būtībā sistēma ir 95% pārliecināta, ka jūsu reitings ir starp 5000 un 2500. Tas ir ļoti nenoteikts. Tādēļ, kad spēlētājs ir tikai sācis spēlēt, reitings mainīsies ļoti dramatiski, iespējams pat par vairākiem simtiem punktu reizē. Taču pēc dažām spēlēm pret spēlētājiem ar skaidrāku reitingu, jaunā spēlētāja ticamības intervāls sašaurināsies, un pēc katras spēles iegūto/zaudēto punktu skaits samazināsies.
 
 Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj iegūt vai zaudēt punktus ātrāk, lai pielāgotos jūsu prasmju līmeņa izmaiņām tajā laikā.</string>
   <string name="whatIsProvisionalRating">Kādēļ reitingam blakus redzama jautājuma zīme?</string>

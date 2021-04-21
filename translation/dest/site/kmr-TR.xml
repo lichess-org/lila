@@ -77,7 +77,7 @@
   <string name="losing">Têk diçe</string>
   <string name="drawn">Wekhevî</string>
   <string name="unknown">Nedîyar</string>
-  <string name="database">Zaniyarîdank</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Zaniyarîdank</string>
   <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
   <string name="averageRatingX">Nirxandina navîn: %s</string>
   <string name="recentGames">Lîstikên herî dawî</string>
@@ -592,7 +592,7 @@
   <string name="really">heqîqeten</string>
   <string name="contribute">Bibe tevkar</string>
   <string name="termsOfService">Şertûmercên Xizmetê</string>
-  <string name="sourceCode">Koda çavkanî</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Koda çavkanî</string>
   <string name="simultaneousExhibitions">Pêşangehên hevdemî</string>
   <string name="host">Hewanger</string>
   <string name="hostColorX">Rengê hewangerê: %s</string>

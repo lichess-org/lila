@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="mate">Мат</string>
+  <string name="middlegame">Уен уртасы</string>
   <string name="pin">Беркетү</string>
 </resources>

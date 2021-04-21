@@ -25,7 +25,8 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
+    gameRepo: lila.game.GameRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

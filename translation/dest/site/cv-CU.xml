@@ -48,7 +48,7 @@
   <string name="analysis">Тишкерӳ хӑми</string>
   <string name="deleteFromHere">Кунтан пуҫласа катерт</string>
   <string name="close">Хуп</string>
-  <string name="database">Пӗлӗм пуххи</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Пӗлӗм пуххи</string>
   <string name="whiteDrawBlack">Шуррисем / Пармапар / Хурисем</string>
   <string name="averageRatingX">Вӑтамри рейтинг: %s</string>
   <string name="recentGames">Паҫӑрхи вӑйӑсем</string>
@@ -395,7 +395,7 @@
   <string name="webmasters">Веб маҫтӑрсем</string>
   <string name="contribute">Пулӑшасси</string>
   <string name="termsOfService">Шыв-йӗркипе</string>
-  <string name="sourceCode">Source Code</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Source Code</string>
   <string name="simultaneousExhibitions">Пӗр вӑхӑтри вӑйӑсем</string>
   <string name="host">Хост</string>
   <string name="createdSimuls">Тин йӗркеленӗ пӗр вӑхӑтри вӑйӑсем</string>

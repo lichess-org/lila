@@ -589,7 +589,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.required">This field is required</string>
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable. Please double-check it, and try again.</string>
-  <string name="error.email_unique">This email address is already taken</string>
+  <string name="error.email_unique">Email address invalid or already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyExistingConversations">Only existing conversations</string>

@@ -224,6 +224,7 @@ final class TeamApi(
   def quitAll(userId: User.ID): Fu[List[Team.ID]] =
     cached.teamIdsList(userId) flatMap { teamIds =>
       memberRepo.removeByUser(userId) >>
+        requestRepo.removeByUser(userId) >>
         teamIds.map { teamRepo.incMembers(_, -1) }.sequenceFu.void >>-
         cached.invalidateTeamIds(userId) inject teamIds
     }

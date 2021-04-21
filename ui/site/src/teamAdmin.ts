@@ -18,11 +18,11 @@ lichess.load.then(() => {
   tagify.on('input', e => {
     const term = e.detail.value.trim();
     if (term.length < 3) return;
-    tagify.settings.whitelist.length = 0; // reset the whitelist
+    tagify.settings.whitelist!.length = 0; // reset the whitelist
     // show loading animation and hide the suggestions dropdown
     tagify.loading(true).dropdown.hide.call(tagify);
     doFetch(term).then((list: string[]) => {
-      tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
+      tagify.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
       tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
     });
   });

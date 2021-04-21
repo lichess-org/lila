@@ -77,7 +77,7 @@
   <string name="losing">Ялагдаж явна</string>
   <string name="drawn">Тэнцсэн</string>
   <string name="unknown">Үл мэдэгдэх</string>
-  <string name="database">Сан</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Сан</string>
   <string name="whiteDrawBlack">Цагаан/ Тэнцсэн/ Хар</string>
   <string name="averageRatingX">Дундаж зэрэг: %s</string>
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
@@ -567,7 +567,7 @@
   <string name="really">бэлтгэнэ үү</string>
   <string name="contribute">Хувь нэмэрээ оруулах</string>
   <string name="termsOfService">Үйлчилгээний нөхцөл</string>
-  <string name="sourceCode">Эх код</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Эх код</string>
   <string name="simultaneousExhibitions">Зэрэгцээ үзүүлэн өрөг</string>
   <string name="host">Зэрэгцээ өрөг үүсгэгч</string>
   <string name="hostColorX">Хостын өнгө: %s</string>

@@ -1,18 +1,20 @@
 import { initial as initialBoardFen } from 'chessground/fen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
+import { CachedEval, ServerEvalData } from './interfaces';
 
-type DestCache = {
-  [fen: string]: DestCacheEntry;
+type DestsCache = {
+  [fen: string]: AnaDests;
 };
-type DestCacheEntry = {
-  path: string;
+type AnaDests = {
   dests: string;
+  path: string;
+  ch?: string;
+  opening?: {
+    eco: string;
+    name: string;
+  };
 };
-
-interface Handlers {
-  [key: string]: any; // TODO
-}
 
 // TODO: Split into request types
 export interface Req {
@@ -42,7 +44,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   let anaMoveTimeout: number | undefined;
   let anaDestsTimeout: number | undefined;
 
-  let anaDestsCache: DestCache = {};
+  let anaDestsCache: DestsCache = {};
 
   function clearCache() {
     anaDestsCache =
@@ -80,7 +82,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     }
   }
 
-  const handlers: Handlers = {
+  const handlers = {
     node(data) {
       clearTimeout(anaMoveTimeout);
       // no strict equality here!
@@ -91,14 +93,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaMoveTimeout);
       ctrl.reset();
     },
-    dests(data) {
+    dests(data: AnaDests) {
       clearTimeout(anaDestsTimeout);
       if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path);
       } else console.log('socket handler node got wrong chapter id', data);
     },
-    destsFailure(data) {
+    destsFailure(data: any) {
       console.log(data);
       clearTimeout(anaDestsTimeout);
     },
@@ -107,15 +109,15 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
         ctrl.forecast.reloadToLastPly();
       }
     },
-    analysisProgress(data) {
+    analysisProgress(data: ServerEvalData) {
       ctrl.mergeAnalysisData(data);
     },
-    evalHit(e) {
+    evalHit(e: CachedEval) {
       ctrl.evalCache.onCloudEval(e);
     },
   };
 
-  function withoutStandardVariant(obj) {
+  function withoutStandardVariant(obj: Req) {
     if (obj.variant === 'standard') delete obj.variant;
   }
 
@@ -154,7 +156,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   return {
     receive(type: string, data: any): boolean {
-      const handler = handlers[type];
+      const handler = (handlers as Dictionary<(data: any) => void>)[type];
       if (handler) handler(data);
       return !!ctrl.study && ctrl.study.socketHandler(type, data);
     },

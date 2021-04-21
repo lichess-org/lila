@@ -488,6 +488,8 @@ declare namespace PowerTip {
   }
 }
 
-declare module '@yaireo/tagify';
+interface Dictionary<T> {
+  [key: string]: T | undefined;
+}
 
 declare const lichess: Lichess;

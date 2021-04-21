@@ -244,7 +244,7 @@ object tree {
       main(cls := "page page-small box box-pad appeal")(
         h1("Appeal"),
         div(cls := "nav-tree")(
-          if ((me.disabled && me.marks.alt) || query.contains("alt")) altScreen
+          if (me.disabled || query.contains("alt")) altScreen
           else
             renderNode(
               {

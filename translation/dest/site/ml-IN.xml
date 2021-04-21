@@ -78,7 +78,7 @@
   <string name="losing">മോശം നീക്കങ്ങൾ</string>
   <string name="drawn">സമനില പൊസിഷൻ</string>
   <string name="unknown">അറിയപ്പെടാത്ത പൊസിഷൻ</string>
-  <string name="database">ഡേറ്റാബേസ്</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ഡേറ്റാബേസ്</string>
   <string name="whiteDrawBlack">വെള്ള / സമനില / കറുപ്പ്</string>
   <string name="averageRatingX">ശരാശരി റേറ്റിങ് %s</string>
   <string name="recentGames">സമീപകാല ഗെയിമുകൾ</string>
@@ -603,7 +603,7 @@
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
-  <string name="sourceCode">സോഴ്സ് കോഡ്</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
   <string name="hostColorX">ഹോസ്റ്റ് നിറം: %s</string>

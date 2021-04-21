@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { prop } from 'common';
-import { storedProp, storedJsonProp } from 'common/storage';
+import { storedProp, storedJsonProp, StoredJsonProp } from 'common/storage';
 import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
@@ -35,7 +35,7 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
     },
   };
 
-  const toggleMany = function (c, value) {
+  const toggleMany = function <T>(c: StoredJsonProp<T[]>, value: T) {
     if (!c().includes(value)) c(c().concat([value]));
     else if (c().length > 1) c(c().filter(v => v !== value));
   };

@@ -78,7 +78,7 @@
   <string name="losing">Perdent</string>
   <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
-  <string name="database">Base de dades</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
@@ -618,7 +618,7 @@ en %3$s</string>
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="termsOfService">Condicions del servei</string>
-  <string name="sourceCode">Codi font</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
   <string name="hostColorX">Color d\'amfitrió: %s</string>

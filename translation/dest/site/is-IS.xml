@@ -77,7 +77,7 @@
   <string name="losing">Tapar</string>
   <string name="drawn">Jafntefli</string>
   <string name="unknown">Óþekktur</string>
-  <string name="database">Gagnagrunnur</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Gagnagrunnur</string>
   <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
   <string name="averageRatingX">Meðal Elo: %s</string>
   <string name="recentGames">Síðustu skákir</string>
@@ -580,7 +580,7 @@
   <string name="really">í alvörunni</string>
   <string name="contribute">Veita hjálparhönd</string>
   <string name="termsOfService">Skilmálar</string>
-  <string name="sourceCode">Frumkóði</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Frumkóði</string>
   <string name="simultaneousExhibitions">Hópskák</string>
   <string name="host">Gestgjafi</string>
   <string name="createdSimuls">Nýlegar hópskákir</string>

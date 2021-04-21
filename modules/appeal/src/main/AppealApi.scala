@@ -17,6 +17,8 @@ final class AppealApi(
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
+  def byUserIds(userIds: List[User.ID]) = coll.byIds[Appeal](userIds)
+
   def exists(user: User) = coll.exists($id(user.id))
 
   def post(text: String, me: User) =

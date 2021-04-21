@@ -140,6 +140,16 @@ object TournamentForm {
     validVariants.find { v =>
       v.key == from || from.toIntOption.exists(v.id ==)
     }
+
+  val joinForm =
+    Form(
+      mapping(
+        "team"     -> optional(nonEmptyText),
+        "password" -> optional(nonEmptyText)
+      )(TournamentJoin.apply)(TournamentJoin.unapply)
+    )
+
+  case class TournamentJoin(team: Option[String], password: Option[String])
 }
 
 private[tournament] case class TournamentSetup(

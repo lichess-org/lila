@@ -7,7 +7,7 @@ $(function () {
     noteTextArea.value = noteStore.get();
   });
 
-  $('#inquiry .notes').on('change', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
+  $('#inquiry .notes').on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
 
   $('#inquiry .notes').on('submit', noteStore.remove);
 

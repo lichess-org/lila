@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.event.{ Event, EventForm }
+import lila.i18n.LangList
 
 object event {
 
@@ -26,7 +27,10 @@ object event {
         div(cls := "box__top")(
           h1(
             a(href := routes.Event.show(event.id))(event.title),
-            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
+            event.updatedBy map { updatedBy =>
+              span("Updated by ", usernameOrId(updatedBy.value), " ", event.updatedAt.map(momentFromNow(_)))
+            }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
             form3.submit("Clone", "".some, klass = "button-green button-empty")
@@ -168,7 +172,12 @@ object event {
       ),
       form3.split(
         form3.group(form("lang"), raw("Language"), half = true)(
-          form3.select(_, lila.i18n.LangList.popularChoices)
+          form3.select(
+            _,
+            lila.i18n.LangList.popularNoRegion.map { l =>
+              l.code -> s"${l.language.toUpperCase} ${LangList name l}"
+            }
+          )
         ),
         form3.group(
           form("hostedBy"),
@@ -194,7 +203,7 @@ object event {
           raw("Hours on homepage before the start (0 to 24)"),
           half = true,
           help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
-        )(form3.input(_, typ = "number"))
+        )(form3.input(_, typ = "number")(step := ".01"))
       ),
       form3.action(form3.submit(trans.apply()))
     )

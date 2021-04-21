@@ -197,6 +197,22 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       _ flatMap { Pov(_, user) }
     }
 
+  def countWhereUserTurn(userId: User.ID): Fu[Int] =
+    coll
+      .countSel(
+        // important, hits the index!
+        Query.nowPlaying(userId) ++ $doc(
+          "$or" ->
+            List(0, 1).map { rem =>
+              $doc(
+                s"${Game.BSONFields.playingUids}.$rem" -> userId,
+                Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
+              )
+            }
+        )
+      )
+      .dmap(_.toInt)
+
   def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
     coll.distinctEasy[Game.ID, List](
       F.id,

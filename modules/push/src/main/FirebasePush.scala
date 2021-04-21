@@ -56,16 +56,26 @@ final private class FirebasePush(
       )
       .post(
         Json.obj(
-          "message" -> Json.obj(
-            "token" -> device._id,
-            // firebase doesn't support nested data object and we only use what is
-            // inside userData
-            "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
-            "notification" -> Json.obj(
-              "body"  -> data.body,
-              "title" -> data.title
+          "message" -> Json
+            .obj(
+              "token" -> device._id,
+              // firebase doesn't support nested data object and we only use what is
+              // inside userData
+              "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
+              "notification" -> Json.obj(
+                "body"  -> data.body,
+                "title" -> data.title
+              )
             )
-          )
+            .add(
+              "apns" -> data.iosBadge.map(number =>
+                Json.obj(
+                  "payload" -> Json.obj(
+                    "aps" -> Json.obj("badge" -> number)
+                  )
+                )
+              )
+            )
         )
       ) flatMap { res =>
       lila.mon.push.firebaseStatus(res.status).increment()

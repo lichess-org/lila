@@ -78,7 +78,7 @@
   <string name="losing">Tapir</string>
   <string name="drawn">Javnt</string>
   <string name="unknown">Ókent</string>
-  <string name="database">Dátugrunnur</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Dátugrunnur</string>
   <string name="whiteDrawBlack">Hvítur / Javnt / Svartur</string>
   <string name="averageRatingX">Miðal styrkismeting: %s</string>
   <string name="recentGames">Nýliga telvað talv</string>
@@ -602,7 +602,7 @@
   <string name="really">álvara</string>
   <string name="contribute">Stuðla</string>
   <string name="termsOfService">Tænastutreytir</string>
-  <string name="sourceCode">Keldukota</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Keldukota</string>
   <string name="simultaneousExhibitions">Fjøltelvingar</string>
   <string name="host">Vertur</string>
   <string name="hostColorX">Litur hjá verti: %s</string>

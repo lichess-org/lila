@@ -76,7 +76,7 @@
   <string name="losing">terji\'a kelka\'u</string>
   <string name="drawn">no da cu jinga</string>
   <string name="unknown">narju\'odza</string>
-  <string name="database">samdatni</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">samdatni</string>
   <string name="whiteDrawBlack">lo labnunji\'a fa\'u lo nunynorji\'a fa\'u lo xeknunji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
   <string name="recentGames">lo pu zi nunjvi</string>
@@ -540,7 +540,7 @@
   <string name="really">ba\'ucu\'i</string>
   <string name="contribute">sidju</string>
   <string name="termsOfService">lo pilno terbilga</string>
-  <string name="sourceCode">samselpla</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">samselpla</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="host">finti</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>

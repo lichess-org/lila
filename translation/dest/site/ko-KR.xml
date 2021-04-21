@@ -77,7 +77,7 @@
   <string name="losing">지는 수</string>
   <string name="drawn">무승부</string>
   <string name="unknown">알 수 없음</string>
-  <string name="database">데이터베이스</string>
+  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">데이터베이스</string>
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
@@ -531,7 +531,7 @@
   <string name="human">인간</string>
   <string name="computer">인공지능</string>
   <string name="side">진영</string>
-  <string name="clock">시간 제한</string>
+  <string name="clock">시계</string>
   <string name="unauthorizedError">접속이 불허되었습니다.</string>
   <string name="noInternetConnection">인터넷 연결이 없습니다. 메뉴을 통해 오프라인 게임은 할 수 있습니다.</string>
   <string name="connectedToLichess">lichess.org에 접속했습니다</string>
@@ -580,7 +580,7 @@
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
   <string name="termsOfService">이용 약관</string>
-  <string name="sourceCode">소스 코드</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">소스 코드</string>
   <string name="simultaneousExhibitions">동시대국</string>
   <string name="host">호스트</string>
   <string name="hostColorX">호스트의 색: %s</string>

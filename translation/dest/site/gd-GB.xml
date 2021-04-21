@@ -314,7 +314,7 @@
   <string name="webmasters">Maighstirean-lìn</string>
   <string name="contribute">Rach an sàs ann</string>
   <string name="termsOfService">Teirmichean na seirbheise</string>
-  <string name="sourceCode">Bun-tùs</string>
+  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Bun-tùs</string>
   <string name="host">Òstair</string>
   <string name="create">Cruthaich</string>
   <string name="lichessTournaments">Féillean-chluich Lichess</string>

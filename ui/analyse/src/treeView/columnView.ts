@@ -28,8 +28,8 @@ interface Opts extends BaseOpts {
 }
 
 function emptyMove(conceal?: Conceal): VNode {
-  const c = {};
-  if (conceal) c[conceal as string] = true;
+  const c: { conceal?: true; hide?: true } = {};
+  if (conceal) c[conceal] = true;
   return h(
     'move.empty',
     {

@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">이 퍼즐이 괜찮았나요?</string>
   <string name="voteToLoadNextOne">다음 퍼즐을 위해 투표해주세요!</string>
   <string name="yourPuzzleRatingX">퍼즐 레이팅: %s</string>
-  <string name="findTheBestMoveForWhite">흰색을 위한 최고의 수를 찾아보세요.</string>
-  <string name="findTheBestMoveForBlack">흑색을 위한 최고의 수를 찾아보세요.</string>
+  <string name="findTheBestMoveForWhite">백의 최고의 수를 찾아보세요.</string>
+  <string name="findTheBestMoveForBlack">흑의 최고의 수를 찾아보세요.</string>
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>

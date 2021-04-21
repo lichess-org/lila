@@ -12,6 +12,7 @@ import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
+import lila.tournament.TournamentForm
 import lila.tournament.{ VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 
@@ -206,34 +207,61 @@ final class Tournament(
     AuthBody(parse.json) { implicit ctx => implicit me =>
       NoLameOrBot {
         NoPlayban {
-          val password = ctx.body.body.\("p").asOpt[String]
-          val teamId   = ctx.body.body.\("team").asOpt[String]
-          teamId
-            .?? {
-              env.team.cached.isLeader(_, me.id)
-            }
-            .flatMap { isLeader =>
-              api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
-                negotiate(
-                  html = fuccess {
-                    result.error match {
-                      case None        => Redirect(routes.Tournament.show(id))
-                      case Some(error) => BadRequest(error)
-                    }
-                  },
-                  api = _ =>
-                    fuccess {
-                      result.error match {
-                        case None        => jsonOkResult
-                        case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-                      }
-                    }
-                )
-              }
-            }
+          val data = TournamentForm.TournamentJoin(
+            password = ctx.body.body.\("p").asOpt[String],
+            team = ctx.body.body.\("team").asOpt[String]
+          )
+          doJoin(id, data, me) flatMap { result =>
+            negotiate(
+              html = fuccess {
+                result.error match {
+                  case None        => Redirect(routes.Tournament.show(id))
+                  case Some(error) => BadRequest(error)
+                }
+              },
+              api = _ =>
+                fuccess {
+                  result.error match {
+                    case None        => jsonOkResult
+                    case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+                  }
+                }
+            )
+          }
         }
       }
     }
+
+  def apiJoin(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
+      else {
+        val data =
+          TournamentForm.joinForm
+            .bindFromRequest()
+            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+        doJoin(id, data, me) map { result =>
+          result.error match {
+            case None        => jsonOkResult
+            case Some(error) => BadRequest(Json.obj("error" -> error))
+          }
+        }
+      }
+    }
+
+  private def doJoin(tourId: Tour.ID, data: TournamentForm.TournamentJoin, me: UserModel) =
+    data.team
+      .?? { env.team.cached.isLeader(_, me.id) }
+      .flatMap { isLeader =>
+        api.joinWithResult(
+          tourId,
+          me,
+          password = data.password,
+          teamId = data.team,
+          getUserTeamIds,
+          isLeader
+        )
+      }
 
   def pause(id: String) =
     Auth { implicit ctx => me =>

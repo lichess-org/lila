@@ -204,21 +204,4 @@ export default class StormCtrl {
   };
 
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
-
-  private simulate = () => {
-    this.data.players = [];
-    for (let i = 0; i < 10; i++)
-      this.data.players.push({
-        name: `Player${i}`,
-        score: 0,
-      });
-    setInterval(() => {
-      if (true || this.isRacing()) {
-        this.data.players[Math.floor(Math.random() * 10)].score++;
-        this.boost.setPlayers(this.data.players);
-        this.redraw();
-        this.redrawSlow();
-      }
-    }, 150);
-  };
 }

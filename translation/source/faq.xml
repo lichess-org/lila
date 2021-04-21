@@ -102,9 +102,9 @@ Do not ask for the LM title.</string>
   <string name="whichRatingSystemUsedByLichess">What rating system does Lichess use?</string>
   <string name="ratingSystemUsedByLichess">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
 
-Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 1000. The 1500 represents your rating, and the 1000 represents the confidence interval.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+Basically, the system is 95% sure that your rating is somewhere between 500 and 2500. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
 
 Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points more rapidly to match any changes in your skill level over that time.</string>
   <string name="whatIsProvisionalRating">Why is there a question mark (?) next to a rating?</string>

@@ -150,7 +150,12 @@ $('#asset-version-message').text(lichess.info.message);"""
               )
             ),
             parameters,
-            p("The text is automatically translated to your visitor's language.")
+            p("The text is automatically translated to your visitor's language."),
+            p(
+              "Alternatively, you can ",
+              a(href := routes.Main.dailyPuzzleSlackApp)("post the puzzle in your slack workspace"),
+              "."
+            )
           )
         },
         br,

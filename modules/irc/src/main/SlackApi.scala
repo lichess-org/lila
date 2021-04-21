@@ -117,6 +117,9 @@ final class SlackApi(
       }
     }
 
+  def printBan(mod: Holder, print: String, userIds: List[User.ID]): Funit =
+    logMod(mod.id, "footprints", s"Ban print $print of ${userIds} users: ${userIds map linkifyUsers}")
+
   def chatPanic(mod: Holder, v: Boolean): Funit =
     client(
       SlackMessage(
@@ -200,7 +203,7 @@ final class SlackApi(
   def gdprErase(user: User): Funit =
     client(
       SlackMessage(
-        username = "lichess",
+        username = user.username,
         icon = "scream2",
         text = "GDPR erasure scheduled",
         channel = rooms.gdprLog

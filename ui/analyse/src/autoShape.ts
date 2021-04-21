@@ -105,7 +105,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     const { uci, glyphs, san } = ctrl.node;
     if (uci && san && glyphs && glyphs.length > 0) {
       const glyph = glyphs[0];
-      const svg = glyphToSvg[glyph.symbol];
+      const svg = (glyphToSvg as Dictionary<string>)[glyph.symbol];
       if (svg) {
         const move = parseUci(uci)!;
         const destSquare = san.startsWith('O-O') // castle, short or long

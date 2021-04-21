@@ -26,6 +26,8 @@
   <string name="youCannotApply">Модератор булу өчен гариза бирү мөмкин түгел. Әгәр дә без модератор буларак яхшы булыр дип уйлаган кешене күрсәк, без алар белән турыдан-туры элемтәгә керербез.</string>
   <string name="isCorrespondenceDifferent">Хат алышу гадәти шахматтан аерылып торамы?</string>
   <string name="gameplay">Уенуйнамак</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
   <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
   <string name="eightVariants">8 шаһмат варианты</string>
@@ -39,5 +41,6 @@
   <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>
+  <string name="noUpperCaseDot">Юк.</string>
   <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
 </resources>

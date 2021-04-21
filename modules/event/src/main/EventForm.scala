@@ -29,7 +29,7 @@ object EventForm {
       "title"         -> text(minLength = 3, maxLength = 40),
       "headline"      -> text(minLength = 5, maxLength = 30),
       "description"   -> optional(text(minLength = 5, maxLength = 4000)),
-      "homepageHours" -> number(min = 0, max = 24),
+      "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
       "url"           -> nonEmptyText,
       "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),
       "enabled"       -> boolean,
@@ -59,7 +59,7 @@ object EventForm {
       title: String,
       headline: String,
       description: Option[String],
-      homepageHours: Int,
+      homepageHours: BigDecimal,
       url: String,
       lang: String,
       enabled: Boolean,
@@ -70,12 +70,12 @@ object EventForm {
       countdown: Boolean
   ) {
 
-    def update(event: Event) =
+    def update(event: Event, by: User) =
       event.copy(
         title = title,
         headline = headline,
         description = description,
-        homepageHours = homepageHours,
+        homepageHours = homepageHours.toDouble,
         url = url,
         lang = Lang(lang),
         enabled = enabled,
@@ -83,7 +83,9 @@ object EventForm {
         finishesAt = finishesAt,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
-        countdown = countdown
+        countdown = countdown,
+        updatedAt = DateTime.now.some,
+        updatedBy = Event.UserId(by.id).some
       )
 
     def make(userId: String) =
@@ -92,7 +94,7 @@ object EventForm {
         title = title,
         headline = headline,
         description = description,
-        homepageHours = homepageHours,
+        homepageHours = homepageHours.toDouble,
         url = url,
         lang = Lang(lang),
         enabled = enabled,
@@ -100,6 +102,8 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
+        updatedAt = none,
+        updatedBy = none,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown

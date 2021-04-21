@@ -100,13 +100,13 @@ Ikke be om LM-tittelen.</string>
   <string name="goldenZeeExplanation">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
   <string name="lichessRatings">Lichess-ratinger</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et framstående moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).
+  <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et prominent moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).
 
-Glicko-ratingene bygger på \"konfidensintervaller\" når ratingen din skal beregnes og presenteres. Når du begynner å bruke nettstedet, starter ratingen din på 1500 ± 700. Tallet 1500 representerer ratingen din, og tallet 700 representerer konfidensintervallet.
+Glicko-ratingene bygger på «konfidensintervaller» når ratingen din skal beregnes og presenteres. Når du begynner å bruke nettstedet, starter ratingen din på 1500 ± 1000. Tallet 1500 representerer ratingen din, og tallet 1000 representerer konfidensintervallet.
 
-I bunn og grunn er systemet 90 % sikkert på at ratingen din ligger mellom 800 og 2200. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
+I bunn og grunn er systemet 95 % sikkert på at ratingen din ligger mellom 500 og 2500. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
 
-Et annet poeng å være oppmerksom på er at ettersom tiden går uten spille, så øker konfidensintervallet. Slik kan du oppnå/tape poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i tiden uten å spille.</string>
+Vær oppmerksom på at konfidensintervallet øker når du ikke spiller. Slik oppnår/taper du poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i perioden du ikke spilte.</string>
   <string name="whatIsProvisionalRating">Hvorfor er det spørsmålstegn (?) ved siden av ratingen?</string>
   <string name="provisionalRatingExplanation">Spørsmålstegnet betyr at ratingen er provisorisk. Grunnen til dette kan være:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har så langt ikke fullført mange nok ratede partier mot %1$s i ratingkategorien.</string>
