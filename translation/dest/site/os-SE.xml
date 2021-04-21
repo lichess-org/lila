@@ -135,6 +135,30 @@
   <string name="claimADraw">Æрдомын хæрæгсаст</string>
   <string name="offerDraw">Бахъарын хæрæгсаст</string>
   <string name="draw">Хæрæгсаст</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s хъазæг</item>
+    <item quantity="other">%s хъазджыты</item>
+  </plurals>
+  <string name="currentGames">Цæугæ партитæ</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s хъазт</item>
+    <item quantity="other">%s хъæзтыты</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s нысан</item>
+    <item quantity="other">%s нысæнтты</item>
+  </plurals>
+  <string name="viewInFullSize">Акæсын æнæхъæн бæрцæй</string>
+  <string name="logOut">Рацæуын</string>
+  <string name="signIn">Бацæуын</string>
+  <string name="youNeedAnAccountToDoThat">Аккаунт дын хъæуы, цæмæй уый кæнай</string>
+  <string name="signUp">Регистраци</string>
+  <string name="games">Хъæзтытæ</string>
+  <string name="forum">Тæрхон</string>
+  <string name="xPostedInForumY">%1$s ныффыста %2$s тæрхоны</string>
+  <string name="latestForumPosts">Фæстаг тæрхоны фыстытæ</string>
+  <string name="players">Хъазджытæ</string>
+  <string name="friends">Æмбалтæ</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
   <string name="rank">Бынат</string>
