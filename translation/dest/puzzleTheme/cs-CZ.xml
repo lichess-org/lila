@@ -21,6 +21,7 @@
   <string name="castlingDescription">Schovejte krále do bezpečí a vyviňte věž.</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="capturingDefenderDescription">Sebrání figury, která brání jinou figuru, a poté dalším tahem dobereme tuto nechráněnou figuru.</string>
+  <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dvěma střelci</string>
   <string name="doubleBishopMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi.</string>
   <string name="dovetailMate">Coziův mat</string>
@@ -74,6 +75,7 @@
   <string name="pawnEndgame">Pěšcové koncovky</string>
   <string name="pawnEndgameDescription">Koncovka pouze s pěšci.</string>
   <string name="pin">Vazba</string>
+  <string name="pinDescription">Taktika zahrnující vazby, kde se figura nemůže pohnout bez odhalení útoku na figuru vyšší hodnoty.</string>
   <string name="promotion">Proměna figury</string>
   <string name="queenEndgame">Dámské koncovky</string>
   <string name="queenEndgameDescription">Koncovka jen s dámy a pěšci.</string>
