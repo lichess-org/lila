@@ -91,6 +91,7 @@
   <string name="veryLong">Velmi dlouhá úloha</string>
   <string name="veryLongDescription">Čtyři či více tahů k vyhrávající pozici.</string>
   <string name="xRayAttack">Rentgenový útok</string>
+  <string name="xRayAttackDescription">Figura útočí nebo chrání pole skrze nepřátelskou figuru.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Soupeř musí zahrát jakýkoliv tah, přičemž všechny zhoršují jeho pozici a zlepšují naší pozici.</string>
   <string name="healthyMix">Mix úloh</string>
