@@ -83,6 +83,7 @@
   <string name="rookEndgame">Věžové koncovky</string>
   <string name="rookEndgameDescription">Koncovka jen s věžemi a pěšci.</string>
   <string name="sacrifice">Oběť</string>
+  <string name="sacrificeDescription">Taktika zahrnující krátkodobé vzdání materiálu, s cílem získat opět výhodu po vynucené sekvenci tahů.</string>
   <string name="short">Krátká úloha</string>
   <string name="shortDescription">Dva tahy do výhry.</string>
   <string name="smotheredMate">Dušený mat</string>
