@@ -8,7 +8,7 @@ private object Dictionary {
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
-(f|ph)agg?(ot|)
+(f|ph)agg?([oi]t|)
 cock(suc?k(er|ing)|)
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -62,14 +62,14 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-(ho?pe (yo)?[uy](r family)? die|dies? irl)
+(ho?pe ((yo)?[uy](r family)?( and ?)*)+ (die|burn)s?|((die|burn)s? irl))
 horny
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-(kill|hang) (yo)?[uy]r ?(self|family)
+(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and ?)?)+
 kys
 labia
 lamer?
