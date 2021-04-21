@@ -92,7 +92,9 @@
     <item quantity="one">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
     <item quantity="other">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
   </plurals>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъауы бафтауын фылдæр хъæзтыты настройкæты?</string>
+  <string name="noGameFound">Нæ ссардтам партитæ</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъæуы бафтауын фылдæр хъæзтыты настройкæты?</string>
+  <string name="openingExplorer">Райдайæнты æвæрæн</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
