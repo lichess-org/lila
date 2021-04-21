@@ -109,6 +109,9 @@
   <string name="enable">Ссудзын</string>
   <string name="bestMoveArrow">Æвдисын иуыл хуыздæр цыдтæ фатæгтæй</string>
   <string name="evaluationGauge">Аргъы шкала</string>
+  <string name="multipleLines">Бирæ вариантты</string>
+  <string name="cpus">Лæсæнтæ</string>
+  <string name="memory">Зæрдылдарæн</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
