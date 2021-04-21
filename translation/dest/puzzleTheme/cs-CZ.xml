@@ -79,6 +79,7 @@
   <string name="queensideAttack">Útok na dámském křídle</string>
   <string name="queensideAttackDescription">Útok na soupeřova krále poté, co udělal dlouhou rošádu.</string>
   <string name="quietMove">Tichý tah</string>
+  <string name="quietMoveDescription">Tah, který není ani šach ani braní, ale připraví nevyhnutelnou hrozbu na další tah.</string>
   <string name="rookEndgame">Věžové koncovky</string>
   <string name="rookEndgameDescription">Koncovka jen s věžemi a pěšci.</string>
   <string name="sacrifice">Oběť</string>
