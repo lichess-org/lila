@@ -88,6 +88,10 @@
     <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
     <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
+    <item quantity="other">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
+  </plurals>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъауы бафтауын фылдæр хъæзтыты настройкæты?</string>
   <string name="infiniteAnalysis">Æнæкæрон иртасæн</string>
   <string name="rating">Рейтинг</string>
