@@ -159,8 +159,34 @@
   <string name="latestForumPosts">Фæстаг тæрхоны фыстытæ</string>
   <string name="players">Хъазджытæ</string>
   <string name="friends">Æмбалтæ</string>
+  <string name="discussions">Ныхæстæ</string>
+  <string name="today">Абон</string>
+  <string name="yesterday">Знон</string>
+  <string name="minutesPerSide">Минутты партийæн</string>
+  <string name="variant">Вариант</string>
+  <string name="variants">Вариантытæ</string>
+  <string name="timeControl">Рæстæджы цæстдард</string>
+  <string name="realTime">Сахаттытæй</string>
+  <string name="correspondence">Фæсаууон</string>
+  <string name="daysPerTurn">Бонты цыдæн</string>
+  <string name="oneDay">Иу бон</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s бон</item>
+    <item quantity="other">%s боны</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s сахат</item>
+    <item quantity="other">%s сахаты</item>
+  </plurals>
+  <string name="time">Рæстæг</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтингы райуæрст</string>
+  <string name="username">Пайдакæнæджы ном</string>
+  <string name="usernameOrEmail">Логин кæнæ пост</string>
+  <string name="changeUsername">Аивын пайдагæнæджы ном</string>
+  <string name="password">Парол</string>
+  <string name="changePassword">Аивын парол</string>
+  <string name="changeEmail">Баив електронон пост</string>
   <string name="rank">Бынат</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Бынат сног вæййы алы минут</item>
@@ -190,7 +216,7 @@
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
-  <string name="onlyExistingConversations">Æрмæст дæууон ныхастæ</string>
+  <string name="onlyExistingConversations">Æрмæст дæууон ныхæстæ</string>
   <string name="onlyFriends">Æрмæст æмбалттæ</string>
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
