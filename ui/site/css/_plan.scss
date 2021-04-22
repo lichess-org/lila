@@ -178,9 +178,6 @@
     .service .button {
       flex: 1 1 auto;
       font-weight: normal;
-      &.paypal {
-        display: none;
-      }
     }
 
     .service .button:first-child {
