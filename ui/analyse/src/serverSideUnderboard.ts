@@ -1,9 +1,15 @@
+import type Highcharts from 'highcharts';
+
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 import { defined } from 'common';
 import modal from 'common/modal';
 import { formToXhr } from 'common/xhr';
 import { AnalyseData } from './interfaces';
+
+interface PlyChart extends Highcharts.ChartObject {
+  lastPly?: Ply | false;
+}
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard!);
@@ -15,7 +21,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    unselect = chart => {
+    unselect = (chart: Highcharts.ChartObject) => {
       chart.getSelectedPoints().forEach(function (point) {
         point.select(false);
       });
@@ -35,7 +41,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         lastFen = fen;
       }
       if ($chart.length) {
-        const chart = $chart[0]!['highcharts'];
+        const chart: PlyChart = ($chart[0] as HighchartsHTMLElement).highcharts;
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
@@ -49,7 +55,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
       if ($timeChart.length) {
-        const chart = $timeChart[0]!['highcharts'];
+        const chart: PlyChart = ($timeChart[0] as HighchartsHTMLElement).highcharts;
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);

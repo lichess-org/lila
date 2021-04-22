@@ -4,7 +4,7 @@ import { prop, Prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
-interface StudyShareCtrl {
+export interface StudyShareCtrl {
   studyId: string;
   chapter: () => StudyChapterMeta;
   isPrivate(): boolean;

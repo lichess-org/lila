@@ -6,8 +6,8 @@ type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
-export default function resizeHandle(els: cg.Elements, pref: number, ply: number, visible?: Visible) {
-  if (!pref) return;
+export default function resizeHandle(els: cg.Elements, pref: Prefs.ShowResizeHandle, ply: number, visible?: Visible) {
+  if (pref === Prefs.ShowResizeHandle.Never) return;
 
   const el = document.createElement('cg-resize');
   els.container.appendChild(el);
@@ -52,7 +52,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
   el.addEventListener('touchstart', startResize, { passive: false });
   el.addEventListener('mousedown', startResize, { passive: false });
 
-  if (pref == 1) {
+  if (pref === Prefs.ShowResizeHandle.OnlyAtStart) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
     toggle(ply);
     lichess.pubsub.on('ply', toggle);

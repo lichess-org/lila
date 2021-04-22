@@ -284,7 +284,7 @@ function controls(ctrl: AnalyseCtrl) {
 }
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords == 2) {
+  if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
     changeColorHandle();
   }

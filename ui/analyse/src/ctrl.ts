@@ -40,7 +40,7 @@ import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedProp, StoredBooleanProp } from 'common/storage';
-import { StudyCtrl } from './study/interfaces';
+import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 
@@ -158,7 +158,7 @@ export default class AnalyseCtrl {
 
     keyboard.bind(this);
 
-    lichess.pubsub.on('jump', (ply: any) => {
+    lichess.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
@@ -477,7 +477,7 @@ export default class AnalyseCtrl {
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
-    const move: any = {
+    const move: AnaMove = {
       orig,
       dest,
       variant: this.data.game.variant.key,
@@ -844,10 +844,12 @@ export default class AnalyseCtrl {
       variant: this.data.game.variant.key,
       canGet: () => this.canEvalGet(),
       canPut: () =>
-        this.data.evalPut &&
-        this.canEvalGet() &&
-        // if not in study, only put decent opening moves
-        (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99)),
+        !!(
+          this.data.evalPut &&
+          this.canEvalGet() &&
+          // if not in study, only put decent opening moves
+          (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
+        ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval,

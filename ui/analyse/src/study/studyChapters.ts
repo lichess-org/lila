@@ -2,13 +2,14 @@ import { h, VNode } from 'snabbdom';
 import { prop, Prop } from 'common';
 import { bind, dataIcon, iconTag, scrollTo } from '../util';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
-import { ctrl as chapterEditForm } from './chapterEditForm';
+import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray, StudyChapterConfig } from './interfaces';
+import { StudySocketSend } from '../socket';
 
 export interface StudyChaptersCtrl {
   newForm: StudyChapterNewFormCtrl;
-  editForm: any;
+  editForm: StudyChapterEditFormCtrl;
   list: Prop<StudyChapterMeta[]>;
   get(id: string): StudyChapterMeta | undefined;
   size(): number;
@@ -20,7 +21,7 @@ export interface StudyChaptersCtrl {
 
 export function ctrl(
   initChapters: StudyChapterMeta[],
-  send: SocketSend,
+  send: StudySocketSend,
   setTab: () => void,
   chapterConfig: (id: string) => Promise<StudyChapterConfig>,
   root: AnalyseCtrl
@@ -116,8 +117,10 @@ export function view(ctrl: StudyCtrl): VNode {
             const target = e.target as HTMLElement;
             const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
             if (!id) return;
-            if (target.tagName === 'ACT') ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
-            else ctrl.setChapter(id);
+            if (target.tagName === 'ACT') {
+              const chapter = ctrl.chapters.get(id);
+              if (chapter) ctrl.chapters.editForm.toggle(chapter);
+            } else ctrl.setChapter(id);
           });
           vnode.data!.li = {};
           update(vnode);

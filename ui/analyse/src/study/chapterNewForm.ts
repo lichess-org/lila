@@ -6,9 +6,10 @@ import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
-import { StudyChapterMeta } from './interfaces';
+import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { Redraw } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
+import { StudySocketSend } from '../socket';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -35,7 +36,7 @@ export interface StudyChapterNewFormCtrl {
   openInitial(): void;
   close(): void;
   toggle(): void;
-  submit(d: any): void;
+  submit(d: Omit<ChapterData, 'initial'>): void;
   chapters: Prop<StudyChapterMeta[]>;
   startTour(): void;
   multiPgnMax: number;
@@ -43,7 +44,7 @@ export interface StudyChapterNewFormCtrl {
 }
 
 export function ctrl(
-  send: SocketSend,
+  send: StudySocketSend,
   chapters: Prop<StudyChapterMeta[]>,
   setTab: () => void,
   root: AnalyseCtrl
@@ -92,10 +93,13 @@ export function ctrl(
     },
     submit(d) {
       const study = root.study!;
-      d.initial = vm.initial();
-      d.sticky = study.vm.mode.sticky;
-      if (!d.pgn) send('addChapter', d);
-      else importPgn(study.data.id, d);
+      const dd = {
+        ...d,
+        sticky: study.vm.mode.sticky,
+        initial: vm.initial(),
+      };
+      if (!dd.pgn) send('addChapter', dd);
+      else importPgn(study.data.id, dd);
       close();
       setTab();
     },
@@ -156,14 +160,16 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         'form.form3',
         {
           hook: bindSubmit(e => {
-            const o: any = {
+            ctrl.submit({
+              name: fieldValue(e, 'name'),
+              game: fieldValue(e, 'game'),
+              variant: fieldValue(e, 'variant') as VariantKey,
+              pgn: fieldValue(e, 'pgn'),
+              orientation: fieldValue(e, 'orientation') as Orientation,
+              mode: fieldValue(e, 'mode') as ChapterMode,
               fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
               isDefaultName: ctrl.vm.isDefaultName,
-            };
-            'name game variant pgn orientation mode'.split(' ').forEach(field => {
-              o[field] = fieldValue(e, field);
             });
-            ctrl.submit(o);
           }, ctrl.redraw),
         },
         [
@@ -215,7 +221,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           orientation: currentChapter.setup.orientation,
                           onChange: ctrl.vm.editorFen,
                         };
-                        ctrl.vm.editor = window['LichessEditor'](vnode.elm as HTMLElement, data);
+                        ctrl.vm.editor = window.LichessEditor(vnode.elm as HTMLElement, data);
                         ctrl.vm.editorFen(ctrl.vm.editor.getFen());
                       });
                     },

@@ -160,11 +160,11 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
   ctrl.redraw();
 });
 
-function nodeGamebookValue(node: Tree.Node, field: string): string {
+function nodeGamebookValue(node: Tree.Node, field: 'deviation' | 'hint'): string {
   return (node.gamebook && node.gamebook[field]) || '';
 }
 
-function textareaHook(ctrl: AnalyseCtrl, field: string): Hooks {
+function textareaHook(ctrl: AnalyseCtrl, field: 'deviation' | 'hint'): Hooks {
   const value = nodeGamebookValue(ctrl.node, field);
   return {
     insert(vnode: VNode) {

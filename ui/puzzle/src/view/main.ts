@@ -87,7 +87,7 @@ export default function (ctrl: Controller): VNode {
       hook: {
         postpatch(old, vnode) {
           if (old.data!.gaugeOn !== gaugeOn) {
-            if (ctrl.pref.coords == 2) {
+            if (ctrl.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
               changeColorHandle();
             }

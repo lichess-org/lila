@@ -107,7 +107,7 @@ export interface PuzzleOpts {
 }
 
 export interface PuzzlePrefs {
-  coords: 0 | 1 | 2;
+  coords: Prefs.Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;

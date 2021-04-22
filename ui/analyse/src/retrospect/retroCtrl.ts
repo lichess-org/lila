@@ -2,14 +2,45 @@ import { opposite } from 'chessground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
-import { isEmpty, prop } from 'common';
+import { isEmpty, Prop, prop } from 'common';
 import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
+import { Redraw } from '../interfaces';
 
 export interface RetroCtrl {
   isSolving(): boolean;
   trans: Trans;
-  [key: string]: any;
+  noarg: TransNoArg;
+  current: Prop<Retrospection | null>;
+  feedback: Prop<Feedback>;
+  color: Color;
+  isPlySolved(ply: Ply): boolean;
+  onJump(): void;
+  jumpToNext(): void;
+  skip(): void;
+  viewSolution(): void;
+  hideComputerLine(node: Tree.Node): boolean;
+  showBadNode(): Tree.Node | undefined;
+  onCeval(): void;
+  onMergeAnalysisData(): void;
+  completion(): [number, number];
+  reset(): void;
+  flip(): void;
+  close(): void;
+  node(): Tree.Node;
+  redraw: Redraw;
+}
+
+interface NodeWithPath {
+  node: Tree.Node;
+  path: string;
+}
+
+interface Retrospection {
+  fault: NodeWithPath;
+  prev: NodeWithPath;
+  solution: NodeWithPath;
+  openingUcis: Uci[];
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
@@ -19,7 +50,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
-  const current = prop<any>(null);
+  const current = prop<Retrospection | null>(null);
   const feedback = prop<Feedback>('find');
 
   const redraw = root.redraw;
@@ -50,13 +81,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       node: root.tree.nodeAtPath(prevPath),
       path: prevPath,
     };
-    const solutionNode = prev.node.children.find(n => !!n.comp);
+    const solutionNode = prev.node.children.find(n => !!n.comp)!;
     current({
       fault,
       prev,
       solution: {
         node: solutionNode,
-        path: prevPath + solutionNode!.id,
+        path: prevPath + solutionNode.id,
       },
       openingUcis: [],
     });
@@ -67,7 +98,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       (!game.division.middle || fault.node.ply < game.division.middle)
     ) {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
-        const cur = current();
+        const cur = current()!;
         const ucis: Uci[] = [];
         res!.moves.forEach(m => {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
@@ -96,7 +127,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci)) onWin();
+      if (cur.openingUcis.includes(node.uci!)) onWin();
       // found in opening explorer
       else if (node.comp) onWin();
       // the computer solution line
@@ -120,7 +151,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
-      const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval);
+      const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval!);
       if (diff > -0.035) onWin();
       else onFail();
     }
@@ -138,14 +169,14 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       node: root.node,
       path: root.path,
     };
-    root.userJump(current().prev.path);
+    root.userJump(current()!.prev.path);
     if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children)) root.tree.deleteNodeAt(bad.path);
     redraw();
   }
 
   function viewSolution() {
     feedback('view');
-    root.userJump(current().solution.path);
+    root.userJump(current()!.solution.path);
     solveCurrent();
   }
 
@@ -155,7 +186,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function solveCurrent() {
-    solvedPlies.push(current().fault.node.ply);
+    solvedPlies.push(current()!.fault.node.ply);
   }
 
   function hideComputerLine(node: Tree.Node): boolean {

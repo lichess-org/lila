@@ -13,7 +13,7 @@ export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'white' : 'black';
 }
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
     el.addEventListener(mousedownEvent, e => {
       f(e);
@@ -23,7 +23,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
   }
 }
 
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
+export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
   let longPressCountdown: number;
 
   el.addEventListener('touchstart', e => {
@@ -46,7 +46,7 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => any, redraw?
   });
 }
 
-function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => any, redraw?: () => void) {
+function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => unknown, redraw?: () => void) {
   el.addEventListener(eventName, e => {
     const res = f(e);
     if (res === false) e.preventDefault();
@@ -55,11 +55,11 @@ function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => any, redr
   });
 }
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+export function bind(eventName: string, f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return onInsert(el => listenTo(el, eventName, f, redraw));
 }
 
-export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
+export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return bind(
     'submit',
     e => {
@@ -222,13 +222,12 @@ export function scrollTo(el: HTMLElement | undefined, target: HTMLElement | null
   if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 }
 
-export function treeReconstruct(parts: any): Tree.Node {
+export function treeReconstruct(parts: Tree.Node[]): Tree.Node {
   const root = parts[0],
     nb = parts.length;
-  let node = root,
-    i: number;
+  let node = root;
   root.id = '';
-  for (i = 1; i < nb; i++) {
+  for (let i = 1; i < nb; i++) {
     const n = parts[i];
     if (node.children) node.children.unshift(n);
     else node.children = [n];

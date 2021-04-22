@@ -7,6 +7,8 @@ import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
 import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
+import { StudyData } from './study/interfaces';
+import { AnalyseSocketSend } from './socket';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -40,13 +42,23 @@ export interface AnalyseData {
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
-  pref: any;
+  pref: AnalysePref;
   url: {
     socket: string;
   };
   userTv?: {
     id: string;
   };
+}
+
+export interface AnalysePref {
+  coords: Prefs.Coords;
+  is3d?: boolean;
+  showDests?: boolean;
+  rookCastle?: boolean;
+  destination?: boolean;
+  highlight?: boolean;
+  animationDuration?: number;
 }
 
 export interface ServerEvalData {
@@ -60,7 +72,7 @@ export interface CachedEval {
   fen: Fen;
   knodes: number;
   depth: number;
-  pvs: Tree.PvData[];
+  pvs: Tree.PvDataServer[];
   path: string;
 }
 
@@ -112,13 +124,13 @@ export interface AnalysisSide {
 export interface AnalyseOpts {
   element: HTMLElement;
   data: AnalyseData;
-  userId: string | null;
+  userId?: string;
   hunter: boolean;
   embed: boolean;
   explorer: ExplorerOpts;
-  socketSend: SocketSend;
+  socketSend: AnalyseSocketSend;
   trans: Trans;
-  study?: any;
+  study?: StudyData;
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
@@ -133,6 +145,18 @@ export interface AnalyseOpts {
 
 export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
+}
+
+export interface EvalGetData {
+  fen: Fen;
+  path: string;
+  variant?: VariantKey;
+  mpv?: number;
+  up?: boolean;
+}
+
+export interface EvalPutData extends Tree.ServerEval {
+  variant?: VariantKey;
 }
 
 export type Conceal = false | 'conceal' | 'hide' | null;
