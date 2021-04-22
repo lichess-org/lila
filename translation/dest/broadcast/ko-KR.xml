@@ -16,6 +16,7 @@
   <string name="roundNumber">라운드 수</string>
   <string name="startDate">본인 시간대 기준 시작일</string>
   <string name="startDateHelp">선택사항. 언제 이벤트가 시작되는지 알고 있는 경우</string>
+  <string name="credits">출처</string>
   <string name="cloneBroadcast">방송 복사하기</string>
   <string name="resetBroadcast">방송 초기화</string>
 </resources>
