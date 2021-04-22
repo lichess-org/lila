@@ -186,6 +186,7 @@
   <string name="usernameOrEmail">Логин кæнæ электронон пост</string>
   <string name="changeUsername">Аивын пайдагæнæджы ном</string>
   <string name="changeUsernameNotSame">Дæ бон у ивын дамгъæты регистр æрмæст. Зæгъæм, \"johndoe\" баивын \"JohnDoe\"-мæ.</string>
+  <string name="changeUsernameDescription">Баивын пайдакæнæджы ном. Дæ бон у баивын дамгъæты регистр æрмæст, æмæ иу хатт æрмæст.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Аивын парол</string>
   <string name="changeEmail">Аивын электронон пост</string>
@@ -202,6 +203,7 @@
     <item quantity="one">%s этюд</item>
     <item quantity="other">%s этюды</item>
   </plurals>
+  <string name="gamesPlayed">Партиты хъазт уыди</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s хъазт демæ</item>
     <item quantity="other">%s хъазты демæ</item>
@@ -251,6 +253,10 @@
   <string name="youHaveBeenTimedOut">Ныхас дын рæстæгмæ æнæбаххæсгæ у.</string>
   <string name="spectatorRoom">Кæсджыты уат</string>
   <string name="composeMessage">Фыстæг ныффыссын</string>
+  <string name="noNewMessages">Ног уацтыты нæй</string>
+  <string name="subject">Ныхасы сæр</string>
+  <string name="recipient">Исæг</string>
+  <string name="send">Арвитын</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
