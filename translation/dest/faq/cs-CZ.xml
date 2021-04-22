@@ -93,7 +93,14 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="inOrderToAppearsYouMust">Chcete-li se dostat na %1$s , musíte:</string>
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">odehrát alespoň 30 hodnocených partií v dané časové kontrole,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">odehráli jste hodnocenou hru během minulého týdne v dané časové kontrole,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">mít odchylku hodnocení nižší než %1$s v standartním šachu a nižší než %2$s ve variantách,</string>
+  <string name="beInTopTen">být v top 10 v dané časové kontrole.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhý požadavek je, aby hráči, kteří již své účty nepoužívají, přestali plnit žebříčky.</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Nejlepší je nemyslet na hodnocení jako absolutní čísla, nebo je porovnávat s jinými organizacemi. Různé organizace mají různé úrovně hráčů, různé systémy hodnocení (Elo, Glicko, Glicko-2 nebo upravenou verzi výše uvedených). Tyto faktory můžou drasticky ovlivnit tyto absolutní čísla (hodnocení).
+
+Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"absolutních\"): V rámci skupiny hráčů, jejich relativní rozdíly v hodnocení Vám pomohou odhadnout kdo vyhraje/remízuje/prohraje a jak často. Říkat \"Mám X hodnocení\" nic neznamená, pokud neexistují další hráči, se kterými můžeme toto hodnocení porovnat.</string>
   <string name="howToHideRatingWhilePlaying">Jak skrýt rating během hraní partie?</string>
   <string name="enableZenMode">V %1$s si zapněte zen-mód, či stiskněte %2$s během partie.</string>
   <string name="displayPreferences">předvolbách</string>
