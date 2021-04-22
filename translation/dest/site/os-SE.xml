@@ -254,9 +254,32 @@
   <string name="spectatorRoom">Кæсджыты уат</string>
   <string name="composeMessage">Фыстæг ныффыссын</string>
   <string name="noNewMessages">Ног уацтыты нæй</string>
-  <string name="subject">Ныхасы сæр</string>
+  <string name="subject">Сæр</string>
   <string name="recipient">Исæг</string>
   <string name="send">Арвитын</string>
+  <string name="incrementInSeconds">Цыдæн секундæты бафтауæккаг</string>
+  <string name="freeOnlineChess">Æнæфидгæ шахмæттæ онлайн</string>
+  <string name="spectators">Кæсæджытæ:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рейтингимæ</item>
+    <item quantity="other">%s рейтингимæ</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s уæлахиз</item>
+    <item quantity="other">%s уæлахизы</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s дæрæн</item>
+    <item quantity="other">%s дæрæны</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s хæрæгсаст</item>
+    <item quantity="other">%s хæрæгсасты</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s хъазгæгонд</item>
+    <item quantity="other">%s хъазгæгонд</item>
+  </plurals>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
