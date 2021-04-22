@@ -8,6 +8,7 @@
   <string name="attackingF2F7Description">F2나 f7 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
   <string name="attraction">유인</string>
   <string name="backRankMate">백 랭크 메이트</string>
+  <string name="backRankMateDescription">킹이 자신의 기물들에게 막혀 마지막 랭크에서 체크메이트 당합니다.</string>
   <string name="bishopEndgame">비숍 엔드게임</string>
   <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>
   <string name="castling">캐슬링</string>
@@ -19,6 +20,12 @@
   <string name="equalityDescription">불리한 상황에서 벗어나 무승부 또는 균형잡힌 포지션으로 만드세요. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">킹사이드 공격</string>
   <string name="kingsideAttackDescription">상대 킹이 킹사이드 캐슬링을 한 뒤의 공격.</string>
+  <string name="clearance">정리</string>
+  <string name="clearanceDescription">이어지는 전술적 아이디어를 위해 칸, 파일 또는 대각선을 비우는 수입니다.</string>
+  <string name="defensiveMove">방어적인 수</string>
+  <string name="defensiveMoveDescription">기물을 잃거나 다른 손실을 피하기 위해 필요한 정확한 수입니다.</string>
+  <string name="deflection">굴절</string>
+  <string name="deflectionDescription">중요한 칸을 수비하는 등 다른 임무를 수행하고 있는 기물을 분산시킵니다. 종종 \"과부하\"라고도 합니다.</string>
   <string name="discoveredAttack">디스커버 어택</string>
   <string name="discoveredAttackDescription">장거리 기물(예: 룩)의 길을 막고 있는 기물(예: 나이트)을 이동시켜 공격합니다.</string>
   <string name="doubleCheck">더블 체크</string>
