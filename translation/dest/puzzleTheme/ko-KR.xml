@@ -26,6 +26,8 @@
   <string name="exposedKing">노출된 킹</string>
   <string name="fork">포크</string>
   <string name="forkDescription">이동한 기물이 두 개의 상대 기물을 동시에 공격하는 수입니다.</string>
+  <string name="intermezzo">사잇수</string>
+  <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>
   <string name="long">긴 퍼즐</string>
@@ -71,15 +73,19 @@
   <string name="shortDescription">승리까지 두 수 걸립니다.</string>
   <string name="skewer">스큐어</string>
   <string name="smotheredMate">질식 체크메이트</string>
+  <string name="smotheredMateDescription">자신의 기물에 둘러쌓여(또는 \"질식되어\") 움직일 수 없는 킹을 나이트로 체크메이트 시키는 것 입니다.</string>
   <string name="superGM">슈퍼GM 게임</string>
   <string name="superGMDescription">세계 최고 플레이어들의 게임에서 나온 퍼즐입니다.</string>
   <string name="trappedPiece">갇힌 기물</string>
+  <string name="trappedPieceDescription">기물의 움직임이 제한되어 있어 잡히는걸 막을 수 없습니다.</string>
   <string name="underPromotion">하향 승진</string>
   <string name="underPromotionDescription">나이트, 비숍, 룩으로 승진</string>
   <string name="veryLong">아주 긴 퍼즐</string>
   <string name="veryLongDescription">승리까지 네 수 이상이 걸립니다.</string>
   <string name="xRayAttack">X-Ray 공격</string>
+  <string name="xRayAttackDescription">기물이 상대 기물 너머의 칸을 공격 또는 방어합니다.</string>
   <string name="zugzwang">추크추방</string>
+  <string name="zugzwangDescription">상대가 둘 수 있는 수는 제한되어 있으며, 모든 수가 포지션을 악화시킵니다.</string>
   <string name="healthyMix">골고루 섞기</string>
   <string name="healthyMixDescription">전부 다. 무엇이 나올지 모르기 때문에 모든 것에 준비되어 있어야 합니다. 마치 진짜 게임처럼요.</string>
 </resources>
