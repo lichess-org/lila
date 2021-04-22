@@ -288,6 +288,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">Ацы пайдакæнæг фехæлдта Пайдакæнæгон бадзырд</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
+  <string name="openingExplorerAndTablebase">Райдайæнты æвæрæн</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
