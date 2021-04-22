@@ -13,15 +13,22 @@
   <string name="availability">신청 가능</string>
   <string name="accepting">학생을 받는 중</string>
   <string name="notAccepting">지금은 학생을 받고 있지 않음</string>
+  <string name="xCoachesStudents">%s가 체스 학생을 지도합니다</string>
   <string name="viewXProfile">%s의 Lichess 프로필 보기</string>
   <string name="sendPM">비공개 메시지 보내기</string>
   <string name="aboutMe">자기소개</string>
   <string name="playingExperience">플레이 경험</string>
   <string name="teachingExperience">교습 경험</string>
   <string name="otherExperiences">또 다른 경력</string>
+  <string name="bestSkills">최고의 기술</string>
   <string name="teachingMethod">교육 방법론</string>
+  <string name="publicStudies">공개 학생</string>
   <string name="youtubeVideos">YouTube 동영상</string>
+  <plurals name="studentReviews">
+    <item quantity="other">학생 %s명의 리뷰</item>
+  </plurals>
   <string name="thankYouForReview">평가해 주셔서 감사합니다.</string>
+  <string name="xWillApproveIt">%s가 곧 승인하거나, 중재자가 검토할 것입니다.</string>
   <string name="reviewCoach">코치 리뷰하기</string>
   <string name="describeExperienceWith">%s와의 코칭 경험을 작성해주세요.</string>
 </resources>
