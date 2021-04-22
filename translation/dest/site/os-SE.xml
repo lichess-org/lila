@@ -289,6 +289,7 @@
   <string name="thisAccountViolatedTos">Ацы пайдакæнæг фехæлдта Пайдакæнæгон бадзырд</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="openingExplorerAndTablebase">Райдайæнты æвæрæн</string>
+  <string name="takeback">Цыд фæстæмæ райсын</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
@@ -315,7 +316,7 @@
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
-  <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Ногæй ахъазын, цыдтæ аивын кæнæ рæстæг бафтауын дæ бон нæй.</string>
+  <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Реваншытæ, цыдты аивтæ кæнæ рæстæджы бафтауæккаг иваргонд сты.</string>
   <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
   <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>
