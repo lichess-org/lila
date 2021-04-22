@@ -4,9 +4,13 @@
   <string name="advancedPawnDescription">이 전략의 핵심은 폰을 승급하거나 그런 위협을 가하는 것 입니다.</string>
   <string name="advantage">이점</string>
   <string name="advantageDescription">확실한 이점을 쟁취 할수있는 기회를 잡으세요. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">아나스타샤 메이트</string>
+  <string name="anastasiaMateDescription">나이트와 룩 또는 퀸이 힘을 합쳐 상대 킹을 보드 가장자리와 자신의 기물 사이의 함정에 빠트립니다.</string>
+  <string name="arabianMate">아라비안 메이트</string>
   <string name="attackingF2F7">F2나 f7를 공격합니다</string>
   <string name="attackingF2F7Description">F2나 f7 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
   <string name="attraction">유인</string>
+  <string name="attractionDescription">희생이나 교환을 통해 상대 기물을 후속 전술이 있는 칸으로 끌어냅니다.</string>
   <string name="backRankMate">백 랭크 메이트</string>
   <string name="backRankMateDescription">킹이 자신의 기물들에게 막혀 마지막 랭크에서 체크메이트 당합니다.</string>
   <string name="bishopEndgame">비숍 엔드게임</string>
@@ -14,6 +18,7 @@
   <string name="castling">캐슬링</string>
   <string name="castlingDescription">왕을 안전하게 피신시키고, 룩을 이용해 공격 태세를 갖춥니다.</string>
   <string name="capturingDefender">보호기물 제거</string>
+  <string name="capturingDefenderDescription">다른 기물을 방어중인 기물을 잡아서 다음 수에 더 이상 방어되지 않는 기물을 잡을 수 있게 됩니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
   <string name="equality">동등함</string>
@@ -37,6 +42,8 @@
   <string name="exposedKingDescription">주변에 방어자가 얼마 없는 킹에 대한 전술입니다. 종종 체크메이트가 되기도 합니다.</string>
   <string name="fork">포크</string>
   <string name="forkDescription">이동한 기물이 두 개의 상대 기물을 동시에 공격하는 수입니다.</string>
+  <string name="hangingPiece">매달린 기물</string>
+  <string name="hangingPieceDescription">상대 기물이 지켜지지 않거나 불충분하게 지켜져 공짜로 잡을 수 있는 전술입니다.</string>
   <string name="interference">간섭</string>
   <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
