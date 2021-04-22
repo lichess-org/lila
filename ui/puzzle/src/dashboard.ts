@@ -1,6 +1,16 @@
 import { Chart } from 'chart.js';
 
-export function renderRadar(data: any) {
+interface RadarData {
+  radar: {
+    labels: string[];
+    datasets: {
+      label: 'Performance';
+      data: number[];
+    }[];
+  };
+}
+
+export function renderRadar(data: RadarData) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
   const dark = $('body').hasClass('dark');

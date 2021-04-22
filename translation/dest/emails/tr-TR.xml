@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Lichess.org hesabınızı doğrulayın, %s</string>
-  <string name="emailConfirm_click">Lichess hesabınızı etkinleştirmek için bu bağlantıya tıklayın:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess hesabınızı etkinleştirmek için bu bağlantıya tıklayın:</string>
   <string name="emailConfirm_ignore">Eğer Lichess\'e üye olmadıysanız bu mesajı görmezden gelebilirsiniz.</string>
   <string name="passwordReset_subject">Lichess.org şifrenizi sıfırlayın, %s</string>
   <string name="passwordReset_intro">Hesabınızın şifresini sıfırlamak üzere bir talep aldık.</string>
-  <string name="passwordReset_clickOrIgnore">Eğer bu talepte siz bulunduysanız aşağıdaki linke tıklayın. Aksi takdirde bu mesajı görmezden gelebilirsiniz.</string>
+  <string name="passwordReset_clickOrIgnore">Eğer böyle bir talepte bulunduysanız aşağıdaki linke tıklayın. Aksi takdirde bu mesajı görmezden gelebilirsiniz.</string>
   <string name="emailChange_subject">Yeni e-posta adresini doğrulayın, %s</string>
   <string name="emailChange_intro">E-posta adresini değiştirme talebinde bulundunuz.</string>
   <string name="emailChange_click">Bu e-postayı aldığınızı doğrulamak için aşağıdaki bağlantıya tıklayın:</string>

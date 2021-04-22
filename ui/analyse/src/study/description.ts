@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { StudyCtrl } from './interfaces';
 import { bind, richHTML, onInsert } from '../util';
 
-export type Save = (string) => void;
+export type Save = (t: string) => void;
 
 export class DescriptionCtrl {
   edit = false;

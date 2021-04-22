@@ -1,15 +1,38 @@
 import { h, VNode } from 'snabbdom';
 import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
 import { prop, Prop } from 'common';
-import { makeCtrl as inviteFormCtrl } from './inviteForm';
+import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
+import { AnalyseSocketSend } from '../socket';
+
+export interface StudyMemberCtrl {
+  dict: Prop<StudyMemberMap>;
+  confing: Prop<string | undefined>;
+  myId?: string;
+  inviteForm: StudyInviteFormCtrl;
+  update(members: StudyMemberMap): void;
+  setActive(id: string): void;
+  isActive(id: string): boolean;
+  owner(): StudyMember;
+  myMember(): StudyMember | undefined;
+  isOwner(): boolean;
+  canContribute(): boolean;
+  max: number;
+  setRole(id: string, role: string): void;
+  kick(id: string): void;
+  leave(): void;
+  ordered(): StudyMember[];
+  size(): number;
+  isOnline(userId: string): boolean;
+  hasOnlineContributor(): boolean;
+}
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId: string | null;
+  myId: string | undefined;
   ownerId: string;
-  send: SocketSend;
+  send: AnalyseSocketSend;
   tab: Prop<Tab>;
   startTour(): void;
   notif: NotifCtrl;
@@ -29,7 +52,7 @@ function memberActivity(onIdle: () => void) {
   return schedule;
 }
 
-export function ctrl(opts: Opts) {
+export function ctrl(opts: Opts): StudyMemberCtrl {
   const dict = prop<StudyMemberMap>(opts.initDict);
   const confing = prop<string | undefined>(undefined);
   const active: { [id: string]: () => void } = {};
@@ -46,7 +69,7 @@ export function ctrl(opts: Opts) {
   }
 
   function myMember() {
-    return opts.myId ? dict()[opts.myId] : null;
+    return opts.myId ? dict()[opts.myId] : undefined;
   }
 
   function canContribute(): boolean {
@@ -194,7 +217,7 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: bind(
           'click',
           _ => {
-            members.confing(members.confing() === member.user.id ? null : member.user.id);
+            members.confing(members.confing() === member.user.id ? undefined : member.user.id);
           },
           ctrl.redraw
         ),

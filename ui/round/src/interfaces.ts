@@ -164,24 +164,24 @@ export interface StepCrazy extends Untyped {}
 
 export interface Pref {
   animationDuration: number;
-  autoQueen: 1 | 2 | 3;
+  autoQueen: Prefs.AutoQueen;
   blindfold: boolean;
   clockBar: boolean;
   clockSound: boolean;
-  clockTenths: 0 | 1 | 2;
+  clockTenths: Prefs.ShowClockTenths;
   confirmResign: boolean;
-  coords: 0 | 1 | 2;
+  coords: Prefs.Coords;
   destination: boolean;
   enablePremove: boolean;
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
-  moveEvent: 0 | 1 | 2;
-  replay: 0 | 1 | 2;
+  moveEvent: Prefs.MoveEvent;
+  replay: Prefs.Replay;
   rookCastle: boolean;
   showCaptured: boolean;
   submitMove: boolean;
-  resizeHandle: 0 | 1 | 2;
+  resizeHandle: Prefs.ShowResizeHandle;
 }
 
 export interface MoveMetadata {

@@ -7,7 +7,7 @@ import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
 import { Prop } from 'common';
 
 export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
-  let promoting: any = false;
+  let promoting: false | { orig: Key; dest: Key; callback: (orig: Key, key: Key, prom: Role) => void } = false;
 
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
     const g = getGround(),
@@ -18,9 +18,9 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
       ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
     ) {
       promoting = {
-        orig: orig,
-        dest: dest,
-        callback: callback,
+        orig,
+        dest,
+        callback,
       };
       redraw();
       return true;
@@ -47,8 +47,10 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
   }
 
   function finish(role: Role): void {
-    if (promoting) promote(getGround(), promoting.dest, role);
-    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
+    if (promoting) {
+      promote(getGround(), promoting.dest, role);
+      promoting.callback(promoting.orig, promoting.dest, role);
+    }
     promoting = false;
   }
 

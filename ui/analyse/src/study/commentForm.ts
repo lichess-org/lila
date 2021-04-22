@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { currentComments } from './studyComments';
+import { currentComments, isAuthorObj } from './studyComments';
 import { nodeFullName, bind } from '../util';
 import { prop, Prop } from 'common';
 import throttle from 'common/throttle';
@@ -98,8 +98,8 @@ export function view(root: AnalyseCtrl): VNode {
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
-      mine = (current!.node.comments || []).find(function (c: any) {
-        return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
+      mine = (current!.node.comments || []).find(function (c) {
+        return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
       });
     el.value = mine ? mine.text : '';
     if (ctrl.opening() || ctrl.focus()) requestAnimationFrame(() => el.focus());

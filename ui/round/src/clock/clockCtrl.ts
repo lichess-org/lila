@@ -12,8 +12,6 @@ interface ClockOpts {
   nvui: boolean;
 }
 
-export type TenthsPref = 0 | 1 | 2;
-
 export interface ClockData {
   running: boolean;
   initial: Seconds;
@@ -21,7 +19,7 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
-  showTenths: TenthsPref;
+  showTenths: Prefs.ShowClockTenths;
   showBar: boolean;
   moretime: number;
 }
@@ -80,9 +78,9 @@ export class ClockController {
   constructor(d: RoundData, readonly opts: ClockOpts) {
     const cdata = d.clock!;
 
-    if (cdata.showTenths === 0) this.showTenths = () => false;
+    if (cdata.showTenths === Prefs.ShowClockTenths.Never) this.showTenths = () => false;
     else {
-      const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
+      const cutoff = cdata.showTenths === Prefs.ShowClockTenths.Below10Secs ? 10000 : 3600000;
       this.showTenths = time => time < cutoff;
     }
 

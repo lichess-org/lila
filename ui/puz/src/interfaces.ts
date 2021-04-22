@@ -15,7 +15,7 @@ export interface Promotion {
 }
 
 export interface PuzPrefs {
-  coords: 0 | 1 | 2;
+  coords: Prefs.Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;

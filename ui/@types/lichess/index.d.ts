@@ -1,3 +1,5 @@
+/// <reference types="highcharts" />
+
 interface Lichess {
   load: Promise<void>; // window.onload promise
   info: any;
@@ -45,7 +47,7 @@ interface Lichess {
   miniGame: {
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: { fen: string; lm: string; wc?: number; bc?: number }): void;
+    update(node: HTMLElement, data: GameUpdate): void;
     finish(node: HTMLElement, win?: Color): void;
   };
   ab?: any;
@@ -234,7 +236,7 @@ interface Window {
   moment: any;
   Mousetrap: any;
   Chessground: any;
-  Highcharts: any;
+  Highcharts: Highcharts.Static;
   InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void;
@@ -349,7 +351,13 @@ declare namespace Tree {
     fen: Fen;
     knodes: number;
     depth: number;
-    pvs: PvData[];
+    pvs: PvDataServer[];
+  }
+
+  export interface PvDataServer {
+    moves: string;
+    mate?: number;
+    cp?: number;
   }
 
   export interface PvData {
@@ -429,6 +437,14 @@ declare namespace Tree {
   export interface Shape {}
 }
 
+interface GameUpdate {
+  id: string;
+  fen: Fen;
+  lm: Uci;
+  wc?: number;
+  bc?: number;
+}
+
 interface CashStatic {
   powerTip: any;
 }
@@ -459,8 +475,52 @@ declare namespace PowerTip {
   }
 }
 
+interface HighchartsHTMLElement extends HTMLElement {
+  highcharts: Highcharts.ChartObject;
+}
+
+declare namespace Prefs {
+  const enum Coords {
+    Hidden = 0,
+    Inside = 1,
+    Outside = 2,
+  }
+
+  const enum AutoQueen {
+    Never = 1,
+    OnPremove = 2,
+    Always = 3,
+  }
+
+  const enum ShowClockTenths {
+    Never = 0,
+    Below10Secs = 1,
+    Always = 2,
+  }
+
+  const enum ShowResizeHandle {
+    Never = 0,
+    OnlyAtStart = 1,
+    Always = 2,
+  }
+
+  const enum MoveEvent {
+    Click = 0,
+    Drag = 1,
+    ClickOrDrag = 2,
+  }
+
+  const enum Replay {
+    Never = 0,
+    OnlySlowGames = 1,
+    Always = 2,
+  }
+}
+
 interface Dictionary<T> {
   [key: string]: T | undefined;
 }
+
+type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;

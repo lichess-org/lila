@@ -10,7 +10,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     turnColor: opts.turnColor,
     check: opts.check,
     lastMove: opts.lastMove,
-    coordinates: pref.coords !== 0,
+    coordinates: pref.coords !== Prefs.Coords.Hidden,
     addPieceZIndex: pref.is3d,
     movable: {
       free: false,
@@ -29,8 +29,8 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     events: {
       move: userMove,
       insert(elements) {
-        resizeHandle(elements, 1, 0, p => p == 0);
-        if (pref.coords == 1) changeColorHandle();
+        resizeHandle(elements, Prefs.ShowResizeHandle.OnlyAtStart, 0, p => p == 0);
+        if (pref.coords == Prefs.Coords.Inside) changeColorHandle();
       },
     },
     premovable: {

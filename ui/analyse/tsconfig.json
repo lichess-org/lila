@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "noImplicitAny": false,
     "esModuleInterop": true
   }
 }

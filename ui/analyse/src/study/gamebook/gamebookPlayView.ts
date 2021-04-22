@@ -1,12 +1,14 @@
 import { h, VNode } from 'snabbdom';
-import GamebookPlayCtrl from './gamebookPlayCtrl';
+import GamebookPlayCtrl, { Feedback } from './gamebookPlayCtrl';
 import { bind, dataIcon, iconTag, richHTML } from '../../util';
 // eslint-disable-next-line no-duplicate-imports
 import { State } from './gamebookPlayCtrl';
 
-const defaultComments = {
+const defaultComments: Record<Feedback, string | undefined> = {
   play: 'What would you play in this position?',
   end: 'Congratulations! You completed this lesson.',
+  bad: undefined,
+  good: undefined,
 };
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
