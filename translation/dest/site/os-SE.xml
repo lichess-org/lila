@@ -210,6 +210,9 @@
   <string name="drawOfferSent">Хæрæгсасты æнхъарæн æрвыст у</string>
   <string name="drawOfferDeclined">Хæрæгсасты æнхъарæн райст нæ уыди</string>
   <string name="drawOfferAccepted">Хæрæгсасты æнхъарæн райст уыди</string>
+  <string name="drawOfferCanceled">Хæрæгсасты æнхъарæн аивд уыди</string>
+  <string name="whiteOffersDraw">Урсытæ æнхъарынц хæрæхсаст фæуын</string>
+  <string name="blackOffersDraw">Саутæ æнхъарынц хæрæхсаст фæуын</string>
   <string name="unlimited">Нæй</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
