@@ -73,10 +73,7 @@ lichess.load.then(() => {
       requestAnimationFrame(showCharts);
     });
 
-    $('body').addClass('playing'); // for zen
-    window.Mousetrap.bind('z', () => {
-      lichess.pubsub.emit('zen');
-    });
+    window.Mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
 
     $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
 
