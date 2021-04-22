@@ -1,14 +1,4 @@
-import {
-  EditorConfig,
-  EditorOptions,
-  EditorState,
-  Selected,
-  Redraw,
-  OpeningPosition,
-  CastlingToggle,
-  CastlingToggles,
-  CASTLING_TOGGLES,
-} from './interfaces';
+import { EditorState, Selected, Redraw, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
@@ -19,10 +9,10 @@ import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EP
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
-  cfg: EditorConfig;
-  options: EditorOptions;
+  cfg: Editor.Config;
+  options: Editor.Options;
   trans: Trans;
-  extraPositions: OpeningPosition[];
+  extraPositions: Editor.OpeningPosition[];
   chessground: CgApi | undefined;
   redraw: Redraw;
 
@@ -38,7 +28,7 @@ export default class EditorCtrl {
   halfmoves: number;
   fullmoves: number;
 
-  constructor(cfg: EditorConfig, redraw: Redraw) {
+  constructor(cfg: Editor.Config, redraw: Redraw) {
     this.cfg = cfg;
     this.options = cfg.options || {};
 

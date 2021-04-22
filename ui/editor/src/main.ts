@@ -3,11 +3,10 @@ import EditorCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { Chessground } from 'chessground';
-import { EditorConfig } from './interfaces';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
-export default function LichessEditor(element: HTMLElement, config: EditorConfig) {
+export default function LichessEditor(element: HTMLElement, config: Editor.Config): LichessEditor {
   const ctrl = new EditorCtrl(config, redraw);
   element.innerHTML = '';
   const inner = document.createElement('div');
