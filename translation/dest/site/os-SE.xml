@@ -280,7 +280,13 @@
     <item quantity="one">%s хъазгæгонд</item>
     <item quantity="other">%s хъазгæгонд</item>
   </plurals>
+  <string name="exportGames">Хъæзтытæ рацъирын</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s секундæ раттын</item>
+    <item quantity="other">%s секунды раттын</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Ацы пайдакæнæг фехæлдта Пайдакæнæгон бадзырд</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
