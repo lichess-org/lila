@@ -293,6 +293,9 @@ final class PlanApi(
       )
       .void >>- lightUserApi.invalidate(user.id)
 
+  def remove(user: User): Funit =
+    userRepo.unsetPlan(user) >>- lightUserApi.invalidate(user.id)
+
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {
     _.refreshAfterWrite(30 minutes)

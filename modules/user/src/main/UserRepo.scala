@@ -562,8 +562,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler
-    coll.updateField($id(user.id), "plan", plan).void
+    coll.updateField($id(user.id), User.BSONFields.plan, plan).void
   }
+  def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
 
   private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
     doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key))
