@@ -205,6 +205,11 @@
     <item quantity="other">%s хъазты демæ</item>
   </plurals>
   <string name="cancel">Аивын</string>
+  <string name="whiteTimeOut">Урсытæн рæстæг фæци</string>
+  <string name="blackTimeOut">Саутæн рæстæг фæци</string>
+  <string name="drawOfferSent">Хæрæгсасты æнхъарæн æрвыст у</string>
+  <string name="drawOfferDeclined">Хæрæгсасты æнхъарæн райст нæ уыди</string>
+  <string name="drawOfferAccepted">Хæрæгсасты æнхъарæн райст уыди</string>
   <string name="unlimited">Нæй</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
