@@ -217,6 +217,11 @@
   <string name="blackDeclinesDraw">Саутæ хæрæгсаст фæуын æнхъарæн нæ райстой</string>
   <string name="yourOpponentOffersADraw">Дæ ныхмæлæууæг хæрæгсаст фæуын æнхъары</string>
   <string name="accept">Райсын</string>
+  <string name="decline">Нæ райсын</string>
+  <string name="playingRightNow">Хъазт цæуы</string>
+  <string name="eventInProgress">Ныртæккæ цæуы</string>
+  <string name="finished">Фæудгонд</string>
+  <string name="finishesX">фæуы %s</string>
   <string name="unlimited">Нæй</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
