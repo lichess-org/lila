@@ -239,6 +239,16 @@
   <string name="rematchOfferAccepted">Реваншы æнхъарон райст уыди</string>
   <string name="rematchOfferCanceled">Реваншы æнхъарон райст нæ уыди</string>
   <string name="rematchOfferDeclined">Реваншы æнхъарон аивд уыди</string>
+  <string name="cancelRematchOffer">Реваншы æнхъарæн аивын</string>
+  <string name="viewRematch">Бакæсын реванш</string>
+  <string name="confirmMove">Цыд сфидар кæнын</string>
+  <string name="play">Хъазт</string>
+  <string name="inbox">Мидæмæдзог фыстæгтæ</string>
+  <string name="chatRoom">Ныхасы уат</string>
+  <string name="loginToChat">Мидæмæ рацу, ныхасы цæмæй дзурын</string>
+  <string name="youHaveBeenTimedOut">Ныхас дын рæстæгмæ æнæбаххæсгæ у.</string>
+  <string name="spectatorRoom">Кæсджыты уат</string>
+  <string name="composeMessage">Фыстæг ныффыссын</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
