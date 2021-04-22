@@ -4,6 +4,18 @@ $mq-col3: $mq-x-large;
 
 @import '../../puz/css/font';
 
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}
+
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
@@ -20,6 +32,7 @@ $mq-col3: $mq-x-large;
   // coords cause mobile to have horiz scrolling
 
   &__side {
+    @extend %zen;
     grid-area: side;
   }
 
@@ -32,11 +45,13 @@ $mq-col3: $mq-x-large;
   }
 
   &__progress {
+    @extend %zen;
     grid-area: progress;
   }
 
   &__score,
   &__timer {
+    @extend %zen;
     font-family: 'storm';
     font-size: 5em;
     margin: $block-gap;

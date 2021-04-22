@@ -26,7 +26,8 @@ object coordinate {
             "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
         )
         .some,
-      zoomable = true
+      zoomable = true,
+      playing = true
     )(
       main(
         id := "trainer",

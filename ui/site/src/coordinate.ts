@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 import sparkline from '@fnando/sparkline';
+import throttle from 'common/throttle';
 
 lichess.load.then(() => {
   $('#trainer').each(function (this: HTMLElement) {
@@ -56,6 +57,28 @@ lichess.load.then(() => {
         return false;
       });
     });
+
+    const setZen = throttle(1000, zen =>
+      xhr.text('/pref/zen', {
+        method: 'post',
+        body: xhr.form({ zen: zen ? 1 : 0 }),
+      })
+    );
+
+    lichess.pubsub.on('zen', () => {
+      const zen = !$('body').hasClass('zen');
+      $('body').toggleClass('zen', zen);
+      window.dispatchEvent(new Event('resize'));
+      setZen(zen);
+      requestAnimationFrame(showCharts);
+    });
+
+    $('body').addClass('playing'); // for zen
+    window.Mousetrap.bind('z', () => {
+      lichess.pubsub.emit('zen');
+    });
+
+    $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
 
     function showCharts() {
       $side.find('.user_chart').each(function (this: HTMLElement) {
