@@ -153,6 +153,7 @@
   <string name="signIn">Бацæуын</string>
   <string name="youNeedAnAccountToDoThat">Аккаунт дын хъæуы, цæмæй уый кæнай</string>
   <string name="signUp">Регистраци</string>
+  <string name="computersAreNotAllowedToPlay">Компьютертæн хъазын иваргонд у. Дæ хорзæхæй, хъазгæйæ ма пайда кæн шахматон змæлынгæнæгтæ, бæрæггæнæнтыты æвæрæнтæ кæнæ æндæр хъазджыты æххуыс. Уый дæр хыгъдмæ райс, æмæ мах бирæ аккаунты скæнынмæ арфæ нæ кæнæм, æмæ сæ æгæр нымæц æрбакæны блокадæкæнæнмæ.</string>
   <string name="games">Хъæзтытæ</string>
   <string name="forum">Тæрхон</string>
   <string name="xPostedInForumY">%1$s ныффыста %2$s тæрхоны</string>
@@ -184,6 +185,7 @@
   <string name="username">Пайдакæнæджы ном</string>
   <string name="usernameOrEmail">Логин кæнæ электронон пост</string>
   <string name="changeUsername">Аивын пайдагæнæджы ном</string>
+  <string name="changeUsernameNotSame">Дæ бон у ивын дамгъæты регистр æрмæст. Зæгъæм, \"johndoe\" баивын \"JohnDoe\"-мæ.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Аивын парол</string>
   <string name="changeEmail">Аивын электронон пост</string>
