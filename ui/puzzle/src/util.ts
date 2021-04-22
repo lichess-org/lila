@@ -1,6 +1,6 @@
 import { Hooks } from 'snabbdom';
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void): void {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
     el.addEventListener(
       mousedownEvent,
@@ -14,7 +14,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
   }
 }
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+export function bind(eventName: string, f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return onInsert(el =>
     el.addEventListener(eventName, e => {
       const res = f(e);
