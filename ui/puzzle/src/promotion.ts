@@ -49,7 +49,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
   function finish(role: Role): void {
     if (promoting) {
       promote(getGround(), promoting.dest, role);
-      promoting?.callback(promoting.orig, promoting.dest, role);
+      promoting.callback(promoting.orig, promoting.dest, role);
     }
     promoting = false;
   }
