@@ -52,10 +52,10 @@ final private class RelayFetch(
     case Tick =>
       api.toSync.flatMap { relays =>
         List(true, false) foreach { official =>
-          lila.mon.relay.ongoing(official).update(relays.count(_.official == official))
+          lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
         }
-        relays.map { relay =>
-          if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
+        relays.map { case Relay.WithTour(relay, tour) =>
+          if (relay.sync.ongoing) processRelay(relay, tour) flatMap { newRelay =>
             api.update(relay)(_ => newRelay)
           }
           else if (relay.hasStarted) {
@@ -70,16 +70,16 @@ final private class RelayFetch(
   }
 
   // no writing the relay; only reading!
-  def processRelay(relay: Relay): Fu[Relay] =
+  def processRelay(relay: Relay, tour: RelayTour): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
     else
-      fetchGames(relay)
-        .mon(_.relay.fetchTime(relay.official, relay.slug))
-        .addEffect(gs => lila.mon.relay.games(relay.official, relay.slug).update(gs.size).unit)
+      fetchGames(relay, tour)
+        .mon(_.relay.fetchTime(tour.official, relay.slug))
+        .addEffect(gs => lila.mon.relay.games(tour.official, relay.slug).update(gs.size).unit)
         .flatMap { games =>
-          sync(relay, games)
+          sync(relay, tour, games)
             .withTimeout(7 seconds, SyncResult.Timeout)
-            .mon(_.relay.syncTime(relay.official, relay.slug))
+            .mon(_.relay.syncTime(tour.official, relay.slug))
             .map { res =>
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
             }
@@ -87,34 +87,34 @@ final private class RelayFetch(
         .recover { case e: Exception =>
           (e match {
             case SyncResult.Timeout =>
-              if (relay.official) logger.info(s"Sync timeout $relay")
+              if (tour.official) logger.info(s"Sync timeout $relay")
               SyncResult.Timeout
             case _ =>
-              if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
+              if (tour.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
               SyncResult.Error(e.getMessage)
           }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
         }
         .map { case (result, newRelay) =>
-          afterSync(result, newRelay)
+          afterSync(result, newRelay, tour)
         }
 
-  def afterSync(result: SyncResult, relay: Relay): Relay =
+  def afterSync(result: SyncResult, relay: Relay, tour: RelayTour): Relay =
     result match {
-      case SyncResult.Ok(0, _) => continueRelay(relay)
+      case SyncResult.Ok(0, _) => continueRelay(relay, tour)
       case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves(relay.official, relay.slug).increment(nbMoves)
-        continueRelay(relay.ensureStarted.resume)
-      case _ => continueRelay(relay)
+        lila.mon.relay.moves(tour.official, relay.slug).increment(nbMoves)
+        continueRelay(relay.ensureStarted.resume, tour)
+      case _ => continueRelay(relay, tour)
     }
 
-  def continueRelay(r: Relay): Relay =
+  def continueRelay(r: Relay, tour: RelayTour): Relay =
     r.sync.upstream.fold(r) { upstream =>
       val seconds =
         if (r.sync.log.alwaysFails && !upstream.local) {
           r.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
-            .ifTrue(r.official && r.hasStarted) foreach { error =>
+            .ifTrue(tour.official && r.hasStarted) foreach { error =>
             slackApi.broadcastError(r.id.value, r.name, error)
           }
           60
@@ -145,7 +145,7 @@ final private class RelayFetch(
     delayMoves = true
   )
 
-  private def fetchGames(relay: Relay): Fu[RelayGames] =
+  private def fetchGames(relay: Relay, tour: RelayTour): Fu[RelayGames] =
     relay.sync.upstream ?? {
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
@@ -164,7 +164,7 @@ final private class RelayFetch(
                 case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
                   GamesSeenBy(games, seenBy + relay.id)
                 case _ =>
-                  GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(relay)), Set(relay.id))
+                  GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(tour)), Set(relay.id))
               }
           )
           .games
@@ -238,8 +238,8 @@ private object RelayFetch {
 
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
 
-  def maxChapters(relay: Relay) =
-    lila.study.Study.maxChapters * (if (relay.official) 2 else 1)
+  def maxChapters(tour: RelayTour) =
+    lila.study.Study.maxChapters * (if (tour.official) 2 else 1)
 
   private object DgtJson {
     case class PairingPlayer(

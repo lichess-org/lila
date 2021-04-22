@@ -22,7 +22,6 @@ final class RelayForm {
       "name"        -> cleanText(minLength = 3, maxLength = 80),
       "description" -> cleanText(minLength = 3, maxLength = 400),
       "markup"      -> optional(cleanText(maxLength = 20000)),
-      "official"    -> optional(boolean),
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource _)
       },
@@ -86,7 +85,6 @@ object RelayForm {
       name: String,
       description: String,
       markup: Option[String],
-      official: Option[Boolean],
       syncUrl: Option[String],
       syncUrlRound: Option[Int],
       credit: Option[String],
@@ -110,7 +108,6 @@ object RelayForm {
         name = name,
         description = description,
         markup = markup,
-        official = ~official && Granter(_.Relay)(user),
         sync = makeSync(user) pipe { sync =>
           if (relay.sync.playing) sync.play else sync
         },
@@ -132,19 +129,17 @@ object RelayForm {
         log = SyncLog.empty
       )
 
-    def make(user: User) =
+    def make(user: User, tour: RelayTour) =
       Relay(
         _id = Relay.makeId,
+        tourId = tour.id,
         name = name,
         description = description,
         markup = markup,
-        ownerId = user.id,
         sync = makeSync(user),
         credit = credit,
-        likes = lila.study.Study.Likes(1),
         createdAt = DateTime.now,
         finished = false,
-        official = ~official && Granter(_.Relay)(user),
         startsAt = startsAt,
         startedAt = none
       )
@@ -157,7 +152,6 @@ object RelayForm {
         name = relay.name,
         description = relay.description,
         markup = relay.markup,
-        official = relay.official option true,
         syncUrl = relay.sync.upstream map {
           case url: Relay.Sync.UpstreamUrl => url.withRound.url
           case Relay.Sync.UpstreamIds(ids) => ids mkString " "

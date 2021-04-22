@@ -23,11 +23,11 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private lazy val coll = db(CollName("relay"))
-
   lazy val forms = wire[RelayForm]
 
-  private lazy val repo = wire[RelayRepo]
+  private lazy val relayRepo = new RelayRepo(db(CollName("relay")))
+
+  private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
 
   private lazy val withStudy = wire[RelayWithStudy]
 
@@ -50,8 +50,7 @@ final class Env(
     ()
   }
 
-  lila.common.Bus.subscribeFun("studyLikes", "study", "relayToggle") {
-    case lila.study.actorApi.StudyLikes(id, likes)       => api.setLikes(Relay.Id(id.value), likes).unit
+  lila.common.Bus.subscribeFun("study", "relayToggle") {
     case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
     case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {

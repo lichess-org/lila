@@ -6,9 +6,8 @@ import lila.db.dsl._
 
 object BSONHandlers {
 
-  import lila.study.BSONHandlers.LikesBSONHandler
-
-  implicit val relayIdHandler = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
+  implicit val relayIdHandler     = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
+  implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
 
   import Relay.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
@@ -34,4 +33,6 @@ object BSONHandlers {
   implicit val syncHandler = Macros.handler[Sync]
 
   implicit val relayHandler = Macros.handler[Relay]
+
+  implicit val relayTourHandler = Macros.handler[RelayTour]
 }

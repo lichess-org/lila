@@ -29,7 +29,6 @@ final class JsonView(baseUrl: BaseUrl) {
       .add("markup" -> r.markup.map(markdownCache.get))
       .add("startsAt" -> r.startsAt)
       .add("startedAt" -> r.startedAt)
-      .add("official" -> r.official.option(true))
       .add("finished" -> r.finished.option(true))
   }
 

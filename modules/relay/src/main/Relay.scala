@@ -7,13 +7,12 @@ import lila.user.User
 
 case class Relay(
     _id: Relay.Id,
+    tourId: RelayTour.Id,
     name: String,
     description: String,
     markup: Option[String] = None,
     credit: Option[String] = None,
     sync: Relay.Sync,
-    ownerId: User.ID,
-    likes: Study.Likes,
     /* When it's planned to start */
     startsAt: Option[DateTime],
     /* When it actually starts */
@@ -21,7 +20,6 @@ case class Relay(
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
-    official: Boolean,
     createdAt: DateTime
 ) {
 
@@ -69,6 +67,8 @@ object Relay {
   case class Id(value: String) extends AnyVal with StringValue
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+
+  case class WithTour(relay: Relay, tour: RelayTour)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN

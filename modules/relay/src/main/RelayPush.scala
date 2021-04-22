@@ -13,24 +13,24 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
 
   private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
 
-  def apply(relay: Relay, pgn: String): Fu[Option[String]] =
+  def apply(relay: Relay, tour: RelayTour, pgn: String): Fu[Option[String]] =
     if (relay.sync.hasUpstream)
       fuccess("The relay has an upstream URL, and cannot be pushed to.".some)
     else
       fuccess {
         throttler ! EarlyMultiThrottler.Work(
           id = relay.id.value,
-          run = () => pushNow(relay, pgn),
-          cooldown = if (relay.official) 3.seconds else 7.seconds
+          run = () => pushNow(relay, tour, pgn),
+          cooldown = if (tour.official) 3.seconds else 7.seconds
         )
         none
       }
 
-  private def pushNow(relay: Relay, pgn: String): Funit =
+  private def pushNow(relay: Relay, tour: RelayTour, pgn: String): Funit =
     RelayFetch
-      .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(relay)))
+      .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(tour)))
       .flatMap {
-        sync(relay, _)
+        sync(relay, tour, _)
       }
       .map { res =>
         SyncLog.event(res.moves, none)
