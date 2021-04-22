@@ -7,6 +7,11 @@ export const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|liche
 export const newLineRegex = /\n/g;
 export const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
 
+// looks like it has a @mention or #gameid or a url.tld
+export function isMoreThanText(str: string) {
+  return /(\n|(@|#|\.)\w{2,})/.test(str);
+}
+
 export function toLink(url: string): string {
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(/https?:\/\//, '')}</a>`;
 }
@@ -28,11 +33,6 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
       vnode.data!.cachedA = a;
     },
   };
-}
-
-// looks like it has a @mention or #gameid or a url.tld
-export function isMoreThanText(str: string) {
-  return /(\n|(@|#|\.)\w{2,})/.test(str);
 }
 
 export function linkReplace(href: string, body?: string, cls?: string) {
@@ -82,41 +82,6 @@ export function enhance(text: string, parseMoves: boolean): string {
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
 }
-
-const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
-const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
-
-const img = (src: string) => `<img src="${src}"/>`;
-
-const aImg = (src: string) => linkReplace(src, img(src));
-
-const expandImgur = (url: string) =>
-  imgurRegex.test(url) ? url.replace(imgurRegex, (_, id) => aImg(`https://i.imgur.com/${id}.jpg`)) : undefined;
-
-const expandGiphy = (url: string) =>
-  giphyRegex.test(url)
-    ? url.replace(giphyRegex, (_, id) => aImg(`https://media.giphy.com/media/${id}/giphy.gif`))
-    : undefined;
-
-const expandImage = (url: string) => (/\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(url) : undefined);
-
-const expandLink = (url: string) => linkReplace(url, url.replace(/^https?:\/\//, ''));
-
-const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
-
-const expandUrls = (html: string) =>
-  html.replace(linkRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
-
-const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
-
-const expandGameIds = (html: string) =>
-  html.replace(
-    /\s#([\w]{8})($|[^\w-])/g,
-    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix
-  );
-
-export const enhanceAll = (str: string) =>
-  expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(newLineRegex, '<br>');
 
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
