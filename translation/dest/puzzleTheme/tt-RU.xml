@@ -8,8 +8,9 @@
   <string name="anastasiaMateDescription">Атчы, Тура яки Вәзир командасы каршы шаһны такта ягы белән дуслар арасына тозакка эләктерәләр.</string>
   <string name="arabianMate">Гарәп маты</string>
   <string name="bodenMate">Боден маты</string>
-  <string name="bodenMateDescription">Крис-кисешкән диагоналларда ике һөҗүмче филь иптәшен дуслар сөякләре комачаулаган шаһка китерә.</string>
+  <string name="bodenMateDescription">Ике һөҗүм итүче киселешәләр диагональ буенча һәм рәкыйпнең үз дуст сөякләре кома шаулаган шаһына мат куялар.</string>
   <string name="crushing">Изеш</string>
+  <string name="doubleBishopMate">Икеләтә филь маты</string>
   <string name="equality">Тигезлек</string>
   <string name="kingsideAttack">Шаһ яктагы һөҗүм</string>
   <string name="kingsideAttackDescription">Рәкыйп шаһы һөҗүме, алар шаһ ягына куйганнан соң.</string>
