@@ -26,6 +26,8 @@
   <string name="exposedKing">노출된 킹</string>
   <string name="fork">포크</string>
   <string name="forkDescription">이동한 기물이 두 개의 상대 기물을 동시에 공격하는 수입니다.</string>
+  <string name="interference">간섭</string>
+  <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
@@ -57,6 +59,7 @@
   <string name="pawnEndgame">폰 엔딩</string>
   <string name="pawnEndgameDescription">폰만 있는 엔드게임.</string>
   <string name="pin">핀</string>
+  <string name="pinDescription">더 높은 가치의 기물이 공격받게 되기 때문에 기물을 움직이지 못하게 하는 전술입니다.</string>
   <string name="promotion">승진</string>
   <string name="promotionDescription">폰을 퀸이나 다른 기물로 승진</string>
   <string name="queenEndgame">퀸 엔딩</string>
@@ -66,12 +69,15 @@
   <string name="queensideAttack">퀸사이드 공격</string>
   <string name="queensideAttackDescription">상대 킹이 퀸사이드 캐슬링을 한 뒤의 공격.</string>
   <string name="quietMove">조용한 수</string>
+  <string name="quietMoveDescription">체크 또는 기물을 잡는 수가 아니지만 나중에 피할 수 없는 위협을 준비하는 수입니다.</string>
   <string name="rookEndgame">룩 엔딩</string>
   <string name="rookEndgameDescription">룩과 폰만 있는 엔드게임</string>
   <string name="sacrifice">희생</string>
+  <string name="sacrificeDescription">일련의 강제수로 이득을 얻기 위해 단기적으로 기물을 포기하는 전술입니다.</string>
   <string name="short">짧은 퍼즐</string>
   <string name="shortDescription">승리까지 두 수 걸립니다.</string>
   <string name="skewer">스큐어</string>
+  <string name="skewerDescription">높은 가치의 기물을 공격해 길을 비키게 만들고, 그 뒤에 있는 낮은 가치의 기물을 잡는 전술입니다. 핀의 반대죠.</string>
   <string name="smotheredMate">질식 체크메이트</string>
   <string name="smotheredMateDescription">자신의 기물에 둘러쌓여(또는 \"질식되어\") 움직일 수 없는 킹을 나이트로 체크메이트 시키는 것 입니다.</string>
   <string name="superGM">슈퍼GM 게임</string>
