@@ -273,7 +273,8 @@ object Countries {
     C("EU", "European Union"),
     C("_united-nations", "United Nations"),
     C("_rainbow", "Rainbow"),
-    C("_pirate", "Pirate")
+    C("_pirate", "Pirate"),
+    C("_lishogi", "Lishogi")
   )
 
   val allPairs = all map { c =>
