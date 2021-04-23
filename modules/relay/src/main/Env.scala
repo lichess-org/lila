@@ -24,7 +24,9 @@ final class Env(
     system: ActorSystem
 ) {
 
-  lazy val forms = wire[RelayForm]
+  lazy val form = wire[RelayForm]
+
+  lazy val tourForm = wire[RelayTourForm]
 
   private lazy val relayRepo = new RelayRepo(db(CollName("relay")))
 

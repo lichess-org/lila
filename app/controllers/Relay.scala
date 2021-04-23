@@ -31,7 +31,7 @@ final class Relay(
       NoLameOrBot {
         WithTour(tourId) { tour =>
           (tour.owner == me.id) ?? {
-            Ok(html.relay.form.relayCreate(env.relay.forms.create, tour)).fuccess
+            Ok(html.relay.form.create(env.relay.form.create, tour)).fuccess
           }
         }
       }
@@ -44,10 +44,10 @@ final class Relay(
           NoLameOrBot {
             WithTour(tourId) { tour =>
               (tour.owner == me.id) ?? {
-                env.relay.forms.create
+                env.relay.form.create
                   .bindFromRequest()(ctx.body, formBinding)
                   .fold(
-                    err => BadRequest(html.relay.form.relayCreate(err, tour)).fuccess,
+                    err => BadRequest(html.relay.form.create(err, tour)).fuccess,
                     setup =>
                       env.relay.api.create(setup, me, tour) map { relay =>
                         Redirect(relay.withTour(tour).path)
@@ -61,7 +61,7 @@ final class Relay(
           env.relay.api tourById TourModel.Id(tourId) flatMap {
             _ ?? { tour =>
               !(me.isBot || me.lame) ??
-                env.relay.forms.create
+                env.relay.form.create
                   .bindFromRequest()(req, formBinding)
                   .fold(
                     err => BadRequest(apiFormError(err)).fuccess,
@@ -74,7 +74,7 @@ final class Relay(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.form.relayEdit(rt, env.relay.forms.edit(rt.relay))).fuccess
+        Ok(html.relay.form.edit(rt, env.relay.form.edit(rt.relay))).fuccess
       }
     }
 
@@ -87,7 +87,7 @@ final class Relay(
             case Some(res) =>
               res
                 .fold(
-                  { case (old, err) => BadRequest(html.relay.form.relayEdit(old, err)) },
+                  { case (old, err) => BadRequest(html.relay.form.edit(old, err)) },
                   rt => Redirect(rt.path)
                 )
                 .fuccess
@@ -109,7 +109,7 @@ final class Relay(
   ): Fu[Option[Either[(RelayModel.WithTour, Form[RelayForm.Data]), RelayModel.WithTour]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
       _ ?? { rt =>
-        env.relay.forms
+        env.relay.form
           .edit(rt.relay)
           .bindFromRequest()
           .fold(

@@ -22,11 +22,35 @@ final class RelayTour(env: Env) extends LilaController(env) {
   }
 
   def form = Auth { implicit ctx => me =>
-    ???
+    NoLameOrBot {
+      Ok(html.relay.tourForm.create(env.relay.tourForm.create)).fuccess
+    }
   }
 
-  def create = Auth { implicit ctx => me =>
-    ???
+  def create = AuthBody { implicit ctx => me =>
+    NoLameOrBot {
+      env.relay.tourForm.create
+        .bindFromRequest()(ctx.body, formBinding)
+        .fold(
+          err => BadRequest(html.relay.tourForm.create(err)).fuccess,
+          setup =>
+            env.relay.api.tourCreate(setup, me) map { tour =>
+              Redirect(routes.RelayTour.show(tour.slug, tour.id.value))
+            }
+        )
+    }
+  }
+
+  def edit(id: String) = Auth { implicit ctx => me =>
+    WithTour(id) { tour =>
+      ???
+    }
+  }
+
+  def update(id: String) = AuthBody { implicit ctx => me =>
+    WithTour(id) { tour =>
+      ???
+    }
   }
 
   private def WithTour(id: String)(

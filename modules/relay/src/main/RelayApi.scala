@@ -86,6 +86,11 @@ final class RelayApi(
       }
       .map(_ flatMap readRelayWithTour)
 
+  def tourCreate(data: RelayTourForm.Data, user: User): Fu[RelayTour] = {
+    val tour = data.make(user)
+    tourRepo.coll.insert.one(tour) inject tour
+  }
+
   def create(data: RelayForm.Data, user: User, tour: RelayTour): Fu[Relay] = {
     val relay = data.make(user, tour)
     relayRepo.coll.insert.one(relay) >>

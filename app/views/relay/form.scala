@@ -14,13 +14,13 @@ object form {
 
   import trans.broadcast._
 
-  def relayCreate(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
+  def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
       inner(form, routes.Relay.create(tour.id.value))
     )
 
-  def relayEdit(rt: Relay.WithTour, form: Form[Data])(implicit ctx: Context) =
+  def edit(rt: Relay.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
       h1("Edit ", rt.fullName),
       inner(form, routes.Relay.update(rt.relay.id.value)),
@@ -70,13 +70,6 @@ object form {
           20000.localize
         ).some
       )(form3.textarea(_)(rows := 10)),
-      if (isGranted(_.Relay))
-        form3.checkbox(
-          form("official"),
-          raw("Official Lichess broadcast"),
-          help = raw("Feature on /broadcast - for admins only").some
-        )
-      else form3.hidden(form("official")),
       form3.group(
         form("syncUrl"),
         sourceUrlOrGameIds(),
