@@ -360,7 +360,7 @@
     <item quantity="other">%s язылганнары</item>
   </plurals>
   <string name="more">Тагын</string>
-  <string name="memberSince">Регистрация көне:</string>
+  <string name="memberSince">Регистрация көне</string>
   <string name="lastSeenActive">%s кергән иде</string>
   <string name="player">Уенчы</string>
   <string name="list">Тезем</string>
@@ -547,7 +547,7 @@
   <string name="tools">Кораллар</string>
   <string name="increment">Артуы</string>
   <string name="sharePGN">Җибәрергә PGN</string>
-  <string name="playOnline">Уйнарга челтәрдә</string>
+  <string name="playOnline">Челтәрдә уйнау</string>
   <string name="playOffline">Уйнарга челтәрсез</string>
   <string name="allowAnalytics">Аноним статистикага рөхсәт итегез</string>
   <string name="shareGameURL">Җибәрергә уен URL</string>
@@ -734,7 +734,7 @@
   <string name="puzzleDesc">Шаһмат тактикалар остасы</string>
   <string name="important">Мөһим</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
-  <string name="inTheFAQ">Еш Сорый торган Сорауларда</string>
+  <string name="inTheFAQ">Еш Сорый торган Сорауларда.</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
   <string name="resVsX">%1$s vs %2$s</string>
 </resources>
