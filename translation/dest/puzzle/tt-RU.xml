@@ -27,7 +27,7 @@
   <string name="puzzleComplete">Башваткыч чишелгән!</string>
   <string name="notTheMove">Бу хәрәкәт түгел!</string>
   <string name="trySomethingElse">Башка нәрсәне сынап карагыз.</string>
-  <string name="ratingX">Рейтингы: %s</string>
+  <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden">качырылган</string>
   <plurals name="playedXTimes">
     <item quantity="other">Уйналган %s вакыт</item>
