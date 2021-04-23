@@ -96,7 +96,7 @@ object features {
             ),
             tr(check)(
               "Available in ",
-              a(href := "https://crowdin.com/project/lishogi")("80+ languages")
+              a(href := "https://crowdin.com/project/lishogi")("many languages")
             ),
             tr(check)(
               "Light/dark theme, custom boards, pieces and background"
@@ -129,7 +129,7 @@ object features {
           //    a(href := routes.Puzzle.home())("Tactics puzzles")
           //  ),
           //  tr(check)(
-          //    "Available in 80+ languages"
+          //    "Available in many languages"
           //  ),
           //  tr(check)(
           //    "Light and dark theme, custom boards and pieces"
