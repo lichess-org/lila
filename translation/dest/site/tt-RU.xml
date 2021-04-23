@@ -529,7 +529,7 @@
   </plurals>
   <string name="listBlockedPlayers">Язмасындагы кулланучыларны сез кисәттегез</string>
   <string name="human">Кеше</string>
-  <string name="computer">К</string>
+  <string name="computer">Компьютер</string>
   <string name="side">Як</string>
   <string name="clock">Сәгать</string>
   <string name="unauthorizedError">Рөхсәт авторизациясез.</string>
