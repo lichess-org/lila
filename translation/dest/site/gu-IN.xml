@@ -177,6 +177,7 @@
   <string name="forgotPassword">પાસવર્ડ ભૂલી ગયાં?</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
+  <string name="gamesPlayed">રમતો રમ્યા</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
