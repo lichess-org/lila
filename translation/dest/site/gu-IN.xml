@@ -194,6 +194,22 @@
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
   <string name="gameAborted">રમતનો ત્યાગ કર્યો</string>
   <string name="standard">સામાન્ય</string>
+  <string name="unlimited">અમર્યાદિત</string>
+  <string name="mode">પ્રકાર</string>
+  <string name="casual">અનિયત</string>
+  <string name="rated">ક્રમિત</string>
+  <string name="casualTournament">અનિયત</string>
+  <string name="ratedTournament">ક્રમીત</string>
+  <string name="thisGameIsRated">આ રમત ક્રમિત છે</string>
+  <string name="rematch">ફરીથી મેચ કરો</string>
+  <string name="rematchOfferSent">ફરીથી મેચ કરવાની માગણી મોકલી</string>
+  <string name="rematchOfferSentWhite">હરીફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
+  <string name="rematchOfferSentBlack">હરિફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
+  <string name="rematchOfferAccepted">ફરીથી મેચ રમવાની માગણી સ્વીકારાઈ</string>
+  <string name="rematchOfferCanceled">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
+  <string name="rematchOfferDeclined">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
+  <string name="cancelRematchOffer">ફરીથી મેચ રમવાની માગણી રદ કરો</string>
+  <string name="viewRematch">રીમેચ જુવો</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
