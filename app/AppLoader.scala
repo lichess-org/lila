@@ -134,6 +134,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val puzzle: Puzzle                 = wire[Puzzle]
   lazy val relation: Relation             = wire[Relation]
   lazy val relay: Relay                   = wire[Relay]
+  lazy val relayTour: RelayTour           = wire[RelayTour]
   lazy val report: Report                 = wire[Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]

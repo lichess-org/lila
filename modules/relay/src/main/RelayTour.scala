@@ -23,6 +23,8 @@ case class RelayTour(
 
 object RelayTour {
 
+  val maxRelays = 64
+
   case class Id(value: String) extends AnyVal with StringValue
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)

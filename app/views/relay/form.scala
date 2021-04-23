@@ -17,13 +17,13 @@ object form {
   def relayCreate(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.Relay.relayCreate(tour.id.value))
+      inner(form, routes.Relay.create(tour.id.value))
     )
 
   def relayEdit(rt: Relay.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
       h1("Edit ", rt.fullName),
-      inner(form, routes.Relay.relayUpdate(rt.relay.id.value)),
+      inner(form, routes.Relay.update(rt.relay.id.value)),
       hr,
       postForm(action := routes.Relay.cloneRelay(rt.relay.id.value))(
         submitButton(

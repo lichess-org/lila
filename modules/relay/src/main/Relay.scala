@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import lila.study.Study
+import lila.study.{ Chapter, Study }
 import lila.user.User
 
 case class Relay(
@@ -135,11 +135,17 @@ object Relay {
 
   case class WithTour(relay: Relay, tour: RelayTour) {
     def fullName = s"${tour.name} • ${relay.name}"
+
+    def withStudy(study: Study) = WithTourAndStudy(relay, tour, study)
+
+    def path: String                        = s"/broadcast/${tour.slug}/${relay.slug}/${relay.id}"
+    def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
   }
 
-  case class WithStudy(relay: Relay, study: Study)
+  case class WithTourAndStudy(relay: Relay, tour: RelayTour, study: Study) {
+    def path     = WithTour(relay, tour).path
+    def fullName = WithTour(relay, tour).fullName
+  }
 
-  case class WithTourAndStudy(relay: Relay, tour: RelayTour, study: Study)
-
-  case class Fresh(created: Seq[WithTourAndStudy], started: Seq[WithTourAndStudy])
+  case class Fresh(created: Seq[WithTour], started: Seq[WithTour])
 }

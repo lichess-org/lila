@@ -11,4 +11,9 @@ final private class RelayTourRepo(val coll: Coll)(implicit ec: scala.concurrent.
   import BSONHandlers._
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
+
+  private[relay] object selectors {
+    def officialOption(v: Boolean) = $doc("official" -> v.option(true))
+
+  }
 }

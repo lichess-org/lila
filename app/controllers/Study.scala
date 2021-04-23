@@ -158,11 +158,7 @@ final class Study(
   )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
       _.fold(f) { rt =>
-        fuccess(Redirect {
-          chapterId.fold(routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value)) { c =>
-            routes.Relay.chapter(rt.tour.slug, rt.relay.slug, rt.relay.id.value, c)
-          }
-        })
+        Redirect(chapterId.map(Chapter.Id).fold(rt.path)(rt.path)).fuccess
       }
     }
     else f

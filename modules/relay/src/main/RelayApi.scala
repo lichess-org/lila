@@ -37,13 +37,7 @@ final class RelayApi(
           UnwindField("tour")
         )
       }
-      .map { docO =>
-        for {
-          doc   <- docO
-          relay <- doc.asOpt[Relay]
-          tour  <- doc.getAsOpt[RelayTour]("tour")
-        } yield Relay.WithTour(relay, tour)
-      }
+      .map(_ flatMap readRelayWithTour)
 
   def byIdAndContributor(id: Relay.Id, me: User) =
     byIdWithStudy(id) map {
@@ -61,18 +55,14 @@ final class RelayApi(
       }
     }
 
-  def apply(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
-    studyApi byIds relays.map(_.studyId) map { studies =>
-      relays.flatMap { relay =>
-        studies.find(_.id == relay.studyId) map { Relay.WithStudy(relay, _) }
-      }
-    }
+  def byTour(tour: RelayTour): Fu[List[Relay.WithTour]] =
+    relayRepo.byTour(tour).dmap(_.map(_ withTour tour))
 
-  def fresh(me: Option[User]): Fu[Relay.Fresh] =
-    relayRepo.scheduled.flatMap(withStudy andLiked me) zip
-      relayRepo.ongoing.flatMap(withStudy andLiked me) map { case (c, s) =>
-        Relay.Fresh(c, s)
-      }
+  def fresh(me: Option[User]): Fu[Relay.Fresh] = fuccess(Relay.Fresh(Nil, Nil))
+  // relayRepo.scheduled.flatMap(withStudy andLiked me) zip
+  //   relayRepo.ongoing.flatMap(withStudy andLiked me) map { case (c, s) =>
+  //     Relay.Fresh(c, s)
+  //   }
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
@@ -94,13 +84,7 @@ final class RelayApi(
           UnwindField("tour")
         )
       }
-      .map { docs =>
-        for {
-          doc   <- docs
-          relay <- doc.asOpt[Relay]
-          tour  <- doc.getAsOpt[RelayTour]("tour")
-        } yield Relay.WithTour(relay, tour)
-      }
+      .map(_ flatMap readRelayWithTour)
 
   def create(data: RelayForm.Data, user: User, tour: RelayTour): Fu[Relay] = {
     val relay = data.make(user, tour)
@@ -165,12 +149,12 @@ final class RelayApi(
       }
     }
 
-  def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
-    relayRepo
-      .officialCursor(perSecond.value)
-      .documentSource(nb)
-      .throttle(perSecond.value, 1.second)
-      .map(jsonView.public)
+  // def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
+  //   relayRepo
+  //     .officialCursor(perSecond.value)
+  //     .documentSource(nb)
+  //     .throttle(perSecond.value, 1.second)
+  //     .map(jsonView.public)
 
   private[relay] def autoStart: Funit =
     relayRepo.coll.list[Relay](

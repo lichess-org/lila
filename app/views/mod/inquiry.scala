@@ -24,7 +24,7 @@ object inquiry {
         val id = m.group("id")
         val path = m.group("tpe") match {
           case "game"       => routes.Round.watcher(id, "white").url
-          case "relay"      => routes.Relay.show("-", id).url
+          case "relay"      => routes.Relay.show("-", "-", id).url
           case "tournament" => routes.Tournament.show(id).url
           case "swiss"      => routes.Swiss.show(id).url
           case _            => s"/${m.group("tpe")}/$id"

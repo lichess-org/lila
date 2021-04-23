@@ -2,19 +2,18 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc._
-import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
-import lila.common.config.MaxPerSecond
+// import lila.common.config.MaxPerSecond
 import lila.relay.{ Relay => RelayModel, RelayTour => TourModel, RelayForm }
 import lila.user.{ User => UserModel }
 import views._
 
 final class Relay(
     env: Env,
-    studyC: => Study,
-    apiC: => Api
+    studyC: => Study
+    // apiC: => Api
 ) extends LilaController(env) {
 
   def index(page: Int) =
@@ -27,7 +26,7 @@ final class Relay(
       }
     }
 
-  def relayForm(tourId: String) =
+  def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
         WithTour(tourId) { tour =>
@@ -38,7 +37,7 @@ final class Relay(
       }
     }
 
-  def relayCreate(tourId: String) =
+  def create(tourId: String) =
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
@@ -51,7 +50,7 @@ final class Relay(
                     err => BadRequest(html.relay.form.relayCreate(err, tour)).fuccess,
                     setup =>
                       env.relay.api.create(setup, me, tour) map { relay =>
-                        Redirect(showRoute(relay withTour tour))
+                        Redirect(relay.withTour(tour).path)
                       }
                   )
               }
@@ -72,14 +71,14 @@ final class Relay(
           }
     )
 
-  def relayEdit(id: String) =
+  def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         Ok(html.relay.form.relayEdit(rt, env.relay.forms.edit(rt.relay))).fuccess
       }
     }
 
-  def relayUpdate(id: String) =
+  def update(id: String) =
     AuthOrScopedBody(_.Study.Write)(
       auth = implicit ctx =>
         me =>
@@ -89,7 +88,7 @@ final class Relay(
               res
                 .fold(
                   { case (old, err) => BadRequest(html.relay.form.relayEdit(old, err)) },
-                  rt => Redirect(showRoute(rt))
+                  rt => Redirect(rt.path)
                 )
                 .fuccess
           },
@@ -121,14 +120,14 @@ final class Relay(
       }
     }
 
-  def reset(@nowarn("cat=unused") slug: String, id: String) =
+  def reset(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        env.relay.api.reset(rt.relay, me) inject Redirect(showRoute(rt))
+        env.relay.api.reset(rt.relay, me) inject Redirect(rt.path)
       }
     }
 
-  def showRelay(ts: String, rs: String, id: String) =
+  def show(ts: String, rs: String, id: String) =
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
@@ -166,7 +165,7 @@ final class Relay(
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         env.relay.api.cloneRelay(rt, me) map { newRelay =>
-          Redirect(routes.Relay.relayEdit(newRelay.id.value))
+          Redirect(routes.Relay.edit(newRelay.id.value))
         }
       }
     }
@@ -179,28 +178,20 @@ final class Relay(
       }
     }
 
-  def apiIndex =
-    Action.async { implicit req =>
-      apiC.jsonStream {
-        env.relay.api.officialStream(MaxPerSecond(20), getInt("nb", req) | 20)
-      }.fuccess
-    }
+  // def apiIndex =
+  //   Action.async { implicit req =>
+  //     apiC.jsonStream {
+  //       env.relay.api.officialStream(MaxPerSecond(20), getInt("nb", req) | 20)
+  //     }.fuccess
+  //   }
 
   private def WithRelay(ts: String, rs: String, id: String)(
       f: RelayModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (rt.tour.slug != ts) Redirect(showRoute(rt)).fuccess
-      if (rt.relay.slug != rs) Redirect(showRoute(rt)).fuccess
+      if (rt.tour.slug != ts) Redirect(rt.path).fuccess
+      if (rt.relay.slug != rs) Redirect(rt.path).fuccess
       else f(rt)
-    }
-
-  private def WithTour(slug: String, id: String)(
-      f: TourModel => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(env.relay.api tourById TourModel.Id(id)) { tour =>
-      if (tour.slug != slug) Redirect(showRoute(tour)).fuccess
-      else f(tour)
     }
 
   private def WithTour(id: String)(
@@ -218,13 +209,10 @@ final class Relay(
         chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
         streams  <- studyC.streamsOf(sc.study)
-      } yield EnableSharedArrayBuffer(Ok(html.relay.show(rt, sc.study, data, chat, sVersion, streams)))
+      } yield EnableSharedArrayBuffer(
+        Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streams))
+      )
     }
-
-  private def showRoute(rt: RelayModel.WithTour) =
-    routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value)
-
-  private def showRoute(t: TourModel) = routes.Relay.showTour(t.slug, t.id.value)
 
   implicit private def makeRelayId(id: String): RelayModel.Id           = RelayModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)

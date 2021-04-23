@@ -167,18 +167,18 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 
 # Relay
 GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
-GET   /broadcast/new                       controllers.Relay.tourForm
-POST  /broadcast/new                       controllers.Relay.tourCreate
-GET   /broadcast/:ts/:tourId               controllers.Relay.showTour(ts: String, tourId: String)
-GET   /broadcast/:tourId/new               controllers.Relay.relayForm(tourId: String)
-POST  /broadcast/:tourId/new               controllers.Relay.relayCreate(tourId: String)
-GET   /broadcast/:ts/:rs/$id<\w{8}>          controllers.Relay.showRelay(ts: String, rs: String, id: String)
+GET   /broadcast/new                       controllers.RelayTour.form
+POST  /broadcast/new                       controllers.RelayTour.create
+GET   /broadcast/:ts/:tourId               controllers.RelayTour.show(ts: String, tourId: String)
+GET   /broadcast/:tourId/new               controllers.Relay.form(tourId: String)
+POST  /broadcast/:tourId/new               controllers.Relay.create(tourId: String)
+GET   /broadcast/:ts/:rs/$id<\w{8}>          controllers.Relay.show(ts: String, rs: String, id: String)
 GET   /broadcast/:ts/:rs/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(ts: String, rs: String, id: String, chapterId: String)
-GET   /broadcast/$id<\w{8}>/edit     controllers.Relay.relayEdit(id: String)
-POST  /broadcast/$id<\w{8}>/edit     controllers.Relay.relayUpdate(id: String)
+GET   /broadcast/$id<\w{8}>/edit     controllers.Relay.edit(id: String)
+POST  /broadcast/$id<\w{8}>/edit     controllers.Relay.update(id: String)
 POST  /broadcast/$id<\w{8}>/reset    controllers.Relay.reset(id: String)
 POST  /broadcast/$id<\w{8}>/clone    controllers.Relay.cloneRelay(id: String)
-POST  /broadcast/$id<\w{8}>/push     controllers.Relay.push(rs: String, id: String)
+POST  /broadcast/$id<\w{8}>/push     controllers.Relay.push(id: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -646,7 +646,7 @@ POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: Strin
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
-GET   /api/broadcast                   controllers.Relay.apiIndex
+# GET   /api/broadcast                   controllers.Relay.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create

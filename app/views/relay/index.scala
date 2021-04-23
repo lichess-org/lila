@@ -15,11 +15,11 @@ object index {
 
   def apply(
       fresh: Option[lila.relay.Relay.Fresh],
-      pager: Paginator[lila.relay.Relay.WithStudyAndLiked],
+      pager: Paginator[lila.relay.Relay.WithTour],
       url: Call
   )(implicit ctx: Context) = {
 
-    def sublist(name: Frag, relays: Seq[lila.relay.Relay.WithStudyAndLiked]) =
+    def sublist(name: Frag, relays: Seq[lila.relay.Relay.WithTour]) =
       relays.nonEmpty option st.section(
         h2(name),
         div(cls := "list")(
@@ -36,7 +36,7 @@ object index {
         div(cls := "box__top")(
           h1(liveBroadcasts()),
           a(
-            href := routes.Relay.tourForm,
+            href := routes.RelayTour.form,
             cls := "new button button-empty",
             title := newBroadcast.txt(),
             dataIcon := "O"

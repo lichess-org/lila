@@ -59,7 +59,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,
-          url = s"$netBaseUrl${routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value).url}",
+          url = s"$netBaseUrl${rt.path}",
           description = shorten(rt.relay.description, 152)
         )
         .some
@@ -70,12 +70,12 @@ object show {
       )
     )
 
-  def widget(rt: lila.relay.Relay.WithTourAndStudy, extraCls: String = "") =
+  def widget(rt: lila.relay.Relay.WithTour, extraCls: String = "") =
     div(cls := s"relay-widget $extraCls", dataIcon := "")(
-      a(cls := "overlay", href := routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value)),
+      a(cls := "overlay", href := rt.path),
       div(
-        h3(r.relay.name),
-        p(r.relay.description)
+        h3(rt.relay.name),
+        p(rt.relay.description)
       )
     )
 }
