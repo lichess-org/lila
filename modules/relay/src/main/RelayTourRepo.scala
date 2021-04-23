@@ -9,4 +9,6 @@ import lila.db.dsl._
 final private class RelayTourRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
+
+  def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 }

@@ -11,33 +11,60 @@ import scala.util.chaining._
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl._
-import lila.study.{ Settings, Study, StudyApi, StudyMaker }
+import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyRepo }
 import lila.user.User
 
 final class RelayApi(
     relayRepo: RelayRepo,
     tourRepo: RelayTourRepo,
     studyApi: StudyApi,
-    withStudy: RelayWithStudy,
+    studyRepo: StudyRepo,
     jsonView: JsonView,
     formatApi: RelayFormatApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
+  import lila.study.BSONHandlers.StudyBSONHandler
 
   def byId(id: Relay.Id) = relayRepo.coll.byId[Relay](id.value)
+
+  def byIdWithTour(id: Relay.Id): Fu[Option[Relay.WithTour]] =
+    relayRepo.coll
+      .aggregateOne() { framework =>
+        import framework._
+        Match($id(id)) -> List(
+          PipelineOperator(tourRepo lookup "tourId"),
+          UnwindField("tour")
+        )
+      }
+      .map { docO =>
+        for {
+          doc   <- docO
+          relay <- doc.asOpt[Relay]
+          tour  <- doc.getAsOpt[RelayTour]("tour")
+        } yield Relay.WithTour(relay, tour)
+      }
 
   def byIdAndContributor(id: Relay.Id, me: User) =
     byIdWithStudy(id) map {
       _ collect {
-        case Relay.WithStudy(relay, study) if study.canContribute(me.id) => relay
+        case Relay.WithTourAndStudy(relay, tour, study) if study.canContribute(me.id) => relay withTour tour
       }
     }
 
-  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] =
-    WithRelay(id) { relay =>
-      studyApi.byId(relay.studyId) dmap2 {
-        Relay.WithStudy(relay, _)
+  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithTourAndStudy]] =
+    byIdWithTour(id) flatMap {
+      _ ?? { case Relay.WithTour(relay, tour) =>
+        studyApi.byId(relay.studyId) dmap2 {
+          Relay.WithTourAndStudy(relay, tour, _)
+        }
+      }
+    }
+
+  def apply(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
+    studyApi byIds relays.map(_.studyId) map { studies =>
+      relays.flatMap { relay =>
+        studies.find(_.id == relay.studyId) map { Relay.WithStudy(relay, _) }
       }
     }
 
@@ -47,7 +74,9 @@ final class RelayApi(
         Relay.Fresh(c, s)
       }
 
-  private[relay] def toSync =
+  def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
+
+  private[relay] def toSync: Fu[List[Relay.WithTour]] =
     fetchWithTours(
       $doc(
         "sync.until" $exists true,
@@ -61,16 +90,7 @@ final class RelayApi(
       .aggregateList(maxDocs, readPreference) { framework =>
         import framework._
         Match(query) -> List(
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from"         -> tourRepo.coll.name,
-                "as"           -> "tour",
-                "localField"   -> "tourId",
-                "foreignField" -> "_id"
-              )
-            )
-          ),
+          PipelineOperator(tourRepo lookup "tourId"),
           UnwindField("tour")
         )
       }
@@ -131,15 +151,19 @@ final class RelayApi(
     studyApi.deleteAllChapters(relay.studyId, by) >>
       requestPlay(relay.id, v = true)
 
-  def cloneRelay(relay: Relay, by: User, tour: RelayTour): Fu[Relay] =
+  def cloneRelay(rt: Relay.WithTour, by: User): Fu[Relay] =
     create(
-      RelayForm.Data make relay.copy(name = s"${relay.name} (clone)"),
+      RelayForm.Data make rt.relay.copy(name = s"${rt.relay.name} (clone)"),
       by,
-      tour
+      rt.tour
     )
 
-  def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    relayRepo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
+  def getOngoing(id: Relay.Id): Fu[Option[Relay.WithTour]] =
+    relayRepo.coll.one[Relay]($doc("_id" -> id, "finished" -> false)) flatMap {
+      _ ?? { relay =>
+        tourById(relay.tourId) map2 relay.withTour
+      }
+    }
 
   def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
     relayRepo

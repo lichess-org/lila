@@ -1,5 +1,6 @@
 package views.html.relay
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
@@ -7,32 +8,31 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.relay.Relay.Sync.UpstreamUrl.LccRegex
 import lila.relay.RelayForm.Data
-
-import controllers.routes
+import lila.relay.{ Relay, RelayTour }
 
 object form {
 
   import trans.broadcast._
 
-  def create(form: Form[Data])(implicit ctx: Context) =
+  def relayCreate(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.Relay.create)
+      inner(form, routes.Relay.relayCreate(tour.id.value))
     )
 
-  def edit(r: lila.relay.Relay, form: Form[Data])(implicit ctx: Context) =
-    layout(r.name)(
-      h1("Edit ", r.name),
-      inner(form, routes.Relay.update(r.slug, r.id.value)),
+  def relayEdit(rt: Relay.WithTour, form: Form[Data])(implicit ctx: Context) =
+    layout(rt.fullName)(
+      h1("Edit ", rt.fullName),
+      inner(form, routes.Relay.relayUpdate(rt.relay.id.value)),
       hr,
-      postForm(action := routes.Relay.cloneRelay(r.slug, r.id.value))(
+      postForm(action := routes.Relay.cloneRelay(rt.relay.id.value))(
         submitButton(
           cls := "button button-empty confirm",
           title := "Create an new identical broadcast, for another round or a similar tournament"
         )(cloneBroadcast())
       ),
       hr,
-      postForm(action := routes.Relay.reset(r.slug, r.id.value))(
+      postForm(action := routes.Relay.reset(rt.relay.id.value))(
         submitButton(
           cls := "button button-red button-empty confirm",
           title := "The source will need to be active in order to re-create the chapters!"

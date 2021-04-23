@@ -167,15 +167,18 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 
 # Relay
 GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
-GET   /broadcast/new                       controllers.Relay.form
-POST  /broadcast/new                       controllers.Relay.create
-GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
-GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
-GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.update(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/reset    controllers.Relay.reset(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/clone    controllers.Relay.cloneRelay(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/push     controllers.Relay.push(slug: String, id: String)
+GET   /broadcast/new                       controllers.Relay.tourForm
+POST  /broadcast/new                       controllers.Relay.tourCreate
+GET   /broadcast/:ts/:tourId               controllers.Relay.showTour(ts: String, tourId: String)
+GET   /broadcast/:tourId/new               controllers.Relay.relayForm(tourId: String)
+POST  /broadcast/:tourId/new               controllers.Relay.relayCreate(tourId: String)
+GET   /broadcast/:ts/:rs/$id<\w{8}>          controllers.Relay.showRelay(ts: String, rs: String, id: String)
+GET   /broadcast/:ts/:rs/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(ts: String, rs: String, id: String, chapterId: String)
+GET   /broadcast/$id<\w{8}>/edit     controllers.Relay.relayEdit(id: String)
+POST  /broadcast/$id<\w{8}>/edit     controllers.Relay.relayUpdate(id: String)
+POST  /broadcast/$id<\w{8}>/reset    controllers.Relay.reset(id: String)
+POST  /broadcast/$id<\w{8}>/clone    controllers.Relay.cloneRelay(id: String)
+POST  /broadcast/$id<\w{8}>/push     controllers.Relay.push(rs: String, id: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index

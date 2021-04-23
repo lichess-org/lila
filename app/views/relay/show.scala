@@ -13,15 +13,14 @@ import controllers.routes
 object show {
 
   def apply(
-      r: lila.relay.Relay,
-      s: lila.study.Study,
+      rt: lila.relay.Relay.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
       streams: List[lila.streamer.Stream]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = r.name,
+      title = rt.fullName,
       moreCss = cssTag("analyse.study"),
       moreJs = frag(
         analyseTag,
@@ -39,17 +38,17 @@ object show {
                 c.chat,
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
-                writeable = ctx.userId.??(s.canChat),
+                writeable = ctx.userId.??(rt.study.canChat),
                 public = false,
                 resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                localMod = ctx.userId.??(s.canContribute)
+                localMod = ctx.userId.??(rt.study.canContribute)
               )
             ),
             "explorer" -> Json.obj(
               "endpoint"          -> explorerEndpoint,
               "tablebaseEndpoint" -> tablebaseEndpoint
             ),
-            "socketUrl"     -> views.html.study.show.socketUrl(s.id.value),
+            "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
             "socketVersion" -> socketVersion.value
           )
         )}""")
@@ -59,9 +58,9 @@ object show {
       csp = defaultCsp.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = r.name,
-          url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
-          description = shorten(r.description, 152)
+          title = rt.fullName,
+          url = s"$netBaseUrl${routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value).url}",
+          description = shorten(rt.relay.description, 152)
         )
         .some
     )(
@@ -71,9 +70,9 @@ object show {
       )
     )
 
-  def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "") =
+  def widget(rt: lila.relay.Relay.WithTourAndStudy, extraCls: String = "") =
     div(cls := s"relay-widget $extraCls", dataIcon := "")(
-      a(cls := "overlay", href := routes.Relay.show(r.relay.slug, r.relay.id.value)),
+      a(cls := "overlay", href := routes.Relay.showRelay(rt.tour.slug, rt.relay.slug, rt.relay.id.value)),
       div(
         h3(r.relay.name),
         p(r.relay.description)

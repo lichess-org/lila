@@ -343,6 +343,21 @@ trait dsl {
     val updatedDesc = desc("updatedAt")
   }
 
+  object $lookup {
+    def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
+      "$lookup" -> $doc(
+        "from"         -> from,
+        "as"           -> as,
+        "localField"   -> local,
+        "foreignField" -> foreign
+      )
+    )
+    def simple(from: Coll, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name, as, local, foreign)
+    def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name.value, as, local, foreign)
+  }
+
   implicit class ElementBuilderLike(val field: String)
       extends ElementBuilder
       with ComparisonOperators

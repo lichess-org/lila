@@ -13,15 +13,15 @@ final private class RelaySync(
 
   private type NbMoves = Int
 
-  def apply(relay: Relay, tour: RelayTour, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi byId relay.studyId orFail "Missing relay study!" flatMap { study =>
+  def apply(rt: Relay.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
+    studyApi byId rt.relay.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {
           case Some(fail) => fufail(fail.msg)
           case None =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(relay, tour, study, chapter, game)
+                case Some(chapter) => updateChapter(rt.tour, study, chapter, game)
                 case None =>
                   createChapter(study, game) flatMap { chapter =>
                     chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
@@ -51,13 +51,12 @@ final private class RelaySync(
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
-      relay: Relay,
       tour: RelayTour,
       study: Study,
       chapter: Chapter,
       game: RelayGame
   ): Fu[NbMoves] =
-    updateChapterTags(relay, tour, study, chapter, game) >>
+    updateChapterTags(tour, study, chapter, game) >>
       updateChapterTree(study, chapter, game)
 
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
@@ -112,7 +111,6 @@ final private class RelaySync(
   }
 
   private def updateChapterTags(
-      relay: Relay,
       tour: RelayTour,
       study: Study,
       chapter: Chapter,
@@ -139,12 +137,12 @@ final private class RelaySync(
         tags = chapterNewTags
       )(actorApi.Who(chapter.ownerId, sri)) >> {
         val newEnd = chapter.tags.resultColor.isEmpty && tags.resultColor.isDefined
-        newEnd ?? onChapterEnd(relay, tour, study, chapter)
+        newEnd ?? onChapterEnd(tour, study, chapter)
       }
     }
   }
 
-  private def onChapterEnd(relay: Relay, tour: RelayTour, study: Study, chapter: Chapter): Funit =
+  private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     chapterRepo.setRelayPath(chapter.id, Path.root) >> {
       (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,

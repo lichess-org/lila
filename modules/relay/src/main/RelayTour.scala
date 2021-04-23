@@ -14,6 +14,11 @@ case class RelayTour(
     createdAt: DateTime
 ) {
   def id = _id
+
+  def slug = {
+    val s = lila.common.String slugify name
+    if (s.isEmpty) "-" else s
+  }
 }
 
 object RelayTour {

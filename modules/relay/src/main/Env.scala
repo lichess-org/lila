@@ -11,6 +11,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
+    studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
@@ -28,8 +29,6 @@ final class Env(
   private lazy val relayRepo = new RelayRepo(db(CollName("relay")))
 
   private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
-
-  private lazy val withStudy = wire[RelayWithStudy]
 
   lazy val jsonView = wire[JsonView]
 

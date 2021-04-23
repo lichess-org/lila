@@ -59,6 +59,8 @@ case class Relay(
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
+  def withTour(tour: RelayTour) = Relay.WithTour(this, tour)
+
   override def toString = s"""relay #$id "$name" $sync"""
 }
 
@@ -67,8 +69,6 @@ object Relay {
   case class Id(value: String) extends AnyVal with StringValue
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
-
-  case class WithTour(relay: Relay, tour: RelayTour)
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
@@ -133,12 +133,13 @@ object Relay {
     case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
   }
 
+  case class WithTour(relay: Relay, tour: RelayTour) {
+    def fullName = s"${tour.name} • ${relay.name}"
+  }
+
   case class WithStudy(relay: Relay, study: Study)
 
-  case class WithStudyAndLiked(relay: Relay, study: Study, liked: Boolean)
+  case class WithTourAndStudy(relay: Relay, tour: RelayTour, study: Study)
 
-  case class Fresh(
-      created: Seq[WithStudyAndLiked],
-      started: Seq[WithStudyAndLiked]
-  )
+  case class Fresh(created: Seq[WithTourAndStudy], started: Seq[WithTourAndStudy])
 }
