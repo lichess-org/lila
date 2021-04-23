@@ -165,6 +165,18 @@
   </plurals>
   <string name="time">સમય</string>
   <string name="rating">રેટિંગ</string>
+  <string name="ratingStats">રેટિંગ નો આલેખ</string>
+  <string name="username">વપરાશકર્તાનું નામ</string>
+  <string name="usernameOrEmail">વપરાશકર્તાનું નામ અથવા ઇમેઇલ</string>
+  <string name="changeUsername">વપરાશર્તાનું નામ બદલો</string>
+  <string name="password">પાસવર્ડ</string>
+  <string name="changePassword">પાસવર્ડ બદલો</string>
+  <string name="changeEmail">ઇમેઇલ બદલો</string>
+  <string name="email">ઇમેઇલ</string>
+  <string name="passwordReset">પાસવર્ડ રીસેટ</string>
+  <string name="forgotPassword">પાસવર્ડ ભૂલી ગયાં?</string>
+  <string name="rank">શ્રેણી</string>
+  <string name="rankX">શ્રેણી %s</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
