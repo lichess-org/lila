@@ -5,11 +5,21 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.relay.{ Relay => RelayModel, RelayTour => TourModel, RelayForm }
+import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
 import views._
 
 final class RelayTour(env: Env) extends LilaController(env) {
+
+  def index(page: Int) =
+    Open { implicit ctx =>
+      Reasonable(page) {
+        for {
+          fresh <- (page == 1).??(env.relay.api.fresh(ctx.me) map some)
+          pager <- env.relay.pager.finished(ctx.me, page)
+        } yield Ok(html.relay.index(fresh, pager))
+      }
+    }
 
   def show(slug: String, id: String) = Open { implicit ctx =>
     WithTour(id) { tour =>

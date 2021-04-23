@@ -14,12 +14,11 @@ object index {
   import trans.broadcast._
 
   def apply(
-      fresh: Option[lila.relay.Relay.Fresh],
-      pager: Paginator[lila.relay.Relay.WithTour],
-      url: Call
+      fresh: Option[lila.relay.RelayRound.Fresh],
+      pager: Paginator[lila.relay.RelayRound.WithTour]
   )(implicit ctx: Context) = {
 
-    def sublist(name: Frag, relays: Seq[lila.relay.Relay.WithTour]) =
+    def sublist(name: Frag, relays: Seq[lila.relay.RelayRound.WithTour]) =
       relays.nonEmpty option st.section(
         h2(name),
         div(cls := "list")(
@@ -52,7 +51,7 @@ object index {
           h2(completed()),
           div(cls := "infinite-scroll")(
             pager.currentPageResults.map { show.widget(_, "paginated") },
-            pagerNext(pager, np => addQueryParameter(url.url, "page", np))
+            pagerNext(pager, routes.RelayTour.index(_).url)
           )
         )
       )

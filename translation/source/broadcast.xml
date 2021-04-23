@@ -3,6 +3,7 @@
   <string name="broadcasts">Broadcasts</string>
   <string name="liveBroadcasts">Live tournament broadcasts</string>
   <string name="newBroadcast">New live broadcast</string>
+  <string name="addRound">Add a round</string>
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="completed">Completed</string>

@@ -17,7 +17,7 @@ final class JsonView(baseUrl: BaseUrl) {
     .maximumSize(64)
     .build(markdown.apply)
 
-  implicit private val relayWrites = OWrites[Relay] { r =>
+  implicit private val relayWrites = OWrites[RelayRound] { r =>
     Json
       .obj(
         "id"          -> r.id,
@@ -33,7 +33,7 @@ final class JsonView(baseUrl: BaseUrl) {
   }
 
   def makeData(
-      relay: Relay,
+      relay: RelayRound,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) =
@@ -43,9 +43,9 @@ final class JsonView(baseUrl: BaseUrl) {
       analysis = studyData.analysis
     )
 
-  def public(r: Relay) = relayWrites writes r
+  def public(r: RelayRound) = relayWrites writes r
 
-  def admin(r: Relay) =
+  def admin(r: RelayRound) =
     public(r)
       .add("markdown" -> r.markup)
       .add("throttle" -> r.sync.delay)
@@ -58,18 +58,18 @@ object JsonView {
 
   implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
 
-  implicit val idWrites: Writes[Relay.Id] = Writes[Relay.Id] { id =>
+  implicit val idWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)
   }
 
-  implicit private val syncWrites: OWrites[Relay.Sync] = OWrites[Relay.Sync] { s =>
+  implicit private val syncWrites: OWrites[RelayRound.Sync] = OWrites[RelayRound.Sync] { s =>
     Json.obj(
       "ongoing" -> s.ongoing,
       "log"     -> s.log.events
     ) ++
       s.upstream.?? {
-        case Relay.Sync.UpstreamUrl(url) => Json.obj("url" -> url)
-        case Relay.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
+        case RelayRound.Sync.UpstreamUrl(url) => Json.obj("url" -> url)
+        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }
 }

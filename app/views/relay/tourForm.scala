@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.relay.RelayTourForm.Data
-import lila.relay.{ Relay, RelayTour }
+import lila.relay.{ RelayRound, RelayTour }
 
 object tourForm {
 
@@ -62,7 +62,7 @@ object tourForm {
         )
       else form3.hidden(form("official")),
       form3.actions(
-        a(href := routes.Relay.index(1))(trans.cancel()),
+        a(href := routes.RelayTour.index(1))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

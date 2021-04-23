@@ -8,7 +8,7 @@ import lila.db.dsl._
 import lila.study.StudyApi
 import lila.user.User
 
-final class RelayPager(relayRepo: RelayRepo, tourRepo: RelayTourRepo, studyApi: StudyApi)(implicit
+final class RelayPager(roundRepo: RelayRoundRepo, tourRepo: RelayTourRepo, studyApi: StudyApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -18,7 +18,7 @@ final class RelayPager(relayRepo: RelayRepo, tourRepo: RelayTourRepo, studyApi: 
 
   def finished(me: Option[User], page: Int) =
     paginator(
-      relayRepo.selectors finished true,
+      roundRepo.selectors finished true,
       me,
       page,
       fuccess(9999).some
@@ -29,14 +29,14 @@ final class RelayPager(relayRepo: RelayRepo, tourRepo: RelayTourRepo, studyApi: 
       me: Option[User],
       page: Int,
       nbResults: Option[Fu[Int]]
-  ): Fu[Paginator[Relay.WithTour]] =
+  ): Fu[Paginator[RelayRound.WithTour]] =
     Paginator(
-      adapter = new AdapterLike[Relay.WithTour] {
+      adapter = new AdapterLike[RelayRound.WithTour] {
 
-        def nbResults: Fu[Int] = relayRepo.coll.secondaryPreferred.countSel(selector)
+        def nbResults: Fu[Int] = roundRepo.coll.secondaryPreferred.countSel(selector)
 
-        def slice(offset: Int, length: Int): Fu[List[Relay.WithTour]] =
-          relayRepo.coll
+        def slice(offset: Int, length: Int): Fu[List[RelayRound.WithTour]] =
+          roundRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
               Match(selector) -> List(
@@ -54,7 +54,7 @@ final class RelayPager(relayRepo: RelayRepo, tourRepo: RelayTourRepo, studyApi: 
       maxPerPage = maxPerPage
     )
 
-  private def withStudy(rts: Seq[Relay.WithTour]): Fu[Seq[Relay.WithTourAndStudy]] =
+  private def withStudy(rts: Seq[RelayRound.WithTour]): Fu[Seq[RelayRound.WithTourAndStudy]] =
     studyApi byIds rts.map(_.relay.studyId) map { studies =>
       rts.flatMap { rt =>
         studies.find(_.id == rt.relay.studyId) map rt.withStudy

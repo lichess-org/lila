@@ -6,10 +6,10 @@ import lila.db.dsl._
 
 object BSONHandlers {
 
-  implicit val relayIdHandler     = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
+  implicit val relayIdHandler     = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
   implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
 
-  import Relay.Sync
+  import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
   implicit val upstreamUrlHandler = Macros.handler[UpstreamUrl]
   implicit val upstreamIdsHandler = Macros.handler[UpstreamIds]
@@ -32,13 +32,13 @@ object BSONHandlers {
 
   implicit val syncHandler = Macros.handler[Sync]
 
-  implicit val relayHandler = Macros.handler[Relay]
+  implicit val relayHandler = Macros.handler[RelayRound]
 
   implicit val relayTourHandler = Macros.handler[RelayTour]
 
-  def readRelayWithTour(doc: Bdoc): Option[Relay.WithTour] =
+  def readRelayWithTour(doc: Bdoc): Option[RelayRound.WithTour] =
     for {
-      relay <- doc.asOpt[Relay]
+      relay <- doc.asOpt[RelayRound]
       tour  <- doc.getAsOpt[RelayTour]("tour")
-    } yield Relay.WithTour(relay, tour)
+    } yield RelayRound.WithTour(relay, tour)
 }

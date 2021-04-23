@@ -13,7 +13,7 @@ final private class RelaySync(
 
   private type NbMoves = Int
 
-  def apply(rt: Relay.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
+  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] =
     studyApi byId rt.relay.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {

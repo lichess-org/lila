@@ -6,9 +6,9 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.relay.Relay.Sync.UpstreamUrl.LccRegex
-import lila.relay.RelayForm.Data
-import lila.relay.{ Relay, RelayTour }
+import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
+import lila.relay.RelayRoundForm.Data
+import lila.relay.{ RelayRound, RelayTour }
 
 object form {
 
@@ -17,22 +17,22 @@ object form {
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.Relay.create(tour.id.value))
+      inner(form, routes.RelayRound.create(tour.id.value))
     )
 
-  def edit(rt: Relay.WithTour, form: Form[Data])(implicit ctx: Context) =
+  def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
       h1("Edit ", rt.fullName),
-      inner(form, routes.Relay.update(rt.relay.id.value)),
+      inner(form, routes.RelayRound.update(rt.relay.id.value)),
       hr,
-      postForm(action := routes.Relay.cloneRelay(rt.relay.id.value))(
+      postForm(action := routes.RelayRound.cloneRelay(rt.relay.id.value))(
         submitButton(
           cls := "button button-empty confirm",
           title := "Create an new identical broadcast, for another round or a similar tournament"
         )(cloneBroadcast())
       ),
       hr,
-      postForm(action := routes.Relay.reset(rt.relay.id.value))(
+      postForm(action := routes.RelayRound.reset(rt.relay.id.value))(
         submitButton(
           cls := "button button-red button-empty confirm",
           title := "The source will need to be active in order to re-create the chapters!"
@@ -101,7 +101,7 @@ object form {
       ),
       isGranted(_.Relay) option form3.group(form("credit"), credits())(form3.input(_)),
       form3.actions(
-        a(href := routes.Relay.index(1))(trans.cancel()),
+        a(href := routes.RelayTour.index(1))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

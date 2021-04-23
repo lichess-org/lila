@@ -7,7 +7,7 @@ import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
-import Relay.Sync.{ UpstreamIds, UpstreamUrl }
+import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import scala.concurrent.duration._
 
 import lila.base.LilaException
@@ -70,7 +70,7 @@ final private class RelayFetch(
   }
 
   // no writing the relay; only reading!
-  def processRelay(rt: Relay.WithTour): Fu[Relay] =
+  def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
     if (!rt.relay.sync.playing) fuccess(rt.relay.withSync(_.play))
     else
       fetchGames(rt)
@@ -98,7 +98,7 @@ final private class RelayFetch(
           afterSync(result, newRelay withTour rt.tour)
         }
 
-  def afterSync(result: SyncResult, rt: Relay.WithTour): Relay =
+  def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match {
       case SyncResult.Ok(0, _) => continueRelay(rt)
       case SyncResult.Ok(nbMoves, _) =>
@@ -107,7 +107,7 @@ final private class RelayFetch(
       case _ => continueRelay(rt)
     }
 
-  def continueRelay(rt: Relay.WithTour): Relay =
+  def continueRelay(rt: RelayRound.WithTour): RelayRound =
     rt.relay.sync.upstream.fold(rt.relay) { upstream =>
       val seconds =
         if (rt.relay.sync.log.alwaysFails && !upstream.local) {
@@ -145,7 +145,7 @@ final private class RelayFetch(
     delayMoves = true
   )
 
-  private def fetchGames(rt: Relay.WithTour): Fu[RelayGames] =
+  private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     rt.relay.sync.upstream ?? {
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
@@ -236,7 +236,7 @@ final private class RelayFetch(
 
 private object RelayFetch {
 
-  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
+  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[RelayRound.Id])
 
   def maxChapters(tour: RelayTour) =
     lila.study.Study.maxChapters * (if (tour.official) 2 else 1)

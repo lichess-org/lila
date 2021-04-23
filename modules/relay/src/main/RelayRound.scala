@@ -5,14 +5,14 @@ import org.joda.time.DateTime
 import lila.study.{ Chapter, Study }
 import lila.user.User
 
-case class Relay(
-    _id: Relay.Id,
+case class RelayRound(
+    _id: RelayRound.Id,
     tourId: RelayTour.Id,
     name: String,
     description: String,
     markup: Option[String] = None,
     credit: Option[String] = None,
-    sync: Relay.Sync,
+    sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[DateTime],
     /* When it actually starts */
@@ -57,14 +57,14 @@ case class Relay(
       case None     => createdAt.isBefore(DateTime.now minusDays 1)
     })
 
-  def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
+  def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
-  def withTour(tour: RelayTour) = Relay.WithTour(this, tour)
+  def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
   override def toString = s"""relay #$id "$name" $sync"""
 }
 
-object Relay {
+object RelayRound {
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -133,7 +133,7 @@ object Relay {
     case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
   }
 
-  case class WithTour(relay: Relay, tour: RelayTour) {
+  case class WithTour(relay: RelayRound, tour: RelayTour) {
     def fullName = s"${tour.name} • ${relay.name}"
 
     def withStudy(study: Study) = WithTourAndStudy(relay, tour, study)
@@ -142,7 +142,7 @@ object Relay {
     def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
   }
 
-  case class WithTourAndStudy(relay: Relay, tour: RelayTour, study: Study) {
+  case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study) {
     def path     = WithTour(relay, tour).path
     def fullName = WithTour(relay, tour).fullName
   }

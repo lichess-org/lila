@@ -166,21 +166,21 @@ GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic: String, 
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 
 # Relay
-GET   /broadcast                              controllers.Relay.index(page: Int ?= 1)
+GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: String)
 GET   /broadcast/:ts/$tourId<\w{8}>           controllers.RelayTour.show(ts: String, tourId: String)
-GET   /broadcast/$tourId<\w{8}>/new           controllers.Relay.form(tourId: String)
-POST  /broadcast/$tourId<\w{8}>/new           controllers.Relay.create(tourId: String)
-GET   /broadcast/:ts/:rs/$relayId<\w{8}>      controllers.Relay.show(ts: String, rs: String, relayId: String)
-GET   /broadcast/:ts/:rs/$relayId<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(ts: String, rs: String, relayId: String, chapterId: String)
-GET   /broadcast/round/$relayId<\w{8}>/edit   controllers.Relay.edit(relayId: String)
-POST  /broadcast/round/$relayId<\w{8}>/edit   controllers.Relay.update(relayId: String)
-POST  /broadcast/round/$relayId<\w{8}>/reset  controllers.Relay.reset(relayId: String)
-POST  /broadcast/round/$relayId<\w{8}>/clone  controllers.Relay.cloneRelay(relayId: String)
-POST  /broadcast/round/$relayId<\w{8}>/push   controllers.Relay.push(relayId: String)
+GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: String)
+POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: String)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts: String, rs: String, roundId: String)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts: String, rs: String, roundId: String, chapterId: String)
+GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/clone  controllers.RelayRound.cloneRelay(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index

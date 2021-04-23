@@ -24,11 +24,11 @@ final class Env(
     system: ActorSystem
 ) {
 
-  lazy val form = wire[RelayForm]
+  lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]
 
-  private lazy val relayRepo = new RelayRepo(db(CollName("relay")))
+  private lazy val roundRepo = new RelayRoundRepo(db(CollName("relay")))
 
   private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
 
@@ -56,7 +56,7 @@ final class Env(
     case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ ?? {
-          api.requestPlay(Relay.Id(id.value), v)
+          api.requestPlay(RelayRound.Id(id.value), v)
         }
       }
   }

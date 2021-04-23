@@ -14,7 +14,7 @@ final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(i
 ) {
 
   import RelayFormat._
-  import Relay.Sync.UpstreamUrl
+  import RelayRound.Sync.UpstreamUrl
 
   private val cache = cacheApi[UpstreamUrl.WithRound, RelayFormat](8, "relay.format") {
     _.refreshAfterWrite(10 minutes)

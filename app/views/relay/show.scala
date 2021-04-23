@@ -13,7 +13,7 @@ import controllers.routes
 object show {
 
   def apply(
-      rt: lila.relay.Relay.WithTourAndStudy,
+      rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
@@ -70,7 +70,7 @@ object show {
       )
     )
 
-  def widget(rt: lila.relay.Relay.WithTour, extraCls: String = "") =
+  def widget(rt: lila.relay.RelayRound.WithTour, extraCls: String = "") =
     div(cls := s"relay-widget $extraCls", dataIcon := "")(
       a(cls := "overlay", href := rt.path),
       div(

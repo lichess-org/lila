@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 
-final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -32,11 +32,11 @@ final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.Exec
   //     .batchSize(batchSize)
   //     .cursor[Relay](ReadPreference.secondaryPreferred)
 
-  def byTour(tour: RelayTour): Fu[List[Relay]] =
+  def byTour(tour: RelayTour): Fu[List[RelayRound]] =
     coll
       .find($doc("tourId" -> tour.id))
       .sort($sort desc "startsAt")
-      .cursor[Relay]()
+      .cursor[RelayRound]()
       .list(RelayTour.maxRelays)
 
   private[relay] object selectors {

@@ -6,32 +6,22 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 // import lila.common.config.MaxPerSecond
-import lila.relay.{ Relay => RelayModel, RelayTour => TourModel, RelayForm }
+import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
 import lila.user.{ User => UserModel }
 import views._
 
-final class Relay(
+final class RelayRound(
     env: Env,
     studyC: => Study
     // apiC: => Api
 ) extends LilaController(env) {
-
-  def index(page: Int) =
-    Open { implicit ctx =>
-      Reasonable(page) {
-        for {
-          fresh <- (page == 1).??(env.relay.api.fresh(ctx.me) map some)
-          pager <- env.relay.pager.finished(ctx.me, page)
-        } yield Ok(html.relay.index(fresh, pager, routes.Relay.index()))
-      }
-    }
 
   def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
         WithTour(tourId) { tour =>
           (tour.owner == me.id) ?? {
-            Ok(html.relay.form.create(env.relay.form.create, tour)).fuccess
+            Ok(html.relay.form.create(env.relay.roundForm.create, tour)).fuccess
           }
         }
       }
@@ -44,7 +34,7 @@ final class Relay(
           NoLameOrBot {
             WithTour(tourId) { tour =>
               (tour.owner == me.id) ?? {
-                env.relay.form.create
+                env.relay.roundForm.create
                   .bindFromRequest()(ctx.body, formBinding)
                   .fold(
                     err => BadRequest(html.relay.form.create(err, tour)).fuccess,
@@ -61,7 +51,7 @@ final class Relay(
           env.relay.api tourById TourModel.Id(tourId) flatMap {
             _ ?? { tour =>
               !(me.isBot || me.lame) ??
-                env.relay.form.create
+                env.relay.roundForm.create
                   .bindFromRequest()(req, formBinding)
                   .fold(
                     err => BadRequest(apiFormError(err)).fuccess,
@@ -74,7 +64,7 @@ final class Relay(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.form.edit(rt, env.relay.form.edit(rt.relay))).fuccess
+        Ok(html.relay.form.edit(rt, env.relay.roundForm.edit(rt.relay))).fuccess
       }
     }
 
@@ -106,10 +96,10 @@ final class Relay(
 
   private def doUpdate(id: String, me: UserModel)(implicit
       req: Request[_]
-  ): Fu[Option[Either[(RelayModel.WithTour, Form[RelayForm.Data]), RelayModel.WithTour]]] =
+  ): Fu[Option[Either[(RoundModel.WithTour, Form[RelayRoundForm.Data]), RoundModel.WithTour]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
       _ ?? { rt =>
-        env.relay.form
+        env.relay.roundForm
           .edit(rt.relay)
           .bindFromRequest()
           .fold(
@@ -165,7 +155,7 @@ final class Relay(
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
         env.relay.api.cloneRelay(rt, me) map { newRelay =>
-          Redirect(routes.Relay.edit(newRelay.id.value))
+          Redirect(routes.RelayRound.edit(newRelay.id.value))
         }
       }
     }
@@ -186,7 +176,7 @@ final class Relay(
   //   }
 
   private def WithRelay(ts: String, rs: String, id: String)(
-      f: RelayModel.WithTour => Fu[Result]
+      f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
       if (rt.tour.slug != ts) Redirect(rt.path).fuccess
@@ -199,7 +189,7 @@ final class Relay(
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
-  private def doShow(rt: RelayModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
       ctx: Context
   ): Fu[Result] =
     studyC.CanViewResult(oldSc.study) {
@@ -214,6 +204,6 @@ final class Relay(
       )
     }
 
-  implicit private def makeRelayId(id: String): RelayModel.Id           = RelayModel.Id(id)
+  implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
 }

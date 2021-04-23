@@ -1392,6 +1392,7 @@ object broadcast {
 val `broadcasts` = new I18nKey("broadcast:broadcasts")
 val `liveBroadcasts` = new I18nKey("broadcast:liveBroadcasts")
 val `newBroadcast` = new I18nKey("broadcast:newBroadcast")
+val `addRound` = new I18nKey("broadcast:addRound")
 val `ongoing` = new I18nKey("broadcast:ongoing")
 val `upcoming` = new I18nKey("broadcast:upcoming")
 val `completed` = new I18nKey("broadcast:completed")
