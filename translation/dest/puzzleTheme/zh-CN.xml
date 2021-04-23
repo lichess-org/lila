@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advantage">Advantage</string>
-  <string name="advantageDescription">Seize your chance to get a decisive advantage.</string>
+  <string name="advantage">优势</string>
+  <string name="advantageDescription">抓紧获取优势的良机。</string>
   <string name="castling">王车易位</string>
   <string name="castlingDescription">Bring the king to safety.</string>
-  <string name="crushing">Crushing</string>
-  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage.</string>
-  <string name="equality">Equality</string>
-  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position.</string>
+  <string name="crushing">压倒性优势</string>
+  <string name="crushingDescription">发现对手的失误以获得压倒性的优势。</string>
+  <string name="equality">均势</string>
+  <string name="equalityDescription">将败势的局面逆转而返回和棋或均势。</string>
   <string name="defensiveMove">Defensive move</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
   <string name="deflection">Deflection</string>
@@ -18,8 +18,8 @@
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
   <string name="endgame">Endgame</string>
   <string name="endgameDescription">A tactic during the last phase of the game.</string>
-  <string name="fork">Fork</string>
-  <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once.</string>
+  <string name="fork">捉双</string>
+  <string name="forkDescription">当一个棋子同时攻击对方的两个棋子。</string>
   <string name="hangingPiece">Hanging piece</string>
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
   <string name="long">Long puzzle</string>
@@ -58,20 +58,20 @@
   <string name="shortDescription">Three moves to win.</string>
   <string name="healthyMix">Healthy mix</string>
   <string name="healthyMixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>
-  <string name="tsume">Tsume</string>
-  <string name="tsumeDescription">Your goal is to checkmate your opponent. Every move you make has to be a check.</string>
+  <string name="tsume">诘将棋</string>
+  <string name="tsumeDescription">将死对手。每步棋必须打将（王手）。</string>
   <string name="strikingPawn">Striking pawn</string>
   <string name="strikingPawnDescription">A tactitc involving dropping a pawn in front of opponent\'s piece and attacking it.</string>
   <string name="joiningPawn">Joining pawn</string>
   <string name="joiningPawnDescription">A tactic in which a pawn is sacrificially dropped in front of opponent\'s piece.</string>
   <string name="dancingPawns">Dancing pawns</string>
   <string name="dancingPawnsDescription">A tactic to capture opponent\'s gold with sacrificing a pawn.</string>
-  <string name="edgeAttack">Edge attack</string>
-  <string name="edgeAttackDescription">A tactic involving attacking opponent\'s first or ninth file.</string>
+  <string name="edgeAttack">端攻</string>
+  <string name="edgeAttackDescription">涉及攻击对方一路或九路的战术。</string>
   <string name="veryLong">Very long puzzle</string>
   <string name="veryLongDescription">Seven moves or more to win.</string>
-  <string name="lishogiGames">From lishogi games</string>
-  <string name="lishogiGamesDescription">Puzzles generated from games played on lishogi.</string>
-  <string name="otherSources">From other sources</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
+  <string name="lishogiGames">取于lishogi对局</string>
+  <string name="lishogiGamesDescription">从在lishogi平台上的对局抽取而产生的训练题。</string>
+  <string name="otherSources">来自外部</string>
+  <string name="otherSourcesDescription">非常感谢所有提供或允许lishogi使用这些训练题的慷慨人士们！</string>
 </resources>

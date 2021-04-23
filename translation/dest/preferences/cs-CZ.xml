@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materiální rozdíl</string>
 	<string name="boardHighlights">Zvýraznění na šachovnici (poslední tah a šach)</string>
 	<string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Souřadnice šachovnice (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Seznam tahů během hry</string>
 	<string name="pgnPieceNotation">Označení figur v notaci</string>

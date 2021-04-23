@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materialeforskel</string>
 	<string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>
 	<string name="pieceDestinations">Brikdestinationer (gyldige træk og forhånds-træk)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Trækliste mens der spilles</string>
 	<string name="pgnPieceNotation">Notation</string>

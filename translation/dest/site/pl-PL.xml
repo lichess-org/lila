@@ -500,7 +500,7 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="handicap">Fory</string>
 	<string name="startPosition">Ustawienie początkowe</string>
 	<string name="clearBoard">Wyczyść szachownicę</string>
-	<string name="fillGotesHand">Uzupełnij rękę gote</string>
+	<string name="fillGotesHand">Uzupełnij rękę białych</string>
 	<string name="savePosition">Zapisz pozycję</string>
 	<string name="loadPosition">Wczytaj ustawienie</string>
 	<string name="isPrivate">Prywatny</string>
@@ -958,11 +958,11 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
 	<string name="subscribe">Subskrybuj</string>
 	<string name="unsubscribe">Zakończ subskrybcję</string>
-	<string name="blackDeclinesImpasse">Sente odrzuca propozycję impasu</string>
-	<string name="blackOffersImpasse">Sente proponuje impas</string>
+	<string name="blackDeclinesImpasse">Czarne odrzucają propozycję impasu</string>
+	<string name="blackOffersImpasse">Czarne proponują impas</string>
 	<string name="notationType">Notacja</string>
-	<string name="whiteDeclinesImpasse">Gote odrzuca propozycję impasu</string>
-	<string name="whiteOffersImpasse">Gote proponuje impas</string>
+	<string name="whiteDeclinesImpasse">Białe odrzucają propozycję impasu</string>
+	<string name="whiteOffersImpasse">Białe proponują impas</string>
 	<string name="notationSystem">Notacja</string>
 	<string name="officialBlog">Oficjalny blog Lishogi</string>
 	<string name="blogPostsFromYear">Posty na blogu od %1$s</string>

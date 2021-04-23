@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
-	<string name="byPlaying">by playing!</string>
-	<string name="menu">Menu</string>
-	<string name="progressX">Progress: %s</string>
-	<string name="resetMyProgress">Reset my progress</string>
-	<string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
-	<string name="play">play!</string>
-	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntroduction">Introduction</string>
-	<string name="introBasics">Let\'s learn some basics.</string>
-	<string name="introIntro">Your journey begins here.</string>
-	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
-To do that click on the cog wheel or your username(top right corner) and then click on \'piece set\'.</string>
-	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
-	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
-	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
-	<string name="theRook">The rook</string>
-	<string name="itMovesInStraightLines">It moves in straight lines</string>
-	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
-	<string name="rookGoal">Click on the rook to bring it to the star!</string>
-	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
-	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
-	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
-	<string name="grabAllTheStars">Grab all the stars!</string>
+	<string name="learnShogi">Shogi सीखो</string>
+	<string name="byPlaying">खेलकर !</string>
+	<string name="menu">मेन्यु (Menu)</string>
+	<string name="progressX">प्रगति: %s</string>
+	<string name="resetMyProgress">मेरी प्रगति को रीसेट करें</string>
+	<string name="youWillLoseAllYourProgress">आप अपनी सारी प्रगति खो देंगे !</string>
+	<string name="play">खेलना शुरू करें !</string>
+	<string name="shogiPieces">शोगी के टुकड़े</string>
+	<string name="theIntroduction">परिचय</string>
+	<string name="introBasics">आइए जानें कुछ मूल बातें</string>
+	<string name="introIntro">आपकी यात्रा यहाँ से शुरू होती है।</string>
+	<string name="choosePieceDesign">यह महत्वपूर्ण है कि आप अपने टुकड़ों को अलग-अलग बता सकें, इसलिए सुनिश्चित करें कि आप सही टुकड़ा सेट चुनें।
+ऐसा करने के लिए कॉग व्हील (cog wheel) या अपने उपयोगकर्ता नाम (ऊपरी दाएं कोने) पर क्लिक करें और फिर \'टुकड़ा सेट\' पर क्लिक करें।</string>
+	<string name="promotionZone">जब आपके कुछ टुकड़े पहुंचते हैं या अपने प्रतिद्वंद्वी के क्षेत्र में पहले तीन रैंक छोड़ते हैं तो आप अपने टुकड़े को बढ़ावा देने और इसे मजबूत बनाने के लिए चुन सकते हैं।</string>
+	<string name="senteGoesFirst">Shogi में जो खिलाड़ी पहले जाता है उसे Sente कहा जाता है और जो खिलाड़ी दूसरे स्थान पर जाता है उसे Gote कहा जाता है। Sente को कभी-कभी काले रंग और सफेद द्वारा Gote द्वारा दर्शाया जाता है। जारी रखने के लिए Sente के रूप में कोई भी कदम उठाएं।</string>
+	<string name="introComplete">अब आप कुछ मूल बातें जानते हैं, लेकिन ट्यूटोरियल का यह हिस्सा अभी भी निर्माणाधीन है। अब जानें कि अलग-अलग टुकड़े कैसे चलते हैं।</string>
+	<string name="theRook">रूक</string>
+	<string name="itMovesInStraightLines">यह सीधी रेखा में चलता है</string>
+	<string name="rookIntro">रूक एक शक्तिशाली टुकड़ा है। क्या आप इसे कमांड करने के लिए तैयार हैं ?</string>
+	<string name="rookGoal">तारा लाने के लिए रूक पर क्लिक करें !</string>
+	<string name="rookPromotion">रूक शक्तिशाली ड्रैगन को बढ़ावा देता है। यह मत भूलो कि जब आप प्रचार क्षेत्र छोड़ते हैं तो आप अपने टुकड़े को भी बढ़ावा दे सकते हैं।</string>
+	<string name="rookSummary">रूक ऊपर, नीचे, बाएं या दाएं जितना चाहे जा सकता है।</string>
+	<string name="dragonSummary">यह अनप्रोटेक्टेड रूक की तरह ही आगे बढ़ सकता है, लेकिन किसी भी विकर्ण दिशा में एक वर्ग भी, यह बहुत मजबूत बनाता है।</string>
+	<string name="grabAllTheStars">सारे सितारों को एकत्रित करें !</string>
 	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
 	<string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
 	<string name="theBishop">The bishop</string>

@@ -6,6 +6,7 @@
 	<string name="materialDifference">Bábuk közötti különbség</string>
 	<string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
 	<string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lépéslista játék közben</string>
 	<string name="pgnPieceNotation">Lépés jelölése</string>

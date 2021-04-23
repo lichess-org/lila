@@ -9,8 +9,8 @@
   <string name="forgotPassword">パスワードを忘れた</string>
   <string name="forgotUsername">ユーザー名を忘れた</string>
   <string name="youCanLoginWithEmail">登録した時のメールアドレスを使ってログインできます</string>
-  <string name="lost2FA">2 段階認証コードがわからなくなった</string>
-  <string name="doPasswordReset">二段階認証を削除するためにパスワードリセットを完了してください</string>
+  <string name="lost2FA">2 要素認証コードがわからなくなった</string>
+  <string name="doPasswordReset">パスワードをリセットすれば第 2 の要素が不要になります</string>
   <string name="accountSupport">アカウントのサポートが必要</string>
   <string name="wantTitle">Lishogi に自分のタイトルを表示したい</string>
   <string name="visitTitleConfirmation">Lishoig プロフィールにタイトルを表示して「タイトル者限定の大会」に参加するには、タイトル確認のページをご覧ください</string>

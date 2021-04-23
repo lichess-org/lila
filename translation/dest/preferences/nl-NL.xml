@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materiaalverschil</string>
 	<string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
 	<string name="pieceDestinations">Bestemming van het stuk (geldige zetten en premoves)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
 	<string name="pgnPieceNotation">Stuknotatie in PGN</string>

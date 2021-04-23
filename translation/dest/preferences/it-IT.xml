@@ -6,6 +6,7 @@
 	<string name="materialDifference">Differenza di materiale</string>
 	<string name="boardHighlights">Segnalazioni sulla scacchiera (ultima mossa e scacco)</string>
 	<string name="pieceDestinations">Destinazioni del pezzo (mosse e pre-mosse valide)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordinate della scacchiera (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
 	<string name="pgnPieceNotation">Notazione mossa</string>

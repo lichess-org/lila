@@ -6,6 +6,7 @@
 	<string name="materialDifference">Διαφορά υλικού</string>
 	<string name="boardHighlights">Φωτισμός σκακιέρας (τελευταία κίνηση και σαχ)</string>
 	<string name="pieceDestinations">Προορισμοί κομματιών (έγκυρες κινήσεις και προκινήσεις)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
 	<string name="pgnPieceNotation">Εμφάνιση κινήσεων</string>

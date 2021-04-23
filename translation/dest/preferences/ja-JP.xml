@@ -6,6 +6,7 @@
 	<string name="materialDifference">駒の損得</string>
 	<string name="boardHighlights">盤上のハイライト表示（最後の手と王手）</string>
 	<string name="pieceDestinations">駒の行き先（ルール上動けるマスとプリムーブ）</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">盤の座標（1-9, 1-9）</string>
 	<string name="moveListWhilePlaying">対局中の棋譜記録</string>
 	<string name="pgnPieceNotation">棋譜表記</string>

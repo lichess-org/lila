@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materiaaliero</string>
 	<string name="boardHighlights">Laudan korostukset (viimeisin siirto ja shakki)</string>
 	<string name="pieceDestinations">Lailliset siirrot ja esisiirrot</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Laudan koordinaatit (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
 	<string name="pgnPieceNotation">Siirtojen merkintätapa</string>

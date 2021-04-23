@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Puzzles</string>
-  <string name="puzzleThemes">Puzzle themes</string>
-  <string name="recommended">Recommended</string>
+  <string name="puzzles">训练题</string>
+  <string name="puzzleThemes">主题</string>
+  <string name="recommended">推荐</string>
   <string name="phases">阶段</string>
-  <string name="motifs">Motifs</string>
+  <string name="motifs">战术</string>
   <string name="advanced">高级</string>
-  <string name="lengths">Lengths</string>
-  <string name="mates">Mates</string>
+  <string name="lengths">长度</string>
+  <string name="mates">杀王</string>
   <string name="goals">Goals</string>
-  <string name="origin">Origin</string>
+  <string name="origin">来源</string>
   <string name="specialMoves">Special moves</string>
-  <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
+  <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出后手的最佳着</string>
   <string name="findTheBestMoveForBlack">找出先手的最佳着</string>
   <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
-  <string name="puzzleId">Puzzle %s</string>
-  <string name="puzzleOfTheDay">Puzzle of the day</string>
+  <string name="puzzleId">训练题编号%s</string>
+  <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳着！</string>
@@ -27,13 +27,13 @@
   <string name="puzzleComplete">Puzzle complete!</string>
   <string name="notTheMove">That\'s not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
-  <string name="ratingX">Rating: %s</string>
+  <string name="ratingX">积分：%s</string>
   <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
-    <item quantity="other">Played %s times</item>
+    <item quantity="other">已被尝试%s次</item>
   </plurals>
   <plurals name="xMovesLeft">
-    <item quantity="other">%s moves left</item>
+    <item quantity="other">还剩%s步</item>
   </plurals>
   <string name="fromGameLink">来自对局%s</string>
   <string name="puzzleSource">来源：%s</string>
@@ -45,12 +45,12 @@
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
   <string name="example">Example</string>
-  <string name="addAnotherTheme">Add another theme</string>
+  <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">Jump to next puzzle immediately</string>
-  <string name="puzzleDashboard">Puzzle dashboard</string>
+  <string name="puzzleDashboard">训练题仪表板</string>
   <string name="improvementAreas">Improvement areas</string>
   <string name="strengths">Strengths</string>
-  <string name="history">Puzzle history</string>
+  <string name="history">解题历史</string>
   <string name="solved">solved</string>
   <string name="failed">failed</string>
 </resources>

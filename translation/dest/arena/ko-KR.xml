@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="arenaTournaments">아레나 토너먼트</string>
   <string name="isItRated">레이팅이 적용되나요?</string>
   <string name="willBeNotified">토너먼트가 시작할 때 당신에게 알림이 발송되니 다른 탭에서 플레이하셔도 안전합니다.</string>
   <string name="isRated">이 토너먼트는 레이팅이 적용되며 당신의 레이팅에 영향을 끼칠 것입니다.</string>

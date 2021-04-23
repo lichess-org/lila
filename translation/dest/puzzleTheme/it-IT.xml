@@ -8,7 +8,7 @@
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage.</string>
   <string name="equality">Equality</string>
   <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position.</string>
-  <string name="defensiveMove">Defensive move</string>
+  <string name="defensiveMove">Mossa difensiva</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called \"overloading\".</string>
@@ -46,7 +46,7 @@
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">A tactic during the first phase of the game.</string>
-  <string name="pin">Pin</string>
+  <string name="pin">Inchiodatura</string>
   <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
   <string name="quietMove">Quiet move</string>
   <string name="quietMoveDescription">A move that does not make a check or capture, but does prepare an unavoidable threat for a later move.</string>

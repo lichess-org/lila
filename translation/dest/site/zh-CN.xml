@@ -17,8 +17,8 @@
 	<string name="stalemate">逼和</string>
 	<string name="white">白方</string>
 	<string name="black">黑方</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate">下手</string>
+	<string name="uwate">上手</string>
 	<string name="randomColor">随机选色</string>
 	<string name="createAGame">创建对局</string>
 	<string name="whiteIsVictorious">白方胜利</string>
@@ -35,8 +35,8 @@
 	<string name="joinTheGame">加入对局</string>
 	<string name="whitePlays">白方走棋</string>
 	<string name="blackPlays">黑方走棋</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">下手走棋</string>
+	<string name="uwatePlays">上手走棋</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">你的对手已离开棋局。你将在 %s 秒后胜利。</item>
 	</plurals>
@@ -241,9 +241,9 @@
 	<string name="recipient">收件人</string>
 	<string name="send">发送</string>
 	<string name="incrementInSeconds">步时</string>
-	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
-	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">免费线上将棋</string>
+	<string name="byoyomiInSeconds">读秒秒数</string>
+	<string name="numberOfPeriods">读秒次数</string>
+	<string name="freeOnlineChess">无支付将棋对战平台</string>
 	<string name="spectators">观众：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s排位赛</item>
@@ -320,7 +320,7 @@
 	<string name="apply">应用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">排行榜</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">让子选项</string>
 	<string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
 	<string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
 	<string name="fromPosition">自定义局面</string>
@@ -412,11 +412,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="boardEditor">棋盘编辑器</string>
 	<string name="setTheBoard">摆棋</string>
 	<string name="popularOpenings">常见开局</string>
-	<string name="handicaps">Handicaps</string>
-	<string name="handicap">Handicap</string>
+	<string name="handicaps">让子</string>
+	<string name="handicap">让子</string>
 	<string name="startPosition">起始局面</string>
 	<string name="clearBoard">清空棋盘</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">填充后手驹台</string>
 	<string name="savePosition">保存局面</string>
 	<string name="loadPosition">载入局面</string>
 	<string name="isPrivate">私人锦标赛</string>
@@ -515,7 +515,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="newPasswordAgain">重复新密码</string>
 	<string name="clockInitialTime">起始时限</string>
 	<string name="clockIncrement">加秒</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi">棋钟读秒</string>
 	<string name="privacy">隐私</string>
 	<string name="letOtherPlayersFollowYou">允许其他用户关注</string>
 	<string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
@@ -572,8 +572,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="community">社区</string>
 	<string name="tools">工具</string>
 	<string name="increment">加秒</string>
-	<string name="byoyomi">Byoyomi</string>
-	<string name="periods">Periods</string>
+	<string name="byoyomi">读秒</string>
+	<string name="periods">读秒次数</string>
 	<string name="sharePGN">分享PGN</string>
 	<string name="playOnline">在线下棋</string>
 	<string name="playOffline">离线下棋</string>
@@ -625,10 +625,10 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
 	<string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
 	<string name="simulHostExtraTime">主持的额外时间</string>
-	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
-	<string name="hostColorForEachGame">Host color for each game</string>
-	<string name="onlyMembersOfTeam">Only members of team</string>
-	<string name="simulDescription">Simul description</string>
+	<string name="numberOfByoyomiPeriods">读秒次数</string>
+	<string name="hostColorForEachGame">主持所执方</string>
+	<string name="onlyMembersOfTeam">仅限团队队员</string>
+	<string name="simulDescription">车轮战描述</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi 锦标赛</string>
 	<string name="tournamentFAQ">锦标赛常见问题</string>
@@ -730,7 +730,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="directlySupportLishogi">支持 Lishogi</string>
 	<string name="playChessInStyle">有型地下棋</string>
 	<string name="chessBasics">将棋基础知识</string>
-	<string name="shogiResources">Shogi resources</string>
+	<string name="shogiResources">将棋资料</string>
 	<string name="coaches">教练</string>
 	<string name="invalidPgn">PGN无法识别</string>
 	<string name="invalidFen">FEN无法识别</string>
@@ -850,9 +850,9 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="whiteDeclinesImpasse">后手拒绝持棋</string>
 	<string name="whiteOffersImpasse">后手提出持棋</string>
 	<string name="notationSystem">棋谱记法</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
-	<string name="blogPostsFromYear">Blog posts from %1$s</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="officialBlog">Lishogi官方博客</string>
+	<string name="blogPostsFromYear">%1$s年的博文</string>
+	<string name="previousBlogPosts">较旧的博文</string>
+	<string name="continueReadingThis"> 继续阅读此博文</string>
+	<string name="discussBlogForum">在论坛讨论这个博文</string>
 </resources>

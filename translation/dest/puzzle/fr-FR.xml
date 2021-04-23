@@ -26,7 +26,7 @@
   <string name="puzzleSuccess">Réussi !</string>
   <string name="puzzleComplete">Problème terminé !</string>
   <string name="notTheMove">Ce n\'est pas le coup !</string>
-  <string name="trySomethingElse">Try something else.</string>
+  <string name="trySomethingElse">Essayez autre chose.</string>
   <string name="ratingX">Classement : %s</string>
   <string name="hidden">caché</string>
   <plurals name="playedXTimes">

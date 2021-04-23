@@ -13,7 +13,7 @@
   <string name="doPasswordReset">輸入密碼以移除兩步驟驗證</string>
   <string name="accountSupport">我需要帳戶支援</string>
   <string name="wantTitle">我希望我的稱號顯示在Lishogi上</string>
-  <string name="visitTitleConfirmation">To show your title on your Lishogi profile, and participate in Titled Arenas, visit the title confirmation page</string>
+  <string name="visitTitleConfirmation">To show your title on your Lishogi profile, and participate in Titled Arenas, contact lishogi at contact@lishogi.org</string>
   <string name="wantCloseAccount">我想刪除我的帳戶</string>
   <string name="closeYourAccount">您可以在這個頁面刪除你的帳號</string>
   <string name="doNotAskByEmail">請不要透過電子郵件要求我們關閉帳號，我們不會處理</string>
