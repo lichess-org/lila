@@ -97,7 +97,7 @@
   <string name="lossSavedBy50MoveRule">50 йөрү кагыйдәсе буенча җиңелеп булмый</string>
   <string name="allSet">Бөтенесе әзер!</string>
   <string name="importPgn">PGN импорты</string>
-  <string name="delete">Ташларга</string>
+  <string name="delete">Бетерү</string>
   <string name="deleteThisImportedGame">Бу импортланган уенны ташларгамы?</string>
   <string name="replayMode">Кабат карау</string>
   <string name="realtimeReplay">Чын вакытта</string>
