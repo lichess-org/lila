@@ -228,6 +228,19 @@
   <string name="mustBeInTeam">ફરજિયાત %s ટીમ માં હોવું</string>
   <string name="youAreNotInTeam">તમે %s ટીમ માં નથી</string>
   <string name="backToGame">રમત માં પાછા જઈએ</string>
+  <string name="xJoinedTeamY">%1$s જોડાણા %2$s માં</string>
+  <string name="xCreatedTeamY">%1$s એ બનાવી %2$s ની ટીમ</string>
+  <string name="xStartedStreaming">%s એ સ્ટ્રીમિંગ ચાલુ કરી</string>
+  <string name="averageElo">સરેરાશ રેટિંગ</string>
+  <string name="location">સ્થળ</string>
+  <string name="filterGames">રમતોને ફિલ્ટર કરો</string>
+  <string name="reset">ફરીથી સેટ કરો</string>
+  <string name="apply">સબમિટ કરો</string>
+  <string name="save">સાચવો</string>
+  <string name="leaderboard">લીડરબોર્ડ</string>
+  <string name="pasteTheFenStringHere">અહીંયા FEN લખાણ Paste કરો</string>
+  <string name="pasteThePgnStringHere">અહીંયા PGN લખાણ Paste કરો</string>
+  <string name="fromPosition">આ જગ્યાએથી</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
