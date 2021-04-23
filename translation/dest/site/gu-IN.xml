@@ -210,6 +210,24 @@
   <string name="rematchOfferDeclined">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
   <string name="cancelRematchOffer">ફરીથી મેચ રમવાની માગણી રદ કરો</string>
   <string name="viewRematch">રીમેચ જુવો</string>
+  <string name="confirmMove">ચાલની ખાતરી કરો</string>
+  <string name="play">રમો</string>
+  <string name="inbox">ઇનબૉક્સ</string>
+  <string name="chatRoom">વાતચીત જગ્યા</string>
+  <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
+  <string name="spectatorRoom">દર્શકોનો ખંડ</string>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
+    <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">તમારે હજી %s ક્રમિત રમત રમવી પડશે</item>
+    <item quantity="other">તમારે હજી %s ક્રમિત રમત રમવી પડશે</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">તમારી રેટિંગ %s કામચલાઉ છે</string>
+  <string name="mustBeInTeam">ફરજિયાત %s ટીમ માં હોવું</string>
+  <string name="youAreNotInTeam">તમે %s ટીમ માં નથી</string>
+  <string name="backToGame">રમત માં પાછા જઈએ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
