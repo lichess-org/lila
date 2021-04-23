@@ -40,7 +40,7 @@ final class EventApi(
       )
       .sort($sort asc "startsAt")
       .cursor[Event]()
-      .list(10)
+      .list(50)
       .dmap {
         _.filter(_.featureNow) take 3
       }
