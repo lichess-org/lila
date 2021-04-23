@@ -178,6 +178,22 @@
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
   <string name="gamesPlayed">રમતો રમ્યા</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s રમત રમ્યા તમારી સાથે</item>
+    <item quantity="other">%s રમતો રમ્યા તમારી સાથે</item>
+  </plurals>
+  <string name="cancel">રદ કરો</string>
+  <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
+  <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
+  <string name="accept">સ્વીકારો</string>
+  <string name="decline">નકારો</string>
+  <string name="playingRightNow">હાલમાં રમે છે</string>
+  <string name="eventInProgress">હાલમાં રમે છે</string>
+  <string name="finished">સમાપ્ત થઈ</string>
+  <string name="finishesX">%s માં પૂરી થાય છે</string>
+  <string name="abortGame">રમતનો ત્યાગ કરો</string>
+  <string name="gameAborted">રમતનો ત્યાગ કર્યો</string>
+  <string name="standard">સામાન્ય</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
