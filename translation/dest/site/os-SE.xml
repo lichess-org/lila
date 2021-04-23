@@ -295,6 +295,8 @@
   <string name="takebackPropositionDeclined">Цыд фæстæмæ райсын æнхъарæн райст нæ уыди</string>
   <string name="takebackPropositionAccepted">Цыд фæстæмæ райсын æнхъарæн райст уыди</string>
   <string name="takebackPropositionCanceled">Цыд фæстæмæ райсын æнхъарæн аивд уыди</string>
+  <string name="yourOpponentProposesATakeback">Дæ ныхмæлæууæг куры йæ цыд фæстæмæ раттын</string>
+  <string name="bookmarkThisGame">Фæнысан кæнын ацы хъазт</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
