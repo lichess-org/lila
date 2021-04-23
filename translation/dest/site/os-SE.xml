@@ -299,6 +299,7 @@
   <string name="bookmarkThisGame">Фæнысан кæнын ацы хъазт</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турниртæ</string>
+  <string name="tournamentPoints">Турнирон очкотæ</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
