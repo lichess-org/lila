@@ -241,6 +241,22 @@
   <string name="pasteTheFenStringHere">અહીંયા FEN લખાણ Paste કરો</string>
   <string name="pasteThePgnStringHere">અહીંયા PGN લખાણ Paste કરો</string>
   <string name="fromPosition">આ જગ્યાએથી</string>
+  <string name="continueFromHere">અંહિયાથી ચાલુ કરો</string>
+  <string name="toStudy">અભ્યાસ</string>
+  <string name="importGame">રમત દાખલ કરો</string>
+  <string name="retry">ફરી પ્રયાસ કરો</string>
+  <string name="reconnecting">ફરીથી કનેક્ટ કરી રહ્યું છે</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s મિત્ર ઓનલાઇન</item>
+    <item quantity="other">%s મિત્રો ઓનલાઇન</item>
+  </plurals>
+  <string name="noFriendsOnline">બધા મિત્રો ઑફલાઈન</string>
+  <string name="findFriends">મિત્રો શોધો</string>
+  <string name="favoriteOpponents">પ્રિય વિરોધીઓ</string>
+  <string name="follow">અનુસરો</string>
+  <string name="following">ફોલોવિંગ</string>
+  <string name="unfollow">અનફોલો</string>
+  <string name="block">બ્લોક</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
