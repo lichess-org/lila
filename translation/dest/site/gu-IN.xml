@@ -113,6 +113,14 @@
   <string name="blunder">મોટી ભૂલ</string>
   <string name="mistake">ભૂલ</string>
   <string name="inaccuracy">ચૂક</string>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ભૂલ</item>
+    <item quantity="other">%s ભૂલો</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s અચોક્સાઈ</item>
+    <item quantity="other">%s અચોક્સાઈઓ</item>
+  </plurals>
   <string name="moveTimes">ચાલ સમય</string>
   <string name="flipBoard">બોર્ડ ફેરવો</string>
   <string name="threefoldRepetition">ત્રણગણું નકલ</string>
