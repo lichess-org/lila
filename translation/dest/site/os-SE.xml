@@ -83,7 +83,7 @@
   <string name="averageRatingX">Астæуккаг рейтинг: %s</string>
   <string name="recentGames">Æрæджыон хъæзтытæ</string>
   <string name="topGames">Иуыл хуыздæр хъæзтытæ</string>
-  <string name="masterDbExplanation">Дыууæ миллионы хъæзтыты FIDE хъазджытæй %1$s+ рейтингимæ %2$s-æй %3$s-мæ</string>
+  <string name="masterDbExplanation">Дыууæ милуаны хъæзтыты FIDE хъазджытæй %1$s+ рейтингимæ %2$s-æй %3$s-мæ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
     <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
@@ -300,6 +300,17 @@
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турниртæ</string>
   <string name="tournamentPoints">Турнирон очкотæ</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнирон очко</item>
+    <item quantity="other">%s турнирон очкойы</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студи</item>
+    <item quantity="other">%s студийы</item>
+  </plurals>
+  <string name="viewTournament">Турнирмæ бакæсын</string>
+  <string name="backToTournament">Турнирмæ раздæхын</string>
+  <string name="thematic">Тематикон</string>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
