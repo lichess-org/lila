@@ -421,7 +421,7 @@
   <string name="gameCompletionRate">Тәмамланган уеннар: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
-  <string name="firstName">Бирелгән исемегез</string>
+  <string name="firstName">Исем</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
   <string name="country">Ил</string>
@@ -453,7 +453,7 @@
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
   <string name="posts">Хәбәрләр</string>
-  <string name="lastPost">Соңгы хәбәрләр</string>
+  <string name="lastPost">Соңгы хәбәр</string>
   <string name="views">Карамаклар</string>
   <string name="replies">Җаваплар</string>
   <string name="replyToThisTopic">Бу сәрхәүгә җавап</string>
@@ -575,7 +575,7 @@
   <string name="mobileApp">Кәрәзле Әсбап</string>
   <string name="webmasters">Вебмастерлар</string>
   <string name="about">Хакында</string>
-  <string name="aboutX">%s турында</string>
+  <string name="aboutX">%s хакында</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ул азат (%2$s), ирекле, комерциясез, ачык чыганаклы шаһмат серверы.</string>
   <string name="really">чыннанда</string>
   <string name="contribute">Игътибар итегез</string>
@@ -662,7 +662,7 @@
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
-  <string name="perfRatingX">Рейтингы: %s</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>
   </plurals>
