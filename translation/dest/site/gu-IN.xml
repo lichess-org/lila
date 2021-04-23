@@ -257,6 +257,13 @@
   <string name="following">ફોલોવિંગ</string>
   <string name="unfollow">અનફોલો</string>
   <string name="block">બ્લોક</string>
+  <string name="blocked">બ્લોકડ</string>
+  <string name="unblock">અનબ્લોક</string>
+  <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
+  <string name="movesPlayed">ચાલ રમ્યા</string>
+  <string name="whiteWins">સફેદ ની જીત</string>
+  <string name="blackWins">કાળા ની જીત</string>
+  <string name="draws">ડ્રો</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
