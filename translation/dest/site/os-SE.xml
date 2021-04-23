@@ -311,6 +311,14 @@
   <string name="viewTournament">Турнирмæ бакæсын</string>
   <string name="backToTournament">Турнирмæ раздæхын</string>
   <string name="thematic">Тематикон</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s рейтингимæ хъæзтыты</item>
+    <item quantity="other">≥ %s рейтингимæ хъæзтыты</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
+    <item quantity="other">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
