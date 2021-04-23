@@ -91,6 +91,7 @@
   <string name="whatUsernameCanIchoose">Яким може бути моє ім\'я користувача?</string>
   <string name="usernamesNotOffensive">Загалом, імена користувачів не повинні бути: образливими, уособлювати когось іншого або рекламними. Ви можете прочитати більше у %1$s.</string>
   <string name="guidelines">настанови</string>
+  <string name="canIChangeMyUsername">Чи можу я змінити ім\'я користувача?</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
   <string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lichess, ніхто крім %1$s ними не зможе заволодіти.</string>
   <string name="wayOfBerserkExplanation">Щоб його отримати, hiimgosu кинув собі виклик виграти 100%% ігор з Берсерком в %s.</string>
