@@ -375,6 +375,10 @@
   <string name="favoriteOpponents">Равзаргæ ныхмæлæууæджытæ</string>
   <string name="follow">Хъус дарын</string>
   <string name="following">Хъус дарыс</string>
+  <string name="unfollow">Хъус нæ дарын</string>
+  <string name="block">Блокадæ бакæнын</string>
+  <string name="blocked">Блокадæгондтæ</string>
+  <string name="unblock">Блокадæ айсын</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
