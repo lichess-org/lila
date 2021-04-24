@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Grit un taol evit kregiñ</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">C\'hoari a rit gant ar re wenn e pep poelladenn</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">C\'hoari a rit gant ar re zu e pep poelladenn</string>
+  <string name="puzzlesSolved">poelladennoù diskoulmet</string>
+  <string name="newDailyHighscore">Disoc\'h gwellañ an devezh!</string>
+  <string name="newWeeklyHighscore">Disoc\'h gwellañ ar sizhun!</string>
+  <string name="newMonthlyHighscore">Disoc\'h gwellañ ar miz!</string>
+  <string name="newAllTimeHighscore">Disoc\'h gwellañ a-viskoazh!</string>
   <string name="joinTheRace">Kregiñ gant ar redadeg!</string>
   <string name="waitForRematch">Gortozit evit c\'hoari en dro</string>
   <string name="nextRace">Ur redadeg c\'hoazh</string>
