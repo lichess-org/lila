@@ -15,7 +15,7 @@ import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyRepo }
 import lila.user.User
 
 final class RelayApi(
-    relayRepo: RelayRoundRepo,
+    roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
@@ -26,10 +26,10 @@ final class RelayApi(
   import BSONHandlers._
   import lila.study.BSONHandlers.StudyBSONHandler
 
-  def byId(id: RelayRound.Id) = relayRepo.coll.byId[RelayRound](id.value)
+  def byId(id: RelayRound.Id) = roundRepo.coll.byId[RelayRound](id.value)
 
   def byIdWithTour(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
-    relayRepo.coll
+    roundRepo.coll
       .aggregateOne() { framework =>
         import framework._
         Match($id(id)) -> List(
@@ -42,7 +42,8 @@ final class RelayApi(
   def byIdAndContributor(id: RelayRound.Id, me: User) =
     byIdWithStudy(id) map {
       _ collect {
-        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me.id) => relay withTour tour
+        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me.id) =>
+          relay withTour tour
       }
     }
 
@@ -56,7 +57,9 @@ final class RelayApi(
     }
 
   def byTour(tour: RelayTour): Fu[List[RelayRound.WithTour]] =
-    relayRepo.byTour(tour).dmap(_.map(_ withTour tour))
+    roundRepo.byTour(tour).dmap(_.map(_ withTour tour))
+
+  def withRounds(tour: RelayTour) = roundRepo.byTour(tour).dmap(tour.withRounds)
 
   def fresh(me: Option[User]): Fu[RelayRound.Fresh] = fuccess(RelayRound.Fresh(Nil, Nil))
   // relayRepo.scheduled.flatMap(withStudy andLiked me) zip
@@ -76,7 +79,7 @@ final class RelayApi(
     )
 
   def fetchWithTours(query: Bdoc, maxDocs: Int, readPreference: ReadPreference = ReadPreference.primary) =
-    relayRepo.coll
+    roundRepo.coll
       .aggregateList(maxDocs, readPreference) { framework =>
         import framework._
         Match(query) -> List(
@@ -91,25 +94,26 @@ final class RelayApi(
     tourRepo.coll.insert.one(tour) inject tour
   }
 
-  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] = {
-    val relay = data.make(user, tour)
-    relayRepo.coll.insert.one(relay) >>
-      studyApi.importGame(
-        StudyMaker.ImportGame(
-          id = relay.studyId.some,
-          name = Study.Name(relay.name).some,
-          settings = Settings.init
-            .copy(
-              chat = Settings.UserSelection.Everyone,
-              sticky = false
-            )
-            .some,
-          from = Study.From.Relay(none).some
-        ),
-        user
-      ) >>
-      studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
-  }
+  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
+    roundRepo.nextOrderByTour(tour.id) flatMap { order =>
+      val relay = data.make(user, tour, order)
+      roundRepo.coll.insert.one(relay) >>
+        studyApi.importGame(
+          StudyMaker.ImportGame(
+            id = relay.studyId.some,
+            name = Study.Name(relay.name).some,
+            settings = Settings.init
+              .copy(
+                chat = Settings.UserSelection.Everyone,
+                sticky = false
+              )
+              .some,
+            from = Study.From.Relay(none).some
+          ),
+          user
+        ) >>
+        studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
+    }
 
   def requestPlay(id: RelayRound.Id, v: Boolean): Funit =
     WithRelay(id) { relay =>
@@ -126,7 +130,7 @@ final class RelayApi(
     studyApi.rename(relay.studyId, Study.Name(relay.name)) >> {
       if (relay == from) fuccess(relay)
       else
-        relayRepo.coll.update.one($id(relay.id), relay).void >> {
+        roundRepo.coll.update.one($id(relay.id), relay).void >> {
           (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
         } >>- {
           relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
@@ -148,7 +152,7 @@ final class RelayApi(
     )
 
   def getOngoing(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
-    relayRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
+    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
       _ ?? { relay =>
         tourById(relay.tourId) map2 relay.withTour
       }
@@ -162,7 +166,7 @@ final class RelayApi(
   //     .map(jsonView.public)
 
   private[relay] def autoStart: Funit =
-    relayRepo.coll.list[RelayRound](
+    roundRepo.coll.list[RelayRound](
       $doc(
         "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
           $gt DateTime.now.minusDays(1),            // bit late now
@@ -177,7 +181,7 @@ final class RelayApi(
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
-    relayRepo.coll.list[RelayRound](
+    roundRepo.coll.list[RelayRound](
       $doc(
         "sync.until" $exists false,
         "finished" -> false,
@@ -198,7 +202,7 @@ final class RelayApi(
     byId(id) flatMap { _ ?? f }
 
   private[relay] def onStudyRemove(studyId: String) =
-    relayRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
+    roundRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
 
   private[relay] def publishRelay(relay: RelayRound): Funit =
     sendToContributors(relay.id, "relayData", jsonView admin relay)

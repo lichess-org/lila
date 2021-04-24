@@ -38,7 +38,8 @@ object BSONHandlers {
 
   def readRelayWithTour(doc: Bdoc): Option[RelayRound.WithTour] =
     for {
-      relay <- doc.asOpt[RelayRound]
-      tour  <- doc.getAsOpt[RelayTour]("tour")
+      _     <- Some(println(lila.db.BSON debug doc))
+      relay <- doc.asOpt[RelayRound].pp
+      tour  <- doc.getAsTry[RelayTour]("tour").pp.toOption
     } yield RelayRound.WithTour(relay, tour)
 }

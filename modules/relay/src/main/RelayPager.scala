@@ -39,12 +39,14 @@ final class RelayPager(roundRepo: RelayRoundRepo, tourRepo: RelayTourRepo, study
           roundRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
-              Match(selector) -> List(
-                Sort(Descending("startedAt")),
+              Sort(Descending("startedAt")) -> List(
+                GroupField("tourId")("round" -> FirstField("$ROOT")),
                 Skip(offset),
                 Limit(length),
+                ReplaceRootField("round"),
+                AddFields($doc("sync.log" -> $arr())),
                 PipelineOperator(tourRepo lookup "tourId"),
-                Unwind("tour")
+                UnwindField("tour")
               )
             }
             .map(_ flatMap readRelayWithTour)

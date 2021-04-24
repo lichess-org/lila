@@ -31,4 +31,6 @@ object tour {
         )
       )
     }
+
+  def url(t: RelayTour) = routes.RelayTour.show(t.slug, t.id.value)
 }

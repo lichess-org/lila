@@ -10,20 +10,20 @@ import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
 import lila.relay.RelayRoundForm.Data
 import lila.relay.{ RelayRound, RelayTour }
 
-object form {
+object roundForm {
 
   import trans.broadcast._
 
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
-      h1(newBroadcast()),
-      inner(form, routes.RelayRound.create(tour.id.value))
+      h1(a(href := views.html.relay.tour.url(tour))(tour.name), " • ", addRound()),
+      inner(form, routes.RelayRound.create(tour.id.value), tour)
     )
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
       h1("Edit ", rt.fullName),
-      inner(form, routes.RelayRound.update(rt.relay.id.value)),
+      inner(form, routes.RelayRound.update(rt.relay.id.value), rt.tour),
       hr,
       postForm(action := routes.RelayRound.cloneRelay(rt.relay.id.value))(
         submitButton(
@@ -49,7 +49,7 @@ object form {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =
+  private def inner(form: Form[Data], url: play.api.mvc.Call, tour: RelayTour)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
@@ -101,7 +101,7 @@ object form {
       ),
       isGranted(_.Relay) option form3.group(form("credit"), credits())(form3.input(_)),
       form3.actions(
-        a(href := routes.RelayTour.index(1))(trans.cancel()),
+        a(href := views.html.relay.tour.url(tour))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

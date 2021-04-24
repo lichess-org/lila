@@ -8,6 +8,7 @@ import lila.user.User
 case class RelayRound(
     _id: RelayRound.Id,
     tourId: RelayTour.Id,
+    order: Int,
     name: String,
     description: String,
     markup: Option[String] = None,

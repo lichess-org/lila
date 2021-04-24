@@ -19,9 +19,9 @@ final class RelayRound(
   def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        WithTour(tourId) { tour =>
-          (tour.owner == me.id) ?? {
-            Ok(html.relay.form.create(env.relay.roundForm.create, tour)).fuccess
+        WithTourAndRounds(tourId) { trs =>
+          (trs.tour.ownerId == me.id) ?? {
+            Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
           }
         }
       }
@@ -32,15 +32,16 @@ final class RelayRound(
       auth = implicit ctx =>
         me =>
           NoLameOrBot {
-            WithTour(tourId) { tour =>
-              (tour.owner == me.id) ?? {
-                env.relay.roundForm.create
+            WithTourAndRounds(tourId) { trs =>
+              (trs.tour.ownerId == me.id) ?? {
+                env.relay.roundForm
+                  .create(trs)
                   .bindFromRequest()(ctx.body, formBinding)
                   .fold(
-                    err => BadRequest(html.relay.form.create(err, tour)).fuccess,
+                    err => BadRequest(html.relay.roundForm.create(err, trs.tour)).fuccess,
                     setup =>
-                      env.relay.api.create(setup, me, tour) map { relay =>
-                        Redirect(relay.withTour(tour).path)
+                      env.relay.api.create(setup, me, trs.tour) map { relay =>
+                        Redirect(routes.RelayTour.show(trs.tour.slug, trs.tour.id.value))
                       }
                   )
               }
@@ -50,13 +51,16 @@ final class RelayRound(
         me =>
           env.relay.api tourById TourModel.Id(tourId) flatMap {
             _ ?? { tour =>
-              !(me.isBot || me.lame) ??
-                env.relay.roundForm.create
-                  .bindFromRequest()(req, formBinding)
-                  .fold(
-                    err => BadRequest(apiFormError(err)).fuccess,
-                    setup => env.relay.api.create(setup, me, tour) map env.relay.jsonView.admin map JsonOk
-                  )
+              env.relay.api.withRounds(tour) flatMap { trs =>
+                !(me.isBot || me.lame) ??
+                  env.relay.roundForm
+                    .create(trs)
+                    .bindFromRequest()(req, formBinding)
+                    .fold(
+                      err => BadRequest(apiFormError(err)).fuccess,
+                      setup => env.relay.api.create(setup, me, tour) map env.relay.jsonView.admin map JsonOk
+                    )
+              }
             }
           }
     )
@@ -64,7 +68,7 @@ final class RelayRound(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.form.edit(rt, env.relay.roundForm.edit(rt.relay))).fuccess
+        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.relay))).fuccess
       }
     }
 
@@ -77,7 +81,7 @@ final class RelayRound(
             case Some(res) =>
               res
                 .fold(
-                  { case (old, err) => BadRequest(html.relay.form.edit(old, err)) },
+                  { case (old, err) => BadRequest(html.relay.roundForm.edit(old, err)) },
                   rt => Redirect(rt.path)
                 )
                 .fuccess
@@ -188,6 +192,13 @@ final class RelayRound(
       f: TourModel => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
+
+  private def WithTourAndRounds(id: String)(
+      f: TourModel.WithRounds => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    WithTour(id) { tour =>
+      env.relay.api withRounds tour flatMap f
+    }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
       ctx: Context

@@ -9,7 +9,7 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[String] = None,
-    owner: User.ID,
+    ownerId: User.ID,
     official: Boolean,
     createdAt: DateTime
 ) {
@@ -19,6 +19,8 @@ case class RelayTour(
     val s = lila.common.String slugify name
     if (s.isEmpty) "-" else s
   }
+
+  def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 }
 
 object RelayTour {
@@ -26,6 +28,8 @@ object RelayTour {
   val maxRelays = 64
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

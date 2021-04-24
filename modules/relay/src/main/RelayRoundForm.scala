@@ -17,7 +17,7 @@ final class RelayRoundForm {
   import RelayRoundForm._
   import lila.common.Form.ISODateTimeOrTimestamp
 
-  val form = Form(
+  val roundMapping =
     mapping(
       "name"        -> cleanText(minLength = 3, maxLength = 80),
       "description" -> cleanText(minLength = 3, maxLength = 400),
@@ -31,11 +31,21 @@ final class RelayRoundForm {
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
+
+  def create(trs: RelayTour.WithRounds) = Form {
+    roundMapping
+      .verifying(
+        s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
+        _ => trs.rounds.sizeIs < RelayTour.maxRelays
+      )
+  }.fill(
+    Data(
+      name = s"Round ${trs.rounds.size + 1}",
+      description = ""
+    )
   )
 
-  def create = form
-
-  def edit(r: RelayRound) = form fill Data.make(r)
+  def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
 }
 
 object RelayRoundForm {
@@ -84,12 +94,12 @@ object RelayRoundForm {
   case class Data(
       name: String,
       description: String,
-      markup: Option[String],
-      syncUrl: Option[String],
-      syncUrlRound: Option[Int],
-      credit: Option[String],
-      startsAt: Option[DateTime],
-      throttle: Option[Int]
+      markup: Option[String] = None,
+      syncUrl: Option[String] = None,
+      syncUrlRound: Option[Int] = None,
+      credit: Option[String] = None,
+      startsAt: Option[DateTime] = None,
+      throttle: Option[Int] = None
   ) {
 
     def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
@@ -129,10 +139,11 @@ object RelayRoundForm {
         log = SyncLog.empty
       )
 
-    def make(user: User, tour: RelayTour) =
+    def make(user: User, tour: RelayTour, order: Int) =
       RelayRound(
         _id = RelayRound.makeId,
         tourId = tour.id,
+        order = order,
         name = name,
         description = description,
         markup = markup,

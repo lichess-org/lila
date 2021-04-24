@@ -53,7 +53,7 @@ object RelayTourForm {
         name = name,
         description = description,
         markup = markup,
-        owner = user.id,
+        ownerId = user.id,
         official = ~official && Granter(_.Relay)(user),
         createdAt = DateTime.now
       )
