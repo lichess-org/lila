@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgain">Яңадан уйнау</string>
   <string name="combo">Комбо</string>
   <string name="time">Вакыт</string>
 </resources>

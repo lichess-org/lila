@@ -23,7 +23,7 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
-  <string name="lichessSupportChessAnd">Lichess-мæ ис хуымæтæг шахмæттæ æмæ %1$s.</string>
+  <string name="lichessSupportChessAnd">Lichess-мæ ис классикон шахмæттæ æмæ %1$s.</string>
   <string name="canIbecomeLM">Ис дзы гæнæн мын раттын Lichess Мастеры (LM) хуындад?</string>
   <string name="noUpperCaseDot">Нæй.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Уый у каджын хуындад, æнæофициалон, æмæ æрмæст вæййы Lichess-ы.

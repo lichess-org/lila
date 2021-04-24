@@ -319,7 +319,7 @@
   <string name="bookmarkThisGame">Atzīmēt šo spēli</string>
   <string name="tournament">Turnīrs</string>
   <string name="tournaments">Turnīri</string>
-  <string name="tournamentPoints">Turnīru punkti</string>
+  <string name="tournamentPoints">Turnīra punkti</string>
   <plurals name="nbTournamentPoints">
     <item quantity="zero">%s turnīra punkti</item>
     <item quantity="one">%s turnīra punkts</item>

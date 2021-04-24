@@ -97,7 +97,7 @@
   <string name="lossSavedBy50MoveRule">50 йөрү кагыйдәсе буенча җиңелеп булмый</string>
   <string name="allSet">Бөтенесе әзер!</string>
   <string name="importPgn">PGN импорты</string>
-  <string name="delete">Ташларга</string>
+  <string name="delete">Бетерү</string>
   <string name="deleteThisImportedGame">Бу импортланган уенны ташларгамы?</string>
   <string name="replayMode">Кабат карау</string>
   <string name="realtimeReplay">Чын вакытта</string>
@@ -360,7 +360,7 @@
     <item quantity="other">%s язылганнары</item>
   </plurals>
   <string name="more">Тагын</string>
-  <string name="memberSince">Регистрация көне:</string>
+  <string name="memberSince">Регистрация көне</string>
   <string name="lastSeenActive">%s кергән иде</string>
   <string name="player">Уенчы</string>
   <string name="list">Тезем</string>
@@ -421,7 +421,7 @@
   <string name="gameCompletionRate">Тәмамланган уеннар: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
-  <string name="firstName">Бирелгән исемегез</string>
+  <string name="firstName">Исем</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
   <string name="country">Ил</string>
@@ -448,12 +448,12 @@
   <string name="descPrivate">Шәхси тафсиры</string>
   <string name="descPrivateHelp">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
   <string name="no">Юк</string>
-  <string name="yes">Әе</string>
+  <string name="yes">Әйе</string>
   <string name="help">Булышу:</string>
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
   <string name="posts">Хәбәрләр</string>
-  <string name="lastPost">Соңгы хәбәрләр</string>
+  <string name="lastPost">Соңгы хәбәр</string>
   <string name="views">Карамаклар</string>
   <string name="replies">Җаваплар</string>
   <string name="replyToThisTopic">Бу сәрхәүгә җавап</string>
@@ -529,7 +529,7 @@
   </plurals>
   <string name="listBlockedPlayers">Язмасындагы кулланучыларны сез кисәттегез</string>
   <string name="human">Кеше</string>
-  <string name="computer">К</string>
+  <string name="computer">Компьютер</string>
   <string name="side">Як</string>
   <string name="clock">Сәгать</string>
   <string name="unauthorizedError">Рөхсәт авторизациясез.</string>
@@ -547,7 +547,7 @@
   <string name="tools">Кораллар</string>
   <string name="increment">Артуы</string>
   <string name="sharePGN">Җибәрергә PGN</string>
-  <string name="playOnline">Уйнарга челтәрдә</string>
+  <string name="playOnline">Челтәрдә уйнау</string>
   <string name="playOffline">Уйнарга челтәрсез</string>
   <string name="allowAnalytics">Аноним статистикага рөхсәт итегез</string>
   <string name="shareGameURL">Җибәрергә уен URL</string>
@@ -575,7 +575,7 @@
   <string name="mobileApp">Кәрәзле Әсбап</string>
   <string name="webmasters">Вебмастерлар</string>
   <string name="about">Хакында</string>
-  <string name="aboutX">%s турында</string>
+  <string name="aboutX">%s хакында</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ул азат (%2$s), ирекле, комерциясез, ачык чыганаклы шаһмат серверы.</string>
   <string name="really">чыннанда</string>
   <string name="contribute">Игътибар итегез</string>
@@ -605,6 +605,7 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="glicko2Rating">Glicko-2 рейтингы</string>
   <string name="downloadImported">Импортны йөкләү</string>
   <string name="printFriendlyPDF">Басма өчен уңайлы PDF</string>
   <string name="crosstable">Кросстабель</string>
@@ -643,7 +644,7 @@
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
   <string name="lobby">Көндәшләр</string>
   <string name="anonymous">Билгесез</string>
-  <string name="yourScore">Синен бәяләү%</string>
+  <string name="yourScore">Синен бәяләү %s</string>
   <string name="language">Тел</string>
   <string name="background">Җирлек</string>
   <string name="light">Ачык</string>
@@ -661,7 +662,7 @@
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
-  <string name="perfRatingX">Рейтингы: %s</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>
   </plurals>
@@ -733,7 +734,7 @@
   <string name="puzzleDesc">Шаһмат тактикалар остасы</string>
   <string name="important">Мөһим</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
-  <string name="inTheFAQ">Еш Сорый торган Сорауларда</string>
+  <string name="inTheFAQ">Еш Сорый торган Сорауларда.</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
   <string name="resVsX">%1$s vs %2$s</string>
 </resources>

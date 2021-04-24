@@ -10,6 +10,12 @@
   <string name="newAllTimeHighscore">새 역대 최고 기록!</string>
   <string name="previousHighscoreWasX">이전 최고 기록은 %s입니다.</string>
   <string name="playAgain">다시 플레이</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s번 도전</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">%2$s 중%1$s개 플레이함</item>
+  </plurals>
   <string name="highscoreX">최고기록: %s</string>
   <string name="score">점수</string>
   <string name="moves">이동</string>
