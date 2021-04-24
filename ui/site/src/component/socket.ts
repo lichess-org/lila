@@ -23,7 +23,7 @@ type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
-  pingMaxLag: number; // time to wait for pong before reseting the connection
+  pingMaxLag: number; // time to wait for pong before resetting the connection
   pingDelay: number; // time between pong and ping
   autoReconnectDelay: number;
   protocol: string;
@@ -64,7 +64,7 @@ export default class StrongSocket {
 
   static defaultOptions: Options = {
     idle: false,
-    pingMaxLag: 9000, // time to wait for pong before reseting the connection
+    pingMaxLag: 9000, // time to wait for pong before resetting the connection
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
