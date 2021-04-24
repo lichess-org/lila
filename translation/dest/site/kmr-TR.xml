@@ -246,7 +246,7 @@
   <string name="freeOnlineChess">Kişika Belaş a Serxet</string>
   <string name="spectators">Temaşevan:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puan</item>
+    <item quantity="one">%s pûan</item>
     <item quantity="other">%s puan</item>
   </plurals>
   <plurals name="nbWins">
@@ -254,8 +254,8 @@
     <item quantity="other">%s serkeftin</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s mexlûbiyet</item>
-    <item quantity="other">%s mexlûbiyet</item>
+    <item quantity="one">%s binkevtin</item>
+    <item quantity="other">%s binketin</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s wekhevî</item>
@@ -268,8 +268,8 @@
   <string name="exportGames">Lîstikan derxîne</string>
   <string name="ratingRange">Navbera reytîngê</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">%s çirke bike</item>
-    <item quantity="other">%s çirke bike</item>
+    <item quantity="one">%s çirke bide</item>
+    <item quantity="other">%s çirke bide</item>
   </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
@@ -282,17 +282,17 @@
   <string name="yourOpponentProposesATakeback">Reqîbê te vegerandina hemleyê teklîf kir</string>
   <string name="bookmarkThisGame">Vê lîstikê bike bijare</string>
   <string name="tournament">Turnuwa</string>
-  <string name="tournaments">Turnuwa</string>
-  <string name="tournamentPoints">Puanên turnuwayê</string>
+  <string name="tournaments">Pêşbirk</string>
+  <string name="tournamentPoints">Pûanên pêşbirkê</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s poînta turnuwayê</item>
-    <item quantity="other">%s puanên turnuwayê</item>
+    <item quantity="one">%s pûanên pêşbirkê</item>
+    <item quantity="other">%s puanên pêşbirkê</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s Xebat</item>
     <item quantity="other">Xebatên %s</item>
   </plurals>
-  <string name="viewTournament">Turnuwayê bibîne</string>
+  <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
   <plurals name="moreThanNbRatedGames">
@@ -300,18 +300,18 @@
     <item quantity="other">≥ %s lîstikên bipuan</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s lîstika %2$s ya bipuan</item>
-    <item quantity="other">≥ %1$s lîstikên %2$s ya bipuan</item>
+    <item quantity="one">≥ %1$s lîstika %2$s ya bipûan</item>
+    <item quantity="other">≥ %1$s lîstikên %2$s ya bipûan</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Divê tu %1$s lîstika din a bipuan ya %2$s bilîzî</item>
-    <item quantity="other">Divê tu %1$s lîstikên din ên bipuan ya %2$s bilîzî</item>
+    <item quantity="one">Divê tu %1$s lîstikên din ên bipûan a %2$s bilîzî</item>
+    <item quantity="other">Divê tu %1$s lîstikên din ên bipûan ya %2$s bilîzî</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Divê tu %s lîstika din a bipuan bilîzî</item>
+    <item quantity="one">Divê tu %s lîstikên din ên bipûan bilîzî</item>
     <item quantity="other">Divê tu %s lîstikên din ên bipuan bilîzî</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Puana te ya %s demkî ye</string>
+  <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Puana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
