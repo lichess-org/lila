@@ -313,7 +313,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Puana te ya heftane a %1$s (%2$s) pir bilind e</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Pûana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
   <string name="ratedMoreThanInPerf">Divê puana te ≥ %1$s bibe li %2$s</string>
   <string name="ratedLessThanInPerf">Divê puana te ≤ %1$s bibe li %2$s</string>
@@ -389,7 +389,7 @@
   <string name="winner">Yê biserketî</string>
   <string name="standing">Rêz</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
-  <string name="tournamentCalendar">Teqwîma pêşbirkan</string>
+  <string name="tournamentCalendar">Salnameya pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
   <string name="advancedSettings">Sazkariyên pêşketî</string>
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
@@ -413,7 +413,7 @@
   <string name="winRate">Rêjeya serkeftinê</string>
   <string name="berserkRate">Rêjeya Berserk-ê</string>
   <string name="performance">Performans</string>
-  <string name="tournamentComplete">Pêşbirk temam bû</string>
+  <string name="tournamentComplete">Pêşbirk qedîya</string>
   <string name="movesPlayed">Hemleyên lîstî</string>
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
@@ -810,4 +810,6 @@
   <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
   <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
   <string name="puzzleDesc">Rahênerê taktîkên kişikê</string>
+  <string name="mentionedYouInX"> qala te kir li %1$s.</string>
+  <string name="xMentionedYouInY"> %1$s qala te kir li %2$s.</string>
 </resources>
