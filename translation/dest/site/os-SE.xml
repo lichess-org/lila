@@ -391,6 +391,14 @@
   </plurals>
   <string name="more">Ноджы</string>
   <string name="memberSince">Регистрацийы датæ</string>
+  <string name="lastSeenActive">Уыди онлайн %s</string>
+  <string name="player">Хъазæг</string>
+  <string name="list">Номхыгъд</string>
+  <string name="graph">Диаграмма</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s минутæйы къаддæр</item>
+    <item quantity="other">%s минуттыты къаддæр</item>
+  </plurals>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
