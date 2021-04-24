@@ -190,7 +190,7 @@ Thank you all, you rock!"""
           Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 4) map { date =>
-          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, SuperBlitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
           Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
