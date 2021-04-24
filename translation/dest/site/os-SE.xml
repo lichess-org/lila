@@ -83,7 +83,7 @@
   <string name="averageRatingX">Астæуккаг рейтинг: %s</string>
   <string name="recentGames">Æрæджыон хъæзтытæ</string>
   <string name="topGames">Иуыл хуыздæр хъæзтытæ</string>
-  <string name="masterDbExplanation">Дыууæ миллионы хъæзтыты FIDE хъазджытæй %1$s+ рейтингимæ %2$s-æй %3$s-мæ</string>
+  <string name="masterDbExplanation">Дыууæ милуаны хъæзтыты FIDE хъазджытæй %1$s+ рейтингимæ %2$s-æй %3$s-мæ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
     <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
@@ -153,6 +153,7 @@
   <string name="signIn">Бацæуын</string>
   <string name="youNeedAnAccountToDoThat">Аккаунт дын хъæуы, цæмæй уый кæнай</string>
   <string name="signUp">Регистраци</string>
+  <string name="computersAreNotAllowedToPlay">Компьютертæн хъазын иваргонд у. Дæ хорзæхæй, хъазгæйæ ма пайда кæн шахматон змæлынгæнæгтæ, бæрæггæнæнтыты æвæрæнтæ кæнæ æндæр хъазджыты æххуыс. Уый дæр хыгъдмæ райс, æмæ мах бирæ аккаунты скæнынмæ арфæ нæ кæнæм, æмæ сæ æгæр нымæц æрбакæны блокадæкæнæнмæ.</string>
   <string name="games">Хъæзтытæ</string>
   <string name="forum">Тæрхон</string>
   <string name="xPostedInForumY">%1$s ныффыста %2$s тæрхоны</string>
@@ -184,6 +185,8 @@
   <string name="username">Пайдакæнæджы ном</string>
   <string name="usernameOrEmail">Логин кæнæ электронон пост</string>
   <string name="changeUsername">Аивын пайдагæнæджы ном</string>
+  <string name="changeUsernameNotSame">Дæ бон у ивын дамгъæты регистр æрмæст. Зæгъæм, \"johndoe\" баивын \"JohnDoe\"-мæ.</string>
+  <string name="changeUsernameDescription">Баивын пайдакæнæджы ном. Дæ бон у баивын дамгъæты регистр æрмæст, æмæ иу хатт æрмæст.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Аивын парол</string>
   <string name="changeEmail">Аивын электронон пост</string>
@@ -200,6 +203,7 @@
     <item quantity="one">%s этюд</item>
     <item quantity="other">%s этюды</item>
   </plurals>
+  <string name="gamesPlayed">Партиты хъазт уыди</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s хъазт демæ</item>
     <item quantity="other">%s хъазты демæ</item>
@@ -207,23 +211,168 @@
   <string name="cancel">Аивын</string>
   <string name="whiteTimeOut">Урсытæн рæстæг фæци</string>
   <string name="blackTimeOut">Саутæн рæстæг фæци</string>
-  <string name="drawOfferSent">Хæрæгсасты æнхъарæн æрвыст у</string>
-  <string name="drawOfferDeclined">Хæрæгсасты æнхъарæн райст нæ уыди</string>
-  <string name="drawOfferAccepted">Хæрæгсасты æнхъарæн райст уыди</string>
-  <string name="drawOfferCanceled">Хæрæгсасты æнхъарæн аивд уыди</string>
+  <string name="drawOfferSent">Хæрæгсаст фæуын æнхъарæн æрвыст у</string>
+  <string name="drawOfferDeclined">Хæрæгсаст фæуын æнхъарæн райст нæ уыди</string>
+  <string name="drawOfferAccepted">Хæрæгсаст фæуын æнхъарæн райст уыди</string>
+  <string name="drawOfferCanceled">Хæрæгсаст фæуын æнхъарæн аивд уыди</string>
   <string name="whiteOffersDraw">Урсытæ æнхъарынц хæрæхсаст фæуын</string>
   <string name="blackOffersDraw">Саутæ æнхъарынц хæрæхсаст фæуын</string>
+  <string name="whiteDeclinesDraw">Урсытæ хæрæгсаст фæуын æнхъарæн нæ райстой</string>
+  <string name="blackDeclinesDraw">Саутæ хæрæгсаст фæуын æнхъарæн нæ райстой</string>
+  <string name="yourOpponentOffersADraw">Дæ ныхмæлæууæг хæрæгсаст фæуын æнхъары</string>
+  <string name="accept">Райсын</string>
+  <string name="decline">Нæ райсын</string>
+  <string name="playingRightNow">Хъазт цæуы</string>
+  <string name="eventInProgress">Ныртæккæ цæуы</string>
+  <string name="finished">Фæудгонд</string>
+  <string name="finishesX">фæуы %s</string>
+  <string name="abortGame">Хъазт аивын</string>
+  <string name="gameAborted">Хъазт аивд у</string>
+  <string name="standard">Классикон шахмæттæ</string>
   <string name="unlimited">Нæй</string>
+  <string name="mode">Режим</string>
+  <string name="casual">Æмбалон</string>
+  <string name="rated">Рейтингимæ</string>
+  <string name="casualTournament">Æмбалон</string>
+  <string name="ratedTournament">Рейтингимæ</string>
+  <string name="thisGameIsRated">Ацы хъазт рейтингимæ у</string>
+  <string name="rematch">Реванш</string>
+  <string name="rematchOfferSent">Реваншы æнхъарæн æрвыст у</string>
+  <string name="rematchOfferSentWhite">Урсытæ æнхъарынц реванш</string>
+  <string name="rematchOfferSentBlack">Саутæ æнхъарынц реванш</string>
+  <string name="rematchOfferAccepted">Реваншы æнхъарæн райст уыди</string>
+  <string name="rematchOfferCanceled">Реваншы æнхъарæн аивд уыди</string>
+  <string name="rematchOfferDeclined">Реваншы æнхъарæн райст нæ уыди</string>
+  <string name="cancelRematchOffer">Реваншы æнхъарæн аивын</string>
+  <string name="viewRematch">Бакæсын реванш</string>
+  <string name="confirmMove">Цыд сфидар кæнын</string>
+  <string name="play">Хъазт</string>
+  <string name="inbox">Мидæмæдзог фыстæгтæ</string>
+  <string name="chatRoom">Ныхасы уат</string>
+  <string name="loginToChat">Мидæмæ рацу, ныхасы цæмæй дзурын</string>
+  <string name="youHaveBeenTimedOut">Ныхас дын рæстæгмæ æнæбаххæсгæ у.</string>
+  <string name="spectatorRoom">Кæсджыты уат</string>
+  <string name="composeMessage">Фыстæг ныффыссын</string>
+  <string name="noNewMessages">Ног уацтыты нæй</string>
+  <string name="subject">Сæр</string>
+  <string name="recipient">Исæг</string>
+  <string name="send">Арвитын</string>
+  <string name="incrementInSeconds">Цыдæн секундæты бафтауæккаг</string>
+  <string name="freeOnlineChess">Æнæфидгæ шахмæттæ онлайн</string>
+  <string name="spectators">Кæсæджытæ:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рейтингимæ</item>
+    <item quantity="other">%s рейтингимæ</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s уæлахиз</item>
+    <item quantity="other">%s уæлахизы</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s дæрæн</item>
+    <item quantity="other">%s дæрæны</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s хæрæгсаст</item>
+    <item quantity="other">%s хæрæгсасты</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s хъазгæгонд</item>
+    <item quantity="other">%s хъазгæгонд</item>
+  </plurals>
+  <string name="exportGames">Хъæзтытæ рацъирын</string>
   <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s секундæ раттын</item>
+    <item quantity="other">%s секунды раттын</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Ацы пайдакæнæг фехæлдта Пайдакæнæгон бадзырд</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ацы хъазæг аразгæйæ йæ рейтинг ивы</string>
-  <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
+  <string name="openingExplorerAndTablebase">Райдайæнты æвæрæн</string>
+  <string name="takeback">Цыд фæстæмæ райсын</string>
+  <string name="proposeATakeback">Ракурын цыд фæстæмæ райсын</string>
+  <string name="takebackPropositionSent">Цыд фæстæмæ райсын æнхъарæн æрвыст у</string>
+  <string name="takebackPropositionDeclined">Цыд фæстæмæ райсын æнхъарæн райст нæ уыди</string>
+  <string name="takebackPropositionAccepted">Цыд фæстæмæ райсын æнхъарæн райст уыди</string>
+  <string name="takebackPropositionCanceled">Цыд фæстæмæ райсын æнхъарæн аивд уыди</string>
+  <string name="yourOpponentProposesATakeback">Дæ ныхмæлæууæг куры йæ цыд фæстæмæ раттын</string>
+  <string name="bookmarkThisGame">Фæнысан кæнын ацы хъазт</string>
+  <string name="tournament">Турнир</string>
+  <string name="tournaments">Турниртæ</string>
+  <string name="tournamentPoints">Турнирон очкотæ</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнирон очко</item>
+    <item quantity="other">%s турнирон очкойы</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студи</item>
+    <item quantity="other">%s студийы</item>
+  </plurals>
+  <string name="viewTournament">Турнирмæ бакæсын</string>
+  <string name="backToTournament">Турнирмæ раздæхын</string>
+  <string name="thematic">Тематикон</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s рейтингимæ хъæзтыты</item>
+    <item quantity="other">≥ %s рейтингимæ хъæзтыты</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
+    <item quantity="other">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">%1$s хатт ма хъæуы дын ахъазын рейтингимæ %2$s</item>
+    <item quantity="other">%1$s хатты ма хъæуы дын ахъазын рейтингимæ %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">%s хатт ма хъæуы дын ахъазын рейтингимæ хъазт</item>
+    <item quantity="other">%s хатты ма хъæуы дын ахъазын рейтингимæ хъазт</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг ма у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourPerfRatingIsTooLow">Дæ %1$s рейтинг (%2$s) æгæр гыццыл у</string>
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
-  <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
+  <string name="mustBeInTeam">Ды хъуамæ уай %s клубы уæнг</string>
+  <string name="youAreNotInTeam">Ды %s клубы уæнг нæ дæ</string>
+  <string name="backToGame">Хъазтмæ раздæхын</string>
+  <string name="siteDescription">Æнæфидгæ онлайн шахмæттон сервер. Хъаз шахмæттæ сыгъдæг интерфейсы. Æнæ регистрацийæ, æнæ рекламæйæ, æнæ программæты хъуагæй. Хъаз шахмæттæ компьютеримæ, де\' мбæлтимæ кæнæ сæмбæлгæ ныхмæлæууæджытимæ.</string>
+  <string name="xJoinedTeamY">%1$s %2$s клубмæ бацыди</string>
+  <string name="xCreatedTeamY">%1$s саразта %2$s клуб</string>
+  <string name="xStartedStreaming">%s райдыдта трансляци</string>
+  <string name="averageElo">Астæуккаг хъазджыты рейтинг</string>
+  <string name="location">Ран</string>
+  <string name="filterGames">Партиты фæрсудзæн</string>
   <string name="reset">Раппарын</string>
+  <string name="apply">Сфидар кæнын</string>
+  <string name="save">Бафснайын</string>
+  <string name="leaderboard">Раздзоджыты таблицæ</string>
+  <string name="pasteTheFenStringHere">Бавæр FEN текст</string>
+  <string name="pasteThePgnStringHere">Бавæр PGN текст</string>
+  <string name="fromPosition">Позицийæ</string>
+  <string name="continueFromHere">Адарддæр кæнын ардыгæй</string>
+  <string name="toStudy">Студи скæнын</string>
+  <string name="importGame">Хъазт импорт кæнын</string>
+  <string name="importGameExplanation">Бавæр PGN хъазты ныффыст, уæд райсдзынæ фадæттæ парти ногæй ахъазын, компьютерон иртасæн кæнын, ныхасы æмхиц уын æмæ уарын дæнцæг ацы хъазтмæ.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s импортгонд</item>
+    <item quantity="other">%s импортгонды</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Уый у шахмæттон капчæ.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Æрæлхъив фæйнæгыл æмæ скæн дæ цыд, цæмæй равдисын, адæймаг дæ æви компьютер дæ.</string>
+  <string name="captcha.fail">Табуафси, райхал шахмæттон капчæ.</string>
+  <string name="notACheckmate">Уый мат нæ у</string>
+  <string name="whiteCheckmatesInOneMove">Урсытæ сæвæрынц мат иу цыды фæстæ</string>
+  <string name="blackCheckmatesInOneMove">Саутæ сæвæрынц мат иу цыды фæстæ</string>
+  <string name="retry">Рафæлхатын</string>
+  <string name="reconnecting">Ногæй баиу кæнæм</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s æмбал онлайн</item>
+    <item quantity="other">%s æмбалы онлайн</item>
+  </plurals>
+  <string name="noFriendsOnline">Нæй æмбæлтты онлайн</string>
+  <string name="findFriends">Ссарын æмбæлтты</string>
+  <string name="favoriteOpponents">Равзаргæ ныхмæлæууæджытæ</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
@@ -242,7 +391,7 @@
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
-  <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Ногæй ахъазын, цыдтæ аивын кæнæ рæстæг бафтауын дæ бон нæй.</string>
+  <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Реваншытæ, цыдты аивтæ кæнæ рæстæджы бафтауæккаг иваргонд сты.</string>
   <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
   <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>

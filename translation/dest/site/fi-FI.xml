@@ -771,8 +771,8 @@
   <string name="skipThisMove">Ohita tämä siirto</string>
   <string name="next">Seuraava</string>
   <string name="xWasPlayed">%s pelattiin</string>
-  <string name="findBetterMoveForWhite">Mieti parempi siirto valkealle</string>
-  <string name="findBetterMoveForBlack">Löydä parempi siirto mustalle</string>
+  <string name="findBetterMoveForWhite">Keksi parempi valkean siirto</string>
+  <string name="findBetterMoveForBlack">Keksi parempi mustan siirto</string>
   <string name="resumeLearning">Jatka oppimista</string>
   <string name="youCanDoBetter">Parempikin löytyy</string>
   <string name="tryAnotherMoveForWhite">Kokeile muuta valkean siirtoa</string>

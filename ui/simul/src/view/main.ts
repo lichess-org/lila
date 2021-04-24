@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import SimulCtrl from '../ctrl';
 import * as util from './util';
 import created from './created';
-import { richHTML } from './text';
+import { richHTML } from 'common/richText';
 import results from './results';
 import pairings from './pairings';
 

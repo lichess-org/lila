@@ -7,7 +7,7 @@
   <string name="motifs">Зәхәриф</string>
   <string name="advanced">Өстәмә</string>
   <string name="lengths">Озынлык</string>
-  <string name="mates">Иптәшләр</string>
+  <string name="mates">Матлар</string>
   <string name="goals">Морады</string>
   <string name="origin">Чыгыш</string>
   <string name="specialMoves">Максус хәрәкәтләр</string>
@@ -27,7 +27,7 @@
   <string name="puzzleComplete">Башваткыч чишелгән!</string>
   <string name="notTheMove">Бу хәрәкәт түгел!</string>
   <string name="trySomethingElse">Башка нәрсәне сынап карагыз.</string>
-  <string name="ratingX">Рейтингы: %s</string>
+  <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden">качырылган</string>
   <plurals name="playedXTimes">
     <item quantity="other">Уйналган %s вакыт</item>

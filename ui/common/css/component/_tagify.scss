@@ -473,7 +473,7 @@
     line-height: inherit;
     position: relative;
 
-    // #160 Line break (\n) as delimeter
+    // #160 Line break (\n) as delimiter
     white-space: pre-wrap;
 
     color: $input-color;
@@ -712,7 +712,7 @@
       }
     }
 
-    // intial state, pre-rendered
+    // initial state, pre-rendered
     &--initial {
       #{$dropdown}__wrapper {
         max-height: 20px;

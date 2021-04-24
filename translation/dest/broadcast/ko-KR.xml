@@ -9,9 +9,14 @@
   <string name="eventName">이벤트 이름</string>
   <string name="eventDescription">간단한 이벤트 설명</string>
   <string name="fullDescription">전체 이벤트 설명</string>
+  <string name="fullDescriptionHelp">(선택) 방송에 대한 긴 설명입니다. %1$s 사용이 가능합니다. 길이는 %2$s 글자보다 짧아야 합니다.</string>
   <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">출처 URL 또는 게임 ID</string>
+  <string name="sourceUrlHelp">Lichess가 PGN 업데이트를 받기 위해 확인할 URL입니다. 인터넷에서 공개적으로 액세스 할 수 있어야 합니다.</string>
+  <string name="gameIdsHelp">또는, 공백으로 구분하여 최대 64 개의 Lichess 게임 ID를 입력 할 수 있습니다.</string>
   <string name="roundNumber">라운드 수</string>
   <string name="startDate">본인 시간대 기준 시작일</string>
+  <string name="startDateHelp">선택사항. 언제 이벤트가 시작되는지 알고 있는 경우</string>
+  <string name="credits">출처</string>
   <string name="cloneBroadcast">방송 복사하기</string>
   <string name="resetBroadcast">방송 초기화</string>
 </resources>

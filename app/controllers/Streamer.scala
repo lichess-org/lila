@@ -4,6 +4,7 @@ import play.api.mvc._
 import views._
 
 import lila.api.Context
+import play.api.libs.json._
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
 
@@ -26,6 +27,28 @@ final class Streamer(
         } yield Ok(html.streamer.index(live, pager, requests))
       }
     }
+
+  def featured = Action.async { implicit req =>
+    env.streamer.liveStreamApi.all
+      .map { streams =>
+        val max      = env.streamer.homepageMaxSetting.get()
+        val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+        JsonOk {
+          featured.live.streams.map { s =>
+            Json.obj(
+              "url"    -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
+              "status" -> s.status,
+              "user" -> Json
+                .obj(
+                  "id"   -> s.streamer.userId,
+                  "name" -> s.streamer.name.value
+                )
+                .add("title" -> featured.titles.get(s.streamer.userId))
+            )
+          }
+        }
+      }
+  }
 
   def live =
     apiC.ApiRequest { _ =>

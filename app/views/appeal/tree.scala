@@ -229,7 +229,7 @@ object tree {
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
         "If you violated the terms of service on a previous account, then you are not allowed to make a new one, ",
-        "unless it was explicitely allowed by the moderation team during an appeal."
+        "unless it was explicitly allowed by the moderation team during an appeal."
       ),
       p(
         "If you never violated the terms of service, and didn't make several accounts, then you can appeal this account closure:"

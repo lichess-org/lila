@@ -1,4 +1,4 @@
-import * as enhance from './enhance';
+import * as enhance from 'common/richText';
 import * as spam from './spam';
 import { Ctrl, Line } from './interfaces';
 import { flag } from './xhr';

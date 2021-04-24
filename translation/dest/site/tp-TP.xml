@@ -343,7 +343,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xStartedStreaming">jan %s li open pali e sitelen tawa</string>
   <string name="averageElo">nanpa pona kulupu</string>
   <string name="location">ma</string>
-  <string name="filterGames">musi pi ale ala</string>
+  <string name="filterGames">o weka a musi seme?</string>
   <string name="reset">tawa tenpo pi nanpa wan</string>
   <string name="apply">kama lon</string>
   <string name="save">awen</string>
@@ -716,8 +716,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xJoinsY">jan %1$s li lon musi %2$s</string>
   <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
   <string name="xCreatesStudyY">jan %1$s li pali e ma sona. ma sona li nimi %2$s</string>
-  <string name="quickPairing">kama jo musi kepeken tenpo lili</string>
-  <string name="lobby">tomo awen</string>
+  <string name="quickPairing">o open musi kepeken tenpo lili</string>
+  <string name="lobby">o kama tawa musi open</string>
   <string name="anonymous">jan pi nimi weka tawa sona sina</string>
   <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>

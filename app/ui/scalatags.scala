@@ -144,7 +144,7 @@ trait ScalatagsExtensions {
 
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
-    // links, because there can be a small peformance advantage and lila does
+    // links, because there can be a small performance advantage and lila does
     // not use window.opener anywhere. Will not be overwritten by additional
     // rels.
     t.setAttr("rel", Builder.GenericAttrValueSource("noopener"))
