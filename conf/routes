@@ -208,6 +208,7 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
+GET   /streamer/featured               controllers.Streamer.featured
 GET   /streamer/live                   controllers.Streamer.live
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
