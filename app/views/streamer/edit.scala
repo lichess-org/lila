@@ -113,10 +113,11 @@ object edit extends Context.ToLang {
                   ),
                   notes.nonEmpty option ul(
                     notes.map { note =>
-                      li(
-                        p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
-                        p(cls := "text")(richText(note.text))
-                      )
+                      (isGranted(_.Admin) || !note.dox) option
+                        li(
+                          p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
+                          p(cls := "text")(richText(note.text))
+                        )
                     }
                   ),
                   br,
