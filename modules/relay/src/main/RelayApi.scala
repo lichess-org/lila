@@ -94,26 +94,25 @@ final class RelayApi(
     tourRepo.coll.insert.one(tour) inject tour
   }
 
-  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
-    roundRepo.nextOrderByTour(tour.id) flatMap { order =>
-      val relay = data.make(user, tour, order)
-      roundRepo.coll.insert.one(relay) >>
-        studyApi.importGame(
-          StudyMaker.ImportGame(
-            id = relay.studyId.some,
-            name = Study.Name(relay.name).some,
-            settings = Settings.init
-              .copy(
-                chat = Settings.UserSelection.Everyone,
-                sticky = false
-              )
-              .some,
-            from = Study.From.Relay(none).some
-          ),
-          user
-        ) >>
-        studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
-    }
+  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] = {
+    val relay = data.make(user, tour)
+    roundRepo.coll.insert.one(relay) >>
+      studyApi.importGame(
+        StudyMaker.ImportGame(
+          id = relay.studyId.some,
+          name = Study.Name(relay.name).some,
+          settings = Settings.init
+            .copy(
+              chat = Settings.UserSelection.Everyone,
+              sticky = false
+            )
+            .some,
+          from = Study.From.Relay(none).some
+        ),
+        user
+      ) >>
+      studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
+  }
 
   def requestPlay(id: RelayRound.Id, v: Boolean): Funit =
     WithRelay(id) { relay =>

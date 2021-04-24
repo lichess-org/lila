@@ -11,7 +11,6 @@ db.relay.find().forEach(relay => {
   db.relay_tour.insert({
     ...{
       _id: tourId,
-      order: NumberInt(0),
       name: relay.name,
       description: relay.description,
       ownerId: relay.ownerId,

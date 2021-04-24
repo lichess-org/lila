@@ -32,17 +32,14 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
   //     .batchSize(batchSize)
   //     .cursor[Relay](ReadPreference.secondaryPreferred)
 
-  def nextOrderByTour(tourId: RelayTour.Id): Fu[Int] =
-    coll.primitiveOne[Int](selectors.tour(tourId), orderSort, "order") dmap { ~_ + 1 }
-
   def byTour(tour: RelayTour): Fu[List[RelayRound]] =
     coll
       .find(selectors.tour(tour.id))
-      .sort(orderSort)
+      .sort(reverseChronoSort)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays)
 
-  private val orderSort = $sort asc "order"
+  val reverseChronoSort = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
 
   private[relay] object selectors {
     def tour(id: RelayTour.Id) = $doc("tourId" -> id)

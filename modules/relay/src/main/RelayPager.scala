@@ -39,7 +39,7 @@ final class RelayPager(roundRepo: RelayRoundRepo, tourRepo: RelayTourRepo, study
           roundRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
-              Sort(Descending("startedAt")) -> List(
+              PipelineOperator($doc("$sort" -> roundRepo.reverseChronoSort)) -> List(
                 GroupField("tourId")("round" -> FirstField("$ROOT")),
                 Skip(offset),
                 Limit(length),

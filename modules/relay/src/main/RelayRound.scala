@@ -8,7 +8,6 @@ import lila.user.User
 case class RelayRound(
     _id: RelayRound.Id,
     tourId: RelayTour.Id,
-    order: Int,
     name: String,
     description: String,
     markup: Option[String] = None,
@@ -61,6 +60,8 @@ case class RelayRound(
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
+
+  def showStartAt = startsAt orElse startedAt
 
   override def toString = s"""relay #$id "$name" $sync"""
 }

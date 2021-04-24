@@ -139,11 +139,10 @@ object RelayRoundForm {
         log = SyncLog.empty
       )
 
-    def make(user: User, tour: RelayTour, order: Int) =
+    def make(user: User, tour: RelayTour) =
       RelayRound(
         _id = RelayRound.makeId,
         tourId = tour.id,
-        order = order,
         name = name,
         description = description,
         markup = markup,

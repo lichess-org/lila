@@ -8,22 +8,21 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 
 import controllers.routes
+import lila.relay.RelayRound
 
 object index {
 
   import trans.broadcast._
 
   def apply(
-      fresh: Option[lila.relay.RelayRound.Fresh],
-      pager: Paginator[lila.relay.RelayRound.WithTour]
+      fresh: Option[RelayRound.Fresh],
+      pager: Paginator[RelayRound.WithTour]
   )(implicit ctx: Context) = {
 
-    def sublist(name: Frag, relays: Seq[lila.relay.RelayRound.WithTour]) =
+    def sublist(name: Frag, relays: Seq[RelayRound.WithTour]) =
       relays.nonEmpty option st.section(
         h2(name),
-        div(cls := "list")(
-          relays.map(show.widget(_))
-        )
+        div(cls := "list")(relays.map(widget))
       )
 
     views.html.base.layout(
@@ -50,11 +49,20 @@ object index {
         st.section(
           h2(completed()),
           div(cls := "infinite-scroll")(
-            pager.currentPageResults.map { show.widget(_, "paginated") },
+            pager.currentPageResults map widget,
             pagerNext(pager, routes.RelayTour.index(_).url)
           )
         )
       )
     }
   }
+
+  private def widget(rt: RelayRound.WithTour)(implicit ctx: Context) =
+    div(cls := "relay-widget paginaated", dataIcon := "")(
+      a(cls := "overlay", href := rt.path),
+      div(
+        h3(rt.tour.name),
+        p(strong(rt.relay.name), " • ", rt.relay.showStartAt.map(momentFromNow(_)))
+      )
+    )
 }
