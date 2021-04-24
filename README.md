@@ -32,7 +32,7 @@ HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
-Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
+Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
