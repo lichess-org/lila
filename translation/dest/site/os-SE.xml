@@ -319,12 +319,23 @@
     <item quantity="one">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
     <item quantity="other">≥ %1$s рейтингимæ %2$s хъæзтыты</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг у æнæбæлвырд</string>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">%1$s хатт ма хъæуы дын ахъазын рейтингимæ %2$s</item>
+    <item quantity="other">%1$s хатты ма хъæуы дын ахъазын рейтингимæ %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">%s хатт ма хъæуы дын ахъазын рейтингимæ хъазт</item>
+    <item quantity="other">%s хатты ма хъæуы дын ахъазын рейтингимæ хъазт</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Дæ %s рейтинг ма у æнæбæлвырд</string>
   <string name="yourPerfRatingIsTooHigh">Дæ %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Дæ алкъуырион %1$s рейтинг (%2$s) æгæр стыр у</string>
   <string name="yourPerfRatingIsTooLow">Дæ %1$s рейтинг (%2$s) æгæр гыццыл у</string>
   <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
+  <string name="mustBeInTeam">Ды хъуамæ уай %s клубы уæнг</string>
+  <string name="youAreNotInTeam">Ды %s клубы уæнг нæ дæ</string>
+  <string name="backToGame">Хъазтмæ раздæхын</string>
   <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
   <string name="reset">Раппарын</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
