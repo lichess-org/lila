@@ -379,6 +379,18 @@
   <string name="block">Блокадæ бакæнын</string>
   <string name="blocked">Блокадæгондтæ</string>
   <string name="unblock">Блокадæ айсын</string>
+  <string name="followsYou">Дæумæ хъус дары</string>
+  <string name="xStartedFollowingY">%1$s %2$s-мæ райдыдта хъус дарын</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s хъусдарæг</item>
+    <item quantity="other">%s хъусдарæджы</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s хъазæгмæ хъус дары</item>
+    <item quantity="other">%s хъазджытæм хъус дары</item>
+  </plurals>
+  <string name="more">Ноджы</string>
+  <string name="memberSince">Регистрацийы датæ</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
