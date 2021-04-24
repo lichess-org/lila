@@ -58,15 +58,13 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
 }
 
 export function getDropDests(fen: string): cg.DropDests {
-  const m = parseFen(fen).unwrap(
+  return parseFen(fen).unwrap(
     s => Shogi.fromSetup(s).unwrap(
       sh => shogigroundDropDests(sh),
       _ => new Map()
     ),
     _ => new Map()
   );
-  console.log("DOPRDETS: ", m);
-  return m;
 }
 
 // {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}

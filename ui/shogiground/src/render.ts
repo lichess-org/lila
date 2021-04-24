@@ -262,15 +262,12 @@ function computeSquareClasses(s: State): SquareClasses {
   else if(s.dropmode.active || s.draggable.current?.orig === 'a0') {
     const piece = s.dropmode.active ? s.dropmode.piece : s.draggable.current?.piece;
     if(piece && s.dropmode.showDropDests){
-      console.log(s.dropmode.dropDests);
       const dests = s.dropmode.dropDests?.get(piece.role);
-      console.log(dests);
       if (dests)
         for (const k of dests) {
           addSquare(squares, k, "move-dest");
         }
       const pDests = s.predroppable.dropDests;
-      console.log(pDests ? ("predrop: " + pDests) : "");
       if (pDests && !dests)
         for (const k of pDests) {
           addSquare(

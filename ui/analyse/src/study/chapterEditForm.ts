@@ -6,6 +6,7 @@ import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../
 import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterConfig, StudyChapterMeta } from './interfaces';
+import {toBlackWhite} from 'shogiops/util';
 
 interface StudyChapterEditFormCtrl {
   current: Prop<StudyChapterMeta | StudyChapterConfig | null>;
@@ -139,7 +140,7 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
           attrs: { for: 'chapter-orientation' }
         }, ctrl.trans.noarg('orientation')),
         h('select#chapter-orientation.form-control', ['sente', 'gote'].map(function(color) {
-          return option(color, data.orientation, ctrl.trans.noarg(color === 'sente' ? 'black' : 'white'));
+          return option(color, data.orientation, ctrl.trans.noarg(toBlackWhite(color)));
         }))
       ]),
       h('div.form-group.form-half', [

@@ -228,7 +228,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })
         )
       ),
-      ctrl.cfg.embed ? [] : pieceCounter(ctrl), 
+      ctrl.cfg.embed ? "" : pieceCounter(ctrl), 
     ]),
     ...(ctrl.cfg.embed
       ? [

@@ -10,7 +10,7 @@ import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
 import { notationStyle } from 'common/notation';
-import {opposite, toBW} from "shogiops/util";
+import {opposite, toBlackWhite, toBW} from "shogiops/util";
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -89,7 +89,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         },
         [
           viewStatus(ctrl),
-          winner ? " • " + ctrl.trans.noarg((winner === "sente" ? "black" : "white") + "IsVictorious") : "",
+          winner ? " • " + ctrl.trans.noarg(toBlackWhite(winner) + "IsVictorious") : "",
         ]
       ),
     ]);

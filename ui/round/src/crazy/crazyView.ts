@@ -5,6 +5,7 @@ import * as cg from "shogiground/types";
 import RoundController from "../ctrl";
 import { onInsert } from "../util";
 import { Position } from "../interfaces";
+import {unpromote} from "shogiops/util";
 
 const eventNames1 = ["mousedown", "touchmove"];
 const eventNames2 = ["click"];
@@ -29,21 +30,7 @@ export default function pocket(
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
-  const captured =
-    capturedPiece &&
-    (!capturedPiece["promoted"]
-      ? capturedPiece.role
-      : capturedPiece.role === "tokin"
-      ? "pawn"
-      : capturedPiece.role === "promotedlance"
-      ? "lance"
-      : capturedPiece.role === "promotedknight"
-      ? "knight"
-      : capturedPiece.role === "promotedsilver"
-      ? "silver"
-      : capturedPiece.role === "horse"
-      ? "bishop"
-      : "rook");
+  const captured = capturedPiece && unpromote(capturedPiece.role);
   return h(
     "div.pocket.is2d.pocket-" + position,
     {

@@ -22,16 +22,16 @@ function viewSolution(ctrl: Controller): VNode {
   );
 }
 
-function tsumeHint(ctrl: Controller, prefix: string = " - "): string | undefined {
+function tsumeHint(ctrl: Controller, prefix: string = " - "): string {
   const tl = ctrl.tsumeLength() > 0 ? ((ctrl.tsumeLength() - 1) | 1) : 0;
   switch (tl) {
     case 0:
-      return undefined;
+      return "";
     case 1:
     case 3:
     case 5:
     case 7:
-        return prefix + ctrl.trans.noarg('mateIn' + tl);
+      return prefix + ctrl.trans.noarg('mateIn' + tl);
     default:
       return prefix + ctrl.trans.noarg('mateIn9');
   }

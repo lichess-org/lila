@@ -9,6 +9,7 @@ import { chapter as chapterTour } from "./studyTour";
 import { StudyChapterMeta } from "./interfaces";
 import { Redraw } from "../interfaces";
 import AnalyseCtrl from "../ctrl";
+import {toBlackWhite} from "shogiops/util";
 
 export const modeChoices = [
   ["normal", "normalAnalysis"],
@@ -318,7 +319,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 return option(
                   color,
                   currentChapter.setup.orientation,
-                  noarg(color === "sente" ? "black" : "white")
+                  noarg(toBlackWhite(color))
                 );
               })
             ),

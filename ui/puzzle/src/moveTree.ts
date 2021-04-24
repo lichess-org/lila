@@ -39,11 +39,8 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
   const pos = Shogi.fromSetup(parseFen(initialNode.fen).unwrap(), false).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
-    console.log("mergeSolution: ", uci)
     const move = parseLishogiUci(uci)!;
-    console.log(move);
     const san = makeSan(pos, move);
-    console.log(san);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
     if ((pov == 'sente') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';

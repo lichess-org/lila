@@ -18,9 +18,7 @@ type Position = "top" | "bottom";
 export default function (ctrl: Controller, position: Position) {
   const shogi = ctrl.position();
   // We are solving from the bottom, initial color is our color
-  console.log("Starting color: ", ctrl.vm.pov);
-  const color = position === "bottom" ? ctrl.vm.pov :
-  opposite(ctrl.vm.pov);
+  const color = position === "bottom" ? ctrl.vm.pov : opposite(ctrl.vm.pov);
   const pocket = shogi.pockets[color];
 
   const usable = color === shogi.turn;

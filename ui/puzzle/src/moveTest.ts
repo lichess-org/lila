@@ -13,8 +13,6 @@ function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role ): b
   const m2 = parseLishogiUci(u2);
   if(!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to)
     return false;
-  console.log(turn);
-  console.log("Backrank: ", SquareSet.backrank2(turn).has(m1.to));
   return (role === "knight" && SquareSet.backrank2(turn).has(m1.to)) ||
     ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to));
 }
