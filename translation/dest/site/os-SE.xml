@@ -336,7 +336,13 @@
   <string name="mustBeInTeam">Ды хъуамæ уай %s клубы уæнг</string>
   <string name="youAreNotInTeam">Ды %s клубы уæнг нæ дæ</string>
   <string name="backToGame">Хъазтмæ раздæхын</string>
-  <string name="averageElo">Астæуккаг иумæйаг рейтинг</string>
+  <string name="siteDescription">Æнæфидгæ онлайн шахмæттон сервер. Хъаз шахмæттæ сыгъдæг интерфейсы. Æнæ регистрацийæ, æнæ рекламæйæ, æнæ программæты хъуагæй. Хъаз шахмæттæ компьютеримæ, де\' мбæлтимæ кæнæ сæмбæлгæ ныхмæлæууæджытимæ.</string>
+  <string name="xJoinedTeamY">%1$s %2$s клубмæ бацыди</string>
+  <string name="xCreatedTeamY">%1$s саразта %2$s клуб</string>
+  <string name="xStartedStreaming">%s райдыдта трансляци</string>
+  <string name="averageElo">Астæуккаг хъазджыты рейтинг</string>
+  <string name="location">Ран</string>
+  <string name="filterGames">Партиты фæрсудзæн</string>
   <string name="reset">Раппарын</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
