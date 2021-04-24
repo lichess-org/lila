@@ -28,31 +28,22 @@ final class Streamer(
       }
     }
 
-  def featured =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        api = _ =>
-          ctx.noKid ?? {
-            env.streamer.liveStreamApi.all
-              .map { streams =>
-                val max      = env.streamer.homepageMaxSetting.get()
-                val featured = streams.homepage(max, ctx.req, ctx.me) withTitles env.user.lightUserApi
-                Ok(
-                  Json.toJson(
-                    featured.live.streams.map(s =>
-                      Json.obj(
-                        "link"              -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
-                        "usernameWithTitle" -> featured.titleName(s),
-                        "status"            -> s.status
-                      )
-                    )
-                  )
-                )
-              }
+  def featured = Action.async { implicit req =>
+    env.streamer.liveStreamApi.all
+      .map { streams =>
+        val max      = env.streamer.homepageMaxSetting.get()
+        val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+        JsonOk {
+          featured.live.streams.map { s =>
+            Json.obj(
+              "url"               -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
+              "usernameWithTitle" -> featured.titleName(s),
+              "status"            -> s.status
+            )
           }
-      )
-    }
+        }
+      }
+  }
 
   def live =
     apiC.ApiRequest { _ =>
