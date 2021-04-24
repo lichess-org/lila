@@ -39,7 +39,7 @@ case class LiveStreams(streams: List[Stream]) {
   def withTitles(lightUser: lila.user.LightUserApi) =
     LiveStreams.WithTitles(
       this,
-      streams
+      streams.view
         .map(_.streamer.userId)
         .flatMap { userId =>
           lightUser.sync(userId).flatMap(_.title) map (userId ->)
