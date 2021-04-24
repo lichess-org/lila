@@ -52,7 +52,7 @@ final class Preload(
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
       (ctx.noKid ?? liveStreamApi.all
-        .dmap(_.homepage(streamerSpots, ctx.req, ctx.me) withTitles lightUserApi)
+        .dmap(_.homepage(streamerSpots, ctx.req, ctx.me.flatMap(_.lang)) withTitles lightUserApi)
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {

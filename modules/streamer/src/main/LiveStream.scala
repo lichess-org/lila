@@ -19,7 +19,7 @@ case class LiveStreams(streams: List[Stream]) {
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int, req: RequestHeader, userLang: Option[Lang]) =
+  def homepage(max: Int, req: RequestHeader, userLang: Option[String]) =
     LiveStreams {
       val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ userLang.toSet
       streams
