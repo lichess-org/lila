@@ -130,7 +130,7 @@ export class Ctrl {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
-    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard',
+    canContinue = !ctrl.ongoing && !ctrl.embed && (d.game.variant.key === 'standard' || d.game.variant.key === 'fromPosition'),
     ceval = ctrl.getCeval(),
     mandatoryCeval = ctrl.mandatoryCeval();
 
@@ -142,7 +142,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       }, noarg('flipBoard')),
       ctrl.ongoing ? null : h('a.button.button-empty', {
         attrs: {
-          href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.encodeNodeFen() : '/' + d.game.id + '/edit?fen=' + ctrl.encodeNodeFen(),
           rel: 'nofollow',
           target: ctrl.embed ? '_blank' : '',
           'data-icon': 'm'
@@ -266,13 +266,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
         canContinue ? h('div.continue-with.none.g_' + d.game.id, [
           h('a.button', {
             attrs: {
-              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.encodeNodeFen(),
               rel: 'nofollow'
             }
           }, noarg('playWithTheMachine')),
           h('a.button', {
             attrs: {
-              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.encodeNodeFen(),
               rel: 'nofollow'
             }
           }, noarg('playWithAFriend'))
