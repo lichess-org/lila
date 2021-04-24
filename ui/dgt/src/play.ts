@@ -173,7 +173,7 @@ export default function (token: string) {
    *
    * Get my profile
    *
-   * Shows Public informations about the logged in user.
+   * Shows Public information about the logged in user.
    *
    * Example
    * {"id":"andrescavallin","username":"andrescavallin","online":true,"perfs":{"blitz":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"bullet":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"correspondence":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"classical":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true},"rapid":{"games":0,"rating":1500,"rd":350,"prog":0,"prov":true}},"createdAt":1599930231644,"seenAt":1599932744930,"playTime":{"total":0,"tv":0},"language":"en-US","url":"http://localhost:9663/@/andrescavallin","nbFollowing":0,"nbFollowers":0,"count":{"all":0,"rated":0,"ai":0,"draw":0,"drawH":0,"loss":0,"lossH":0,"win":0,"winH":0,"bookmark":0,"playing":0,"import":0,"me":0},"followable":true,"following":false,"blocking":false,"followsYou":false}
@@ -190,7 +190,7 @@ export default function (token: string) {
         me = data;
         //Log raw data received
         if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
-        //Diplay Title + UserName . Title may be undefined
+        //Display Title + UserName . Title may be undefined
         console.log('┌─────────────────────────────────────────────────────┐');
         console.log('│ ' + (typeof data.title == 'undefined' ? '' : data.title) + ' ' + data.username);
         //Display performance ratings
@@ -238,7 +238,7 @@ export default function (token: string) {
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
       const jsonArray = value ? decoder.decode(value).split('\n') : [];
       for (let i = 0; i < jsonArray.length; i++) {
-        //Skip empty elements that may have happened witht the .split('\n')
+        //Skip empty elements that may have happened with the .split('\n')
         if (jsonArray[i].length > 2) {
           try {
             const data = JSON.parse(jsonArray[i]);
@@ -329,13 +329,13 @@ export default function (token: string) {
       if (done) break;
       //Log raw data received
       if (verbose && value!.length > 1)
-        console.log('connectToGameStream - board game stream recevied:', decoder.decode(value));
+        console.log('connectToGameStream - board game stream received:', decoder.decode(value));
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
       const jsonArray = decoder.decode(value)!.split('\n');
       for (let i = 0; i < jsonArray.length; i++) {
-        //Skip empty elements that may have happened witht the .split('\n')
+        //Skip empty elements that may have happened with the .split('\n')
         if (jsonArray[i].length > 2) {
           try {
             const data = JSON.parse(jsonArray[i]);
@@ -418,7 +418,7 @@ export default function (token: string) {
         //Check if any started games are disconnected
         for (const [gameId, networkState] of gameConnectionMap) {
           if (!networkState.connected && gameStateMap.get(gameId).status == 'started') {
-            //Game is not conencted and has not finished, reconnect
+            //Game is not connected and has not finished, reconnect
             if (verbose) console.log(`Started game is disconnected. Attempting reconnection for gameId: ${gameId}`);
             connectToGameStream(gameId);
           }
@@ -827,7 +827,7 @@ export default function (token: string) {
 
     liveChessConnection.onclose = () => {
       console.error('Websocket to LiveChess disconnected');
-      //Clear the value of current serial number this serves as a diconnected status
+      //Clear the value of current serial number this serves as a disconnected status
       currentSerialnr = '0';
       //Set connection state to false
       isLiveChessConnected = false;
@@ -842,7 +842,7 @@ export default function (token: string) {
         lastLiveChessBoard = message.param.board;
       }
       if (message.response == 'call' && message.id == '1') {
-        //Get the list of availble boards on LiveChess
+        //Get the list of available boards on LiveChess
         boards = message.param;
         console.table(boards);
         if (verbose) console.info(boards[0].serialnr);
@@ -899,18 +899,18 @@ export default function (token: string) {
               console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
             if (localBoard.turn == currentGameColor) {
               //If more than one move is received when its the DGT board player's turn this may be a invalid move
-              //Move will be quarentined by 2.5 seconds
-              const quarentinedlastLegalParam = lastLegalParam;
+              //Move will be quarantined by 2.5 seconds
+              const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
-              //Check if a different move was recevied and processed during quarentine
-              if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarentinedlastLegalParam.san)) {
-                //lastLegalParam was altered, this mean a new move was received from LiveChess during quarentine
+              //Check if a different move was received and processed during quarantine
+              if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarantinedlastLegalParam.san)) {
+                //lastLegalParam was altered, this mean a new move was received from LiveChess during quarantine
                 console.warn(
-                  'onmessage - Invalid moved quarentined and not sent to lichess. Newer move interpretration received.'
+                  'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretration received.'
                 );
                 return;
               }
-              //There is a chance that the same move came twice and quarentined twice before updating lastLegalParam
+              //There is a chance that the same move came twice and quarantined twice before updating lastLegalParam
               else if (
                 lastLegalParam !== undefined &&
                 JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
@@ -918,7 +918,7 @@ export default function (token: string) {
                 //It looks like a duplicate, so just ignore it
                 if (verbose)
                   console.info(
-                    'onmessage - Duplicate position and san move received after quarentine and will be ignored'
+                    'onmessage - Duplicate position and san move received after quarantine and will be ignored'
                   );
                 return;
               }
@@ -1075,7 +1075,7 @@ export default function (token: string) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
       console.warn('validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...');
       await sleep(2000);
-      //Now attempt to select for which game is this command intented
+      //Now attempt to select for which game is this command intended
       await chooseCurrentGame();
     }
     //Now send the move
@@ -1108,8 +1108,8 @@ export default function (token: string) {
         .then(response => {
           try {
             if (response.status == 200 || response.status == 201) {
-              //Move sucessfully sent
-              if (verbose) console.log('sendMove - Move sucessfully sent.');
+              //Move successfully sent
+              if (verbose) console.log('sendMove - Move successfully sent.');
             } else {
               response.json().then(errorJson => {
                 console.error('sendMove - Failed to send move. ' + errorJson.error);

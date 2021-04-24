@@ -149,7 +149,7 @@ object dgt {
                 List((false, trans.no.txt()), (true, trans.yes.txt()))
               ),
               st.small(cls := "form-help")(
-                """Select YES to annouce both your moves and your opponent's moves. Select NO to annouce only your opponent's moves."""
+                """Select YES to announce both your moves and your opponent's moves. Select NO to announce only your opponent's moves."""
               )
             ),
             div(cls := "form-group")(

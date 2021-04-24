@@ -33,8 +33,8 @@ export function povChances(color: Color, ev: Eval): number {
 }
 
 // computes the difference, in winning chances, between two evaluations
-// 1  = e1 is infinately better than e2
-// -1 = e1 is infinately worse  than e2
+// 1  = e1 is infinitely better than e2
+// -1 = e1 is infinitely worse  than e2
 export function povDiff(color: Color, e1: Eval, e2: Eval): number {
   return (povChances(color, e1) - povChances(color, e2)) / 2;
 }
