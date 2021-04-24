@@ -351,6 +351,8 @@
   <string name="pasteThePgnStringHere">Басадз PGN текст</string>
   <string name="fromPosition">Позицийæ</string>
   <string name="continueFromHere">Адарддæр кæнын ардыгæй</string>
+  <string name="toStudy">Студи скæнын</string>
+  <string name="importGame">Хъазт импорт кæнын</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
