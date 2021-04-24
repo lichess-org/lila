@@ -1,34 +1,18 @@
 import { scroller } from './scroller';
+import { linkRegex, linkReplace, newLineRegex, userPattern, userLinkReplace } from 'common/richText';
 
-// looks like it has a @mention or #gameid or a url.tld
-export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,})/.test(str);
-
-export const enhance = (str: string) =>
-  expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(/\n/g, '<br>');
-
-const expandMentions = (html: string) =>
-  html.replace(/(^|[^\w@#/])@([\w-]{2,})/g, (orig: string, prefix: string, user: string) =>
-    user.length > 20 ? orig : `${prefix}${a('/@/' + user, '@' + user)}`
-  );
-
-const expandGameIds = (html: string) =>
-  html.replace(
-    /\s#([\w]{8})($|[^\w-])/g,
-    (_: string, id: string, suffix: string) => ' ' + a('/' + id, '#' + id, 'text') + suffix
-  );
-
-// ported from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-const expandUrls = (html: string) =>
-  html.replace(urlRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
-
-const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
+export { isMoreThanText } from 'common/richText';
 
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
+const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
+
+const img = (src: string) => `<img src="${src}"/>`;
+
+const aImg = (src: string) => linkReplace(src, img(src));
+
 const expandImgur = (url: string) =>
   imgurRegex.test(url) ? url.replace(imgurRegex, (_, id) => aImg(`https://i.imgur.com/${id}.jpg`)) : undefined;
 
-const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
 const expandGiphy = (url: string) =>
   giphyRegex.test(url)
     ? url.replace(giphyRegex, (_, id) => aImg(`https://media.giphy.com/media/${id}/giphy.gif`))
@@ -36,18 +20,25 @@ const expandGiphy = (url: string) =>
 
 const expandImage = (url: string) => (/\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(url) : undefined);
 
-const expandLink = (url: string) => a(url, url.replace(/^https?:\/\//, ''));
+const expandLink = (url: string) => linkReplace(url, url.replace(/^https?:\/\//, ''));
 
-const a = (href: string, body: string, cls?: string) =>
-  `<a target="_blank" rel="noopener nofollow" href="${
-    href.startsWith('/') || href.includes('://') ? href : '//' + href
-  }"${cls ? ` class="${cls}"` : ''}>${body}</a>`;
+const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
 
-const img = (src: string) => `<img src="${src}"/>`;
+const expandUrls = (html: string) =>
+  html.replace(linkRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
 
-const aImg = (src: string) => a(src, img(src));
+const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
-/* now with the iframe expansion */
+const expandGameIds = (html: string) =>
+  html.replace(
+    /\s#([\w]{8})($|[^\w-])/g,
+    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix
+  );
+
+export const enhance = (str: string) =>
+  expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(newLineRegex, '<br>');
+
+/* Enhance with iframe expansion */
 
 interface Expandable {
   element: HTMLElement;

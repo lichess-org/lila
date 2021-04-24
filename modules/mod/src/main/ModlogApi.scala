@@ -292,7 +292,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
               M.unalt =>
             SlackApi.MonitorType.Hunt
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
-              M.enableTeam | M.setKidMode =>
+              M.enableTeam | M.setKidMode | M.deletePost =>
             SlackApi.MonitorType.Comm
           case _ => SlackApi.MonitorType.Other
         }
