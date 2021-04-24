@@ -88,9 +88,9 @@ object features {
             //  a(href := routes.Search.index(1))("Advanced search"),
             //  " through Lishogi 1.5 billion games"
             //),
-            //tr(unlimited)(
-            //  a(href := routes.Video.index())("Chess video library")
-            //),
+            tr(unlimited)(
+              a(href := routes.Video.index())("Shogi video library")
+            ),
             tr(check)(
               "Forum, teams, messaging, friends, challenges"
             ),
