@@ -652,7 +652,7 @@ export default class AnalyseCtrl {
   }
 
   encodeNodeFen(): Fen {
-    return this.node.fen.replace(/\s/g, "_").replace(/\+/, '%2B');
+    return this.node.fen.replace(/\s/g, "_").replace(/\+/g, '%2B');
   }
 
   currentEvals() {
