@@ -117,17 +117,17 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    return this.makeUrl(`/analysis/`, this.encodeFen(legalFen));
+    return this.makeUrl(`/analysis/`, this.encodeFen(legalFen).replace(/%2B/g, "+"));
   }
 
   encodeFen(fen: string): string {
-    return encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/").replace(/%2B/g, "+");
+    return encodeURIComponent(fen).replace(/%20/g, "_").replace(/%2F/g, "/");
   }
 
   makeUrl(baseUrl: string, fen: string): string {
     return (
       baseUrl +
-      this.encodeFen(fen)
+      this.encodeFen(fen).replace(/%2B/g, "+")
     );
   }
 
