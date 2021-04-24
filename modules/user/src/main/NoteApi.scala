@@ -51,14 +51,14 @@ final class NoteApi(
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
-      .list(20)
+      .list(50)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
     coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
-      .list(50)
+      .list(100)
 
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
