@@ -36,7 +36,6 @@ z-index: 99;
   val connectLinks =
     div(cls := "connect-links")(
       a(href := "https://twitter.com/lishogi", rel := "nofollow")("Twitter"),
-      a(href := "https://discord.gg/YFtpMGg3rR", rel := "nofollow")("Discord"),
-      a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube")
+      a(href := "https://discord.gg/YFtpMGg3rR", rel := "nofollow")("Discord")
     )
 }
