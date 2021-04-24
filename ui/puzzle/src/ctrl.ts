@@ -60,7 +60,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function initiate(fromData: PuzzleData): void {
-    console.log("initiate, ", fromData);
     data = fromData;
     tree = data.game.pgn ? treeBuild(pgnToTree(data.game.pgn.split(' '))) : treeBuild(fenToTree(data.game.fen!));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
@@ -75,7 +74,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = plyColor(vm.initialNode.ply);
-    console.log("vm: ", vm);
 
     setPath(treePath.init(initialPath));
     if(data.game.id)
@@ -114,7 +112,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
-          color: dests.size > 0 ? color : undefined,
+          color: (dests.size > 0 || dropDests.size > 0) ? color : undefined,
           dests,
         }
       : {
@@ -178,7 +176,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUci(uci: Uci): void {
-    console.log(uci);
     sendMove(parseLishogiUci(assureLishogiUci(uci)!)!);
   }
 
@@ -203,7 +200,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function sendMoveAt(path: Tree.Path, pos: Shogi, move: Move): void {
     const san = makeSanAndPlay(pos, move);
-    console.log(san);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
       {
@@ -472,7 +468,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       redraw();
     }
   };
-
   initiate(opts.data);
 
   const promotion = makePromotion(vm, ground, redraw);
