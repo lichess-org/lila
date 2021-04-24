@@ -360,6 +360,12 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Уый у шахмæттон капчæ.</string>
   <string name="clickOnTheBoardToMakeYourMove">Æрæлхъив фæйнæгыл æмæ скæн дæ цыд, цæмæй равдисын, адæймаг дæ æви компьютер дæ.</string>
+  <string name="captcha.fail">Табуафси, райхал шахмæттон капчæ.</string>
+  <string name="notACheckmate">Уый мат нæ у</string>
+  <string name="whiteCheckmatesInOneMove">Урсытæ сæвæрынц мат иу цыды фæстæ</string>
+  <string name="blackCheckmatesInOneMove">Саутæ сæвæрынц мат иу цыды фæстæ</string>
+  <string name="retry">Рафæлхатын</string>
+  <string name="reconnecting">Ногæй баиу кæнæм</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
