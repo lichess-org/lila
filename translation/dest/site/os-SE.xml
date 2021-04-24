@@ -347,6 +347,10 @@
   <string name="apply">Сфидар кæнын</string>
   <string name="save">Бавæрын</string>
   <string name="leaderboard">Раздзоджыты таблицæ</string>
+  <string name="pasteTheFenStringHere">Басадз FEN текст</string>
+  <string name="pasteThePgnStringHere">Басадз PGN текст</string>
+  <string name="fromPosition">Позицийæ</string>
+  <string name="continueFromHere">Адарддæр кæнын ардыгæй</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
