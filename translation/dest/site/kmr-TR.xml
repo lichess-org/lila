@@ -37,7 +37,7 @@
     <item quantity="one">Reqîbê te dev ji lîstikê berda. Tu dikarî di %s sanîyan de serkeftinê bixwazî.</item>
     <item quantity="other">Hemberê te, dev ji lîstokê berda. Tu dikari di %s saniya bi serkevi.</item>
   </plurals>
-  <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
+  <string name="opponentLeftChoices">Reqîb çû. Tu dikarî serkeftin an jî wekheviyê bixwazî an jî bisekinî.</string>
   <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
   <string name="forceDraw">Wekheviyê bixwaze</string>
@@ -149,7 +149,7 @@
   <string name="friends">Hevalan</string>
   <string name="discussions">Nîqaşan</string>
   <string name="today">Îro</string>
-  <string name="yesterday">Duh</string>
+  <string name="yesterday">Doh</string>
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
@@ -241,9 +241,9 @@
   <string name="noNewMessages">Peyamên nû tine</string>
   <string name="subject">Mijar</string>
   <string name="recipient">Wergir</string>
-  <string name="send">Bişîne</string>
-  <string name="incrementInSeconds">Li ser hemleyekê çend sanîye tê zêdekirin</string>
-  <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
+  <string name="send">Bişeyne</string>
+  <string name="incrementInSeconds">Evqas sanîye tê zêde kirin</string>
+  <string name="freeOnlineChess">Kişika Belaş a Serxet</string>
   <string name="spectators">Temaşevan:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puan</item>
