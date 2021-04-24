@@ -78,7 +78,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       showDropDests: pref.dropDestination && pref.destination
     },
     dropmode: {
-      showDropDests: pref.dropDestination && pref.destination
+      showDropDests: pref.dropDestination && pref.destination,
+      dropDests: opts.dropmode!.dropDests
     },
     drawable: {
       enabled: !ctrl.embed,
