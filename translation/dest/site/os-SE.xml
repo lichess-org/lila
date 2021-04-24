@@ -366,6 +366,13 @@
   <string name="blackCheckmatesInOneMove">Саутæ сæвæрынц мат иу цыды фæстæ</string>
   <string name="retry">Рафæлхатын</string>
   <string name="reconnecting">Ногæй баиу кæнæм</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s æмбал онлайн</item>
+    <item quantity="other">%s æмбалы онлайн</item>
+  </plurals>
+  <string name="noFriendsOnline">Нæй æмбæлтты онлайн</string>
+  <string name="findFriends">Ссарын æмбæлтты</string>
+  <string name="favoriteOpponents">Равзаргæ ныхмæлæууæджытæ</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
