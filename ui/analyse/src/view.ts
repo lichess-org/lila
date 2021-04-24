@@ -276,18 +276,18 @@ function controls(ctrl: AnalyseCtrl) {
                   }),
                 ]
               : [
-                  h("button.fbt", {
-                    attrs: {
-                      title: noarg("openingExplorerAndTablebase"),
-                      "data-act": "explorer",
-                      "data-icon": "]",
-                    },
-                    class: {
-                      hidden:
-                        menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                      active: ctrl.explorer.enabled(),
-                    },
-                  }),
+                  //h("button.fbt", {
+                  //  attrs: {
+                  //    title: noarg("openingExplorerAndTablebase"),
+                  //    "data-act": "explorer",
+                  //    "data-icon": "]",
+                  //  },
+                  //  class: {
+                  //    hidden:
+                  //      menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+                  //    active: ctrl.explorer.enabled(),
+                  //  },
+                  //}),
                   ctrl.ceval.possible &&
                   ctrl.ceval.allowed() &&
                   !ctrl.isGamebook()
