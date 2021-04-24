@@ -3,6 +3,7 @@ import { VNode } from "snabbdom/vnode";
 import GamebookPlayCtrl from "./gamebookPlayCtrl";
 import { bind, dataIcon, iconTag, richHTML } from "../../util";
 import { State } from "./gamebookPlayCtrl";
+import {toBlackWhite} from "shogiops/util";
 
 const defaultComments = {
   play: "What would you play in this position?",
@@ -83,7 +84,13 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       "div",
       fb === "play"
         ? [
-            h("div.no-square", h("piece.king." + color)),
+          h("img", {
+            attrs: {
+              width: 64,
+              height: 64,
+              src: window.lishogi.assetUrl(`images/${toBlackWhite(color)}Piece.svg`),
+            },
+          }),,
             h("div.instruction", [
               h("strong", ctrl.trans.noarg("yourTurn")),
               h(
