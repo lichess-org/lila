@@ -1,5 +1,8 @@
 # Login as a lichess user
 
+## Prerequisites
+Install [httpie tool](https://httpie.io/docs#installation) to be able to run `http` commands to access the endpoints mentioned below.
+
 ## Login
 
 Returns an authentication cookie and a `user` object.
