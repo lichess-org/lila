@@ -264,7 +264,8 @@ final class JsonView(
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
-          .add("destination" -> (pref.destination && !pref.isBlindfold)),
+          .add("destination" -> (pref.destination && !pref.isBlindfold))
+          .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
         "path"         -> pov.game.turns,
         "userAnalysis" -> true
       )
