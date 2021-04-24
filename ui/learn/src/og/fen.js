@@ -21,8 +21,8 @@ var roles = {
   "+l": "promotedlance",
   "+n": "promotedknight",
   "+s": "promotedsilver",
-  "+b": "promotedBishop",
-  "+r": "promotedRook",
+  "+b": "horse",
+  "+r": "dragon",
   "+p": "tokin",
 };
 
