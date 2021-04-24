@@ -10,7 +10,9 @@
 .gamebook {
   @extend %flex-column;
   grid-area: tools;
-  justify-content: flex-end;
+  @include breakpoint($mq-col2-uniboard){
+    justify-content: flex-end;
+  }
   .comment {
     @extend %flex-column, %box-shadow;
     font-size: 1.1em;

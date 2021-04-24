@@ -47,7 +47,7 @@ const feedback = {
             showGlyphs: true,
             showEval: false
           }, ctrl.current().fault.node, ctrl.notation)!))),
-          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'findBetterMoveForSente' : 'findBetterMoveForWhite')),
+          h('em', ctrl.noarg(ctrl.color === 'sente' ? 'findBetterMoveForBlack' : 'findBetterMoveForWhite')),
           skipOrViewSolution(ctrl)
         ])
       ])
