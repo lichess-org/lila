@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
-  <string name="displayBoardResizeHandle">允许调整棋盘大小</string>
+  <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>
