@@ -8,6 +8,15 @@
   <string name="newWeeklyHighscore">Disoc\'h gwellañ ar sizhun!</string>
   <string name="newMonthlyHighscore">Disoc\'h gwellañ ar miz!</string>
   <string name="newAllTimeHighscore">Disoc\'h gwellañ a-viskoazh!</string>
+  <string name="previousHighscoreWasX">Ho tisoc\'h gwellañ kent a oa %s</string>
+  <string name="playAgain">C\'hoari c\'hoazh</string>
+  <string name="highscoreX">Disoc\'h gwellañ: %s</string>
+  <string name="score">Disoc\'h</string>
+  <string name="moves">Taolioù</string>
+  <string name="accuracy">Pizhder</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Padelezh</string>
+  <string name="timePerMove">Padelezh dre daol</string>
   <string name="joinTheRace">Kregiñ gant ar redadeg!</string>
   <string name="waitForRematch">Gortozit evit c\'hoari en dro</string>
   <string name="nextRace">Ur redadeg c\'hoazh</string>
