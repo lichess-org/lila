@@ -1852,6 +1852,8 @@ val `streakSkipExplanation` = new I18nKey("puzzle:streakSkipExplanation")
 val `continueTheStreak` = new I18nKey("puzzle:continueTheStreak")
 val `newStreak` = new I18nKey("puzzle:newStreak")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
+val `nbPointsBelowYourPuzzleRating` = new I18nKey("puzzle:nbPointsBelowYourPuzzleRating")
+val `nbPointsAboveYourPuzzleRating` = new I18nKey("puzzle:nbPointsAboveYourPuzzleRating")
 }
 
 object puzzleTheme {

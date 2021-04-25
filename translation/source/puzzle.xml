@@ -39,8 +39,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Easier</string>
   <string name="easiest">Easiest</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">One point below your puzzle rating</item>
+    <item quantity="other">%s points below your puzzle rating</item>
+  </plurals>
   <string name="harder">Harder</string>
   <string name="hardest">Hardest</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">One point above your puzzle rating</item>
+    <item quantity="other">%s points above your puzzle rating</item>
+  </plurals>
   <string name="example">Example</string>
   <string name="addAnotherTheme">Add another theme</string>
   <string name="jumpToNextPuzzleImmediately">Jump to next puzzle immediately</string>

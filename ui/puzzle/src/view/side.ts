@@ -145,7 +145,13 @@ export const userBox = (ctrl: Controller): VNode => {
 export const streakBox = (ctrl: Controller) =>
   h('div.puzzle__side__user', renderStreak(ctrl.streak!, ctrl.trans.noarg));
 
-const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder', 'hardest'];
+const difficulties: [PuzzleDifficulty, number][] = [
+  ['easiest', -600],
+  ['easier', -300],
+  ['normal', 0],
+  ['harder', 300],
+  ['hardest', 600],
+];
 
 export function replay(ctrl: Controller): MaybeVNode {
   const replay = ctrl.getData().replay;
@@ -214,16 +220,22 @@ export function config(ctrl: Controller): MaybeVNode {
                   elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())
                 ),
               },
-              difficulties.map(diff =>
+              difficulties.map(([key, delta]) =>
                 h(
                   'option',
                   {
                     attrs: {
-                      value: diff,
-                      selected: diff == ctrl.difficulty,
+                      value: key,
+                      selected: key == ctrl.difficulty,
+                      title:
+                        !!delta &&
+                        ctrl.trans.plural(
+                          delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
+                          Math.abs(delta)
+                        ),
                     },
                   },
-                  ctrl.trans.noarg(diff)
+                  [ctrl.trans.noarg(key), delta ? ` (${delta > 0 ? '+' : ''}${delta})` : '']
                 )
               )
             ),
