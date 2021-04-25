@@ -40,7 +40,7 @@
   <string name="newTag">새 태그</string>
   <string name="commentThisPosition">이 포지션에 댓글 달기</string>
   <string name="commentThisMove">이 수에 댓글 달기</string>
-  <string name="annotateWithGlyphs">문자로 주석 달기</string>
+  <string name="annotateWithGlyphs">기호로 주석 달기</string>
   <string name="theChapterIsTooShortToBeAnalysed">분석되기 너무 짧은 챕터입니다.</string>
   <string name="onlyContributorsCanRequestAnalysis">연구 기여자만이 컴퓨터 분석을 요청할 수 있습니다.</string>
   <string name="getAFullComputerAnalysis">메인라인에 대한 전체 서버 컴퓨터 분석을 가져옵니다.</string>
@@ -80,7 +80,7 @@
   <string name="clearAnnotations">주석 지우기</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
-  <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 화살표를 지울까요?</string>
+  <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>
   <string name="rightUnderTheBoard">보드 우하단에</string>
   <string name="noPinnedComment">없음</string>
   <string name="normalAnalysis">일반 분석</string>
