@@ -69,6 +69,7 @@ def classes(color, role)
       .cg-wrap.orientation-sente piece.#{role}.sente,
       .cg-wrap.orientation-gote piece.#{role}.gote,
       .pocket-bottom piece.#{role}.gote,
+      .e-pocket-bottom piece.#{role}.gote,
       #promotion-choice.top piece.#{role},
       .spare-bottom piece.#{role}.gote"
     end
@@ -84,6 +85,7 @@ def classes(color, role)
       .cg-wrap.orientation-sente piece.#{role}.gote,
       .cg-wrap.orientation-gote piece.#{role}.sente,
       .pocket-top piece.#{role},
+      .e-pocket-top piece.#{role},
       #promotion-choice.bottom piece.#{role},
       .spare-top piece.#{role}.sente"
     end
