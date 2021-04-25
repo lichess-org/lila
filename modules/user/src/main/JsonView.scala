@@ -23,7 +23,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       )
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> (u.marks.engine || u.marks.boost))
-      .add("booster" -> false) // App BC
       .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
       .add("seenAt" -> u.seenAt)
       .add("patron" -> u.isPatron)
@@ -42,7 +41,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .add("title" -> u.title)
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> (u.marks.engine || u.marks.boost))
-      .add("booster" -> false) // BC
       .add("language" -> u.lang)
       .add("profile" -> u.profile.flatMap(_.country).map { country =>
         Json.obj("country" -> country)
