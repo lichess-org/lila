@@ -21,13 +21,20 @@
     <item quantity="other">%s 게임</item>
   </plurals>
   <string name="addMembers">멤버 추가</string>
+  <plurals name="nbMembers">
+    <item quantity="other">멤버 %s명</item>
+  </plurals>
   <string name="inviteToTheStudy">연구에 초대</string>
   <string name="searchByUsername">사용자 이름으로 검색</string>
   <string name="spectator">관전자</string>
   <string name="contributor">기여자</string>
   <string name="kick">강제 퇴장</string>
   <string name="leaveTheStudy">연구에서 나가기</string>
+  <string name="pgnTags">PGN 태그</string>
   <string name="like">좋아요</string>
+  <string name="newTag">새 태그</string>
+  <string name="commentThisPosition">이 포지션에 댓글 달기</string>
+  <string name="commentThisMove">이 수에 댓글 달기</string>
   <string name="theChapterIsTooShortToBeAnalysed">분석되기 너무 짧은 챕터입니다.</string>
   <string name="previous">이전</string>
   <string name="next">다음</string>
