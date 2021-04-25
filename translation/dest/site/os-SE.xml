@@ -482,10 +482,13 @@
   <string name="no">Нæ</string>
   <string name="yes">О</string>
   <string name="help">Æххуыс:</string>
-  <string name="createANewTopic">Саразын ног тæрхон</string>
+  <string name="createANewTopic">Ног тæрхон саразын</string>
   <string name="topics">Тæрхонтæ</string>
-  <string name="replyToThisTopic">Ацы тæрхонмæ дзуапп раттын</string>
+  <string name="posts">Фыстæджытæ</string>
+  <string name="replyToThisTopic">Дзуапп раттын ацы тæрхонмæ</string>
+  <string name="createTheTopic">Тæрхон саразын</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
+  <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
@@ -496,6 +499,7 @@
   <string name="blackCastlingKingside">Саутæ O-O</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
   <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Реваншытæ, цыдты аивтæ кæнæ рæстæджы бафтауæккаг иваргонд сты.</string>
+  <string name="create">Саразын</string>
   <string name="weeklyPerfTypeRatingDistribution">Алкъуырион %s рейтингы райуæрст</string>
   <string name="yourPerfTypeRatingIsRating">Дæ %1$s рейтинг у %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Дæ %s рейтинг æнæбæрæг ма у.</string>
@@ -507,5 +511,6 @@
   <string name="boardTheme">Фæйнæджы бакаст</string>
   <string name="boardSize">Фæйнæджы бæрц</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="xMentionedYouInY"> %1$s дæ ской кодта «%2$s»-ы.</string>
   <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>
 </resources>
