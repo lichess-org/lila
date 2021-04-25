@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess 스트리머</string>
+  <string name="lichessStreamer">Lichess 스트리머</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">현재 스트리밍 중: %s</string>
+  <string name="becomeStreamer">Lichess 스트리머가 되세요</string>
+  <string name="doYouHaveStream">트위치나 유튜브 채널이 있으신가요?</string>
+  <string name="hereWeGo">시작합시다!</string>
+  <string name="allStreamers">모든 스트리머</string>
+  <string name="editPage">스트리머 페이지 편집</string>
+  <string name="yourPage">당신의 스트리머 페이지</string>
+  <string name="downloadKit">스트리머 키트 다운로드</string>
+  <string name="xIsStreaming">%s가 스트리밍 중입니다</string>
+  <string name="rules">스트리밍 규칙</string>
+  <string name="rule1">Lichess로 스트리밍을 할 경우 스트리밍 제목에 \"lichess.org\" 키워드를 포함하고 카테고리를 \"Chess\"로 합니다.</string>
+  <string name="rule2">Lichess를 이용하지 않는 경우 키워드를 삭제합니다.</string>
+  <string name="rule3">Lichess는 스트림을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
+</resources>
