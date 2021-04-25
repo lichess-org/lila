@@ -150,6 +150,12 @@ final class RelayRound(
           }
     )
 
+  def bcShow(@nowarn("unused") slug: String, roundId: String) = Open { implicit ctx =>
+    env.relay.api byIdWithTour RoundModel.Id(roundId) map2 { rt =>
+      Redirect(rt.path)
+    }
+  }
+
   def chapter(ts: String, rs: String, id: String, chapterId: String) =
     Open { implicit ctx =>
       WithRelay(ts, rs, id) { rt =>

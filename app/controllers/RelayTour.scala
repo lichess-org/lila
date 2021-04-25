@@ -17,20 +17,9 @@ final class RelayTour(env: Env) extends LilaController(env) {
         for {
           active <- (page == 1).??(env.relay.api.officialActive)
           pager  <- env.relay.pager.inactive(page)
-        } yield Ok(html.relay.index(active, pager))
+        } yield Ok(html.tour.index(active, pager))
       }
     }
-
-  def show(slug: String, id: String) = Open { implicit ctx =>
-    WithTour(id) { tour =>
-      if (tour.slug != slug) Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).fuccess
-      else
-        env.relay.api.byTour(tour) map { relays =>
-          val markup = tour.markup.map { md => scalatags.Text.all.raw(env.relay.markup(md)) }
-          Ok(html.relay.tour.show(tour, relays, markup))
-        }
-    }
-  }
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {

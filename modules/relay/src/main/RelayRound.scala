@@ -24,7 +24,7 @@ case class RelayRound(
 
   def studyId = Study.Id(id.value)
 
-  def slug = {
+  lazy val slug = {
     val s = lila.common.String slugify name
     if (s.isEmpty) "-" else s
   }
@@ -135,7 +135,9 @@ object RelayRound {
 
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
 
-    def path: String                        = s"/broadcast/${tour.slug}/${round.slug}/${round.id}"
+    def path: String =
+      s"/broadcast/${tour.slug}/${if (round.slug == tour.slug) "-" else round.slug}/${round.id}"
+
     def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
   }
 

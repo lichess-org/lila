@@ -18,7 +18,7 @@ case class RelayTour(
 ) {
   def id = _id
 
-  def slug = {
+  lazy val slug = {
     val s = lila.common.String slugify name
     if (s.isEmpty) "-" else s
   }
@@ -40,6 +40,8 @@ object RelayTour {
     def path    = RelayRound.WithTour(round, tour).path
     def ongoing = round.startedAt.isDefined
   }
+
+  case class WithLastRound(tour: RelayTour, round: RelayRound)
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

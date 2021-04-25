@@ -171,7 +171,7 @@ GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: String)
-GET   /broadcast/:ts/$tourId<\w{8}>           controllers.RelayTour.show(ts: String, tourId: String)
+GET   /broadcast/:rs/$roundId<\w{8}>          controllers.RelayRound.bcShow(rs: String, roundId: String)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: String)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts: String, rs: String, roundId: String)

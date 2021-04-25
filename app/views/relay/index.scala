@@ -10,13 +10,15 @@ import lila.common.paginator.Paginator
 import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 
-object index {
+object tour {
 
   import trans.broadcast._
 
-  def apply(
+  // def url(t: RelayTour) = routes.RelayTour.show(t.slug, t.id.value)
+
+  def index(
       active: List[RelayTour.ActiveWithNextRound],
-      pager: Paginator[RelayTour]
+      pager: Paginator[RelayTour.WithLastRound]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),

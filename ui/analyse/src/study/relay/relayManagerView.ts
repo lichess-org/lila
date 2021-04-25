@@ -15,7 +15,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
           h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
           h('a', {
             attrs: {
-              href: `${ctrl.data.url}/edit`,
+              href: `/broadcast/round/${ctrl.data.id}/edit`,
               'data-icon': '%',
             },
           }),
