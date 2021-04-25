@@ -57,7 +57,7 @@
   <string name="analysis">Парти иртасын</string>
   <string name="depthX">Арфад %s</string>
   <string name="usingServerAnalysis">Серверон иртасæн кусы</string>
-  <string name="loadingEngine">Змæлынгæнæджы байдзагкæнын...</string>
+  <string name="loadingEngine">Змæлынгæнæджы æвгæнын...</string>
   <string name="cloudAnalysis">Мигъон иртасæн</string>
   <string name="goDeeper">Иртасын арфдæр</string>
   <string name="showThreat">Равдисын дзуаппы æртхъирæн</string>
@@ -443,6 +443,9 @@
   <string name="startPosition">Райдайæн позици</string>
   <string name="clearBoard">Фæйнæг асыгъдæг кæнын</string>
   <string name="savePosition">Позици бафснайын</string>
+  <string name="loadPosition">Позици бавгæнын</string>
+  <string name="isPrivate">Æхгæд</string>
+  <string name="reportXToModerators">Фехъусын кæнын %s-ы тыххæй модератортæн</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
