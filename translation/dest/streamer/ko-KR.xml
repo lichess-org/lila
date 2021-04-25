@@ -29,6 +29,7 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">운영진 검토 요청을 해주세요.</string>
   <string name="headline">헤드라인</string>
+  <string name="tellUsAboutTheStream">당신의 스트리밍을 한 문장으로 요약해주세요</string>
   <string name="longDescription">상세설명</string>
   <string name="changePicture">사진 변경/삭제</string>
   <string name="uploadPicture">사진 업로드</string>
