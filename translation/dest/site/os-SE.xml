@@ -497,7 +497,10 @@
   <string name="reason">Аххос</string>
   <string name="whatIsIheMatter">Цы хабар у?</string>
   <string name="cheat">Фæлитой митæ</string>
+  <string name="insult">Бафхæрд</string>
+  <string name="troll">Троллинг</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
+  <string name="other">Æндæр</string>
   <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
