@@ -30,16 +30,45 @@
   <string name="contributor">기여자</string>
   <string name="kick">강제 퇴장</string>
   <string name="leaveTheStudy">연구에서 나가기</string>
+  <string name="youAreNowASpectator">당신은 관전자입니다</string>
   <string name="pgnTags">PGN 태그</string>
   <string name="like">좋아요</string>
   <string name="newTag">새 태그</string>
   <string name="commentThisPosition">이 포지션에 댓글 달기</string>
   <string name="commentThisMove">이 수에 댓글 달기</string>
+  <string name="annotateWithGlyphs">문자로 주석 달기</string>
   <string name="theChapterIsTooShortToBeAnalysed">분석되기 너무 짧은 챕터입니다.</string>
+  <string name="onlyContributorsCanRequestAnalysis">연구 기여자만이 컴퓨터 분석을 요청할 수 있습니다.</string>
+  <string name="first">처음</string>
   <string name="previous">이전</string>
   <string name="next">다음</string>
   <string name="last">마지막</string>
+  <string name="shareAndExport">공유 및 내보내기</string>
   <string name="cloneStudy">복제</string>
+  <string name="studyPgn">연구 PGN</string>
+  <string name="downloadAllGames">모든 게임 다운로드</string>
+  <string name="chapterPgn">챕터 PGN</string>
+  <string name="downloadGame">게임 다운로드</string>
+  <string name="studyUrl">연구 URL</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">방송 URL</string>
+  <string name="currentChapterUrl">현재 챕터 URL</string>
+  <string name="currentGameUrl">현재 게임 URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">포럼에 공유하려면 이 주소를 붙여넣으세요</string>
+  <string name="startAtInitialPosition">처음 포지션에서 시작</string>
+  <string name="startAtX">%s에서 시작</string>
+  <string name="embedInYourWebsite">웹사이트 또는 블로그에 공유하기</string>
+  <string name="readMoreAboutEmbedding">공유에 대한 상세 정보</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">공개 연구만 공유할 수 있습니다!</string>
+  <string name="open">열기</string>
+  <string name="xBroughtToYouByY">%1$s. %2$s에서 가져옴</string>
+  <string name="studyNotFound">연구를 찾을 수 없습니다</string>
+  <string name="editChapter">챕터 편집하기</string>
+  <string name="newChapter">새 챕터</string>
+  <string name="orientation">방향</string>
+  <string name="analysisMode">분석 모드</string>
+  <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
+  <string name="saveChapter">챕터 저장</string>
+  <string name="clearAnnotations">주석 지우기</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 화살표를 지울까요?</string>
