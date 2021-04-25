@@ -432,6 +432,13 @@
   <string name="tournamentComplete">Турнир фæци</string>
   <string name="movesPlayed">Цыдты конд уыди</string>
   <string name="whiteWins">Урсыты уæлахизты</string>
+  <string name="blackWins">Сауты уæлахизты</string>
+  <string name="draws">Хæрæгсастыты</string>
+  <string name="nextXTournament">Иннæ %s турнир:</string>
+  <string name="averageOpponent">Ныхмæлæууæджыты астæуккаг рейтинг</string>
+  <string name="membersOnly">Æрмæст регистраци кæмæн и</string>
+  <string name="boardEditor">Фæйнæджы редактор</string>
+  <string name="setTheBoard">Æрæвæрын позици</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
