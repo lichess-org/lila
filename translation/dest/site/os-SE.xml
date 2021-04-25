@@ -446,8 +446,12 @@
   <string name="loadPosition">Позици бавгæнын</string>
   <string name="isPrivate">Æхгæд</string>
   <string name="reportXToModerators">Фехъусын кæнын %s-ы тыххæй модератортæн</string>
+  <string name="profileCompletion">Профилы дзагдзинад: %s</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
+  <string name="gameCompletionRate">Æххæстгонд хъæзтыты арæхдзинад: %s</string>
+  <string name="profile">Профиль</string>
+  <string name="editProfile">Профиль æндæр кæнын</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
