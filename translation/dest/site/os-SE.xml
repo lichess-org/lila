@@ -478,6 +478,13 @@
   <string name="name">Ном</string>
   <string name="description">Радзырд</string>
   <string name="descPrivate">Хицæн радзырд</string>
+  <string name="descPrivateHelp">Радзырд, æрмæст клубы уæнгтæ кæй фендзысты. Баргъæвд куы у, уæд ивы æхсæны радзырд клубы уæнгтæн.</string>
+  <string name="no">Нæ</string>
+  <string name="yes">О</string>
+  <string name="help">Æххуыс:</string>
+  <string name="createANewTopic">Саразын ног тæрхон</string>
+  <string name="topics">Тæрхонтæ</string>
+  <string name="replyToThisTopic">Ацы тæрхонмæ дзуапп раттын</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
