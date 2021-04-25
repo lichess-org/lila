@@ -474,6 +474,10 @@
   <string name="autoSwitch">Хæдархайгæ ивд</string>
   <string name="puzzles">Этюдтæ</string>
   <string name="latestUpdates">Фæстаг сногтæ</string>
+  <string name="tournamentWinners">Турнирты уæлахиздзаутæ</string>
+  <string name="name">Ном</string>
+  <string name="description">Радзырд</string>
+  <string name="descPrivate">Хицæн радзырд</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
