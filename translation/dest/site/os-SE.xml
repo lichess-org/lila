@@ -439,6 +439,10 @@
   <string name="membersOnly">Æрмæст регистраци кæмæн и</string>
   <string name="boardEditor">Фæйнæджы редактор</string>
   <string name="setTheBoard">Æрæвæрын позици</string>
+  <string name="popularOpenings">Адæмы уарзон райдайæнтæ</string>
+  <string name="startPosition">Райдайæн позици</string>
+  <string name="clearBoard">Фæйнæг асыгъдæг кæнын</string>
+  <string name="savePosition">Позици бафснайын</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
