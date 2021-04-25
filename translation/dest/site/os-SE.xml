@@ -493,6 +493,8 @@
   <string name="message">Фыстæг</string>
   <string name="createTheTopic">Тæрхон саразын</string>
   <string name="reportAUser">Фехъусын кæнын</string>
+  <string name="user">Ном</string>
+  <string name="reason">Аххос</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
