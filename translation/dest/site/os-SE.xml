@@ -414,6 +414,16 @@
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
   <string name="fewerPlayers">Хайады домæнтæ куы раттдзынæ, уæд дæ ерысы къаддæр адæм хъаздзысты.</string>
   <string name="showAdvancedSettings">Равдисын баххæстæг настройкæтæ</string>
+  <string name="makePrivateTournament">Турнир æхгæдæй скæнын æмæ бацæуæн арæн скæнын паролæй</string>
+  <string name="join">Хайад исын</string>
+  <string name="withdraw">Ныууадзын</string>
+  <string name="points">Очкотæ</string>
+  <string name="wins">Уæлахизтæ</string>
+  <string name="losses">Дæрæнтæ</string>
+  <string name="winStreak">Уæлахизты къорд</string>
+  <string name="createdBy">Сфæлдисæг</string>
+  <string name="tournamentIsStarting">Турнир райдайы</string>
+  <string name="tournamentPairingsAreNowClosed">Турниры халæппæрст фæци.</string>
   <string name="performance">Ахадæн</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
