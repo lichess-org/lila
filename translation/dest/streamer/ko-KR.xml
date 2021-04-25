@@ -5,6 +5,7 @@
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">현재 스트리밍 중: %s</string>
+  <string name="lastStream">최근 스트리밍 %s</string>
   <string name="becomeStreamer">Lichess 스트리머가 되세요</string>
   <string name="doYouHaveStream">트위치나 유튜브 채널이 있으신가요?</string>
   <string name="hereWeGo">시작합시다!</string>
@@ -17,4 +18,21 @@
   <string name="rule1">Lichess로 스트리밍을 할 경우 스트리밍 제목에 \"lichess.org\" 키워드를 포함하고 카테고리를 \"Chess\"로 합니다.</string>
   <string name="rule2">Lichess를 이용하지 않는 경우 키워드를 삭제합니다.</string>
   <string name="rule3">Lichess는 스트림을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
+  <string name="perks">키워드를 넣을 경우 특전</string>
+  <string name="perk1">Lichess 프로필에 스트리머 아이콘을 얻습니다.</string>
+  <string name="perk2">스트리머 목록의 맨 위로 올라갑니다.</string>
+  <string name="perk3">Lichess 팔로워에게 안내가 갑니다.</string>
+  <string name="perk4">당신의 게임, 대회, 연구를 스트리밍할 수 있습니다.</string>
+  <string name="approved">스트리밍이 승인되었습니다.</string>
+  <string name="pendingReview">운영자가 스트리밍을 검토하고 있습니다.</string>
+  <string name="pleaseFillIn">스트리머 정보를 채우고 사진을 업로드해주세요.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">운영진 검토 요청을 해주세요.</string>
+  <string name="headline">헤드라인</string>
+  <string name="longDescription">상세설명</string>
+  <string name="changePicture">사진 변경/삭제</string>
+  <string name="uploadPicture">사진 업로드</string>
+  <string name="deletePicture">사진 지우기</string>
+  <string name="maxSize">최대 사이즈: %s</string>
+  <string name="installBlocker">멀웨어 차단기를 설치하세요!</string>
 </resources>
