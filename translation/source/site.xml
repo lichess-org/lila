@@ -287,7 +287,6 @@
     <item quantity="other">Give %s seconds</item>
   </plurals>
   <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>

@@ -194,19 +194,9 @@ object header {
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
-                  u.marks.engine option div(cls := "warning tos_warning")(
+                  (u.marks.engine || u.marks.boost) option div(cls := "warning tos_warning")(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisAccountViolatedTos()
-                  ),
-                  (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
-                    cls := "warning tos_warning"
-                  )(
-                    span(dataIcon := "j", cls := "is4"),
-                    trans.thisPlayerArtificiallyIncreasesTheirRating(),
-                    (u.count.game == 0) option """
-Only visible to mods. A booster mark without any games is a way to
-prevent a player from ever playing (except against boosters/cheaters).
-It's useful against spambots. These marks are not visible to the public."""
                   )
                 ),
                 ctx.noKid && !hideTroll option frag(
