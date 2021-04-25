@@ -19,7 +19,7 @@ object Speed {
   case object Blitz  extends Speed(2, "blitz", 300 to 599, "Blitz", "Fast games: 5 to 10 minutes")
   case object Rapid  extends Speed(5, "rapid", 600 to 1499, "Rapid", "Rapid games: 10 to 25 minutes")
   case object Classical
-      extends Speed(3, "classical", 1500 to 21599, "Classical", "Classical games: 25 minutes and more")
+      extends Speed(3, "classical", 1500 to 21599, "Classical", "Classical games: at least 25 minutes")
   case object Correspondence
       extends Speed(
         4,
