@@ -9,6 +9,7 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[String] = None,
+    credit: Option[String] = None,
     ownerId: User.ID,
     createdAt: DateTime,
     official: Boolean,
@@ -23,6 +24,8 @@ case class RelayTour(
   }
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
+
+  def ownedBy(user: User) = ownerId == user.id
 }
 
 object RelayTour {

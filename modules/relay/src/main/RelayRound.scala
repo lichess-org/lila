@@ -9,9 +9,6 @@ case class RelayRound(
     _id: RelayRound.Id,
     tourId: RelayTour.Id,
     name: String,
-    description: String,
-    markup: Option[String] = None,
-    credit: Option[String] = None,
     sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[DateTime],
@@ -60,8 +57,6 @@ case class RelayRound(
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
-
-  def showStartAt = startsAt orElse startedAt
 
   override def toString = s"""relay #$id "$name" $sync"""
 }
@@ -135,12 +130,12 @@ object RelayRound {
     case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
   }
 
-  case class WithTour(relay: RelayRound, tour: RelayTour) {
-    def fullName = s"${tour.name} • ${relay.name}"
+  case class WithTour(round: RelayRound, tour: RelayTour) {
+    def fullName = s"${tour.name} • ${round.name}"
 
-    def withStudy(study: Study) = WithTourAndStudy(relay, tour, study)
+    def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
 
-    def path: String                        = s"/broadcast/${tour.slug}/${relay.slug}/${relay.id}"
+    def path: String                        = s"/broadcast/${tour.slug}/${round.slug}/${round.id}"
     def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
   }
 

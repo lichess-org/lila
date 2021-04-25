@@ -16,13 +16,25 @@ object tourForm {
   def create(form: Form[Data])(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.RelayTour.create)
+      postForm(cls := "form3", action := routes.RelayTour.create)(
+        inner(form),
+        form3.actions(
+          a(href := routes.RelayTour.index(1))(trans.cancel()),
+          form3.submit(trans.apply())
+        )
+      )
     )
 
-  def edit(tour: RelayTour, form: Form[Data])(implicit ctx: Context) =
-    layout(tour.name)(
-      h1("Edit ", tour.name),
-      inner(form, routes.RelayTour.update(tour.id.value))
+  def edit(t: RelayTour, form: Form[Data])(implicit ctx: Context) =
+    layout(t.name)(
+      h1("Edit ", a(href := tour.url(t))(t.name)),
+      postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
+        inner(form),
+        form3.actions(
+          a(href := tour.url(t))(trans.cancel()),
+          form3.submit(trans.apply())
+        )
+      )
     )
 
   private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
@@ -33,37 +45,28 @@ object tourForm {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =
-    postForm(cls := "form3", action := url)(
-      div(cls := "form-group")(
-        a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
-          "How to use Lichess Broadcasts"
-        )
-      ),
-      form3.globalError(form),
-      form3.group(form("name"), eventName())(form3.input(_)(autofocus)),
-      form3.group(form("description"), eventDescription())(form3.textarea(_)(rows := 2)),
-      form3.group(
-        form("markup"),
-        fullDescription(),
-        help = fullDescriptionHelp(
-          a(
-            href := "https://guides.github.com/features/mastering-markdown/",
-            targetBlank
-          )("Markdown"),
-          20000.localize
-        ).some
-      )(form3.textarea(_)(rows := 10)),
-      if (isGranted(_.Relay))
-        form3.checkbox(
-          form("official"),
-          raw("Official Lichess broadcast"),
-          help = raw("Feature on /broadcast - for admins only").some
-        )
-      else form3.hidden(form("official")),
-      form3.actions(
-        a(href := routes.RelayTour.index(1))(trans.cancel()),
-        form3.submit(trans.apply())
+  private def inner(form: Form[Data])(implicit ctx: Context) = frag(
+    div(cls := "form-group")(bits.howToUse),
+    form3.globalError(form),
+    form3.group(form("name"), tournamentName())(form3.input(_)(autofocus)),
+    form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
+    form3.group(
+      form("markup"),
+      fullDescription(),
+      help = fullDescriptionHelp(
+        a(
+          href := "https://guides.github.com/features/mastering-markdown/",
+          targetBlank
+        )("Markdown"),
+        20000.localize
+      ).some
+    )(form3.textarea(_)(rows := 10)),
+    if (isGranted(_.Relay))
+      form3.checkbox(
+        form("official"),
+        raw("Official Lichess broadcast"),
+        help = raw("Feature on /broadcast - for admins only").some
       )
-    )
+    else form3.hidden(form("official"))
+  )
 }

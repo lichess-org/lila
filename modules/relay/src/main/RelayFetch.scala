@@ -55,44 +55,44 @@ final private class RelayFetch(
           lila.mon.relay.ongoing(official).update(relays.count(_.tour.official == official))
         }
         relays.map { rt =>
-          if (rt.relay.sync.ongoing) processRelay(rt) flatMap { newRelay =>
-            api.update(rt.relay)(_ => newRelay)
+          if (rt.round.sync.ongoing) processRelay(rt) flatMap { newRelay =>
+            api.update(rt.round)(_ => newRelay)
           }
-          else if (rt.relay.hasStarted) {
-            logger.info(s"Finish by lack of activity ${rt.relay}")
-            api.update(rt.relay)(_.finish)
-          } else if (rt.relay.shouldGiveUp) {
-            logger.info(s"Finish for lack of start ${rt.relay}")
-            api.update(rt.relay)(_.finish)
-          } else fuccess(rt.relay)
+          else if (rt.round.hasStarted) {
+            logger.info(s"Finish by lack of activity ${rt.round}")
+            api.update(rt.round)(_.finish)
+          } else if (rt.round.shouldGiveUp) {
+            logger.info(s"Finish for lack of start ${rt.round}")
+            api.update(rt.round)(_.finish)
+          } else fuccess(rt.round)
         }.sequenceFu addEffectAnyway scheduleNext()
       }.unit
   }
 
   // no writing the relay; only reading!
   def processRelay(rt: RelayRound.WithTour): Fu[RelayRound] =
-    if (!rt.relay.sync.playing) fuccess(rt.relay.withSync(_.play))
+    if (!rt.round.sync.playing) fuccess(rt.round.withSync(_.play))
     else
       fetchGames(rt)
-        .mon(_.relay.fetchTime(rt.tour.official, rt.relay.slug))
-        .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.relay.slug).update(gs.size).unit)
+        .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
+        .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size).unit)
         .flatMap { games =>
           sync(rt, games)
             .withTimeout(7 seconds, SyncResult.Timeout)
-            .mon(_.relay.syncTime(rt.tour.official, rt.relay.slug))
+            .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map { res =>
-              res -> rt.relay.withSync(_ addLog SyncLog.event(res.moves, none))
+              res -> rt.round.withSync(_ addLog SyncLog.event(res.moves, none))
             }
         }
         .recover { case e: Exception =>
           (e match {
             case SyncResult.Timeout =>
-              if (rt.tour.official) logger.info(s"Sync timeout ${rt.relay}")
+              if (rt.tour.official) logger.info(s"Sync timeout ${rt.round}")
               SyncResult.Timeout
             case _ =>
-              if (rt.tour.official) logger.info(s"Sync error ${rt.relay} ${e.getMessage take 80}")
+              if (rt.tour.official) logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
               SyncResult.Error(e.getMessage)
-          }) -> rt.relay.withSync(_ addLog SyncLog.event(0, e.some))
+          }) -> rt.round.withSync(_ addLog SyncLog.event(0, e.some))
         }
         .map { case (result, newRelay) =>
           afterSync(result, newRelay withTour rt.tour)
@@ -102,30 +102,30 @@ final private class RelayFetch(
     result match {
       case SyncResult.Ok(0, _) => continueRelay(rt)
       case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves(rt.tour.official, rt.relay.slug).increment(nbMoves)
-        continueRelay(rt.relay.ensureStarted.resume withTour rt.tour)
+        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(nbMoves)
+        continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
       case _ => continueRelay(rt)
     }
 
   def continueRelay(rt: RelayRound.WithTour): RelayRound =
-    rt.relay.sync.upstream.fold(rt.relay) { upstream =>
+    rt.round.sync.upstream.fold(rt.round) { upstream =>
       val seconds =
-        if (rt.relay.sync.log.alwaysFails && !upstream.local) {
-          rt.relay.sync.log.events.lastOption
+        if (rt.round.sync.log.alwaysFails && !upstream.local) {
+          rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
-            .ifTrue(rt.tour.official && rt.relay.hasStarted) foreach { error =>
-            slackApi.broadcastError(rt.relay.id.value, rt.relay.name, error)
+            .ifTrue(rt.tour.official && rt.round.hasStarted) foreach { error =>
+            slackApi.broadcastError(rt.round.id.value, rt.round.name, error)
           }
           60
         } else
-          rt.relay.sync.delay getOrElse {
+          rt.round.sync.delay getOrElse {
             if (upstream.local) 3 else 6
           }
-      rt.relay.withSync {
+      rt.round.withSync {
         _.copy(
           nextAt = DateTime.now plusSeconds {
-            seconds atLeast { if (rt.relay.sync.log.justTimedOut) 10 else 2 }
+            seconds atLeast { if (rt.round.sync.log.justTimedOut) 10 else 2 }
           } some
         )
       }
@@ -146,7 +146,7 @@ final private class RelayFetch(
   )
 
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
-    rt.relay.sync.upstream ?? {
+    rt.round.sync.upstream ?? {
       case UpstreamIds(ids) =>
         gameRepo.gamesFromSecondary(ids) flatMap
           gameProxy.upgradeIfPresent flatMap
@@ -161,10 +161,10 @@ final private class RelayFetch(
             url,
             (_, v) =>
               Option(v) match {
-                case Some(GamesSeenBy(games, seenBy)) if !seenBy(rt.relay.id) =>
-                  GamesSeenBy(games, seenBy + rt.relay.id)
+                case Some(GamesSeenBy(games, seenBy)) if !seenBy(rt.round.id) =>
+                  GamesSeenBy(games, seenBy + rt.round.id)
                 case _ =>
-                  GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(rt.tour)), Set(rt.relay.id))
+                  GamesSeenBy(doFetchUrl(url, RelayFetch.maxChapters(rt.tour)), Set(rt.round.id))
               }
           )
           .games

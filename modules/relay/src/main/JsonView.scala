@@ -1,55 +1,54 @@
 package lila.relay
 
-import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.Json.jodaWrites
 
-final class JsonView(baseUrl: BaseUrl) {
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
 
-  private val markdown = new lila.common.Markdown
-  private val markdownCache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(10 minutes)
-    .maximumSize(64)
-    .build(markdown.apply)
-
-  implicit private val relayWrites = OWrites[RelayRound] { r =>
+  implicit private val roundWithTourWrites = OWrites[RelayRound.WithTour] { rt =>
     Json
       .obj(
-        "id"          -> r.id,
-        "url"         -> s"$baseUrl/broadcast/${r.slug}/${r.id}",
-        "name"        -> r.name,
-        "description" -> r.description
+        "id"   -> rt.round.id,
+        "url"  -> s"$baseUrl${rt.path}",
+        "name" -> rt.round.name,
+        "tour" -> Json
+          .obj(
+            "id"          -> rt.tour.id,
+            "url"         -> s"$baseUrl/${rt.tour.slug}/${rt.tour.id}",
+            "description" -> rt.tour.description,
+            "active"      -> rt.tour.active
+          )
+          .add("credit", rt.tour.credit)
+          .add("markup" -> rt.tour.markup.map(markup.apply))
       )
-      .add("credit", r.credit)
-      .add("markup" -> r.markup.map(markdownCache.get))
-      .add("startsAt" -> r.startsAt)
-      .add("startedAt" -> r.startedAt)
-      .add("finished" -> r.finished.option(true))
+      .add("startsAt" -> rt.round.startsAt)
+      .add("startedAt" -> rt.round.startedAt)
+      .add("finished" -> rt.round.finished.option(true))
   }
 
   def makeData(
-      relay: RelayRound,
+      rt: RelayRound.WithTour,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) =
     JsData(
-      relay = if (canContribute) admin(relay) else public(relay),
+      relay = if (canContribute) admin(rt) else public(rt),
       study = studyData.study,
       analysis = studyData.analysis
     )
 
-  def public(r: RelayRound) = relayWrites writes r
+  def public(r: RelayRound.WithTour) = roundWithTourWrites writes r
 
-  def admin(r: RelayRound) =
-    public(r)
-      .add("markdown" -> r.markup)
-      .add("throttle" -> r.sync.delay)
-      .add("sync" -> r.sync.some)
+  def admin(rt: RelayRound.WithTour) =
+    public(rt)
+      .add("markdown" -> rt.tour.markup)
+      .add("throttle" -> rt.round.sync.delay)
+      .add("sync" -> rt.round.sync.some)
 }
 
 object JsonView {
@@ -58,7 +57,11 @@ object JsonView {
 
   implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
 
-  implicit val idWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
+  implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
+    JsString(id.value)
+  }
+
+  implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
     JsString(id.value)
   }
 

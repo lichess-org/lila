@@ -134,6 +134,9 @@ final class RelayApi(
     tourRepo.coll.insert.one(tour) inject tour
   }
 
+  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
+    tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void
+
   def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] = {
     val relay = data.make(user, tour)
     roundRepo.coll.insert.one(relay) >>
@@ -163,19 +166,21 @@ final class RelayApi(
     }
 
   def update(from: RelayRound)(f: RelayRound => RelayRound): Fu[RelayRound] = {
-    val relay = f(from) pipe { r =>
+    val round = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
-    studyApi.rename(relay.studyId, Study.Name(relay.name)) >> {
-      if (relay == from) fuccess(relay)
+    studyApi.rename(round.studyId, Study.Name(round.name)) >> {
+      if (round == from) fuccess(round)
       else
-        roundRepo.coll.update.one($id(relay.id), relay).void >> {
-          (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
-        } >>- {
-          relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
-            sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
+        roundRepo.coll.update.one($id(round.id), round).void >> {
+          (round.sync.playing != from.sync.playing) ?? tourById(round.tourId).flatMap {
+            _.map(round.withTour).map(jsonView.admin) ?? { sendToContributors(round.id, "relayData", _) }
           }
-        } inject relay
+        } >>- {
+          round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
+            sendToContributors(round.id, "relayLog", JsonView.syncLogEventWrites writes event)
+          }
+        } inject round
     }
   }
 
@@ -183,12 +188,19 @@ final class RelayApi(
     studyApi.deleteAllChapters(relay.studyId, by) >>
       requestPlay(relay.id, v = true)
 
-  def cloneRelay(rt: RelayRound.WithTour, by: User): Fu[RelayRound] =
+  def cloneRound(rt: RelayRound.WithTour, by: User): Fu[RelayRound] =
     create(
-      RelayRoundForm.Data make rt.relay.copy(name = s"${rt.relay.name} (clone)"),
+      RelayRoundForm.Data make rt.round.copy(name = s"${rt.round.name} (clone)"),
       by,
       rt.tour
     )
+
+  def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
+    byIdWithTour(roundId) flatMap {
+      _ ?? { rt =>
+        roundRepo.coll.delete.one($id(rt.round.id)) inject rt.tour.some
+      }
+    }
 
   def getOngoing(id: RelayRound.Id): Fu[Option[RelayRound.WithTour]] =
     roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMap {
@@ -243,14 +255,11 @@ final class RelayApi(
   private[relay] def onStudyRemove(studyId: String) =
     roundRepo.coll.delete.one($id(RelayRound.Id(studyId))).void
 
-  private[relay] def publishRelay(relay: RelayRound): Funit =
-    sendToContributors(relay.id, "relayData", jsonView admin relay)
-
   private def sendToContributors(id: RelayRound.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
       _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
-        import JsonView.idWrites
+        import JsonView.roundIdWrites
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")

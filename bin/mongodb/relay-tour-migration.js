@@ -20,6 +20,7 @@ db.relay.find().forEach(relay => {
       syncedAt: relay.startedAt,
     },
     ...(relay.markup ? { markup: relay.markup } : {}),
+    ...(relay.credit ? { credit: relay.credit } : {}),
   });
   db.relay.update(
     { _id: relay._id },
@@ -28,6 +29,9 @@ db.relay.find().forEach(relay => {
       $unset: {
         ownerId: true,
         official: true,
+        description: true,
+        markup: true,
+        credit: true,
       },
     }
   );

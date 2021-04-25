@@ -1,0 +1,21 @@
+.relay-round__actions {
+  margin: 2em 0;
+  border-top: $border;
+  padding-top: 3em;
+  form {
+    .button {
+      @extend %flex-column;
+      text-align: left;
+      width: 100%;
+
+      strong {
+        display: block;
+      }
+      em {
+        color: $c-font-dim;
+        text-transform: none;
+        white-space: normal;
+      }
+    }
+  }
+}

@@ -60,22 +60,13 @@ object show {
         .OpenGraph(
           title = rt.fullName,
           url = s"$netBaseUrl${rt.path}",
-          description = shorten(rt.relay.description, 152)
+          description = shorten(rt.tour.description, 152)
         )
         .some
     )(
       frag(
         main(cls := "analyse"),
         views.html.study.bits.streamers(streams)
-      )
-    )
-
-  def widget(rt: lila.relay.RelayRound.WithTour, extraCls: String = "") =
-    div(cls := s"relay-widget $extraCls", dataIcon := "")(
-      a(cls := "overlay", href := rt.path),
-      div(
-        h3(rt.relay.name),
-        p(rt.relay.description)
       )
     )
 }

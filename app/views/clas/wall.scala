@@ -10,11 +10,7 @@ import lila.clas.{ Clas, Student }
 
 object wall {
 
-  def show(
-      c: Clas,
-      html: Frag,
-      students: List[Student.WithUser]
-  )(implicit ctx: Context) =
+  def show(c: Clas, html: Frag, students: List[Student.WithUser])(implicit ctx: Context) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(dataIcon := "m", href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas text")(
@@ -30,11 +26,7 @@ object wall {
         div(cls := "box__pad clas-wall")(html)
     )
 
-  def edit(
-      c: Clas,
-      students: List[Student.WithUser],
-      form: Form[_]
-  )(implicit ctx: Context) =
+  def edit(c: Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(

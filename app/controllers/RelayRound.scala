@@ -20,7 +20,7 @@ final class RelayRound(
     Auth { implicit ctx => me =>
       NoLameOrBot {
         WithTourAndRounds(tourId) { trs =>
-          (trs.tour.ownerId == me.id) ?? {
+          trs.tour.ownedBy(me) ?? {
             Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
           }
         }
@@ -33,7 +33,7 @@ final class RelayRound(
         me =>
           NoLameOrBot {
             WithTourAndRounds(tourId) { trs =>
-              (trs.tour.ownerId == me.id) ?? {
+              trs.tour.ownedBy(me) ?? {
                 env.relay.roundForm
                   .create(trs)
                   .bindFromRequest()(ctx.body, formBinding)
@@ -58,7 +58,11 @@ final class RelayRound(
                     .bindFromRequest()(req, formBinding)
                     .fold(
                       err => BadRequest(apiFormError(err)).fuccess,
-                      setup => env.relay.api.create(setup, me, tour) map env.relay.jsonView.admin map JsonOk
+                      setup =>
+                        env.relay.api
+                          .create(setup, me, tour)
+                          .map(_ withTour tour)
+                          .map(env.relay.jsonView.admin) map JsonOk
                     )
               }
             }
@@ -68,7 +72,7 @@ final class RelayRound(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.relay))).fuccess
+        Ok(html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))).fuccess
       }
     }
 
@@ -93,7 +97,7 @@ final class RelayRound(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                rt => JsonOk(env.relay.jsonView.admin(rt.relay))
+                rt => JsonOk(env.relay.jsonView.admin(rt))
               )
           }
     )
@@ -104,12 +108,12 @@ final class RelayRound(
     env.relay.api.byIdAndContributor(id, me) flatMap {
       _ ?? { rt =>
         env.relay.roundForm
-          .edit(rt.relay)
+          .edit(rt.round)
           .bindFromRequest()
           .fold(
             err => fuccess(Left(rt -> err)),
             data =>
-              env.relay.api.update(rt.relay) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
+              env.relay.api.update(rt.round) { data.update(_, me) }.dmap(_ withTour rt.tour) dmap Right.apply
           ) dmap some
       }
     }
@@ -117,7 +121,7 @@ final class RelayRound(
   def reset(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        env.relay.api.reset(rt.relay, me) inject Redirect(rt.path)
+        env.relay.api.reset(rt.round, me) inject Redirect(rt.path)
       }
     }
 
@@ -127,14 +131,14 @@ final class RelayRound(
         pageHit
         WithRelay(ts, rs, id) { rt =>
           val sc =
-            if (rt.relay.sync.ongoing)
-              env.study.chapterRepo relaysAndTagsByStudyId rt.relay.studyId flatMap { chapters =>
+            if (rt.round.sync.ongoing)
+              env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
                 chapters.find(_.looksAlive) orElse chapters.headOption match {
-                  case Some(chapter) => env.study.api.byIdWithChapter(rt.relay.studyId, chapter.id)
-                  case None          => env.study.api byIdWithChapter rt.relay.studyId
+                  case Some(chapter) => env.study.api.byIdWithChapter(rt.round.studyId, chapter.id)
+                  case None          => env.study.api byIdWithChapter rt.round.studyId
                 }
               }
-            else env.study.api byIdWithChapter rt.relay.studyId
+            else env.study.api byIdWithChapter rt.round.studyId
           sc flatMap { _ ?? { doShow(rt, _) } }
         }
       },
@@ -142,23 +146,23 @@ final class RelayRound(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None     => NotFound(jsonError("No such broadcast"))
-            case Some(rt) => JsonOk(env.relay.jsonView.admin(rt.relay))
+            case Some(rt) => JsonOk(env.relay.jsonView.admin(rt))
           }
     )
 
   def chapter(ts: String, rs: String, id: String, chapterId: String) =
     Open { implicit ctx =>
       WithRelay(ts, rs, id) { rt =>
-        env.study.api.byIdWithChapter(rt.relay.studyId, chapterId) flatMap {
+        env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {
           _ ?? { doShow(rt, _) }
         }
       }
     }
 
-  def cloneRelay(id: String) =
+  def cloneRound(id: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        env.relay.api.cloneRelay(rt, me) map { newRelay =>
+        env.relay.api.cloneRound(rt, me) map { newRelay =>
           Redirect(routes.RelayRound.edit(newRelay.id.value))
         }
       }
@@ -184,7 +188,7 @@ final class RelayRound(
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
       if (rt.tour.slug != ts) Redirect(rt.path).fuccess
-      if (rt.relay.slug != rs) Redirect(rt.path).fuccess
+      if (rt.round.slug != rs) Redirect(rt.path).fuccess
       else f(rt)
     }
 
@@ -206,7 +210,7 @@ final class RelayRound(
     studyC.CanViewResult(oldSc.study) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
-        data = env.relay.jsonView.makeData(rt.relay, studyData, ctx.userId exists sc.study.canContribute)
+        data = env.relay.jsonView.makeData(rt, studyData, ctx.userId exists sc.study.canContribute)
         chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
         streams  <- studyC.streamsOf(sc.study)

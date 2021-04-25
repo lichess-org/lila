@@ -297,8 +297,13 @@ final class Study(
   def delete(id: String) =
     Auth { _ => me =>
       env.study.api.byIdAndOwner(id, me) flatMap {
-        _ ?? env.study.api.delete
-      } inject Redirect(routes.Study.mine("hot"))
+        _ ?? { study =>
+          env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
+            case None       => Redirect(routes.Study.mine("hot"))
+            case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id.value))
+          }
+        }
+      }
     }
 
   def clearChat(id: String) =

@@ -40,9 +40,12 @@ object index {
               div(
                 h2(tr.tour.name),
                 div(cls := "relay-widget__info")(
-                  p(tr.round.description),
-                  if (tr.ongoing) strong(trans.playingRightNow())
-                  else tr.round.startsAt.map(momentFromNow(_))
+                  p(tr.tour.description),
+                  p(
+                    strong(tr.round.name),
+                    if (tr.ongoing) trans.playingRightNow()
+                    else tr.round.startsAt.map(momentFromNow(_))
+                  )
                 )
               )
             )

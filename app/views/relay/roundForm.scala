@@ -22,21 +22,32 @@ object roundForm {
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
-      h1("Edit ", rt.fullName),
-      inner(form, routes.RelayRound.update(rt.relay.id.value), rt.tour),
-      hr,
-      postForm(action := routes.RelayRound.cloneRelay(rt.relay.id.value))(
-        submitButton(
-          cls := "button button-empty confirm",
-          title := "Create an new identical broadcast, for another round or a similar tournament"
-        )(cloneBroadcast())
-      ),
-      hr,
-      postForm(action := routes.RelayRound.reset(rt.relay.id.value))(
-        submitButton(
-          cls := "button button-red button-empty confirm",
-          title := "The source will need to be active in order to re-create the chapters!"
-        )(resetBroadcast())
+      h1("Edit ", a(href := tour.url(rt.tour))(rt.tour.name), " > ", a(href := rt.path)(rt.round.name)),
+      inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour),
+      div(cls := "relay-round__actions")(
+        postForm(action := routes.RelayRound.cloneRound(rt.round.id.value))(
+          submitButton(
+            cls := "button button-empty confirm"
+          )(
+            strong(cloneRound()),
+            em("Create an new identical round for the same tournament. The games will not be included.")
+          )
+        ),
+        postForm(action := routes.RelayRound.reset(rt.round.id.value))(
+          submitButton(
+            cls := "button button-red button-empty confirm"
+          )(
+            strong(resetRound()),
+            em(
+              "Delete all games of this round. The source will need to be active in order to re-create them."
+            )
+          )
+        ),
+        postForm(action := routes.Study.delete(rt.round.id.value))(
+          submitButton(
+            cls := "button button-red button-empty confirm"
+          )(strong(deleteRound()), em("Definitively delete the round and its games."))
+        )
       )
     )
 
@@ -49,27 +60,11 @@ object roundForm {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call, tour: RelayTour)(implicit ctx: Context) =
+  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
-      div(cls := "form-group")(
-        a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
-          "How to use Lichess Broadcasts"
-        )
-      ),
+      div(cls := "form-group")(bits.howToUse),
       form3.globalError(form),
-      form3.group(form("name"), eventName())(form3.input(_)(autofocus)),
-      form3.group(form("description"), eventDescription())(form3.textarea(_)(rows := 2)),
-      form3.group(
-        form("markup"),
-        fullDescription(),
-        help = fullDescriptionHelp(
-          a(
-            href := "https://guides.github.com/features/mastering-markdown/",
-            targetBlank
-          )("Markdown"),
-          20000.localize
-        ).some
-      )(form3.textarea(_)(rows := 10)),
+      form3.group(form("name"), roundName())(form3.input(_)(autofocus)),
       form3.group(
         form("syncUrl"),
         sourceUrlOrGameIds(),
@@ -99,9 +94,8 @@ object roundForm {
             half = true
           )(form3.input(_, typ = "number"))
       ),
-      isGranted(_.Relay) option form3.group(form("credit"), credits())(form3.input(_)),
       form3.actions(
-        a(href := views.html.relay.tour.url(tour))(trans.cancel()),
+        a(href := tour.url(t))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

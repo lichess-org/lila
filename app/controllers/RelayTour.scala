@@ -26,7 +26,8 @@ final class RelayTour(env: Env) extends LilaController(env) {
       if (tour.slug != slug) Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).fuccess
       else
         env.relay.api.byTour(tour) map { relays =>
-          Ok(html.relay.tour.show(tour, relays))
+          val markup = tour.markup.map { md => scalatags.Text.all.raw(env.relay.markup(md)) }
+          Ok(html.relay.tour.show(tour, relays, markup))
         }
     }
   }
@@ -45,7 +46,7 @@ final class RelayTour(env: Env) extends LilaController(env) {
           err => BadRequest(html.relay.tourForm.create(err)).fuccess,
           setup =>
             env.relay.api.tourCreate(setup, me) map { tour =>
-              Redirect(routes.RelayTour.show(tour.slug, tour.id.value))
+              Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).flashSuccess
             }
         )
     }
@@ -53,13 +54,24 @@ final class RelayTour(env: Env) extends LilaController(env) {
 
   def edit(id: String) = Auth { implicit ctx => me =>
     WithTour(id) { tour =>
-      ???
+      tour.ownedBy(me) ?? {
+        Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).fuccess
+      }
     }
   }
 
   def update(id: String) = AuthBody { implicit ctx => me =>
     WithTour(id) { tour =>
-      ???
+      tour.ownedBy(me) ??
+        env.relay.tourForm
+          .edit(tour)
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
+            setup =>
+              env.relay.api.tourUpdate(tour, setup, me) inject
+                Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).flashSuccess
+          )
     }
   }
 

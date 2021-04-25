@@ -19,14 +19,11 @@ final class RelayRoundForm {
 
   val roundMapping =
     mapping(
-      "name"        -> cleanText(minLength = 3, maxLength = 80),
-      "description" -> cleanText(minLength = 3, maxLength = 400),
-      "markup"      -> optional(cleanText(maxLength = 20000)),
+      "name" -> cleanText(minLength = 3, maxLength = 80),
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource _)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "credit"       -> optional(cleanNonEmptyText),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
@@ -38,12 +35,7 @@ final class RelayRoundForm {
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(
-    Data(
-      name = s"Round ${trs.rounds.size + 1}",
-      description = ""
-    )
-  )
+  }.fill(Data(name = s"Round ${trs.rounds.size + 1}"))
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
 }
@@ -93,11 +85,8 @@ object RelayRoundForm {
 
   case class Data(
       name: String,
-      description: String,
-      markup: Option[String] = None,
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
-      credit: Option[String] = None,
       startsAt: Option[DateTime] = None,
       throttle: Option[Int] = None
   ) {
@@ -116,12 +105,9 @@ object RelayRoundForm {
     def update(relay: RelayRound, user: User) =
       relay.copy(
         name = name,
-        description = description,
-        markup = markup,
         sync = makeSync(user) pipe { sync =>
           if (relay.sync.playing) sync.play else sync
         },
-        credit = credit,
         startsAt = startsAt,
         finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
       )
@@ -144,10 +130,7 @@ object RelayRoundForm {
         _id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
-        description = description,
-        markup = markup,
         sync = makeSync(user),
-        credit = credit,
         createdAt = DateTime.now,
         finished = false,
         startsAt = startsAt,
@@ -160,14 +143,11 @@ object RelayRoundForm {
     def make(relay: RelayRound) =
       Data(
         name = relay.name,
-        description = relay.description,
-        markup = relay.markup,
         syncUrl = relay.sync.upstream map {
           case url: RelayRound.Sync.UpstreamUrl => url.withRound.url
           case RelayRound.Sync.UpstreamIds(ids) => ids mkString " "
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
-        credit = relay.credit,
         startsAt = relay.startsAt,
         throttle = relay.sync.delay
       )

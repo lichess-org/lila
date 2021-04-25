@@ -12,7 +12,7 @@ import lila.relay.{ RelayRound, RelayTour }
 
 object tour {
 
-  def show(t: RelayTour, relays: List[RelayRound.WithTour])(implicit ctx: Context) =
+  def show(t: RelayTour, rounds: List[RelayRound.WithTour], markup: Option[Frag])(implicit ctx: Context) =
     views.html.base.layout(
       title = t.name,
       moreCss = cssTag("relay.index")
@@ -20,14 +20,40 @@ object tour {
       main(cls := "relay-tour page-small box")(
         div(cls := "box__top")(
           h1(t.name),
-          a(
-            href := routes.RelayRound.create(t.id.value),
-            cls := "new button text",
-            dataIcon := "O"
-          )(trans.broadcast.addRound())
+          div(cls := "box__top__actions")(
+            a(href := routes.RelayTour.edit(t.id.value), cls := "button button-empty")(trans.edit()),
+            a(
+              href := routes.RelayRound.create(t.id.value),
+              cls := "button text",
+              dataIcon := "O"
+            )(trans.broadcast.addRound())
+          )
         ),
-        div(cls := "list")(
-          relays.map { views.html.relay.show.widget(_) }
+        standardFlash(cls := "box__pad"),
+        div(cls := "relay-tour__description")(markup getOrElse frag(t.description)),
+        div(
+          if (rounds.isEmpty) div(cls := "relay-tour__no-round")("No round has been scheduled yet.")
+          else
+            rounds.map { rt =>
+              div(
+                cls := List(
+                  "relay-widget"         -> true,
+                  "relay-widget--active" -> (rt.round.startedAt.isDefined && !rt.round.finished)
+                ),
+                dataIcon := ""
+              )(
+                a(cls := "overlay", href := rt.path),
+                div(
+                  h2(rt.round.name),
+                  div(
+                    p(rt.tour.description),
+                    if (rt.round.finished) trans.finished().some
+                    else if (rt.round.startedAt.isDefined) strong(trans.playingRightNow()).some
+                    else rt.round.startsAt.map(momentFromNow(_))
+                  )
+                )
+              )
+            }
         )
       )
     }

@@ -27,7 +27,7 @@ final class RelayTourForm {
 
   def create = form
 
-  def edit(r: RelayTour) = form fill Data.make(r)
+  def edit(t: RelayTour) = form fill Data.make(t)
 }
 
 object RelayTourForm {

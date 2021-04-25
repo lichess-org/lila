@@ -244,7 +244,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               ? h(
                   'a',
                   {
-                    attrs: { href: `/broadcast/-/${data.id}/edit` },
+                    attrs: { href: `/broadcast/round/${data.id}/edit` },
                   },
                   'Broadcast settings'
                 )

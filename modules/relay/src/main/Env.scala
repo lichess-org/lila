@@ -40,6 +40,8 @@ final class Env(
 
   lazy val push = wire[RelayPush]
 
+  lazy val markup = wire[RelayMarkup]
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val formatApi = wire[RelayFormatApi]
