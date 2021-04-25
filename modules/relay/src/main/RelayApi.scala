@@ -37,7 +37,7 @@ final class RelayApi(
           UnwindField("tour")
         )
       }
-      .map(_ flatMap readRelayWithTour)
+      .map(_ flatMap readRoundWithTour)
 
   def byIdAndContributor(id: RelayRound.Id, me: User) =
     byIdWithStudy(id) map {
@@ -61,11 +61,51 @@ final class RelayApi(
 
   def withRounds(tour: RelayTour) = roundRepo.byTour(tour).dmap(tour.withRounds)
 
-  def fresh(me: Option[User]): Fu[RelayRound.Fresh] = fuccess(RelayRound.Fresh(Nil, Nil))
-  // relayRepo.scheduled.flatMap(withStudy andLiked me) zip
-  //   relayRepo.ongoing.flatMap(withStudy andLiked me) map { case (c, s) =>
-  //     Relay.Fresh(c, s)
-  //   }
+  def officialActive: Fu[List[RelayTour.ActiveWithNextRound]] =
+    tourRepo.coll
+      .aggregateList(20) { framework =>
+        import framework._
+        Match(tourRepo.selectors.official ++ tourRepo.selectors.active) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> roundRepo.coll.name,
+                "as"   -> "round",
+                "let"  -> $doc("id" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$tourId", "$$id")),
+                          $doc("$eq" -> $arr("$finished", false))
+                        )
+                      )
+                    )
+                  ),
+                  $doc("$addFields" -> $doc("sync.log" -> $arr())),
+                  $doc(
+                    "$sort" -> $doc(
+                      "startedAt" -> 1,
+                      "startsAt"  -> 1,
+                      "name"      -> 1
+                    )
+                  ),
+                  $doc("$limit" -> 1)
+                )
+              )
+            )
+          ),
+          UnwindField("round")
+        )
+      }
+      .map { docs =>
+        for {
+          doc   <- docs
+          tour  <- doc.asOpt[RelayTour]
+          round <- doc.getAsOpt[RelayRound]("round")
+        } yield RelayTour.ActiveWithNextRound(tour, round)
+      }
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id.value)
 
@@ -87,7 +127,7 @@ final class RelayApi(
           UnwindField("tour")
         )
       }
-      .map(_ flatMap readRelayWithTour)
+      .map(_ flatMap readRoundWithTour)
 
   def tourCreate(data: RelayTourForm.Data, user: User): Fu[RelayTour] = {
     val tour = data.make(user)

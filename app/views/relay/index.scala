@@ -8,23 +8,16 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 
 import controllers.routes
-import lila.relay.RelayRound
+import lila.relay.{ RelayRound, RelayTour }
 
 object index {
 
   import trans.broadcast._
 
   def apply(
-      fresh: Option[RelayRound.Fresh],
-      pager: Paginator[RelayRound.WithTour]
-  )(implicit ctx: Context) = {
-
-    def sublist(name: Frag, relays: Seq[RelayRound.WithTour]) =
-      relays.nonEmpty option st.section(
-        h2(name),
-        div(cls := "list")(relays.map(widget))
-      )
-
+      active: List[RelayTour.ActiveWithNextRound],
+      pager: Paginator[RelayTour]
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -40,29 +33,37 @@ object index {
             dataIcon := "O"
           )
         ),
-        fresh.map { f =>
-          frag(
-            sublist(ongoing(), f.started),
-            sublist(upcoming(), f.created)
-          )
-        },
         st.section(
-          h2(completed()),
-          div(cls := "infinite-scroll")(
-            pager.currentPageResults map widget,
-            pagerNext(pager, routes.RelayTour.index(_).url)
-          )
+          active.map { tr =>
+            div(cls := "relay-widget relay-widget--active", dataIcon := "")(
+              a(cls := "overlay", href := tr.path),
+              div(
+                h2(tr.tour.name),
+                div(cls := "relay-widget__info")(
+                  p(tr.round.description),
+                  if (tr.ongoing) strong(trans.playingRightNow())
+                  else tr.round.startsAt.map(momentFromNow(_))
+                )
+              )
+            )
+          }
+        ),
+        st.section(cls := "infinite-scroll")(
+          pager.currentPageResults map { tour =>
+            div(cls := "relay-widget paginated", dataIcon := "")(
+              a(cls := "overlay", href := views.html.relay.tour.url(tour)),
+              div(
+                h2(tour.name),
+                div(cls := "relay-widget__info")(
+                  p(tour.description),
+                  tour.syncedAt.map(momentFromNow(_))
+                )
+              )
+            )
+          },
+          pagerNext(pager, routes.RelayTour.index(_).url)
         )
       )
     }
-  }
 
-  private def widget(rt: RelayRound.WithTour)(implicit ctx: Context) =
-    div(cls := "relay-widget paginaated", dataIcon := "")(
-      a(cls := "overlay", href := rt.path),
-      div(
-        h3(rt.tour.name),
-        p(strong(rt.relay.name), " • ", rt.relay.showStartAt.map(momentFromNow(_)))
-      )
-    )
 }

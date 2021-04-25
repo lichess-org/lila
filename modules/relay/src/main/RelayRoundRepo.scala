@@ -11,6 +11,8 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
 
   import BSONHandlers._
 
+  def lookup(local: String, foreign: String) = $lookup.simple(coll, "tour", local, foreign)
+
   // def scheduled =
   //   coll
   //     .find($doc(selectors scheduled true))

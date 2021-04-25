@@ -15,9 +15,9 @@ final class RelayTour(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       Reasonable(page) {
         for {
-          fresh <- (page == 1).??(env.relay.api.fresh(ctx.me) map some)
-          pager <- env.relay.pager.finished(ctx.me, page)
-        } yield Ok(html.relay.index(fresh, pager))
+          active <- (page == 1).??(env.relay.api.officialActive)
+          pager  <- env.relay.pager.inactive(page)
+        } yield Ok(html.relay.index(active, pager))
       }
     }
 

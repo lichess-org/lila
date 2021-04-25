@@ -8,7 +8,7 @@
   @include transition;
 
   &::before {
-    color: mix($c-link, $c-bg-box, 80%);
+    color: $c-font-dimmer;
     font-size: 5em;
     margin-right: 0.4em;
 
@@ -17,11 +17,18 @@
       display: none;
     }
   }
+  &--active::before {
+    color: mix($c-link, $c-bg-box, 80%);
+  }
 
   &:hover {
     background: mix($c-link, $c-bg-box, 10%);
+    h2 {
+      @include transition;
+      color: $c-link;
+    }
 
-    &::before {
+    &--active::before {
       color: mix($c-link, $c-bg-box, 100%);
     }
   }
@@ -30,13 +37,15 @@
     @extend %link-overlay;
   }
 
-  h3 {
-    @include fluid-size('font-size', 23px, 35px);
-
-    color: $c-link;
+  & > div {
+    flex: 1 1 100%;
   }
 
   p {
     margin: 0.5em 0 0 0;
+  }
+
+  &__info {
+    @extend %flex-between;
   }
 }

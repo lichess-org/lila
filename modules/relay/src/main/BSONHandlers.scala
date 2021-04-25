@@ -36,8 +36,8 @@ object BSONHandlers {
 
   implicit val relayTourHandler = Macros.handler[RelayTour]
 
-  def readRelayWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
-    relay <- doc.asOpt[RelayRound]
+  def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
+    round <- doc.asOpt[RelayRound]
     tour  <- doc.getAsOpt[RelayTour]("tour")
-  } yield RelayRound.WithTour(relay, tour)
+  } yield RelayRound.WithTour(round, tour)
 }

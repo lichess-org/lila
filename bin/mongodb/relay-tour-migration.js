@@ -16,6 +16,8 @@ db.relay.find().forEach(relay => {
       ownerId: relay.ownerId,
       createdAt: relay.createdAt,
       official: relay.official,
+      active: false,
+      syncedAt: relay.startedAt,
     },
     ...(relay.markup ? { markup: relay.markup } : {}),
   });

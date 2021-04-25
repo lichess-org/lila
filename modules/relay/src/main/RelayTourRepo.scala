@@ -13,7 +13,8 @@ final private class RelayTourRepo(val coll: Coll)(implicit ec: scala.concurrent.
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
   private[relay] object selectors {
-    def officialOption(v: Boolean) = $doc("official" -> v.option(true))
-
+    val official = $doc("official" -> true)
+    val active   = $doc("active" -> true)
+    val inactive = $doc("active" -> false)
   }
 }

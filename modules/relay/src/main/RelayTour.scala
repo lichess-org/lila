@@ -10,8 +10,10 @@ case class RelayTour(
     description: String,
     markup: Option[String] = None,
     ownerId: User.ID,
+    createdAt: DateTime,
     official: Boolean,
-    createdAt: DateTime
+    active: Boolean,           // a round is scheduled or ongoing
+    syncedAt: Option[DateTime] // last time a round was synced
 ) {
   def id = _id
 
@@ -30,6 +32,11 @@ object RelayTour {
   case class Id(value: String) extends AnyVal with StringValue
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
+
+  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) {
+    def path    = RelayRound.WithTour(round, tour).path
+    def ongoing = round.startedAt.isDefined
+  }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

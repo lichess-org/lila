@@ -11,16 +11,5 @@
 
   section {
     margin-bottom: 2em;
-
-    h2 {
-      @extend %roboto;
-
-      color: $c-font-dimmer;
-      text-transform: uppercase;
-      text-align: center;
-      line-height: 2em;
-      letter-spacing: 0.1em;
-      border-bottom: $border;
-    }
   }
 }

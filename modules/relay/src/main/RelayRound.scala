@@ -148,6 +148,4 @@ object RelayRound {
     def path     = WithTour(relay, tour).path
     def fullName = WithTour(relay, tour).fullName
   }
-
-  case class Fresh(created: Seq[WithTour], started: Seq[WithTour])
 }
