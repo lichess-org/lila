@@ -1,4 +1,5 @@
 import { attributesModule, classModule, init } from 'snabbdom';
+import boot from './boot';
 import LichessChat from 'chat';
 // eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
@@ -34,6 +35,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   };
 }
 
+export { boot };
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
