@@ -460,6 +460,10 @@
   <string name="socialMediaLinks">Социалон хызтæм дæнцæгтæ</string>
   <string name="inlineNotation">Рæнхъон нотаци</string>
   <string name="watchLichessTV">Lichess TV кæсын</string>
+  <string name="previouslyOnLichessTV">Раздæр Lichess TV-йы</string>
+  <string name="onlinePlayers">Онлайн хъазджытæ</string>
+  <string name="activeToday">Разæнгард абон</string>
+  <string name="activePlayers">Разæнгард хъазджытæ</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
