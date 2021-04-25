@@ -99,6 +99,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
+    firstPly = round.firstPly(ctrl.data),
     lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === "undefined") return [];
   const color = ctrl.data.game.initialFen?.split(' ')[1] == "b" ? "sente" : "gote";
@@ -112,7 +113,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     move.push(steps[i]);
 
   for (let i = 0; i < move.length; i++) {
-    els.push(h("index", i + 1 + ""));
+    els.push(h("index", i + firstPly + 1 + ""));
     els.push(renderMove(move[i], curPly, true, i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
