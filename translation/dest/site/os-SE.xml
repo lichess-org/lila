@@ -464,6 +464,12 @@
   <string name="onlinePlayers">Онлайн хъазджытæ</string>
   <string name="activeToday">Разæнгард абон</string>
   <string name="activePlayers">Разæнгард хъазджытæ</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Хъус бадар, ацы хъазт у рейтингимæ, фæлæ нæй йын рæстæджы цæстдарды!</string>
+  <string name="success">Рауади</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s парти</item>
+    <item quantity="other">%s партийы</item>
+  </plurals>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
