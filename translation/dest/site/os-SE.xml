@@ -424,7 +424,14 @@
   <string name="createdBy">Сфæлдисæг</string>
   <string name="tournamentIsStarting">Турнир райдайы</string>
   <string name="tournamentPairingsAreNowClosed">Турниры халæппæрст фæци.</string>
+  <string name="standByX">Æнхъæлмæ кæс, %s, халæппарæм. Цæттæ у!</string>
+  <string name="youArePlaying">Ды хъазыс!</string>
+  <string name="winRate">Уæлахизты арæхдзинад</string>
+  <string name="berserkRate">Берсерчы арæхдзинад</string>
   <string name="performance">Ахадæн</string>
+  <string name="tournamentComplete">Турнир фæци</string>
+  <string name="movesPlayed">Цыдты конд уыди</string>
+  <string name="whiteWins">Урсыты уæлахизты</string>
   <string name="xRating">Рейтинг %s</string>
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
