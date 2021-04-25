@@ -410,6 +410,7 @@
   <string name="advancedSettings">Баххæстæг настройкæтæ</string>
   <string name="safeTournamentName">Равзар æдас ном турнирæн.</string>
   <string name="inappropriateNameWarning">Турниры ном куы зæрдæхсайгæ уа, уæд блокадæ дын акæндзысты.</string>
+  <string name="emptyTournamentName">Ныууадз афтидæй, цæмæй турнир уыд сæмбæлгæ гроссмейстеры номæн.</string>
   <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
   <string name="fewerPlayers">Хайады домæнтæ куы раттдзынæ, уæд дæ ерысы къаддæр адæм хъаздзысты.</string>
   <string name="showAdvancedSettings">Равдисын баххæстæг настройкæтæ</string>
