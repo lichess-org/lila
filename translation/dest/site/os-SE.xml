@@ -470,6 +470,10 @@
     <item quantity="one">%s парти</item>
     <item quantity="other">%s партийы</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Цыды фæстæ хæдархайгæ ивын иннæ хъазтмæ</string>
+  <string name="autoSwitch">Хæдархайгæ ивд</string>
+  <string name="puzzles">Этюдтæ</string>
+  <string name="latestUpdates">Фæстаг сногтæ</string>
   <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="defeatVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
