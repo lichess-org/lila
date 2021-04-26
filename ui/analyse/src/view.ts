@@ -397,7 +397,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
             {
               hook: onInsert(elm => {
                 ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-                $(elm).append($('.streamers').clone().removeClass('none'));
+                $(elm).append($('.context-streamers').clone().removeClass('none'));
               }),
             },
             ctrl.studyPractice
