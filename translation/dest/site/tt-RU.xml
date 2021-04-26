@@ -615,6 +615,7 @@
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
   <string name="glicko2Rating">Glicko-2 рейтингы</string>
+  <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
   <string name="printFriendlyPDF">Басма өчен уңайлы PDF</string>
   <string name="crosstable">Кросстабель</string>
@@ -645,12 +646,15 @@
   <string name="bulletBlitzClassical">Мәрми, яшенчә, хуп</string>
   <string name="correspondenceChess">Язылу шаһматы</string>
   <string name="onlineAndOfflinePlay">Чилтәрдә һәм чилтәрсез уйнамак</string>
+  <string name="viewTheSolution">Чишелешне карап алу</string>
   <string name="followAndChallengeFriends">Иярергә һәм сынарга дутларны</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s телдә бар!</item>
   </plurals>
   <string name="gameAnalysis">Уенны уйланырга</string>
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
+  <string name="xJoinsY">%1$s Кушлады %2$s</string>
+  <string name="xLikesY">%1$s ошады %2$s</string>
   <string name="lobby">Көндәшләр</string>
   <string name="anonymous">Билгесез</string>
   <string name="yourScore">Синен бәяләү %s</string>
