@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Башлар өчен хәрәкәт</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Барлык башваткычларда аклар сөякләрне уйныйсыз</string>
   <string name="playAgain">Яңадан уйнау</string>
   <string name="combo">Комбо</string>
   <string name="time">Вакыт</string>
+  <string name="getReady">Әзер бул!</string>
+  <string name="waitingForMorePlayers">Күбрәк уенчыларның кушылуын көтеп...</string>
+  <string name="skip">атлау</string>
+  <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
+  <string name="skipExplanation">Комбаны саклап калу өчен бу хәрәкәтне ташлагыз! Ярышка бер тапкыр гына эшли.</string>
 </resources>
