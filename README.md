@@ -54,10 +54,6 @@ The Wiki describes [how to setup a development environment](https://github.com/o
 
 Feel free to use the [Lichess API](https://lichess.org/api) in your applications and websites.
 
-## Credits
-
-See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository and [lichess.org/thanks](https://lichess.org/thanks).
-
 ## Supported browsers
 
 | Name              | Version | Notes                                             |
@@ -76,3 +72,10 @@ For your own sake, please upgrade. Security and performance, think about it!
 Lila is licensed under the GNU Affero General Public License 3 or any later
 version at your choice with an exception for Highcharts. See COPYING for
 details.
+
+## Credits
+
+See the [contributors](https://github.com/ornicar/lila/graphs/contributors) here and [lichess.org/thanks](https://lichess.org/thanks).
+<a href="https://github.com/ornicar/lila/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ornicar/lila" />
+</a>
