@@ -17,6 +17,7 @@ import { view as serverEvalView } from './serverEval';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as descView } from './description';
+import { rounds as relayTourRounds } from './relay/relayTourView';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -189,7 +190,13 @@ export function side(ctrl: StudyCtrl): VNode {
       'span.intro',
       {
         class: { active: tourShow.active },
-        hook: bind('mousedown', tourShow.disable, ctrl.redraw),
+        hook: bind(
+          'mousedown',
+          () => {
+            tourShow.active = true;
+          },
+          ctrl.redraw
+        ),
       },
       [iconTag(''), ' Broadcast']
     );
@@ -211,7 +218,9 @@ export function side(ctrl: StudyCtrl): VNode {
       : null,
   ]);
 
-  return h('div.study__side', [tabs, (activeTab === 'members' ? memberView : chapterView)(ctrl)]);
+  const content = tourShow?.active ? relayTourRounds(ctrl) : (activeTab === 'members' ? memberView : chapterView)(ctrl);
+
+  return h('div.study__side', [tabs, content]);
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {

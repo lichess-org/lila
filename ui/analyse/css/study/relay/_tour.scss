@@ -1,4 +1,4 @@
-.intro__text {
+.relay-tour__text {
   @extend %box-neat;
 
   background: $c-bg-box;
@@ -58,6 +58,6 @@
   }
 }
 
-main.has-intro .mchat {
+main.has-relay-tour .mchat {
   max-height: 48vh;
 }

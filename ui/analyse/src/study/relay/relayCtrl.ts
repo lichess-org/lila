@@ -20,7 +20,7 @@ export default class RelayCtrl {
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = {
-      active: (location.pathname.match(/\//g) || []).length < 4,
+      active: (location.pathname.match(/\//g) || []).length < 5,
       disable: () => {
         this.tourShow.active = false;
       },
