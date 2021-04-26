@@ -523,6 +523,8 @@
   <string name="clockIncrement">Рæстæджы уæлæмхасæн</string>
   <string name="privacy">Конфиденциалондзинад</string>
   <string name="privacyPolicy">Конфиденциалондзинады политикæ</string>
+  <string name="letOtherPlayersFollowYou">Æндæр хъазджытæн мæммæ хъус дарын бар раттын</string>
+  <string name="letOtherPlayersChallengeYou">Æндæр хъазджытæн хъазтмæ мæ сидын бар раттын</string>
   <string name="sound">Зæл</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
