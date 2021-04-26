@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="coordinates">Координаталар</string>
+  <string name="coordinateTraining">Координация күнегүләре</string>
+  <string name="averageScoreAsWhiteX">Акларга уртача балл: %s</string>
+  <string name="averageScoreAsBlackX">Караларга уртача балл: %s</string>
+  <string name="knowingTheChessBoard">Шахмат тактасы координаталарын белү - бик мөһим шахмат осталыгы:</string>
+  <string name="mostChessCourses">Күпчелек шаһмат курслары һәм күнегүләр алгебраик төшенчәне киң кулланалар.</string>
+  <string name="startTraining">Күнегүләрне башларга</string>
+</resources>
