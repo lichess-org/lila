@@ -25,7 +25,8 @@
       padding: 0.3em 1em !important;
     }
 
-    input[type='text'] {
+    input[type='text'],
+    input[type='number'] {
       width: 86%;
     }
 
@@ -98,5 +99,19 @@
     background: $c-bg-zebra;
     border: $border;
     border-width: 1px 0;
+  }
+
+  th.top {
+    vertical-align: top;
+    padding-top: 1em;
+  }
+
+  .quarter {
+    width: 25%;
+  }
+
+  .output {
+    visibility: hidden;
+    width: 100%;
   }
 }
