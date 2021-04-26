@@ -584,6 +584,11 @@
   <string name="videoLibrary">Видеодон</string>
   <string name="streamersMenu">Стримертæ</string>
   <string name="mobileApp">Мобилон æфтуан</string>
+  <string name="webmasters">Бакуыстгæнæгтæм</string>
+  <string name="about">Сайты тыххæй</string>
+  <string name="aboutX">%s-ы тыххæй</string>
+  <string name="really">раст афтæ</string>
+  <string name="contribute">Рапырахатмæ бавæрд бахæссын</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
   <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Реваншытæ, цыдты аивтæ кæнæ рæстæджы бафтауæккаг иваргонд сты.</string>
   <string name="create">Саразын</string>
