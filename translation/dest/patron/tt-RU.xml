@@ -31,7 +31,17 @@
   <string name="whereMoneyGoes">Акча кая бара?</string>
   <string name="serversAndDeveloper">Беренчедән, көчле серверлар.
 Аннары без тулы вакытлы эшкәртүчене түлибез: %s, Lichess нигез салучысына.</string>
+  <string name="costBreakdown">Аныкланган чыгымнарны бүлүне карагыз</string>
+  <string name="officialNonProfit">Lichess рәсми коммерция түгелме?</string>
+  <string name="actOfCreation">Әйе, монда иҗат акты (француз телендә)</string>
+  <string name="currentStatus">Хәзерге торышы</string>
+  <string name="nextPayment">Киләсе түләү</string>
+  <string name="youWillBeChargedXOnY">Сезгә %1$s %2$s түләнәчәк.</string>
+  <string name="makeAdditionalDonation">Хәзер өстәмә иганә ясагыз</string>
   <string name="update">Яңарту</string>
+  <string name="changeMonthlyAmount">Айлык күләмен үзгәртегез (%s)</string>
+  <string name="cancelSupport">ярдәмегезне юкка чыгарыгыз</string>
   <string name="xOrY">%1$s яки %2$s</string>
+  <string name="decideHowMuch">Lichess сезнең өчен нәрсә кирәклеген хәл итегез:</string>
   <string name="date">Вакыт</string>
 </resources>
