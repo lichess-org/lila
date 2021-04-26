@@ -621,6 +621,8 @@
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="yourPerfTypeRatingIsRating">Сезнең %1$s рейтингыгыз %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Сез %1$s уйнаучыдан %2$s әхсәндер.</string>
   <string name="yourRating">Сезнең рейтингыгыз</string>
   <string name="cumulative">Кумулятив</string>
   <string name="glicko2Rating">Glicko-2 рейтингы</string>
