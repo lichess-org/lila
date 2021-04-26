@@ -1,7 +1,6 @@
 .learn__screen-overlay {
   @extend %fullscreen-mask;
 
-  background: rgba(79, 195, 247, 0.9);
   cursor: pointer;
   display: grid;
 }
