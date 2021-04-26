@@ -632,6 +632,9 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Без сезгә электрон почта җибәрдек. Хисап язмагызны активлаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Электрон почтаны күрмәсәгез, башка урыннарны тикшерегез, сезнең кирәксез, спам, социаль яки бүтән папкалар кебек.</string>
   <string name="weHaveSentYouAnEmailTo">Безнең %s җибәрдек. Серсүзне яңадан урнаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Теркәлү белән сез %s белән ризалашасыз.</string>
+  <string name="readAboutOur">Безнең %s турында укыгыз.</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess серверында хәрәкәтне эшкәртү вакыты</string>
   <string name="downloadAnnotated">Өзешлене йөкләү</string>
   <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
@@ -761,12 +764,14 @@
   </plurals>
   <string name="sorry">Юаныч :(</string>
   <string name="weHadToTimeYouOutForAWhile">Без сезне бераз вакытка чыгарырга тиеш идек.</string>
+  <string name="timeoutExpires">Тоту вакыты %s.</string>
   <string name="why">Нигә?</string>
   <string name="pleasantChessExperience">Без һәркемгә шаһмат тәҗрибәсен тәкъдим итәбез.</string>
   <string name="goodPractice">Моның өчен без барлык уенчыларның да яхшы практиканы үтәргә тиеш.</string>
   <string name="potentialProblem">Мөмкин булган мөшәкәт аныкланганда, без ошбу хәбәрне күрсәтербез.</string>
   <string name="howToAvoidThis">Моннан ничек сакланырга?</string>
   <string name="playEveryGame">Сез башлаган һәр уенны уйнагыз.</string>
+  <string name="tryToWin">Сез уйнаган һәр уенда җиңәргә (яки ким дигәндә җиңүсезлеккә) тырышыгыз.</string>
   <string name="temporaryInconvenience">Вакытлыча уңайсызлыклар өчен гафу үтенәбез,</string>
   <string name="wishYouGreatGames">һәм сезгә lichess.org сайтында зур уеннар телим.</string>
   <string name="thankYouForReading">Укыган өчен ташаккур!</string>
@@ -781,12 +786,21 @@
   <string name="rapid">Тиз</string>
   <string name="classical">Классика</string>
   <string name="ultraBulletDesc">Гаҗәеп тиз уеннар: 30 секундтан да азрак</string>
+  <string name="bulletDesc">Бик тиз уеннар: 3 минуттан да азрак</string>
+  <string name="blitzDesc">Тиз уеннар: 3 - 8 минут</string>
   <string name="rapidDesc">Тиз уеннар 8дән 25минутка кадәр</string>
+  <string name="classicalDesc">Хуп уеннар: 25 минут һәм аннан да күбрәк</string>
+  <string name="correspondenceDesc">Хат язышу уеннары: хәрәкәткә бер-берничә көн</string>
   <string name="puzzleDesc">Шаһмат тактикалар остасы</string>
   <string name="important">Мөһим</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
   <string name="inTheFAQ">Еш Сорый торган Сорауларда.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Алдау яки начар тәртип өчен кулланучыга хәбәр итү өчен, %1$s</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
+  <string name="toRequestSupport">Ярдәм сорашу өчен %1$s</string>
+  <string name="subscribe">Кушылмак</string>
+  <string name="unsubscribe">Аерылмак</string>
+  <string name="mentionedYouInX"> \"%1$s\" сезне искә алдылар.</string>
   <string name="congratsYouWon">Тәбриклийбез, сез җиңдегез!</string>
   <string name="gameVsX">%1$s каршы уен</string>
   <string name="resVsX">%1$s vs %2$s</string>
