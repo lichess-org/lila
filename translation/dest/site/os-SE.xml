@@ -517,6 +517,10 @@
   <string name="currentPassword">Цæугæ парол</string>
   <string name="newPassword">Ног парол</string>
   <string name="newPasswordAgain">Ног парол (ноджы ма)</string>
+  <string name="newPasswordsDontMatch">Ног паролтæ æмдзыд не \'сты</string>
+  <string name="newPasswordStrength">Паролы æууæнк</string>
+  <string name="clockInitialTime">Райдайæн сахаты рæстæг</string>
+  <string name="clockIncrement">Рæстæджы уæлæмхасæн</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
   <string name="normal">Нормалон</string>
