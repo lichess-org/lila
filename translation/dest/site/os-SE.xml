@@ -550,6 +550,14 @@
   <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="timeline">Хронологи</string>
   <string name="starting">Райдайы:</string>
+  <string name="yourCityRegionOrDepartment">Дæ горæт, регион кæнæ зылд.</string>
+  <string name="human">Адæймаг</string>
+  <string name="computer">Компьютер</string>
+  <string name="side">Фарс</string>
+  <string name="clock">Сахат</string>
+  <string name="playOfflineComputer">Компьютеримæ</string>
+  <string name="opponent">Ныхмæлæууæг</string>
+  <string name="learnMenu">Ахуыр</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="onlyExistingConversations">Æрмæст дæууон ныхæстæ</string>
   <string name="onlyFriends">Æрмæст æмбалттæ</string>
