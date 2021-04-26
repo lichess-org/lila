@@ -10,45 +10,41 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
 
-  implicit private val roundWithTourWrites = OWrites[RelayRound.WithTour] { rt =>
+  def apply(trs: RelayTour.WithRounds, currentRoundId: RelayRound.Id, admin: Boolean) = {
+    val adminRound = admin ?? trs.rounds.find(_.id == currentRoundId)
     Json
       .obj(
-        "id"   -> rt.round.id,
-        "url"  -> s"$baseUrl${rt.path}",
-        "name" -> rt.round.name,
         "tour" -> Json
           .obj(
-            "id"          -> rt.tour.id,
-            "url"         -> s"$baseUrl/${rt.tour.slug}/${rt.tour.id}",
-            "description" -> rt.tour.description,
-            "active"      -> rt.tour.active
+            "name"        -> trs.tour.name,
+            "description" -> trs.tour.description
           )
-          .add("credit", rt.tour.credit)
-          .add("markup" -> rt.tour.markup.map(markup.apply))
+          .add("credit", trs.tour.credit)
+          .add("markup" -> trs.tour.markup.map(markup.apply)),
+        "rounds" -> trs.rounds.map { round =>
+          Json.obj(
+            "id"   -> round.id,
+            "name" -> round.name,
+            "path" -> round.withTour(trs.tour).path
+          )
+        }
       )
-      .add("startsAt" -> rt.round.startsAt)
-      .add("startedAt" -> rt.round.startedAt)
-      .add("finished" -> rt.round.finished.option(true))
+      .add("sync" -> adminRound.map(_.sync))
   }
 
+  def sync(round: RelayRound) = syncWrites writes round.sync
+
   def makeData(
-      rt: RelayRound.WithTour,
+      trs: RelayTour.WithRounds,
+      currentRoundId: RelayRound.Id,
       studyData: lila.study.JsonView.JsData,
       canContribute: Boolean
   ) =
     JsData(
-      relay = if (canContribute) admin(rt) else public(rt),
+      relay = apply(trs, currentRoundId, canContribute),
       study = studyData.study,
       analysis = studyData.analysis
     )
-
-  def public(r: RelayRound.WithTour) = roundWithTourWrites writes r
-
-  def admin(rt: RelayRound.WithTour) =
-    public(rt)
-      .add("markdown" -> rt.tour.markup)
-      .add("throttle" -> rt.round.sync.delay)
-      .add("sync" -> rt.round.sync.some)
 }
 
 object JsonView {

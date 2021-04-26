@@ -130,10 +130,7 @@ function makePreview(study: StudyCtrl) {
       {
         attrs: { title: preview.name },
         class: {
-          active:
-            !study.multiBoard.loading &&
-            study.vm.chapterId == preview.id &&
-            (!study.relay || !study.relay.intro.active),
+          active: !study.multiBoard.loading && study.vm.chapterId == preview.id && !study.relay?.tourShow.active,
         },
         hook: bind('mousedown', _ => study.setChapter(preview.id)),
       },

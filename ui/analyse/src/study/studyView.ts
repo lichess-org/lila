@@ -136,7 +136,7 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay && ctrl.relay.data.credit,
+    credit = ctrl.relay?.data.tour.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
@@ -164,17 +164,17 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
-    intro = ctrl.relay && ctrl.relay.intro;
+    tourShow = ctrl.relay?.tourShow;
 
-  const makeTab = function (key: Tab, name: string) {
-    return h(
+  const makeTab = (key: Tab, name: string) =>
+    h(
       'span.' + key,
       {
-        class: { active: (!intro || !intro.active) && activeTab === key },
+        class: { active: !tourShow?.active && activeTab === key },
         hook: bind(
           'mousedown',
           () => {
-            if (intro) intro.disable();
+            tourShow?.disable();
             ctrl.vm.tab(key);
           },
           ctrl.redraw
@@ -182,30 +182,24 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       name
     );
-  };
 
-  const introTab =
-    intro && intro.exists
-      ? h(
-          'span.intro',
-          {
-            class: { active: intro.active },
-            hook: bind(
-              'mousedown',
-              () => {
-                intro.active = true;
-              },
-              ctrl.redraw
-            ),
-          },
-          [iconTag('')]
-        )
-      : null;
+  const tourTab =
+    tourShow &&
+    h(
+      'span.intro',
+      {
+        class: { active: tourShow.active },
+        hook: bind('mousedown', tourShow.disable, ctrl.redraw),
+      },
+      [iconTag(''), ' Broadcast']
+    );
 
   const tabs = h('div.tabs-horiz', [
-    introTab,
+    tourTab,
     makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
-    makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size())),
+    !tourTab || ctrl.members.canContribute()
+      ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
+      : null,
     ctrl.members.isOwner()
       ? h(
           'span.more',

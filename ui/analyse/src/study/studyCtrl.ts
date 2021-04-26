@@ -141,7 +141,7 @@ export default function (
 
   const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
-  const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
+  const relay = relayData ? new RelayCtrl(data.id, relayData, send, redraw, members, data.chapter) : undefined;
 
   const form = studyFormCtrl(
     (d, isNew) => {
@@ -396,7 +396,7 @@ export default function (
         who = d.w,
         sticky = d.s;
       setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard' || (relay && relay.intro.active)) multiBoard.addNode(d.p, d.n);
+      if (vm.toolTab() == 'multiBoard' || (relay && relay.tourShow.active)) multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -649,8 +649,8 @@ export default function (
     },
     setChapter(id, force) {
       const alreadySet = id === vm.chapterId && !force;
-      if (relay && relay.intro.active) {
-        relay.intro.disable();
+      if (relay?.tourShow.active) {
+        relay.tourShow.disable();
         if (alreadySet) redraw();
       }
       if (alreadySet) return;

@@ -191,9 +191,11 @@ final class RelayApi(
       if (round == from) fuccess(round)
       else
         roundRepo.coll.update.one($id(round.id), round).void >> {
-          (round.sync.playing != from.sync.playing) ?? tourById(round.tourId).flatMap {
-            _.map(round.withTour).map(jsonView.admin) ?? { sendToContributors(round.id, "relayData", _) }
-          }
+          (round.sync.playing != from.sync.playing) ?? sendToContributors(
+            round.id,
+            "relaySync",
+            jsonView sync round
+          )
         } >> {
           (round.finished != from.finished) ?? denormalizeTourActive(round.tourId)
         } >>- {
