@@ -670,6 +670,7 @@
   <string name="boardTheme">Такта бизәге</string>
   <string name="boardSize">Такта зурлыгы</string>
   <string name="pieceSet">Эйберлэр</string>
+  <string name="embedInYourWebsite">Веб-сайтыгызга җайлаштырылган</string>
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
