@@ -558,6 +558,17 @@
   <string name="playOfflineComputer">Компьютеримæ</string>
   <string name="opponent">Ныхмæлæууæг</string>
   <string name="learnMenu">Ахуыр</string>
+  <string name="studyMenu">Студитæ</string>
+  <string name="practice">Практикæ</string>
+  <string name="community">Æмбалад</string>
+  <string name="tools">Инструментытæ</string>
+  <string name="increment">Уæлæмхасæн</string>
+  <string name="sharePGN">PGN фæхай кæнын</string>
+  <string name="playOnline">Хъазын онлайн</string>
+  <string name="playOffline">Хъазын оффлайн</string>
+  <string name="allowAnalytics">Анонимон статистикæйы æмбырдæн бар раттын</string>
+  <string name="shareGameURL">Фæхай кæнын хъазтмæ дæнцæг</string>
+  <string name="error.required">Уый у æнæмæнг рæнхъ</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="onlyExistingConversations">Æрмæст дæууон ныхæстæ</string>
   <string name="onlyFriends">Æрмæст æмбалттæ</string>
