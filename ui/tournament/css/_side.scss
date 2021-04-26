@@ -62,7 +62,7 @@
         color: $c-bad;
       }
 
-      &.condition{
+      .condition{
         &.accepted::after {
             content: ' \2713';
           }
