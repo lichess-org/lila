@@ -45,6 +45,11 @@
   <string name="noPatronFeatures">Юк, чөнки Lichess бөтенләй ирекле, мәңге һәм һәркем өчен. Бу вәгъдә.
 Шулай да, меценатлар салкын яңа профиль иконасы белән мактану хокукларын ала.</string>
   <string name="featuresComparison">Функцияне чагыштыруны карагыз</string>
+  <plurals name="patronForMonths">
+    <item quantity="other">Lichess Иганәче %s ай өчен</item>
+  </plurals>
+  <string name="youSupportWith">Сез lichess.org аена %s белән ярдәм итәсез.</string>
+  <string name="tyvm">Ярдәмегез өчен бик зур рәхмәт. Син нык!</string>
   <string name="currentStatus">Хәзерге торышы</string>
   <string name="nextPayment">Киләсе түләү</string>
   <string name="youWillBeChargedXOnY">Сезгә %1$s %2$s түләнәчәк.</string>
@@ -54,6 +59,9 @@
   <string name="cancelSupport">ярдәмегезне юкка чыгарыгыз</string>
   <string name="xOrY">%1$s яки %2$s</string>
   <string name="decideHowMuch">Lichess сезнең өчен нәрсә кирәклеген хәл итегез:</string>
+  <string name="stopPayments">Кредит картаны тартып алыгыз һәм түләүләрне туктатыгыз:</string>
+  <string name="noLongerSupport">Инде озак Lichessка булышмый</string>
+  <string name="paymentHistory">Түләү тарихы</string>
   <string name="paid">Түләүле</string>
   <string name="viewOthers">Башка Lichess игәнәчеләрен карау</string>
   <string name="date">Вакыт</string>
