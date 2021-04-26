@@ -541,6 +541,8 @@
   <string name="difficultyHard">Вазыгджын</string>
   <string name="xCompetesInY">%1$s сфæнд кодта %2$s-ы хайад исын</string>
   <string name="xAskedY">%1$s бафæрста %2$s-ы</string>
+  <string name="xAnsweredY">%1$s дзуапп ратта %2$s-æн</string>
+  <string name="xCommentedY">%1$s комментари ратта %2$s-æн</string>
   <string name="victory">Уæлахиз</string>
   <string name="defeat">Дæрæн</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
