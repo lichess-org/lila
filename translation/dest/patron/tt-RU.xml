@@ -10,6 +10,7 @@
   <string name="noAdsNoSubs">Юк сармая, юк кушылыгычлар; ләкин ачык-чыганаклы һәм дәрт.</string>
   <string name="thankYou">Рәхмәт сезгә игәнә өчен!</string>
   <string name="youHaveLifetime">Сездә гомерлек иганәче хисабы бар. Бу бик искиткеч!</string>
+  <string name="patronUntil">Сездә игәнәче хисабы %s кадәр.</string>
   <string name="lifetime">Хәятивакыт</string>
   <string name="makeExtraDonation">Өстәмә хәйрия итергә?</string>
   <string name="monthly">Айлык</string>
