@@ -629,6 +629,9 @@
   <string name="cumulative">Кумулятив</string>
   <string name="glicko2Rating">Glicko-2 рейтингы</string>
   <string name="checkYourEmail">Тикшерегез э. почтаны</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Без сезгә электрон почта җибәрдек. Хисап язмагызны активлаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Электрон почтаны күрмәсәгез, башка урыннарны тикшерегез, сезнең кирәксез, спам, социаль яки бүтән папкалар кебек.</string>
+  <string name="weHaveSentYouAnEmailTo">Безнең %s җибәрдек. Серсүзне яңадан урнаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
   <string name="downloadAnnotated">Өзешлене йөкләү</string>
   <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
