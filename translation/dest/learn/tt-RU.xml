@@ -107,6 +107,9 @@
   <string name="mateInOne">Мат бер</string>
   <string name="defeatTheOpponentsKing">Рәкыйпнең шаһы җиңелә</string>
   <string name="mateInOneIntro">Рәкыйбыгыз хамая кыла алмаса тикшерүдә сез җиңдегез.</string>
+  <string name="boardSetup">Тактаны үзләштерү</string>
+  <string name="placeTheBishops">Филне урнаштырыгыз!
+Алар атчылар янына китәләр.</string>
   <string name="stalemate">Пат</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
