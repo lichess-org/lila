@@ -4,4 +4,9 @@
   <string name="liveBroadcasts">Хәяти бәйгеләр ишетләштерешләр</string>
   <string name="newBroadcast">Яңа хәяти ишетләштереш</string>
   <string name="ongoing">Дәвам ителгән</string>
+  <string name="upcoming">Киләчәк</string>
+  <string name="completed">Тәмамланды</string>
+  <string name="eventName">Вакыйга исеме</string>
+  <string name="eventDescription">Кыска вакыйганы тасвирлау</string>
+  <string name="fullDescription">Вакыйганы тулы тасвирлау</string>
 </resources>
