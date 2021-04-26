@@ -514,6 +514,9 @@
   <string name="incorrectPassword">Мæнг парол</string>
   <string name="invalidAuthenticationCode">Мæнг басгæрсты код</string>
   <string name="emailMeALink">Арвитын дæнцæг мын мæ постæмæ</string>
+  <string name="currentPassword">Цæугæ парол</string>
+  <string name="newPassword">Ног парол</string>
+  <string name="newPasswordAgain">Ног парол (ноджы ма)</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
   <string name="normal">Нормалон</string>
