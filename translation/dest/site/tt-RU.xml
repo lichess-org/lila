@@ -682,6 +682,10 @@
   <string name="coaches">Тренерлар</string>
   <string name="invalidPgn">Бозык PGN</string>
   <string name="invalidFen">Бозык FEN</string>
+  <string name="error.minLength">Минималь озынлык %s</string>
+  <string name="error.maxLength">Максималь озынлык %s</string>
+  <string name="error.min">Катка яки тиң булуш кирәк %s</string>
+  <string name="error.max">%s га ким яки тиң булыш кирәк</string>
   <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
@@ -690,6 +694,7 @@
     <item quantity="other">%s секунд уйнар өчен беренче хәрәкәтне</item>
   </plurals>
   <string name="practiceWithComputer">Компьютер белән практикалаштыру</string>
+  <string name="anotherWasX">Башкасы %s иде</string>
   <string name="resumePractice">Дәвам итергә практиканы</string>
   <string name="theGameIsADraw">Бу уен җиңүсез.</string>
   <string name="computerThinking">Компьютер саный ...</string>
