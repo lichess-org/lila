@@ -27,6 +27,7 @@
   <string name="isCorrespondenceDifferent">Хат алышу гадәти шахматтан аерылып торамы?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessта, корреспонденция шахмат кагыйдәләренең төп аермасы - ачылган китап рөхсәт ителә. Двигательләр куллану әле дә тыелган һәм двигатель ярдәме өчен флагка китереләчәк. ICCF двигательне корреспонденциядә кулланырга рөхсәт итсә дә, Lichess рөхсәт итми.</string>
   <string name="gameplay">Уенуйнамак</string>
+  <string name="howBulletBlitzEtcDecided">Мәрми, Яшендәй һәм башка вакытны башкару ничек хәл ителә?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
