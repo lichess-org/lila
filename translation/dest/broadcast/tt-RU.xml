@@ -9,4 +9,10 @@
   <string name="eventName">Вакыйга исеме</string>
   <string name="eventDescription">Кыска вакыйганы тасвирлау</string>
   <string name="fullDescription">Вакыйганы тулы тасвирлау</string>
+  <string name="fullDescriptionHelp">Ишетләштереш өстәмә озынлыгы тасвирламасы %1$s бар. Озынлык %2$s символлардан ким булырга тиеш.</string>
+  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Чыганак URL яки уен IDе</string>
+  <string name="sourceUrlHelp">PGN яңартуларын алу өчен Lichess тикшерәчәк URL. Ул Интернеттан ачык булырга тиеш.</string>
+  <string name="gameIdsHelp">Альтернатив рәвештә, сез буш урыннар белән аерылган 64 Lichess уен ID-ләрен кертә аласыз.</string>
+  <string name="roundNumber">Раунд саны</string>
+  <string name="startDate">Башлагыз сәнә сезнең үзегезнең вакыт җирендән</string>
 </resources>
