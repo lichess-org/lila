@@ -509,6 +509,10 @@
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Фарстатæ æмæ дзуаппытæ</string>
   <string name="notes">Фæнысантæ</string>
+  <string name="typePrivateNotesHere">Уадз ам дæ сæрмагонд фæнысантæ</string>
+  <string name="invalidUsernameOrPassword">Мæнг пайдакæнæджы ном кæнæ парол</string>
+  <string name="incorrectPassword">Мæнг парол</string>
+  <string name="invalidAuthenticationCode">Мæнг басгæрсты код</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
   <string name="normal">Нормалон</string>
