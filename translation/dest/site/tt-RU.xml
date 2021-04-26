@@ -610,6 +610,7 @@
   <string name="keyShowOrHideComments">комментларны ачу/качыру</string>
   <string name="keyEnterOrExitVariation">керт/чык вариантны</string>
   <string name="newTournament">Яңа бәйге</string>
+  <string name="tournamentHomeTitle">Шаһмат бәйгесе төрле хосусиятләргә вакытны башкару һәм вариантларга ия</string>
   <string name="tournamentNotFound">Бәйге табылмаган</string>
   <string name="returnToTournamentsHomepage">Бәйгеләр албитенә барырга</string>
   <plurals name="nbPerfTypePlayersThisWeek">
