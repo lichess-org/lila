@@ -611,6 +611,7 @@
   <string name="keyEnterOrExitVariation">керт/чык вариантны</string>
   <string name="newTournament">Яңа бәйге</string>
   <string name="tournamentHomeTitle">Шаһмат бәйгесе төрле хосусиятләргә вакытны башкару һәм вариантларга ия</string>
+  <string name="tournamentHomeDescription">Уйна Тизкер шаһмат бәйгесендә! Рәтләштерелгән рәсми бәйгегә шәхсән кушыл яки үзеңнекен ач. Мәрми, Яшен, Хуп, Фишерча, ТауШаһы, ӨчләтәШаһ, һәм тагын имкинлиятлекләр форсаты чиксез шаһмат куанычы өчен.</string>
   <string name="tournamentNotFound">Бәйге табылмаган</string>
   <string name="returnToTournamentsHomepage">Бәйгеләр албитенә барырга</string>
   <plurals name="nbPerfTypePlayersThisWeek">
