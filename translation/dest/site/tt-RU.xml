@@ -615,7 +615,9 @@
   <string name="tournamentHomeDescription">Уйна Тизкер шаһмат бәйгесендә! Рәтләштерелгән рәсми бәйгегә шәхсән кушыл яки үзеңнекен ач. Мәрми, Яшен, Хуп, Фишерча, ТауШаһы, ӨчләтәШаһ, һәм тагын имкинлиятлекләр форсаты чиксез шаһмат куанычы өчен.</string>
   <string name="tournamentNotFound">Бәйге табылмаган</string>
   <string name="tournamentDoesNotExist">Ошбу бәйге мәүҗуд итмәс.</string>
+  <string name="tournamentMayHaveBeenCanceled">Әгәр барча уенчылар башлангыш алдындан китешкән булса, бәйге бөкер кылынган булуш мөмкин.</string>
   <string name="returnToTournamentsHomepage">Бәйгеләр албитенә барырга</string>
+  <string name="weeklyPerfTypeRatingDistribution">Атналы %s рейтинг таратылышы</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
