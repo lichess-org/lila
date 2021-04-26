@@ -218,11 +218,11 @@ final class RelayRound(
           studyData,
           ctx.userId exists sc.study.canContribute
         )
-        chat     <- studyC.chatOf(sc.study)
-        sVersion <- env.study.version(sc.study.id)
-        streams  <- studyC.streamsOf(sc.study)
+        chat      <- studyC.chatOf(sc.study)
+        sVersion  <- env.study.version(sc.study.id)
+        streamers <- studyC.streamersOf(sc.study)
       } yield EnableSharedArrayBuffer(
-        Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streams))
+        Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
       )
     }
 

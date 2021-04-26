@@ -17,7 +17,7 @@ object show {
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
-      streams: List[lila.streamer.Stream]
+      streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = rt.fullName,
@@ -66,7 +66,7 @@ object show {
     )(
       frag(
         main(cls := "analyse"),
-        views.html.study.bits.streamers(streams)
+        views.html.study.bits.streamers(streamers)
       )
     )
 }

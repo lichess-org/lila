@@ -170,10 +170,10 @@ final class Study(
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html = for {
-              chat     <- chatOf(sc.study)
-              sVersion <- env.study.version(sc.study.id)
-              streams  <- streamsOf(sc.study)
-            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streams))),
+              chat      <- chatOf(sc.study)
+              sVersion  <- env.study.version(sc.study.id)
+              streamers <- streamersOf(sc.study)
+            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streamers))),
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
                 Ok(
@@ -572,19 +572,30 @@ final class Study(
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
 
-  private[controllers] def streamsOf(
-      study: StudyModel
-  )(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
-    env.streamer.liveStreamApi.all.flatMap {
-      _.streams
-        .filter { s =>
-          study.members.members.exists(m => s is m._2.id)
+  private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
+
+  private val streamerCache =
+    env.memo.cacheApi[StudyModel.Id, List[lila.user.User.ID]](64, "study.streamers") {
+      _.refreshAfterWrite(15.seconds)
+        .maximumSize(512)
+        .buildAsyncFuture { studyId =>
+          env.study.studyRepo.membersById(studyId) flatMap {
+            _.map(_.members).filter(_.nonEmpty) ?? { members =>
+              env.streamer.liveStreamApi.all.flatMap {
+                _.streams
+                  .filter { s =>
+                    members.exists(m => s is m._2.id)
+                  }
+                  .map { stream =>
+                    env.study.isConnected(studyId, stream.streamer.userId) map {
+                      _ option stream.streamer.userId
+                    }
+                  }
+                  .sequenceFu
+                  .dmap(_.flatten)
+              }
+            }
+          }
         }
-        .map { stream =>
-          (fuccess(ctx.me ?? stream.streamer.is) >>|
-            env.study.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
-        }
-        .sequenceFu
-        .map(_.flatten)
     }
 }
