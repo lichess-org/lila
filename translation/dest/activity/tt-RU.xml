@@ -14,4 +14,10 @@
   <plurals name="playedNbGames">
     <item quantity="other">%1$s %2$s уенын уйнады</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="other">%s Алып барган бер үк вакыттагы күргәзмәләрне</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="other">Иштирак ителгән %s бер үк ватыттагы күргәзмәләр</item>
+  </plurals>
 </resources>
