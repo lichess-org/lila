@@ -598,6 +598,7 @@
   <string name="whenCreateSimul">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
   <string name="simulVariantsHint">Әгәр сез берничә вариантны сайласагыз, һәр уйнаучы сайлый ала берне уйнау өчен.</string>
   <string name="simulClockHint">Фишер Сәгатен үзләштерү. Күбрәк уенчыларны кабул кылсагыз, сезгә кубрәк вакыт кирәк буласы мөмкин.</string>
+  <string name="simulAddExtraTime">Берүктә җиңәр өчен сезгә сәгатькә кушымча вакыт кушышсагыз мөмкин.</string>
   <string name="simulHostExtraTime">Алып барырга өстәмә сәгать вакытын</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
