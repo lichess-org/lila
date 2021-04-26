@@ -240,15 +240,24 @@ export function view(ctrl: StudyFormCtrl): VNode {
             })
           ),
           h(`div.form-actions${ctrl.relay ? '' : '.single'}`, [
-            ctrl.relay
-              ? h(
-                  'a',
-                  {
-                    attrs: { href: `/broadcast/round/${data.id}/edit` },
-                  },
-                  'Broadcast settings'
-                )
-              : null,
+            ...(ctrl.relay
+              ? [
+                  h(
+                    'a.text',
+                    {
+                      attrs: { 'data-icon': '', href: `/broadcast/${ctrl.relay.data.tour.id}/edit` },
+                    },
+                    'Tournament settings'
+                  ),
+                  h(
+                    'a.text',
+                    {
+                      attrs: { 'data-icon': '', href: `/broadcast/round/${data.id}/edit` },
+                    },
+                    'Round settings'
+                  ),
+                ]
+              : []),
             h(
               'button.button',
               {

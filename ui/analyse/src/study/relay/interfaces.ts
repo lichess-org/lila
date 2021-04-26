@@ -8,9 +8,12 @@ export interface RelayRound {
   id: string;
   name: string;
   path: string;
+  finished?: boolean;
+  ongoing?: boolean;
 }
 
 export interface RelayTour {
+  id: string;
   name: string;
   description: string;
   markup?: string;

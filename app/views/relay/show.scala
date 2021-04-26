@@ -21,7 +21,7 @@ object show {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = rt.fullName,
-      moreCss = cssTag("analyse.study"),
+      moreCss = cssTag("analyse.relay"),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,

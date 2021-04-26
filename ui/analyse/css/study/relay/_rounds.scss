@@ -1,0 +1,74 @@
+$span-width: 1.7em;
+
+.study__relay__rounds {
+  @extend %study-list;
+
+  max-height: 18em;
+
+  h3 {
+    @extend %break-word;
+
+    flex: 1 1 100%;
+    font-size: 1em;
+    line-height: 1;
+    margin: 0.5em 0;
+    align-self: center;
+  }
+
+  > div {
+    cursor: pointer;
+
+    &.active,
+    &:active {
+      color: $c-font-clear;
+
+      > span {
+        color: $c-primary-over;
+        background: $c-primary;
+      }
+    }
+
+    > span {
+      @extend %flex-center;
+
+      flex: 0 0 $span-width;
+      justify-content: center;
+      color: $c-link;
+      font-weight: bold;
+      height: auto;
+      margin-right: 0.4em;
+      opacity: 0.8;
+    }
+
+    ongoing {
+      @extend %flex-center;
+      align-self: center;
+      justify-content: center;
+      font-size: 0.7em;
+      color: $c-red;
+      margin-right: 0.7rem;
+    }
+    res {
+      @extend %flex-center;
+      align-self: center;
+      font-size: 0.9em;
+      white-space: nowrap;
+      margin-right: 0.7rem;
+    }
+  }
+
+  .ddloader {
+    width: $span-width;
+    height: $span-width;
+  }
+
+  .sortable-ghost {
+    opacity: 0.7;
+
+    &,
+    .status {
+      background: $c-secondary !important;
+      color: $c-secondary-over !important;
+    }
+  }
+}
