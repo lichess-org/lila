@@ -54,8 +54,10 @@
   <string name="guidelines">күрсәтмәләр</string>
   <string name="canIChangeMyUsername">Кулланучынәмәне үзгәртә аламмы?</string>
   <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
-  <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
+  <string name="aHourlyBulletTournament">cәгатьләп Марми бәйгесе</string>
   <string name="ratingLeaderboards">рейтинглы рәһбәрләр тактасы</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">бирелгән рейтингта ким дигәндә 30 бәяләнү уены уйнадылар,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">бу рейтинг өчен соңгы атна эчендә бәяләнгән уен уйнадылар,</string>
   <string name="beInTopTen">бу рейтингта иң яхшы унлыкка керегез.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2-нче таләп - хисапларын кулланмаган уенчылар рәһбәрләр такталарын популярлаштыруны туктатсын өчен.</string>
 </resources>
