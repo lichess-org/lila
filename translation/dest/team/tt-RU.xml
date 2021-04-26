@@ -3,7 +3,7 @@
   <string name="team">Төркем</string>
   <string name="teams">Төркемнәр</string>
   <plurals name="nbMembers">
-    <item quantity="other">%s уенчы</item>
+    <item quantity="other">%s әгъза</item>
   </plurals>
   <string name="allTeams">Барлык төркемнәр</string>
   <string name="newTeam">Яңа төркем</string>
@@ -11,6 +11,8 @@
   <string name="noTeamFound">Бер төркем дә табылмады</string>
   <string name="joinTeam">Төркемгә кушылу</string>
   <string name="quitTeam">Төркемнән чыгу</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Кабул итү гаризаларын кул белән карагыз</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Тикшерелсә, уенчыларга командага кушылу турында гариза язарга кирәк, сез аны кире кагарга яки кабул итә аласыз.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Төркем җитәкчеләре</item>
   </plurals>
@@ -33,4 +35,6 @@
 Сез моны уенчыларны турнирга я төркемнәр ярышына чакыру өчен итә аласыз.
 Сездән хәбәр алырга теләмәгән уенчылар төркемнән чыга ала.</string>
   <string name="teamsIlead">Минем җитәкчелегемдә төркемнәр</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сез киләсе бәйгеләрнең берсен бәйләргә телисездер?</string>
+  <string name="usersWhoCanManageThisTeam">Бу төркем белән идарә итә алган кулланучылар</string>
 </resources>
