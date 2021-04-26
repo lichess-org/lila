@@ -655,6 +655,8 @@
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
   <string name="xJoinsY">%1$s Кушлады %2$s</string>
   <string name="xLikesY">%1$s ошады %2$s</string>
+  <string name="xCreatesStudyY">%1$s Ачты өйрәнеш %2$s</string>
+  <string name="quickPairing">Тизкер парлаштырыш</string>
   <string name="lobby">Көндәшләр</string>
   <string name="anonymous">Билгесез</string>
   <string name="yourScore">Синен бәяләү %s</string>
@@ -663,6 +665,7 @@
   <string name="light">Ачык</string>
   <string name="dark">Караңгы</string>
   <string name="transparent">Үтә күренмәле</string>
+  <string name="backgroundImageUrl">Арткы караныш рәсеме URL:</string>
   <string name="boardGeometry">Такта һәнсәдәсе</string>
   <string name="boardTheme">Такта бизәге</string>
   <string name="boardSize">Такта зурлыгы</string>
