@@ -61,6 +61,12 @@
       .refused {
         color: $c-bad;
       }
+
+      &.condition{
+        &.accepted::after {
+            content: ' \2713';
+          }
+      }
     }
   }
 
