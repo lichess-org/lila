@@ -851,7 +851,7 @@
   <string name="xMentionedYouInY"> %1$s megemlített itt: \"%2$s\".</string>
   <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
-  <string name="youAreNowPartOfTeam">Mostmár a csapat tagja vagy.</string>
+  <string name="youAreNowPartOfTeam">Most már a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Letiltottak valakit, akit korábban jelentettél</string>
   <string name="congratsYouWon">Gratulálunk, nyertél!</string>
