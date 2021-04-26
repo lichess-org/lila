@@ -2,7 +2,15 @@
 <resources>
   <string name="moveToStart">Башлар өчен хәрәкәт</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Барлык башваткычларда аклар сөякләрне уйныйсыз</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Барлык башваткычларда каралар кисәкләрне уйныйсыз</string>
+  <string name="puzzlesSolved">табышмаклар чишелде</string>
+  <string name="newDailyHighscore">Яңа көндәлек югары күрсәткеч!</string>
+  <string name="newWeeklyHighscore">Яңа атналык югары күрсәткеч!</string>
+  <string name="newMonthlyHighscore">Яңа айлык югары күрсәткеч!</string>
+  <string name="newAllTimeHighscore">Яңа гел югары күрсәткеч!</string>
   <string name="playAgain">Яңадан уйнау</string>
+  <string name="moves">Хәрәкәт</string>
+  <string name="accuracy">Төгәллек</string>
   <string name="combo">Комбо</string>
   <string name="time">Вакыт</string>
   <string name="getReady">Әзер бул!</string>
