@@ -592,6 +592,7 @@
   <string name="aboutSimul">Симуляцияда бер генэ кеше уйныйала, шул вакытта кайберлэр кешелэр белэн уйный аларга ярый.</string>
   <string name="aboutSimulImage">50 Рәкыйп чыкты, Фишер 47 уенны җиңде, 2се җиңүсез һәм 1 уенда җиңелде.</string>
   <string name="aboutSimulRealLife">Концепция хакыкый дөнья вакыйгаларыннан алынган. Хакыкый хаяттә бу бер үк вакытта алып барган хәрәкәтләрне өстәлдән өстәлгә уйнашны үзе хәрәкәт итте.</string>
+  <string name="aboutSimulRules">Берүк башлаганда һәр бер уенчы алып баручы белән уенны уенны башлады. Берүк барча уеннар тутаганнан соң туктый.</string>
   <string name="create">Ячарга</string>
   <string name="simulHostExtraTime">Алып барырга өстәмә сәгать вакытын</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
