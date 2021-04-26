@@ -15,4 +15,8 @@
   <string name="gameIdsHelp">Альтернатив рәвештә, сез буш урыннар белән аерылган 64 Lichess уен ID-ләрен кертә аласыз.</string>
   <string name="roundNumber">Раунд саны</string>
   <string name="startDate">Башлагыз сәнә сезнең үзегезнең вакыт җирендән</string>
+  <string name="startDateHelp">Ихтимал, вакыйганың кайчан башланганын белсәгез</string>
+  <string name="credits">Чыганакка кредит</string>
+  <string name="cloneBroadcast">Ишетләштереш клоны</string>
+  <string name="resetBroadcast">Яңадан ишетләштереш</string>
 </resources>
