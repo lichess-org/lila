@@ -525,6 +525,7 @@
   <string name="privacyPolicy">Конфиденциалондзинады политикæ</string>
   <string name="letOtherPlayersFollowYou">Æндæр хъазджытæн мæммæ хъус дарын бар раттын</string>
   <string name="letOtherPlayersChallengeYou">Æндæр хъазджытæн хъазтмæ мæ сидын бар раттын</string>
+  <string name="letOtherPlayersInviteYouToStudy">Æндæр хъазджытæн студимæ мæ хонын бар раттын</string>
   <string name="sound">Зæл</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
@@ -538,6 +539,7 @@
   <string name="difficultyEasy">Æнцон</string>
   <string name="difficultyNormal">Æхсæйнаг</string>
   <string name="difficultyHard">Вазыгджын</string>
+  <string name="xCompetesInY">%1$s сфæнд кодта %2$s-ы хайад исын</string>
   <string name="victory">Уæлахиз</string>
   <string name="defeat">Дæрæн</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
