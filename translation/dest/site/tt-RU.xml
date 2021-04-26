@@ -593,7 +593,9 @@
   <string name="aboutSimulImage">50 Рәкыйп чыкты, Фишер 47 уенны җиңде, 2се җиңүсез һәм 1 уенда җиңелде.</string>
   <string name="aboutSimulRealLife">Концепция хакыкый дөнья вакыйгаларыннан алынган. Хакыкый хаяттә бу бер үк вакытта алып барган хәрәкәтләрне өстәлдән өстәлгә уйнашны үзе хәрәкәт итте.</string>
   <string name="aboutSimulRules">Берүк башлаганда һәр бер уенчы алып баручы белән уенны уенны башлады. Берүк барча уеннар тутаганнан соң туктый.</string>
+  <string name="aboutSimulSettings">Берүк һаманда рәсми түгел. Кайтаргыч уеннар, кайтарып алулар һәм вакыт өстәү мәгакъ.</string>
   <string name="create">Ячарга</string>
+  <string name="whenCreateSimul">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
   <string name="simulHostExtraTime">Алып барырга өстәмә сәгать вакытын</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
