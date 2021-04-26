@@ -783,6 +783,9 @@
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
   <string name="inTheFAQ">Еш Сорый торган Сорауларда.</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
+  <string name="congratsYouWon">Тәбриклийбез, сез җиңдегез!</string>
   <string name="gameVsX">%1$s каршы уен</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="newPendingReview">Яңа күреп чыгыш көтелмәктә</string>
+  <string name="timeAlmostUp">Вакыт тугады диярлек!</string>
 </resources>
