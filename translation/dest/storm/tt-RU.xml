@@ -34,8 +34,17 @@
   <string name="getReady">Әзер бул!</string>
   <string name="waitingForMorePlayers">Күбрәк уенчыларның кушылуын көтеп...</string>
   <string name="raceComplete">Ярыш тәмам!</string>
+  <string name="spectating">Тамаша</string>
+  <string name="joinTheRace">Ярышка кушылыгыз!</string>
   <string name="yourRankX">Сезнең ранк: %s</string>
-  <string name="skip">атлау</string>
+  <string name="waitForRematch">Кайтаргыч уенны көтегез</string>
+  <string name="nextRace">Киләсе Ярыш</string>
+  <string name="joinRematch">Кайтаргыч уенга кушылыгыз</string>
+  <string name="waitingToStart">Башлауны көтә</string>
+  <string name="createNewGame">Яңа уен ясагыз</string>
+  <string name="joinPublicRace">Иҗтимагый ярышка кушылыгыз</string>
+  <string name="raceYourFriends">Сезнең дусларың белән ярыш</string>
+  <string name="skip">отыш</string>
   <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
   <string name="skipExplanation">Комбаны саклап калу өчен бу хәрәкәтне ташлагыз! Ярышка бер тапкыр гына эшли.</string>
 </resources>
