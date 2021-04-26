@@ -77,5 +77,5 @@ details.
 
 See the [contributors](https://github.com/ornicar/lila/graphs/contributors) here and [lichess.org/thanks](https://lichess.org/thanks).
 <a href="https://github.com/ornicar/lila/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ornicar/lila" />
+<img src="https://contrib.rocks/image?repo=ornicar/lila" />
 </a>
