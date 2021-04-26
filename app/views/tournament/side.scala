@@ -70,7 +70,7 @@ object side {
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),
-            "refused"    -> (ctx.isAuth && !verdicts.accepted)
+            "refused"    -> (!ctx.isAuth || !verdicts.accepted)
           )
         )(
           div(
