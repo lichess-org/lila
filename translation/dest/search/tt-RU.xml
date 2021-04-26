@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Эзлә</string>
+  <string name="search">Табу</string>
+  <string name="advancedSearch">Киңләндерелгән табу</string>
+  <plurals name="searchInXGames">
+    <item quantity="other">Табырга %s шаһмат уеннарын</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="other">%s уеннар табылган</item>
+  </plurals>
+  <string name="opponentName">Рәкыйп исеме</string>
   <string name="loser">Җиңелгән</string>
+  <string name="from">Кемдән</string>
   <string name="to">Бу датага кадәр</string>
   <string name="source">Чыганак</string>
-  <string name="date">Вакыт</string>
+  <string name="date">Сәнә</string>
   <string name="sortBy">Тәртипләү</string>
 </resources>
