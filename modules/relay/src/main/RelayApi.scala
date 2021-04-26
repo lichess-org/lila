@@ -61,6 +61,11 @@ final class RelayApi(
 
   def withRounds(tour: RelayTour) = roundRepo.byTour(tour).dmap(tour.withRounds)
 
+  def denormalizeTourActive(tourId: RelayTour.Id): Funit =
+    roundRepo.coll.exists(roundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
+      tourRepo.setActive(tourId, _)
+    }
+
   private val nextRoundSort = $doc(
     "startedAt" -> 1,
     "startsAt"  -> 1,
@@ -166,6 +171,7 @@ final class RelayApi(
         ),
         user
       ) >>
+      tourRepo.setActive(tour.id, true) >>
       studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
   }
 
@@ -188,6 +194,8 @@ final class RelayApi(
           (round.sync.playing != from.sync.playing) ?? tourById(round.tourId).flatMap {
             _.map(round.withTour).map(jsonView.admin) ?? { sendToContributors(round.id, "relayData", _) }
           }
+        } >> {
+          (round.finished != from.finished) ?? denormalizeTourActive(round.tourId)
         } >>- {
           round.sync.log.events.lastOption.ifTrue(round.sync.log != from.sync.log).foreach { event =>
             sendToContributors(round.id, "relayLog", JsonView.syncLogEventWrites writes event)
@@ -210,7 +218,8 @@ final class RelayApi(
   def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
     byIdWithTour(roundId) flatMap {
       _ ?? { rt =>
-        roundRepo.coll.delete.one($id(rt.round.id)) inject rt.tour.some
+        roundRepo.coll.delete.one($id(rt.round.id)) >>
+          denormalizeTourActive(rt.tour.id) inject rt.tour.some
       }
     }
 

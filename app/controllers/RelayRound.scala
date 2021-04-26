@@ -34,15 +34,16 @@ final class RelayRound(
         me =>
           NoLameOrBot {
             WithTourAndRounds(tourId) { trs =>
-              trs.tour.ownedBy(me) ?? {
+              val tour = trs.tour
+              tour.ownedBy(me) ?? {
                 env.relay.roundForm
                   .create(trs)
                   .bindFromRequest()(ctx.body, formBinding)
                   .fold(
-                    err => BadRequest(html.relay.roundForm.create(err, trs.tour)).fuccess,
+                    err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
                     setup =>
-                      env.relay.api.create(setup, me, trs.tour) map { relay =>
-                        Redirect(routes.RelayRound.form(trs.tour.id.value))
+                      env.relay.api.create(setup, me, tour) map { round =>
+                        Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
                   )
               }

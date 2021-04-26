@@ -14,8 +14,6 @@ object tour {
 
   import trans.broadcast._
 
-  // def url(t: RelayTour) = routes.RelayTour.show(t.slug, t.id.value)
-
   def index(
       active: List[RelayTour.ActiveWithNextRound],
       pager: Paginator[RelayTour.WithLastRound]
@@ -45,6 +43,7 @@ object tour {
                   p(tr.tour.description),
                   p(
                     strong(tr.round.name),
+                    br,
                     if (tr.ongoing) trans.playingRightNow()
                     else tr.round.startsAt.map(momentFromNow(_))
                   )
