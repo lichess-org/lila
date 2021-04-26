@@ -42,5 +42,6 @@
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>
   <string name="noUpperCaseDot">Юк.</string>
+  <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
   <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
 </resources>
