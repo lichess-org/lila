@@ -16,6 +16,8 @@
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="other">%1$s уйнаган %2$s йөгерә</item>
   </plurals>
+  <string name="highscoreX">Югары күрсәткеч: %s</string>
+  <string name="score">Күрсәткеч</string>
   <string name="moves">Хәрәкәт</string>
   <string name="accuracy">Төгәллек</string>
   <string name="combo">Комбо</string>
@@ -26,8 +28,12 @@
   <string name="newRun">Яңа йөгерү (уңайлытөймә: Space)</string>
   <string name="endRun">Ахыр йөгерү (уңайлытөймә: Enter)</string>
   <string name="highscores">Югары күрсәткеч</string>
+  <string name="viewBestRuns">Иң яхшы йөгерүне карау</string>
+  <string name="bestRunOfDay">Көннең иң яхшы йөгереше</string>
+  <string name="runs">Үтәргә</string>
   <string name="getReady">Әзер бул!</string>
   <string name="waitingForMorePlayers">Күбрәк уенчыларның кушылуын көтеп...</string>
+  <string name="raceComplete">Ярыш тәмам!</string>
   <string name="yourRankX">Сезнең ранк: %s</string>
   <string name="skip">атлау</string>
   <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
