@@ -634,6 +634,7 @@
   <string name="weHaveSentYouAnEmailTo">Безнең %s җибәрдек. Серсүзне яңадан урнаштыру өчен электрон почтадагы сылтамага басыгыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Теркәлү белән сез %s белән ризалашасыз.</string>
   <string name="readAboutOur">Безнең %s турында укыгыз.</string>
+  <string name="networkLagBetweenYouAndLichess">Челтәр сезнең белән Lichess арасында артта калды</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess серверында хәрәкәтне эшкәртү вакыты</string>
   <string name="downloadAnnotated">Өзешлене йөкләү</string>
   <string name="downloadRaw">Чималны иңдер</string>
@@ -798,6 +799,11 @@
   <string name="toReportSomeoneForCheatingOrBadBehavior">Алдау яки начар тәртип өчен кулланучыга хәбәр итү өчен, %1$s</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
   <string name="toRequestSupport">Ярдәм сорашу өчен %1$s</string>
+  <string name="tryTheContactPage">контакт битен карагыз</string>
+  <string name="thisTopicIsArchived">Бу тема архивланган һәм аңа җавап биреп булмый.</string>
+  <string name="joinTheTeamXToPost">Бу форумда урнаштыру өчен %1$s кушылыгыз</string>
+  <string name="teamNamedX">%1$s Җәмәга</string>
+  <string name="youCannotPostYetPlaySomeGames">Сез әле форумда бәрид урнаштыра алмыйсыз. Берничә уен уйнагыз!</string>
   <string name="subscribe">Кушылмак</string>
   <string name="unsubscribe">Аерылмак</string>
   <string name="mentionedYouInX"> \"%1$s\" сезне искә алдылар.</string>
