@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Хәйрия колмак</string>
+  <string name="lichessPatron">Lichess иганәче</string>
+  <string name="freeAccount">Азат хисап</string>
+  <string name="becomePatron">Булырга Lichess Иганәчесе</string>
+  <string name="xBecamePatron">%s булды Lichess Иганәчесе</string>
+  <string name="newPatrons">Яңа Иганәче</string>
+  <string name="freeChess">Азат шаһмат һәркеше өчен мәңгегә!</string>
   <string name="otherAmount">Башка</string>
   <string name="withPaypal">PayPal</string>
   <string name="update">Яңарту</string>
