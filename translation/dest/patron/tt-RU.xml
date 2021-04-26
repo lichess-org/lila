@@ -11,6 +11,9 @@
   <string name="thankYou">Рәхмәт сезгә игәнә өчен!</string>
   <string name="youHaveLifetime">Сездә гомерлек иганәче хисабы бар. Бу бик искиткеч!</string>
   <string name="patronUntil">Сездә игәнәче хисабы %s кадәр.</string>
+  <string name="ifNotRenewed">Яңартылмаса, сез бушлай түбәнәйтеләчәксез.</string>
+  <string name="weAreNonProfit">Без коммерциячел булмаган ассоциация, чөнки без һәркемнең бушлай, дөнья дәрәҗәсендәге шаһмат платформасына керергә тиешлегенә ышанабыз.</string>
+  <string name="weRelyOnSupport">Мөмкин булыр өчен без сезнең кебек кешеләрнең ярдәменә таянабыз. Әгәр сез Лицейны кулланырга яратасыз икән, зинһар өчен, иганә итү һәм меценат булып безгә ярдәм итү турында уйлагыз!</string>
   <string name="lifetime">Хәятивакыт</string>
   <string name="payLifetimeOnce">Бер түләгез %s. Булыгыз Lichess Иганәче мәңгегә!</string>
   <string name="lifetimePatron">Хәяти вакыт Lichess Иганәчесе</string>
@@ -23,6 +26,11 @@
   <string name="pleaseEnterAmount">Зинһар, АКШ долларында сумма кертегез</string>
   <string name="withCreditCard">Кредит картасы</string>
   <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Без кечкенә җәмәга, шуңа күрә сезнең ярдәмегез зур үзгәрешләр кертә!</string>
+  <string name="celebratedPatrons">Lichessны мөмкин иткән танылган игәнәчеләр</string>
+  <string name="whereMoneyGoes">Акча кая бара?</string>
+  <string name="serversAndDeveloper">Беренчедән, көчле серверлар.
+Аннары без тулы вакытлы эшкәртүчене түлибез: %s, Lichess нигез салучысына.</string>
   <string name="update">Яңарту</string>
   <string name="xOrY">%1$s яки %2$s</string>
   <string name="date">Вакыт</string>
