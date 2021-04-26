@@ -623,6 +623,8 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Сезнең %1$s рейтингыгыз %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Сез %1$s уйнаучыдан %2$s әхсәндер.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%3$s уйнаучылар арасында %2$s караганда %1$s әхсәндер.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сездә билгеләнгән %s рейтингы юк.</string>
   <string name="yourRating">Сезнең рейтингыгыз</string>
   <string name="cumulative">Кумулятив</string>
   <string name="glicko2Rating">Glicko-2 рейтингы</string>
@@ -781,5 +783,6 @@
   <string name="yourQuestionMayHaveBeenAnswered">Сезнең сорауга %1$s җаваплар булырга мөмкин</string>
   <string name="inTheFAQ">Еш Сорый торган Сорауларда.</string>
   <string name="useTheReportForm">куллан җибәрү формасын</string>
+  <string name="gameVsX">%1$s каршы уен</string>
   <string name="resVsX">%1$s vs %2$s</string>
 </resources>
