@@ -62,7 +62,7 @@
   <string name="chapterPgn">PGN del capitolo</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL di diffusione</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL della diretta</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
   <string name="currentGameUrl">URL partita attuale</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Puoi incollare questo URL nel forum per creare un rimando</string>
@@ -105,7 +105,7 @@
   <string name="urlOfTheGame">URL della partita</string>
   <string name="loadAGameFromXOrY">Carica una partita da %1$s o %2$s</string>
   <string name="createChapter">Crea capitolo</string>
-  <string name="configureLiveBroadcast">Configura diretta live</string>
+  <string name="configureLiveBroadcast">Configura diretta</string>
   <string name="createStudy">Crea studio</string>
   <string name="editStudy">Modifica studio</string>
   <string name="visibility">Visibilità</string>
