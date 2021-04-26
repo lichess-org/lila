@@ -674,6 +674,8 @@
   <string name="usernameAlreadyUsed">Ошбу кулланучынәми әлләкайчан ишләтелгән, фадлыйк башкасын сынап карыйк.</string>
   <string name="usernamePrefixInvalid">Кулланучынәмә хәрефтән башланырга тиеш.</string>
   <string name="usernameSuffixInvalid">Кулланучынәмә хәреф яки сан белән тәмамланырга тиеш.</string>
+  <string name="usernameCharsInvalid">Кулланучынәма фәкать харефләр, саннар, астсызыклар вә урта сызыклар гыйбәрәт булыш кирәк. Китмә-киткән астсызыклар вә урта сызыкларга юк куймайды.</string>
+  <string name="usernameUnacceptable">Бу кулланучынәма макбул түгел.</string>
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
