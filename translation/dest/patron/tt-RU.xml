@@ -7,6 +7,9 @@
   <string name="xBecamePatron">%s булды Lichess Иганәчесе</string>
   <string name="newPatrons">Яңа Иганәче</string>
   <string name="freeChess">Азат шаһмат һәркеше өчен мәңгегә!</string>
+  <string name="noAdsNoSubs">Юк сармая, юк кушылыгычлар; ләкин ачык-чыганаклы һәм дәрт.</string>
+  <string name="thankYou">Рәхмәт сезгә игәнә өчен!</string>
+  <string name="youHaveLifetime">Сездә гомерлек иганәче хисабы бар. Бу бик искиткеч!</string>
   <string name="otherAmount">Башка</string>
   <string name="withPaypal">PayPal</string>
   <string name="update">Яңарту</string>
