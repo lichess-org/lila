@@ -604,6 +604,7 @@
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
   <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
+  <string name="averageCentipawnLoss">Уртача урнашу-матерьялы җиңүлүе</string>
   <string name="keyboardShortcuts">Керткечнең эзмәләре</string>
   <string name="keyMoveBackwardOrForward">артка/Алга хәрәкәт</string>
   <string name="keyGoToStartOrEnd">башлануга/бетүгә</string>
@@ -613,11 +614,15 @@
   <string name="tournamentHomeTitle">Шаһмат бәйгесе төрле хосусиятләргә вакытны башкару һәм вариантларга ия</string>
   <string name="tournamentHomeDescription">Уйна Тизкер шаһмат бәйгесендә! Рәтләштерелгән рәсми бәйгегә шәхсән кушыл яки үзеңнекен ач. Мәрми, Яшен, Хуп, Фишерча, ТауШаһы, ӨчләтәШаһ, һәм тагын имкинлиятлекләр форсаты чиксез шаһмат куанычы өчен.</string>
   <string name="tournamentNotFound">Бәйге табылмаган</string>
+  <string name="tournamentDoesNotExist">Ошбу бәйге мәүҗуд итмәс.</string>
   <string name="returnToTournamentsHomepage">Бәйгеләр албитенә барырга</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s %2$s уенчылар бу атнада.</item>
   </plurals>
+  <string name="yourRating">Сезнең рейтингыгыз</string>
+  <string name="cumulative">Кумулятив</string>
   <string name="glicko2Rating">Glicko-2 рейтингы</string>
+  <string name="checkYourEmail">Тикшерегез э. почтаны</string>
   <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
   <string name="printFriendlyPDF">Басма өчен уңайлы PDF</string>
