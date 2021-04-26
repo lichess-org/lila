@@ -64,7 +64,7 @@ final class RelayRound(
                         env.relay.api
                           .create(setup, me, tour)
                           .map(_ withTour tour)
-                          .map(env.relay.jsonView.admin) map JsonOk
+                          .map(lila.relay.JsonView.roundWithTourWrites.writes) map JsonOk
                     )
               }
             }
@@ -99,7 +99,7 @@ final class RelayRound(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                rt => JsonOk(env.relay.jsonView.admin(rt))
+                rt => JsonOk(lila.relay.JsonView.roundWithTourWrites.writes(rt))
               )
           }
     )
@@ -148,7 +148,7 @@ final class RelayRound(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None     => NotFound(jsonError("No such broadcast"))
-            case Some(rt) => JsonOk(env.relay.jsonView.admin(rt))
+            case Some(rt) => JsonOk(lila.relay.JsonView.roundWithTourWrites.writes(rt))
           }
     )
 
@@ -211,7 +211,13 @@ final class RelayRound(
     studyC.CanViewResult(oldSc.study) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
-        data = env.relay.jsonView.makeData(rt, studyData, ctx.userId exists sc.study.canContribute)
+        rounds          <- env.relay.api.byTour(rt.tour)
+        data = env.relay.jsonView.makeData(
+          rt.tour withRounds rounds.map(_.round),
+          rt.round.id,
+          studyData,
+          ctx.userId exists sc.study.canContribute
+        )
         chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
         streams  <- studyC.streamsOf(sc.study)

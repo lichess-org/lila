@@ -21,13 +21,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
           )
           .add("credit", trs.tour.credit)
           .add("markup" -> trs.tour.markup.map(markup.apply)),
-        "rounds" -> trs.rounds.map { round =>
-          Json.obj(
-            "id"   -> round.id,
-            "name" -> round.name,
-            "path" -> round.withTour(trs.tour).path
-          )
-        }
+        "rounds" -> trs.rounds.map(_ withTour trs.tour)
       )
       .add("sync" -> adminRound.map(_.sync))
   }
@@ -55,6 +49,14 @@ object JsonView {
 
   implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)
+  }
+
+  implicit val roundWithTourWrites: OWrites[RelayRound.WithTour] = OWrites[RelayRound.WithTour] { rt =>
+    Json.obj(
+      "id"   -> rt.round.id,
+      "name" -> rt.round.name,
+      "path" -> rt.path
+    )
   }
 
   implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>
