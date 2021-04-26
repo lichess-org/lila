@@ -14,6 +14,8 @@
 
 Мәсәлән, ике җиңү 6 нокта булачак: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Яман Мәйдан</string>
+  <string name="howIsTheWinnerDecided">Галиб ничек аныкланды?</string>
+  <string name="howDoesPairingWork">Җүфтлык ничек эшләнде?</string>
   <string name="howDoesItEnd">Ничек бетә?</string>
   <string name="howDoesItEndAnswer">Бәйгенең санау сәгате бар. Нульгә җиткәч, бәйге рейтингы туңдырыла, һәм җиңүче игълан ителә. Уеннар тәмамланырга тиеш, ләкин алар бәйгегә саналмыйлар.</string>
   <string name="otherRules">Башка мөһим кагыйдәләр</string>
