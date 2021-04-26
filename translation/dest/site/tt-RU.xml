@@ -277,17 +277,17 @@
   <string name="takebackPropositionCanceled">Йөрүне кире алу тәкъдиме туктатылды</string>
   <string name="yourOpponentProposesATakeback">Ярышучыгыз йөрүне кире алырга сорый</string>
   <string name="bookmarkThisGame">Бу битне кыстыргычларга сакларга</string>
-  <string name="tournament">Турнир</string>
+  <string name="tournament">Бәйге</string>
   <string name="tournaments">Турнирлар</string>
-  <string name="tournamentPoints">Турнир баллары</string>
+  <string name="tournamentPoints">Бәйге нокталары</string>
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s турнир баллары</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s өйрәнү</item>
   </plurals>
-  <string name="viewTournament">Турнирны күрү</string>
-  <string name="backToTournament">Турнирга кайту</string>
+  <string name="viewTournament">Бәйгене күрү</string>
+  <string name="backToTournament">Бәйгегә кайту</string>
   <string name="thematic">Тематик</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s рейтинглы уен</item>
@@ -369,15 +369,15 @@
     <item quantity="other">%s минуттан әзрәк</item>
   </plurals>
   <string name="required">Тәлап ителгән.</string>
-  <string name="openTournaments">Ачык турнирлар</string>
+  <string name="openTournaments">Ачык бәйгеләр</string>
   <string name="duration">Озаклыгы</string>
   <string name="winner">Җиңүче</string>
   <string name="standing">Урыны</string>
-  <string name="createANewTournament">Яңа турнир башлау</string>
-  <string name="tournamentCalendar">Турнир календаре</string>
+  <string name="createANewTournament">Яңа бәйге башламак</string>
+  <string name="tournamentCalendar">Бәйге календаре</string>
   <string name="conditionOfEntry">Керу тәлапләре:</string>
   <string name="advancedSettings">Кушылма көйләүләр</string>
-  <string name="safeTournamentName">Турнир өчен куркынычсыз һәм имин исем сайлагыз.</string>
+  <string name="safeTournamentName">Бәйге өчен хуп имин исем куегыз.</string>
   <string name="inappropriateNameWarning">Әз генә дә килешми торган исем аккаунтыгызның ябылуына китерә ала.</string>
   <string name="emptyTournamentName">Турнирга берәр атаклы шахматчының исемен бирү өчен буш калдырыгыз.</string>
   <string name="recommendNotTouching">Боларны тимәскә кинәш итәбез.</string>
