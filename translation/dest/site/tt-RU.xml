@@ -695,6 +695,8 @@
   </plurals>
   <string name="practiceWithComputer">Компьютер белән практикалаштыру</string>
   <string name="anotherWasX">Башкасы %s иде</string>
+  <string name="bestWasX">Иң якшысы %s</string>
+  <string name="youBrowsedAway">Сез карадыгыз</string>
   <string name="resumePractice">Дәвам итергә практиканы</string>
   <string name="theGameIsADraw">Бу уен җиңүсез.</string>
   <string name="computerThinking">Компьютер саный ...</string>
@@ -736,6 +738,9 @@
   <string name="playVariationToCreateConditionalPremoves">Шартлы хәрәкәтләр ясау өчен вариация уйнагыз</string>
   <string name="noConditionalPremoves">Юк шартлы хәрәкәтләр</string>
   <string name="playX">Уйнау %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">һәм %s йөрмәгән линияне</item>
+  </plurals>
   <string name="sorry">Юаныч :(</string>
   <string name="weHadToTimeYouOutForAWhile">Без сезне бераз вакытка чыгарырга тиеш идек.</string>
   <string name="why">Нигә?</string>
