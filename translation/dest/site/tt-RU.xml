@@ -605,6 +605,7 @@
   <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
   <string name="keyboardShortcuts">Керткечнең эзмәләре</string>
+  <string name="keyMoveBackwardOrForward">артка/Алга хәрәкәт</string>
   <string name="keyGoToStartOrEnd">башлануга/бетүгә</string>
   <string name="keyShowOrHideComments">комментларны ачу/качыру</string>
   <string name="keyEnterOrExitVariation">керт/чык вариантны</string>
