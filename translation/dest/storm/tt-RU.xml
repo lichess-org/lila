@@ -8,13 +8,27 @@
   <string name="newWeeklyHighscore">Яңа атналык югары күрсәткеч!</string>
   <string name="newMonthlyHighscore">Яңа айлык югары күрсәткеч!</string>
   <string name="newAllTimeHighscore">Яңа гел югары күрсәткеч!</string>
+  <string name="previousHighscoreWasX">Элеккеге югары күрсәткеч %s иде</string>
   <string name="playAgain">Яңадан уйнау</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s йөгерә</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">%1$s уйнаган %2$s йөгерә</item>
+  </plurals>
   <string name="moves">Хәрәкәт</string>
   <string name="accuracy">Төгәллек</string>
   <string name="combo">Комбо</string>
   <string name="time">Вакыт</string>
+  <string name="timePerMove">Бер хәрәкәт вакыты</string>
+  <string name="highestSolved">Иң югары чишелгән</string>
+  <string name="puzzlesPlayed">Башваткыч уйналды</string>
+  <string name="newRun">Яңа йөгерү (уңайлытөймә: Space)</string>
+  <string name="endRun">Ахыр йөгерү (уңайлытөймә: Enter)</string>
+  <string name="highscores">Югары күрсәткеч</string>
   <string name="getReady">Әзер бул!</string>
   <string name="waitingForMorePlayers">Күбрәк уенчыларның кушылуын көтеп...</string>
+  <string name="yourRankX">Сезнең ранк: %s</string>
   <string name="skip">атлау</string>
   <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
   <string name="skipExplanation">Комбаны саклап калу өчен бу хәрәкәтне ташлагыз! Ярышка бер тапкыр гына эшли.</string>
