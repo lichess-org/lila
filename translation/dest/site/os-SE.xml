@@ -569,11 +569,21 @@
   <string name="allowAnalytics">Анонимон статистикæйы æмбырдæн бар раттын</string>
   <string name="shareGameURL">Фæхай кæнын хъазтмæ дæнцæг</string>
   <string name="error.required">Уый у æнæмæнг рæнхъ</string>
+  <string name="error.email">Ацы посты адрис мæнг у</string>
+  <string name="error.email_unique">Ацы посты адрис ахст у</string>
+  <string name="error.email_different">Уый афтæмæй дæр дæ посты адрис у</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="onlyExistingConversations">Æрмæст дæууон ныхæстæ</string>
   <string name="onlyFriends">Æрмæст æмбалттæ</string>
+  <string name="menu">Меню</string>
+  <string name="castling">Рокировкæ</string>
   <string name="whiteCastlingKingside">Урсытæ O-O</string>
   <string name="blackCastlingKingside">Саутæ O-O</string>
+  <string name="watchGames">Хъæзтытæ кæсын</string>
+  <string name="watch">Æркаст</string>
+  <string name="videoLibrary">Видеодон</string>
+  <string name="streamersMenu">Стримертæ</string>
+  <string name="mobileApp">Мобилон æфтуан</string>
   <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Райдайæн код</string>
   <string name="aboutSimulSettings">Æмрæстгон хъæзтыты нæй рейтинг партиты. Реваншытæ, цыдты аивтæ кæнæ рæстæджы бафтауæккаг иваргонд сты.</string>
   <string name="create">Саразын</string>
