@@ -513,6 +513,7 @@
   <string name="invalidUsernameOrPassword">Мæнг пайдакæнæджы ном кæнæ парол</string>
   <string name="incorrectPassword">Мæнг парол</string>
   <string name="invalidAuthenticationCode">Мæнг басгæрсты код</string>
+  <string name="emailMeALink">Арвитын дæнцæг мын мæ постæмæ</string>
   <string name="none">Нæй</string>
   <string name="fast">Тагъд</string>
   <string name="normal">Нормалон</string>
