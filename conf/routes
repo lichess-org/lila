@@ -169,9 +169,9 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
+GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirect(rs: String, anyId: String)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: String)
-GET   /broadcast/:rs/$roundId<\w{8}>          controllers.RelayRound.bcShow(rs: String, roundId: String)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: String)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts: String, rs: String, roundId: String)

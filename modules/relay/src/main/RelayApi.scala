@@ -61,6 +61,24 @@ final class RelayApi(
 
   def withRounds(tour: RelayTour) = roundRepo.byTour(tour).dmap(tour.withRounds)
 
+  private val nextRoundSort = $doc(
+    "startedAt" -> 1,
+    "startsAt"  -> 1,
+    "name"      -> 1
+  )
+
+  def activeTourNextRound(tour: RelayTour): Fu[Option[RelayRound]] = tour.active ??
+    roundRepo.coll
+      .find($doc("tourId" -> tour.id, "finished" -> false))
+      .sort(nextRoundSort)
+      .one[RelayRound]
+
+  def tourLastRound(tour: RelayTour): Fu[Option[RelayRound]] =
+    roundRepo.coll
+      .find($doc("tourId" -> tour.id))
+      .sort($doc("startedAt" -> -1, "startsAt" -> -1))
+      .one[RelayRound]
+
   def officialActive: Fu[List[RelayTour.ActiveWithNextRound]] =
     tourRepo.coll
       .aggregateList(20) { framework =>
@@ -84,14 +102,8 @@ final class RelayApi(
                     )
                   ),
                   $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc(
-                    "$sort" -> $doc(
-                      "startedAt" -> 1,
-                      "startsAt"  -> 1,
-                      "name"      -> 1
-                    )
-                  ),
-                  $doc("$limit" -> 1)
+                  $doc("$sort"      -> nextRoundSort),
+                  $doc("$limit"     -> 1)
                 )
               )
             )

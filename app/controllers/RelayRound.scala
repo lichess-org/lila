@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
+
 // import lila.common.config.MaxPerSecond
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
 import lila.user.{ User => UserModel }
@@ -41,7 +42,7 @@ final class RelayRound(
                     err => BadRequest(html.relay.roundForm.create(err, trs.tour)).fuccess,
                     setup =>
                       env.relay.api.create(setup, me, trs.tour) map { relay =>
-                        Redirect(routes.RelayTour.show(trs.tour.slug, trs.tour.id.value))
+                        Redirect(routes.RelayRound.form(trs.tour.id.value))
                       }
                   )
               }
@@ -129,7 +130,7 @@ final class RelayRound(
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
-        WithRelay(ts, rs, id) { rt =>
+        WithRoundAndTour(ts, rs, id) { rt =>
           val sc =
             if (rt.round.sync.ongoing)
               env.study.chapterRepo relaysAndTagsByStudyId rt.round.studyId flatMap { chapters =>
@@ -150,15 +151,9 @@ final class RelayRound(
           }
     )
 
-  def bcShow(@nowarn("unused") slug: String, roundId: String) = Open { implicit ctx =>
-    env.relay.api byIdWithTour RoundModel.Id(roundId) map2 { rt =>
-      Redirect(rt.path)
-    }
-  }
-
   def chapter(ts: String, rs: String, id: String, chapterId: String) =
     Open { implicit ctx =>
-      WithRelay(ts, rs, id) { rt =>
+      WithRoundAndTour(ts, rs, id) { rt =>
         env.study.api.byIdWithChapter(rt.round.studyId, chapterId) flatMap {
           _ ?? { doShow(rt, _) }
         }
@@ -189,12 +184,11 @@ final class RelayRound(
   //     }.fuccess
   //   }
 
-  private def WithRelay(ts: String, rs: String, id: String)(
+  private def WithRoundAndTour(ts: String, rs: String, id: String)(
       f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (rt.tour.slug != ts) Redirect(rt.path).fuccess
-      if (rt.round.slug != rs) Redirect(rt.path).fuccess
+      if (ctx.req.path != rt.path) Redirect(rt.path).fuccess
       else f(rt)
     }
 

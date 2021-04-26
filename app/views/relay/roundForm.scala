@@ -16,13 +16,18 @@ object roundForm {
 
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
-      h1(a(href := views.html.relay.tour.url(tour))(tour.name), " • ", addRound()),
+      h1(a(href := routes.RelayTour.redirect(tour.slug, tour.id.value))(tour.name), " • ", addRound()),
       inner(form, routes.RelayRound.create(tour.id.value), tour)
     )
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
     layout(rt.fullName)(
-      h1("Edit ", a(href := tour.url(rt.tour))(rt.tour.name), " > ", a(href := rt.path)(rt.round.name)),
+      h1(
+        "Edit ",
+        a(href := routes.RelayTour.redirect(rt.tour.slug, rt.tour.id.value))(rt.tour.name),
+        " > ",
+        a(href := rt.path)(rt.round.name)
+      ),
       inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour),
       div(cls := "relay-round__actions")(
         postForm(action := routes.RelayRound.cloneRound(rt.round.id.value))(
@@ -95,7 +100,7 @@ object roundForm {
           )(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := tour.url(t))(trans.cancel()),
+        a(href := routes.RelayTour.redirect(t.slug, t.id.value))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

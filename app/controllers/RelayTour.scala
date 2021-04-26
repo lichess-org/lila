@@ -2,12 +2,13 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc._
+import scala.annotation.nowarn
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
-import views._
 
 final class RelayTour(env: Env) extends LilaController(env) {
 
@@ -17,7 +18,7 @@ final class RelayTour(env: Env) extends LilaController(env) {
         for {
           active <- (page == 1).??(env.relay.api.officialActive)
           pager  <- env.relay.pager.inactive(page)
-        } yield Ok(html.tour.index(active, pager))
+        } yield Ok(html.relay.tour.index(active, pager))
       }
     }
 
@@ -35,7 +36,7 @@ final class RelayTour(env: Env) extends LilaController(env) {
           err => BadRequest(html.relay.tourForm.create(err)).fuccess,
           setup =>
             env.relay.api.tourCreate(setup, me) map { tour =>
-              Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).flashSuccess
+              Redirect(routes.RelayRound.form(tour.id.value)).flashSuccess
             }
         )
     }
@@ -59,10 +60,24 @@ final class RelayTour(env: Env) extends LilaController(env) {
             err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
             setup =>
               env.relay.api.tourUpdate(tour, setup, me) inject
-                Redirect(routes.RelayTour.show(tour.slug, tour.id.value)).flashSuccess
+                Redirect(routes.RelayTour.edit(tour.id.value)).flashSuccess
           )
     }
   }
+
+  def redirect(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
+    env.relay.api byIdWithTour RoundModel.Id(anyId) flatMap {
+      case Some(rt) => Redirect(rt.path).fuccess // BC old broadcast URLs
+      case None     => env.relay.api tourById TourModel.Id(anyId) flatMap { _ ?? redirectToTour }
+    }
+  }
+
+  private def redirectToTour(tour: TourModel)(implicit ctx: Context): Fu[Result] =
+    env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {
+      case None =>
+        ctx.me.exists(tour.ownedBy) ?? Redirect(routes.RelayRound.form(tour.id.value)).fuccess
+      case Some(round) => Redirect(round.withTour(tour).path).fuccess
+    }
 
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]

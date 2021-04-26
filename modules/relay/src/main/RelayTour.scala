@@ -36,12 +36,11 @@ object RelayTour {
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) {
-    def path    = RelayRound.WithTour(round, tour).path
+  case class ActiveWithNextRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour {
     def ongoing = round.startedAt.isDefined
   }
 
-  case class WithLastRound(tour: RelayTour, round: RelayRound)
+  case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

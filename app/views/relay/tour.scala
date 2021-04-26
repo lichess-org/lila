@@ -54,14 +54,14 @@ object tour {
           }
         ),
         st.section(cls := "infinite-scroll")(
-          pager.currentPageResults map { tour =>
+          pager.currentPageResults map { rt =>
             div(cls := "relay-widget paginated", dataIcon := "")(
-              a(cls := "overlay", href := views.html.relay.tour.url(tour)),
+              a(cls := "overlay", href := rt.path),
               div(
-                h2(tour.name),
+                h2(rt.tour.name),
                 div(cls := "relay-widget__info")(
-                  p(tour.description),
-                  tour.syncedAt.map(momentFromNow(_))
+                  p(rt.tour.description),
+                  rt.tour.syncedAt.map(momentFromNow(_))
                 )
               )
             )
