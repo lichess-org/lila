@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">को‍-अर्डिनेटहरु</string>
-  <string name="coordinateTraining">समकक्षको अभ्यास</string>
+  <string name="coordinateTraining">को-अर्डिनेटको अभ्यास</string>
   <string name="averageScoreAsWhiteX">सेतो लिएर औसत अंक: %s</string>
   <string name="averageScoreAsBlackX">कालो लिएर औसत अंक: %s</string>
-  <string name="knowingTheChessBoard">चेस बोर्ड को समकक्ष्हरु को ज्ञान हुनु धेरै महत्वपूर्ण छ:</string>
+  <string name="knowingTheChessBoard">चेस बोर्ड को को-अर्डिनेटहरूको को ज्ञान हुनु धेरै महत्वपूर्ण छ:</string>
   <string name="mostChessCourses">प्राय सबै चेस कोर्स र अभ्यासहरुमा एल्जेब्रिक नोटेशन प्रयोग हुन्छ।</string>
   <string name="talkToYourChessFriends">यसले तपाइलाई आफ्नो चेस खेल्ने मित्रहरु संग कुरा गर्न सहज हुन्छ, किनकि तपाईहरु दुवै \"चेस को भाषा\" बुझ्नुहुन्छ।</string>
   <string name="youCanAnalyseAGameMoreEffectively">तपाइले खेलहरु प्रभावकारी रुपमा विश्लेषण गर्न सक्नुहुन्छ किनकि तपाइलाई कोठाको नामहरु खोजिरहनु पर्दैन।</string>
