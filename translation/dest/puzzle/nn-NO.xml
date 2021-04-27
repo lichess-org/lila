@@ -39,8 +39,16 @@
   <string name="normal">Middels</string>
   <string name="easier">Enklare</string>
   <string name="easiest">Enklast</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Eitt poeng under problemløysar-ratinga di</item>
+    <item quantity="other">%s poeng under problemløysar-ratinga di</item>
+  </plurals>
   <string name="harder">Vanskelegare</string>
   <string name="hardest">Vanskelegast</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Eitt poeng over problemløysar-ratinga di</item>
+    <item quantity="other">%s poeng over problemløysar-ratinga di</item>
+  </plurals>
   <string name="example">Døme</string>
   <string name="addAnotherTheme">Legg til endå eit tema</string>
   <string name="jumpToNextPuzzleImmediately">Hopp straks til neste oppgåve</string>
