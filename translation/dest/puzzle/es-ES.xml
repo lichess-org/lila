@@ -39,11 +39,15 @@
   <string name="normal">Normal</string>
   <string name="easier">Más fácil</string>
   <string name="easiest">El más fácil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Un punto por debajo de tu puntuación de ejercicios</item>
+    <item quantity="other">%s puntos por debajo de tu puntuación de ejercicios</item>
+  </plurals>
   <string name="harder">Más difícil</string>
   <string name="hardest">El más difícil</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">Un punto sobre de tu puntuación de ejercicios</item>
-    <item quantity="other">%s puntos sobre de tu puntuación de ejercicios</item>
+    <item quantity="one">Un punto por encima de tu puntuación de ejercicios</item>
+    <item quantity="other">%s puntos por encima de tu puntuación de ejercicios</item>
   </plurals>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
