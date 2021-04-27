@@ -3,10 +3,12 @@
   <string name="broadcasts">Retransmissions</string>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
   <string name="newBroadcast">Noves retransmissions en directe</string>
+  <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
   <string name="completed">Acabada</string>
   <string name="roundNumber">Ronda número</string>
+  <string name="tournamentName">Nom del torneig</string>
   <string name="fullDescription">Descripció total de l\'esdeveniment</string>
   <string name="fullDescriptionHelp">Opció de llarga descripció de l\'esdeveniment. %1$s és disponible. Ha de tenir menys de %2$s lletres.</string>
   <string name="sourceUrlOrGameIds">Enllaç d\'origen, o identificador de la partida</string>
