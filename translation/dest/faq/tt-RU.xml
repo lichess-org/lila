@@ -36,6 +36,7 @@
   <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
   <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
   <string name="eightVariants">8 шаһмат варианты</string>
+  <string name="whatIsACPL">Ни ул уртача урнашу-матерьялы җиңүлүше (ACPL)?</string>
   <string name="fideHandbookX">FIDE кулланмасы %s</string>
   <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
   <string name="goodIntroduction">якшы кереш сүз</string>
@@ -55,6 +56,7 @@
   <string name="canIChangeMyUsername">Кулланучынәмәне үзгәртә аламмы?</string>
   <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
   <string name="aHourlyBulletTournament">cәгатьләп Марми бәйгесе</string>
+  <string name="lichessRatings">Lichess рейтингы</string>
   <string name="ratingLeaderboards">рейтинглы рәһбәрләр тактасы</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">бирелгән рейтингта ким дигәндә 30 бәяләнү уены уйнадылар,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">бу рейтинг өчен соңгы атна эчендә бәяләнгән уен уйнадылар,</string>
