@@ -6,5 +6,11 @@
   <string name="motifs">വിഷയം</string>
   <string name="advanced">കടുപ്പം കൂടിയത്</string>
   <string name="lengths">ദൈര്‍ഘ്യം</string>
+  <string name="mates">ചെക്ക്മേറ്റുകള്‍</string>
+  <string name="goals">ലക്ഷ്യം</string>
+  <string name="origin">ഉത്ഭവം</string>
+  <string name="specialMoves">പ്രതേക നീക്കങ്ങള്‍</string>
+  <string name="didYouLikeThisPuzzle">ഈ പസ്സില്‍ തങ്ങള്‍ക്ക് ഇഷ്ട്ടമായോ?</string>
+  <string name="voteToLoadNextOne">അടുത്തത് കാണിക്കുവാന്‍ വോട്ടു ചെയ്യുക!</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
 </resources>
