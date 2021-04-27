@@ -3,10 +3,13 @@
   <string name="broadcasts">Transliacijos</string>
   <string name="liveBroadcasts">Vykstančios turnyrų transliacijos</string>
   <string name="newBroadcast">Nauja transliacija</string>
+  <string name="addRound">Pridėti raundą</string>
   <string name="ongoing">Vykstančios</string>
   <string name="upcoming">Artėjančios</string>
   <string name="completed">Pasibaigę</string>
+  <string name="roundName">Raundo pavadinimas</string>
   <string name="roundNumber">Raundo numeris</string>
+  <string name="tournamentName">Turnyro pavadinimas</string>
   <string name="fullDescription">Pilnas renginio aprašymas</string>
   <string name="fullDescriptionHelp">Neprivalomas pilnas transliacijos aprašymas. Galima naudoti %1$s. Ilgis negali viršyti %2$s simbolių.</string>
   <string name="sourceUrlOrGameIds">Šaltinių adresai arba žaidimų id</string>
