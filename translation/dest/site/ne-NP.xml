@@ -9,6 +9,7 @@
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
   <string name="level">तह</string>
+  <string name="strength">तागत</string>
   <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने</string>
   <string name="toggleSound">ध्वनी खोल्ने/बन्द गर्ने</string>
   <string name="chat">बार्तालाप</string>
