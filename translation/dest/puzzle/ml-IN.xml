@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">പസ്സിലുകള്‍</string>
+  <string name="puzzleThemes">പസ്സില്‍ വിഷയം</string>
+  <string name="phases">ഘട്ടങ്ങള്‍</string>
+  <string name="motifs">വിഷയം</string>
+  <string name="advanced">കടുപ്പം കൂടിയത്</string>
+  <string name="lengths">ദൈര്‍ഘ്യം</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
 </resources>
