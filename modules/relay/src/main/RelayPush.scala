@@ -29,16 +29,20 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
   private def pushNow(rt: RelayRound.WithTour, pgn: String): Funit =
     RelayFetch
       .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour)))
-      .flatMap {
-        sync(rt, _)
-      }
-      .map { res =>
-        SyncLog.event(res.moves, none)
-      }
-      .recover { case e: Exception =>
-        SyncLog.event(0, e.some)
-      }
-      .flatMap { event =>
-        api.update(rt.round)(_.withSync(_ addLog event)).void
+      .flatMap { games =>
+        sync(rt, games)
+          .map { res =>
+            SyncLog.event(res.moves, none)
+          }
+          .recover { case e: Exception =>
+            SyncLog.event(0, e.some)
+          }
+          .flatMap { event =>
+            api
+              .update(rt.round)(
+                _.withSync(_ addLog event).copy(finished = games.forall(_.end.isDefined))
+              )
+              .void
+          }
       }
 }

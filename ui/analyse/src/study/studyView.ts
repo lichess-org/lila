@@ -187,7 +187,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const tourTab =
     tourShow &&
     h(
-      'span.relay-tour',
+      'span.relay-tour.text',
       {
         class: { active: tourShow.active },
         hook: bind(
@@ -197,8 +197,11 @@ export function side(ctrl: StudyCtrl): VNode {
           },
           ctrl.redraw
         ),
+        attrs: {
+          'data-icon': '',
+        },
       },
-      [iconTag(''), ' Broadcast']
+      'Broadcast'
     );
 
   const tabs = h('div.tabs-horiz', [

@@ -60,7 +60,7 @@ final class RelayTour(env: Env) extends LilaController(env) {
             err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
             setup =>
               env.relay.api.tourUpdate(tour, setup, me) inject
-                Redirect(routes.RelayTour.edit(tour.id.value)).flashSuccess
+                Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
           )
     }
   }

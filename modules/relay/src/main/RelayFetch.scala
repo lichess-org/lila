@@ -81,7 +81,9 @@ final private class RelayFetch(
             .withTimeout(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map { res =>
-              res -> rt.round.withSync(_ addLog SyncLog.event(res.moves, none))
+              res -> rt.round
+                .withSync(_ addLog SyncLog.event(res.moves, none))
+                .copy(finished = games.forall(_.end.isDefined))
             }
         }
         .recover { case e: Exception =>

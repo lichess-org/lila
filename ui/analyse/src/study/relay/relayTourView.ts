@@ -1,16 +1,16 @@
 import AnalyseCtrl from '../../ctrl';
 import { h, VNode } from 'snabbdom';
-import { dataIcon, iconTag, innerHTML } from '../../util';
+import { dataIcon, innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';
 import { StudyCtrl } from '../interfaces';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
-  const relay = study && study.relay;
+  const relay = study?.relay;
   if (study && relay?.tourShow.active)
     return h('div.relay-tour', [
       h('div.relay-tour__text', [
-        h('h1', study.data.name),
+        h('h1', relay.data.tour.name),
         relay.data.tour.markup
           ? h('div', {
               hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),

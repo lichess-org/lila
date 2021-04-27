@@ -41,7 +41,7 @@ object tour {
                 h2(tr.tour.name),
                 div(cls := "relay-widget__info")(
                   p(tr.tour.description),
-                  p(
+                  p(cls := "relay-widget__info__meta")(
                     strong(tr.round.name),
                     br,
                     if (tr.ongoing) trans.playingRightNow()
@@ -60,7 +60,7 @@ object tour {
                 h2(rt.tour.name),
                 div(cls := "relay-widget__info")(
                   p(rt.tour.description),
-                  rt.tour.syncedAt.map(momentFromNow(_))
+                  rt.tour.syncedAt.map(momentFromNow(_)(cls := "relay-widget__info__meta"))
                 )
               )
             )

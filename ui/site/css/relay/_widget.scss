@@ -43,9 +43,15 @@
 
   p {
     margin: 0.5em 0 0 0;
+    &:first-child {
+      margin-right: 1em;
+    }
   }
 
   &__info {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
+    &__meta {
+      white-space: nowrap;
+    }
   }
 }
