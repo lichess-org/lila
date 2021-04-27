@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">A c\'hall bezañ gwelet gant ar gelennerien hag ar studierien</string>
   <string name="teachersOfTheClass">Kelennerien ar c\'hlas</string>
   <string name="addLichessUsernames">Ouzhpennit o anvioù implijer Lichess evit pediñ anezhe da gelennerien. Unan dre linenn.</string>
-  <string name="theyMustFirstApply">Ret eo dezhe lakaat o anv evit bezañ Kelennerien Lichess da gentañ.</string>
   <string name="resetPassword">Cheñch ger-tremen</string>
   <string name="makeSureToCopy">Bezit sur da gopiañ pe da vizskrivañ ar ger-tremen bremañ. N\'ho po ket tro d\'hen ober diwezhatoc\'h!</string>
   <string name="passwordX">Ger-tremen: %s</string>
   <string name="generateANewPassword">Krouiñ ur ger-tremen nevez evit ar studier</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">Pedet da gemer perzh e %1$s gant %2$s</string>
+  <string name="invitedToXByY">Pedet da gemer perzh e %1$s gant %2$s</string>
   <string name="realName">Anv gwir</string>
   <string name="privateWillNeverBeShown">Prevez. Ne vo ket skignet er-maez eus ar c\'hlas. Sikour a ra evit derc\'hel soñj eus piv eo ar studier.</string>
   <string name="addStudent">Ouzhpennañ ur studier</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%2$s is the real name of the student (only visible for the teacher)">Profil Lichess %1$s krouet evit %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Profil Lichess %1$s krouet evit %2$s.</string>
   <string name="studentCredentials">Studier:  %1$s
 Anv-implijer: %2$s
 Ger-tremen: %3$s</string>
@@ -53,7 +52,7 @@ Ger-tremen: %3$s</string>
 Amañ emañ al liamm evit mont ennañ.</string>
   <string name="invitationToClass">Pedet oc\'h da vezañ ezel eus ar c\'hlas \"%s\" evel studier.</string>
   <string name="clickToViewInvitation">Klikit war al liamm da welet ar bedadenn:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Ur bedadenn o c\'hortoz ur respont</item>
     <item quantity="two">%s bedadenn o c\'hortoz ur respont</item>
     <item quantity="few">%s pedadenn o c\'hortoz ur respont</item>
@@ -90,9 +89,9 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="progress">Araokadur</string>
   <string name="noStudents">Studier ebet evit poent.</string>
   <string name="noRemovedStudents">Studier skarzhet ebet.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">A zeiz da zeiz</string>
+  <string name="overDays">A zeiz da zeiz</string>
   <string name="timePlaying">Amzer o c\'hoari</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s e-pad an/ar %2$s</string>
+  <string name="variantXOverLastY">%1$s e-pad an/ar %2$s</string>
   <string name="winrate">Feur trec\'h</string>
   <string name="na">N\'eus ket</string>
   <string name="news">Keleier ar c\'hlas</string>
