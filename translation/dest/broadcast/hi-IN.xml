@@ -6,15 +6,11 @@
   <string name="ongoing">चल रही है</string>
   <string name="upcoming">आगामी</string>
   <string name="completed">पूर्ण</string>
-  <string name="eventName">कार्यक्रम का नाम</string>
-  <string name="eventDescription">संक्षिप्त वर्णन</string>
+  <string name="roundNumber">राउंड नंबर</string>
   <string name="fullDescription">संक्षिप्त वर्णन</string>
   <string name="fullDescriptionHelp">प्रसारण का वैकल्पिक लंबा विवरण. %1$s उपलब्ध है. लंबाई %2$s से कम होना चाहिए</string>
   <string name="sourceUrlHelp">URL जो Lichess PGN अपडेट प्राप्त करने के लिए जाँच करेगा। यह सार्वजनिक रूप से इंटरनेट पर सुलभ होना चाहिए।</string>
-  <string name="roundNumber">राउंड नंबर</string>
   <string name="startDate">अपने स्वयं के समयक्षेत्र में प्रारंभ दिनांक</string>
   <string name="startDateHelp">वैकल्पिक, यदि आप जानना चाहते हो की प्रतिस्प्रधा कब शुरू होगी</string>
   <string name="credits">स्रोत को श्रेय दें</string>
-  <string name="cloneBroadcast">प्रसारण को क्लोन करना</string>
-  <string name="resetBroadcast">प्रसारण को रीसेट करें</string>
 </resources>
