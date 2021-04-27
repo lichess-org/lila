@@ -56,6 +56,6 @@
   <string name="streakDescription">Réitigh fadhbhanna níos deacra de réir a chéile chun stríoc buaite a thiomsú. Níl aon chlog ann, mar sin tóg do chuid ama. Beart mícheart amháin, agus tá an cluiche thart! Ach is féidir beart a scipeáil uair amháin i seisiúin.</string>
   <string name="yourStreakX">Do stríoc: %s</string>
   <string name="streakSkipExplanation">Scipeáil an beart seo chun do stríoc a choinneáil! Ní oibríonn sé ach uair amháin i sruth.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Lean leis an stríoc</string>
+  <string name="continueTheStreak">Lean leis an stríoc</string>
   <string name="newStreak">Stríoc nua</string>
 </resources>
