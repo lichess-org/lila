@@ -59,6 +59,7 @@
   <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
   <string name="aHourlyBulletTournament">cәгатьләп Марми бәйгесе</string>
   <string name="lichessRatings">Lichess рейтингы</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Анык кылып әйткәндә, бу Glicko-2 огышлыгы 110 дан катлы икәнлеге аңлатыладыр. Огышлыгы бу низамның рейтингында булган ышаныч дәрәҗәсе. Огышканча кече булса рейтингы шулчаклы тотрыклы буладыр.</string>
   <string name="ratingLeaderboards">рейтинглы рәһбәрләр тактасы</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">бирелгән рейтингта ким дигәндә 30 бәяләнү уены уйнадылар,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">бу рейтинг өчен соңгы атна эчендә бәяләнгән уен уйнадылар,</string>
