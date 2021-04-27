@@ -50,10 +50,12 @@
   <string name="configure">конфигурацияләү</string>
   <string name="accounts">Хисап</string>
   <string name="titlesAvailableOnLichess">Lichessда нинди исемнәр бар?</string>
+  <string name="canIbecomeLM">Lichess Мастеры (LM) исемен ала аласызмы?</string>
   <string name="noUpperCaseDot">Юк.</string>
   <string name="whatUsernameCanIchoose">Минем Кулланучынәмә нинди булырга мөмкин?</string>
   <string name="guidelines">күрсәтмәләр</string>
   <string name="canIChangeMyUsername">Кулланучынәмәне үзгәртә аламмы?</string>
+  <string name="uniqueTrophies">Фәридәи казанышлар</string>
   <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
   <string name="aHourlyBulletTournament">cәгатьләп Марми бәйгесе</string>
   <string name="lichessRatings">Lichess рейтингы</string>
@@ -62,4 +64,6 @@
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">бу рейтинг өчен соңгы атна эчендә бәяләнгән уен уйнадылар,</string>
   <string name="beInTopTen">бу рейтингта иң яхшы унлыкка керегез.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2-нче таләп - хисапларын кулланмаган уенчылар рәһбәрләр такталарын популярлаштыруны туктатсын өчен.</string>
+  <string name="howToHideRatingWhilePlaying">Уйнаганда бәяләнүләрне ничек яшерергә?</string>
+  <string name="displayPreferences">өстенлекләрне күрсәтү</string>
 </resources>
