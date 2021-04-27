@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">સ્રોત ચુ. આર. એલ., અથવા રમત આઇ. ડીસ</string>
+  <string name="sourceUrlOrGameIds">સ્રોત ચુ. આર. એલ., અથવા રમત આઇ. ડીસ</string>
   <string name="gameIdsHelp">વૈકલ્પિક રીતે, તમેં 64 લાઇચેસ રમત આઇડીસ નાખિ શકો છો, વચ્ચે સ્પેસ નાખિને.</string>
 </resources>
