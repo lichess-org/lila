@@ -3,10 +3,14 @@
   <string name="broadcasts">Uitzendingen</string>
   <string name="liveBroadcasts">Live toernooi uitzendingen</string>
   <string name="newBroadcast">Nieuwe live uitzending</string>
+  <string name="addRound">Ronde toevoegen</string>
   <string name="ongoing">Lopend</string>
   <string name="upcoming">Aankomend</string>
   <string name="completed">Voltooid</string>
+  <string name="roundName">Naam ronde</string>
   <string name="roundNumber">Ronde</string>
+  <string name="tournamentName">Naam toernooi</string>
+  <string name="tournamentDescription">Korte toernooibeschrijving</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
   <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
   <string name="sourceUrlOrGameIds">Bron-URL of partij-ID\'s</string>
@@ -15,4 +19,7 @@
   <string name="startDate">Aanvangsdatum in je eigen tijdzone</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
   <string name="credits">Bronvermelding</string>
+  <string name="cloneRound">Deze ronde kopiëren</string>
+  <string name="resetRound">Deze ronde terugzetten</string>
+  <string name="deleteRound">Deze ronde verwijderen</string>
 </resources>
