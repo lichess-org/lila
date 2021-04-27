@@ -136,7 +136,7 @@ ${Mailer.txt.serviceNote}
     alsoSendAsPrivateMessage(user) { implicit lang =>
       s"""Hello,
 
-      Your appeal has received a response from the moderation team: ${baseUrl}/appeal
+      Your appeal has received a response from the moderation team, to see it click here: ${baseUrl}/appeal
 
 $regards
 """
