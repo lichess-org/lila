@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Tattiche</string>
-  <string name="puzzleThemes">Tattiche a tema</string>
+  <string name="puzzleThemes">Temi tattici</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="motifs">Temi</string>
@@ -39,8 +39,16 @@
   <string name="normal">Normale</string>
   <string name="easier">Facile</string>
   <string name="easiest">Facilissimo</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">On punto sotto al tuo rating puzzle</item>
+    <item quantity="other">%s punti al di sotto del tuo puzzle rating</item>
+  </plurals>
   <string name="harder">Difficile</string>
   <string name="hardest">Difficilissimo</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto al di sopra del tuo rating puzzle</item>
+    <item quantity="other">%s punti al di sopra del tuo rating puzzle</item>
+  </plurals>
   <string name="example">Esempio</string>
   <string name="addAnotherTheme">Aggiungi un altro tema</string>
   <string name="jumpToNextPuzzleImmediately">Passa subito alla tattica successiva</string>
