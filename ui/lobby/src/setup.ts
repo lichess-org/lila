@@ -137,7 +137,7 @@ export default class Setup {
       $variantSelect = $form.find('#sf_variant'),
       $fenPosition = $form.find('.fen_position'),
       $fenInput = $fenPosition.find('input'),
-      forceFormPosition = !!$fenInput.val(),
+      forceFromPosition = !!$fenInput.val(),
       $timeInput = $form.find('.time_choice [name=time]'),
       $incrementInput = $form.find('.increment_choice [name=increment]'),
       $daysInput = $form.find('.days_choice [name=days]'),
@@ -151,8 +151,10 @@ export default class Setup {
           rated = $rated.prop('checked'),
           limit = parseFloat($timeInput.val() as string),
           inc = parseFloat($incrementInput.val() as string),
-          // no rated variants with less than 30s on the clock
-          cantBeRated = variantId != '1' && (timeMode != '1' || (limit < 0.5 && inc == 0) || (limit == 0 && inc < 2));
+          // no rated variants with less than 30s on the clock and no rated unlimited in the lobby
+          cantBeRated =
+            (typ === 'hook' && timeMode === '0') ||
+            (variantId != '1' && (timeMode != '1' || (limit < 0.5 && inc == 0) || (limit == 0 && inc < 2)));
         if (cantBeRated && rated) {
           $casual.trigger('click');
           return toggleButtons();
@@ -174,6 +176,7 @@ export default class Setup {
     if (c) {
       Object.keys(c).forEach(k => {
         $form.find(`[name="${k}"]`).each(function (this: HTMLInputElement) {
+          if (k === 'timeMode' && this.value !== '1') return;
           if (this.type == 'checkbox') this.checked = true;
           else if (this.type == 'radio') this.checked = this.value == c[k];
           else if (k != 'fen' || !this.value) this.value = c[k];
@@ -403,7 +406,7 @@ export default class Setup {
     }, 200);
     $fenInput.on('keyup', validateFen);
 
-    if (forceFormPosition) $variantSelect.val('' + 3);
+    if (forceFromPosition) $variantSelect.val('3');
     $variantSelect
       .on('change', function (this: HTMLElement) {
         const isFen = $(this).val() == '3';
