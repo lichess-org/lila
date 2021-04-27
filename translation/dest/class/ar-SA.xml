@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">مرئي من قبل المدرسين وطلاب الفصل</string>
   <string name="teachersOfTheClass">مدرسون الفصل</string>
   <string name="addLichessUsernames">أضف أسماء مستخدمي ليتشيس لدعوتهم كمعلمين. واحد فى كل سطر.</string>
-  <string name="theyMustFirstApply">ويجب عليهم أولاً أن يتقدموا بطلب أن يكونوا معلمين في ليتشيس.</string>
   <string name="resetPassword">إعاده تعيين كلمة المرور</string>
   <string name="makeSureToCopy">تأكد من حفظ أو كتابه كلمه المرور. لن تتمكن من رؤيتها مجددا!</string>
   <string name="passwordX">كلمة المرور: %s</string>
   <string name="generateANewPassword">إنشاء كلمة مرور جديدة للطالب</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">دعوة إلى %1$s من قبل %2$s</string>
+  <string name="invitedToXByY">دعوة إلى %1$s من قبل %2$s</string>
   <string name="realName">الاسم الحقيقي</string>
   <string name="privateWillNeverBeShown">خاص. لن يظهر أبداً خارج الصف الدراسي. يساعد في تذكر من هو الطالب.</string>
   <string name="addStudent">أضف طالب</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%2$s is the real name of the student (only visible for the teacher)">حساب ليتشيس %1$s تم إنشاؤه ل%2$s.</string>
+  <string name="lichessProfileXCreatedForY">حساب ليتشيس %1$s تم إنشاؤه ل%2$s.</string>
   <string name="studentCredentials">التلميذ:  %1$s
 اسم المستخدم: %2$s
 كلمة المرور: %3$s</string>
@@ -53,7 +52,7 @@
 إليك الرابط للوصول إلى الفصل.</string>
   <string name="invitationToClass">أنت مدعو للانضمام إلى الفصل \"%s\" كطالب.</string>
   <string name="clickToViewInvitation">انقر على الرابط لعرض الدعوة:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="zero">لا يوجد دعوات معلقة</item>
     <item quantity="one">دعوة واحدة معلقة</item>
     <item quantity="two">دعوتان معلقتان</item>
@@ -93,9 +92,9 @@
   <string name="progress">مستوي التقدم</string>
   <string name="noStudents">لا يوجد تلاميذ في الفصل، حتى الآن.</string>
   <string name="noRemovedStudents">لا يوجد طلاب محذوفين.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">على مدى الأيام</string>
+  <string name="overDays">على مدى الأيام</string>
   <string name="timePlaying">وقت اللعب</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s خلال آخر %2$s</string>
+  <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>
   <string name="news">أخبار الفصل</string>
