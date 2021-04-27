@@ -40,8 +40,18 @@
   <string name="normal">Parasta</string>
   <string name="easier">Vieglāka</string>
   <string name="easiest">Visvieglākā</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="zero">%s punktu zem jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts zem jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti zem jūsu pužļu reitinga</item>
+  </plurals>
   <string name="harder">Grūtāka</string>
   <string name="hardest">Visgrūtākā</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="zero">%s punktu virs jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts virs jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti virs jūsu pužļu reitinga</item>
+  </plurals>
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
   <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
