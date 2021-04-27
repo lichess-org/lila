@@ -7,6 +7,8 @@
   <string name="upcoming">Tulossa</string>
   <string name="completed">Päättyneet</string>
   <string name="roundNumber">Kierroksen numero</string>
+  <string name="tournamentName">Turnauksen nimi</string>
+  <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
   <string name="fullDescriptionHelp">Ei-pakollinen pitkä kuvaus lähetyksestä. %1$s-muotoiluja voi käyttää. Pituus voi olla enintään %2$s merkkiä.</string>
   <string name="sourceUrlOrGameIds">Lähteen URL-osoite tai peli ID:t</string>
