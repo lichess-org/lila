@@ -3,7 +3,7 @@
   <string name="broadcasts">Emisiones</string>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
-  <string name="addRound">Añadir una ronda</string>
+  <string name="addRound">Agregar una ronda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Próximamente</string>
   <string name="completed">Completadas</string>
