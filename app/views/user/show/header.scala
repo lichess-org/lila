@@ -194,7 +194,7 @@ object header {
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
-                  (u.marks.engine || u.marks.boost) option div(cls := "warning tos_warning")(
+                  u.lame option div(cls := "warning tos_warning")(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
