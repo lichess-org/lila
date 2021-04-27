@@ -37,6 +37,7 @@
   </plurals>
   <string name="thisIsPrivate">Това е частен турнир</string>
   <string name="shareUrl">Споделете този URL, за да поканите някого: %s</string>
+  <string name="drawStreak">Поредица от ремита: Когато играч има няколко последователни ремита в арена, само първото реми ще донесе точка, или само тези ремита които са продължили повече от %s хода. Поредица от ремита може да бъде прекъсната само от победа, но не от загуба.</string>
   <string name="history">История на Арената</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Вижте отбора</item>
