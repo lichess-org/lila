@@ -809,6 +809,9 @@
   <string name="unsubscribe">Аерылмак</string>
   <string name="mentionedYouInX"> \"%1$s\" сезне искә алдылар.</string>
   <string name="xMentionedYouInY"> %1$s сезне \"%2$s\" да искә алды.</string>
+  <string name="invitedYouToX"> \"%1$s\" сезне яште.</string>
+  <string name="xInvitedYouToY">%1$s сезне \"%2$s\" чакырды.</string>
+  <string name="youAreNowPartOfTeam">Сез хәзер җәмәга әгъзасы.</string>
   <string name="youHaveJoinedTeamX">Сез \"%1$s\" га кушылдыгыз.</string>
   <string name="someoneYouReportedWasBanned">Сез хәбәр иткән кеше тыелган</string>
   <string name="congratsYouWon">Тәбриклийбез, сез җиңдегез!</string>
@@ -816,6 +819,8 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Сез бары тик Lichess иганәче булдыгыз.</string>
   <string name="patronAccountExpired">Иганәче хисабы бетте</string>
+  <string name="pleaseReconsiderRenewIt">Зинһар, аны яңартырга уйлагыз!</string>
+  <string name="someoneReviewedYourCoachProfile">Кемдер сезнең мөдәрәс профилегезне карады.</string>
   <string name="newPendingReview">Яңа күреп чыгыш көтелмәктә</string>
   <string name="lostAgainstTOSViolator">Сез Lichess TOS кагыйдәләрене бозган кешегә оттырдыгыз</string>
   <string name="refundXpointsTimeControlY">Кире кайтару %1$s %2$s рейтинг накате.</string>
