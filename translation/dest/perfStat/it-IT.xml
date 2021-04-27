@@ -4,7 +4,7 @@
   <string name="viewTheGames">Visualizza le partite</string>
   <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provvisorio</string>
   <string name="notEnoughRatedGames">Non sono state giocate abbastanza partite classificate per stabilire un punteggio affidabile.</string>
-  <string name="progressOverLastXGames">Progressione nelle ultime %s partite:</string>
+  <string name="progressOverLastXGames">Progresso nelle ultime %s partite:</string>
   <string name="ratingDeviation">Deviazione del punteggio: %s.</string>
   <string name="ratingDeviationHelp">Un valore inferiore significa che il punteggio è più stabile. Oltre %s, il punteggio è considerato provvisorio.</string>
   <string name="totalGames">Partite totali</string>
