@@ -816,4 +816,5 @@
   <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
+  <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
 </resources>
