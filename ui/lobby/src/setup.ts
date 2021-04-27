@@ -252,7 +252,6 @@ export default class Setup {
         modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
-          this.root.redraw();
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
           xhr.text($form.attr('action')!.replace(/sri-placeholder/, lichess.sri), {
@@ -264,6 +263,7 @@ export default class Setup {
             })(),
           });
         }
+        this.root.redraw();
         return false;
       };
       $submits
