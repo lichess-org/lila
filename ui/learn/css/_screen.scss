@@ -10,7 +10,11 @@
   @extend %popup-shadow, %box-radius;
 
   margin: auto;
-  background-color: #fff;
+  @if $theme-dark {
+    background-color: #262421;
+  } @else {
+    background-color: #fff;
+  }
   width: 350px;
   overflow: hidden;
   text-align: center;
@@ -40,6 +44,10 @@
 
   .stars {
     margin-bottom: 20px;
+
+    @if $theme-dark {
+      opacity: 0.9;
+    }
   }
 
   @keyframes star-appear {
@@ -113,7 +121,11 @@
 
   h1 {
     font-weight: bold;
-    color: #181818;
+    @if $theme-dark {
+      color: #bababa;
+    } @else {
+      color: #181818;
+    }
     font-size: 24px;
     margin-bottom: 22px;
   }
@@ -144,11 +156,16 @@
 
   .score span {
     font-weight: bold;
-    font-family: 'Roboto Mono';
+    font-family: monospace;
+    font-size: 1rem;
   }
 
   p {
-    color: #999999;
+    @if $theme-dark {
+      color: #999999;
+    } @else {
+      color: #555;
+    }
     padding: 0 15%;
     line-height: 24px;
     margin-bottom: 17px;
@@ -178,12 +195,12 @@
 
     .next {
       font-size: 0.9em;
-      background: #4fc3f7;
+      background: #3692e7;
     }
 
     .back {
       font-size: 0.85em;
-      background: #f57c00;
+      background: #e53935f0;
     }
 
     a:hover {
