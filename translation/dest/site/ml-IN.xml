@@ -117,6 +117,18 @@
   <string name="blunder">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
   <string name="inaccuracy">പിഴവ്</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s തെറ്റ്</item>
+    <item quantity="other">%s തെറ്റുകള്‍</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
+    <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s കൃത്യത കുറവ്</item>
+    <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
+  </plurals>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
   <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
