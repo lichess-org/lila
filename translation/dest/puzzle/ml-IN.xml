@@ -48,4 +48,5 @@
   <string name="history">മുന്‍പ്‌ ശ്രമിച്ച പസ്സിലുകള്‍</string>
   <string name="solved">ശരിയാക്കിയവ</string>
   <string name="failed">തെറ്റിയവ</string>
+  <string name="yourStreakX">നിങ്ങളുടെ വിജയത്തുടര്‍ച്ച: %s</string>
 </resources>
