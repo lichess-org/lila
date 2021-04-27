@@ -6,15 +6,11 @@
   <string name="ongoing">Во тек</string>
   <string name="upcoming">Претстојни</string>
   <string name="completed">Завршени</string>
-  <string name="eventName">Име на настанот</string>
-  <string name="eventDescription">Краток опис на настанот</string>
+  <string name="roundNumber">Заокружен број</string>
   <string name="fullDescription">Цел опис на настанот</string>
   <string name="fullDescriptionHelp">Незадолжителен, долг опис на емитуваниот настан. %1$s е достапен. Должината мора да е пократка од %2$s знаци.</string>
   <string name="sourceUrlHelp">URL кое Lichess ќе го користи за ажурирање на PGN датотеката. Мора да биде јавно достапно на интернет.</string>
-  <string name="roundNumber">Заокружен број</string>
   <string name="startDate">Почетен датум во вашата временска зона</string>
   <string name="startDateHelp">Незадолжително, ако знаете кога почнува настанот</string>
   <string name="credits">Наведете ги заслужните извори</string>
-  <string name="cloneBroadcast">Клонирај го преносот</string>
-  <string name="resetBroadcast">Ресетирај го преносот</string>
 </resources>
