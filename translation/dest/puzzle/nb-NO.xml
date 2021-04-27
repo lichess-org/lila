@@ -39,8 +39,16 @@
   <string name="normal">Vanlig</string>
   <string name="easier">Lettere</string>
   <string name="easiest">Lettest</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ett poeng under sjakknøttratingen din</item>
+    <item quantity="other">%s poeng under sjakknøttratingen din</item>
+  </plurals>
   <string name="harder">Verre</string>
   <string name="hardest">Verst</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ett poeng over sjakknøttratingen din</item>
+    <item quantity="other">%s poeng over sjakknøttratingen din</item>
+  </plurals>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Legg til tema</string>
   <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
