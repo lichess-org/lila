@@ -52,6 +52,6 @@
   <string name="streakDescription">Акрынлап катлаулы башваткычларны чишегез һәм җиңү сызыгы төзегез. Сәгать юк, шуңа күрә вакытыгызны алыгыз. Бер ялгыш хәрәкәт, һәм бу уен бетте! Ләкин сез сессиягә бер хәрәкәтне калдыра аласыз.</string>
   <string name="yourStreakX">Сезнең юл %s</string>
   <string name="streakSkipExplanation">Сезнең юлны саклап калу өчен бу хәрәкәтне ташлагыз! Бер тапкыр гына эшли.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Сызуны дәвам итегез</string>
+  <string name="continueTheStreak">Сызуны дәвам итегез</string>
   <string name="newStreak">Яңа сызу</string>
 </resources>
