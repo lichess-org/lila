@@ -53,6 +53,6 @@
   <string name="streakDescription">Getdikcə çətinləşən pazlları yerinə yetir və qələbə seriyası yarat. Zaman məhdudiyyəri yoxdur, odur ki, tələsmə. Bir səhv gediş və oyun bitdi! Amma hər sessiyada bir gedişi buraxa bilərsən.</string>
   <string name="yourStreakX">Qələbə seriyan: %s</string>
   <string name="streakSkipExplanation">Qələbə seriyanı qorumaq üçün bu gedişi keç! Oyun başına yalnız bir dəfə işləyir.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Qələbə seriyanı davam et</string>
+  <string name="continueTheStreak">Qələbə seriyanı davam et</string>
   <string name="newStreak">Yeni qələbə seriyası</string>
 </resources>
