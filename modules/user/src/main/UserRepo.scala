@@ -611,12 +611,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       ReadPreference.secondaryPreferred
     )
 
-  def filterByRole(userIds: Seq[User.ID], role: String): Fu[Set[User.ID]] =
-    coll.distinctEasy[String, Set](
-      F.id,
-      $inIds(userIds) ++ enabledSelect ++ $doc(F.roles -> role),
-      ReadPreference.secondaryPreferred
-    )
+  def filterEnabled(userIds: Seq[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPreference.secondaryPreferred)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
     coll.distinctEasy[String, Set]("_id", $doc("roles" $in roles))

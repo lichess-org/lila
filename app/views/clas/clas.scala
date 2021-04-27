@@ -148,11 +148,7 @@ object clas {
           form3.group(
             form("teachers"),
             trans.clas.teachersOfTheClass(),
-            help = frag(
-              trans.clas.addLichessUsernames(),
-              br,
-              trans.clas.theyMustFirstApply()
-            ).some
+            help = trans.clas.addLichessUsernames().some
           )(form3.textarea(_)(rows := 4))
       },
       form3.actions(
