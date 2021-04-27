@@ -110,7 +110,12 @@
   <string name="boardSetup">Тактаны үзләштерү</string>
   <string name="placeTheBishops">Филне урнаштырыгыз!
 Алар атчылар янына китәләр.</string>
+  <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
+  <string name="enPassant">Бик вакытлы</string>
+  <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
+  <string name="enPassantIntro">Рәкыйпнең җәяүле ике квадрат белән хәрәкәтләнгәндә, сез аны бер квадрат хәрәкәт кебек кабул итә аласыз.</string>
   <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Уен җиңүсез</string>
   <string name="advanced">Өстәмә</string>
   <string name="register">Теркәлү</string>
   <string name="videos">Видеолар</string>
