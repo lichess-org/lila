@@ -7,6 +7,8 @@
   <string name="upcoming">Yaxınlaşan</string>
   <string name="completed">Tamamlanan</string>
   <string name="roundNumber">Tur sayı</string>
+  <string name="tournamentName">Turnir adı</string>
+  <string name="tournamentDescription">Qısa turnir açıqlaması</string>
   <string name="fullDescription">Tədbirin tam açıqlaması</string>
   <string name="fullDescriptionHelp">Tədbirin istəyə bağlı təfsilatlı açıqlaması. %1$s seçimi mövcuddur. Mətnin uzunluğu %2$s simvoldan az olmalıdır.</string>
   <string name="sourceUrlOrGameIds">Mənbə URL və ya oyun ID-si</string>
