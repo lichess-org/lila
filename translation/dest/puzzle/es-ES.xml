@@ -41,6 +41,10 @@
   <string name="easiest">El más fácil</string>
   <string name="harder">Más difícil</string>
   <string name="hardest">El más difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto sobre de tu puntuación de ejercicios</item>
+    <item quantity="other">%s puntos sobre de tu puntuación de ejercicios</item>
+  </plurals>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente ejercicio inmediatamente</string>
