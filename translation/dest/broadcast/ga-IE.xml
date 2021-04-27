@@ -6,17 +6,13 @@
   <string name="ongoing">Leanúnach</string>
   <string name="upcoming">Le teacht</string>
   <string name="completed">Críochnaithe</string>
-  <string name="eventName">Ainm na hócáide</string>
-  <string name="eventDescription">Cur síos gairid ar an ócáid</string>
+  <string name="roundNumber">Uimhir bhabhta</string>
   <string name="fullDescription">Cur síos iomlán ar an ócáid</string>
   <string name="fullDescriptionHelp">Cur síos fada roghnach ar an craoladh. Tá %1$s ar fáil. Caithfidh an fad a bheith níos lú ná %2$s carachtar.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">URL foinse, nó cluiche CA</string>
+  <string name="sourceUrlOrGameIds">URL foinse, nó cluiche CA</string>
   <string name="sourceUrlHelp">URL a seiceálfaidh Lichess chun PGN nuashonruithe a fháil. Caithfidh sé a bheith le féiceáil go poiblí ón Idirlíon.</string>
   <string name="gameIdsHelp">Nó is féidir suas le 64 ID cluiche Lichess a iontráil, scartha le spásanna.</string>
-  <string name="roundNumber">Uimhir bhabhta</string>
   <string name="startDate">Dáta tosaigh i do chrios ama féin</string>
   <string name="startDateHelp">Roghnach, má tá a fhios agat cathain a thosóidh an ócáid</string>
   <string name="credits">Creidmheas an fhoinse</string>
-  <string name="cloneBroadcast">Cóipeáil an craoladh</string>
-  <string name="resetBroadcast">Athshocraigh an craoladh</string>
 </resources>
