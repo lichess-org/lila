@@ -6,17 +6,13 @@
   <string name="ongoing">Käimas</string>
   <string name="upcoming">Tulemas</string>
   <string name="completed">Lõppenud</string>
-  <string name="eventName">Sündmuse nimi</string>
-  <string name="eventDescription">Lühike sündmuse kirjeldus</string>
+  <string name="roundNumber">Partii number</string>
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
   <string name="fullDescriptionHelp">Valikuline otseülekande pikk kirjeldus. %1$s märgistus on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Allika URL või mängu ID-d</string>
+  <string name="sourceUrlOrGameIds">Allika URL või mängu ID-d</string>
   <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
   <string name="gameIdsHelp">Või siis on võimalik lisada 64 Lichess mängu ID-t, vahedega eraldatud.</string>
-  <string name="roundNumber">Partii number</string>
   <string name="startDate">Alguskuupäev sinu ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="credits">Viita allikale</string>
-  <string name="cloneBroadcast">Teiselda otseülekanne</string>
-  <string name="resetBroadcast">Lähtesta otseülekanne</string>
 </resources>
