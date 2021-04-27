@@ -7,6 +7,8 @@
   <string name="upcoming">Demnächst</string>
   <string name="completed">Beendet</string>
   <string name="roundNumber">Rundennummer</string>
+  <string name="tournamentName">Turniername</string>
+  <string name="tournamentDescription">Kurze Turnierbeschreibung</string>
   <string name="fullDescription">Vollständige Ereignisbeschreibung</string>
   <string name="fullDescriptionHelp">Optionale, ausführliche Beschreibung der Übertragung. %1$s ist verfügbar. Die Beschreibung muss kürzer als %2$s Zeichen sein.</string>
   <string name="sourceUrlOrGameIds">Quell-URL oder Partie-IDs</string>
@@ -15,4 +17,5 @@
   <string name="startDate">Startdatum in deiner eigenen Zeitzone</string>
   <string name="startDateHelp">Optional, falls du weißt wann das Ereignis beginnt</string>
   <string name="credits">Erwähne die Quelle</string>
+  <string name="cloneRound">Diese Runde klonen</string>
 </resources>
