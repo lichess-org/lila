@@ -39,8 +39,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Kolay</string>
   <string name="easiest">Çok kolay</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Bulmaca puanınızın bir puan altında</item>
+    <item quantity="other">Bulmaca puanınızın %s puan altında</item>
+  </plurals>
   <string name="harder">Zor</string>
   <string name="hardest">Çok zor</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Bulmaca puanınızdan bir puan yüksek</item>
+    <item quantity="other">Bulmaca puanınızdan %s puan yüksek</item>
+  </plurals>
   <string name="example">Örnek</string>
   <string name="addAnotherTheme">Başka bir tema ekle</string>
   <string name="jumpToNextPuzzleImmediately">Hemen sonraki bulmacaya atla</string>
