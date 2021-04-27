@@ -11,6 +11,8 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
+    multiboard: lila.study.StudyMultiBoard,
+    studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
@@ -23,13 +25,13 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private lazy val coll = db(CollName("relay"))
+  lazy val roundForm = wire[RelayRoundForm]
 
-  lazy val forms = wire[RelayForm]
+  lazy val tourForm = wire[RelayTourForm]
 
-  private lazy val repo = wire[RelayRepo]
+  private lazy val roundRepo = new RelayRoundRepo(db(CollName("relay")))
 
-  private lazy val withStudy = wire[RelayWithStudy]
+  private lazy val tourRepo = new RelayTourRepo(db(CollName("relay_tour")))
 
   lazy val jsonView = wire[JsonView]
 
@@ -38,6 +40,8 @@ final class Env(
   lazy val pager = wire[RelayPager]
 
   lazy val push = wire[RelayPush]
+
+  lazy val markup = wire[RelayMarkup]
 
   private lazy val sync = wire[RelaySync]
 
@@ -50,13 +54,12 @@ final class Env(
     ()
   }
 
-  lila.common.Bus.subscribeFun("studyLikes", "study", "relayToggle") {
-    case lila.study.actorApi.StudyLikes(id, likes)       => api.setLikes(Relay.Id(id.value), likes).unit
+  lila.common.Bus.subscribeFun("study", "relayToggle") {
     case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
     case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) foreach {
         _ ?? {
-          api.requestPlay(Relay.Id(id.value), v)
+          api.requestPlay(RelayRound.Id(id.value), v)
         }
       }
   }

@@ -6,11 +6,10 @@ import lila.db.dsl._
 
 object BSONHandlers {
 
-  import lila.study.BSONHandlers.LikesBSONHandler
+  implicit val relayIdHandler     = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
+  implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
 
-  implicit val relayIdHandler = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
-
-  import Relay.Sync
+  import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
   implicit val upstreamUrlHandler = Macros.handler[UpstreamUrl]
   implicit val upstreamIdsHandler = Macros.handler[UpstreamIds]
@@ -33,5 +32,12 @@ object BSONHandlers {
 
   implicit val syncHandler = Macros.handler[Sync]
 
-  implicit val relayHandler = Macros.handler[Relay]
+  implicit val relayHandler = Macros.handler[RelayRound]
+
+  implicit val relayTourHandler = Macros.handler[RelayTour]
+
+  def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
+    round <- doc.asOpt[RelayRound]
+    tour  <- doc.getAsOpt[RelayTour]("tour")
+  } yield RelayRound.WithTour(round, tour)
 }

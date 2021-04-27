@@ -2,18 +2,14 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import lila.study.Study
+import lila.study.{ Chapter, Study }
 import lila.user.User
 
-case class Relay(
-    _id: Relay.Id,
+case class RelayRound(
+    _id: RelayRound.Id,
+    tourId: RelayTour.Id,
     name: String,
-    description: String,
-    markup: Option[String] = None,
-    credit: Option[String] = None,
-    sync: Relay.Sync,
-    ownerId: User.ID,
-    likes: Study.Likes,
+    sync: RelayRound.Sync,
     /* When it's planned to start */
     startsAt: Option[DateTime],
     /* When it actually starts */
@@ -21,7 +17,6 @@ case class Relay(
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
-    official: Boolean,
     createdAt: DateTime
 ) {
 
@@ -29,7 +24,7 @@ case class Relay(
 
   def studyId = Study.Id(id.value)
 
-  def slug = {
+  lazy val slug = {
     val s = lila.common.String slugify name
     if (s.isEmpty) "-" else s
   }
@@ -59,12 +54,14 @@ case class Relay(
       case None     => createdAt.isBefore(DateTime.now minusDays 1)
     })
 
-  def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
+  def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
+
+  def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
   override def toString = s"""relay #$id "$name" $sync"""
 }
 
-object Relay {
+object RelayRound {
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -133,12 +130,21 @@ object Relay {
     case class UpstreamIds(ids: List[lila.game.Game.ID]) extends Upstream
   }
 
-  case class WithStudy(relay: Relay, study: Study)
+  trait AndTour {
+    val round: RelayRound
+    val tour: RelayTour
+    def fullName = s"${tour.name} • ${round.name}"
+    def path: String =
+      s"/broadcast/${tour.slug}/${if (round.slug == tour.slug) "-" else round.slug}/${round.id}"
+    def path(chapterId: Chapter.Id): String = s"$path/$chapterId"
+  }
 
-  case class WithStudyAndLiked(relay: Relay, study: Study, liked: Boolean)
+  case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour {
+    def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+  }
 
-  case class Fresh(
-      created: Seq[WithStudyAndLiked],
-      started: Seq[WithStudyAndLiked]
-  )
+  case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study) {
+    def path     = WithTour(relay, tour).path
+    def fullName = WithTour(relay, tour).fullName
+  }
 }

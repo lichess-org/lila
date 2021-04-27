@@ -104,7 +104,9 @@ object bits {
       trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.difficultyLevel,
       trans.signUp,
-      trans.puzzle.toGetPersonalizedPuzzles
+      trans.puzzle.toGetPersonalizedPuzzles,
+      trans.puzzle.nbPointsBelowYourPuzzleRating,
+      trans.puzzle.nbPointsAboveYourPuzzleRating
     ).map(_.key) :::
       PuzzleTheme.all.map(_.name.key) :::
       PuzzleTheme.all.map(_.description.key) :::

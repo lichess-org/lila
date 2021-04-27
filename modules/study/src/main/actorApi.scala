@@ -10,7 +10,6 @@ case class ExplorerGame(ch: Chapter.Id, path: String, gameId: String, insert: Bo
   def chapterId = ch
   val position  = Position.Ref(chapterId, Path(path))
 }
-case class StudyLikes(studyId: Study.Id, likes: Study.Likes)
 
 case class Who(u: lila.user.User.ID, sri: lila.socket.Socket.Sri)
 case class RelayToggle(studyId: Study.Id, v: Boolean, who: Who)

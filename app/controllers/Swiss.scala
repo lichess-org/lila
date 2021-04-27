@@ -94,27 +94,30 @@ final class Swiss(
       }
     }
 
+  private def CheckTeamLeader(teamId: String)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMap { _ ?? f }
+
   def form(teamId: String) =
-    Open { implicit ctx =>
-      Ok(html.swiss.form.create(env.swiss.forms.create, teamId)).fuccess
+    Auth { implicit ctx => _ =>
+      CheckTeamLeader(teamId) {
+        Ok(html.swiss.form.create(env.swiss.forms.create, teamId)).fuccess
+      }
     }
 
   def create(teamId: String) =
     AuthBody { implicit ctx => me =>
-      env.team.cached.isLeader(teamId, me.id) flatMap {
-        case false => notFound
-        case _ =>
-          env.swiss.forms.create
-            .bindFromRequest()(ctx.body, formBinding)
-            .fold(
-              err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
-              data =>
-                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
-                  env.swiss.api.create(data, me, teamId) map { swiss =>
-                    Redirect(routes.Swiss.show(swiss.id.value))
-                  }
+      CheckTeamLeader(teamId) {
+        env.swiss.forms.create
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
+            data =>
+              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+                env.swiss.api.create(data, me, teamId) map { swiss =>
+                  Redirect(routes.Swiss.show(swiss.id.value))
                 }
-            )
+              }
+          )
       }
     }
 

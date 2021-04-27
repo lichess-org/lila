@@ -30,6 +30,8 @@ final class StudyMultiBoard(
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 
+  def invalidate(studyId: Study.Id): Unit = firstPageCache.synchronous().invalidate(studyId)
+
   private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] =
     cacheApi.scaffeine
       .refreshAfterWrite(4 seconds)

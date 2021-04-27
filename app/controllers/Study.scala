@@ -156,13 +156,9 @@ final class Study(
   private def orRelay(id: String, chapterId: Option[String] = None)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
-      _.fold(f) { relay =>
-        fuccess(Redirect {
-          chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
-            routes.Relay.chapter(relay.slug, relay.id.value, c)
-          }
-        })
+    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
+      _.fold(f) { rt =>
+        Redirect(chapterId.map(Chapter.Id).fold(rt.path)(rt.path)).fuccess
       }
     }
     else f
@@ -174,10 +170,10 @@ final class Study(
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html = for {
-              chat     <- chatOf(sc.study)
-              sVersion <- env.study.version(sc.study.id)
-              streams  <- streamsOf(sc.study)
-            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streams))),
+              chat      <- chatOf(sc.study)
+              sVersion  <- env.study.version(sc.study.id)
+              streamers <- streamersOf(sc.study)
+            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streamers))),
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
                 Ok(
@@ -301,8 +297,13 @@ final class Study(
   def delete(id: String) =
     Auth { _ => me =>
       env.study.api.byIdAndOwner(id, me) flatMap {
-        _ ?? env.study.api.delete
-      } inject Redirect(routes.Study.mine("hot"))
+        _ ?? { study =>
+          env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
+            case None       => Redirect(routes.Study.mine("hot"))
+            case Some(tour) => Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
+          }
+        }
+      }
     }
 
   def clearChat(id: String) =
@@ -571,19 +572,30 @@ final class Study(
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
 
-  private[controllers] def streamsOf(
-      study: StudyModel
-  )(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
-    env.streamer.liveStreamApi.all.flatMap {
-      _.streams
-        .filter { s =>
-          study.members.members.exists(m => s is m._2.id)
+  private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
+
+  private val streamerCache =
+    env.memo.cacheApi[StudyModel.Id, List[lila.user.User.ID]](64, "study.streamers") {
+      _.refreshAfterWrite(15.seconds)
+        .maximumSize(512)
+        .buildAsyncFuture { studyId =>
+          env.study.studyRepo.membersById(studyId) flatMap {
+            _.map(_.members).filter(_.nonEmpty) ?? { members =>
+              env.streamer.liveStreamApi.all.flatMap {
+                _.streams
+                  .filter { s =>
+                    members.exists(m => s is m._2.id)
+                  }
+                  .map { stream =>
+                    env.study.isConnected(studyId, stream.streamer.userId) map {
+                      _ option stream.streamer.userId
+                    }
+                  }
+                  .sequenceFu
+                  .dmap(_.flatten)
+              }
+            }
+          }
         }
-        .map { stream =>
-          (fuccess(ctx.me ?? stream.streamer.is) >>|
-            env.study.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
-        }
-        .sequenceFu
-        .map(_.flatten)
     }
 }

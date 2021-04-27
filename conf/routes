@@ -166,16 +166,20 @@ GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic: String, 
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 
 # Relay
-GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
-GET   /broadcast/new                       controllers.Relay.form
-POST  /broadcast/new                       controllers.Relay.create
-GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
-GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
-GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.update(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/reset    controllers.Relay.reset(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/clone    controllers.Relay.cloneRelay(slug: String, id: String)
-POST  /broadcast/:slug/$id<\w{8}>/push     controllers.Relay.push(slug: String, id: String)
+GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
+GET   /broadcast/new                          controllers.RelayTour.form
+POST  /broadcast/new                          controllers.RelayTour.create
+GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirect(rs: String, anyId: String)
+GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)
+POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: String)
+GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: String)
+POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: String)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts: String, rs: String, roundId: String)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts: String, rs: String, roundId: String, chapterId: String)
+GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: String)
+POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -644,7 +648,7 @@ POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: Strin
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
-GET   /api/broadcast                   controllers.Relay.apiIndex
+# GET   /api/broadcast                   controllers.Relay.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
