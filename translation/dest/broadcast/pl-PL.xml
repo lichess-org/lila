@@ -7,8 +7,10 @@
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
   <string name="completed">Zakończone</string>
+  <string name="roundName">Nazwa rundy</string>
   <string name="roundNumber">Numer rundy</string>
   <string name="tournamentName">Nazwa turnieju</string>
+  <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
   <string name="sourceUrlOrGameIds">Źródłowy URL, lub ID\'y gier</string>
@@ -17,4 +19,7 @@
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
+  <string name="cloneRound">Sklonuj tę rundę</string>
+  <string name="resetRound">Zresetuj tę rundę</string>
+  <string name="deleteRound">Usuń tę rundę</string>
 </resources>
