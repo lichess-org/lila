@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Дус белән уйнарга</string>
+  <string name="playWithAFriend">Дустың белән уйнарга</string>
   <string name="playWithTheMachine">Компьютер белән уйнарга</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
   <string name="gameOver">Уен бетте</string>
@@ -12,8 +12,8 @@
   <string name="strength">Ныгыту</string>
   <string name="toggleTheChat">Чатны ачу/ябу</string>
   <string name="toggleSound">Аваз күчү/сүндерү</string>
-  <string name="chat">Хәбәр җибәрү</string>
-  <string name="resign">Бирешү</string>
+  <string name="chat">Сүхбәт</string>
+  <string name="resign">Җиңелү</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Ак</string>
@@ -44,7 +44,7 @@
   <string name="talkInChat">Сөйләшкәндә әдәпле булыгыз!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Сылтамага кергән беренче кеше сезнең белән уйнар.</string>
   <string name="whiteResigned">Аклар бирелде</string>
-  <string name="blackResigned">Каралар бирелде</string>
+  <string name="blackResigned">Каралар истифа итте</string>
   <string name="whiteLeftTheGame">Ак уеннан чыкты</string>
   <string name="blackLeftTheGame">Кара уеннан чыкты</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Бу сылтама белән күзәтүчеләрне чакырыгыз</string>
