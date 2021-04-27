@@ -6,15 +6,11 @@
   <string name="ongoing">ดำเนินอยู่</string>
   <string name="upcoming">ใกล้จะถึง</string>
   <string name="completed">เสร็จแล้ว</string>
-  <string name="eventName">ชื่อรายการ</string>
-  <string name="eventDescription">คำอธิบายรายการสั้นๆ</string>
+  <string name="roundNumber">เลขรอบ</string>
   <string name="fullDescription">คำอธิบายรายการแบบเต็ม</string>
   <string name="fullDescriptionHelp">คำอธิบายยาวซึ่งไม่บังคับของการออกอากาศ %1$s มีพร้อม ความยาวต้องน้อยกว่า %2$s ตัวอักษร</string>
   <string name="sourceUrlHelp">URL ที่ Lichess จะทำโพลเพื่อรับอัพเดท PGN มันต้องเข้าถึงได้อย่างสาธารณะจากอินเทอร์เน็ต</string>
-  <string name="roundNumber">เลขรอบ</string>
   <string name="startDate">วันที่เริ่มในเขตเวลาของคุณ</string>
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="credits">เครดิตแหล่ง</string>
-  <string name="cloneBroadcast">โคลนการออกอากาศ</string>
-  <string name="resetBroadcast">รีเซ็ตการออกอากาศ</string>
 </resources>
