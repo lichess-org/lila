@@ -3,10 +3,14 @@
   <string name="broadcasts">Transmissões</string>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
+  <string name="addRound">Adicionar uma ronda</string>
   <string name="ongoing">A decorrer</string>
   <string name="upcoming">Brevemente</string>
   <string name="completed">Concluído</string>
+  <string name="roundName">Nome da ronda</string>
   <string name="roundNumber">Número da ronda</string>
+  <string name="tournamentName">Nome do torneio</string>
+  <string name="tournamentDescription">Breve descrição do torneio</string>
   <string name="fullDescription">Descrição ccompleta do evento</string>
   <string name="fullDescriptionHelp">Descrição longa do evento opcional da transmissão. %1$s está disponível. Tem de ter menos que %2$s carácteres.</string>
   <string name="sourceUrlOrGameIds">URL de origem ou IDs do jogo</string>
@@ -15,4 +19,7 @@
   <string name="startDate">Data de início no teu fuso horário</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>
+  <string name="cloneRound">Clonar esta rodada</string>
+  <string name="resetRound">Reiniciar esta ronda</string>
+  <string name="deleteRound">Apagar esta ronda</string>
 </resources>
