@@ -3,10 +3,14 @@
   <string name="broadcasts">Transmissioner</string>
   <string name="liveBroadcasts">Live turnerings-transmissioner</string>
   <string name="newBroadcast">Ny live-transmission</string>
+  <string name="addRound">Tilføj en runde</string>
   <string name="ongoing">I gang</string>
   <string name="upcoming">Kommende</string>
   <string name="completed">Afsluttet</string>
+  <string name="roundName">Rundenavn</string>
   <string name="roundNumber">Rundenummer</string>
+  <string name="tournamentName">Turneringsnavn</string>
+  <string name="tournamentDescription">Kort beskrivelse af turnering</string>
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse af transmissionen. %1$s er tilgængelig. Længde skal være mindre end %2$s tegn.</string>
   <string name="sourceUrlOrGameIds">Kilde URL, eller spil-ID\'er</string>
@@ -15,4 +19,7 @@
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
+  <string name="cloneRound">Klon denne runde</string>
+  <string name="resetRound">Nulstil denne runde</string>
+  <string name="deleteRound">Slet denne runde</string>
 </resources>
