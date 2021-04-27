@@ -37,5 +37,11 @@
   <string name="normal">ഇടത്തരം</string>
   <string name="easier">എളുപ്പമുള്ളവ</string>
   <string name="easiest">വളരെ എളുപ്പമുള്ളവ</string>
+  <string name="harder">കടുപ്പമേറിയവ</string>
+  <string name="hardest">ഏറ്റവും കടുപ്പമേറിയവ</string>
+  <string name="example">ഉദാഹരണം</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
+  <string name="jumpToNextPuzzleImmediately">ഉടനെ അടുത്ത പസ്സിലിലേക്ക് പോകുക</string>
+  <string name="puzzleDashboard">പസ്സില്‍ ഡാഷ്ബോർഡ്</string>
+  <string name="improvementAreas">മെച്ചപ്പെടുത്തുവാനുള്ള മേഖലകള്‍</string>
 </resources>
