@@ -43,7 +43,7 @@
   <string name="forceDraw">Тигезлек игълан итү</string>
   <string name="talkInChat">Сөйләшкәндә әдәпле булыгыз!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Сылтамага кергән беренче кеше сезнең белән уйнар.</string>
-  <string name="whiteResigned">Аклар бирелде</string>
+  <string name="whiteResigned">Аклар истифа итте</string>
   <string name="blackResigned">Каралар истифа итте</string>
   <string name="whiteLeftTheGame">Ак уеннан чыкты</string>
   <string name="blackLeftTheGame">Кара уеннан чыкты</string>
@@ -773,6 +773,7 @@
   <string name="howToAvoidThis">Моннан ничек сакланырга?</string>
   <string name="playEveryGame">Сез башлаган һәр уенны уйнагыз.</string>
   <string name="tryToWin">Сез уйнаган һәр уенда җиңәргә (яки ким дигәндә җиңүсезлеккә) тырышыгыз.</string>
+  <string name="resignLostGames">Истифа ителгән җиңелгән уеннар (сәгать эшләмәсен).</string>
   <string name="temporaryInconvenience">Вакытлыча уңайсызлыклар өчен гафу үтенәбез,</string>
   <string name="wishYouGreatGames">һәм сезгә lichess.org сайтында зур уеннар телим.</string>
   <string name="thankYouForReading">Укыган өчен ташаккур!</string>
@@ -807,6 +808,7 @@
   <string name="subscribe">Кушылмак</string>
   <string name="unsubscribe">Аерылмак</string>
   <string name="mentionedYouInX"> \"%1$s\" сезне искә алдылар.</string>
+  <string name="xMentionedYouInY"> %1$s сезне \"%2$s\" да искә алды.</string>
   <string name="youHaveJoinedTeamX">Сез \"%1$s\" га кушылдыгыз.</string>
   <string name="someoneYouReportedWasBanned">Сез хәбәр иткән кеше тыелган</string>
   <string name="congratsYouWon">Тәбриклийбез, сез җиңдегез!</string>
