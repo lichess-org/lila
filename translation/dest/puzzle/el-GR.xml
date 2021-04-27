@@ -39,6 +39,10 @@
   <string name="normal">Κανονικό</string>
   <string name="easier">Εύκολο</string>
   <string name="easiest">Πολύ εύκολο</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Έναν πόντο κάτω από τη βαθμολογία γρίφων σας</item>
+    <item quantity="other">%s πόντους κάτω από τη βαθμολογία γρίφων</item>
+  </plurals>
   <string name="harder">Δύσκολο</string>
   <string name="hardest">Πολύ δύσκολο</string>
   <string name="example">Παράδειγμα</string>
