@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Контакт</string>
+  <string name="contactLichess">Элемтә Lichess</string>
   <string name="forgotPassword">Мин оныттым серсүзне</string>
   <string name="forgotUsername">Мин оныттым кулланучы исемен</string>
 </resources>
