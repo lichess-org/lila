@@ -41,6 +41,12 @@
   <string name="normal">Įprastas</string>
   <string name="easier">Lengvesnis</string>
   <string name="easiest">Lengviausias</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
+    <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
+    <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
+    <item quantity="other">%s taškų aukščiau jūsų užduočių reitingo</item>
+  </plurals>
   <string name="harder">Sunkesnis</string>
   <string name="hardest">Sunkiausias</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
