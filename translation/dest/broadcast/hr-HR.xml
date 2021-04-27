@@ -6,17 +6,13 @@
   <string name="ongoing">U tijeku</string>
   <string name="upcoming">Nadolazi</string>
   <string name="completed">Završeno</string>
-  <string name="eventName">Naziv događaja</string>
-  <string name="eventDescription">Kratak opis događaja</string>
+  <string name="roundNumber">Broj runde</string>
   <string name="fullDescription">Potpuni opis događaja</string>
   <string name="fullDescriptionHelp">Neobavezni dugi opis prijenosa. %1$s je dostupno. Duljina mora biti manja od %2$s znakova.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">URL izvora ili identifikacijski broj igre</string>
+  <string name="sourceUrlOrGameIds">URL izvora ili identifikacijski broj igre</string>
   <string name="sourceUrlHelp">Link koji će Lichess ispitavati kako bi dobio PGN ažuriranja. Mora biti javno dostupan s interneta.</string>
   <string name="gameIdsHelp">Možete i unijeti do 64 identifikacijska broja igara Lichessa, odvojenih razmacima.</string>
-  <string name="roundNumber">Broj runde</string>
   <string name="startDate">Datum početka u vlastitoj vremenskoj zoni</string>
   <string name="startDateHelp">Neobavezno, ako znaš kada događaj počinje</string>
   <string name="credits">Naglasi izvor</string>
-  <string name="cloneBroadcast">Kloniraj prijenos</string>
-  <string name="resetBroadcast">Resetiraj prijenos</string>
 </resources>
