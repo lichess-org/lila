@@ -212,7 +212,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
-      return h('act', {
+      return h('i.act', {
         attrs: dataIcon('%'),
         hook: bind(
           'click',
@@ -223,7 +223,7 @@ export function view(ctrl: StudyCtrl): VNode {
         ),
       });
     if (!isOwner && member.user.id === members.myId)
-      return h('act.leave', {
+      return h('i.act.leave', {
         attrs: {
           'data-icon': 'F',
           title: ctrl.trans.noarg('leaveTheStudy'),

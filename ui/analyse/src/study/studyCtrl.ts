@@ -132,12 +132,9 @@ export default function (
     ctrl
   );
 
-  function currentChapter(): StudyChapterMeta {
-    return chapters.get(vm.chapterId)!;
-  }
-  function isChapterOwner(): boolean {
-    return ctrl.opts.userId === data.chapter.ownerId;
-  }
+  const currentChapter = (): StudyChapterMeta => chapters.get(vm.chapterId)!;
+
+  const isChapterOwner = (): boolean => ctrl.opts.userId === data.chapter.ownerId;
 
   const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
@@ -318,9 +315,7 @@ export default function (
 
   if (members.canContribute()) form.openIfNew();
 
-  function currentNode() {
-    return ctrl.node;
-  }
+  const currentNode = () => ctrl.node;
 
   const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.trans);
 

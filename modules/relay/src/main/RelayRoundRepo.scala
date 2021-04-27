@@ -34,14 +34,16 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
   //     .batchSize(batchSize)
   //     .cursor[Relay](ReadPreference.secondaryPreferred)
 
-  def byTour(tour: RelayTour): Fu[List[RelayRound]] =
+  def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
     coll
       .find(selectors.tour(tour.id))
-      .sort(reverseChronoSort)
+      .sort(chronoSort)
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays)
 
-  val reverseChronoSort = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
+  val chronoSort = $doc("createdAt" -> 1)
+
+  val reverseChronoSort = $doc("createdAt" -> -1)
 
   private[relay] object selectors {
     def tour(id: RelayTour.Id) = $doc("tourId" -> id)

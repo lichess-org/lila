@@ -30,7 +30,7 @@ object show {
             "relay"    -> data.relay,
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
-            "i18n"     -> views.html.study.jsI18n(),
+            "i18n"     -> bits.jsI18n,
             "tagTypes" -> lila.study.PgnTags.typesToString,
             "userId"   -> ctx.userId,
             "chat" -> chatOption.map(c =>

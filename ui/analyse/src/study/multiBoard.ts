@@ -1,10 +1,11 @@
+import * as domData from 'common/data';
+import debounce from 'common/debounce';
+import { bind, spinner } from '../util';
 import { h, VNode } from 'snabbdom';
-import { opposite } from 'chessground/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
-import { bind, spinner } from '../util';
-import * as domData from 'common/data';
+import { opposite } from 'chessground/util';
+import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -14,16 +15,16 @@ export class MultiBoardCtrl {
 
   constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
 
-  addNode(pos: Position, node: Tree.Node) {
+  addNode = (pos: Position, node: Tree.Node) => {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp && cp.playing) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
       this.redraw();
     }
-  }
+  };
 
-  reload(onInsert?: boolean) {
+  reload = (onInsert?: boolean) => {
     if (this.pager && !onInsert) {
       this.loading = true;
       this.redraw();
@@ -37,7 +38,9 @@ export class MultiBoardCtrl {
       this.loading = false;
       this.redraw();
     });
-  }
+  };
+
+  reloadEventually = debounce(this.reload, 1000);
 
   setPage = (page: number) => {
     if (this.page != page) {
@@ -58,13 +61,22 @@ export class MultiBoardCtrl {
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
+  const chapterIds = study.chapters
+    .list()
+    .map(c => c.id)
+    .join('');
   return h(
     'div.study__multiboard',
     {
       class: { loading: ctrl.loading, nopager: !ctrl.pager },
       hook: {
-        insert() {
+        insert(vnode: VNode) {
           ctrl.reload(true);
+          vnode.data!.chapterIds = chapterIds;
+        },
+        postpatch(old: VNode, vnode: VNode) {
+          if (old.data!.chapterIds !== chapterIds) ctrl.reloadEventually();
+          vnode.data!.chapterIds = chapterIds;
         },
       },
     },

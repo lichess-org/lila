@@ -11,6 +11,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
+    multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     gameRepo: lila.game.GameRepo,

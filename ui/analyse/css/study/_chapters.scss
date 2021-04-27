@@ -1,7 +1,7 @@
 $span-width: 1.7em;
 
 .study__chapters {
-  @extend %study-list;
+  @extend %study-list, %study-list-ongoing;
 
   max-height: 18em;
 
@@ -21,11 +21,6 @@ $span-width: 1.7em;
     &.active,
     &:active {
       color: $c-font-clear;
-
-      > span {
-        color: $c-primary-over;
-        background: $c-primary;
-      }
     }
 
     > span {
@@ -40,14 +35,6 @@ $span-width: 1.7em;
       opacity: 0.8;
     }
 
-    ongoing {
-      @extend %flex-center;
-      align-self: center;
-      justify-content: center;
-      font-size: 0.7em;
-      color: $c-red;
-      margin-right: 0.7rem;
-    }
     res {
       @extend %flex-center;
       align-self: center;

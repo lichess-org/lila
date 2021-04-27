@@ -12,4 +12,8 @@ object bits {
     a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
       "How to use Lichess Broadcasts"
     )
+
+  def jsI18n(implicit ctx: Context) =
+    views.html.study.jsI18n() ++
+      i18nJsObject(List(trans.broadcast.addRound.key))
 }

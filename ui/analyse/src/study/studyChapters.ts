@@ -115,7 +115,7 @@ export function view(ctrl: StudyCtrl): VNode {
             const target = e.target as HTMLElement;
             const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
             if (!id) return;
-            if (target.tagName === 'ACT') {
+            if (target.className === 'act') {
               const chapter = ctrl.chapters.get(id);
               if (chapter) ctrl.chapters.editForm.toggle(chapter);
             } else ctrl.setChapter(id);
@@ -152,7 +152,7 @@ export function view(ctrl: StudyCtrl): VNode {
             h('h3', chapter.name),
             chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon('J'), title: 'Ongoing' } }) : null,
             !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('act', { attrs: dataIcon('%') }) : null,
+            canContribute ? h('i.act', { attrs: dataIcon('%') }) : null,
           ]
         );
       })

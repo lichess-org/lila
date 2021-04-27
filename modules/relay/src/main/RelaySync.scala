@@ -8,6 +8,7 @@ import lila.study._
 
 final private class RelaySync(
     studyApi: StudyApi,
+    multiboard: StudyMultiBoard,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -152,7 +153,10 @@ final private class RelaySync(
         chapterId = chapter.id,
         userId = study.ownerId
       )
-    } >>- studyApi.reloadChapters(study)
+    } >>- {
+      multiboard.invalidate(study.id)
+      studyApi.reloadChapters(study)
+    }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
@@ -185,7 +189,8 @@ final private class RelaySync(
           )
           .some
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) inject chapter
+      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) >>-
+        multiboard.invalidate(study.id) inject chapter
     }
 
   private val moveOpts = MoveOpts(

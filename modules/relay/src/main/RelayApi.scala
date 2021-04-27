@@ -11,13 +11,14 @@ import scala.util.chaining._
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl._
-import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyRepo }
+import lila.study.{ Settings, Study, StudyApi, StudyMaker, StudyMultiBoard, StudyRepo }
 import lila.user.User
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     studyApi: StudyApi,
+    multiboard: StudyMultiBoard,
     studyRepo: StudyRepo,
     jsonView: JsonView,
     formatApi: RelayFormatApi
@@ -56,26 +57,20 @@ final class RelayApi(
       }
     }
 
-  def byTour(tour: RelayTour): Fu[List[RelayRound.WithTour]] =
-    roundRepo.byTour(tour).dmap(_.map(_ withTour tour))
+  def byTourOrdered(tour: RelayTour): Fu[List[RelayRound.WithTour]] =
+    roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
 
-  def withRounds(tour: RelayTour) = roundRepo.byTour(tour).dmap(tour.withRounds)
+  def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =
     roundRepo.coll.exists(roundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
       tourRepo.setActive(tourId, _)
     }
 
-  private val nextRoundSort = $doc(
-    "startedAt" -> 1,
-    "startsAt"  -> 1,
-    "name"      -> 1
-  )
-
   def activeTourNextRound(tour: RelayTour): Fu[Option[RelayRound]] = tour.active ??
     roundRepo.coll
       .find($doc("tourId" -> tour.id, "finished" -> false))
-      .sort(nextRoundSort)
+      .sort(roundRepo.chronoSort)
       .one[RelayRound]
 
   def tourLastRound(tour: RelayTour): Fu[Option[RelayRound]] =
@@ -107,7 +102,7 @@ final class RelayApi(
                     )
                   ),
                   $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc("$sort"      -> nextRoundSort),
+                  $doc("$sort"      -> roundRepo.chronoSort),
                   $doc("$limit"     -> 1)
                 )
               )
@@ -207,15 +202,9 @@ final class RelayApi(
   }
 
   def reset(relay: RelayRound, by: User): Funit =
-    studyApi.deleteAllChapters(relay.studyId, by) >>
+    studyApi.deleteAllChapters(relay.studyId, by) >>-
+      multiboard.invalidate(relay.studyId) >>
       requestPlay(relay.id, v = true)
-
-  def cloneRound(rt: RelayRound.WithTour, by: User): Fu[RelayRound] =
-    create(
-      RelayRoundForm.Data make rt.round.copy(name = s"${rt.round.name} (clone)"),
-      by,
-      rt.tour
-    )
 
   def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
     byIdWithTour(roundId) flatMap {

@@ -179,7 +179,6 @@ GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRoun
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: String)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: String)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: String)
-POST  /broadcast/round/$roundId<\w{8}>/clone  controllers.RelayRound.cloneRound(roundId: String)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: String)
 
 # Learn

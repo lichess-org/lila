@@ -36,9 +36,9 @@ export function rounds(ctrl: StudyCtrl): VNode {
           },
           [
             h(
-              'a',
+              'a.link',
               {
-                href: round.path,
+                attrs: { href: round.path },
               },
               round.name
             ),
@@ -48,7 +48,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
               ? h('finished', { attrs: { ...dataIcon('E'), title: 'Finished' } })
               : null,
             canContribute
-              ? h('a', {
+              ? h('a.act', {
                   attrs: {
                     ...dataIcon('%'),
                     href: `/broadcast/round/${round.id}/edit`,
@@ -62,13 +62,17 @@ export function rounds(ctrl: StudyCtrl): VNode {
         canContribute
           ? [
               h(
-                'a.add',
-                {
-                  attrs: {
-                    href: `/broadcast/${ctrl.relay!.data.tour.id}/new`,
+                'div.add',
+                h(
+                  'a.text',
+                  {
+                    attrs: {
+                      href: `/broadcast/${ctrl.relay!.data.tour.id}/new`,
+                      'data-icon': 'O',
+                    },
                   },
-                },
-                [h('span', iconTag('O')), h('h3', ctrl.trans.noarg('addRound'))]
+                  ctrl.trans.noarg('addRound')
+                )
               ),
             ]
           : []

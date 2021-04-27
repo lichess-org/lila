@@ -1,74 +1,36 @@
 $span-width: 1.7em;
 
 .study__relay__rounds {
-  @extend %study-list;
+  @extend %study-list, %study-list-ongoing;
 
   max-height: 18em;
 
-  h3 {
+  .link {
     @extend %break-word;
-
     flex: 1 1 100%;
-    font-size: 1em;
-    line-height: 1;
-    margin: 0.5em 0;
+    color: $c-font;
+    margin-left: 1em;
     align-self: center;
   }
 
-  > div {
-    cursor: pointer;
-
-    &.active,
-    &:active {
-      color: $c-font-clear;
-
-      > span {
-        color: $c-primary-over;
-        background: $c-primary;
-      }
-    }
-
-    > span {
-      @extend %flex-center;
-
-      flex: 0 0 $span-width;
-      justify-content: center;
-      color: $c-link;
-      font-weight: bold;
-      height: auto;
-      margin-right: 0.4em;
-      opacity: 0.8;
-    }
-
-    ongoing {
-      @extend %flex-center;
-      align-self: center;
-      justify-content: center;
-      font-size: 0.7em;
-      color: $c-red;
-      margin-right: 0.7rem;
-    }
-    res {
-      @extend %flex-center;
-      align-self: center;
-      font-size: 0.9em;
-      white-space: nowrap;
-      margin-right: 0.7rem;
-    }
+  > div.active .link {
+    color: $c-font-clear;
   }
 
-  .ddloader {
-    width: $span-width;
-    height: $span-width;
+  finished {
+    @extend %flex-center;
+    align-self: center;
+    justify-content: center;
+    font-size: 0.7em;
+    color: $c-good;
+    margin-right: 0.7rem;
   }
 
-  .sortable-ghost {
-    opacity: 0.7;
-
-    &,
-    .status {
-      background: $c-secondary !important;
-      color: $c-secondary-over !important;
+  .add {
+    a {
+      flex: 1 1 100%;
+      padding: 0.5em 1em;
+      color: $c-font;
     }
   }
 }

@@ -30,14 +30,6 @@ object roundForm {
       ),
       inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour),
       div(cls := "relay-round__actions")(
-        postForm(action := routes.RelayRound.cloneRound(rt.round.id.value))(
-          submitButton(
-            cls := "button button-empty confirm"
-          )(
-            strong(cloneRound()),
-            em("Create an new identical round for the same tournament. The games will not be included.")
-          )
-        ),
         postForm(action := routes.RelayRound.reset(rt.round.id.value))(
           submitButton(
             cls := "button button-red button-empty confirm"

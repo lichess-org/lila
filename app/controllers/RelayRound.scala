@@ -161,15 +161,6 @@ final class RelayRound(
       }
     }
 
-  def cloneRound(id: String) =
-    Auth { implicit ctx => me =>
-      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { rt =>
-        env.relay.api.cloneRound(rt, me) map { newRelay =>
-          Redirect(routes.RelayRound.edit(newRelay.id.value))
-        }
-      }
-    }
-
   def push(id: String) =
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
@@ -211,7 +202,7 @@ final class RelayRound(
     studyC.CanViewResult(oldSc.study) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
-        rounds          <- env.relay.api.byTour(rt.tour)
+        rounds          <- env.relay.api.byTourOrdered(rt.tour)
         data = env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,

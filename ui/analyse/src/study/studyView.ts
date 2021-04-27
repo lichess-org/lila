@@ -187,7 +187,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const tourTab =
     tourShow &&
     h(
-      'span.intro',
+      'span.relay-tour',
       {
         class: { active: tourShow.active },
         hook: bind(
