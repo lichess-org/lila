@@ -3,10 +3,12 @@
   <string name="broadcasts">Transmisje</string>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
+  <string name="addRound">Dodaj rundę</string>
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
   <string name="completed">Zakończone</string>
   <string name="roundNumber">Numer rundy</string>
+  <string name="tournamentName">Nazwa turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
   <string name="sourceUrlOrGameIds">Źródłowy URL, lub ID\'y gier</string>
