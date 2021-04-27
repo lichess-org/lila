@@ -19,4 +19,6 @@
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
+  <string name="resetRound">Επαναφορά αυτού του γύρου</string>
+  <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
 </resources>
