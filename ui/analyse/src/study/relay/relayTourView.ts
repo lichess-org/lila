@@ -7,10 +7,30 @@ import { StudyCtrl } from '../interfaces';
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
   const relay = study?.relay;
-  if (study && relay?.tourShow.active)
+  if (study && relay?.tourShow.active) {
+    const round = relay?.currentRound();
     return h('div.relay-tour', [
       h('div.relay-tour__text', [
         h('h1', relay.data.tour.name),
+        h('div.relay-tour__round', [
+          h('strong', round.name),
+          ' ',
+          round.ongoing
+            ? ctrl.trans.noarg('playingRightNow')
+            : round.startsAt
+            ? h(
+                'time.timeago',
+                {
+                  hook: {
+                    insert(vnode) {
+                      (vnode.elm as HTMLElement).setAttribute('datetime', '' + round.startsAt);
+                    },
+                  },
+                },
+                lichess.timeago(round.startsAt)
+              )
+            : null,
+        ]),
         relay.data.tour.markup
           ? h('div', {
               hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
@@ -19,6 +39,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       ]),
       multiBoardView(study.multiBoard, study),
     ]);
+  }
   return undefined;
 }
 

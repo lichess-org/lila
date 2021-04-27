@@ -42,6 +42,8 @@ export default class RelayCtrl {
     }
   };
 
+  currentRound = () => this.data.rounds.find(r => this.id == r.id)!;
+
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
       r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;

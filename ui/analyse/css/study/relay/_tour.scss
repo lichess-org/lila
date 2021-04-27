@@ -1,59 +1,71 @@
-.relay-tour__text {
-  @extend %box-neat;
-
-  background: $c-bg-box;
-  padding: 3vmin;
-  max-height: 50vh;
-  overflow-y: auto;
-
-  .slist {
-    margin-bottom: 1em;
+.relay-tour {
+  &__round {
+    @extend %box-radius, %flex-between-nowrap;
+    background: mix($c-primary, $c-bg-box, 10%);
+    margin-bottom: 3em;
+    padding: 1em 2em;
+    strong {
+      @extend %roboto;
+      font-size: 1.2em;
+    }
   }
+  &__text {
+    @extend %box-neat;
 
-  h1 {
-    @include fluid-size('font-size', 15px, 27px);
+    background: $c-bg-box;
+    padding: 3vmin;
+    max-height: 50vh;
+    overflow-y: auto;
 
-    margin-bottom: 3vh;
-  }
+    .slist {
+      margin-bottom: 1em;
+    }
 
-  h2,
-  h3,
-  h4 {
-    line-height: 2em;
-  }
+    h1 {
+      @include fluid-size('font-size', 15px, 27px);
 
-  h2 {
-    font-size: 1.8em;
-  }
+      margin-bottom: 3vh;
+    }
 
-  h3 {
-    font-size: 1.5em;
-    line-height: 2em;
-  }
+    h2,
+    h3,
+    h4 {
+      line-height: 2em;
+    }
 
-  h4 {
-    font-size: 1.3em;
-  }
+    h2 {
+      font-size: 1.8em;
+    }
 
-  em {
-    font-style: italic;
-  }
+    h3 {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
 
-  ul li {
-    list-style: disc outside;
-    margin: 0.5em 0 0 1.5em;
-  }
+    h4 {
+      font-size: 1.3em;
+    }
 
-  ol li {
-    list-style: decimal inside;
-    margin: 0.5em 0;
-  }
+    em {
+      font-style: italic;
+    }
 
-  li {
-    margin-left: 2em;
+    ul li {
+      list-style: disc outside;
+      margin: 0.5em 0 0 1.5em;
+    }
 
-    p {
-      display: inline;
+    ol li {
+      list-style: decimal inside;
+      margin: 0.5em 0;
+    }
+
+    li {
+      margin-left: 2em;
+
+      p {
+        display: inline;
+      }
     }
   }
 }

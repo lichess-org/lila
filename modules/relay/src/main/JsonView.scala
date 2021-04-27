@@ -61,6 +61,7 @@ object JsonView {
       )
       .add("finished" -> rt.round.finished)
       .add("ongoing" -> (rt.round.hasStarted && !rt.round.finished))
+      .add("startsAt" -> rt.round.startedAt.orElse(rt.round.startsAt))
   }
 
   implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>

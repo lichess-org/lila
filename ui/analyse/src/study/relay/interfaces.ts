@@ -10,6 +10,7 @@ export interface RelayRound {
   path: string;
   finished?: boolean;
   ongoing?: boolean;
+  startsAt?: number;
 }
 
 export interface RelayTour {
