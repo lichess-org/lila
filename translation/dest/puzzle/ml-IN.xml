@@ -44,4 +44,6 @@
   <string name="jumpToNextPuzzleImmediately">ഉടനെ അടുത്ത പസ്സിലിലേക്ക് പോകുക</string>
   <string name="puzzleDashboard">പസ്സില്‍ ഡാഷ്ബോർഡ്</string>
   <string name="improvementAreas">മെച്ചപ്പെടുത്തുവാനുള്ള മേഖലകള്‍</string>
+  <string name="strengths">മികവ്</string>
+  <string name="history">മുന്‍പ്‌ ശ്രമിച്ച പസ്സിലുകള്‍</string>
 </resources>
