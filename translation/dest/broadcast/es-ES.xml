@@ -10,7 +10,7 @@
   <string name="roundName">Nombre de la ronda</string>
   <string name="roundNumber">Número de ronda</string>
   <string name="tournamentName">Nombre del torneo</string>
-  <string name="tournamentDescription">Descripción corta del torneo</string>
+  <string name="tournamentDescription">Descripción breve del torneo</string>
   <string name="fullDescription">Descripción completa del evento</string>
   <string name="fullDescriptionHelp">Descripción larga opcional de la emisión. %1$s está disponible. La longitud debe ser inferior a %2$s caracteres.</string>
   <string name="sourceUrlOrGameIds">Enlace de origen o identificador de la partida</string>
