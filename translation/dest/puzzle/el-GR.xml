@@ -41,10 +41,14 @@
   <string name="easiest">Πολύ εύκολο</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Έναν πόντο κάτω από τη βαθμολογία γρίφων σας</item>
-    <item quantity="other">%s πόντους κάτω από τη βαθμολογία γρίφων</item>
+    <item quantity="other">%s πόντους κάτω από τη βαθμολογία γρίφων σας</item>
   </plurals>
   <string name="harder">Δύσκολο</string>
   <string name="hardest">Πολύ δύσκολο</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Έναν πόντο πάνω από την βαθμολογία γρίφων σας</item>
+    <item quantity="other">%s πόντους πάνω από την βαθμολογία γρίφων σας</item>
+  </plurals>
   <string name="example">Παράδειγμα</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
   <string name="jumpToNextPuzzleImmediately">Μετάβαση στον επόμενο γρίφο αμέσως</string>
