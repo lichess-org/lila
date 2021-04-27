@@ -27,7 +27,7 @@ module.exports = function (blueprint, opts) {
     it++;
     ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
     if (step.shapes)
-      setTimeout(function () {
+      timeouts.setTimeout(function () {
         ground.setShapes(step.shapes);
       }, 500);
   };
@@ -46,7 +46,7 @@ module.exports = function (blueprint, opts) {
       if (step.move !== move) return fail();
       it++;
       if (step.shapes) ground.setShapes(step.shapes);
-      setTimeout(opponent, 1000);
+      timeouts.setTimeout(opponent, 1000);
       return true;
     },
   };

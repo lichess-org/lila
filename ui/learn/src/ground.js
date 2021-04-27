@@ -1,6 +1,7 @@
 var chessground = require('chessground');
 var raf = chessground.util.requestAnimationFrame;
 var util = require('./util');
+const timeouts = require('./timeouts');
 
 var cg = new chessground.controller();
 
@@ -115,7 +116,7 @@ module.exports = {
     raf(function () {
       var $square = $('#learn-app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
-      setTimeout(function () {
+      timeouts.setTimeout(function () {
         $square.removeClass('wriggle');
         cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
