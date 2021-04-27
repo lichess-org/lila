@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">Synligt for både klassens lærere og elever</string>
   <string name="teachersOfTheClass">Klassens lærere</string>
   <string name="addLichessUsernames">Tilføj Lichess-brugernavne for at invitere dem som lærere. Ét per linje.</string>
-  <string name="theyMustFirstApply">De skal først ansøge om at blive Lichess-lærere.</string>
   <string name="resetPassword">Nulstil adgangskode</string>
   <string name="makeSureToCopy">Sørg for, at kopiere eller nedskrive den nye adgangskode nu. Du vil ikke kunne få den vist igen!</string>
   <string name="passwordX">Adgangskode: %s</string>
   <string name="generateANewPassword">Generer en ny adgangskode til eleven</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %2$s is the person who invited">Inviteret til %1$s af %2$s</string>
+  <string name="invitedToXByY">Inviteret til %1$s af %2$s</string>
   <string name="realName">Rigtigt navn</string>
   <string name="privateWillNeverBeShown">Privat. Vil aldrig blive vist uden for klassen. Hjælper med at huske hvem eleven er.</string>
   <string name="addStudent">Tilføj elev</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%2$s is the real name of the student (only visible for the teacher)">Lichess-profil %1$s oprettet til %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Lichess-profil %1$s oprettet til %2$s.</string>
   <string name="studentCredentials">Elev:  %1$s
 Brugernavn: %2$s
 Adgangskode: %3$s</string>
@@ -53,7 +52,7 @@ Adgangskode: %3$s</string>
 Her er linket, der giver adgang til klassen.</string>
   <string name="invitationToClass">Du er inviteret til at deltage i klassen \"%s\" som elev.</string>
   <string name="clickToViewInvitation">Klik på linket for at se invitationen:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">En afventende invitation</item>
     <item quantity="other">%s afventende invitationer</item>
   </plurals>
@@ -81,9 +80,9 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="progress">Fremgang</string>
   <string name="noStudents">Ingen elever i klassen, endnu.</string>
   <string name="noRemovedStudents">Ingen fjernede elever.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Over dage</string>
+  <string name="overDays">Over dage</string>
   <string name="timePlaying">Tid spillet</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s over sidste %2$s</string>
+  <string name="variantXOverLastY">%1$s over sidste %2$s</string>
   <string name="winrate">Sejrsrate</string>
   <string name="na">Ikke tilgængelig</string>
   <string name="news">Klasse-nyheder</string>
