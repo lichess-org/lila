@@ -12,5 +12,11 @@
   <string name="specialMoves">പ്രതേക നീക്കങ്ങള്‍</string>
   <string name="didYouLikeThisPuzzle">ഈ പസ്സില്‍ തങ്ങള്‍ക്ക് ഇഷ്ട്ടമായോ?</string>
   <string name="voteToLoadNextOne">അടുത്തത് കാണിക്കുവാന്‍ വോട്ടു ചെയ്യുക!</string>
+  <string name="yourPuzzleRatingX">തങ്ങളുടെ പസ്സില്‍ റേറ്റിംഗ്: %s</string>
+  <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
+  <string name="findTheBestMoveForBlack">കറുപ്പിന്‍റെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
+  <string name="puzzleId">%sമത്തെ പസ്സില്‍</string>
+  <string name="puzzleOfTheDay">ഇന്നത്തെ പസ്സില്‍</string>
+  <string name="clickToSolve">ഉത്തരം കണ്ടുപിടിക്കാനായി ക്ലിക്ക് ചെയ്യുക</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
 </resources>
