@@ -45,6 +45,6 @@
   <string name="streakDescription">Rješavajte progresivno teže probleme i napravite niz pobjeda. Nema vremenskog ograničenja, pa uzmite vremena. Jedan pogrešan potez i igra je gotova! No, možete preskočiti jedan potez po sesiji.</string>
   <string name="yourStreakX">Vaš niz: %s</string>
   <string name="streakSkipExplanation">Preskočite ovaj potez da sačuvate niz! To možete samo jednom po rundi.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Nastavite niz</string>
+  <string name="continueTheStreak">Nastavite niz</string>
   <string name="newStreak">Novi niz</string>
 </resources>
