@@ -24,8 +24,6 @@ case class RelayTour(
   }
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
-
-  def ownedBy(user: User) = ownerId == user.id
 }
 
 object RelayTour {

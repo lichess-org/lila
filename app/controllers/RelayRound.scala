@@ -20,10 +20,8 @@ final class RelayRound(
   def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        WithTourAndRounds(tourId) { trs =>
-          trs.tour.ownedBy(me) ?? {
-            Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
-          }
+        WithTourAndRoundsCanUpdate(tourId) { trs =>
+          Ok(html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)).fuccess
         }
       }
     }
@@ -33,20 +31,18 @@ final class RelayRound(
       auth = implicit ctx =>
         me =>
           NoLameOrBot {
-            WithTourAndRounds(tourId) { trs =>
+            WithTourAndRoundsCanUpdate(tourId) { trs =>
               val tour = trs.tour
-              tour.ownedBy(me) ?? {
-                env.relay.roundForm
-                  .create(trs)
-                  .bindFromRequest()(ctx.body, formBinding)
-                  .fold(
-                    err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
-                    setup =>
-                      env.relay.api.create(setup, me, tour) map { round =>
-                        Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
-                      }
-                  )
-              }
+              env.relay.roundForm
+                .create(trs)
+                .bindFromRequest()(ctx.body, formBinding)
+                .fold(
+                  err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
+                  setup =>
+                    env.relay.api.create(setup, me, tour) map { round =>
+                      Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
+                    }
+                )
             }
           },
       scoped = req =>
@@ -189,11 +185,15 @@ final class RelayRound(
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
 
-  private def WithTourAndRounds(id: String)(
+  private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     WithTour(id) { tour =>
-      env.relay.api withRounds tour flatMap f
+      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
+        _ ?? {
+          env.relay.api withRounds tour flatMap f
+        }
+      }
     }
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit

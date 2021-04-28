@@ -18,14 +18,14 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     studyApi: StudyApi,
-    multiboard: StudyMultiBoard,
     studyRepo: StudyRepo,
+    multiboard: StudyMultiBoard,
     jsonView: JsonView,
     formatApi: RelayFormatApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
-  import lila.study.BSONHandlers.StudyBSONHandler
+  import lila.study.BSONHandlers.{ StudyBSONHandler, StudyIdBSONHandler }
 
   def byId(id: RelayRound.Id) = roundRepo.coll.byId[RelayRound](id.value)
 
@@ -233,6 +233,14 @@ final class RelayApi(
         tourById(relay.tourId) map2 relay.withTour
       }
     }
+
+  def canUpdate(user: User, tour: RelayTour): Fu[Boolean] =
+    fuccess(tour.ownerId == user.id) >>|
+      roundRepo.coll.distinctEasy[Study.Id, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
+        studyRepo.membersByIds(ids) map {
+          _.exists(_ contributorIds user.id)
+        }
+      }
 
   // def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
   //   relayRepo

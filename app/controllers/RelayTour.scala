@@ -43,25 +43,22 @@ final class RelayTour(env: Env) extends LilaController(env) {
   }
 
   def edit(id: String) = Auth { implicit ctx => me =>
-    WithTour(id) { tour =>
-      tour.ownedBy(me) ?? {
-        Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).fuccess
-      }
+    WithTourCanUpdate(id) { tour =>
+      Ok(html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))).fuccess
     }
   }
 
   def update(id: String) = AuthBody { implicit ctx => me =>
-    WithTour(id) { tour =>
-      tour.ownedBy(me) ??
-        env.relay.tourForm
-          .edit(tour)
-          .bindFromRequest()(ctx.body, formBinding)
-          .fold(
-            err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
-            setup =>
-              env.relay.api.tourUpdate(tour, setup, me) inject
-                Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
-          )
+    WithTourCanUpdate(id) { tour =>
+      env.relay.tourForm
+        .edit(tour)
+        .bindFromRequest()(ctx.body, formBinding)
+        .fold(
+          err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
+          setup =>
+            env.relay.api.tourUpdate(tour, setup, me) inject
+              Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
+        )
     }
   }
 
@@ -75,7 +72,9 @@ final class RelayTour(env: Env) extends LilaController(env) {
   private def redirectToTour(tour: TourModel)(implicit ctx: Context): Fu[Result] =
     env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {
       case None =>
-        ctx.me.exists(tour.ownedBy) ?? Redirect(routes.RelayRound.form(tour.id.value)).fuccess
+        ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
+          _ ?? Redirect(routes.RelayRound.form(tour.id.value)).fuccess
+        }
       case Some(round) => Redirect(round.withTour(tour).path).fuccess
     }
 
@@ -83,4 +82,13 @@ final class RelayTour(env: Env) extends LilaController(env) {
       f: TourModel => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api tourById TourModel.Id(id))(f)
+
+  private def WithTourCanUpdate(id: String)(
+      f: TourModel => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    WithTour(id) { tour =>
+      ctx.me.?? { env.relay.api.canUpdate(_, tour) } flatMap {
+        _ ?? f(tour)
+      }
+    }
 }

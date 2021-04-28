@@ -125,6 +125,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit
   def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll(_.primitiveOne[StudyMembers]($id(id), "members"))
 
+  def membersByIds(ids: Iterable[Study.Id]): Fu[List[StudyMembers]] =
+    coll(_.primitive[StudyMembers]($inIds(ids), "members"))
+
   def setPosition(studyId: Study.Id, position: Position.Ref): Funit =
     coll(
       _.update
