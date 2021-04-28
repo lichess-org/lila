@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN bo\'limi</string>
   <string name="downloadGame">Oʻyinni yuklab olish</string>
   <string name="studyUrl">URL o\'rganish</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL ni translyatsiya qilish</string>
   <string name="currentChapterUrl">Joriy bo\'lim URL i</string>
-  <string name="currentGameUrl">Joriy oʻyin URL manzili</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Siz buni bo\'limga bog\'lash uchun forumga joylashingiz mumkin</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Siz buni bo\'limga bog\'lash uchun forumga joylashingiz mumkin</string>
   <string name="startAtInitialPosition">Boshlang\'ich holatdan boshlash</string>
   <string name="startAtX">%s da boshlash</string>
   <string name="embedInYourWebsite">Oʻz websaytingizda yoki blogingizda joylang</string>
   <string name="readMoreAboutEmbedding">Joylash haqida koʻproq oʻqing</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Faqat ochiq taʻlimlar joylanishi mumkin!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Faqat ochiq taʻlimlar joylanishi mumkin!</string>
   <string name="open">Ochish</string>
   <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>
