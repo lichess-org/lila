@@ -78,7 +78,7 @@
   <string name="losing">pini ike li kama</string>
   <string name="drawn">pini sama li kama</string>
   <string name="unknown">sona ala</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">poki sona</string>
+  <string name="database">poki sona</string>
   <string name="whiteDrawBlack">walo / pini sama / pimeja</string>
   <string name="averageRatingX">nanpa wawa meso: %s</string>
   <string name="recentGames">musi lon tenpo pini lili</string>
@@ -287,7 +287,6 @@
     <item quantity="other">o pana e tenpo Sekunta %s</item>
   </plurals>
   <string name="thisAccountViolatedTos">jan pi lipu jan ni li pali e ijo ni: ona li ike tawa nasin lawa pi kulupu Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
   <string name="openingExplorerAndTablebase">lipu sona pi open musi en pini musi</string>
   <string name="takeback">kama jo sin</string>
   <string name="proposeATakeback">o toki e kama jo sin</string>
@@ -616,7 +615,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="really">lon la</string>
   <string name="contribute">o pana e ijo</string>
   <string name="termsOfService">nasin lawa pi ilo ni</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">lon pi pali ilo</string>
+  <string name="sourceCode">lon pi pali ilo</string>
   <string name="simultaneousExhibitions">musi mute lon tenpo sama</string>
   <string name="host">jan suli</string>
   <string name="hostColorX">kule pi jan lawa li %s</string>
