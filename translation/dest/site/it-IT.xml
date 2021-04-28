@@ -78,7 +78,7 @@
   <string name="losing">Mosse perdenti</string>
   <string name="drawn">Patta</string>
   <string name="unknown">Posizioni sconosciute</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Database</string>
+  <string name="database">Database</string>
   <string name="whiteDrawBlack">Bianco / Patta / Nero</string>
   <string name="averageRatingX">Punteggio medio: %s</string>
   <string name="recentGames">Partite recenti</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Concedi %s secondi</item>
   </plurals>
   <string name="thisAccountViolatedTos">Questo account ha violato i termini di servizio di Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
   <string name="openingExplorerAndTablebase">Esplora le aperture e finali</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
@@ -616,7 +615,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="termsOfService">Termini di servizio</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Codice sorgente</string>
+  <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
   <string name="hostColorX">Colore del simultaneista: %s</string>
