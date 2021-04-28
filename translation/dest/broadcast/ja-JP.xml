@@ -19,7 +19,6 @@
   <string name="startDate">開始日付（あなたの現地時間）</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
   <string name="credits">ソースを表示する</string>
-  <string name="cloneRound">このラウンドを複製</string>
   <string name="resetRound">このラウンドをリセット</string>
   <string name="deleteRound">このラウンドを削除</string>
 </resources>
