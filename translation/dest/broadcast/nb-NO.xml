@@ -11,7 +11,7 @@
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnavn</string>
   <string name="tournamentDescription">Kort beskrivelse av turneringen</string>
-  <string name="fullDescription">Hele beskrivelsen av arrangementet</string>
+  <string name="fullDescription">Full beskrivelse av turneringen</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse av overføringen. %1$s er tilgjengelig. Beskrivelsen må være kortere enn %2$s tegn.</string>
   <string name="sourceUrlOrGameIds">Kilde-URL eller parti-ID-er</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringer fra. Den må være offentlig tilgjengelig på internett.</string>
