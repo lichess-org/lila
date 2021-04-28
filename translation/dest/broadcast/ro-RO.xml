@@ -19,7 +19,6 @@
   <string name="startDate">Data de începere conform fusului tău orar</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="credits">Creditează sursa</string>
-  <string name="cloneRound">Clonează această rundă</string>
   <string name="resetRound">Resetează această rundă</string>
   <string name="deleteRound">Șterge această rundă</string>
 </resources>
