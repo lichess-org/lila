@@ -19,7 +19,6 @@
   <string name="startDate">Date de début dans votre fuseau horaire</string>
   <string name="startDateHelp">Facultatif, si vous savez quand l\'événement commence</string>
   <string name="credits">Créditer la source</string>
-  <string name="cloneRound">Cloner cette manche</string>
   <string name="resetRound">Réinitialiser cette manche</string>
   <string name="deleteRound">Supprimer cette manche</string>
 </resources>
