@@ -19,7 +19,6 @@
   <string name="startDate">Aanvangsdatum in je eigen tijdzone</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
   <string name="credits">Bronvermelding</string>
-  <string name="cloneRound">Deze ronde kopiëren</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
 </resources>
