@@ -19,7 +19,6 @@
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
-  <string name="cloneRound">Klon denne runde</string>
   <string name="resetRound">Nulstil denne runde</string>
   <string name="deleteRound">Slet denne runde</string>
 </resources>
