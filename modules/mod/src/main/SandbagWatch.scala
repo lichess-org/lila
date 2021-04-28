@@ -77,7 +77,7 @@ final private class SandbagWatch(
     game.playedTurns <= {
       if (game.variant == chess.variant.Atomic) 3
       else 8
-    }
+    } && game.winner ?? (~_.ratingDiff > 0)
 }
 
 private object SandbagWatch {
