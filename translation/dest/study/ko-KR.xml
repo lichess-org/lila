@@ -59,15 +59,13 @@
   <string name="chapterPgn">챕터 PGN</string>
   <string name="downloadGame">게임 다운로드</string>
   <string name="studyUrl">연구 URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">방송 URL</string>
   <string name="currentChapterUrl">현재 챕터 URL</string>
-  <string name="currentGameUrl">현재 게임 URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">포럼에 공유하려면 이 주소를 붙여넣으세요</string>
+  <string name="youCanPasteThisInTheForumToEmbed">포럼에 공유하려면 이 주소를 붙여넣으세요</string>
   <string name="startAtInitialPosition">처음 포지션에서 시작</string>
   <string name="startAtX">%s에서 시작</string>
   <string name="embedInYourWebsite">웹사이트 또는 블로그에 공유하기</string>
   <string name="readMoreAboutEmbedding">공유에 대한 상세 정보</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">공개 연구만 공유할 수 있습니다!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">공개 연구만 공유할 수 있습니다!</string>
   <string name="open">열기</string>
   <string name="xBroughtToYouByY">%1$s. %2$s에서 가져옴</string>
   <string name="studyNotFound">연구를 찾을 수 없습니다</string>
