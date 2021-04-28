@@ -37,8 +37,8 @@ lishogi.chartCommon = function (type) {
           fat: "#d85000", // light ? '#a0a0a0' : '#707070'
         };
         var area = {
-          sente: light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
-          gote: light ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,1)",
+          gote: light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
+          sente: light ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,1)",
         };
         return {
           light: light,
