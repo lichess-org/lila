@@ -78,7 +78,7 @@
   <string name="losing">Perdedor</string>
   <string name="drawn">Resulta en taulas</string>
   <string name="unknown">Desconoixiu</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Base de datos</string>
+  <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Taulas / Negras</string>
   <string name="averageRatingX">Puntuación meya: %s</string>
   <string name="recentGames">Partidas recients</string>
@@ -275,7 +275,6 @@
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta cuenta ha violau los Termins de Servicio de Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este chugador incrementa u disminuye artificialment la suya puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obriduras y base de datos de finals</string>
   <string name="takeback">Desfer chugada</string>
   <string name="proposeATakeback">Proposar desfer chugada</string>
@@ -599,7 +598,7 @@
   <string name="really">de verdat</string>
   <string name="contribute">Contribuyir</string>
   <string name="termsOfService">Condicions d\'o servicio</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Codigo fuent</string>
+  <string name="sourceCode">Codigo fuent</string>
   <string name="simultaneousExhibitions">Exhibicions simultanias</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color de l\'anfitrión: %s</string>
