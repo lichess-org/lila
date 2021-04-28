@@ -78,7 +78,7 @@
   <string name="losing">Պարտվում է</string>
   <string name="drawn">Ոչ-ոքիով</string>
   <string name="unknown">Անհայտ</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Բազա</string>
+  <string name="database">Բազա</string>
   <string name="whiteDrawBlack">Սպիտակ / Ոչ-ոքի / Սև</string>
   <string name="averageRatingX">Միջին վարկանիշ %s</string>
   <string name="recentGames">Վերջին խաղեր</string>
@@ -256,7 +256,6 @@
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
   <string name="thisAccountViolatedTos">Այս օգտատերը խախտել է Lichess-ի օգտագործման պայմանները</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
   <string name="takebackPropositionSent">Քայլը հետ վերցնելու առաջարկն ուղարկված է</string>
