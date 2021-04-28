@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Sukūrimo data (seniausios)</string>
   <string name="recentlyUpdated">Neseniai atnaujintos</string>
   <string name="mostPopular">Populiariausios</string>
+  <string name="alphabetical">Abėcėlės tvarka</string>
   <string name="addNewChapter">Pridėti naują skyrių</string>
   <plurals name="nbChapters">
     <item quantity="one">%s skyrius</item>
