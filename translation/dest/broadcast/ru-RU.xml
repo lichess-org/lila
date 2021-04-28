@@ -19,7 +19,6 @@
   <string name="startDate">Дата начала в вашем часовом поясе</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
   <string name="credits">Признательность</string>
-  <string name="cloneRound">Клонировать тур</string>
   <string name="resetRound">Сбросить тур</string>
   <string name="deleteRound">Удалить этот тур</string>
 </resources>
