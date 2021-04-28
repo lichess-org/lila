@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Pievienošanas datums (vecākās)</string>
   <string name="recentlyUpdated">Nesen atjaunotās</string>
   <string name="mostPopular">Populārākās</string>
+  <string name="alphabetical">Alfabētiskā secībā</string>
   <string name="addNewChapter">Pievienot nodaļu</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s Nodaļas</item>
