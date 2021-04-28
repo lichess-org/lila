@@ -8,7 +8,8 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     noteApi: lila.user.NoteApi,
-    userRepo: lila.user.UserRepo
+    userRepo: lila.user.UserRepo,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val coll = db(CollName("appeal"))

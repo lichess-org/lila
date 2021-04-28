@@ -1,14 +1,16 @@
 package lila.appeal
 
-import lila.db.dsl._
-import lila.user.User
 import org.joda.time.DateTime
-import lila.user.{ Holder, NoteApi, UserRepo }
+
+import lila.db.dsl._
+import lila.user.{ Holder, NoteApi, User, UserRepo }
+import lila.memo.CacheApi._
 
 final class AppealApi(
     coll: Coll,
     userRepo: UserRepo,
-    noteApi: NoteApi
+    noteApi: NoteApi,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -18,6 +20,8 @@ final class AppealApi(
   def get(user: User) = coll.byId[Appeal](user.id)
 
   def byUserIds(userIds: List[User.ID]) = coll.byIds[Appeal](userIds)
+
+  def byId(appealId: User.ID) = coll.byId[Appeal](appealId)
 
   def exists(user: User) = coll.exists($id(user.id))
 
@@ -58,9 +62,13 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queue: Fu[List[Appeal]] =
+  def queueOf(mod: User) = queue(snoozer snoozedIdsOf mod.id)
+
+  private def queue(exceptIds: Iterable[User.ID]): Fu[List[Appeal]] =
     coll
-      .find($doc("status" -> Appeal.Status.Unread.key))
+      .find($doc("status" -> Appeal.Status.Unread.key) ++ {
+        exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
+      })
       .sort($doc("firstUnrepliedAt" -> 1))
       .cursor[Appeal]()
       .list(12) flatMap { unreads =>
@@ -83,10 +91,36 @@ final class AppealApi(
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
   def setReadById(userId: User.ID) =
-    coll.byId[Appeal](userId) flatMap { _ ?? setRead }
+    byId(userId) flatMap { _ ?? setRead }
 
   def setUnreadById(userId: User.ID) =
-    coll.byId[Appeal](userId) flatMap { _ ?? setUnread }
+    byId(userId) flatMap { _ ?? setUnread }
 
   def onAccountClose(user: User) = setReadById(user.id)
+
+  def snooze(mod: User, appealId: User.ID, duration: String): Funit =
+    byId(appealId) flatMap { (appeal: Option[Appeal]) =>
+      for {
+        a <- appeal
+        d <- Snooze.Duration(duration)
+      } yield snoozer.set(mod.id, a.id, d)
+      funit
+    }
+
+  private object snoozer {
+    import Snooze._
+    private val store = cacheApi.notLoadingSync[SnoozeKey, Duration](256, "appeal.snooze")(
+      _.expireAfter[SnoozeKey, Duration](
+        create = (_, duration) => duration.value,
+        update = (_, duration, _) => duration.value,
+        read = (_, _, current) => current
+      ).build()
+    )
+
+    def set(modId: User.ID, appealId: User.ID, duration: Duration): Unit =
+      store.put(SnoozeKey(modId, appealId), duration)
+
+    def snoozedIdsOf(modId: User.ID): Iterable[User.ID] =
+      store.asMap().keys.collect { case SnoozeKey(m, r) if m == modId => r }
+  }
 }
