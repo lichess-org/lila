@@ -45,10 +45,11 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
 
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
+  const relay = ctrl.relay!;
   return h(
     'div.study__relay__rounds',
-    ctrl
-      .relay!.data.rounds.map(round =>
+    relay!.data.rounds
+      .map(round =>
         h(
           'div',
           {
@@ -59,7 +60,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
             h(
               'a.link',
               {
-                attrs: { href: round.path },
+                attrs: { href: relay.roundPath(round) },
               },
               round.name
             ),
@@ -88,7 +89,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
                   'a.text',
                   {
                     attrs: {
-                      href: `/broadcast/${ctrl.relay!.data.tour.id}/new`,
+                      href: `/broadcast/${relay.data.tour.id}/new`,
                       'data-icon': 'O',
                     },
                   },

@@ -18,11 +18,12 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
           .obj(
             "id"          -> trs.tour.id,
             "name"        -> trs.tour.name,
+            "slug"        -> trs.tour.slug,
             "description" -> trs.tour.description
           )
           .add("credit", trs.tour.credit)
           .add("markup" -> trs.tour.markup.map(markup.apply)),
-        "rounds" -> trs.rounds.map(_ withTour trs.tour)
+        "rounds" -> trs.rounds
       )
       .add("sync" -> adminRound.map(_.sync))
   }
@@ -52,16 +53,16 @@ object JsonView {
     JsString(id.value)
   }
 
-  implicit val roundWithTourWrites: OWrites[RelayRound.WithTour] = OWrites[RelayRound.WithTour] { rt =>
+  implicit val roundWrites: OWrites[RelayRound] = OWrites[RelayRound] { round =>
     Json
       .obj(
-        "id"   -> rt.round.id,
-        "name" -> rt.round.name,
-        "path" -> rt.path
+        "id"   -> round.id,
+        "name" -> round.name,
+        "slug" -> round.slug
       )
-      .add("finished" -> rt.round.finished)
-      .add("ongoing" -> (rt.round.hasStarted && !rt.round.finished))
-      .add("startsAt" -> rt.round.startedAt.orElse(rt.round.startsAt))
+      .add("finished" -> round.finished)
+      .add("ongoing" -> (round.hasStarted && !round.finished))
+      .add("startsAt" -> round.startedAt.orElse(round.startsAt))
   }
 
   implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>

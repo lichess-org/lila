@@ -19,7 +19,9 @@
   <string name="startDate">Start date in your own timezone</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
-  <string name="cloneRound">Clone this round</string>
   <string name="resetRound">Reset this round</string>
   <string name="deleteRound">Delete this round</string>
+  <string name="broadcastUrl">Broadcast URL</string>
+  <string name="currentRoundUrl">Current round URL</string>
+  <string name="currentGameUrl">Current game URL</string>
 </resources>

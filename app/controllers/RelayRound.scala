@@ -17,6 +17,8 @@ final class RelayRound(
     // apiC: => Api
 ) extends LilaController(env) {
 
+  import lila.relay.JsonView.roundWrites
+
   def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
@@ -59,8 +61,7 @@ final class RelayRound(
                       setup =>
                         env.relay.api
                           .create(setup, me, tour)
-                          .map(_ withTour tour)
-                          .map(lila.relay.JsonView.roundWithTourWrites.writes) map JsonOk
+                          .map(JsonOk(_))
                     )
               }
             }
@@ -95,7 +96,7 @@ final class RelayRound(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                rt => JsonOk(lila.relay.JsonView.roundWithTourWrites.writes(rt))
+                rt => JsonOk(rt.round)
               )
           }
     )
@@ -144,7 +145,7 @@ final class RelayRound(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None     => NotFound(jsonError("No such broadcast"))
-            case Some(rt) => JsonOk(lila.relay.JsonView.roundWithTourWrites.writes(rt))
+            case Some(rt) => JsonOk(rt.round)
           }
     )
 
@@ -176,7 +177,7 @@ final class RelayRound(
       f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byIdWithTour id) { rt =>
-      if (ctx.req.path != rt.path) Redirect(rt.path).fuccess
+      if (!ctx.req.path.startsWith(rt.path)) Redirect(rt.path).fuccess
       else f(rt)
     }
 

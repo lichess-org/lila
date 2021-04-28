@@ -63,9 +63,7 @@
   <string name="chapterPgn">Chapter PGN</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
-  <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
-  <string name="currentGameUrl">Current game URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">Start at initial position</string>
   <string name="startAtX">Start at %s</string>

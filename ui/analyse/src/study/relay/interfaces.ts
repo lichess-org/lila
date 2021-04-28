@@ -7,7 +7,7 @@ export interface RelayData {
 export interface RelayRound {
   id: string;
   name: string;
-  path: string;
+  slug: string;
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
@@ -16,6 +16,7 @@ export interface RelayRound {
 export interface RelayTour {
   id: string;
   name: string;
+  slug: string;
   description: string;
   markup?: string;
   credit?: string;

@@ -15,5 +15,10 @@ object bits {
 
   def jsI18n(implicit ctx: Context) =
     views.html.study.jsI18n() ++
-      i18nJsObject(List(trans.broadcast.addRound.key))
+      i18nJsObject(i18nKeys)
+
+  val i18nKeys: List[lila.i18n.MessageKey] = {
+    import trans.broadcast._
+    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl).map(_.key)
+  }
 }

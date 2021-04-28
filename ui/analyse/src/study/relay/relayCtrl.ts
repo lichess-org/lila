@@ -1,4 +1,4 @@
-import { RelayData, LogEvent, RelayTourShow, RelaySync } from './interfaces';
+import { RelayData, LogEvent, RelayTourShow, RelaySync, RelayRound } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
@@ -42,7 +42,14 @@ export default class RelayCtrl {
     }
   };
 
-  currentRound = () => this.data.rounds.find(r => this.id == r.id)!;
+  roundById = (id: string) => this.data.rounds.find(r => r.id == id);
+  currentRound = () => this.roundById(this.id)!;
+
+  tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
+  roundPath = (round?: RelayRound) => {
+    const r = round || this.currentRound();
+    return r && `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
+  };
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
