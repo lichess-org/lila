@@ -1,7 +1,7 @@
 .learn__screen-overlay {
   @extend %fullscreen-mask;
 
-  background: rgba(79, 195, 247, 0.9);
+  background: rgba(0, 0, 0, 0.65);
   cursor: pointer;
   display: grid;
 }
@@ -10,11 +10,7 @@
   @extend %popup-shadow, %box-radius;
 
   margin: auto;
-  @if $theme-dark {
-    background-color: #262421;
-  } @else {
-    background-color: #fff;
-  }
+  background-color: $c-bg-box;
   width: 350px;
   overflow: hidden;
   text-align: center;
@@ -44,10 +40,6 @@
 
   .stars {
     margin-bottom: 20px;
-
-    @if $theme-dark {
-      opacity: 0.9;
-    }
   }
 
   @keyframes star-appear {
@@ -121,11 +113,7 @@
 
   h1 {
     font-weight: bold;
-    @if $theme-dark {
-      color: #bababa;
-    } @else {
-      color: #181818;
-    }
+    color: $c-font-clear;
     font-size: 24px;
     margin-bottom: 22px;
   }
@@ -161,11 +149,6 @@
   }
 
   p {
-    @if $theme-dark {
-      color: #999999;
-    } @else {
-      color: #555;
-    }
     padding: 0 15%;
     line-height: 24px;
     margin-bottom: 17px;
