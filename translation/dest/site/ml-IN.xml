@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">കമ്പ്യൂട്ടറിനെതിരെ മത്സരിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
-  <string name="waitingForOpponent">മൽസരാർഥിക്കായി കാത്തിരിക്കുന്നു</string>
+  <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
   <string name="waiting">കാത്തിരിക്കുന്നു</string>
   <string name="yourTurn">താങ്കളുടെ ഊഴം</string>
   <string name="aiNameLevelAiLevel">%1$s തരം %2$s</string>
