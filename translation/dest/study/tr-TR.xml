@@ -62,15 +62,13 @@
   <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Yayın Linki</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
-  <string name="currentGameUrl">Şu anki oyunun adresi</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Forumda gömülü olarak paylaşmak için yukarıdaki bağlantıyı kullanabilirsiniz</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Forumda gömülü olarak paylaşmak için yukarıdaki bağlantıyı kullanabilirsiniz</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>
   <string name="readMoreAboutEmbedding">Gömülü paylaşma hakkında</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Yalnızca herkese açık çalışmalar gömülü paylaşılabilir!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Yalnızca herkese açık çalışmalar gömülü paylaşılabilir!</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sana %1$s getirdi</string>
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
