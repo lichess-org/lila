@@ -39,8 +39,16 @@
   <string name="normal">Keskitaso</string>
   <string name="easier">Helpompi</string>
   <string name="easiest">Helpoin</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Yhden pisteen matalampi tehtävävahvuusluku kuin sinulla</item>
+    <item quantity="other">%s pistettä matalampi tehtävävahvuusluku kuin sinulla</item>
+  </plurals>
   <string name="harder">Vaikeampi</string>
   <string name="hardest">Vaikein</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Yhden pisteen korkeampi tehtävävahvuusluku kuin sinulla</item>
+    <item quantity="other">%s pistettä korkeampi tehtävävahvuusluku kuin sinulla</item>
+  </plurals>
   <string name="example">Esimerkki</string>
   <string name="addAnotherTheme">Lisää toinen teema</string>
   <string name="jumpToNextPuzzleImmediately">Jatka heti seuraavaan tehtävään</string>
