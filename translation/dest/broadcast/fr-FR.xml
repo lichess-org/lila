@@ -3,10 +3,14 @@
   <string name="broadcasts">Diffusions</string>
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>
+  <string name="addRound">Ajouter une manche</string>
   <string name="ongoing">En cours</string>
   <string name="upcoming">À venir</string>
   <string name="completed">Terminé</string>
+  <string name="roundName">Nom de la manche</string>
   <string name="roundNumber">Numéro de la ronde</string>
+  <string name="tournamentName">Nom du tournoi</string>
+  <string name="tournamentDescription">Brève description du tournoi</string>
   <string name="fullDescription">Description complète de l\'événement</string>
   <string name="fullDescriptionHelp">Description détaillée et optionnelle de la diffusion. %1$s est disponible. La longueur doit être inférieure à %2$s caractères.</string>
   <string name="sourceUrlOrGameIds">Lien source ou ID de la partie</string>
@@ -15,4 +19,7 @@
   <string name="startDate">Date de début dans votre fuseau horaire</string>
   <string name="startDateHelp">Facultatif, si vous savez quand l\'événement commence</string>
   <string name="credits">Créditer la source</string>
+  <string name="cloneRound">Cloner cette manche</string>
+  <string name="resetRound">Réinitialiser cette manche</string>
+  <string name="deleteRound">Supprimer cette manche</string>
 </resources>
