@@ -78,7 +78,7 @@
   <string name="losing">Häviää</string>
   <string name="drawn">Tasapeli</string>
   <string name="unknown">Tuntematon</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Tietokanta</string>
+  <string name="database">Tietokanta</string>
   <string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
   <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
   <string name="recentGames">Viimeaikaiset pelit</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
@@ -615,7 +614,7 @@
   <string name="really">oikeasti</string>
   <string name="contribute">Osallistu</string>
   <string name="termsOfService">Käyttöehdot</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Lähdekoodi</string>
+  <string name="sourceCode">Lähdekoodi</string>
   <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
