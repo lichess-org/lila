@@ -77,7 +77,7 @@
   <string name="losing">輸棋</string>
   <string name="drawn">平手</string>
   <string name="unknown">未知</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">資料庫</string>
+  <string name="database">資料庫</string>
   <string name="whiteDrawBlack">白棋獲勝 / 平局 / 黑棋獲勝</string>
   <string name="averageRatingX">平均評分: %s</string>
   <string name="recentGames">最近的棋局</string>
@@ -267,7 +267,6 @@
     <item quantity="other">給對方加%s秒</item>
   </plurals>
   <string name="thisAccountViolatedTos">此帳號違反了Lichess的使用規定</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手操縱評級</string>
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
@@ -578,7 +577,7 @@
   <string name="really">真的</string>
   <string name="contribute">協助</string>
   <string name="termsOfService">服務條款</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">原始碼</string>
+  <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
   <string name="hostColorX">主持者使用旗子顏色:%s</string>
