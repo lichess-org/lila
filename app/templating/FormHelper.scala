@@ -61,7 +61,7 @@ trait FormHelper { self: I18nHelper =>
         klass: String = "",
         half: Boolean = false,
         help: Option[Frag] = None
-    )(content: Field => Frag)(implicit ctx: Context): Frag =
+    )(content: Field => Frag)(implicit ctx: Context): Tag =
       div(
         cls := List(
           "form-group" -> true,

@@ -35,7 +35,7 @@ final class RelayRoundForm {
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(Data(name = s"Round ${trs.rounds.size + 1}"))
+  }.fill(Data(name = s"Round ${trs.rounds.size + 1}", syncUrlRound = Some(trs.rounds.size + 1)))
 
   def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
 }

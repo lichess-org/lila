@@ -58,7 +58,8 @@ object roundForm {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour)(implicit ctx: Context) =
+  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour)(implicit ctx: Context) = {
+    val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
@@ -77,11 +78,10 @@ object roundForm {
           gameIdsHelp()
         ).some
       )(form3.input(_)),
-      form("syncUrl").value.exists(LccRegex.matches) option {
-        form3.group(form("syncUrlRound"), roundNumber())(
-          form3.input(_, typ = "number")(required := true)
-        )
-      },
+      form3
+        .group(form("syncUrlRound"), roundNumber(), help = frag("Only for livechesscloud source URLs").some)(
+          form3.input(_, typ = "number")(required := isLcc)
+        )(ctx)(cls := (!isLcc).option("none")),
       form3.split(
         form3.group(
           form("startsAt"),
@@ -102,4 +102,5 @@ object roundForm {
         form3.submit(trans.apply())
       )
     )
+  }
 }
