@@ -8,7 +8,7 @@ import { AnalyseSocketSend } from '../socket';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;
-  confing: Prop<string | undefined>;
+  confing: Prop<string | null>;
   myId?: string;
   inviteForm: StudyInviteFormCtrl;
   update(members: StudyMemberMap): void;
@@ -54,7 +54,7 @@ function memberActivity(onIdle: () => void) {
 
 export function ctrl(opts: Opts): StudyMemberCtrl {
   const dict = prop<StudyMemberMap>(opts.initDict);
-  const confing = prop<string | undefined>(undefined);
+  const confing = prop<string | null>(null);
   const active: { [id: string]: () => void } = {};
   let online: { [id: string]: boolean } = {};
   let spectatorIds: string[] = [];
@@ -112,12 +112,7 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
     myId: opts.myId,
     inviteForm,
     update(members: StudyMemberMap) {
-      if (isOwner())
-        confing(
-          Object.keys(members).find(function (sri) {
-            return !dict()[sri];
-          })
-        );
+      if (isOwner()) confing(Object.keys(members).find(sri => !dict()[sri]) || null);
       const wasViewer = myMember() && !canContribute();
       const wasContrib = myMember() && canContribute();
       dict(members);
@@ -150,11 +145,11 @@ export function ctrl(opts: Opts): StudyMemberCtrl {
         userId: id,
         role,
       });
-      confing(undefined);
+      confing(null);
     },
     kick(id: string) {
       opts.send('kick', id);
-      confing(undefined);
+      confing(null);
     },
     leave() {
       opts.send('leave');
@@ -217,7 +212,8 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: bind(
           'click',
           _ => {
-            members.confing(members.confing() === member.user.id ? undefined : member.user.id);
+            members.confing(members.confing() == member.user.id ? null : member.user.id);
+            console.log(members.confing(), member.user.id);
           },
           ctrl.redraw
         ),
