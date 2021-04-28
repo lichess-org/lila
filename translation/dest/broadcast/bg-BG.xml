@@ -3,18 +3,20 @@
   <string name="broadcasts">Излъчване</string>
   <string name="liveBroadcasts">Излъчвания на турнир на живо</string>
   <string name="newBroadcast">Нови предавания на живо</string>
+  <string name="addRound">Добави рунд</string>
   <string name="ongoing">Текущи</string>
   <string name="upcoming">Предстоящи</string>
   <string name="completed">Завършени</string>
-  <string name="eventName">Име на събитието</string>
-  <string name="eventDescription">Кратко описание на събитието</string>
+  <string name="roundName">Име на рунда</string>
+  <string name="roundNumber">Номер на рунда</string>
+  <string name="tournamentName">Име на турнира</string>
+  <string name="tournamentDescription">Кратко описание на турнира</string>
   <string name="fullDescription">Пълно описание на събитието</string>
   <string name="fullDescriptionHelp">Незадължително дълго описание на излъчването. %1$s е налично. Дължината трябва да по-малка от %2$s знака.</string>
   <string name="sourceUrlHelp">Уебадресът, който Lichess ще проверява, за да получи осъвременявания на PGN. Той трябва да е публично достъпен от интернет.</string>
-  <string name="roundNumber">Номер на рунда</string>
   <string name="startDate">Дата на започване във вашата часова зона</string>
   <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="credits">Признателност на източника</string>
-  <string name="cloneBroadcast">Клониране на излъчването</string>
-  <string name="resetBroadcast">Нулиране на излъчването</string>
+  <string name="resetRound">Нулирай този рунд</string>
+  <string name="deleteRound">Изтрий този рунд</string>
 </resources>

@@ -62,15 +62,13 @@
   <string name="chapterPgn">Luvun PGN</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Lähetyksen URL</string>
   <string name="currentChapterUrl">Nykyisen luvun URL</string>
-  <string name="currentGameUrl">Tämänhetkisen pelin URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Voit upottaa tämän foorumiin liittämällä</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
   <string name="readMoreAboutEmbedding">Lue lisää upottamisesta</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Vain julkiset tutkielmat voidaan upottaa!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vain julkiset tutkielmat voidaan upottaa!</string>
   <string name="open">Avaa</string>
   <string name="xBroughtToYouByY">%1$s, sivustolta %2$s</string>
   <string name="studyNotFound">Tutkielmaa ei löydy</string>

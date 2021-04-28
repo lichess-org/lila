@@ -1,2 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess 스트리머</string>
+  <string name="lichessStreamer">Lichess 스트리머</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">현재 스트리밍 중: %s</string>
+  <string name="lastStream">최근 스트리밍 %s</string>
+  <string name="becomeStreamer">Lichess 스트리머가 되세요</string>
+  <string name="doYouHaveStream">트위치나 유튜브 채널이 있으신가요?</string>
+  <string name="hereWeGo">시작합시다!</string>
+  <string name="allStreamers">모든 스트리머</string>
+  <string name="editPage">스트리머 페이지 편집</string>
+  <string name="yourPage">당신의 스트리머 페이지</string>
+  <string name="downloadKit">스트리머 키트 다운로드</string>
+  <string name="xIsStreaming">%s가 스트리밍 중입니다</string>
+  <string name="rules">스트리밍 규칙</string>
+  <string name="rule1">Lichess로 스트리밍을 할 경우 스트리밍 제목에 \"lichess.org\" 키워드를 포함하고 카테고리를 \"Chess\"로 합니다.</string>
+  <string name="rule2">Lichess를 이용하지 않는 경우 키워드를 삭제합니다.</string>
+  <string name="rule3">Lichess는 스트림을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
+  <string name="perks">키워드를 넣을 경우 특전</string>
+  <string name="perk1">Lichess 프로필에 스트리머 아이콘을 얻습니다.</string>
+  <string name="perk2">스트리머 목록의 맨 위로 올라갑니다.</string>
+  <string name="perk3">Lichess 팔로워에게 안내가 갑니다.</string>
+  <string name="perk4">당신의 게임, 대회, 연구를 스트리밍할 수 있습니다.</string>
+  <string name="approved">스트리밍이 승인되었습니다.</string>
+  <string name="pendingReview">운영진이 스트리밍을 검토하고 있습니다.</string>
+  <string name="pleaseFillIn">스트리머 정보를 채우고 사진을 업로드해주세요.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">운영진 검토 요청을 해주세요.</string>
+  <string name="anotherLanguage">영어가 아닌 언어로 스트리밍 한다면, 스트리밍 제목 앞에 대괄호로 싼 언어 태그(%s)를 붙여주세요.
+예를 들어 러시아어는 \"[RU]\", 한국어는 \"[KR]\", 프랑스어는 \"[FR]\"를 붙입니다.
+Lichess 스트림 세팅이 아니라 트위치, 유튜브 페이지의 제목에 넣어주세요.
+영어로 스트리밍 한다면 언어 태그를 넣을 필요 없습니다.</string>
+  <string name="twitchUsername">트위치 유저네임 또는 URL</string>
+  <string name="optionalOrEmpty">선택. 없는 경우 비워둡니다</string>
+  <string name="youtubeChannel">유튜브 채널 ID 또는 URL</string>
+  <string name="streamerName">Lichess의 스트리머 이름</string>
+  <plurals name="keepItShort">
+    <item quantity="other">짧게 유지하세요: 최대 %s자</item>
+  </plurals>
+  <string name="visibility">스트리머 페이지에 표시합니다</string>
+  <string name="whenApproved">운영진이 승인한 경우</string>
+  <string name="headline">헤드라인</string>
+  <string name="tellUsAboutTheStream">당신의 스트리밍을 한 문장으로 요약해주세요</string>
+  <string name="longDescription">상세설명</string>
+  <string name="xStreamerPicture">%s 스트리머 사진</string>
+  <string name="changePicture">사진 변경/삭제</string>
+  <string name="uploadPicture">사진 업로드</string>
+  <string name="deletePicture">사진 지우기</string>
+  <string name="maxSize">최대 사이즈: %s</string>
+  <string name="installBlocker">멀웨어 차단기를 설치하세요!</string>
+  <string name="beSafe">트위치와 유튜브를 감염시키는
+광고와 트래커로부터 안전해지세요.
+Lichess는 무료 오픈 소스
+uBlock Origin을 권장합니다.</string>
+</resources>

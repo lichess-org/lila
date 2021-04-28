@@ -3,20 +3,22 @@
   <string name="broadcasts">Transliacijos</string>
   <string name="liveBroadcasts">Vykstančios turnyrų transliacijos</string>
   <string name="newBroadcast">Nauja transliacija</string>
+  <string name="addRound">Pridėti raundą</string>
   <string name="ongoing">Vykstančios</string>
   <string name="upcoming">Artėjančios</string>
   <string name="completed">Pasibaigę</string>
-  <string name="eventName">Renginio pavadinimas</string>
-  <string name="eventDescription">Trumpas renginio aprašymas</string>
+  <string name="roundName">Raundo pavadinimas</string>
+  <string name="roundNumber">Raundo numeris</string>
+  <string name="tournamentName">Turnyro pavadinimas</string>
+  <string name="tournamentDescription">Trumpas turnyro aprašymas</string>
   <string name="fullDescription">Pilnas renginio aprašymas</string>
   <string name="fullDescriptionHelp">Neprivalomas pilnas transliacijos aprašymas. Galima naudoti %1$s. Ilgis negali viršyti %2$s simbolių.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Šaltinių adresai arba žaidimų id</string>
+  <string name="sourceUrlOrGameIds">Šaltinių adresai arba žaidimų id</string>
   <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="gameIdsHelp">Taip pat galite įvesti iki 64 Lichess žaidimų id, atskyrę juos tarpais.</string>
-  <string name="roundNumber">Raundo numeris</string>
   <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>
   <string name="startDateHelp">Neprivaloma; tik jeigu žinote, kada prasideda renginys</string>
   <string name="credits">Paminėkite šaltinį</string>
-  <string name="cloneBroadcast">Klonuoti transliaciją</string>
-  <string name="resetBroadcast">Atstatyti transliaciją</string>
+  <string name="resetRound">Atstatyti raundą</string>
+  <string name="deleteRound">Ištrinti raundą</string>
 </resources>

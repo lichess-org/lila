@@ -55,6 +55,6 @@
   <string name="streakDescription">Вирішуйте задачі, які поступово ускладнюються і створюйте серію перемог. Тут немає годинника, тому не поспішайте. Один неправильний хід, і гра закінчена! Але ви можете пропустити один хід за сесію.</string>
   <string name="yourStreakX">Ваша серія: %s</string>
   <string name="streakSkipExplanation">Пропустіть цей хід, щоб зберегти вашу серію! Можна використати тільки один раз.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Продовжити серію</string>
+  <string name="continueTheStreak">Продовжити серію</string>
   <string name="newStreak">Нова серія</string>
 </resources>

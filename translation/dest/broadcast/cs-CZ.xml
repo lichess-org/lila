@@ -6,17 +6,13 @@
   <string name="ongoing">Probíhající</string>
   <string name="upcoming">Chystané</string>
   <string name="completed">Dokončené</string>
-  <string name="eventName">Název události</string>
-  <string name="eventDescription">Stručný popis události</string>
+  <string name="roundNumber">Číslo kola</string>
   <string name="fullDescription">Úplný popis události</string>
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Adresa URL či ID hry</string>
+  <string name="sourceUrlOrGameIds">Adresa URL či ID hry</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
   <string name="gameIdsHelp">Případně můžete zadat až 64 Lichess ID partií oddělených mezerou.</string>
-  <string name="roundNumber">Číslo kola</string>
   <string name="startDate">Datum a čas zahájení ve vašem časovém pásmu</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
   <string name="credits">Uveďte zdroj</string>
-  <string name="cloneBroadcast">Klonovat vysílání</string>
-  <string name="resetBroadcast">Resetovat vysílání</string>
 </resources>

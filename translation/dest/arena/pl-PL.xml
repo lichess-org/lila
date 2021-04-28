@@ -41,4 +41,10 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
   <string name="drawStreak">Seria remisów: gdy gracz ciągle remisuje na arenie, tylko pierwszy remis da punkt lub remisy trwające więcej niż %s ruchów. Seria remisów może zostać przerwana tylko przez zwycięstwo, a nie przez przegraną czy remis.</string>
   <string name="history">Historyczne areny</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Zobacz zespół</item>
+    <item quantity="few">Zobacz wszystkie %s zespoły</item>
+    <item quantity="many">Zobacz wszystkie %s zespołów</item>
+    <item quantity="other">Zobacz wszystkie %s zespołów</item>
+  </plurals>
 </resources>

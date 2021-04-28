@@ -8,6 +8,6 @@
   <string name="streakDescription">Isolba mo ng progresibo ang mga mas mahirap pang mga puzzles at makagawa ka ng win streak. Wala itong oras, kaya huwag kang magmadali. Isang maling galaw, at tapos na ang laro! Pero pwede mong laktawan ng isang galaw kada sesyon.</string>
   <string name="yourStreakX">Ang iyong streak: %s</string>
   <string name="streakSkipExplanation">Laktawan mo ang galaw para mapreserba ang iyong streak! Gumagana lamang ng isang beses kada takbo.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Ipagpatuloy ang streak</string>
+  <string name="continueTheStreak">Ipagpatuloy ang streak</string>
   <string name="newStreak">Bagong streak</string>
 </resources>

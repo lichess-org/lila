@@ -81,7 +81,7 @@
   <string name="losing">Ag cailleadh</string>
   <string name="drawn">Comhscór</string>
   <string name="unknown">Anaithnid</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Bunachar</string>
+  <string name="database">Bunachar</string>
   <string name="whiteDrawBlack">Bán / Comhscór / Dubh</string>
   <string name="averageRatingX">Meán-rátáil: %s</string>
   <string name="recentGames">Cluichí is déanaí</string>
@@ -347,7 +347,6 @@
     <item quantity="other">Tabhair %s shoicind</item>
   </plurals>
   <string name="thisAccountViolatedTos">Sháraigh an cuntas Téarmaí Seirbhíse Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ardaíonn/Íslíonn an t-imreoir seo a rátáil ar shlí bhréagach</string>
   <string name="openingExplorerAndTablebase">Ag oscailt taiscéalaí &amp; bunachar deiridh an chluiche</string>
   <string name="takeback">Aisthógáil</string>
   <string name="proposeATakeback">Aisthógáil a mholadh</string>
@@ -721,7 +720,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="really">i ndáiríre</string>
   <string name="contribute">Glac páirt</string>
   <string name="termsOfService">Téarmaí Seirbhíse</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Cód Foinse</string>
+  <string name="sourceCode">Cód Foinse</string>
   <string name="simultaneousExhibitions">Taispeántais comhuaineach</string>
   <string name="host">Óstach</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
@@ -881,7 +880,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="evaluatingYourMove">Ag meas do bheart ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
-  <string name="learnFromYourMistakes">Foghlaim ó do chuid botún</string>
+  <string name="learnFromYourMistakes">Foghlaim ó do chuid botúin</string>
   <string name="learnFromThisMistake">Foghlaim ón mbotún seo</string>
   <string name="skipThisMove">Ná bac leis an mbeart seo</string>
   <string name="next">Ar aghaidh</string>

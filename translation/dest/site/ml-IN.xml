@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">കമ്പ്യൂട്ടറിനെതിരെ മത്സരിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
-  <string name="waitingForOpponent">മൽസരാർഥിക്കായി കാത്തിരിക്കുന്നു</string>
+  <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
   <string name="waiting">കാത്തിരിക്കുന്നു</string>
   <string name="yourTurn">താങ്കളുടെ ഊഴം</string>
   <string name="aiNameLevelAiLevel">%1$s തരം %2$s</string>
@@ -78,7 +78,7 @@
   <string name="losing">മോശം നീക്കങ്ങൾ</string>
   <string name="drawn">സമനില പൊസിഷൻ</string>
   <string name="unknown">അറിയപ്പെടാത്ത പൊസിഷൻ</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ഡേറ്റാബേസ്</string>
+  <string name="database">ഡേറ്റാബേസ്</string>
   <string name="whiteDrawBlack">വെള്ള / സമനില / കറുപ്പ്</string>
   <string name="averageRatingX">ശരാശരി റേറ്റിങ് %s</string>
   <string name="recentGames">സമീപകാല ഗെയിമുകൾ</string>
@@ -117,6 +117,18 @@
   <string name="blunder">മണ്ടത്തരം</string>
   <string name="mistake">തെറ്റുകൾ</string>
   <string name="inaccuracy">പിഴവ്</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s തെറ്റ്</item>
+    <item quantity="other">%s തെറ്റുകള്‍</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
+    <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s കൃത്യത കുറവ്</item>
+    <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
+  </plurals>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
   <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
@@ -275,7 +287,6 @@
     <item quantity="other">%s നിമിഷങ്ങൾ നൽകുക</item>
   </plurals>
   <string name="thisAccountViolatedTos">ഈ അക്കൗണ്ട്‌ ലീചെസ്സിന്‍റെ സേവന നിബന്ധനകൾ തെറ്റിച്ചിരിക്കുന്നു</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">ഈ കളിക്കാരന്‍ കൃത്രിമമായി റേറ്റിംഗ് കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുന്നു</string>
   <string name="openingExplorerAndTablebase">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="takeback">തിരിച്ചെടുക്കുക</string>
   <string name="proposeATakeback">തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുക</string>
@@ -603,7 +614,7 @@
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">സോഴ്സ് കോഡ്</string>
+  <string name="sourceCode">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
   <string name="hostColorX">ഹോസ്റ്റ് നിറം: %s</string>

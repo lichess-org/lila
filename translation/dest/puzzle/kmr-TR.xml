@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Yek pûan bin reytînga te ya pazilê</item>
+    <item quantity="other">%s pûan bin reytînga te ya pazilê</item>
+  </plurals>
+</resources>

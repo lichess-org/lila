@@ -3,20 +3,22 @@
   <string name="broadcasts">Αναμεταδόσεις</string>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
+  <string name="addRound">Προσθήκη γύρου</string>
   <string name="ongoing">Σε εξέλιξη</string>
   <string name="upcoming">Προσεχή</string>
   <string name="completed">Ολοκληρώθηκε</string>
-  <string name="eventName">Όνομα γεγονότος</string>
-  <string name="eventDescription">Σύντομη περιγραφή γεγονότος</string>
+  <string name="roundName">Όνομα γύρου</string>
+  <string name="roundNumber">Αριθμός γύρου</string>
+  <string name="tournamentName">Όνομα τουρνουά</string>
+  <string name="tournamentDescription">Σύντομη περιγραφή τουρνουά</string>
   <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
+  <string name="sourceUrlOrGameIds">Διεύθυνση URL πηγής ή ID παιχνιδιού</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="gameIdsHelp">Εναλλακτικά, μπορείτε να εισάγετε έως 64 IDs παιχνιδιών Lichess, με κενά μεταξύ τους.</string>
-  <string name="roundNumber">Αριθμός γύρου</string>
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
-  <string name="cloneBroadcast">Κλωνοποίηση μετάδοσης</string>
-  <string name="resetBroadcast">Επαναφορά μετάδοσης</string>
+  <string name="resetRound">Επαναφορά αυτού του γύρου</string>
+  <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
 </resources>

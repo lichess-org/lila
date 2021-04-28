@@ -77,7 +77,7 @@
   <string name="losing">აგებს</string>
   <string name="drawn">ყაიმი</string>
   <string name="unknown">უცნობი</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">მონაცემთა ბაზა</string>
+  <string name="database">მონაცემთა ბაზა</string>
   <string name="whiteDrawBlack">თეთრი / ყაიმი / შავი</string>
   <string name="averageRatingX">საშუალო რეიტინგი: %s</string>
   <string name="recentGames">ახლანდელი თამაშები</string>
@@ -245,7 +245,6 @@
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს</string>
   <string name="openingExplorerAndTablebase">დებიუტის გზამკვლევი &amp; ცხრილ-ბაზა</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
@@ -535,7 +534,7 @@
   <string name="aboutX">%s-(ი)ს შესახებ</string>
   <string name="contribute">წვლილის შეტანა</string>
   <string name="termsOfService">მომსახურების პირობები</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">პროგრამული კოდი</string>
+  <string name="sourceCode">პროგრამული კოდი</string>
   <string name="simultaneousExhibitions">ერთდროული საჩვენებლი თამაშები</string>
   <string name="host">მასპინძელი</string>
   <string name="createdSimuls">ახლად შექმნილი ერთდროული თამაშები</string>

@@ -38,8 +38,14 @@
   <string name="normal">通常</string>
   <string name="easier">易しい</string>
   <string name="easiest">非常に易しい</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">あなたのレーティングより %s 点下</item>
+  </plurals>
   <string name="harder">難しい</string>
   <string name="hardest">非常に難しい</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">あなたのレーティングより %s 点上</item>
+  </plurals>
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
   <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
@@ -52,6 +58,6 @@
   <string name="streakDescription">だんだん難しくなる問題に連続正解してください。時間制限はないのでじっくりとどうぞ。1 手間違えると終了です！　ただし途中 1 手だけ飛ばすことができます。</string>
   <string name="yourStreakX">連続正解：%s</string>
   <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">連続正解を続ける</string>
+  <string name="continueTheStreak">連続正解を続ける</string>
   <string name="newStreak">新たなストリーク</string>
 </resources>

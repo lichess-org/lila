@@ -6,8 +6,6 @@
   <string name="ongoing">Joriy</string>
   <string name="upcoming">Yaqinlashayotgan</string>
   <string name="completed">Tugallangan</string>
-  <string name="eventName">Tadbir nomi</string>
-  <string name="eventDescription">Tadbir haqida qisqacha</string>
   <string name="fullDescription">Tadbir haqida toʻliq izoh</string>
   <string name="fullDescriptionHelp">Eshittirish tanlanuvchan uzun izohi. %1$s mumkin. Uzunlik %2$s ta belgidan kam boʻlishi kerak.</string>
 </resources>

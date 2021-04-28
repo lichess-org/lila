@@ -8,7 +8,7 @@
   <string name="youWillLoseAllYourProgress">수정사항은 저장되지 않습니다. 괜찮으시겠어요?</string>
   <string name="play">시작하기!</string>
   <string name="chessPieces">체스 기물</string>
-  <string name="theRook">루크</string>
+  <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
   <string name="rookIntro">루크는 강한 기물입니다. 사용할 준비되셨나요?</string>
   <string name="rookGoal">루크를 클릭해서 별로 이동시키세요!</string>

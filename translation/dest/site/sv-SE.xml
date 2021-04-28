@@ -78,7 +78,7 @@
   <string name="losing">Förlorar</string>
   <string name="drawn">Remi</string>
   <string name="unknown">Okänd</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Databas</string>
+  <string name="database">Databas</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
   <string name="recentGames">Senaste partier</string>
@@ -275,7 +275,6 @@
     <item quantity="other">Ge %s sekunder</item>
   </plurals>
   <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Fråga om du får göra om draget</string>
@@ -603,7 +602,7 @@
   <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
   <string name="termsOfService">Användarvillkor</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Källkod</string>
+  <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
   <string name="hostColorX">Värdens färg: %s</string>

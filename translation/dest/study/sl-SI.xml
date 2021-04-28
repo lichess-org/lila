@@ -68,15 +68,13 @@
   <string name="chapterPgn">PGN poglavja</string>
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL prenosa</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
-  <string name="currentGameUrl">URL trenutno igrane igre</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">To lahko prilepite na forum, da vstavite</string>
+  <string name="youCanPasteThisInTheForumToEmbed">To lahko prilepite na forum, da vstavite</string>
   <string name="startAtInitialPosition">Začni v začetni poziciji</string>
   <string name="startAtX">Začni z %s</string>
   <string name="embedInYourWebsite">Vstavite v vašo spletno stran ali blog</string>
   <string name="readMoreAboutEmbedding">Preberite več o vstavljanju</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Vdelati je mogoče le javni študij!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vdelati je mogoče le javni študij!</string>
   <string name="open">Odpri</string>
   <string name="xBroughtToYouByY">%1$s vam ponuja %2$s</string>
   <string name="studyNotFound">Študije nismo našli</string>

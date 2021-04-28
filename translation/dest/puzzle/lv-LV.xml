@@ -40,8 +40,18 @@
   <string name="normal">Parasta</string>
   <string name="easier">Vieglāka</string>
   <string name="easiest">Visvieglākā</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="zero">%s punktu zem jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts zem jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti zem jūsu pužļu reitinga</item>
+  </plurals>
   <string name="harder">Grūtāka</string>
   <string name="hardest">Visgrūtākā</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="zero">%s punktu virs jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts virs jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti virs jūsu pužļu reitinga</item>
+  </plurals>
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
   <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
@@ -54,6 +64,6 @@
   <string name="streakDescription">Atrisiniet aizvien grūtākas puzles un veidojiet uzvaru sēriju. Varat domāt, cik ilgi vēlaties, jo laiks nav ierobežots. Viens nepareizs gājiens, un spēle galā! Taču varat izlaist vienu gājienu katrā sesijā.</string>
   <string name="yourStreakX">Jūsu uzvaru posms: %s</string>
   <string name="streakSkipExplanation">Izlaist gājienu, lai paturētu uzvaru sēriju. Darbojas tikai vienreiz katrā spēlē.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Turpināt uzvaru sēriju</string>
+  <string name="continueTheStreak">Turpināt uzvaru sēriju</string>
   <string name="newStreak">Jauna uzvaru sērija</string>
 </resources>

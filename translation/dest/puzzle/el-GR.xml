@@ -39,8 +39,16 @@
   <string name="normal">Κανονικό</string>
   <string name="easier">Εύκολο</string>
   <string name="easiest">Πολύ εύκολο</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Έναν πόντο κάτω από τη βαθμολογία γρίφων σας</item>
+    <item quantity="other">%s πόντους κάτω από τη βαθμολογία γρίφων σας</item>
+  </plurals>
   <string name="harder">Δύσκολο</string>
   <string name="hardest">Πολύ δύσκολο</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Έναν πόντο πάνω από την βαθμολογία γρίφων σας</item>
+    <item quantity="other">%s πόντους πάνω από την βαθμολογία γρίφων σας</item>
+  </plurals>
   <string name="example">Παράδειγμα</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
   <string name="jumpToNextPuzzleImmediately">Μετάβαση στον επόμενο γρίφο αμέσως</string>
@@ -53,6 +61,6 @@
   <string name="streakDescription">Λύστε γρίφους που γίνονται όλο και πιο δύσκολοι και χτίστε σιγά σιγά ένα «σερί νικών». Δεν υπάρχει χρόνος, οπότε μη βιάζεστε. Μια λάθος κίνηση, και το παιχνίδι τέλειωσε! Μπορείτε να παραλείψετε μια κίνηση σε κάθε γύρο.</string>
   <string name="yourStreakX">Το σερί νικών σας: %s</string>
   <string name="streakSkipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το σερί νικών σας! Λειτουργεί μόνο μία φορά ανά γύρο.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Συνεχίστε το σερί νικών</string>
+  <string name="continueTheStreak">Συνεχίστε το σερί νικών</string>
   <string name="newStreak">Νέο σερί νικών</string>
 </resources>

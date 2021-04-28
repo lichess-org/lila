@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Masomo tu ya umma yanaweza kupachikwa!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Masomo tu ya umma yanaweza kupachikwa!</string>
 </resources>

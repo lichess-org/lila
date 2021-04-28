@@ -30,8 +30,20 @@
   <string name="normal">Običajno</string>
   <string name="easier">Lažje</string>
   <string name="easiest">Najlažje</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ena točka pod ratingom uganke</item>
+    <item quantity="two">%s točki pod ratingom uganke</item>
+    <item quantity="few">%s točke pod ratingom uganke</item>
+    <item quantity="other">%s točk pod ratingom uganke</item>
+  </plurals>
   <string name="harder">Težje</string>
   <string name="hardest">Najtežje</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ena točka nad ratingom uganke</item>
+    <item quantity="two">%s točki nad ratingom uganke</item>
+    <item quantity="few">%s točke nad ratingom uganke</item>
+    <item quantity="other">%s točk nad ratingom uganke</item>
+  </plurals>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča za uganke</string>
   <string name="strengths">Prednosti</string>

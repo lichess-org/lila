@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN kapittul</string>
   <string name="downloadGame">Tak talv niður</string>
   <string name="studyUrl">URL rannsókn</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Varpa URL út</string>
   <string name="currentChapterUrl">Núverandi URL partur</string>
-  <string name="currentGameUrl">Núverandi talv URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Tú kanst seta hetta inn í torgið at sýna tað har</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Tú kanst seta hetta inn í torgið at sýna tað har</string>
   <string name="startAtInitialPosition">Byrja við byrjanarstøðuni</string>
   <string name="startAtX">Byrja við %s</string>
   <string name="embedInYourWebsite">Fell inn í heimasíðu tína ella blogg tín</string>
   <string name="readMoreAboutEmbedding">Les meira um at fella inn í</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Bert almennar rannsóknir kunnu verða feldar inn í!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Bert almennar rannsóknir kunnu verða feldar inn í!</string>
   <string name="open">Lat upp</string>
   <string name="xBroughtToYouByY">%2$s fekk tær %1$s til vegar</string>
   <string name="studyNotFound">Rannsókn ikki funnin</string>

@@ -25,12 +25,18 @@
   <string name="howCanIBecomeModerator">Ничек мин модератор була алам?</string>
   <string name="youCannotApply">Модератор булу өчен гариза бирү мөмкин түгел. Әгәр дә без модератор буларак яхшы булыр дип уйлаган кешене күрсәк, без алар белән турыдан-туры элемтәгә керербез.</string>
   <string name="isCorrespondenceDifferent">Хат алышу гадәти шахматтан аерылып торамы?</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichessта, корреспонденция шахмат кагыйдәләренең төп аермасы - ачылган китап рөхсәт ителә. Двигательләр куллану әле дә тыелган һәм двигатель ярдәме өчен флагка китереләчәк. ICCF двигательне корреспонденциядә кулланырга рөхсәт итсә дә, Lichess рөхсәт итми.</string>
   <string name="gameplay">Уенуйнамак</string>
+  <string name="howBulletBlitzEtcDecided">Мәрми, Яшендәй һәм башка вакытны башкару ничек хәл ителә?</string>
+  <string name="basedOnGameDuration">Lichess вакытны башкару белән уенның фаразланган вакытына нигезләнә =%1$s
+Мәсәлән, 5 + 3 уенның смета озынлыгы 5 × 60 + 40 × 3 = 420 секунд.</string>
+  <string name="durationFormula">(сәгатьнең башлангыч вакыты) + 40 × (сәгать арту)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
   <string name="lichessSupportChessAnd">Lichess гадәти шаһматны һәм %1$s ярдәм итә.</string>
   <string name="eightVariants">8 шаһмат варианты</string>
+  <string name="whatIsACPL">Ни ул уртача урнашу-матерьялы җиңүлүше (ACPL)?</string>
   <string name="fideHandbookX">FIDE кулланмасы %s</string>
   <string name="discoveringEnPassant">Ни өчен җәяүлене инде узган җәяүлене тотып ала? (бик вакытлы)</string>
   <string name="goodIntroduction">якшы кереш сүз</string>
@@ -41,6 +47,24 @@
   <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>
+  <string name="configure">конфигурацияләү</string>
+  <string name="accounts">Хисап</string>
+  <string name="titlesAvailableOnLichess">Lichessда нинди исемнәр бар?</string>
+  <string name="canIbecomeLM">Lichess Мастеры (LM) исемен ала аласызмы?</string>
   <string name="noUpperCaseDot">Юк.</string>
-  <string name="aHourlyBulletTournament">сәгатьләп Марми бәйгесе</string>
+  <string name="whatUsernameCanIchoose">Минем Кулланучынәмә нинди булырга мөмкин?</string>
+  <string name="guidelines">күрсәтмәләр</string>
+  <string name="canIChangeMyUsername">Кулланучынәмәне үзгәртә аламмы?</string>
+  <string name="uniqueTrophies">Фәридәи казанышлар</string>
+  <string name="wayOfBerserkExplanation">Аны алу өчен, hiimgosu үзен яманга һәм %s уеннарда 100%% җиңү өчен көрәште.</string>
+  <string name="aHourlyBulletTournament">cәгатьләп Марми бәйгесе</string>
+  <string name="lichessRatings">Lichess рейтингы</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Анык кылып әйткәндә, бу Glicko-2 огышлыгы 110 дан катлы икәнлеге аңлатыладыр. Огышлыгы бу низамның рейтингында булган ышаныч дәрәҗәсе. Огышканча кече булса рейтингы шулчаклы тотрыклы буладыр.</string>
+  <string name="ratingLeaderboards">рейтинглы рәһбәрләр тактасы</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">бирелгән рейтингта ким дигәндә 30 бәяләнү уены уйнадылар,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">бу рейтинг өчен соңгы атна эчендә бәяләнгән уен уйнадылар,</string>
+  <string name="beInTopTen">бу рейтингта иң яхшы унлыкка керегез.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2-нче таләп - хисапларын кулланмаган уенчылар рәһбәрләр такталарын популярлаштыруны туктатсын өчен.</string>
+  <string name="howToHideRatingWhilePlaying">Уйнаганда бәяләнүләрне ничек яшерергә?</string>
+  <string name="displayPreferences">өстенлекләрне күрсәтү</string>
 </resources>

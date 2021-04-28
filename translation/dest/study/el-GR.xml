@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN του κεφαλαίου</string>
   <string name="downloadGame">Λήψη παιχνιδιού</string>
   <string name="studyUrl">URL μελέτης</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL Αναμετάδοσης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
-  <string name="currentGameUrl">Το URL από το τρέχον παιχνίδι</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
   <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
   <string name="readMoreAboutEmbedding">Διαβάστε περισσότερα για την ενσωμάτωση</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Μόνο δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Μόνο δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
   <string name="open">Άνοιξε</string>
   <string name="xBroughtToYouByY">%1$s, δημιουργήθηκε από %2$s</string>
   <string name="studyNotFound">Η μελέτη δεν βρέθηκε</string>

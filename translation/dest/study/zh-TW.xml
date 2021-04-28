@@ -58,15 +58,13 @@
   <string name="chapterPgn">章節PGN</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">直播連結</string>
   <string name="currentChapterUrl">目前章節連結</string>
-  <string name="currentGameUrl">目前棋局連結</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">您可以將此複製到論壇以嵌入</string>
+  <string name="youCanPasteThisInTheForumToEmbed">您可以將此複製到論壇以嵌入</string>
   <string name="startAtInitialPosition">從起始局面開始</string>
   <string name="startAtX">從%s開始</string>
   <string name="embedInYourWebsite">嵌入到您的網站或部落格</string>
   <string name="readMoreAboutEmbedding">閱讀更多與嵌入有關的內容</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">只有公開的研究可以嵌入!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">只有公開的研究可以嵌入!</string>
   <string name="open">打開</string>
   <string name="xBroughtToYouByY">%1$s,由%2$s提供</string>
   <string name="studyNotFound">找無此研究</string>

@@ -3,20 +3,22 @@
   <string name="broadcasts">Difuzări</string>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
+  <string name="addRound">Adaugă o rundă</string>
   <string name="ongoing">În desfășurare</string>
   <string name="upcoming">Următoare</string>
   <string name="completed">Terminate</string>
-  <string name="eventName">Numele evenimentului</string>
-  <string name="eventDescription">O descriere scurtă a evenimentului</string>
+  <string name="roundName">Numele rundei</string>
+  <string name="roundNumber">Număr rotund</string>
+  <string name="tournamentName">Numele turneului</string>
+  <string name="tournamentDescription">O descriere scurtă a turneului</string>
   <string name="fullDescription">Întreaga descriere a evenimentului</string>
   <string name="fullDescriptionHelp">Descriere lungă, opțională, a difuzării. %1$s este disponibil. Lungimea trebuie să fie mai mică decât %2$s caractere.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Link-ul sursă, sau ID-ul partidei</string>
+  <string name="sourceUrlOrGameIds">Link-ul sursă, sau ID-ul partidei</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="gameIdsHelp">Alternativ, poți să adaugi 64 ID-uri de jocuri pe Lichees, separat de spațiu.</string>
-  <string name="roundNumber">Număr rotund</string>
   <string name="startDate">Data de începere conform fusului tău orar</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="credits">Creditează sursa</string>
-  <string name="cloneBroadcast">Clonează difuzarea</string>
-  <string name="resetBroadcast">Resetează difuzarea</string>
+  <string name="resetRound">Resetează această rundă</string>
+  <string name="deleteRound">Șterge această rundă</string>
 </resources>

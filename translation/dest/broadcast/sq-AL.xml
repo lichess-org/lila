@@ -6,15 +6,11 @@
   <string name="ongoing">Ne vijim</string>
   <string name="upcoming">Ne te ardhmen</string>
   <string name="completed">E mbaruar</string>
-  <string name="eventName">Emri i evenimentit</string>
-  <string name="eventDescription">Pershkrim i shkurter i evenimentit</string>
+  <string name="roundNumber">Numri i raundit</string>
   <string name="fullDescription">Pershkrim i plote i evenimentit</string>
   <string name="fullDescriptionHelp">Pershkrim i gjate fakultativ (i padetyrueshem) i transmetimit. %1$s eshte e disponueshme. Nuk duhet te jete me e gjate se %2$s shkronja.</string>
   <string name="sourceUrlHelp">Adresa e internetit qe Lichess do te kontrolloje per te marre SHENIMET e kohes se fundit. Duhet te jete e lejuar hyrja publike nga interneti.</string>
-  <string name="roundNumber">Numri i raundit</string>
   <string name="startDate">Koha kur fillon ne oren tuaj lokale</string>
   <string name="startDateHelp">Fakultative, (e padetyrueshme) nese e dini kur fillon evenimenti</string>
   <string name="credits">Atriboji merita burimit</string>
-  <string name="cloneBroadcast">Klono transmetimin</string>
-  <string name="resetBroadcast">Rifilloni transmetimin</string>
 </resources>

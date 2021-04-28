@@ -6,11 +6,7 @@
   <string name="ongoing">Текућа</string>
   <string name="upcoming">Предстојећа</string>
   <string name="completed">Завршена</string>
-  <string name="eventName">Назив догађаја</string>
-  <string name="eventDescription">Кратак опис догађаја</string>
-  <string name="fullDescription">Цео опис догађаја</string>
   <string name="roundNumber">Број рунде</string>
+  <string name="fullDescription">Цео опис догађаја</string>
   <string name="startDate">Датум почетка у твојој временској зони</string>
-  <string name="cloneBroadcast">Клонирај емитовање</string>
-  <string name="resetBroadcast">Ресетуј емитовање</string>
 </resources>

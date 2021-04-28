@@ -6,14 +6,10 @@
   <string name="ongoing">الجارية</string>
   <string name="upcoming">القادمة</string>
   <string name="completed">المكتملة</string>
-  <string name="eventName">إسم الحدث</string>
-  <string name="eventDescription">وصف مختصر</string>
+  <string name="roundNumber">رقم الجولة (الشوط)</string>
   <string name="fullDescription">الوصف الكامل</string>
   <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
-  <string name="roundNumber">رقم الجولة (الشوط)</string>
   <string name="startDate">تاريخ البدء في المنطقة الزمنية الخاصة بك</string>
   <string name="startDateHelp">اختياري، إذا كنت تعرف متى يبدأ الحدث</string>
   <string name="credits">ائتمن المصدر</string>
-  <string name="cloneBroadcast">استنساخ البث</string>
-  <string name="resetBroadcast">إعادة تعيين البث</string>
 </resources>

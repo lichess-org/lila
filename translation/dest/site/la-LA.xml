@@ -77,7 +77,7 @@
   <string name="losing">Perdens</string>
   <string name="drawn">Aequans</string>
   <string name="unknown">Ignotum</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Archivum</string>
+  <string name="database">Archivum</string>
   <string name="whiteDrawBlack">Albus / Aequatio / Ater</string>
   <string name="averageRatingX">Ratio media: %s</string>
   <string name="recentGames">Recentes ludi</string>
@@ -274,7 +274,6 @@
     <item quantity="one">Da %s secundas</item>
     <item quantity="other">Da %s secundas</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Hic lusor statum falso crescit/decrescit</string>
   <string name="openingExplorerAndTablebase">Explicatio initiorum et finitium</string>
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
@@ -562,7 +561,7 @@
   <string name="really">vero</string>
   <string name="contribute">Adiuvare</string>
   <string name="termsOfService">ToS</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Fons notae</string>
+  <string name="sourceCode">Fons notae</string>
   <string name="simultaneousExhibitions">Exhibitiones simultaneae</string>
   <string name="host">Hospes</string>
   <string name="hostColorX">Color hospes: %s</string>

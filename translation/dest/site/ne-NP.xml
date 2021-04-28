@@ -9,6 +9,7 @@
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
   <string name="level">तह</string>
+  <string name="strength">तागत</string>
   <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने</string>
   <string name="toggleSound">ध्वनी खोल्ने/बन्द गर्ने</string>
   <string name="chat">बार्तालाप</string>
@@ -815,4 +816,5 @@
   <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
+  <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
 </resources>

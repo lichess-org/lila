@@ -39,8 +39,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Más fácil</string>
   <string name="easiest">El más fácil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Un punto por debajo de tu puntuación de ejercicios</item>
+    <item quantity="other">%s puntos por debajo de tu puntuación de ejercicios</item>
+  </plurals>
   <string name="harder">Más difícil</string>
   <string name="hardest">El más difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto por encima de tu puntuación de ejercicios</item>
+    <item quantity="other">%s puntos por encima de tu puntuación de ejercicios</item>
+  </plurals>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente ejercicio inmediatamente</string>
@@ -53,6 +61,6 @@
   <string name="streakDescription">Soluciona ejercicios cada vez más difíciles y consigue una racha de victorias. No hay cuenta atrás, así que tómate tu tiempo. Si te equivocas en solo un movimiento, ¡se acabó la partida! Pero recuerda que puedes omitir un movimiento por sesión.</string>
   <string name="yourStreakX">Aciertos seguidos: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Continuar la racha</string>
+  <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>
 </resources>

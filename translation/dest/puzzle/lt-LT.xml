@@ -41,8 +41,20 @@
   <string name="normal">Įprastas</string>
   <string name="easier">Lengvesnis</string>
   <string name="easiest">Lengviausias</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
+    <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
+    <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
+    <item quantity="other">%s taškų aukščiau jūsų užduočių reitingo</item>
+  </plurals>
   <string name="harder">Sunkesnis</string>
   <string name="hardest">Sunkiausias</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
+    <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
+    <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
+    <item quantity="other">%s taškų aukščiau jūsų užduočių reitingo</item>
+  </plurals>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
   <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
@@ -55,6 +67,6 @@
   <string name="streakDescription">Spręskite vis sunkėjančias užduotis ir kaupkite pergalių seriją. Galite neskubėti, kadangi nėra laikrodžio. Vienas neteisingas ėjimas ir žaidimas baigtas! Per sesiją galite praleisti vieną ėjimą.</string>
   <string name="yourStreakX">Jūsų serija: %s</string>
   <string name="streakSkipExplanation">Praleiskite ėjimą norėdami išsaugoti savo seriją! Veikia tik vieną kartą per bandymą.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Tęsti seriją</string>
+  <string name="continueTheStreak">Tęsti seriją</string>
   <string name="newStreak">Nauja serija</string>
 </resources>

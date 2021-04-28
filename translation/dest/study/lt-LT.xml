@@ -68,15 +68,13 @@
   <string name="chapterPgn">Skyriaus PGN</string>
   <string name="downloadGame">Atsisiųsti žaidimą</string>
   <string name="studyUrl">Studijos URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Transliacijos adresas</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
-  <string name="currentGameUrl">Einamo žaidimo adresas</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Galite įklijuoti šį forume norėdami įterpti</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Galite įklijuoti šį forume norėdami įterpti</string>
   <string name="startAtInitialPosition">Pradėti pradinėje pozicijoje</string>
   <string name="startAtX">Pradėti nuo %s</string>
   <string name="embedInYourWebsite">Įterpti savo svetainėje ar tinklaraštyje</string>
   <string name="readMoreAboutEmbedding">Skaitykite daugiau apie įterpimą</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Gali būti įterptos tik viešos studijos!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Gali būti įterptos tik viešos studijos!</string>
   <string name="open">Atverti</string>
   <string name="xBroughtToYouByY">%1$s iš %2$s</string>
   <string name="studyNotFound">Studija nerasta</string>

@@ -107,10 +107,29 @@
   <string name="mateInOne">Мат бер</string>
   <string name="defeatTheOpponentsKing">Рәкыйпнең шаһы җиңелә</string>
   <string name="mateInOneIntro">Рәкыйбыгыз хамая кыла алмаса тикшерүдә сез җиңдегез.</string>
+  <string name="intermediate">Урта</string>
+  <string name="boardSetup">Тактаны үзләштерү</string>
+  <string name="howTheGameStarts">Уен ничек башлана</string>
+  <string name="placeTheBishops">Филне урнаштырыгыз!
+Алар атчылар янына китәләр.</string>
+  <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
+  <string name="enPassant">Бик вакытлы</string>
+  <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
+  <string name="enPassantIntro">Рәкыйпнең җәяүле ике квадрат белән хәрәкәтләнгәндә, сез аны бер квадрат хәрәкәт кебек кабул итә аласыз.</string>
   <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Уен җиңүсез</string>
+  <string name="stalemateIntro">Уйнаучы тикшерелмәгәндә һәм кабул ителгән хәрәкәт булмаганда, бу тотрыксызлык маты. Уен җиңүсез булганда: беркем дә җиңми, беркем дә оттырмый.</string>
+  <string name="stalemateGoal">Каралар тотрыксызлык маты өчен:
+- Кара беркайда да хәрәкәт итә алмый
+- Шаһлык юк.</string>
   <string name="advanced">Өстәмә</string>
+  <string name="whatNext">Дәвамы?</string>
   <string name="register">Теркәлү</string>
+  <string name="getAFreeLichessAccount">Азат Lichess хисабын алыгыз</string>
+  <string name="puzzles">Башваткычлар</string>
+  <string name="exerciseYourTacticalSkills">Тактик осталыгыгызны кулланыгыз</string>
   <string name="videos">Видеолар</string>
+  <string name="playPeople">Уйнау әдәм белән</string>
   <string name="letsGo">Әйдә!</string>
   <string name="yesYesYes">Афәрин!</string>
   <string name="next">Киләсе</string>

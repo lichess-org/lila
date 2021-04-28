@@ -52,6 +52,6 @@
   <string name="streakDescription">Pecahkan teka-teki yang semakin sulit dan bangun kemenangan beruntun. Tidak ada jam, jadi luangkan waktu Anda. Satu langkah salah, dan permainan berakir! Tapi Anda dapat melewati gerakan per sesi.</string>
   <string name="yourStreakX">Garis Anda: %s</string>
   <string name="streakSkipExplanation">Lewati gerakan ini untuk mempertahankan garis Anda! Hanya bekerja sekali per pertandingan.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Lanjutkan garisnya</string>
+  <string name="continueTheStreak">Lanjutkan garisnya</string>
   <string name="newStreak">Garis baru</string>
 </resources>

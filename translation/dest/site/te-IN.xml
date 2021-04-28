@@ -73,7 +73,7 @@
   <string name="losing">ఓడిపోయే ఎత్తు</string>
   <string name="drawn">గెలుపోటములు సమానము</string>
   <string name="unknown">తెలియదు</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">క్రీడా భాన్డాగారము</string>
+  <string name="database">క్రీడా భాన్డాగారము</string>
   <string name="whiteDrawBlack">తెలుపు / సమము / నలుపు</string>
   <string name="averageRatingX">సగటు స్థానము: %s</string>
   <string name="recentGames">ఇటీవలి ఆటలు</string>

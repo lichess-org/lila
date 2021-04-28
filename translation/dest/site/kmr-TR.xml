@@ -37,7 +37,7 @@
     <item quantity="one">Reqîbê te dev ji lîstikê berda. Tu dikarî di %s sanîyan de serkeftinê bixwazî.</item>
     <item quantity="other">Hemberê te, dev ji lîstokê berda. Tu dikari di %s saniya bi serkevi.</item>
   </plurals>
-  <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
+  <string name="opponentLeftChoices">Reqîb çû. Tu dikarî serkeftin an jî wekheviyê bixwazî an jî bisekinî.</string>
   <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
   <string name="forceDraw">Wekheviyê bixwaze</string>
@@ -149,7 +149,7 @@
   <string name="friends">Hevalan</string>
   <string name="discussions">Nîqaşan</string>
   <string name="today">Îro</string>
-  <string name="yesterday">Duh</string>
+  <string name="yesterday">Doh</string>
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
@@ -241,12 +241,12 @@
   <string name="noNewMessages">Peyamên nû tine</string>
   <string name="subject">Mijar</string>
   <string name="recipient">Wergir</string>
-  <string name="send">Bişîne</string>
-  <string name="incrementInSeconds">Li ser hemleyekê çend sanîye tê zêdekirin</string>
-  <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
+  <string name="send">Bişeyne</string>
+  <string name="incrementInSeconds">Evqas sanîye tê zêde kirin</string>
+  <string name="freeOnlineChess">Kişika Belaş a Serxet</string>
   <string name="spectators">Temaşevan:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s puan</item>
+    <item quantity="one">%s pûan</item>
     <item quantity="other">%s puan</item>
   </plurals>
   <plurals name="nbWins">
@@ -254,8 +254,8 @@
     <item quantity="other">%s serkeftin</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s mexlûbiyet</item>
-    <item quantity="other">%s mexlûbiyet</item>
+    <item quantity="one">%s binkevtin</item>
+    <item quantity="other">%s binketin</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s wekhevî</item>
@@ -268,8 +268,8 @@
   <string name="exportGames">Lîstikan derxîne</string>
   <string name="ratingRange">Navbera reytîngê</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">%s çirke bike</item>
-    <item quantity="other">%s çirke bike</item>
+    <item quantity="one">%s çirke bide</item>
+    <item quantity="other">%s çirke bide</item>
   </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
@@ -282,17 +282,17 @@
   <string name="yourOpponentProposesATakeback">Reqîbê te vegerandina hemleyê teklîf kir</string>
   <string name="bookmarkThisGame">Vê lîstikê bike bijare</string>
   <string name="tournament">Turnuwa</string>
-  <string name="tournaments">Turnuwa</string>
-  <string name="tournamentPoints">Puanên turnuwayê</string>
+  <string name="tournaments">Pêşbirk</string>
+  <string name="tournamentPoints">Pûanên pêşbirkê</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s poînta turnuwayê</item>
-    <item quantity="other">%s puanên turnuwayê</item>
+    <item quantity="one">%s pûanên pêşbirkê</item>
+    <item quantity="other">%s puanên pêşbirkê</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s Xebat</item>
     <item quantity="other">Xebatên %s</item>
   </plurals>
-  <string name="viewTournament">Turnuwayê bibîne</string>
+  <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
   <plurals name="moreThanNbRatedGames">
@@ -300,20 +300,20 @@
     <item quantity="other">≥ %s lîstikên bipuan</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s lîstika %2$s ya bipuan</item>
-    <item quantity="other">≥ %1$s lîstikên %2$s ya bipuan</item>
+    <item quantity="one">≥ %1$s lîstika %2$s ya bipûan</item>
+    <item quantity="other">≥ %1$s lîstikên %2$s ya bipûan</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Divê tu %1$s lîstika din a bipuan ya %2$s bilîzî</item>
-    <item quantity="other">Divê tu %1$s lîstikên din ên bipuan ya %2$s bilîzî</item>
+    <item quantity="one">Divê tu %1$s lîstikên din ên bipûan a %2$s bilîzî</item>
+    <item quantity="other">Divê tu %1$s lîstikên din ên bipûan ya %2$s bilîzî</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Divê tu %s lîstika din a bipuan bilîzî</item>
+    <item quantity="one">Divê tu %s lîstikên din ên bipûan bilîzî</item>
     <item quantity="other">Divê tu %s lîstikên din ên bipuan bilîzî</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Puana te ya %s demkî ye</string>
+  <string name="yourPerfRatingIsProvisional">Pûana te ya %s demkî ye</string>
   <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Puana te ya heftane a %1$s (%2$s) pir bilind e</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Pûana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
   <string name="ratedMoreThanInPerf">Divê puana te ≥ %1$s bibe li %2$s</string>
   <string name="ratedLessThanInPerf">Divê puana te ≤ %1$s bibe li %2$s</string>
@@ -389,7 +389,7 @@
   <string name="winner">Yê biserketî</string>
   <string name="standing">Rêz</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
-  <string name="tournamentCalendar">Teqwîma pêşbirkan</string>
+  <string name="tournamentCalendar">Salnameya pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
   <string name="advancedSettings">Sazkariyên pêşketî</string>
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
@@ -413,7 +413,7 @@
   <string name="winRate">Rêjeya serkeftinê</string>
   <string name="berserkRate">Rêjeya Berserk-ê</string>
   <string name="performance">Performans</string>
-  <string name="tournamentComplete">Pêşbirk temam bû</string>
+  <string name="tournamentComplete">Pêşbirk qedîya</string>
   <string name="movesPlayed">Hemleyên lîstî</string>
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
@@ -810,4 +810,12 @@
   <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
   <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
   <string name="puzzleDesc">Rahênerê taktîkên kişikê</string>
+  <string name="mentionedYouInX"> qala te kir li %1$s.</string>
+  <string name="xMentionedYouInY"> %1$s qala te kir li %2$s.</string>
+  <string name="invitedYouToX"> te vexwend %1$s.</string>
+  <string name="xInvitedYouToY">%1$s te vexwend %2$s.</string>
+  <string name="youAreNowPartOfTeam">Tu niha endamê komekê yî.</string>
+  <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>
+  <string name="someoneYouReportedWasBanned">Kesê ku te gilî kiribû hat qedexe kirin</string>
+  <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
 </resources>

@@ -68,15 +68,13 @@
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Adresa vysielania</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
-  <string name="currentGameUrl">URL aktuálnej hry</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Vložte pre zobrazenie vo fóre</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Vložte pre zobrazenie vo fóre</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="embedInYourWebsite">Vložte na svoju webstránku alebo blog</string>
   <string name="readMoreAboutEmbedding">Prečítajte si viac o vkladaní</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Vložené môžu byť iba verejné štúdie!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vložené môžu byť iba verejné štúdie!</string>
   <string name="open">Otvoriť</string>
   <string name="xBroughtToYouByY">%1$s Vám priniesol %2$s</string>
   <string name="studyNotFound">Štúdia sa nenašla</string>

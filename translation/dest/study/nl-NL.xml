@@ -62,15 +62,13 @@
   <string name="chapterPgn">Hoofdstuk PGN</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Uitzendingslink</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
-  <string name="currentGameUrl">Huidige partij-link</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
   <string name="startAtInitialPosition">Begin bij de startpositie</string>
   <string name="startAtX">Beginnen bij %s</string>
   <string name="embedInYourWebsite">Insluiten in blog of website</string>
   <string name="readMoreAboutEmbedding">Lees meer over insluiten</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Alleen openbare studies kunnen worden ingevoegd!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Alleen openbare studies kunnen worden ingevoegd!</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s aangeboden door %2$s</string>
   <string name="studyNotFound">Studie niet gevonden</string>

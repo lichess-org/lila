@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">പസ്സിലുകള്‍</string>
+  <string name="puzzleThemes">പസ്സില്‍ വിഷയം</string>
+  <string name="phases">ഘട്ടങ്ങള്‍</string>
+  <string name="motifs">വിഷയം</string>
+  <string name="advanced">കടുപ്പം കൂടിയത്</string>
+  <string name="lengths">ദൈര്‍ഘ്യം</string>
+  <string name="mates">ചെക്ക്മേറ്റുകള്‍</string>
+  <string name="goals">ലക്ഷ്യം</string>
+  <string name="origin">ഉത്ഭവം</string>
+  <string name="specialMoves">പ്രതേക നീക്കങ്ങള്‍</string>
+  <string name="didYouLikeThisPuzzle">ഈ പസ്സില്‍ തങ്ങള്‍ക്ക് ഇഷ്ട്ടമായോ?</string>
+  <string name="voteToLoadNextOne">അടുത്തത് കാണിക്കുവാന്‍ വോട്ടു ചെയ്യുക!</string>
+  <string name="yourPuzzleRatingX">തങ്ങളുടെ പസ്സില്‍ റേറ്റിംഗ്: %s</string>
+  <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
+  <string name="findTheBestMoveForBlack">കറുപ്പിന്‍റെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
+  <string name="puzzleId">%sമത്തെ പസ്സില്‍</string>
+  <string name="puzzleOfTheDay">ഇന്നത്തെ പസ്സില്‍</string>
+  <string name="clickToSolve">ഉത്തരം കണ്ടുപിടിക്കാനായി ക്ലിക്ക് ചെയ്യുക</string>
+  <string name="goodMove">നല്ല നീക്കം</string>
+  <string name="bestMove">ഏറ്റവും മികച്ച നീക്കം!</string>
+  <string name="keepGoing">തുടരുക…</string>
+  <string name="puzzleSuccess">ജയിച്ചു!</string>
+  <string name="puzzleComplete">പസ്സില്‍ പൂര്‍ത്തിയായി!</string>
+  <string name="notTheMove">ശരിയായ നീക്കം അതല്ല!</string>
+  <string name="trySomethingElse">മറ്റെന്തെങ്കിലും ശ്രമിച്ചുനോക്കുക.</string>
+  <string name="ratingX">റേറ്റിംഗ്: %s</string>
+  <string name="hidden">മറച്ചിരിക്കുന്നു</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s ആള്‍ ശ്രമിച്ചു</item>
+    <item quantity="other">%s പേര്‍ ശ്രമിച്ചു</item>
+  </plurals>
+  <string name="fromGameLink">%s കളിയിൽ നിന്ന്</string>
+  <string name="continueTraining">പരിശീലനം തുടരുക</string>
+  <string name="difficultyLevel">കട്ടുപ്പം</string>
+  <string name="normal">ഇടത്തരം</string>
+  <string name="easier">എളുപ്പമുള്ളവ</string>
+  <string name="easiest">വളരെ എളുപ്പമുള്ളവ</string>
+  <string name="harder">കടുപ്പമേറിയവ</string>
+  <string name="hardest">ഏറ്റവും കടുപ്പമേറിയവ</string>
+  <string name="example">ഉദാഹരണം</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
+  <string name="jumpToNextPuzzleImmediately">ഉടനെ അടുത്ത പസ്സിലിലേക്ക് പോകുക</string>
+  <string name="puzzleDashboard">പസ്സില്‍ ഡാഷ്ബോർഡ്</string>
+  <string name="improvementAreas">മെച്ചപ്പെടുത്തുവാനുള്ള മേഖലകള്‍</string>
+  <string name="strengths">മികവ്</string>
+  <string name="history">മുന്‍പ്‌ ശ്രമിച്ച പസ്സിലുകള്‍</string>
+  <string name="solved">ശരിയാക്കിയവ</string>
+  <string name="failed">തെറ്റിയവ</string>
+  <string name="yourStreakX">നിങ്ങളുടെ വിജയത്തുടര്‍ച്ച: %s</string>
 </resources>

@@ -78,7 +78,7 @@
   <string name="losing">Verliest</string>
   <string name="drawn">Remise</string>
   <string name="unknown">Onbekend</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Databank</string>
+  <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Recente partijen</string>
@@ -126,8 +126,8 @@
     <item quantity="other">%s fouten</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s onnauwkeurigheid</item>
-    <item quantity="other">%s onnauwkeurigheden</item>
+    <item quantity="one">%s imperfectie</item>
+    <item quantity="other">%s imperfecties</item>
   </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Geef %s seconden</item>
   </plurals>
   <string name="thisAccountViolatedTos">Deze account heeft de Lichess Servicevoorwaarden geschonden</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
@@ -615,7 +614,7 @@
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Broncode</string>
+  <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>

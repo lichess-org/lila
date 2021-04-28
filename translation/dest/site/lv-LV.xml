@@ -79,7 +79,7 @@
   <string name="losing">Zaudējošs</string>
   <string name="drawn">Neizšķirts</string>
   <string name="unknown">Neskaidrs</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Datubāze</string>
+  <string name="database">Datubāze</string>
   <string name="whiteDrawBlack">Baltie / Neizšķirts / Melnie</string>
   <string name="averageRatingX">Vidējais reitings: %s</string>
   <string name="recentGames">Nesenas spēles</string>
@@ -307,7 +307,6 @@
     <item quantity="other">Piešķirt %s sekundes</item>
   </plurals>
   <string name="thisAccountViolatedTos">Šis konts pārkāpa Lichess Pakalpojuma Noteikumus</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
   <string name="openingExplorerAndTablebase">Atklātņu pārlūks &amp; datubāze</string>
   <string name="takeback">Gājiena atsaukšana</string>
   <string name="proposeATakeback">Piedāvāt gājiena atsaukšanu</string>
@@ -650,7 +649,7 @@
   <string name="really">patiešām</string>
   <string name="contribute">Dot ieguldījumu</string>
   <string name="termsOfService">Pakalpojuma noteikumi</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Pirmkods</string>
+  <string name="sourceCode">Pirmkods</string>
   <string name="simultaneousExhibitions">Simultānseansi</string>
   <string name="host">Vadītājs</string>
   <string name="hostColorX">Vadītāja krāsa: %s</string>

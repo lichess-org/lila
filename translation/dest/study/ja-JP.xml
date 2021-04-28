@@ -59,15 +59,13 @@
   <string name="chapterPgn">章の PGN</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">ブロードキャスト URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
-  <string name="currentGameUrl">現在のゲームの URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">これをフォーラムにペーストすれば埋め込み表示できます</string>
+  <string name="youCanPasteThisInTheForumToEmbed">これをフォーラムにペーストすれば埋め込み表示できます</string>
   <string name="startAtInitialPosition">開始局面から</string>
   <string name="startAtX">%s に開始</string>
   <string name="embedInYourWebsite">自分のウェブサイト／ブログに埋め込む</string>
   <string name="readMoreAboutEmbedding">埋め込み（embedding）の説明</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">埋め込みできるのは公開研究だけです！</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">埋め込みできるのは公開研究だけです！</string>
   <string name="open">開く</string>
   <string name="xBroughtToYouByY">%1$s を %2$s がお届けします</string>
   <string name="studyNotFound">研究が見つかりません</string>

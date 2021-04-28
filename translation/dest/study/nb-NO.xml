@@ -62,15 +62,13 @@
   <string name="chapterPgn">Kapittel-PGN</string>
   <string name="downloadGame">Last ned partiet</string>
   <string name="studyUrl">Studie-URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL for overføring</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
-  <string name="currentGameUrl">URL for dette partiet</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Du kan lime inn dette i forumet for å bygge det inn der</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan lime inn dette i forumet for å bygge det inn der</string>
   <string name="startAtInitialPosition">Start ved innledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt eller bloggen din</string>
   <string name="readMoreAboutEmbedding">Les mer om å bygge inn</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Bare offentlige studier kan bygges inn!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Bare offentlige studier kan bygges inn!</string>
   <string name="open">Åpne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fant ikke studien</string>

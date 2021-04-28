@@ -55,6 +55,6 @@
   <string name="streakDescription">Vyřešte postupně těžší hádanky a vytvořte vítěznou sérii. Není tu žádný limit, takže si dejte na na čas. Jeden špatný tah a je to hra skončí! Můžete ale přeskočit jeden tah za běh.</string>
   <string name="yourStreakX">Vaše série: %s</string>
   <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Pokračovat v sérii</string>
+  <string name="continueTheStreak">Pokračovat v sérii</string>
   <string name="newStreak">Nová série</string>
 </resources>

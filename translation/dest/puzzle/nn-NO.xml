@@ -39,8 +39,16 @@
   <string name="normal">Middels</string>
   <string name="easier">Enklare</string>
   <string name="easiest">Enklast</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Eitt poeng under problemløysar-ratinga di</item>
+    <item quantity="other">%s poeng under problemløysar-ratinga di</item>
+  </plurals>
   <string name="harder">Vanskelegare</string>
   <string name="hardest">Vanskelegast</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Eitt poeng over problemløysar-ratinga di</item>
+    <item quantity="other">%s poeng over problemløysar-ratinga di</item>
+  </plurals>
   <string name="example">Døme</string>
   <string name="addAnotherTheme">Legg til endå eit tema</string>
   <string name="jumpToNextPuzzleImmediately">Hopp straks til neste oppgåve</string>
@@ -53,6 +61,6 @@
   <string name="streakDescription">Løys gradvis vanskelegare oppgåver og bygg ei sigerrekke. Det er inga tidsavgrensing, så det er berre å ta tida til hjelp. Spelet er over om du gjer eit feiltrekk. Men du kan hoppe over eit trekk for kvar omgang.</string>
   <string name="yourStreakX">Sigerrekka di: %s</string>
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare sigerrekka di! Fungerer berre ein gong per omgang.</string>
-  <string name="continueTheStreak" comment="continueTheStreak&#10;&#10;Used for Puzzle Streak (https://lichess.org/streak). If you disabled immediately jumping to the next puzzle, this button appears so you can continue without voting on the puzzle.">Fortsett sigerrekka</string>
+  <string name="continueTheStreak">Fortsett sigerrekka</string>
   <string name="newStreak">Ny sigerrekke</string>
 </resources>

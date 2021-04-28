@@ -77,7 +77,7 @@
   <string name="losing">Natatalo</string>
   <string name="drawn">Natabla</string>
   <string name="unknown">Hindi kilala</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Database</string>
+  <string name="database">Database</string>
   <string name="whiteDrawBlack">Puti / Tabla / Itim</string>
   <string name="averageRatingX">Pangkaraniwang marka: %s</string>
   <string name="recentGames">Bagong mga laro</string>
@@ -274,7 +274,6 @@
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
   <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
@@ -596,7 +595,7 @@
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Pinagkukunan ng Code</string>
+  <string name="sourceCode">Pinagkukunan ng Code</string>
   <string name="simultaneousExhibitions">Magkasabay na mga eksibisyon</string>
   <string name="host">Host</string>
   <string name="hostColorX">Kulay ng Host: %s</string>

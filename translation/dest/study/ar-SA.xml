@@ -66,15 +66,13 @@
   <string name="chapterPgn">PGN الفصل</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">رابط البث</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
-  <string name="currentGameUrl">رابط اللعبة الحالية</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">يمكنك لصق هذا في المنتدى لتضمينه</string>
+  <string name="youCanPasteThisInTheForumToEmbed">يمكنك لصق هذا في المنتدى لتضمينه</string>
   <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
   <string name="embedInYourWebsite">ضمنه في موقع أو مدونة</string>
   <string name="readMoreAboutEmbedding">راجع المزيد عن التضمين</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">يمكن تضمين الدراسات العامة فقط!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">يمكن تضمين الدراسات العامة فقط!</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>

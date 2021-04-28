@@ -3,20 +3,22 @@
   <string name="broadcasts">Emisiones</string>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
+  <string name="addRound">Añadir una ronda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Próximamente</string>
   <string name="completed">Completadas</string>
-  <string name="eventName">Nombre del evento</string>
-  <string name="eventDescription">Descripción corta del evento</string>
+  <string name="roundName">Nombre de la ronda</string>
+  <string name="roundNumber">Número de ronda</string>
+  <string name="tournamentName">Nombre del torneo</string>
+  <string name="tournamentDescription">Breve descripción del torneo</string>
   <string name="fullDescription">Descripción completa del evento</string>
   <string name="fullDescriptionHelp">Descripción larga opcional de la emisión. %1$s está disponible. La longitud debe ser inferior a %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds" comment="sourceUrlOrGameIds&#10;&#10;In the &quot;New live broadcast&quot; form, a field for specifying the game(s). Description:&#10;&#10;URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.&#10;Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.">Enlace de origen o identificador de la partida</string>
+  <string name="sourceUrlOrGameIds">Enlace de origen o identificador de la partida</string>
   <string name="sourceUrlHelp">URL que Lichess comprobará para obtener actualizaciones PGN. Debe ser públicamente accesible desde Internet.</string>
   <string name="gameIdsHelp">Alternativamente, puedes introducir hasta 64 identificadores de partida, separados por espacios.</string>
-  <string name="roundNumber">Número de ronda</string>
   <string name="startDate">Fecha de inicio en tu zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
   <string name="credits">Cita la fuente</string>
-  <string name="cloneBroadcast">Clonar la emisión</string>
-  <string name="resetBroadcast">Reiniciar la emisión</string>
+  <string name="resetRound">Restablecer esta ronda</string>
+  <string name="deleteRound">Eliminar esta ronda</string>
 </resources>

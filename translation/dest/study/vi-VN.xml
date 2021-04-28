@@ -59,15 +59,13 @@
   <string name="chapterPgn">PGN chương</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL phát sóng</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
-  <string name="currentGameUrl">URL ván đấu hiện tại</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Bạn có thể dán cái này vào diễn đàn để nhúng</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này vào diễn đàn để nhúng</string>
   <string name="startAtInitialPosition">Bắt đầu từ thế trận ban đầu</string>
   <string name="startAtX">Bắt đầu tại nước %s</string>
   <string name="embedInYourWebsite">Nhúng vào website hoặc blog của bạn</string>
   <string name="readMoreAboutEmbedding">Đọc thêm về việc nhúng</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Chỉ có nghiên cứu công khai mới được nhúng!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Chỉ có nghiên cứu công khai mới được nhúng!</string>
   <string name="open">Mở</string>
   <string name="xBroughtToYouByY">%1$s, được lấy từ %2$s</string>
   <string name="studyNotFound">Không tìm thấy nghiên cứu nào</string>
