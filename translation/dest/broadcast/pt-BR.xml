@@ -21,4 +21,7 @@
   <string name="credits">Crédito a fonte</string>
   <string name="resetRound">Reiniciar esta rodada</string>
   <string name="deleteRound">Excluir esta rodada</string>
+  <string name="broadcastUrl">URL da transmissão</string>
+  <string name="currentRoundUrl">URL da rodada atual</string>
+  <string name="currentGameUrl">URK da partida atual</string>
 </resources>
