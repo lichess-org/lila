@@ -78,7 +78,12 @@ export default function LichessLobby(opts: LobbyOpts) {
       $(this).addClass('active').siblings().removeClass('active');
       lichess.loadCssPath('lobby.setup');
       lobby.leavePool();
-      fetch(this.href, {
+      let url = this.href;
+      if (this.dataset.hrefAddon) {
+        url += this.dataset.hrefAddon;
+        delete this.dataset.hrefAddon;
+      }
+      fetch(url, {
         ...xhr.defaultInit,
         headers: xhr.xhrHeader,
       }).then(res =>
@@ -101,7 +106,7 @@ export default function LichessLobby(opts: LobbyOpts) {
     $startButtons
       .find('.config_' + location.hash.replace('#', ''))
       .each(function (this: HTMLElement) {
-        $(this).attr('href', $(this).attr('href') + location.search);
+        this.dataset.hrefAddon = location.search;
       })
       .trigger(clickEvent);
 
