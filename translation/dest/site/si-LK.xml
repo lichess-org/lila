@@ -117,6 +117,38 @@
     <item quantity="one">%sලොකු වරද</item>
     <item quantity="other">%sලොකු වරදවල්</item>
   </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%sනිවැරදිම නෑ</item>
+    <item quantity="other">%sනිවැරදිම නෑ</item>
+  </plurals>
+  <string name="moveTimes">ඇදීමට ගත් වෙලාව</string>
+  <string name="flipBoard">බෝර්ඩ් එකේ පැති මාරු කරන්න</string>
+  <string name="threefoldRepetition">ත්‍රීෆෝල්ඩ් රෙපිටිෂන්</string>
+  <string name="claimADraw">ඩ්‍රෝ එක ගන්න</string>
+  <string name="offerDraw">ඩ්‍රෝ එකක් පිරිනමන්න</string>
+  <string name="draw">ඩ්‍රෝ</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">තරගකරුවන් %s ක්</item>
+    <item quantity="other">තරගකරුවන් %s ක්</item>
+  </plurals>
+  <string name="currentGames">වර්තමාන තරඟ</string>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%sබුක්මාකය</item>
+    <item quantity="other">%sබුක්මාක්ස්</item>
+  </plurals>
+  <string name="viewInFullSize">විශාල කර පෙන්වන්න</string>
+  <string name="logOut">වරන්න</string>
+  <string name="signIn">පිවිසෙන්න</string>
+  <string name="youNeedAnAccountToDoThat">එය සිදු කිරීම සඳහා ඔබ පිවිසිය යුතුය</string>
+  <string name="signUp">ලියාපදිංචි වන්න</string>
+  <string name="computersAreNotAllowedToPlay">පරිගණක සහ පරිගණක ආධාරක ක්‍රීඩකයින්ට ක්‍රීඩා කිරීමට අවසර නැත. කරුණාකර චෙස් එන්ජින්, දත්ත සමුදායන් හෝ වෙනත් ක්‍රීඩකයන්ගෙන් සහය ලබා නොගන්න. බහුවිධ ගිණුම් සෑදීම දැඩි ලෙස තහනම් කර ඇති අතර අධික එය සදාකාලික තහනම් කිරීමක් හේතු වනු ඇති බව සලකන්න.</string>
+  <string name="games">තරඟ</string>
+  <string name="forum">සාකච්ඡා මණ්ඩපය</string>
+  <string name="xPostedInForumY">%1$sposted in topic%2$s</string>
+  <string name="playingRightNow">දැන් තරඟ කරයි</string>
+  <string name="eventInProgress">දැන් තරඟ කරයි</string>
+  <string name="finished">අවසානයි</string>
+  <string name="finishesX">%sකින් ඉවරවේ</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
