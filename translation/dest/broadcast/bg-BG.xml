@@ -17,7 +17,6 @@
   <string name="startDate">Дата на започване във вашата часова зона</string>
   <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="credits">Признателност на източника</string>
-  <string name="cloneRound">Клонирай този рунд</string>
   <string name="resetRound">Нулирай този рунд</string>
   <string name="deleteRound">Изтрий този рунд</string>
 </resources>
