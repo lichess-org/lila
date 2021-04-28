@@ -90,6 +90,12 @@
   </plurals>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
+  <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
+  <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
+  <string name="winPreventedBy50MoveRule">ඇදීම් 50 නීතීයෙන් ජයග්‍රහණය නැතිවුණා</string>
+  <string name="lossSavedBy50MoveRule">ඇදීම් 50 නීතියෙන් පරාජය නැතිවුණා</string>
+  <string name="allSet">සියල්ල හරි!</string>
+  <string name="importPgn">PGN දමන්න</string>
   <string name="delete">මකන්න</string>
   <string name="realtimeReplay">එසැණින්</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
