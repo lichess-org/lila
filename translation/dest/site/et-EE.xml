@@ -78,7 +78,7 @@
   <string name="losing">Kaotav</string>
   <string name="drawn">Viik</string>
   <string name="unknown">Teadmatu</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Andmebaas</string>
+  <string name="database">Andmebaas</string>
   <string name="whiteDrawBlack">Valge / Viik / Must</string>
   <string name="averageRatingX">Keskmine reiting: %s</string>
   <string name="recentGames">Hiljutised mängud</string>
@@ -275,7 +275,6 @@
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
   <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus Lichessi teenusetingimusi</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
@@ -601,7 +600,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="really">päriselt</string>
   <string name="contribute">Panusta</string>
   <string name="termsOfService">Kasutajatingimused</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Lähtekood</string>
+  <string name="sourceCode">Lähtekood</string>
   <string name="simultaneousExhibitions">Simultaanid</string>
   <string name="host">Korraldaja</string>
   <string name="hostColorX">Korraldaja värv: %s</string>
