@@ -82,7 +82,7 @@
   <string name="losing">خاسرة</string>
   <string name="drawn">تعادل</string>
   <string name="unknown">مجهول</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">قاعدة بيانات</string>
+  <string name="database">قاعدة بيانات</string>
   <string name="whiteDrawBlack">أسود / تعادل / أبيض</string>
   <string name="averageRatingX">متوسط التقييم: %s</string>
   <string name="recentGames">أحدث المباريات</string>
@@ -343,7 +343,6 @@
     <item quantity="other">منح %s ثانية</item>
   </plurals>
   <string name="thisAccountViolatedTos">هذا الحساب انتهك شروط خدمة lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
@@ -728,7 +727,7 @@
   <string name="really">حقاً</string>
   <string name="contribute">ساهم</string>
   <string name="termsOfService">شروط الخدمة</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">الكود المصدر</string>
+  <string name="sourceCode">الكود المصدر</string>
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
   <string name="hostColorX">لون المضيف: %s</string>
