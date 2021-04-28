@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN на главата</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL на предаването</string>
   <string name="currentChapterUrl">URL на настоящата глава</string>
-  <string name="currentGameUrl">URL на настоящата партия</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Можете да поставите това във форум и ще бъде вградено</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Можете да поставите това във форум и ще бъде вградено</string>
   <string name="startAtInitialPosition">Започни от начална позиция</string>
   <string name="startAtX">Започни от %s</string>
   <string name="embedInYourWebsite">Вгради в твоя сайт или блог</string>
   <string name="readMoreAboutEmbedding">Прочети повече за вграждането</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Само публични казуси могат да бъдат вграждани!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Само публични казуси могат да бъдат вграждани!</string>
   <string name="open">Отвори</string>
   <string name="xBroughtToYouByY">%1$s, предоставени от %2$s</string>
   <string name="studyNotFound">Казусът не бе открит</string>
