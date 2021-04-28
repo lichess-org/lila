@@ -37,7 +37,7 @@ object inquiry {
   )
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
-    def renderReport(r: lila.report.Report) =
+    def renderReport(r: Report) =
       div(cls := "doc report")(
         r.bestAtoms(10).map { atom =>
           div(cls := "atom")(
@@ -196,7 +196,7 @@ object inquiry {
         },
         div(cls := "dropper more buttons")(
           iconTag("u"),
-          div(
+          isGranted(_.NotifySlack) option div(
             postForm(action := routes.Mod.notifySlack(in.user.id))(
               submitButton(cls := "fbt")("Notify Slack")
             ),
