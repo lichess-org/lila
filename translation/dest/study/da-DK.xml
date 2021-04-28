@@ -103,7 +103,7 @@
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s eller %2$s</string>
   <string name="createChapter">Opret kapitel</string>
-  <string name="configureLiveBroadcast">Konfigurer live-transmission</string>
+  <string name="configureLiveBroadcast">Konfigurer live-udsendelse</string>
   <string name="createStudy">Opret studie</string>
   <string name="editStudy">Rediger studie</string>
   <string name="visibility">Synlighed</string>
