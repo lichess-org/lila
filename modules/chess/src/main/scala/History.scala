@@ -70,8 +70,7 @@ case class History(
   def withLastMove(m: Uci) = copy(lastMove = Some(m))
 
   def withCheck(color: Color, v: Boolean) =
-    if (v) copy(checkCount = checkCount add color)
-    else copy(checkCount = checkCount reset color)
+    if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount resetcolor)
 
   def withCheckCount(cc: CheckCount) = copy(checkCount = cc)
 
