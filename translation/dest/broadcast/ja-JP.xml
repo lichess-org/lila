@@ -3,10 +3,14 @@
   <string name="broadcasts">イベント中継</string>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
   <string name="newBroadcast">新しいライブ中継</string>
+  <string name="addRound">ラウンドを追加</string>
   <string name="ongoing">配信中</string>
   <string name="upcoming">予定</string>
   <string name="completed">終了</string>
+  <string name="roundName">ラウンド名</string>
   <string name="roundNumber">ラウンド</string>
+  <string name="tournamentName">大会名</string>
+  <string name="tournamentDescription">大会の短い説明</string>
   <string name="fullDescription">長い説明</string>
   <string name="fullDescriptionHelp">内容の詳しい説明（オプション）。%1$s が利用できます。長さは [欧文換算で] %2$s 字まで。</string>
   <string name="sourceUrlOrGameIds">ソース URLかゲーム ID</string>
@@ -15,4 +19,7 @@
   <string name="startDate">開始日付（あなたの現地時間）</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
   <string name="credits">ソースを表示する</string>
+  <string name="cloneRound">このラウンドを複製</string>
+  <string name="resetRound">このラウンドをリセット</string>
+  <string name="deleteRound">このラウンドを削除</string>
 </resources>
