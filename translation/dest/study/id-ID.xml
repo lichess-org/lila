@@ -59,15 +59,13 @@
   <string name="chapterPgn">Bab PGN</string>
   <string name="downloadGame">Unduh permainan</string>
   <string name="studyUrl">URL studi</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL Broadcast</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
-  <string name="currentGameUrl">URL permainan</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Anda dapat menempelkan ini di forum untuk disematkan</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Anda dapat menempelkan ini di forum untuk disematkan</string>
   <string name="startAtInitialPosition">Mulai saat posisi awal</string>
   <string name="startAtX">Mulai dari %s</string>
   <string name="embedInYourWebsite">Sematkan di blog atau website Anda</string>
   <string name="readMoreAboutEmbedding">Baca lebih tentang penyematan</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Hanya pelajaran publik yang dapat di sematkan!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Hanya pelajaran publik yang dapat di sematkan!</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Studi tidak ditemukan</string>
