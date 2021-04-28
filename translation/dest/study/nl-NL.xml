@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum toegevoegd (oudste)</string>
   <string name="recentlyUpdated">Recent bijgewerkt</string>
   <string name="mostPopular">Meest populair</string>
+  <string name="alphabetical">Alfabetisch</string>
   <string name="addNewChapter">Nieuw hoofdstuk toevoegen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s hoofdstuk</item>
