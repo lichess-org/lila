@@ -17,17 +17,17 @@ object DataForm {
   val pref = Form(
     mapping(
       "display" -> mapping(
-        "animation"       -> number.verifying(Set(0, 1, 2, 3) contains _),
-        "captured"        -> booleanNumber,
-        "highlight"       -> booleanNumber,
-        "destination"     -> booleanNumber,
-        "dropDestination" -> booleanNumber,
-        "coords"          -> checkedNumber(Pref.Coords.choices),
-        "replay"          -> checkedNumber(Pref.Replay.choices),
-        "pieceNotation"   -> optional(checkedNumber(Pref.PieceNotation.choices)),
-        "zen"             -> optional(booleanNumber),
-        "resizeHandle"    -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"       -> checkedNumber(Pref.Blindfold.choices)
+        "animation"     -> number.verifying(Set(0, 1, 2, 3) contains _),
+        "captured"      -> booleanNumber,
+        "highlight"     -> booleanNumber,
+        "destination"   -> booleanNumber,
+        "dropDestination"-> booleanNumber,
+        "coords"        -> checkedNumber(Pref.Coords.choices),
+        "replay"        -> checkedNumber(Pref.Replay.choices),
+        "pieceNotation" -> optional(checkedNumber(Pref.PieceNotation.choices)),
+        "zen"           -> optional(booleanNumber),
+        "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
         "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
@@ -41,11 +41,11 @@ object DataForm {
         "rookCastle"    -> optional(booleanNumber)
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
-        "tenths"    -> checkedNumber(Pref.ClockTenths.choices),
-        "countdown" -> checkedNumber(Pref.ClockCountdown.choices),
-        "bar"       -> booleanNumber,
-        "sound"     -> booleanNumber,
-        "moretime"  -> checkedNumber(Pref.Moretime.choices)
+        "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
+        "countdown"-> checkedNumber(Pref.ClockCountdown.choices),
+        "bar"      -> booleanNumber,
+        "sound"    -> booleanNumber,
+        "moretime" -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
       "follow"       -> booleanNumber,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
@@ -141,7 +141,7 @@ object DataForm {
         display = DisplayData(
           highlight = if (pref.highlight) 1 else 0,
           destination = if (pref.destination) 1 else 0,
-          dropDestination = if (pref.dropDestination) 1 else 0,
+          dropDestination = if(pref.dropDestination) 1 else 0,
           animation = pref.animation,
           coords = pref.coords,
           replay = pref.replay,

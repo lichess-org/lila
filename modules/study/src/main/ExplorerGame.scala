@@ -34,9 +34,8 @@ final private class ExplorerGame(
                 path = Path(root.mainline.map(_.id))
               )
             } ?? { gameRoot =>
-              merge(fromNode, position.path, gameRoot) flatMap {
-                case (newNode, path) =>
-                  position.chapter.addNode(newNode, path) map (_ -> path)
+              merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
+                position.chapter.addNode(newNode, path) map (_ -> path)
               }
             }
           }
@@ -70,7 +69,7 @@ final private class ExplorerGame(
   private def gameTitle(g: Game): String = {
     val pgn    = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
     val sente  = pgn.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
-    val gote   = pgn.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
+    val gote  = pgn.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
     val result = chess.Color.showResult(g.winnerColor)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {

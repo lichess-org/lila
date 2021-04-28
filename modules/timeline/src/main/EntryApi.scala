@@ -88,6 +88,7 @@ final class EntryApi(
 
     def cacheGet = cache.synchronous().get()
 
+
     private def fetch: Fu[Vector[Entry]] =
       coll.ext
         .find(
@@ -100,8 +101,7 @@ final class EntryApi(
         .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
         .vector(3 * BlogLangs.langs.size)
 
-    private[EntryApi] def interleaveWithLang(langCode: String)(entries: Vector[Entry]) =
-      interleave(entries, langCode)
+    private[EntryApi] def interleaveWithLang(langCode: String)(entries: Vector[Entry]) = interleave(entries, langCode)
 
     private def interleave(entries: Vector[Entry], langCode: String): Fu[Vector[Entry]] = {
       val langsToExclude = BlogLangs.langs.filter(BlogLangs.parse(langCode) !=).toList
@@ -109,7 +109,7 @@ final class EntryApi(
         val bcsFiltered = bcs filter {
           _.decode.map {
             case BlogPost(_, _, _, lc) => !(langsToExclude contains lc)
-            case _                     => true
+            case _ => true
           }.get
         }
         bcsFiltered.headOption.fold(entries) { mostRecentBc =>

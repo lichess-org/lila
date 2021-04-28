@@ -189,18 +189,16 @@ final class Team(
     AuthBody { implicit ctx => implicit me =>
       LimitPerWeek(me) {
         implicit val req = ctx.body
-        forms.create
-          .bindFromRequest()
-          .fold(
-            err =>
-              forms.anyCaptcha map { captcha =>
-                BadRequest(html.team.form.create(err, captcha))
-              },
-            data =>
-              api.create(data, me) map { team =>
-                Redirect(routes.Team.show(team.id)).flashSuccess
-              }
-          )
+        forms.create.bindFromRequest().fold(
+          err =>
+            forms.anyCaptcha map { captcha =>
+              BadRequest(html.team.form.create(err, captcha))
+            },
+          data =>
+            api.create(data, me) map { team =>
+              Redirect(routes.Team.show(team.id)).flashSuccess
+            }
+        )
       }
     }
 
@@ -237,8 +235,7 @@ final class Team(
                 },
                 api = _ => {
                   implicit val body = ctx.body
-                  forms.apiRequest
-                    .bindFromRequest()
+                  forms.apiRequest.bindFromRequest()
                     .fold(
                       newJsonFormError,
                       msg =>
@@ -257,8 +254,7 @@ final class Team(
       scoped = implicit req =>
         me => {
           implicit val lang = reqLang
-          forms.apiRequest
-            .bindFromRequest()
+          forms.apiRequest.bindFromRequest()
             .fold(
               newJsonFormError,
               msg =>
@@ -294,18 +290,14 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request
-          .bindFromRequest()
-          .fold(
-            err =>
-              forms.anyCaptcha map { captcha =>
-                BadRequest(html.team.request.requestForm(team, err, captcha))
-              },
-            setup =>
-              api.createRequest(team, me, setup.message) inject Redirect(
-                routes.Team.show(team.id)
-              ).flashSuccess
-          )
+        forms.request.bindFromRequest().fold(
+          err =>
+            forms.anyCaptcha map { captcha =>
+              BadRequest(html.team.request.requestForm(team, err, captcha))
+            },
+          setup =>
+            api.createRequest(team, me, setup.message) inject Redirect(routes.Team.show(team.id)).flashSuccess
+        )
       }
     }
 
@@ -317,15 +309,13 @@ final class Team(
       } yield (teamOption |@| requestOption).tupled) {
         case (team, request) =>
           implicit val req = ctx.body
-          forms.processRequest
-            .bindFromRequest()
-            .fold(
-              _ => fuccess(routes.Team.show(team.id).toString),
-              {
-                case (decision, url) =>
-                  api.processRequest(team, request, (decision == "accept")) inject url
-              }
-            )
+          forms.processRequest.bindFromRequest().fold(
+            _ => fuccess(routes.Team.show(team.id).toString),
+            {
+              case (decision, url) =>
+                api.processRequest(team, request, (decision == "accept")) inject url
+            }
+          )
       }
     }
 
@@ -461,8 +451,7 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
-    forms.pmAll
-      .bindFromRequest()
+    forms.pmAll.bindFromRequest()
       .fold(
         err => Left(err),
         msg =>

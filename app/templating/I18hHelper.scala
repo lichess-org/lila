@@ -22,7 +22,7 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def timeagoLocaleScript(implicit ctx: lila.api.Context): String = {
     TimeagoLocales.js.get(ctx.lang.code) orElse
       TimeagoLocales.js.get(ctx.lang.language) getOrElse
-      ~TimeagoLocales.js.get("en")
+    ~TimeagoLocales.js.get("en")
   }
 
   def langName = LangList.nameByStr _

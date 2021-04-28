@@ -11,7 +11,7 @@ case class Piece(color: Color, role: Role) {
   def isMinor = oneOf(Set(Knight, Bishop))
   def isMajor = oneOf(Set(Rook))
 
-  def forsyth: Char       = if (color == Sente) role.forsythUpper else role.forsyth
+  def forsyth: Char = if (color == Sente) role.forsythUpper else role.forsyth
   def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
 
   // attackable positions assuming empty board
@@ -47,10 +47,10 @@ case class Piece(color: Color, role: Role) {
         }
 
       case Lance if color == Sente => (from ?| to) && (from ?+ to)
-      case Lance if color == Gote  => (from ?| to) && (from ?^ to)
+      case Lance if color == Gote => (from ?| to) && (from ?^ to)
 
       case Pawn if color == Sente => from.y + 1 == to.y && from ?| to
-      case Pawn if color == Gote  => from.y - 1 == to.y && from ?| to
+      case Pawn if color == Gote => from.y - 1 == to.y && from ?| to
 
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)

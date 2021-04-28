@@ -61,7 +61,7 @@ final private class Biter(
       case Color.Random =>
         userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
       case Color.Sente => fuccess(chess.Sente)
-      case Color.Gote  => fuccess(chess.Gote)
+      case Color.Gote => fuccess(chess.Gote)
     }
 
   private def makeGame(hook: Hook, senteUser: Option[User], goteUser: Option[User]) = {

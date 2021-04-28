@@ -66,7 +66,7 @@ final class ChallengeGranter(
               }
             }
           case (_, Pref.Challenge.ALWAYS) => none
-          case _                          => none
+          case _ => none
         }
       }
       .map {

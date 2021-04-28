@@ -25,13 +25,11 @@ object Dumper {
           orig.file + orig.rank
         }
         val promotes = {
-          if (
-            !promotion && (List(Pawn, Lance, Knight, Silver, Bishop, Rook) contains piece.role) &&
+          if (!promotion && (List(Pawn, Lance, Knight, Silver, Bishop, Rook) contains piece.role) &&
             ((piece.color.promotableZone contains orig.y) ||
-            (piece.color.promotableZone contains dest.y))
-          )
+            (piece.color.promotableZone contains dest.y)))
             "="
-          else if (!promotion) ""
+		      else if (!promotion) ""
           else "+"
         }
         s"${role.pgn}$disambiguation${captures.fold("x", "")}${dest.key}$promotes"

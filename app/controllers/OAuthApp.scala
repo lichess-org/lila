@@ -26,16 +26,14 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def createApply =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms.app.create
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(html.oAuth.app.form.create(err)).fuccess,
-          setup => {
-            val app = setup make me
-            appApi.create(app) inject
-              Redirect(routes.OAuthApp.edit(app.clientId.value)).flashSuccess
-          }
-        )
+      forms.app.create.bindFromRequest().fold(
+        err => BadRequest(html.oAuth.app.form.create(err)).fuccess,
+        setup => {
+          val app = setup make me
+          appApi.create(app) inject
+            Redirect(routes.OAuthApp.edit(app.clientId.value)).flashSuccess
+        }
+      )
     }
 
   def edit(id: String) =

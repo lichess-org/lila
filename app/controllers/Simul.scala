@@ -125,12 +125,10 @@ final class Simul(
     OpenBody { implicit ctx =>
       AsHost(simulId) { simul =>
         implicit val req = ctx.body
-        forms.setText
-          .bindFromRequest()
-          .fold(
-            _ => BadRequest.fuccess,
-            text => env.simul.api.setText(simul.id, text) inject jsonOkResult
-          )
+        forms.setText.bindFromRequest().fold(
+          _ => BadRequest.fuccess,
+          text => env.simul.api.setText(simul.id, text) inject jsonOkResult
+        )
       }
     }
 

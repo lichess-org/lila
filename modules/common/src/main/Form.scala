@@ -68,6 +68,7 @@ object Form {
   def stringIn(choices: Set[String]) =
     text.verifying(mustBeOneOf(choices), choices.contains _)
 
+
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
   def hasKey[A](choices: Options[A], key: A) =

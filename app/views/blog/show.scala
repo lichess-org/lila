@@ -44,29 +44,28 @@ object show {
           ctx.noKid option
             div(cls := "footer")(
               if (prismic.maybeRef.isEmpty) {
-                if (
-                  doc
-                    .getDate("blog.date")
-                    .exists(
-                      _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                if (doc
+                  .getDate("blog.date")
+                  .exists(
+                    _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                  )) {
+                    // if locale is in japanese, check if un-translated by searching timeline for same-titled blog post but in english locale. bit hacky but works.
+                    val enBlogId = env.timeline.entryApi
+                      .broadcast.cacheGet map {
+                        _.decode.map {
+                          case BlogPost(id, slug, _, _) => Some(Map("id" -> id, "slug" -> slug))
+                          case _ => None
+                        } get
+                      } filter { _ ??
+                        { blogMap =>
+                          blogMap("id") != doc.id && blogMap("slug") == doc.slug
+                        }
+                      } map { _.get("id") } headOption
+                    // if the japanese blog was not translated yet, point the forum post link to the english blog's forum post instead.
+                    val idForDiscuss = enBlogId getOrElse doc.id
+                    a(href := routes.Blog.discuss(idForDiscuss), cls := "button text discuss", dataIcon := "d")(
+                      trans.discussBlogForum()
                     )
-                ) {
-                  // if locale is in japanese, check if un-translated by searching timeline for same-titled blog post but in english locale. bit hacky but works.
-                  val enBlogId = env.timeline.entryApi.broadcast.cacheGet map {
-                    _.decode.map {
-                      case BlogPost(id, slug, _, _) => Some(Map("id" -> id, "slug" -> slug))
-                      case _                        => None
-                    } get
-                  } filter {
-                    _ ?? { blogMap =>
-                      blogMap("id") != doc.id && blogMap("slug") == doc.slug
-                    }
-                  } map { _.get("id") } headOption
-                  // if the japanese blog was not translated yet, point the forum post link to the english blog's forum post instead.
-                  val idForDiscuss = enBlogId getOrElse doc.id
-                  a(href := routes.Blog.discuss(idForDiscuss), cls := "button text discuss", dataIcon := "d")(
-                    trans.discussBlogForum()
-                  )
                 }
               } else p("This is a preview."),
               views.html.base.bits.connectLinks

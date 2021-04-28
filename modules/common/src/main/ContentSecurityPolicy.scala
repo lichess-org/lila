@@ -79,7 +79,7 @@ case class ContentSecurityPolicy(
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
-      "base-uri "    -> baseUri
+      "base-uri "    -> baseUri,
     ) collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")

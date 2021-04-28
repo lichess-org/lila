@@ -87,11 +87,11 @@ final class RankingApi(
 
   private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
     for {
-      ultraBullet    <- topPerf(PerfType.UltraBullet.id, nb)
-      bullet         <- topPerf(PerfType.Bullet.id, nb)
-      blitz          <- topPerf(PerfType.Blitz.id, nb)
-      rapid          <- topPerf(PerfType.Rapid.id, nb)
-      classical      <- topPerf(PerfType.Classical.id, nb)
+      ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
+      bullet        <- topPerf(PerfType.Bullet.id, nb)
+      blitz         <- topPerf(PerfType.Blitz.id, nb)
+      rapid         <- topPerf(PerfType.Rapid.id, nb)
+      classical     <- topPerf(PerfType.Classical.id, nb)
       correspondence <- topPerf(PerfType.Correspondence.id, nb)
     } yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,

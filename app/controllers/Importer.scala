@@ -19,39 +19,37 @@ final class Importer(env: Env) extends LilaController(env) {
   def sendGame =
     OpenBody { implicit ctx =>
       implicit def req = ctx.body
-      env.importer.forms.importForm
-        .bindFromRequest()
-        .fold(
-          failure =>
-            negotiate(
-              html = Ok(html.game.importGame(failure)).fuccess,
-              api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
-            ),
-          data =>
-            env.importer.importer(data, ctx.userId) flatMap { game =>
-              (ctx.userId ?? env.game.cached.clearNbImportedByCache) >>
-                (data.analyse.isDefined && game.analysable) ?? {
-                  env.fishnet.analyser(
-                    game,
-                    lila.fishnet.Work.Sender(
-                      userId = ctx.userId,
-                      ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-                      mod = isGranted(_.Hunter) || isGranted(_.Relay),
-                      system = false
-                    )
+      env.importer.forms.importForm.bindFromRequest().fold(
+        failure =>
+          negotiate(
+            html = Ok(html.game.importGame(failure)).fuccess,
+            api = _ => BadRequest(Json.obj("error" -> "Invalid PGN")).fuccess
+          ),
+        data =>
+          env.importer.importer(data, ctx.userId) flatMap { game =>
+            (ctx.userId ?? env.game.cached.clearNbImportedByCache) >>
+              (data.analyse.isDefined && game.analysable) ?? {
+                env.fishnet.analyser(
+                  game,
+                  lila.fishnet.Work.Sender(
+                    userId = ctx.userId,
+                    ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+                    mod = isGranted(_.Hunter) || isGranted(_.Relay),
+                    system = false
                   )
-                } inject Redirect(routes.Round.watcher(game.id, "sente"))
-            } recover {
-              case e =>
-                lila
-                  .log("importer")
-                  .warn(
-                    s"Imported game validates but can't be replayed:\n${data.pgn}",
-                    e
-                  )
-                Redirect(routes.Importer.importGame())
-            }
-        )
+                )
+              } inject Redirect(routes.Round.watcher(game.id, "sente"))
+          } recover {
+            case e =>
+              lila
+                .log("importer")
+                .warn(
+                  s"Imported game validates but can't be replayed:\n${data.pgn}",
+                  e
+                )
+              Redirect(routes.Importer.importGame())
+          }
+      )
     }
 
   def masterGame(id: String, orientation: String) =

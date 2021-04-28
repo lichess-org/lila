@@ -355,22 +355,18 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(implicit req: Request[_]): Fu[Result] =
-    form
-      .bindFromRequest()
-      .fold(
-        form => fuccess(BadRequest(form.errors mkString "\n")),
-        op
-      )
+    form.bindFromRequest().fold(
+      form => fuccess(BadRequest(form.errors mkString "\n")),
+      op
+    )
 
   protected def FormFuResult[A, B: Writeable: ContentTypeOf](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
-    form
-      .bindFromRequest()
-      .fold(
-        form => err(form) dmap { BadRequest(_) },
-        data => op(data)
-      )
+    form.bindFromRequest().fold(
+      form => err(form) dmap { BadRequest(_) },
+      data => op(data)
+    )
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 

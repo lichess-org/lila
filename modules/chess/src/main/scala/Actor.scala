@@ -20,35 +20,35 @@ final case class Actor(
   def trustedMoves(withCastle: Boolean): List[Move] = {
     val moves = piece.role match {
       case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
-      case Pawn if piece.color == Gote  => shortRange(Pawn.dirsOpposite)
+      case Pawn if piece.color == Gote => shortRange(Pawn.dirsOpposite)
 
       case Lance if piece.color == Sente => longRange(Lance.dirs)
-      case Lance if piece.color == Gote  => longRange(Lance.dirsOpposite)
+      case Lance if piece.color == Gote => longRange(Lance.dirsOpposite)
 
       case Gold if piece.color == Sente => shortRange(Gold.dirs)
-      case Gold if piece.color == Gote  => shortRange(Gold.dirsOpposite)
+      case Gold if piece.color == Gote => shortRange(Gold.dirsOpposite)
 
       case Silver if piece.color == Sente => shortRange(Silver.dirs)
-      case Silver if piece.color == Gote  => shortRange(Silver.dirsOpposite)
+      case Silver if piece.color == Gote => shortRange(Silver.dirsOpposite)
 
       case Bishop => longRange(Bishop.dirs)
 
       case Rook => longRange(Rook.dirs)
 
       case Knight if piece.color == Sente => shortRange(Knight.dirs)
-      case Knight if piece.color == Gote  => shortRange(Knight.dirsOpposite)
+      case Knight if piece.color == Gote => shortRange(Knight.dirsOpposite)
 
       case Tokin if piece.color == Sente => shortRange(Tokin.dirs)
-      case Tokin if piece.color == Gote  => shortRange(Tokin.dirsOpposite)
+      case Tokin if piece.color == Gote => shortRange(Tokin.dirsOpposite)
 
       case PromotedSilver if piece.color == Sente => shortRange(PromotedSilver.dirs)
-      case PromotedSilver if piece.color == Gote  => shortRange(PromotedSilver.dirsOpposite)
+      case PromotedSilver if piece.color == Gote => shortRange(PromotedSilver.dirsOpposite)
 
       case PromotedLance if piece.color == Sente => shortRange(PromotedLance.dirs)
-      case PromotedLance if piece.color == Gote  => shortRange(PromotedLance.dirsOpposite)
+      case PromotedLance if piece.color == Gote => shortRange(PromotedLance.dirsOpposite)
 
       case PromotedKnight if piece.color == Sente => shortRange(PromotedKnight.dirs)
-      case PromotedKnight if piece.color == Gote  => shortRange(PromotedKnight.dirsOpposite)
+      case PromotedKnight if piece.color == Gote => shortRange(PromotedKnight.dirsOpposite)
 
       case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
       case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)
@@ -60,26 +60,25 @@ final case class Actor(
         (List(Pawn, Lance, Knight, Silver, Bishop, Rook) contains m.piece.role) &&
         ((m.color.promotableZone contains m.orig.y) || (m.color.promotableZone contains m.dest.y))
       ) {
-        (m.after promote (m.dest, Role.promotesTo(m.piece.role).get)) map { b2 =>
+        (m.after promote(m.dest, Role.promotesTo(m.piece.role).get)) map { b2 =>
           m.copy(after = b2, promotion = true)
         }
-      } else None
+      }
+      else None
 
     def forcePromotion(m: Move): Boolean = {
       m.piece.role match {
-        case Pawn if m.piece.color.backrankY == m.dest.y && m.promotion == false  => false
+        case Pawn if m.piece.color.backrankY == m.dest.y && m.promotion == false => false
         case Lance if m.piece.color.backrankY == m.dest.y && m.promotion == false => false
-        case Knight
-            if (m.piece.color.backrankY == m.dest.y ||
-              m.piece.color.backrankY2 == m.dest.y) && m.promotion == false =>
-          false
+        case Knight if (m.piece.color.backrankY == m.dest.y ||
+                    m.piece.color.backrankY2 == m.dest.y) && m.promotion == false => false
         case _ => true
       }
     }
 
     val promotedMoves = moves flatMap maybePromote
 
-    return (moves ++ promotedMoves).filter { m => forcePromotion(m) }
+    return (moves ++ promotedMoves).filter{ m => forcePromotion(m)}
     // We apply the current game variant's effects if there are any so that we can accurately decide if the king would
     // be in danger after the move was made.
     //if (board.variant.hasMoveEffects) moves map (_.applyVariantEffect) else moves

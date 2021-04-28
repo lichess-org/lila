@@ -21,16 +21,16 @@ object storm {
         jsModule("lishogi.storm"),
         embedJsUnsafe(s"""$$(function() {
           LishogiStorm.start(${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "pref" -> pref,
-            "i18n" -> i18nJsObject(i18nKeys)
-          )
-        )})})""")
+            Json.obj(
+              "data" -> data,
+              "pref" -> pref,
+              "i18n" -> i18nJsObject(i18nKeys)
+            )
+          )})})""")
       ),
       title = "Puzzle Storm",
       zoomable = true,
-      shogiground = false
+      shogiground  = false
     ) {
       main(
         div(cls := "storm storm-app storm--play")(
@@ -61,12 +61,11 @@ object storm {
         (high.month, "This month"),
         (high.week, "This week"),
         (high.day, "Today")
-      ).map {
-        case (value, name) =>
-          div(cls := "storm-dashboard__high__period")(
-            strong(value),
-            span(name)
-          )
+      ).map { case (value, name) =>
+        div(cls := "storm-dashboard__high__period")(
+          strong(value),
+          span(name)
+        )
       }
     )
 

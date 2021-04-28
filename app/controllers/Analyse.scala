@@ -68,14 +68,8 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                val finalPgn = env.analyse.annotator(
-                  pgn,
-                  analysis,
-                  pov.game.opening,
-                  pov.game.winnerColor,
-                  pov.game.status
-                )
-                val movesSeq = data("treeParts").as[JsArray].value.tail map { move: JsValue =>
+                val finalPgn = env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
+                val movesSeq = data("treeParts").as[JsArray].value.tail map {move: JsValue =>
                   val nodeMap = move.as[JsObject].value
                   (nodeMap("uci").as[JsString].value, nodeMap("san").as[JsString].value)
                 }

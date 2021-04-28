@@ -52,24 +52,23 @@ object ofPlayer {
                   frag(
                     p(strong(pager.nbResults), " puzzles found in ", userLink(u), " games."),
                     div(cls := "puzzle-of-player__pager infinite-scroll")(
-                      pager.currentPageResults.map {
-                        puzzle =>
-                          div(cls := "puzzle-of-player__puzzle")(
-                            views.html.game.bits.miniTag(
-                              fen = puzzle.fenAfterInitialMove,
-                              color = puzzle.color,
-                              lastMove = puzzle.lastMove
-                            )(
-                              a(
-                                cls := s"puzzle-of-player__puzzle__board",
-                                href := routes.Puzzle.show(puzzle.id.value)
-                              )
-                            ),
-                            span(cls := "puzzle-of-player__puzzle__meta")(
-                              span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
-                              span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
+                      pager.currentPageResults.map { puzzle =>
+                        div(cls := "puzzle-of-player__puzzle")(
+                          views.html.game.bits.miniTag(
+                            fen = puzzle.fenAfterInitialMove,
+                            color = puzzle.color,
+                            lastMove = puzzle.lastMove
+                          )(
+                            a(
+                              cls := s"puzzle-of-player__puzzle__board",
+                              href := routes.Puzzle.show(puzzle.id.value)
                             )
+                          ),
+                          span(cls := "puzzle-of-player__puzzle__meta")(
+                            span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
+                            span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
                           )
+                        )
                       },
                       pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
                     )

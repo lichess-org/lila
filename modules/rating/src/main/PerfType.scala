@@ -129,7 +129,7 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    Correspondence
+    Correspondence,
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -137,19 +137,19 @@ object PerfType {
     Rapid,
     Classical,
     UltraBullet,
-    Correspondence
+    Correspondence,
   )
   val variants: List[PerfType] = Nil
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def variantOf(pt: PerfType): chess.variant.Variant =
     pt match {
-      case _ => chess.variant.Standard // todo variant
+      case _             => chess.variant.Standard // todo variant
     }
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
     variant match {
-      case _ => none
+      case _                           => none
     }
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view

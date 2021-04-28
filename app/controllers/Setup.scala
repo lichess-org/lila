@@ -215,24 +215,22 @@ final class Setup(
       implicit val lang = reqLang
       if (me.isBot) notForBotAccounts.fuccess
       else
-        forms.boardApiHook
-          .bindFromRequest()
-          .fold(
-            newJsonFormError,
-            config =>
-              env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
-                val uniqId = s"sri:${me.id}"
-                config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
-                  case Left(hook) =>
-                    PostRateLimit(HTTPRequest lastRemoteAddress req) {
-                      BoardApiHookConcurrencyLimitPerUser(me.id)(
-                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                      )(apiC.sourceToNdJsonOption).fuccess
-                    }(rateLimitedFu)
-                  case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
-                }
+        forms.boardApiHook.bindFromRequest().fold(
+          newJsonFormError,
+          config =>
+            env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
+              val uniqId = s"sri:${me.id}"
+              config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+                case Left(hook) =>
+                  PostRateLimit(HTTPRequest lastRemoteAddress req) {
+                    BoardApiHookConcurrencyLimitPerUser(me.id)(
+                      env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                    )(apiC.sourceToNdJsonOption).fuccess
+                  }(rateLimitedFu)
+                case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
               }
-          )
+            }
+        )
     }
 
   def filterForm =
@@ -252,15 +250,13 @@ final class Setup(
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
       PostRateLimit(HTTPRequest lastRemoteAddress req) {
-        forms.api.ai
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            config =>
-              processor.apiAi(config, me) map { pov =>
-                Created(env.game.jsonView(pov.game, config.fen)) as JSON
-              }
-          )
+        forms.api.ai.bindFromRequest().fold(
+          jsonFormError,
+          config =>
+            processor.apiAi(config, me) map { pov =>
+              Created(env.game.jsonView(pov.game, config.fen)) as JSON
+            }
+        )
       }(rateLimitedFu)
     }
 
@@ -268,25 +264,23 @@ final class Setup(
     OpenBody { implicit ctx =>
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
-        form(ctx)
-          .bindFromRequest()
-          .fold(
-            err =>
+        form(ctx).bindFromRequest().fold(
+          err =>
+            negotiate(
+              html = keyPages.home(Results.BadRequest),
+              api = _ => jsonFormError(err)
+            ),
+          config =>
+            op(config)(ctx) flatMap { pov =>
               negotiate(
-                html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
-              ),
-            config =>
-              op(config)(ctx) flatMap { pov =>
-                negotiate(
-                  html = fuccess(redirectPov(pov)),
-                  api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
-                      Created(data) as JSON
-                    }
-                )
-              }
-          )
+                html = fuccess(redirectPov(pov)),
+                api = apiVersion =>
+                  env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                    Created(data) as JSON
+                  }
+              )
+            }
+        )
       }(rateLimitedFu)
     }
 

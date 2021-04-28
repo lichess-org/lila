@@ -37,9 +37,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       2350 -> 19,
       2500 -> 21
     )
-  private val poolSize = ratingBuckets.foldLeft(0) {
-    case (acc, (_, nb)) =>
-      acc + nb
+  private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
+    acc + nb
   }
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
@@ -56,53 +55,52 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 )
               )
               Facet(
-                ratingBuckets.map {
-                  case (rating, nbPuzzles) =>
-                    rating.toString -> List(
-                      Match(
-                        $doc(
-                          "min" $lte f"${theme}_${tier}_${rating}%04d",
-                          "max" $gte f"${theme}_${tier}_${rating}%04d"
-                        )
-                      ),
-                      Sample(1),
-                      Project($doc("_id" -> false, "ids" -> true)),
-                      UnwindField("ids"),
-                      // ensure we have enough after filtering deviation & color
-                      Sample(nbPuzzles * 7),
-                      PipelineOperator(
-                        $doc(
-                          "$lookup" -> $doc(
-                            "from" -> colls.puzzle.name.value,
-                            "as"   -> "puzzle",
-                            "let"  -> $doc("id" -> "$ids"),
-                            "pipeline" -> $arr(
-                              $doc(
-                                "$match" -> $doc(
-                                  "$expr" -> $doc(
-                                    "$and" -> $arr(
-                                      $doc("$eq"  -> $arr("$_id", "$$id")),
-                                      $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                      fenColorRegex
-                                    )
+                ratingBuckets.map { case (rating, nbPuzzles) =>
+                  rating.toString -> List(
+                    Match(
+                      $doc(
+                        "min" $lte f"${theme}_${tier}_${rating}%04d",
+                        "max" $gte f"${theme}_${tier}_${rating}%04d"
+                      )
+                    ),
+                    Sample(1),
+                    Project($doc("_id" -> false, "ids" -> true)),
+                    UnwindField("ids"),
+                    // ensure we have enough after filtering deviation & color
+                    Sample(nbPuzzles * 7),
+                    PipelineOperator(
+                      $doc(
+                        "$lookup" -> $doc(
+                          "from" -> colls.puzzle.name.value,
+                          "as"   -> "puzzle",
+                          "let"  -> $doc("id" -> "$ids"),
+                          "pipeline" -> $arr(
+                            $doc(
+                              "$match" -> $doc(
+                                "$expr" -> $doc(
+                                  "$and" -> $arr(
+                                    $doc("$eq"  -> $arr("$_id", "$$id")),
+                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                    fenColorRegex
                                   )
                                 )
-                              ),
-                              $doc(
-                                "$project" -> $doc(
-                                  "fen"    -> true,
-                                  "line"   -> true,
-                                  "rating" -> $doc("$toInt" -> "$glicko.r")
-                                )
+                              )
+                            ),
+                            $doc(
+                              "$project" -> $doc(
+                                "fen"    -> true,
+                                "line"   -> true,
+                                "rating" -> $doc("$toInt" -> "$glicko.r")
                               )
                             )
                           )
                         )
-                      ),
-                      UnwindField("puzzle"),
-                      Sample(nbPuzzles),
-                      ReplaceRootField("puzzle")
-                    )
+                      )
+                    ),
+                    UnwindField("puzzle"),
+                    Sample(nbPuzzles),
+                    ReplaceRootField("puzzle")
+                  )
                 }
               ) -> List(
                 Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),

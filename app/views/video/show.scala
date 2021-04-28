@@ -48,11 +48,7 @@ object show {
             video.author
           ),
           video.tags.map { tag =>
-            a(
-              cls := "tag",
-              dataIcon := "o",
-              href := s"${routes.Video.index()}?tags=${tag.replace(" ", "+")}"
-            )(
+            a(cls := "tag", dataIcon := "o", href := s"${routes.Video.index()}?tags=${tag.replace(" ", "+")}")(
               tag.capitalize
             )
           },

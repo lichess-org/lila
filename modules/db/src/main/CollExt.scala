@@ -194,7 +194,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       value match {
         case None    => unsetField(selector, field).dmap(_.n)
         case Some(v) => updateField(selector, field, v).dmap(_.n)
-      }
+    }
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
       one[D](selector) flatMap {

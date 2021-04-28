@@ -79,8 +79,8 @@ final class Env(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
+      if (tour.isShield) scheduler.scheduleOnce(10 seconds){ shieldApi.clear() }
+      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds){ revolutionApi.clear() }
     },
     indexLeaderboard = leaderboardIndexer.indexOne _
   )

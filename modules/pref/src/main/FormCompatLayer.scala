@@ -14,11 +14,11 @@ object FormCompatLayer {
       moveToAndRename(
         "clock",
         List(
-          "clockTenths"    -> "tenths",
-          "clockCountdown" -> "countdown",
-          "clockBar"       -> "bar",
-          "clockSound"     -> "sound",
-          "moretime"       -> "moretime"
+          "clockTenths"   -> "tenths",
+          "clockCountdown"-> "countdown",
+          "clockBar"      -> "bar",
+          "clockSound"    -> "sound",
+          "moretime"      -> "moretime"
         )
       ) pipe
       addMissing("clock.moretime", pref.moretime.toString) pipe

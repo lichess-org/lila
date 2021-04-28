@@ -41,15 +41,14 @@ final class Puzzle(
       ctx: Context
   ) =
     renderJson(puzzle, theme, replay) zip
-      ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map {
-      case (json, difficulty) =>
+      ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
         EnableSharedArrayBuffer(
           Ok(
             views.html.puzzle
               .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty)
           )
         )
-    }
+      }
 
   def daily =
     Open { implicit ctx =>
@@ -121,48 +120,47 @@ final class Puzzle(
             ctx.me match {
               case Some(me) =>
                 env.puzzle.finisher(id, theme.key, me, data.result) flatMap {
-                  _ ?? {
-                    case (round, perf) =>
-                      val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
-                      for {
-                        _ <- env.puzzle.session.onComplete(round, theme.key)
-                        json <-
-                          if (mobileBc) fuccess {
-                            env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
-                              "round" -> Json.obj(
-                                "ratingDiff" -> 0,
-                                "win"        -> data.result.win
-                              ),
-                              "voted" -> round.vote
-                            )
+                  _ ?? { case (round, perf) =>
+                    val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
+                    for {
+                      _ <- env.puzzle.session.onComplete(round, theme.key)
+                      json <-
+                        if (mobileBc) fuccess {
+                          env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                            "round" -> Json.obj(
+                              "ratingDiff" -> 0,
+                              "win"        -> data.result.win
+                            ),
+                            "voted" -> round.vote
+                          )
+                        }
+                        else
+                          data.replayDays match {
+                            case None =>
+                              for {
+                                next     <- nextPuzzleForMe(theme.key)
+                                nextJson <- renderJson(next, theme, none, newUser.some)
+                              } yield Json.obj(
+                                "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                "next"  -> nextJson
+                              )
+                            case Some(replayDays) =>
+                              for {
+                                _    <- env.puzzle.replay.onComplete(round, replayDays, theme.key)
+                                next <- env.puzzle.replay(me, replayDays, theme.key)
+                                json <- next match {
+                                  case None => fuccess(Json.obj("replayComplete" -> true))
+                                  case Some((puzzle, replay)) =>
+                                    renderJson(puzzle, theme, replay.some) map { nextJson =>
+                                      Json.obj(
+                                        "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                        "next"  -> nextJson
+                                      )
+                                    }
+                                }
+                              } yield json
                           }
-                          else
-                            data.replayDays match {
-                              case None =>
-                                for {
-                                  next     <- nextPuzzleForMe(theme.key)
-                                  nextJson <- renderJson(next, theme, none, newUser.some)
-                                } yield Json.obj(
-                                  "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                                  "next"  -> nextJson
-                                )
-                              case Some(replayDays) =>
-                                for {
-                                  _    <- env.puzzle.replay.onComplete(round, replayDays, theme.key)
-                                  next <- env.puzzle.replay(me, replayDays, theme.key)
-                                  json <- next match {
-                                    case None => fuccess(Json.obj("replayComplete" -> true))
-                                    case Some((puzzle, replay)) =>
-                                      renderJson(puzzle, theme, replay.some) map { nextJson =>
-                                        Json.obj(
-                                          "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                                          "next"  -> nextJson
-                                        )
-                                      }
-                                  }
-                                } yield json
-                            }
-                      } yield json
+                    } yield json
                   }
                 }
               case None =>
@@ -222,51 +220,48 @@ final class Puzzle(
       }
     }
 
-  def themes =
-    Open { implicit ctx =>
-      env.puzzle.api.theme.categorizedWithCount map { themes =>
-        Ok(views.html.puzzle.theme.list(themes))
-      }
+  def themes = Open { implicit ctx =>
+    env.puzzle.api.theme.categorizedWithCount map { themes =>
+      Ok(views.html.puzzle.theme.list(themes))
     }
+  }
 
-  def show(themeOrId: String) =
-    Open { implicit ctx =>
-      NoBot {
-        PuzzleTheme.find(themeOrId) match {
-          case Some(theme) =>
-            nextPuzzleForMe(theme.key) flatMap {
-              renderShow(_, theme)
-            }
-          case None if themeOrId.size == Puz.idSize =>
-            OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
-              ctx.me.?? { me =>
-                !env.puzzle.api.round.exists(me, puz.id) map {
-                  _ ?? env.puzzle.api.casual.set(me, puz.id)
-                }
-              } >>
-                renderShow(puz, PuzzleTheme.mix)
-            }
-          case None =>
-            themeOrId.toLongOption
-              .flatMap(Puz.numericalId.apply)
-              .??(env.puzzle.api.puzzle.find) map {
-              case None      => Redirect(routes.Puzzle.home())
-              case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
-            }
-        }
+  def show(themeOrId: String) = Open { implicit ctx =>
+    NoBot {
+      PuzzleTheme.find(themeOrId) match {
+        case Some(theme) =>
+          nextPuzzleForMe(theme.key) flatMap {
+            renderShow(_, theme)
+          }
+        case None if themeOrId.size == Puz.idSize =>
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
+            ctx.me.?? { me =>
+              !env.puzzle.api.round.exists(me, puz.id) map {
+                _ ?? env.puzzle.api.casual.set(me, puz.id)
+              }
+            } >>
+              renderShow(puz, PuzzleTheme.mix)
+          }
+        case None =>
+          themeOrId.toLongOption
+            .flatMap(Puz.numericalId.apply)
+            .??(env.puzzle.api.puzzle.find) map {
+            case None      => Redirect(routes.Puzzle.home())
+            case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
+          }
       }
     }
+  }
 
-  def showWithTheme(themeKey: String, id: String) =
-    Open { implicit ctx =>
-      NoBot {
-        val theme = PuzzleTheme.findOrAny(themeKey)
-        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-          if (puzzle.themes contains theme.key) renderShow(puzzle, theme)
-          else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
-        }
+  def showWithTheme(themeKey: String, id: String) = Open { implicit ctx =>
+    NoBot {
+      val theme = PuzzleTheme.findOrAny(themeKey)
+      OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
+        if (puzzle.themes contains theme.key) renderShow(puzzle, theme)
+        else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
       }
     }
+  }
 
   def frame =
     Action.async { implicit req =>
@@ -401,9 +396,8 @@ final class Puzzle(
                       .numericalId(solution.id)
                       .map(_ -> Result(solution.win))
                   }
-                  .?? {
-                    case (id, solution) =>
-                      env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win))
+                  .?? { case (id, solution) =>
+                    env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win))
                   } map {
                   case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
                   case Some((round, perf)) =>

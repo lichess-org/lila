@@ -49,7 +49,7 @@ case class Std(
   def apply(situation: Situation) = move(situation) map Left.apply
 
   override def withSuffixes(s: Suffixes) = {
-    val mprom = if (s.promotion == Some("+")) true else false
+    val mprom = if(s.promotion == Some("+")) true else false
     copy(
       metas = metas withSuffixes s,
       promotion = mprom
@@ -71,10 +71,10 @@ case class Std(
         }
       case (m, _) => m
     } match {
-      case None => {
+      case None       => {
         s"No move found: $this\n$situation".failureNel
-      }
-      case Some(move) => move withPromotion (Role.promotesTo(role), promotion) toValid "Wrong promotion"
+        }
+      case Some(move) => move withPromotion(Role.promotesTo(role), promotion) toValid "Wrong promotion"
     }
 
   private def compare[A](a: Option[A], b: A) = a.fold(true)(b ==)

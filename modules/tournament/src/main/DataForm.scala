@@ -127,11 +127,11 @@ object DataForm {
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockByoyomi        = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockByoyomiDefault = 0
-  val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
+  val clockByoyomi          = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  val clockByoyomiDefault   = 0
+  val clockByoyomiChoices   = options(clockByoyomi, "%d second{s}")
 
-  val periods        = 1 to 5
+  val periods = (1 to 5)
   val periodsDefault = 1
   val periodsChoices = options(periods, "%d period{s}")
 

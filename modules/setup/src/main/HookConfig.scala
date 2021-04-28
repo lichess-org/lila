@@ -47,18 +47,7 @@ case class HookConfig(
     )
 
   def >> =
-    (
-      variant.id,
-      timeMode.id,
-      time,
-      increment,
-      byoyomi,
-      periods,
-      days,
-      mode.id.some,
-      ratingRange.toString.some,
-      color.name
-    ).some
+    (variant.id, timeMode.id, time, increment, byoyomi, periods, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) =
     tc match {
@@ -123,18 +112,7 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def from(
-      v: Int,
-      tm: Int,
-      t: Double,
-      i: Int,
-      b: Int,
-      p: Int,
-      d: Int,
-      m: Option[Int],
-      e: Option[String],
-      c: String
-  ) = {
+  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = chess.variant.Variant(v) err s"Invalid game variant $v",

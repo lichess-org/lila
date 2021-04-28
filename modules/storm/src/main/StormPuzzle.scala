@@ -13,8 +13,8 @@ case class StormPuzzle(
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =
-    fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
-      move
+      fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
+        move
     }
 
   lazy val fenAfterInitialMove: FEN = {

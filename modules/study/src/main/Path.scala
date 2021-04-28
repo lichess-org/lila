@@ -22,9 +22,8 @@ case class Path(ids: Vector[UciCharPair]) extends AnyVal {
 
   def intersect(other: Path): Path =
     Path {
-      ids zip other.ids takeWhile {
-        case (a, b) =>
-          a == b
+      ids zip other.ids takeWhile { case (a, b) =>
+        a == b
       } map (_._1)
     }
 
@@ -65,10 +64,9 @@ object Path {
   def decodeDbKey(key: String): String       = key.replace(251.toChar, '.').replace(252.toChar, '$')
 
   def isMainline(node: RootOrNode, path: Path): Boolean =
-    path.split.fold(true) {
-      case (id, rest) =>
-        node.children.first ?? { child =>
-          child.id == id && isMainline(child, rest)
-        }
+    path.split.fold(true) { case (id, rest) =>
+      node.children.first ?? { child =>
+        child.id == id && isMainline(child, rest)
+      }
     }
 }

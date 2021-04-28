@@ -135,9 +135,8 @@ final private[forum] class TopicApi(
     ) mapFutureList { topics =>
       env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
         posts =>
-          topics zip posts map {
-            case (topic, post) =>
-              TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+          topics zip posts map { case (topic, post) =>
+            TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
           }
       }
     }

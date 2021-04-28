@@ -22,7 +22,7 @@ case class SwissPairing(
   def isOngoing                   = status.isLeft
   def resultFor(userId: User.ID)  = winner.map(userId.==)
   def senteWins                   = status == Right(Some(Color.Sente))
-  def goteWins                    = status == Right(Some(Color.Gote))
+  def goteWins                   = status == Right(Some(Color.Gote))
   def isDraw                      = status == Right(None)
 }
 

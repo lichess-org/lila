@@ -86,9 +86,8 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def sort(study: Study, ids: List[Chapter.Id]): Funit =
     coll { c =>
       ids.zipWithIndex
-        .map {
-          case (id, index) =>
-            c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
+        .map { case (id, index) =>
+          c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         }
         .sequenceFu
         .void
@@ -190,9 +189,8 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       path: Path,
       values: List[(String, Option[BSONValue])]
   ): Funit =
-    values.collect {
-      case (field, Some(v)) =>
-        pathToField(path, field) -> v
+    values.collect { case (field, Some(v)) =>
+      pathToField(path, field) -> v
     } match {
       case Nil => funit
       case sets =>
@@ -223,16 +221,15 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
         .list(nbChaptersPerStudy * studyIds.size)
     )
       .map { docs =>
-        docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
-          case (hash, doc) =>
-            doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
-              hash get studyId match {
-                case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
-                case maybe =>
-                  val chapters = ~maybe
-                  hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
-              }
+        docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
+          doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
+            hash get studyId match {
+              case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
+              case maybe =>
+                val chapters = ~maybe
+                hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
             }
+          }
         }
       }
 

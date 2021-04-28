@@ -33,7 +33,7 @@ object BSONHandlers {
           limit <- doc.getAsTry[Int]("limit")
           inc   <- doc.getAsTry[Int]("increment")
           byo   <- doc.getAsTry[Int]("byoyomi")
-          per   <- doc.getAsTry[Int]("periods")
+          per  <- doc.getAsTry[Int]("periods")
         } yield ClockConfig(limit, inc, byo, per)
     },
     c =>

@@ -62,8 +62,8 @@ case class Chapter(
 
   def opening: Option[FullOpening] = None
   // no openings in lishogi right now
-  //if (!Variant.openingSensibleVariants(setup.variant)) none
-  //else FullOpeningDB searchInFens root.mainline.map(_.fen)
+    //if (!Variant.openingSensibleVariants(setup.variant)) none
+    //else FullOpeningDB searchInFens root.mainline.map(_.fen) 
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 

@@ -27,16 +27,15 @@ object embed {
       jsAt("compiled/puzzle.js", false)
     )
 
-  def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) =
-    a(
-      href := routes.Puzzle.daily,
-      title := trans.puzzle.clickToSolve.txt()
-    )(
-      raw(daily.html),
-      div(cls := "vstext")(
-        trans.puzzleOfTheDay(),
-        br,
-        daily.color.fold(trans.blackPlays, trans.whitePlays)()
-      )
+  def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) = a(
+    href := routes.Puzzle.daily,
+    title := trans.puzzle.clickToSolve.txt()
+  )(
+    raw(daily.html),
+    div(cls := "vstext")(
+      trans.puzzleOfTheDay(),
+      br,
+      daily.color.fold(trans.blackPlays, trans.whitePlays)()
     )
+  )
 }

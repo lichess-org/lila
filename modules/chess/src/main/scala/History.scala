@@ -15,9 +15,10 @@ case class CheckCount(sente: Int = 0, gote: Int = 0) {
   def apply(color: Color) = color.fold(sente, gote)
 
   def reset(color: Color) = {
-    if (color.sente) {
+    if(color.sente){
       copy(sente = 0)
-    } else {
+    }
+    else{
       copy(gote = 0)
     }
   }
@@ -70,7 +71,7 @@ case class History(
   def withLastMove(m: Uci) = copy(lastMove = Some(m))
 
   def withCheck(color: Color, v: Boolean) =
-    if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount resetcolor)
+    if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount reset(color))
 
   def withCheckCount(cc: CheckCount) = copy(checkCount = cc)
 

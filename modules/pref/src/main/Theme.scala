@@ -33,8 +33,8 @@ object Theme extends ThemeObject {
   private[pref] val defaultHexColors = (HexColor("b0b0b0"), HexColor("909090"))
 
   private val colors: Map[String, HexColors] = Map(
-    "blue"  -> (HexColor("dee3e6") -> HexColor("8ca2ad")),
-    "brown" -> (HexColor("f0d9b5") -> HexColor("b58863"))
+    "blue"   -> (HexColor("dee3e6") -> HexColor("8ca2ad")),
+    "brown"  -> (HexColor("f0d9b5") -> HexColor("b58863"))
   )
 
   val all = List(
@@ -59,7 +59,7 @@ object Theme extends ThemeObject {
     "darkBoard",
     "doubutsu",
     "transparent",
-    "transparent-white"
+    "transparent-white",
   ) map { name =>
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }

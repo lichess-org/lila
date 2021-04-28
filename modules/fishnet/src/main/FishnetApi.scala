@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
-import Client.{ Evaluation, Skill }
+import Client.{ Skill, Evaluation }
 import lila.common.IpAddress
 import lila.db.dsl._
 
@@ -32,8 +32,7 @@ final class FishnetApi(
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def clientUserId(key: Client.Key): Fu[Option[Client.UserId]] =
-    repo.getEnabledClient(key).map(_.map(_.userId))
+  def clientUserId(key: Client.Key): Fu[Option[Client.UserId]] = repo.getEnabledClient(key).map(_.map(_.userId))
 
   def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
     if (config.offlineMode && req.fishnet.apikey.value.isEmpty) repo.getOfflineClient map some

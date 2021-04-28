@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Color, Gote, Sente }
+import chess.{ Gote, Color, Sente }
 import scala.util.chaining._
 
 import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }

@@ -207,9 +207,7 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    a(cls := "patreon button", href := "https://www.patreon.com/lishogi", target := "_blank")(
-                      "Patreon"
-                    ),
+                    a(cls := "patreon button", href := "https://www.patreon.com/lishogi", target := "_blank")("Patreon"),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )

@@ -86,7 +86,7 @@ object Event {
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Data]
   ) extends Event {
-    val promS = { if (promotion) "+" else "" }
+    val promS = {if(promotion) "+" else ""}
     def typ = "move"
     def data = {
       MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
@@ -290,7 +290,7 @@ object Event {
         .add("ratingDiff" -> ratingDiff.map { rds =>
           Json.obj(
             Color.Sente.name -> rds.sente,
-            Color.Gote.name  -> rds.gote
+            Color.Gote.name -> rds.gote
           )
         })
         .add("boosted" -> game.boosted)
@@ -336,23 +336,17 @@ object Event {
 
   sealed trait ClockEvent extends Event
 
-  case class Clock(
-      sente: Centis,
-      gote: Centis,
-      sPer: Int = 0,
-      gPer: Int = 0,
-      nextLagComp: Option[Centis] = None
-  ) extends ClockEvent {
+  case class Clock(sente: Centis, gote: Centis, sPer: Int = 0, gPer: Int = 0, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data =
       Json
         .obj(
           "sente" -> sente.toSeconds,
-          "gote"  -> gote.toSeconds,
+          "gote" -> gote.toSeconds,
           "sPer"  -> sPer,
           "gPer"  -> gPer
         )
-        .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
+        .add("lag"  -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock =
@@ -384,7 +378,7 @@ object Event {
     def data =
       Json.obj(
         "sente" -> sente,
-        "gote"  -> gote
+        "gote" -> gote
       )
   }
 
@@ -432,7 +426,7 @@ object Event {
       Json
         .obj(
           "sente" -> sente,
-          "gote"  -> gote
+          "gote" -> gote
         )
         .add("watchers" -> watchers)
   }

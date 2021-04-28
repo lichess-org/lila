@@ -141,7 +141,7 @@ Thank you all, you rock!"""
                   )
                 }
               }
-          }
+          },
         ).flatten
       },
       List( // weekly standard tournaments!
@@ -149,7 +149,7 @@ Thank you all, you rock!"""
         nextTuesday   -> SuperBlitz,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
-        nextFriday    -> Classical
+        nextFriday    -> Classical,
       ).flatMap {
         case (day, speed) =>
           at(day, 13) map { date =>
@@ -204,7 +204,7 @@ Thank you all, you rock!"""
         at(today, 12) map { date =>
           Schedule(Eastern, Classical, Standard, std, date pipe orTomorrow).plan
         }
-      ).flatten
+      ).flatten,
       // hourly standard tournaments!
       // (-1 to 6).toList.flatMap { hourDelta =>
       //   val date = rightNow plusHours hourDelta

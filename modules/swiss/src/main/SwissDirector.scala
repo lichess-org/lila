@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Color, Gote, Sente }
+import chess.{ Gote, Color, Sente }
 import org.joda.time.DateTime
 import scala.util.chaining._
 

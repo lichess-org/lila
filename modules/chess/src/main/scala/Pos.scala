@@ -167,7 +167,7 @@ object Pos {
   val all = posCache.toList.flatten
 
   val senteBackrank = (A1 <-> I1).toList
-  val goteBackrank  = (A9 <-> I9).toList
+  val goteBackrank = (A9 <-> I9).toList
 
   val allKeys: Map[String, Pos] = all
     .map { pos =>

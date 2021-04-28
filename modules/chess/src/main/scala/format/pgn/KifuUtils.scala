@@ -6,13 +6,13 @@ import scala._
 
 object KifuUtils {
   val tagParse = Map[TagType, String](
-    Tag.Event       -> "棋戦",
-    Tag.Site        -> "場所",
+    Tag.Event -> "棋戦",
+    Tag.Site -> "場所",
     Tag.TimeControl -> "持ち時間",
-    Tag.Handicap    -> "手合割",
-    Tag.Sente       -> "先手",
-    Tag.Gote        -> "後手",
-    Tag.Opening     -> "戦型"
+    Tag.Handicap -> "手合割",
+    Tag.Sente -> "先手",
+    Tag.Gote -> "後手",
+    Tag.Opening -> "戦型"
   )
 
   val tagIndex = (List(
@@ -35,15 +35,15 @@ object KifuUtils {
     "3" -> "七",
     "2" -> "八",
     "1" -> "九",
-    "a" -> "９",
-    "b" -> "８",
-    "c" -> "７",
-    "d" -> "６",
-    "e" -> "５",
-    "f" -> "４",
-    "g" -> "３",
-    "h" -> "２",
-    "i" -> "１"
+    "a" ->  "９",
+    "b" ->  "８",
+    "c" ->  "７",
+    "d" ->  "６",
+    "e" ->  "５",
+    "f" ->  "４",
+    "g" ->  "３",
+    "h" ->  "２",
+    "i" ->  "１"
   )
   val origSymbols = Map(
     "9" -> "1",
@@ -55,36 +55,36 @@ object KifuUtils {
     "3" -> "7",
     "2" -> "8",
     "1" -> "9",
-    "a" -> "9",
-    "b" -> "8",
-    "c" -> "7",
-    "d" -> "6",
-    "e" -> "5",
-    "f" -> "4",
-    "g" -> "3",
-    "h" -> "2",
-    "i" -> "1"
+    "a" ->  "9",
+    "b" ->  "8",
+    "c" ->  "7",
+    "d" ->  "6",
+    "e" ->  "5",
+    "f" ->  "4",
+    "g" ->  "3",
+    "h" ->  "2",
+    "i" ->  "1"
   )
   val pieceSymbols = Map(
-    "P" -> "歩",
-    "L" -> "香",
-    "N" -> "桂",
-    "S" -> "銀",
-    "B" -> "角",
-    "R" -> "飛",
-    "G" -> "金",
-    "U" -> "成香",
-    "M" -> "成桂",
-    "A" -> "成銀",
-    "T" -> "と",
-    "H" -> "馬",
-    "D" -> "龍",
-    "K" -> "玉"
+    "P" ->  "歩",
+    "L" ->  "香",
+    "N" ->  "桂",
+    "S" ->  "銀",
+    "B" ->  "角",
+    "R" ->  "飛",
+    "G" ->  "金",
+    "U" ->  "成香",
+    "M" ->  "成桂",
+    "A" ->  "成銀",
+    "T" ->  "と",
+    "H" ->  "馬",
+    "D" ->  "龍",
+    "K" ->  "玉"
   )
   val kifuSymbols = Map(
-    "+"    -> "成",
+    "+" ->  "成",
     "same" -> "同　",
-    "*"    -> "打"
+    "*" -> "打"
   )
 
   def tagsAsKifu(tags: Tags): Vector[String] = {
@@ -97,17 +97,16 @@ object KifuUtils {
         val timeControlPattern = "(\\d+)\\+(\\d+)\\+(\\d+)\\((\\d+)\\)".r
 
         val preprocessedValue = tag.name match {
-          case Tag.TimeControl =>
-            tag.value match {
-              case timeControlPattern(init, inc, byo, periods) => {
-                val realInit = if (init.toInt % 60 == 0) s"${init.toInt / 60}分" else s"${init}秒"
-                s"$realInit+${byo}秒 # $init seconds initial time, $inc seconds increment, $byo seconds byoyomi with $periods periods"
-              }
-              case _ => "-"
+          case Tag.TimeControl => tag.value match {
+            case timeControlPattern(init, inc, byo, periods) => {
+              val realInit = if (init.toInt % 60 == 0) s"${init.toInt / 60}分" else s"${init}秒"
+              s"$realInit+${byo}秒 # $init seconds initial time, $inc seconds increment, $byo seconds byoyomi with $periods periods"
             }
+            case _ => "-"
+          }
           case _ => tag.value
         }
-        if (tag.value != "?") x + "：" + preprocessedValue else ""
+        if (tag.value != "?") x + "：" +  preprocessedValue else ""
       }
     } filter { _ != "" }
   }
@@ -117,7 +116,7 @@ object KifuUtils {
       // t is a tuple of (uci, pgn)
       val movePattern = "([a-i])([1-9])([a-i])([1-9])(\\+?)".r
       val dropPattern = "([A-Z])\\*([a-i])([1-9])".r
-      val pgnPattern  = "([A-Z]).*".r
+      val pgnPattern = "([A-Z]).*".r
       val kifuMove = t match {
         case (movePattern(o1, o2, d1, d2, pro), pgnPattern(piece)) => {
           val lastMovePattern = s"(.*)${origSymbols(o1)}${origSymbols(o2)}".r
@@ -126,12 +125,9 @@ object KifuUtils {
             case Some(lastMovePattern(_)) => kifuSymbols("same")
             // else use dest coords
             case _ => destSymbols(d1) + destSymbols(d2)
-          }) + pieceSymbols(piece) + (if (pro == "+") kifuSymbols("+") else "") + "(" + origSymbols(
-            o1
-          ) + origSymbols(o2) + ")"
+          }) + pieceSymbols(piece) + (if (pro == "+") kifuSymbols("+") else "") + "(" + origSymbols(o1) + origSymbols(o2) + ")"
         }
-        case (dropPattern(piece, d1, d2), _) =>
-          destSymbols(d1) + destSymbols(d2) + pieceSymbols(piece) + kifuSymbols("*")
+        case (dropPattern(piece, d1, d2), _) => destSymbols(d1) + destSymbols(d2) + pieceSymbols(piece) + kifuSymbols("*")
         case _ => "UCI/PGN parse error"
       }
       prev :+ kifuMove

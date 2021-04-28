@@ -77,18 +77,17 @@ final private class GameJson(
     )
   }
 
-  private def playersJson(game: Game) =
-    JsArray(game.players.map { p =>
-      val userId = p.userId | "anon"
-      val user   = lightUserApi.syncFallback(userId)
-      Json
-        .obj(
-          "userId" -> userId,
-          "name"   -> s"${user.name} (${p.rating.??(_.toString)})",
-          "color"  -> p.color.name
-        )
-        .add("title" -> user.title)
-    })
+  private def playersJson(game: Game) = JsArray(game.players.map { p =>
+    val userId = p.userId | "anon"
+    val user   = lightUserApi.syncFallback(userId)
+    Json
+      .obj(
+        "userId" -> userId,
+        "name"   -> s"${user.name} (${p.rating.??(_.toString)})",
+        "color"  -> p.color.name
+      )
+      .add("title" -> user.title)
+  })
 
   private def generateBc(game: Game, plies: Int): JsObject =
     Json
@@ -101,20 +100,19 @@ final private class GameJson(
           val pgnMoves = game.pgnMoves.take(plies + 1)
           for {
             pgnMove <- pgnMoves.lastOption
-            situation <-
-              chess.Replay
-                .situations(pgnMoves, None, game.variant)
-                .valueOr { err =>
-                  sys.error(s"GameJson.generateBc ${game.id} $err")
-                }
-                .lastOption
+            situation <- chess.Replay
+              .situations(pgnMoves, None, game.variant)
+              .valueOr { err =>
+                sys.error(s"GameJson.generateBc ${game.id} $err")
+              }
+              .lastOption
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
-            "fen"   -> Forsyth.>>(situation),
-            "ply"   -> (plies + 1),
-            "san"   -> pgnMove,
-            "id"    -> UciCharPair(uciMove).toString,
-            "uci"   -> uciMove.uci,
+            "fen" -> Forsyth.>>(situation),
+            "ply" -> (plies + 1),
+            "san" -> pgnMove,
+            "id"  -> UciCharPair(uciMove).toString,
+            "uci" -> uciMove.uci,
             "crazy" -> Forsyth.exportCrazyPocket(situation.board)
           )
         }

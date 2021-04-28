@@ -60,7 +60,7 @@ object form {
               form("clockByoyomi"),
               trans.clockByoyomi(),
               half = true
-            )(form3.select(_, clockByoyomiChoices))
+              )(form3.select(_, clockByoyomiChoices))
           ),
           form3.split(
             form3.group(
@@ -72,7 +72,7 @@ object form {
               form("periods"),
               trans.numberOfByoyomiPeriods(),
               half = true
-            )(form3.select(_, periodsChoices))
+              )(form3.select(_, periodsChoices))
           ),
           form3.split(
             form3.group(

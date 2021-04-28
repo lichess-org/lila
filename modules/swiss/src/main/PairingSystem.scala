@@ -49,7 +49,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
         case Array(s, g) =>
           for {
             sente <- s.toIntOption flatMap rankingSwap.get
-            gote  <- g.toIntOption flatMap rankingSwap.get
+            gote <- g.toIntOption flatMap rankingSwap.get
           } yield Right(SwissPairing.Pending(sente, gote))
       }
       .flatten

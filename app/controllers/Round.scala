@@ -294,12 +294,10 @@ final class Round(
       import play.api.data.Forms._
       import play.api.data._
       implicit val req = ctx.body
-      Form(single("text" -> text))
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(BadRequest),
-          text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
-        )
+      Form(single("text" -> text)).bindFromRequest().fold(
+        _ => fuccess(BadRequest),
+        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+      )
     }
 
   def readNote(gameId: String) =

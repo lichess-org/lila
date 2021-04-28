@@ -26,18 +26,16 @@ case class Puzzle(
 
   lazy val fenAfterInitialMove: FEN = {
     gameId match {
-      case Some(_) =>
-        for {
-          sit1 <- Forsyth << fen
-          sit2 <- line.head match {
-            case Uci.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
-            case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
-          }
-        } yield FEN(Forsyth >> sit2)
-      case None =>
-        for {
-          sit1 <- Forsyth << fen
-        } yield FEN(Forsyth >> sit1)
+      case Some(_) => for {
+        sit1 <- Forsyth << fen
+        sit2 <- line.head match {
+          case Uci.Drop(role, pos) => sit1.drop(role, pos).toOption.map(_.situationAfter)
+          case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
+        }
+      } yield FEN(Forsyth >> sit2)
+      case None => for {
+        sit1 <- Forsyth << fen
+      } yield FEN(Forsyth >> sit1)
     }
 
   } err s"Can't apply puzzle $id first move"
@@ -45,13 +43,13 @@ case class Puzzle(
   def color: chess.Color =
     gameId match {
       case Some(_) => Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
-      case None    => Forsyth.getColor(fen).getOrElse(chess.Sente)
+      case None => Forsyth.getColor(fen).getOrElse(chess.Sente)
     }
-
+  
   def lastMove: String =
     gameId match {
       case Some(_) => line.head.uci
-      case None    => ""
+      case None => ""
     }
 }
 
@@ -71,25 +69,21 @@ object Puzzle {
     private val powers: List[Long] =
       (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
 
-    def apply(id: Id): Long =
-      id.value.toList
-        .zip(powers)
-        .foldLeft(0L) {
-          case (l, (char, pow)) =>
-            l + charToInt(char) * pow
-        }
-
-    def apply(l: Long): Option[Id] =
-      (l > 130_000) ?? {
-        val str = powers.reverse
-          .foldLeft(("", l)) {
-            case ((id, rest), pow) =>
-              val frac = rest / pow
-              (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
-          }
-          ._1
-        (str.size == idSize) option Id(str)
+    def apply(id: Id): Long = id.value.toList
+      .zip(powers)
+      .foldLeft(0L) { case (l, (char, pow)) =>
+        l + charToInt(char) * pow
       }
+
+    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
+      val str = powers.reverse
+        .foldLeft(("", l)) { case ((id, rest), pow) =>
+          val frac = rest / pow
+          (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
+        }
+        ._1
+      (str.size == idSize) option Id(str)
+    }
 
     private def charToInt(c: Char) = {
       val i = c.toInt

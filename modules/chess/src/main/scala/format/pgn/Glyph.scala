@@ -82,11 +82,11 @@ object Glyph {
     val equal               = new Glyph(10, "=", "Equal position") with PositionAssessment
     val unclear             = new Glyph(13, "∞", "Unclear position") with PositionAssessment
     val senteSlightlyBetter = new Glyph(14, "⩲", "Sente is slightly better") with PositionAssessment
-    val goteSlightlyBetter  = new Glyph(15, "⩱", "Gote is slightly better") with PositionAssessment
+    val goteSlightlyBetter = new Glyph(15, "⩱", "Gote is slightly better") with PositionAssessment
     val senteQuiteBetter    = new Glyph(16, "±", "Sente is better") with PositionAssessment
-    val goteQuiteBetter     = new Glyph(17, "∓", "Gote is better") with PositionAssessment
+    val goteQuiteBetter    = new Glyph(17, "∓", "Gote is better") with PositionAssessment
     val senteMuchBetter     = new Glyph(18, "+−", "Sente is winning") with PositionAssessment
-    val goteMuchBetter      = new Glyph(19, "-+", "Gote is winning") with PositionAssessment
+    val goteMuchBetter     = new Glyph(19, "-+", "Gote is winning") with PositionAssessment
 
     val all = List(
       equal,

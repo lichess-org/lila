@@ -104,31 +104,30 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  ): Fu[Paginator[Study.WithChaptersAndLiked]] =
-    studyRepo.coll { coll =>
-      val adapter = new Adapter[Study](
-        collection = coll,
-        selector = selector,
-        projection = studyRepo.projection.some,
-        sort = order match {
-          case Order.Hot     => $sort desc "rank"
-          case Order.Newest  => $sort desc "createdAt"
-          case Order.Oldest  => $sort asc "createdAt"
-          case Order.Updated => $sort desc "updatedAt"
-          case Order.Popular => $sort desc "likes"
-          // mine filter for topic view
-          case Order.Mine => $sort desc "rank"
-        },
-        hint = hint
-      ) mapFutureList withChaptersAndLiking(me)
-      Paginator(
-        adapter = nbResults.fold(adapter) { nb =>
-          new CachedAdapter(adapter, nb)
-        },
-        currentPage = page,
-        maxPerPage = maxPerPage
-      )
-    }
+  ): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll { coll =>
+    val adapter = new Adapter[Study](
+      collection = coll,
+      selector = selector,
+      projection = studyRepo.projection.some,
+      sort = order match {
+        case Order.Hot     => $sort desc "rank"
+        case Order.Newest  => $sort desc "createdAt"
+        case Order.Oldest  => $sort asc "createdAt"
+        case Order.Updated => $sort desc "updatedAt"
+        case Order.Popular => $sort desc "likes"
+        // mine filter for topic view
+        case Order.Mine => $sort desc "rank"
+      },
+      hint = hint
+    ) mapFutureList withChaptersAndLiking(me)
+    Paginator(
+      adapter = nbResults.fold(adapter) { nb =>
+        new CachedAdapter(adapter, nb)
+      },
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+  }
 
   def withChaptersAndLiking(
       me: Option[User],
@@ -152,9 +151,8 @@ final class StudyPager(
     me.?? { u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))
     } map { liked =>
-      studies.map {
-        case Study.WithChapters(study, chapters) =>
-          Study.WithChaptersAndLiked(study, chapters, liked(study.id))
+      studies.map { case Study.WithChapters(study, chapters) =>
+        Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
 }

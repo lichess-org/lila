@@ -41,9 +41,9 @@ object bits {
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),
-      "is3d"          -> ctx.pref.is3d,
+      "is3d" -> ctx.pref.is3d,
       "pieceNotation" -> ctx.pref.pieceNotation,
-      "i18n"          -> i18nJsObject(i18nKeyes)
+      "i18n" -> i18nJsObject(i18nKeyes)
     )
 
   private val i18nKeyes = List(

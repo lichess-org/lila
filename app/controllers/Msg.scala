@@ -109,8 +109,7 @@ final class Msg(
           (!me.kid && userId != me.id) ?? {
             import play.api.data._
             import play.api.data.Forms._
-            Form(single("text" -> nonEmptyText))
-              .bindFromRequest()
+            Form(single("text" -> nonEmptyText)).bindFromRequest()
               .fold(
                 err => jsonFormErrorFor(err, req, me.some),
                 text => env.msg.api.post(me.id, userId, text)

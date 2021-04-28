@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.chat.Chat
-import lila.common.{ Animal, Bus, LightUser }
+import lila.common.{ Bus, Animal, LightUser }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID

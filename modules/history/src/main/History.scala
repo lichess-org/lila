@@ -5,7 +5,7 @@ import scala.util.Success
 import lila.rating.PerfType
 
 case class History(
-    standard: RatingsMap, //todo variant
+    standard: RatingsMap,//todo variant
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,

@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Uci
 import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
-import chess.variant.{ Standard }
+import chess.variant.{Standard}
 import lila.db.ByteArray
 
 sealed trait PgnStorage
@@ -55,7 +55,7 @@ private object PgnStorage {
   //         halfMoveClock = decoded.halfMoveClock
   //       )
   //     }
-  //
+  // 
   //   private def chessPos(sq: Integer): Option[Pos] =
   //     Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
   //   private def chessRole(role: JavaRole): Role =

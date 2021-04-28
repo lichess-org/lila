@@ -101,8 +101,8 @@ final class Dasher(env: Env) extends LilaController(env) {
                 "streamer" -> isStreamer,
                 "i18n"     -> translations,
                 "pieceNotation" -> Json.obj(
-                  "current" -> ctx.pref.pieceNotation,
-                  "list" -> lila.pref.Notations.list.map { n =>
+                  "current"  -> ctx.pref.pieceNotation,
+                  "list"     -> lila.pref.Notations.list.map { n =>
                     s"${n.key} ${n.name}"
                   }
                 )

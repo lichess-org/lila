@@ -104,8 +104,7 @@ final class Swiss(
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create
-              .bindFromRequest()
+            env.swiss.forms.create.bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
                 data =>
@@ -170,8 +169,7 @@ final class Swiss(
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
-        env.swiss.forms.nextRound
-          .bindFromRequest()
+        env.swiss.forms.nextRound.bindFromRequest()
           .fold(
             _ => Redirect(routes.Page.notSupported()).fuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Page.notSupported())

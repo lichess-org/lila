@@ -16,7 +16,7 @@ final private class EvalCacheTruster(
   private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
 
-  def apply(user: User): Trust = {
+  def apply(user: User): Trust ={
     if (user.lameOrTroll) LOWER
     else if (Granter(_.SeeReport)(user)) HIGHER
     else

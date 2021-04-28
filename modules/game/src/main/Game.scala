@@ -4,19 +4,7 @@ import chess.Color.{ Gote, Sente }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{
-  Castles,
-  Centis,
-  CheckCount,
-  Clock,
-  Color,
-  Mode,
-  MoveOrDrop,
-  Speed,
-  Status,
-  Game => ChessGame,
-  StartingPosition
-}
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame, StartingPosition }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -142,9 +130,9 @@ case class Game(
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
-
+      
       val byoStart = {
-        if (clk.players(color).startsAtZero)
+        if(clk.players(color).startsAtZero)
           0
         else (history.turnByoyomiStarted(color) - 1)
       }
@@ -154,11 +142,10 @@ case class Game(
       pairs.zipWithIndex.map {
         case ((first, second), index) => {
             val d = first - second
-            if (((index + 1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
+            if(((index+1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
               clk.byoyomi // If we time out over a period(s) this doesn't work
-            else if ((index + 1) >= byoStart) second
-            else if (pairs.hasNext || !noLastInc) d + inc
-            else d
+            else if((index+1) >= byoStart) second
+            else if (pairs.hasNext || !noLastInc) d + inc else d
           } nonNeg
       } toList
     }
@@ -178,8 +165,8 @@ case class Game(
   def bothClockStates: Option[Vector[Centis]] = {
     (clock, clockHistory) match {
       case (Some(c), Some(ch)) => Some(ch.bothClockStates(startColor, c.byoyomi))
-      case (_, Some(ch))       => Some(ch.bothClockStates(startColor, Centis(0)))
-      case _                   => None
+      case (_, Some(ch)) => Some(ch.bothClockStates(startColor, Centis(0)))
+      case _ => None
     }
   }
 
@@ -290,14 +277,10 @@ case class Game(
     }
 
   def moveToNextPeriod = {
-    clock map { c =>
-      {
+    clock map { c => {
         clockHistory match {
           case Some(ch) =>
-            start.withClockAndHistory(
-              c.nextPeriod(turnColor),
-              ch.enteredNewPeriod(turnColor, chess.fullMoveNumber)
-            )
+            start.withClockAndHistory(c.nextPeriod(turnColor), ch.enteredNewPeriod(turnColor, chess.fullMoveNumber))
           case _ => start.withClock(c.nextPeriod(turnColor))
         }
       }
@@ -347,8 +330,7 @@ case class Game(
 
   def alarmable = hasCorrespondenceClock && playable && nonAi
 
-  def continuable =
-    status != Status.Mate && status != Status.Stalemate && status != Status.Impasse && status != Status.PerpetualCheck // todo
+  def continuable = status != Status.Mate && status != Status.Stalemate && status != Status.Impasse && status != Status.PerpetualCheck// todo
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
@@ -364,12 +346,12 @@ case class Game(
     )
 
   def playerCanOfferDraw(color: Color) = false
-  //started && playable &&
-  //  turns >= 8 &&
-  //  chess.situation.impasse &&
-  //  !player(color).isOfferingDraw &&
-  //  !opponent(color).isAi &&
-  //  !playerHasOfferedDraw(color)
+    //started && playable &&
+    //  turns >= 8 &&
+    //  chess.situation.impasse &&
+    //  !player(color).isOfferingDraw &&
+    //  !opponent(color).isAi &&
+    //  !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
@@ -499,7 +481,7 @@ case class Game(
     else outoftimeClock(withGrace)
   }
 
-  def nextPeriodClock(withGrace: Boolean): Boolean =
+  def nextPeriodClock(withGrace: Boolean): Boolean = 
     clock ?? { c =>
       !isCorrespondence && clockValidity && c.outOfTime(turnColor, withGrace) && c.hasPeriodsLeft(turnColor)
     }
@@ -663,7 +645,7 @@ case class Game(
   def pov(c: Color)                                 = Pov(this, c)
   def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
   def sentePov                                      = pov(Sente)
-  def gotePov                                       = pov(Gote)
+  def gotePov                                      = pov(Gote)
   def playerPov(p: Player)                          = pov(p.color)
   def loserPov                                      = loser map playerPov
 
@@ -697,7 +679,7 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
-    chess.variant.FromPosition
+    chess.variant.FromPosition,
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
@@ -867,7 +849,7 @@ object CastleLastMove {
 }
 
 // Represents at what turn we entered a new period
-case class PeriodEntries(sente: Vector[Int], gote: Vector[Int]) {
+case class PeriodEntries(sente: Vector[Int], gote: Vector[Int]){
   def apply(c: Color) =
     c.fold(sente, gote)
 
@@ -878,19 +860,19 @@ case class PeriodEntries(sente: Vector[Int], gote: Vector[Int]) {
     c.fold(!sente.isEmpty, !gote.isEmpty)
 
   def turnIsPresent(c: Color, t: Int): Boolean = c.fold(sente contains t, gote contains t)
-  def dropTurn(c: Color, t: Int) =
+  def dropTurn(c: Color, t: Int) = 
     c.fold(
-      copy(sente = sente filterNot (_ == t)),
-      copy(gote = gote filterNot (_ == t))
+      copy(sente = sente filterNot(_ == t)),
+      copy(gote = gote filterNot(_ == t))
     )
 
   def first(c: Color): Option[Int] = c.fold(sente.headOption, gote.headOption)
-  def last(c: Color): Option[Int]  = c.fold(sente.lastOption, gote.lastOption)
+  def last(c: Color): Option[Int] = c.fold(sente.lastOption, gote.lastOption)
 }
 
 object PeriodEntries {
   val default = PeriodEntries(Vector(), Vector())
-  val zeroes  = PeriodEntries(Vector(0), Vector(0))
+  val zeroes = PeriodEntries(Vector(0), Vector(0))
 }
 
 case class ClockHistory(
@@ -903,18 +885,19 @@ case class ClockHistory(
     color.fold(copy(sente = f(sente)), copy(gote = f(gote)))
 
   def record(color: Color, clock: Clock, finalRecord: Boolean = false): ClockHistory = {
-    if (finalRecord && clock.isUsingByoyomi(color)) {
+    if(finalRecord && clock.isUsingByoyomi(color)){
       val remTime = clock.remainingTime(color)
       update(color, _ :+ (clock.byoyomi - remTime))
-    } else update(color, _ :+ clock.remainingTimeTurn(color))
+    }
+    else update(color, _ :+ clock.remainingTimeTurn(color))
   }
 
   def validateStart(clock: Clock): ClockHistory = {
-    if (clock.startsAtZero && periodEntries(Sente).isEmpty && periodEntries(Gote).isEmpty)
+    if(clock.startsAtZero && periodEntries(Sente).isEmpty && periodEntries(Gote).isEmpty)
       copy(periodEntries = PeriodEntries.zeroes)
     else this
   }
-
+  
   def reset(color: Color) = update(color, _ => Vector.empty)
 
   def apply(color: Color): Vector[Centis] = color.fold(sente, gote)
@@ -941,7 +924,7 @@ case class ClockHistory(
     periodEntries.turnIsPresent(color, turn)
 
   def dropTurn(color: Color, turn: Int) = {
-    if (turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
+    if(turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
     else this
   }
 

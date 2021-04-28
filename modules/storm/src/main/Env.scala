@@ -34,9 +34,8 @@ final class Env(
   val forms = StormForm
 
   lila.common.Bus.subscribeFuns(
-    "gdprErase" -> {
-      case lila.user.User.GDPRErase(user) =>
-        dayApi.eraseAllFor(user)
+    "gdprErase" -> { case lila.user.User.GDPRErase(user) =>
+      dayApi.eraseAllFor(user)
     }
   )
 }

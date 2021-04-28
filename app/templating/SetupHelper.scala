@@ -85,7 +85,7 @@ trait SetupHelper { self: I18nHelper =>
   def translatedTimeModeChoices(implicit lang: Lang) = {
     List(
       (TimeMode.RealTime.id.toString, trans.realTime.txt(), none),
-      (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none)
+      (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none),
       //(TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
     )
   }
@@ -143,13 +143,13 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(
       encode: Variant => String
   )(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoices(encode) ::: List( // todo variants
+    translatedVariantChoices(encode) ::: List(// todo variants
     ).map(variantTuple(encode))
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
     translatedVariantChoices
-  //variantTupleId(chess.variant.Chess960) :+
-  //variantTupleId(chess.variant.FromPosition)
+      //variantTupleId(chess.variant.Chess960) :+
+      //variantTupleId(chess.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit lang: Lang) =
     translatedVariantChoices :+
@@ -211,7 +211,7 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.PieceNotation.WESTERN, "Western notation"),
       (Pref.PieceNotation.WESTERN2, "Western2 notation"),
       (Pref.PieceNotation.JAPANESE, "Japanese notation"),
-      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation") // trans.preferences.pgnLetter.txt()
+      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation"), // trans.preferences.pgnLetter.txt()
     )
 
   def translatedClockTenthsChoices(implicit lang: Lang) =

@@ -16,23 +16,22 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
 
   import BsonHandlers._
 
-  def nextFor(user: Option[User], nb: Int): Fu[Vector[Puzzle]] =
-    (nb > 0) ?? {
-      user match {
-        case None => anonApi.getBatchFor(nb)
-        case Some(user) =>
-          {
-            val tier =
-              if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
-              else PuzzleTier.Top
-            pathApi.nextFor(
-              user,
-              PuzzleTheme.mix.key,
-              tier,
-              PuzzleDifficulty.Normal,
-              Set.empty
-            ) orFail
-              s"No puzzle path for ${user.id} $tier" flatMap { pathId =>
+  def nextFor(user: Option[User], nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
+    user match {
+      case None => anonApi.getBatchFor(nb)
+      case Some(user) =>
+        {
+          val tier =
+            if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
+            else PuzzleTier.Top
+          pathApi.nextFor(
+            user,
+            PuzzleTheme.mix.key,
+            tier,
+            PuzzleDifficulty.Normal,
+            Set.empty
+          ) orFail
+            s"No puzzle path for ${user.id} $tier" flatMap { pathId =>
               colls.path {
                 _.aggregateList(nb) { framework =>
                   import framework._
@@ -61,7 +60,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
                 }
               }
             }
-          }.mon(_.puzzle.selector.user.batch(nb = nb))
-      }
+        }.mon(_.puzzle.selector.user.batch(nb = nb))
     }
+  }
 }

@@ -27,20 +27,18 @@ final class LastPostCache(
         api.prismicApi flatMap { prismic =>
           api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none, langCode) map {
             _ ?? {
-              _.currentPageResults.toList flatMap MiniPost.fromDocument(
-                config.collection,
-                langCode = langCode
-              )
+              _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection, langCode=langCode)
             }
           }
         }
       })
     } addEffect maybeNotifyLastPost map { _.flatten }
-    miniPosts.map { m => }
+    miniPosts.map { m =>
+    }
     miniPosts
   }
 
-  private val lastNotifiedId    = collection.mutable.Map[String, Option[String]]().withDefaultValue(None)
+  private val lastNotifiedId = collection.mutable.Map[String, Option[String]]().withDefaultValue(None)
   private val lastNotifiedTitle = collection.mutable.Map[String, Option[String]]().withDefaultValue(None)
   // stores whether the new english blog post was already translated
   private val wasTranslated = collection.mutable.Map[String, Option[Boolean]]().withDefaultValue(None)
@@ -48,7 +46,7 @@ final class LastPostCache(
   private def maybeNotifyLastPost(posts: List[List[MiniPost]]): Unit = {
     posts foreach { postsLang =>
       postsLang.headOption foreach { last =>
-        val newBlogWasPosted = lastNotifiedId(last.langCode).??(x => {
+        val newBlogWasPosted = lastNotifiedId(last.langCode).??( (x) => {
           last.id != x
         })
         if (last.langCode == "en-US") {
@@ -61,12 +59,12 @@ final class LastPostCache(
           }
           // if japanese, notify if new blog title was detected and the japanese title is different from english title (meaning the blog was already translated)
 
-          val enTitle              = posts(BlogLangs.enIndex)(0).title
+          val enTitle = posts(BlogLangs.enIndex)(0).title
           val titleDifferentFromEn = last.title != enTitle
-          val titleSameWithEn      = !titleDifferentFromEn
+          val titleSameWithEn = !titleDifferentFromEn
           if (titleSameWithEn) wasTranslated += (last.langCode -> Some(false))
 
-          val titleWasChanged  = lastNotifiedTitle(last.langCode).??(last.title !=)
+          val titleWasChanged = lastNotifiedTitle(last.langCode).??(last.title !=)
           val notYetTranslated = !wasTranslated(last.langCode).getOrElse(false)
 
           if (titleWasChanged && titleDifferentFromEn && notYetTranslated) {
@@ -74,7 +72,7 @@ final class LastPostCache(
             wasTranslated += (last.langCode -> Some(true))
           }
         }
-        lastNotifiedId += (last.langCode    -> last.id.some)
+        lastNotifiedId += (last.langCode -> last.id.some)
         lastNotifiedTitle += (last.langCode -> last.title.some)
       }
     }

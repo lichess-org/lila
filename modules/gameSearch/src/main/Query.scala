@@ -102,6 +102,7 @@ object Query {
   val clockByos =
     options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
+
   val winnerColors = List(1 -> "Sente", 2 -> "Gote", 3 -> "None")
 
   val sources = lila.game.Source.searchable map { v =>

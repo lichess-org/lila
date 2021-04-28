@@ -31,12 +31,12 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
 
     def apply(situation: Situation) = {
       situation.move(orig, dest, promotion) map Left.apply
-    }
+      }
   }
 
   object Move {
 
-    def apply(move: String): Option[Move] = {
+    def apply(move: String): Option[Move] ={
       for {
         orig <- Pos.posAt(move take 2)
         dest <- Pos.posAt(move drop 2 take 2)
@@ -55,7 +55,7 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
       for {
         orig <- Pos.posAt(origS)
         dest <- Pos.posAt(destS)
-        promotion = if (promS.isDefined && promS != Some("=")) true else false
+        promotion = if(promS.isDefined && promS != Some("=")) true else false
       } yield Move(orig, dest, promotion)
     }
   }

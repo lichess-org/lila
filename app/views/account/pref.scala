@@ -16,7 +16,7 @@ object pref {
     div(cls := List("none" -> (categ != active)))
 
   private def setting(name: Frag, body: Frag, display: Boolean = true) = {
-    if (display) st.section(h2(name), body) else st.section(style := "display:none;")(h2(name), body)
+    if(display) st.section(h2(name), body) else st.section(style:="display:none;")(h2(name), body)
   }
 
   private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
@@ -52,7 +52,7 @@ object pref {
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
               pieceAnimation(),
-              radios(form("display.animation"), translatedAnimationChoices)
+              radios(form("display.animation"), translatedAnimationChoices),
             ),
             setting(
               materialDifference(),

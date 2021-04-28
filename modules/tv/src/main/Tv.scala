@@ -149,16 +149,15 @@ object Tv {
     }.toMap
   }
 
-  private def rated(min: Int)                         = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def minRating(min: Int)                     = (c: Candidate) => hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed)               = (c: Candidate) => c.game.speed == speed
-  private def variant(variant: chess.variant.Variant) = (c: Candidate) => c.game.variant == variant
-  private def standardShogiRules(c: Candidate) =
-    c.game.variant == V.Standard || c.game.variant == V.FromPosition
-  private val freshBlitz                          = 60 * 2
-  private def computerStandardRules(c: Candidate) = c.game.hasAi && standardShogiRules(c)
-  private def hasBot(c: Candidate)                = c.hasBot
-  private def noBot(c: Candidate)                 = !c.hasBot
+  private def rated(min: Int)                           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def minRating(min: Int)                       = (c: Candidate) => hasMinRating(c.game, min)
+  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
+  private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
+  private def standardShogiRules(c: Candidate)          = c.game.variant == V.Standard || c.game.variant == V.FromPosition
+  private val freshBlitz                                = 60 * 2
+  private def computerStandardRules(c: Candidate)       = c.game.hasAi && standardShogiRules(c)
+  private def hasBot(c: Candidate)                      = c.hasBot
+  private def noBot(c: Candidate)                       = !c.hasBot
 
   private def fresh(seconds: Int, game: Game): Boolean = {
     game.isBeingPlayed && !game.olderThan(seconds)

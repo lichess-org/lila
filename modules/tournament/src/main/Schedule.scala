@@ -209,27 +209,27 @@ object Schedule {
         // Similar speed tournaments should not be simultaneously scheduled
         case (a, b) if a == b                            => true
         case (Bullet, SuperBlitz) | (SuperBlitz, Bullet) => true
-        case (Blitz, HyperRapid) | (HyperRapid, Blitz)   => true
+        case (Blitz,  HyperRapid) | (HyperRapid, Blitz)  => true
         case _                                           => false
       }
     def fromClock(clock: chess.Clock.Config) = {
       val time = clock.estimateTotalSeconds
-      if (time < 60) UltraBullet
-      else if (time < 180) HyperBullet
-      else if (time < 300) Bullet
-      else if (time < 450) SuperBlitz
-      else if (time < 600) Blitz
+      if      (time < 60)   UltraBullet
+      else if (time < 180)  HyperBullet
+      else if (time < 300)  Bullet
+      else if (time < 450)  SuperBlitz
+      else if (time < 600)  Blitz
       else if (time < 1000) HyperRapid
       else if (time < 1500) Rapid
       else Classical
     }
     def toPerfType(speed: Speed) =
       speed match {
-        case UltraBullet          => PerfType.UltraBullet
-        case HyperBullet | Bullet => PerfType.Bullet
-        case SuperBlitz | Blitz   => PerfType.Blitz
-        case HyperRapid | Rapid   => PerfType.Rapid
-        case Classical            => PerfType.Classical
+        case UltraBullet                        => PerfType.UltraBullet
+        case HyperBullet | Bullet               => PerfType.Bullet
+        case SuperBlitz | Blitz                 => PerfType.Blitz
+        case HyperRapid | Rapid                 => PerfType.Rapid
+        case Classical                          => PerfType.Classical
       }
   }
 
@@ -269,19 +269,19 @@ object Schedule {
       case (Weekend, _, Rapid)                              => 60 * 3
       case (Weekend, _, Classical)                          => 60 * 4
 
-      case (Monthly, _, UltraBullet)          => 60 * 2
-      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
-      case (Monthly, _, SuperBlitz | Blitz)   => 60 * 3 + 30
-      case (Monthly, _, HyperRapid)           => 60 * 4
-      case (Monthly, _, Rapid)                => 60 * 5
-      case (Monthly, _, Classical)            => 60 * 6
+      case (Monthly, _, UltraBullet)              => 60 * 2
+      case (Monthly, _, HyperBullet | Bullet)     => 60 * 3
+      case (Monthly, _, SuperBlitz | Blitz)       => 60 * 3 + 30
+      case (Monthly, _, HyperRapid)               => 60 * 4
+      case (Monthly, _, Rapid)                    => 60 * 5
+      case (Monthly, _, Classical)                => 60 * 6
 
-      case (Shield, _, UltraBullet)          => 60 * 1 + 30
-      case (Shield, _, HyperBullet | Bullet) => 60 * 2
-      case (Shield, _, SuperBlitz | Blitz)   => 60 * 3
-      case (Shield, _, HyperRapid)           => 60 * 4
-      case (Shield, _, Rapid)                => 60 * 6
-      case (Shield, _, Classical)            => 60 * 8
+      case (Shield, _, UltraBullet)              => 60 * 1 + 30
+      case (Shield, _, HyperBullet | Bullet)     => 60 * 2
+      case (Shield, _, SuperBlitz | Blitz)       => 60 * 3
+      case (Shield, _, HyperRapid)               => 60 * 4
+      case (Shield, _, Rapid)                    => 60 * 6
+      case (Shield, _, Classical)                => 60 * 8
 
       case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
       case (Yearly, _, SuperBlitz | Blitz)                 => 60 * 3
@@ -293,7 +293,7 @@ object Schedule {
       case (ExperimentalMarathon, _, _) => 60 * 3
 
       case (Unique, _, _) => 60 * 6
-      case (_, _, _)      => 60 * 1
+      case (_, _, _) => 60 * 1
     }
   }
 
@@ -308,16 +308,16 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2, 0, 1)
+      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2, 0, 1)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2, 0, 1)
 
-      case (_, _, UltraBullet) => TC(30, 0, 0, 1)       // 30
-      case (_, _, HyperBullet) => TC(60, 1, 0, 1)       // 2 * 60
-      case (_, _, Bullet)      => TC(2 * 60, 2, 0, 1)   // 4 * 60
-      case (_, _, SuperBlitz)  => TC(3 * 60, 3, 0, 1)   // 6 * 60
-      case (_, _, Blitz)       => TC(8 * 60, 0, 0, 1)   // 8 * 60
-      case (_, _, HyperRapid)  => TC(10 * 60, 0, 0, 1)  // 10 * 60
+      case (_, _, UltraBullet) => TC(30, 0, 0, 1) // 30
+      case (_, _, HyperBullet) => TC(60, 1, 0, 1) // 2 * 60
+      case (_, _, Bullet)      => TC(2 * 60, 2, 0, 1) // 4 * 60
+      case (_, _, SuperBlitz)  => TC(3 * 60, 3, 0, 1) // 6 * 60
+      case (_, _, Blitz)       => TC(8 * 60, 0, 0, 1) // 8 * 60
+      case (_, _, HyperRapid)  => TC(10 * 60, 0, 0, 1) // 10 * 60
       case (_, _, Rapid)       => TC(10 * 60, 0, 10, 1) // 10 * 60 + 10 * 25
       case (_, _, Classical)   => TC(20 * 60, 10, 0, 1) // 30 * 60
     }
@@ -332,20 +332,20 @@ object Schedule {
 
       val nbRatedGame = (s.freq, s.speed) match {
 
-        case (Hourly | Daily | Eastern, HyperBullet | Bullet) => 0
-        case (Hourly | Daily | Eastern, SuperBlitz | Blitz)   => 0
-        case (Hourly | Daily | Eastern, HyperRapid | Rapid)   => 0
+        case (Hourly | Daily | Eastern, HyperBullet | Bullet)             => 0
+        case (Hourly | Daily | Eastern, SuperBlitz | Blitz)               => 0
+        case (Hourly | Daily | Eastern, HyperRapid | Rapid)               => 0
 
-        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet) => 1
-        case (Weekly | Weekend | Monthly | Shield, SuperBlitz | Blitz)   => 1
-        case (Weekly | Weekend | Monthly | Shield, HyperRapid | Rapid)   => 1
+        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)  => 1
+        case (Weekly | Weekend | Monthly | Shield, SuperBlitz | Blitz)    => 1
+        case (Weekly | Weekend | Monthly | Shield, HyperRapid | Rapid)    => 1
 
         case _ => 0
       }
 
       val minRating = (s.freq, s.variant) match {
         // case (Weekend, _)                        => 2200
-        case _ => 0
+        case _                                   => 0
       }
 
       Condition.All(

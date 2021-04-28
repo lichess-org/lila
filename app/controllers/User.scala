@@ -263,12 +263,12 @@ final class User(
               implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
               Ok(
                 Json.obj(
-                  "bullet"         -> leaderboards.bullet,
-                  "blitz"          -> leaderboards.blitz,
-                  "rapid"          -> leaderboards.rapid,
-                  "classical"      -> leaderboards.classical,
-                  "ultraBullet"    -> leaderboards.ultraBullet,
-                  "correspondence" -> leaderboards.correspondence // todo variant
+                  "bullet"        -> leaderboards.bullet,
+                  "blitz"         -> leaderboards.blitz,
+                  "rapid"         -> leaderboards.rapid,
+                  "classical"     -> leaderboards.classical,
+                  "ultraBullet"   -> leaderboards.ultraBullet,
+                  "correspondence"-> leaderboards.correspondence // todo variant
                 )
               )
             }
@@ -421,16 +421,14 @@ final class User(
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note
-          .bindFromRequest()
-          .fold(
-            e => err(e)(user),
-            data =>
-              {
-                val isMod = data.mod && isGranted(_.ModNote, me)
-                env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } inject suc
-          )
+        env.user.forms.note.bindFromRequest().fold(
+          e => err(e)(user),
+          data =>
+            {
+              val isMod = data.mod && isGranted(_.ModNote, me)
+              env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
+            } inject suc
+        )
       }
     }
 

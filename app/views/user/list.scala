@@ -27,7 +27,8 @@ object list {
         .OpenGraph(
           title = "Shogi players and leaderboards",
           url = s"$netBaseUrl${routes.User.list().url}",
-          description = "Best Shogi players in bullet, blitz, rapid and classical"
+          description =
+            "Best Shogi players in bullet, blitz, rapid and classical"
         )
         .some
     ) {
@@ -53,7 +54,7 @@ object list {
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
               userTopPerf(leaderboards.correspondence, PerfType.Correspondence),
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
-              tournamentWinners(tourneyWinners)
+              tournamentWinners(tourneyWinners),
             )
           )
         )

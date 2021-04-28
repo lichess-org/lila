@@ -168,16 +168,14 @@ final class Mod(
   def setTitle(username: String) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
       implicit def req = ctx.body
-      lila.user.DataForm.title
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(redirect(username, mod = true)),
-          title =>
-            modApi.setTitle(me.id, username, title map Title.apply) >>
-              env.security.automaticEmail.onTitleSet(username) >>-
-              env.user.lightUserApi.invalidate(UserModel normalize username) inject
-              redirect(username, mod = false)
-        )
+      lila.user.DataForm.title.bindFromRequest().fold(
+        _ => fuccess(redirect(username, mod = true)),
+        title =>
+          modApi.setTitle(me.id, username, title map Title.apply) >>
+            env.security.automaticEmail.onTitleSet(username) >>-
+            env.user.lightUserApi.invalidate(UserModel normalize username) inject
+            redirect(username, mod = false)
+      )
     }
 
   def setEmail(username: String) =
@@ -314,11 +312,10 @@ final class Mod(
     SecureBody(_.UserSearch) { implicit ctx => _ =>
       implicit def req = ctx.body
       val f            = UserSearch.form
-      f.bindFromRequest()
-        .fold(
-          err => BadRequest(html.mod.search(err, Nil)).fuccess,
-          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
-        )
+      f.bindFromRequest().fold(
+        err => BadRequest(html.mod.search(err, Nil)).fuccess,
+        query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+      )
     }
 
   protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
@@ -387,18 +384,17 @@ final class Mod(
       OptionFuResult(env.user.repo named username) { user =>
         Form(
           single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
-        ).bindFromRequest()
-          .fold(
-            _ => BadRequest(html.mod.permissions(user, me)).fuccess,
-            permissions => {
-              val newPermissions = Permission(permissions) diff Permission(user.roles)
-              modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
-                newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
-              } >> {
-                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
-              } inject Redirect(routes.Mod.permissions(username)).flashSuccess
-            }
-          )
+        ).bindFromRequest().fold(
+          _ => BadRequest(html.mod.permissions(user, me)).fuccess,
+          permissions => {
+            val newPermissions = Permission(permissions) diff Permission(user.roles)
+            modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
+              newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
+            } >> {
+              Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
+            } inject Redirect(routes.Mod.permissions(username)).flashSuccess
+          }
+        )
       }
     }
 

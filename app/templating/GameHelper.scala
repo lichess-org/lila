@@ -181,10 +181,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case Some(p) if p.color.sente => trans.blackResigned.txt()
           case _                        => trans.whiteResigned.txt()
         }
-      case S.UnknownFinish  => trans.finished.txt()
-      case S.Stalemate      => trans.stalemate.txt()
-      case S.Impasse        => "Impasse"
-      case S.PerpetualCheck => "Perpetual Check"
+      case S.UnknownFinish => trans.finished.txt()
+      case S.Stalemate     => trans.stalemate.txt()
+      case S.Impasse       => "Impasse"
+      case S.PerpetualCheck=> "Perpetual Check"
       case S.Timeout =>
         game.loser match {
           case Some(p) if p.color.sente => trans.blackLeftTheGame.txt()
@@ -194,7 +194,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
       case S.NoStart => {
-        val color = game.loser.fold(Color.sente)(_.color).name.capitalize
+        val color = game.loser.fold(Color.sente)(_.color).name.capitalize  
         s"$color didn't move"
       }
       case S.Cheat => "Cheat detected"

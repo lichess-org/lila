@@ -22,19 +22,19 @@ object SimulForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  val clockByoyomi        = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
-  val clockByoyomiDefault = 0
+  val clockByoyomi          = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockByoyomiDefault   = 0
   val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
 
-  val periods        = 1 to 5
-  val periodsDefault = 1
+  val periods         = (1 to 5)
+  val periodsDefault   = 1
   val periodsChoices = options(periods, "%d period{s}")
 
   val colors = List("sente", "random", "gote")
   val colorChoices = List(
     "sente"  -> "Sente/Shitate",
     "random" -> "Random",
-    "gote"   -> "Gote/Uwate"
+    "gote"  -> "Gote/Uwate"
   )
   val colorDefault = "gote"
 

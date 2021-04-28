@@ -82,9 +82,8 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "puzzle" :: "delete" :: id :: Nil =>
-          api.puzzle delete Puzzle.Id(id) inject "Done"
+      def process = { case "puzzle" :: "delete" :: id :: Nil =>
+        api.puzzle delete Puzzle.Id(id) inject "Done"
       }
     }
 }

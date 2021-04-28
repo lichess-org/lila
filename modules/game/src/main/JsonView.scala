@@ -118,7 +118,7 @@ object JsonView {
       "daysPerTurn" -> c.daysPerTurn,
       "increment"   -> c.increment,
       "sente"       -> c.senteTime,
-      "gote"        -> c.goteTime
+      "gote"       -> c.goteTime
     )
   }
 

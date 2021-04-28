@@ -3,7 +3,7 @@ package controllers
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
-import chess.variant.{ Crazyhouse, FromPosition, Standard, Variant }
+import chess.variant.{ FromPosition, Standard, Variant, Crazyhouse }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -136,8 +136,7 @@ final class UserAnalysis(
   def pgn =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.importer.forms.importForm
-        .bindFromRequest()
+      env.importer.forms.importForm.bindFromRequest()
         .fold(
           jsonFormError,
           data =>

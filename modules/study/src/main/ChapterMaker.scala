@@ -40,9 +40,8 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith {
-        case e: Exception =>
-          fufail(ValidationException(e.getMessage))
+      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith { case e: Exception =>
+        fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
       studyId = study.id,

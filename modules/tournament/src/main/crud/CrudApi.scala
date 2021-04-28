@@ -22,7 +22,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
-      clockByoyomi = tour.clock.byoyomiSeconds,
+      clockByoyomi  = tour.clock.byoyomiSeconds,
       periods = tour.clock.periods,
       minutes = tour.minutes,
       variant = tour.variant.id,

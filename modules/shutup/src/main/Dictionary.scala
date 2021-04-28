@@ -263,8 +263,8 @@ sikiyonuz
 s[ii̇]kt[ii̇]r
 yarra[gğ][iı] yediniz
 """)
-
-  def ja = dict("""
+ 
+ def ja = dict("""
 ばか
 うざい
 わるがき

@@ -480,8 +480,7 @@ final class Clas(
   def invitationAccept(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      Form(single("v" -> boolean))
-        .bindFromRequest()
+      Form(single("v" -> boolean)).bindFromRequest()
         .fold(
           _ => Redirect(routes.Clas.invitation(id)).fuccess,
           v => {
