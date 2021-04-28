@@ -19,7 +19,6 @@
   <string name="startDate">Datum začetka v vaše časovnem pasu</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
-  <string name="cloneRound">Kloniraj ta krog</string>
   <string name="resetRound">Ponastavi ta krog</string>
   <string name="deleteRound">Izbriši ta krog</string>
 </resources>
