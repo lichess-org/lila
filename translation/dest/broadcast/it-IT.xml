@@ -19,7 +19,6 @@
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
   <string name="credits">Cita la fonte</string>
-  <string name="cloneRound">Clona questo turno</string>
   <string name="resetRound">Reimposta questo turno</string>
   <string name="deleteRound">Cancella questo turno</string>
 </resources>
