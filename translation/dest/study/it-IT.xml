@@ -103,7 +103,7 @@
     <item quantity="other">Incolla qui i testi PGN, massimo %s partite</item>
   </plurals>
   <string name="urlOfTheGame">URL della partita</string>
-  <string name="loadAGameFromXOrY">Carica una partita da %1$s o %2$s</string>
+  <string name="loadAGameFromXOrY">Carica una partita da %1$s</string>
   <string name="createChapter">Crea capitolo</string>
   <string name="configureLiveBroadcast">Configura diretta live</string>
   <string name="createStudy">Crea studio</string>

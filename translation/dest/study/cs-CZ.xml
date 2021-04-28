@@ -111,7 +111,7 @@
     <item quantity="other">Vložte obsah vašeho PGN souboru (až %s her)</item>
   </plurals>
   <string name="urlOfTheGame">URL hry</string>
-  <string name="loadAGameFromXOrY">Načíst hru z %1$s nebo %2$s</string>
+  <string name="loadAGameFromXOrY">Načíst hru z %1$s</string>
   <string name="createChapter">Vytvořit kapitolu</string>
   <string name="configureLiveBroadcast">Konfigurace živého vysílání</string>
   <string name="createStudy">Vytvořit studii</string>

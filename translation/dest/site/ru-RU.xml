@@ -243,7 +243,7 @@
 	<string name="finishesX">завершится %s</string>
 	<string name="abortGame">Отменить игру</string>
 	<string name="gameAborted">Игра отменена</string>
-	<string name="standard">Классические шахматы</string>
+	<string name="standard">Классические сёги</string>
 	<string name="unlimited">Отсутствует</string>
 	<string name="mode">Режим</string>
 	<string name="casual">Товарищеская</string>
@@ -405,7 +405,7 @@
 		<item quantity="other">%s импортированных</item>
 	</plurals>
 	<string name="thisIsAChessCaptcha">Это CAPTCHA.</string>
-	<string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в шахматы!).</string>
+	<string name="clickOnTheBoardToMakeYourMove">Кликните по доске и сделайте ход, чтобы доказать, что вы человек, а не компьютер. (Всем известно, что компьютеры не умеют играть в сёги!).</string>
 	<string name="captcha.fail">Пожалуйста, решите капчу.</string>
 	<string name="notACheckmate">Это не мат</string>
 	<string name="whiteCheckmatesInOneMove">Белые ставят мат в один ход</string>
@@ -499,7 +499,7 @@
 	<string name="handicap">Фора</string>
 	<string name="startPosition">Начальная позиция</string>
 	<string name="clearBoard">Очистить доску</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">Заполнить руку готэ</string>
 	<string name="savePosition">Сохранить позицию</string>
 	<string name="loadPosition">Загрузить позицию</string>
 	<string name="isPrivate">Закрытый</string>
@@ -724,9 +724,9 @@
 	<string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
 	<string name="simulHostExtraTime">Дополнительное время сеансёра</string>
 	<string name="numberOfByoyomiPeriods">Количество периодов бёёми</string>
-	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="hostColorForEachGame">Цвет в каждой игре</string>
 	<string name="onlyMembersOfTeam">Только для участников</string>
-	<string name="simulDescription">Simul description</string>
+	<string name="simulDescription">Описание сеанса</string>
 	<string name="anythingTellParticipants">Хотите что-нибудь сказать участникам?</string>
 	<string name="lishogiTournaments">Турниры Lishogi</string>
 	<string name="tournamentFAQ">Вопросы и ответы про Арену</string>
@@ -832,7 +832,7 @@
 	<string name="usernameCharsInvalid">Имя пользователя должно состоять только из букв, цифр, подчёркиваний и дефисов.</string>
 	<string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
 	<string name="directlySupportLishogi">Поддержать Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
+	<string name="playChessInStyle">В стиле сёги</string>
 	<string name="chessBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>

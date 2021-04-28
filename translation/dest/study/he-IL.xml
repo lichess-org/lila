@@ -111,7 +111,7 @@
     <item quantity="other">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
   </plurals>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
-  <string name="loadAGameFromXOrY">טען משחק מ%1$s או מ%2$s</string>
+  <string name="loadAGameFromXOrY">טען משחק מ%1$s</string>
   <string name="createChapter">צור פרק</string>
   <string name="configureLiveBroadcast">קבע שידור חי</string>
   <string name="createStudy">צור מחקר</string>

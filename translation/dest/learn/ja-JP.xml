@@ -102,7 +102,7 @@
 	<string name="captureAndDefendPieces">駒を取り、駒を守る</string>
 	<string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
 	<string name="combatComplete">おめでとうございます！どうやって将棋の駒を戦わせるかを覚えました！</string>
-	<string name="checkInOne">1手で王手</string>
+	<string name="checkInOne">1 手で王手</string>
 	<string name="attackTheOpponentsKing">相手の王将/玉将を攻撃する</string>
 	<string name="checkInOneIntro">王手するには相手の王将/玉将を攻撃します。相手は防がなければならない！</string>
 	<string name="checkInOneGoal">1 手で相手の王将/玉将を
@@ -121,7 +121,7 @@
 	<string name="escapeOrBlock">王将/玉将を逃がすか
 合駒で防いでください！</string>
 	<string name="outOfCheckComplete">おめでとうございます！王将/玉将を取られたらおしまいなので、王手が来たら必ず防ぐこと！</string>
-	<string name="mateInOne">1手で詰み</string>
+	<string name="mateInOne">1 手で詰み</string>
 	<string name="defeatTheOpponentsKing">相手の王将/玉将を詰ませる</string>
 	<string name="mateInOneIntro">相手が王手を防げなくなれば、あなたの勝ちです。</string>
 	<string name="attackYourOpponentsKing">防げないような

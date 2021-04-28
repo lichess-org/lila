@@ -28,7 +28,7 @@
   <string name="notTheMove">Это не тот ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden">скрытый</string>
+  <string name="hidden">скрыт</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решена %s раз</item>
     <item quantity="few">Решена %s раз</item>

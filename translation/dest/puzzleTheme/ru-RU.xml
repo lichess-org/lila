@@ -10,7 +10,7 @@
   <string name="equalityDescription">Отыграйтесь из проигранной позиции: сведите партию на ничью или получите позиционное равенство.</string>
   <string name="defensiveMove">Защитный ход</string>
   <string name="defensiveMoveDescription">Точный ход или последовательность ходов, которые необходимы во избежание потери фигуры или другого преимущества.</string>
-  <string name="deflection">Deflection</string>
+  <string name="deflection">Отвлечение</string>
   <string name="deflectionDescription">Ход, отвлекающий фигуру противника от важной задачи, например, от защиты ключевого поля.</string>
   <string name="discoveredAttack">Вскрытое нападение</string>
   <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>

@@ -103,7 +103,7 @@
     <item quantity="other">Cole seu texto PGN aqui, até %s jogos</item>
   </plurals>
   <string name="urlOfTheGame">URL do jogo</string>
-  <string name="loadAGameFromXOrY">Carregar um jogo do %1$s ou de %2$s</string>
+  <string name="loadAGameFromXOrY">Carregar um jogo do %1$s</string>
   <string name="createChapter">Criar capítulo</string>
   <string name="configureLiveBroadcast">Configurar transmissão ao vivo</string>
   <string name="createStudy">Criar estudo</string>

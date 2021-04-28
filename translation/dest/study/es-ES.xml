@@ -103,7 +103,7 @@
     <item quantity="other">Pega aquí el código PGN, %s partidas como máximo</item>
   </plurals>
   <string name="urlOfTheGame">URL de la partida</string>
-  <string name="loadAGameFromXOrY">Cargar una partida desde %1$s o %2$s</string>
+  <string name="loadAGameFromXOrY">Cargar una partida desde %1$s</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="configureLiveBroadcast">Configurar la emisión en directo</string>
   <string name="createStudy">Crear estudio</string>

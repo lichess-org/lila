@@ -103,7 +103,7 @@
     <item quantity="other">यहां अपना PGN टेक्स्ट (text) डाले, %s खेल तक</item>
   </plurals>
   <string name="urlOfTheGame">खेल का URL, प्रति पंक्ति एक</string>
-  <string name="loadAGameFromXOrY">%1$s या %2$s से गेम लोड करें</string>
+  <string name="loadAGameFromXOrY">%1$s से गेम लोड करें</string>
   <string name="createChapter">अध्याय बनाएँ</string>
   <string name="configureLiveBroadcast">लाइव प्रसारण कॉन्फ़िगर करें</string>
   <string name="createStudy">अध्ययन बनाएँ</string>

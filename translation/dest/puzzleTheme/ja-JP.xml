@@ -17,13 +17,13 @@
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
   <string name="endgame">終盤</string>
-  <string name="endgameDescription">A tactic during the last phase of the game.</string>
+  <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
   <string name="fork">両取り</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
   <string name="hangingPiece">Hanging piece</string>
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
   <string name="long">長手数問題</string>
-  <string name="longDescription">Five moves to win.</string>
+  <string name="longDescription">5 手で勝ちになります。</string>
   <string name="mate">詰み</string>
   <string name="mateDescription">きれいに勝ちを決める。</string>
   <string name="mateIn1">1 手詰</string>
@@ -45,7 +45,7 @@
   <string name="oneMove">1 手問題</string>
   <string name="oneMoveDescription">1 手だけ動かす問題。</string>
   <string name="opening">序盤</string>
-  <string name="openingDescription">ゲームの終盤でのタクティクス。</string>
+  <string name="openingDescription">ゲームの序盤でのタクティクス。</string>
   <string name="pin">ピン</string>
   <string name="pinDescription">ピンを含む問題。ラインピースに狙われた駒が動くと、より価値の高い駒が取られてしまう状況。</string>
   <string name="quietMove">Quiet move</string>

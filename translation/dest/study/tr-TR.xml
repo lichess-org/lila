@@ -103,7 +103,7 @@
     <item quantity="other">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
   </plurals>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
-  <string name="loadAGameFromXOrY">%1$s veya %2$s kullanarak oyun yükle</string>
+  <string name="loadAGameFromXOrY">%1$s kullanarak oyun yükle</string>
   <string name="createChapter">Bölüm oluştur</string>
   <string name="configureLiveBroadcast">Canlı yayını yapılandır</string>
   <string name="createStudy">Çalışma oluştur</string>

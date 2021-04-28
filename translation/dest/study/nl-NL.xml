@@ -103,7 +103,7 @@
     <item quantity="other">Plak je PGN tekst hier, tot %s spellen mogelijk</item>
   </plurals>
   <string name="urlOfTheGame">URL van de partijen, één per regel</string>
-  <string name="loadAGameFromXOrY">Laad partijen van %1$s of %2$s</string>
+  <string name="loadAGameFromXOrY">Laad partijen van %1$s</string>
   <string name="createChapter">Creëer hoofdstuk</string>
   <string name="configureLiveBroadcast">Configureer live uitzending</string>
   <string name="createStudy">Maak studie</string>

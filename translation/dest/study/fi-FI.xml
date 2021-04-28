@@ -103,7 +103,7 @@
     <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
   </plurals>
   <string name="urlOfTheGame">URL peliin</string>
-  <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s tai %2$s</string>
+  <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s</string>
   <string name="createChapter">Aloita luku</string>
   <string name="configureLiveBroadcast">Määritä livelähetys</string>
   <string name="createStudy">Luo tutkielma</string>

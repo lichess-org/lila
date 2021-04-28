@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="faqAbbreviation">FAQ</string>
-	<string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="faqAbbreviation">Câu hỏi thường gặp</string>
+	<string name="frequentlyAskedQuestions">Những câu hỏi thường gặp</string>
+	<string name="whyIsLishogiCalledLishogi">Tại sao Lishogi lại... có tên là Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi là một dự án mã nguồn mở dựa trên Lichess, nhưng vì nó dùng để chơi Shogi, nên tên của nó là Lishogi!</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Bởi vì nó lấy cảm hứng từ Lichess, mà Lichess có tên như vậy vì nó là sự kết hợp của live/light/libre và chess. Lishogi được đọc là %1$s</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
-	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
+	<string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
+	<string name="whyLiveLightLibre">Live ( luôn trực tiếp ) vì các ván đấu luôn được chơi và theo dõi 24/4. Light và Libre ( nhẹ và miễn phí ) vì Lishogi có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
