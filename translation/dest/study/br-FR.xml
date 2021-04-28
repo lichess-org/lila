@@ -71,15 +71,13 @@
   <string name="chapterPgn">PGN ar pennad</string>
   <string name="downloadGame">Pellgargañ ur c\'hrogad</string>
   <string name="studyUrl">Studiañ URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL skignañ</string>
   <string name="currentChapterUrl">URL ar pennad evit poent</string>
-  <string name="currentGameUrl">URL ar c\'hrogad o ren</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Gallout a rit pegañ se er forom evit ensoc\'hañ</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Gallout a rit pegañ se er forom evit ensoc\'hañ</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn pe blog</string>
   <string name="readMoreAboutEmbedding">Goût hiroc\'h diwar-benn an ensoc\'hañ</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Ar studiadennoù foran a c\'hall bezañ ensoc\'het!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Ar studiadennoù foran a c\'hall bezañ ensoc\'het!</string>
   <string name="open">Digeriñ</string>
   <string name="xBroughtToYouByY">%1$s, zo kaset deoc\'h gant %2$s</string>
   <string name="studyNotFound">N\'eo ket bet kavet ar studiadenn</string>
