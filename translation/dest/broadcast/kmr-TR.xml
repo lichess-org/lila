@@ -13,4 +13,7 @@
   <string name="tournamentDescription">Bi kurtasî di derbqrê pêşbirkî da</string>
   <string name="resetRound">Vî raundî bîne serî</string>
   <string name="deleteRound">Vî raundî jê bibe</string>
+  <string name="broadcastUrl">Lînka Weşanê</string>
+  <string name="currentRoundUrl">Lînka raundê niha</string>
+  <string name="currentGameUrl">Lînka lîstika niha</string>
 </resources>
