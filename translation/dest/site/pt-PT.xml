@@ -78,7 +78,7 @@
   <string name="losing">Perdendo</string>
   <string name="drawn">Empatado</string>
   <string name="unknown">Desconhecidos</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Base de dados</string>
+  <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Pontuação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta conta violou os termos de serviço do Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou/diminuiu a sua pontuação de forma artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabelas de finais</string>
   <string name="takeback">Voltar uma jogada atrás</string>
   <string name="proposeATakeback">Propor voltar uma jogada atrás</string>
@@ -616,7 +615,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Código fonte</string>
+  <string name="sourceCode">Código fonte</string>
   <string name="simultaneousExhibitions">Exibições simultâneas</string>
   <string name="host">Anfitrião</string>
   <string name="hostColorX">Cor do anfitrião: %s</string>
