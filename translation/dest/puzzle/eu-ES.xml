@@ -39,8 +39,16 @@
   <string name="normal">Arrunta</string>
   <string name="easier">Erraza</string>
   <string name="easiest">Errazena</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ariketen zure puntuazioa baino puntu bat beherago</item>
+    <item quantity="other">Ariketen zure puntuazioa baino %s puntu beherago</item>
+  </plurals>
   <string name="harder">Zaila</string>
   <string name="hardest">Zailena</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ariketen zure puntuazioa baino puntu bat gorago</item>
+    <item quantity="other">Ariketen zure puntuazioa baino %s puntu gorago</item>
+  </plurals>
   <string name="example">Adibidea</string>
   <string name="addAnotherTheme">Beste gai bat gehitu</string>
   <string name="jumpToNextPuzzleImmediately">Salto egin hurrengo ariketara berehala</string>
