@@ -19,7 +19,6 @@
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
-  <string name="cloneRound">Sklonuj tę rundę</string>
   <string name="resetRound">Zresetuj tę rundę</string>
   <string name="deleteRound">Usuń tę rundę</string>
 </resources>
