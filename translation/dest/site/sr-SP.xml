@@ -79,7 +79,7 @@
   <string name="losing">Губи</string>
   <string name="drawn">Реми</string>
   <string name="unknown">Не зна се</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">База података</string>
+  <string name="database">База података</string>
   <string name="whiteDrawBlack">Бели / Реми / Црни</string>
   <string name="averageRatingX">Просечан рејтинг: %s</string>
   <string name="recentGames">Недавне партије</string>
@@ -292,7 +292,6 @@
     <item quantity="other">Додај %s секунди</item>
   </plurals>
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
@@ -635,7 +634,7 @@
   <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="termsOfService">Услови коришћења услуге</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Изворни код</string>
+  <string name="sourceCode">Изворни код</string>
   <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
   <string name="hostColorX">Боја приређивача: %s</string>
