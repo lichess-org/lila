@@ -97,7 +97,26 @@
   <string name="allSet">සියල්ල හරි!</string>
   <string name="importPgn">PGN දමන්න</string>
   <string name="delete">මකන්න</string>
+  <string name="deleteThisImportedGame">මේ දැමූ සෙල්ලම මකන්නද?</string>
+  <string name="replayMode">නැවත කිරීමේ අන්දම</string>
   <string name="realtimeReplay">එසැණින්</string>
+  <string name="byCPL">CPL තුල</string>
+  <string name="openStudy">විවෘත අධ්‍යයනය</string>
+  <string name="enable">සක්‍රීය කරන්න</string>
+  <string name="bestMoveArrow">හොඳම ඇදීම පෙන්නන්න</string>
+  <string name="evaluationGauge">ඇගයීම් මිනුම</string>
+  <string name="multipleLines">විවිධ ඇදීම්</string>
+  <string name="cpus">CPUගණන</string>
+  <string name="memory">මතකය</string>
+  <string name="infiniteAnalysis">අනන්තවත් ඇගයීම්</string>
+  <string name="removesTheDepthLimit">ගැඹුර සීමාව ඉවත් කර ඔබේ පරිගණකය උණුසුම්ව තබයි</string>
+  <string name="blunder">ලොකු වරද</string>
+  <string name="mistake">සුළු වරද</string>
+  <string name="inaccuracy">නිවැරදිම නෑ</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%sලොකු වරද</item>
+    <item quantity="other">%sලොකු වරදවල්</item>
+  </plurals>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
