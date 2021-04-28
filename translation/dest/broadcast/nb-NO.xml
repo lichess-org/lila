@@ -21,4 +21,7 @@
   <string name="credits">Krediter kilden</string>
   <string name="resetRound">Nullstill denne runden</string>
   <string name="deleteRound">Slett denne runden</string>
+  <string name="broadcastUrl">URL for denne overføringen</string>
+  <string name="currentRoundUrl">URL for denne runden</string>
+  <string name="currentGameUrl">URL for dette partiet</string>
 </resources>
