@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Дата на добавяне (най-стари)</string>
   <string name="recentlyUpdated">Скоро обновени</string>
   <string name="mostPopular">Най-популярни</string>
+  <string name="alphabetical">По азбучен ред</string>
   <string name="addNewChapter">Добавяне на нов раздел</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Глава</item>
