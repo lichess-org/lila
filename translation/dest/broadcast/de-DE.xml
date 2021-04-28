@@ -19,7 +19,6 @@
   <string name="startDate">Startdatum in deiner eigenen Zeitzone</string>
   <string name="startDateHelp">Optional, falls du weißt wann das Ereignis beginnt</string>
   <string name="credits">Erwähne die Quelle</string>
-  <string name="cloneRound">Diese Runde klonen</string>
   <string name="resetRound">Diese Runde zurücksetzen</string>
   <string name="deleteRound">Diese Runde löschen</string>
 </resources>
