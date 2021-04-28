@@ -78,7 +78,7 @@
   <string name="losing">Perdendo</string>
   <string name="drawn">Empate</string>
   <string name="unknown">Posição desconhecida</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Banco de Dados</string>
+  <string name="database">Banco de Dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço do Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
@@ -615,7 +614,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condições de uso</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Código-fonte</string>
+  <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
   <string name="hostColorX">Cor do simultanista: %s</string>
