@@ -45,6 +45,10 @@
   </plurals>
   <string name="harder">Difícil</string>
   <string name="hardest">Muito difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Um ponto acima da sua classificação de quebra-cabeças</item>
+    <item quantity="other">%s pontos acima da sua classificação de quebra-cabeças</item>
+  </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar um outro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir para o próximo problema automaticamente</string>
