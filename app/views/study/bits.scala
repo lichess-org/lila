@@ -15,7 +15,7 @@ object bits {
 
   def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) = {
     val orders =
-      if (active == "all") Order.allButOldest
+      if (active == "all") Order.withoutSelector
       else if (active startsWith "topic") Order.allWithMine
       else Order.all
     views.html.base.bits.mselect(

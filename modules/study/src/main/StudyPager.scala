@@ -110,11 +110,12 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match {
-        case Order.Hot     => $sort desc "rank"
-        case Order.Newest  => $sort desc "createdAt"
-        case Order.Oldest  => $sort asc "createdAt"
-        case Order.Updated => $sort desc "updatedAt"
-        case Order.Popular => $sort desc "likes"
+        case Order.Hot          => $sort desc "rank"
+        case Order.Newest       => $sort desc "createdAt"
+        case Order.Oldest       => $sort asc "createdAt"
+        case Order.Updated      => $sort desc "updatedAt"
+        case Order.Popular      => $sort desc "likes"
+        case Order.Alphabetical => $sort asc "name"
         // mine filter for topic view
         case Order.Mine => $sort desc "rank"
       },
@@ -160,17 +161,18 @@ final class StudyPager(
 sealed abstract class Order(val key: String, val name: I18nKey)
 
 object Order {
-  case object Hot     extends Order("hot", trans.study.hot)
-  case object Newest  extends Order("newest", trans.study.dateAddedNewest)
-  case object Oldest  extends Order("oldest", trans.study.dateAddedOldest)
-  case object Updated extends Order("updated", trans.study.recentlyUpdated)
-  case object Popular extends Order("popular", trans.study.mostPopular)
-  case object Mine    extends Order("mine", trans.study.myStudies)
+  case object Hot          extends Order("hot", trans.study.hot)
+  case object Newest       extends Order("newest", trans.study.dateAddedNewest)
+  case object Oldest       extends Order("oldest", trans.study.dateAddedOldest)
+  case object Updated      extends Order("updated", trans.study.recentlyUpdated)
+  case object Popular      extends Order("popular", trans.study.mostPopular)
+  case object Alphabetical extends Order("alphabetical", trans.study.alphabetical)
+  case object Mine         extends Order("mine", trans.study.myStudies)
 
-  val default      = Hot
-  val all          = List(Hot, Newest, Oldest, Updated, Popular)
-  val allButOldest = all filter (Oldest !=)
-  val allWithMine  = Mine :: all
+  val default         = Hot
+  val all             = List(Hot, Newest, Oldest, Updated, Popular, Alphabetical)
+  val withoutSelector = all.filter(o => o != Oldest && o != Alphabetical)
+  val allWithMine     = Mine :: all
   private val byKey: Map[String, Order] = allWithMine.map { o =>
     o.key -> o
   }.toMap

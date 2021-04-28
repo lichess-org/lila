@@ -48,7 +48,8 @@ final class Study(
     Open { implicit ctx =>
       Reasonable(page) {
         Order(o) match {
-          case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
+          case order if !Order.withoutSelector.contains(order) =>
+            Redirect(routes.Study.allDefault(page)).fuccess
           case order =>
             env.study.pager.all(ctx.me, order, page) flatMap { pag =>
               negotiate(
