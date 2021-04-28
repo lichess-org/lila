@@ -19,7 +19,6 @@
   <string name="startDate">Fecha de inicio en tu zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
   <string name="credits">Cita la fuente</string>
-  <string name="cloneRound">Clonar esta ronda</string>
   <string name="resetRound">Restablecer esta ronda</string>
   <string name="deleteRound">Eliminar esta ronda</string>
 </resources>
