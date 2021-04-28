@@ -22,8 +22,8 @@
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
-  <string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
-  <string name="youPlayTheBlackPieces">Jugues les peces negres</string>
+  <string name="youPlayTheWhitePieces">Jugues amb les peces blanques</string>
+  <string name="youPlayTheBlackPieces">Jugues amb les peces negres</string>
   <string name="itsYourTurn">És el teu torn!</string>
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
@@ -35,7 +35,7 @@
   <string name="whitePlays">Les blanques juguen</string>
   <string name="blackPlays">Les negres juguen</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">El seu contrincant ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
+    <item quantity="one">El seu contrincant ha abandonat la partida. Pot reclamar la victòria en %s segons.</item>
     <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
   </plurals>
   <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
@@ -864,4 +864,6 @@ en %3$s</string>
   <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
   <string name="newPendingReview">Nova ressenya pendent</string>
   <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
+  <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
+  <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>
 </resources>
