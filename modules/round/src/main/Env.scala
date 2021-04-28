@@ -91,20 +91,18 @@ final class Env(
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
   Bus.subscribeFuns(
-    "accountClose" -> {
-      case lila.hub.actorApi.security.CloseAccount(userId) =>
-        gameRepo.allPlaying(userId) map {
-          _ foreach { pov =>
-            tellRound(pov.gameId, Resign(pov.playerId))
-          }
+    "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
+      gameRepo.allPlaying(userId) map {
+        _ foreach { pov =>
+          tellRound(pov.gameId, Resign(pov.playerId))
         }
+      }
     },
-    "gameStartId" -> {
-      case Game.Id(gameId) => onStart(gameId)
+    "gameStartId" -> { case Game.Id(gameId) =>
+      onStart(gameId)
     },
-    "selfReport" -> {
-      case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
-        selfReport(userId, ip, fullId, name)
+    "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
+      selfReport(userId, ip, fullId, name)
     }
   )
 

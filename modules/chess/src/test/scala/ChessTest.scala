@@ -77,11 +77,10 @@ trait ChessTest extends Specification with ValidationMatchers {
     val situation = Forsyth << positionString
     situation map { sit =>
       sit.color -> sit.withVariant(variant).board
-    } toValid "Could not construct situation from FEN" map {
-      case (color, board) =>
-        Game(variant).copy(
-          situation = Situation(board, color)
-        )
+    } toValid "Could not construct situation from FEN" map { case (color, board) =>
+      Game(variant).copy(
+        situation = Situation(board, color)
+      )
     }
   }
 
@@ -96,30 +95,30 @@ trait ChessTest extends Specification with ValidationMatchers {
   def makeEmptyBoard: Board = Board empty chess.variant.Standard
 
   def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] =
-    beSome.like {
-      case p => sortPoss(p.toList) must_== sortPoss(poss.toList)
+    beSome.like { case p =>
+      sortPoss(p.toList) must_== sortPoss(poss.toList)
     }
 
   def makeGame: Game = Game(makeBoard, White)
 
   def bePoss(board: Board, visual: String): Matcher[Option[Iterable[Pos]]] =
-    beSome.like {
-      case p => Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
+    beSome.like { case p =>
+      Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
     }
 
   def beBoard(visual: String): Matcher[Valid[Board]] =
-    beSuccess.like {
-      case b => b.visual must_== (Visual << visual).visual
+    beSuccess.like { case b =>
+      b.visual must_== (Visual << visual).visual
     }
 
   def beSituation(visual: String): Matcher[Valid[Situation]] =
-    beSuccess.like {
-      case s => s.board.visual must_== (Visual << visual).visual
+    beSuccess.like { case s =>
+      s.board.visual must_== (Visual << visual).visual
     }
 
   def beGame(visual: String): Matcher[Valid[Game]] =
-    beSuccess.like {
-      case g => g.board.visual must_== (Visual << visual).visual
+    beSuccess.like { case g =>
+      g.board.visual must_== (Visual << visual).visual
     }
 
   def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)

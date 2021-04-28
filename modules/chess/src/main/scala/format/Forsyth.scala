@@ -3,8 +3,7 @@ package format
 
 import variant.{ Standard, Variant }
 
-/**
-  * Transform a game to standard Forsyth Edwards Notation
+/** Transform a game to standard Forsyth Edwards Notation
   * http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
   *
   * Crazyhouse & Threecheck extensions:
@@ -21,9 +20,9 @@ object Forsyth {
         val splitted    = fen split ' '
         val colorOption = splitted lift 1 flatMap (_ lift 0) flatMap Color.apply
         val situation = colorOption match {
-          case Some(color)             => Situation(board, color)
-          case _ if board.check(Gote)  => Situation(board, Gote) // user in check will move first
-          case _                       => Situation(board, Sente)
+          case Some(color)            => Situation(board, color)
+          case _ if board.check(Gote) => Situation(board, Gote) // user in check will move first
+          case _                      => Situation(board, Sente)
         }
         situation withHistory {
           History(lastMove = None, positionHashes = Array.empty)
@@ -44,8 +43,8 @@ object Forsyth {
   def <<<@(variant: Variant, rawSource: String): Option[SituationPlus] =
     read(rawSource) { source =>
       <<@(variant, source) map { sit =>
-        val splitted       = source.split(' ').drop(3)
-        val moveNumber     = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
+        val splitted   = source.split(' ').drop(3)
+        val moveNumber = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
         SituationPlus(
           sit,
           moveNumber getOrElse 1
@@ -56,7 +55,19 @@ object Forsyth {
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
   def singleCharSfen(sfen: String): String =
-    sfen.replaceAll("\\+S", "A").replaceAll("\\+s", "a").replaceAll("\\+N", "M").replaceAll("\\+n", "m").replaceAll("\\+L", "U").replaceAll("\\+l", "u").replaceAll("\\+P", "T").replaceAll("\\+p", "t").replaceAll("\\+R", "D").replaceAll("\\+r", "d").replaceAll("\\+B", "H").replaceAll("\\+b", "h")
+    sfen
+      .replaceAll("\\+S", "A")
+      .replaceAll("\\+s", "a")
+      .replaceAll("\\+N", "M")
+      .replaceAll("\\+n", "m")
+      .replaceAll("\\+L", "U")
+      .replaceAll("\\+l", "u")
+      .replaceAll("\\+P", "T")
+      .replaceAll("\\+p", "t")
+      .replaceAll("\\+R", "D")
+      .replaceAll("\\+r", "d")
+      .replaceAll("\\+B", "H")
+      .replaceAll("\\+b", "h")
 
   def makeBoard(variant: Variant, rawSource: String): Option[Board] =
     read(rawSource) { fen =>
@@ -65,22 +76,21 @@ object Forsyth {
       if (positions.count('/' ==) != 8) {
         return None
       }
-      makePiecesList(positions.toList, 1, 9) map {
-        case pieces =>
-          val board = Board(pieces, variant)
-          if (splitted.length < 3 || splitted.lift(2).get == "-") board
-          else {
-            val pockets        = pocketStringList(splitted.lift(2).get.toList)
-            val (sente, gote)  = pockets.flatMap(Piece.fromChar).partition(_ is Sente)
-            import chess.{ Data, Pocket, Pockets }
-            board.withCrazyData(
-              _.copy(
-                pockets = Pockets(
-                  sente = Pocket(sente.map(_.role)),
-                  gote = Pocket(gote.map(_.role))
-                )
+      makePiecesList(positions.toList, 1, 9) map { case pieces =>
+        val board = Board(pieces, variant)
+        if (splitted.length < 3 || splitted.lift(2).get == "-") board
+        else {
+          val pockets       = pocketStringList(splitted.lift(2).get.toList)
+          val (sente, gote) = pockets.flatMap(Piece.fromChar).partition(_ is Sente)
+          import chess.{ Data, Pocket, Pockets }
+          board.withCrazyData(
+            _.copy(
+              pockets = Pockets(
+                sente = Pocket(sente.map(_.role)),
+                gote = Pocket(gote.map(_.role))
               )
             )
+          )
         }
       }
     }
@@ -136,7 +146,7 @@ object Forsyth {
   def exportCrazyPocket(board: Board) =
     board.crazyData match {
       case Some(chess.Data(pockets, _)) => pockets.exportPockets
-      case _ => "-"
+      case _                            => "-"
     }
 
   implicit private val posOrdering = Ordering.by[Pos, Int](_.x)

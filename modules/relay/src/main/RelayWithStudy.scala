@@ -15,8 +15,8 @@ final private class RelayWithStudy(studyApi: StudyApi)(implicit ec: scala.concur
   def andLiked(me: Option[User])(relays: Seq[Relay]): Fu[Seq[Relay.WithStudyAndLiked]] =
     studyApi byIds relays.map(_.studyId) flatMap studyApi.withLiked(me) map { s =>
       relays.flatMap { relay =>
-        s.find(_.study.id == relay.studyId) map {
-          case Study.WithLiked(study, liked) => Relay.WithStudyAndLiked(relay, study, liked)
+        s.find(_.study.id == relay.studyId) map { case Study.WithLiked(study, liked) =>
+          Relay.WithStudyAndLiked(relay, study, liked)
         }
       }
     }

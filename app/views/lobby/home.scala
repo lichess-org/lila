@@ -96,9 +96,9 @@ object home {
         ),
         currentGame.map(bits.currentGameInfo) orElse
           playban.map(bits.playbanInfo) getOrElse {
-          if (ctx.blind) blindLobby(blindGames)
-          else bits.lobbyApp
-        },
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -121,7 +121,10 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(
+                trans.more(),
+                " »"
+              )
             )
           else
             div(cls := "about-side")(

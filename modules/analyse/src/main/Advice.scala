@@ -23,13 +23,13 @@ sealed trait Advice {
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
       }) + "." + {
-      withBestMove ?? {
-        info.variation.headOption ?? { move =>
-          //s" $move was best." // we would need to take care of notation
-          " The best move was:"
+        withBestMove ?? {
+          info.variation.headOption ?? { move =>
+            //s" $move was best." // we would need to take care of notation
+            " The best move was:"
+          }
         }
       }
-    }
 
   def evalComment: Option[String] = {
     List(prev.evalComment, info.evalComment).flatten mkString " → "
@@ -121,11 +121,11 @@ private[analyse] object MateAdvice {
       val judgment: Option[Advice.Judgement] = sequence match {
         case MateCreated if prevCp < -4000 => Option(Inaccuracy)
         case MateCreated if prevCp < -1000 => Option(Mistake)
-        case MateCreated                  => Option(Blunder)
+        case MateCreated                   => Option(Blunder)
         case MateLost if nextCp > 4000     => Option(Inaccuracy)
         case MateLost if nextCp > 1000     => Option(Mistake)
-        case MateLost                     => Option(Blunder)
-        case MateDelayed                  => None
+        case MateLost                      => Option(Blunder)
+        case MateDelayed                   => None
       }
       judgment map { MateAdvice(sequence, _, info, prev) }
     }

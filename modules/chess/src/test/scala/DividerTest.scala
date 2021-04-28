@@ -16,11 +16,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 1 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(18, 40)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(18, 40)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(50, 65)
+      divided.end must beSome.like { case x =>
+        x must beBetween(50, 65)
       }
     }
     "game2" in {
@@ -30,11 +30,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 2 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(17, 30)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(17, 30)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(65, 80)
+      divided.end must beSome.like { case x =>
+        x must beBetween(65, 80)
       }
     }
     "game3" in {
@@ -44,11 +44,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 3 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(20, 28)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(20, 28)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(50, 65)
+      divided.end must beSome.like { case x =>
+        x must beBetween(50, 65)
       }
     }
     "game4" in {
@@ -58,11 +58,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 4 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(16, 34)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(16, 34)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(40, 47)
+      divided.end must beSome.like { case x =>
+        x must beBetween(40, 47)
       }
     }
     "game5" in {
@@ -72,11 +72,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 5 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(19, 26)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(19, 26)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(36, 48)
+      divided.end must beSome.like { case x =>
+        x must beBetween(36, 48)
       }
     }
     "game6" in {
@@ -86,11 +86,11 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 6 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(19, 26)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(19, 26)
       }
-      divided.end must beSome.like {
-        case x => x must beBetween(36, 48)
+      divided.end must beSome.like { case x =>
+        x must beBetween(36, 48)
       }
     }
     "game7" in {
@@ -100,8 +100,8 @@ class DividerTest extends ChessTest {
       )
       val divided = Divider(replay)
       println("Game 7 => " + divided)
-      divided.middle must beSome.like {
-        case x => x must beBetween(19, 25)
+      divided.middle must beSome.like { case x =>
+        x must beBetween(19, 25)
       }
       divided.end must beNone
     }

@@ -1,7 +1,6 @@
 package chess
 
-/**
-  * Utility methods for helping to determine whether a situation is a draw or a draw
+/** Utility methods for helping to determine whether a situation is a draw or a draw
   * on a player flagging.
   *
   * See http://www.e4ec.org/immr.html

@@ -127,18 +127,18 @@ final class Tournament(
               .fold(notFoundJson("No such tournament")) { tour =>
                 get("playerInfo").?? { api.playerInfo(tour, _) } zip
                   getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
-                  case (playerInfoExt, socketVersion) =>
-                    jsonView(
-                      tour = tour,
-                      page = page,
-                      me = ctx.me,
-                      getUserTeamIds = getUserTeamIds,
-                      getTeamName = env.team.getTeamName,
-                      playerInfoExt = playerInfoExt,
-                      socketVersion = socketVersion,
-                      partial = getBool("partial")
-                    )
-                } dmap { Ok(_) }
+                    case (playerInfoExt, socketVersion) =>
+                      jsonView(
+                        tour = tour,
+                        page = page,
+                        me = ctx.me,
+                        getUserTeamIds = getUserTeamIds,
+                        getTeamName = env.team.getTeamName,
+                        playerInfoExt = playerInfoExt,
+                        socketVersion = socketVersion,
+                        partial = getBool("partial")
+                      )
+                  } dmap { Ok(_) }
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
         ) dmap NoCache
@@ -370,12 +370,14 @@ final class Tournament(
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
-            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest().fold(
-              err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-              res =>
-                api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-                  Redirect(routes.Tournament.show(tour.id))
-            )
+            lila.tournament.TeamBattle.DataForm.empty
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
+                res =>
+                  api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+                    Redirect(routes.Tournament.show(tour.id))
+              )
           case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
         }
       }
@@ -402,10 +404,9 @@ final class Tournament(
 
   def categShields(k: String) =
     Open { implicit ctx =>
-      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) {
-        case (categ, awards) =>
-          env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
-            html.tournament.shields.byCateg(categ, awards)
+      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
+        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
       }
     }
 

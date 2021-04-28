@@ -39,27 +39,26 @@ final private class GameStarter(
       id: Game.ID
   ): Fu[Option[Pairing]] = {
     import couple._
-    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
-      case (perf1, perf2) =>
-        for {
-          p1Sente <- userRepo.firstGetsSente(p1.userId, p2.userId)
-          (sentePerf, gotePerf)     = if (p1Sente) perf1 -> perf2 else perf2 -> perf1
-          (senteMember, goteMember) = if (p1Sente) p1 -> p2 else p2 -> p1
-          game = makeGame(
-            id,
-            pool,
-            senteMember.userId -> sentePerf,
-            goteMember.userId -> gotePerf
-          ).start
-          _ <- gameRepo insertDenormalized game
-        } yield {
-          onStart(Game.Id(game.id))
-          Pairing(
-            game,
-            senteSri = senteMember.sri,
-            goteSri = goteMember.sri
-          ).some
-        }
+    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? { case (perf1, perf2) =>
+      for {
+        p1Sente <- userRepo.firstGetsSente(p1.userId, p2.userId)
+        (sentePerf, gotePerf)     = if (p1Sente) perf1 -> perf2 else perf2 -> perf1
+        (senteMember, goteMember) = if (p1Sente) p1 -> p2 else p2 -> p1
+        game = makeGame(
+          id,
+          pool,
+          senteMember.userId -> sentePerf,
+          goteMember.userId  -> gotePerf
+        ).start
+        _ <- gameRepo insertDenormalized game
+      } yield {
+        onStart(Game.Id(game.id))
+        Pairing(
+          game,
+          senteSri = senteMember.sri,
+          goteSri = goteMember.sri
+        ).some
+      }
     }
   }
 

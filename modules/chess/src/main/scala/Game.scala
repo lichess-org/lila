@@ -76,8 +76,7 @@ case class Game(
 
   def halfMoveClock: Int = board.history.halfMoveClock
 
-  /**
-    * Fullmove number: The number of the full move.
+  /** Fullmove number: The number of the full move.
     * It starts at 1, and is incremented after Gote's move.
     */
   def fullMoveNumber: Int = 1 + turns / 2

@@ -59,8 +59,8 @@ final class AssessApi(
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.Sente) zip
       getResultsByGameIdAndColor(gameId, Color.Gote) map { a =>
-      PlayerAssessments(a._1, a._2)
-    }
+        PlayerAssessments(a._1, a._2)
+      }
 
   private def getPlayerAggregateAssessment(
       userId: String,
@@ -116,7 +116,7 @@ final class AssessApi(
       shouldAssess.?? {
         val analysed        = Analysed(game, analysis, holdAlerts)
         val assessibleSente = Assessible(analysed, chess.Sente)
-        val assessibleGote = Assessible(analysed, chess.Gote)
+        val assessibleGote  = Assessible(analysed, chess.Gote)
         createPlayerAssessment(assessibleSente playerAssessment) >>
           createPlayerAssessment(assessibleGote playerAssessment)
       } >> ((shouldAssess && thenAssessUser) ?? {
@@ -181,7 +181,7 @@ final class AssessApi(
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
     lazy val senteSuspCoefVariation = suspCoefVariation(chess.Sente)
-    lazy val goteSuspCoefVariation = suspCoefVariation(chess.Gote)
+    lazy val goteSuspCoefVariation  = suspCoefVariation(chess.Gote)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)

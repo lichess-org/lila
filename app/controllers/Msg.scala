@@ -12,10 +12,9 @@ final class Msg(
   def home =
     Auth { implicit ctx => me =>
       ctx.hasInbox ?? negotiate(
-        html =
-          inboxJson(me) map { json =>
-            Ok(views.html.msg.home(json))
-          },
+        html = inboxJson(me) map { json =>
+          Ok(views.html.msg.home(json))
+        },
         api = v =>
           {
             if (v >= 5) inboxJson(me)
@@ -37,10 +36,9 @@ final class Msg(
           case Some(c) =>
             def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiate(
-              html =
-                newJson map { json =>
-                  Ok(views.html.msg.home(json))
-                },
+              html = newJson map { json =>
+                Ok(views.html.msg.home(json))
+              },
               api = v =>
                 {
                   if (v >= 5) newJson
@@ -109,7 +107,8 @@ final class Msg(
           (!me.kid && userId != me.id) ?? {
             import play.api.data._
             import play.api.data.Forms._
-            Form(single("text" -> nonEmptyText)).bindFromRequest()
+            Form(single("text" -> nonEmptyText))
+              .bindFromRequest()
               .fold(
                 err => jsonFormErrorFor(err, req, me.some),
                 text => env.msg.api.post(me.id, userId, text)

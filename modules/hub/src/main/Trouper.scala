@@ -53,8 +53,8 @@ abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellab
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
-  private val fallback: Receive = {
-    case msg => lila.log("trouper").warn(s"unhandled msg: $msg")
+  private val fallback: Receive = { case msg =>
+    lila.log("trouper").warn(s"unhandled msg: $msg")
   }
 }
 
@@ -73,8 +73,8 @@ object Trouper {
 
   def stub(implicit ec: ExecutionContext) =
     new Trouper {
-      val process: Receive = {
-        case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
+      val process: Receive = { case msg =>
+        lila.log("trouper").warn(s"stub trouper received: $msg")
       }
     }
 }

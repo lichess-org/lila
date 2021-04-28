@@ -47,13 +47,13 @@ final class TeamApi(
     )
     teamRepo.coll.insert.one(team) >>
       memberRepo.add(team.id, me.id) >>- {
-      cached invalidateTeamIds me.id
-      indexer ! InsertTeam(team)
-      timeline ! Propagate(
-        TeamCreate(me.id, team.id)
-      ).toFollowersOf(me.id)
-      Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
-    } inject team
+        cached invalidateTeamIds me.id
+        indexer ! InsertTeam(team)
+        timeline ! Propagate(
+          TeamCreate(me.id, team.id)
+        ).toFollowersOf(me.id)
+        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
+      } inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit =
@@ -87,8 +87,8 @@ final class TeamApi(
     for {
       requests <- requestRepo findByTeam team.id
       users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map {
-      case (request, user) => RequestWithUser(request, user)
+    } yield requests zip users map { case (request, user) =>
+      RequestWithUser(request, user)
     }
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
@@ -96,8 +96,8 @@ final class TeamApi(
       teamIds  <- teamRepo enabledTeamIdsByLeader user.id
       requests <- requestRepo findByTeams teamIds
       users    <- userRepo usersFromSecondary requests.map(_.user)
-    } yield requests zip users map {
-      case (request, user) => RequestWithUser(request, user)
+    } yield requests zip users map { case (request, user) =>
+      RequestWithUser(request, user)
     }
 
   def join(teamId: Team.ID, me: User, msg: Option[String]): Fu[Option[Requesting]] =
@@ -173,10 +173,10 @@ final class TeamApi(
       _ ?? {
         memberRepo.add(team.id, user.id) >>
           teamRepo.incMembers(team.id, +1) >>- {
-          cached invalidateTeamIds user.id
-          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
-        }
+            cached invalidateTeamIds user.id
+            timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
+            Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
+          }
       } recover lila.db.recoverDuplicateKey(_ => ())
     }
 

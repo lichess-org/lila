@@ -27,16 +27,16 @@ final case class Castles(
     (color, side) match {
       case (Sente, KingSide)  => copy(senteKingSide = false)
       case (Sente, QueenSide) => copy(senteQueenSide = false)
-      case (Gote, KingSide)  => copy(goteKingSide = false)
-      case (Gote, QueenSide) => copy(goteQueenSide = false)
+      case (Gote, KingSide)   => copy(goteKingSide = false)
+      case (Gote, QueenSide)  => copy(goteQueenSide = false)
     }
 
   def add(color: Color, side: Side) =
     (color, side) match {
       case (Sente, KingSide)  => copy(senteKingSide = true)
       case (Sente, QueenSide) => copy(senteQueenSide = true)
-      case (Gote, KingSide)  => copy(goteKingSide = true)
-      case (Gote, QueenSide) => copy(goteQueenSide = true)
+      case (Gote, KingSide)   => copy(goteKingSide = true)
+      case (Gote, QueenSide)  => copy(goteQueenSide = true)
     }
 
   override lazy val toString: String = {
@@ -83,8 +83,8 @@ object Castles {
       (color, side) match {
         case (Sente, KingSide)  => castles.senteKingSide
         case (Sente, QueenSide) => castles.senteQueenSide
-        case (Gote, KingSide)  => castles.goteKingSide
-        case (Gote, QueenSide) => castles.goteQueenSide
+        case (Gote, KingSide)   => castles.goteKingSide
+        case (Gote, QueenSide)  => castles.goteQueenSide
       }
     def any = on(KingSide) || on(QueenSide)
   }

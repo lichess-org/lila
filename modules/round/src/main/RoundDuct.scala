@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import actorApi._, round._
-import chess.{ Gote, Centis, Color, Sente }
+import chess.{ Centis, Color, Gote, Sente }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
@@ -105,7 +105,7 @@ final private[round] class RoundDuct(
   }
 
   private val sentePlayer = new Player(Sente)
-  private val gotePlayer = new Player(Gote)
+  private val gotePlayer  = new Player(Gote)
 
   def getGame: Fu[Option[Game]]          = proxy.game
   def updateGame(f: Game => Game): Funit = proxy update f
@@ -152,15 +152,14 @@ final private[round] class RoundDuct(
       }
 
     case GetSocketStatus(promise) =>
-      sentePlayer.isLongGone zip gotePlayer.isLongGone map {
-        case (senteIsGone, goteIsGone) =>
-          promise success SocketStatus(
-            version = version,
-            senteOnGame = sentePlayer.isOnline,
-            senteIsGone = senteIsGone,
-            goteOnGame = gotePlayer.isOnline,
-            goteIsGone = goteIsGone
-          )
+      sentePlayer.isLongGone zip gotePlayer.isLongGone map { case (senteIsGone, goteIsGone) =>
+        promise success SocketStatus(
+          version = version,
+          senteOnGame = sentePlayer.isOnline,
+          senteIsGone = senteIsGone,
+          goteOnGame = gotePlayer.isOnline,
+          goteIsGone = goteIsGone
+        )
       }
 
     case HasUserId(userId, promise) =>
@@ -229,8 +228,7 @@ final private[round] class RoundDuct(
           pov.game.moveToNextPeriod ?? { g =>
             proxy save g inject List(Event.Reload)
           }
-        }
-        else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+        } else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           recordLag(pov)
           player.human(p, this)(pov)
@@ -249,7 +247,8 @@ final private[round] class RoundDuct(
 
     case p: BotPlay =>
       val res = proxy.withPov(PlayerId(p.playerId)) {
-        _ ?? { pov => {
+        _ ?? { pov =>
+          {
             if (pov.game.nextPeriodClock(withGrace = true))
               pov.game.moveToNextPeriod ?? { g =>
                 proxy save g inject List(Event.Reload)
@@ -318,7 +317,8 @@ final private[round] class RoundDuct(
 
     // checks if any player can safely (grace) be flagged
     case QuietFlag =>
-      handle { game => {
+      handle { game =>
+        {
           if (game.nextPeriodClock(withGrace = true))
             game.moveToNextPeriod ?? { g =>
               proxy save g inject List(Event.Reload)
@@ -336,8 +336,7 @@ final private[round] class RoundDuct(
             game.moveToNextPeriod ?? { g =>
               proxy save g inject List(Event.Reload)
             }
-          }
-          else game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
+          } else game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
         }
       }
 
@@ -376,18 +375,16 @@ final private[round] class RoundDuct(
 
     case TakebackYes(playerId) =>
       handle(playerId) { pov =>
-        takebacker.yes(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.yes(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
     case TakebackNo(playerId) =>
       handle(playerId) { pov =>
-        takebacker.no(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.no(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
 

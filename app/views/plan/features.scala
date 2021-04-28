@@ -42,7 +42,6 @@ object features {
               "Standard shogi"
               // a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
-  
             tr(unlimited)(
               s"Instant local $engineName analysis"
             ),

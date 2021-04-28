@@ -17,7 +17,7 @@ package object chess
     with scalaz.syntax.ToIdOps {
 
   val Sente = Color.Sente
-  val Gote = Color.Gote
+  val Gote  = Color.Gote
 
   type Direction  = Pos => Option[Pos]
   type Directions = List[Direction]

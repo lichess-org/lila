@@ -13,8 +13,7 @@ case object Horde
       standardInitialPosition = false
     ) {
 
-  /**
-    * In Horde chess sente advances against gote with a horde of pawns.
+  /** In Horde chess sente advances against gote with a horde of pawns.
     */
   lazy val pieces: Map[Pos, Piece] = {
 
@@ -51,8 +50,7 @@ case object Horde
   override def specialEnd(situation: Situation) =
     situation.board.piecesOf(Sente).isEmpty
 
-  /**
-    * Any vs K + any where horde is stalemated and only king can move is a fortress draw
+  /** Any vs K + any where horde is stalemated and only king can move is a fortress draw
     * This does not consider imminent fortresses such as 8/p7/P7/8/8/P7/8/k7 b - -
     * nor does it consider contrived fortresses such as b7/pk6/P7/P7/8/8/8/8 b - -
     */
@@ -64,14 +62,12 @@ case object Horde
     !mateInOne && notKingBoard.actors.values.forall(actor => actor.moves.isEmpty)
   }
 
-  /**
-    * In horde chess, gote can win unless a fortress stalemate is unavoidable.
+  /** In horde chess, gote can win unless a fortress stalemate is unavoidable.
     *  Auto-drawing the game should almost never happen, but it did in https://lichess.org/xQ2RsU8N#121
     */
   override def isInsufficientMaterial(board: Board) = hordeClosedPosition(board)
 
-  /**
-    * In horde chess, the horde cannot win on * V K or [BN]{2} v K or just one piece
+  /** In horde chess, the horde cannot win on * V K or [BN]{2} v K or just one piece
     * since they lack a king for checkmate support.
     * Technically there are some positions where stalemate is unavoidable which
     * this method does not detect; however, such are trivial to premove.

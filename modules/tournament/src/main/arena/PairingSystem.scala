@@ -72,22 +72,21 @@ final private[tournament] class PairingSystem(
       if (preps.sizeCompare(30) <= 0)
         preps
           .zip(ids)
-          .map {
-            case (prep, id) =>
-              userRepo.firstGetsSente(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
+          .map { case (prep, id) =>
+            userRepo.firstGetsSente(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
           }
           .sequenceFu
       else
         fuccess {
-          preps.zip(ids).map {
-            case (prep, id) => prep.toPairing(id)(Random.nextBoolean())
+          preps.zip(ids).map { case (prep, id) =>
+            prep.toPairing(id)(Random.nextBoolean())
           }
         }
     }
 
   private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
-    players grouped 2 collect {
-      case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
+    players grouped 2 collect { case List(p1, p2) =>
+      Pairing.prep(tour, p1.player, p2.player)
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =

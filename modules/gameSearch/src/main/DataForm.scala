@@ -18,7 +18,7 @@ final private[gameSearch] class DataForm {
         "winner" -> optional(nonEmptyText),
         "loser"  -> optional(nonEmptyText),
         "sente"  -> optional(nonEmptyText),
-        "gote"  -> optional(nonEmptyText)
+        "gote"   -> optional(nonEmptyText)
       )(SearchPlayer.apply)(SearchPlayer.unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
@@ -125,7 +125,7 @@ private[gameSearch] case class SearchPlayer(
   def cleanWinner = oneOf(winner)
   def cleanLoser  = oneOf(loser)
   def cleanSente  = oneOf(sente)
-  def cleanGote  = oneOf(gote)
+  def cleanGote   = oneOf(gote)
 
   private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
   private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)

@@ -32,12 +32,11 @@ final private class DnsApi(
   ) { domain =>
     fetch(domain, "mx") {
       _ take 20 flatMap { obj =>
-        (obj \ "data").asOpt[String].map(_ split ' ') collect {
-          case Array(_, domain) =>
-            Domain {
-              if (domain endsWith ".") domain.init
-              else domain
-            }
+        (obj \ "data").asOpt[String].map(_ split ' ') collect { case Array(_, domain) =>
+          Domain {
+            if (domain endsWith ".") domain.init
+            else domain
+          }
         }
       }
     }.monSuccess(_.security.dnsApi.mx)
@@ -54,9 +53,8 @@ final private class DnsApi(
 
   // if the DNS service fails, assume the best
   private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] =
-    f recover {
-      case e: Exception =>
-        logger.warn(s"DnsApi $domain", e)
-        default
+    f recover { case e: Exception =>
+      logger.warn(s"DnsApi $domain", e)
+      default
     }
 }

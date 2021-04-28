@@ -3,7 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 import org.joda.time.DateTime
 
-import chess.{ Gote, Clock, Sente }
+import chess.{ Clock, Gote, Sente }
 
 import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -24,8 +24,8 @@ final class Player(
       Future.delay(delayFor(game) | 0.millis) {
         makeWork(game, level) addEffect moveDb.add void
       }
-    } recover {
-      case e: Exception => logger.info(e.getMessage)
+    } recover { case e: Exception =>
+      logger.info(e.getMessage)
     }
 
   private val delayFactor  = 0.011f
@@ -71,9 +71,9 @@ final class Player(
               )
             },
             tries = 0,
-          lastTryByKey = none,
-          acquired = none,
-          createdAt = DateTime.now
+            lastTryByKey = none,
+            acquired = none,
+            createdAt = DateTime.now
           )
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")

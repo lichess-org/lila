@@ -18,15 +18,32 @@ object Binary {
 
   private object Encoding {
     val pieceInts: Map[String, Int] =
-      Map("P" -> 0, "K" -> 1, "G" -> 2, "S" -> 3, "N" -> 4, "L" -> 5, "B" -> 6, "R" -> 7, "T" -> 8, "U" -> 9, "M" -> 10, "A" -> 11, "H" -> 12, "D" -> 13)
-    val pieceStrs: Map[Int, String]     = pieceInts map { case (k, v) => v -> k }
-    val dropPieceInts: Map[String, Int] = Map("P" -> 1, "G" -> 2, "S" -> 3, "N" -> 4, "L" -> 5, "B" -> 6, "R" -> 7)
+      Map(
+        "P" -> 0,
+        "K" -> 1,
+        "G" -> 2,
+        "S" -> 3,
+        "N" -> 4,
+        "L" -> 5,
+        "B" -> 6,
+        "R" -> 7,
+        "T" -> 8,
+        "U" -> 9,
+        "M" -> 10,
+        "A" -> 11,
+        "H" -> 12,
+        "D" -> 13
+      )
+    val pieceStrs: Map[Int, String] = pieceInts map { case (k, v) => v -> k }
+    val dropPieceInts: Map[String, Int] =
+      Map("P" -> 1, "G" -> 2, "S" -> 3, "N" -> 4, "L" -> 5, "B" -> 6, "R" -> 7)
     val dropPieceStrs: Map[Int, String] = dropPieceInts map { case (k, v) => v -> k }
-    val promotionInts: Map[String, Int] = Map("" -> 0, "T" -> 1, "U" -> 2, "M" -> 3, "A" -> 4, "H" -> 6, "D" -> 7)
+    val promotionInts: Map[String, Int] =
+      Map("" -> 0, "T" -> 1, "U" -> 2, "M" -> 3, "A" -> 4, "H" -> 6, "D" -> 7)
     val promotionStrs: Map[Int, String] = promotionInts map { case (k, v) => v -> k }
     val checkInts: Map[String, Int]     = Map("" -> 0, "+" -> 1, "=" -> 2)
     // Dont's question this, mistakes were made
-    val checkStrs: Map[Int, String]     = (checkInts map { case (k, v) => v -> k }) ++ Map(3 -> "+")
+    val checkStrs: Map[Int, String] = (checkInts map { case (k, v) => v -> k }) ++ Map(3 -> "+")
   }
 
   private object Reader {
@@ -35,16 +52,16 @@ object Binary {
 
     private val maxPlies = 600
 
-    def moves(bs: List[Byte]): List[String] = moves(bs, maxPlies)
+    def moves(bs: List[Byte]): List[String]          = moves(bs, maxPlies)
     def moves(bs: List[Byte], nb: Int): List[String] = intMoves(bs map toInt, nb)
 
     def intMoves(bs: List[Int], pliesToGo: Int): List[String] = {
       bs match {
         case _ if pliesToGo <= 0 => Nil
         case Nil                 => Nil
-        case b1 :: b2 :: rest if (moveType(b1) == MoveType.SimplePiece) =>
+        case b1 :: b2 :: rest if moveType(b1) == MoveType.SimplePiece =>
           simplePiece(b1, b2) :: intMoves(rest, pliesToGo - 1)
-        case b1 :: b2 :: b3 :: rest if (moveType(b1) == MoveType.FullPiece) =>
+        case b1 :: b2 :: b3 :: rest if moveType(b1) == MoveType.FullPiece =>
           fullPiece(b1, b2, b3) :: intMoves(rest, pliesToGo - 1)
         case x => !!(x map showByte mkString ",")
       }
@@ -78,15 +95,14 @@ object Binary {
     def fullPiece(b1: Int, b2: Int, b3: Int): String = {
       pieceStrs(b2 >> 4) match {
         case piece => {
-          val from    = posString(right(b3, 7))
-          val pos     = posString(right(b1, 7))
-          val check   = checkStrs(cut(b2, 4, 2))
+          val from  = posString(right(b3, 7))
+          val pos   = posString(right(b1, 7))
+          val check = checkStrs(cut(b2, 4, 2))
           // Dont's question this, mistakes were made
-          if(!bitAt(b2, 1)){
+          if (!bitAt(b2, 1)) {
             val capture = if (bitAt(b2, 3)) "x" else ""
             s"$piece$from$capture$pos$check"
-          }
-          else{
+          } else {
             val capture = if (bitAt(b2, 2)) "x" else ""
             s"$piece$from$capture$pos$check"
           }
@@ -100,11 +116,11 @@ object Binary {
     private def rankChar(i: Int)  = (i + 49).toChar
 
     // Returns x right bits from i
-    private def right(i: Int, x: Int): Int           = i & lengthMasks(x)
+    private def right(i: Int, x: Int): Int = i & lengthMasks(x)
     // Shifts i from from bit to to bit
     private def cut(i: Int, from: Int, to: Int): Int = right(i, from) >> to
     // Return the p bit from i
-    private def bitAt(i: Int, p: Int): Boolean       = cut(i, p, p - 1) != 0
+    private def bitAt(i: Int, p: Int): Boolean = cut(i, p, p - 1) != 0
     private val lengthMasks =
       Map(1 -> 0x01, 2 -> 0x03, 3 -> 0x07, 4 -> 0x0f, 5 -> 0x1f, 6 -> 0x3f, 7 -> 0x7f, 8 -> 0xff)
     private def !!(msg: String) = throw new Exception("Binary reader failed: " + msg)
@@ -165,11 +181,11 @@ object Binary {
         if (file.head < pos.head) 1 else 2
       }
 
-    val pieceR       = "([KRNBSLAMUDHTGP])"
-    val posR         = "([a-i][1-9])"
-    val captureR     = "(x?)"
-    val checkR       = "([\\+=]?)"
-    val origR        = "([a-i][1-9])".r
+    val pieceR   = "([KRNBSLAMUDHTGP])"
+    val posR     = "([a-i][1-9])"
+    val captureR = "(x?)"
+    val checkR   = "([\\+=]?)"
+    val origR    = "([a-i][1-9])".r
 
     // todo - checkR will be promotion
     val SimplePieceR = s"^$pieceR$captureR$posR$checkR$$".r

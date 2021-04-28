@@ -86,11 +86,10 @@ object filter {
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
   ): Frag =
-    options.zipWithIndex.map {
-      case ((value, text, hint), index) =>
-        div(cls := "checkable")(
-          renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
-        )
+    options.zipWithIndex.map { case ((value, text, hint), index) =>
+      div(cls := "checkable")(
+        renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
+      )
     }
 
   private def renderCheckbox(

@@ -57,17 +57,18 @@ final class Signup(
   }
 
   def website(blind: Boolean)(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.website.bindFromRequest().fold[Fu[Signup.Result]](
-      err => fuccess(Signup.Bad(err tap signupErrLog)),
-      data =>
-        recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-          case false =>
-            authLog(data.username, data.email, "Signup recaptcha fail")
-            fuccess(Signup.Bad(forms.signup.website fill data))
-          case true =>
-            signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
-              MustConfirmEmail(data.fingerPrint) flatMap {
-                mustConfirm =>
+    forms.signup.website
+      .bindFromRequest()
+      .fold[Fu[Signup.Result]](
+        err => fuccess(Signup.Bad(err tap signupErrLog)),
+        data =>
+          recaptcha.verify(~data.recaptchaResponse, req).flatMap {
+            case false =>
+              authLog(data.username, data.email, "Signup recaptcha fail")
+              fuccess(Signup.Bad(forms.signup.website fill data))
+            case true =>
+              signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+                MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                   val email = emailAddressValidator
@@ -87,10 +88,10 @@ final class Signup(
                     .flatMap {
                       confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
                     }
+                }
               }
-            }
-        }
-    )
+          }
+      )
 
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
@@ -112,32 +113,34 @@ final class Signup(
   def mobile(
       apiVersion: ApiVersion
   )(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.mobile.bindFromRequest().fold[Fu[Signup.Result]](
-      err => fuccess(Signup.Bad(err tap signupErrLog)),
-      data =>
-        signupRateLimit(data.username, cost = 2) {
-          val email = emailAddressValidator
-            .validate(data.realEmail) err s"Invalid email ${data.email}"
-          val mustConfirm = MustConfirmEmail.YesBecauseMobile
-          lila.mon.user.register.count(apiVersion.some)
-          lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-          val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-          userRepo
-            .create(
-              data.username,
-              passwordHash,
-              email.acceptable,
-              false,
-              apiVersion.some,
-              mustConfirmEmail = mustConfirm.value
-            )
-            .orFail(s"No user could be created for ${data.username}")
-            .addEffect { logSignup(req, _, email.acceptable, none, apiVersion.some, mustConfirm) }
-            .flatMap {
-              confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
-            }
-        }
-    )
+    forms.signup.mobile
+      .bindFromRequest()
+      .fold[Fu[Signup.Result]](
+        err => fuccess(Signup.Bad(err tap signupErrLog)),
+        data =>
+          signupRateLimit(data.username, cost = 2) {
+            val email = emailAddressValidator
+              .validate(data.realEmail) err s"Invalid email ${data.email}"
+            val mustConfirm = MustConfirmEmail.YesBecauseMobile
+            lila.mon.user.register.count(apiVersion.some)
+            lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+            val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+            userRepo
+              .create(
+                data.username,
+                passwordHash,
+                email.acceptable,
+                false,
+                apiVersion.some,
+                mustConfirmEmail = mustConfirm.value
+              )
+              .orFail(s"No user could be created for ${data.username}")
+              .addEffect { logSignup(req, _, email.acceptable, none, apiVersion.some, mustConfirm) }
+              .flatMap {
+                confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
+              }
+          }
+      )
 
   private def HasherRateLimit =
     PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _

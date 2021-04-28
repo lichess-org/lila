@@ -22,12 +22,13 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     OpenBody { implicit ctx =>
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
-        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) {
-          case (categ, topic, posts) =>
-            if (topic.closed) fuccess(BadRequest("This topic is closed"))
-            else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
-            else
-              forms.post.bindFromRequest().fold(
+        OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+          if (topic.closed) fuccess(BadRequest("This topic is closed"))
+          else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
+          else
+            forms.post
+              .bindFromRequest()
+              .fold(
                 err =>
                   for {
                     captcha     <- forms.anyCaptcha
@@ -51,15 +52,17 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms.postEdit.bindFromRequest().fold(
-        _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-        data =>
-          CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-            postApi.editPost(postId, data.changes, me).map { post =>
-              Redirect(routes.ForumPost.redirect(post.id))
-            }
-          }(rateLimitedFu)
-      )
+      forms.postEdit
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+          data =>
+            CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+              postApi.editPost(postId, data.changes, me).map { post =>
+                Redirect(routes.ForumPost.redirect(post.id))
+              }
+            }(rateLimitedFu)
+        )
     }
 
   def delete(categSlug: String, id: String) =
@@ -80,9 +83,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def redirect(id: String) =
     Open { implicit ctx =>
-      OptionResult(postApi.urlData(id, ctx.me)) {
-        case lila.forum.PostUrlData(categ, topic, page, number) =>
-          Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
+      OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
+        Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
       }
     }
 }

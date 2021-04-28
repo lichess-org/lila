@@ -38,8 +38,8 @@ private object AntmaPairing {
             logger.error("WMMatching", err)
             Nil
           },
-          _ map {
-            case (a, b) => Pairing.prep(tour, a.player, b.player)
+          _ map { case (a, b) =>
+            Pairing.prep(tour, a.player, b.player)
           }
         )
       }

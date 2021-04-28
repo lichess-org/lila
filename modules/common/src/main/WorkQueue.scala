@@ -41,18 +41,17 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
 
   private val queue = Source
     .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew)
-    .mapAsyncUnordered(parallelism) {
-      case (task, promise) =>
-        task()
-          .withTimeout(timeout, new TimeoutException)(ec, mat.system)
-          .tap(promise.completeWith)
-          .recover {
-            case e: TimeoutException =>
-              lila.mon.workQueue.timeout(name).increment()
-              lila.log(s"WorkQueue:$name").warn(s"task timed out after $timeout", e)
-            case e: Exception =>
-              lila.log(s"WorkQueue:$name").info("task failed", e)
-          }
+    .mapAsyncUnordered(parallelism) { case (task, promise) =>
+      task()
+        .withTimeout(timeout, new TimeoutException)(ec, mat.system)
+        .tap(promise.completeWith)
+        .recover {
+          case e: TimeoutException =>
+            lila.mon.workQueue.timeout(name).increment()
+            lila.log(s"WorkQueue:$name").warn(s"task timed out after $timeout", e)
+          case e: Exception =>
+            lila.log(s"WorkQueue:$name").info("task failed", e)
+        }
     }
     .toMat(Sink.ignore)(Keep.left)
     .run()

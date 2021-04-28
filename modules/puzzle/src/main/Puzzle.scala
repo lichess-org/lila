@@ -26,16 +26,18 @@ case class Puzzle(
 
   lazy val fenAfterInitialMove: FEN = {
     gameId match {
-      case Some(_) => for {
-        sit1 <- Forsyth << fen
-        sit2 <- line.head match {
-          case Uci.Drop(role, pos) => sit1.drop(role, pos).toOption.map(_.situationAfter)
-          case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
-        }
-      } yield FEN(Forsyth >> sit2)
-      case None => for {
-        sit1 <- Forsyth << fen
-      } yield FEN(Forsyth >> sit1)
+      case Some(_) =>
+        for {
+          sit1 <- Forsyth << fen
+          sit2 <- line.head match {
+            case Uci.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
+            case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
+          }
+        } yield FEN(Forsyth >> sit2)
+      case None =>
+        for {
+          sit1 <- Forsyth << fen
+        } yield FEN(Forsyth >> sit1)
     }
 
   } err s"Can't apply puzzle $id first move"
@@ -43,13 +45,13 @@ case class Puzzle(
   def color: chess.Color =
     gameId match {
       case Some(_) => Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
-      case None => Forsyth.getColor(fen).getOrElse(chess.Sente)
+      case None    => Forsyth.getColor(fen).getOrElse(chess.Sente)
     }
-  
+
   def lastMove: String =
     gameId match {
       case Some(_) => line.head.uci
-      case None => ""
+      case None    => ""
     }
 }
 

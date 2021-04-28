@@ -54,10 +54,9 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
       val startingPosition = Game(Antichess)
       val afterFirstMove   = startingPosition.playMove(Pos.E2, Pos.E4, None)
 
-      afterFirstMove must beSuccess.like {
-        case newGame =>
-          val fen = Forsyth >> newGame
-          fen mustEqual "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b - - 0 1"
+      afterFirstMove must beSuccess.like { case newGame =>
+        val fen = Forsyth >> newGame
+        fen mustEqual "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b - - 0 1"
       }
     }
 
@@ -67,8 +66,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val invalidGame = gameAfterOpening flatMap (_.playMove(Pos.H2, Pos.H4))
 
-      invalidGame must beFailure.like {
-        case failMsg => failMsg mustEqual scalaz.NonEmptyList("Piece on h2 cannot move to h4")
+      invalidGame must beFailure.like { case failMsg =>
+        failMsg mustEqual scalaz.NonEmptyList("Piece on h2 cannot move to h4")
       }
     }
 
@@ -76,10 +75,9 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
       val game             = Game(Antichess)
       val gameAfterOpening = game.playMoves((Pos.E2, Pos.E4), (Pos.F7, Pos.F5))
 
-      gameAfterOpening must beSuccess.like {
-        case newGame =>
-          newGame.situation.moves.size must beEqualTo(1)
-          newGame.situation.moves.values.find(_.find(_.captures == false).nonEmpty) must beNone
+      gameAfterOpening must beSuccess.like { case newGame =>
+        newGame.situation.moves.size must beEqualTo(1)
+        newGame.situation.moves.values.find(_.find(_.captures == false).nonEmpty) must beNone
       }
 
     }
@@ -101,10 +99,9 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val possibleDestinations = game flatMap (_.board.destsFrom(Pos.E1).toValid("king has no destinations"))
 
-      possibleDestinations must beSuccess.like {
-        case dests =>
-          // G1 (to castle) should not be a valid destination
-          dests must beEqualTo(List(Pos.F1))
+      possibleDestinations must beSuccess.like { case dests =>
+        // G1 (to castle) should not be a valid destination
+        dests must beEqualTo(List(Pos.F1))
       }
 
     }
@@ -116,9 +113,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
         Pos.D1 -> Pos.H5
       )
 
-      game must beSuccess.like {
-        case newGame =>
-          newGame.situation.check must beFalse
+      game must beSuccess.like { case newGame =>
+        newGame.situation.check must beFalse
       }
     }
 
@@ -131,9 +127,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
         Pos.H5 -> Pos.E8
       )
 
-      game must beSuccess.like {
-        case newGame =>
-          newGame.board.kingPosOf(Color.black) must beNone
+      game must beSuccess.like { case newGame =>
+        newGame.board.kingPosOf(Color.black) must beNone
       }
     }
 
@@ -145,9 +140,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
         Pos.D8 -> Pos.H4
       )
 
-      game must beSuccess.like {
-        case newGame =>
-          newGame.situation.checkMate must beFalse
+      game must beSuccess.like { case newGame =>
+        newGame.situation.checkMate must beFalse
       }
     }
 
@@ -157,9 +151,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.F7, Pos.F8, Some(King))) map (_._1)
 
-      newGame must beSuccess.like {
-        case gameWithPromotion =>
-          gameWithPromotion.board(Pos.F8).mustEqual(Some(White - King))
+      newGame must beSuccess.like { case gameWithPromotion =>
+        gameWithPromotion.board(Pos.F8).mustEqual(Some(White - King))
       }
 
     }
@@ -170,14 +163,13 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.C7, Pos.G3, None)) map (_._1)
 
-      newGame must beSuccess.like {
-        case drawnGame =>
-          drawnGame.situation.end must beTrue
-          drawnGame.situation.autoDraw must beTrue
-          drawnGame.situation.winner must beNone
-          drawnGame.situation.status must beSome.like {
-            case status => status == Status.Draw
-          }
+      newGame must beSuccess.like { case drawnGame =>
+        drawnGame.situation.end must beTrue
+        drawnGame.situation.autoDraw must beTrue
+        drawnGame.situation.winner must beNone
+        drawnGame.situation.status must beSome.like { case status =>
+          status == Status.Draw
+        }
       }
     }
 
@@ -187,14 +179,13 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.G7, Pos.G8, Bishop.some)) map (_._1)
 
-      newGame must beSuccess.like {
-        case drawnGame =>
-          drawnGame.situation.end must beTrue
-          drawnGame.situation.autoDraw must beTrue
-          drawnGame.situation.winner must beNone
-          drawnGame.situation.status must beSome.like {
-            case status => status == Status.Draw
-          }
+      newGame must beSuccess.like { case drawnGame =>
+        drawnGame.situation.end must beTrue
+        drawnGame.situation.autoDraw must beTrue
+        drawnGame.situation.winner must beNone
+        drawnGame.situation.status must beSome.like { case status =>
+          status == Status.Draw
+        }
       }
 
     }
@@ -205,11 +196,10 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.F2, Pos.B6, None)) map (_._1)
 
-      newGame must beSuccess.like {
-        case nonDrawnGame =>
-          nonDrawnGame.situation.end must beFalse
-          nonDrawnGame.situation.autoDraw must beFalse
-          nonDrawnGame.situation.winner must beNone
+      newGame must beSuccess.like { case nonDrawnGame =>
+        nonDrawnGame.situation.end must beFalse
+        nonDrawnGame.situation.autoDraw must beFalse
+        nonDrawnGame.situation.winner must beNone
       }
     }
 
@@ -219,13 +209,12 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.C2, Pos.C1, Some(Bishop))) map (_._1)
 
-      newGame must beSuccess.like {
-        case drawnGame =>
-          drawnGame.situation.end must beTrue
-          drawnGame.situation.autoDraw must beTrue
-          drawnGame.situation.status must beSome.like {
-            case status => status == Status.Draw
-          }
+      newGame must beSuccess.like { case drawnGame =>
+        drawnGame.situation.end must beTrue
+        drawnGame.situation.autoDraw must beTrue
+        drawnGame.situation.status must beSome.like { case status =>
+          status == Status.Draw
+        }
       }
     }
 
@@ -235,11 +224,10 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.D2, Pos.D1, Some(Bishop))) map (_._1)
 
-      newGame must beSuccess.like {
-        case nonDrawnGame =>
-          nonDrawnGame.situation.end must beFalse
-          nonDrawnGame.situation.autoDraw must beFalse
-          nonDrawnGame.situation.status must beNone
+      newGame must beSuccess.like { case nonDrawnGame =>
+        nonDrawnGame.situation.end must beFalse
+        nonDrawnGame.situation.autoDraw must beFalse
+        nonDrawnGame.situation.status must beNone
       }
     }
 
@@ -249,11 +237,10 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.apply(Pos.B7, Pos.B8, Bishop.some)) map (_._1)
 
-      newGame must beSuccess.like {
-        case nonDrawnGame =>
-          nonDrawnGame.situation.end must beFalse
-          nonDrawnGame.situation.autoDraw must beFalse
-          nonDrawnGame.situation.status must beNone
+      newGame must beSuccess.like { case nonDrawnGame =>
+        nonDrawnGame.situation.end must beFalse
+        nonDrawnGame.situation.autoDraw must beFalse
+        nonDrawnGame.situation.status must beNone
       }
 
     }
@@ -264,11 +251,10 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val newGame = originalGame flatMap (_.playMoves(Pos.F6 -> Pos.G7))
 
-      newGame must beSuccess.like {
-        case nonDrawnGame =>
-          nonDrawnGame.situation.end must beFalse
-          nonDrawnGame.situation.autoDraw must beFalse
-          nonDrawnGame.situation.status must beNone
+      newGame must beSuccess.like { case nonDrawnGame =>
+        nonDrawnGame.situation.end must beFalse
+        nonDrawnGame.situation.autoDraw must beFalse
+        nonDrawnGame.situation.status must beNone
       }
     }
 
@@ -276,9 +262,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
       val positionString = "4K3/8/1b6/8/8/8/5B2/3k4 b - -"
       val maybeGame      = fenToGame(positionString, Antichess)
 
-      maybeGame must beSuccess.like {
-        case game =>
-          game.situation.end must beFalse
+      maybeGame must beSuccess.like { case game =>
+        game.situation.end must beFalse
       }
     }
 
@@ -290,8 +275,8 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val drawnGame = game.playMoveList(repeatedMoves)
 
-      drawnGame must beSuccess.like {
-        case g => g.situation.threefoldRepetition must beTrue
+      drawnGame must beSuccess.like { case g =>
+        g.situation.threefoldRepetition must beTrue
       }
 
     }
@@ -299,17 +284,15 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
     "Successfully play through a full game until one player loses all their pieces" in {
       val game = Reader.full(fullGame)
 
-      game must beSuccess.like {
-        case Reader.Result.Complete(replay) =>
-          val game = replay.state
+      game must beSuccess.like { case Reader.Result.Complete(replay) =>
+        val game = replay.state
 
-          game.situation.end must beTrue
+        game.situation.end must beTrue
 
-          // In antichess, the player who has just lost all their pieces is the winner
-          game.situation.winner must beSome.like {
-            case color =>
-              color == Black;
-          }
+        // In antichess, the player who has just lost all their pieces is the winner
+        game.situation.winner must beSome.like { case color =>
+          color == Black;
+        }
       }
     }
 
@@ -319,13 +302,11 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val drawnGame = maybeGame flatMap (_.playMoves((Pos.A5, Pos.A6)))
 
-      drawnGame must beSuccess.like {
-        case game =>
-          game.situation.end must beTrue
-          game.situation.winner must beSome.like {
-            case color =>
-              color == Black;
-          }
+      drawnGame must beSuccess.like { case game =>
+        game.situation.end must beTrue
+        game.situation.winner must beSome.like { case color =>
+          color == Black;
+        }
       }
     }
 
@@ -335,17 +316,15 @@ g4 {[%emt 0.200]} 34. Rxg4 {[%emt 0.172]} 0-1"""
 
       val drawnGame = maybeGame flatMap (_.playMoves((Pos.C8, Pos.A6)))
 
-      drawnGame must beSuccess.like {
-        case game =>
-          game.situation.end must beTrue
-          game.situation.status must beSome.like {
-            case state => state == Status.VariantEnd
+      drawnGame must beSuccess.like { case game =>
+        game.situation.end must beTrue
+        game.situation.status must beSome.like { case state =>
+          state == Status.VariantEnd
 
-          }
-          game.situation.winner must beSome.like {
-            case color =>
-              color == Black;
-          }
+        }
+        game.situation.winner must beSome.like { case color =>
+          color == Black;
+        }
       }
     }
 

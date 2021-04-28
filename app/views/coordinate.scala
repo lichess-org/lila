@@ -107,14 +107,13 @@ object coordinate {
       List(
         (trans.coordinates.averageScoreAsWhiteX, score.gote),
         (trans.coordinates.averageScoreAsBlackX, score.sente)
-      ).map {
-        case (averageScoreX, s) =>
-          div(cls := "chart_container")(
-            s.nonEmpty option frag(
-              p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
-              div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
-            )
+      ).map { case (averageScoreX, s) =>
+        div(cls := "chart_container")(
+          s.nonEmpty option frag(
+            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
           )
+        )
       }
     )
 }

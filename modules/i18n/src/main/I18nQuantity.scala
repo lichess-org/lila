@@ -130,46 +130,44 @@ private object I18nQuantity {
 
   import selectors._
 
-  private val langMap: Map[Language, Selector] = LangList.all.map {
+  private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
+    lang.language -> (lang.language match {
 
-    case (lang, _) =>
-      lang.language -> (lang.language match {
+      case "fr" | "ff" | "kab" => french _
 
-        case "fr" | "ff" | "kab" => french _
+      case "cs" | "sk" => czech _
 
-        case "cs" | "sk" => czech _
+      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
 
-        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
+      case "lv" => latvian _
 
-        case "lv" => latvian _
+      case "lt" => lithuanian _
 
-        case "lt" => lithuanian _
+      case "pl" => polish _
 
-        case "pl" => polish _
+      case "ro" | "mo" => romanian _
 
-        case "ro" | "mo" => romanian _
+      case "sl" => slovenian _
 
-        case "sl" => slovenian _
+      case "ar" => arabic _
 
-        case "ar" => arabic _
+      case "mk" => macedonian _
 
-        case "mk" => macedonian _
+      case "cy" | "br" => welsh _
 
-        case "cy" | "br" => welsh _
+      case "mt" => maltese _
 
-        case "mt" => maltese _
+      case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
 
-        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
+      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
+        selectors.zero _
 
-        case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
-          selectors.zero _
+      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
+          "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
+          "tp" | "io" | "ia" =>
+        selectors.none _
 
-        case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
-            "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
-            "tp" | "io" | "ia" =>
-          selectors.none _
-
-        case _ => default _
-      })
+      case _ => default _
+    })
   }
 }

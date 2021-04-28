@@ -43,7 +43,12 @@ case class Move(
       else h2
     } fixCastles
 
-    board.variant.finalizeBoard(board, toUci, capture flatMap before.apply, !situationBefore.color) updateHistory { h =>
+    board.variant.finalizeBoard(
+      board,
+      toUci,
+      capture flatMap before.apply,
+      !situationBefore.color
+    ) updateHistory { h =>
       // Update position hashes last, only after updating the board,
       // castling rights and en-passant rights.
       h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ {
@@ -71,14 +76,14 @@ case class Move(
   def castles = castle.isDefined
 
   def normalizeCastle =
-    castle.fold(this) {
-      case (_, (rookOrig, _)) => copy(dest = rookOrig)
+    castle.fold(this) { case (_, (rookOrig, _)) =>
+      copy(dest = rookOrig)
     }
 
   def color = piece.color
 
   def withPromotion(op: Option[PromotableRole], promoting: Boolean): Option[Move] =
-    if(!promoting)
+    if (!promoting)
       this.some
     else {
       op.fold(this.some) { p =>

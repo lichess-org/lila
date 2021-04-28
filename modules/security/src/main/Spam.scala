@@ -24,8 +24,8 @@ final class Spam(
   private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
 
   def replace(text: String) =
-    replacements.foldLeft(text) {
-      case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
+    replacements.foldLeft(text) { case (t, (regex, rep)) =>
+      regex.replaceAllIn(t, rep)
     }
 
   /* Keep the link to the website but remove the referrer ID */

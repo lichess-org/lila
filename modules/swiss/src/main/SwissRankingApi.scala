@@ -21,8 +21,8 @@ final private class SwissRankingApi(
   def update(res: SwissScoring.Result): Unit =
     scoreCache.put(
       res.swiss.id,
-      res.leaderboard.zipWithIndex.map {
-        case ((p, _), i) => p.userId -> (i + 1)
+      res.leaderboard.zipWithIndex.map { case ((p, _), i) =>
+        p.userId -> (i + 1)
       }.toMap
     )
 
@@ -40,8 +40,8 @@ final private class SwissRankingApi(
     SwissPlayer.fields { f =>
       colls.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {
-      _.view.zipWithIndex.map {
-        case (user, i) => (user, i + 1)
+      _.view.zipWithIndex.map { case (user, i) =>
+        (user, i + 1)
       }.toMap
     }
 }

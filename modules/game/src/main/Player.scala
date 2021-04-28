@@ -38,8 +38,8 @@ case class Player(
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def userInfos: Option[Player.UserInfo] =
-    (userId |@| rating) {
-      case (id, ra) => Player.UserInfo(id, ra, provisional)
+    (userId |@| rating) { case (id, ra) =>
+      Player.UserInfo(id, ra, provisional)
     }
 
   def wins = isWinner getOrElse false
@@ -48,7 +48,7 @@ case class Player(
 
   def finish(winner: Boolean) = {
     copy(isWinner = winner option true)
-    }
+  }
 
   def offerDraw(turn: Int) =
     copy(

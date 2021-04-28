@@ -87,8 +87,7 @@ final class NotifyApi(
       }
     }
 
-  /**
-    * Inserts notification into the repository.
+  /** Inserts notification into the repository.
     *
     * If the user already has an unread notification on the topic, discard it.
     *

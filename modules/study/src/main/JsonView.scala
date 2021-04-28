@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.{ FEN, Uci }
-import chess.{Pos, Piece => ChessPiece }
+import chess.{ Pos, Piece => ChessPiece }
 import play.api.libs.json._
 import scala.util.chaining._
 
@@ -137,7 +137,8 @@ object JsonView {
     (c.asOpt[String] flatMap chess.Color.apply).fold[JsResult[chess.Color]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val roleReader: Reads[chess.Role] = Reads[chess.Role] { v =>
-    (v.asOpt[String] flatMap {r => chess.Role.forsyth(if(r == "knight") 'n' else r.head)}).fold[JsResult[chess.Role]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String] flatMap { r => chess.Role.forsyth(if (r == "knight") 'n' else r.head) })
+      .fold[JsResult[chess.Role]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val pieceReader = Json.reads[ChessPiece]
 
@@ -175,9 +176,10 @@ object JsonView {
           orig  <- o.get[Pos]("orig")
         } yield o.get[Pos]("dest") match {
           case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _          => { o.get[ChessPiece]("piece") match {
-            case Some(piece)  => Shape.Piece(brush, orig, piece)
-            case _            => Shape.Circle(brush, orig)
+          case _ => {
+            o.get[ChessPiece]("piece") match {
+              case Some(piece) => Shape.Piece(brush, orig, piece)
+              case _           => Shape.Circle(brush, orig)
             }
           }
         }

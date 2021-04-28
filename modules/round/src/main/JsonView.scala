@@ -64,8 +64,7 @@ final class JsonView(
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byId) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map {
-      case socket ~ opponentUser ~ takebackable ~ moretimeable =>
+      moretimer.isAllowedIn(pov.game) map { case socket ~ opponentUser ~ takebackable ~ moretimeable =>
         import pov._
         Json
           .obj(
@@ -95,10 +94,10 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
                                 else pref.autoQueen),
-                "clockTenths" -> pref.clockTenths,
+                "clockTenths"    -> pref.clockTenths,
                 "clockCountdown" -> pref.clockCountdown,
-                "moveEvent"   -> pref.moveEvent,
-                "pieceNotation" -> pref.pieceNotation
+                "moveEvent"      -> pref.moveEvent,
+                "pieceNotation"  -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -136,7 +135,7 @@ final class JsonView(
               "millisToMove" -> game.timeForFirstMove.millis
             )
           })
-    }
+      }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
@@ -163,8 +162,7 @@ final class JsonView(
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
-      userRepo.pair(pov.player.userId, pov.opponent.userId) map {
-      case (socket, (playerUser, opponentUser)) =>
+      userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
         import pov._
         Json
           .obj(
@@ -197,7 +195,7 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
-                "pieceNotation" -> pref.pieceNotation
+                "pieceNotation"     -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -209,14 +207,14 @@ final class JsonView(
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
-          .add("tv" -> tv.collect {
-            case OnLishogiTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+          .add("tv" -> tv.collect { case OnLishogiTv(channel, flip) =>
+            Json.obj("channel" -> channel, "flip" -> flip)
           })
-          .add("userTv" -> tv.collect {
-            case OnUserTv(userId) => Json.obj("id" -> userId)
+          .add("userTv" -> tv.collect { case OnUserTv(userId) =>
+            Json.obj("id" -> userId)
           })
 
-    }
+      }
 
   def userAnalysisJson(
       pov: Pov,
@@ -259,7 +257,7 @@ final class JsonView(
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
             "resizeHandle"      -> pref.resizeHandle,
-            "pieceNotation" -> pref.pieceNotation
+            "pieceNotation"     -> pref.pieceNotation
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)

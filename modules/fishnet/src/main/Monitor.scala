@@ -21,8 +21,8 @@ final private class Monitor(
   private val monBy = lila.mon.fishnet.analysis.by
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) =
-    items.foldLeft(0) {
-      case (acc, a) => acc + f(a).getOrElse(0)
+    items.foldLeft(0) { case (acc, a) =>
+      acc + f(a).getOrElse(0)
     }
 
   private[fishnet] def analysis(
@@ -47,11 +47,10 @@ final private class Monitor(
 
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
-      val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
-        case ((sum, nb), move) =>
-          f(move).fold(sum -> nb) { v =>
-            (sum + v, nb + 1)
-          }
+      val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) { case ((sum, nb), move) =>
+        f(move).fold(sum -> nb) { v =>
+          (sum + v, nb + 1)
+        }
       }
       (nb > 0) option (sum / nb)
     }
@@ -80,14 +79,14 @@ final private class Monitor(
 
       val instances = clients.flatMap(_.instance)
 
-      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
-        case (v, nb) => version(v).update(nb)
+      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach { case (v, nb) =>
+        version(v).update(nb)
       }
       instances.map(_.engines.stockfish.name).groupBy(identity).view.mapValues(_.size) foreach {
         case (s, nb) => stockfish(s).update(nb)
       }
-      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
-        case (s, nb) => python(s).update(nb)
+      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach { case (s, nb) =>
+        python(s).update(nb)
       }
     }
 

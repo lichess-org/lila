@@ -33,10 +33,9 @@ final class Video(env: Env) extends LilaController(env) {
             }
           case None =>
             api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
-              api.video.count.apply map {
-              case (videos, count) =>
+              api.video.count.apply map { case (videos, count) =>
                 Ok(html.video.index(videos, count, control))
-            }
+              }
         }
       }
     }
@@ -50,10 +49,9 @@ final class Video(env: Env) extends LilaController(env) {
             api.video.similar(ctx.me, video, 9) zip
               ctx.userId.?? { userId =>
                 api.view.add(View.make(videoId = video.id, userId = userId))
-              } map {
-              case (similar, _) =>
+              } map { case (similar, _) =>
                 Ok(html.video.show(video, similar, control))
-            }
+              }
         }
       }
     }

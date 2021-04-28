@@ -101,21 +101,20 @@ object bits {
         }
       ),
       div(cls := "now-playing")(
-        playing.partition(_.isMyTurn) pipe {
-          case (myTurn, otherTurn) =>
-            (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
-              a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
-                gameFen(pov, withLink = false, withTitle = false, withLive = false),
-                span(cls := "meta")(
-                  playerText(pov.opponent, withRating = false),
-                  span(cls := "indicator")(
-                    if (pov.isMyTurn)
-                      pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, true))
-                    else nbsp
-                  )
+        playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
+          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              gameFen(pov, withLink = false, withTitle = false, withLive = false),
+              span(cls := "meta")(
+                playerText(pov.opponent, withRating = false),
+                span(cls := "indicator")(
+                  if (pov.isMyTurn)
+                    pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, true))
+                  else nbsp
                 )
               )
-            }
+            )
+          }
         }
       )
     )

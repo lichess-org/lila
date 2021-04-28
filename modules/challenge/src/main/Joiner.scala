@@ -50,19 +50,18 @@ final private class Joiner(
             )
             .withId(c.id)
             .pipe { g =>
-              state.fold(g) {
-                case sit @ SituationPlus(Situation(board, _), _) =>
-                  g.copy(
-                    chess = g.chess.copy(
-                      situation = g.situation.copy(
-                        board = g.board.copy(
-                          history = board.history,
-                          variant = chess.variant.FromPosition
-                        )
-                      ),
-                      turns = sit.turns
-                    )
+              state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
+                g.copy(
+                  chess = g.chess.copy(
+                    situation = g.situation.copy(
+                      board = g.board.copy(
+                        history = board.history,
+                        variant = chess.variant.FromPosition
+                      )
+                    ),
+                    turns = sit.turns
                   )
+                )
               }
             }
             .start

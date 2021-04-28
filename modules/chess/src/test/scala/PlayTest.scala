@@ -11,8 +11,8 @@ class PlayTest extends ChessTest {
       val game =
         makeGame.playMoves(E2 -> E4, E7 -> E5, F1 -> C4, G8 -> F6, D2 -> D3, C7 -> C6, C1 -> G5, H7 -> H6)
       "current game" in {
-        game must beSuccess.like {
-          case g => addNewLines(g.board.visual) must_== """
+        game must beSuccess.like { case g =>
+          addNewLines(g.board.visual) must_== """
 rnbqkb r
 pp p pp
   p  n p
@@ -25,8 +25,8 @@ RN QK NR
         }
       }
       "after recapture" in {
-        game flatMap { _.playMoves(G5 -> F6, D8 -> F6) } must beSuccess.like {
-          case g => addNewLines(g.board.visual) must_== """
+        game flatMap { _.playMoves(G5 -> F6, D8 -> F6) } must beSuccess.like { case g =>
+          addNewLines(g.board.visual) must_== """
 rnb kb r
 pp p pp
   p  q p
@@ -61,8 +61,8 @@ RN QK NR
         C5 -> D4,
         C3 -> D4,
         F8 -> B4
-      ) must beSuccess.like {
-        case g => addNewLines(g.board.visual) must_== """
+      ) must beSuccess.like { case g =>
+        addNewLines(g.board.visual) must_== """
 r   k  r
 pp   ppp
   n pn
@@ -103,8 +103,8 @@ RN Q RK
         F3 -> C6,
         B7 -> C6,
         E2 -> A6
-      ) must beSuccess.like {
-        case g => addNewLines(g.board.visual) must_== """
+      ) must beSuccess.like { case g =>
+        addNewLines(g.board.visual) must_== """
   kr  nr
 p  n ppp
 B p p

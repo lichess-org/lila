@@ -108,11 +108,11 @@ final private class GameJson(
               .lastOption
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
-            "fen" -> Forsyth.>>(situation),
-            "ply" -> (plies + 1),
-            "san" -> pgnMove,
-            "id"  -> UciCharPair(uciMove).toString,
-            "uci" -> uciMove.uci,
+            "fen"   -> Forsyth.>>(situation),
+            "ply"   -> (plies + 1),
+            "san"   -> pgnMove,
+            "id"    -> UciCharPair(uciMove).toString,
+            "uci"   -> uciMove.uci,
             "crazy" -> Forsyth.exportCrazyPocket(situation.board)
           )
         }

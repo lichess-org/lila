@@ -51,10 +51,9 @@ class VariantTest extends ChessTest {
       val position = "krq5/bqqq4/qqr5/1qq5/8/8/8/3qB2K b - -"
       val game     = fenToGame(position, Standard)
 
-      game should beSuccess.like {
-        case game =>
-          game.board.materialImbalance must_== -91
-          game.situation.opponentHasInsufficientMaterial must beTrue
+      game should beSuccess.like { case game =>
+        game.board.materialImbalance must_== -91
+        game.situation.opponentHasInsufficientMaterial must beTrue
       }
     }
 
@@ -62,10 +61,9 @@ class VariantTest extends ChessTest {
       val position = "8/7B/K7/2b5/1k6/8/8/8 b - -"
       val game     = fenToGame(position, Standard)
 
-      game should beSuccess.like {
-        case game =>
-          game.board.materialImbalance must_== 0
-          game.situation.opponentHasInsufficientMaterial must beFalse
+      game should beSuccess.like { case game =>
+        game.board.materialImbalance must_== 0
+        game.situation.opponentHasInsufficientMaterial must beFalse
       }
     }
 
@@ -73,10 +71,9 @@ class VariantTest extends ChessTest {
       val position = "8/3k4/2q5/8/8/K1N5/8/8 b - -"
       val game     = fenToGame(position, Standard)
 
-      game should beSuccess.like {
-        case game =>
-          game.board.materialImbalance must_== -6
-          game.situation.opponentHasInsufficientMaterial must beTrue
+      game should beSuccess.like { case game =>
+        game.board.materialImbalance must_== -6
+        game.situation.opponentHasInsufficientMaterial must beTrue
       }
     }
   }
@@ -95,33 +92,41 @@ class VariantTest extends ChessTest {
   "kingOfTheHill" should {
     "detect win" in {
       "not" in {
-        Game("""
+        Game(
+          """
 PPk
 K
-""".kingOfTheHill, White).situation.end must beFalse
+""".kingOfTheHill,
+          White
+        ).situation.end must beFalse
       }
       "regular checkMate" in {
-        val game = Game("""
+        val game = Game(
+          """
 PP
 K  r
-""".kingOfTheHill, White)
+""".kingOfTheHill,
+          White
+        )
 
         game.situation.end must beTrue
-        game.situation.winner must beSome.like {
-          case color =>
-            color == Black
+        game.situation.winner must beSome.like { case color =>
+          color == Black
         }
       }
       "centered black king" in {
-        val sit = Game("""
+        val sit = Game(
+          """
    k
 
 PP
    K
-""".kingOfTheHill, White).situation
+""".kingOfTheHill,
+          White
+        ).situation
         sit.end must beTrue
-        sit.winner must beSome.like {
-          case color => color == Black
+        sit.winner must beSome.like { case color =>
+          color == Black
         }
 
       }
@@ -135,20 +140,25 @@ PP
   "threeCheck" should {
     "detect win" in {
       "not" in {
-        Game("""
+        Game(
+          """
 PPk
 K
-""".threeCheck, White).situation.end must beFalse
+""".threeCheck,
+          White
+        ).situation.end must beFalse
       }
       "regular checkMate" in {
-        val game = Game("""
+        val game = Game(
+          """
 PP
 K  r
-""".threeCheck, White)
+""".threeCheck,
+          White
+        )
         game.situation.end must beTrue
-        game.situation.winner must beSome.like {
-          case color =>
-            color == Black
+        game.situation.winner must beSome.like { case color =>
+          color == Black
         }
       }
       "1 check" in {
@@ -195,9 +205,8 @@ K  r
           .get
         game.situation.end must beTrue
 
-        game.situation.winner must beSome.like {
-          case color =>
-            color == Black
+        game.situation.winner must beSome.like { case color =>
+          color == Black
         }
       }
     }
@@ -208,9 +217,8 @@ K  r
 
       val successGame = game flatMap (_.playMove(Pos.H2, Pos.H1, Knight.some))
 
-      successGame must beSuccess.like {
-        case game =>
-          game.situation.end must beFalse
+      successGame must beSuccess.like { case game =>
+        game.situation.end must beFalse
       }
     }
 
@@ -218,10 +226,9 @@ K  r
       val position = "8/6K1/8/8/8/8/k7/8 b - -"
       val game     = fenToGame(position, ThreeCheck)
 
-      game must beSuccess.like {
-        case game =>
-          game.situation.end must beTrue
-          game.situation.status must beEqualTo(Status.Draw.some)
+      game must beSuccess.like { case game =>
+        game.situation.end must beTrue
+        game.situation.status must beEqualTo(Status.Draw.some)
       }
     }
 
@@ -235,10 +242,9 @@ K  r
       val position = "8/8/8/8/3K4/8/1k6/b7 b - - 5 3"
       val game     = fenToGame(position, RacingKings)
 
-      game must beSuccess.like {
-        case game =>
-          game.situation.end must beTrue
-          game.situation.staleMate must beTrue
+      game must beSuccess.like { case game =>
+        game.situation.end must beTrue
+        game.situation.staleMate must beTrue
       }
     }
 
@@ -246,10 +252,9 @@ K  r
       val position = "8/8/8/8/5K2/8/2k5/8 w - - 0 1"
       val game     = fenToGame(position, RacingKings)
 
-      game must beSuccess.like {
-        case game =>
-          game.situation.end must beFalse
-          game.situation.staleMate must beFalse
+      game must beSuccess.like { case game =>
+        game.situation.end must beFalse
+        game.situation.staleMate must beFalse
       }
     }
 
@@ -258,12 +263,11 @@ K  r
         val position = "2K5/8/6k1/8/8/8/8/Q6q w - - 0 1"
         val game     = fenToGame(position, RacingKings)
 
-        game must beSuccess.like {
-          case game =>
-            game.situation.end must beTrue
-            game.situation.winner must beSome.like {
-              case color => color == White
-            }
+        game must beSuccess.like { case game =>
+          game.situation.end must beTrue
+          game.situation.winner must beSome.like { case color =>
+            color == White
+          }
         }
       }
 
@@ -271,12 +275,11 @@ K  r
         val position = "6k1/8/8/8/8/2r5/1KB5/2B5 w - - 0 1"
         val game     = fenToGame(position, RacingKings)
 
-        game must beSuccess.like {
-          case game =>
-            game.situation.end must beTrue
-            game.situation.winner must beSome.like {
-              case color => color == Black
-            }
+        game must beSuccess.like { case game =>
+          game.situation.end must beTrue
+          game.situation.winner must beSome.like { case color =>
+            color == Black
+          }
         }
       }
     }
@@ -286,9 +289,8 @@ K  r
         val position = "2K5/5k2/8/8/8/8/8/8 b - - 0 1"
         val game     = fenToGame(position, RacingKings)
 
-        game must beSuccess.like {
-          case game =>
-            game.situation.end must beFalse
+        game must beSuccess.like { case game =>
+          game.situation.end must beFalse
         }
       }
 
@@ -296,12 +298,11 @@ K  r
         val position = "2K5/8/2n1nk2/8/8/8/8/4r3 b - - 0 1"
         val game     = fenToGame(position, RacingKings)
 
-        game must beSuccess.like {
-          case game =>
-            game.situation.end must beTrue
-            game.situation.winner must beSome.like {
-              case color => color == White
-            }
+        game must beSuccess.like { case game =>
+          game.situation.end must beTrue
+          game.situation.winner must beSome.like { case color =>
+            color == White
+          }
         }
       }
     }
@@ -310,10 +311,9 @@ K  r
       val position = "2K2k2/8/8/8/8/1b6/1b6/8 w - - 0 1"
       val game     = fenToGame(position, RacingKings)
 
-      game must beSuccess.like {
-        case game =>
-          game.situation.end must beTrue
-          game.situation.status must beEqualTo(Status.Draw.some)
+      game must beSuccess.like { case game =>
+        game.situation.end must beTrue
+        game.situation.status must beEqualTo(Status.Draw.some)
       }
     }
 
@@ -331,8 +331,8 @@ K  r
       val position = "8/p7/8/8/2B5/b7/PPPK2PP/RNB3NR w - - 1 16"
       val game     = fenToGame(position, Antichess)
 
-      game must beSuccess.like {
-        case game => game.situation.board.materialImbalance must_== -20
+      game must beSuccess.like { case game =>
+        game.situation.board.materialImbalance must_== -20
       }
     }
   }

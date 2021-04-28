@@ -33,7 +33,8 @@ final class ChallengeApi(
   def create(c: Challenge): Fu[Boolean] =
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
-      case false => {
+      case false =>
+        {
           repo like c flatMap { _ ?? repo.cancel }
         } >> (repo insert c) >>- {
           uncacheAndNotify(c)

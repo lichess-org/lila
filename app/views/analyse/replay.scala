@@ -52,7 +52,14 @@ object replay {
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
       ),*/
-      game.variant == chess.variant.Standard option a(dataIcon := "x", cls := "text", href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}", attr("download") := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kifu")(
+      game.variant == chess.variant.Standard option a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}",
+        attr(
+          "download"
+        ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kifu"
+      )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(

@@ -135,14 +135,14 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.endgame,
       PuzzleTheme.tsume, // ?
       PuzzleTheme.lishogiGames,
-      PuzzleTheme.otherSources,
+      PuzzleTheme.otherSources
     ).map(_.key)
 
     private def isHinting(theme: PuzzleTheme.Key) = !nonHintingThemes(theme)
 
     // themes that make the solution very obvious
     private val isObvious: Set[PuzzleTheme.Key] = Set(
-      PuzzleTheme.mateIn1,
+      PuzzleTheme.mateIn1
     ).map(_.key)
 
     private def weightOf(theme: PuzzleTheme.Key, result: Result) =

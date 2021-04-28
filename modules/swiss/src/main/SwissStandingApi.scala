@@ -35,30 +35,28 @@ final class SwissStandingApi(
       _.zip(res.leaderboard).zipWithIndex
         .grouped(10)
         .toList
-        .foldLeft(0) {
-          case (i, pagePlayers) =>
-            val page = i + 1
-            pageCache.put(
-              res.swiss.id -> page,
-              Json.obj(
-                "page" -> page,
-                "players" -> pagePlayers
-                  .map {
-                    case ((user, (player, sheet)), r) =>
-                      SwissJson.playerJson(
-                        res.swiss,
-                        SwissPlayer.View(
-                          player = player,
-                          rank = r + 1,
-                          user = user | LightUser.fallback(player.userId),
-                          ~res.pairings.get(player.userId),
-                          sheet
-                        )
-                      )
-                  }
-              )
+        .foldLeft(0) { case (i, pagePlayers) =>
+          val page = i + 1
+          pageCache.put(
+            res.swiss.id -> page,
+            Json.obj(
+              "page" -> page,
+              "players" -> pagePlayers
+                .map { case ((user, (player, sheet)), r) =>
+                  SwissJson.playerJson(
+                    res.swiss,
+                    SwissPlayer.View(
+                      player = player,
+                      rank = r + 1,
+                      user = user | LightUser.fallback(player.userId),
+                      ~res.pairings.get(player.userId),
+                      sheet
+                    )
+                  )
+                }
             )
-            page
+          )
+          page
         }
     } map { lastPage =>
       // make sure there's no extra page in the cache in case of players leaving the tournament
@@ -91,26 +89,25 @@ final class SwissStandingApi(
       "players" -> rankedPlayers
         .zip(users)
         .zip(sheets)
-        .map {
-          case SwissPlayer.Ranked(rank, player) ~ user ~ sheet =>
-            SwissJson.playerJson(
-              swiss,
-              SwissPlayer.View(
-                player,
-                rank,
-                user | LightUser.fallback(player.userId),
-                ~pairings.get(player.userId),
-                sheet
-              )
+        .map { case SwissPlayer.Ranked(rank, player) ~ user ~ sheet =>
+          SwissJson.playerJson(
+            swiss,
+            SwissPlayer.View(
+              player,
+              rank,
+              user | LightUser.fallback(player.userId),
+              ~pairings.get(player.userId),
+              sheet
             )
+          )
         }
     )
 
   private def bestWithRank(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer.Ranked]] =
     best(id, nb, skip).map { res =>
       res
-        .foldRight(List.empty[SwissPlayer.Ranked] -> (res.size + skip)) {
-          case (p, (res, rank)) => (SwissPlayer.Ranked(rank, p) :: res, rank - 1)
+        .foldRight(List.empty[SwissPlayer.Ranked] -> (res.size + skip)) { case (p, (res, rank)) =>
+          (SwissPlayer.Ranked(rank, p) :: res, rank - 1)
         }
         ._1
     }

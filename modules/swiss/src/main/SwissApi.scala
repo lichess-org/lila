@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.chat.Chat
-import lila.common.{ Bus, Animal, LightUser }
+import lila.common.{ Animal, Bus, LightUser }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID
@@ -226,8 +226,8 @@ final class SwissApi(
         }))
         .flatMap { opponents =>
           lightUserApi asyncMany opponents.map(_.userId) map { users =>
-            opponents.zip(users) map {
-              case (o, u) => SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId))
+            opponents.zip(users) map { case (o, u) =>
+              SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId))
             }
           } map { opponents =>
             pairings flatMap { pairing =>
@@ -273,8 +273,8 @@ final class SwissApi(
       game.sentePlayer.userId.ifTrue(swiss.isStarted) flatMap { senteId =>
         game.gotePlayer.userId map { goteId =>
           rankingApi(swiss) map { ranking =>
-            ranking.get(senteId) |@| ranking.get(goteId) apply {
-              case (senteR, goteR) => GameRanks(senteR, goteR)
+            ranking.get(senteId) |@| ranking.get(goteId) apply { case (senteR, goteR) =>
+              GameRanks(senteR, goteR)
             }
           }
         }
@@ -373,25 +373,25 @@ final class SwissApi(
                   .void
               }
             } >> {
-            (swiss.nbOngoing <= 1) ?? {
-              if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
-              else if (swiss.settings.manualRounds) fuccess {
-                systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+              (swiss.nbOngoing <= 1) ?? {
+                if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
+                else if (swiss.settings.manualRounds) fuccess {
+                  systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+                }
+                else
+                  colls.swiss
+                    .updateField(
+                      $id(swiss.id),
+                      "nextRoundAt",
+                      swiss.settings.dailyInterval match {
+                        case Some(days) => game.createdAt plusDays days
+                        case None       => DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                      }
+                    )
+                    .void >>-
+                    systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
               }
-              else
-                colls.swiss
-                  .updateField(
-                    $id(swiss.id),
-                    "nextRoundAt",
-                    swiss.settings.dailyInterval match {
-                      case Some(days) => game.createdAt plusDays days
-                      case None       => DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
-                    }
-                  )
-                  .void >>-
-                  systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
             }
-          }
       } >> recomputeAndUpdateAll(swissId)
     }
 
@@ -513,27 +513,26 @@ final class SwissApi(
         }
       }
       .flatMap {
-        _.map {
-          case (swissId, gameIds) =>
-            Sequencing[List[Game]](swissId)(byId) { _ =>
-              roundSocket.getGames(gameIds) map { pairs =>
-                val games               = pairs.collect { case (_, Some(g)) => g }
-                val (finished, ongoing) = games.partition(_.finishedOrAborted)
-                val flagged             = ongoing.filter(_ outoftime true)
-                val missingIds          = pairs.collect { case (id, None) => id }
-                lila.mon.swiss.games("finished").record(finished.size)
-                lila.mon.swiss.games("ongoing").record(ongoing.size)
-                lila.mon.swiss.games("flagged").record(flagged.size)
-                lila.mon.swiss.games("missing").record(missingIds.size)
-                if (flagged.nonEmpty)
-                  Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
-                if (missingIds.nonEmpty)
-                  colls.pairing.delete.one($inIds(missingIds))
-                finished
-              }
-            } flatMap {
-              _.map(finishGame).sequenceFu.void
+        _.map { case (swissId, gameIds) =>
+          Sequencing[List[Game]](swissId)(byId) { _ =>
+            roundSocket.getGames(gameIds) map { pairs =>
+              val games               = pairs.collect { case (_, Some(g)) => g }
+              val (finished, ongoing) = games.partition(_.finishedOrAborted)
+              val flagged             = ongoing.filter(_ outoftime true)
+              val missingIds          = pairs.collect { case (id, None) => id }
+              lila.mon.swiss.games("finished").record(finished.size)
+              lila.mon.swiss.games("ongoing").record(ongoing.size)
+              lila.mon.swiss.games("flagged").record(flagged.size)
+              lila.mon.swiss.games("missing").record(missingIds.size)
+              if (flagged.nonEmpty)
+                Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+              if (missingIds.nonEmpty)
+                colls.pairing.delete.one($inIds(missingIds))
+              finished
             }
+          } flatMap {
+            _.map(finishGame).sequenceFu.void
+          }
         }.sequenceFu.void
       }
 

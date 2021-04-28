@@ -27,16 +27,22 @@ K q    """)
 K n    """)
     }
     "promote to a queen by killing" in {
-      Game("""
+      Game(
+        """
   p
-K  R""", Black).playMove(C2, D1) must beGame("""
+K  R""",
+        Black
+      ).playMove(C2, D1) must beGame("""
 
 K  q""")
     }
     "promote to a knight by killing" in {
-      Game("""
+      Game(
+        """
   p
-K  R""", Black).playMove(C2, D1, Knight.some) must beGame("""
+K  R""",
+        Black
+      ).playMove(C2, D1, Knight.some) must beGame("""
 
 K  n""")
     }

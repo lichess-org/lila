@@ -32,8 +32,8 @@ final private class Moretimer(
   private[round] def give(game: Game, colors: List[Color], duration: MoretimeDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
       val centis = duration.value.toCentis
-      val newClock = colors.foldLeft(clock) {
-        case (c, color) => c.giveTime(color, centis)
+      val newClock = colors.foldLeft(clock) { case (c, color) =>
+        c.giveTime(color, centis)
       }
       colors.foreach { c =>
         messenger.volatile(game, s"$c + ${duration.value.toSeconds} seconds")

@@ -97,11 +97,10 @@ trait Handlers {
     def listWriter = collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
     tryHandler[NonEmptyList[T]](
-      {
-        case array: BSONArray =>
-          listReader.readTry(array).flatMap {
-            _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
-          }
+      { case array: BSONArray =>
+        listReader.readTry(array).flatMap {
+          _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+        }
       },
       nel => listWriter.writeTry(nel.toList).get
     )

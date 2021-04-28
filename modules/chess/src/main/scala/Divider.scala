@@ -23,9 +23,9 @@ object Division {
 }
 
 sealed trait DividerData
-final case class NotFound(senteInvadersInGotesCamp: Int = 0, goteInvadersInSentesCamp: Int = 0) extends DividerData
+final case class NotFound(senteInvadersInGotesCamp: Int = 0, goteInvadersInSentesCamp: Int = 0)
+    extends DividerData
 final case class Found(index: Int) extends DividerData
-
 
 object Divider {
 
@@ -45,7 +45,7 @@ object Divider {
           // if one piece invades the opposing camp and is not immediately captured
           (currSenteInvaders >= 1 && lastSenteInvaders >= 1) ||
           (currGoteInvaders >= 1 && lastGoteInvaders >= 1)
-          ) Found(index)
+        ) Found(index)
         else
           // store the current # of Invaders
           NotFound(currSenteInvaders, currGoteInvaders)
@@ -54,7 +54,7 @@ object Divider {
 
     val midGameOption = midGame match {
       case Found(index) => Some(index)
-      case _ => None
+      case _            => None
     }
 
     val endGame =
@@ -65,7 +65,7 @@ object Divider {
           if (
             (currSenteInvaders >= 2 && lastSenteInvaders >= 2) ||
             (currGoteInvaders >= 2 && lastGoteInvaders >= 2)
-            ) Found(index)
+          ) Found(index)
           else
             NotFound(currSenteInvaders, currGoteInvaders)
         }
@@ -74,7 +74,7 @@ object Divider {
 
     val endGameOption = endGame match {
       case Found(index) => Some(index)
-      case _ => None
+      case _            => None
     }
 
     Division(
@@ -87,15 +87,14 @@ object Divider {
   private def countInvaders(board: Board): (Int, Int) = {
     def isPieceAtBackRank(pos: Pos, piece: Piece): Boolean =
       if (piece.color == Color.Sente) (7 <= pos.y && pos.y <= 9) else (1 <= pos.y && pos.y <= 3)
-    board.pieces.foldLeft((0, 0)) {
-      case ((senteInvaders, goteInvaders), (pos, piece)) =>
-        if (isPieceAtBackRank(pos, piece))
-          if (piece.color == Color.Sente)
-            (senteInvaders + 1, goteInvaders)
-          else
-            (senteInvaders, goteInvaders + 1)
+    board.pieces.foldLeft((0, 0)) { case ((senteInvaders, goteInvaders), (pos, piece)) =>
+      if (isPieceAtBackRank(pos, piece))
+        if (piece.color == Color.Sente)
+          (senteInvaders + 1, goteInvaders)
         else
-          (senteInvaders, goteInvaders)
+          (senteInvaders, goteInvaders + 1)
+      else
+        (senteInvaders, goteInvaders)
     }
   }
 
@@ -108,11 +107,10 @@ object Divider {
 
   // Sparse back-rank indicates that pieces have been developed
   private def backrankSparse(board: Board): Boolean =
-    backranks.exists {
-      case (backrank, color) =>
-        backrank.count { pos =>
-          board(pos).fold(false)(_ is color)
-        } < 2
+    backranks.exists { case (backrank, color) =>
+      backrank.count { pos =>
+        board(pos).fold(false)(_ is color)
+      } < 2
     }
 
   private def score(sente: Int, gote: Int, y: Int): Int =
@@ -155,17 +153,16 @@ object Divider {
 
   private def mixedness(board: Board): Int = {
     val boardValues = board.pieces.view.mapValues(_ is Color.sente)
-    mixednessRegions.foldLeft(0) {
-      case (mix, region) =>
-        var sente = 0
-        var gote = 0
-        region foreach { p =>
-          boardValues get p foreach { v =>
-            if (v) sente = sente + 1
-            else gote = gote + 1
-          }
+    mixednessRegions.foldLeft(0) { case (mix, region) =>
+      var sente = 0
+      var gote  = 0
+      region foreach { p =>
+        boardValues get p foreach { v =>
+          if (v) sente = sente + 1
+          else gote = gote + 1
         }
-        mix + score(sente, gote, region.head.y)
+      }
+      mix + score(sente, gote, region.head.y)
     }
   }
 }

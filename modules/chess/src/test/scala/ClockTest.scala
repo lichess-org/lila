@@ -27,8 +27,8 @@ class ClockTest extends ChessTest {
       game.clock map { _.color } must_== Some(White)
     }
     "one move played" in {
-      game.playMoves(E2 -> E4) must beSuccess.like {
-        case g: Game => g.clock map { _.color } must_== Some(Black)
+      game.playMoves(E2 -> E4) must beSuccess.like { case g: Game =>
+        g.clock map { _.color } must_== Some(Black)
       }
     }
   }

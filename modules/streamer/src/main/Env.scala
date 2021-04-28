@@ -90,8 +90,8 @@ final class Env(
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
-  lila.common.Bus.subscribeFun("adjustCheater") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
+  lila.common.Bus.subscribeFun("adjustCheater") { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    api demote userId
   }
 
   system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>

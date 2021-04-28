@@ -44,7 +44,7 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
           Project(
             $doc(
               "sente" -> $doc("$max" -> "$sente"),
-              "gote" -> $doc("$max" -> "$gote")
+              "gote"  -> $doc("$max" -> "$gote")
             )
           )
         )

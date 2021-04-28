@@ -138,8 +138,8 @@ final class PracticeApi(
             .flatMap { obj =>
               (obj.string("_id") |@| obj.int("nb")).tupled
             }
-            .map {
-              case (k, v) => k -> (v * 100f / PracticeStructure.totalChapters).toInt
+            .map { case (k, v) =>
+              k -> (v * 100f / PracticeStructure.totalChapters).toInt
             }
             .toMap
         }

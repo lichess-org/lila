@@ -32,8 +32,8 @@ final class JsonView(
     implicit val scoreWrites      = Json.writes[Score]
     implicit val gamesWrites = OWrites[Games] { games =>
       JsObject {
-        games.value.toList.sortBy(-_._2.size).map {
-          case (pt, score) => pt.key -> scoreWrites.writes(score)
+        games.value.toList.sortBy(-_._2.size).map { case (pt, score) =>
+          pt.key -> scoreWrites.writes(score)
         }
       }
     }
@@ -104,43 +104,41 @@ final class JsonView(
         .add("tournaments", a.tours)
         .add(
           "practice",
-          a.practice.map(_.toList.sortBy(-_._2) map {
-            case (study, nb) =>
-              Json.obj(
-                "url"         -> s"/practice/-/${study.slug}/${study.id}",
-                "name"        -> study.name,
-                "nbPositions" -> nb
-              )
+          a.practice.map(_.toList.sortBy(-_._2) map { case (study, nb) =>
+            Json.obj(
+              "url"         -> s"/practice/-/${study.slug}/${study.id}",
+              "name"        -> study.name,
+              "nbPositions" -> nb
+            )
           })
         )
         .add("simuls", a.simuls.map(_ map simulWrites(user).writes))
         .add(
           "correspondenceMoves",
-          a.corresMoves.map {
-            case (nb, povs) => Json.obj("nb" -> nb, "games" -> povs)
+          a.corresMoves.map { case (nb, povs) =>
+            Json.obj("nb" -> nb, "games" -> povs)
           }
         )
         .add(
           "correspondenceEnds",
-          a.corresEnds.map {
-            case (score, povs) => Json.obj("score" -> score, "games" -> povs)
+          a.corresEnds.map { case (score, povs) =>
+            Json.obj("score" -> score, "games" -> povs)
           }
         )
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)
         .add("teams" -> a.teams)
-        .add("posts" -> a.posts.map(_ map {
-          case (topic, posts) =>
-            Json.obj(
-              "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
-              "topicName" -> topic.name,
-              "posts" -> posts.map { p =>
-                Json.obj(
-                  "url"  -> s"/forum/redirect/post/${p.id}",
-                  "text" -> p.text.take(500)
-                )
-              }
-            )
+        .add("posts" -> a.posts.map(_ map { case (topic, posts) =>
+          Json.obj(
+            "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
+            "topicName" -> topic.name,
+            "posts" -> posts.map { p =>
+              Json.obj(
+                "url"  -> s"/forum/redirect/post/${p.id}",
+                "text" -> p.text.take(500)
+              )
+            }
+          )
         }))
         .add("patron" -> a.patron)
         .add("stream" -> a.stream)

@@ -46,12 +46,11 @@ ${Mailgun.txt.serviceNote}
   // also returns the previous email address
   def confirm(token: String): Fu[Option[(User, Option[EmailAddress])]] =
     tokener read token dmap (_.flatten) flatMap {
-      _ ?? {
-        case TokenPayload(userId, email) =>
-          userRepo.email(userId) flatMap { previous =>
-            (userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId))
-              .map2(_ -> previous)
-          }
+      _ ?? { case TokenPayload(userId, email) =>
+        userRepo.email(userId) flatMap { previous =>
+          (userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId))
+            .map2(_ -> previous)
+        }
       }
     }
 
@@ -65,16 +64,16 @@ ${Mailgun.txt.serviceNote}
         case _                => none
       }
     def write(a: Option[TokenPayload]) =
-      a ?? {
-        case TokenPayload(userId, EmailAddress(email)) => s"$userId$sep$email"
+      a ?? { case TokenPayload(userId, EmailAddress(email)) =>
+        s"$userId$sep$email"
       }
   }
 
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
     getCurrentValue = p =>
-      p ?? {
-        case TokenPayload(userId, _) => userRepo email userId dmap (_.??(_.value))
+      p ?? { case TokenPayload(userId, _) =>
+        userRepo email userId dmap (_.??(_.value))
       }
   )
 }

@@ -1,32 +1,32 @@
 package chess
 
 case class Data(
-      pockets: Pockets,
-      promoted: Set[Pos]
-  ) {
+    pockets: Pockets,
+    promoted: Set[Pos]
+) {
 
-    def drop(piece: Piece): Option[Data] =
-      pockets take piece map { nps =>
-        copy(pockets = nps)
-      }
+  def drop(piece: Piece): Option[Data] =
+    pockets take piece map { nps =>
+      copy(pockets = nps)
+    }
 
-    def store(piece: Piece, from: Pos) =
-      copy(
-        pockets = pockets store Piece(piece.color, Role.demotesTo(piece.role)),
-      )
+  def store(piece: Piece, from: Pos) =
+    copy(
+      pockets = pockets store Piece(piece.color, Role.demotesTo(piece.role))
+    )
 
-    def promote(pos: Pos) = copy(promoted = promoted + pos)
+  def promote(pos: Pos) = copy(promoted = promoted + pos)
 
-    def move(orig: Pos, dest: Pos) =
-      copy(
-        promoted = if (promoted(orig)) promoted - orig + dest else promoted
-      )
-  }
+  def move(orig: Pos, dest: Pos) =
+    copy(
+      promoted = if (promoted(orig)) promoted - orig + dest else promoted
+    )
+}
 
 object Data {
-    val init = Data(Pockets(Pocket(Nil), Pocket(Nil)), Set.empty)
-    // correct order
-    val storableRoles = List(Rook, Bishop, Gold, Silver, Knight, Lance, Pawn)
+  val init = Data(Pockets(Pocket(Nil), Pocket(Nil)), Set.empty)
+  // correct order
+  val storableRoles = List(Rook, Bishop, Gold, Silver, Knight, Lance, Pawn)
 }
 
 case class Pockets(sente: Pocket, gote: Pocket) {
@@ -45,10 +45,13 @@ case class Pockets(sente: Pocket, gote: Pocket) {
       copy(gote = gote store piece.role),
       copy(sente = sente store piece.role)
     )
-  def keys: String = sente.roles.map(_.forsyth).mkString("").toUpperCase() + gote.roles.map(_.forsyth).mkString("").toLowerCase()
+  def keys: String = sente.roles.map(_.forsyth).mkString("").toUpperCase() + gote.roles
+    .map(_.forsyth)
+    .mkString("")
+    .toLowerCase()
   def exportPockets: String = {
     val pocketStr = sente.exportPocket.toUpperCase() + gote.exportPocket.toLowerCase()
-    if(pocketStr == "") "-"
+    if (pocketStr == "") "-"
     else pocketStr
   }
 }
@@ -61,7 +64,7 @@ case class Pocket(roles: List[Role]) {
     if (Data.storableRoles contains role) copy(roles = role :: roles)
     else this
   def exportPocket: String =
-    Data.storableRoles.map{ r =>
+    Data.storableRoles.map { r =>
       val cnt = roles.count(_ == r)
       if (cnt == 1) r.forsythFull
       else if (cnt > 1) cnt.toString + r.forsythFull

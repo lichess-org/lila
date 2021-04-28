@@ -21,7 +21,8 @@ final private class Takebacker(
   )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     IfAllowed(pov.game) {
       pov match {
-        case Pov(game, color) if pov.opponent.isProposingTakeback => {
+        case Pov(game, color) if pov.opponent.isProposingTakeback =>
+          {
             if (
               pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
                 .fromPly(pov.opponent.proposeTakebackAt)
@@ -30,7 +31,8 @@ final private class Takebacker(
           } dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
         case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
-        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
+        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
+          {
             messenger.system(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
               g.updatePlayer(color, _ proposeTakeback g.turns)

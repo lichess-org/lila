@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.{ Data => ChessData}
+import chess.{ Data => ChessData }
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
 
@@ -123,11 +123,11 @@ object Node {
     // select all nodes on that path
     def nodesOn(path: Path): Vector[(Node, Path)] =
       path.split ?? { case (head, tail) =>
-          get(head) ?? { first =>
+        get(head) ?? { first =>
           (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
             (n, p prepend head)
-            }
           }
+        }
       }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =

@@ -85,9 +85,10 @@ final private class Rematcher(
           onStart(nextGame.id)
           redirectEvents(nextGame, isHandicap)
         }
-      case Some(rematchId) => gameRepo game rematchId flatMap {
-        _ ?? (g => isHandicapOptimized(g) map { redirectEvents(g, _) })
-      }
+      case Some(rematchId) =>
+        gameRepo game rematchId flatMap {
+          _ ?? (g => isHandicapOptimized(g) map { redirectEvents(g, _) })
+        }
     }
 
   private def rematchCreate(pov: Pov): Events = {
@@ -125,8 +126,8 @@ final private class Rematcher(
           turns = situation ?? (_.turns),
           startedAtTurn = situation ?? (_.turns)
         ),
-        sentePlayer = if(isHandicap) gPlayer else sPlayer,
-        gotePlayer = if(isHandicap) sPlayer else gPlayer,
+        sentePlayer = if (isHandicap) gPlayer else sPlayer,
+        gotePlayer = if (isHandicap) sPlayer else gPlayer,
         mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
@@ -149,7 +150,7 @@ final private class Rematcher(
 
   private def redirectEvents(game: Game, isHandicap: Boolean = false): Events = {
     val senteId = game fullIdOf Sente
-    val goteId = game fullIdOf Gote
+    val goteId  = game fullIdOf Gote
     List(
       Event.RedirectOwner(if (isHandicap) Gote else Sente, goteId, AnonCookie.json(game pov Gote)),
       Event.RedirectOwner(if (isHandicap) Sente else Gote, senteId, AnonCookie.json(game pov Sente)),

@@ -26,8 +26,7 @@ case object ThreeCheck
       situation.color.fold(checks.sente, checks.gote) >= 3
     }
 
-  /**
-    * It's not possible to check or checkmate the opponent with only a king
+  /** It's not possible to check or checkmate the opponent with only a king
     */
   override def opponentHasInsufficientMaterial(situation: Situation) =
     situation.board.rolesOf(!situation.color) == List(King)

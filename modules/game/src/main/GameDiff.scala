@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Gote, CheckCount, Clock, Color, Sente, Data }
+import chess.{ CheckCount, Clock, Color, Data, Gote, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -60,10 +60,10 @@ object GameDiff {
       } yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =
-      o.flatMap {
-        case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
+      o.flatMap { case (x, y, z) =>
+        ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
-    
+
     def getPeriodEntries(color: Color)(g: Game): Option[Vector[Int]] =
       for {
         history <- g.clockHistory

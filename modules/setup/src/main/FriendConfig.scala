@@ -22,7 +22,18 @@ case class FriendConfig(
 
   val strictFen = false
 
-  def >> = (variant.id, timeMode.id, time, increment, byoyomi, periods, days, mode.id.some, color.name, fen.map(_.value)).some
+  def >> = (
+    variant.id,
+    timeMode.id,
+    time,
+    increment,
+    byoyomi,
+    periods,
+    days,
+    mode.id.some,
+    color.name,
+    fen.map(_.value)
+  ).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
@@ -31,7 +42,18 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def from(
+      v: Int,
+      tm: Int,
+      t: Double,
+      i: Int,
+      b: Int,
+      p: Int,
+      d: Int,
+      m: Option[Int],
+      c: String,
+      fen: Option[String]
+  ) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",

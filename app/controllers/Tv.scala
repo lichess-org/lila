@@ -30,34 +30,33 @@ final class Tv(
       }
     }
 
-  def channels ={
+  def channels = {
     apiC.ApiRequest { _ =>
       import play.api.libs.json._
       implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
       } map { Json.toJson(_) } map Api.Data.apply
-    }}
+    }
+  }
 
   private def lishogiTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) = {
-    OptionFuResult(env.tv.tv getGameAndHistory channel) {
-      case (game, history) =>
-        val flip = getBool("flip")
-        val pov  = if (flip) Pov second game else Pov first game
-        val onTv = lila.round.OnLishogiTv(channel.key, flip)
-        negotiate(
-          html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
-            env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-              env.game.crosstableApi.withMatchup(game) zip
-              env.tv.tv.getChampions map {
-              case data ~ cross ~ champions =>
-                NoCache {
-                  Ok(html.tv.index(channel, champions, pov, data, cross, history))
-                }
+    OptionFuResult(env.tv.tv getGameAndHistory channel) { case (game, history) =>
+      val flip = getBool("flip")
+      val pov  = if (flip) Pov second game else Pov first game
+      val onTv = lila.round.OnLishogiTv(channel.key, flip)
+      negotiate(
+        html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
+          env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+            env.game.crosstableApi.withMatchup(game) zip
+            env.tv.tv.getChampions map { case data ~ cross ~ champions =>
+              NoCache {
+                Ok(html.tv.index(channel, champions, pov, data, cross, history))
+              }
             }
-          },
-          api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) map { Ok(_) }
-        )
+        },
+        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) map { Ok(_) }
+      )
     }
   }
 
@@ -84,16 +83,17 @@ final class Tv(
       import play.api.libs.EventSource
       env.round.tvBroadcast ? TvBroadcast.Connect mapTo
         manifest[TvBroadcast.SourceType] map { source =>
-        Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
-      }
+          Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        }
     }
 
   def frame =
-    Action.async { implicit req => {
-      env.tv.tv.getBestGame map {
-        case None       => NotFound
-        case Some(game) => Ok(views.html.tv.embed(Pov first game))
+    Action.async { implicit req =>
+      {
+        env.tv.tv.getBestGame map {
+          case None       => NotFound
+          case Some(game) => Ok(views.html.tv.embed(Pov first game))
+        }
       }
     }
-  }
 }

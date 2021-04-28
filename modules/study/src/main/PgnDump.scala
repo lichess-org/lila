@@ -130,7 +130,7 @@ object PgnDump {
     }
     val pieces = render("cpl") {
       shapes.value.collect { case Shape.Piece(brush, orig, piece) =>
-	s"${brush.head.toUpper}$orig${piece.forsyth}"
+        s"${brush.head.toUpper}$orig${piece.forsyth}"
       }
     }
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)

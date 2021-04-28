@@ -102,10 +102,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def switch =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.plan.Switch.form.bindFromRequest().fold(
-        _ => funit,
-        data => env.plan.api.switch(me, data.cents)
-      ) inject Redirect(routes.Plan.index())
+      lila.plan.Switch.form
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          data => env.plan.api.switch(me, data.cents)
+        ) inject Redirect(routes.Plan.index())
     }
 
   def cancel =
@@ -133,10 +135,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     }
 
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
-  def badStripeApiCall: PartialFunction[Throwable, Result] = {
-    case e: StripeException =>
-      logger.error("Plan.stripeCheckout", e)
-      badStripeSession("Stripe API call failed")
+  def badStripeApiCall: PartialFunction[Throwable, Result] = { case e: StripeException =>
+    logger.error("Plan.stripeCheckout", e)
+    badStripeSession("Stripe API call failed")
   }
 
   private def createStripeSession(checkout: Checkout, customerId: CustomerId) =
@@ -175,47 +176,51 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       StripeRateLimit(HTTPRequest lastRemoteAddress req) {
         if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
         else
-          lila.plan.Checkout.form.bindFromRequest().fold(
-            err => badStripeSession(err.toString()).fuccess,
-            checkout =>
-              env.plan.api.userCustomer(me) flatMap {
-                case Some(customer) if checkout.freq == Freq.Onetime =>
-                  createStripeSession(checkout, customer.id)
-                case Some(customer) if customer.firstSubscription.isDefined =>
-                  switchStripePlan(me, checkout.amount)
-                case _ =>
-                  env.plan.api
-                    .makeCustomer(me, checkout)
-                    .flatMap(customer => createStripeSession(checkout, customer.id))
-              }
-          )
+          lila.plan.Checkout.form
+            .bindFromRequest()
+            .fold(
+              err => badStripeSession(err.toString()).fuccess,
+              checkout =>
+                env.plan.api.userCustomer(me) flatMap {
+                  case Some(customer) if checkout.freq == Freq.Onetime =>
+                    createStripeSession(checkout, customer.id)
+                  case Some(customer) if customer.firstSubscription.isDefined =>
+                    switchStripePlan(me, checkout.amount)
+                  case _ =>
+                    env.plan.api
+                      .makeCustomer(me, checkout)
+                      .flatMap(customer => createStripeSession(checkout, customer.id))
+                }
+            )
       }(rateLimitedFu)
     }
 
   def payPalIpn =
     Action.async { implicit req =>
       import lila.plan.Patron.PayPal
-      lila.plan.DataForm.ipn.bindFromRequest().fold(
-        err => {
-          if (err.errors("txn_type").nonEmpty) {
-            logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-            fuccess(Ok)
-          } else {
-            logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-            fuccess(BadRequest)
-          }
-        },
-        ipn =>
-          env.plan.api.onPaypalCharge(
-            userId = ipn.userId,
-            email = ipn.email map PayPal.Email.apply,
-            subId = ipn.subId map PayPal.SubId.apply,
-            cents = lila.plan.Cents(ipn.grossCents),
-            name = ipn.name,
-            txnId = ipn.txnId,
-            ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
-            key = get("key", req) | "N/A"
-          ) inject Ok
-      )
+      lila.plan.DataForm.ipn
+        .bindFromRequest()
+        .fold(
+          err => {
+            if (err.errors("txn_type").nonEmpty) {
+              logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
+              fuccess(Ok)
+            } else {
+              logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
+              fuccess(BadRequest)
+            }
+          },
+          ipn =>
+            env.plan.api.onPaypalCharge(
+              userId = ipn.userId,
+              email = ipn.email map PayPal.Email.apply,
+              subId = ipn.subId map PayPal.SubId.apply,
+              cents = lila.plan.Cents(ipn.grossCents),
+              name = ipn.name,
+              txnId = ipn.txnId,
+              ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
+              key = get("key", req) | "N/A"
+            ) inject Ok
+        )
     }
 }

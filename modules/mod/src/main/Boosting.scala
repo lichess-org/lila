@@ -56,7 +56,7 @@ final class BoostingApi(
         case Some(a) => {
           val result: GameResult = a match {
             case Color.Sente => GameResult(winner = senteUser, loser = goteUser)
-            case Color.Gote => GameResult(winner = goteUser, loser = senteUser)
+            case Color.Gote  => GameResult(winner = goteUser, loser = senteUser)
           }
           val id = boostingId(result.winner, result.loser)
           getBoostingRecord(id).flatMap {

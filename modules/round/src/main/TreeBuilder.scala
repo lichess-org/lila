@@ -93,18 +93,17 @@ object TreeBuilder {
             }
           )
           advices.get(g.turns + 1).flatMap { adv =>
-            games.lift(index - 1).map {
-              case (fromGame, _) =>
-                val fromFen = FEN(Forsyth >> fromGame)
-                withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
+            games.lift(index - 1).map { case (fromGame, _) =>
+              val fromFen = FEN(Forsyth >> fromGame)
+              withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
             }
           } getOrElse branch
         }
         games.zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest =>
-            root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-              case (node, ((g, m), i)) => makeBranch(i + 1, g, m) prependChild node
+            root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
+              makeBranch(i + 1, g, m) prependChild node
             }
         }
     }
@@ -137,8 +136,8 @@ object TreeBuilder {
           case Nil => root
           case (g, m) :: rest =>
             root addChild rest
-              .foldLeft(makeBranch(g, m)) {
-                case (node, (g, m)) => makeBranch(g, m) addChild node
+              .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                makeBranch(g, m) addChild node
               }
               .setComp
         }

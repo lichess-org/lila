@@ -75,10 +75,10 @@ object ServerEval {
                             path + node,
                             List(
                               F.score -> info.eval.score
-                      .ifTrue {
-                        node.score.isEmpty ||
+                                .ifTrue {
+                                  node.score.isEmpty ||
                                   advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
-                      }
+                                }
                                 .flatMap(EvalScoreBSONHandler.writeOpt),
                               F.comments -> advOpt
                                 .map { adv =>
@@ -86,7 +86,7 @@ object ServerEval {
                                     Comment.Id.make,
                                     Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
                                     Comment.Author.Lishogi
-                              )
+                                  )
                                 }
                                 .flatMap(CommentsBSONHandler.writeOpt),
                               F.glyphs -> advOpt

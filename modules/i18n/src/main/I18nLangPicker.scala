@@ -32,8 +32,8 @@ object I18nLangPicker {
   }
 
   private val defaultByLanguage: Map[String, Lang] =
-    Registry.langs.foldLeft(Map.empty[String, Lang]) {
-      case (acc, lang) => acc + (lang.language -> lang)
+    Registry.langs.foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
+      acc + (lang.language -> lang)
     }
 
   def findCloser(to: Lang): Option[Lang] =

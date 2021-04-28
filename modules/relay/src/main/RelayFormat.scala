@@ -61,8 +61,8 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
             looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
-            ManyFiles(index, _)
-          }
+              ManyFiles(index, _)
+            }
         }
       }
 

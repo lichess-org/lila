@@ -157,8 +157,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def firstGetsSente(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
-    (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean())) {
-      case (u1, u2) => firstGetsSente(u1, u2)
+    (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean())) { case (u1, u2) =>
+      firstGetsSente(u1, u2)
     }
 
   def incColor(userId: User.ID, value: Int): Unit =
@@ -317,8 +317,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
   def idExists(id: String): Fu[Boolean]         = coll exists $id(id)
 
-  /**
-    * Filters out invalid usernames and returns the IDs for those usernames
+  /** Filters out invalid usernames and returns the IDs for those usernames
     *
     * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
     * @return A list of IDs for the usernames that were given that were valid

@@ -189,18 +189,17 @@ final class JsonView(
             .add("provisional" -> player.provisional)
             .add("withdraw" -> player.withdraw)
             .add("team" -> player.team),
-          "pairings" -> povScores.map {
-            case (pov, score) =>
-              Json
-                .obj(
-                  "id"     -> pov.gameId,
-                  "color"  -> pov.color.name,
-                  "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
-                  "win"    -> score.flatMap(_.isWin),
-                  "status" -> pov.game.status.id,
-                  "score"  -> score.map(sheetScoreJson)
-                )
-                .add("berserk" -> pov.player.berserk)
+          "pairings" -> povScores.map { case (pov, score) =>
+            Json
+              .obj(
+                "id"     -> pov.gameId,
+                "color"  -> pov.color.name,
+                "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+                "win"    -> score.flatMap(_.isWin),
+                "status" -> pov.game.status.id,
+                "score"  -> score.map(sheetScoreJson)
+              )
+              .add("berserk" -> pov.player.berserk)
           }
         )
     }
@@ -244,8 +243,8 @@ final class JsonView(
           jsonDuels <- duels.map(duelJson).sequenceFu
           duelTeams <- tour.exists(_.isTeamBattle) ?? {
             playerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
-              JsObject(teams map {
-                case (userId, teamId) => (userId, JsString(teamId))
+              JsObject(teams map { case (userId, teamId) =>
+                (userId, JsString(teamId))
               }).some
             }
           }
@@ -274,8 +273,8 @@ final class JsonView(
         .add("berserk" -> p.berserk)
     }
     Json.obj(
-      "id"  -> game.id,
-      "fen" -> (chess.format.Forsyth exportSituation game.situation),
+      "id"      -> game.id,
+      "fen"     -> (chess.format.Forsyth exportSituation game.situation),
       "pockets" -> (chess.format.Forsyth exportCrazyPocket game.board),
       "color" -> (game.variant match {
         case chess.variant.RacingKings => chess.Sente
@@ -316,16 +315,15 @@ final class JsonView(
               top3.headOption.map(_.player.userId).filter(w => tour.winnerId.fold(true)(w !=)) foreach {
                 tournamentRepo.setWinnerId(tour.id, _)
               }
-              top3.map {
-                case rp @ RankedPlayer(_, player) =>
-                  for {
-                    sheet <- cached.sheet(tour, player.userId)
-                    json  <- playerJson(lightUserApi, sheet.some, rp, tour.streakable)
-                  } yield json ++ Json
-                    .obj(
-                      "nb" -> sheetNbs(sheet)
-                    )
-                    .add("performance" -> player.performanceOption)
+              top3.map { case rp @ RankedPlayer(_, player) =>
+                for {
+                  sheet <- cached.sheet(tour, player.userId)
+                  json  <- playerJson(lightUserApi, sheet.some, rp, tour.streakable)
+                } yield json ++ Json
+                  .obj(
+                    "nb" -> sheetNbs(sheet)
+                  )
+                  .add("performance" -> player.performanceOption)
               }.sequenceFu
             } map { l =>
               JsArray(l).some
@@ -391,33 +389,32 @@ final class JsonView(
     cacheApi[(Tournament.ID, TeamID), Option[JsObject]](16, "tournament.teamInfo.json") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(32)
-        .buildAsyncFuture {
-          case (tourId, teamId) =>
-            cached.teamInfo.get(tourId -> teamId) flatMap {
-              _ ?? { info =>
-                lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
-                  .obj(
-                    "id"        -> teamId,
-                    "nbPlayers" -> info.nbPlayers,
-                    "rating"    -> info.avgRating,
-                    "perf"      -> info.avgPerf,
-                    "score"     -> info.avgScore,
-                    "topPlayers" -> info.topPlayers.flatMap { p =>
-                      lightUserApi.sync(p.userId) map { user =>
-                        Json
-                          .obj(
-                            "name"   -> user.name,
-                            "rating" -> p.rating,
-                            "score"  -> p.score
-                          )
-                          .add("fire" -> p.fire)
-                          .add("title" -> user.title)
-                      }
+        .buildAsyncFuture { case (tourId, teamId) =>
+          cached.teamInfo.get(tourId -> teamId) flatMap {
+            _ ?? { info =>
+              lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
+                .obj(
+                  "id"        -> teamId,
+                  "nbPlayers" -> info.nbPlayers,
+                  "rating"    -> info.avgRating,
+                  "perf"      -> info.avgPerf,
+                  "score"     -> info.avgScore,
+                  "topPlayers" -> info.topPlayers.flatMap { p =>
+                    lightUserApi.sync(p.userId) map { user =>
+                      Json
+                        .obj(
+                          "name"   -> user.name,
+                          "rating" -> p.rating,
+                          "score"  -> p.score
+                        )
+                        .add("fire" -> p.fire)
+                        .add("title" -> user.title)
                     }
-                  )
-                  .some
-              }
+                  }
+                )
+                .some
             }
+          }
         }
     }
 

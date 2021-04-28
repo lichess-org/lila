@@ -3,7 +3,7 @@ package controllers
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
-import chess.variant.{ FromPosition, Standard, Variant, Crazyhouse }
+import chess.variant.{ Crazyhouse, FromPosition, Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -116,8 +116,7 @@ final class UserAnalysis(
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap {
-        case _ ~ analysis ~ crosstable =>
+        env.game.crosstableApi(pov.game) flatMap { case _ ~ analysis ~ crosstable =>
           import lila.game.JsonView.crosstableWrites
           env.api.roundApi.review(
             pov,
@@ -129,14 +128,15 @@ final class UserAnalysis(
           ) map { data =>
             Ok(data.add("crosstable", crosstable))
           }
-      }
+        }
     }
 
   // XHR only
   def pgn =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.importer.forms.importForm.bindFromRequest()
+      env.importer.forms.importForm
+        .bindFromRequest()
         .fold(
           jsonFormError,
           data =>
@@ -144,19 +144,18 @@ final class UserAnalysis(
               .inMemory(data)
               .fold(
                 err => BadRequest(jsonError(err.toString)).fuccess,
-                {
-                  case (game, fen) =>
-                    val pov = Pov(game, chess.Sente)
-                    env.api.roundApi.userAnalysisJson(
-                      pov,
-                      ctx.pref,
-                      initialFen = fen,
-                      pov.color,
-                      owner = false,
-                      me = ctx.me
-                    ) map { data =>
-                      Ok(data)
-                    }
+                { case (game, fen) =>
+                  val pov = Pov(game, chess.Sente)
+                  env.api.roundApi.userAnalysisJson(
+                    pov,
+                    ctx.pref,
+                    initialFen = fen,
+                    pov.color,
+                    owner = false,
+                    me = ctx.me
+                  ) map { data =>
+                    Ok(data)
+                  }
                 }
               )
         )
@@ -176,11 +175,11 @@ final class UserAnalysis(
               forecasts =>
                 env.round.forecastApi.save(pov, forecasts) >>
                   env.round.forecastApi.loadForDisplay(pov) map {
-                  case None     => Ok(Json.obj("none" -> true))
-                  case Some(fc) => Ok(Json toJson fc) as JSON
-                } recover {
-                  case Forecast.OutOfSync => Ok(Json.obj("reload" -> true))
-                }
+                    case None     => Ok(Json.obj("none" -> true))
+                    case Some(fc) => Ok(Json toJson fc) as JSON
+                  } recover { case Forecast.OutOfSync =>
+                    Ok(Json.obj("reload" -> true))
+                  }
             )
       }
     }

@@ -54,20 +54,20 @@ class BoardTest extends ChessTest {
     }
 
     "allow a piece to be placed" in {
-      board place White - Rook at E3 must beSuccess.like {
-        case b => b(E3) mustEqual Some(White - Rook)
+      board place White - Rook at E3 must beSuccess.like { case b =>
+        b(E3) mustEqual Some(White - Rook)
       }
     }
 
     "allow a piece to be taken" in {
-      board take A1 must beSome.like {
-        case b => b(A1) must beNone
+      board take A1 must beSome.like { case b =>
+        b(A1) must beNone
       }
     }
 
     "allow a piece to move" in {
-      board move E2 to E4 must beSuccess.like {
-        case b => b(E4) mustEqual Some(White - Pawn)
+      board move E2 to E4 must beSuccess.like { case b =>
+        b(E4) mustEqual Some(White - Pawn)
       }
     }
 
@@ -80,8 +80,8 @@ class BoardTest extends ChessTest {
     }
 
     "allow a pawn to be promoted to a queen" in {
-      makeEmptyBoard.place(Black.pawn, A8) flatMap (_ promote A8) must beSome.like {
-        case b => b(A8) must beSome(Black.queen)
+      makeEmptyBoard.place(Black.pawn, A8) flatMap (_ promote A8) must beSome.like { case b =>
+        b(A8) must beSome(Black.queen)
       }
     }
 
@@ -90,8 +90,8 @@ class BoardTest extends ChessTest {
         _ place White - Pawn at A2,
         _ place White - Pawn at A3,
         _ move A2 to A4
-      ) must beSuccess.like {
-        case b => b(A4) mustEqual Some(White - Pawn)
+      ) must beSuccess.like { case b =>
+        b(A4) mustEqual Some(White - Pawn)
       }
     }
 

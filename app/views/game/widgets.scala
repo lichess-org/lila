@@ -93,7 +93,7 @@ object widgets {
           //       g.turns > 6 option s" ... ${1 + (g.turns - 1) / 2} moves "
           //     )
           //   )
-          // } else 
+          // } else
           frag(br, br),
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
@@ -143,14 +143,13 @@ object widgets {
             aiRating(level)
           )
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) {
-            case (name, rating) =>
-              frag(
-                span(name),
-                rating.map { r =>
-                  frag(br, r)
-                }
-              )
+          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+            frag(
+              span(name),
+              rating.map { r =>
+                frag(br, r)
+              }
+            )
           })
         }
       }

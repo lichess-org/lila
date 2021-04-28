@@ -83,7 +83,8 @@ PPPPPPPP
         }
       }
       "chess960 close queenside as black" in {
-        val game = Game("""
+        val game = Game(
+          """
  b rkr q
 p pppppp
  p n
@@ -91,7 +92,9 @@ p pppppp
 
 
 
- K""".chess960, Black)
+ K""".chess960,
+          Black
+        )
         "viable moves" in {
           game.board destsFrom E8 must bePoss(D8, F8)
         }

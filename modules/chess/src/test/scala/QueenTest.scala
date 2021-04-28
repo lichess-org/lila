@@ -77,7 +77,9 @@ N Q    P
 PPPPPPPP
  NBQKBNR
 """
-      board destsFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(
+        board,
+        """
 k B   x
   x  x
 x x x
@@ -86,7 +88,8 @@ NxQxxxxP
  xxx
 PPPPPPPP
  NBQKBNR
-""")
+"""
+      )
     }
 
     "capture opponent pieces" in {
@@ -100,7 +103,9 @@ N QP   P
 PPPPPPPP
  NBQKBNR
 """
-      board destsFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(
+        board,
+        """
 k B
   x  x
 x x x
@@ -109,7 +114,8 @@ NxQP   P
  xxx
 PPPPPPPP
  NBQKBNR
-""")
+"""
+      )
     }
     "threaten" in {
       val board = """

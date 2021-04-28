@@ -21,7 +21,18 @@ case class AiConfig(
 
   val strictFen = true
 
-  def >> = (variant.id, timeMode.id, time, increment, byoyomi, periods, days, level, color.name, fen.map(_.value)).some
+  def >> = (
+    variant.id,
+    timeMode.id,
+    time,
+    increment,
+    byoyomi,
+    periods,
+    days,
+    level,
+    color.name,
+    fen.map(_.value)
+  ).some
 
   def game(user: Option[User]) = {
     fenGame { chessGame =>
@@ -57,7 +68,18 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, level: Int, c: String, fen: Option[String]) =
+  def from(
+      v: Int,
+      tm: Int,
+      t: Double,
+      i: Int,
+      b: Int,
+      p: Int,
+      d: Int,
+      level: Int,
+      c: String,
+      fen: Option[String]
+  ) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",

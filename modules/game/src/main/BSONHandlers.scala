@@ -127,13 +127,13 @@ object BSONHandlers {
       )
 
       val senteClockHistory = r bytesO F.senteClockHistory
-      val goteClockHistory = r bytesO F.goteClockHistory
+      val goteClockHistory  = r bytesO F.goteClockHistory
 
       val perSente = r bytesD F.periodsSente
       val perGote  = r bytesD F.periodsGote
 
       val perEnt = BinaryFormat.periodEntries.read(perSente, perGote).getOrElse(PeriodEntries.default)
-    
+
       Game(
         id = light.id,
         sentePlayer = light.sentePlayer,
@@ -190,9 +190,9 @@ object BSONHandlers {
         F.daysPerTurn       -> o.daysPerTurn,
         F.moveTimes         -> o.binaryMoveTimes,
         F.senteClockHistory -> clockHistory(Sente, o.clockHistory, o.chess.clock, o.flagged),
-        F.goteClockHistory -> clockHistory(Gote, o.clockHistory, o.chess.clock, o.flagged),
+        F.goteClockHistory  -> clockHistory(Gote, o.clockHistory, o.chess.clock, o.flagged),
         F.periodsSente      -> periodEntries(Sente, o.clockHistory),
-        F.periodsGote      -> periodEntries(Gote, o.clockHistory),
+        F.periodsGote       -> periodEntries(Gote, o.clockHistory),
         F.rated             -> w.boolO(o.mode.rated),
         F.variant           -> o.board.variant.exotic.option(w int o.board.variant.id),
         F.bookmarks         -> w.intO(o.bookmarks),
@@ -210,12 +210,12 @@ object BSONHandlers {
         // else {
         val f = PgnStorage.OldBin
         $doc(
-          F.oldPgn         -> f.encode(o.pgnMoves take Game.maxPlies),
-          F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
-          F.positionHashes -> o.history.positionHashes,
+          F.oldPgn          -> f.encode(o.pgnMoves take Game.maxPlies),
+          F.binaryPieces    -> BinaryFormat.piece.write(o.board.pieces),
+          F.positionHashes  -> o.history.positionHashes,
           F.historyLastMove -> o.history.lastMove.map(_.uci),
-          F.checkCount -> o.history.checkCount,
-          F.crazyData  -> o.board.crazyData
+          F.checkCount      -> o.history.checkCount,
+          F.crazyData       -> o.board.crazyData
         )
       }
   }
@@ -231,9 +231,9 @@ object BSONHandlers {
     }
 
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame = {
-      val (senteId, goteId)    = playerIds splitAt 4
-      val winC                 = r boolO F.winnerColor map Color.apply
-      val uids                 = ~r.getO[List[lila.user.User.ID]](F.playerUids)
+      val (senteId, goteId)   = playerIds splitAt 4
+      val winC                = r boolO F.winnerColor map Color.apply
+      val uids                = ~r.getO[List[lila.user.User.ID]](F.playerUids)
       val (senteUid, goteUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder

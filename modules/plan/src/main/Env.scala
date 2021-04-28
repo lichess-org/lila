@@ -98,7 +98,7 @@ final class Env(
           val p = price.toIntOption
           userRepo named user flatMap {
             case Some(u) => api.setPatreon(u, ~p) inject "ok"
-            case None => fuccess("User not found")
+            case None    => fuccess("User not found")
           }
         }
       }

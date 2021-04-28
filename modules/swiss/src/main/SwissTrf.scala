@@ -48,25 +48,24 @@ final class SwissTrf(
       47 -> p.userId,
       84 -> f"${sheet.points.value}%1.1f"
     ) ::: {
-      swiss.allRounds.zip(sheet.outcomes).flatMap {
-        case (rn, outcome) =>
-          val pairing = pairings get rn
-          List(
-            95 -> pairing.map(_ opponentOf p.userId).flatMap(ranking.get).??(_.toString),
-            97 -> pairing.map(_ colorOf p.userId).??(_.fold("b", "w")),
-            99 -> {
-              import SwissSheet._
-              outcome match {
-                case Absent  => "-"
-                case Late    => "H"
-                case Bye     => "U"
-                case Draw    => "="
-                case Win     => "1"
-                case Loss    => "0"
-                case Ongoing => "Z"
-              }
+      swiss.allRounds.zip(sheet.outcomes).flatMap { case (rn, outcome) =>
+        val pairing = pairings get rn
+        List(
+          95 -> pairing.map(_ opponentOf p.userId).flatMap(ranking.get).??(_.toString),
+          97 -> pairing.map(_ colorOf p.userId).??(_.fold("b", "w")),
+          99 -> {
+            import SwissSheet._
+            outcome match {
+              case Absent  => "-"
+              case Late    => "H"
+              case Bye     => "U"
+              case Draw    => "="
+              case Win     => "1"
+              case Loss    => "0"
+              case Ongoing => "Z"
             }
-          ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
+          }
+        ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
       }
     } ::: {
       p.absent && swiss.round.value < swiss.settings.nbRounds
@@ -79,8 +78,8 @@ final class SwissTrf(
     }
 
   private def formatLine(bits: Bits): String =
-    bits.foldLeft("") {
-      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.size - acc.size)}$txt"""
+    bits.foldLeft("") { case (acc, (pos, txt)) =>
+      s"""$acc${" " * (pos - txt.size - acc.size)}$txt"""
     }
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forStyle "M-"

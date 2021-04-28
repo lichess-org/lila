@@ -78,19 +78,18 @@ final private class RelayFetch(
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
             }
         }
-        .recover {
-          case e: Exception =>
-            (e match {
-              case SyncResult.Timeout =>
-                if (relay.official) logger.info(s"Sync timeout $relay")
-                SyncResult.Timeout
-              case _ =>
-                if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
-                SyncResult.Error(e.getMessage)
-            }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+        .recover { case e: Exception =>
+          (e match {
+            case SyncResult.Timeout =>
+              if (relay.official) logger.info(s"Sync timeout $relay")
+              SyncResult.Timeout
+            case _ =>
+              if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
+              SyncResult.Error(e.getMessage)
+          }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
         }
-        .map {
-          case (result, newRelay) => afterSync(result, newRelay)
+        .map { case (result, newRelay) =>
+          afterSync(result, newRelay)
         }
 
   def afterSync(result: SyncResult, relay: Relay): Relay =
@@ -166,15 +165,14 @@ final private class RelayFetch(
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
           round.pairings.zipWithIndex
-            .map {
-              case (pairing, i) =>
-                val number  = i + 1
-                val gameDoc = makeGameDoc(number)
-                (gameDoc.format match {
-                  case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
-                  case RelayFormat.DocFormat.Json =>
-                    httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
-                }) map (number -> _)
+            .map { case (pairing, i) =>
+              val number  = i + 1
+              val gameDoc = makeGameDoc(number)
+              (gameDoc.format match {
+                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Json =>
+                  httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+              }) map (number -> _)
             }
             .sequenceFu
             .map { results =>

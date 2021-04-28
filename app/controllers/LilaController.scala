@@ -355,18 +355,22 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(implicit req: Request[_]): Fu[Result] =
-    form.bindFromRequest().fold(
-      form => fuccess(BadRequest(form.errors mkString "\n")),
-      op
-    )
+    form
+      .bindFromRequest()
+      .fold(
+        form => fuccess(BadRequest(form.errors mkString "\n")),
+        op
+      )
 
   protected def FormFuResult[A, B: Writeable: ContentTypeOf](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
-    form.bindFromRequest().fold(
-      form => err(form) dmap { BadRequest(_) },
-      data => op(data)
-    )
+    form
+      .bindFromRequest()
+      .fold(
+        form => err(form) dmap { BadRequest(_) },
+        data => op(data)
+      )
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
@@ -479,19 +483,17 @@ abstract private[controllers] class LilaController(val env: Env)
       .dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) flatMap {
-      case (d, impersonatedBy) =>
-        val lang = getAndSaveLang(req, d.map(_.user))
-        val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
-        pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
+    restoreUser(req) flatMap { case (d, impersonatedBy) =>
+      val lang = getAndSaveLang(req, d.map(_.user))
+      val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
-    restoreUser(req) flatMap {
-      case (d, impersonatedBy) =>
-        val lang = getAndSaveLang(req, d.map(_.user))
-        val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
-        pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
+    restoreUser(req) flatMap { case (d, impersonatedBy) =>
+      val lang = getAndSaveLang(req, d.map(_.user))
+      val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
 
   private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang = {
@@ -506,33 +508,33 @@ abstract private[controllers] class LilaController(val env: Env)
     ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
       env.pref.api.getPref(me, ctx.req) zip
         (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me.id)) zip {
-        if (isPage) {
-          env.user.lightUserApi preloadUser me
-          env.team.api.nbRequests(me.id) zip
-            env.challenge.api.countInFor.get(me.id) zip
-            env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
-            env.mod.inquiryApi.forMod(me)
-        } else
-          fuccess {
-            (((0, 0), 0), none)
-          }
-      } map {
-        case (
-              (pref, hasClas),
-              (teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)
-            ) =>
-          PageData(
-            teamNbRequests,
-            nbChallenges,
-            nbNotifications,
-            pref,
-            blindMode = blindMode(ctx),
-            hasFingerprint = hasFingerPrint,
-            hasClas = hasClas,
-            inquiry = inquiry,
-            nonce = nonce
-          )
-      }
+          if (isPage) {
+            env.user.lightUserApi preloadUser me
+            env.team.api.nbRequests(me.id) zip
+              env.challenge.api.countInFor.get(me.id) zip
+              env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
+              env.mod.inquiryApi.forMod(me)
+          } else
+            fuccess {
+              (((0, 0), 0), none)
+            }
+        } map {
+          case (
+                (pref, hasClas),
+                (teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)
+              ) =>
+            PageData(
+              teamNbRequests,
+              nbChallenges,
+              nbNotifications,
+              pref,
+              blindMode = blindMode(ctx),
+              hasFingerprint = hasFingerPrint,
+              hasClas = hasClas,
+              inquiry = inquiry,
+              nonce = nonce
+            )
+        }
     }
   }
 

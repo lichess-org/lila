@@ -21,12 +21,12 @@ case class Clock(
   def remainingTime(c: Color) = (players(c).remaining - pending(c)) nonNeg
 
   def remainingTimeTurn(c: Color) = {
-    if(players(c).isUsingByoyomi) (players(c).lastMoveTime - pending(c)) nonNeg
+    if (players(c).isUsingByoyomi) (players(c).lastMoveTime - pending(c)) nonNeg
     else (players(c).remaining - pending(c)) nonNeg
   }
 
   def curPeriod(c: Color) = {
-    players(c).curPeriod + {if(players(c).startsAtZero) 1 else 0}
+    players(c).curPeriod + { if (players(c).startsAtZero) 1 else 0 }
   }
 
   def outOfTime(c: Color, withGrace: Boolean) = {
@@ -35,7 +35,7 @@ case class Clock(
         if (withGrace) (toNow(t) - (players(c).lag.quota atMost Centis(200))) nonNeg
         else toNow(t)
       }
-    }
+  }
   def moretimeable(c: Color) = players(c).remaining.centis < 100 * 60 * 60 * 2
 
   def isInit = players.forall(_.isInit)
@@ -89,21 +89,19 @@ case class Clock(
         val curRemaining = player.remaining - moveTime
 
         val newC = if (clockActive && usingByo) {
-          updatePlayer(color){
+          updatePlayer(color) {
             _.setRemaining(curRemaining atLeast player.byoyomi)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
-        }
-        else if (usingByo) {
-          updatePlayer(color){
+        } else if (usingByo) {
+          updatePlayer(color) {
             _.takeTime(moveTime)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
-        }
-        else {
+        } else {
           updatePlayer(color) {
-          _.takeTime(moveTime - inc)
-            .copy(lag = lagTrack)
+            _.takeTime(moveTime - inc)
+              .copy(lag = lagTrack)
           }
         }
 
@@ -115,7 +113,7 @@ case class Clock(
   // def deinc = updatePlayer(color, _.giveTime(-incrementOf(color)))
 
   def takeback(refundPeriod: Boolean = false) = {
-    if(refundPeriod) addPeriod(color)
+    if (refundPeriod) addPeriod(color)
     else this
   } switch
 
@@ -152,7 +150,7 @@ case class Clock(
     }
 
   def incrementOf(c: Color) = players(c).increment
-  def byoyomiOf(c: Color) = players(c).byoyomi
+  def byoyomiOf(c: Color)   = players(c).byoyomi
 
   def goBerserk(c: Color) = updatePlayer(c) { _.copy(berserk = true) }
 
@@ -220,7 +218,7 @@ case class ClockPlayer(
   def byoyomi = if (berserk) Centis(0) else config.byoyomi
 
   def periods = {
-    if (berserk) 0 
+    if (berserk) 0
     else if (startsAtZero) config.periods - 1
     else config.periods
   }
@@ -239,7 +237,7 @@ object Clock {
 
   // All unspecified durations are expressed in seconds
   case class Config(limitSeconds: Int, incrementSeconds: Int, byoyomiSeconds: Int, periods: Int) {
-    
+
     def berserkable = (incrementSeconds == 0 && byoyomiSeconds == 0) || limitSeconds > 0
 
     // Activate low time warning when between 10 and 90 seconds remain
@@ -274,11 +272,11 @@ object Clock {
         case _  => limitFormatter.format(limitSeconds / 60d)
       }
 
-    def incrementString: String = if(hasIncrement) s"+${incrementSeconds}" else ""
+    def incrementString: String = if (hasIncrement) s"+${incrementSeconds}" else ""
 
-    def byoyomiString: String = if(hasByoyomi || !hasIncrement) s"|${byoyomiSeconds}" else ""
+    def byoyomiString: String = if (hasByoyomi || !hasIncrement) s"|${byoyomiSeconds}" else ""
 
-    def periodsString: String = if(periods > 1) s"(${periods}x)" else ""
+    def periodsString: String = if (periods > 1) s"(${periods}x)" else ""
 
     def show = toString
 

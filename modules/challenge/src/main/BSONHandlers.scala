@@ -20,7 +20,7 @@ private object BSONHandlers {
     },
     {
       case ColorChoice.Sente  => 1
-      case ColorChoice.Gote  => 2
+      case ColorChoice.Gote   => 2
       case ColorChoice.Random => 0
     }
   )
@@ -36,8 +36,8 @@ private object BSONHandlers {
     def writes(w: Writer, t: TimeControl) =
       t match {
         case TimeControl.Clock(chess.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
-        case TimeControl.Correspondence(d)               => $doc("d" -> d)
-        case TimeControl.Unlimited                       => $empty
+        case TimeControl.Correspondence(d)                     => $doc("d" -> d)
+        case TimeControl.Unlimited                             => $empty
       }
   }
   implicit val VariantBSONHandler = tryHandler[Variant](

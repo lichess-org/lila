@@ -105,11 +105,10 @@ Thank you all, you rock!"""
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> Blitz
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 13) filter farFuture.isAfter map { date =>
-            Schedule(Yearly, speed, Standard, std, date).plan
-          }
+      ).flatMap { case (day, speed) =>
+        at(day, 13) filter farFuture.isAfter map { date =>
+          Schedule(Yearly, speed, Standard, std, date).plan
+        }
       },
       List(thisMonth, nextMonth).flatMap { month =>
         List(
@@ -119,11 +118,10 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.lastWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical
-          ).flatMap {
-            case (day, speed) =>
-              at(day, 13) map { date =>
-                Schedule(Monthly, speed, Standard, std, date).plan
-              }
+          ).flatMap { case (day, speed) =>
+            at(day, 13) map { date =>
+              Schedule(Monthly, speed, Standard, std, date).plan
+            }
           },
           List( // shield tournaments!
             month.firstWeek.withDayOfWeek(MONDAY)    -> Bullet,
@@ -131,17 +129,16 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.firstWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical
-          ).flatMap {
-            case (day, speed) =>
-              at(day, 12) map { date =>
-                Schedule(Shield, speed, Standard, std, date) plan {
-                  _.copy(
-                    name = s"${speed.toString} Shield",
-                    spotlight = Some(TournamentShield spotlight speed.toString)
-                  )
-                }
+          ).flatMap { case (day, speed) =>
+            at(day, 12) map { date =>
+              Schedule(Shield, speed, Standard, std, date) plan {
+                _.copy(
+                  name = s"${speed.toString} Shield",
+                  spotlight = Some(TournamentShield spotlight speed.toString)
+                )
               }
-          },
+            }
+          }
         ).flatten
       },
       List( // weekly standard tournaments!
@@ -149,21 +146,19 @@ Thank you all, you rock!"""
         nextTuesday   -> SuperBlitz,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
-        nextFriday    -> Classical,
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 13) map { date =>
-            Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
-          }
+        nextFriday    -> Classical
+      ).flatMap { case (day, speed) =>
+        at(day, 13) map { date =>
+          Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
+        }
       },
       List( // week-end elite tournaments!
         nextSaturday -> Blitz,
         nextSunday   -> HyperRapid
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 13) map { date =>
-            Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
-          }
+      ).flatMap { case (day, speed) =>
+        at(day, 13) map { date =>
+          Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
+        }
       },
       List( // daily tournaments!
         at(today, 14) map { date =>
@@ -204,7 +199,7 @@ Thank you all, you rock!"""
         at(today, 12) map { date =>
           Schedule(Eastern, Classical, Standard, std, date pipe orTomorrow).plan
         }
-      ).flatten,
+      ).flatten
       // hourly standard tournaments!
       // (-1 to 6).toList.flatMap { hourDelta =>
       //   val date = rightNow plusHours hourDelta
@@ -268,10 +263,9 @@ Thank you all, you rock!"""
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
     newTourns
-      .foldLeft(List[Tournament]()) {
-        case (tourns, t) =>
-          if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
-          else t :: tourns
+      .foldLeft(List[Tournament]()) { case (tourns, t) =>
+        if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
+        else t :: tourns
       } reverse
   }
 

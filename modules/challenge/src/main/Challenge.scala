@@ -144,7 +144,7 @@ object Challenge {
   object ColorChoice {
     case object Random extends ColorChoice
     case object Sente  extends ColorChoice
-    case object Gote  extends ColorChoice
+    case object Gote   extends ColorChoice
     def apply(c: Color) = c.fold[ColorChoice](Sente, Gote)
   }
 
@@ -190,7 +190,7 @@ object Challenge {
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "sente" => ColorChoice.Sente  -> chess.Sente
-      case "gote" => ColorChoice.Gote  -> chess.Gote
+      case "gote"  => ColorChoice.Gote   -> chess.Gote
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {

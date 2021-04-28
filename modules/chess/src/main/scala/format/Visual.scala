@@ -3,8 +3,7 @@ package format
 
 import Pos.posAt
 
-/**
-  * r bqkb r
+/** r bqkb r
   * p ppp pp
   * pr
   *    P p
@@ -39,11 +38,10 @@ object Visual {
   def >>(board: Board): String = >>|(board, Map.empty)
 
   def >>|(board: Board, marks: Map[Iterable[Pos], Char]): String = {
-    val markedPoss: Map[Pos, Char] = marks.foldLeft(Map[Pos, Char]()) {
-      case (marks, (poss, char)) =>
-        marks ++ (poss.toList map { pos =>
-          (pos, char)
-        })
+    val markedPoss: Map[Pos, Char] = marks.foldLeft(Map[Pos, Char]()) { case (marks, (poss, char)) =>
+      marks ++ (poss.toList map { pos =>
+        (pos, char)
+      })
     }
     for (y <- 9 to 1 by -1) yield {
       for (x <- 1 to 9) yield {

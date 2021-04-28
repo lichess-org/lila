@@ -167,7 +167,8 @@ package timeline {
   case class PlanStart(userId: String) extends Atom("planStart", true) {
     def userIds = List(userId)
   }
-  case class BlogPost(id: String, slug: String, title: String, langCode: String) extends Atom("blogPost", true) {
+  case class BlogPost(id: String, slug: String, title: String, langCode: String)
+      extends Atom("blogPost", true) {
     def userIds = Nil
   }
   case class StreamStart(id: String, name: String) extends Atom("streamStart", true) {

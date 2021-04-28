@@ -61,8 +61,8 @@ final class StreamerPager(
         ReadPreference.secondaryPreferred
       )(_.id)
     } map { users =>
-      streamers zip users collect {
-        case (streamer, Some(user)) => Streamer.WithUser(streamer, user)
+      streamers zip users collect { case (streamer, Some(user)) =>
+        Streamer.WithUser(streamer, user)
       }
     }
 }

@@ -22,7 +22,7 @@ case class SwissPairing(
   def isOngoing                   = status.isLeft
   def resultFor(userId: User.ID)  = winner.map(userId.==)
   def senteWins                   = status == Right(Some(Color.Sente))
-  def goteWins                   = status == Right(Some(Color.Gote))
+  def goteWins                    = status == Right(Some(Color.Gote))
   def isDraw                      = status == Right(None)
 }
 
@@ -57,13 +57,11 @@ object SwissPairing {
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
-    pairings.foldLeft[PairingMap](Map.empty) {
-      case (acc, pairing) =>
-        pairing.players.foldLeft(acc) {
-          case (acc, player) =>
-            acc.updatedWith(player) { acc =>
-              (~acc).updated(pairing.round, pairing).some
-            }
+    pairings.foldLeft[PairingMap](Map.empty) { case (acc, pairing) =>
+      pairing.players.foldLeft(acc) { case (acc, player) =>
+        acc.updatedWith(player) { acc =>
+          (~acc).updated(pairing.round, pairing).some
         }
+      }
     }
 }

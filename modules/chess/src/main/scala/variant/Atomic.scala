@@ -29,8 +29,7 @@ case object Atomic
   private def protectedByOtherKing(board: Board, to: Pos, color: Color): Boolean =
     board.kingPosOf(color) exists to.touches
 
-  /**
-    * In atomic chess, a king cannot be threatened while it is in the perimeter of the other king as were the other player
+  /** In atomic chess, a king cannot be threatened while it is in the perimeter of the other king as were the other player
     * to capture it, their own king would explode. This effectively makes a king invincible while connected with another
     * king.
     */
@@ -79,8 +78,7 @@ case object Atomic
     } else move
   }
 
-  /**
-    * The positions surrounding a given position on the board. Any square at the edge of the board has
+  /** The positions surrounding a given position on the board. Any square at the edge of the board has
     * less surrounding positions than the usual eight.
     */
   private[chess] def surroundingPositions(pos: Pos): Set[Pos] =
@@ -88,8 +86,7 @@ case object Atomic
 
   override def addVariantEffect(move: Move): Move = explodeSurroundingPieces(move)
 
-  /**
-    * Since kings cannot confine each other, if either player has only a king
+  /** Since kings cannot confine each other, if either player has only a king
     * then either a queen or multiple pieces are required for checkmate.
     */
   private def insufficientAtomicWinningMaterial(board: Board) = {
@@ -123,8 +120,7 @@ case object Atomic
     insufficientAtomicWinningMaterial(board) || atomicClosedPosition(board)
   }
 
-  /**
-    * Since a king cannot capture, K + P vs K + P where none of the pawns can move is an automatic draw
+  /** Since a king cannot capture, K + P vs K + P where none of the pawns can move is an automatic draw
     */
   private def atomicClosedPosition(board: Board) = {
     val closedStructure = board.actors.values.forall(actor =>
@@ -149,8 +145,7 @@ case object Atomic
     )
   }
 
-  /**
-    * In atomic chess, it is possible to win with a single knight, bishop, etc, by exploding
+  /** In atomic chess, it is possible to win with a single knight, bishop, etc, by exploding
     * a piece in the opponent's king's proximity. On the other hand, a king alone or a king with
     * immobile pawns is not sufficient material to win with.
     */

@@ -130,8 +130,8 @@ final class Env(
       puzzle.daily.get
     }.flatMap(identity)
       .withTimeoutDefault(50.millis, none) recover { case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
-        none
+      lila.log("preloader").warn("daily puzzle", e)
+      none
     }
 
   def scheduler = system.scheduler
@@ -160,14 +160,13 @@ final class Env(
       }
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
-  Bus.subscribeFun("garbageCollect") {
-    case lila.hub.actorApi.security.GarbageCollect(userId) =>
-      // GC can be aborted by reverting the initial SB mark
-      user.repo.isTroll(userId) foreach { troll =>
-        if (troll) scheduler.scheduleOnce(1.second) {
-          closeAccount(userId, self = false)
-        }
+  Bus.subscribeFun("garbageCollect") { case lila.hub.actorApi.security.GarbageCollect(userId) =>
+    // GC can be aborted by reverting the initial SB mark
+    user.repo.isTroll(userId) foreach { troll =>
+      if (troll) scheduler.scheduleOnce(1.second) {
+        closeAccount(userId, self = false)
       }
+    }
   }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))

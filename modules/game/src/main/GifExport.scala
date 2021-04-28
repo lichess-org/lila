@@ -108,8 +108,8 @@ final class GifExport(
       game.variant
     ) match {
       case (init, games, _) =>
-        val steps = (init, None) :: (games map {
-          case (g, Uci.WithSan(uci, _)) => (g, uci.some)
+        val steps = (init, None) :: (games map { case (g, Uci.WithSan(uci, _)) =>
+          (g, uci.some)
         })
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),

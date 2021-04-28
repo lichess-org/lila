@@ -20,8 +20,8 @@ final class GameProxyRepo(
   }
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] = {
-      game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
-    }
+    game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
+  }
 
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = roundSocket gameIfPresent gameId
 

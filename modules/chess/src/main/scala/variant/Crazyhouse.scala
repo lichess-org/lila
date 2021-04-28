@@ -17,5 +17,4 @@ case object Crazyhouse
 
   val pieces: Map[Pos, Piece] = Variant.symmetricRank(backRank, backRank2)
 
-  
 }

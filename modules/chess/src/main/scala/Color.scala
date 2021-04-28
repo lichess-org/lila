@@ -32,7 +32,7 @@ sealed trait Color {
   def king           = this - King
 
   val sente = this == Color.Sente
-  val gote = this == Color.Gote
+  val gote  = this == Color.Gote
 }
 
 object Color {
@@ -71,9 +71,9 @@ object Color {
     val backrankY      = 9
     val backrankY2     = 8
 
-    val letter    = 'b'
-    val engName   = "black"
-    val name      = "sente"
+    val letter  = 'b'
+    val engName = "black"
+    val name    = "sente"
 
     override val hashCode = 1
   }
@@ -87,9 +87,9 @@ object Color {
     val backrankY      = 1
     val backrankY2     = 2
 
-    val letter    = 'w'
-    val engName   = "white"
-    val name      = "gote"
+    val letter  = 'w'
+    val engName = "white"
+    val name    = "gote"
 
     override val hashCode = 2
   }
@@ -109,7 +109,7 @@ object Color {
     else None
 
   val sente: Color = Sente
-  val gote: Color = Gote
+  val gote: Color  = Gote
 
   val all = List(Sente, Gote)
 
@@ -120,7 +120,7 @@ object Color {
   def showResult(color: Option[Color]) =
     color match {
       case Some(chess.Sente) => "1-0"
-      case Some(chess.Gote) => "0-1"
+      case Some(chess.Gote)  => "0-1"
       case None              => "1/2-1/2"
     }
 

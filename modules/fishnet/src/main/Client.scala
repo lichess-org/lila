@@ -11,7 +11,7 @@ case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
     userId: Client.UserId,             // lishogi user ID
     skill: Client.Skill,               // what can this client do
-    evaluation : Client.Evaluation,    // what eval function/engine client uses determines what variants he can play
+    evaluation: Client.Evaluation,     // what eval function/engine client uses determines what variants he can play
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: DateTime
@@ -34,7 +34,7 @@ case class Client(
 
   def getVariants =
     evaluation match {
-      case Client.Evaluation.NNUE => List(chess.variant.Standard)
+      case Client.Evaluation.NNUE  => List(chess.variant.Standard)
       case Client.Evaluation.FAIRY => List(chess.variant.FromPosition)
     }
 
@@ -100,8 +100,8 @@ object Client {
   }
   object Evaluation {
     case object NNUE  extends Evaluation;
-    case object FAIRY  extends Evaluation;
-    val all    = List(NNUE, FAIRY)
+    case object FAIRY extends Evaluation;
+    val all                = List(NNUE, FAIRY)
     def byKey(key: String) = all.find(_.key == key)
   }
 

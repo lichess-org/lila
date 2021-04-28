@@ -573,10 +573,10 @@ object mon {
     def work(typ: String, as: String) = gauge("fishnet.work").withTags(Map("type" -> typ, "for" -> as))
     def oldest(as: String)            = gauge("fishnet.oldest").withTag("for", as)
     object move {
-      def time(client: String) = timer("fishnet.move.time").withTag("client", client)
+      def time(client: String)         = timer("fishnet.move.time").withTag("client", client)
       def fullTimeLvl1(client: String) = timer("fishnet.move.full_time_lvl_1").withTag("client", client)
-      val post = gauge("fishnet.move.post")
-      val dbDrop = gauge("fishnet.move.db_drop")
+      val post                         = gauge("fishnet.move.post")
+      val dbDrop                       = gauge("fishnet.move.db_drop")
     }
     object analysis {
       object by {

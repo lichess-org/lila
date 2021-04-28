@@ -54,7 +54,8 @@ final class SimulApi(
     val simul = Simul.make(
       name = setup.name,
       clock = SimulClock(
-        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
+        config =
+          chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
         hostExtraTime = setup.clockExtra * 60
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
@@ -111,11 +112,11 @@ final class SimulApi(
           simul.start ?? { started =>
             userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
-                games.headOption foreach {
-                  case (game, _) => socket.startSimul(simul, game)
+                games.headOption foreach { case (game, _) =>
+                  socket.startSimul(simul, game)
                 }
-                games.foldLeft(started) {
-                  case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
+                games.foldLeft(started) { case (s, (g, hostColor)) =>
+                  s.setPairingHostColor(g.id, hostColor)
                 }
               }
             } flatMap { s =>
@@ -208,7 +209,7 @@ final class SimulApi(
       user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
       hostColor  = simul.hostColor
       senteUser  = hostColor.fold(host, user)
-      goteUser  = hostColor.fold(user, host)
+      goteUser   = hostColor.fold(user, host)
       clock      = simul.clock.chessClockOf(hostColor)
       perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
       game1 = Game.make(
@@ -263,8 +264,8 @@ final class SimulApi(
           { (_: Debouncer.Nothing) =>
             Bus.publish(siteMessage, "sendToFlag")
             repo.allCreatedFeaturable foreach { simuls =>
-              renderer.actor ? actorApi.SimulTable(simuls) map {
-                case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
+              renderer.actor ? actorApi.SimulTable(simuls) map { case view: String =>
+                Bus.publish(ReloadSimuls(view), "lobbySocket")
               }
             }
           }

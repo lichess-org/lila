@@ -43,8 +43,8 @@ case object Antichess
 
   // In antichess, it is valuable for your opponent to have pieces.
   override def materialImbalance(board: Board): Int =
-    board.pieces.values.foldLeft(0) {
-      case (acc, Piece(color, _)) => acc + color.fold(-2, 2)
+    board.pieces.values.foldLeft(0) { case (acc, Piece(color, _)) =>
+      acc + color.fold(-2, 2)
     }
 
   // In antichess, there is no checkmate condition therefore a player may only draw either by agreement,
@@ -62,9 +62,9 @@ case object Antichess
     lazy val drawnBishops = board.actors.values.partition(_.is(Sente)) match {
       case (sentePieces, gotePieces) =>
         val senteBishops    = sentePieces.filter(_.is(Bishop))
-        val goteBishops    = gotePieces.filter(_.is(Bishop))
+        val goteBishops     = gotePieces.filter(_.is(Bishop))
         lazy val sentePawns = sentePieces.filter(_.is(Pawn))
-        lazy val gotePawns = gotePieces.filter(_.is(Pawn))
+        lazy val gotePawns  = gotePieces.filter(_.is(Pawn))
 
         // We consider the case where a player has two bishops on the same diagonal after promoting.
         if (
@@ -74,7 +74,7 @@ case object Antichess
         else {
           for {
             senteSquareColor <- senteBishops.headOption map (_.pos.color)
-            goteSquareColor <- goteBishops.headOption map (_.pos.color)
+            goteSquareColor  <- goteBishops.headOption map (_.pos.color)
           } yield {
             senteSquareColor != goteSquareColor && sentePawns.forall(
               pawnNotAttackable(_, goteSquareColor, board)

@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant.Variant
-import chess.{ Centis, Pos, PromotableRole, Role, Piece, Data, Pockets, Pocket }
+import chess.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -53,9 +53,10 @@ object BSONHandlers {
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)         => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest)   => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
-        case Shape.Piece(brush, orig, piece)  => $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
+        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
+        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Piece(brush, orig, piece) =>
+          $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
       }
   }
 
@@ -124,7 +125,7 @@ object BSONHandlers {
   implicit private def CrazyDataBSONHandler: BSON[Data] =
     new BSON[Data] {
       private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)             = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      private def readPocket(p: String)  = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
       def reads(r: Reader) =
         Data(
           promoted = r.getsD[Pos]("o").toSet,
