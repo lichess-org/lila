@@ -19,7 +19,6 @@
   <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>
   <string name="startDateHelp">Neprivaloma; tik jeigu žinote, kada prasideda renginys</string>
   <string name="credits">Paminėkite šaltinį</string>
-  <string name="cloneRound">Klonuoti raundą</string>
   <string name="resetRound">Atstatyti raundą</string>
   <string name="deleteRound">Ištrinti raundą</string>
 </resources>
