@@ -70,7 +70,7 @@ For your own sake, please upgrade. Security and performance, think about it!
 ## License
 
 Lila is licensed under the GNU Affero General Public License 3 or any later
-version at your choice with an exception for Highcharts. See COPYING for
+version at your choice with an exception for Highcharts. See [copying](https://github.com/ornicar/lila/blob/master/COPYING.md) for
 details.
 
 ## Credits
