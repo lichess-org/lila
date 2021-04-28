@@ -50,6 +50,8 @@
   <string name="configure">конфигурацияләү</string>
   <string name="accounts">Хисап</string>
   <string name="titlesAvailableOnLichess">Lichessда нинди исемнәр бар?</string>
+  <string name="asWellAsManyNMtitles">күп милли мастер титуллары</string>
+  <string name="verificationForm">тикшерү формасы</string>
   <string name="canIbecomeLM">Lichess Мастеры (LM) исемен ала аласызмы?</string>
   <string name="noUpperCaseDot">Юк.</string>
   <string name="whatUsernameCanIchoose">Минем Кулланучынәмә нинди булырга мөмкин?</string>
