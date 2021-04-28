@@ -41,12 +41,12 @@
   <string name="easiest">Am einfachsten</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Ein Punkt unter deiner Aufgaben-Wertung</item>
-    <item quantity="other">%s Punkte unter deiner Aufgabenwertung</item>
+    <item quantity="other">%s Punkte unter deiner Aufgaben-Wertung</item>
   </plurals>
   <string name="harder">Schwieriger</string>
   <string name="hardest">Am schwierigsten</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">Ein Punkt über deiner Aufgabenwertung</item>
+    <item quantity="one">Ein Punkt über deiner Aufgaben-Wertung</item>
     <item quantity="other">%s Punkte über deiner Aufgabenwertung</item>
   </plurals>
   <string name="example">Beispiel</string>
