@@ -77,7 +77,7 @@
   <string name="losing">지는 수</string>
   <string name="drawn">무승부</string>
   <string name="unknown">알 수 없음</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">데이터베이스</string>
+  <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
@@ -267,7 +267,6 @@
     <item quantity="other">%s초 더 주기</item>
   </plurals>
   <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반했습니다.</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">이 플레이어는 비정상적인 방법으로 레이팅을 조작합니다</string>
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기를 요청합니다</string>
@@ -580,7 +579,7 @@
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
   <string name="termsOfService">이용 약관</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">소스 코드</string>
+  <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">동시대국</string>
   <string name="host">호스트</string>
   <string name="hostColorX">호스트의 색: %s</string>
