@@ -43,7 +43,7 @@ final class MoveDB(implicit system: ActorSystem) {
   private case class PostResult(
       moveId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostMove,
+      data: JsonApi.Request.PostMove
   )
 
   private val actor = system.actorOf(Props(new Actor {
@@ -79,7 +79,7 @@ final class MoveDB(implicit system: ActorSystem) {
             coll += (move.id -> move)
             move
           }
-        }
+      }
 //Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundSocket")
       case PostResult(workId, client, data) => {
         coll get workId match {

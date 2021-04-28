@@ -261,7 +261,7 @@ object SwissJson {
       "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
       "lastMove" -> ~b.game.lastMoveKeys,
       "sente"    -> boardPlayerJson(b.board.sente),
-      "gote"    -> boardPlayerJson(b.board.gote)
+      "gote"     -> boardPlayerJson(b.board.gote)
     )
 
   private def boardPlayerJson(player: SwissBoard.Player) =

@@ -47,7 +47,8 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron")) // patron
+        trans.activity.supportedNbMonths
+          .plural(p.months, p.months, a(href := routes.Plan.index())("Patron")) // patron
       )
     )
 

@@ -31,8 +31,9 @@ object dashboard {
       subtitle = "Train, analyse, improve",
       dashOpt = dashOpt,
       moreJs = dashOpt ?? { dash =>
-        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
-          PuzzleTheme(key).name.txt()
+        val mostPlayed = dash.mostPlayed.sortBy {
+          case (key, _) =>
+            PuzzleTheme(key).name.txt()
         }
         frag(
           jsModule("lishogi.puzzle.dashboard"),
@@ -41,14 +42,16 @@ object dashboard {
             Json
               .obj(
                 "radar" -> Json.obj(
-                  "labels" -> mostPlayed.map { case (key, _) =>
-                    PuzzleTheme(key).name.txt()
+                  "labels" -> mostPlayed.map {
+                    case (key, _) =>
+                      PuzzleTheme(key).name.txt()
                   },
                   "datasets" -> Json.arr(
                     Json.obj(
                       "label" -> "Performance",
-                      "data" -> mostPlayed.map { case (_, results) =>
-                        results.performance
+                      "data" -> mostPlayed.map {
+                        case (_, results) =>
+                          results.performance
                       }
                     )
                   )
@@ -140,16 +143,17 @@ object dashboard {
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
       lang: Lang
   ) =
-    themes.map { case (key, results) =>
-      div(cls := themeClass)(
-        div(cls := s"${themeClass}__meta")(
-          h3(cls := s"${themeClass}__name")(
-            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
+    themes.map {
+      case (key, results) =>
+        div(cls := themeClass)(
+          div(cls := s"${themeClass}__meta")(
+            h3(cls := s"${themeClass}__name")(
+              a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
+            ),
+            p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
           ),
-          p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
-        ),
-        metricsOf(days, key, results)
-      )
+          metricsOf(days, key, results)
+        )
     }
 
   private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit

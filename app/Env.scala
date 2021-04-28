@@ -129,7 +129,8 @@ final class Env(
     Future {
       puzzle.daily.get
     }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none) recover { case e: Exception =>
+      .withTimeoutDefault(50.millis, none) recover {
+      case e: Exception =>
         lila.log("preloader").warn("daily puzzle", e)
         none
     }

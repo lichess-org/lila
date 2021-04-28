@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 import actorApi._
 import actorApi.round._
 import chess.format.Uci
-import chess.{ Gote, Centis, Color, MoveMetrics, Speed, Sente }
+import chess.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
@@ -222,9 +222,9 @@ object RoundSocket {
     } / {
       import chess.variant._
       (pov.game.chess.board.materialImbalance, pov.game.variant) match {
-        case (_, Antichess | Horde)                                   => 1
+        case (_, Antichess | Horde)                                               => 1
         case (i, _) if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
-        case _                                                                     => 1
+        case _                                                                    => 1
       }
     } / {
       if (pov.player.hasUser) 1 else 2

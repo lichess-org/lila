@@ -36,10 +36,11 @@ case class PuzzleRound(
 
   def nonEmptyThemes = themes.nonEmpty option themes
 
-  def updateWithWin(win: Boolean) = copy(
-    win = win,
-    fixedAt = fixedAt orElse win.option(DateTime.now)
-  )
+  def updateWithWin(win: Boolean) =
+    copy(
+      win = win,
+      fixedAt = fixedAt orElse win.option(DateTime.now)
+    )
 
   def firstWin = win && fixedAt.isEmpty
 }

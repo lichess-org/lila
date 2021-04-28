@@ -266,16 +266,18 @@ final class PlanApi(
           patreon = false.some
         )
         .expireInOneMonth
-      patronColl.update.one(
-        $id(user.id),
-        patron
-      ).void >>- lightUserApi.invalidate(user.id)
+      patronColl.update
+        .one(
+          $id(user.id),
+          patron
+        )
+        .void >>- lightUserApi.invalidate(user.id)
     }
 
   def setPatreon(user: User, amount: Int): Funit = {
     val charge = Charge.make(
-        userId = Some(user.id),
-        cents = Cents(amount * 100) // dollars to cents
+      userId = Some(user.id),
+      cents = Cents(amount * 100) // dollars to cents
     )
     addCharge(charge)
     userRepo.setPlan(

@@ -49,7 +49,7 @@ final private class GameStarter(
             id,
             pool,
             senteMember.userId -> sentePerf,
-            goteMember.userId -> gotePerf
+            goteMember.userId  -> gotePerf
           ).start
           _ <- gameRepo insertDenormalized game
         } yield {

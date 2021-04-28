@@ -182,7 +182,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $id(id),
       $set(
         s"${F.sentePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.sente,
-        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.gote
+        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}"  -> diffs.gote
       )
     )
 
@@ -278,7 +278,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $doc(
         F.id                        -> false,
         holdAlertField(chess.Sente) -> true,
-        holdAlertField(chess.Gote) -> true
+        holdAlertField(chess.Gote)  -> true
       )
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>

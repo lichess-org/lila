@@ -57,7 +57,9 @@ final class Practice(
       api.structure.get.flatMap { struct =>
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
-            Redirect(routes.Page.notSupported()).fuccess // show(section.id, study.slug, study.id.value)).fuccess
+            Redirect(
+              routes.Page.notSupported()
+            ).fuccess // show(section.id, study.slug, study.id.value)).fuccess
           }
         }
       }

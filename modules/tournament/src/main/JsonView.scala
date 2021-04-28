@@ -274,8 +274,8 @@ final class JsonView(
         .add("berserk" -> p.berserk)
     }
     Json.obj(
-      "id"  -> game.id,
-      "fen" -> (chess.format.Forsyth exportSituation game.situation),
+      "id"      -> game.id,
+      "fen"     -> (chess.format.Forsyth exportSituation game.situation),
       "pockets" -> (chess.format.Forsyth exportCrazyPocket game.board),
       "color" -> (game.variant match {
         case chess.variant.RacingKings => chess.Sente

@@ -43,21 +43,22 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
             st.section(
               h2(section.name),
               div(cls := "studies")(
-                section.studies.map { stud =>
-                  val prog = data.progressOn(stud.id)
-                  a(
-                    cls := s"study ${if (prog.complete) "done" else "ongoing"}",
-                    href := routes.Page.notSupported()// section.id, stud.slug, stud.id.value) //show
-                  )(
-                    ctx.isAuth option span(cls := "ribbon-wrapper")(
-                      span(cls := "ribbon")(prog.done, " / ", prog.total)
-                    ),
-                    i(cls := s"${stud.id}"),
-                    span(cls := "text")(
-                      h3(stud.name),
-                      em(stud.desc)
+                section.studies.map {
+                  stud =>
+                    val prog = data.progressOn(stud.id)
+                    a(
+                      cls := s"study ${if (prog.complete) "done" else "ongoing"}",
+                      href := routes.Page.notSupported() // section.id, stud.slug, stud.id.value) //show
+                    )(
+                      ctx.isAuth option span(cls := "ribbon-wrapper")(
+                        span(cls := "ribbon")(prog.done, " / ", prog.total)
+                      ),
+                      i(cls := s"${stud.id}"),
+                      span(cls := "text")(
+                        h3(stud.name),
+                        em(stud.desc)
+                      )
                     )
-                  )
                 }
               )
             )

@@ -1,12 +1,12 @@
 package lila.round
 
 import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, MoveMetrics, MoveOrDrop, Status, Color }
+import chess.{ Centis, Color, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Game, Pov, Progress, UciMemo, Event }
+import lila.game.{ Event, Game, Pov, Progress, UciMemo }
 import lila.game.Game.PlayerId
 
 final private class Player(
@@ -78,9 +78,10 @@ final private class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
-      if (progress.game.forecastable) moveOrDrop.fold(
-        move => round ! ForecastPlay(move.toUci),
-        drop => round ! ForecastPlay(drop.toUci)
+      if (progress.game.forecastable)
+        moveOrDrop.fold(
+          move => round ! ForecastPlay(move.toUci),
+          drop => round ! ForecastPlay(drop.toUci)
         )
       scheduleExpiration(progress.game)
       fuccess(progress.events)
@@ -108,7 +109,7 @@ final private class Player(
           s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"
         )
       )
-    }
+  }
 
   private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
     game.playableByAi ?? {
@@ -125,7 +126,7 @@ final private class Player(
         game.chess(orig, dest, prom, metrics) map {
           case (ncg, move) => {
             ncg -> (Left(move): MoveOrDrop)
-            }
+          }
         }
       }
       case Uci.Drop(role, pos) =>
@@ -133,9 +134,11 @@ final private class Player(
           case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(c => 
-        c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
-        ) => Flagged
+      case (ncg, _)
+          if ncg.clock.exists(c =>
+            c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
+          ) =>
+        Flagged
       case (newChessGame, moveOrDrop) =>
         MoveApplied(
           game.update(newChessGame, moveOrDrop, blur),
@@ -183,13 +186,13 @@ final private class Player(
 
   private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     game.status match {
-      case Status.Mate                               => finisher.other(game, _.Mate, game.situation.winner)
-      case Status.Stalemate                          => finisher.other(game, _.Stalemate, game.situation.winner)
-      case Status.Impasse                            => finisher.other(game, _.Impasse, game.situation.winner)
-      case Status.PerpetualCheck                     => finisher.other(game, _.PerpetualCheck, game.situation.winner)
-      case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.situation.winner)
-      case Status.Draw                               => finisher.other(game, _.Draw, None)
-      case _                                         => fuccess(Nil)
+      case Status.Mate           => finisher.other(game, _.Mate, game.situation.winner)
+      case Status.Stalemate      => finisher.other(game, _.Stalemate, game.situation.winner)
+      case Status.Impasse        => finisher.other(game, _.Impasse, game.situation.winner)
+      case Status.PerpetualCheck => finisher.other(game, _.PerpetualCheck, game.situation.winner)
+      case Status.VariantEnd     => finisher.other(game, _.VariantEnd, game.situation.winner)
+      case Status.Draw           => finisher.other(game, _.Draw, None)
+      case _                     => fuccess(Nil)
     }
   }
 }

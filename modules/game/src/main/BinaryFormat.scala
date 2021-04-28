@@ -98,7 +98,10 @@ object BinaryFormat {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
         writeSignedInt24(legacyElapsed(clock, Sente).centis) ++
         writeSignedInt24(legacyElapsed(clock, Gote).centis) ++
-        clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(clock.byoyomiSeconds.toByte, clock.periods.toByte)
+        clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(
+        clock.byoyomiSeconds.toByte,
+        clock.periods.toByte
+      )
     }
 
     def read(ba: ByteArray, senteBerserk: Boolean, goteBerserk: Boolean): Color => Clock =
@@ -115,13 +118,13 @@ object BinaryFormat {
 
         val byo = {
           if (ia.size == 14) ia(12)
-          else if(ia.size == 10) ia(8)
+          else if (ia.size == 10) ia(8)
           else 0
         }
 
         val per = {
           if (ia.size == 14) ia(13)
-          else if(ia.size == 10) ia(9)
+          else if (ia.size == 10) ia(9)
           else 1
         }
 
@@ -196,13 +199,13 @@ object BinaryFormat {
       def backToInt(b: Array[Byte]): Int =
         b map toInt match {
           case Array(b1, b2) => (b1 << 8) + b2
-          case _ => 0
+          case _             => 0
         }
-        val pairs = ba.value.grouped(2)
-        (pairs map(backToInt _)).toVector
+      val pairs = ba.value.grouped(2)
+      (pairs map (backToInt _)).toVector
     }
     def read(bw: ByteArray, bb: ByteArray) =
-      Try{
+      Try {
         PeriodEntries(readSide(bw), readSide(bb))
       }.fold(
         e => { logger.warn(s"Exception decoding period entries", e); none },
@@ -279,14 +282,14 @@ object BinaryFormat {
 
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match {
-        case 1 => Some(King)
-        case 2 => Some(Gold)
-        case 3 => Some(Silver)
-        case 4 => Some(Knight)
-        case 5 => Some(Lance)
-        case 6 => Some(Bishop)
-        case 7 => Some(Rook)
-        case 8 => Some(Tokin)
+        case 1  => Some(King)
+        case 2  => Some(Gold)
+        case 3  => Some(Silver)
+        case 4  => Some(Knight)
+        case 5  => Some(Lance)
+        case 6  => Some(Bishop)
+        case 7  => Some(Rook)
+        case 8  => Some(Tokin)
         case 9  => Some(PromotedLance)
         case 10 => Some(PromotedKnight)
         case 11 => Some(PromotedSilver)
@@ -297,21 +300,21 @@ object BinaryFormat {
       }
     private def roleToInt(role: Role): Int =
       role match {
-        case King   => 1
-        case Gold   => 2
-        case Silver => 3
-        case Knight => 4
-        case Lance  => 5
-        case Bishop => 6
-        case Rook   => 7
-        case Tokin  => 8
+        case King           => 1
+        case Gold           => 2
+        case Silver         => 3
+        case Knight         => 4
+        case Lance          => 5
+        case Bishop         => 6
+        case Rook           => 7
+        case Tokin          => 8
         case PromotedLance  => 9
         case PromotedKnight => 10
         case PromotedSilver => 11
-        case Horse  => 12
-        case Dragon => 13
-        case Pawn => 14
-        case _      => 15
+        case Horse          => 12
+        case Dragon         => 13
+        case Pawn           => 14
+        case _              => 15
       }
   }
 
@@ -323,7 +326,7 @@ object BinaryFormat {
       if (o.pos.isEmpty) emptyByteArray
       else {
         var sente = 0
-        var gote = 0
+        var gote  = 0
         o.pos.foreach { pos =>
           if (pos.y == 1) sente = sente | (1 << (9 - pos.x))
           else gote = gote | (1 << (9 - pos.x))
@@ -337,7 +340,7 @@ object BinaryFormat {
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 8
     private val senteStd   = Set(Pos.A1, Pos.I1)
-    private val goteStd   = Set(Pos.A9, Pos.I9)
+    private val goteStd    = Set(Pos.A9, Pos.I9)
 
     def read(ba: ByteArray) =
       UnmovedRooks {

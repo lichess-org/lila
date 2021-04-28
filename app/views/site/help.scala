@@ -153,7 +153,9 @@ $('#asset-version-message').text(lishogi.info.message);"""
             h1("Embed a shogi game in your site"),
             raw(s"""<iframe src="/embed/sFbJtorq?bg=auto&theme=auto" $args></iframe>"""),
             p(
-              raw("""On a game analysis page, click the <em>"SFEN &amp; PGN"</em> tab at the bottom, then """),
+              raw(
+                """On a game analysis page, click the <em>"SFEN &amp; PGN"</em> tab at the bottom, then """
+              ),
               "\"",
               em(trans.embedInYourWebsite(), "\".")
             ),
@@ -207,7 +209,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
           //a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
           //a(activeCls("api"), href := routes.Api.index())("API", external),
           sep,
-          a(activeCls("lag"), href := routes.Main.lag())(trans.lag.isLishogiLagging()),
+          a(activeCls("lag"), href := routes.Main.lag())(trans.lag.isLishogiLagging())
           //a(activeCls("ads"), href := routes.Page.ads())("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)

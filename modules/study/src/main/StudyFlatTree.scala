@@ -35,8 +35,9 @@ private object StudyFlatTree {
 
     private def traverse(children: List[FlatNode]): Children =
       children
-        .foldLeft(Map.empty[Path, Children]) { case (allChildren, flat) =>
-          update(allChildren, flat)
+        .foldLeft(Map.empty[Path, Children]) {
+          case (allChildren, flat) =>
+            update(allChildren, flat)
         }
         .get(Path.root) | Node.emptyChildren
 

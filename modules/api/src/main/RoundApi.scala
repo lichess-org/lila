@@ -268,7 +268,7 @@ final private[api] class RoundApi(
         .add("ranks" -> v.ranks.map { r =>
           Json.obj(
             "sente" -> r.senteRank,
-            "gote" -> r.goteRank
+            "gote"  -> r.goteRank
           )
         })
         .add(
@@ -295,7 +295,7 @@ final private[api] class RoundApi(
         .add("ranks" -> s.ranks.map { r =>
           Json.obj(
             "sente" -> r.senteRank,
-            "gote" -> r.goteRank
+            "gote"  -> r.goteRank
           )
         })
     })

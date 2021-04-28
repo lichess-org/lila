@@ -18,17 +18,20 @@ case class PuzzleDashboard(
   import BsonHandlers._
 
   lazy val (weakThemes, strongThemes) = {
-    val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { case (_, res) =>
-      (res.performance, -res.nb)
+    val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy {
+      case (_, res) =>
+        (res.performance, -res.nb)
     }
     val weaks = all
-      .filter { case (_, r) =>
-        r.failed >= 3 && r.performance < global.performance
+      .filter {
+        case (_, r) =>
+          r.failed >= 3 && r.performance < global.performance
       }
       .take(topThemesNb)
     val strong = all
-      .filter { case (_, r) =>
-        r.firstWins >= 3 && r.performance > global.performance
+      .filter {
+        case (_, r) =>
+          r.firstWins >= 3 && r.performance > global.performance
       }
       .takeRight(topThemesNb)
       .reverse
@@ -97,8 +100,9 @@ final class PuzzleDashboardApi(
 
   private val cache =
     cacheApi[(User.ID, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
-      _.expireAfterWrite(10 seconds).buildAsyncFuture { case (userId, days) =>
-        compute(userId, days)
+      _.expireAfterWrite(10 seconds).buildAsyncFuture {
+        case (userId, days) =>
+          compute(userId, days)
       }
     }
 
@@ -157,12 +161,13 @@ final class PuzzleDashboardApi(
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
 
-  private def readResults(doc: Bdoc) = for {
-    nb     <- doc.int("nb")
-    wins   <- doc.int("wins")
-    fixes  <- doc.int("fixes")
-    rating <- doc.double("rating")
-  } yield Results(nb, wins, fixes, rating.toInt)
+  private def readResults(doc: Bdoc) =
+    for {
+      nb     <- doc.int("nb")
+      wins   <- doc.int("wins")
+      fixes  <- doc.int("fixes")
+      rating <- doc.double("rating")
+    } yield Results(nb, wins, fixes, rating.toInt)
 
   val relevantThemesSelect = $doc(
     "puzzle.themes" $nin irrelevantThemes.map(_.value)

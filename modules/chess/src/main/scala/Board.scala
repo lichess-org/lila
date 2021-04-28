@@ -35,9 +35,11 @@ case class Board(
       .to(List)
 
   def occupiedPawnFiles(c: Color): List[Int] =
-    pieces.collect {
-      case (pos, piece) if piece.color == c && piece.role == Pawn => pos.x
-    }.to(List)
+    pieces
+      .collect {
+        case (pos, piece) if piece.color == c && piece.role == Pawn => pos.x
+      }
+      .to(List)
 
   def actorAt(at: Pos): Option[Actor] = actors get at
 
@@ -113,8 +115,8 @@ case class Board(
   def promote(pos: Pos, promotedRole: PromotableRole): Option[Board] =
     for {
       piece <- apply(pos)
-      b2 <- take(pos)
-      b3 <- b2.place(Piece(piece.color, promotedRole), pos) //todo
+      b2    <- take(pos)
+      b3    <- b2.place(Piece(piece.color, promotedRole), pos) //todo
     } yield b3
 
   def castles: Castles = history.castles
@@ -182,16 +184,16 @@ case class Board(
 
   def tryRuleColor: Option[Color] =
     if (kingPosOf(Sente) == posAt(5, 9)) Sente.some
-    else if(kingPosOf(Gote) == posAt(5, 1)) Gote.some
+    else if (kingPosOf(Gote) == posAt(5, 1)) Gote.some
     else none
 
   def perpetualCheckColor: Option[Color] = {
     val checks = history.checkCount
-    if(checks.sente >= 4 && checks.gote >=4)
+    if (checks.sente >= 4 && checks.gote >= 4)
       return None
-    else if(checks.sente >= 4)
+    else if (checks.sente >= 4)
       return Some(Sente)
-    else if(checks.gote >= 4)
+    else if (checks.gote >= 4)
       return Some(Gote)
     else
       return None
@@ -199,7 +201,7 @@ case class Board(
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount
-    history.fivefoldRepetition && (checks.sente >= 4 || checks.gote >=4)
+    history.fivefoldRepetition && (checks.sente >= 4 || checks.gote >= 4)
   }
 
   def autoDraw: Boolean = {

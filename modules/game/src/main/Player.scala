@@ -48,7 +48,7 @@ case class Player(
 
   def finish(winner: Boolean) = {
     copy(isWinner = winner option true)
-    }
+  }
 
   def offerDraw(turn: Int) =
     copy(

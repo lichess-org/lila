@@ -65,8 +65,9 @@ final private class PuzzlePathApi(
       }
   }.mon(_.puzzle.path.nextFor(theme.value, tier.key, difficulty.key, previousPaths.size, compromise))
 
-  def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
-    "min" $lte f"${theme}_${tier}_${rating.max}%04d",
-    "max" $gte f"${theme}_${tier}_${rating.min}%04d"
-  )
+  def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) =
+    $doc(
+      "min" $lte f"${theme}_${tier}_${rating.max}%04d",
+      "max" $gte f"${theme}_${tier}_${rating.min}%04d"
+    )
 }

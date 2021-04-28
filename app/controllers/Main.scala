@@ -29,18 +29,20 @@ final class Main(
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       fuccess {
-        blindForm.bindFromRequest().fold(
-          _ => BadRequest,
-          {
-            case (enable, redirect) =>
-              Redirect(redirect) withCookies env.lilaCookie.cookie(
-                env.api.config.accessibility.blindCookieName,
-                if (enable == "0") "" else env.api.config.accessibility.hash,
-                maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-                httpOnly = true.some
-              )
-          }
-        )
+        blindForm
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest,
+            {
+              case (enable, redirect) =>
+                Redirect(redirect) withCookies env.lilaCookie.cookie(
+                  env.api.config.accessibility.blindCookieName,
+                  if (enable == "0") "" else env.api.config.accessibility.hash,
+                  maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
+                  httpOnly = true.some
+                )
+            }
+          )
       }
     }
 

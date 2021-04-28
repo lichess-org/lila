@@ -34,7 +34,7 @@ object IdGenerator {
 
   private[this] val secureRandom     = new SecureRandom()
   private[this] val senteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
-  private[this] val goteSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
+  private[this] val goteSuffixChars  = ('5' to '9') ++ ('a' to 'z') mkString
 
   def uncheckedGame: Game.ID = lila.common.ThreadLocalRandom nextString Game.gameIdSize
 

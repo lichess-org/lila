@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant.Variant
-import chess.{ Centis, Pos, PromotableRole, Role, Piece, Data, Pockets, Pocket }
+import chess.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -53,9 +53,10 @@ object BSONHandlers {
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)         => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest)   => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
-        case Shape.Piece(brush, orig, piece)  => $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
+        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
+        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Piece(brush, orig, piece) =>
+          $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
       }
   }
 
@@ -75,11 +76,12 @@ object BSONHandlers {
   )
 
   implicit val UciCharPairHandler = tryHandler[UciCharPair](
-    { case BSONString(v) =>
-      v.toArray match {
-        case Array(a, b) => Success(UciCharPair(a, b))
-        case _           => handlerBadValue(s"Invalid UciCharPair $v")
-      }
+    {
+      case BSONString(v) =>
+        v.toArray match {
+          case Array(a, b) => Success(UciCharPair(a, b))
+          case _           => handlerBadValue(s"Invalid UciCharPair $v")
+        }
     },
     x => BSONString(x.toString)
   )
@@ -124,7 +126,7 @@ object BSONHandlers {
   implicit private def CrazyDataBSONHandler: BSON[Data] =
     new BSON[Data] {
       private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)             = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      private def readPocket(p: String)  = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
       def reads(r: Reader) =
         Data(
           promoted = r.getsD[Pos]("o").toSet,
@@ -144,10 +146,11 @@ object BSONHandlers {
   implicit val GlyphsBSONHandler = {
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
-      { case arr: Barr =>
-        intReader.readTry(arr) map { ints =>
-          Glyphs.fromList(ints flatMap Glyph.find)
-        }
+      {
+        case arr: Barr =>
+          intReader.readTry(arr) map { ints =>
+            Glyphs.fromList(ints flatMap Glyph.find)
+          }
       },
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
     )
@@ -245,22 +248,23 @@ object BSONHandlers {
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
-    def writes(w: Writer, r: Root) = $doc(
-      StudyFlatTree.writer.rootChildren(r) appended {
-        Path.rootDbKey -> $doc(
-          ply      -> r.ply,
-          fen      -> r.fen,
-          check    -> r.check.some.filter(identity),
-          shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
-          comments -> r.comments.value.nonEmpty.option(r.comments),
-          gamebook -> r.gamebook,
-          glyphs   -> r.glyphs.nonEmpty,
-          score    -> r.score,
-          clock    -> r.clock,
-          crazy    -> r.crazyData
-        )
-      }
-    )
+    def writes(w: Writer, r: Root) =
+      $doc(
+        StudyFlatTree.writer.rootChildren(r) appended {
+          Path.rootDbKey -> $doc(
+            ply      -> r.ply,
+            fen      -> r.fen,
+            check    -> r.check.some.filter(identity),
+            shapes   -> r.shapes.value.nonEmpty.option(r.shapes),
+            comments -> r.comments.value.nonEmpty.option(r.comments),
+            gamebook -> r.gamebook,
+            glyphs   -> r.glyphs.nonEmpty,
+            score    -> r.score,
+            clock    -> r.clock,
+            crazy    -> r.crazyData
+          )
+        }
+      )
   }
 
   implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
@@ -270,11 +274,12 @@ object BSONHandlers {
   )
 
   implicit val PgnTagBSONHandler = tryHandler[Tag](
-    { case BSONString(v) =>
-      v.split(":", 2) match {
-        case Array(name, value) => Success(Tag(name, value))
-        case _                  => handlerBadValue(s"Invalid pgn tag $v")
-      }
+    {
+      case BSONString(v) =>
+        v.split(":", 2) match {
+          case Array(name, value) => Success(Tag(name, value))
+          case _                  => handlerBadValue(s"Invalid pgn tag $v")
+        }
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
@@ -303,8 +308,9 @@ object BSONHandlers {
   implicit private[study] val MembersBSONHandler: BSONHandler[StudyMembers] =
     implicitly[BSONHandler[Map[String, DbMember]]].as[StudyMembers](
       members =>
-        StudyMembers(members map { case (id, dbMember) =>
-          id -> StudyMember(id, dbMember.role)
+        StudyMembers(members map {
+          case (id, dbMember) =>
+            id -> StudyMember(id, dbMember.role)
         }),
       _.members.view.mapValues(m => DbMember(m.role)).toMap
     )
@@ -315,15 +321,16 @@ object BSONHandlers {
   )
   import Study.From
   implicit private[study] val FromHandler = tryHandler[From](
-    { case BSONString(v) =>
-      v.split(' ') match {
-        case Array("scratch")   => Success(From.Scratch)
-        case Array("game", id)  => Success(From.Game(id))
-        case Array("study", id) => Success(From.Study(Study.Id(id)))
-        case Array("relay")     => Success(From.Relay(none))
-        case Array("relay", id) => Success(From.Relay(Study.Id(id).some))
-        case _                  => handlerBadValue(s"Invalid from $v")
-      }
+    {
+      case BSONString(v) =>
+        v.split(' ') match {
+          case Array("scratch")   => Success(From.Scratch)
+          case Array("game", id)  => Success(From.Game(id))
+          case Array("study", id) => Success(From.Study(Study.Id(id)))
+          case Array("relay")     => Success(From.Relay(none))
+          case Array("relay", id) => Success(From.Relay(Study.Id(id).some))
+          case _                  => handlerBadValue(s"Invalid from $v")
+        }
     },
     x =>
       BSONString(x match {

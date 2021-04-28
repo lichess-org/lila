@@ -23,7 +23,7 @@ object EventForm {
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
-      "hostedBy"      -> optional {
+      "hostedBy" -> optional {
         lila.user.DataForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
       }

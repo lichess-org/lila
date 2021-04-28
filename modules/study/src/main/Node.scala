@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.{ Data => ChessData}
+import chess.{ Data => ChessData }
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
 
@@ -94,8 +94,9 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
-      children = n.children.nodes.foldLeft(children) { case (cs, c) =>
-        cs addNode c
+      children = n.children.nodes.foldLeft(children) {
+        case (cs, c) =>
+          cs addNode c
       },
       forceVariation = n.forceVariation || forceVariation
     )
@@ -122,10 +123,12 @@ object Node {
 
     // select all nodes on that path
     def nodesOn(path: Path): Vector[(Node, Path)] =
-      path.split ?? { case (head, tail) =>
+      path.split ?? {
+        case (head, tail) =>
           get(head) ?? { first =>
-          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
-            (n, p prepend head)
+            (first, Path(Vector(head))) +: first.children.nodesOn(tail).map {
+              case (n, p) =>
+                (n, p prepend head)
             }
           }
       }
@@ -218,8 +221,9 @@ object Node {
       })
 
     def countRecursive: Int =
-      nodes.foldLeft(nodes.size) { case (count, n) =>
-        count + n.children.countRecursive
+      nodes.foldLeft(nodes.size) {
+        case (count, n) =>
+          count + n.children.countRecursive
       }
 
     def lastMainlineNode: Option[Node] =
@@ -303,12 +307,14 @@ object Node {
       Chapter.Ply {
         mainline
           .zip(path.ids)
-          .takeWhile { case (node, id) =>
-            node.id == id
+          .takeWhile {
+            case (node, id) =>
+              node.id == id
           }
           .lastOption
-          .?? { case (node, _) =>
-            node.ply
+          .?? {
+            case (node, _) =>
+              node.ply
           }
       }
 

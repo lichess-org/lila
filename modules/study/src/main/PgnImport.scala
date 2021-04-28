@@ -99,19 +99,20 @@ object PgnImport {
       comments: List[String],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
-      CommentParser(txt) match {
-        case CommentParser.ParsedComment(s, c, str) =>
-          (
-            (shapes ++ s),
-            c orElse clock,
-            (str.trim match {
-              case "" => comments
-              case com =>
-                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lishogi)
-            })
-          )
-      }
+    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) {
+      case ((shapes, clock, comments), txt) =>
+        CommentParser(txt) match {
+          case CommentParser.ParsedComment(s, c, str) =>
+            (
+              (shapes ++ s),
+              c orElse clock,
+              (str.trim match {
+                case "" => comments
+                case com =>
+                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lishogi)
+              })
+            )
+        }
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =

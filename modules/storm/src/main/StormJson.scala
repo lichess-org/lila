@@ -10,22 +10,23 @@ final class StormJson(sign: StormSign) {
 
   import StormJson._
 
-  def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
-    .obj(
-      "puzzles"      -> puzzles,
-      "notAnExploit" -> StormForm.notAnExploit
-    )
-    .add("key" -> user.map(sign.getPrev))
+  def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject =
+    Json
+      .obj(
+        "puzzles"      -> puzzles,
+        "notAnExploit" -> StormForm.notAnExploit
+      )
+      .add("key" -> user.map(sign.getPrev))
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
-      "coords"        -> p.coords,
-      "destination"   -> p.destination,
+      "coords"          -> p.coords,
+      "destination"     -> p.destination,
       "dropDestination" -> p.dropDestination,
-      "moveEvent"     -> p.moveEvent,
-      "highlight"     -> p.highlight,
-      "pieceNotation" -> p.pieceNotation,
-      "is3d"          -> p.is3d
+      "moveEvent"       -> p.moveEvent,
+      "highlight"       -> p.highlight,
+      "pieceNotation"   -> p.pieceNotation,
+      "is3d"            -> p.is3d
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =
@@ -38,10 +39,11 @@ final class StormJson(sign: StormSign) {
         )
       })
 
-  def apiDashboard(high: StormHigh, days: List[StormDay]) = Json.obj(
-    "high" -> high,
-    "days" -> days
-  )
+  def apiDashboard(high: StormHigh, days: List[StormDay]) =
+    Json.obj(
+      "high" -> high,
+      "days" -> days
+    )
 
 }
 

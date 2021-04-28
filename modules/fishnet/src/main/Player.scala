@@ -3,7 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 import org.joda.time.DateTime
 
-import chess.{ Gote, Clock, Sente }
+import chess.{ Clock, Gote, Sente }
 
 import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }
@@ -71,9 +71,9 @@ final class Player(
               )
             },
             tries = 0,
-          lastTryByKey = none,
-          acquired = none,
-          createdAt = DateTime.now
+            lastTryByKey = none,
+            acquired = none,
+            createdAt = DateTime.now
           )
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")

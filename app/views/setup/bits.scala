@@ -16,17 +16,26 @@ private object bits {
       ctx: Context
   ) = {
     val handicapChoices: List[SelectChoice] =
-      List(("", trans.selectHandicap.txt(), None), (chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))) ++
-      chess.StartingPosition.categories(0).positions.map { v =>
-        (v.fen, v.fullName, None)
-      }
+      List(
+        ("", trans.selectHandicap.txt(), None),
+        (chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))
+      ) ++
+        chess.StartingPosition.categories(0).positions.map { v =>
+          (v.fen, v.fullName, None)
+        }
     val url = form("fen").value.fold(routes.Editor.index())(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "handicap label_select")(
           renderLabel(form("handicap"), trans.handicap.txt()),
           renderSelect(form("handicap"), handicapChoices, (a, b) => a == "default"),
-          a(cls := "button button-empty", dataIcon := "", title := trans.handicap.txt(), target := "_blank", href := "https://en.wikipedia.org/wiki/Handicap_(shogi)")
+          a(
+            cls := "button button-empty",
+            dataIcon := "",
+            title := trans.handicap.txt(),
+            target := "_blank",
+            href := "https://en.wikipedia.org/wiki/Handicap_(shogi)"
+          )
         ),
         div(
           cls := "fen_form",
@@ -132,7 +141,9 @@ private object bits {
           div(cls := "time_choice slider")(
             trans.minutesPerSide(),
             ": ",
-            span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString),
+            span(
+              chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString
+            ),
             renderInput(form("time"))
           ),
           div(cls := "byoyomi_choice slider")(

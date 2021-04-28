@@ -69,13 +69,13 @@ object side {
         showPerf(u.perfs.correspondence, PerfType.Correspondence),
         br,
         // br, todo variant
-        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
+        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle)
         // u.noBot option showStorm(u.perfs.storm, u)
       )
     )
   }
 
-    private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
       dataIcon := '~',
       cls := List(

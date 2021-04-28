@@ -39,7 +39,7 @@ final class BotJsonView(
         "sente"      -> playerJson(game.sentePov),
         "white"      -> playerJson(game.sentePov), // backwards support
         "gote"       -> playerJson(game.gotePov),
-        "black"       -> playerJson(game.gotePov), // backwards support
+        "black"      -> playerJson(game.gotePov), // backwards support
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("tournamentId" -> game.tournamentId)

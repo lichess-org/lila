@@ -62,7 +62,7 @@ final class FormFactory {
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
     hook fill HookConfig.default.withTimeModeString(timeModeString)
 
-  def hook(implicit ctx: UserContext) ={
+  def hook(implicit ctx: UserContext) = {
     Form(
       mapping(
         "variant"     -> variantWithVariants,
@@ -79,7 +79,7 @@ final class FormFactory {
         .verifying("Invalid clock", _.validClock)
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
-    }
+  }
 
   lazy val boardApiHook = Form(
     mapping(
@@ -121,8 +121,8 @@ final class FormFactory {
       mapping(
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
         "increment" -> increment,
-        "byoyomi" -> byoyomi,
-        "periods" -> periods
+        "byoyomi"   -> byoyomi,
+        "periods"   -> periods
       )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
     )
 

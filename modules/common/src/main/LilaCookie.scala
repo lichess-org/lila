@@ -25,7 +25,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(
       implicit req: RequestHeader
-  ): Cookie ={
+  ): Cookie = {
     Cookie(
       name,
       value,

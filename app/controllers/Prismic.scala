@@ -30,18 +30,18 @@ final class Prismic(
 
   private def getDocumentByUID(form: String, uid: String) =
     prismicApi flatMap { api =>
-        api
-          .forms("everything")
-          .query(s"""[[:d = at(my.$form.uid, "$uid")]]""")
-          .ref(api.master.ref)
-          .submit() dmap {
-          _.results.headOption
-        }
+      api
+        .forms("everything")
+        .query(s"""[[:d = at(my.$form.uid, "$uid")]]""")
+        .ref(api.master.ref)
+        .submit() dmap {
+        _.results.headOption
       }
+    }
 
   def getPage(form: String, uid: String) =
     prismicApi flatMap { api =>
-      getDocumentByUID(form, uid) map2 {  (doc: io.prismic.Document) =>
+      getDocumentByUID(form, uid) map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
     } recover {
@@ -52,7 +52,7 @@ final class Prismic(
 
   def getBookmark(name: String) =
     prismicApi flatMap { api =>
-      api.bookmarks.get(name) ?? getDocument map2 {  (doc: io.prismic.Document) =>
+      api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
     } recover {

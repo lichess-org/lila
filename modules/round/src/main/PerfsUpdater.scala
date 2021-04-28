@@ -85,7 +85,7 @@ final class PerfsUpdater(
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
       case Some(chess.Sente) => Glicko.Result.Win
-      case Some(chess.Gote) => Glicko.Result.Loss
+      case Some(chess.Gote)  => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
     }
 

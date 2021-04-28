@@ -370,12 +370,14 @@ final class Tournament(
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
-            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest().fold(
-              err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-              res =>
-                api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-                  Redirect(routes.Tournament.show(tour.id))
-            )
+            lila.tournament.TeamBattle.DataForm.empty
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
+                res =>
+                  api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+                    Redirect(routes.Tournament.show(tour.id))
+              )
           case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
         }
       }

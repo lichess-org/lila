@@ -26,9 +26,10 @@ final private[puzzle] class DailyPuzzle(
   def get: Fu[Option[DailyPuzzle.Html]] = cache.getUnit
 
   private def find: Fu[Option[DailyPuzzle.Html]] =
-    (findCurrent orElse findNew) recover { case e: Exception =>
-      logger.error("find daily", e)
-      none
+    (findCurrent orElse findNew) recover {
+      case e: Exception =>
+        logger.error("find daily", e)
+        none
     } flatMap { _ ?? makeDaily }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.Html]] = {
@@ -36,9 +37,10 @@ final private[puzzle] class DailyPuzzle(
     renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.lastMove) map {
       case html: String => DailyPuzzle.Html(html, puzzle.color, puzzle.id).some
     }
-  } recover { case e: Exception =>
-    logger.warn("make daily", e)
-    none
+  } recover {
+    case e: Exception =>
+      logger.warn("make daily", e)
+      none
   }
 
   private def findCurrent =

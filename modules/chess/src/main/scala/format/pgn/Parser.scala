@@ -54,7 +54,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       variant
     )
   }
-  def moves(strMoves: Iterable[String], variant: Variant): Valid[Sans] ={
+  def moves(strMoves: Iterable[String], variant: Variant): Valid[Sans] = {
     objMoves(
       strMoves.map { StrMove(_, Glyphs.empty, Nil, Nil) }.to(List),
       variant

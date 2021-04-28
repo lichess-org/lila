@@ -23,7 +23,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Blitz,
     PerfType.Rapid,
     PerfType.Classical,
-    PerfType.Correspondence,
+    PerfType.Correspondence
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit

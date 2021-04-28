@@ -79,9 +79,10 @@ final class PgnDump(
         )
       )
       genTags
-        .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
-          if (tags.exists(t => tag.name == t.name)) tags
-          else tag :: tags
+        .foldLeft(chapter.tags.value.reverse) {
+          case (tags, tag) =>
+            if (tags.exists(t => tag.name == t.name)) tags
+            else tag :: tags
         }
         .reverse
     }
@@ -119,18 +120,21 @@ object PgnDump {
         case shapes => s"[%$as ${shapes.mkString(",")}]"
       }
     val circles = render("csl") {
-      shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+      shapes.value.collect {
+        case Shape.Circle(brush, orig) =>
+          s"${brush.head.toUpper}$orig"
       }
     }
     val arrows = render("cal") {
-      shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+      shapes.value.collect {
+        case Shape.Arrow(brush, orig, dest) =>
+          s"${brush.head.toUpper}$orig$dest"
       }
     }
     val pieces = render("cpl") {
-      shapes.value.collect { case Shape.Piece(brush, orig, piece) =>
-	s"${brush.head.toUpper}$orig${piece.forsyth}"
+      shapes.value.collect {
+        case Shape.Piece(brush, orig, piece) =>
+          s"${brush.head.toUpper}$orig${piece.forsyth}"
       }
     }
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)
@@ -167,14 +171,15 @@ object PgnDump {
   ): Vector[chessPgn.Turn] =
     line
       .grouped(2)
-      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case variations ~ turns ~ pair =>
-        pair.headOption.fold(variations -> turns) { first =>
-          pair
-            .lift(1)
-            .getOrElse(first)
-            .children
-            .variations -> (toTurn(first, pair lift 1, variations) +: turns)
-        }
+      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) {
+        case variations ~ turns ~ pair =>
+          pair.headOption.fold(variations -> turns) { first =>
+            pair
+              .lift(1)
+              .getOrElse(first)
+              .children
+              .variations -> (toTurn(first, pair lift 1, variations) +: turns)
+          }
       }
       ._2
       .reverse

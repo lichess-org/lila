@@ -14,11 +14,12 @@ private case class PuzzleSession(
     positionInPath: Int,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
 ) {
-  def switchTo(pathId: PuzzlePath.Id) = copy(
-    path = pathId,
-    previousPaths = previousPaths + pathId,
-    positionInPath = 0
-  )
+  def switchTo(pathId: PuzzlePath.Id) =
+    copy(
+      path = pathId,
+      previousPaths = previousPaths + pathId,
+      positionInPath = 0
+    )
   def next = copy(positionInPath = positionInPath + 1)
 
   override def toString = s"$path:$positionInPath"
@@ -50,10 +51,10 @@ final class PuzzleSessionApi(
         def switchPath(tier: PuzzleTier) =
           pathApi.nextFor(user, theme, tier, session.difficulty, session.previousPaths) orFail
             s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
-              val newSession = session.switchTo(pathId)
-              sessions.put(user.id, fuccess(newSession))
-              nextPuzzleFor(user, theme, retries = retries + 1)
-            }
+            val newSession = session.switchTo(pathId)
+            sessions.put(user.id, fuccess(newSession))
+            nextPuzzleFor(user, theme, retries = retries + 1)
+          }
 
         def serveAndMonitor(puzzle: Puzzle) = {
           val mon = lila.mon.puzzle.selector.user

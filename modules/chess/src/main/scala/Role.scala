@@ -4,7 +4,7 @@ import Pos.posAt
 
 sealed trait Role {
   val forsyth: Char
-  lazy val forsythUpper: Char       = forsyth.toUpper
+  lazy val forsythUpper: Char = forsyth.toUpper
   val forsythFull: String
   lazy val forsythFullUpper: String = forsythFull.toUpperCase
   lazy val pgn: Char                = forsythUpper
@@ -14,8 +14,7 @@ sealed trait Role {
   val dirsOpposite: Directions
   def dir(from: Pos, to: Pos): Option[Direction]
 }
-sealed trait PromotableRole extends Role {
-}
+sealed trait PromotableRole extends Role {}
 
 case object King extends Role {
   val forsyth                  = 'k'
@@ -40,7 +39,7 @@ case object Rook extends PromotableRole {
         if (to ?< from) (_.left) else (_.right)
       )
     else None
-  val projection               = true
+  val projection = true
 }
 case object Bishop extends PromotableRole {
   val forsyth                  = 'b'
@@ -57,11 +56,11 @@ case object Bishop extends PromotableRole {
         }
       )
     else None
-  val projection               = true
+  val projection = true
 }
 case object Knight extends PromotableRole {
-  val forsyth          = 'n'
-  val forsythFull      = forsyth.toString
+  val forsyth     = 'n'
+  val forsythFull = forsyth.toString
   val dirs: Directions = List(
     p => posAt(p.x - 1, p.y + 2),
     p => posAt(p.x + 1, p.y + 2)
@@ -70,8 +69,8 @@ case object Knight extends PromotableRole {
     p => posAt(p.x - 1, p.y - 2),
     p => posAt(p.x + 1, p.y - 2)
   )
-  def dir(from: Pos, to: Pos)  = None
-  val projection               = false
+  def dir(from: Pos, to: Pos) = None
+  val projection              = false
 }
 case object Pawn extends PromotableRole {
   val forsyth                  = 'p'
@@ -102,13 +101,14 @@ case object Lance extends PromotableRole {
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up)
   val dirsOpposite: Directions = List(_.down)
-  def dir(from: Pos, to: Pos)  =
+  def dir(from: Pos, to: Pos) =
     if (to ?| from)
       Some(
         if (to ?^ from) (_.up) else (_.down)
-      ) else None
+      )
+    else None
 
-  val projection               = true
+  val projection = true
 }
 case object Tokin extends PromotableRole {
   val forsyth                                    = 't'
@@ -143,12 +143,12 @@ case object PromotedLance extends PromotableRole {
   val projection: Boolean                        = false
 }
 case object Horse extends PromotableRole {
-  val forsyth: Char                = 'h'
-  val forsythFull                  = "+b"
-  val dirs: Directions             = Bishop.dirs // only long range
-  val dirsOpposite: Directions     = Bishop.dirsOpposite
-  def dir(from: Pos, to: Pos)      = Bishop.dir(from, to)
-  val projection                   = true
+  val forsyth: Char            = 'h'
+  val forsythFull              = "+b"
+  val dirs: Directions         = Bishop.dirs // only long range
+  val dirsOpposite: Directions = Bishop.dirsOpposite
+  def dir(from: Pos, to: Pos)  = Bishop.dir(from, to)
+  val projection               = true
 }
 case object Dragon extends PromotableRole {
   val forsyth: Char                              = 'd'
@@ -177,8 +177,20 @@ object Role {
     PromotedLance,
     Dragon
   )
-  val allPromotable: List[PromotableRole] = List(Rook, Bishop, Knight, Lance, Silver, Pawn,
-  Dragon, Horse, PromotedKnight, PromotedLance, PromotedSilver, Tokin)
+  val allPromotable: List[PromotableRole] = List(
+    Rook,
+    Bishop,
+    Knight,
+    Lance,
+    Silver,
+    Pawn,
+    Dragon,
+    Horse,
+    PromotedKnight,
+    PromotedLance,
+    PromotedSilver,
+    Tokin
+  )
   val allByForsyth: Map[Char, Role] = all map { r =>
     (r.forsyth, r)
   } toMap
@@ -214,24 +226,24 @@ object Role {
 
   def promotesTo(r: Role): Option[PromotableRole] =
     r match {
-      case Pawn => Some(Tokin)
-      case Lance => Some(PromotedLance)
+      case Pawn   => Some(Tokin)
+      case Lance  => Some(PromotedLance)
       case Knight => Some(PromotedKnight)
       case Silver => Some(PromotedSilver)
       case Bishop => Some(Horse)
-      case Rook => Some(Dragon)
-      case _ => None
+      case Rook   => Some(Dragon)
+      case _      => None
     }
 
   def demotesTo(r: Role): Role = {
     r match {
-      case Tokin => Pawn
-      case PromotedLance => Lance
+      case Tokin          => Pawn
+      case PromotedLance  => Lance
       case PromotedSilver => Silver
       case PromotedKnight => Knight
-      case Horse => Bishop
-      case Dragon => Rook
-      case _ => r
+      case Horse          => Bishop
+      case Dragon         => Rook
+      case _              => r
     }
   }
 

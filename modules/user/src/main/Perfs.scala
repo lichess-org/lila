@@ -173,8 +173,8 @@ case object Perfs {
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
     variant match {
-      case chess.variant.Standard      => Some(_.standard) // todo variant
-      case _                           => none
+      case chess.variant.Standard => Some(_.standard) // todo variant
+      case _                      => none
     }
 
   def speedLens(speed: Speed): Perfs => Perf =

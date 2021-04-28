@@ -63,8 +63,9 @@ object ServerEval {
                       analysisLine(parent, chapter.setup.variant, info) map { subTree =>
                         parent.addChild(subTree) -> subTree
                       }
-                    } ?? { case (newParent, subTree) =>
-                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+                    } ?? {
+                      case (newParent, subTree) =>
+                        chapterRepo.addSubTree(subTree, newParent, path)(chapter)
                     } >> {
                       import BSONHandlers._
                       import Node.{ BsonFields => F }
@@ -75,10 +76,10 @@ object ServerEval {
                             path + node,
                             List(
                               F.score -> info.eval.score
-                      .ifTrue {
-                        node.score.isEmpty ||
+                                .ifTrue {
+                                  node.score.isEmpty ||
                                   advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
-                      }
+                                }
                                 .flatMap(EvalScoreBSONHandler.writeOpt),
                               F.comments -> advOpt
                                 .map { adv =>
@@ -86,7 +87,7 @@ object ServerEval {
                                     Comment.Id.make,
                                     Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
                                     Comment.Author.Lishogi
-                              )
+                                  )
                                 }
                                 .flatMap(CommentsBSONHandler.writeOpt),
                               F.glyphs -> advOpt
@@ -132,8 +133,9 @@ object ServerEval {
             case Nil => none
             case (g, m) :: rest =>
               rest
-                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
-                  makeBranch(g, m) addChild node
+                .foldLeft(makeBranch(g, m)) {
+                  case (node, (g, m)) =>
+                    makeBranch(g, m) addChild node
                 } some
           }
       }

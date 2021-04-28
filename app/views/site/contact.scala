@@ -108,7 +108,8 @@ object contact {
             Leaf(
               "title",
               wantTitle(),
-              p((visitTitleConfirmation()), // master
+              p(
+                (visitTitleConfirmation()), // master
                 "."
               )
             ),

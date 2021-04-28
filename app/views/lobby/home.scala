@@ -121,7 +121,10 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(
+                trans.more(),
+                " »"
+              )
             )
           else
             div(cls := "about-side")(

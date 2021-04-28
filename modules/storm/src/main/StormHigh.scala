@@ -9,12 +9,13 @@ import lila.user.User
 
 case class StormHigh(day: Int, week: Int, month: Int, allTime: Int) {
 
-  def update(score: Int) = copy(
-    day = day atLeast score,
-    week = week atLeast score,
-    month = month atLeast score,
-    allTime = allTime atLeast score
-  )
+  def update(score: Int) =
+    copy(
+      day = day atLeast score,
+      week = week atLeast score,
+      month = month atLeast score,
+      allTime = allTime atLeast score
+    )
 }
 
 object StormHigh {

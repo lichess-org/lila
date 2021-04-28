@@ -50,7 +50,13 @@ private[setup] trait Config {
 
   def makeClock = hasClock option justMakeClock
 
-  protected def justMakeClock = Clock.Config((time * 60).toInt, if (clockHasTimeInc) increment else 0, if (clockHasTimeByo) byoyomi else 0, periods)
+  protected def justMakeClock =
+    Clock.Config(
+      (time * 60).toInt,
+      if (clockHasTimeInc) increment else 0,
+      if (clockHasTimeByo) byoyomi else 0,
+      periods
+    )
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 

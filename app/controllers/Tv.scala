@@ -30,14 +30,15 @@ final class Tv(
       }
     }
 
-  def channels ={
+  def channels = {
     apiC.ApiRequest { _ =>
       import play.api.libs.json._
       implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
       env.tv.tv.getChampions map {
         _.channels map { case (chan, champ) => chan.name -> champ }
       } map { Json.toJson(_) } map Api.Data.apply
-    }}
+    }
+  }
 
   private def lishogiTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) = {
     OptionFuResult(env.tv.tv getGameAndHistory channel) {
@@ -89,11 +90,12 @@ final class Tv(
     }
 
   def frame =
-    Action.async { implicit req => {
-      env.tv.tv.getBestGame map {
-        case None       => NotFound
-        case Some(game) => Ok(views.html.tv.embed(Pov first game))
+    Action.async { implicit req =>
+      {
+        env.tv.tv.getBestGame map {
+          case None       => NotFound
+          case Some(game) => Ok(views.html.tv.embed(Pov first game))
+        }
       }
     }
-  }
 }

@@ -82,16 +82,17 @@ object StudyForm {
       def orientation = orientationStr.flatMap(chess.Color.apply) | chess.Sente
 
       def toChapterDatas =
-        MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>
-          ChapterMaker.Data(
-            // only the first chapter can be named
-            name = Chapter.Name((index == 0) ?? name),
-            variant = variantStr,
-            pgn = onePgn.some,
-            orientation = orientation.name,
-            mode = mode,
-            initial = initial && index == 0
-          )
+        MultiPgn.split(pgn, max = 20).value.zipWithIndex map {
+          case (onePgn, index) =>
+            ChapterMaker.Data(
+              // only the first chapter can be named
+              name = Chapter.Name((index == 0) ?? name),
+              variant = variantStr,
+              pgn = onePgn.some,
+              orientation = orientation.name,
+              mode = mode,
+              initial = initial && index == 0
+            )
         }
     }
   }

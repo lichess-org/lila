@@ -23,9 +23,9 @@ object Division {
 }
 
 sealed trait DividerData
-final case class NotFound(senteInvadersInGotesCamp: Int = 0, goteInvadersInSentesCamp: Int = 0) extends DividerData
+final case class NotFound(senteInvadersInGotesCamp: Int = 0, goteInvadersInSentesCamp: Int = 0)
+    extends DividerData
 final case class Found(index: Int) extends DividerData
-
 
 object Divider {
 
@@ -45,7 +45,7 @@ object Divider {
           // if one piece invades the opposing camp and is not immediately captured
           (currSenteInvaders >= 1 && lastSenteInvaders >= 1) ||
           (currGoteInvaders >= 1 && lastGoteInvaders >= 1)
-          ) Found(index)
+        ) Found(index)
         else
           // store the current # of Invaders
           NotFound(currSenteInvaders, currGoteInvaders)
@@ -54,7 +54,7 @@ object Divider {
 
     val midGameOption = midGame match {
       case Found(index) => Some(index)
-      case _ => None
+      case _            => None
     }
 
     val endGame =
@@ -65,7 +65,7 @@ object Divider {
           if (
             (currSenteInvaders >= 2 && lastSenteInvaders >= 2) ||
             (currGoteInvaders >= 2 && lastGoteInvaders >= 2)
-            ) Found(index)
+          ) Found(index)
           else
             NotFound(currSenteInvaders, currGoteInvaders)
         }
@@ -74,7 +74,7 @@ object Divider {
 
     val endGameOption = endGame match {
       case Found(index) => Some(index)
-      case _ => None
+      case _            => None
     }
 
     Division(
@@ -158,7 +158,7 @@ object Divider {
     mixednessRegions.foldLeft(0) {
       case (mix, region) =>
         var sente = 0
-        var gote = 0
+        var gote  = 0
         region foreach { p =>
           boardValues get p foreach { v =>
             if (v) sente = sente + 1
