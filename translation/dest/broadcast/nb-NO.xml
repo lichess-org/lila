@@ -19,7 +19,6 @@
   <string name="startDate">Startdato i din egen tidssone</string>
   <string name="startDateHelp">Valgfritt, hvis du vet når arrangementet starter</string>
   <string name="credits">Krediter kilden</string>
-  <string name="cloneRound">Klon denne runden</string>
   <string name="resetRound">Nullstill denne runden</string>
   <string name="deleteRound">Slett denne runden</string>
 </resources>
