@@ -19,5 +19,7 @@
   <string name="startDate">Kendi saat diliminizdeki başlangıç zamanı</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
   <string name="credits">Kaynağı görüntüle</string>
+  <string name="cloneRound">Bu turu kopyala</string>
+  <string name="resetRound">Bu turu sıfırla</string>
   <string name="deleteRound">Bu turu sil</string>
 </resources>
