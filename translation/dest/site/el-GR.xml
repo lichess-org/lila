@@ -78,7 +78,7 @@
   <string name="losing">Χάνει</string>
   <string name="drawn">Ισοπαλία</string>
   <string name="unknown">Άγνωστο</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Βάση δεδομένων</string>
+  <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
   <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους όρους χρήσης του Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
@@ -616,7 +615,7 @@
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Πηγαίος κώδικας</string>
+  <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Ταυτόχρονες εκθέσεις</string>
   <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
