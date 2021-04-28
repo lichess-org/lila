@@ -28,7 +28,7 @@
   <string name="kingInTheCenter">キングが中央マスに入りました</string>
   <string name="threeChecks">3 回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
-  <string name="variantEnding">終局</string>
+  <string name="variantEnding">バリアントエンディング</string>
   <string name="newOpponent">新しい相手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したいと言っています</string>
   <string name="joinTheGame">対局に参加する</string>
@@ -435,7 +435,7 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="success">正解</string>
+  <string name="success">成功</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局対局中</item>
   </plurals>
