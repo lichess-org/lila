@@ -21,4 +21,7 @@
   <string name="credits">Αναφέρετε την πηγή</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
+  <string name="broadcastUrl">Διεύθυνση URL μετάδοσης</string>
+  <string name="currentRoundUrl">Διεύθυνση URL αυτού του γύρου</string>
+  <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
 </resources>
