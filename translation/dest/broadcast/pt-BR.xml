@@ -19,7 +19,6 @@
   <string name="startDate">Data de início em seu próprio fuso horário</string>
   <string name="startDateHelp">Opcional, se você sabe quando o evento começa</string>
   <string name="credits">Crédito a fonte</string>
-  <string name="cloneRound">Clonar esta rodada</string>
   <string name="resetRound">Reiniciar esta rodada</string>
   <string name="deleteRound">Excluir esta rodada</string>
 </resources>
