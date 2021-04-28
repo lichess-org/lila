@@ -19,7 +19,6 @@
   <string name="startDate">Sākuma datums jūsu laika joslā</string>
   <string name="startDateHelp">Neobligāts, ja zināt, kad pasākums sākas</string>
   <string name="credits">Kreditējiet avotu</string>
-  <string name="cloneRound">Veidot raunda kopiju</string>
   <string name="resetRound">Atiestatīt šo raundu</string>
   <string name="deleteRound">Dzēst šo raundu</string>
 </resources>
