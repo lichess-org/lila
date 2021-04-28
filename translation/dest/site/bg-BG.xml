@@ -78,7 +78,7 @@
   <string name="losing">Губещ</string>
   <string name="drawn">Реми</string>
   <string name="unknown">Неизвестно</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">База данни</string>
+  <string name="database">База данни</string>
   <string name="whiteDrawBlack">Бели / Реми / Черни</string>
   <string name="averageRatingX">Среден рейтинг: %s</string>
   <string name="recentGames">Скорошни игри</string>
@@ -287,7 +287,6 @@
     <item quantity="other">Дай %s sec</item>
   </plurals>
   <string name="thisAccountViolatedTos">Този профил е нарушил Условията за Ползване на Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
   <string name="openingExplorerAndTablebase">&amp; - Изследовател на дебютите</string>
   <string name="takeback">Върни ход</string>
   <string name="proposeATakeback">Предложи връщане на ход</string>
@@ -616,7 +615,7 @@
   <string name="really">наистина</string>
   <string name="contribute">Принос</string>
   <string name="termsOfService">Условия</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Програмен Код</string>
+  <string name="sourceCode">Програмен Код</string>
   <string name="simultaneousExhibitions">Сеанси</string>
   <string name="host">Домакин</string>
   <string name="hostColorX">Домакин: %s</string>
