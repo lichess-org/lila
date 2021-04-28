@@ -70,7 +70,7 @@ final class RelayApi(
   def activeTourNextRound(tour: RelayTour): Fu[Option[RelayRound]] = tour.active ??
     roundRepo.coll
       .find($doc("tourId" -> tour.id, "finished" -> false))
-      .sort(roundRepo.chronoSort)
+      .sort(roundRepo.sort.chrono)
       .one[RelayRound]
 
   def tourLastRound(tour: RelayTour): Fu[Option[RelayRound]] =
@@ -102,7 +102,7 @@ final class RelayApi(
                     )
                   ),
                   $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc("$sort"      -> roundRepo.chronoSort),
+                  $doc("$sort"      -> roundRepo.sort.chrono),
                   $doc("$limit"     -> 1)
                 )
               )
@@ -149,26 +149,39 @@ final class RelayApi(
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
     tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void
 
-  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] = {
-    val relay = data.make(user, tour)
-    roundRepo.coll.insert.one(relay) >>
-      studyApi.importGame(
-        StudyMaker.ImportGame(
-          id = relay.studyId.some,
-          name = Study.Name(relay.name).some,
-          settings = Settings.init
-            .copy(
-              chat = Settings.UserSelection.Everyone,
-              sticky = false
+  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
+    roundRepo.lastByTour(tour) flatMap {
+      _ ?? { last => studyRepo.byId(last.studyId) }
+    } flatMap { lastStudy =>
+      import lila.study.{ StudyMember, StudyMembers }
+      val relay = data.make(user, tour)
+      roundRepo.coll.insert.one(relay) >>
+        studyApi.create(
+          StudyMaker.ImportGame(
+            id = relay.studyId.some,
+            name = Study.Name(relay.name).some,
+            settings = lastStudy
+              .fold(
+                Settings.init
+                  .copy(
+                    chat = Settings.UserSelection.Everyone,
+                    sticky = false
+                  )
+              )(_.settings)
+              .some,
+            from = Study.From.Relay(none).some
+          ),
+          user,
+          _.copy(members =
+            lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(
+              id = user.id,
+              role = StudyMember.Role.Write
             )
-            .some,
-          from = Study.From.Relay(none).some
-        ),
-        user
-      ) >>
-      tourRepo.setActive(tour.id, true) >>
-      studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
-  }
+          )
+        ) >>
+        tourRepo.setActive(tour.id, true) >>
+        studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
+    }
 
   def requestPlay(id: RelayRound.Id, v: Boolean): Funit =
     WithRelay(id) { relay =>

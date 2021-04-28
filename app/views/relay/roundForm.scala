@@ -60,7 +60,12 @@ object roundForm {
 
   private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
-      div(cls := "form-group")(bits.howToUse),
+      div(cls := "form-group")(
+        bits.howToUse,
+        p(dataIcon := "", cls := "text")(
+          "The new round will have the same members and contributors as the previous one."
+        )
+      ),
       form3.globalError(form),
       form3.group(form("name"), roundName())(form3.input(_)(autofocus)),
       form3.group(
