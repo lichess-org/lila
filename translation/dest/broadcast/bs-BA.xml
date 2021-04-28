@@ -21,4 +21,7 @@
   <string name="credits">Navedite ko je zaslužan</string>
   <string name="resetRound">Ponovo postavite ovo kolo</string>
   <string name="deleteRound">Izbrišite ovo kolo</string>
+  <string name="broadcastUrl">Link za prenos</string>
+  <string name="currentRoundUrl">Link za trenutno kolo</string>
+  <string name="currentGameUrl">Link za trenutnu partiju</string>
 </resources>
