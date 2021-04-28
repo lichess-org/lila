@@ -203,7 +203,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h("div.tabs-horiz", [
             makeTab("init", noarg("empty"), noarg("startFromInitialPosition")),
             makeTab("edit", noarg("editor"), noarg("startFromCustomPosition")),
-            //makeTab("game", "URL", noarg("loadAGameByUrl")),
+            makeTab("game", "URL", noarg("loadAGameByUrl")),
             makeTab("fen", "SFEN", noarg("loadAPositionFromFen")),
             //makeTab("pgn", "PGN", noarg("loadAGameFromPgn")),
           ]),
@@ -249,7 +249,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   attrs: { for: "chapter-game" },
                 },
-                trans("loadAGameFromXOrY", "lishogi.org", "chessgames.com")
+                trans("loadAGameFromXOrY", "lishogi.org")
               ),
               h("textarea#chapter-game.form-control", {
                 attrs: { placeholder: noarg("urlOfTheGame") },
