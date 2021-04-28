@@ -855,4 +855,13 @@ en %3$s</string>
   <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ara formes part de l\'equip.</string>
   <string name="youHaveJoinedTeamX">T\'has unit a \"%1$s\".</string>
+  <string name="congratsYouWon">Felicitats, has guanyat!</string>
+  <string name="gameVsX">Partida vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">T\'has fet Patró a Lichess.</string>
+  <string name="patronAccountExpired">El compte Patró ha expirat</string>
+  <string name="pleaseReconsiderRenewIt">Si us plau, valora renovar-lo!</string>
+  <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
+  <string name="newPendingReview">Nova ressenya pendent</string>
+  <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
 </resources>
