@@ -21,4 +21,7 @@
   <string name="credits">Kreditējiet avotu</string>
   <string name="resetRound">Atiestatīt šo raundu</string>
   <string name="deleteRound">Dzēst šo raundu</string>
+  <string name="broadcastUrl">Tiešraides URL</string>
+  <string name="currentRoundUrl">Pašreizējā raunda URL</string>
+  <string name="currentGameUrl">Pašreizējās spēles URL</string>
 </resources>
