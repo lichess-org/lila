@@ -47,6 +47,6 @@
   <string name="joinPublicRace">Csatlakozás egy nyilvános versenyhez</string>
   <string name="raceYourFriends">Versenyezz a barátaiddal</string>
   <string name="skip">kihagy</string>
-  <string name="skipHelp">ÚJ! Kihagyhatsz egy lépést versenyenként:</string>
+  <string name="skipHelp">Kihagyhatsz egy lépést versenyenként:</string>
   <string name="skipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
 </resources>
