@@ -78,7 +78,7 @@
   <string name="losing">இழந்து</string>
   <string name="drawn">சமநிலை அடைந்தது</string>
   <string name="unknown">தெரியவில்லை</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">தரவுத்தளம்</string>
+  <string name="database">தரவுத்தளம்</string>
   <string name="whiteDrawBlack">வெள்ளை / காயடைப்புநிலை / கருப்பு</string>
   <string name="averageRatingX">சராசரி மதிப்பெண்கள்: %s</string>
   <string name="recentGames">சமீபத்திய விளையாட்டு</string>
@@ -279,7 +279,6 @@
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
   <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
   <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
@@ -494,7 +493,7 @@
   <string name="really">உண்மையாக</string>
   <string name="contribute">பங்களிப்பு</string>
   <string name="termsOfService">விதிமுறைகள்</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">மூலக் குறியீடு</string>
+  <string name="sourceCode">மூலக் குறியீடு</string>
   <string name="create">உருவாக்கு</string>
   <string name="yourRating">உங்கள் மதிப்பீடு</string>
   <string name="glicko2Rating">க்ளிக்க்கோ-2 மதிப்பீடு</string>
