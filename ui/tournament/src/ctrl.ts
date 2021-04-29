@@ -138,6 +138,9 @@ export default class TournamentController {
       let password;
       if (this.data.private && !this.data.me) {
         password = prompt(this.trans.noarg('password'));
+        if (password === null) {
+          return;
+        }
       }
       xhr.join(this, password, team);
       this.joinSpinner = true;
