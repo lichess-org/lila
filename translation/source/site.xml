@@ -863,11 +863,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="edit">Edit</string>
 	<string name="rapid">Rapid</string>
 	<string name="classical">Classical</string>
-	<string name="ultraBulletDesc">Insanely fast games: less than 30 seconds</string>
-	<string name="bulletDesc">Very fast games: less than 3 minutes</string>
-	<string name="blitzDesc">Fast games: 3 to 8 minutes</string>
-	<string name="rapidDesc">Rapid games: 8 to 25 minutes</string>
-	<string name="classicalDesc">Classical games: 25 minutes and more</string>
+	<string name="ultraBulletDesc">Insanely fast games: less than 1 minute</string>
+	<string name="bulletDesc">Very fast games: less than 5 minutes</string>
+	<string name="blitzDesc">Fast games: 5 to 10 minutes</string>
+	<string name="rapidDesc">Rapid games: 10 to 25 minutes</string>
+	<string name="classicalDesc">Classical games: at least 25 minutes</string>
 	<string name="correspondenceDesc">Correspondence games: one or several days per move</string>
 	<string name="puzzleDesc">Shogi tactics trainer</string>
 	<string name="important">Important</string>
