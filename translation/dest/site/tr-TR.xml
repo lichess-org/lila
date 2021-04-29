@@ -78,7 +78,7 @@
   <string name="losing">Kaybettiren hamle(ler)</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Veritabanı</string>
+  <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="averageRatingX">Ortalama puan: %s</string>
   <string name="recentGames">Son oyunlar</string>
@@ -287,7 +287,6 @@
     <item quantity="other">%s saniye ver</item>
   </plurals>
   <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
@@ -615,7 +614,7 @@
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="termsOfService">Hizmet koşulları</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Kaynak Kodu</string>
+  <string name="sourceCode">Kaynak Kodu</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>

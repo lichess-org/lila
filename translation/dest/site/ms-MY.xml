@@ -77,7 +77,7 @@
   <string name="losing">Kalah</string>
   <string name="drawn">Seri</string>
   <string name="unknown">Tidak diketahui</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Pangkalan data</string>
+  <string name="database">Pangkalan data</string>
   <string name="whiteDrawBlack">Putih / Seri / Hitam</string>
   <string name="averageRatingX">Purata penilaian: %s</string>
   <string name="recentGames">Permainan terkini</string>
@@ -258,7 +258,6 @@
     <item quantity="other">Beri %s saat</item>
   </plurals>
   <string name="thisAccountViolatedTos">Akaun ini melanggar Syarat Perkhidmatan Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini menggodam rating mereka untuk menaik/menurun</string>
   <string name="openingExplorerAndTablebase">Peneroka opening&amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
@@ -437,7 +436,7 @@
   <string name="really">benar</string>
   <string name="contribute">Sumbang</string>
   <string name="termsOfService">Terma servis</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Source Code</string>
+  <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Perlawanan serentak</string>
   <string name="host">Host</string>
   <string name="hostColorX">Warna host: %s</string>

@@ -21,4 +21,7 @@
   <string name="credits">Bronvermelding</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
+  <string name="broadcastUrl">Uitzendingslink</string>
+  <string name="currentRoundUrl">Huidige ronde-link</string>
+  <string name="currentGameUrl">Huidige partij-link</string>
 </resources>

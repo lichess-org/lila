@@ -78,7 +78,7 @@
   <string name="losing">হেরে যাওয়া</string>
   <string name="drawn">সমান</string>
   <string name="unknown">অজানা</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">ডেটাবেজ</string>
+  <string name="database">ডেটাবেজ</string>
   <string name="whiteDrawBlack">সাদা / সমান / কালো</string>
   <string name="averageRatingX">গড় নির্ধারণ:%s</string>
   <string name="recentGames">সম্প্রতি খেলা</string>
@@ -275,7 +275,6 @@
     <item quantity="other">%s সেকেন্ড দিন</item>
   </plurals>
   <string name="thisAccountViolatedTos">এই অ্যাকাউন্টটি লিচেস্‌-এর পরিষেবার শর্তসমূহ লঙ্ঘন করেছে</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">এই খেলোয়াড় প্রযুক্তি ব্যবহার করে কৃত্তিম ভাবে নিজের rating বাড়ায়/কমায়</string>
   <string name="openingExplorerAndTablebase">বিস্লেষন খুলতেছে &amp; টেবিলবেস</string>
   <string name="takeback">চাল ফিরিয়ে নিন</string>
   <string name="proposeATakeback">চাল ফিরিয়ে নেবার সুযোগ দিন</string>
@@ -613,7 +612,7 @@
   <string name="really">সত্যিকার অর্থেই</string>
   <string name="contribute">অবদান</string>
   <string name="termsOfService">পরিষেবার শর্তাদি</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">উৎস সংকেতলিপি</string>
+  <string name="sourceCode">উৎস সংকেতলিপি</string>
   <string name="simultaneousExhibitions">সমকালবর্তী প্রদর্শন</string>
   <string name="host">স্বাগতিক</string>
   <string name="hostColorX">হোস্ট রং: %s</string>

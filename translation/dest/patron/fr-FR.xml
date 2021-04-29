@@ -12,12 +12,12 @@
   <string name="youHaveLifetime">Vous avez un compte mécène à vie ! C\'est génial !</string>
   <string name="patronUntil">Vous avez un compte mécène jusqu\'au %s.</string>
   <string name="ifNotRenewed">Si non renouvelé, votre compte ne sera plus un mécène.</string>
-  <string name="weAreNonProfit">Nous sommes une association à but non lucratif parce que nous pensons que tout le monde devrait avoir accès à une plateforme gratuite d\'envergure mondiale.</string>
+  <string name="weAreNonProfit">Nous sommes une association à but non lucratif car nous pensons que tout le monde devrait avoir accès à une plateforme d\'échecs gratuite d\'envergure mondiale.</string>
   <string name="weRelyOnSupport">Nous comptons sur le soutien de personnes comme vous pour rendre cela possible. Si vous aimez utiliser Lichess, pensez à nous soutenir en faisant un don et en devenant un mécène !</string>
   <string name="lifetime">À vie</string>
   <string name="payLifetimeOnce">Payez %s une fois. Devenez un mécène de Lichess pour toujours !</string>
   <string name="lifetimePatron">Mécène de Lichess à vie</string>
-  <string name="makeExtraDonation">Faire un don supplémentaire?</string>
+  <string name="makeExtraDonation">Faire un don supplémentaire ?</string>
   <string name="monthly">Mensuel</string>
   <string name="recurringBilling">Facturation récurrente, renouvellement de vos ailes de mécène tous les mois.</string>
   <string name="onetime">Unique</string>
@@ -31,7 +31,7 @@
   <string name="whereMoneyGoes">Où va l\'argent ?</string>
   <string name="serversAndDeveloper">Premièrement, des servers puissants.
 Puis nous payons un développeur à plein-temps : %s, le créateur de Lichess.</string>
-  <string name="costBreakdown">Voyez la liste détaillée des frais</string>
+  <string name="costBreakdown">Voir la liste détaillée des frais</string>
   <string name="officialNonProfit">Lichess est-elle officiellement une ONG ?</string>
   <string name="actOfCreation">Oui, voici l\'acte de création</string>
   <string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel ?</string>
@@ -72,5 +72,5 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="checkOutProfile">Consultez votre page de profil !</string>
   <string name="nowLifetime">Vous êtes maintenant un mécène de Lichess à vie !</string>
   <string name="nowOneMonth">Vous êtes maintenant un mécène de Lichess pour un mois !</string>
-  <string name="downgradeNextMonth">Dans un mois, vous NE serez PAS à nouveau débité, et votre compte Lichess redeviendra un compte ordinaire.</string>
+  <string name="downgradeNextMonth">Dans un mois, vous NE serez PAS débité à nouveau, et votre compte Lichess redeviendra un compte ordinaire.</string>
 </resources>

@@ -21,4 +21,7 @@
   <string name="credits">Navedi vir</string>
   <string name="resetRound">Ponastavi ta krog</string>
   <string name="deleteRound">Izbriši ta krog</string>
+  <string name="broadcastUrl">URL oddaje</string>
+  <string name="currentRoundUrl">URL trenutnega kroga</string>
+  <string name="currentGameUrl">URL trenutno igrane igre</string>
 </resources>

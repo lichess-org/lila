@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data d’inclusió (més antics)</string>
   <string name="recentlyUpdated">Actualitzat darrerament</string>
   <string name="mostPopular">Més popular</string>
+  <string name="alphabetical">Alfabètic</string>
   <string name="addNewChapter">Afegir un nou capítol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítol</item>

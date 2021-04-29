@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
   <string name="recentlyUpdated">Ostatnio aktualizowane</string>
   <string name="mostPopular">Najpopularniejsze</string>
+  <string name="alphabetical">Alfabetycznie</string>
   <string name="addNewChapter">Dodaj nowy rozdział</string>
   <plurals name="nbChapters">
     <item quantity="one">%s rozdział</item>

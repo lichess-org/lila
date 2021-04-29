@@ -125,6 +125,10 @@
     <item quantity="one">Akats %s</item>
     <item quantity="other">%s akats</item>
   </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">Oker txiki %s</item>
+    <item quantity="other">%s oker txiki</item>
+  </plurals>
   <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>

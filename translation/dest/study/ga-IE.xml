@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dáta curtha leis (dáta is sinne)</string>
   <string name="recentlyUpdated">Faisnéis nuashonraithe le déanaí</string>
   <string name="mostPopular">Móréilimh</string>
+  <string name="alphabetical">Aibítre</string>
   <string name="addNewChapter">Cuir caibidil nua leis</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Caibidil</item>

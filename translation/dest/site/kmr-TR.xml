@@ -9,6 +9,7 @@
   <string name="yourTurn">Dora te ye</string>
   <string name="aiNameLevelAiLevel">%1$s asta %2$s</string>
   <string name="level">Ast</string>
+  <string name="strength">Hêz</string>
   <string name="toggleTheChat">Axaftinê bigire</string>
   <string name="toggleSound">Dengê bigire</string>
   <string name="chat">Axaftin</string>
@@ -66,7 +67,7 @@
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
-  <string name="move">Pêngav</string>
+  <string name="move">Hemle</string>
   <string name="variantLoss">Windakirina varyantê</string>
   <string name="variantWin">Rêya serkeftinê</string>
   <string name="insufficientMaterial">Kevirên kişikê têrî serketinê nake</string>
@@ -77,7 +78,7 @@
   <string name="losing">Têk diçe</string>
   <string name="drawn">Wekhevî</string>
   <string name="unknown">Nedîyar</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Zaniyarîdank</string>
+  <string name="database">Agahîdank</string>
   <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
   <string name="averageRatingX">Nirxandina navîn: %s</string>
   <string name="recentGames">Lîstikên herî dawî</string>
@@ -116,6 +117,18 @@
   <string name="blunder">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="inaccuracy">Hemleya nerast</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s şelipan</item>
+    <item quantity="other">%s şelipan</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s çewtî</item>
+    <item quantity="other">%s çewtî</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nerastî</item>
+    <item quantity="other">%s nerastî</item>
+  </plurals>
   <string name="moveTimes">Demên hemleyan</string>
   <string name="flipBoard">Texteyê biqulipîne</string>
   <string name="threefoldRepetition">Tekrarkirina sêcarî</string>
@@ -196,6 +209,8 @@
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
   <string name="cancel">Betal bike</string>
+  <string name="whiteTimeOut">Dema Spî qedîya</string>
+  <string name="blackTimeOut">Dema Reş qedîya</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferDeclined">Teklîfa wekheviyê hate redkirin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
@@ -271,7 +286,6 @@
     <item quantity="one">%s çirke bide</item>
     <item quantity="other">%s çirke bide</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
@@ -592,7 +606,7 @@
   <string name="really">heqîqeten</string>
   <string name="contribute">Bibe tevkar</string>
   <string name="termsOfService">Şertûmercên Xizmetê</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Koda çavkanî</string>
+  <string name="sourceCode">Koda çavkanî</string>
   <string name="simultaneousExhibitions">Pêşangehên hevdemî</string>
   <string name="host">Hewanger</string>
   <string name="hostColorX">Rengê hewangerê: %s</string>
@@ -646,6 +660,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ger te epeyamê nedîtibe, cihên din ên ku dibe ku lê be kontrol bike, wek negirîng, spam, civakî, an pekdankên din.</string>
   <string name="weHaveSentYouAnEmailTo">Em epeyamekê şandin %s. Bitikîne lînka di epeyamê de ji bo nûkirina pêborîna xwe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bi qeydbûnê, tu qebûl dikî ku girêdayî %s ya me bibî.</string>
+  <string name="readAboutOur">Di derbarê %s bixwîne.</string>
   <string name="networkLagBetweenYouAndLichess">Derengmayîna torê yê di navbera te û lichessê de</string>
   <string name="timeToProcessAMoveOnLichessServer">Dema te ya bicihanîna hemleyekê, li ser rajekarê lichessê</string>
   <string name="downloadAnnotated">Awayê notgirtî daxîne</string>
@@ -810,6 +825,11 @@
   <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
   <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
   <string name="puzzleDesc">Rahênerê taktîkên kişikê</string>
+  <string name="important">Girîng</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Dibe ku pirsa te berê hatibe bersivandin %1$s</string>
+  <string name="inTheFAQ">li P.B.P.</string>
+  <string name="subscribe">Bibe abone</string>
+  <string name="unsubscribe">Ji abonetîyê derkeve</string>
   <string name="mentionedYouInX"> qala te kir li %1$s.</string>
   <string name="xMentionedYouInY"> %1$s qala te kir li %2$s.</string>
   <string name="invitedYouToX"> te vexwend %1$s.</string>
@@ -818,4 +838,9 @@
   <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>
   <string name="someoneYouReportedWasBanned">Kesê ku te gilî kiribû hat qedexe kirin</string>
   <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
+  <string name="gameVsX">Lîstika hemberî %1$s</string>
+  <string name="resVsX">%1$s hmb %2$s</string>
+  <string name="youJustBecamePatron">Tu niha bûyî bexşkerekê Lichessê.</string>
+  <string name="patronAccountExpired">Hesabê berxşê bi dawî bû</string>
+  <string name="timeAlmostUp">Dem heme hema qedîya!</string>
 </resources>

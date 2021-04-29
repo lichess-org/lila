@@ -21,4 +21,7 @@
   <string name="credits">Признательность</string>
   <string name="resetRound">Сбросить тур</string>
   <string name="deleteRound">Удалить этот тур</string>
+  <string name="broadcastUrl">URL-адрес трансляции</string>
+  <string name="currentRoundUrl">URL-адрес текущего тура</string>
+  <string name="currentGameUrl">URL-адрес текущей партии</string>
 </resources>

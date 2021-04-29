@@ -80,7 +80,7 @@
   <string name="losing">Програш</string>
   <string name="drawn">Нічия</string>
   <string name="unknown">Невідомо</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">База даних</string>
+  <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
@@ -309,7 +309,6 @@
     <item quantity="other">Додати %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує/зменшує свій рейтинг</string>
   <string name="openingExplorerAndTablebase">Провідник дебютів &amp; ендшпілів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
@@ -664,7 +663,7 @@
   <string name="really">дійсно</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="termsOfService">Умови користування</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">Вихідний код</string>
+  <string name="sourceCode">Вихідний код</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Організатор</string>
   <string name="hostColorX">Колір організатора: %s</string>

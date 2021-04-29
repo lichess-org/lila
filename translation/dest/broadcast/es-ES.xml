@@ -21,4 +21,7 @@
   <string name="credits">Cita la fuente</string>
   <string name="resetRound">Restablecer esta ronda</string>
   <string name="deleteRound">Eliminar esta ronda</string>
+  <string name="broadcastUrl">Link de emisión</string>
+  <string name="currentRoundUrl">Link actual de la ronda</string>
+  <string name="currentGameUrl">Link de la partida</string>
 </resources>

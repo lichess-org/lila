@@ -21,4 +21,7 @@
   <string name="credits">Kreditér kjelda</string>
   <string name="resetRound">Tilbakestill denne runden</string>
   <string name="deleteRound">Slett denne runden</string>
+  <string name="broadcastUrl">Kunngjerings-URL</string>
+  <string name="currentRoundUrl">URL til noverande runde</string>
+  <string name="currentGameUrl">URL til pågåande parti</string>
 </resources>

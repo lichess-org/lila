@@ -78,7 +78,7 @@
   <string name="losing">حرکت بازنده</string>
   <string name="drawn">حرکت تساوی دهنده</string>
   <string name="unknown">مجهول</string>
-  <string name="database" comment="database&#10;&#10;Offers the user the option to choose between the Lichess or Master databases.&#10;&#10;Also used as part of the string yesLichessInspiredOtherOpenSourceWebsites">پایگاه داده</string>
+  <string name="database">پایگاه داده</string>
   <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
   <string name="averageRatingX">میانگین امتیاز: %s</string>
   <string name="recentGames">بازی های اخیر</string>
@@ -271,7 +271,6 @@
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی تغییر می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
@@ -595,7 +594,7 @@
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="termsOfService">قوانین</string>
-  <string name="sourceCode" comment="sourceCode&#10;&#10;Used as part of the string yesLichessInspiredOtherOpenSourceWebsites">منبع کد لایچس</string>
+  <string name="sourceCode">منبع کد لایچس</string>
   <string name="simultaneousExhibitions">نمایش هم زمان</string>
   <string name="host">میزبان</string>
   <string name="hostColorX">رنگ میزبان: %s</string>

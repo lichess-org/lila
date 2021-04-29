@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Lähetykset</string>
-  <string name="liveBroadcasts">Livelähetykset turnauksista</string>
+  <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
+  <string name="addRound">Lisää kierros</string>
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
   <string name="completed">Päättyneet</string>
+  <string name="roundName">Kierroksen nimi</string>
   <string name="roundNumber">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
   <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
@@ -17,4 +19,8 @@
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
+  <string name="deleteRound">Poista tämä kierros</string>
+  <string name="broadcastUrl">Lähetyksen URL</string>
+  <string name="currentRoundUrl">Tämän kierroksen URL</string>
+  <string name="currentGameUrl">Tämän pelin URL</string>
 </resources>

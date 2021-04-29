@@ -22,8 +22,8 @@
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
-  <string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
-  <string name="youPlayTheBlackPieces">Jugues les peces negres</string>
+  <string name="youPlayTheWhitePieces">Jugues amb les peces blanques</string>
+  <string name="youPlayTheBlackPieces">Jugues amb les peces negres</string>
   <string name="itsYourTurn">És el teu torn!</string>
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
@@ -35,7 +35,7 @@
   <string name="whitePlays">Les blanques juguen</string>
   <string name="blackPlays">Les negres juguen</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">El seu contrincant ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
+    <item quantity="one">El seu contrincant ha abandonat la partida. Pot reclamar la victòria en %s segons.</item>
     <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
   </plurals>
   <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
@@ -93,7 +93,7 @@
     <item quantity="other">Següent captura o moviment de peó en %s mig-moviments (distància a zero dels 50 moviments)</item>
   </plurals>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser inclou més jocs des d\' el menú de preferències?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més partides des d\'el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
@@ -101,22 +101,22 @@
   <string name="allSet">Tot a punt!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
-  <string name="deleteThisImportedGame">Voleu suprimir aquest joc importat?</string>
+  <string name="deleteThisImportedGame">Voleu suprimir aquesta partida importada?</string>
   <string name="replayMode">Mode de reproducció</string>
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Obrir estudi</string>
-  <string name="enable">Habilitar</string>
-  <string name="bestMoveArrow">Fletxa de la millor jugada</string>
+  <string name="enable">Habilita</string>
+  <string name="bestMoveArrow">Fletxa del millor moviment</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
-  <string name="multipleLines">Línies multiples</string>
+  <string name="multipleLines">Línies múltiples</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi infinit</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
   <string name="blunder">Error greu</string>
-  <string name="mistake">Error</string>
-  <string name="inaccuracy">Imprecisions</string>
+  <string name="mistake">Errada</string>
+  <string name="inaccuracy">Imprecisió</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s errada greu</item>
     <item quantity="other">%s errades greus</item>
@@ -136,13 +136,13 @@
   <string name="offerDraw">Ofereix taules</string>
   <string name="draw">Taules</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jugadors</item>
+    <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadors</item>
   </plurals>
   <string name="currentGames">Partides en joc</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partides</item>
-    <item quantity="other">%s Partides</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partides</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Marcadors</item>
@@ -849,4 +849,21 @@ en %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
   <string name="subscribe">Subscriure’s</string>
   <string name="unsubscribe">Anul·la subscripció</string>
+  <string name="mentionedYouInX"> t\'ha mencionat en \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s t\'ha mencionat en \"%2$s\".</string>
+  <string name="invitedYouToX"> t\'ha invitat a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Ara formes part de l\'equip.</string>
+  <string name="youHaveJoinedTeamX">T\'has unit a \"%1$s\".</string>
+  <string name="congratsYouWon">Felicitats, has guanyat!</string>
+  <string name="gameVsX">Partida vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">T\'has fet Patró a Lichess.</string>
+  <string name="patronAccountExpired">El compte Patró ha expirat</string>
+  <string name="pleaseReconsiderRenewIt">Si us plau, valora renovar-lo!</string>
+  <string name="someoneReviewedYourCoachProfile">Algú ha ressenyat el teu perfil d\'entrenador.</string>
+  <string name="newPendingReview">Nova ressenya pendent</string>
+  <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
+  <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
+  <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>
 </resources>

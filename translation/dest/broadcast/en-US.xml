@@ -21,4 +21,7 @@
   <string name="credits">Credit the source</string>
   <string name="resetRound">Reset this round</string>
   <string name="deleteRound">Delete this round</string>
+  <string name="broadcastUrl">Broadcast URL</string>
+  <string name="currentRoundUrl">Current round URL</string>
+  <string name="currentGameUrl">Current game URL</string>
 </resources>

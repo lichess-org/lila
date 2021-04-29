@@ -36,7 +36,7 @@
   <string name="blackPlays">Trait aux Noirs</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s seconde.</item>
-    <item quantity="other">Votre adversaire a quitté la partie. Vous pouvez revendiquer la victoire dans %s secondes.</item>
+    <item quantity="other">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s secondes.</item>
   </plurals>
   <string name="opponentLeftChoices">Votre adversaire a peut-être quitté la partie. Vous pouvez soit attendre son retour, soit revendiquer la nulle ou la victoire.</string>
   <string name="makeYourOpponentResign">Forcer l\'abandon de votre adversaire</string>
@@ -160,7 +160,7 @@
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
   <string name="friends">Amis</string>
-  <string name="discussions">Conversations</string>
+  <string name="discussions">Discussions</string>
   <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
   <string name="minutesPerSide">Minutes par joueur</string>

@@ -25,7 +25,7 @@
   <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
-  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
+  <string name="highestSolved">Ejercicio más difícil resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>

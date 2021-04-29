@@ -21,4 +21,7 @@
   <string name="credits">Paminėkite šaltinį</string>
   <string name="resetRound">Atstatyti raundą</string>
   <string name="deleteRound">Ištrinti raundą</string>
+  <string name="broadcastUrl">Transliacijos adresas</string>
+  <string name="currentRoundUrl">Dabartinio raundo adresas</string>
+  <string name="currentGameUrl">Dabartinio žaidimo adresas</string>
 </resources>

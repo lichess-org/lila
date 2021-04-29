@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Date added (oldest)</string>
   <string name="recentlyUpdated">Recently updated</string>
   <string name="mostPopular">Most popular</string>
+  <string name="alphabetical">Alphabetical</string>
   <string name="addNewChapter">Add a new chapter</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Chapter</item>

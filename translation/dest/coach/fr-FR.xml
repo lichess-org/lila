@@ -13,13 +13,13 @@
   <string name="availability">Disponibilité</string>
   <string name="accepting">Accepte des élèves</string>
   <string name="notAccepting">N\'accepte plus d\'élèves pour le moment</string>
-  <string name="xCoachesStudents">%s entraine des joueurs d\'échecs</string>
+  <string name="xCoachesStudents">%s entraîne des joueurs d\'échecs</string>
   <string name="viewXProfile">Voir le profil Lichess de %s</string>
   <string name="sendPM">Envoyer un message privé</string>
   <string name="aboutMe">À propos de moi</string>
   <string name="playingExperience">Expérience de jeu</string>
   <string name="teachingExperience">Expérience d\'enseignement</string>
-  <string name="otherExperiences">Autre expérience</string>
+  <string name="otherExperiences">Autres expériences</string>
   <string name="bestSkills">Meilleures compétences</string>
   <string name="teachingMethod">Méthode d\'enseignement</string>
   <string name="publicStudies">Études publiques</string>

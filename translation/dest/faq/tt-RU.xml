@@ -47,9 +47,12 @@
   <string name="threefoldRepetitionLowerCase">өч тапкыр кабатлау</string>
   <string name="repeatedPositionsThatMatters">Өч тапкыр кабатлау %1$s, хәрәкәт түгел. Кабатлау эзлекле булырга тиеш түгел.</string>
   <string name="positions">позициясе</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Без позицияне өч вакытка такрарладык. Ни өчен уен уртак нәтиҗәдә тугел?</string>
   <string name="configure">конфигурацияләү</string>
   <string name="accounts">Хисап</string>
   <string name="titlesAvailableOnLichess">Lichessда нинди исемнәр бар?</string>
+  <string name="asWellAsManyNMtitles">күп милли мастер титуллары</string>
+  <string name="verificationForm">тикшерү формасы</string>
   <string name="canIbecomeLM">Lichess Мастеры (LM) исемен ала аласызмы?</string>
   <string name="noUpperCaseDot">Юк.</string>
   <string name="whatUsernameCanIchoose">Минем Кулланучынәмә нинди булырга мөмкин?</string>

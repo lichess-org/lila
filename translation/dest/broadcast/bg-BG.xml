@@ -19,4 +19,7 @@
   <string name="credits">Признателност на източника</string>
   <string name="resetRound">Нулирай този рунд</string>
   <string name="deleteRound">Изтрий този рунд</string>
+  <string name="broadcastUrl">URL на предаването</string>
+  <string name="currentRoundUrl">URL на настоящия гунд</string>
+  <string name="currentGameUrl">URL на настоящата партия</string>
 </resources>
