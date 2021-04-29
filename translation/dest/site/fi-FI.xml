@@ -469,7 +469,7 @@
     <item quantity="one">%s peliä meneillään</item>
     <item quantity="other">%s peliä meneillään</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Siirry automaattisesti seuraavaan peliin siirron jälkeen</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Avaa heti seuraavan pelisi tehtyäsi siirron</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
   <string name="latestUpdates">Viimeisimmät päivitykset</string>
