@@ -278,7 +278,7 @@ object Countries {
     C("_pirate", "Pirate"),
     C("_rainbow", "Rainbow"),
     C("_united-nations", "United Nations"),
-	C("_earth", "Earth")
+    C("_earth", "Earth")
   )
 
   val allPairs = all map { c =>
