@@ -542,7 +542,7 @@
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
   <string name="xCommentedY">%1$s kommentoi %2$s</string>
-  <string name="victory">Voitit</string>
+  <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
   <string name="victoryVsYInZ">%1$s %3$s-pelissä %2$s vastaan</string>
   <string name="defeatVsYInZ">%1$s vastustajalta %2$s pelissä %3$s</string>
