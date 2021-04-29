@@ -38,8 +38,14 @@
   <string name="normal">正常</string>
   <string name="easier">容易</string>
   <string name="easiest">最容易</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">谜题得分比你低%s分</item>
+  </plurals>
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">谜题得分比你高%s分</item>
+  </plurals>
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
