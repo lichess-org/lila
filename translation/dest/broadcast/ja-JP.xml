@@ -21,4 +21,7 @@
   <string name="credits">ソースを表示する</string>
   <string name="resetRound">このラウンドをリセット</string>
   <string name="deleteRound">このラウンドを削除</string>
+  <string name="broadcastUrl">ブロードキャスト URL</string>
+  <string name="currentRoundUrl">現在のラウンドの URL</string>
+  <string name="currentGameUrl">現在のゲームの URL</string>
 </resources>
