@@ -1,7 +1,7 @@
 .learn__screen-overlay {
   @extend %fullscreen-mask;
 
-  background: rgba(79, 195, 247, 0.9);
+  background: rgba(0, 0, 0, 0.65);
   cursor: pointer;
   display: grid;
 }
@@ -10,7 +10,7 @@
   @extend %popup-shadow, %box-radius;
 
   margin: auto;
-  background-color: #fff;
+  background-color: $c-bg-box;
   width: 350px;
   overflow: hidden;
   text-align: center;
@@ -113,7 +113,7 @@
 
   h1 {
     font-weight: bold;
-    color: #181818;
+    color: $c-font-clear;
     font-size: 24px;
     margin-bottom: 22px;
   }
@@ -144,11 +144,11 @@
 
   .score span {
     font-weight: bold;
-    font-family: 'Roboto Mono';
+    font-family: monospace;
+    font-size: 1rem;
   }
 
   p {
-    color: #999999;
     padding: 0 15%;
     line-height: 24px;
     margin-bottom: 17px;
@@ -178,12 +178,12 @@
 
     .next {
       font-size: 0.9em;
-      background: #4fc3f7;
+      background: #3692e7;
     }
 
     .back {
       font-size: 0.85em;
-      background: #f57c00;
+      background: #e53935f0;
     }
 
     a:hover {
