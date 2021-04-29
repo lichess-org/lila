@@ -35,12 +35,12 @@
   <string name="whitePlays">Valkean vuoro</string>
   <string name="blackPlays">Mustan vuoro</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
-    <item quantity="other">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
+    <item quantity="one">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi %s sekunnin kuluttua.</item>
+    <item quantity="other">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi %s sekunnin kuluttua.</item>
   </plurals>
-  <string name="opponentLeftChoices">Toinen pelaaja saattoi lähteä pelistä. Voit ottaa luovutusvoiton, sopia tasapelin tai odottaa häntä.</string>
+  <string name="opponentLeftChoices">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi, sopia tasapelin tai odottaa häntä.</string>
   <string name="makeYourOpponentResign">Pakota luovutus</string>
-  <string name="forceResignation">Ota luovutusvoitto</string>
+  <string name="forceResignation">Julistaudu voittajaksi</string>
   <string name="forceDraw">Pakota tasapeli</string>
   <string name="talkInChat">Kirjoita keskusteluun. Ole kohtelias!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pelaat sen kaverin kanssa, joka ensimmäisenä avaa linkin.</string>
