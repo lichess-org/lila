@@ -22,14 +22,14 @@
     .button {
       @extend %ellipsis;
       flex: 0 0 48%;
-      margin-bottom: .7em;
+      margin-bottom: 0.7em;
       text-transform: none;
     }
     overflow-y: auto;
     max-height: 30vh;
   }
   .input-wrapper {
-    overflow: visible!important;
+    overflow: visible !important;
   }
   .tt-menu {
     text-align: left;

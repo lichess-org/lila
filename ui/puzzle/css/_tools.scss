@@ -77,13 +77,13 @@
     height: 64px;
     margin-right: 10px;
   }
-  .color-piece{
+  .color-piece {
     height: 100%;
-    &.sente{
-      background-image: img-url("../images/blackPiece.svg");
+    &.sente {
+      background-image: img-url('../images/blackPiece.svg');
     }
-    &.gote{
-      background-image: img-url("../images/whitePiece.svg");
+    &.gote {
+      background-image: img-url('../images/whitePiece.svg');
     }
   }
 

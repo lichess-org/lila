@@ -1,9 +1,9 @@
-const { opposite } = require("shogiops");
-const { makeChessSquare } = require("shogiops/compat");
-var squareSet = require("shogiops/squareSet");
-var chessground = require("./og/main");
+const { opposite } = require('shogiops');
+const { makeChessSquare } = require('shogiops/compat');
+var squareSet = require('shogiops/squareSet');
+var chessground = require('./og/main');
 var raf = chessground.util.requestAnimationFrame;
-var util = require("./util");
+var util = require('./util');
 
 var cg = new chessground.controller();
 
@@ -48,7 +48,7 @@ module.exports = {
         duration: 200,
       },
       disableContextMenu: true,
-      notation: document.getElementsByClassName("notation-0")[0] ? 0 : 1,
+      notation: document.getElementsByClassName('notation-0')[0] ? 0 : 1,
     });
     setTimeout(function () {
       cg.set({
@@ -90,7 +90,7 @@ module.exports = {
     if (checks)
       cg.setShapes(
         checks.map(function (move) {
-          return util.arrow(move.orig + move.dest, "yellow");
+          return util.arrow(move.orig + move.dest, 'yellow');
         })
       );
   },
@@ -117,16 +117,17 @@ module.exports = {
   },
   showCapture: function (move) {
     raf(function () {
-      var $square = $("#learn-app piece[data-key=" + move.orig + "]");
-      $square.addClass("wriggle");
+      var $square = $('#learn-app piece[data-key=' + move.orig + ']');
+      $square.addClass('wriggle');
       setTimeout(function () {
-        $square.removeClass("wriggle");
+        $square.removeClass('wriggle');
         cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
       }, 600);
     });
   },
-  showCheckmate: function (shogi) { // didin't test this
+  showCheckmate: function (shogi) {
+    // didin't test this
     const kingSquare = shogi.board.kingOf(opposite(shogi.color()));
     const allDests = shogi.instance.allDests({
       king: undefined,
@@ -137,13 +138,11 @@ module.exports = {
     });
     var attacksOnKing = [];
     for (let m of allDests.keys()) {
-      if (allDests[m].has(kingSquare))
-        attacksOnKing.push(m)
+      if (allDests[m].has(kingSquare)) attacksOnKing.push(m);
     }
-    const shapes = attacksOnKing
-      .map(function (m) {
-        return util.arrow(makeChessSquare(m) + makeChessSquare(kingSquare), "red");
-      });
+    const shapes = attacksOnKing.map(function (m) {
+      return util.arrow(makeChessSquare(m) + makeChessSquare(kingSquare), 'red');
+    });
     cg.set({
       check: shapes.length ? makeChessSquare(kingSquare) : null,
     });
@@ -161,8 +160,7 @@ module.exports = {
   newPieces: function (arr) {
     if (!arr) return;
     for (var i of arr) {
-      if (!!i[0] && !!i[1] && !!i[2])
-        cg.apiNewPiece({ role: i[0], color: i[1] }, i[2]);
+      if (!!i[0] && !!i[1] && !!i[2]) cg.apiNewPiece({ role: i[0], color: i[1] }, i[2]);
     }
     cg.data.lastMove = null;
   },

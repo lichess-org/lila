@@ -20,7 +20,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     white-space: nowrap;
-    padding: .2em 0;
+    padding: 0.2em 0;
     line-height: 1.5;
     @include transition();
     &:hover a {
@@ -39,18 +39,18 @@
 .tour__links {
   margin-top: 1em;
   a {
-      color: $c-font;
-      @include transition();
-      &:hover {
-        color: $c-link;
-      }
+    color: $c-font;
+    @include transition();
+    &:hover {
+      color: $c-link;
+    }
   }
 }
 
 .scheduled {
   a {
     color: $c-font;
-    padding: .5em 0 .5em 2.7em;
+    padding: 0.5em 0 0.5em 2.7em;
     display: block;
     position: relative;
     line-height: 1.2;
@@ -60,7 +60,7 @@
       padding-left: 3.2rem;
       background: mix($c-brag, $c-bg-page, 20%);
       &::before {
-        left: .5rem;
+        left: 0.5rem;
       }
     }
   }
@@ -71,7 +71,7 @@
   a::before {
     @include transition();
     position: absolute;
-    top: .3rem;
+    top: 0.3rem;
     left: 0;
     font-size: 2.2em;
     opacity: 0.6;

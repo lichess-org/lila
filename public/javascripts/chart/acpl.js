@@ -1,16 +1,16 @@
 function toBlurArray(player) {
-  return player.blurs && player.blurs.bits ? player.blurs.bits.split("") : [];
+  return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lishogi.advantageChart = function (data, trans, el, notation) {
-  lishogi.loadScript("javascripts/chart/common.js").done(function () {
-    lishogi.loadScript("javascripts/chart/division.js").done(function () {
-      lishogi.chartCommon("highchart").done(function () {
+  lishogi.loadScript('javascripts/chart/common.js').done(function () {
+    lishogi.loadScript('javascripts/chart/division.js').done(function () {
+      lishogi.chartCommon('highchart').done(function () {
         lishogi.advantageChart.update = function (d) {
           $(el).highcharts().series[0].setData(makeSerieData(d));
         };
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
-        if (data.player.color === "sente") blurs.reverse();
+        if (data.player.color === 'sente') blurs.reverse();
 
         var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;
@@ -20,10 +20,10 @@ lishogi.advantageChart = function (data, trans, el, notation) {
 
             if (node.eval && node.eval.mate) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
-            } else if (node.san.includes("#")) {
+            } else if (node.san.includes('#')) {
               cp = color === 1 ? Infinity : -Infinity;
-              if (d.game.variant.key === "antichess") cp = -cp;
-            } else if (node.eval && typeof node.eval.cp !== "undefined") {
+              if (d.game.variant.key === 'antichess') cp = -cp;
+            } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               cp = node.eval.cp;
             } else
               return {
@@ -31,21 +31,18 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               };
 
             var point = {
-              name:
-                node.ply +
-                ". " +
-                notation({ san: node.san, uci: node.uci, fen: node.fen }),
+              name: node.ply + '. ' + notation({ san: node.san, uci: node.uci, fen: node.fen }),
               y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
-            if (!partial && blurs[color].shift() === "1") {
+            if (!partial && blurs[color].shift() === '1') {
               point.marker = {
-                symbol: "square",
+                symbol: 'square',
                 radius: 3,
-                lineWidth: "1px",
-                lineColor: "#d85000",
-                fillColor: color ? "#fff" : "#333",
+                lineWidth: '1px',
+                lineColor: '#d85000',
+                fillColor: color ? '#fff' : '#333',
               };
-              point.name += " [blur]";
+              point.name += ' [blur]';
             }
             return point;
           });
@@ -63,12 +60,12 @@ lishogi.advantageChart = function (data, trans, el, notation) {
           legend: disabled,
           series: [
             {
-              name: trans("advantage"),
+              name: trans('advantage'),
               data: serieData,
             },
           ],
           chart: {
-            type: "area",
+            type: 'area',
             spacing: [3, 0, 3, 0],
             animation: false,
           },
@@ -81,9 +78,9 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               negativeFillColor: Highcharts.theme.lishogi.area.gote,
               threshold: 0,
               lineWidth: 1,
-              color: "#d85000",
+              color: '#d85000',
               allowPointSelect: true,
-              cursor: "pointer",
+              cursor: 'pointer',
               states: {
                 hover: {
                   lineWidth: 1,
@@ -93,7 +90,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
                 click: function (event) {
                   if (event.point) {
                     event.point.select();
-                    lishogi.pubsub.emit("analysis.chart.click", event.point.x);
+                    lishogi.pubsub.emit('analysis.chart.click', event.point.x);
                   }
                 },
               },
@@ -102,11 +99,11 @@ lishogi.advantageChart = function (data, trans, el, notation) {
                 states: {
                   hover: {
                     radius: 4,
-                    lineColor: "#d85000",
+                    lineColor: '#d85000',
                   },
                   select: {
                     radius: 4,
-                    lineColor: "#d85000",
+                    lineColor: '#d85000',
                   },
                 },
               },
@@ -114,19 +111,15 @@ lishogi.advantageChart = function (data, trans, el, notation) {
           },
           tooltip: {
             pointFormatter: function (format) {
-              format = format.replace("{series.name}", trans("advantage"));
+              format = format.replace('{series.name}', trans('advantage'));
               var eval = data.treeParts[this.x + 1].eval;
               if (!eval) return;
               else if (eval.mate) {
-                return format.replace("{point.y}", "#" + eval.mate);
-              }
-              else if (typeof eval.cp !== "undefined") {
-                var e = Math.max(
-                  Math.min(Math.round(eval.cp / 10) / 10, 99),
-                  -99
-                );
-                if (e > 0) e = "+" + e;
-                return format.replace("{point.y}", e);
+                return format.replace('{point.y}', '#' + eval.mate);
+              } else if (typeof eval.cp !== 'undefined') {
+                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99);
+                if (e > 0) e = '+' + e;
+                return format.replace('{point.y}', e);
               }
             },
           },
@@ -156,7 +149,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
             ],
           },
         });
-        lishogi.pubsub.emit("analysis.change.trigger");
+        lishogi.pubsub.emit('analysis.change.trigger');
       });
     });
   });

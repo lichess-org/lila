@@ -9,7 +9,7 @@ $c-mselect: $c-primary;
   &__label {
     @extend %box-neat, %metal, %flex-between;
     flex-flow: row nowrap;
-    padding: .3rem .3rem .3rem 1rem;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
     cursor: pointer;
     &:hover {
       @extend %metal-hover;
@@ -27,9 +27,9 @@ $c-mselect: $c-primary;
   }
   &__list {
     @extend %base-font, %box-radius, %popup-shadow, %flex-column;
-    position:absolute;
-    top:0;
-    left:0;
+    position: absolute;
+    top: 0;
+    left: 0;
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;
@@ -51,15 +51,15 @@ $c-mselect: $c-primary;
     > * {
       white-space: nowrap;
       display: block;
-      padding: .3em 1em;
+      padding: 0.3em 1em;
       @include transition();
       color: $c-mselect;
-      &:hover{
+      &:hover {
         background: $c-mselect;
         color: #fff;
       }
       &::before {
-        margin-right: .4em;
+        margin-right: 0.4em;
       }
       opacity: 0;
     }

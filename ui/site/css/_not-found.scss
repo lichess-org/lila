@@ -22,7 +22,8 @@
       margin: 1em 0 2em 0;
     }
   }
-  .or-play, .game {
+  .or-play,
+  .game {
     display: none;
     @media (hover: hover) {
       @include breakpoint($mq-small) {
@@ -31,6 +32,6 @@
     }
   }
   .credits {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

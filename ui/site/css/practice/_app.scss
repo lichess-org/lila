@@ -4,7 +4,7 @@
       @extend %roboto;
       color: $c-font-dim;
       font-size: 2em;
-      letter-spacing: .3em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       text-align: center;
     }
@@ -17,7 +17,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
-    margin: .8em 0 3em 0;
+    margin: 0.8em 0 3em 0;
   }
   .study {
     @extend %flex-center, %box-neat;
@@ -35,14 +35,14 @@
     i {
       flex: 0 0 80px;
       height: 80px;
-      margin: 0 .9em;
+      margin: 0 0.9em;
       opacity: 0.9;
     }
     h3 {
       font-size: 1.4em;
     }
     @keyframes soft-bright {
-      50%{
+      50% {
         filter: brightness(1.2);
       }
     }
@@ -53,7 +53,7 @@
       }
     }
     &.done {
-      background: #4caf50!important;
+      background: #4caf50 !important;
     }
     &.future {
       opacity: 0.7;
@@ -84,7 +84,7 @@
     font-weight: bold;
     color: #333;
     text-align: center;
-    text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
     transform: rotate(45deg);
     position: relative;
     padding: 7px 0;
@@ -92,13 +92,13 @@
     top: 15px;
     width: 120px;
     color: #6a6340;
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
     &:before,
     &:after {
-      content: "";
-      border-left:  3px solid transparent;
+      content: '';
+      border-left: 3px solid transparent;
       border-right: 3px solid transparent;
-      position:absolute;
+      position: absolute;
       bottom: -3px;
     }
     &:before {
@@ -107,17 +107,17 @@
     &:after {
       right: 0;
     }
-    background-color: #B3E5FC;
+    background-color: #b3e5fc;
     &:before,
     &:after {
-      border-top: 3px solid #536DFE;
+      border-top: 3px solid #536dfe;
     }
   }
   .done .ribbon {
-    background-color: #BFDC7A;
+    background-color: #bfdc7a;
     &:before,
     &:after {
-      border-top:   3px solid #6e8900;
+      border-top: 3px solid #6e8900;
     }
   }
   .what_next > p {

@@ -1,13 +1,13 @@
 $(function () {
-  const $form = $("#signup_form");
-  const $exists = $form.find(".username-exists");
+  const $form = $('#signup_form');
+  const $exists = $form.find('.username-exists');
 
   const usernameCheck = lishogi.debounce(function () {
     const name = $username.val();
     if (name.length >= 3)
       $.ajax({
-        method: "GET",
-        url: "/player/autocomplete",
+        method: 'GET',
+        url: '/player/autocomplete',
         data: {
           term: name,
           exists: 1,
@@ -18,23 +18,21 @@ $(function () {
       });
   }, 300);
 
-  $username = $form
-    .find('input[name="username"]')
-    .on("change keyup paste", function () {
-      $exists.hide();
-      usernameCheck();
-    });
+  $username = $form.find('input[name="username"]').on('change keyup paste', function () {
+    $exists.hide();
+    usernameCheck();
+  });
 
-  $form.on("submit", function () {
+  $form.on('submit', function () {
     $form
-      .find("button.submit")
-      .attr("disabled", true)
-      .removeAttr("data-icon")
-      .addClass("frameless")
+      .find('button.submit')
+      .attr('disabled', true)
+      .removeAttr('data-icon')
+      .addClass('frameless')
       .html(lishogi.spinnerHtml);
   });
 });
 window.signupSubmit = function (token) {
-  const form = document.getElementById("signup_form");
+  const form = document.getElementById('signup_form');
   if (form.reportValidity()) form.submit();
 };

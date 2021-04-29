@@ -1,4 +1,4 @@
-import * as gridHacks from "common/gridHacks";
+import * as gridHacks from 'common/gridHacks';
 
 let booted = false;
 
@@ -7,8 +7,7 @@ export function start(container: HTMLElement) {
   if (window.chrome) return;
 
   const runHacks = () => {
-    if (gridHacks.needsBoardHeightFix())
-      gridHacks.fixMainBoardHeight(container);
+    if (gridHacks.needsBoardHeightFix()) gridHacks.fixMainBoardHeight(container);
     fixChatHeight(container);
   };
 
@@ -17,15 +16,15 @@ export function start(container: HTMLElement) {
   gridHacks.bindShogigroundResizeOnce(runHacks);
 
   if (!booted) {
-    window.lishogi.pubsub.on("chat.resize", runHacks);
+    window.lishogi.pubsub.on('chat.resize', runHacks);
     booted = true;
   }
 }
 
 function fixChatHeight(container: HTMLElement) {
-  const chat = container.querySelector(".mchat") as HTMLElement,
-    board = container.querySelector(".analyse__board .cg-wrap") as HTMLElement,
-    side = container.querySelector(".analyse__side") as HTMLElement;
+  const chat = container.querySelector('.mchat') as HTMLElement,
+    board = container.querySelector('.analyse__board .cg-wrap') as HTMLElement,
+    side = container.querySelector('.analyse__side') as HTMLElement;
   if (chat && board && side) {
     const height = board.offsetHeight - side.offsetHeight;
     if (height) chat.style.height = `calc(${height}px - 2vmin)`;

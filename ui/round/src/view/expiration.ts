@@ -1,8 +1,8 @@
-import { h } from "snabbdom";
-import { MaybeVNode } from "../interfaces";
-import RoundController from "../ctrl";
-import { playable } from "game";
-import { isPlayerTurn } from "game";
+import { h } from 'snabbdom';
+import { MaybeVNode } from '../interfaces';
+import RoundController from '../ctrl';
+import { playable } from 'game';
+import { isPlayerTurn } from 'game';
 
 let rang = false;
 
@@ -17,19 +17,15 @@ export default function (ctrl: RoundController): MaybeVNode {
     window.lishogi.sound.lowtime();
     rang = true;
   }
-  const side = myTurn != ctrl.flip ? "bottom" : "top";
+  const side = myTurn != ctrl.flip ? 'bottom' : 'top';
   return h(
-    "div.expiration.expiration-" + side,
+    'div.expiration.expiration-' + side,
     {
       class: {
         emerg,
-        "bar-glider": myTurn,
+        'bar-glider': myTurn,
       },
     },
-    ctrl.trans.vdomPlural(
-      "nbSecondsToPlayTheFirstMove",
-      secondsLeft,
-      h("strong", "" + secondsLeft)
-    )
+    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft))
   );
 }

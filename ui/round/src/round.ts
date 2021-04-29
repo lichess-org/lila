@@ -1,4 +1,4 @@
-import { RoundData, Step } from "./interfaces";
+import { RoundData, Step } from './interfaces';
 
 export function firstPly(d: RoundData): number {
   return d.steps[0].ply;

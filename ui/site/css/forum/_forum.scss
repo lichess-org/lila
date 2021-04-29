@@ -8,7 +8,6 @@
 @import 'reactions';
 
 .forum {
-
   h1,
   .slist .subject {
     @extend %break-word-hard;
@@ -36,5 +35,4 @@
     @extend %flex-between;
     margin-bottom: 1em;
   }
-
 }

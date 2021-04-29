@@ -1,6 +1,6 @@
-$(".event .countdown").each(function () {
+$('.event .countdown').each(function () {
   var $el = $(this);
-  var seconds = parseInt($(this).data("seconds")) - 1;
+  var seconds = parseInt($(this).data('seconds')) - 1;
   var target = new Date().getTime() + seconds * 1000;
 
   var second = 1000,
@@ -12,10 +12,10 @@ $(".event .countdown").each(function () {
     var distance = target - new Date().getTime();
 
     if (distance > 0) {
-      $el.find(".days").text(Math.floor(distance / day)),
-        $el.find(".hours").text(Math.floor((distance % day) / hour)),
-        $el.find(".minutes").text(Math.floor((distance % hour) / minute)),
-        $el.find(".seconds").text(Math.floor((distance % minute) / second));
+      $el.find('.days').text(Math.floor(distance / day)),
+        $el.find('.hours').text(Math.floor((distance % day) / hour)),
+        $el.find('.minutes').text(Math.floor((distance % hour) / minute)),
+        $el.find('.seconds').text(Math.floor((distance % minute) / second));
     } else {
       clearInterval(interval);
       lishogi.reload();

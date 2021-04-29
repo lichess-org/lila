@@ -5,7 +5,7 @@ import { Api as CgApi } from 'shogiground/api';
 import { CevalCtrl } from 'ceval';
 import { opposite } from 'shogiground/util';
 import { assureLishogiUci, makeChessSquare, parseLishogiUci } from 'shogiops/compat';
-import {isDrop} from 'shogiops';
+import { isDrop } from 'shogiops';
 
 interface Opts {
   vm: Vm;
@@ -17,12 +17,12 @@ interface Opts {
 
 function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, modifiers?: any): DrawShape[] {
   const move = parseLishogiUci(assureLishogiUci(uci)!);
-  if(!move) return [];
-  if(isDrop(move))
+  if (!move) return [];
+  if (isDrop(move))
     return [
       {
         orig: makeChessSquare(move.to),
-        brush
+        brush,
       },
       {
         orig: makeChessSquare(move.to),
@@ -31,7 +31,7 @@ function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, modifiers?
           color: color,
         },
         brush: brush,
-      }
+      },
     ];
   else
     return [
@@ -50,7 +50,8 @@ export default function (opts: Opts): DrawShape[] {
     color = opts.ground.state.movable.color,
     turnColor = opts.ground.state.turnColor;
   let shapes: DrawShape[] = [];
-  if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(hovering.uci, turnColor, 'paleBlue'));
+  if (hovering && hovering.fen === n.fen)
+    shapes = shapes.concat(makeAutoShapesFromUci(hovering.uci, turnColor, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(n.eval.best!, turnColor, 'paleGreen'));
     if (!hovering) {

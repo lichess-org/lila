@@ -1,16 +1,16 @@
-import { Shogiground } from "shogiground";
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
+import { Shogiground } from 'shogiground';
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
-import { RoundOpts } from "./interfaces";
-import RoundController from "./ctrl";
-import MoveOn from "./moveOn";
-import { main as view } from "./view/main";
-import LishogiChat from "chat";
-import boot from "./boot";
-import { menuHover } from "common/menuHover";
+import { RoundOpts } from './interfaces';
+import RoundController from './ctrl';
+import MoveOn from './moveOn';
+import { main as view } from './view/main';
+import LishogiChat from 'chat';
+import boot from './boot';
+import { menuHover } from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
@@ -33,10 +33,10 @@ export function app(opts: RoundOpts): RoundApi {
   ctrl = new RoundController(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = "";
+  opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
-  window.addEventListener("resize", redraw); // col1 / col2+ transition
+  window.addEventListener('resize', redraw); // col1 / col2+ transition
 
   ctrl.isPlaying() && menuHover();
 

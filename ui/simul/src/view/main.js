@@ -1,8 +1,8 @@
-var m = require("mithril");
+var m = require('mithril');
 
-var created = require("./created");
-var started = require("./started");
-var finished = require("./finished");
+var created = require('./created');
+var started = require('./started');
+var finished = require('./finished');
 
 module.exports = function (ctrl) {
   var handler;
@@ -11,7 +11,7 @@ module.exports = function (ctrl) {
   else handler = created;
 
   return [
-    m("aside.simul__side", {
+    m('aside.simul__side', {
       config: function (el, done) {
         if (!done) {
           $(el).replaceWith(ctrl.env.$side);
@@ -19,15 +19,15 @@ module.exports = function (ctrl) {
         }
       },
     }),
-    m("div.simul__main.box", handler(ctrl)),
+    m('div.simul__main.box', handler(ctrl)),
     m(
-      "div.chat__members.none",
+      'div.chat__members.none',
       {
         config(el, done) {
           if (!done) $(el).watchers();
         },
       },
-      m("span.list")
+      m('span.list')
     ),
   ];
 };

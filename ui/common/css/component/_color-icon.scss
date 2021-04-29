@@ -1,20 +1,20 @@
 .color-icon {
   @if $theme-light {
     &.sente::before {
-      content: "☗";
+      content: '☗';
     }
     &.gote::before {
-      content: "☖";
+      content: '☖';
     }
   } @else {
     &.sente::before {
-      content: "☖";
+      content: '☖';
     }
     &.gote::before {
-      content: "☗";
+      content: '☗';
     }
   }
   &.random::before {
-    content: "l";
+    content: 'l';
   }
 }

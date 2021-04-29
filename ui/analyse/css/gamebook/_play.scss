@@ -1,16 +1,30 @@
 @keyframes rubberBand {
-  from { transform: scale3d(1, 1, 1); }
-  6% { transform: scale3d(1.25, 0.75, 1); }
-  8% { transform: scale3d(0.75, 1.25, 1); }
-  10% { transform: scale3d(1.15, 0.85, 1); }
-  13% { transform: scale3d(.95, 1.05, 1); }
-  15% { transform: scale3d(1.05, .95, 1); }
-  20% { transform: scale3d(1, 1, 1); }
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  6% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  8% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  10% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  13% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  15% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  20% {
+    transform: scale3d(1, 1, 1);
+  }
 }
 .gamebook {
   @extend %flex-column;
   grid-area: tools;
-  @include breakpoint($mq-col2-uniboard){
+  @include breakpoint($mq-col2-uniboard) {
     justify-content: flex-end;
   }
   .comment {
@@ -47,16 +61,16 @@
       min-height: 2.5em;
     }
     div.hint {
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       background: $c-primary;
       color: $c-primary-over;
       border-radius: 0 0 1rem 1rem;
       cursor: pointer;
-      font-size: .9em;
+      font-size: 0.9em;
       z-index: 2;
     }
     a.hint {
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       color: $c-primary;
       font-size: 1rem;
     }
@@ -98,7 +112,7 @@
       }
     }
     &.play {
-      font-size: .8em;
+      font-size: 0.8em;
       text-align: left;
     }
     &.play strong {
@@ -130,12 +144,12 @@
       background: #dc322f;
     }
     &.good {
-      background: #639B24!important;
+      background: #639b24 !important;
       color: #fff;
     }
     &.end {
       flex-flow: row;
-      font-size: .8em;
+      font-size: 0.8em;
       a {
         @extend %flex-column;
         flex: 1 1 100%;
@@ -145,13 +159,13 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: .5em;
-        border-left: 1px solid rgba(255,255,255,0.3);
+        padding: 0.5em;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
         @include transition();
         &::before {
           font-size: 2.2em;
-          margin: .5em 0;
+          margin: 0.5em 0;
         }
         &:first-child {
           @extend %box-radius-left;
@@ -171,7 +185,7 @@
   justify-content: flex-end;
   .fbt {
     @extend %box-radius-top;
-    padding: .2em .5em;
-    margin-left: .7em;
+    padding: 0.2em 0.5em;
+    margin-left: 0.7em;
   }
 }

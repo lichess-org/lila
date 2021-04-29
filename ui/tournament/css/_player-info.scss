@@ -1,5 +1,4 @@
 .tour__player-info {
-
   .pairings {
     width: 100%;
     tr {
@@ -12,8 +11,9 @@
         background: mix($c-link, $c-bg-box, 10%);
       }
     }
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
     th {
       border-left: 3px solid transparent;
@@ -34,7 +34,7 @@
     }
     td:last-child {
       font-weight: bold;
-      opacity: .8;
+      opacity: 0.8;
     }
     tr.win td:last-child {
       color: $c-good;
@@ -46,6 +46,6 @@
     }
   }
   .color-icon {
-    opacity: .6;
+    opacity: 0.6;
   }
 }

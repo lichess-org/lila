@@ -67,12 +67,12 @@
 
 .ms-drop.bottom {
   top: 100%;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
 }
 
 .ms-drop.top {
   bottom: 100%;
-  box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.15);
 }
 
 .ms-search {
@@ -114,7 +114,7 @@
 }
 
 .ms-drop ul > li .disabled {
-  opacity: .35;
+  opacity: 0.35;
 }
 
 .ms-drop ul > li.multiple {
@@ -143,7 +143,7 @@
   font-weight: bold;
 }
 
-.ms-drop input[type="checkbox"] {
+.ms-drop input[type='checkbox'] {
   vertical-align: middle;
 }
 

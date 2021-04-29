@@ -1,21 +1,15 @@
-var util = require("./util");
+var util = require('./util');
 
 function diff(a, b) {
   return Math.abs(a - b);
 }
 
 function pawn(color, x1, y1, x2, y2) {
-  return color === "sente"
-    ? x1 === x2 && y1 + 1 === y2
-    : x1 === x2 && y1 - 1 === y2;
+  return color === 'sente' ? x1 === x2 && y1 + 1 === y2 : x1 === x2 && y1 - 1 === y2;
 }
 
 function knight(color, x1, y1, x2, y2) {
-  return (
-    diff(x1, x2) === 1 &&
-    diff(y1, y2) === 2 &&
-    (color === "sente" ? y2 > y1 : y2 < y1)
-  );
+  return diff(x1, x2) === 1 && diff(y1, y2) === 2 && (color === 'sente' ? y2 > y1 : y2 < y1);
 }
 
 function bishop(x1, y1, x2, y2) {
@@ -31,24 +25,17 @@ function king(x1, y1, x2, y2) {
 }
 
 function lance(color, x1, y1, x2, y2) {
-  return x1 == x2 && (color === "sente" ? y2 > y1 : y1 > y2);
+  return x1 == x2 && (color === 'sente' ? y2 > y1 : y1 > y2);
 }
 
 function silver(color, x1, y1, x2, y2) {
   return (
-    diff(x1, x2) < 2 &&
-    diff(y1, y2) < 2 &&
-    y1 != y2 &&
-    (color === "sente" ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1)
+    diff(x1, x2) < 2 && diff(y1, y2) < 2 && y1 != y2 && (color === 'sente' ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1)
   );
 }
 
 function gold(color, x1, y1, x2, y2) {
-  return (
-    diff(x1, x2) < 2 &&
-    diff(y1, y2) < 2 &&
-    (color === "sente" ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2)
-  );
+  return diff(x1, x2) < 2 && diff(y1, y2) < 2 && (color === 'sente' ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2);
 }
 
 const horse = function (x1, y1, x2, y2) {
@@ -64,31 +51,31 @@ module.exports = function (pieces, key) {
   var pos = util.key2pos(key);
   var mobility;
   switch (piece.role) {
-    case "pawn":
+    case 'pawn':
       mobility = pawn.bind(null, piece.color);
       break;
-    case "knight":
+    case 'knight':
       mobility = knight;
       break;
-    case "bishop":
+    case 'bishop':
       mobility = bishop;
       break;
-    case "rook":
+    case 'rook':
       mobility = rook;
       break;
-    case "king":
+    case 'king':
       mobility = king;
       break;
-    case "lance":
+    case 'lance':
       mobility = lance.bind(null, piece.color);
       break;
-    case "silver":
+    case 'silver':
       mobility = silver.bind(null, piece.color);
       break;
-    case "horse":
+    case 'horse':
       mobility = horse;
       break;
-    case "dragon":
+    case 'dragon':
       mobility = dragon;
       break;
     default:
@@ -96,10 +83,7 @@ module.exports = function (pieces, key) {
   }
   return util.allPos
     .filter(function (pos2) {
-      return (
-        (pos[0] !== pos2[0] || pos[1] !== pos2[1]) &&
-        mobility(pos[0], pos[1], pos2[0], pos2[1])
-      );
+      return (pos[0] !== pos2[0] || pos[1] !== pos2[1]) && mobility(pos[0], pos[1], pos2[0], pos2[1]);
     })
     .map(util.pos2key);
 };

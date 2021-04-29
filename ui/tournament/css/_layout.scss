@@ -7,19 +7,28 @@
 $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 3rem);
 
 .tour {
-
   display: grid;
 
-  &__side { grid-area: side }
-  &__table, &__stats, &__player { grid-area: table }
-  &__main { grid-area: main }
-  .chat__members { grid-area: uchat; }
+  &__side {
+    grid-area: side;
+  }
+  &__table,
+  &__stats,
+  &__player {
+    grid-area: table;
+  }
+  &__main {
+    grid-area: main;
+  }
+  .chat__members {
+    grid-area: uchat;
+  }
 
   grid-template-areas:
-  'main'
-  'side'
-  'uchat'
-  'table';
+    'main'
+    'side'
+    'uchat'
+    'table';
 
   grid-gap: $block-gap;
 
@@ -27,9 +36,9 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
     grid-template-rows: $chat-optimal-size min-content;
     grid-template-areas:
-    'main  side'
-    'main  uchat'
-    'table table';
+      'main  side'
+      'main  uchat'
+      'table table';
 
     &__table {
       display: flex;
@@ -46,8 +55,8 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
     grid-template-rows: $chat-optimal-size auto;
     grid-template-areas:
-    'side  main table'
-    'uchat main table';
+      'side  main table'
+      'uchat main table';
 
     &__table {
       flex-flow: column;

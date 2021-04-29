@@ -1,4 +1,4 @@
-var board = require("./board");
+var board = require('./board');
 
 module.exports = function (controller) {
   return {

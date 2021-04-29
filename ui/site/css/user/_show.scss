@@ -13,7 +13,6 @@
 }
 
 .user-show {
-
   overflow: hidden; /* this fixes profile overflow, but cuts out the trophies */
 
   .flash {
@@ -24,7 +23,7 @@
     @extend %flex-between;
     background: $c-bg-zebra;
     .number-menu {
-      margin: 0 0 .2em 1em;
+      margin: 0 0 0.2em 1em;
     }
     .user-actions {
       margin: 1em;
@@ -69,7 +68,7 @@
   }
   .number-menu .to-games.active,
   #games.number-menu {
-    background: $c-bg-low!important;
+    background: $c-bg-low !important;
   }
   .angles {
     @extend %metal;
@@ -81,7 +80,7 @@
       justify-content: center;
     }
     .unread {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
   }
 

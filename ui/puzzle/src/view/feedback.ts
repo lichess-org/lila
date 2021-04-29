@@ -22,11 +22,11 @@ function viewSolution(ctrl: Controller): VNode {
   );
 }
 
-function tsumeHint(ctrl: Controller, prefix: string = " - "): string {
-  const tl = ctrl.tsumeLength() > 0 ? ((ctrl.tsumeLength() - 1) | 1) : 0;
+function tsumeHint(ctrl: Controller, prefix: string = ' - '): string {
+  const tl = ctrl.tsumeLength() > 0 ? (ctrl.tsumeLength() - 1) | 1 : 0;
   switch (tl) {
     case 0:
-      return "";
+      return '';
     case 1:
     case 3:
     case 5:
@@ -44,7 +44,7 @@ function initial(ctrl: Controller): VNode {
       h('div.instruction', [
         h('strong', [ctrl.trans.noarg('yourTurn'), tsumeHint(ctrl)]),
         h('em', ctrl.trans.noarg(ctrl.vm.pov === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
-    ]),
+      ]),
     ]),
     viewSolution(ctrl),
   ]);
@@ -56,10 +56,7 @@ function good(ctrl: Controller): VNode {
       h('div.icon', '✓'),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('bestMove')),
-        h('em', [
-          ctrl.trans.noarg('keepGoing'),
-          tsumeHint(ctrl, " "),
-        ]),
+        h('em', [ctrl.trans.noarg('keepGoing'), tsumeHint(ctrl, ' ')]),
       ]),
     ]),
     viewSolution(ctrl),
@@ -72,10 +69,7 @@ function fail(ctrl: Controller): VNode {
       h('div.icon', '✗'),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('notTheMove')),
-        h('em', [
-          ctrl.trans.noarg('trySomethingElse'),
-          tsumeHint(ctrl, " "),
-        ]),
+        h('em', [ctrl.trans.noarg('trySomethingElse'), tsumeHint(ctrl, ' ')]),
       ]),
     ]),
     viewSolution(ctrl),

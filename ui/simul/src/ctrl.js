@@ -1,7 +1,7 @@
-var socket = require("./socket");
-var simul = require("./simul");
-var text = require("./text");
-var xhr = require("./xhr");
+var socket = require('./socket');
+var simul = require('./simul');
+var text = require('./text');
+var xhr = require('./xhr');
 
 module.exports = function (env) {
   this.env = env;
@@ -16,7 +16,7 @@ module.exports = function (env) {
   this.reload = function (data) {
     if (this.data.isCreated && !data.isCreated) {
       // hack to change parent class - remove me when moving to snabbdom
-      $("main.simul-created").removeClass("simul-created");
+      $('main.simul-created').removeClass('simul-created');
     }
     data.team = this.data.simul; // reload data does not contain the simul anymore
     this.data = data;
@@ -35,7 +35,7 @@ module.exports = function (env) {
     if (newIds.length) {
       setTimeout(
         function () {
-          this.socket.send("startWatching", newIds.join(" "));
+          this.socket.send('startWatching', newIds.join(' '));
         }.bind(this),
         1000
       );
@@ -44,8 +44,7 @@ module.exports = function (env) {
   }.bind(this);
   startWatching();
 
-  if (simul.createdByMe(this) && this.data.isCreated)
-    lishogi.storage.set("lishogi.move_on", "1"); // hideous hack :D
+  if (simul.createdByMe(this) && this.data.isCreated) lishogi.storage.set('lishogi.move_on', '1'); // hideous hack :D
 
   this.trans = lishogi.trans(env.i18n);
 

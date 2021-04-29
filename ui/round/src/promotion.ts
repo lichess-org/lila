@@ -1,14 +1,14 @@
-import { h } from "snabbdom";
-import * as ground from "./ground";
-import * as cg from "shogiground/types";
-import { DrawShape } from "shogiground/draw";
-import * as xhr from "./xhr";
-import { key2pos } from "shogiground/util";
-import { bind } from "./util";
-import RoundController from "./ctrl";
-import { onInsert } from "./util";
-import { MaybeVNode } from "./interfaces";
-import { promote as sPromote } from "shogiops/util";
+import { h } from 'snabbdom';
+import * as ground from './ground';
+import * as cg from 'shogiground/types';
+import { DrawShape } from 'shogiground/draw';
+import * as xhr from './xhr';
+import { key2pos } from 'shogiground/util';
+import { bind } from './util';
+import RoundController from './ctrl';
+import { onInsert } from './util';
+import { MaybeVNode } from './interfaces';
+import { promote as sPromote } from 'shogiops/util';
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -28,7 +28,7 @@ export function sendPromotion(
   meta: cg.MoveMetadata
 ): boolean {
   let promotion: boolean = false;
-  if (!["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(role)) {
+  if (!['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role)) {
     ground.promote(ctrl.shogiground, dest);
     promotion = true;
   }
@@ -46,50 +46,27 @@ export function start(
     piece = ctrl.shogiground.state.pieces.get(dest),
     premovePiece = ctrl.shogiground.state.pieces.get(orig);
   if (
-    ((piece &&
-      ["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(
-        piece.role
-      ) &&
-      !premovePiece) ||
-      (premovePiece &&
-        ["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(
-          premovePiece.role
-        ))) &&
-    (((["7", "8", "9"].includes(dest[1]) ||
-      ["7", "8", "9"].includes(orig[1])) &&
-      d.player.color === "sente") ||
-      ((["1", "2", "3"].includes(dest[1]) ||
-        ["1", "2", "3"].includes(orig[1])) &&
-        d.player.color === "gote"))
+    ((piece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(piece.role) && !premovePiece) ||
+      (premovePiece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(premovePiece.role))) &&
+    (((['7', '8', '9'].includes(dest[1]) || ['7', '8', '9'].includes(orig[1])) && d.player.color === 'sente') ||
+      ((['1', '2', '3'].includes(dest[1]) || ['1', '2', '3'].includes(orig[1])) && d.player.color === 'gote'))
   ) {
     if (
       piece &&
-      ((["pawn", "lance"].includes(piece.role) &&
-        ((dest[1] === "9" && piece.color === "sente") ||
-          (dest[1] === "1" && piece.color === "gote"))) ||
-        (piece.role === "knight" &&
-          ((["8", "9"].includes(dest[1]) && piece.color === "sente") ||
-            (["1", "2"].includes(dest[1]) && piece.color === "gote"))))
+      ((['pawn', 'lance'].includes(piece.role) &&
+        ((dest[1] === '9' && piece.color === 'sente') || (dest[1] === '1' && piece.color === 'gote'))) ||
+        (piece.role === 'knight' &&
+          ((['8', '9'].includes(dest[1]) && piece.color === 'sente') ||
+            (['1', '2'].includes(dest[1]) && piece.color === 'gote'))))
     ) {
       return sendPromotion(ctrl, orig, dest, sPromote(piece.role), meta);
     }
-    if (prePromotionRole && meta && meta.premove)
-      return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
-    if (
-      !meta.ctrlKey &&
-      !promoting &&
-      ctrl.keyboardMove &&
-      ctrl.keyboardMove.justSelected()
-    ) {
-      if (premovePiece)
-        setPrePromotion(ctrl, dest, sPromote(premovePiece.role));
+    if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
+    if (!meta.ctrlKey && !promoting && ctrl.keyboardMove && ctrl.keyboardMove.justSelected()) {
+      if (premovePiece) setPrePromotion(ctrl, dest, sPromote(premovePiece.role));
       return true;
     }
-    const promotionRole = premovePiece
-      ? premovePiece.role
-      : piece
-      ? piece.role
-      : "pawn";
+    const promotionRole = premovePiece ? premovePiece.role : piece ? piece.role : 'pawn';
     promoting = {
       move: [orig, dest],
       pre: !!premovePiece,
@@ -102,11 +79,7 @@ export function start(
   return false;
 }
 
-function setPrePromotion(
-  ctrl: RoundController,
-  dest: cg.Key,
-  role: cg.Role
-): void {
+function setPrePromotion(ctrl: RoundController, dest: cg.Key, role: cg.Role): void {
   prePromotionRole = role;
   ctrl.shogiground.setAutoShapes([
     {
@@ -116,7 +89,7 @@ function setPrePromotion(
         role,
         opacity: 0.8,
       },
-      brush: "",
+      brush: '',
     } as DrawShape,
   ]);
 }
@@ -154,16 +127,15 @@ function renderPromotion(
   orientation: Color
 ): MaybeVNode {
   var left = (8 - key2pos(dest)[0]) * 11.11 - key2pos(dest)[0] * 0.04;
-  if (orientation === "sente")
-    left = key2pos(dest)[0] * 11.11 - key2pos(dest)[0] * 0.04;
-  var vertical = color === orientation ? "top" : "bottom";
+  if (orientation === 'sente') left = key2pos(dest)[0] * 11.11 - key2pos(dest)[0] * 0.04;
+  var vertical = color === orientation ? 'top' : 'bottom';
 
   return h(
-    "div#promotion-choice." + vertical,
+    'div#promotion-choice.' + vertical,
     {
-      hook: onInsert((el) => {
-        el.addEventListener("click", () => cancel(ctrl));
-        el.addEventListener("contextmenu", (e) => {
+      hook: onInsert(el => {
+        el.addEventListener('click', () => cancel(ctrl));
+        el.addEventListener('contextmenu', e => {
           e.preventDefault();
           return false;
         });
@@ -171,15 +143,14 @@ function renderPromotion(
     },
     roles.map((serverRole, i) => {
       var top = (i + key2pos(dest)[1]) * 11.11 + 0.3;
-      if (orientation === "sente")
-        top = (9 - (i + key2pos(dest)[1])) * 11.11 + 0.35;
+      if (orientation === 'sente') top = (9 - (i + key2pos(dest)[1])) * 11.11 + 0.35;
       return h(
-        "square",
+        'square',
         {
           attrs: {
             style: `top:${top}%;left:${left}%;display:table;`,
           },
-          hook: bind("click", (e) => {
+          hook: bind('click', e => {
             e.stopPropagation();
             finish(ctrl, serverRole);
           }),
@@ -193,14 +164,8 @@ function renderPromotion(
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
   const roles: cg.Role[] =
-    ctrl.shogiground.state.orientation === "gote" ?
-    [sPromote(promoting.role), promoting.role] :
-    [promoting.role, sPromote(promoting.role)];
-  return renderPromotion(
-    ctrl,
-    promoting.move[1],
-    roles,
-    ctrl.data.player.color,
-    ctrl.shogiground.state.orientation
-  );
+    ctrl.shogiground.state.orientation === 'gote'
+      ? [sPromote(promoting.role), promoting.role]
+      : [promoting.role, sPromote(promoting.role)];
+  return renderPromotion(ctrl, promoting.move[1], roles, ctrl.data.player.color, ctrl.shogiground.state.orientation);
 }

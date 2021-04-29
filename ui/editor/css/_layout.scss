@@ -3,31 +3,30 @@
 }
 
 .board-editor {
-
   $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
 
   display: grid;
 
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
-  'spare-top'
-  'pocket-top'
-  'board'
-  'pocket-bot'
-  'spare-bottom'
-  'tools'
-  'copyables';
+    'spare-top'
+    'pocket-top'
+    'board'
+    'pocket-bot'
+    'spare-bottom'
+    'tools'
+    'copyables';
 
   @include breakpoint($mq-x-small) {
     grid-template-columns: minmax(30vmin, $board-width) 2vmin minmax(200px, 300px);
     grid-template-rows: min-content auto min-content;
     grid-template-areas:
-    'spare-top    . pocket-top'
-    'spare-top    . tools'
-    'board        . tools'
-    'spare-bottom . tools'
-    'spare-bottom . pocket-bot'
-    '.            . .    '
-    'copyables    . .    ';
+      'spare-top    . pocket-top'
+      'spare-top    . tools'
+      'board        . tools'
+      'spare-bottom . tools'
+      'spare-bottom . pocket-bot'
+      '.            . .    '
+      'copyables    . .    ';
   }
 }

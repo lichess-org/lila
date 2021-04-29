@@ -4,8 +4,8 @@
     padding-left: 0px;
     padding-right: 0px;
     .name {
-    @extend %nowrap-ellipsis;
-      display:inline-block;
+      @extend %nowrap-ellipsis;
+      display: inline-block;
       vertical-align: middle;
       padding-right: 5px;
       max-width: 140px;
@@ -16,7 +16,7 @@
   }
   .user-link .rating {
     font-style: italic;
-    font-size: .8em;
+    font-size: 0.8em;
   }
   tr {
     @include transition();
@@ -24,7 +24,7 @@
   }
   .loading tbody {
     opacity: 0.6;
-    @include transition(opacity, .3s);
+    @include transition(opacity, 0.3s);
   }
   &:not(.created):not(.loading) tbody tr:hover {
     background: mix($c-primary, $c-bg-box, 15%);
@@ -32,19 +32,31 @@
   }
   tr.me td:first-child {
     $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-    background: linear-gradient(to right, $c-me-border 0px, $c-me-border 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+    background: linear-gradient(
+      to right,
+      $c-me-border 0px,
+      $c-me-border 5px,
+      rgba(0, 0, 0, 0) 5px,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
   tr.active td:last-child {
     $c-active-border: mix($c-primary, $c-bg-box, 70%);
-    background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+    background: linear-gradient(
+      to left,
+      $c-active-border 0px,
+      $c-active-border 5px,
+      rgba(0, 0, 0, 0) 5px,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
   td.rank {
     @extend %roboto;
-    padding: 1em .5em 1em 10px;
+    padding: 1em 0.5em 1em 10px;
     width: 1px; /* helps keeping it as small as possible */
     i {
-      opacity: .4;
-      font-size: .8em;
+      opacity: 0.4;
+      font-size: 0.8em;
     }
   }
   .pairings {

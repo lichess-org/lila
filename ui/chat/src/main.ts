@@ -1,15 +1,15 @@
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import makeCtrl from "./ctrl";
-import view from "./view";
-import { ChatOpts, Ctrl } from "./interfaces";
-import { PresetCtrl } from "./preset";
+import makeCtrl from './ctrl';
+import view from './view';
+import { ChatOpts, Ctrl } from './interfaces';
+import { PresetCtrl } from './preset';
 
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
-export { Ctrl as ChatCtrl, ChatPlugin } from "./interfaces";
+export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 
 export default function LishogiChat(
   element: Element,
@@ -28,7 +28,7 @@ export default function LishogiChat(
   ctrl = makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  element.innerHTML = "";
+  element.innerHTML = '';
   vnode = patch(element, blueprint);
 
   return ctrl;

@@ -1,33 +1,27 @@
-import { sync, Sync } from "common/sync";
-import { PoolOpts, WorkerOpts, Work } from "./types";
-import Protocol from "./stockfishProtocol";
+import { sync, Sync } from 'common/sync';
+import { PoolOpts, WorkerOpts, Work } from './types';
+import Protocol from './stockfishProtocol';
 
 export abstract class AbstractWorker {
   protected protocol: Sync<Protocol>;
 
-  constructor(
-    protected url: string,
-    protected poolOpts: PoolOpts,
-    protected workerOpts: WorkerOpts
-  ) {
+  constructor(protected url: string, protected poolOpts: PoolOpts, protected workerOpts: WorkerOpts) {
     this.protocol = sync(this.boot());
   }
 
   stop(): Promise<void> {
-    return this.protocol.promise.then((protocol) => protocol.stop());
+    return this.protocol.promise.then(protocol => protocol.stop());
   }
 
   start(work: Work): Promise<void> {
-    return this.protocol.promise.then((protocol) => {
+    return this.protocol.promise.then(protocol => {
       return protocol.stop().then(() => protocol.start(work));
     });
   }
 
-  isComputing: () => boolean = () =>
-    !!this.protocol.sync && this.protocol.sync.isComputing();
+  isComputing: () => boolean = () => !!this.protocol.sync && this.protocol.sync.isComputing();
 
-  engineName: () => string | undefined = () =>
-    this.protocol.sync && this.protocol.sync.engineName;
+  engineName: () => string | undefined = () => this.protocol.sync && this.protocol.sync.engineName;
 
   abstract boot(): Promise<Protocol>;
   abstract send(cmd: string): void;
@@ -38,13 +32,11 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(
-      window.lishogi.assetUrl(this.url, { sameDomain: true })
-    );
+    this.worker = new Worker(window.lishogi.assetUrl(this.url, { sameDomain: true }));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener(
-      "message",
-      (e) => {
+      'message',
+      e => {
         protocol.received(e.data);
       },
       true
@@ -55,7 +47,7 @@ class WebWorker extends AbstractWorker {
 
   start(work: Work): Promise<void> {
     // wait for boot
-    return this.protocol.promise.then((protocol) => {
+    return this.protocol.promise.then(protocol => {
       const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
       return Promise.race([protocol.stop(), timeout])
         .catch(() => {
@@ -64,7 +56,7 @@ class WebWorker extends AbstractWorker {
           this.protocol = sync(this.boot());
         })
         .then(() => {
-          return this.protocol.promise.then((protocol) => protocol.start(work));
+          return this.protocol.promise.then(protocol => protocol.start(work));
         });
     });
   }
@@ -87,8 +79,8 @@ class ThreadedWasmWorker extends AbstractWorker {
     if (!ThreadedWasmWorker.global)
       ThreadedWasmWorker.global = window.lishogi
         .loadScript(this.url, { sameDomain: true })
-        .then(() => window["Stockfish"]())
-        .then((sf) => {
+        .then(() => window['Stockfish']())
+        .then(sf => {
           this.sf = sf;
           const protocol = new Protocol(this.send.bind(this), this.workerOpts);
           sf.addMessageListener(protocol.received.bind(protocol));
@@ -98,7 +90,7 @@ class ThreadedWasmWorker extends AbstractWorker {
             protocol,
           };
         });
-    return ThreadedWasmWorker.global.then((global) => {
+    return ThreadedWasmWorker.global.then(global => {
       this.sf = global.sf;
       return global.protocol;
     });
@@ -106,10 +98,8 @@ class ThreadedWasmWorker extends AbstractWorker {
 
   destroy() {
     if (ThreadedWasmWorker.global) {
-      console.log(
-        "stopping singleton wasmx worker (instead of destroying) ..."
-      );
-      this.stop().then(() => console.log("... successfully stopped"));
+      console.log('stopping singleton wasmx worker (instead of destroying) ...');
+      this.stop().then(() => console.log('... successfully stopped'));
     }
   }
 
@@ -143,21 +133,13 @@ export class Pool {
   warmup(): void {
     if (this.workers.length) return;
 
-    if (this.poolOpts.technology == "wasmx")
-      this.workers.push(
-        new ThreadedWasmWorker(
-          this.poolOpts.wasmx,
-          this.poolOpts,
-          this.protocolOpts
-        )
-      );
+    if (this.poolOpts.technology == 'wasmx')
+      this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
     else {
       for (let i = 1; i <= 2; i++)
         this.workers.push(
           new WebWorker(
-            this.poolOpts.technology == "wasm"
-              ? this.poolOpts.wasm
-              : this.poolOpts.asmjs,
+            this.poolOpts.technology == 'wasm' ? this.poolOpts.wasm : this.poolOpts.asmjs,
             this.poolOpts,
             this.protocolOpts
           )
@@ -166,16 +148,16 @@ export class Pool {
   }
 
   stop(): void {
-    this.workers.forEach((w) => w.stop());
+    this.workers.forEach(w => w.stop());
   }
 
   destroy = () => {
     this.stop();
-    this.workers.forEach((w) => w.destroy());
+    this.workers.forEach(w => w.destroy());
   };
 
   start(work: Work): void {
-    window.lishogi.storage.fire("ceval.pool.start");
+    window.lishogi.storage.fire('ceval.pool.start');
     this.getWorker()
       .then(function (worker) {
         worker.start(work);

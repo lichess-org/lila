@@ -8,7 +8,7 @@
     h1 {
       @extend %roboto;
       margin: 0;
-      padding: 0!important;
+      padding: 0 !important;
       font-size: 2rem;
       line-height: 2;
       text-transform: uppercase;
@@ -29,7 +29,6 @@
 }
 
 .coach-edit {
-
   .top .upload_picture {
     text-align: center;
     margin: 0 10px;
@@ -139,7 +138,7 @@
     .actions {
       font-size: 1.4em;
       a {
-        padding: .5em .7em;
+        padding: 0.5em 0.7em;
       }
       .yes {
         color: $c-good;

@@ -1,7 +1,7 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import { Redraw, Close, bind, header } from "./util";
+import { Redraw, Close, bind, header } from './util';
 
 export interface BoardCtrl {
   data: BoardData;
@@ -18,20 +18,14 @@ export interface BoardData {
 
 export type PublishZoom = (v: number) => void;
 
-export function ctrl(
-  data: BoardData,
-  trans: Trans,
-  redraw: Redraw,
-  close: Close
-): BoardCtrl {
-  const readZoom = () =>
-    parseInt(getComputedStyle(document.body).getPropertyValue("--zoom")) + 100;
+export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
+  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
   const saveZoom = window.lishogi.debounce(() => {
     $.ajax({
-      method: "post",
-      url: "/pref/zoom?v=" + readZoom(),
-    }).fail(() => window.lishogi.announce({ msg: "Failed to save zoom" }));
+      method: 'post',
+      url: '/pref/zoom?v=' + readZoom(),
+    }).fail(() => window.lishogi.announce({ msg: 'Failed to save zoom' }));
   }, 1000);
 
   return {
@@ -39,15 +33,15 @@ export function ctrl(
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post("/pref/is3d", { is3d: v }, window.lishogi.reload).fail(() =>
-        window.lishogi.announce({ msg: "Failed to save geometry preference" })
+      $.post('/pref/is3d', { is3d: v }, window.lishogi.reload).fail(() =>
+        window.lishogi.announce({ msg: 'Failed to save geometry preference' })
       );
       redraw();
     },
     readZoom,
     setZoom(v: number) {
-      document.body.setAttribute("style", "--zoom:" + (v - 100));
-      window.lishogi.dispatchEvent(window, "resize");
+      document.body.setAttribute('style', '--zoom:' + (v - 100));
+      window.lishogi.dispatchEvent(window, 'resize');
       redraw();
       saveZoom();
     },
@@ -58,28 +52,28 @@ export function ctrl(
 export function view(ctrl: BoardCtrl): VNode {
   const domZoom = ctrl.readZoom();
 
-  return h("div.sub.board", [
-    header(ctrl.trans.noarg("boardGeometry"), ctrl.close),
-    h("div.selector.large", [
+  return h('div.sub.board', [
+    header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
+    h('div.selector.large', [
       h(
-        "a.text",
+        'a.text',
         {
           class: { active: !ctrl.data.is3d },
-          attrs: { "data-icon": "E" },
-          hook: bind("click", () => ctrl.setIs3d(false)),
+          attrs: { 'data-icon': 'E' },
+          hook: bind('click', () => ctrl.setIs3d(false)),
         },
-        "2D"
+        '2D'
       ),
     ]),
     h(
-      "div.zoom",
+      'div.zoom',
       isNaN(domZoom)
-        ? [h("p", "No board to zoom here!")]
+        ? [h('p', 'No board to zoom here!')]
         : [
-            h("p", [ctrl.trans.noarg("boardSize"), ": ", domZoom - 100, "%"]),
-            h("div.slider", {
+            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom - 100, '%']),
+            h('div.slider', {
               hook: {
-                insert: (vnode) => makeSlider(ctrl, vnode.elm as HTMLElement),
+                insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement),
               },
             }),
           ]
@@ -90,10 +84,10 @@ export function view(ctrl: BoardCtrl): VNode {
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
   window.lishogi.slider().done(() => {
     $(el).slider({
-      orientation: "horizontal",
+      orientation: 'horizontal',
       min: 100,
       max: 200,
-      range: "min",
+      range: 'min',
       step: 1,
       value: ctrl.readZoom(),
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value),

@@ -9,17 +9,43 @@
   }
 }
 
-#mz_actions { order: 1 }
-#mz_roles { order: 2; flex: 1 1 auto; }
-#mz_sitdccounter { order: 3; flex: 1 1 auto; }
-#mz_preferences { order: 4; flex: 1 1 auto; }
-#mz_plan { order: 5; flex: 1 1 auto; }
-#mz_irwin { order: 6 }
-#mz_assessments { order: 7 }
-#mz_mod_log { order: 8 }
-#mz_reports { order: 9 }
-#mz_identification { order: 10 }
-#mz_others { order: 11 }
+#mz_actions {
+  order: 1;
+}
+#mz_roles {
+  order: 2;
+  flex: 1 1 auto;
+}
+#mz_sitdccounter {
+  order: 3;
+  flex: 1 1 auto;
+}
+#mz_preferences {
+  order: 4;
+  flex: 1 1 auto;
+}
+#mz_plan {
+  order: 5;
+  flex: 1 1 auto;
+}
+#mz_irwin {
+  order: 6;
+}
+#mz_assessments {
+  order: 7;
+}
+#mz_mod_log {
+  order: 8;
+}
+#mz_reports {
+  order: 9;
+}
+#mz_identification {
+  order: 10;
+}
+#mz_others {
+  order: 11;
+}
 
 #mz_menu {
   @extend %flex-center, %box-neat-top;
@@ -43,8 +69,8 @@
       background: mix(white, $c-brag, 20%);
     }
     i {
-      margin-right: .3em;
-      opacity: .5;
+      margin-right: 0.3em;
+      opacity: 0.5;
     }
   }
 }
@@ -53,7 +79,8 @@
   @extend %flex-center;
   text-align: center;
   padding-top: 0;
-  .btn-rack, > form {
+  .btn-rack,
+  > form {
     margin: 1em 1em 0 0;
   }
   .btn-rack .active {
@@ -85,20 +112,20 @@
 .mod-zone .slist {
   border: $border;
   border-top: none;
-  font-size: .9em;
+  font-size: 0.9em;
   margin-bottom: 1em;
   td {
-    padding: .5em;
+    padding: 0.5em;
   }
 }
 .mod-zone .same {
   font-style: italic;
   font-weight: bold;
-  background: rgba(56,147,232,0.2)!important;
-  border-left: 3px solid rgba(56,147,232,0.8)!important;
+  background: rgba(56, 147, 232, 0.2) !important;
+  border-left: 3px solid rgba(56, 147, 232, 0.8) !important;
 }
 .mod-zone time {
-  opacity: .7;
+  opacity: 0.7;
   white-space: nowrap;
 }
 .mod-zone form {
@@ -137,10 +164,12 @@
     }
     .blocked {
       a,
-      .button { color: $c-bad; }
+      .button {
+        color: $c-bad;
+      }
     }
     .button {
-      padding: .4em 1em;
+      padding: 0.4em 1em;
       color: $c-good;
       &-discouraging {
         color: $c-font-dimmer;
@@ -158,13 +187,14 @@
   .spy_ips a {
     letter-spacing: -1px;
   }
-  .spy_uas, .spy_locs {
+  .spy_uas,
+  .spy_locs {
     height: 20vh;
     .slist {
       min-height: 100%;
     }
     td {
-      padding: .4em 0;
+      padding: 0.4em 0;
     }
   }
 }
@@ -174,7 +204,7 @@
 }
 .mod-zone strong {
   display: block;
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 .mod-zone strong.inline {
   display: inline;
@@ -252,7 +282,7 @@
     text-transform: uppercase;
   }
   .percentage {
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .legend {
     text-align: center;
@@ -263,19 +293,19 @@
     padding: 10px;
   }
   .sig_1 {
-    color: #2077C0;
+    color: #2077c0;
     /* dark blue */
   }
   .sig_2 {
-    color: #23A1AB;
+    color: #23a1ab;
     /* light blue */
   }
   .sig_3 {
-    color: #DDCF3F;
+    color: #ddcf3f;
     /* yellow */
   }
   .sig_4 {
-    color: #E79B64;
+    color: #e79b64;
     /* orange */
   }
   .sig_5 {
@@ -287,15 +317,15 @@
     /* red */
   }
   .result_3 {
-    color: #E73B38;
+    color: #e73b38;
     /* red */
   }
   .result_2 {
-    color: #E79B64;
+    color: #e79b64;
     /* orange */
   }
   .result_1 {
-    color: #2077C0;
+    color: #2077c0;
     /* dark blue */
   }
   .match {
@@ -334,11 +364,11 @@
     .title img {
       height: 50px;
       width: 50px;
-      opacity: .7;
+      opacity: 0.7;
       margin-right: 8px;
     }
     .infos {
-      font-size: .9em;
+      font-size: 0.9em;
     }
     strong {
       display: block;
@@ -355,9 +385,9 @@
     font-size: 1.6em;
   }
   table em {
-    font-size: .8em;
+    font-size: 0.8em;
     line-height: 1em;
-    margin-top: -.1em;
+    margin-top: -0.1em;
     display: block;
   }
   .moves {
@@ -376,26 +406,26 @@
   }
   .text .green {
     /* actually blue */
-    color: #2077C0;
+    color: #2077c0;
   }
   .text .yellow {
-    color: #DDCF3F;
+    color: #ddcf3f;
   }
   .text .orange {
-    color: #E79B64;
+    color: #e79b64;
   }
   .text .red {
     color: $c-bad;
   }
   .moves .green {
     /* actually blue */
-    background-color: #2077C0;
+    background-color: #2077c0;
   }
   .moves .yellow {
-    background-color: #DDCF3F;
+    background-color: #ddcf3f;
   }
   .moves .orange {
-    background-color: #E79B64;
+    background-color: #e79b64;
   }
   .moves .red {
     background-color: $c-bad;
@@ -406,9 +436,9 @@
   display: inline-block;
   white-space: nowrap;
   font-weight: bold;
-  font-size: .9em;
-  padding: .1em .5em;
-  border-radius: .3em;
+  font-size: 0.9em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.3em;
 }
 .mz_reports .score.green {
   /* actually blue */

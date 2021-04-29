@@ -1,4 +1,4 @@
-import { h } from "snabbdom";
+import { h } from 'snabbdom';
 
 type Notification = {
   text: string;
@@ -12,24 +12,21 @@ export class Notify {
 
   set = (msg: string) => {
     // make sure it's different from previous, so it gets read again
-    if (this.notification && this.notification.text == msg) msg += " ";
+    if (this.notification && this.notification.text == msg) msg += ' ';
     this.notification = { text: msg, date: new Date() };
     window.lishogi.requestIdleCallback(this.redraw);
   };
 
   currentText = () =>
-    this.notification &&
-    this.notification.date.getTime() > Date.now() - this.timeout
-      ? this.notification.text
-      : "";
+    this.notification && this.notification.date.getTime() > Date.now() - this.timeout ? this.notification.text : '';
 
   render = () =>
     h(
-      "div.notify",
+      'div.notify',
       {
         attrs: {
-          "aria-live": "assertive",
-          "aria-atomic": true,
+          'aria-live': 'assertive',
+          'aria-atomic': true,
         },
       },
       this.currentText()

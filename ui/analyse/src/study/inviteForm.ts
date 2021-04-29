@@ -1,9 +1,9 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import { bind, titleNameToId, onInsert } from "../util";
-import { prop, Prop } from "common";
-import { modal } from "../modal";
-import { StudyMemberMap } from "./interfaces";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { bind, titleNameToId, onInsert } from '../util';
+import { prop, Prop } from 'common';
+import { modal } from '../modal';
+import { StudyMemberMap } from './interfaces';
 
 export function ctrl(
   send: SocketSend,
@@ -54,10 +54,10 @@ export function ctrl(
     },
     toggle() {
       open(!open());
-      if (open()) send("following_onlines");
+      if (open()) send('following_onlines');
     },
     invite(titleName: string) {
-      send("invite", titleNameToId(titleName));
+      send('invite', titleNameToId(titleName));
       setTab();
     },
     redraw,
@@ -68,29 +68,25 @@ export function ctrl(
 export function view(ctrl): VNode {
   const candidates = ctrl.candidates();
   return modal({
-    class: "study__invite",
+    class: 'study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
     content: [
-      h("h2", ctrl.trans.noarg("inviteToTheStudy")),
-      h(
-        "p.info",
-        { attrs: { "data-icon": "" } },
-        ctrl.trans.noarg("pleaseOnlyInvitePeopleYouKnow")
-      ),
-      h("div.input-wrapper", [
+      h('h2', ctrl.trans.noarg('inviteToTheStudy')),
+      h('p.info', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
+      h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
-        h("input", {
-          attrs: { placeholder: ctrl.trans.noarg("searchByUsername") },
-          hook: onInsert<HTMLInputElement>((el) => {
+        h('input', {
+          attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
+          hook: onInsert<HTMLInputElement>(el => {
             window.lishogi.userAutocomplete($(el), {
-              tag: "span",
+              tag: 'span',
               onSelect(v) {
                 ctrl.invite(v.name);
-                $(el).typeahead("close");
-                el.value = "";
+                $(el).typeahead('close');
+                el.value = '';
                 ctrl.redraw();
               },
             });
@@ -99,13 +95,13 @@ export function view(ctrl): VNode {
       ]),
       candidates.length
         ? h(
-            "div.users",
+            'div.users',
             candidates.map(function (username: string) {
               return h(
-                "span.button.button-metal",
+                'span.button.button-metal',
                 {
                   key: username,
-                  hook: bind("click", (_) => ctrl.invite(username)),
+                  hook: bind('click', _ => ctrl.invite(username)),
                 },
                 username
               );

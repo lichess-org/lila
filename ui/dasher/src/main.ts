@@ -1,13 +1,13 @@
-import { Redraw } from "./util";
+import { Redraw } from './util';
 
-import { DasherCtrl, DasherOpts, makeCtrl } from "./dasher";
-import { loading, loaded } from "./view";
-import { get } from "./xhr";
+import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
+import { loading, loaded } from './view';
+import { get } from './xhr';
 
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 const patch = init([klass, attributes]);
 
 export default function LishogiDasher(element: Element, opts: DasherOpts) {
@@ -19,7 +19,7 @@ export default function LishogiDasher(element: Element, opts: DasherOpts) {
 
   redraw();
 
-  return get("/dasher").then((data) => {
+  return get('/dasher').then(data => {
     ctrl = makeCtrl(opts, data, redraw);
     redraw();
     return ctrl;

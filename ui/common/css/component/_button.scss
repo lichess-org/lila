@@ -2,7 +2,7 @@
   @extend %roboto-fat, %button-shadow, %box-radius;
   background: $c-primary;
   text-transform: uppercase;
-  padding: .8em 1em;
+  padding: 0.8em 1em;
   border: none;
   cursor: pointer;
   text-align: center;
@@ -24,7 +24,7 @@
     text-transform: none;
   }
   &-thin {
-    padding: .1em 1em;
+    padding: 0.1em 1em;
     font-size: 90%;
   }
   &-fat {
@@ -80,7 +80,7 @@
     }
   }
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
     cursor: not-allowed;
   }
   &.active {

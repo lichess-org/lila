@@ -1,8 +1,8 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import changeColorHandle from "common/coordsColor";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import changeColorHandle from 'common/coordsColor';
 
-import { Redraw, Open, bind, header } from "./util";
+import { Redraw, Open, bind, header } from './util';
 
 type Theme = string;
 
@@ -43,11 +43,9 @@ export function ctrl(
       const d = dimensionData();
       d.current = t;
       applyTheme(t, d.list);
-      $.post("/pref/theme" + (dimension() === "d3" ? "3d" : ""), {
+      $.post('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
         theme: t,
-      }).fail(() =>
-        window.lishogi.announce({ msg: "Failed to save theme preference" })
-      );
+      }).fail(() => window.lishogi.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
     open,
@@ -57,26 +55,26 @@ export function ctrl(
 export function view(ctrl: ThemeCtrl): VNode {
   const d = ctrl.data();
 
-  return h("div.sub.theme." + ctrl.dimension(), [
-    header(ctrl.trans.noarg("boardTheme"), () => ctrl.open("links")),
-    h("div.list", d.list.map(themeView(d.current, ctrl.set))),
+  return h('div.sub.theme.' + ctrl.dimension(), [
+    header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
+    h('div.list', d.list.map(themeView(d.current, ctrl.set))),
   ]);
 }
 
 function themeView(current: Theme, set: (t: Theme) => void) {
   return (t: Theme) =>
     h(
-      "a",
+      'a',
       {
-        hook: bind("click", () => set(t)),
+        hook: bind('click', () => set(t)),
         attrs: { title: t },
         class: { active: current === t },
       },
-      [h("span." + t)]
+      [h('span.' + t)]
     );
 }
 
 function applyTheme(t: Theme, list: Theme[]) {
-  $("body").removeClass(list.join(" ")).addClass(t);
+  $('body').removeClass(list.join(' ')).addClass(t);
   changeColorHandle();
 }

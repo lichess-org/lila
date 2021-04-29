@@ -1,44 +1,30 @@
-import {
-  CevalCtrl,
-  CevalOpts,
-  CevalTechnology,
-  Work,
-  Step,
-  Hovering,
-  Started,
-} from "./types";
+import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { Pool } from "./pool";
-import { defined, prop } from "common";
-import { storedProp } from "common/storage";
-import throttle from "common/throttle";
-import { povChances } from "./winningChances";
+import { Pool } from './pool';
+import { defined, prop } from 'common';
+import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
+import { povChances } from './winningChances';
 
 const li = window.lishogi;
 
 function is64Bit(): boolean {
-  const x64 = ["x86_64", "x86-64", "Win64", "x64", "amd64", "AMD64"];
-  for (const substr of x64)
-    if (navigator.userAgent.includes(substr)) return true;
-  return (
-    navigator.platform === "Linux x86_64" || navigator.platform === "MacIntel"
-  );
+  const x64 = ['x86_64', 'x86-64', 'Win64', 'x64', 'amd64', 'AMD64'];
+  for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
+  return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
 }
 
-function sharedWasmMemory(
-  initial: number,
-  maximum: number
-): WebAssembly.Memory | undefined {
+function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
   // In theory 32 bit should be supported just the same, but some 32 bit
   // browser builds seem to have trouble with WASMX. So for now detect and
   // require a 64 bit platform.
   if (!is64Bit()) return;
 
   // Atomics
-  if (typeof Atomics !== "object") return;
+  if (typeof Atomics !== 'object') return;
 
   // SharedArrayBuffer
-  if (typeof SharedArrayBuffer !== "function") return;
+  if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
   const mem = new WebAssembly.Memory({
@@ -50,7 +36,7 @@ function sharedWasmMemory(
 
   // Structured cloning
   try {
-    window.postMessage(mem, "*");
+    window.postMessage(mem, '*');
   } catch (e) {
     return;
   }
@@ -61,9 +47,7 @@ function sharedWasmMemory(
 function median(values: number[]): number {
   values.sort((a, b) => a - b);
   const half = Math.floor(values.length / 2);
-  return values.length % 2
-    ? values[half]
-    : (values[half - 1] + values[half]) / 2.0;
+  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
 }
 
 export default function (opts: CevalOpts): CevalCtrl {
@@ -72,20 +56,15 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   // select wasmx with growable shared mem > wasmx > wasm > asmjs
-  let technology: CevalTechnology = "asmjs";
+  let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
-  if (
-    typeof WebAssembly === "object" &&
-    typeof WebAssembly.validate === "function" &&
-    WebAssembly.validate(source)
-  ) {
-    technology = "wasm"; // WebAssembly 1.0
+  if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
+    technology = 'wasm'; // WebAssembly 1.0
     const sharedMem = sharedWasmMemory(8, 16);
     if (sharedMem) {
-      technology = "wasmx";
-      if (!defined(window["crossOriginIsolated"]))
-        window["crossOriginIsolated"] = true; // polyfill
+      technology = 'wasmx';
+      if (!defined(window['crossOriginIsolated'])) window['crossOriginIsolated'] = true; // polyfill
       try {
         sharedMem.grow(8);
         growableSharedMem = true;
@@ -93,36 +72,23 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const maxThreads = Math.min(
-    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-    growableSharedMem ? 16 : 2
-  );
+  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : 2);
   const threads = storedProp(
-    storageKey("ceval.threads"),
+    storageKey('ceval.threads'),
     Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
   );
 
-  const maxHashSize = Math.min(
-    ((navigator.deviceMemory || 0.25) * 1024) / 8,
-    growableSharedMem ? 1024 : 16
-  );
-  const hashSize = storedProp(storageKey("ceval.hash-size"), 16);
+  const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
+  const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const minDepth = 6;
-  const maxDepth = storedProp<number>(storageKey("ceval.max-depth"), 18);
-  const multiPv = storedProp(
-    storageKey("ceval.multipv"),
-    opts.multiPvDefault || 1
-  );
-  const infinite = storedProp("ceval.infinite", false);
+  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
+  const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
+  const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.makeBoolean(
-    storageKey("client-eval-enabled")
-  );
+  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
-  const enabled = prop(
-    opts.possible && allowed() && enableStorage.get() && !document.hidden
-  );
+  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -131,19 +97,15 @@ export default function (opts: CevalOpts): CevalCtrl {
   const pool = new Pool(
     {
       technology,
-      asmjs: "vendor/stockfish.js/stockfish.js",
-      wasm: "vendor/stockfish.js/stockfish.wasm.js",
-      wasmx: "vendor/stockfish.wasm/stockfish.js",
+      asmjs: 'vendor/stockfish.js/stockfish.js',
+      wasm: 'vendor/stockfish.js/stockfish.wasm.js',
+      wasmx: 'vendor/stockfish.wasm/stockfish.js',
     },
     {
       minDepth,
       variant: opts.variant.key,
-      threads:
-        technology == "wasmx" &&
-        (() => Math.min(parseInt(threads()), maxThreads)),
-      hashSize:
-        technology == "wasmx" &&
-        (() => Math.min(parseInt(hashSize()), maxHashSize)),
+      threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
+      hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
     }
   );
 
@@ -154,7 +116,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       return (
         ev.knps &&
         ev.depth >= 16 &&
-        typeof ev.cp !== "undefined" &&
+        typeof ev.cp !== 'undefined' &&
         Math.abs(ev.cp) < 500 &&
         ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
       );
@@ -183,33 +145,24 @@ export default function (opts: CevalOpts): CevalCtrl {
   let lastEmitFen: string | null = null;
 
   const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
-    sortPvsInPlace(
-      ev.pvs,
-      work.ply % 2 === (work.threatMode ? 1 : 0) ? "sente" : "gote"
-    );
+    sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'sente' : 'gote');
     npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen) {
       lastEmitFen = ev.fen;
-      li.storage.fire("ceval.fen", ev.fen);
+      li.storage.fire('ceval.fen', ev.fen);
     }
   });
 
-  const effectiveMaxDepth = () =>
-    isDeeper() || infinite() ? 99 : parseInt(maxDepth());
+  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : parseInt(maxDepth()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function (a, b) {
       return povChances(color, b) - povChances(color, a);
     });
 
-  const start = (
-    path: Tree.Path,
-    steps: Step[],
-    threatMode: boolean,
-    deeper: boolean
-  ) => {
+  const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
     if (!enabled() || !opts.possible) return;
 
     isDeeper(deeper);
@@ -235,8 +188,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     };
 
     if (threatMode) {
-      const c = step.ply % 2 === 1 ? "b" : "w";
-      const fen = step.fen.replace(/ (b|w) /, " " + c + " ");
+      const c = step.ply % 2 === 1 ? 'b' : 'w';
+      const fen = step.fen.replace(/ (b|w) /, ' ' + c + ' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
@@ -273,8 +226,8 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   // ask other tabs if a game is in progress
   if (enabled()) {
-    li.storage.fire("ceval.fen", "start");
-    li.storage.make("round.ongoing").listen((_) => {
+    li.storage.fire('ceval.fen', 'start');
+    li.storage.make('round.ongoing').listen(_ => {
       enabled(false);
       opts.redraw();
     });
@@ -288,8 +241,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads: technology == "wasmx" ? threads : undefined,
-    hashSize: technology == "wasmx" ? hashSize : undefined,
+    threads: technology == 'wasmx' ? threads : undefined,
+    hashSize: technology == 'wasmx' ? hashSize : undefined,
     maxThreads,
     maxHashSize,
     infinite,
@@ -309,7 +262,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
-      if (document.visibilityState !== "hidden") enableStorage.set(enabled());
+      if (document.visibilityState !== 'hidden') enableStorage.set(enabled());
     },
     curDepth: () => (curEval ? curEval.depth : 0),
     effectiveMaxDepth,

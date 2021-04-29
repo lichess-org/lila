@@ -8,7 +8,7 @@ $span-width: 1.7em;
     flex: 1 1 100%;
     font-size: 1em;
     line-height: 1;
-    margin: .5em 0;
+    margin: 0.5em 0;
     align-self: center;
   }
   > div {
@@ -28,8 +28,8 @@ $span-width: 1.7em;
       color: $c-link;
       font-weight: bold;
       height: auto;
-      margin-right: .4em;
-      opacity: .8;
+      margin-right: 0.4em;
+      opacity: 0.8;
     }
   }
   .ddloader {
@@ -37,11 +37,11 @@ $span-width: 1.7em;
     height: $span-width;
   }
   .sortable-ghost {
-    opacity: .7;
+    opacity: 0.7;
     &,
     .status {
-      background: $c-secondary!important;
-      color: $c-secondary-over!important;
+      background: $c-secondary !important;
+      color: $c-secondary-over !important;
     }
   }
 }

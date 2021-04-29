@@ -46,11 +46,11 @@ function makeConfig(ctrl: Controller): CgConfig {
         if (ctrl.pref.coords == 1) changeColorHandle();
       },
       select: () => {
-        if(ctrl.vm.dropmodeActive && !ctrl.getDropmodeActive()){
+        if (ctrl.vm.dropmodeActive && !ctrl.getDropmodeActive()) {
           ctrl.vm.dropmodeActive = false;
           ctrl.redraw();
         }
-      }
+      },
     },
     premovable: {
       enabled: opts.premovable!.enabled,
@@ -60,7 +60,7 @@ function makeConfig(ctrl: Controller): CgConfig {
     },
     dropmode: {
       dropDests: opts.dropmode!.dropDests,
-      showDropDests: ctrl.pref.destination && ctrl.pref.dropDestination
+      showDropDests: ctrl.pref.destination && ctrl.pref.dropDestination,
     },
     drawable: {
       enabled: true,

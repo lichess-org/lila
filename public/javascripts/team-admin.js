@@ -4,7 +4,7 @@ $(() => {
     pattern: /.{3,}/,
     maxTags: 30,
     enforceWhitelist: true,
-    whitelist: input.value.trim().split(/\s*,\s*/)
+    whitelist: input.value.trim().split(/\s*,\s*/),
   });
   let abortCtrl; // for aborting the call
   tagify.on('input', e => {
@@ -16,11 +16,13 @@ $(() => {
     // show loading animation and hide the suggestions dropdown
     tagify.loading(true).dropdown.hide.call(tagify);
 
-    fetch(`/player/autocomplete?term=${encodeURIComponent(term)}&names=1`, {signal: abortCtrl.signal})
+    fetch(`/player/autocomplete?term=${encodeURIComponent(term)}&names=1`, {
+      signal: abortCtrl.signal,
+    })
       .then(r => r.json())
       .then(list => {
         tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
         tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
-      })
+      });
   });
 });

@@ -4,8 +4,8 @@
     padding-left: 0px;
     padding-right: 0px;
     .name {
-    @extend %nowrap-ellipsis;
-      display:inline-block;
+      @extend %nowrap-ellipsis;
+      display: inline-block;
       vertical-align: middle;
       padding-right: 5px;
       max-width: 140px;
@@ -16,7 +16,7 @@
   }
   .user-link .rating {
     font-style: italic;
-    font-size: .8em;
+    font-size: 0.8em;
   }
   tr.long .user-link .rating {
     display: block;
@@ -28,7 +28,7 @@
   }
   .loading tbody {
     opacity: 0.6;
-    @include transition(opacity, .3s);
+    @include transition(opacity, 0.3s);
   }
   &:not(.created):not(.loading) tbody tr:hover {
     background: mix($c-primary, $c-bg-box, 30%);
@@ -36,26 +36,38 @@
   }
   tr.me td:first-child {
     $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-    background: linear-gradient(to right, $c-me-border 0px, $c-me-border 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+    background: linear-gradient(
+      to right,
+      $c-me-border 0px,
+      $c-me-border 5px,
+      rgba(0, 0, 0, 0) 5px,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
   tr.active td:last-child {
     $c-active-border: mix($c-primary, $c-bg-box, 70%);
-    background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+    background: linear-gradient(
+      to left,
+      $c-active-border 0px,
+      $c-active-border 5px,
+      rgba(0, 0, 0, 0) 5px,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
   td.rank {
     @extend %roboto;
-    padding: 1em .5em 1em 10px;
+    padding: 1em 0.5em 1em 10px;
     width: 1px; /* helps keeping it as small as possible */
     i {
-      opacity: .4;
-      font-size: .8em;
+      opacity: 0.4;
+      font-size: 0.8em;
     }
   }
   .sheet {
     text-align: right;
     padding-right: 0;
     padding-left: 0;
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
     & > * {
       display: inline-block;
     }
@@ -64,12 +76,12 @@
     }
   }
   tr.long .sheet {
-    font-size: .9rem;
-    letter-spacing: .06em;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
   }
   tr.xlong .sheet {
-    font-size: .85rem;
-    letter-spacing: .04em;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
   }
   double {
     color: $c-brag;

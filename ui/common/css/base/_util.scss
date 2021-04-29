@@ -1,5 +1,5 @@
 .none {
-  display: none!important;
+  display: none !important;
 }
 
 .fullscreen-mask {
@@ -12,11 +12,13 @@
 
 .rp::before {
   @extend %data-icon;
-  margin-right: .2em;
+  margin-right: 0.2em;
   content: 'N';
 }
 bad.rp {
-  &::before { content: 'M'; }
+  &::before {
+    content: 'M';
+  }
 }
 
 good {

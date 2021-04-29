@@ -18,7 +18,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
-    margin: .8em 0 3em 0;
+    margin: 0.8em 0 3em 0;
   }
   .stage {
     @extend %box-radius, %flex-center-nowrap;
@@ -53,7 +53,7 @@
       margin: 0;
     }
     @keyframes soft-bright {
-      50%{
+      50% {
         filter: brightness(0.97);
       }
     }
@@ -97,7 +97,7 @@
     font-weight: bold;
     color: #333;
     text-align: center;
-    text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
     transform: rotate(45deg);
     position: relative;
     padding: 7px 0;
@@ -105,11 +105,11 @@
     top: 15px;
     width: 120px;
     color: #6a6340;
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
     i {
       color: $c-brag;
       animation: 0.6s soft-hue ease-in-out infinite;
-      text-shadow: 0 -0.5px 1px rgba(0,0,0,0.5);
+      text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
     }
     i:nth-child(2) {
       animation-delay: 0.2s;
@@ -119,10 +119,10 @@
     }
     &:before,
     &:after {
-      content: "";
-      border-left:  3px solid transparent;
+      content: '';
+      border-left: 3px solid transparent;
       border-right: 3px solid transparent;
-      position:absolute;
+      position: absolute;
       bottom: -3px;
     }
     &:before {
@@ -133,18 +133,18 @@
     }
 
     &.done {
-      background-color: #BFDC7A;
+      background-color: #bfdc7a;
     }
     &.done:before,
     &.done:after {
-      border-top:   3px solid #6e8900;
+      border-top: 3px solid #6e8900;
     }
     &.ongoing {
-      background-color: #B3E5FC;
+      background-color: #b3e5fc;
     }
     &.ongoing:before,
     &.ongoing:after {
-      border-top: 3px solid #536DFE;
+      border-top: 3px solid #536dfe;
     }
   }
   .what_next > p {

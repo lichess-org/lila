@@ -1,7 +1,7 @@
-import { State } from './state'
-import { unselect, cancelMove, getKeyAtDomPos, sentePov } from './board'
-import { eventPosition, isRightButton } from './util'
-import * as cg from './types'
+import { State } from './state';
+import { unselect, cancelMove, getKeyAtDomPos, sentePov } from './board';
+import { eventPosition, isRightButton } from './util';
+import * as cg from './types';
 
 export interface DrawShape {
   orig: cg.Key;
@@ -74,7 +74,7 @@ export function start(state: State, e: cg.MouchEvent): void {
     orig,
     pos,
     piece,
-    brush: eventBrush(e)
+    brush: eventBrush(e),
   };
   processDraw(state);
 }
@@ -129,11 +129,13 @@ function eventBrush(e: cg.MouchEvent): string {
 }
 
 function addShape(drawable: Drawable, cur: DrawCurrent): void {
-  const similarShape = (s: DrawShape) =>
-    s.orig === cur.orig && s.dest === cur.dest;
+  const similarShape = (s: DrawShape) => s.orig === cur.orig && s.dest === cur.dest;
   // replacing the piece
   const diffPieceSameSquare = (s: DrawShape) =>
-    s.orig === cur.orig && s.piece && cur.piece && (s.piece.color !== cur.piece.color || s.piece.role !== cur.piece.role)
+    s.orig === cur.orig &&
+    s.piece &&
+    cur.piece &&
+    (s.piece.color !== cur.piece.color || s.piece.role !== cur.piece.role);
 
   const similar = drawable.shapes.find(similarShape);
   const diffPiece = drawable.shapes.find(diffPieceSameSquare);

@@ -1,7 +1,7 @@
-var m = require("mithril");
+var m = require('mithril');
 
-var ctrl = require("./ctrl");
-var view = require("./view/main");
+var ctrl = require('./ctrl');
+var view = require('./view/main');
 
 module.exports = function (opts) {
   var controller = new ctrl(opts);
@@ -18,4 +18,4 @@ module.exports = function (opts) {
   };
 };
 
-window.LishogiChat = require("chat").default;
+window.LishogiChat = require('chat').default;

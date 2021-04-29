@@ -32,13 +32,19 @@
   }
   @keyframes star-appear {
     0% {
-      filter: saturate(1); opacity: 0.5; transform: scale(0) rotate(-360deg);
+      filter: saturate(1);
+      opacity: 0.5;
+      transform: scale(0) rotate(-360deg);
     }
     85% {
-      filter: saturate(1); opacity: 1; transform: scale(1.3) rotate(10deg);
+      filter: saturate(1);
+      opacity: 1;
+      transform: scale(1.3) rotate(10deg);
     }
     100% {
-      filter: saturate(1); opacity: 1; transform: scale(1) rotate(0);
+      filter: saturate(1);
+      opacity: 1;
+      transform: scale(1) rotate(0);
     }
   }
   .stars .star-wrap {
@@ -106,7 +112,7 @@
   .score {
     text-transform: uppercase;
     color: #0288d1;
-    font-size: .85em;
+    font-size: 0.85em;
     display: block;
     letter-spacing: 1px;
     margin-bottom: 17px;
@@ -140,11 +146,11 @@
       margin-top: 8px;
     }
     .next {
-      font-size: .9em;
+      font-size: 0.9em;
       background: #4fc3f7;
     }
     .back {
-      font-size: .85em;
+      font-size: 0.85em;
       background: #f57c00;
     }
     a:hover {

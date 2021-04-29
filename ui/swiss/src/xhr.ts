@@ -1,7 +1,7 @@
-import throttle from "common/throttle";
-import { json } from "common/xhr";
-import SwissCtrl from "./ctrl";
-import { isOutcome } from "./util";
+import throttle from 'common/throttle';
+import { json } from 'common/xhr';
+import SwissCtrl from './ctrl';
+import { isOutcome } from './util';
 
 // when the tournament no longer exists
 function onFail(err) {
@@ -9,28 +9,21 @@ function onFail(err) {
   // window.lishogi.reload();
 }
 
-const join = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}/join`, { method: "post" }).catch(onFail);
+const join = (ctrl: SwissCtrl) => json(`/swiss/${ctrl.data.id}/join`, { method: 'post' }).catch(onFail);
 
-const withdraw = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}/withdraw`, { method: "post" }).catch(onFail);
+const withdraw = (ctrl: SwissCtrl) => json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
 const loadPage = (ctrl: SwissCtrl, p: number) =>
-  json(`/swiss/${ctrl.data.id}/standing/${p}`).then((data) => {
+  json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
     ctrl.redraw();
   });
 
-const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
-  json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
+const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> => json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
 
 const reload = (ctrl: SwissCtrl) =>
-  json(
-    `/swiss/${ctrl.data.id}?page=${
-      ctrl.focusOnMe ? "" : ctrl.page
-    }&playerInfo=${ctrl.playerInfoId || ""}`
-  )
-    .then((data) => {
+  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`)
+    .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
     })
@@ -38,7 +31,7 @@ const reload = (ctrl: SwissCtrl) =>
 
 const playerInfo = (ctrl: SwissCtrl, userId: string) =>
   json(`/swiss/${ctrl.data.id}/player/${userId}`)
-    .then((data) => {
+    .then(data => {
       ctrl.data.playerInfo = data;
       ctrl.redraw();
     })
@@ -46,13 +39,13 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
 
 const readSheetMin = (str: string) =>
   str
-    ? str.split("|").map((s) =>
+    ? str.split('|').map(s =>
         isOutcome(s)
           ? s
           : {
               g: s.slice(0, 8),
-              o: s[8] == "o",
-              w: s[8] == "w" ? true : s[8] == "l" ? false : undefined,
+              o: s[8] == 'o',
+              w: s[8] == 'w' ? true : s[8] == 'l' ? false : undefined,
             }
       )
     : [];

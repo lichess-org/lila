@@ -1,6 +1,6 @@
 h1 {
   font-size: 2.5em;
-  margin: .7em 0;
+  margin: 0.7em 0;
 }
 .tournament-list {
   .slist {
@@ -22,7 +22,7 @@ h1 {
     .header {
       letter-spacing: 2px;
       cursor: pointer;
-      padding: 0!important;
+      padding: 0 !important;
     }
     .header a {
       color: $c-font;

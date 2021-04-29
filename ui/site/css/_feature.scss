@@ -21,7 +21,9 @@
     padding: 10px 20px;
     border-bottom: $border;
   }
-  td { white-space: nowrap }
+  td {
+    white-space: nowrap;
+  }
 
   thead th {
     padding-top: 30px;
@@ -78,13 +80,17 @@
     }
     td,
     th {
-      padding: .8em 0 .8em .5em;
+      padding: 0.8em 0 0.8em 0.5em;
     }
     thead th:first-child {
       min-width: 180px;
     }
-    thead th { font-weight: normal }
-    .price { display: none }
+    thead th {
+      font-weight: normal;
+    }
+    .price {
+      display: none;
+    }
     .explanation {
       font-size: 1.1em;
       margin: 3em 0 1em 0;

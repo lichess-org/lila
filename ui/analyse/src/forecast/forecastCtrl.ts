@@ -1,19 +1,15 @@
-import { prop } from "common";
-import { ForecastCtrl, ForecastData, ForecastStep } from "./interfaces";
-import { AnalyseData } from "../interfaces";
+import { prop } from 'common';
+import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
+import { AnalyseData } from '../interfaces';
 
-export function make(
-  cfg: ForecastData,
-  data: AnalyseData,
-  redraw: () => void
-): ForecastCtrl {
+export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
-    return fc.map((node) => node.ply + ":" + node.uci).join(",");
+    return fc.map(node => node.ply + ':' + node.uci).join(',');
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -37,8 +33,7 @@ export function make(
   }
 
   function truncate(fc: ForecastStep[]): ForecastStep[] {
-    if (cfg.onMyTurn)
-      return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
+    if (cfg.onMyTurn) return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   }
@@ -71,7 +66,7 @@ export function make(
   function reloadToLastPly() {
     loading(true);
     redraw();
-    history.replaceState(null, "", "#last");
+    history.replaceState(null, '', '#last');
     window.lishogi.reload();
   }
 
@@ -90,10 +85,10 @@ export function make(
     loading(true);
     redraw();
     $.ajax({
-      method: "POST",
+      method: 'POST',
       url: saveUrl,
       data: JSON.stringify(forecasts),
-      contentType: "application/json",
+      contentType: 'application/json',
     }).then(function (data) {
       if (data.reload) reloadToLastPly();
       else {
@@ -113,8 +108,8 @@ export function make(
     loading(true);
     redraw();
     $.ajax({
-      method: "POST",
-      url: saveUrl + "/" + encodeUci(node.uci),
+      method: 'POST',
+      url: saveUrl + '/' + encodeUci(node.uci),
       data: JSON.stringify(
         findStartingWithNode(node)
           .filter(function (fc) {
@@ -124,7 +119,7 @@ export function make(
             return fc.slice(1);
           })
       ),
-      contentType: "application/json",
+      contentType: 'application/json',
     }).then(function (data) {
       if (data.reload) reloadToLastPly();
       else {

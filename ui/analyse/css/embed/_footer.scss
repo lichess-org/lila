@@ -1,6 +1,6 @@
 footer {
-  @extend  %flex-center-nowrap, %metal;
-  font-size: .9em;
+  @extend %flex-center-nowrap, %metal;
+  font-size: 0.9em;
   border: $border;
   border-top: none;
   height: 2.5rem;

@@ -3,7 +3,7 @@
   color: $c-font;
   &.online .line {
     &::before {
-      content: "";
+      content: '';
     }
     color: $c-good;
     opacity: 0.9;
@@ -16,17 +16,17 @@
     font-size: 1.2em;
     @if $theme-light {
       &.sente::before {
-        content: "☗";
+        content: '☗';
       }
       &.gote::before {
-        content: "☖";
+        content: '☖';
       }
     } @else {
       &.sente::before {
-        content: "☖";
+        content: '☖';
       }
       &.gote::before {
-        content: "☗";
+        content: '☗';
       }
     }
   }
@@ -42,13 +42,13 @@
       opacity: 0.8;
     }
     &::before {
-      content: "";
+      content: '';
     }
     &.patron::before {
-      content: "" !important;
+      content: '' !important;
     }
     &.moderator::before {
-      content: "";
+      content: '';
     }
   }
   .title {

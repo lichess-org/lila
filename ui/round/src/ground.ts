@@ -1,16 +1,16 @@
-import { h } from "snabbdom";
-import { Shogiground } from "shogiground";
-import * as cg from "shogiground/types";
-import { Api as CgApi } from "shogiground/api";
-import { Config } from "shogiground/config";
-import changeColorHandle from "common/coordsColor";
-import resizeHandle from "common/resize";
-import * as util from "./util";
-import { plyStep } from "./round";
-import RoundController from "./ctrl";
-import { RoundData } from "./interfaces";
-import { promote as promoteRole } from "shogiops/util";
-import { PromotableRole } from "shogiops/types";
+import { h } from 'snabbdom';
+import { Shogiground } from 'shogiground';
+import * as cg from 'shogiground/types';
+import { Api as CgApi } from 'shogiground/api';
+import { Config } from 'shogiground/config';
+import changeColorHandle from 'common/coordsColor';
+import resizeHandle from 'common/resize';
+import * as util from './util';
+import { plyStep } from './round';
+import RoundController from './ctrl';
+import { RoundData } from './interfaces';
+import { promote as promoteRole } from 'shogiops/util';
+import { PromotableRole } from 'shogiops/types';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -20,7 +20,7 @@ export function makeConfig(ctrl: RoundController): Config {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
-    turnColor: step.ply % 2 === 0 ? "sente" : "gote",
+    turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
     lastMove: util.uci2move(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
@@ -37,11 +37,11 @@ export function makeConfig(ctrl: RoundController): Config {
         if (data.pref.coords == 1) changeColorHandle();
       },
       select: () => {
-        if(ctrl.dropmodeActive && !ctrl.shogiground?.state.dropmode.active){
+        if (ctrl.dropmodeActive && !ctrl.shogiground?.state.dropmode.active) {
           ctrl.dropmodeActive = false;
           ctrl.redraw();
         }
-      }
+      },
     },
     movable: {
       free: false,
@@ -91,7 +91,7 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: true,
     },
     disableContextMenu: true,
-    notation: data.pref.pieceNotation
+    notation: data.pref.pieceNotation,
   };
 }
 
@@ -123,9 +123,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 }
 
 export function render(ctrl: RoundController) {
-  return h("div.cg-wrap", {
-    hook: util.onInsert((el) =>
-      ctrl.setShogiground(Shogiground(el, makeConfig(ctrl)))
-    ),
+  return h('div.cg-wrap', {
+    hook: util.onInsert(el => ctrl.setShogiground(Shogiground(el, makeConfig(ctrl)))),
   });
 }

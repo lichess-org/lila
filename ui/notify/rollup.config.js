@@ -1,9 +1,9 @@
-import { rollupProject } from "@build/rollupProject";
+import { rollupProject } from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: "LishogiNotify",
-    input: "src/main.ts",
-    output: "lishogi.notify",
+    name: 'LishogiNotify',
+    input: 'src/main.ts',
+    output: 'lishogi.notify',
   },
 });

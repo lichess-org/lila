@@ -1,7 +1,6 @@
 $c-challenge: $c-secondary;
 
 .challenge-page {
-
   .challenge-id-form {
     white-space: nowrap;
   }
@@ -36,7 +35,7 @@ $c-challenge: $c-secondary;
     border-radius: 99px;
     background: mix($c-challenge, $c-bg-box, 10%);
     border: 1px solid $c-challenge;
-    padding: .5em 1.1em;
+    padding: 0.5em 1.1em;
     margin-bottom: 3rem;
     font-size: 2em;
     > div {
@@ -44,7 +43,7 @@ $c-challenge: $c-secondary;
       &::before {
         color: $c-challenge;
         font-size: 6rem;
-        margin-right: .2em;
+        margin-right: 0.2em;
       }
       div {
         line-height: 1.4;

@@ -1,4 +1,4 @@
-var util = require("./util");
+var util = require('./util');
 
 var apple = 50;
 var capture = 50;
@@ -39,7 +39,7 @@ function getStageMaxScore(s) {
 
 function getStageRank(s, score) {
   var max = getStageMaxScore(s);
-  if (typeof score !== "number") score = score.reduce((a, b) => a + b, 0);
+  if (typeof score !== 'number') score = score.reduce((a, b) => a + b, 0);
   if (score >= max) return 1;
   if (score >= max - Math.max(200, s.levels.length * 150)) return 2;
   return 3;

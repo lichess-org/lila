@@ -1,5 +1,5 @@
 main {
-  @include fluid-size("--gauge-gap", 8px, 17px);
+  @include fluid-size('--gauge-gap', 8px, 17px);
 }
 
 .eval-gauge {
@@ -14,7 +14,7 @@ main {
     transform: rotateX(180deg);
   }
   &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;

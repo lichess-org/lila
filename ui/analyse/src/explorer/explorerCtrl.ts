@@ -1,19 +1,12 @@
-import { prop } from "common";
-import { storedProp } from "common/storage";
-import { opposite } from "shogiground/util";
-import { controller as configCtrl } from "./explorerConfig";
-import * as xhr from "./explorerXhr";
-import { winnerOf, colorOf } from "./explorerUtil";
-import * as gameUtil from "game";
-import AnalyseCtrl from "../ctrl";
-import {
-  Hovering,
-  ExplorerCtrl,
-  ExplorerData,
-  OpeningData,
-  TablebaseData,
-  SimpleTablebaseHit,
-} from "./interfaces";
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
+import { opposite } from 'shogiground/util';
+import { controller as configCtrl } from './explorerConfig';
+import * as xhr from './explorerXhr';
+import { winnerOf, colorOf } from './explorerUtil';
+import * as gameUtil from 'game';
+import AnalyseCtrl from '../ctrl';
+import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -22,8 +15,8 @@ function pieceCount(fen: Fen) {
 
 function tablebasePieces(variant: VariantKey) {
   switch (variant) {
-    case "standard":
-    case "fromPosition":
+    case 'standard':
+    case 'fromPosition':
       return 7;
     default:
       return 0;
@@ -38,24 +31,16 @@ function tablebaseRelevant(variant: VariantKey, fen: Fen) {
   return pieceCount(fen) - 1 <= tablebasePieces(variant);
 }
 
-export default function (
-  root: AnalyseCtrl,
-  opts,
-  allow: boolean
-): ExplorerCtrl {
+export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow),
-    enabled = root.embed ? prop(false) : storedProp("explorer.enabled", false),
+    enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
     loading = prop(true),
     failing = prop(false),
     hovering = prop<Hovering | null>(null),
     movesAway = prop(0),
     gameMenu = prop<string | null>(null);
 
-  if (
-    (location.hash === "#explorer" || location.hash === "#opening") &&
-    !root.embed
-  )
-    enabled(true);
+  if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
 
   let cache = {};
   function onConfigClose() {
@@ -64,12 +49,8 @@ export default function (
     setNode();
   }
   const data = root.data,
-    withGames =
-      root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
-    effectiveVariant =
-      data.game.variant.key === "fromPosition"
-        ? "standard"
-        : data.game.variant.key,
+    withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
+    effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
     config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
   const fetch = window.lishogi.debounce(
@@ -83,7 +64,7 @@ export default function (
               effectiveVariant,
               fen,
               root.nodeList[0].fen,
-              root.nodeList.slice(1).map((s) => s.uci!),
+              root.nodeList.slice(1).map(s => s.uci!),
               config.data,
               withGames
             );
@@ -169,20 +150,17 @@ export default function (
     fetchMasterOpening: (function () {
       const masterCache = {};
       return (fen: Fen): JQueryPromise<OpeningData> => {
-        if (masterCache[fen])
-          return $.Deferred()
-            .resolve(masterCache[fen])
-            .promise() as JQueryPromise<OpeningData>;
+        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
         return xhr
           .opening(
             opts.endpoint,
-            "standard",
+            'standard',
             fen,
             fen,
             [],
             {
               db: {
-                selected: prop("masters"),
+                selected: prop('masters'),
               },
             },
             false
@@ -194,21 +172,15 @@ export default function (
       };
     })(),
     fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
-      return xhr
-        .tablebase(opts.tablebaseEndpoint, effectiveVariant, fen)
-        .then((res: TablebaseData) => {
-          const move = res.moves[0];
-          if (move && move.dtz == null) throw "unknown tablebase position";
-          return {
-            fen: fen,
-            best: move && move.uci,
-            winner: res.checkmate
-              ? opposite(colorOf(fen))
-              : res.stalemate
-              ? undefined
-              : winnerOf(fen, move!),
-          } as SimpleTablebaseHit;
-        });
+      return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
+        const move = res.moves[0];
+        if (move && move.dtz == null) throw 'unknown tablebase position';
+        return {
+          fen: fen,
+          best: move && move.uci,
+          winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+        } as SimpleTablebaseHit;
+      });
     },
   };
 }

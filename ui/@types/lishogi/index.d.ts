@@ -7,12 +7,8 @@ interface Lishogi {
   isCol1(): boolean;
   storage: LishogiStorageHelper;
   tempStorage: LishogiStorageHelper; // TODO: unused
-  once(key: string, mod?: "always"): boolean;
-  debounce(
-    func: (...args: any[]) => void,
-    wait: number,
-    immediate?: boolean
-  ): (...args: any[]) => void;
+  once(key: string, mod?: 'always'): boolean;
+  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;
   widget: unknown;
   hoverable?: boolean;
@@ -92,7 +88,7 @@ interface Lishogi {
 
 interface LishogiSpeech {
   say(t: string, cut: boolean): void;
-  step(s: { san?: San, uci?: Uci }, cut: boolean): void;
+  step(s: { san?: San; uci?: Uci }, cut: boolean): void;
 }
 
 interface PalantirOpts {
@@ -114,12 +110,7 @@ interface AssetUrlOpts {
   noVersion?: boolean;
 }
 
-declare type SocketSend = (
-  type: string,
-  data?: any,
-  opts?: any,
-  noRetry?: boolean
-) => void;
+declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
 type TransNoArg = (key: string) => string;
 
@@ -128,12 +119,7 @@ interface Trans {
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): (string | T)[];
-  vdomPlural<T>(
-    key: string,
-    count: number,
-    countArg: T,
-    ...args: T[]
-  ): (string | T)[];
+  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
 }
 
 type PubsubCallback = (...data: any[]) => void;
@@ -214,109 +200,97 @@ interface Navigator {
   deviceMemory: number;
 }
 
-declare type VariantKey =
-  | "standard"
-  | "fromPosition";
+declare type VariantKey = 'standard' | 'fromPosition';
 
-declare type Speed =
-  | "bullet"
-  | "blitz"
-  | "classical"
-  | "correspondence"
-  | "unlimited";
+declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 
-declare type Perf =
-  | "bullet"
-  | "blitz"
-  | "classical"
-  | "correspondence"
-  | "fromPosition";
+declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'fromPosition';
 
-declare type Color = "sente" | "gote";
+declare type Color = 'sente' | 'gote';
 
 declare type Key =
-  | "a0"
-  | "a1"
-  | "b1"
-  | "c1"
-  | "d1"
-  | "e1"
-  | "f1"
-  | "g1"
-  | "h1"
-  | "i1"
-  | "a2"
-  | "b2"
-  | "c2"
-  | "d2"
-  | "e2"
-  | "f2"
-  | "g2"
-  | "h2"
-  | "i2"
-  | "a3"
-  | "b3"
-  | "c3"
-  | "d3"
-  | "e3"
-  | "f3"
-  | "g3"
-  | "h3"
-  | "i3"
-  | "a4"
-  | "b4"
-  | "c4"
-  | "d4"
-  | "e4"
-  | "f4"
-  | "g4"
-  | "h4"
-  | "i4"
-  | "a5"
-  | "b5"
-  | "c5"
-  | "d5"
-  | "e5"
-  | "f5"
-  | "g5"
-  | "h5"
-  | "i5"
-  | "a6"
-  | "b6"
-  | "c6"
-  | "d6"
-  | "e6"
-  | "f6"
-  | "g6"
-  | "h6"
-  | "i6"
-  | "a7"
-  | "b7"
-  | "c7"
-  | "d7"
-  | "e7"
-  | "f7"
-  | "g7"
-  | "h7"
-  | "i7"
-  | "a8"
-  | "b8"
-  | "c8"
-  | "d8"
-  | "e8"
-  | "f8"
-  | "g8"
-  | "h8"
-  | "i8"
-  | "a9"
-  | "b9"
-  | "c9"
-  | "d9"
-  | "e9"
-  | "f9"
-  | "g9"
-  | "h9"
-  | "i9";
+  | 'a0'
+  | 'a1'
+  | 'b1'
+  | 'c1'
+  | 'd1'
+  | 'e1'
+  | 'f1'
+  | 'g1'
+  | 'h1'
+  | 'i1'
+  | 'a2'
+  | 'b2'
+  | 'c2'
+  | 'd2'
+  | 'e2'
+  | 'f2'
+  | 'g2'
+  | 'h2'
+  | 'i2'
+  | 'a3'
+  | 'b3'
+  | 'c3'
+  | 'd3'
+  | 'e3'
+  | 'f3'
+  | 'g3'
+  | 'h3'
+  | 'i3'
+  | 'a4'
+  | 'b4'
+  | 'c4'
+  | 'd4'
+  | 'e4'
+  | 'f4'
+  | 'g4'
+  | 'h4'
+  | 'i4'
+  | 'a5'
+  | 'b5'
+  | 'c5'
+  | 'd5'
+  | 'e5'
+  | 'f5'
+  | 'g5'
+  | 'h5'
+  | 'i5'
+  | 'a6'
+  | 'b6'
+  | 'c6'
+  | 'd6'
+  | 'e6'
+  | 'f6'
+  | 'g6'
+  | 'h6'
+  | 'i6'
+  | 'a7'
+  | 'b7'
+  | 'c7'
+  | 'd7'
+  | 'e7'
+  | 'f7'
+  | 'g7'
+  | 'h7'
+  | 'i7'
+  | 'a8'
+  | 'b8'
+  | 'c8'
+  | 'd8'
+  | 'e8'
+  | 'f8'
+  | 'g8'
+  | 'h8'
+  | 'i8'
+  | 'a9'
+  | 'b9'
+  | 'c9'
+  | 'd9'
+  | 'e9'
+  | 'f9'
+  | 'g9'
+  | 'h9'
+  | 'i9';
 declare type Uci = string;
 declare type San = string;
 declare type Fen = string;
@@ -397,7 +371,7 @@ declare namespace Tree {
     san?: string;
     threefold?: boolean;
     fail?: boolean;
-    puzzle?: "win" | "fail" | "good" | "retry";
+    puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
   }
 
@@ -450,12 +424,12 @@ interface LishogiModal {
 }
 
 interface JQuery {
-  powerTip(options?: PowerTip.Options | "show" | "hide"): JQuery;
+  powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
   typeahead: any;
   sparkline: any;
   clock: any;
   watchers(): JQuery;
-  watchers(method: "set", data: any): void;
+  watchers(method: 'set', data: any): void;
   highcharts(conf?: any): any;
   slider(key: string, value: any): any;
   slider(opts: any): any;
@@ -463,19 +437,7 @@ interface JQuery {
 }
 
 declare namespace PowerTip {
-  type Placement =
-    | "n"
-    | "e"
-    | "s"
-    | "w"
-    | "nw"
-    | "ne"
-    | "sw"
-    | "se"
-    | "nw-alt"
-    | "ne-alt"
-    | "sw-alt"
-    | "se-alt";
+  type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' | 'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
 
   interface Options {
     followMouse?: boolean;

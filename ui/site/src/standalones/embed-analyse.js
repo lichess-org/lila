@@ -5,78 +5,54 @@ function toYouTubeEmbedUrl(url) {
   );
   if (!m) return;
   var start = 1;
-  m[2].split("&").forEach(function (p) {
-    var s = p.split("=");
-    if (s[0] === "t" || s[0] === "start") {
+  m[2].split('&').forEach(function (p) {
+    var s = p.split('=');
+    if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
       else {
         var n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
-        start =
-          (parseInt(n[1]) || 0) * 3600 +
-          (parseInt(n[2]) || 0) * 60 +
-          (parseInt(n[3]) || 0);
+        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
       }
     }
   });
-  var params =
-    "modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=" + start;
-  return "https://www.youtube.com/embed/" + m[1] + "?" + params;
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 
 $(function () {
   var domain = window.location.host;
 
-  var studyRegex = new RegExp(
-    domain + "/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b"
-  );
-  var gameRegex = new RegExp(
-    domain + "/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b"
-  );
-  var notGames = [
-    "training",
-    "analysis",
-    "insights",
-    "practice",
-    "features",
-    "password",
-    "streamer",
-  ];
+  var studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b');
+  var gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b');
+  var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
   var parseLink = function (a) {
     var yt = toYouTubeEmbedUrl(a.href);
     if (yt)
       return {
-        type: "youtube",
+        type: 'youtube',
         src: yt,
       };
     var matches = a.href.match(studyRegex);
     if (matches && matches[2] && a.text.match(studyRegex))
       return {
-        type: "study",
-        src:
-          "/study/embed/" + matches[1] + "/" + matches[2] + (matches[3] || ""),
+        type: 'study',
+        src: '/study/embed/' + matches[1] + '/' + matches[2] + (matches[3] || ''),
       };
     var matches = a.href.match(gameRegex);
-    if (
-      matches &&
-      matches[1] &&
-      !notGames.includes(matches[1]) &&
-      a.text.match(gameRegex)
-    ) {
-      var src = "/embed/" + matches[1];
-      if (matches[2]) src += "/" + matches[2]; // orientation
+    if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
+      var src = '/embed/' + matches[1];
+      if (matches[2]) src += '/' + matches[2]; // orientation
       if (matches[3]) src += matches[3]; // ply hash
       return {
-        type: "game",
+        type: 'game',
         src: src,
       };
     }
   };
 
   var expandYoutube = function (a) {
-    var $iframe = $(
-      '<div class="embed"><iframe src="' + a.src + '"></iframe></div>'
-    );
+    var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   };
@@ -86,8 +62,8 @@ $(function () {
       wait = Math.min(1500, wait || 100);
     if (a)
       expandYoutube(a)
-        .find("iframe")
-        .on("load", function () {
+        .find('iframe')
+        .on('load', function () {
           setTimeout(function () {
             expandYoutubes(as, wait + 200);
           }, wait);
@@ -95,16 +71,15 @@ $(function () {
   };
 
   var expand = function (a) {
-    var $iframe = $("<iframe>")
-      .addClass("analyse " + a.type)
-      .attr("src", a.src);
+    var $iframe = $('<iframe>')
+      .addClass('analyse ' + a.type)
+      .attr('src', a.src);
     $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
     return $iframe
-      .on("load", function () {
-        if (this.contentDocument.title.startsWith("404"))
-          this.style.height = "100px";
+      .on('load', function () {
+        if (this.contentDocument.title.startsWith('404')) this.style.height = '100px';
       })
-      .on("mouseenter", function () {
+      .on('mouseenter', function () {
         $(this).focus();
       });
   };
@@ -113,7 +88,7 @@ $(function () {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
     if (a)
-      expand(a).on("load", function () {
+      expand(a).on('load', function () {
         setTimeout(function () {
           expandStudies(as, wait + 200);
         }, wait);
@@ -144,10 +119,10 @@ $(function () {
       if (group.length < 3) group.forEach(expand);
       else
         group.forEach(function (a) {
-          a.element.title = "Click to expand";
-          a.element.classList.add("text");
-          a.element.setAttribute("data-icon", "=");
-          a.element.addEventListener("click", function (e) {
+          a.element.title = 'Click to expand';
+          a.element.classList.add('text');
+          a.element.setAttribute('data-icon', '=');
+          a.element.addEventListener('click', function (e) {
             if (e.button === 0) {
               e.preventDefault();
               expand(a);
@@ -158,42 +133,42 @@ $(function () {
   };
 
   var themes = [
-    "solid-orange",
-    "solid-natural",
-    "wood1",
-    "kaya1",
-    "kaya2",
-    "kaya-light",
-    "oak",
-    "solid-brown1",
-    "solid-wood1",
-    "blue",
-    "dark-blue",
-    "gray",
-    "Painting1",
-    "Painting2",
-    "Kinkaku",
-    "space1",
-    "space2",
-    "whiteBoard",
-    "darkBoard",
-    "doubutsu"
+    'solid-orange',
+    'solid-natural',
+    'wood1',
+    'kaya1',
+    'kaya2',
+    'kaya-light',
+    'oak',
+    'solid-brown1',
+    'solid-wood1',
+    'blue',
+    'dark-blue',
+    'gray',
+    'Painting1',
+    'Painting2',
+    'Kinkaku',
+    'space1',
+    'space2',
+    'whiteBoard',
+    'darkBoard',
+    'doubutsu',
   ];
 
   var configureSrc = function (url) {
-    if (url.includes("://")) return url; // youtube, img, etc
+    if (url.includes('://')) return url; // youtube, img, etc
     var parsed = new URL(url, window.location.href);
     parsed.searchParams.append(
-      "theme",
+      'theme',
       themes.find(function (theme) {
         return document.body.classList.contains(theme);
-      }) ?? "wood1"
+      }) ?? 'wood1'
     );
-    parsed.searchParams.append("bg", document.body.getAttribute("data-theme"));
+    parsed.searchParams.append('bg', document.body.getAttribute('data-theme'));
     return parsed.href;
   };
 
-  var as = $(".embed_analyse a")
+  var as = $('.embed_analyse a')
     .toArray()
     .map(function (el) {
       var parsed = parseLink(el);
@@ -211,17 +186,17 @@ $(function () {
 
   expandYoutubes(
     as.filter(function (a) {
-      return a.type === "youtube";
+      return a.type === 'youtube';
     })
   );
 
   expandStudies(
     as
       .filter(function (a) {
-        return a.type === "study";
+        return a.type === 'study';
       })
       .map(function (a) {
-        a.element.classList.add("embedding_analyse");
+        a.element.classList.add('embedding_analyse');
         a.element.innerHTML = lishogi.spinnerHtml;
         return a;
       })
@@ -229,18 +204,18 @@ $(function () {
 
   expandGames(
     as.filter(function (a) {
-      return a.type === "game";
+      return a.type === 'game';
     })
   );
 });
 
 lishogi.startEmbeddedAnalyse = function (opts) {
-  document.body.classList.toggle("supports-max-content", !!window.chrome);
+  document.body.classList.toggle('supports-max-content', !!window.chrome);
   opts.socketSend = $.noop;
-  opts.initialPly = "url";
+  opts.initialPly = 'url';
   opts.trans = lishogi.trans(opts.i18n);
   LishogiAnalyse.start(opts);
-  window.addEventListener("resize", function () {
-    lishogi.dispatchEvent(document.body, "shogiground.resize");
+  window.addEventListener('resize', function () {
+    lishogi.dispatchEvent(document.body, 'shogiground.resize');
   });
 };

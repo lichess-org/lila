@@ -1,33 +1,23 @@
-import { isPlayerTurn } from "game/game";
-import { dragNewPiece } from "shogiground/drag";
-import { setDropMode, cancelDropMode } from "shogiground/drop";
-import RoundController from "../ctrl";
-import * as cg from "shogiground/types"
-import { Shogi } from "shogiops/shogi"; 
-import { parseFen } from "shogiops/fen";
-import { parseChessSquare } from "shogiops/compat";
-import { PocketRole } from 'shogiops/types'
+import { isPlayerTurn } from 'game/game';
+import { dragNewPiece } from 'shogiground/drag';
+import { setDropMode, cancelDropMode } from 'shogiground/drop';
+import RoundController from '../ctrl';
+import * as cg from 'shogiground/types';
+import { Shogi } from 'shogiops/shogi';
+import { parseFen } from 'shogiops/fen';
+import { parseChessSquare } from 'shogiops/compat';
+import { PocketRole } from 'shogiops/types';
 
 const li = window.lishogi;
 
-export const pieceRoles: cg.Role[] = [
-  "pawn",
-  "lance",
-  "knight",
-  "silver",
-  "gold",
-  "bishop",
-  "rook",
-];
+export const pieceRoles: cg.Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
 
 export function shadowDrop(ctrl: RoundController, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
-  const role = (el.getAttribute("data-role") ??
-    el.firstElementChild!.getAttribute("data-role")) as cg.Role;
+  const role = (el.getAttribute('data-role') ?? el.firstElementChild!.getAttribute('data-role')) as cg.Role;
   if (!ctrl.shogiground) return;
   const curPiece = ctrl.shogiground.state.drawable.piece;
-  if (curPiece && curPiece.role == role && curPiece.color == color)
-    ctrl.shogiground.state.drawable.piece = undefined
+  if (curPiece && curPiece.role == role && curPiece.color == color) ctrl.shogiground.state.drawable.piece = undefined;
   else ctrl.shogiground.state.drawable.piece = { role: role, color: color };
   e.stopPropagation();
   e.preventDefault();
@@ -38,10 +28,10 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-    role = el.getAttribute("data-role") as cg.Role,
-    color = el.getAttribute("data-color") as cg.Color,
-    number = el.getAttribute("data-nb");
-  if (!role || !color || number === "0") return;
+    role = el.getAttribute('data-role') as cg.Role,
+    color = el.getAttribute('data-color') as cg.Color,
+    number = el.getAttribute('data-nb');
+  if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
@@ -51,17 +41,16 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-    role = el.getAttribute("data-role") as cg.Role,
-    color = el.getAttribute("data-color") as cg.Color,
-    number = el.getAttribute("data-nb");
-  if (!role || !color || number === "0") return;
+    role = el.getAttribute('data-role') as cg.Role,
+    color = el.getAttribute('data-color') as cg.Color,
+    number = el.getAttribute('data-nb');
+  if (!role || !color || number === '0') return;
   const dropMode = ctrl.shogiground?.state.dropmode;
   const dropPiece = ctrl.shogiground?.state.dropmode.piece;
-  if(!dropMode.active || dropPiece?.role !== role){
+  if (!dropMode.active || dropPiece?.role !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
     ctrl.dropmodeActive = true;
-  }
-  else{
+  } else {
     cancelDropMode(ctrl.shogiground.state);
     ctrl.dropmodeActive = false;
   }
@@ -73,40 +62,34 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
 let dropWithKey = false;
 let dropWithDrag = false;
 
-export function valid(
-  ctrl: RoundController,
-  role: cg.Role,
-  key: cg.Key,
-  checkmateCheck = false,
-): boolean {
+export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkmateCheck = false): boolean {
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
-  const move = {role: role as PocketRole, to: parseChessSquare(key)!};
-  
+  const move = { role: role as PocketRole, to: parseChessSquare(key)! };
+
   // Unless reload event occurs we have only board fen, so we have to fake the rest
-  console.log("lastStep fen: ", lastStep.fen);
+  console.log('lastStep fen: ', lastStep.fen);
   //const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
 
   if (crazyKeys.length === 0) dropWithDrag = true;
-  else
-    dropWithKey = true;
+  else dropWithKey = true;
 
   if (!isPlayerTurn(data)) return false;
 
   const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false);
   const l = shogi.unwrap(
-    (s) => s.isLegal(move!),
+    s => s.isLegal(move!),
     _ => true // for weird positions
   );
-  if(checkmateCheck && role === 'pawn' && shogi.isOk){
+  if (checkmateCheck && role === 'pawn' && shogi.isOk) {
     shogi.unwrap().play(move!);
-    if(shogi.unwrap().isCheckmate()) alert("Checkmating with a pawn drop is an illegal move.");
+    if (shogi.unwrap().isCheckmate()) alert('Checkmating with a pawn drop is an illegal move.');
   }
   return l;
 }
 
 export function onEnd() {
-  const store = li.storage.make("crazyKeyHist");
+  const store = li.storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -130,7 +113,7 @@ export function init(ctrl: RoundController) {
         crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;
 
-      const nb = crazyData.pockets[color === "sente" ? 0 : 1][role];
+      const nb = crazyData.pockets[color === 'sente' ? 0 : 1][role];
       setDropMode(ctrl.shogiground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);
@@ -147,7 +130,7 @@ export function init(ctrl: RoundController) {
   // shogiground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into shogiground again.
-  window.lishogi.pubsub.on("ply", () => {
+  window.lishogi.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   });
 
@@ -172,7 +155,7 @@ export function init(ctrl: RoundController) {
           }
         }
       },
-      "keyup"
+      'keyup'
     );
   }
 
@@ -183,14 +166,13 @@ export function init(ctrl: RoundController) {
     }
   };
 
-  window.addEventListener("blur", resetKeys);
+  window.addEventListener('blur', resetKeys);
 
   // Handle focus on input bars – these will hide keyup events
   window.addEventListener(
-    "focus",
-    (e) => {
-      if (e.target && (e.target as HTMLElement).localName === "input")
-        resetKeys();
+    'focus',
+    e => {
+      if (e.target && (e.target as HTMLElement).localName === 'input') resetKeys();
     },
     { capture: true }
   );

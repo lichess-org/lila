@@ -5,9 +5,7 @@ $mq-col3: $mq-x-large;
 @import '../../puz/css/font';
 
 #main-wrap {
-  --main-max-width: calc(
-    100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}
-  );
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
@@ -18,7 +16,6 @@ $mq-col3: $mq-x-large;
   display: grid;
 
   overflow: hidden; // coords cause mobile to have horiz scrolling
-
 
   &__side {
     grid-area: side;
@@ -47,28 +44,28 @@ $mq-col3: $mq-x-large;
   }
 
   grid-template-areas:
-    "board"
-    "progress"
-    "button"
-    "table"
-    "side";
+    'board'
+    'progress'
+    'button'
+    'table'
+    'side';
   grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-      "board    . table"
-      "board    . button"
-      "progress . side"
-      ".        . side";
+      'board    . table'
+      'board    . button'
+      'progress . side'
+      '.        . side';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-      "side . board    . table"
-      "side . board    . button"
-      ".    . progress . .";
+      'side . board    . table'
+      'side . board    . button'
+      '.    . progress . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
 
@@ -170,7 +167,7 @@ $mq-col3: $mq-x-large;
   &.play #next_coord {
     display: block;
   }
-    
+
   &.play.sente .coord-trainer__button .current-color {
     width: 64px;
     height: 64px;

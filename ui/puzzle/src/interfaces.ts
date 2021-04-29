@@ -51,7 +51,7 @@ export interface Controller extends KeyboardController {
   position(): Shogi;
   showComputer(): boolean;
   trans: Trans;
-  tsumeLength(): number,
+  tsumeLength(): number;
   getData(): PuzzleData;
   data: PuzzleOpts;
   getTree(): TreeWrapper;
@@ -159,8 +159,8 @@ export interface PuzzleGame {
   clock?: string;
   // From the outside
   fen?: string;
-  author?: string,
-  description?: string
+  author?: string;
+  description?: string;
 }
 
 export interface PuzzlePlayer {

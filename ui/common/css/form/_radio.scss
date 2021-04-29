@@ -6,7 +6,7 @@ group.radio {
     position: relative;
   }
   input {
-    position:absolute;
+    position: absolute;
     left: -99999px;
   }
   label {
@@ -14,7 +14,7 @@ group.radio {
     justify-content: center;
     padding: 10px;
     height: 100%;
-    cursor:pointer;
+    cursor: pointer;
     border-right: $border;
     user-select: none;
     &:hover {

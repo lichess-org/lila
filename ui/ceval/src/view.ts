@@ -1,9 +1,9 @@
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from "./types";
-import { renderEval, cubicRegressionEval } from "./util";
-import * as winningChances from "./winningChances";
-import { defined } from "common";
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import { renderEval, cubicRegressionEval } from './util';
+import * as winningChances from './winningChances';
+import { defined } from 'common';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
 import { Position } from 'shogiops/shogi';
 import { makeLishogiUci, assureUsi } from 'shogiops/compat';
@@ -11,87 +11,67 @@ import { opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
 import { makeSanAndPlay } from 'shogiops/san';
 import { Move } from 'shogiops/types';
-import { Shogi } from "shogiops/shogi";
-
+import { Shogi } from 'shogiops/shogi';
 
 let gaugeLast = 0;
-const gaugeTicks: VNode[] = [...Array(8).keys()].map((i) =>
-  h(i === 3 ? "tick.zero" : "tick", {
+const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
+  h(i === 3 ? 'tick.zero' : 'tick', {
     attrs: { style: `height: ${(i + 1) * 12.5}%` },
   })
 );
 
-function localEvalInfo(
-  ctrl: ParentCtrl,
-  evs: NodeEvals
-): Array<VNode | string> {
+function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
   if (!evs.client)
-    return [
-      evs.server && ctrl.nextNodeBest()
-        ? trans.noarg("usingServerAnalysis")
-        : trans.noarg("loadingEngine"),
-    ];
+    return [evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine')];
 
   const t: Array<VNode | string> = evs.client.cloud
     ? [
-        trans("depthX", evs.client.depth || 0),
-        h(
-          "span.cloud",
-          { attrs: { title: trans.noarg("cloudAnalysis") } },
-          "Cloud"
-        ),
+        trans('depthX', evs.client.depth || 0),
+        h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud'),
       ]
-    : [trans("depthX", (evs.client.depth || 0) + "/" + evs.client.maxDepth)];
+    : [trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)];
   if (ceval.canGoDeeper())
     t.push(
-      h("a.deeper", {
+      h('a.deeper', {
         attrs: {
-          title: trans.noarg("goDeeper"),
-          "data-icon": "O",
+          title: trans.noarg('goDeeper'),
+          'data-icon': 'O',
         },
         hook: {
-          insert: (vnode) =>
-            (vnode.elm as HTMLElement).addEventListener("click", () => {
+          insert: vnode =>
+            (vnode.elm as HTMLElement).addEventListener('click', () => {
               ceval.goDeeper();
               ceval.redraw();
             }),
         },
       })
     );
-  else if (!evs.client.cloud && evs.client.knps)
-    t.push(", " + Math.round(evs.client.knps) + " knodes/s");
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
-function threatInfo(
-  ctrl: ParentCtrl,
-  threat?: Tree.ClientEval | false
-): string {
-  if (!threat) return ctrl.trans.noarg("loadingEngine");
-  let t = ctrl.trans("depthX", (threat.depth || 0) + "/" + threat.maxDepth);
-  if (threat.knps) t += ", " + Math.round(threat.knps) + " knodes/s";
+function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string {
+  if (!threat) return ctrl.trans.noarg('loadingEngine');
+  let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
   if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
-  return h("a.show-threat", {
+  return h('a.show-threat', {
     class: {
       active: ctrl.threatMode(),
       hidden: !!ctrl.getNode().check,
     },
     attrs: {
-      "data-icon": "7",
-      title: ctrl.trans.noarg("showThreat") + " (x)",
+      'data-icon': '7',
+      title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
     hook: {
-      insert: (vnode) =>
-        (vnode.elm as HTMLElement).addEventListener(
-          "click",
-          ctrl.toggleThreatMode
-        ),
+      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode),
     },
   });
 }
@@ -99,20 +79,12 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h(
-      "span",
-      version ? { attrs: { title: version } } : {},
-      ctrl.technology == "wasmx" ? "Fairy-Stockfish" : " - "
-    ),
-    ctrl.technology == "wasmx"
-      ? h(
-          "span.native",
-          { attrs: { title: "Multi-threaded WebAssembly (experimental)" } },
-          "wasmx"
-        )
-      : ctrl.technology == "wasm"
-      ? h("span.native", { attrs: { title: "WebAssembly" } }, "wasm")
-      : h("span.asmjs", { attrs: { title: "JavaScript fallback" } }, "asmjs"),
+    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? 'Fairy-Stockfish' : ' - '),
+    ctrl.technology == 'wasmx'
+      ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx')
+      : ctrl.technology == 'wasm'
+      ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm')
+      : h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs'),
   ];
 }
 
@@ -128,9 +100,8 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
   if (
     localEv.nodes > serverNodes ||
-    (typeof localEv.mate !== "undefined" &&
-      (typeof serverEv.mate === "undefined" ||
-        Math.abs(localEv.mate) < Math.abs(serverEv.mate)))
+    (typeof localEv.mate !== 'undefined' &&
+      (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate)))
   )
     return localEv;
 
@@ -142,19 +113,19 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   const bestEv = getBestEval(ctrl.currentEvals());
   let ev;
   if (bestEv) {
-    ev = winningChances.povChances("sente", bestEv);
+    ev = winningChances.povChances('sente', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return h(
-    "div.eval-gauge",
+    'div.eval-gauge',
     {
       class: {
         empty: ev === null,
-        reverse: ctrl.getOrientation() === "gote",
+        reverse: ctrl.getOrientation() === 'gote',
       },
     },
     [
-      h("div.gote", {
+      h('div.gote', {
         attrs: { style: `height: ${100 - cubicRegressionEval(ev) * 50}%` },
       }),
       ...gaugeTicks,
@@ -172,48 +143,35 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     threat = threatMode && ctrl.getNode().threat,
     bestEv = threat || getBestEval(evs);
   let pearl: VNode | string, percent: number;
-  if (bestEv && typeof bestEv.cp !== "undefined") {
+  if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client
-      ? Math.min(
-          100,
-          Math.round(
-            (100 * evs.client.depth) /
-              (evs.client.maxDepth || instance.effectiveMaxDepth())
-          )
-        )
+      ? Math.min(100, Math.round((100 * evs.client.depth) / (evs.client.maxDepth || instance.effectiveMaxDepth())))
       : 0;
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = "#" + bestEv.mate;
+    pearl = '#' + bestEv.mate;
     percent = 100;
   } else if (ctrl.outcome()) {
-    pearl = "-";
+    pearl = '-';
     percent = 0;
   } else {
-    pearl = enabled ? h("i.ddloader") : h("i");
+    pearl = enabled ? h('i.ddloader') : h('i');
     percent = 0;
   }
   if (threatMode) {
-    if (threat)
-      percent = Math.min(
-        100,
-        Math.round((100 * threat.depth) / threat.maxDepth)
-      );
+    if (threat) percent = Math.min(100, Math.round((100 * threat.depth) / threat.maxDepth));
     else percent = 0;
   }
 
   const progressBar: VNode | null = enabled
     ? h(
-        "div.bar",
-        h("span", {
+        'div.bar',
+        h('span', {
           class: { threat: threatMode },
           attrs: { style: `width: ${percent}%` },
           hook: {
             postpatch: (old, vnode) => {
-              if (
-                old.data!.percent > percent ||
-                !!old.data!.threatMode != threatMode
-              ) {
+              if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
                 const el = vnode.elm as HTMLElement;
                 const p = el.parentNode as HTMLElement;
                 p.removeChild(el);
@@ -229,13 +187,13 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
 
   const body: Array<VNode | null> = enabled
     ? [
-        h("pearl", [pearl]),
-        h("div.engine", [
-          ...(threatMode ? [trans.noarg("showThreat")] : engineName(instance)),
+        h('pearl', [pearl]),
+        h('div.engine', [
+          ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
           h(
-            "span.info",
+            'span.info',
             ctrl.outcome()
-              ? [trans.noarg("gameOver")]
+              ? [trans.noarg('gameOver')]
               : threatMode
               ? [threatInfo(ctrl, threat)]
               : localEvalInfo(ctrl, evs)
@@ -243,42 +201,34 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         ]),
       ]
     : [
-        pearl ? h("pearl", [pearl]) : null,
-        h("help", [
-          ...engineName(instance),
-          h("br"),
-          trans.noarg("inLocalBrowser"),
-        ]),
+        pearl ? h('pearl', [pearl]) : null,
+        h('help', [...engineName(instance), h('br'), trans.noarg('inLocalBrowser')]),
       ];
 
   const switchButton: VNode | null =
     ctrl.mandatoryCeval && ctrl.mandatoryCeval()
       ? null
       : h(
-          "div.switch",
+          'div.switch',
           {
-            attrs: { title: trans.noarg("toggleLocalEvaluation") + " (l)" },
+            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
           },
           [
-            h("input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle", {
+            h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
               attrs: {
-                type: "checkbox",
+                type: 'checkbox',
                 checked: enabled,
               },
               hook: {
-                insert: (vnode) =>
-                  (vnode.elm as HTMLElement).addEventListener(
-                    "change",
-                    ctrl.toggleCeval
-                  ),
+                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
               },
             }),
-            h("label", { attrs: { for: "analyse-toggle-ceval" } }),
+            h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
           ]
         );
 
   return h(
-    "div.ceval" + (enabled ? ".enabled" : ""),
+    'div.ceval' + (enabled ? '.enabled' : ''),
     {
       class: {
         computing: percent < 100 && instance.isComputing(),
@@ -289,21 +239,18 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
 }
 
 function getElFen(el: HTMLElement): string {
-  return el.getAttribute("data-fen")!;
+  return el.getAttribute('data-fen')!;
 }
 
 function getElUci(e: MouseEvent): string | undefined {
   return $(e.target as HTMLElement)
-    .closest("div.pv")
-    .attr("data-uci");
+    .closest('div.pv')
+    .attr('data-uci');
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   window.lishogi.requestIdleCallback(() => {
-    instance.setHovering(
-      getElFen(el),
-      $(el).find("div.pv:hover").attr("data-uci")
-    );
+    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci'));
   });
 }
 
@@ -313,18 +260,23 @@ function makeExtendedMoveVariation(pos: Position, variation: Move[]): ExtendedMo
   for (let i = 0; i < variation.length; i++) {
     const san = makeSanAndPlay(pos, variation[i]);
     const fen = makeFen(pos.toSetup());
-    extendedLine.push({san: san, uci: makeLishogiUci(pos.lastMove!), fen: fen});
+    extendedLine.push({
+      san: san,
+      uci: makeLishogiUci(pos.lastMove!),
+      fen: fen,
+    });
     if (san === '--') return extendedLine;
-    if (i === variation.length - 1 && pos.outcome()?.winner) extendedLine.push({san: '投了', uci: '投了', fen: '投了'});
+    if (i === variation.length - 1 && pos.outcome()?.winner)
+      extendedLine.push({ san: '投了', uci: '投了', fen: '投了' });
   }
   return extendedLine;
 }
 
 function applyNotationToVariant(start: number, variation: ExtendedMoveInfo[], notation: number): string {
   const line = [];
-  for(const m of variation){
+  for (const m of variation) {
     line.push(start++ + '. ');
-    if(m.san === '投了') line.push('投了');
+    if (m.san === '投了') line.push('投了');
     else {
       line.push(notationStyle(notation)(m));
       line.push(' ');
@@ -355,19 +307,19 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const turn = setup.fullmoves;
   const notation = ctrl.data.pref.pieceNotation ?? 0;
   return h(
-    "div.pv_box",
+    'div.pv_box',
     {
-      attrs: { "data-fen": node.fen },
+      attrs: { 'data-fen': node.fen },
       hook: {
-        insert: (vnode) => {
+        insert: vnode => {
           const el = vnode.elm as HTMLElement;
-          el.addEventListener("mouseover", (e: MouseEvent) => {
+          el.addEventListener('mouseover', (e: MouseEvent) => {
             instance.setHovering(getElFen(el), getElUci(e));
           });
-          el.addEventListener("mouseout", () => {
+          el.addEventListener('mouseout', () => {
             instance.setHovering(getElFen(el));
           });
-          el.addEventListener("mousedown", (e: MouseEvent) => {
+          el.addEventListener('mousedown', (e: MouseEvent) => {
             const uci = getElUci(e);
             if (uci) ctrl.playUci(uci);
           });
@@ -377,25 +329,32 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       },
     },
     [...Array(multiPv).keys()].map(function (i) {
-      if (!pvs[i]) return h("div.pv");
+      if (!pvs[i]) return h('div.pv');
       return h(
-        "div.pv",
+        'div.pv',
         threat
           ? {}
           : {
-              attrs: { "data-uci": pvs[i].moves[0] },
+              attrs: { 'data-uci': pvs[i].moves[0] },
             },
         [
-          multiPv > 1
-            ? h(
-                "strong",
-                defined(pvs[i].mate)
-                  ? "#" + pvs[i].mate
-                  : renderEval(pvs[i].cp!)
-              )
-            : null,
-            // Add notation to shogiops?
-            h('span', pos.unwrap(pos => applyNotationToVariant(turn, makeExtendedMoveVariation(pos, pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!)), notation), _ => '--'))
+          multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
+          // Add notation to shogiops?
+          h(
+            'span',
+            pos.unwrap(
+              pos =>
+                applyNotationToVariant(
+                  turn,
+                  makeExtendedMoveVariation(
+                    pos,
+                    pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!)
+                  ),
+                  notation
+                ),
+              _ => '--'
+            )
+          ),
         ]
       );
     })

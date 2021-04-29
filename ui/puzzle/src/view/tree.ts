@@ -155,13 +155,11 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
-    notationStyle(ctx.ctrl.pref.pieceNotation ?? 0)(
-      {
-        san: node.san!,
-        uci: node.uci!,
-        fen: node.fen
-      }
-    ),
+    notationStyle(ctx.ctrl.pref.pieceNotation ?? 0)({
+      san: node.san!,
+      uci: node.uci!,
+      fen: node.fen,
+    }),
     ev &&
       (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
     puzzleGlyph(ctx, node),
@@ -187,9 +185,9 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
       notationStyle(ctx.ctrl.pref.pieceNotation ?? 0)({
         san: node.san!,
         uci: node.uci!,
-        fen: node.fen
+        fen: node.fen,
       }),
-      puzzleGlyph(ctx, node)
+      puzzleGlyph(ctx, node),
     ]
   );
 }

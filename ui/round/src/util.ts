@@ -1,24 +1,24 @@
-import { h } from 'snabbdom'
-import { VNodeData } from 'snabbdom/vnode'
-import { Hooks } from 'snabbdom/hooks'
-import * as cg from 'shogiground/types'
+import { h } from 'snabbdom';
+import { VNodeData } from 'snabbdom/vnode';
+import { Hooks } from 'snabbdom/hooks';
+import * as cg from 'shogiground/types';
 import { opposite } from 'shogiground/util';
 import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
-import {Shogi} from 'shogiops';
-import {parseFen} from 'shogiops/fen';
-import {shogigroundDropDests} from 'shogiops/compat';
+import { Shogi } from 'shogiops';
+import { parseFen } from 'shogiops/fen';
+import { shogigroundDropDests } from 'shogiops/compat';
 
 const pieceScores = {
   pawn: 1,
   knight: 3,
   bishop: 3,
   rook: 5,
-  king: 0
+  king: 0,
 };
 
 export function justIcon(icon: string): VNodeData {
   return {
-    attrs: { 'data-icon': icon }
+    attrs: { 'data-icon': icon },
   };
 }
 
@@ -32,17 +32,23 @@ export function onInsert(f: (el: HTMLElement) => void): Hooks {
   return {
     insert(vnode) {
       f(vnode.elm as HTMLElement);
-    }
+    },
   };
 }
 
 export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw, passive: boolean = true): Hooks {
   return onInsert(el => {
-    el.addEventListener(eventName, !redraw ? f : e => {
-      const res = f(e);
-      redraw();
-      return res;
-    }, { passive });
+    el.addEventListener(
+      eventName,
+      !redraw
+        ? f
+        : e => {
+            const res = f(e);
+            redraw();
+            return res;
+          },
+      { passive }
+    );
   });
 }
 
@@ -59,10 +65,11 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
 
 export function getDropDests(fen: string): cg.DropDests {
   return parseFen(fen).unwrap(
-    s => Shogi.fromSetup(s).unwrap(
-      sh => shogigroundDropDests(sh),
-      _ => new Map()
-    ),
+    s =>
+      Shogi.fromSetup(s).unwrap(
+        sh => shogigroundDropDests(sh),
+        _ => new Map()
+      ),
     _ => new Map()
   );
 }
@@ -91,8 +98,8 @@ export function getScore(pieces: cg.Pieces): number {
 
 export const noChecks: CheckCount = {
   sente: 0,
-  gote: 0
-}
+  gote: 0,
+};
 
 export function countChecks(steps: Step[], ply: Ply): CheckCount {
   const checks: CheckCount = { ...noChecks };
@@ -107,11 +114,17 @@ export function countChecks(steps: Step[], ply: Ply): CheckCount {
 }
 
 export function spinner() {
-  return h('div.spinner', {
-    'aria-label': 'loading'
-  }, [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
+  return h(
+    'div.spinner',
+    {
+      'aria-label': 'loading',
+    },
+    [
+      h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+        h('circle', {
+          attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
+        }),
+      ]),
+    ]
+  );
 }

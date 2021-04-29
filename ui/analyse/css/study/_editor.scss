@@ -15,9 +15,9 @@
   grid-template-columns: 280px 2vmin 210px;
   grid-template-rows: min-content auto min-content;
   grid-template-areas:
-  'spare-top    . e-pocket-top'
-  'e-board      . e-tools'
-  'spare-bottom . e-pocket-bot';
+    'spare-top    . e-pocket-top'
+    'e-board      . e-tools'
+    'spare-bottom . e-pocket-bot';
   user-select: none;
   .main-board {
     grid-area: e-board;
@@ -47,6 +47,6 @@
   }
   .metadata {
     background: $c-bg-zebra;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

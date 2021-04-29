@@ -12,7 +12,7 @@
     position: absolute;
     top: 4px;
     right: 5px;
-    opacity: .6;
+    opacity: 0.6;
     @include transition();
     color: $c-red;
     &:hover {
@@ -26,7 +26,7 @@
     h2 {
       @extend %metal;
       font-size: 1.4em;
-      padding: .6rem 1rem;
+      padding: 0.6rem 1rem;
       border-bottom: $border;
     }
     table {
@@ -55,8 +55,9 @@
         background: mix($c-link, $c-bg-box, 10%);
       }
     }
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
     th {
       @extend %roboto;
@@ -80,8 +81,9 @@
         background: mix($c-link, $c-bg-box, 10%);
       }
     }
-    th, td {
-      padding: .3em;
+    th,
+    td {
+      padding: 0.3em;
     }
     th {
       border-left: 3px solid transparent;
@@ -102,7 +104,7 @@
     }
     td:last-child {
       font-weight: bold;
-      opacity: .8;
+      opacity: 0.8;
     }
     tr.win td:last-child {
       color: $c-good;
@@ -120,6 +122,6 @@
     }
   }
   .color-icon {
-    opacity: .6;
+    opacity: 0.6;
   }
 }

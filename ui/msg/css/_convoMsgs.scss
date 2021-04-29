@@ -21,16 +21,18 @@
   }
   group {
     @extend %flex-column;
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
-  mine, their, day {
+  mine,
+  their,
+  day {
     border-radius: 6px;
-    box-shadow: 0 1px .5px rgba(0,0,0,.13);
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
     @if $theme-dark {
-      box-shadow: 0 1px .5px rgb(0,0,0);
+      box-shadow: 0 1px 0.5px rgb(0, 0, 0);
     }
-    margin: .2em 0;
-    padding: .5em 1em;
+    margin: 0.2em 0;
+    padding: 0.5em 1em;
     color: $c-font-clear;
     max-width: 70%;
   }
@@ -38,9 +40,9 @@
     @extend %roboto;
     background: mix($c-primary, $c-bg-box, 15%);
     align-self: center;
-    font-size: .9em;
+    font-size: 0.9em;
     color: $c-font;
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
   mine {
     align-self: flex-end;
@@ -59,9 +61,9 @@
   em {
     @extend %roboto;
     color: $c-font-dim;
-    font-size: .8em;
+    font-size: 0.8em;
     float: right;
-    margin: .4em 0 0 2em;
+    margin: 0.4em 0 0 2em;
   }
   img {
     @extend %box-neat;

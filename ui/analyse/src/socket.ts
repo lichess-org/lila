@@ -1,6 +1,6 @@
-import { initial as initialBoardFen } from "shogiground/fen";
-import { ops as treeOps } from "tree";
-import AnalyseCtrl from "./ctrl";
+import { initial as initialBoardFen } from 'shogiground/fen';
+import { ops as treeOps } from 'tree';
+import AnalyseCtrl from './ctrl';
 
 type DestCache = {
   [fen: string]: DestCacheEntry;
@@ -36,13 +36,11 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   function clearCache() {
     anaDestsCache = {};
-    ctrl.data.game.variant.key === "standard" &&
-    ctrl.tree.root.fen.split(" ", 1)[0] === initialBoardFen
+    ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
       ? {
-          "": {
-            path: "",
-            dests:
-              "aj fonp uD gpo vE clm wF dmln sB qponmlr ir tC enmo yH zI AJ xG",
+          '': {
+            path: '',
+            dests: 'aj fonp uD gpo vE clm wF dmln sB qponmlr ir tC enmo yH zI AJ xG',
           },
         }
       : {};
@@ -52,7 +50,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
     setTimeout(function () {
-      send("startWatching", ctrl.data.game.id);
+      send('startWatching', ctrl.data.game.id);
     }, 1000);
 
   function currentChapterId(): string | undefined {
@@ -77,7 +75,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaMoveTimeout);
       // no strict equality here!
       if (data.ch == currentChapterId()) ctrl.addNode(data.node, data.path);
-      else console.log("socket handler node got wrong chapter id", data);
+      else console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {
       clearTimeout(anaMoveTimeout);
@@ -88,18 +86,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path);
-      } else console.log("socket handler node got wrong chapter id", data);
+      } else console.log('socket handler node got wrong chapter id', data);
     },
     destsFailure(data) {
       console.log(data);
       clearTimeout(anaDestsTimeout);
     },
     fen(e) {
-      if (
-        ctrl.forecast &&
-        e.id === ctrl.data.game.id &&
-        treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0
-      ) {
+      if (ctrl.forecast && e.id === ctrl.data.game.id && treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0) {
         ctrl.forecast.reloadToLastPly();
       }
     },
@@ -115,7 +109,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   };
 
   function withoutStandardVariant(obj) {
-    if (obj.variant === "standard") delete obj.variant;
+    if (obj.variant === 'standard') delete obj.variant;
   }
 
   function sendAnaDests(req) {
@@ -127,9 +121,9 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     else {
       withoutStandardVariant(req);
       addStudyData(req);
-      send("anaDests", req);
+      send('anaDests', req);
       anaDestsTimeout = setTimeout(function () {
-        console.log(req, "resendAnaDests");
+        console.log(req, 'resendAnaDests');
         sendAnaDests(req);
       }, 3000);
     }
@@ -139,7 +133,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
-    send("anaMove", req);
+    send('anaMove', req);
     anaMoveTimeout = setTimeout(() => sendAnaMove(req), 3000);
   }
 
@@ -147,7 +141,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
-    send("anaDrop", req);
+    send('anaDrop', req);
     anaMoveTimeout = setTimeout(() => sendAnaDrop(req), 3000);
   }
 
@@ -161,7 +155,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     sendAnaDrop,
     sendAnaDests,
     sendForecasts(req) {
-      send("forecasts", req);
+      send('forecasts', req);
     },
     clearCache,
     send,

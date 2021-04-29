@@ -1,5 +1,5 @@
 import AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { initialFen } from 'chess';
 import { MaybeVNodes } from './interfaces';
 import { notationStyle } from 'common/notation';
@@ -17,7 +17,7 @@ function renderNodesTxt(nodes: PgnNode[]): string {
   var s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '... ';
   nodes.forEach(function (node, i) {
     if (node.ply === 0) return;
-    if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '. '
+    if (node.ply % 2 === 1) s += (node.ply + 1) / 2 + '. ';
     else s += '';
     s += node.san! + ((i + 9) % 8 === 0 ? '\n' : ' ');
   });
@@ -28,14 +28,17 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   var g = ctrl.data.game;
   var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
-  if (g.variant.key !== 'standard')
-    tags.push(['Variant', g.variant.name]);
-  if (g.initialFen && g.initialFen !== initialFen)
-    tags.push(['SFEN', g.initialFen]);
+  if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
+  if (g.initialFen && g.initialFen !== initialFen) tags.push(['SFEN', g.initialFen]);
   if (tags.length)
-    txt = tags.map(function (t) {
-      return '[' + t[0] + ' "' + t[1] + '"]';
-    }).join('\n') + '\n\n' + txt;
+    txt =
+      tags
+        .map(function (t) {
+          return '[' + t[0] + ' "' + t[1] + '"]';
+        })
+        .join('\n') +
+      '\n\n' +
+      txt;
   return txt;
 }
 
@@ -47,11 +50,16 @@ export function renderNodesHtml(nodes: ForecastStep[], notation: number): MaybeV
   nodes.forEach(node => {
     if (node.ply === 0) return;
     tags.push(h('index', node.ply + '.'));
-    tags.push(h('san', notationStyle(notation)({
-      san: node.san!,
-      uci: node.uci!,
-      fen: node.fen
-    })));
+    tags.push(
+      h(
+        'san',
+        notationStyle(notation)({
+          san: node.san!,
+          uci: node.uci!,
+          fen: node.fen,
+        })
+      )
+    );
   });
   return tags;
 }

@@ -25,7 +25,7 @@ export function pgnToTree(pgn: San[]): Tree.Node {
 }
 
 export function fenToTree(sfen: string): Tree.Node {
-  const startPly = (parseInt(sfen.split(' ')[3]) - 1) ?? 0;
+  const startPly = parseInt(sfen.split(' ')[3]) - 1 ?? 0;
   return {
     ply: startPly,
     id: '',

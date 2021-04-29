@@ -1,8 +1,7 @@
 .variant-racingKings .cg-wrap {
-
   &.cg-wrap cg-container::before {
     @extend %popup-shadow;
-    background: hsla(0, 0%, 90%, .2);
+    background: hsla(0, 0%, 90%, 0.2);
     width: 100%;
     height: calc(100% / 9);
     content: '';

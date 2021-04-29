@@ -1,5 +1,5 @@
-import * as util from "./util";
-import * as cg from "./types";
+import * as util from './util';
+import * as cg from './types';
 
 type Mobility = (x1: number, y1: number, x2: number, y2: number) => boolean;
 
@@ -8,15 +8,11 @@ function diff(a: number, b: number): number {
 }
 
 function pawn(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) =>
-    color === "sente" ? x1 === x2 && y1 + 1 === y2 : x1 === x2 && y1 - 1 === y2;
+  return (x1, y1, x2, y2) => (color === 'sente' ? x1 === x2 && y1 + 1 === y2 : x1 === x2 && y1 - 1 === y2);
 }
 
 function knight(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) =>
-    diff(x1, x2) === 1 &&
-    diff(y1, y2) === 2 &&
-    (color === "sente" ? y2 > y1 : y2 < y1);
+  return (x1, y1, x2, y2) => diff(x1, x2) === 1 && diff(y1, y2) === 2 && (color === 'sente' ? y2 > y1 : y2 < y1);
 }
 
 const bishop: Mobility = (x1, y1, x2, y2) => {
@@ -32,23 +28,17 @@ const king: Mobility = (x1, y1, x2, y2) => {
 };
 
 function lance(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) =>
-    color === "sente" ? x1 == x2 && y2 > y1 : x1 == x2 && y1 > y2;
+  return (x1, y1, x2, y2) => (color === 'sente' ? x1 == x2 && y2 > y1 : x1 == x2 && y1 > y2);
 }
 
 function silver(color: cg.Color): Mobility {
   return (x1, y1, x2, y2) =>
-    diff(x1, x2) < 2 &&
-    diff(y1, y2) < 2 &&
-    y1 != y2 &&
-    (color === "sente" ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1);
+    diff(x1, x2) < 2 && diff(y1, y2) < 2 && y1 != y2 && (color === 'sente' ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1);
 }
 
 function gold(color: cg.Color): Mobility {
   return (x1, y1, x2, y2) =>
-    diff(x1, x2) < 2 &&
-    diff(y1, y2) < 2 &&
-    (color === "sente" ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2);
+    diff(x1, x2) < 2 && diff(y1, y2) < 2 && (color === 'sente' ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2);
 }
 
 const horse: Mobility = (x1, y1, x2, y2) => {
@@ -67,31 +57,27 @@ export function premove(pieces: cg.Pieces, key: cg.Key): cg.Key[] {
   const pos = util.key2pos(key),
     r = piece.role,
     mobility: Mobility =
-      r === "pawn"
+      r === 'pawn'
         ? pawn(piece.color)
-        : r === "knight"
+        : r === 'knight'
         ? knight(piece.color)
-        : r === "bishop"
+        : r === 'bishop'
         ? bishop
-        : r === "rook"
+        : r === 'rook'
         ? rook
-        : r === "king"
+        : r === 'king'
         ? king
-        : r === "silver"
+        : r === 'silver'
         ? silver(piece.color)
-        : r === "lance"
+        : r === 'lance'
         ? lance(piece.color)
-        : r === "horse"
+        : r === 'horse'
         ? horse
-        : r === "dragon"
+        : r === 'dragon'
         ? dragon
         : gold(piece.color);
   return allPos
-    .filter(
-      (pos2) =>
-        (pos[0] !== pos2[0] || pos[1] !== pos2[1]) &&
-        mobility(pos[0], pos[1], pos2[0], pos2[1])
-    )
+    .filter(pos2 => (pos[0] !== pos2[0] || pos[1] !== pos2[1]) && mobility(pos[0], pos[1], pos2[0], pos2[1]))
     .map(util.pos2key);
 }
 
@@ -100,24 +86,17 @@ function lastRow(key: cg.Key, color: cg.Color): boolean {
 }
 
 function lastTwoRows(key: cg.Key, color: cg.Color): boolean {
-  return color === 'sente' ?
-    (key[1] === '8' || key[1] === '9') :
-    (key[1] === '1' || key[1] === '2');
+  return color === 'sente' ? key[1] === '8' || key[1] === '9' : key[1] === '1' || key[1] === '2';
 }
 
 export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece): cg.Key[] {
   const color = dropPiece.color;
   const role = dropPiece.role;
-  return util.allKeys.filter(
-    (key) => {
-      const p = pieces.get(key);
-      return (!p || p.color !== color) && (
-        (role === 'pawn' || role === 'lance')
-        ? !lastRow(key, color)
-        : role === 'knight'
-        ? !lastTwoRows(key, color)
-        : true
-      )
-    }
-  );
+  return util.allKeys.filter(key => {
+    const p = pieces.get(key);
+    return (
+      (!p || p.color !== color) &&
+      (role === 'pawn' || role === 'lance' ? !lastRow(key, color) : role === 'knight' ? !lastTwoRows(key, color) : true)
+    );
+  });
 }

@@ -8,13 +8,16 @@
     @include breakpoint($mq-not-small) {
       flex: 1 0 100%;
       display: none;
-      .pane-side & { display: flex; }
+      .pane-side & {
+        display: flex;
+      }
     }
     background: $c-bg-zebra;
     overflow: hidden;
     user-select: none;
     border-right: $border;
-    ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+    ::-webkit-scrollbar,
+    ::-webkit-scrollbar-corner {
       background: $c-bg-zebra;
     }
     &__search {
@@ -29,7 +32,7 @@
         margin: auto 2em;
         border-radius: 99px;
         background: $c-bg-box;
-        padding: .6em 1.2em;
+        padding: 0.6em 1.2em;
       }
     }
     &__content {
@@ -52,7 +55,7 @@
       &__user {
         @extend %nowrap-ellipsis;
         flex: 1 1 auto;
-        padding: .8em 1.5em .8em 0;
+        padding: 0.8em 1.5em 0.8em 0;
       }
       &__head {
         @extend %flex-between-nowrap;
@@ -62,7 +65,7 @@
         time {
           opacity: 1;
           color: $c-font-dim;
-          letter-spacing: -.5px;
+          letter-spacing: -0.5px;
         }
       }
       &__name {
@@ -85,7 +88,7 @@
       }
       &__new {
         color: $c-primary;
-        margin-left: .3em;
+        margin-left: 0.3em;
       }
     }
   }

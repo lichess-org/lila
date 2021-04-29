@@ -19,8 +19,12 @@ body {
   }
 
   /* Feature detection for JS to read */
-  @media (hover: hover) { --hoverable: 1; }
-  @supports (display: grid) { --grid: 1; }
+  @media (hover: hover) {
+    --hoverable: 1;
+  }
+  @supports (display: grid) {
+    --grid: 1;
+  }
 }
 
 #main-wrap {

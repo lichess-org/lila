@@ -1,31 +1,27 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import RelayCtrl from "./relayCtrl";
-import { dataIcon, bind, onInsert } from "../../util";
-import { LogEvent } from "./interfaces";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import RelayCtrl from './relayCtrl';
+import { dataIcon, bind, onInsert } from '../../util';
+import { LogEvent } from './interfaces';
 
 export default function (ctrl: RelayCtrl): VNode | undefined {
   if (ctrl.members.canContribute())
     return h(
-      "div.relay-admin",
+      'div.relay-admin',
       {
-        hook: onInsert((_) =>
-          window.lishogi.loadCssPath("analyse.relay-admin")
-        ),
+        hook: onInsert(_ => window.lishogi.loadCssPath('analyse.relay-admin')),
       },
       [
-        h("h2", [
-          h("span.text", { attrs: dataIcon("") }, "Broadcast manager"),
-          h("a", {
+        h('h2', [
+          h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
+          h('a', {
             attrs: {
               href: `${ctrl.data.url}/edit`,
-              "data-icon": "%",
+              'data-icon': '%',
             },
           }),
         ]),
-        ctrl.data.sync.url
-          ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
-          : null,
+        ctrl.data.sync.url ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
         renderLog(ctrl),
       ]
     );
@@ -33,10 +29,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
 }
 
 function logSuccess(e: LogEvent) {
-  return [
-    e.moves ? h("strong", "" + e.moves) : e.moves,
-    ` new move${e.moves > 1 ? "s" : ""}`,
-  ];
+  return [e.moves ? h('strong', '' + e.moves) : e.moves, ` new move${e.moves > 1 ? 's' : ''}`];
 }
 
 function renderLog(ctrl: RelayCtrl) {
@@ -44,63 +37,51 @@ function renderLog(ctrl: RelayCtrl) {
   const logLines = ctrl.data.sync.log
     .slice(0)
     .reverse()
-    .map((e) => {
+    .map(e => {
       const err =
         e.error &&
         h(
-          "a",
+          'a',
           {
             attrs: {
               href: ctrl.data.sync.url,
-              target: "_blank",
+              target: '_blank',
             },
           },
           e.error
         );
       return h(
-        "div" + (err ? ".err" : ""),
+        'div' + (err ? '.err' : ''),
         {
           key: e.at,
-          attrs: dataIcon(err ? "j" : "E"),
+          attrs: dataIcon(err ? 'j' : 'E'),
         },
-        [
-          h("div", [
-            ...(err ? [err] : logSuccess(e)),
-            h("time", dateFormatter(new Date(e.at))),
-          ]),
-        ]
+        [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter(new Date(e.at)))])]
       );
     });
-  if (ctrl.loading())
-    logLines.unshift(h("div.load", [h("i.ddloader"), "Polling source..."]));
-  return h("div.log", logLines);
+  if (ctrl.loading()) logLines.unshift(h('div.load', [h('i.ddloader'), 'Polling source...']));
+  return h('div.log', logLines);
 }
 
 function stateOn(ctrl: RelayCtrl) {
   return h(
-    "div.state.on.clickable",
+    'div.state.on.clickable',
     {
-      hook: bind("click", (_) => ctrl.setSync(false)),
-      attrs: dataIcon("B"),
+      hook: bind('click', _ => ctrl.setSync(false)),
+      attrs: dataIcon('B'),
     },
-    [
-      h("div", [
-        "Connected to source",
-        h("br"),
-        ctrl.data.sync.url.replace(/https?:\/\//, ""),
-      ]),
-    ]
+    [h('div', ['Connected to source', h('br'), ctrl.data.sync.url.replace(/https?:\/\//, '')])]
   );
 }
 
 function stateOff(ctrl: RelayCtrl) {
   return h(
-    "div.state.off.clickable",
+    'div.state.off.clickable',
     {
-      hook: bind("click", (_) => ctrl.setSync(true)),
-      attrs: dataIcon("G"),
+      hook: bind('click', _ => ctrl.setSync(true)),
+      attrs: dataIcon('G'),
     },
-    [h("div.fat", "Click to connect")]
+    [h('div.fat', 'Click to connect')]
   );
 }
 
@@ -111,11 +92,11 @@ function getDateFormatter(): (date: Date) => string {
     cachedDateFormatter =
       window.Intl && Intl.DateTimeFormat
         ? new Intl.DateTimeFormat(document.documentElement!.lang, {
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric",
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
           }).format
         : function (d) {
             return d.toLocaleString();

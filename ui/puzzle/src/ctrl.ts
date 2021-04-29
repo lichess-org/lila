@@ -9,7 +9,16 @@ import throttle from 'common/throttle';
 import { Api as CgApi } from 'shogiground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Shogi } from 'shogiops/shogi';
-import { parseChessSquare, shogigroundDests, scalashogiCharPair, makeLishogiUci, makeChessSquare, parseLishogiUci, assureLishogiUci, shogigroundDropDests } from 'shogiops/compat';
+import {
+  parseChessSquare,
+  shogigroundDests,
+  scalashogiCharPair,
+  makeLishogiUci,
+  makeChessSquare,
+  parseLishogiUci,
+  assureLishogiUci,
+  shogigroundDropDests,
+} from 'shogiops/compat';
 import { Config as CgConfig } from 'shogiground/config';
 import { Piece } from 'shogiground/types';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
@@ -21,10 +30,9 @@ import { pgnToTree, mergeSolution, fenToTree } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Move, Outcome, PocketRole } from 'shogiops/types';
 import { storedProp } from 'common/storage';
-import { cancelDropMode } from "shogiground/drop";
+import { cancelDropMode } from 'shogiground/drop';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import {plyColor} from './util';
-
+import { plyColor } from './util';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {
@@ -76,7 +84,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = plyColor(vm.initialNode.ply);
 
     setPath(treePath.init(initialPath));
-    if(data.game.id)
+    if (data.game.id)
       setTimeout(() => {
         jump(initialPath);
         redraw();
@@ -112,20 +120,20 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
-          color: (dests.size > 0 || dropDests.size > 0) ? color : undefined,
+          color: dests.size > 0 || dropDests.size > 0 ? color : undefined,
           dests,
         }
       : {
           color: undefined,
           dests: new Map(),
         };
-    const dropmode = canMove 
+    const dropmode = canMove
       ? {
-        dropDests: dropDests,
-      }
+          dropDests: dropDests,
+        }
       : {
-        dropDests: new Map(),
-      };
+          dropDests: new Map(),
+        };
     const config = {
       fen: node.fen,
       orientation: vm.pov,
@@ -156,8 +164,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function tsumeLength(): number {
-    return data.puzzle.themes.includes("tsume") ?
-      data.puzzle.solution.length - vm.node.ply : 0;
+    return data.puzzle.themes.includes('tsume') ? data.puzzle.solution.length - vm.node.ply : 0;
   }
 
   function userMove(orig: Key, dest: Key): void {
@@ -166,11 +173,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function userDrop(piece: Piece, dest: Key): void {
-    if(crazyValid(vm.node.fen, piece, dest)){
+    if (crazyValid(vm.node.fen, piece, dest)) {
       vm.justDropped = piece;
       playUserDrop(piece, dest);
-    }
-    else jump(vm.path)
+    } else jump(vm.path);
     cancelDropMode(ground()!.state);
     vm.dropmodeActive = false;
   }
@@ -216,7 +222,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | [Key] | undefined {
-    return defined(uci) ? (uci[1] === '*' ? [uci.substr(2, 2) as Key] : [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key]) : undefined;
+    return defined(uci)
+      ? uci[1] === '*'
+        ? [uci.substr(2, 2) as Key]
+        : [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key]
+      : undefined;
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
@@ -490,9 +500,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   // If the page loads while being hidden (like when changing settings),
   // shogiground is not displayed, and the first move is not fully applied.
   // Make sure shogiground is fully shown when the page goes back to being visible.
-  document.addEventListener('visibilitychange',
-    () => window.lishogi.requestIdleCallback(() => jump(vm.path))
-  );
+  document.addEventListener('visibilitychange', () => window.lishogi.requestIdleCallback(() => jump(vm.path)));
 
   speech.setup();
 

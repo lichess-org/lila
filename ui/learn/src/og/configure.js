@@ -1,6 +1,6 @@
-var merge = require("merge");
-var board = require("./board");
-var fen = require("./fen");
+var merge = require('merge');
+var board = require('./board');
+var fen = require('./fen');
 
 module.exports = function (data, config) {
   if (!config) return;
@@ -27,6 +27,5 @@ module.exports = function (data, config) {
   if (data.selected) board.setSelected(data, data.selected);
 
   // no need for such short animations
-  if (!data.animation.duration || data.animation.duration < 40)
-    data.animation.enabled = false;
+  if (!data.animation.duration || data.animation.duration < 40) data.animation.enabled = false;
 };

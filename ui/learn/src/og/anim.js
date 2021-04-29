@@ -1,4 +1,4 @@
-var util = require("./util");
+var util = require('./util');
 
 // https://gist.github.com/gre/1650294
 var easing = {
@@ -38,7 +38,7 @@ function computePlan(prev, current) {
     news = [],
     invert = prev.orientation !== current.orientation,
     prePieces = {},
-    sente = current.orientation === "sente";
+    sente = current.orientation === 'sente';
   for (var pk in prev.pieces) {
     var piece = makePiece(pk, prev.pieces[pk], invert);
     prePieces[piece.key] = piece;
@@ -92,10 +92,7 @@ function roundBy(n, by) {
 
 function go(data) {
   if (!data.animation.current.start) return; // animation was canceled
-  var rest =
-    1 -
-    (new Date().getTime() - data.animation.current.start) /
-      data.animation.current.duration;
+  var rest = 1 - (new Date().getTime() - data.animation.current.start) / data.animation.current.duration;
   if (rest <= 0) {
     data.animation.current = {};
     data.render();
@@ -156,15 +153,10 @@ function animate(transformation, data) {
 // and mutates the board.
 module.exports = function (transformation, data, skip) {
   return function () {
-    var transformationArgs = [data].concat(
-      Array.prototype.slice.call(arguments, 0)
-    );
+    var transformationArgs = [data].concat(Array.prototype.slice.call(arguments, 0));
     if (!data.render) return transformation.apply(null, transformationArgs);
     else if (data.animation.enabled && !skip)
-      return animate(
-        util.partialApply(transformation, transformationArgs),
-        data
-      );
+      return animate(util.partialApply(transformation, transformationArgs), data);
     else {
       var result = transformation.apply(null, transformationArgs);
       data.renderRAF();

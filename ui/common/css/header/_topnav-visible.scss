@@ -1,5 +1,4 @@
 @include breakpoint($mq-topnav-visible) {
-
   .hamburger,
   .topnav-mask,
   .topnav-toggle {
@@ -23,14 +22,16 @@
         display: block;
         height: var(--nav-section);
         line-height: $site-header-height;
-        padding: 0 .7rem;
+        padding: 0 0.7rem;
         text-transform: uppercase;
         border-left: 2px solid transparent;
         @media (hover: none) {
           pointer-events: none;
         }
       }
-      .home { display: none }
+      .home {
+        display: none;
+      }
     }
     div {
       visibility: hidden;
@@ -44,7 +45,7 @@
       border-left: 2px solid $c-primary;
       a {
         display: block;
-        padding: .6rem .7rem;
+        padding: 0.6rem 0.7rem;
         color: $c-header-dropdown;
         &:hover {
           background: $c-primary;
@@ -57,7 +58,7 @@
           border-radius: 0 3px 0 0;
         }
         &:last-child {
-          border-radius: 0 0 3px 1px ;
+          border-radius: 0 0 3px 1px;
         }
       }
     }
@@ -79,9 +80,9 @@
       }
     }
   }
-  #topnav section.new-feature > a{
-    &:after{
-      content: "NEW";
+  #topnav section.new-feature > a {
+    &:after {
+      content: 'NEW';
       font-size: 0.7rem;
       transform: rotate(37deg);
       position: absolute;

@@ -1,14 +1,14 @@
 var startAt;
 
-var start = function() {
+var start = function () {
   startAt = new Date();
 };
 
-var cancel = function() {
+var cancel = function () {
   startAt = null;
 };
 
-var stop = function() {
+var stop = function () {
   if (!startAt) return 0;
   var time = new Date() - startAt;
   startAt = null;
@@ -18,5 +18,5 @@ var stop = function() {
 module.exports = {
   start: start,
   cancel: cancel,
-  stop: stop
+  stop: stop,
 };

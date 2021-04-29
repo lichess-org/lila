@@ -1,8 +1,8 @@
-import { rollupProject } from "@build/rollupProject";
+import { rollupProject } from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    input: "src/main.ts",
-    output: "lishogi.serviceWorker",
+    input: 'src/main.ts',
+    output: 'lishogi.serviceWorker',
   },
 });

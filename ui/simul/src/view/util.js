@@ -10,18 +10,15 @@ function playerHtml(p) {
 }
 
 module.exports = {
-  title: function(ctrl) {
-    return m('h1', [
-      ctrl.data.fullName,
-      m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))
-    ]);
+  title: function (ctrl) {
+    return m('h1', [ctrl.data.fullName, m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))]);
   },
-  player: function(p) {
+  player: function (p) {
     return m.trust(playerHtml(p));
   },
-  playerVariant: function(ctrl, p) {
-    return ctrl.data.variants.find(function(v) {
+  playerVariant: function (ctrl, p) {
+    return ctrl.data.variants.find(function (v) {
       return v.key === p.variant;
     });
-  }
+  },
 };

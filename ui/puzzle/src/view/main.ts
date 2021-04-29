@@ -10,7 +10,7 @@ import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { VNode } from 'snabbdom/vnode';
-import crazyView from "../crazy/crazyView";
+import crazyView from '../crazy/crazyView';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -114,7 +114,7 @@ export default function (ctrl: Controller): VNode {
         },
         [shogiground(ctrl), ctrl.promotion.view()]
       ),
-      crazyView(ctrl, "top"),
+      crazyView(ctrl, 'top'),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
         // we need the wrapping div here
@@ -129,7 +129,7 @@ export default function (ctrl: Controller): VNode {
         renderAnalyse(ctrl),
         feedbackView(ctrl),
       ]),
-      crazyView(ctrl, "bottom"),
+      crazyView(ctrl, 'bottom'),
       controls(ctrl),
       session(ctrl),
     ]

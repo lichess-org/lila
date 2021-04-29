@@ -1,4 +1,4 @@
-import RoundController from "./ctrl";
+import RoundController from './ctrl';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -16,36 +16,36 @@ export function next(ctrl: RoundController) {
 export function init(ctrl: RoundController) {
   const k = window.Mousetrap;
   k.bind(
-    ["left", "h"],
+    ['left', 'h'],
     preventing(function () {
       prev(ctrl);
       ctrl.redraw();
     })
   );
   k.bind(
-    ["right", "l"],
+    ['right', 'l'],
     preventing(function () {
       next(ctrl);
       ctrl.redraw();
     })
   );
   k.bind(
-    ["up", "k"],
+    ['up', 'k'],
     preventing(function () {
       ctrl.userJump(0);
       ctrl.redraw();
     })
   );
   k.bind(
-    ["down", "j"],
+    ['down', 'j'],
     preventing(function () {
       ctrl.userJump(ctrl.data.steps.length - 1);
       ctrl.redraw();
     })
   );
-  k.bind("f", preventing(ctrl.flipNow));
+  k.bind('f', preventing(ctrl.flipNow));
   k.bind(
-    "z",
-    preventing(() => window.lishogi.pubsub.emit("zen"))
+    'z',
+    preventing(() => window.lishogi.pubsub.emit('zen'))
   );
 }

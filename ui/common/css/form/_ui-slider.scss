@@ -5,7 +5,7 @@ $slider-width: 12px;
   background: $c-slider;
   position: relative;
   text-align: left;
-  cursor:pointer;
+  cursor: pointer;
 }
 .ui-widget-header {
   @extend %box-radius;
@@ -23,20 +23,20 @@ $slider-width: 12px;
   z-index: 2;
   width: 23px;
   height: 23px;
-  cursor:pointer;
+  cursor: pointer;
   margin: 0 0 -10px -5.5px;
   border-radius: 50%;
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 9px fade-out($c-slider, .85);
+    box-shadow: 0 0 0 9px fade-out($c-slider, 0.85);
     outline: 0;
   }
 }
 .ui-slider .ui-slider-range {
   position: absolute;
   // z-index: 1;
-  font-size: .7em;
+  font-size: 0.7em;
   display: block;
   border: 0;
   background-position: 0 0;

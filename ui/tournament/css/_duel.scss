@@ -1,5 +1,4 @@
 .tour__duels {
-
   margin: $block-gap 0 0 0;
 
   @include breakpoint($mq-col2) {
@@ -12,14 +11,14 @@
 
   h2 {
     font-size: 1.5em;
-    margin-bottom: .2em;
+    margin-bottom: 0.2em;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
   a {
     @extend %flex-column;
     color: $c-font;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
     white-space: nowrap;
     line-height: 1.9em;
     border: 1px solid $c-border-page;
@@ -54,16 +53,16 @@
   }
   .rank {
     @extend %box-radius;
-    padding: .1em .5em;
+    padding: 0.1em 0.5em;
     background: $c-brag;
     color: #fff;
   }
   .b .title,
   .b .rank {
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
   .a .title,
   .a .rank {
-    margin-left: .3em;
+    margin-left: 0.3em;
   }
 }

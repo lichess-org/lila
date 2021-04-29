@@ -1,20 +1,20 @@
 // todo
 
-var eventNames = ["touchstart", "mousedown"];
+var eventNames = ['touchstart', 'mousedown'];
 
 function sparePieces(position) {
   return m(
-    "div",
+    'div',
     {
-      class: ["spare", position, "orientation-" + "white", "white"].join(" "),
+      class: ['spare', position, 'orientation-' + 'white', 'white'].join(' '),
     },
-    ["lance", "rook", "bishop", "knight", "pawn"].map(function (role) {
+    ['lance', 'rook', 'bishop', 'knight', 'pawn'].map(function (role) {
       return m(
-        "div.no-square",
-        m("piece", {
-          class: "white" + " " + role,
-          "data-color": "white",
-          "data-role": role,
+        'div.no-square',
+        m('piece', {
+          class: 'white' + ' ' + role,
+          'data-color': 'white',
+          'data-role': role,
         })
       );
     })
@@ -22,7 +22,7 @@ function sparePieces(position) {
 }
 
 m(
-  "div",
+  'div',
   {
     config: function (el, isUpdate, context) {
       if (isUpdate) return;
@@ -37,5 +37,5 @@ m(
       };
     },
   },
-  [sparePieces("bottom")]
+  [sparePieces('bottom')]
 );

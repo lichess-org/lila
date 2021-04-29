@@ -1,6 +1,6 @@
-var m = require("mithril");
+var m = require('mithril');
 
-var key = "learn.progress";
+var key = 'learn.progress';
 
 var defaultValue = {
   stages: {},
@@ -8,8 +8,8 @@ var defaultValue = {
 
 function xhrSaveScore(stageKey, levelId, score) {
   return m.request({
-    method: "POST",
-    url: "/learn/score",
+    method: 'POST',
+    url: '/learn/score',
     data: {
       stage: stageKey,
       level: levelId,
@@ -20,8 +20,8 @@ function xhrSaveScore(stageKey, levelId, score) {
 
 function xhrReset() {
   return m.request({
-    method: "POST",
-    url: "/learn/reset",
+    method: 'POST',
+    url: '/learn/reset',
   });
 }
 

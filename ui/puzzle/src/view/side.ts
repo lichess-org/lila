@@ -5,13 +5,14 @@ import { VNode } from 'snabbdom/vnode';
 
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
-  return h('div.puzzle__side__metas', [puzzleInfos(ctrl, data.puzzle),
-    data.game.id ? gameInfos(ctrl, data.game, data.puzzle) : sourceInfos(ctrl, data.game)
+  return h('div.puzzle__side__metas', [
+    puzzleInfos(ctrl, data.puzzle),
+    data.game.id ? gameInfos(ctrl, data.game, data.puzzle) : sourceInfos(ctrl, data.game),
   ]);
 }
 
 function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
-  const isTsume = puzzle.themes.includes("tsume");
+  const isTsume = puzzle.themes.includes('tsume');
   return h(
     'div.infos.puzzle',
     {
@@ -20,7 +21,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
     [
       h('div', [
         h('p', [
-          isTsume ? ctrl.trans.noarg('tsume') + " " : "",
+          isTsume ? ctrl.trans.noarg('tsume') + ' ' : '',
           ...ctrl.trans.vdom(
             'puzzleId',
             h(
@@ -46,20 +47,21 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
 }
 
 function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
-  const authorName = game.author && game.author.startsWith("http") ?
-  h(
-      "a",
-      {
-        attrs: {
-          href: `${game.author}`,
-          target: "_blank"
-        },
-      },
-      game.author.replace(/(^\w+:|^)\/\//, '')
-    ) :
-    game.author ?
-      h("span", game.author) :
-        h("span", "Unknown author");
+  const authorName =
+    game.author && game.author.startsWith('http')
+      ? h(
+          'a',
+          {
+            attrs: {
+              href: `${game.author}`,
+              target: '_blank',
+            },
+          },
+          game.author.replace(/(^\w+:|^)\/\//, '')
+        )
+      : game.author
+      ? h('span', game.author)
+      : h('span', 'Unknown author');
   return h(
     'div.infos',
     {
@@ -67,20 +69,11 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
     },
     [
       h('div', [
-        h(
-          'p',
-          ctrl.trans.vdom(
-            'puzzleSource',
-            authorName
-          )
-        ),
-        h(
-          'div.source-description',
-          game.description ?? ""
-        ),
+        h('p', ctrl.trans.vdom('puzzleSource', authorName)),
+        h('div.source-description', game.description ?? ''),
       ]),
     ]
-  )
+  );
 }
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
@@ -101,7 +94,9 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
               : h(
                   'a',
                   {
-                    attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
+                    attrs: {
+                      href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}`,
+                    },
                   },
                   gameName
                 )
@@ -112,9 +107,9 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
           game.players?.map(p =>
             h(
               'div.player.color-icon.is.text.' + p.color,
-              p.userId === 'anon' ?
-                'Anonymous' :
-              p.userId
+              p.userId === 'anon'
+                ? 'Anonymous'
+                : p.userId
                 ? h(
                     'a.user-link.ulpt',
                     {

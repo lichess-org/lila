@@ -5,19 +5,18 @@ $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
 .tv-single {
-
   grid-template-areas:
-  'app'
-  'under'
-  'side'
-  'uchat';
+    'app'
+    'under'
+    'side'
+    'uchat';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
-    'app   app'
-    'side under';
+      'app   app'
+      'side under';
     &__app {
       justify-self: center;
     }
@@ -27,8 +26,8 @@ $mq-col3: $mq-col3-uniboard;
     grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
-    'side app   app'
-    'side under .';
+      'side app   app'
+      'side under .';
 
     @include crosstable-large;
   }

@@ -1,12 +1,12 @@
 .advice-summary {
   @extend %flex-column;
   color: $c-font-page;
-  font-size: .9em;
+  font-size: 0.9em;
   align-items: flex-start;
   line-height: 1.15em;
   margin-top: 1em;
   .hidden {
-      visibility: hidden;
+    visibility: hidden;
   }
   td {
     text-align: center;
@@ -24,10 +24,10 @@
     cursor: pointer;
   }
   tr.symbol:hover {
-    color: #3893E8;
+    color: #3893e8;
   }
   .button {
-    margin: .6em 0;
+    margin: 0.6em 0;
   }
   @include breakpoint($mq-col1) {
     flex-flow: row wrap;

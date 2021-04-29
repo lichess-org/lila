@@ -111,12 +111,10 @@
     }
   }
   &.d3 {
-    $board-files: (
-      "Woodi"
-    );
+    $board-files: ('Woodi');
     @each $name in $board-files {
       .#{$name} {
-        background-image: img-url("staunton/board/#{$name}.thumbnail.png");
+        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
       }
     }
   }

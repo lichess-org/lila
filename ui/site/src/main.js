@@ -2,7 +2,7 @@
   $.ajaxSetup({
     cache: false,
   });
-  $.ajaxTransport("script", function (s) {
+  $.ajaxTransport('script', function (s) {
     // Monkeypatch jQuery to load scripts with nonce. Upstream patch:
     // - https://github.com/jquery/jquery/pull/3766
     // - https://github.com/jquery/jquery/pull/3782
@@ -11,19 +11,19 @@
     var script, callback;
     return {
       send: function (_, complete) {
-        script = $("<script>")
+        script = $('<script>')
           .prop({
-            nonce: document.body.getAttribute("data-nonce"), // Add the nonce!
+            nonce: document.body.getAttribute('data-nonce'), // Add the nonce!
             charset: s.scriptCharset,
             src: s.url,
           })
           .on(
-            "load error",
+            'load error',
             (callback = function (evt) {
               script.remove();
               callback = null;
               if (evt) {
-                complete(evt.type === "error" ? 404 : 200, evt.type);
+                complete(evt.type === 'error' ? 404 : 200, evt.type);
               }
             })
           );
@@ -40,17 +40,17 @@
     return $.userLinkLimit(u, false);
   };
   $.userLinkLimit = function (u, limit, klass) {
-    var split = u.split(" ");
+    var split = u.split(' ');
     var id = split.length == 1 ? split[0] : split[1];
     return u
       ? '<a class="user-link ulpt ' +
-          (klass || "") +
+          (klass || '') +
           '" href="/@/' +
           id +
           '">' +
           (limit ? u.substring(0, limit) : u) +
-          "</a>"
-      : "Anonymous";
+          '</a>'
+      : 'Anonymous';
   };
 
   lishogi.announce = (() => {
@@ -58,63 +58,58 @@
     const kill = () => {
       if (timeout) clearTimeout(timeout);
       timeout = undefined;
-      $("#announce").remove();
+      $('#announce').remove();
     };
-    const set = (d) => {
+    const set = d => {
       if (!d) return;
       kill();
       if (d.msg) {
-        $("body")
+        $('body')
           .append(
             '<div id="announce" class="announce">' +
               lishogi.escapeHtml(d.msg) +
-              (d.date
-                ? '<time class="timeago" datetime="' + d.date + '"></time>'
-                : "") +
+              (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
               '<div class="actions"><a class="close">X</a></div>' +
-              "</div>"
+              '</div>'
           )
-          .find("#announce .close")
+          .find('#announce .close')
           .click(kill);
-        timeout = setTimeout(
-          kill,
-          d.date ? new Date(d.date) - Date.now() : 5000
-        );
-        if (d.date) lishogi.pubsub.emit("content_loaded");
+        timeout = setTimeout(kill, d.date ? new Date(d.date) - Date.now() : 5000);
+        if (d.date) lishogi.pubsub.emit('content_loaded');
       }
     };
-    set($("body").data("announce"));
+    set($('body').data('announce'));
     return set;
   })();
 
   lishogi.socket = null;
-  const $friendsBox = $("#friend_box");
+  const $friendsBox = $('#friend_box');
   $.extend(true, lishogi.StrongSocket.defaults, {
     events: {
       following_onlines: function (_, d) {
         d.users = d.d;
-        $friendsBox.friends("set", d);
+        $friendsBox.friends('set', d);
       },
       following_enters: function (_, d) {
-        $friendsBox.friends("enters", d);
+        $friendsBox.friends('enters', d);
       },
       following_leaves: function (name) {
-        $friendsBox.friends("leaves", name);
+        $friendsBox.friends('leaves', name);
       },
       following_playing: function (name) {
-        $friendsBox.friends("playing", name);
+        $friendsBox.friends('playing', name);
       },
       following_stopped_playing: function (name) {
-        $friendsBox.friends("stopped_playing", name);
+        $friendsBox.friends('stopped_playing', name);
       },
       following_joined_study: function (name) {
-        $friendsBox.friends("study_join", name);
+        $friendsBox.friends('study_join', name);
       },
       following_left_study: function (name) {
-        $friendsBox.friends("study_leave", name);
+        $friendsBox.friends('study_leave', name);
       },
       new_notification: function (e) {
-        $("#notify-toggle").attr("data-count", e.unread || 0);
+        $('#notify-toggle').attr('data-count', e.unread || 0);
         lishogi.sound.newPM();
       },
       redirect: function (o) {
@@ -124,17 +119,16 @@
         }, 200);
       },
       tournamentReminder: function (data) {
-        if ($("#announce").length || $("body").data("tournament-id") == data.id)
-          return;
-        var url = "/tournament/" + data.id;
-        $("body")
+        if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
+        var url = '/tournament/' + data.id;
+        $('body')
           .append(
             '<div id="announce">' +
               '<a data-icon="g" class="text" href="' +
               url +
               '">' +
               data.name +
-              "</a>" +
+              '</a>' +
               '<div class="actions">' +
               '<a class="withdraw text" href="' +
               url +
@@ -142,12 +136,12 @@
               '<a class="text" href="' +
               url +
               '" data-icon="G">Resume</a>' +
-              "</div></div>"
+              '</div></div>'
           )
-          .find("#announce .withdraw")
+          .find('#announce .withdraw')
           .click(function () {
-            $.post($(this).attr("href"));
-            $("#announce").remove();
+            $.post($(this).attr('href'));
+            $('#announce').remove();
             return false;
           });
       },
@@ -155,90 +149,86 @@
     },
     params: {},
     options: {
-      name: "site",
+      name: 'site',
       lagTag: null,
-      isAuth: !!$("body").data("user"),
+      isAuth: !!$('body').data('user'),
     },
   });
 
-  lishogi.reverse = (s) => s.split("").reverse().join("");
-  lishogi.readServerFen = (t) => atob(lishogi.reverse(t));
+  lishogi.reverse = s => s.split('').reverse().join('');
+  lishogi.readServerFen = t => atob(lishogi.reverse(t));
 
   lishogi.userAutocomplete = ($input, opts) => {
     opts = opts || {};
-    lishogi.loadCssPath("autocomplete");
-    return lishogi
-      .loadScript("javascripts/vendor/typeahead.jquery.min.js")
-      .done(function () {
-        $input
-          .typeahead(
-            {
-              minLength: opts.minLength || 3,
+    lishogi.loadCssPath('autocomplete');
+    return lishogi.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function () {
+      $input
+        .typeahead(
+          {
+            minLength: opts.minLength || 3,
+          },
+          {
+            hint: true,
+            highlight: false,
+            source: function (query, _, runAsync) {
+              if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i))
+                $.ajax({
+                  url: '/player/autocomplete',
+                  cache: true,
+                  data: {
+                    term: query,
+                    friend: opts.friend ? 1 : 0,
+                    tour: opts.tour,
+                    swiss: opts.swiss,
+                    object: 1,
+                  },
+                  success(res) {
+                    res = res.result;
+                    // hack to fix typeahead limit bug
+                    if (res.length === 10) res.push(null);
+                    runAsync(res);
+                  },
+                });
             },
-            {
-              hint: true,
-              highlight: false,
-              source: function (query, _, runAsync) {
-                if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i))
-                  $.ajax({
-                    url: "/player/autocomplete",
-                    cache: true,
-                    data: {
-                      term: query,
-                      friend: opts.friend ? 1 : 0,
-                      tour: opts.tour,
-                      swiss: opts.swiss,
-                      object: 1,
-                    },
-                    success(res) {
-                      res = res.result;
-                      // hack to fix typeahead limit bug
-                      if (res.length === 10) res.push(null);
-                      runAsync(res);
-                    },
-                  });
+            limit: 10,
+            displayKey: 'name',
+            templates: {
+              empty: '<div class="empty">No player found</div>',
+              pending: lishogi.spinnerHtml,
+              suggestion: function (o) {
+                var tag = opts.tag || 'a';
+                return (
+                  '<' +
+                  tag +
+                  ' class="ulpt user-link' +
+                  (o.online ? ' online' : '') +
+                  '" ' +
+                  (tag === 'a' ? '' : 'data-') +
+                  'href="/@/' +
+                  o.name +
+                  '">' +
+                  '<i class="line' +
+                  (o.patron ? ' patron' : '') +
+                  '"></i>' +
+                  (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '') +
+                  o.name +
+                  '</' +
+                  tag +
+                  '>'
+                );
               },
-              limit: 10,
-              displayKey: "name",
-              templates: {
-                empty: '<div class="empty">No player found</div>',
-                pending: lishogi.spinnerHtml,
-                suggestion: function (o) {
-                  var tag = opts.tag || "a";
-                  return (
-                    "<" +
-                    tag +
-                    ' class="ulpt user-link' +
-                    (o.online ? " online" : "") +
-                    '" ' +
-                    (tag === "a" ? "" : "data-") +
-                    'href="/@/' +
-                    o.name +
-                    '">' +
-                    '<i class="line' +
-                    (o.patron ? " patron" : "") +
-                    '"></i>' +
-                    (o.title
-                      ? '<span class="title">' + o.title + "</span>&nbsp;"
-                      : "") +
-                    o.name +
-                    "</" +
-                    tag +
-                    ">"
-                  );
-                },
-              },
-            }
-          )
-          .on("typeahead:render", () => lishogi.pubsub.emit("content_loaded"));
-        if (opts.focus) $input.focus();
-        if (opts.onSelect)
-          $input
-            .on("typeahead:select", (_, sel) => opts.onSelect(sel))
-            .on("keypress", function (e) {
-              if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
-            });
-      });
+            },
+          }
+        )
+        .on('typeahead:render', () => lishogi.pubsub.emit('content_loaded'));
+      if (opts.focus) $input.focus();
+      if (opts.onSelect)
+        $input
+          .on('typeahead:select', (_, sel) => opts.onSelect(sel))
+          .on('keypress', function (e) {
+            if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
+          });
+    });
   };
 
   lishogi.parseFen = function ($elem) {
@@ -247,32 +237,30 @@
         lishogi.parseFen($elem);
       }, 500); // if not loaded yet
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
-    if (!$elem || !$elem.each) $elem = $(".parse-fen");
+    if (!$elem || !$elem.each) $elem = $('.parse-fen');
     $elem.each(function () {
-      var $this = $(this).removeClass("parse-fen");
-      var lm = $this.data("lastmove");
-      var lastMove =
-        lm && (lm[1] === "*" ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
-      var color =
-        $this.data("color") || lishogi.readServerFen($(this).data("y"));
-      var ground = $this.data("shogiground");
-      var playable = !!$this.data("playable");
-      var resizable = !!$this.data("resizable");
-      var fen = $this.data("fen");
-      var pocketFromFen = fen && fen.split(" ").length > 2 ? fen.split(" ")[2] : undefined;
+      var $this = $(this).removeClass('parse-fen');
+      var lm = $this.data('lastmove');
+      var lastMove = lm && (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
+      var color = $this.data('color') || lishogi.readServerFen($(this).data('y'));
+      var ground = $this.data('shogiground');
+      var playable = !!$this.data('playable');
+      var resizable = !!$this.data('resizable');
+      var fen = $this.data('fen');
+      var pocketFromFen = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : undefined;
       var config = {
         coordinates: false,
         viewOnly: !playable,
         resizable: resizable,
-        fen: fen || lishogi.readServerFen($this.data("z")),
+        fen: fen || lishogi.readServerFen($this.data('z')),
         hasPockets: true,
-        pockets: $this.data("pocket") || pocketFromFen,
+        pockets: $this.data('pocket') || pocketFromFen,
         lastMove: lastMove,
         drawable: { enabled: false, visible: false },
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
-      else $this.data("shogiground", Shogiground(this, config));
+      else $this.data('shogiground', Shogiground(this, config));
     });
   };
 
@@ -289,51 +277,48 @@
 
     // delay so round starts first (just for perceived perf)
     lishogi.requestIdleCallback(function () {
-      $("#friend_box").friends();
+      $('#friend_box').friends();
 
-      $("#main-wrap")
-        .on("click", ".autoselect", function () {
+      $('#main-wrap')
+        .on('click', '.autoselect', function () {
           $(this).select();
         })
-        .on("click", "button.copy", function () {
-          $("#" + $(this).data("rel")).select();
-          document.execCommand("copy");
-          $(this).attr("data-icon", "E");
+        .on('click', 'button.copy', function () {
+          $('#' + $(this).data('rel')).select();
+          document.execCommand('copy');
+          $(this).attr('data-icon', 'E');
         });
-      $("body").on("click", "a.relation-button", function () {
-        var $a = $(this).addClass("processing").css("opacity", 0.3);
+      $('body').on('click', 'a.relation-button', function () {
+        var $a = $(this).addClass('processing').css('opacity', 0.3);
         $.ajax({
-          url: $a.attr("href"),
-          type: "post",
+          url: $a.attr('href'),
+          type: 'post',
           success: function (html) {
-            if (html.includes("relation-actions"))
-              $a.parent().replaceWith(html);
+            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
             else $a.replaceWith(html);
           },
         });
         return false;
       });
 
-      $(".mselect .button").on("click", function () {
+      $('.mselect .button').on('click', function () {
         var $p = $(this).parent();
-        $p.toggleClass("shown");
+        $p.toggleClass('shown');
         setTimeout(function () {
           var handler = function (e) {
             if ($.contains($p[0], e.target)) return;
-            $p.removeClass("shown");
-            $("html").off("click", handler);
+            $p.removeClass('shown');
+            $('html').off('click', handler);
           };
-          $("html").on("click", handler);
+          $('html').on('click', handler);
         }, 10);
       });
 
-      document.body.addEventListener("mouseover", lishogi.powertip.mouseover);
+      document.body.addEventListener('mouseover', lishogi.powertip.mouseover);
 
       function renderTimeago() {
         requestAnimationFrame(() =>
-          lishogi.timeago.render(
-            [].slice.call(document.getElementsByClassName("timeago"), 0, 99)
-          )
+          lishogi.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
       }
       function setTimeago(interval) {
@@ -341,45 +326,42 @@
         setTimeout(() => setTimeago(interval * 1.1), interval);
       }
       setTimeago(1200);
-      lishogi.pubsub.on("content_loaded", renderTimeago);
+      lishogi.pubsub.on('content_loaded', renderTimeago);
 
       if (!window.customWS)
         setTimeout(function () {
           if (lishogi.socket === null) {
-            lishogi.socket = lishogi.StrongSocket("/socket/v4", false);
+            lishogi.socket = lishogi.StrongSocket('/socket/v4', false);
           }
         }, 300);
 
-      const initiatingHtml =
-        '<div class="initiating">' + lishogi.spinnerHtml + "</div>";
+      const initiatingHtml = '<div class="initiating">' + lishogi.spinnerHtml + '</div>';
 
       lishogi.challengeApp = (function () {
         var instance, booted;
-        var $toggle = $("#challenge-toggle");
-        $toggle.one("mouseover click", function () {
+        var $toggle = $('#challenge-toggle');
+        $toggle.one('mouseover click', function () {
           load();
         });
         var load = function (data) {
           if (booted) return;
           booted = true;
-          var $el = $("#challenge-app").html(lishogi.initiatingHtml);
-          lishogi.loadCssPath("challenge");
-          lishogi
-            .loadScript(lishogi.compiledScript("challenge"))
-            .done(function () {
-              instance = LishogiChallenge($el[0], {
-                data: data,
-                show: function () {
-                  if (!$("#challenge-app").is(":visible")) $toggle.click();
-                },
-                setCount: function (nb) {
-                  $toggle.find("span").attr("data-count", nb);
-                },
-                pulse: function () {
-                  $toggle.addClass("pulse");
-                },
-              });
+          var $el = $('#challenge-app').html(lishogi.initiatingHtml);
+          lishogi.loadCssPath('challenge');
+          lishogi.loadScript(lishogi.compiledScript('challenge')).done(function () {
+            instance = LishogiChallenge($el[0], {
+              data: data,
+              show: function () {
+                if (!$('#challenge-app').is(':visible')) $toggle.click();
+              },
+              setCount: function (nb) {
+                $toggle.find('span').attr('data-count', nb);
+              },
+              pulse: function () {
+                $toggle.addClass('pulse');
+              },
             });
+          });
         };
         return {
           update: function (data) {
@@ -394,61 +376,51 @@
 
       lishogi.notifyApp = (() => {
         let instance, booted;
-        const $toggle = $("#notify-toggle"),
-          isVisible = () => $("#notify-app").is(":visible"),
+        const $toggle = $('#notify-toggle'),
+          isVisible = () => $('#notify-app').is(':visible'),
           permissionChanged = () => {
             $toggle
-              .find("span")
-              .attr(
-                "data-icon",
-                "Notification" in window && Notification.permission == "granted"
-                  ? "\ue00f"
-                  : "\xbf"
-              );
+              .find('span')
+              .attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
             if (instance) instance.redraw();
           };
 
-        if ("permissions" in navigator)
-          navigator.permissions
-            .query({ name: "notifications" })
-            .then((perm) => {
-              perm.onchange = permissionChanged;
-            });
+        if ('permissions' in navigator)
+          navigator.permissions.query({ name: 'notifications' }).then(perm => {
+            perm.onchange = permissionChanged;
+          });
         permissionChanged();
 
         const load = function (data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $("#notify-app").html(initiatingHtml);
-          lishogi.loadCssPath("notify");
-          lishogi
-            .loadScript(lishogi.compiledScript("notify"))
-            .done(function () {
-              instance = LishogiNotify($el.empty()[0], {
-                data: data,
-                incoming: incoming,
-                isVisible: isVisible,
-                setCount(nb) {
-                  $toggle.find("span").attr("data-count", nb);
-                },
-                show() {
-                  if (!isVisible()) $toggle.click();
-                },
-                setNotified() {
-                  lishogi.socket.send("notified");
-                },
-                pulse() {
-                  $toggle.addClass("pulse");
-                },
-              });
+          var $el = $('#notify-app').html(initiatingHtml);
+          lishogi.loadCssPath('notify');
+          lishogi.loadScript(lishogi.compiledScript('notify')).done(function () {
+            instance = LishogiNotify($el.empty()[0], {
+              data: data,
+              incoming: incoming,
+              isVisible: isVisible,
+              setCount(nb) {
+                $toggle.find('span').attr('data-count', nb);
+              },
+              show() {
+                if (!isVisible()) $toggle.click();
+              },
+              setNotified() {
+                lishogi.socket.send('notified');
+              },
+              pulse() {
+                $toggle.addClass('pulse');
+              },
             });
+          });
         };
 
         $toggle
-          .one("mouseover click", () => load())
+          .one('mouseover click', () => load())
           .click(() => {
-            if ("Notification" in window)
-              Notification.requestPermission((p) => permissionChanged());
+            if ('Notification' in window) Notification.requestPermission(p => permissionChanged());
             setTimeout(() => {
               if (instance && isVisible()) instance.setVisible();
             }, 200);
@@ -466,99 +438,88 @@
         };
       })();
 
-      window.addEventListener("resize", () =>
-        lishogi.dispatchEvent(document.body, "shogiground.resize")
-      );
+      window.addEventListener('resize', () => lishogi.dispatchEvent(document.body, 'shogiground.resize'));
 
       // dasher
       {
         let booted;
-        $("#top .dasher .toggle").one("mouseover click", function () {
+        $('#top .dasher .toggle').one('mouseover click', function () {
           if (booted) return;
           booted = true;
-          const $el = $("#dasher_app").html(initiatingHtml),
-            playing = $("body").hasClass("playing");
-          lishogi.loadCssPath("dasher");
-          lishogi
-            .loadScript(lishogi.compiledScript("dasher"))
-            .done(() => LishogiDasher($el.empty()[0], { playing }));
+          const $el = $('#dasher_app').html(initiatingHtml),
+            playing = $('body').hasClass('playing');
+          lishogi.loadCssPath('dasher');
+          lishogi.loadScript(lishogi.compiledScript('dasher')).done(() => LishogiDasher($el.empty()[0], { playing }));
         });
       }
 
       // cli
       {
-        const $wrap = $("#clinput");
+        const $wrap = $('#clinput');
         if (!$wrap.length) return;
         let booted;
-        const $input = $wrap.find("input");
+        const $input = $wrap.find('input');
         const boot = () => {
           if (booted) return;
           booted = true;
-          lishogi
-            .loadScript(lishogi.compiledScript("cli"))
-            .done(() => LishogiCli.app($wrap, toggle));
+          lishogi.loadScript(lishogi.compiledScript('cli')).done(() => LishogiCli.app($wrap, toggle));
         };
         const toggle = () => {
           boot();
-          $("body").toggleClass("clinput");
-          if ($("body").hasClass("clinput")) $input.focus();
+          $('body').toggleClass('clinput');
+          if ($('body').hasClass('clinput')) $input.focus();
         };
-        $wrap
-          .find("a")
-          .on("mouseover click", (e) =>
-            (e.type === "mouseover" ? boot : toggle)()
-          );
-        Mousetrap.bind("/", () => {
-          $input.val("/");
+        $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
+        Mousetrap.bind('/', () => {
+          $input.val('/');
           requestAnimationFrame(() => toggle());
           return false;
         });
-        Mousetrap.bind("s", () => requestAnimationFrame(() => toggle()));
-        if ($("body").hasClass("blind-mode"))
-          $input.one("focus", () => toggle());
+        Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
+        if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
       }
 
-      $(".user-autocomplete").each(function () {
+      $('.user-autocomplete').each(function () {
         const opts = {
           focus: 1,
-          friend: $(this).data("friend"),
-          tag: $(this).data("tag"),
+          friend: $(this).data('friend'),
+          tag: $(this).data('tag'),
         };
-        if ($(this).attr("autofocus")) lishogi.userAutocomplete($(this), opts);
+        if ($(this).attr('autofocus')) lishogi.userAutocomplete($(this), opts);
         else
-          $(this).one("focus", function () {
+          $(this).one('focus', function () {
             lishogi.userAutocomplete($(this), opts);
           });
       });
 
-      $("#topnav-toggle").on("change", (e) => {
-        document.body.classList.toggle("masked", e.target.checked);
+      $('#topnav-toggle').on('change', e => {
+        document.body.classList.toggle('masked', e.target.checked);
       });
 
       lishogi.loadInfiniteScroll = function (el) {
         $(el).each(function () {
-          if (!$(".pager a", this).length) return;
+          if (!$('.pager a', this).length) return;
           var $scroller = $(this)
             .infinitescroll(
               {
-                navSelector: ".pager",
-                nextSelector: ".pager a",
-                itemSelector: ".infinitescroll .paginated",
+                navSelector: '.pager',
+                nextSelector: '.pager a',
+                itemSelector: '.infinitescroll .paginated',
                 errorCallback: function () {
-                  $("#infscr-loading").remove();
+                  $('#infscr-loading').remove();
                 },
                 loading: {
                   msg: $('<div id="infscr-loading">').html(lishogi.spinnerHtml),
                 },
               },
               function () {
-                $("#infscr-loading").remove();
-                lishogi.pubsub.emit("content_loaded");
+                $('#infscr-loading').remove();
+                lishogi.pubsub.emit('content_loaded');
                 var ids = [];
                 $(el)
-                  .find(".paginated[data-dedup]")
+                  .find('.paginated[data-dedup]')
                   .each(function () {
-                    var id = $(this).data("dedup");
+                    var id = $(this).data('dedup');
                     if (id) {
                       if (ids.includes(id)) $(this).remove();
                       else ids.push(id);
@@ -566,114 +527,98 @@
                   });
               }
             )
-            .find("div.pager")
+            .find('div.pager')
             .hide()
             .end();
           $scroller.parent().append(
-            $(
-              '<button class="inf-more button button-empty">&hellip;</button>'
-            ).on("click", function () {
-              $scroller.infinitescroll("retrieve");
+            $('<button class="inf-more button button-empty">&hellip;</button>').on('click', function () {
+              $scroller.infinitescroll('retrieve');
             })
           );
         });
       };
-      lishogi.loadInfiniteScroll(".infinitescroll");
+      lishogi.loadInfiniteScroll('.infinitescroll');
 
-      $("#top").on("click", "a.toggle", function () {
+      $('#top').on('click', 'a.toggle', function () {
         var $p = $(this).parent();
-        $p.toggleClass("shown");
-        $p.siblings(".shown").removeClass("shown");
-        lishogi.pubsub.emit("top.toggle." + $(this).attr("id"));
+        $p.toggleClass('shown');
+        $p.siblings('.shown').removeClass('shown');
+        lishogi.pubsub.emit('top.toggle.' + $(this).attr('id'));
         setTimeout(function () {
           var handler = function (e) {
             if ($.contains($p[0], e.target)) return;
-            $p.removeClass("shown");
-            $("html").off("click", handler);
+            $p.removeClass('shown');
+            $('html').off('click', handler);
           };
-          $("html").on("click", handler);
+          $('html').on('click', handler);
         }, 10);
         return false;
       });
 
-      $("a.delete, input.delete").click(() => confirm("Delete?"));
-      $("input.confirm, button.confirm").click(function () {
-        return confirm($(this).attr("title") || "Confirm this action?");
+      $('a.delete, input.delete').click(() => confirm('Delete?'));
+      $('input.confirm, button.confirm').click(function () {
+        return confirm($(this).attr('title') || 'Confirm this action?');
       });
 
-      $("#main-wrap").on("click", "a.bookmark", function () {
-        var t = $(this).toggleClass("bookmarked");
-        $.post(t.attr("href"));
-        var count =
-          (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-        t.find("span").html(count > 0 ? count : "");
+      $('#main-wrap').on('click', 'a.bookmark', function () {
+        var t = $(this).toggleClass('bookmarked');
+        $.post(t.attr('href'));
+        var count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
+        t.find('span').html(count > 0 ? count : '');
         return false;
       });
 
       // still bind esc even in form fields
       Mousetrap.prototype.stopCallback = function (e, el, combo) {
         return (
-          combo != "esc" &&
-          (el.isContentEditable ||
-            el.tagName == "INPUT" ||
-            el.tagName == "SELECT" ||
-            el.tagName == "TEXTAREA")
+          combo != 'esc' &&
+          (el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA')
         );
       };
-      Mousetrap.bind("esc", function () {
-        var $oc = $("#modal-wrap .close");
-        if ($oc.length) $oc.trigger("click");
+      Mousetrap.bind('esc', function () {
+        var $oc = $('#modal-wrap .close');
+        if ($oc.length) $oc.trigger('click');
         else {
-          var $input = $(":focus");
-          if ($input.length) $input.trigger("blur");
+          var $input = $(':focus');
+          if ($input.length) $input.trigger('blur');
         }
         return false;
       });
 
-      if (!lishogi.storage.get("grid"))
+      if (!lishogi.storage.get('grid'))
         setTimeout(function () {
-          if (getComputedStyle(document.body).getPropertyValue("--grid"))
-            lishogi.storage.set("grid", 1);
-          else
-            $.get(lishogi.assetUrl("oops/browser.html"), (html) =>
-              $("body").prepend(html)
-            );
+          if (getComputedStyle(document.body).getPropertyValue('--grid')) lishogi.storage.set('grid', 1);
+          else $.get(lishogi.assetUrl('oops/browser.html'), html => $('body').prepend(html));
         }, 3000);
 
       /* A disgusting hack for a disgusting browser
        * Edge randomly fails to rasterize SVG on page load
        * A different SVG must be loaded so a new image can be rasterized */
-      if (navigator.userAgent.indexOf("Edge/") > -1)
+      if (navigator.userAgent.indexOf('Edge/') > -1)
         setTimeout(function () {
-          const sprite = $("#piece-sprite");
-          sprite.attr(
-            "href",
-            sprite.attr("href").replace(".css", ".external.css")
-          );
+          const sprite = $('#piece-sprite');
+          sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
         }, 1000);
 
       // prevent zoom when keyboard shows on iOS
       if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-        const el = document.querySelector("meta[name=viewport]");
-        el.setAttribute(
-          "content",
-          el.getAttribute("content") + ",maximum-scale=1.0"
-        );
+        const el = document.querySelector('meta[name=viewport]');
+        el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
       }
     });
   });
 
   lishogi.sound = (function () {
     var api = {};
-    var soundSet = $("body").data("sound-set");
+    var soundSet = $('body').data('sound-set');
 
-    var speechStorage = lishogi.storage.makeBoolean("speech.enabled");
+    var speechStorage = lishogi.storage.makeBoolean('speech.enabled');
     api.speech = function (v) {
-      if (typeof v == "undefined") return speechStorage.get();
+      if (typeof v == 'undefined') return speechStorage.get();
       speechStorage.set(v);
       collection.clear();
     };
-    api.volumeStorage = lishogi.storage.make("sound-volume");
+    api.volumeStorage = lishogi.storage.make('sound-volume');
     api.defaultVolume = 0.7;
 
     var memoize = function (factory) {
@@ -689,28 +634,28 @@
     };
 
     var names = {
-      genericNotify: "GenericNotify",
-      move: "Move",
-      capture: "Capture",
-      explode: "Explosion",
-      lowtime: "LowTime",
-      victory: "Victory",
-      defeat: "Defeat",
-      draw: "Draw",
-      tournament1st: "Tournament1st",
-      tournament2nd: "Tournament2nd",
-      tournament3rd: "Tournament3rd",
-      tournamentOther: "TournamentOther",
-      berserk: "Berserk",
-      check: "Check",
-      newChallenge: "NewChallenge",
-      newPM: "NewPM",
-      confirmation: "Confirmation",
-      error: "Error",
-      tick: "Tick",
-      period: "Period"
+      genericNotify: 'GenericNotify',
+      move: 'Move',
+      capture: 'Capture',
+      explode: 'Explosion',
+      lowtime: 'LowTime',
+      victory: 'Victory',
+      defeat: 'Defeat',
+      draw: 'Draw',
+      tournament1st: 'Tournament1st',
+      tournament2nd: 'Tournament2nd',
+      tournament3rd: 'Tournament3rd',
+      tournamentOther: 'TournamentOther',
+      berserk: 'Berserk',
+      check: 'Check',
+      newChallenge: 'NewChallenge',
+      newPM: 'NewPM',
+      confirmation: 'Confirmation',
+      error: 'Error',
+      tick: 'Tick',
+      period: 'Period',
     };
-    for (var i = 0; i <= 10; i++) names["countDown" + i] = "CountDown" + i;
+    for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
     var volumes = {
       lowtime: 0.5,
@@ -719,23 +664,23 @@
     };
     var collection = new memoize(function (k) {
       var set = soundSet;
-      if (set === "music" || speechStorage.get()) {
-        if (["move", "capture", "check"].includes(k))
+      if (set === 'music' || speechStorage.get()) {
+        if (['move', 'capture', 'check'].includes(k))
           return {
             play: $.noop,
           };
-        set = "standard";
+        set = 'standard';
       }
-      var baseUrl = lishogi.assetUrl("sound", { noVersion: true });
+      var baseUrl = lishogi.assetUrl('sound', { noVersion: true });
       return new Howl({
-        src: ["ogg", "mp3"].map(function (ext) {
-          return [baseUrl, set, names[k] + "." + ext].join("/");
+        src: ['ogg', 'mp3'].map(function (ext) {
+          return [baseUrl, set, names[k] + '.' + ext].join('/');
         }),
         volume: volumes[k] || 1,
       });
     });
     var enabled = function () {
-      return soundSet !== "silent";
+      return soundSet !== 'silent';
     };
     Object.keys(names).forEach(function (name) {
       api[name] = function (text) {
@@ -743,7 +688,7 @@
         if (!text || !api.say(text)) {
           Howler.volume(api.getVolume());
           var sound = collection(name);
-          if (Howler.ctx && Howler.ctx.state == "suspended") {
+          if (Howler.ctx && Howler.ctx.state == 'suspended') {
             Howler.ctx.resume().then(() => sound.play());
           } else {
             sound.play();
@@ -755,10 +700,10 @@
       if (!speechStorage.get() && !force) return false;
       var msg = text.text ? text : new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
-      msg.lang = "en-US";
+      msg.lang = 'en-US';
       if (cut) speechSynthesis.cancel();
       speechSynthesis.speak(msg);
-      console.log(`%c${msg.text}`, "color: blue");
+      console.log(`%c${msg.text}`, 'color: blue');
       return true;
     };
     api.load = function (name) {
@@ -775,7 +720,7 @@
     };
 
     var publish = function () {
-      lishogi.pubsub.emit("sound_set", soundSet);
+      lishogi.pubsub.emit('sound_set', soundSet);
     };
     setTimeout(publish, 500);
 
@@ -799,38 +744,35 @@
     return api;
   })();
 
-  lishogi.widget("watchers", {
+  lishogi.widget('watchers', {
     _create: function () {
-      this.list = this.element.find(".list");
-      this.number = this.element.find(".number");
-      lishogi.pubsub.on("socket.in.crowd", (data) =>
-        this.set(data.watchers || data)
-      );
+      this.list = this.element.find('.list');
+      this.number = this.element.find('.number');
+      lishogi.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
       lishogi.watchersData && this.set(lishogi.watchersData);
     },
     set: function (data) {
       lishogi.watchersData = data;
-      if (!data || !data.nb) return this.element.addClass("none");
+      if (!data || !data.nb) return this.element.addClass('none');
       if (this.number.length) this.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
-        if (data.anons === 1) tags.push("Anonymous");
-        else if (data.anons) tags.push("Anonymous (" + data.anons + ")");
-        this.list.html(tags.join(", "));
-      } else if (!this.number.length)
-        this.list.html(data.nb + " players in the chat");
-      this.element.removeClass("none");
+        if (data.anons === 1) tags.push('Anonymous');
+        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
+        this.list.html(tags.join(', '));
+      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
+      this.element.removeClass('none');
     },
   });
 
   lishogi.widget(
-    "friends",
+    'friends',
     (function () {
       var getId = function (titleName) {
-        return titleName.toLowerCase().replace(/^\w+\s/, "");
+        return titleName.toLowerCase().replace(/^\w+\s/, '');
       };
       var makeUser = function (titleName) {
-        var split = titleName.split(" ");
+        var split = titleName.split(' ');
         return {
           id: split[split.length - 1].toLowerCase(),
           name: split[split.length - 1],
@@ -840,23 +782,14 @@
         };
       };
       var renderUser = function (user) {
-        const icon =
-            '<i class="line' + (user.patron ? " patron" : "") + '"></i>',
+        const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
           titleTag = user.title
-            ? '<span class="title"' +
-              (user.title === "BOT" ? " data-bot" : "") +
-              ">" +
-              user.title +
-              "</span>&nbsp;"
-            : "",
-          url = "/@/" + user.name,
+            ? '<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;'
+            : '',
+          url = '/@/' + user.name,
           tvButton = user.playing
-            ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' +
-              url +
-              '/tv" data-href="' +
-              url +
-              '"></a>'
-            : "";
+            ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>'
+            : '';
         return (
           '<div><a class="user-link ulpt" data-pt-pos="nw" href="' +
           url +
@@ -864,9 +797,9 @@
           icon +
           titleTag +
           user.name +
-          "</a>" +
+          '</a>' +
           tvButton +
-          "</div>"
+          '</div>'
         );
       };
       return {
@@ -874,23 +807,21 @@
           const self = this,
             el = self.element;
 
-          self.$friendBoxTitle = el
-            .find(".friend_box_title")
-            .click(function () {
-              el.find(".content_wrap").toggleNone();
-              if (!self.loaded) {
-                self.loaded = true;
-                lishogi.socket.send("following_onlines");
-              }
-            });
+          self.$friendBoxTitle = el.find('.friend_box_title').click(function () {
+            el.find('.content_wrap').toggleNone();
+            if (!self.loaded) {
+              self.loaded = true;
+              lishogi.socket.send('following_onlines');
+            }
+          });
 
-          self.$nobody = el.find(".nobody");
+          self.$nobody = el.find('.nobody');
 
           const data = {
             users: [],
             playing: [],
             patrons: [],
-            ...el.data("preload"),
+            ...el.data('preload'),
           };
           self.trans = lishogi.trans(data.i18n);
           self.set(data);
@@ -903,18 +834,18 @@
                   ids = Object.keys(users).sort();
                 this.$friendBoxTitle.html(
                   this.trans.vdomPlural(
-                    "nbFriendsOnline",
+                    'nbFriendsOnline',
                     ids.length,
-                    this.loaded ? $("<strong>").text(ids.length) : "-"
+                    this.loaded ? $('<strong>').text(ids.length) : '-'
                   )
                 );
                 this.$nobody.toggleNone(!ids.length);
-                this.element.find(".list").html(
+                this.element.find('.list').html(
                   ids
                     .map(function (id) {
                       return renderUser(users[id]);
                     })
-                    .join("")
+                    .join('')
                 );
               }.bind(this)
             );
@@ -954,11 +885,11 @@
     })()
   );
 
-  lishogi.widget("clock", {
+  lishogi.widget('clock', {
     _create: function () {
       var self = this;
       var target = this.options.time * 1000 + Date.now();
-      var timeEl = this.element.find(".time")[0];
+      var timeEl = this.element.find('.time')[0];
       var tick = function () {
         var remaining = target - Date.now();
         if (remaining <= 0) clearInterval(self.interval);
@@ -969,7 +900,7 @@
     },
 
     _pad: function (x) {
-      return (x < 10 ? "0" : "") + x;
+      return (x < 10 ? '0' : '') + x;
     },
 
     _formatMs: function (msTime) {
@@ -980,43 +911,39 @@
         seconds = date.getUTCSeconds();
 
       if (hours > 0) {
-        return hours + ":" + this._pad(minutes) + ":" + this._pad(seconds);
+        return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
       } else {
-        return minutes + ":" + this._pad(seconds);
+        return minutes + ':' + this._pad(seconds);
       }
     },
   });
 
   $(function () {
-    lishogi.pubsub.on("content_loaded", lishogi.parseFen);
+    lishogi.pubsub.on('content_loaded', lishogi.parseFen);
 
     var socketOpened = false;
 
     function startWatching() {
       if (!socketOpened) return;
       var ids = [];
-      $(".mini-board.live")
-        .removeClass("live")
+      $('.mini-board.live')
+        .removeClass('live')
         .each(function () {
-          ids.push(this.getAttribute("data-live"));
+          ids.push(this.getAttribute('data-live'));
         });
-      if (ids.length) lishogi.socket.send("startWatching", ids.join(" "));
+      if (ids.length) lishogi.socket.send('startWatching', ids.join(' '));
     }
-    lishogi.pubsub.on("content_loaded", startWatching);
-    lishogi.pubsub.on("socket.open", function () {
+    lishogi.pubsub.on('content_loaded', startWatching);
+    lishogi.pubsub.on('socket.open', function () {
       socketOpened = true;
       startWatching();
     });
 
     lishogi.requestIdleCallback(function () {
       lishogi.parseFen();
-      $(".chat__members").watchers();
-      if (location.hash === "#blind" && !$("body").hasClass("blind-mode"))
-        $.post(
-          "/toggle-blind-mode",
-          { enable: 1, redirect: "/" },
-          lishogi.reload
-        );
+      $('.chat__members').watchers();
+      if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
+        $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lishogi.reload);
     });
   });
 
@@ -1025,41 +952,33 @@
   ///////////////////
 
   function startTournament(cfg) {
-    var element = document.querySelector("main.tour");
-    $("body").data("tournament-id", cfg.data.id);
+    var element = document.querySelector('main.tour');
+    $('body').data('tournament-id', cfg.data.id);
     let tournament;
-    lishogi.socket = lishogi.StrongSocket(
-      "/tournament/" + cfg.data.id + "/socket/v4",
-      cfg.data.socketVersion,
-      {
-        receive: (t, d) => tournament.socketReceive(t, d),
-      }
-    );
+    lishogi.socket = lishogi.StrongSocket('/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
+      receive: (t, d) => tournament.socketReceive(t, d),
+    });
     cfg.socketSend = lishogi.socket.send;
     cfg.element = element;
     tournament = LishogiTournament.start(cfg);
   }
 
   function startSimul(cfg) {
-    cfg.element = document.querySelector("main.simul");
-    $("body").data("simul-id", cfg.data.id);
+    cfg.element = document.querySelector('main.simul');
+    $('body').data('simul-id', cfg.data.id);
     var simul;
-    lishogi.socket = lishogi.StrongSocket(
-      "/simul/" + cfg.data.id + "/socket/v4",
-      cfg.socketVersion,
-      {
-        receive: function (t, d) {
-          simul.socketReceive(t, d);
-        },
-      }
-    );
+    lishogi.socket = lishogi.StrongSocket('/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
+      receive: function (t, d) {
+        simul.socketReceive(t, d);
+      },
+    });
     cfg.socketSend = lishogi.socket.send;
-    cfg.$side = $(".simul__side").clone();
+    cfg.$side = $('.simul__side').clone();
     simul = LishogiSimul(cfg);
   }
 
   function startTeam(cfg) {
-    lishogi.socket = lishogi.StrongSocket("/team/" + cfg.id, cfg.socketVersion);
+    lishogi.socket = lishogi.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
     cfg.chat && lishogi.makeChat(cfg.chat);
   }
 
@@ -1069,15 +988,15 @@
 
   function startUserAnalysis(cfg) {
     var analyse;
-    cfg.initialPly = "url";
+    cfg.initialPly = 'url';
     cfg.trans = lishogi.trans(cfg.i18n);
-    lishogi.socket = lishogi.StrongSocket("/analysis/socket/v4", false, {
+    lishogi.socket = lishogi.StrongSocket('/analysis/socket/v4', false, {
       receive: function (t, d) {
         analyse.socketReceive(t, d);
       },
     });
     cfg.socketSend = lishogi.socket.send;
-    cfg.$side = $(".analyse__side").clone();
+    cfg.$side = $('.analyse__side').clone();
     analyse = LishogiAnalyse.start(cfg);
   }
 
@@ -1087,7 +1006,7 @@
 
   function startStudy(cfg) {
     var analyse;
-    cfg.initialPly = "url";
+    cfg.initialPly = 'url';
     lishogi.socket = lishogi.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       receive: function (t, d) {
         analyse.socketReceive(t, d);
@@ -1105,7 +1024,7 @@
   function startPractice(cfg) {
     var analyse;
     cfg.trans = lishogi.trans(cfg.i18n);
-    lishogi.socket = lishogi.StrongSocket("/analysis/socket/v4", false, {
+    lishogi.socket = lishogi.StrongSocket('/analysis/socket/v4', false, {
       receive: function (t, d) {
         analyse.socketReceive(t, d);
       },
@@ -1120,7 +1039,7 @@
 
   function startRelay(cfg) {
     var analyse;
-    cfg.initialPly = "url";
+    cfg.initialPly = 'url';
     lishogi.socket = lishogi.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
       receive: function (t, d) {
         analyse.socketReceive(t, d);
@@ -1136,7 +1055,7 @@
   ////////////////
 
   function startPuzzle(cfg) {
-    cfg.element = document.querySelector("main.puzzle");
+    cfg.element = document.querySelector('main.puzzle');
     LishogiPuzzle(cfg);
   }
 
@@ -1144,68 +1063,49 @@
   // service worker //
   ////////////////////
 
-  if (
-    "serviceWorker" in navigator &&
-    "Notification" in window &&
-    "PushManager" in window
-  ) {
+  if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     const workerUrl = new URL(
-      lishogi.assetUrl(lishogi.compiledScript("serviceWorker"), {
+      lishogi.assetUrl(lishogi.compiledScript('serviceWorker'), {
         sameDomain: true,
       }),
       self.location.href
     );
-    workerUrl.searchParams.set(
-      "asset-url",
-      document.body.getAttribute("data-asset-url")
-    );
-    if (document.body.getAttribute("data-dev"))
-      workerUrl.searchParams.set("dev", "1");
-    const updateViaCache = document.body.getAttribute("data-dev")
-      ? "none"
-      : "all";
-    navigator.serviceWorker
-      .register(workerUrl.href, { scope: "/", updateViaCache })
-      .then((reg) => {
-        const storage = lishogi.storage.make("push-subscribed");
-        const vapid = document.body.getAttribute("data-vapid");
-        if (vapid && Notification.permission == "granted")
-          return reg.pushManager.getSubscription().then((sub) => {
-            const resub =
-              parseInt(storage.get() || "0", 10) + 43200000 < Date.now(); // 12 hours
-            const applicationServerKey = Uint8Array.from(atob(vapid), (c) =>
-              c.charCodeAt(0)
-            );
-            if (!sub || resub) {
-              return reg.pushManager
-                .subscribe({
-                  userVisibleOnly: true,
-                  applicationServerKey: applicationServerKey,
-                })
-                .then(
-                  (sub) =>
-                    fetch("/push/subscribe", {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(sub),
-                    }).then((res) => {
-                      if (res.ok) storage.set("" + Date.now());
-                      else
-                        console.log(
-                          "submitting push subscription failed",
-                          response.statusText
-                        );
-                    }),
-                  (err) => {
-                    console.log("push subscribe failed", err.message);
-                    if (sub) sub.unsubscribe();
-                  }
-                );
-            }
-          });
-        else storage.remove();
-      });
+    workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url'));
+    if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
+    const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
+    navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache }).then(reg => {
+      const storage = lishogi.storage.make('push-subscribed');
+      const vapid = document.body.getAttribute('data-vapid');
+      if (vapid && Notification.permission == 'granted')
+        return reg.pushManager.getSubscription().then(sub => {
+          const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+          const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+          if (!sub || resub) {
+            return reg.pushManager
+              .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey,
+              })
+              .then(
+                sub =>
+                  fetch('/push/subscribe', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(sub),
+                  }).then(res => {
+                    if (res.ok) storage.set('' + Date.now());
+                    else console.log('submitting push subscription failed', response.statusText);
+                  }),
+                err => {
+                  console.log('push subscribe failed', err.message);
+                  if (sub) sub.unsubscribe();
+                }
+              );
+          }
+        });
+      else storage.remove();
+    });
   }
 })();

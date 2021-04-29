@@ -1,6 +1,6 @@
-import { updateElements } from "./clockView";
-import { RoundData } from "../interfaces";
-import * as game from "game";
+import { updateElements } from './clockView';
+import { RoundData } from '../interfaces';
+import * as game from 'game';
 
 export type Seconds = number;
 export type Centis = number;
@@ -100,18 +100,18 @@ export class ClockController {
     if (cdata.showTenths === 0) this.showTenths = () => false;
     else {
       const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
-      this.showTenths = (time) => time < cutoff;
+      this.showTenths = time => time < cutoff;
     }
 
     this.byoyomi = cdata.byoyomi;
     this.initial = cdata.initial;
 
     this.startPeriod = cdata.periods;
-    this.curPeriods["sente"] = cdata.sPeriods ?? 0;
-    this.curPeriods["gote"] = cdata.gPeriods ?? 0;
+    this.curPeriods['sente'] = cdata.sPeriods ?? 0;
+    this.curPeriods['gote'] = cdata.gPeriods ?? 0;
 
-    this.showBar["sente"] = cdata.showBar && !this.opts.nvui && this.curPeriods["sente"] === 0;
-    this.showBar["gote"] = cdata.showBar && !this.opts.nvui && this.curPeriods["gote"] === 0;
+    this.showBar['sente'] = cdata.showBar && !this.opts.nvui && this.curPeriods['sente'] === 0;
+    this.showBar['gote'] = cdata.showBar && !this.opts.nvui && this.curPeriods['gote'] === 0;
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -123,19 +123,10 @@ export class ClockController {
 
   isUsingByo = (color: Color): boolean => this.byoyomi > 0 && (this.curPeriods[color] > 0 || this.initial === 0);
 
-  timeRatio = (millis: number): number =>
-    Math.min(1, millis * this.timeRatioDivisor);
+  timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
-  setClock = (
-    d: RoundData,
-    sente: Seconds,
-    gote: Seconds,
-    sPer: number,
-    gPer: number,
-    delay: Centis = 0
-  ) => {
-    const isClockRunning =
-      game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+  setClock = (d: RoundData, sente: Seconds, gote: Seconds, sPer: number, gPer: number, delay: Centis = 0) => {
+    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
     this.times = {
@@ -144,8 +135,8 @@ export class ClockController {
       activeColor: isClockRunning ? d.game.player : undefined,
       lastUpdate: performance.now() + delayMs,
     };
-    this.curPeriods["sente"] = sPer;
-    this.curPeriods["gote"] = gPer;
+    this.curPeriods['sente'] = sPer;
+    this.curPeriods['gote'] = gPer;
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };
@@ -160,7 +151,7 @@ export class ClockController {
     if (this.opts.soundColor === color) this.emergSound.nextPeriod();
     this.showBar[color] = false; // let's just not show the bar for byoyomi
     this.emergSound.byoTicks = undefined;
-  }
+  };
 
   stopClock = (): Millis | void => {
     const color = this.times.activeColor;
@@ -181,9 +172,7 @@ export class ClockController {
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui
-        ? 1000
-        : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay
+      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay
     );
   };
 
@@ -211,21 +200,23 @@ export class ClockController {
       } else if (millis > 1.5 * this.emergMs) {
         this.emergSound.playable[color] = true;
       }
-      if(this.byoyomi >= 5 && millis > 0 && ((this.emergSound.byoTicks === undefined && millis < this.byoEmergeS * 1000) ||
-        (this.emergSound.byoTicks && Math.floor(millis / 1000) < this.emergSound.byoTicks)) && this.isUsingByo(color)){
-          this.emergSound.byoTicks = Math.floor(millis / 1000);
-          this.emergSound.tick();
+      if (
+        this.byoyomi >= 5 &&
+        millis > 0 &&
+        ((this.emergSound.byoTicks === undefined && millis < this.byoEmergeS * 1000) ||
+          (this.emergSound.byoTicks && Math.floor(millis / 1000) < this.emergSound.byoTicks)) &&
+        this.isUsingByo(color)
+      ) {
+        this.emergSound.byoTicks = Math.floor(millis / 1000);
+        this.emergSound.tick();
       }
     }
   };
 
-  elapsed = (now = performance.now()) =>
-    Math.max(0, now - this.times.lastUpdate);
+  elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis =>
-    this.times.activeColor === color
-      ? Math.max(0, this.times[color] - this.elapsed())
-      : this.times[color];
+    this.times.activeColor === color ? Math.max(0, this.times[color] - this.elapsed()) : this.times[color];
 
   isRunning = () => this.times.activeColor !== undefined;
 }

@@ -1,18 +1,18 @@
 %base-font-fallback {
-  font-family: "Noto Sans", Sans-Serif;
+  font-family: 'Noto Sans', Sans-Serif;
 }
 %base-font {
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
 }
 %roboto {
-  font-family: "Roboto";
+  font-family: 'Roboto';
 }
 %roboto-fat {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-weight: 600;
 }
 %chess-font {
-  font-family: "Noto Shogi", "Noto Sans"; // shogi font sometimes?
+  font-family: 'Noto Shogi', 'Noto Sans'; // shogi font sometimes?
 }
 %san {
   @extend %chess-font;
@@ -150,7 +150,7 @@
 
 %mini-board-square {
   @extend %square;
-  padding-bottom: calc(100% * 11/9);
+  padding-bottom: calc(100% * 11 / 9);
 }
 
 %video {
@@ -169,7 +169,7 @@
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: "lishogi";
+  font-family: 'lishogi';
   font-style: normal;
   font-weight: normal;
   text-transform: none;
@@ -189,7 +189,7 @@
   bottom: 0;
   right: 0;
   background: $c-page-mask;
-  z-index: z("fullscreen-mask");
+  z-index: z('fullscreen-mask');
 }
 %link-overlay {
   position: absolute;
@@ -197,7 +197,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: z("link-overlay");
+  z-index: z('link-overlay');
 }
 %abs-100 {
   position: absolute;

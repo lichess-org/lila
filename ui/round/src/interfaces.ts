@@ -1,10 +1,10 @@
-import { VNode } from "snabbdom/vnode";
-import { GameData, Status } from "game";
-import { ClockData, Seconds, Centis } from "./clock/clockCtrl";
-import { CorresClockData } from "./corresClock/corresClockCtrl";
-import RoundController from "./ctrl";
-import { ChatPlugin } from "chat";
-import * as cg from "shogiground/types";
+import { VNode } from 'snabbdom/vnode';
+import { GameData, Status } from 'game';
+import { ClockData, Seconds, Centis } from './clock/clockCtrl';
+import { CorresClockData } from './corresClock/corresClockCtrl';
+import RoundController from './ctrl';
+import { ChatPlugin } from 'chat';
+import * as cg from 'shogiground/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -93,7 +93,7 @@ export interface RoundOpts {
 }
 
 export interface Chat {
-  preset: "start" | "end" | undefined;
+  preset: 'start' | 'end' | undefined;
   parseMoves?: boolean;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
@@ -181,7 +181,7 @@ export interface MoveMetadata {
   justCaptured?: cg.Piece;
 }
 
-export type Position = "top" | "bottom";
+export type Position = 'top' | 'bottom';
 
 export interface MaterialDiffSide {
   [role: string]: number;

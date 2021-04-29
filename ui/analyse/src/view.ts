@@ -1,42 +1,42 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import { parseFen } from "shogiops/fen";
-import * as shogiground from "./ground";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { parseFen } from 'shogiops/fen';
+import * as shogiground from './ground';
 //import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from "./util";
-import { bind, onInsert, spinner, bindMobileMousedown } from "./util";
-import { defined } from "common";
-import changeColorHandle from "common/coordsColor";
-import { getPlayer, playable } from "game";
-import * as router from "game/router";
-import statusView from "game/view/status";
-import { path as treePath } from "tree";
-import { render as renderTreeView } from "./treeView/treeView";
-import * as control from "./control";
-import { view as actionMenu } from "./actionMenu";
-import { view as renderPromotion } from "./promotion";
-import renderClocks from "./clocks";
+import { bind, onInsert, spinner, bindMobileMousedown } from './util';
+import { defined } from 'common';
+import changeColorHandle from 'common/coordsColor';
+import { getPlayer, playable } from 'game';
+import * as router from 'game/router';
+import statusView from 'game/view/status';
+import { path as treePath } from 'tree';
+import { render as renderTreeView } from './treeView/treeView';
+import * as control from './control';
+import { view as actionMenu } from './actionMenu';
+import { view as renderPromotion } from './promotion';
+import renderClocks from './clocks';
 //import * as pgnExport from "./pgnExport";
-import forecastView from "./forecast/forecastView";
-import { view as cevalView } from "ceval";
-import crazyView from "./crazy/crazyView";
-import { view as keyboardView } from "./keyboard";
-import explorerView from "./explorer/explorerView";
-import retroView from "./retrospect/retroView";
-import practiceView from "./practice/practiceView";
-import * as gbEdit from "./study/gamebook/gamebookEdit";
-import * as gbPlay from "./study/gamebook/gamebookPlayView";
-import { StudyCtrl } from "./study/interfaces";
-import * as studyView from "./study/studyView";
-import * as studyPracticeView from "./study/practice/studyPracticeView";
-import { view as forkView } from "./fork";
-import { render as acplView } from "./acpl";
-import AnalyseCtrl from "./ctrl";
-import { ConcealOf } from "./interfaces";
-import relayManager from "./study/relay/relayManagerView";
-import relayIntro from "./study/relay/relayIntroView";
-import renderPlayerBars from "./study/playerBars";
-import serverSideUnderboard from "./serverSideUnderboard";
-import * as gridHacks from "./gridHacks";
+import forecastView from './forecast/forecastView';
+import { view as cevalView } from 'ceval';
+import crazyView from './crazy/crazyView';
+import { view as keyboardView } from './keyboard';
+import explorerView from './explorer/explorerView';
+import retroView from './retrospect/retroView';
+import practiceView from './practice/practiceView';
+import * as gbEdit from './study/gamebook/gamebookEdit';
+import * as gbPlay from './study/gamebook/gamebookPlayView';
+import { StudyCtrl } from './study/interfaces';
+import * as studyView from './study/studyView';
+import * as studyPracticeView from './study/practice/studyPracticeView';
+import { view as forkView } from './fork';
+import { render as acplView } from './acpl';
+import AnalyseCtrl from './ctrl';
+import { ConcealOf } from './interfaces';
+import relayManager from './study/relay/relayManagerView';
+import relayIntro from './study/relay/relayIntroView';
+import renderPlayerBars from './study/playerBars';
+import serverSideUnderboard from './serverSideUnderboard';
+import * as gridHacks from './gridHacks';
 
 const li = window.lishogi;
 
@@ -44,30 +44,23 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30)
     switch (ctrl.data.game.winner) {
-      case "sente":
-        result = "1-0";
+      case 'sente':
+        result = '1-0';
         break;
-      case "gote":
-        result = "0-1";
+      case 'gote':
+        result = '0-1';
         break;
       default:
-        result = "½-½";
+        result = '½-½';
     }
   const tags: VNode[] = [];
   if (result) {
-    tags.push(h("div.result", result));
+    tags.push(h('div.result', result));
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
     tags.push(
-      h("div.status", [
+      h('div.status', [
         statusView(ctrl),
-        winner
-          ? ", " +
-            ctrl.trans(
-              winner.color == "sente"
-                ? "blackIsVictorious"
-                : "whiteIsVictorious"
-            )
-          : null,
+        winner ? ', ' + ctrl.trans(winner.color == 'sente' ? 'blackIsVictorious' : 'whiteIsVictorious') : null,
       ])
     );
   }
@@ -87,7 +80,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
       return function (path: Tree.Path, node: Tree.Node) {
         if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
         if (treePath.contains(ctrl.path, path)) return null;
-        return conceal.owner ? "conceal" : "hide";
+        return conceal.owner ? 'conceal' : 'hide';
       };
     };
   return undefined;
@@ -95,11 +88,9 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h(
-    "div.analyse__moves.areplay",
+    'div.analyse__moves.areplay',
     [
-      ctrl.embed && ctrl.study
-        ? h("div.chapter-name", ctrl.study.currentChapter().name)
-        : null,
+      ctrl.embed && ctrl.study ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
       renderTreeView(ctrl, concealOf),
     ].concat(renderResult(ctrl))
   );
@@ -107,12 +98,7 @@ function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
   const target = e.target as HTMLElement;
-  if (
-    target.tagName !== "PIECE" &&
-    target.tagName !== "SQUARE" &&
-    target.tagName !== "CG-BOARD"
-  )
-    return;
+  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
@@ -123,25 +109,19 @@ function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
 function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
-  return h("div.copyables", [
-    h("div.pair", [
-      h("label.name", "SFEN"),
-      h("input.copyable.autoselect.analyse__underboard__fen", {
+  return h('div.copyables', [
+    h('div.pair', [
+      h('label.name', 'SFEN'),
+      h('input.copyable.autoselect.analyse__underboard__fen', {
         attrs: { spellCheck: false },
         hook: {
-          insert: (vnode) => {
+          insert: vnode => {
             const el = vnode.elm as HTMLInputElement;
-            el.value = defined(ctrl.fenInput)
-              ? ctrl.fenInput
-              : ctrl.node.fen;
-            el.addEventListener("change", (_) => {
-              if (
-                el.value !== ctrl.node.fen &&
-                el.reportValidity()
-              )
-                ctrl.changeFen(el.value.trim());
+            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.addEventListener('change', _ => {
+              if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
             });
-            el.addEventListener("input", (_) => {
+            el.addEventListener('input', _ => {
               ctrl.fenInput = el.value;
               el.addEventListener('input', _ => {
                 ctrl.fenInput = el.value;
@@ -153,7 +133,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
               el.value = ctrl.node.fen;
-              el.setCustomValidity("");
+              el.setCustomValidity('');
             } else if (el.value != ctrl.fenInput) {
               el.value = ctrl.fenInput;
             }
@@ -204,21 +184,18 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
 }
 
 function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
-  return h("button.fbt", {
+  return h('button.fbt', {
     class: { disabled: !enabled },
-    attrs: { "data-act": effect, "data-icon": icon },
+    attrs: { 'data-act': effect, 'data-icon': icon },
   });
 }
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
-  return (
-    target.getAttribute("data-act") ||
-    (target.parentNode as HTMLElement).getAttribute("data-act")
-  );
+  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function repeater(ctrl: AnalyseCtrl, action: "prev" | "next", e: Event) {
+function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   const repeat = function () {
     control[action](ctrl);
     ctrl.redraw();
@@ -228,32 +205,31 @@ function repeater(ctrl: AnalyseCtrl, action: "prev" | "next", e: Event) {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = e.type == "touchstart" ? "touchend" : "mouseup";
+  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), {
     once: true,
   });
 }
 
 function controls(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== "",
+  const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     noarg = ctrl.trans.noarg;
   return h(
-    "div.analyse__controls.analyse-controls",
+    'div.analyse__controls.analyse-controls',
     {
-      hook: onInsert((el) => {
+      hook: onInsert(el => {
         bindMobileMousedown(
           el,
-          (e) => {
+          e => {
             const action = dataAct(e);
-            if (action === "prev" || action === "next")
-              repeater(ctrl, action, e);
-            else if (action === "first") control.first(ctrl);
-            else if (action === "last") control.last(ctrl);
-            else if (action === "explorer") ctrl.toggleExplorer();
-            else if (action === "practice") ctrl.togglePractice();
-            else if (action === "menu") ctrl.actionMenu.toggle();
+            if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+            else if (action === 'first') control.first(ctrl);
+            else if (action === 'last') control.last(ctrl);
+            else if (action === 'explorer') ctrl.toggleExplorer();
+            else if (action === 'practice') ctrl.togglePractice();
+            else if (action === 'menu') ctrl.actionMenu.toggle();
           },
           ctrl.redraw
         );
@@ -263,15 +239,15 @@ function controls(ctrl: AnalyseCtrl) {
       ctrl.embed
         ? null
         : h(
-            "div.features",
+            'div.features',
             ctrl.studyPractice
               ? [
-                  h("a.fbt", {
+                  h('a.fbt', {
                     attrs: {
-                      title: noarg("analysis"),
-                      target: "_blank",
+                      title: noarg('analysis'),
+                      target: '_blank',
                       href: ctrl.studyPractice.analysisUrl(),
-                      "data-icon": "A",
+                      'data-icon': 'A',
                     },
                   }),
                 ]
@@ -288,14 +264,12 @@ function controls(ctrl: AnalyseCtrl) {
                   //    active: ctrl.explorer.enabled(),
                   //  },
                   //}),
-                  ctrl.ceval.possible &&
-                  ctrl.ceval.allowed() &&
-                  !ctrl.isGamebook()
-                    ? h("button.fbt", {
+                  ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
+                    ? h('button.fbt', {
                         attrs: {
-                          title: noarg("practiceWithComputer"),
-                          "data-act": "practice",
-                          "data-icon": "",
+                          title: noarg('practiceWithComputer'),
+                          'data-act': 'practice',
+                          'data-icon': '',
                         },
                         class: {
                           hidden: menuIsOpen || !!ctrl.retro,
@@ -305,20 +279,20 @@ function controls(ctrl: AnalyseCtrl) {
                     : null,
                 ]
           ),
-      h("div.jumps", [
-        jumpButton("W", "first", canJumpPrev),
-        jumpButton("Y", "prev", canJumpPrev),
-        jumpButton("X", "next", canJumpNext),
-        jumpButton("V", "last", canJumpNext),
+      h('div.jumps', [
+        jumpButton('W', 'first', canJumpPrev),
+        jumpButton('Y', 'prev', canJumpPrev),
+        jumpButton('X', 'next', canJumpNext),
+        jumpButton('V', 'last', canJumpNext),
       ]),
       ctrl.studyPractice
-        ? h("div.noop")
-        : h("button.fbt", {
+        ? h('div.noop')
+        : h('button.fbt', {
             class: { active: menuIsOpen },
             attrs: {
-              title: noarg("menu"),
-              "data-act": "menu",
-              "data-icon": "[",
+              title: noarg('menu'),
+              'data-act': 'menu',
+              'data-icon': '[',
             },
           }),
     ]
@@ -327,15 +301,13 @@ function controls(ctrl: AnalyseCtrl) {
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   if (ctrl.data.pref.coords == 2) {
-    $("body").toggleClass("coords-in", v).toggleClass("coords-out", !v);
+    $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
     changeColorHandle();
   }
 }
 
 function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
-  return (
-    cssClass + (study && study.data.chapter ? "." + study.data.chapter.id : "")
-  );
+  return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
@@ -353,14 +325,14 @@ export default function (ctrl: AnalyseCtrl): VNode {
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
   return h(
-    "main.analyse.variant-" + ctrl.data.game.variant.key,
+    'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
       hook: {
-        insert: (vn) => {
+        insert: vn => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars != $("body").hasClass("header-margin")) {
+          if (!!playerBars != $('body').hasClass('header-margin')) {
             requestAnimationFrame(() => {
-              $("body").toggleClass("header-margin", !!playerBars);
+              $('body').toggleClass('header-margin', !!playerBars);
               ctrl.redraw();
             });
           }
@@ -370,18 +342,17 @@ export default function (ctrl: AnalyseCtrl): VNode {
           forceInnerCoords(ctrl, needsInnerCoords);
         },
         postpatch(old, vnode) {
-          if (old.data!.gaugeOn !== gaugeOn)
-            li.dispatchEvent(document.body, "shogiground.resize");
+          if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'shogiground.resize');
           vnode.data!.gaugeOn = gaugeOn;
         },
       },
       class: {
-        "comp-off": !ctrl.showComputer(),
-        "gauge-on": gaugeOn,
-        "has-players": !!playerBars,
-        "has-clocks": !!clocks,
-        "has-intro": !!intro,
-        "analyse-hunter": ctrl.opts.hunter,
+        'comp-off': !ctrl.showComputer(),
+        'gauge-on': gaugeOn,
+        'has-players': !!playerBars,
+        'has-clocks': !!clocks,
+        'has-intro': !!intro,
+        'analyse-hunter': ctrl.opts.hunter,
       },
     },
     [
@@ -389,12 +360,12 @@ export default function (ctrl: AnalyseCtrl): VNode {
       study ? studyView.overboard(study) : null,
       intro ||
         h(
-          addChapterId(study, "div.analyse__board.main-board"),
+          addChapterId(study, 'div.analyse__board.main-board'),
           {
             hook:
               window.lishogi.hasTouchEvents || ctrl.gamebookPlay()
                 ? undefined
-                : bind("wheel", (e: WheelEvent) => wheel(ctrl, e)),
+                : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },
           [
             ...(clocks || []),
@@ -405,11 +376,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ]
         ),
       gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
-      menuIsOpen || intro ? null : crazyView(ctrl, ctrl.topColor(), "top"),
+      menuIsOpen || intro ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
       gamebookPlayView ||
         (intro
           ? null
-          : h(addChapterId(study, "div.analyse__tools"), [
+          : h(addChapterId(study, 'div.analyse__tools'), [
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
@@ -420,19 +391,15 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-      menuIsOpen || intro
-        ? null
-        : crazyView(ctrl, ctrl.bottomColor(), "bottom"),
+      menuIsOpen || intro ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
       gamebookPlayView || intro ? null : controls(ctrl),
       ctrl.embed || intro
         ? null
         : h(
-            "div.analyse__underboard",
+            'div.analyse__underboard',
             {
               hook:
-                ctrl.synthetic || playable(ctrl.data)
-                  ? undefined
-                  : onInsert((elm) => serverSideUnderboard(elm, ctrl)),
+                ctrl.synthetic || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
             },
             study ? studyView.underboard(ctrl) : [inputs(ctrl)]
           ),
@@ -442,13 +409,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
         : ctrl.studyPractice
         ? studyPracticeView.side(study!)
         : h(
-            "aside.analyse__side",
+            'aside.analyse__side',
             {
-              hook: onInsert((elm) => {
-                ctrl.opts.$side &&
-                  ctrl.opts.$side.length &&
-                  $(elm).replaceWith(ctrl.opts.$side);
-                $(elm).append($(".streamers").clone().removeClass("none"));
+              hook: onInsert(elm => {
+                ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+                $(elm).append($('.streamers').clone().removeClass('none'));
               }),
             },
             ctrl.studyPractice
@@ -459,19 +424,16 @@ export default function (ctrl: AnalyseCtrl): VNode {
                   ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
                   !ctrl.synthetic && playable(ctrl.data)
                     ? h(
-                        "div.back-to-game",
+                        'div.back-to-game',
                         h(
-                          "a.button.button-empty.text",
+                          'a.button.button-empty.text',
                           {
                             attrs: {
-                              href: router.game(
-                                ctrl.data,
-                                ctrl.data.player.color
-                              ),
-                              "data-icon": "i",
+                              href: router.game(ctrl.data, ctrl.data.player.color),
+                              'data-icon': 'i',
                             },
                           },
-                          ctrl.trans.noarg("backToGame")
+                          ctrl.trans.noarg('backToGame')
                         )
                       )
                     : null,
@@ -479,11 +441,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ),
       study && study.relay && relayManager(study.relay),
       ctrl.opts.chat &&
-        h("section.mchat", {
-          hook: onInsert((_) => {
+        h('section.mchat', {
+          hook: onInsert(_ => {
             if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
             ctrl.opts.chat.parseMoves = true;
-            li.makeChat(ctrl.opts.chat, (chat) => {
+            li.makeChat(ctrl.opts.chat, chat => {
               ctrl.opts.chat.instance = chat;
             });
           }),
@@ -491,17 +453,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
       ctrl.embed
         ? null
         : h(
-            "div.chat__members.none",
+            'div.chat__members.none',
             {
-              hook: onInsert((el) => $(el).watchers()),
+              hook: onInsert(el => $(el).watchers()),
             },
-            [
-              h("span.number", "\xa0"),
-              " ",
-              ctrl.trans.noarg("spectators"),
-              " ",
-              h("span.list"),
-            ]
+            [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')]
           ),
     ]
   );

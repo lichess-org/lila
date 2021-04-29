@@ -1,44 +1,34 @@
 lishogi.highchartsPromise;
 lishogi.chartCommon = function (type) {
   if (lishogi.highchartsPromise) return lishogi.highchartsPromise;
-  var file = type === "highstock" ? "highstock.js" : "highcharts.js";
+  var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
   return (lishogi.highchartsPromise = lishogi
-    .loadScript("vendor/highcharts-4.2.5/" + file, { noVersion: true })
+    .loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true })
     .done(function () {
       // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
       // issue is fixed since Highcharts v6.1.1.
-      Highcharts.wrap(
-        Highcharts.Axis.prototype,
-        "getPlotLinePath",
-        function (proceed) {
-          var path = proceed.apply(
-            this,
-            Array.prototype.slice.call(arguments, 1)
-          );
-          if (path) path.flat = false;
-          return path;
-        }
-      );
+      Highcharts.wrap(Highcharts.Axis.prototype, 'getPlotLinePath', function (proceed) {
+        var path = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+        if (path) path.flat = false;
+        return path;
+      });
       Highcharts.makeFont = function (size) {
-        return (
-          size +
-          "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
-        );
+        return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
       };
       Highcharts.theme = (function () {
-        var light = $("body").hasClass("light");
+        var light = $('body').hasClass('light');
         var text = {
-          weak: light ? "#a0a0a0" : "#707070",
-          strong: light ? "#707070" : "#a0a0a0",
+          weak: light ? '#a0a0a0' : '#707070',
+          strong: light ? '#707070' : '#a0a0a0',
         };
         var line = {
-          weak: light ? "#ccc" : "#404040",
-          strong: light ? "#a0a0a0" : "#606060",
-          fat: "#d85000", // light ? '#a0a0a0' : '#707070'
+          weak: light ? '#ccc' : '#404040',
+          strong: light ? '#a0a0a0' : '#606060',
+          fat: '#d85000', // light ? '#a0a0a0' : '#707070'
         };
         var area = {
-          gote: light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
-          sente: light ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,1)",
+          gote: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
+          sente: light ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)',
         };
         return {
           light: light,
@@ -48,17 +38,17 @@ lishogi.chartCommon = function (type) {
             area: area,
           },
           colors: [
-            "#DDDF0D",
-            "#7798BF",
-            "#55BF3B",
-            "#DF5353",
-            "#aaeeee",
-            "#ff0066",
-            "#eeaaee",
-            "#55BF3B",
-            "#DF5353",
-            "#7798BF",
-            "#aaeeee",
+            '#DDDF0D',
+            '#7798BF',
+            '#55BF3B',
+            '#DF5353',
+            '#aaeeee',
+            '#ff0066',
+            '#eeaaee',
+            '#55BF3B',
+            '#DF5353',
+            '#7798BF',
+            '#aaeeee',
           ],
           chart: {
             backgroundColor: null,
@@ -82,7 +72,7 @@ lishogi.chartCommon = function (type) {
             labels: {
               style: {
                 color: text.weak,
-                fontWeight: "bold",
+                fontWeight: 'bold',
               },
             },
             title: {
@@ -105,7 +95,7 @@ lishogi.chartCommon = function (type) {
             labels: {
               style: {
                 color: text.weak,
-                fontSize: "10px",
+                fontSize: '10px',
               },
             },
             title: {
@@ -129,7 +119,7 @@ lishogi.chartCommon = function (type) {
             },
           },
           lang: {
-            thousandsSep: "",
+            thousandsSep: '',
           },
           tooltip: {
             backgroundColor: {
@@ -141,24 +131,24 @@ lishogi.chartCommon = function (type) {
               },
               stops: light
                 ? [
-                    [0, "rgba(200, 200, 200, .8)"],
-                    [1, "rgba(250, 250, 250, .8)"],
+                    [0, 'rgba(200, 200, 200, .8)'],
+                    [1, 'rgba(250, 250, 250, .8)'],
                   ]
                 : [
-                    [0, "rgba(56, 56, 56, .8)"],
-                    [1, "rgba(16, 16, 16, .8)"],
+                    [0, 'rgba(56, 56, 56, .8)'],
+                    [1, 'rgba(16, 16, 16, .8)'],
                   ],
             },
             borderWidth: 0,
             style: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
               color: text.strong,
             },
           },
           plotOptions: {
             series: {
               shadow: false,
-              nullColor: "#444444",
+              nullColor: '#444444',
             },
             line: {
               dataLabels: {
@@ -188,35 +178,35 @@ lishogi.chartCommon = function (type) {
             ? {}
             : {
                 buttonTheme: {
-                  fill: "#505053",
-                  stroke: "#000000",
+                  fill: '#505053',
+                  stroke: '#000000',
                   style: {
-                    color: "#CCC",
+                    color: '#CCC',
                   },
                   states: {
                     hover: {
-                      fill: "#707073",
-                      stroke: "#000000",
+                      fill: '#707073',
+                      stroke: '#000000',
                       style: {
-                        color: "white",
+                        color: 'white',
                       },
                     },
                     select: {
-                      fill: "#000003",
-                      stroke: "#000000",
+                      fill: '#000003',
+                      stroke: '#000000',
                       style: {
-                        color: "white",
+                        color: 'white',
                       },
                     },
                   },
                 },
-                inputBoxBorderColor: "#505053",
+                inputBoxBorderColor: '#505053',
                 inputStyle: {
-                  backgroundColor: "#333",
-                  color: "silver",
+                  backgroundColor: '#333',
+                  color: 'silver',
                 },
                 labelStyle: {
-                  color: "silver",
+                  color: 'silver',
                 },
               },
 
@@ -224,17 +214,17 @@ lishogi.chartCommon = function (type) {
             ? {}
             : {
                 handles: {
-                  backgroundColor: "#666",
-                  borderColor: "#AAA",
+                  backgroundColor: '#666',
+                  borderColor: '#AAA',
                 },
-                outlineColor: "#CCC",
-                maskFill: "rgba(255,255,255,0.1)",
+                outlineColor: '#CCC',
+                maskFill: 'rgba(255,255,255,0.1)',
                 series: {
-                  color: "#7798BF",
-                  lineColor: "#A6C7ED",
+                  color: '#7798BF',
+                  lineColor: '#A6C7ED',
                 },
                 xAxis: {
-                  gridLineColor: "#505053",
+                  gridLineColor: '#505053',
                 },
               },
         };

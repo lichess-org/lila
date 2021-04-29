@@ -3,18 +3,19 @@ import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 import { isDrop, Role, Shogi, SquareSet } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
-import {opposite} from 'shogiground/util';
-import {plyColor} from './util';
+import { opposite } from 'shogiground/util';
+import { plyColor } from './util';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
-function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role ): boolean {
+function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): boolean {
   const m1 = parseLishogiUci(u1);
   const m2 = parseLishogiUci(u2);
-  if(!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to)
-    return false;
-  return (role === "knight" && SquareSet.backrank2(turn).has(m1.to)) ||
-    ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to));
+  if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
+  return (
+    (role === 'knight' && SquareSet.backrank2(turn).has(m1.to)) ||
+    ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to))
+  );
 }
 
 export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
@@ -27,15 +28,16 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
   const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
     uci: node.uci,
     san: node.san!,
-    fen: node.fen!
+    fen: node.fen!,
   }));
-  
+
   for (const i in nodes) {
     const b: boolean = parseFen(nodes[i].fen).unwrap(
-      (s) => Shogi.fromSetup(s, false).unwrap(
-        (sh) => sh.isCheckmate(),
-        () => false
-      ),
+      s =>
+        Shogi.fromSetup(s, false).unwrap(
+          sh => sh.isCheckmate(),
+          () => false
+        ),
       () => false
     );
     if (b) return (vm.node.puzzle = 'win');

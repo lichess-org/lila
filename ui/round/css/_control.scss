@@ -14,7 +14,7 @@
   .suggestion,
   .pending,
   .negotiation {
-    padding: .5em 3%;
+    padding: 0.5em 3%;
     background: $c-bg-zebra;
     border: $border;
     border-width: 0 1px;
@@ -26,7 +26,7 @@
       width: 100%;
     }
     .button {
-      margin: .5em 0 0 0;
+      margin: 0.5em 0 0 0;
     }
   }
   .pending {
@@ -138,13 +138,27 @@
       background: mix($c-primary, $c-bg-box, 80%);
     }
     @keyframes rubber-band {
-      from { transform: scale3d(1, 1, 1); }
-      6% { transform: scale3d(1.25, 0.75, 1); }
-      8% { transform: scale3d(0.75, 1.25, 1); }
-      10% { transform: scale3d(1.15, 0.85, 1); }
-      13% { transform: scale3d(.95, 1.05, 1); }
-      15% { transform: scale3d(1.05, .95, 1); }
-      20% { transform: scale3d(1, 1, 1); }
+      from {
+        transform: scale3d(1, 1, 1);
+      }
+      6% {
+        transform: scale3d(1.25, 0.75, 1);
+      }
+      8% {
+        transform: scale3d(0.75, 1.25, 1);
+      }
+      10% {
+        transform: scale3d(1.15, 0.85, 1);
+      }
+      13% {
+        transform: scale3d(0.95, 1.05, 1);
+      }
+      15% {
+        transform: scale3d(1.05, 0.95, 1);
+      }
+      20% {
+        transform: scale3d(1, 1, 1);
+      }
     }
     &.glowing {
       span {

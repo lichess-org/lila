@@ -1,20 +1,17 @@
 $(function () {
   Highcharts.makeFont = function (size) {
-    return (
-      size +
-      "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
-    );
+    return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
   };
   Highcharts.theme = (function () {
-    var light = $("body").hasClass("light");
+    var light = $('body').hasClass('light');
     var text = {
-      weak: light ? "#a0a0a0" : "#707070",
-      strong: light ? "#707070" : "#a0a0a0",
+      weak: light ? '#a0a0a0' : '#707070',
+      strong: light ? '#707070' : '#a0a0a0',
     };
     var line = {
-      weak: light ? "#ccc" : "#404040",
-      strong: light ? "#a0a0a0" : "#606060",
-      fat: "#d85000", // light ? '#a0a0a0' : '#707070'
+      weak: light ? '#ccc' : '#404040',
+      strong: light ? '#a0a0a0' : '#606060',
+      fat: '#d85000', // light ? '#a0a0a0' : '#707070'
     };
     return {
       light: light,
@@ -49,7 +46,7 @@ $(function () {
       plotOptions: {
         series: {
           dataLabels: {
-            align: "left",
+            align: 'left',
           },
           wrap: false,
         },
@@ -64,17 +61,17 @@ $(function () {
           },
           stops: light
             ? [
-                [0, "rgba(200, 200, 200, .8)"],
-                [1, "rgba(250, 250, 250, .8)"],
+                [0, 'rgba(200, 200, 200, .8)'],
+                [1, 'rgba(250, 250, 250, .8)'],
               ]
             : [
-                [0, "rgba(56, 56, 56, .8)"],
-                [1, "rgba(16, 16, 16, .8)"],
+                [0, 'rgba(56, 56, 56, .8)'],
+                [1, 'rgba(16, 16, 16, .8)'],
               ],
         },
         borderWidth: 0,
         style: {
-          fontWeight: "bold",
+          fontWeight: 'bold',
           color: text.strong,
         },
       },
@@ -85,7 +82,7 @@ $(function () {
   var buildChart = function (opt) {
     return {
       chart: {
-        type: "gauge",
+        type: 'gauge',
         plotBackgroundColor: null,
         plotBackgroundImage: null,
         plotBorderWidth: 0,
@@ -115,12 +112,12 @@ $(function () {
                 y2: 1,
               },
               stops: [
-                [0, "#FFF"],
-                [1, "#333"],
+                [0, '#FFF'],
+                [1, '#333'],
               ],
             },
             borderWidth: 0,
-            outerRadius: "109%",
+            outerRadius: '109%',
           },
           {
             backgroundColor: {
@@ -131,21 +128,21 @@ $(function () {
                 y2: 1,
               },
               stops: [
-                [0, "#333"],
-                [1, "#FFF"],
+                [0, '#333'],
+                [1, '#FFF'],
               ],
             },
             borderWidth: 1,
-            outerRadius: "107%",
+            outerRadius: '107%',
           },
           {
             // default background
           },
           {
-            backgroundColor: "#DDD",
+            backgroundColor: '#DDD',
             borderWidth: 0,
-            outerRadius: "105%",
-            innerRadius: "103%",
+            outerRadius: '105%',
+            innerRadius: '103%',
           },
         ],
       },
@@ -155,49 +152,49 @@ $(function () {
         min: 0,
         max: 750,
 
-        minorTickInterval: "auto",
+        minorTickInterval: 'auto',
         minorTickWidth: 1,
         minorTickLength: 10,
-        minorTickPosition: "inside",
-        minorTickColor: "#666",
+        minorTickPosition: 'inside',
+        minorTickColor: '#666',
 
         tickPixelInterval: 30,
         tickWidth: 2,
-        tickPosition: "inside",
+        tickPosition: 'inside',
         tickLength: 10,
-        tickColor: "#666",
+        tickColor: '#666',
         labels: {
           step: 2,
-          rotation: "auto",
+          rotation: 'auto',
         },
         title: {
-          text: opt.title + "<br>milliseconds",
+          text: opt.title + '<br>milliseconds',
         },
         plotBands: [
           {
             from: 0,
             to: 500,
-            color: "#55BF3B", // green
+            color: '#55BF3B', // green
           },
           {
             from: 500,
             to: 650,
-            color: "#DDDF0D", // yellow
+            color: '#DDDF0D', // yellow
           },
           {
             from: 650,
             to: 750,
-            color: "#DF5353", // red
+            color: '#DF5353', // red
           },
         ],
       },
 
       series: [
         {
-          name: "Latency",
+          name: 'Latency',
           data: [0],
           tooltip: {
-            valueSuffix: " milliseconds",
+            valueSuffix: ' milliseconds',
           },
         },
       ],
@@ -205,17 +202,17 @@ $(function () {
   };
 
   var charts = {};
-  $(".server .meter").highcharts(
+  $('.server .meter').highcharts(
     buildChart({
-      title: "SERVER",
+      title: 'SERVER',
     }),
     function (c) {
       charts.server = c;
     }
   );
-  $(".network .meter").highcharts(
+  $('.network .meter').highcharts(
     buildChart({
-      title: "PING",
+      title: 'PING',
     }),
     function (c) {
       charts.network = c;
@@ -229,25 +226,25 @@ $(function () {
   var updateAnswer = function () {
     if (values.server === -1 || values.network === -1) return;
     var c;
-    if (values.server <= 100 && values.network <= 500) c = "nope-nope";
-    else if (values.server <= 100) c = "nope-yep";
-    else c = "yep";
-    $(".lag .answer span")
+    if (values.server <= 100 && values.network <= 500) c = 'nope-nope';
+    else if (values.server <= 100) c = 'nope-yep';
+    else c = 'yep';
+    $('.lag .answer span')
       .hide()
       .parent()
-      .find("." + c)
+      .find('.' + c)
       .show();
   };
 
-  lishogi.socket = new lishogi.StrongSocket("/socket/v4", false, {
+  lishogi.socket = new lishogi.StrongSocket('/socket/v4', false, {
     options: {
-      name: "analyse",
+      name: 'analyse',
       onFirstConnect: function () {
-        lishogi.socket.send("moveLat", true);
+        lishogi.socket.send('moveLat', true);
       },
     },
     receive: function (t, d) {
-      if (t === "mlat") {
+      if (t === 'mlat') {
         var v = parseInt(d);
         charts.server.series[0].points[0].update(v);
         values.server = v;

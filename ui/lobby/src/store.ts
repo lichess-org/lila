@@ -1,4 +1,4 @@
-import { Tab, Mode, Sort } from "./interfaces";
+import { Tab, Mode, Sort } from './interfaces';
 
 interface Store<A> {
   set(v: string): A;
@@ -17,33 +17,33 @@ interface Config<A> {
 }
 
 const tab: Config<Tab> = {
-  key: "lobby.tab",
+  key: 'lobby.tab',
   fix(t: string | null): Tab {
     if (<Tab>t) return t as Tab;
-    return "real_time";
+    return 'real_time';
   },
 };
 const mode: Config<Mode> = {
-  key: "lobby.mode",
+  key: 'lobby.mode',
   fix(m: string | null): Mode {
     if (<Mode>m) return m as Mode;
-    return "list";
+    return 'list';
   },
 };
 const sort: Config<Sort> = {
-  key: "lobby.sort",
+  key: 'lobby.sort',
   fix(s: string | null): Sort {
     if (<Sort>s) return s as Sort;
-    return "rating";
+    return 'rating';
   },
 };
 
 function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
-  const fullKey = conf.key + ":" + (userId || "-");
+  const fullKey = conf.key + ':' + (userId || '-');
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      window.lishogi.storage.set(fullKey, ("" + t) as string);
+      window.lishogi.storage.set(fullKey, ('' + t) as string);
       return t;
     },
     get(): A {

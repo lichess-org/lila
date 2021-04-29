@@ -1,8 +1,8 @@
-var m = require("mithril");
-var chessground = require("./og/main");
-var ground = require("./ground");
-const { canPiecePromote } = require("shogiops/util");
-const { parseChessSquare } = require("shogiops/compat");
+var m = require('mithril');
+var chessground = require('./og/main');
+var ground = require('./ground');
+const { canPiecePromote } = require('shogiops/util');
+const { parseChessSquare } = require('shogiops/compat');
 var opposite = chessground.util.opposite;
 var key2pos = chessground.util.key2pos;
 
@@ -11,7 +11,7 @@ var promoting = false;
 function start(orig, dest, callback) {
   var piece = ground.pieces()[dest];
   if (!piece) return false;
-  if (canPiecePromote(piece, parseChessSquare(orig), parseChessSquare(dest))){
+  if (canPiecePromote(piece, parseChessSquare(orig), parseChessSquare(dest))) {
     promoting = {
       orig: orig,
       dest: dest,
@@ -26,11 +26,9 @@ function start(orig, dest, callback) {
 
 function finish(role) {
   let prom = true;
-  if (["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(role))
-    prom = false;
+  if (['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role)) prom = false;
   if (prom && promoting) ground.promote(promoting.dest, role);
-  if (promoting.callback)
-    promoting.callback(promoting.orig, promoting.dest, prom);
+  if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, prom);
   promoting = false;
 }
 
@@ -38,25 +36,24 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   if (!promoting) return;
 
   var left = (9 - key2pos(dest)[0]) * 11.11 + 0.29;
-  if (orientation === "sente") left = (key2pos(dest)[0] - 1) * 11.11 - 0.29;
+  if (orientation === 'sente') left = (key2pos(dest)[0] - 1) * 11.11 - 0.29;
 
-  var vertical = color === orientation ? "top" : "bottom";
+  var vertical = color === orientation ? 'top' : 'bottom';
 
-  return m("div#promotion-choice." + vertical, [
+  return m('div#promotion-choice.' + vertical, [
     pieces.map(function (serverRole, i) {
       var top = (i + key2pos(dest)[1]) * 11.11 - 0.29;
-      if (orientation === "sente")
-        top = (i + 9 - key2pos(dest)[1]) * 11.11 + 0.29;
+      if (orientation === 'sente') top = (i + 9 - key2pos(dest)[1]) * 11.11 + 0.29;
       return m(
-        "square",
+        'square',
         {
-          style: vertical + ": " + top + "%;left: " + left + "%",
+          style: vertical + ': ' + top + '%;left: ' + left + '%',
           onclick: function (e) {
             e.stopPropagation();
             finish(serverRole);
           },
         },
-        m("piece." + serverRole + "." + color)
+        m('piece.' + serverRole + '.' + color)
       );
     }),
   ]);
@@ -64,18 +61,18 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
 
 function promotesTo(role) {
   switch (role) {
-    case "silver":
-      return "promotedsilver";
-    case "knight":
-      return "promotedknight";
-    case "lance":
-      return "promotedlance";
-    case "bishop":
-      return "horse";
-    case "rook":
-      return "dragon";
+    case 'silver':
+      return 'promotedsilver';
+    case 'knight':
+      return 'promotedknight';
+    case 'lance':
+      return 'promotedlance';
+    case 'bishop':
+      return 'horse';
+    case 'rook':
+      return 'dragon';
     default:
-      return "tokin";
+      return 'tokin';
   }
 }
 

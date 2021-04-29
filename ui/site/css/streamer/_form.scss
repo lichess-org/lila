@@ -1,6 +1,6 @@
 $mq-picture: $mq-medium;
 
-@import "header";
+@import 'header';
 
 .streamer-edit {
   .streamer-header {
@@ -62,8 +62,8 @@ $mq-picture: $mq-medium;
   line-height: 1.6em;
   text-indent: -2.2em;
   &::before {
-    font-family: "lishogi";
-    content: "E";
+    font-family: 'lishogi';
+    content: 'E';
     font-size: 1.5em;
     margin-right: 0.5em;
     vertical-align: middle;

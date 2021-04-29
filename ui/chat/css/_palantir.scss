@@ -1,8 +1,16 @@
 @keyframes palantir-glowing {
-  40% { background: none; }
-  50% { background: mix($c-secondary, $c-bg-box, 30%); }
-  60% { background: mix($c-primary, $c-bg-box, 30%); }
-  70% { background: none; }
+  40% {
+    background: none;
+  }
+  50% {
+    background: mix($c-secondary, $c-bg-box, 30%);
+  }
+  60% {
+    background: mix($c-primary, $c-bg-box, 30%);
+  }
+  70% {
+    background: none;
+  }
 }
 .palantir {
   flex: 0 1 auto;
@@ -10,7 +18,7 @@
   border-radius: 0 3px 0 0;
   &-slot {
     animation: none;
-    opacity: .6;
+    opacity: 0.6;
     &:hover {
       opacity: 1;
     }

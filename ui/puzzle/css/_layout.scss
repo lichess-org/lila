@@ -88,7 +88,9 @@ $pocket-height: 60px;
       'side    . board   gauge pocket-bot'
       'side    . session .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
+    grid-template-columns:
+      $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap)
+      $col3-uniboard-table;
   }
 
   &__side {

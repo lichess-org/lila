@@ -1,7 +1,7 @@
 $debug: false;
 
-$font-path: "../font";
-$img-path: "../images";
+$font-path: '../font';
+$img-path: '../images';
 
 $viewport-min-width: 320px;
 
@@ -26,6 +26,4 @@ $site-header-height: var(--site-header-height);
 
 $site-header-margin: var(--site-header-margin);
 
-$site-header-outer-height: calc(
-  #{$site-header-height} + #{$site-header-margin}
-);
+$site-header-outer-height: calc(#{$site-header-height} + #{$site-header-margin});

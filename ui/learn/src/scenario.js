@@ -1,5 +1,5 @@
-var util = require("./util");
-var ground = require("./ground");
+var util = require('./util');
+var ground = require('./ground');
 
 module.exports = function (blueprint, opts) {
   var steps = (blueprint || []).map(function (step) {
@@ -25,12 +25,7 @@ module.exports = function (blueprint, opts) {
     var res = opts.shogi.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    ground.fen(
-      opts.shogi.fen(),
-      opts.shogi.color(),
-      opts.makeShogiDests(),
-      move
-    );
+    ground.fen(opts.shogi.fen(), opts.shogi.color(), opts.makeShogiDests(), move);
     if (step.shapes)
       setTimeout(function () {
         ground.setShapes(step.shapes);

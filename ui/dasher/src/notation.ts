@@ -1,7 +1,7 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import { Redraw, Close, bind, header } from "./util";
+import { Redraw, Close, bind, header } from './util';
 
 type Key = string;
 
@@ -21,14 +21,8 @@ export interface NotationCtrl {
   close: Close;
 }
 
-export function ctrl(
-  data: NotationData,
-  trans: Trans,
-  redraw: Redraw,
-  close: Close
-): NotationCtrl {
-
-  const list: Notation[] = data.list.map((n) => n.split(" "));
+export function ctrl(data: NotationData, trans: Trans, redraw: Redraw, close: Close): NotationCtrl {
+  const list: Notation[] = data.list.map(n => n.split(' '));
   function getData() {
     return data;
   }
@@ -38,10 +32,10 @@ export function ctrl(
       return list;
     },
     set(k: Key) {
-        data.current = k;
-        $.post("/pref/pieceNotation", { pieceNotation: k }).fail(() =>
-          window.lishogi.announce({ msg: "Failed to save notation preference" })
-        );
+      data.current = k;
+      $.post('/pref/pieceNotation', { pieceNotation: k }).fail(() =>
+        window.lishogi.announce({ msg: 'Failed to save notation preference' })
+      );
       redraw();
       // we need to reload the page to see changes - kinda stupid solution, but it works
       setTimeout(location.reload.bind(location), 250);
@@ -54,16 +48,12 @@ export function ctrl(
 }
 
 export function view(ctrl: NotationCtrl): VNode {
-
   return h(
-    "div.sub.sound.", // too lazy to add notation specific css
-    {
-    },
+    'div.sub.sound.', // too lazy to add notation specific css
+    {},
     [
-      header(ctrl.trans("notationSystem"), ctrl.close),
-      h("div.content", [
-        h("div.selector", ctrl.makeList().map(notationView(ctrl, ctrl.data().current.toString()))),
-      ]),
+      header(ctrl.trans('notationSystem'), ctrl.close),
+      h('div.content', [h('div.selector', ctrl.makeList().map(notationView(ctrl, ctrl.data().current.toString())))]),
     ]
   );
 }
@@ -71,11 +61,11 @@ export function view(ctrl: NotationCtrl): VNode {
 function notationView(ctrl: NotationCtrl, current: Key) {
   return (s: Notation) =>
     h(
-      "a.text",
+      'a.text',
       {
-        hook: bind("click", () => ctrl.set(s[0])),
+        hook: bind('click', () => ctrl.set(s[0])),
         class: { active: current === s[0] },
-        attrs: { "data-icon": "E" },
+        attrs: { 'data-icon': 'E' },
       },
       notationDisplay(s[1])
     );
@@ -83,10 +73,15 @@ function notationView(ctrl: NotationCtrl, current: Key) {
 
 function notationDisplay(notation: string): string {
   switch (notation) {
-    case "Western": return  "Western        - P-76";
-    case "Western2": return "Western        - P-7f";
-    case "Japanese": return "Japanese       - ７六歩";
-    case "Kawasaki": return "Kitao-Kawasaki - 歩-76";
-    default: return notation;
-  } 
+    case 'Western':
+      return 'Western        - P-76';
+    case 'Western2':
+      return 'Western        - P-7f';
+    case 'Japanese':
+      return 'Japanese       - ７六歩';
+    case 'Kawasaki':
+      return 'Kitao-Kawasaki - 歩-76';
+    default:
+      return notation;
+  }
 }

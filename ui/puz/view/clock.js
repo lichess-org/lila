@@ -1,57 +1,59 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const common_1 = require("common");
-const util_1 = require("../util");
-const snabbdom_1 = require("snabbdom");
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const common_1 = require('common');
+const util_1 = require('../util');
+const snabbdom_1 = require('snabbdom');
 let refreshInterval;
 let lastText;
 function renderClock(run, onFlag, withBonus) {
-    const malus = run.modifier.malus;
-    const bonus = run.modifier.bonus;
-    return snabbdom_1.h('div.puz-clock', [
-        snabbdom_1.h('div.puz-clock__time', {
-            hook: {
-                insert(node) {
-                    const el = node.elm;
-                    el.innerText = formatMs(run.clock.millis());
-                    refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
-                },
-                destroy() {
-                    if (refreshInterval)
-                        clearInterval(refreshInterval);
-                },
-            },
-        }),
-        ...(withBonus
-            ? [
-                !!malus && malus.at > util_1.getNow() - 900 ? snabbdom_1.h('div.puz-clock__malus', '-' + malus.seconds) : null,
-                !!bonus && bonus.at > util_1.getNow() - 900 ? snabbdom_1.h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
-            ]
-            : []),
-    ]);
+  const malus = run.modifier.malus;
+  const bonus = run.modifier.bonus;
+  return snabbdom_1.h('div.puz-clock', [
+    snabbdom_1.h('div.puz-clock__time', {
+      hook: {
+        insert(node) {
+          const el = node.elm;
+          el.innerText = formatMs(run.clock.millis());
+          refreshInterval = setInterval(() => renderIn(run, onFlag, el, withBonus), 100);
+        },
+        destroy() {
+          if (refreshInterval) clearInterval(refreshInterval);
+        },
+      },
+    }),
+    ...(withBonus
+      ? [
+          !!malus && malus.at > util_1.getNow() - 900
+            ? snabbdom_1.h('div.puz-clock__malus', '-' + malus.seconds)
+            : null,
+          !!bonus && bonus.at > util_1.getNow() - 900
+            ? snabbdom_1.h('div.puz-clock__bonus', '+' + bonus.seconds)
+            : null,
+        ]
+      : []),
+  ]);
 }
 exports.default = renderClock;
 function renderIn(run, onFlag, el, withBonus) {
-    if (!run.clock.startAt)
-        return;
-    const mods = run.modifier;
-    const now = util_1.getNow();
-    const millis = run.clock.millis();
-    const diffs = withBonus ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus) : 0;
-    const text = formatMs(millis - diffs);
-    if (text != lastText)
-        el.innerText = text;
-    lastText = text;
-    if (millis < 1 && !run.endAt)
-        onFlag();
+  if (!run.clock.startAt) return;
+  const mods = run.modifier;
+  const now = util_1.getNow();
+  const millis = run.clock.millis();
+  const diffs = withBonus ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus) : 0;
+  const text = formatMs(millis - diffs);
+  if (text != lastText) el.innerText = text;
+  lastText = text;
+  if (millis < 1 && !run.endAt) onFlag();
 }
-const pad = (x) => (x < 10 ? '0' : '') + x;
-const formatMs = (millis) => {
-    const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)), minutes = date.getUTCMinutes(), seconds = date.getUTCSeconds();
-    return minutes + ':' + pad(seconds);
+const pad = x => (x < 10 ? '0' : '') + x;
+const formatMs = millis => {
+  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)),
+    minutes = date.getUTCMinutes(),
+    seconds = date.getUTCSeconds();
+  return minutes + ':' + pad(seconds);
 };
 function computeModifierDiff(now, mod) {
-    const millisSince = mod && (now - mod.at < 1000 ? now - mod.at : undefined);
-    return common_1.defined(millisSince) ? mod.seconds * 1000 * (1 - millisSince / 1000) : 0;
+  const millisSince = mod && (now - mod.at < 1000 ? now - mod.at : undefined);
+  return common_1.defined(millisSince) ? mod.seconds * 1000 * (1 - millisSince / 1000) : 0;
 }
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xvY2suanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvdmlldy9jbG9jay50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLG1DQUFpQztBQUNqQyxrQ0FBaUM7QUFDakMsdUNBQTZCO0FBTTdCLElBQUksZUFBd0IsQ0FBQztBQUM3QixJQUFJLFFBQWdCLENBQUM7QUFFckIsU0FBd0IsV0FBVyxDQUFDLEdBQVEsRUFBRSxNQUFjLEVBQUUsU0FBa0I7SUFDOUUsTUFBTSxLQUFLLEdBQUcsR0FBRyxDQUFDLFFBQVEsQ0FBQyxLQUFLLENBQUM7SUFDakMsTUFBTSxLQUFLLEdBQUcsR0FBRyxDQUFDLFFBQVEsQ0FBQyxLQUFLLENBQUM7SUFDakMsT0FBTyxZQUFDLENBQUMsZUFBZSxFQUFFO1FBQ3hCLFlBQUMsQ0FBQyxxQkFBcUIsRUFBRTtZQUN2QixJQUFJLEVBQUU7Z0JBQ0osTUFBTSxDQUFDLElBQUk7b0JBQ1QsTUFBTSxFQUFFLEdBQUcsSUFBSSxDQUFDLEdBQXFCLENBQUM7b0JBQ3RDLEVBQUUsQ0FBQyxTQUFTLEdBQUcsUUFBUSxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsTUFBTSxFQUFFLENBQUMsQ0FBQztvQkFDNUMsZUFBZSxHQUFHLFdBQVcsQ0FBQyxHQUFHLEVBQUUsQ0FBQyxRQUFRLENBQUMsR0FBRyxFQUFFLE1BQU0sRUFBRSxFQUFFLEVBQUUsU0FBUyxDQUFDLEVBQUUsR0FBRyxDQUFDLENBQUM7Z0JBQ2pGLENBQUM7Z0JBQ0QsT0FBTztvQkFDTCxJQUFJLGVBQWU7d0JBQUUsYUFBYSxDQUFDLGVBQWUsQ0FBQyxDQUFDO2dCQUN0RCxDQUFDO2FBQ0Y7U0FDRixDQUFDO1FBQ0YsR0FBRyxDQUFDLFNBQVM7WUFDWCxDQUFDLENBQUM7Z0JBQ0UsQ0FBQyxDQUFDLEtBQUssSUFBSSxLQUFLLENBQUMsRUFBRSxHQUFHLGFBQU0sRUFBRSxHQUFHLEdBQUcsQ0FBQyxDQUFDLENBQUMsWUFBQyxDQUFDLHNCQUFzQixFQUFFLEdBQUcsR0FBRyxLQUFLLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDLElBQUk7Z0JBQzVGLENBQUMsQ0FBQyxLQUFLLElBQUksS0FBSyxDQUFDLEVBQUUsR0FBRyxhQUFNLEVBQUUsR0FBRyxHQUFHLENBQUMsQ0FBQyxDQUFDLFlBQUMsQ0FBQyxzQkFBc0IsRUFBRSxHQUFHLEdBQUcsS0FBSyxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxJQUFJO2FBQzdGO1lBQ0gsQ0FBQyxDQUFDLEVBQUUsQ0FBQztLQUNSLENBQUMsQ0FBQztBQUNMLENBQUM7QUF2QkQsOEJBdUJDO0FBRUQsU0FBUyxRQUFRLENBQUMsR0FBUSxFQUFFLE1BQWMsRUFBRSxFQUFlLEVBQUUsU0FBa0I7SUFDN0UsSUFBSSxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsT0FBTztRQUFFLE9BQU87SUFDL0IsTUFBTSxJQUFJLEdBQUcsR0FBRyxDQUFDLFFBQVEsQ0FBQztJQUMxQixNQUFNLEdBQUcsR0FBRyxhQUFNLEVBQUUsQ0FBQztJQUNyQixNQUFNLE1BQU0sR0FBRyxHQUFHLENBQUMsS0FBSyxDQUFDLE1BQU0sRUFBRSxDQUFDO0lBQ2xDLE1BQU0sS0FBSyxHQUFHLFNBQVMsQ0FBQyxDQUFDLENBQUMsbUJBQW1CLENBQUMsR0FBRyxFQUFFLElBQUksQ0FBQyxLQUFLLENBQUMsR0FBRyxtQkFBbUIsQ0FBQyxHQUFHLEVBQUUsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7SUFDMUcsTUFBTSxJQUFJLEdBQUcsUUFBUSxDQUFDLE1BQU0sR0FBRyxLQUFLLENBQUMsQ0FBQztJQUN0QyxJQUFJLElBQUksSUFBSSxRQUFRO1FBQUUsRUFBRSxDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUM7SUFDMUMsUUFBUSxHQUFHLElBQUksQ0FBQztJQUNoQixJQUFJLE1BQU0sR0FBRyxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsS0FBSztRQUFFLE1BQU0sRUFBRSxDQUFDO0FBQ3pDLENBQUM7QUFFRCxNQUFNLEdBQUcsR0FBRyxDQUFDLENBQVMsRUFBVSxFQUFFLENBQUMsQ0FBQyxDQUFDLEdBQUcsRUFBRSxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUUzRCxNQUFNLFFBQVEsR0FBRyxDQUFDLE1BQWMsRUFBVSxFQUFFO0lBQzFDLE1BQU0sSUFBSSxHQUFHLElBQUksSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQyxFQUFFLElBQUksQ0FBQyxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxHQUFHLElBQUksQ0FBQyxDQUFDLEVBQ2pFLE9BQU8sR0FBRyxJQUFJLENBQUMsYUFBYSxFQUFFLEVBQzlCLE9BQU8sR0FBRyxJQUFJLENBQUMsYUFBYSxFQUFFLENBQUM7SUFDakMsT0FBTyxPQUFPLEdBQUcsR0FBRyxHQUFHLEdBQUcsQ0FBQyxPQUFPLENBQUMsQ0FBQztBQUN0QyxDQUFDLENBQUM7QUFFRixTQUFTLG1CQUFtQixDQUFDLEdBQVcsRUFBRSxHQUFhO0lBQ3JELE1BQU0sV0FBVyxHQUF1QixHQUFHLElBQUksQ0FBQyxHQUFHLEdBQUcsR0FBRyxDQUFDLEVBQUUsR0FBRyxJQUFJLENBQUMsQ0FBQyxDQUFDLEdBQUcsR0FBRyxHQUFHLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsQ0FBQztJQUNoRyxPQUFPLGdCQUFPLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQyxDQUFDLEdBQUksQ0FBQyxPQUFPLEdBQUcsSUFBSSxHQUFHLENBQUMsQ0FBQyxHQUFHLFdBQVcsR0FBRyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ25GLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZWZpbmVkIH0gZnJvbSAnY29tbW9uJztcbmltcG9ydCB7IGdldE5vdyB9IGZyb20gJy4uL3V0aWwnO1xuaW1wb3J0IHsgaCB9IGZyb20gJ3NuYWJiZG9tJztcbmltcG9ydCB7IFZOb2RlIH0gZnJvbSAnc25hYmJkb20vdm5vZGUnO1xuaW1wb3J0IHsgUnVuLCBUaW1lTW9kIH0gZnJvbSAnLi4vaW50ZXJmYWNlcyc7XG5cbnR5cGUgT25GbGFnID0gKCkgPT4gdm9pZDtcblxubGV0IHJlZnJlc2hJbnRlcnZhbDogVGltZW91dDtcbmxldCBsYXN0VGV4dDogc3RyaW5nO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiByZW5kZXJDbG9jayhydW46IFJ1biwgb25GbGFnOiBPbkZsYWcsIHdpdGhCb251czogYm9vbGVhbik6IFZOb2RlIHtcbiAgY29uc3QgbWFsdXMgPSBydW4ubW9kaWZpZXIubWFsdXM7XG4gIGNvbnN0IGJvbnVzID0gcnVuLm1vZGlmaWVyLmJvbnVzO1xuICByZXR1cm4gaCgnZGl2LnB1ei1jbG9jaycsIFtcbiAgICBoKCdkaXYucHV6LWNsb2NrX190aW1lJywge1xuICAgICAgaG9vazoge1xuICAgICAgICBpbnNlcnQobm9kZSkge1xuICAgICAgICAgIGNvbnN0IGVsID0gbm9kZS5lbG0gYXMgSFRNTERpdkVsZW1lbnQ7XG4gICAgICAgICAgZWwuaW5uZXJUZXh0ID0gZm9ybWF0TXMocnVuLmNsb2NrLm1pbGxpcygpKTtcbiAgICAgICAgICByZWZyZXNoSW50ZXJ2YWwgPSBzZXRJbnRlcnZhbCgoKSA9PiByZW5kZXJJbihydW4sIG9uRmxhZywgZWwsIHdpdGhCb251cyksIDEwMCk7XG4gICAgICAgIH0sXG4gICAgICAgIGRlc3Ryb3koKSB7XG4gICAgICAgICAgaWYgKHJlZnJlc2hJbnRlcnZhbCkgY2xlYXJJbnRlcnZhbChyZWZyZXNoSW50ZXJ2YWwpO1xuICAgICAgICB9LFxuICAgICAgfSxcbiAgICB9KSxcbiAgICAuLi4od2l0aEJvbnVzXG4gICAgICA/IFtcbiAgICAgICAgICAhIW1hbHVzICYmIG1hbHVzLmF0ID4gZ2V0Tm93KCkgLSA5MDAgPyBoKCdkaXYucHV6LWNsb2NrX19tYWx1cycsICctJyArIG1hbHVzLnNlY29uZHMpIDogbnVsbCxcbiAgICAgICAgICAhIWJvbnVzICYmIGJvbnVzLmF0ID4gZ2V0Tm93KCkgLSA5MDAgPyBoKCdkaXYucHV6LWNsb2NrX19ib251cycsICcrJyArIGJvbnVzLnNlY29uZHMpIDogbnVsbCxcbiAgICAgICAgXVxuICAgICAgOiBbXSksXG4gIF0pO1xufVxuXG5mdW5jdGlvbiByZW5kZXJJbihydW46IFJ1biwgb25GbGFnOiBPbkZsYWcsIGVsOiBIVE1MRWxlbWVudCwgd2l0aEJvbnVzOiBib29sZWFuKSB7XG4gIGlmICghcnVuLmNsb2NrLnN0YXJ0QXQpIHJldHVybjtcbiAgY29uc3QgbW9kcyA9IHJ1bi5tb2RpZmllcjtcbiAgY29uc3Qgbm93ID0gZ2V0Tm93KCk7XG4gIGNvbnN0IG1pbGxpcyA9IHJ1bi5jbG9jay5taWxsaXMoKTtcbiAgY29uc3QgZGlmZnMgPSB3aXRoQm9udXMgPyBjb21wdXRlTW9kaWZpZXJEaWZmKG5vdywgbW9kcy5ib251cykgLSBjb21wdXRlTW9kaWZpZXJEaWZmKG5vdywgbW9kcy5tYWx1cykgOiAwO1xuICBjb25zdCB0ZXh0ID0gZm9ybWF0TXMobWlsbGlzIC0gZGlmZnMpO1xuICBpZiAodGV4dCAhPSBsYXN0VGV4dCkgZWwuaW5uZXJUZXh0ID0gdGV4dDtcbiAgbGFzdFRleHQgPSB0ZXh0O1xuICBpZiAobWlsbGlzIDwgMSAmJiAhcnVuLmVuZEF0KSBvbkZsYWcoKTtcbn1cblxuY29uc3QgcGFkID0gKHg6IG51bWJlcik6IHN0cmluZyA9PiAoeCA8IDEwID8gJzAnIDogJycpICsgeDtcblxuY29uc3QgZm9ybWF0TXMgPSAobWlsbGlzOiBudW1iZXIpOiBzdHJpbmcgPT4ge1xuICBjb25zdCBkYXRlID0gbmV3IERhdGUoTWF0aC5tYXgoMCwgTWF0aC5jZWlsKG1pbGxpcyAvIDEwMDApICogMTAwMCkpLFxuICAgIG1pbnV0ZXMgPSBkYXRlLmdldFVUQ01pbnV0ZXMoKSxcbiAgICBzZWNvbmRzID0gZGF0ZS5nZXRVVENTZWNvbmRzKCk7XG4gIHJldHVybiBtaW51dGVzICsgJzonICsgcGFkKHNlY29uZHMpO1xufTtcblxuZnVuY3Rpb24gY29tcHV0ZU1vZGlmaWVyRGlmZihub3c6IG51bWJlciwgbW9kPzogVGltZU1vZCkge1xuICBjb25zdCBtaWxsaXNTaW5jZTogbnVtYmVyIHwgdW5kZWZpbmVkID0gbW9kICYmIChub3cgLSBtb2QuYXQgPCAxMDAwID8gbm93IC0gbW9kLmF0IDogdW5kZWZpbmVkKTtcbiAgcmV0dXJuIGRlZmluZWQobWlsbGlzU2luY2UpID8gbW9kIS5zZWNvbmRzICogMTAwMCAqICgxIC0gbWlsbGlzU2luY2UgLyAxMDAwKSA6IDA7XG59XG4iXX0=

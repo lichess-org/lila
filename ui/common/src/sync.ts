@@ -9,7 +9,7 @@ export function sync<T>(promise: Promise<T>): Sync<T> {
     promise: promise.then(v => {
       sync.sync = v;
       return v;
-    })
+    }),
   };
   return sync;
 }

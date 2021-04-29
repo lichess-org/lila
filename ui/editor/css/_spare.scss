@@ -33,7 +33,7 @@
         background: fade-out($c-good, 0.4);
       }
       piece {
-        background-image: img-url("icons/pointer.svg");
+        background-image: img-url('icons/pointer.svg');
       }
     }
     &.trash {
@@ -45,7 +45,7 @@
         background: fade-out($c-bad, 0.4);
       }
       piece {
-        background-image: img-url("icons/trash.svg");
+        background-image: img-url('icons/trash.svg');
       }
     }
   }

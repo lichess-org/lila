@@ -1,7 +1,7 @@
-var util = require("./util");
-var premove = require("./premove");
-var anim = require("./anim");
-var hold = require("./hold");
+var util = require('./util');
+var premove = require('./premove');
+var anim = require('./anim');
+var hold = require('./hold');
 
 function callUserFunction(f) {
   setTimeout(f, 1);
@@ -29,11 +29,7 @@ function setPieces(data, pieces) {
 function setCheck(data, color) {
   var checkColor = color || data.turnColor;
   Object.keys(data.pieces).forEach(function (key) {
-    if (
-      data.pieces[key].color === checkColor &&
-      data.pieces[key].role === "king"
-    )
-      data.check = key;
+    if (data.pieces[key].color === checkColor && data.pieces[key].role === 'king') data.check = key;
   });
 }
 
@@ -69,10 +65,7 @@ function unsetPredrop(data) {
 function baseMove(data, orig, dest) {
   var success = anim(function () {
     if (orig === dest || !data.pieces[orig]) return false;
-    var captured =
-      data.pieces[dest] && data.pieces[dest].color !== data.pieces[orig].color
-        ? data.pieces[dest]
-        : null;
+    var captured = data.pieces[dest] && data.pieces[dest].color !== data.pieces[orig].color ? data.pieces[dest] : null;
     callUserFunction(util.partial(data.events.move, orig, dest, captured));
     data.pieces[dest] = data.pieces[orig];
     delete data.pieces[orig];
@@ -120,7 +113,7 @@ function userMove(data, orig, dest) {
   if (!dest) {
     hold.cancel();
     setSelected(data, null);
-    if (data.movable.dropOff === "trash") {
+    if (data.movable.dropOff === 'trash') {
       delete data.pieces[orig];
       callUserFunction(data.events.change);
     }
@@ -191,25 +184,20 @@ function selectSquare(data, key, force) {
 
 function setSelected(data, key) {
   data.selected = key;
-  if (key && isPremovable(data, key))
-    data.premovable.dests = premove(data.pieces, key);
+  if (key && isPremovable(data, key)) data.premovable.dests = premove(data.pieces, key);
   else data.premovable.dests = null;
 }
 
 function isMovable(data, orig) {
   var piece = data.pieces[orig];
   return (
-    piece &&
-    (data.movable.color === "both" ||
-      (data.movable.color === piece.color && data.turnColor === piece.color))
+    piece && (data.movable.color === 'both' || (data.movable.color === piece.color && data.turnColor === piece.color))
   );
 }
 
 function canMove(data, orig, dest) {
   return (
-    orig !== dest &&
-    isMovable(data, orig) &&
-    (data.movable.free || util.containsX(data.movable.dests[orig], dest))
+    orig !== dest && isMovable(data, orig) && (data.movable.free || util.containsX(data.movable.dests[orig], dest))
   );
 }
 
@@ -219,27 +207,17 @@ function canDrop(data, orig, dest) {
     piece &&
     dest &&
     (orig === dest || !data.pieces[dest]) &&
-    (data.movable.color === "both" ||
-      (data.movable.color === piece.color && data.turnColor === piece.color))
+    (data.movable.color === 'both' || (data.movable.color === piece.color && data.turnColor === piece.color))
   );
 }
 
 function isPremovable(data, orig) {
   var piece = data.pieces[orig];
-  return (
-    piece &&
-    data.premovable.enabled &&
-    data.movable.color === piece.color &&
-    data.turnColor !== piece.color
-  );
+  return piece && data.premovable.enabled && data.movable.color === piece.color && data.turnColor !== piece.color;
 }
 
 function canPremove(data, orig, dest) {
-  return (
-    orig !== dest &&
-    isPremovable(data, orig) &&
-    util.containsX(premove(data.pieces, orig), dest)
-  );
+  return orig !== dest && isPremovable(data, orig) && util.containsX(premove(data.pieces, orig), dest);
 }
 
 function canPredrop(data, orig, dest) {
@@ -259,9 +237,8 @@ function isDraggable(data, orig) {
   return (
     piece &&
     data.draggable.enabled &&
-    (data.movable.color === "both" ||
-      (data.movable.color === piece.color &&
-        (data.turnColor === piece.color || data.premovable.enabled)))
+    (data.movable.color === 'both' ||
+      (data.movable.color === piece.color && (data.turnColor === piece.color || data.premovable.enabled)))
   );
 }
 
@@ -323,11 +300,10 @@ function getKeyAtDomPos(data, pos, bounds) {
   if (!bounds && !data.bounds) return;
   bounds = bounds || data.bounds(); // use provided value, or compute it
   var file = Math.ceil(9 * ((pos[0] - bounds.left) / bounds.width));
-  file = data.orientation === "sente" ? file : 10 - file;
+  file = data.orientation === 'sente' ? file : 10 - file;
   var rank = Math.ceil(9 - 9 * ((pos[1] - bounds.top) / bounds.height));
-  rank = data.orientation === "sente" ? rank : 10 - rank;
-  if (file > 0 && file <= 9 && rank > 0 && rank <= 9)
-    return util.pos2key([file, rank]);
+  rank = data.orientation === 'sente' ? rank : 10 - rank;
+  if (file > 0 && file <= 9 && rank > 0 && rank <= 9) return util.pos2key([file, rank]);
 }
 
 // {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}
@@ -350,7 +326,7 @@ function getMaterialDiff(data) {
   };
   for (var k in data.pieces) {
     var p = data.pieces[k];
-    counts[p.role] += p.color === "sente" ? 1 : -1;
+    counts[p.role] += p.color === 'sente' ? 1 : -1;
   }
   var diff = {
     sente: {},
@@ -384,9 +360,7 @@ var pieceScores = {
 function getScore(data) {
   var score = 0;
   for (var k in data.pieces) {
-    score +=
-      pieceScores[data.pieces[k].role] *
-      (data.pieces[k].color === "sente" ? 1 : -1);
+    score += pieceScores[data.pieces[k].role] * (data.pieces[k].color === 'sente' ? 1 : -1);
   }
   return score;
 }

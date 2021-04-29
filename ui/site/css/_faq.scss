@@ -22,7 +22,7 @@
   }
 
   h2 {
-    margin: 1.3em 0 .3em 0;
+    margin: 1.3em 0 0.3em 0;
   }
 
   h3 {
@@ -32,7 +32,7 @@
 
   h4 {
     font-size: 1.2em;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 
   ol li {
@@ -41,7 +41,8 @@
   ul li {
     list-style: disc outside;
   }
-  ol, ul {
+  ol,
+  ul {
     margin-left: 2em;
     margin-bottom: 1em;
   }

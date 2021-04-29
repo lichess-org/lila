@@ -11,21 +11,20 @@ import { RoundSocket } from './socket';
  * It will also help with lila-ws restarts.
  */
 export default class TransientMove {
-
-  constructor(readonly socket: RoundSocket) { }
+  constructor(readonly socket: RoundSocket) {}
 
   current: number | undefined = undefined;
 
   register = () => {
     this.current = setTimeout(this.expire, 10000);
-  }
+  };
 
   clear = () => {
     if (this.current) clearTimeout(this.current);
-  }
+  };
 
   expire = () => {
     $.post('/statlog?e=roundTransientExpire');
     this.socket.reload({});
-  }
+  };
 }

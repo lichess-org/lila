@@ -23,7 +23,7 @@
     justify-content: center;
     .active-yes,
     &.active .active-no {
-      display: none
+      display: none;
     }
     &.active .active-yes {
       display: block;
@@ -34,16 +34,16 @@
     font-size: 2.2rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    margin-bottom: .7em;
+    margin-bottom: 0.7em;
   }
   .headline {
     font-style: italic;
   }
   .headline.medium {
-    font-size: .95em;
+    font-size: 0.95em;
   }
   .headline.large {
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .services {
     margin: 5px 0;

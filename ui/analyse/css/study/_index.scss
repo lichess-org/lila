@@ -8,8 +8,10 @@ $top-height: 3.2rem;
     @extend %flex-center;
 
     /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-    margin:  0 0 -1em -1em;
-    > * { margin: 0 0 1em 1em; }
+    margin: 0 0 -1em -1em;
+    > * {
+      margin: 0 0 1em 1em;
+    }
     /* end of flex gutter hack */
 
     h1 {
@@ -39,7 +41,7 @@ $top-height: 3.2rem;
       flex: 1 1 auto;
       font-size: 1.2em;
       &__label::after {
-        margin-left: .6em;
+        margin-left: 0.6em;
       }
     }
     .new-study,

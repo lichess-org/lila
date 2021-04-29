@@ -10,7 +10,7 @@
   flex: 0 0 33.333%;
   align-items: center;
   h2 {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     font-size: 1.3em;
     text-transform: uppercase;
     opacity: 0.8;
@@ -38,7 +38,7 @@
   td.score {
     font-size: 1.2em;
   }
-  thead th:nth-child(n+1),
+  thead th:nth-child(n + 1),
   tr td {
     text-align: right;
     padding-right: 25px;
@@ -54,7 +54,7 @@
   tr.year th:first-child {
     font-size: 3rem;
   }
-  tr.year th:nth-child(n+3),
+  tr.year th:nth-child(n + 3),
   tr td {
     text-align: right;
   }

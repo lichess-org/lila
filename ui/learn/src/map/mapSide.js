@@ -1,33 +1,33 @@
-var m = require("mithril");
-var util = require("../util");
-var stages = require("../stage/list");
-var scoring = require("../score");
+var m = require('mithril');
+var util = require('../util');
+var stages = require('../stage/list');
+var scoring = require('../score');
 
 function renderInStage(ctrl) {
-  return m("div.learn__side-map", [
-    m("div.stages", [
+  return m('div.learn__side-map', [
+    m('div.stages', [
       m(
-        "a.back",
+        'a.back',
         {
-          href: "/",
+          href: '/',
           config: m.route,
         },
         [
-          m("img", {
-            src: util.assetUrl + "images/learn/brutal-helm.svg",
+          m('img', {
+            src: util.assetUrl + 'images/learn/brutal-helm.svg',
           }),
-          ctrl.trans.noarg("menu"),
+          ctrl.trans.noarg('menu'),
         ]
       ),
       stages.categs.map(function (categ, categId) {
         return m(
-          "div.categ",
+          'div.categ',
           {
-            class: categId == ctrl.categId() ? "active" : "",
+            class: categId == ctrl.categId() ? 'active' : '',
           },
           [
             m(
-              "h2",
+              'h2',
               {
                 onclick: function () {
                   ctrl.categId(categId);
@@ -36,27 +36,22 @@ function renderInStage(ctrl) {
               ctrl.trans.noarg(categ.name)
             ),
             m(
-              "div.categ_stages",
+              'div.categ_stages',
               categ.stages.map(function (s) {
                 var result = ctrl.data.stages[s.key];
-                var status =
-                  s.id === ctrl.active()
-                    ? "active"
-                    : result
-                    ? "done"
-                    : "future";
+                var status = s.id === ctrl.active() ? 'active' : result ? 'done' : 'future';
                 return m(
-                  "a",
+                  'a',
                   {
-                    class: "stage " + status,
-                    href: "/" + s.id,
+                    class: 'stage ' + status,
+                    href: '/' + s.id,
                     config: m.route,
                   },
                   [
-                    m("img", {
+                    m('img', {
                       src: s.image,
                     }),
-                    m("span", ctrl.trans.noarg(s.title)),
+                    m('span', ctrl.trans.noarg(s.title)),
                   ]
                 );
               })
@@ -70,29 +65,28 @@ function renderInStage(ctrl) {
 
 function renderHome(ctrl) {
   var progress = ctrl.progress();
-  return m("div.learn__side-home", [
-    m("i.fat"),
-    m("h1", ctrl.trans.noarg("learnShogi")),
-    m("h2", ctrl.trans.noarg("byPlaying")),
-    m("div.progress", [
-      m("div.text", ctrl.trans("progressX", progress + "%")),
-      m("div.bar", {
+  return m('div.learn__side-home', [
+    m('i.fat'),
+    m('h1', ctrl.trans.noarg('learnShogi')),
+    m('h2', ctrl.trans.noarg('byPlaying')),
+    m('div.progress', [
+      m('div.text', ctrl.trans('progressX', progress + '%')),
+      m('div.bar', {
         style: {
-          width: progress + "%",
+          width: progress + '%',
         },
       }),
     ]),
-    m("div.actions", [
+    m('div.actions', [
       progress > 0
         ? m(
-            "a.confirm",
+            'a.confirm',
             {
               onclick: function () {
-                if (confirm(ctrl.trans.noarg("youWillLoseAllYourProgress")))
-                  ctrl.reset();
+                if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
               },
             },
-            ctrl.trans.noarg("resetMyProgress")
+            ctrl.trans.noarg('resetMyProgress')
           )
         : null,
     ]),
@@ -103,7 +97,7 @@ module.exports = function (opts, trans) {
   return {
     controller: function () {
       var categId = m.prop(0);
-      m.redraw.strategy("diff");
+      m.redraw.strategy('diff');
       return {
         data: opts.storage.data,
         categId: categId,
@@ -111,7 +105,7 @@ module.exports = function (opts, trans) {
           return opts.stageId;
         },
         inStage: function () {
-          return opts.route === "run";
+          return opts.route === 'run';
         },
         setStage: function (stage) {
           categId(stages.stageIdToCategId(stage.id));
@@ -120,10 +114,7 @@ module.exports = function (opts, trans) {
           var max = stages.list.length * 10;
           var data = opts.storage.data.stages;
           var total = Object.keys(data).reduce(function (t, key) {
-            var rank = scoring.getStageRank(
-              stages.byKey[key],
-              data[key].scores
-            );
+            var rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
             if (rank === 1) return t + 10;
             if (rank === 2) return t + 8;
             return t + 5;

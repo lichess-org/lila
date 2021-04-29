@@ -1,7 +1,7 @@
 import { Hooks } from 'snabbdom/hooks';
 
 export function plyColor(ply: number): Color {
-  return ply % 2 === 0 ? "sente" : "gote";
+  return ply % 2 === 0 ? 'sente' : 'gote';
 }
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void): void {

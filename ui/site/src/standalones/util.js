@@ -1,50 +1,45 @@
 lishogi = window.lishogi || {};
 
-lishogi.requestIdleCallback = (
-  window.requestIdleCallback || window.setTimeout
-).bind(window);
-lishogi.dispatchEvent = (el, eventName) =>
-  el.dispatchEvent(new Event(eventName));
+lishogi.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
+lishogi.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
 
-lishogi.hasTouchEvents = "ontouchstart" in window;
+lishogi.hasTouchEvents = 'ontouchstart' in window;
 
 // Unique id for the current document/navigation. Should be different after
 // each page load and for each tab. Should be unpredictable and secret while
 // in use.
 try {
   const data = window.crypto.getRandomValues(new Uint8Array(9));
-  lishogi.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, "_");
+  lishogi.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
 } catch (_) {
   lishogi.sri = Math.random().toString(36).slice(2, 12);
 }
 
 lishogi.isCol1 = (() => {
-  let isCol1Cache = "init"; // 'init' | 'rec' | boolean
+  let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
   return () => {
-    if (typeof isCol1Cache == "string") {
-      if (isCol1Cache == "init") {
+    if (typeof isCol1Cache == 'string') {
+      if (isCol1Cache == 'init') {
         // only once
-        window.addEventListener("resize", () => {
-          isCol1Cache = "rec";
+        window.addEventListener('resize', () => {
+          isCol1Cache = 'rec';
         }); // recompute on resize
-        if (navigator.userAgent.indexOf("Edge/") > -1)
+        if (navigator.userAgent.indexOf('Edge/') > -1)
           // edge gets false positive on page load, fix later
           requestAnimationFrame(() => {
-            isCol1Cache = "rec";
+            isCol1Cache = 'rec';
           });
       }
-      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue(
-        "--col1"
-      );
+      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
     return isCol1Cache;
   };
 })();
 
 {
-  const buildStorage = (storage) => {
+  const buildStorage = storage => {
     const api = {
-      get: (k) => storage.getItem(k),
+      get: k => storage.getItem(k),
       set: (k, v) => storage.setItem(k, v),
       fire: (k, v) =>
         storage.setItem(
@@ -55,16 +50,15 @@ lishogi.isCol1 = (() => {
             value: v,
           })
         ),
-      remove: (k) => storage.removeItem(k),
-      make: (k) => ({
+      remove: k => storage.removeItem(k),
+      make: k => ({
         get: () => api.get(k),
-        set: (v) => api.set(k, v),
-        fire: (v) => api.fire(k, v),
+        set: v => api.set(k, v),
+        fire: v => api.fire(k, v),
         remove: () => api.remove(k),
-        listen: (f) =>
-          window.addEventListener("storage", (e) => {
-            if (e.key !== k || e.storageArea !== storage || e.newValue === null)
-              return;
+        listen: f =>
+          window.addEventListener('storage', e => {
+            if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
             let parsed;
             try {
               parsed = JSON.parse(e.newValue);
@@ -76,9 +70,9 @@ lishogi.isCol1 = (() => {
             if (parsed.sri && parsed.sri !== lishogi.sri) f(parsed);
           }),
       }),
-      makeBoolean: (k) => ({
+      makeBoolean: k => ({
         get: () => api.get(k) == 1,
-        set: (v) => api.set(k, v ? 1 : 0),
+        set: v => api.set(k, v ? 1 : 0),
         toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1),
       }),
     };
@@ -90,7 +84,7 @@ lishogi.isCol1 = (() => {
 }
 
 lishogi.once = (key, mod) => {
-  if (mod === "always") return true;
+  if (mod === 'always') return true;
   if (!lishogi.storage.get(key)) {
     lishogi.storage.set(key, 1);
     return true;
@@ -119,34 +113,29 @@ lishogi.powertip = (() => {
     return container && container.contains(el);
   }
   function inCrosstable(el) {
-    return containedIn(el, document.querySelector(".crosstable"));
+    return containedIn(el, document.querySelector('.crosstable'));
   }
 
   function onPowertipPreRender(id, preload) {
     return function () {
-      let url = ($(this).data("href") || $(this).attr("href")).replace(
-        /\?.+$/,
-        ""
-      );
+      let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
       if (preload) preload(url);
       $.ajax({
-        url: url + "/mini",
+        url: url + '/mini',
         success: function (html) {
-          $("#" + id).html(html);
-          lishogi.pubsub.emit("content_loaded");
+          $('#' + id).html(html);
+          lishogi.pubsub.emit('content_loaded');
         },
       });
     };
   }
 
-  let uptA = (url, icon) =>
-    '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+  let uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
 
   let userPowertip = (el, pos) => {
-    pos =
-      pos || el.getAttribute("data-pt-pos") || (inCrosstable(el) ? "n" : "s");
+    pos = pos || el.getAttribute('data-pt-pos') || (inCrosstable(el) ? 'n' : 's');
     $(el)
-      .removeClass("ulpt")
+      .removeClass('ulpt')
       .powerTip({
         intentPollInterval: 200,
         placement: pos,
@@ -154,18 +143,18 @@ lishogi.powertip = (() => {
         mouseOnToPopup: true,
         closeDelay: 200,
       })
-      .data("powertip", " ")
+      .data('powertip', ' ')
       .on({
-        powerTipRender: onPowertipPreRender("powerTip", (url) => {
+        powerTipRender: onPowertipPreRender('powerTip', url => {
           const u = url.substr(3);
-          const name = $(el).data("name") || $(el).html();
-          $("#powerTip").html(
+          const name = $(el).data('name') || $(el).html();
+          $('#powerTip').html(
             '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
               name +
               '</span></div></div><div class="upt__actions btn-rack">' +
-              uptA("/@/" + u + "/tv", "1") +
-              uptA("/inbox/new?user=" + u, "c") +
-              uptA("/?user=" + u + "#friend", "U") +
+              uptA('/@/' + u + '/tv', '1') +
+              uptA('/inbox/new?user=' + u, 'c') +
+              uptA('/?user=' + u + '#friend', 'U') +
               '<a class="btn-rack__btn relation-button" disabled></a></div>'
           );
         }),
@@ -174,19 +163,19 @@ lishogi.powertip = (() => {
 
   function gamePowertip(el) {
     $(el)
-      .removeClass("glpt")
+      .removeClass('glpt')
       .powerTip({
         intentPollInterval: 200,
-        placement: inCrosstable(el) ? "n" : "w",
+        placement: inCrosstable(el) ? 'n' : 'w',
         smartPlacement: true,
         mouseOnToPopup: true,
         closeDelay: 200,
-        popupId: "miniGame",
+        popupId: 'miniGame',
       })
       .on({
-        powerTipPreRender: onPowertipPreRender("miniGame"),
+        powerTipPreRender: onPowertipPreRender('miniGame'),
       })
-      .data("powertip", lishogi.spinnerHtml);
+      .data('powertip', lishogi.spinnerHtml);
   }
 
   function powerTipWith(el, ev, f) {
@@ -206,15 +195,15 @@ lishogi.powertip = (() => {
     mouseover(e) {
       var t = e.target,
         cl = t.classList;
-      if (cl.contains("ulpt")) powerTipWith(t, e, userPowertip);
-      else if (cl.contains("glpt")) powerTipWith(t, e, gamePowertip);
+      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
+      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
     manualGameIn(parent) {
-      onIdleForAll(parent, ".glpt", gamePowertip);
+      onIdleForAll(parent, '.glpt', gamePowertip);
     },
     manualGame: gamePowertip,
     manualUserIn(parent) {
-      onIdleForAll(parent, ".ulpt", (el) => userPowertip(el));
+      onIdleForAll(parent, '.ulpt', el => userPowertip(el));
     },
   };
 })();
@@ -229,116 +218,91 @@ lishogi.widget = (name, prototype) => {
   $.fn[name] = function (method) {
     var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
-    if (typeof method === "string")
+    if (typeof method === 'string')
       this.each(function () {
         var instance = $.data(this, name);
         if (!instance) return;
-        if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
-          return $.error(
-            "no such method '" + method + "' for " + name + " widget instance"
-          );
+        if (!$.isFunction(instance[method]) || method.charAt(0) === '_')
+          return $.error("no such method '" + method + "' for " + name + ' widget instance');
         returnValue = instance[method].apply(instance, args);
       });
     else
       this.each(function () {
-        if (!$.data(this, name))
-          $.data(this, name, new constructor(method, this));
+        if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
       });
     return returnValue;
   };
 };
 lishogi.isHoverable = () => {
-  if (typeof lishogi.hoverable === "undefined")
+  if (typeof lishogi.hoverable === 'undefined')
     lishogi.hoverable =
-      !lishogi.hasTouchEvents /* Firefox <= 63 */ ||
-      !!getComputedStyle(document.body).getPropertyValue("--hoverable");
+      !lishogi.hasTouchEvents /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return lishogi.hoverable;
 };
 lishogi.spinnerHtml =
   '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 lishogi.assetUrl = (path, opts) => {
   opts = opts || {};
-  const baseUrl = opts.sameDomain
-      ? ""
-      : document.body.getAttribute("data-asset-url"),
-    version = document.body.getAttribute("data-asset-version");
-  return (
-    baseUrl + "/assets" + (opts.noVersion ? "" : "/_" + version) + "/" + path
-  );
+  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
+    version = document.body.getAttribute('data-asset-version');
+  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 lishogi.loadedCss = {};
 lishogi.loadCss = function (url) {
   if (lishogi.loadedCss[url]) return;
   lishogi.loadedCss[url] = true;
-  $("head").append(
-    $('<link rel="stylesheet" type="text/css" />').attr(
-      "href",
-      lishogi.assetUrl(url)
-    )
-  );
+  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lishogi.assetUrl(url)));
 };
 lishogi.loadCssPath = function (key) {
   lishogi.loadCss(
-    "css/" +
-      key +
-      "." +
-      $("body").data("theme") +
-      "." +
-      ($("body").data("dev") ? "dev" : "min") +
-      ".css"
+    'css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css'
   );
 };
 lishogi.compiledScript = function (name) {
-  return (
-    "compiled/lishogi." + name + ($("body").data("dev") ? "" : ".min") + ".js"
-  );
+  return 'compiled/lishogi.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
 };
 lishogi.loadScript = function (url, opts) {
   return $.ajax({
-    dataType: "script",
+    dataType: 'script',
     cache: true,
     url: lishogi.assetUrl(url, opts),
   });
 };
 lishogi.hopscotch = function (f) {
-  lishogi.loadCss("vendor/hopscotch/dist/css/hopscotch.min.css");
+  lishogi.loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
   lishogi
-    .loadScript("vendor/hopscotch/dist/js/hopscotch.min.js", {
+    .loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {
       noVersion: true,
     })
     .done(f);
 };
 lishogi.slider = function () {
   return lishogi.loadScript(
-    "javascripts/vendor/jquery-ui.slider" +
-      (lishogi.hasTouchEvents ? ".touch" : "") +
-      ".min.js"
+    'javascripts/vendor/jquery-ui.slider' + (lishogi.hasTouchEvents ? '.touch' : '') + '.min.js'
   );
 };
 lishogi.makeChat = function (data, callback) {
   requestAnimationFrame(function () {
     data.loadCss = lishogi.loadCssPath;
-    (callback || $.noop)(LishogiChat(document.querySelector(".mchat"), data));
+    (callback || $.noop)(LishogiChat(document.querySelector('.mchat'), data));
   });
 };
-lishogi.formAjax = ($form) => ({
-  url: $form.attr("action"),
-  method: $form.attr("method") || "post",
+lishogi.formAjax = $form => ({
+  url: $form.attr('action'),
+  method: $form.attr('method') || 'post',
   data: $form.serialize(),
 });
 
 lishogi.numberFormat = (function () {
   var formatter = false;
   return function (n) {
-    if (formatter === false)
-      formatter =
-        window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
+    if (formatter === false) formatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
     if (formatter === null) return n;
     return formatter.format(n);
   };
 })();
 lishogi.idleTimer = function (delay, onIdle, onWakeUp) {
-  var events = ["mousemove", "touchstart"];
+  var events = ['mousemove', 'touchstart'];
   var listening = false;
   var active = true;
   var lastSeenActive = performance.now();
@@ -403,21 +367,21 @@ lishogi.hasToReload = false;
 lishogi.redirectInProgress = false;
 lishogi.redirect = function (obj) {
   var url;
-  if (typeof obj == "string") url = obj;
+  if (typeof obj == 'string') url = obj;
   else {
     url = obj.url;
     if (obj.cookie) {
-      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, "$1");
+      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
       var cookie = [
-        encodeURIComponent(obj.cookie.name) + "=" + obj.cookie.value,
-        "; max-age=" + obj.cookie.maxAge,
-        "; path=/",
-        "; domain=" + domain,
-      ].join("");
+        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
+        '; max-age=' + obj.cookie.maxAge,
+        '; path=/',
+        '; domain=' + domain,
+      ].join('');
       document.cookie = cookie;
     }
   }
-  var href = "//" + location.host + "/" + url.replace(/^\//, "");
+  var href = '//' + location.host + '/' + url.replace(/^\//, '');
   lishogi.redirectInProgress = href;
   location.href = href;
 };
@@ -431,39 +395,36 @@ lishogi.reload = function () {
 lishogi.escapeHtml = function (str) {
   return /[&<>"']/.test(str)
     ? str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/'/g, "&#39;")
-        .replace(/"/g, "&quot;")
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&#39;')
+        .replace(/"/g, '&quot;')
     : str;
 };
 $.modal = function (html, cls, onClose) {
   $.modal.close();
-  if (!html.clone) html = $("<div>" + html + "</div>");
+  if (!html.clone) html = $('<div>' + html + '</div>');
   var $wrap = $('<div id="modal-wrap">')
-    .html(html.clone().removeClass("none"))
+    .html(html.clone().removeClass('none'))
     .prepend('<span class="close" data-icon="L"></span>');
-  var $overlay = $('<div id="modal-overlay">')
-    .addClass(cls)
-    .data("onClose", onClose)
-    .html($wrap);
-  $wrap.find(".close").on("click", $.modal.close);
-  $overlay.on("click", function () {
+  var $overlay = $('<div id="modal-overlay">').addClass(cls).data('onClose', onClose).html($wrap);
+  $wrap.find('.close').on('click', $.modal.close);
+  $overlay.on('click', function () {
     // disgusting hack
     // dragging slider out of a modal closes the modal
-    if (!$(".ui-slider-handle.ui-state-focus").length) $.modal.close();
+    if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();
   });
-  $wrap.on("click", function (e) {
+  $wrap.on('click', function (e) {
     e.stopPropagation();
   });
-  $("body").addClass("overlayed").prepend($overlay);
+  $('body').addClass('overlayed').prepend($overlay);
   return $wrap;
 };
 $.modal.close = function () {
-  $("body").removeClass("overlayed");
-  $("#modal-overlay").each(function () {
-    ($(this).data("onClose") || $.noop)();
+  $('body').removeClass('overlayed');
+  $('#modal-overlay').each(function () {
+    ($(this).data('onClose') || $.noop)();
     $(this).remove();
   });
 };

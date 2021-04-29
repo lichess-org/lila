@@ -12,10 +12,10 @@
   height: 1em;
   cursor: pointer;
   background: $c-shade;
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
 
-input[type=range] {
+input[type='range'] {
   -webkit-appearance: none;
   background: none;
   border: 0;
