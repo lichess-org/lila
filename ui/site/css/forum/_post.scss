@@ -81,7 +81,7 @@
   }
 
   &__message {
-    @extend %break-word;
+    @extend %break-word, %zalgoverflow;
 
     margin-bottom: 0.5em;
 

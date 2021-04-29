@@ -135,6 +135,11 @@
   box-shadow: 0 0 12px $c-font-dim;
 }
 
+%zalgoverflow {
+  // mitigate zalgo text
+  overflow: hidden;
+}
+
 %nowrap-hidden {
   white-space: nowrap;
   overflow: hidden;

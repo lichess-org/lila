@@ -104,7 +104,7 @@
   }
 
   .bio {
-    @extend %break-word;
+    @extend %break-word, %zalgoverflow;
 
     font-style: italic;
 
