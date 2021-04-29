@@ -34,12 +34,7 @@ export function join(ctrl: TournamentController): VNode {
         },
         hook: bind(
           'click',
-          _ => {
-            if (ctrl.data.private && !ctrl.data.me) {
-              const p = prompt(ctrl.trans.noarg('password'));
-              if (p !== null) ctrl.join(p);
-            } else ctrl.join();
-          },
+          _ => ctrl.join(),
           ctrl.redraw
         ),
       },

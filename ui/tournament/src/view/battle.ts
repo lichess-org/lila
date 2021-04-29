@@ -37,7 +37,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
                     h(
                       'a.button',
                       {
-                        hook: bind('click', () => ctrl.join(undefined, id), ctrl.redraw),
+                        hook: bind('click', () => ctrl.join(id), ctrl.redraw),
                       },
                       tb.teams[id]
                     )
