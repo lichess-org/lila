@@ -1,8 +1,8 @@
 # [lishogi.org](https://lishogi.org) - WIP
 
-<img src="https://raw.githubusercontent.com/WandererXII/lishogi/master/public/images/blackSite.png" alt="Lishogi homepage" title="Lichess comes with light and dark theme, this screenshot shows dark." />
+![Lishogi homepage-Lishogi comes with light and dark theme, this screenshot shows dark.](https://user-images.githubusercontent.com/73843275/116246246-6e6d1c00-a787-11eb-9d64-cd1de919b162.png)
 
-Lila (li[chess in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
+Lila (li[shogi in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
 
 It features a [computer analysis](https://lishogi.org/analysis),
 [tournaments](https://lishogi.org/tournament),
