@@ -278,30 +278,6 @@ final class SlackApi(
         channel = rooms.general
       )
     )
-
-  def signup(
-      user: User,
-      email: EmailAddress,
-      ip: IpAddress,
-      fp: Option[String],
-      apiVersion: Option[ApiVersion],
-      susp: Boolean
-  ) =
-    client(
-      SlackMessage(
-        username = "lichess",
-        icon = "musical_note",
-        text = {
-          val link      = userLink(user.username)
-          val emailLink = lichessLink(s"/mod/search?q=${email.value}", email.value)
-          val ipLink    = lichessLink(s"/mod/search?q=$ip", ip.value)
-          val fpLink    = fp.fold("none")(print => lichessLink(s"/mod/print/$print", print))
-          s"$link EMAIL: $emailLink IP: $ipLink FP: $fpLink${susp ?? " *proxy*"}${apiVersion
-            .??(v => s" API v$v")}"
-        },
-        channel = rooms.signups
-      )
-    )
 }
 
 object SlackApi {
@@ -320,7 +296,6 @@ object SlackApi {
     val tavernNotes                     = "tavern-notes"
     val tavernAppeal                    = "tavern-appeal"
     val tavernLog                       = "tavern-log"
-    val signups                         = "signups"
     val broadcast                       = "broadcast"
     def tavernMonitor(tpe: MonitorType) = s"tavern-monitor-${tpe.toString.toLowerCase}"
     val tavernMonitorAll                = "tavern-monitor-all"

@@ -170,17 +170,13 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
-  ) = {
+  ) =
     authLog(
       user.username,
       email.value,
-      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
+        .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
     )
-    val ip = HTTPRequest ipAddress req
-    ipTrust.isSuspicious(ip) foreach { susp =>
-      slack.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
-    }
-  }
 
   private def signupErrLog(err: Form[_]) =
     for {
