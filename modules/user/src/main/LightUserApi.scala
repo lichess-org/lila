@@ -38,7 +38,10 @@ final class LightUserApi(
     initialCapacity = 1024 * 1024,
     compute = id =>
       if (User isGhost id) fuccess(LightUser.ghost.some)
-      else repo.coll.find($id(id), projection).one[LightUser],
+      else
+        repo.coll.find($id(id), projection).one[LightUser] recover {
+          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
+        },
     default = id => LightUser(id, id, None, isPatron = false).some,
     strategy = Syncache.WaitAfterUptime(8 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes)
@@ -49,15 +52,15 @@ private object LightUserApi {
 
   implicit val lightUserBSONReader = new BSONDocumentReader[LightUser] {
 
-    def readDocument(doc: BSONDocument) =
-      Success(
-        LightUser(
-          id = doc.string(F.id) err "LightUser id missing",
-          name = doc.string(F.username) err "LightUser username missing",
-          title = doc.string(F.title),
-          isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
-        )
-      )
+    def readDocument(doc: BSONDocument) = for {
+      id   <- doc.getAsTry[String](F.id)
+      name <- doc.getAsTry[String](F.username)
+    } yield LightUser(
+      id = id,
+      name = name,
+      title = doc.string(F.title),
+      isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+    )
   }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
