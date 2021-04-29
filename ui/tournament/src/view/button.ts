@@ -32,11 +32,7 @@ export function join(ctrl: TournamentController): VNode {
           disabled: !joinable,
           'data-icon': 'G',
         },
-        hook: bind(
-          'click',
-          _ => ctrl.join(),
-          ctrl.redraw
-        ),
+        hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
       ctrl.trans.noarg('join')
     );
