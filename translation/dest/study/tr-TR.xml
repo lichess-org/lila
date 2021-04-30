@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Eklenme tarihi (en eski)</string>
   <string name="recentlyUpdated">Yeni güncellenmiş</string>
   <string name="mostPopular">En popüler</string>
+  <string name="alphabetical">Alfabetik</string>
   <string name="addNewChapter">Yeni bir bölüm ekle</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Bölüm</item>
