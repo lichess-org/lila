@@ -10,7 +10,7 @@ object download {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("search"),
-      moreJs = jsModule("download")
+      moreJs = jsModule("userGamesDownload")
     ) {
       main(cls := "box page-small search")(
         h1(title),
