@@ -53,7 +53,9 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queue zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
+      env.appeal.api.queueOf(
+        me.user
+      ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
           (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
             Ok(html.appeal.queue(appeals, inquiries, scores, streamers, nbAppeals))
@@ -104,6 +106,15 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
     Secure(_.NotifySlack) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.irc.slack.userAppeal(user = suspect.user, mod = me) inject NoContent
+      }
+    }
+
+  def snooze(username: String, dur: String) =
+    Secure(_.Appeals) { implicit ctx => me =>
+      asMod(username) { (appeal, suspect) =>
+        env.appeal.api.snooze(me.user, appeal.id, dur) >>
+          env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+          Redirect(routes.Appeal.queue)
       }
     }
 
