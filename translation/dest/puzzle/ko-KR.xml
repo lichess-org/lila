@@ -38,8 +38,14 @@
   <string name="normal">보통</string>
   <string name="easier">쉬움</string>
   <string name="easiest">매우 쉬움</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">당신의 퍼즐 레이팅보다 %s 포인트 낮음</item>
+  </plurals>
   <string name="harder">어려움</string>
   <string name="hardest">매우 어려움</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">당신의 퍼즐 레이팅보다 %s 포인트 높음</item>
+  </plurals>
   <string name="example">예시</string>
   <string name="addAnotherTheme">새 테마 추가</string>
   <string name="jumpToNextPuzzleImmediately">다음 퍼즐로 즉시 이동</string>
