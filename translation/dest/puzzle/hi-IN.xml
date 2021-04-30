@@ -39,6 +39,10 @@
   <string name="normal">समान्य</string>
   <string name="easier">आसान</string>
   <string name="easiest">सबसे आसान</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">पहीली की गणना मे से एक अंक नीचे</item>
+    <item quantity="other">पहेली की गणना मे से %s अंक नीचे</item>
+  </plurals>
   <string name="harder">कठिन</string>
   <string name="hardest">सबसे कठिन</string>
   <string name="example">उदाहरण</string>
