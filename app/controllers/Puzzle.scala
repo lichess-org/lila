@@ -281,13 +281,9 @@ final class Puzzle(
             renderShow(_, theme)
           }
         case None if themeOrId.size == Puz.idSize =>
-          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
-            ctx.me.?? { me =>
-              !env.puzzle.api.round.exists(me, puz.id) map {
-                _ ?? env.puzzle.api.casual.set(me, puz.id)
-              }
-            } >>
-              renderShow(puz, PuzzleTheme.mix)
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puzzle =>
+            ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
+              renderShow(puzzle, PuzzleTheme.mix)
           }
         case None =>
           themeOrId.toLongOption
@@ -304,7 +300,9 @@ final class Puzzle(
     NoBot {
       val theme = PuzzleTheme.findOrAny(themeKey)
       OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-        if (puzzle.themes contains theme.key) renderShow(puzzle, theme)
+        if (puzzle.themes contains theme.key)
+          ctx.me.?? { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
+            renderShow(puzzle, theme)
         else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
       }
     }
