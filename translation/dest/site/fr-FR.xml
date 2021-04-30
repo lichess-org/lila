@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
   <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
   <string name="itsYourTurn">C\'est votre tour !</string>
+  <string name="cheatDetected">Tricherie détectée</string>
   <string name="kingInTheCenter">Roi au centre</string>
   <string name="threeChecks">Trois échecs</string>
   <string name="raceFinished">Course terminée</string>
