@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Igrate z belimi figurami</string>
   <string name="youPlayTheBlackPieces">Igrate s črnimi figurami</string>
   <string name="itsYourTurn">Na potezi ste!</string>
+  <string name="cheatDetected">Zaznana goljufija</string>
   <string name="kingInTheCenter">Kralj v sredini</string>
   <string name="threeChecks">Trojni šah</string>
   <string name="raceFinished">Dirka končana</string>
