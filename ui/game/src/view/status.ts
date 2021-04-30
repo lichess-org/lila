@@ -31,7 +31,7 @@ export default function status(ctrl: Ctrl): string {
     case 'noStart':
       return (d.game.winner == 'white' ? 'Black' : 'White') + " didn't move";
     case 'cheat':
-      return noarg('Cheat detected');
+      return noarg('cheatDetected');
     case 'variantEnd':
       switch (d.game.variant.key) {
         case 'kingOfTheHill':
