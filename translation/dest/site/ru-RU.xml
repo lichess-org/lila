@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
   <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
   <string name="itsYourTurn">Ваш ход!</string>
+  <string name="cheatDetected">Обнаружен чит</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
