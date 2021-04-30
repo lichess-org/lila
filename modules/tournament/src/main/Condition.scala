@@ -25,9 +25,9 @@ object Condition {
 
   type GetMaxRating = PerfType => Fu[Int]
 
-  sealed abstract class Verdict(val accepted: Boolean)
-  case object Accepted                       extends Verdict(true)
-  case class Refused(reason: Lang => String) extends Verdict(false)
+  sealed abstract class Verdict(val accepted: Boolean, val reason: Option[Lang => String])
+  case object Accepted                        extends Verdict(true, none)
+  case class Refused(because: Lang => String) extends Verdict(false, because.some)
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
