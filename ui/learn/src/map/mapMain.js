@@ -1,10 +1,13 @@
 var mapView = require('./mapView');
 var stages = require('../stage/list');
 var scoring = require('../score');
+const timeouts = require('../timeouts');
 
 module.exports = function (opts, trans) {
   return {
     controller: function () {
+      timeouts.clearTimeouts();
+
       opts.stageId = null;
       opts.route = 'map';
       return {
