@@ -9,6 +9,7 @@
   <string name="forgotPassword">비밀번호를 잊어버렸습니다</string>
   <string name="forgotUsername">사용자 이름을 잊어버렸습니다</string>
   <string name="youCanLoginWithEmail">당신이 회원가입한 이메일 주소로 로그인할 수 있습니다.</string>
+  <string name="lost2FA">2단계 인증 코드로 접속할 수 없습니다</string>
   <string name="accountSupport">계정 도움이 필요합니다</string>
   <string name="wantCloseAccount">계정을 탈퇴하고 싶습니다</string>
   <string name="closeYourAccount">이 페이지에서 탈퇴할 수 있습니다.</string>
@@ -20,7 +21,7 @@
   <string name="wantReport">이용자 신고하기</string>
   <string name="doNotReportInForum">포럼에서 이용자를 신고하지 마십시오.</string>
   <string name="doNotSendReportEmails">이메일을 보내 신고하지 마십시오.</string>
-  <string name="doNotMessageModerators">관리자에게 디렉트 메시지를 보내지 마십시오.</string>
+  <string name="doNotMessageModerators">관리자에게 직접 메시지를 보내지 마세요.</string>
   <string name="wantReportBug">버그를 신고하고 싶습니다</string>
   <string name="howToReportBug">버그가 무엇인지, 어떻게 고쳐져야 하는지 설명하십시오.</string>
   <string name="illegalPawnCapture">폰을 이상하게 잡았습니다</string>
@@ -34,7 +35,11 @@
   <string name="ratedGame">레이팅 게임을 했는지 다시 한번 확인하십시오. 캐주얼 게임은 레이팅에 영향을 미치지 않습니다.</string>
   <string name="errorPage">에러 페이지</string>
   <string name="banAppeal">차단 또는 IP 제한에 대한 이의를 제기하고 싶습니다</string>
+  <string name="otherRestriction">다른 제한</string>
   <string name="collaboration">협찬, 법률, 광고</string>
+  <string name="monetizing">Lichess로 수익창출을 하고 싶습니다</string>
+  <string name="buyingLichess">Lichess를 구매하고 싶습니다</string>
+  <string name="authorizationToUse">다른 곳에서 Lichess를 사용할 수 있는지 궁금합니다</string>
   <string name="noneOfTheAbove">해당 사항 없음</string>
   <string name="sendEmailAt">%s로 이메일을 보내주세요.</string>
 </resources>
