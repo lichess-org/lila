@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Jūs spēlējat ar baltajiem</string>
   <string name="youPlayTheBlackPieces">Jūs spēlējat ar melnajiem</string>
   <string name="itsYourTurn">Jūsu gājiens!</string>
+  <string name="cheatDetected">Konstatēta šmaukšanās</string>
   <string name="kingInTheCenter">Karalis vidū</string>
   <string name="threeChecks">Trīs šahi</string>
   <string name="raceFinished">Sacīkstes beigušās</string>
