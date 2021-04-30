@@ -78,9 +78,9 @@ object side {
             verdicts.list map { v =>
               p(
                 cls := List(
-                  "condition text" -> true,
-                  "accepted"       -> v.verdict.accepted,
-                  "refused"        -> !v.verdict.accepted
+                  "condition" -> true,
+                  "accepted"  -> (v.verdict.accepted && ctx.isAuth),
+                  "refused"   -> (!v.verdict.accepted || !ctx.isAuth)
                 )
               )(v.condition match {
                 case lila.tournament.Condition.TeamMember(teamId, teamName) =>
