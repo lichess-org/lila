@@ -112,8 +112,8 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
   def snooze(username: String, dur: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        env.appeal.api.snooze(me.user, appeal.id, dur) >>
-          env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
+        env.appeal.api.snooze(me.user, appeal.id, dur)
+        env.report.api.inquiries.toggle(lila.report.Mod(me.user), appeal.id) inject
           Redirect(routes.Appeal.queue)
       }
     }

@@ -167,4 +167,6 @@ object Report {
           )
         )(_ add c.atom)
     }
+
+  private[report] case class SnoozeKey(snoozerId: User.ID, reportId: Report.ID) extends lila.memo.Snooze.Key
 }

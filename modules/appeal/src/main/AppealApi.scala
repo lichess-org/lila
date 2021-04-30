@@ -4,13 +4,12 @@ import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.user.{ Holder, NoteApi, User, UserRepo }
-import lila.memo.CacheApi._
 
 final class AppealApi(
     coll: Coll,
     userRepo: UserRepo,
     noteApi: NoteApi,
-    cacheApi: lila.memo.CacheApi
+    snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -62,7 +61,7 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queueOf(mod: User) = queue(snoozer snoozedIdsOf mod.id)
+  def queueOf(mod: User) = queue(snoozer snoozedKeysOf mod.id map (_.appealId))
 
   private def queue(exceptIds: Iterable[User.ID]): Fu[List[Appeal]] =
     coll
@@ -98,29 +97,6 @@ final class AppealApi(
 
   def onAccountClose(user: User) = setReadById(user.id)
 
-  def snooze(mod: User, appealId: User.ID, duration: String): Funit =
-    byId(appealId) flatMap { (appeal: Option[Appeal]) =>
-      for {
-        a <- appeal
-        d <- Snooze.Duration(duration)
-      } yield snoozer.set(mod.id, a.id, d)
-      funit
-    }
-
-  private object snoozer {
-    import Snooze._
-    private val store = cacheApi.notLoadingSync[SnoozeKey, Duration](256, "appeal.snooze")(
-      _.expireAfter[SnoozeKey, Duration](
-        create = (_, duration) => duration.value,
-        update = (_, duration, _) => duration.value,
-        read = (_, _, current) => current
-      ).build()
-    )
-
-    def set(modId: User.ID, appealId: User.ID, duration: Duration): Unit =
-      store.put(SnoozeKey(modId, appealId), duration)
-
-    def snoozedIdsOf(modId: User.ID): Iterable[User.ID] =
-      store.asMap().keys.collect { case SnoozeKey(m, r) if m == modId => r }
-  }
+  def snooze(mod: User, appealId: User.ID, duration: String): Unit =
+    snoozer.set(Appeal.SnoozeKey(mod.id, appealId), duration)
 }

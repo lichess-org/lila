@@ -83,6 +83,8 @@ object Appeal {
     Form[String](
       single("text" -> lila.common.Form.cleanNonEmptyText)
     )
+
+  private[appeal] case class SnoozeKey(snoozerId: User.ID, appealId: User.ID) extends lila.memo.Snooze.Key
 }
 
 case class AppealMsg(
@@ -90,18 +92,3 @@ case class AppealMsg(
     text: String,
     at: DateTime
 )
-
-object Snooze {
-  import scala.concurrent.duration._
-  sealed abstract class Duration(val value: FiniteDuration, val name: String)
-  object Duration {
-    case object TwentyMinutes extends Duration(20 minutes, "20 minutes")
-    case object OneHour       extends Duration(1 hour, "one hour")
-    case object ThreeHours    extends Duration(3 hours, "three hours")
-    case object OneDay        extends Duration(1 day, "one day")
-    case object NextDeploy    extends Duration(30 days, "until next deploy")
-    val all                = List(TwentyMinutes, OneHour, ThreeHours, OneDay, NextDeploy)
-    def apply(key: String) = all.find(_.toString == key)
-  }
-  private[appeal] case class SnoozeKey(modId: User.ID, appealId: User.ID)
-}

@@ -20,6 +20,7 @@ final class ReportApi(
     discordApi: lila.irc.DiscordApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
+    snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -440,7 +441,7 @@ final class ReportApi(
 
   def openAndRecentWithFilter(mod: Mod, nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
     for {
-      opens <- findBest(nb, selectOpenInRoom(room, snoozer snoozedIdsOf mod))
+      opens <- findBest(nb, selectOpenInRoom(room, snoozedIdsOf(mod)))
       nbClosed = nb - opens.size
       closed <-
         if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
@@ -449,7 +450,9 @@ final class ReportApi(
     } yield withNotes
 
   private def findNext(mod: Mod, room: Room): Fu[Option[Report]] =
-    findBest(1, selectOpenAvailableInRoom(room.some, snoozer snoozedIdsOf mod)).map(_.headOption)
+    findBest(1, selectOpenAvailableInRoom(room.some, snoozedIdsOf(mod))).map(_.headOption)
+
+  private def snoozedIdsOf(mod: Mod) = snoozer snoozedKeysOf mod.user.id map (_.reportId)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
@@ -465,27 +468,10 @@ final class ReportApi(
   def snooze(mod: Mod, reportId: Report.ID, duration: String): Fu[Option[Report]] =
     byId(reportId) flatMap {
       _ ?? { report =>
-        Snooze.Duration(duration) foreach { snoozer.set(mod, report.id, _) }
+        snoozer.set(Report.SnoozeKey(mod.user.id, reportId), duration)
         inquiries.toggleNext(mod, report.room)
       }
     }
-
-  private object snoozer {
-    import Snooze._
-    private val store = cacheApi.notLoadingSync[SnoozeKey, Duration](256, "report.snooze")(
-      _.expireAfter[SnoozeKey, Duration](
-        create = (_, duration) => duration.value,
-        update = (_, duration, _) => duration.value,
-        read = (_, _, current) => current
-      ).build()
-    )
-
-    def set(mod: Mod, reportId: Report.ID, duration: Duration): Unit =
-      store.put(SnoozeKey(mod.id, reportId), duration)
-
-    def snoozedIdsOf(mod: Mod): Iterable[Report.ID] =
-      store.asMap().keys.collect { case SnoozeKey(m, r) if m == mod.id => r }
-  }
 
   object accuracy {
 
