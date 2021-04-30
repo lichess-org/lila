@@ -39,8 +39,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Daha asan</string>
   <string name="easiest">Ən asan</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Sizin tapmaca reytinqinizdən bir bal aşağı</item>
+    <item quantity="other">Sizin tapmaca reytinqinizdən %s bal aşağı</item>
+  </plurals>
   <string name="harder">Daha çətin</string>
   <string name="hardest">Ən çətin</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Sizin tapmaca reytinqinizdən bir bal yuxarı</item>
+    <item quantity="other">Sizin tapmaca reytinqinizdən %s bal yuxarı</item>
+  </plurals>
   <string name="example">Nümunə</string>
   <string name="addAnotherTheme">Başqa mövzu artırın</string>
   <string name="jumpToNextPuzzleImmediately">Dərhal növbəti tapmacaya keçin</string>

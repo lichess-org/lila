@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum tillagd (nyaste)</string>
   <string name="recentlyUpdated">Nyligen uppdaterade</string>
   <string name="mostPopular">Mest populära</string>
+  <string name="alphabetical">Alfabetisk</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>

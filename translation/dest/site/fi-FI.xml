@@ -35,12 +35,12 @@
   <string name="whitePlays">Valkean vuoro</string>
   <string name="blackPlays">Mustan vuoro</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
-    <item quantity="other">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
+    <item quantity="one">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi %s sekunnin kuluttua.</item>
+    <item quantity="other">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi %s sekunnin kuluttua.</item>
   </plurals>
-  <string name="opponentLeftChoices">Toinen pelaaja saattoi lähteä pelistä. Voit ottaa luovutusvoiton, sopia tasapelin tai odottaa häntä.</string>
+  <string name="opponentLeftChoices">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi, sopia tasapelin tai odottaa häntä.</string>
   <string name="makeYourOpponentResign">Pakota luovutus</string>
-  <string name="forceResignation">Ota luovutusvoitto</string>
+  <string name="forceResignation">Julistaudu voittajaksi</string>
   <string name="forceDraw">Pakota tasapeli</string>
   <string name="talkInChat">Kirjoita keskusteluun. Ole kohtelias!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pelaat sen kaverin kanssa, joka ensimmäisenä avaa linkin.</string>
@@ -469,7 +469,7 @@
     <item quantity="one">%s peliä meneillään</item>
     <item quantity="other">%s peliä meneillään</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Siirry automaattisesti seuraavaan peliin siirron jälkeen</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Avaa heti seuraavan pelisi tehtyäsi siirron</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
   <string name="latestUpdates">Viimeisimmät päivitykset</string>
@@ -542,9 +542,9 @@
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
   <string name="xCommentedY">%1$s kommentoi %2$s</string>
-  <string name="victory">Voitit</string>
+  <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
-  <string name="victoryVsYInZ">%1$s vastustajasta %2$s pelissä %3$s</string>
+  <string name="victoryVsYInZ">%1$s %3$s-pelissä %2$s vastaan</string>
   <string name="defeatVsYInZ">%1$s vastustajalta %2$s pelissä %3$s</string>
   <string name="drawVsYInZ">%1$s vastustajaa %2$s vastaan pelissä %3$s</string>
   <string name="timeline">Tapahtunutta aikajärjestyksessä</string>

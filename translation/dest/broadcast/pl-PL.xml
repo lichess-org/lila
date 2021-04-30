@@ -21,4 +21,5 @@
   <string name="credits">Potwierdź źródło</string>
   <string name="resetRound">Zresetuj tę rundę</string>
   <string name="deleteRound">Usuń tę rundę</string>
+  <string name="broadcastUrl">Adres URL transmisji</string>
 </resources>
