@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
   <string name="youPlayTheBlackPieces">Du spielst mit den schwarzen Figuren</string>
   <string name="itsYourTurn">Du bist am Zug!</string>
+  <string name="cheatDetected">Betrug erkannt</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
