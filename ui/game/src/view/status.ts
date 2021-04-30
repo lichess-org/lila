@@ -33,7 +33,7 @@ export default function status(ctrl: Ctrl): string {
     case 'noStart':
       return (d.game.winner == 'sente' ? 'Gote' : 'Sente') + " didn't move";
     case 'cheat':
-      return 'Cheat detected';
+      return noarg('cheatDetected');
     case 'variantEnd':
       return noarg('variantEnding');
     default:
