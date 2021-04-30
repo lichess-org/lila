@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">רגלי מתקדם</string>
   <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בפוזצית היריב, הוא מאיים להשתדרג.</string>
   <string name="advantage">יתרון</string>
+  <string name="advantageDescription">נצל את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
+  <string name="anastasiaMate">המט של אנסטסיה</string>
+  <string name="attackingF2F7">תקיפה של ו2 או ו7</string>
   <string name="castling">הצרחה</string>
   <string name="fork">מזלג</string>
   <string name="mate">מט</string>
