@@ -32,16 +32,7 @@ export function join(ctrl: TournamentController): VNode {
           disabled: !joinable,
           'data-icon': 'G',
         },
-        hook: bind(
-          'click',
-          _ => {
-            if (ctrl.data.private && !ctrl.data.me) {
-              const p = prompt(ctrl.trans.noarg('password'));
-              if (p !== null) ctrl.join(p);
-            } else ctrl.join();
-          },
-          ctrl.redraw
-        ),
+        hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
       ctrl.trans.noarg('join')
     );

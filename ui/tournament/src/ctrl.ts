@@ -126,7 +126,7 @@ export default class TournamentController {
     this.focusOnMe = false;
   };
 
-  join = (password?: string, team?: string) => {
+  join = (team?: string) => {
     this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
       return this.data.verdicts.list.forEach(v => {
@@ -135,6 +135,13 @@ export default class TournamentController {
     if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {
+      let password;
+      if (this.data.private && !this.data.me) {
+        password = prompt(this.trans.noarg('password'));
+        if (password === null) {
+          return;
+        }
+      }
       xhr.join(this, password, team);
       this.joinSpinner = true;
       this.focusOnMe = true;
