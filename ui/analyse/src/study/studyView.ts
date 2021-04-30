@@ -207,7 +207,7 @@ export function side(ctrl: StudyCtrl): VNode {
   const tabs = h('div.tabs-horiz', [
     tourTab,
     makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
-    !tourTab || ctrl.members.canContribute()
+    !tourTab || ctrl.members.canContribute() || ctrl.data.admin
       ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
       : null,
     ctrl.members.isOwner()
