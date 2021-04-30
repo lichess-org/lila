@@ -4,24 +4,21 @@ function generateURL() {
     url += `${name}=${value}`;
   }
 
-  let url: string =
-    'https://lichess.org/api/games/user/' +
-    encodeURIComponent((document.getElementById('dl-username') as HTMLInputElement).value) +
-    '?';
+  let url: string = 'https://lichess.org/api/games/user/' + encodeURIComponent($('#dl-username').val() as string) + '?';
 
   {
     const minTimestamp = 1356998400070;
     const midnight = '00:00:00';
-    const dateMin = (document.getElementById('dl-dateMin') as HTMLInputElement).value;
-    const timeMin = (document.getElementById('dl-timeMin') as HTMLInputElement).value;
+    const dateMin = $('#dl-dateMin').val() as string;
+    const timeMin = $('#dl-timeMin').val() as string;
     if (dateMin.length == 10) {
       // the 00:00:00 is necessary for the time to be interpreted in the local timezone
       const since = new Date(`${dateMin} ${timeMin.length == 8 ? timeMin : midnight}`);
       addParameter('since', Math.max(since.getTime(), minTimestamp));
     }
 
-    const dateMax = (document.getElementById('dl-dateMax') as HTMLInputElement).value;
-    const timeMax = (document.getElementById('dl-timeMax') as HTMLInputElement).value;
+    const dateMax = $('#dl-dateMax').val() as string;
+    const timeMax = $('#dl-timeMax').val() as string;
     if (dateMax.length == 10) {
       const until = new Date(`${dateMax} ${timeMax.length == 8 ? timeMax : midnight}`);
       // If no time is specified, assume that all games on that day should be included
@@ -31,53 +28,49 @@ function generateURL() {
   }
 
   {
-    const max = (document.getElementById('dl-amount') as HTMLInputElement).value;
+    const max = $('#dl-amount').val() as string;
     if (max.length > 0) addParameter('max', max);
 
-    const vs = (document.getElementById('dl-opponent') as HTMLInputElement).value;
+    const vs = $('#dl-opponent').val() as string;
     if (vs.length > 0) addParameter('vs', encodeURIComponent(vs));
 
-    const rated = (document.getElementById('dl-rated') as HTMLSelectElement).value;
+    const rated = $('#dl-rated').val() as string;
     if (rated.length > 0) addParameter('rated', rated);
   }
 
   {
-    const perfTbl = document.getElementById('dl-perf-tbl') as HTMLTableElement;
-    const toggles = perfTbl.getElementsByClassName('cmn-toggle') as HTMLCollectionOf<HTMLInputElement>;
-    const perfs: Array<string> = [];
-    for (const toggle of toggles) {
-      if (toggle.checked) perfs.push(toggle.value);
-    }
+    const perfs = $('#dl-perf-tbl .cmn-toggle')
+      .get()
+      .filter((e: HTMLInputElement) => e.checked)
+      .map((e: HTMLInputElement): string => e.value);
     // don't add parameter if all or no perf types are selected
     if (perfs.length > 0 && perfs.length < 14) addParameter('perfType', perfs.join(','));
   }
 
   {
-    const color = (document.getElementById('dl-color') as HTMLSelectElement).value;
+    const color = $('#dl-color').val() as string;
     if (color.length > 0) addParameter('color', color);
 
-    const analysed = (document.getElementById('dl-analysis') as HTMLSelectElement).value;
+    const analysed = $('#dl-analysis').val() as string;
     if (analysed.length > 0) addParameter('analysed', analysed);
 
-    const ongoing = (document.getElementById('dl-ongoing') as HTMLInputElement).checked;
+    const ongoing = $('#dl-ongoing').prop('checked') as boolean;
     if (ongoing) addParameter('ongoing', ongoing);
 
-    const tags = (document.getElementById('dl-tags') as HTMLInputElement).checked;
+    const tags = $('#dl-tags').prop('checked') as boolean;
     if (!tags) addParameter('tags', tags);
 
-    const clocks = (document.getElementById('dl-clocks') as HTMLInputElement).checked;
+    const clocks = $('#dl-clocks').prop('checked') as boolean;
     if (clocks) addParameter('clocks', clocks);
 
-    const evals = (document.getElementById('dl-evals') as HTMLInputElement).checked;
+    const evals = $('#dl-evals').prop('checked') as boolean;
     if (evals) addParameter('evals', evals);
 
-    const opening = (document.getElementById('dl-opening') as HTMLInputElement).checked;
+    const opening = $('#dl-opening').prop('checked') as boolean;
     if (opening) addParameter('opening', opening);
   }
 
-  const output = document.getElementById('dl-output') as HTMLInputElement;
-  output.value = url;
-  output.style.visibility = 'visible';
+  $('#dl-output').val(url).css('visibility', 'visible');
 }
 
-(document.getElementById('dl-button') as HTMLButtonElement).onclick = generateURL;
+$('#dl-button').on('click', generateURL);
