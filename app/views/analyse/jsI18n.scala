@@ -24,6 +24,7 @@ private object jsI18n {
     trans.playingRightNow,
     trans.whiteIsVictorious,
     trans.blackIsVictorious,
+    trans.cheatDetected,
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding,

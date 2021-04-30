@@ -199,7 +199,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
         s"$color didn't move"
-      case S.Cheat => "Cheat detected"
+      case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
           case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
