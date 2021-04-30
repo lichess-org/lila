@@ -70,7 +70,7 @@ object side {
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),
-            "refused"    -> (!ctx.isAuth || !verdicts.accepted)
+            "refused"    -> (ctx.isAuth && !verdicts.accepted)
           )
         )(
           div(
@@ -80,7 +80,7 @@ object side {
                 cls := List(
                   "condition" -> true,
                   "accepted"  -> (v.verdict.accepted && ctx.isAuth),
-                  "refused"   -> (!v.verdict.accepted || !ctx.isAuth)
+                  "refused"   -> (ctx.isAuth && !v.verdict.accepted)
                 )
               )(v.condition match {
                 case lila.tournament.Condition.TeamMember(teamId, teamName) =>
