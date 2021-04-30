@@ -45,7 +45,6 @@ object LameName {
     "fart",
     "feces",
     "fuck",
-    "fvck",
     "golam",
     "hitler",
     "jerk",
