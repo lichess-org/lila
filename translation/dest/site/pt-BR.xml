@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Você joga com as peças pretas</string>
   <string name="itsYourTurn">É a sua vez!</string>
+  <string name="cheatDetected">Trapaça Detectada</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
