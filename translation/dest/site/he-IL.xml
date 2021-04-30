@@ -123,6 +123,24 @@
   <string name="blunder">בלאנדר</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">החמצה</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">טעות גסה %s</item>
+    <item quantity="two">%s טעויות גסות</item>
+    <item quantity="many">%s טעויות גסות</item>
+    <item quantity="other">%s טעויות גסות</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">שגיאה %s</item>
+    <item quantity="two">%s שגיאות</item>
+    <item quantity="many">%s שגיאות</item>
+    <item quantity="other">%s שגיאות</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s אי-דיוק</item>
+    <item quantity="two">%s אי-דיוקים</item>
+    <item quantity="many">%s אי-דיוקים</item>
+    <item quantity="other">%s אי-דיוקים</item>
+  </plurals>
   <string name="moveTimes">זמני המהלך</string>
   <string name="flipBoard">הפוך את הלוח</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
@@ -927,4 +945,6 @@
   <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
   <string name="newPendingReview">דירוג ממתין חדש</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
+  <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
+  <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
 </resources>
