@@ -22,6 +22,16 @@
   <string name="otherExperiences">ניסיון אחר</string>
   <string name="bestSkills">כישורים</string>
   <string name="teachingMethod">שיטת לימוד</string>
+  <string name="publicStudies">הלימודים הפומביים שלי</string>
   <string name="youtubeVideos">סרטוני YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">ביקורות %s תלמידים</item>
+    <item quantity="two">ביקורות %s תלמידים</item>
+    <item quantity="many">ביקורות %s תלמידים</item>
+    <item quantity="other">ביקורות %s תלמידים</item>
+  </plurals>
   <string name="thankYouForReview">תודה לך על הביקורת!</string>
+  <string name="xWillApproveIt">%s יאשר זאת בהקדם, או מנהל יסתכל על זה.</string>
+  <string name="reviewCoach">דרג את מאמן זה</string>
+  <string name="describeExperienceWith">תאר את חוויית הלמידה שלך עם %s</string>
 </resources>
