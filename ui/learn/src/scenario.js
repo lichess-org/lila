@@ -1,5 +1,6 @@
 var util = require('./util');
 var ground = require('./ground');
+const timeouts = require('./timeouts');
 
 module.exports = function (blueprint, opts) {
   var steps = (blueprint || []).map(function (step) {
@@ -27,7 +28,7 @@ module.exports = function (blueprint, opts) {
     it++;
     ground.fen(opts.shogi.fen(), opts.shogi.color(), opts.makeShogiDests(), move);
     if (step.shapes)
-      setTimeout(function () {
+      timeouts.setTimeout(function () {
         ground.setShapes(step.shapes);
       }, 500);
   };
@@ -46,7 +47,7 @@ module.exports = function (blueprint, opts) {
       if (step.move !== move) return fail();
       it++;
       if (step.shapes) ground.setShapes(step.shapes);
-      setTimeout(opponent, 1000);
+      timeouts.setTimeout(opponent, 1000);
       return true;
     },
   };
