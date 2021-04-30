@@ -34,12 +34,11 @@ function generateURL() {
   }
 
   {
-    const perfs = $('#dl-perf-tbl .cmn-toggle')
-      .get()
-      .filter((e: HTMLInputElement) => e.checked)
-      .map((e: HTMLInputElement): string => e.value);
+    const perfToggles = $('#dl-perf-tbl .cmn-toggle').get() as HTMLInputElement[];
+    const checkedToggles = perfToggles.filter(e => e.checked);
     // don't add parameter if all or no perf types are selected
-    if (perfs.length > 0 && perfs.length < 14) searchParams.append('perfType', perfs.join(','));
+    if (checkedToggles.length > 0 && checkedToggles.length < perfToggles.length)
+      searchParams.append('perfType', checkedToggles.map(e => e.value).join(','));
   }
 
   {
