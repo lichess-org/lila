@@ -194,7 +194,7 @@ object Dimension {
         "Centipawn loss",
         F.moves("c"),
         Move,
-        raw("Centipawns lost by each move, according to Stockfish evalutation.")
+        raw("Centipawns lost by each move, according to Stockfish evaluation.")
       )
 
   def requiresStableRating(d: Dimension[_]) =
