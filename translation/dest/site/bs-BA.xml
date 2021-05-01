@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Igrate sa bijelim figurama</string>
   <string name="youPlayTheBlackPieces">Igrate sa crnim figurama</string>
   <string name="itsYourTurn">Vi Ste na Potezu!</string>
+  <string name="cheatDetected">Otkriveno varanje</string>
   <string name="kingInTheCenter">Kralj u centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
