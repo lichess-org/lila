@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spelar med dei kvite brikkene</string>
   <string name="youPlayTheBlackPieces">Du spelar med dei svarte brikkene</string>
   <string name="itsYourTurn">Det er ditt trekk!</string>
+  <string name="cheatDetected">Juks oppdaga</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gonger</string>
   <string name="raceFinished">Målgang</string>
