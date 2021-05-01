@@ -194,14 +194,14 @@
   </plurals>
   <string name="gamesPlayed">Partier spelade</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partier med dig</item>
+    <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Vits tid är slut</string>
   <string name="blackTimeOut">Svarts tid är slut</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
-  <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
+  <string name="drawOfferDeclined">Remierbjudande avböjt</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>
   <string name="drawOfferCanceled">Remierbjudande avbrutet</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
@@ -219,7 +219,7 @@
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Obegränsad</string>
-  <string name="mode">Typ</string>
+  <string name="mode">Läge</string>
   <string name="casual">Ej rankat</string>
   <string name="rated">Rankat</string>
   <string name="casualTournament">Ej rankad</string>
@@ -230,7 +230,7 @@
   <string name="rematchOfferSentWhite">Vit erbjuder returmatch</string>
   <string name="rematchOfferSentBlack">Svart erbjuder returmatch</string>
   <string name="rematchOfferAccepted">Erbjudande om returmatch accepterat</string>
-  <string name="rematchOfferCanceled">Erbjudande om returmatch avbrutet</string>
+  <string name="rematchOfferCanceled">Erbjudande om returmatch tillbakadraget</string>
   <string name="rematchOfferDeclined">Erbjudande om returmatch avböjt</string>
   <string name="cancelRematchOffer">Avbryt erbjudande om returmatch</string>
   <string name="viewRematch">Visa returmatch</string>
