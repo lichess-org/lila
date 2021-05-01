@@ -72,4 +72,22 @@
     <item quantity="one">Joined %s team</item>
     <item quantity="other">Joined %s teams</item>
   </plurals>
+  <string name="chessInsights">Chess Insights</string>
+  <string name="analyticsFromGames">Analytics from %s games</string>
+  <string name="insightsOverNbRatedGames">Insights over %s rated games.</string>
+  <string name="acplByDate">ACPL by date</string>
+  <string name="blursByDate">Blurs by date</string>
+  <string name="acplByBlur">ACPL by blur</string>
+  <string name="blursByResult">Blurs by result</string>
+  <string name="acplByTimeVariance">ACPL by time variance</string>
+  <string name="blurByTimeVariance">Blur by time variance</string>
+  <string name="timeVarianceByDate">Time variance by date</string>
+  <string name="doIGainMoreRatingPointsAgainstWeakerOrStrongerOpponents">Do I gain more rating points against weaker or stronger opponents?</string>
+  <string name="howQuicklyDoIMoveEachPieceInBulletAndBlitzGames">How quickly do I move each piece in bullet and blitz games?</string>
+  <string name="whatIsTheWinRateOfMyFavouriteOpeningsAsWhite">What is the Win-Rate of my favourite openings as white?</string>
+  <string name="howOftenDoIPunishBlundersMadeByMyOpponentDuringEachGamePhase">How often do I punish blunders made by my opponent during each game phase?</string>
+  <string name="doIGainRatingWhenIDontCastleKingside">Do I gain rating when I don't castle kingside?</string>
+  <string name="whenITradeQueensHowDoGamesEnd">When I trade queens, how do games end?</string>
+  <string name="whatIsTheAverageRatingOfMyOpponentsAcrossEachVariant">What is the average rating of my opponents across each variant?</string>
+  <string name="howWellDoIMoveEachPieceInTheOpening">How well do I move each piece in the opening?</string>
 </resources>

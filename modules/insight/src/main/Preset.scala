@@ -14,42 +14,42 @@ object Preset {
 
   val forMod = List(
     Preset(
-      "ACPL by date",
+      trans.acplByDate.txt(),
       Question(D.Date, M.MeanCpl, filterBlitzPlus)
     ),
     Preset(
-      "Blurs by date",
+      trans.blursByDate.txt(),
       Question(D.Date, M.Blurs, filterBlitzPlus)
     ),
     Preset(
-      "ACPL by blur",
+      trans.acplByBlur.txt(),
       Question(D.Blur, M.MeanCpl, filterBlitzPlus)
     ),
     Preset(
-      "Blurs by result",
+      trans.blursByResult.txt(),
       Question(D.Result, M.Blurs, filterBlitzPlus)
     ),
     Preset(
-      "ACPL by time variance",
+      trans.acplByTimeVariance.txt(),
       Question(D.TimeVariance, M.MeanCpl, Nil)
     ),
     Preset(
-      "Blur by time variance",
+      trans.blurByTimeVariance.txt(),
       Question(D.TimeVariance, M.Blurs, filterBlitzPlus)
     ),
     Preset(
-      "Time variance by date",
+      trans.timeVarianceByDate.txt(),
       Question(D.Date, M.TimeVariance, Nil)
     )
   )
 
   val base = List(
     Preset(
-      "Do I gain more rating points against weaker or stronger opponents?",
+      trans.doIGainMoreRatingPointsAgainstWeakerOrStrongerOpponents.txt(),
       Question(D.OpponentStrength, M.RatingDiff, Nil)
     ),
     Preset(
-      "How quickly do I move each piece in bullet and blitz games?",
+      trans.howQuicklyDoIMoveEachPieceInBulletAndBlitzGames.txt(),
       Question(
         D.PieceRole,
         M.Movetime,
@@ -59,7 +59,7 @@ object Preset {
       )
     ),
     Preset(
-      "What is the Win-Rate of my favourite openings as white?",
+      trans.whatIsTheWinRateOfMyFavouriteOpeningsAsWhite.txt(),
       Question(
         D.Opening,
         M.Result,
@@ -73,11 +73,11 @@ object Preset {
       )
     ),
     Preset(
-      "How often do I punish blunders made by my opponent during each game phase?",
+      trans.howOftenDoIPunishBlundersMadeByMyOpponentDuringEachGamePhase.txt(),
       Question(D.Phase, M.Opportunism, Nil)
     ),
     Preset(
-      "Do I gain rating when I don't castle kingside?",
+      trans.doIGainRatingWhenIDontCastleKingside.txt(),
       Question(
         D.Perf,
         M.RatingDiff,
@@ -87,7 +87,7 @@ object Preset {
       )
     ),
     Preset(
-      "When I trade queens, how do games end?",
+      trans.whenITradeQueensHowDoGamesEnd.txt(),
       Question(
         D.Perf,
         M.Result,
@@ -97,11 +97,11 @@ object Preset {
       )
     ),
     Preset(
-      "What is the average rating of my opponents across each variant?",
+      trans.whatIsTheAverageRatingOfMyOpponentsAcrossEachVariant.txt(),
       Question(D.Perf, M.OpponentRating, Nil)
     ),
     Preset(
-      "How well do I move each piece in the opening?",
+      trans.howWellDoIMoveEachPieceInTheOpening.txt(),
       Question(
         D.PieceRole,
         M.MeanCpl,

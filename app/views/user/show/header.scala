@@ -254,8 +254,8 @@ object header {
               info.insightVisible option
                 a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "7")(
                   span(
-                    strong("Chess Insights"),
-                    em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")
+                    strong(trans.chessInsights()),
+                    em(trans.analyticsFromGames(if (ctx is u) trans.yourGames() else trans.usersGames(u.username)))
                   )
                 )
             )

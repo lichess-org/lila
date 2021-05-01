@@ -15,7 +15,7 @@ module.exports = function (ctrl) {
       ),
     ]),
     m('div.content', [
-      m('p', ['Insights over ', m('strong', ctrl.user.nbGames), ' rated games.']),
+      m('p', trans.insightsOverNbRatedGames, m('strong', ctrl.user.nbGames)),
       m(
         'p.share',
         ctrl.own
