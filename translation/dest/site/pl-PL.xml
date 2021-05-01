@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Grasz białymi</string>
   <string name="youPlayTheBlackPieces">Grasz czarnymi</string>
   <string name="itsYourTurn">Twój ruch!</string>
+  <string name="cheatDetected">Wykryto oszustwo</string>
   <string name="kingInTheCenter">Król w centrum</string>
   <string name="threeChecks">Trzy szachy</string>
   <string name="raceFinished">Wyścig zakończony</string>
