@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="contact">연락처</string>
-  <string name="contactLichess">Lichess 연락하기</string>
+  <string name="contact">문의</string>
+  <string name="contactLichess">Lichess에 문의하기</string>
   <string name="whatCanWeHelpYouWith">어떻게 도와드릴까요?</string>
   <string name="visitThisPage">이 페이지를 방문해 문제를 해결하십시오</string>
   <string name="iCantLogIn">로그인이 되지 않습니다</string>
   <string name="noConfirmationEmail">확인 이메일을 받지 못했습니다</string>
   <string name="forgotPassword">비밀번호를 잊어버렸습니다</string>
   <string name="forgotUsername">사용자 이름을 잊어버렸습니다</string>
-  <string name="youCanLoginWithEmail">당신이 회원가입한 이메일 주소로 로그인할 수 있습니다.</string>
+  <string name="youCanLoginWithEmail">당신이 회원가입한 이메일 주소로 로그인할 수 있습니다</string>
   <string name="lost2FA">2단계 인증 코드로 접속할 수 없습니다</string>
+  <string name="doPasswordReset">2단계 로그인을 해제하려면 비밀번호 재설정을 하세요</string>
   <string name="accountSupport">계정 도움이 필요합니다</string>
   <string name="wantTitle">내 타이틀이 Lichess에 보여지게 하고 싶습니다.</string>
   <string name="wantCloseAccount">계정을 탈퇴하고 싶습니다</string>
