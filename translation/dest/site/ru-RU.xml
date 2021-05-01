@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
   <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
   <string name="itsYourTurn">Ваш ход!</string>
-  <string name="cheatDetected">Обнаружен чит</string>
+  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it.">Обнаружено мошенничество</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
