@@ -1,6 +1,7 @@
 package lila.insight
 
 import lila.rating.PerfType
+import lila.i18n.{ I18nKeys => trans }
 
 case class Preset(name: String, question: Question[_])
 
