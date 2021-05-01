@@ -59,7 +59,7 @@
   <string name="sendAppealTo">%s에서 이의를 제기할 수 있습니다.</string>
   <string name="falsePositives">종종 잘못된 탐지가 있을 수 있으며, 이에 대해서는 죄송하게 생각합니다.</string>
   <string name="ifLegit">이의가 정당하다면 즉시 차단을 해제할 것입니다.</string>
-  <string name="accountLost">하지만, 단 한번이라도, 실제로 엔진의 도움을 받은 경우 계정은 차단됩니다.</string>
+  <string name="accountLost">하지만, 단 한번이라도, 실제로 엔진의 도움을 받은 경우 아쉽지만 차단은 되돌릴 수 없습니다.</string>
   <string name="doNotDeny">잘못을 부인하지 마세요. 새 계정을 다시 만들고 싶다면 자신이 한 일을 인정하고 그것이 실수임을 이해했음을 보여주세요.</string>
   <string name="otherRestriction">다른 제한</string>
   <string name="collaboration">협찬, 법률, 광고</string>
