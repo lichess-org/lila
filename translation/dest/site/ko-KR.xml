@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
+  <string name="cheatDetected">부정행위 감지됨</string>
   <string name="kingInTheCenter">킹이 중앙에 도달함</string>
   <string name="threeChecks">세 번의 체크</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
