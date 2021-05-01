@@ -400,7 +400,7 @@ Thank you all, you rock!"""
           // Because berserking lowers the player rating
           _ map { _.copy(noBerserk = true) }
         },
-      // hourly crazyhouse/chess960 tournaments!
+      // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
@@ -410,7 +410,11 @@ Thank you all, you rock!"""
           case 2 | 5 => SuperBlitz
           case 3 | 6 => Blitz
         }
-        val variant = if (hour % 2 == 0) Chess960 else Crazyhouse
+        val variant = hour % 3 match {
+          case 0 => Chess960
+          case 1 => KingOfTheHill
+          case _ => Crazyhouse
+        }
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
