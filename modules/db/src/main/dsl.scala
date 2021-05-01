@@ -356,6 +356,21 @@ trait dsl {
       simple(from.name, as, local, foreign)
     def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
       simple(from.name.value, as, local, foreign)
+    def pipeline(from: Coll, as: String, local: String, foreign: String, pipeline: List[Bdoc]): Bdoc =
+      $doc(
+        "$lookup" -> $doc(
+          "from" -> from.name,
+          "as"   -> as,
+          "let"  -> $doc("local" -> s"$$$local"),
+          "pipeline" -> {
+            $doc(
+              "$match" -> $doc(
+                "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+              )
+            ) :: pipeline
+          }
+        )
+      )
   }
 
   implicit class ElementBuilderLike(val field: String)

@@ -11,8 +11,6 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
 
   import BSONHandlers._
 
-  def lookup(local: String, foreign: String) = $lookup.simple(coll, "tour", local, foreign)
-
   def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
     coll
       .find(selectors.tour(tour.id))

@@ -166,13 +166,6 @@ final class RelayRound(
       }
     }
 
-  // def apiIndex =
-  //   Action.async { implicit req =>
-  //     apiC.jsonStream {
-  //       env.relay.api.officialStream(MaxPerSecond(20), getInt("nb", req) | 20)
-  //     }.fuccess
-  //   }
-
   private def WithRoundAndTour(ts: String, rs: String, id: String)(
       f: RoundModel.WithTour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =

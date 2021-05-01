@@ -4,6 +4,7 @@ import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
@@ -242,12 +243,36 @@ final class RelayApi(
         }
       }
 
-  // def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
-  //   relayRepo
-  //     .officialCursor(perSecond.value)
-  //     .documentSource(nb)
-  //     .throttle(perSecond.value, 1.second)
-  //     .map(jsonView.public)
+  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, _] =
+    tourRepo.coll
+      .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        List(
+          Match(tourRepo.selectors.official),
+          Sort(Descending("syncedAt")),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = roundRepo.coll,
+              as = "rounds",
+              local = "_id",
+              foreign = "tourId",
+              pipeline = List(
+                $doc("$sort" -> $doc("startedAt" -> 1, "startsAt" -> 1, "name" -> 1))
+              )
+            )
+          )
+        )
+      }
+      .documentSource(nb)
+      .mapConcat { doc =>
+        doc
+          .asOpt[RelayTour]
+          .flatMap { tour =>
+            doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
+          }
+          .toList
+      }
+      .throttle(perSecond.value, 1 second)
 
   private[relay] def autoStart: Funit =
     roundRepo.coll.list[RelayRound](

@@ -9,8 +9,9 @@ import lila.api.Context
 import lila.app._
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
+import lila.common.config.MaxPerSecond
 
-final class RelayTour(env: Env) extends LilaController(env) {
+final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -68,6 +69,15 @@ final class RelayTour(env: Env) extends LilaController(env) {
       case None     => env.relay.api tourById TourModel.Id(anyId) flatMap { _ ?? redirectToTour }
     }
   }
+
+  def apiIndex =
+    Action.async { implicit req =>
+      apiC.jsonStream {
+        env.relay.api
+          .officialTourStream(MaxPerSecond(20), getInt("nb", req) | 20)
+          .map(env.relay.jsonView.apply(_, withUrls = true))
+      }.fuccess
+    }
 
   private def redirectToTour(tour: TourModel)(implicit ctx: Context): Fu[Result] =
     env.relay.api.activeTourNextRound(tour) orElse env.relay.api.tourLastRound(tour) flatMap {

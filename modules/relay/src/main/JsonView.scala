@@ -10,8 +10,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
 
-  def apply(trs: RelayTour.WithRounds, currentRoundId: RelayRound.Id, admin: Boolean) = {
-    val adminRound = admin ?? trs.rounds.find(_.id == currentRoundId)
+  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false) =
     Json
       .obj(
         "tour" -> Json
@@ -22,11 +21,14 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
             "description" -> trs.tour.description
           )
           .add("credit", trs.tour.credit)
-          .add("markup" -> trs.tour.markup.map(markup.apply)),
-        "rounds" -> trs.rounds
+          .add("markup" -> trs.tour.markup.map(markup.apply))
+          .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
+        "rounds" -> trs.rounds.map { round =>
+          roundWrites
+            .writes(round)
+            .add("url" -> withUrls.option(s"$baseUrl${round.withTour(trs.tour).path}"))
+        }
       )
-      .add("sync" -> adminRound.map(_.sync))
-  }
 
   def sync(round: RelayRound) = syncWrites writes round.sync
 
@@ -37,7 +39,8 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
       canContribute: Boolean
   ) =
     JsData(
-      relay = apply(trs, currentRoundId, canContribute),
+      relay = apply(trs)
+        .add("sync" -> (canContribute ?? trs.rounds.find(_.id == currentRoundId).map(_.sync))),
       study = studyData.study,
       analysis = studyData.analysis
     )
