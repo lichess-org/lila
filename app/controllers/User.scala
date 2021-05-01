@@ -211,7 +211,7 @@ final class User(
         env.history
           .ratingChartApi(u)
           .dmap(_ | "[]") // send an empty JSON array if no history JSON is available
-          .dmap(JsonOk(_))
+          .dmap(jsonStr => Ok(jsonStr) as JSON)
       }
     }
 
