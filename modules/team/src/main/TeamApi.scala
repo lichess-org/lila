@@ -317,17 +317,4 @@ final class TeamApi(
       .list(max)
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
-
-  private[team] def recomputeNbMembers: Funit =
-    teamRepo.coll
-      .find($empty, $id(true).some)
-      .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .foldWhileM {} { (_, doc) =>
-        (doc.string("_id") ?? recomputeNbMembers) inject Cursor.Cont {}
-      }
-
-  private[team] def recomputeNbMembers(teamId: Team.ID): Funit =
-    memberRepo.countByTeam(teamId) flatMap { nb =>
-      teamRepo.coll.updateField($id(teamId), "nbMembers", nb).void
-    }
 }

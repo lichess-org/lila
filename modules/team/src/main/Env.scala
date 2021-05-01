@@ -35,11 +35,7 @@ final class Env(
 
   lazy val memberStream = wire[TeamMemberStream]
 
-  lazy val api = wire[TeamApi]
-
   lazy val paginator = wire[PaginatorBuilder]
-
-  lazy val cli = wire[TeamCli]
 
   lazy val cached: Cached = wire[Cached]
 
@@ -53,6 +49,8 @@ final class Env(
   private lazy val notifier = wire[Notifier]
 
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
+
+  lazy val api = wire[TeamApi]
 
   lila.common.Bus.subscribeFuns(
     "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
