@@ -197,7 +197,7 @@ final class Team(
   def disable(id: String) =
     Auth { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
-        api.disable(team, me) >>
+        api.toggleEnabled(team, me) >>
           env.mod.logApi.disableTeam(me.id, team.id, team.name) inject
           Redirect(routes.Team show id).flashSuccess
       }

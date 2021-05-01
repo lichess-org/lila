@@ -271,18 +271,19 @@ final class TeamApi(
       teamIds.nonEmpty ?? teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
     }
 
-  def enable(team: Team): Funit =
-    teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
-
-  def disable(team: Team, by: User): Funit =
-    if (lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id || !team.leaders(team.createdBy))
-      teamRepo.disable(team).void >>
-        memberRepo.userIdsByTeam(team.id).map {
-          _ foreach cached.invalidateTeamIds
-        } >>
-        requestRepo.removeByTeam(team.id).void >>-
-        (indexer ! RemoveTeam(team.id))
-    else
+  def toggleEnabled(team: Team, by: User): Funit =
+    if (
+      lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
+      (team.leaders(by.id) && !team.leaders(team.createdBy))
+    ) {
+      if (team.enabled)
+        teamRepo.disable(team).void >>
+          memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
+          requestRepo.removeByTeam(team.id).void >>-
+          (indexer ! RemoveTeam(team.id))
+      else
+        teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
+    } else
       teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums

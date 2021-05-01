@@ -12,8 +12,6 @@ final private[team] class TeamCli(
 
   def process = {
 
-    case "team" :: "enable" :: team :: Nil => perform(team)(api.enable)
-
     case "team" :: "recompute" :: "nbMembers" :: "all" :: Nil =>
       api.recomputeNbMembers
       fuccess("In progress... it will take a while")
