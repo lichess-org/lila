@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
   <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
   <string name="itsYourTurn">Jūsų ėjimas!</string>
+  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Aptiktas sukčiavimas</string>
   <string name="kingInTheCenter">Karalius centre</string>
   <string name="threeChecks">Trys šachai</string>
   <string name="raceFinished">Lenktynės baigėsi</string>
@@ -940,7 +941,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youJustBecamePatron">Jūs ką tik tapote lichess rėmėju.</string>
   <string name="patronAccountExpired">Rėmėjo paskyra pasibaigė</string>
   <string name="pleaseReconsiderRenewIt">Pagalvokite apie jo atnaujinimą!</string>
-  <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
+  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Kažkas peržvelgė jūsų trenerio profilį.</string>
   <string name="newPendingReview">Nauja laukianti peržvalga</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
