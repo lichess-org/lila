@@ -47,4 +47,8 @@
   <string name="nextRace">السباق التالي</string>
   <string name="waitingToStart">ينتظر البدء</string>
   <string name="createNewGame">أنشئ لعبة جديدة</string>
+  <string name="joinPublicRace">انضم للسباقٍ علني</string>
+  <string name="raceYourFriends">واجه أصدقائك</string>
+  <string name="skip">تخطى</string>
+  <string name="skipHelp">يمكنك تخطي حركة واحدة في كل سباق:</string>
 </resources>
