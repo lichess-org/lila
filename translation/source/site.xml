@@ -867,7 +867,9 @@ computer analysis, game chat and shareable URL.</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="chessInsights">Chess Insights</string>
-  <string name="analyticsFromGames">Analytics from %s games</string>
+  <string name="analyticsFromGames">Analytics from </string>
+  <string name="yourGames">your games</string>
+  <string name="usersGames">%s games</string>
   <string name="insightsOverNbRatedGames">Insights over %s rated games.</string>
   <string name="acplByDate">ACPL by date</string>
   <string name="blursByDate">Blurs by date</string>

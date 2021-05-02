@@ -2,6 +2,7 @@ package lila.insight
 
 import lila.rating.PerfType
 import lila.i18n.{ I18nKeys => trans }
+import play.api.i18n.Lang
 
 case class Preset(name: String, question: Question[_])
 
@@ -13,7 +14,7 @@ object Preset {
     Filter(D.Perf, List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical))
   )
 
-  val forMod = List(
+  def forMod(implicit lang: Lang) = List(
     Preset(
       trans.acplByDate.txt(),
       Question(D.Date, M.MeanCpl, filterBlitzPlus)
@@ -44,7 +45,7 @@ object Preset {
     )
   )
 
-  val base = List(
+  def base(implicit lang: Lang) = List(
     Preset(
       trans.doIGainMoreRatingPointsAgainstWeakerOrStrongerOpponents.txt(),
       Question(D.OpponentStrength, M.RatingDiff, Nil)
