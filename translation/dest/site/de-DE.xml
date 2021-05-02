@@ -259,14 +259,6 @@
   <string name="send">Senden</string>
   <string name="incrementInSeconds">Inkrement in Sekunden</string>
   <string name="freeOnlineChess">Kostenloses Online-Schach</string>
-  <plurals name="nbSpectators">
-    <item quantity="one">%s Zuschauer</item>
-    <item quantity="other">%s Zuschauer</item>
-  </plurals>
-  <plurals name="nbPlayersInChat">
-    <item quantity="one">%s Spieler im Chat</item>
-    <item quantity="other">%s Spieler im Chat</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s gewertet</item>
     <item quantity="other">%s gewertet</item>

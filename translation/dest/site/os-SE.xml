@@ -259,7 +259,6 @@
   <string name="send">Арвитын</string>
   <string name="incrementInSeconds">Цыдæн секундæты бафтауæккаг</string>
   <string name="freeOnlineChess">Æнæфидгæ шахмæттæ онлайн</string>
-  <string name="spectators">Кæсæджытæ:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтингимæ</item>
     <item quantity="other">%s рейтингимæ</item>

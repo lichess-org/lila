@@ -1,6 +1,5 @@
 package views.html
 
-import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.api.Context
@@ -93,7 +92,7 @@ object chat {
       withNote option I18nKeys.typePrivateNotesHere
     )
 
-  def spectatorsFrag(implicit lang: Lang) =
+  val spectatorsFrag =
     div(
       cls := "chat__members none",
       aria.live := "off",
