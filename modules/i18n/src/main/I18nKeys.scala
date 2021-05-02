@@ -757,7 +757,7 @@ val `blursByDate` = new I18nKey("blursByDate")
 val `acplByBlur` = new I18nKey("acplByBlur")
 val `blursByResult` = new I18nKey("blursByResult")
 val `acplByTimeVariance` = new I18nKey("acplByTimeVariance")
-val `blursByTimeVariance` = new I18nKey("blursByTimeVariance")
+val `blurByTimeVariance` = new I18nKey("blurByTimeVariance")
 val `timeVarianceByDate` = new I18nKey("timeVarianceByDate")
 val `doIGainMoreRatingPointsAgainstWeakerOrStrongerOpponents` = new I18nKey("doIGainMoreRatingPointsAgainstWeakerOrStrongerOpponents")
 val `howQuicklyDoIMoveEachPieceInBulletAndBlitzGames` = new I18nKey("howQuicklyDoIMoveEachPieceInBulletAndBlitzGames")
@@ -766,7 +766,7 @@ val `howOftenDoIPunishBlundersMadeByMyOpponentDuringEachGamePhase` = new I18nKey
 val `doIGainRatingWhenIDontCastleKingside` = new I18nKey("doIGainRatingWhenIDontCastleKingside")
 val `whenITradeQueensHowDoGamesEnd` = new I18nKey("whenITradeQueensHowDoGamesEnd")
 val `whatIsTheAverageRatingOfMyOpponentsAcrossEachVariant` = new I18nKey("whatIsTheAverageRatingOfMyOpponentAcrossEachVariant")
-val `howDoIMoveEachPieceInTheOpening` = new I18nKey("howDoIMoveEachPieceInTheOpening")
+val `howWellDoIMoveEachPieceInTheOpening` = new I18nKey("howWellDoIMoveEachPieceInTheOpening")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
