@@ -45,6 +45,13 @@
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;
         }
+        @media (prefers-reduced-motion: reduce) {
+          &::before {
+            animation: none;
+            transform: translateX(0%);
+            opacity: 1;
+          }
+        }
       }
     }
   }
