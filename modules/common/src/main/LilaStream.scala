@@ -28,23 +28,6 @@ object LilaStream {
           .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
       )
 
-  @nowarn("msg=comparing values of types")
-  def dedup[A](window: FiniteDuration) =
-    Flow[A]
-      .statefulMapConcat(() => {
-        val seen = Scaffeine()
-          .expireAfterWrite(window)
-          .build[A, Boolean]()
-          .underlying
-        a => {
-          if (seen.getIfPresent(a) != null) Nil
-          else {
-            seen.put(a, true)
-            List(a)
-          }
-        }
-      })
-
   val sinkCount = Sink.fold[Int, Any](0) { case (total, _) =>
     total + 1
   }
