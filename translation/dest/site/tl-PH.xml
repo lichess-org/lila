@@ -22,8 +22,8 @@
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
-  <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting pieces</string>
-  <string name="youPlayTheBlackPieces">Nilalaro mo ang mga itim na pieces</string>
+  <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting piyesa</string>
+  <string name="youPlayTheBlackPieces">Nilalaro mo ang mga itim na piyesa</string>
   <string name="itsYourTurn">Turno mo na!</string>
   <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Natuklasan na Mandaraya</string>
   <string name="kingInTheCenter">Hari sa gitna</string>
@@ -847,6 +847,7 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
   <string name="patronAccountExpired">Expired na ang Patron account</string>
+  <string name="pleaseReconsiderRenewIt">Isaalang-alang niyo pong mag-renew!</string>
   <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Merong tao na nag-review ng coach profile mo.</string>
   <string name="newPendingReview">Bagong pending na review</string>
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
