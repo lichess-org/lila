@@ -179,6 +179,8 @@ final class Env(
 
   val tvBroadcast = system.actorOf(Props(wire[TvBroadcast]))
 
+  val apiMoveStream = wire[ApiMoveStream]
+
   def resign(pov: Pov): Unit =
     if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))
     else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))

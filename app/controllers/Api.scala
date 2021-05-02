@@ -341,10 +341,12 @@ final class Api(
       }
     }
 
-  private def gamesByUsers(max: Int)(req: Request[String]) = {
-    val userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet
-    jsonStreamWithKeepAlive(env.game.gamesByUsersStream(userIds))(req).fuccess
-  }
+  private def gamesByUsers(max: Int)(req: Request[String]) =
+    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+      addKeepAlive(
+        env.game.gamesByUsersStream(req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet)
+      )
+    )(sourceToNdJsonOption).fuccess
 
   def eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
@@ -374,6 +376,25 @@ final class Api(
           }
         } map toApiResult
       }(fuccess(Limited))
+    }
+
+  private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
+    new lila.memo.ConcurrencyLimit[IpAddress](
+      name = "API concurrency per IP",
+      key = "round.apiMoveStream.ip",
+      ttl = 20.minutes,
+      maxConcurrency = 10
+    )
+
+  def moveStream(gameId: String) =
+    Action.async { req =>
+      env.round.proxyRepo.gameIfPresent(gameId) map {
+        case None => NotFound
+        case Some(game) =>
+          ApiMoveStreamGlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+            addKeepAlive(env.round.apiMoveStream(game))
+          )(sourceToNdJsonOption)
+      }
     }
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =
@@ -406,10 +427,10 @@ final class Api(
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJson)
 
-  def jsonStreamWithKeepAlive(
-      makeSource: => Source[Option[JsValue], _]
-  )(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJsonOption)
+  def addKeepAlive(source: Source[JsValue, _]): Source[Option[JsValue], _] =
+    source
+      .map(some)
+      .keepAlive(70.seconds, () => none) // play's idleTimeout = 75s
 
   def sourceToNdJson(source: Source[JsValue, _]) =
     sourceToNdJsonString {
