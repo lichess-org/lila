@@ -82,6 +82,7 @@ object Countries {
     C("EH", "Western Sahara"),
     C("ER", "Eritrea"),
     C("ES", "Spain"),
+    C("ES-CT", "Catalan"),
     C("ET", "Ethiopia"),
     C("FI", "Finland"),
     C("FJ", "Fiji"),
