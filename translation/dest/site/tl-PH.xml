@@ -9,6 +9,7 @@
   <string name="yourTurn">Tira mo</string>
   <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
   <string name="level">Antas</string>
+  <string name="strength">Lakas</string>
   <string name="toggleTheChat">Paganahin ang chat</string>
   <string name="toggleSound">Paganahin ang tunog</string>
   <string name="chat">Makipag-usap</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting pieces</string>
   <string name="youPlayTheBlackPieces">Nilalaro mo ang mga itim na pieces</string>
   <string name="itsYourTurn">Turno mo na!</string>
+  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Natuklasan na Mandaraya</string>
   <string name="kingInTheCenter">Hari sa gitna</string>
   <string name="threeChecks">Tatlong pagkacheck</string>
   <string name="raceFinished">Tapos na ang Laro</string>
@@ -464,6 +466,7 @@
   <string name="name">Pangalan</string>
   <string name="description">Paglalarawan</string>
   <string name="descPrivate">Pribadong deskripsyon</string>
+  <string name="descPrivateHelp">Text na makikita lang ng mga team members mo. Pag na-set na, mapapalitan yung publikong deskripsyon para sa mga team members.</string>
   <string name="no">Hindi</string>
   <string name="yes">Oo</string>
   <string name="help">Tulong:</string>
@@ -502,6 +505,7 @@
   <string name="newPassword">Bagong password</string>
   <string name="newPasswordAgain">Bagong password (muli)</string>
   <string name="newPasswordsDontMatch">Hindi tumutugma ang mga bagong password</string>
+  <string name="newPasswordStrength">Lakas ng password</string>
   <string name="clockInitialTime">Panimulang oras ng Orasan</string>
   <string name="clockIncrement">Dagdag sa orasan</string>
   <string name="privacy">Pagiging Pribado</string>
@@ -827,6 +831,7 @@
   <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
   <string name="subscribe">Mag-subscribe</string>
   <string name="unsubscribe">Mag-unsubscribe</string>
+  <string name="someoneYouReportedWasBanned">Yung na-report mong user ay pinagbawalan na</string>
   <string name="congratsYouWon">Tagumpay!</string>
   <string name="gameVsX">Laro laban kay %1$s</string>
 </resources>
