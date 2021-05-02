@@ -487,6 +487,7 @@
   <string name="cheat">Pandaraya</string>
   <string name="insult">Insulto</string>
   <string name="troll">Awitin</string>
+  <string name="ratingManipulation">Pagmamanipula ng rating</string>
   <string name="other">Iba pa</string>
   <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
   <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
@@ -845,4 +846,10 @@
   <string name="gameVsX">Laro laban kay %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
+  <string name="patronAccountExpired">Expired na ang Patron account</string>
+  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Merong tao na nag-review ng coach profile mo.</string>
+  <string name="newPendingReview">Bagong pending na review</string>
+  <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
+  <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
 </resources>
