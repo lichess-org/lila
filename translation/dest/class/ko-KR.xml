@@ -64,4 +64,31 @@
   <string name="release">관리 해제</string>
   <string name="releaseTheAccount">학생이 자율적으로 관리할 수 있도록 계정을 해제합니다.</string>
   <string name="releaseDesc1">해제된 계정은 다시 관리할 수 없습니다. 학생은 어린이 모드를 전환하고 직접 비밀번호를 재설정 할 수 있습니다.</string>
+  <string name="releaseDesc2">학생은 계정이 해제된 후에도 수업에 남아있습니다.</string>
+  <string name="realUniqueEmail">학생의 실제 고유 이메일 주소입니다. 계정을 해제 할 수 있는 링크가 포함된 확인 이메일을 보내드립니다.</string>
+  <string name="teachers">선생님</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">선생님 %s명</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">학생 %s명</item>
+  </plurals>
+  <string name="students">학생</string>
+  <string name="progress">진도</string>
+  <string name="noStudents">클래스에 아직 학생이 없습니다.</string>
+  <string name="noRemovedStudents">삭제된 학생이 없습니다.</string>
+  <string name="overDays">기간</string>
+  <string name="timePlaying">플레이 시간</string>
+  <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
+  <string name="winrate">승률</string>
+  <string name="na">해당없음</string>
+  <string name="news">클래스 뉴스</string>
+  <string name="editNews">뉴스 편집</string>
+  <string name="notifyAllStudents">모든 학생에게 알림</string>
+  <string name="nothingHere">비어있음</string>
+  <string name="newsEdit1">모든 뉴스를 단일 필드로 보기</string>
+  <string name="newsEdit2">상단에 최근 뉴스를 추가하세요. 이전 뉴스를 삭제하지 마세요.</string>
+  <string name="newsEdit3">각 뉴스를 ---로 구분하세요.
+가로선으로 보이게 됩니다.</string>
+  <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
 </resources>
