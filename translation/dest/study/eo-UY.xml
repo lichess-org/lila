@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dato aldonita (plej malnovaj)</string>
   <string name="recentlyUpdated">Lastatempe ĝisdatigita</string>
   <string name="mostPopular">Plej popularaj</string>
+  <string name="alphabetical">Alfabete</string>
   <string name="addNewChapter">Aldoni novan ĉapitron</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Ĉapitro</item>
@@ -56,7 +57,9 @@
   <string name="shareAndExport">Konigi &amp; eksporti</string>
   <string name="cloneStudy">Kloni</string>
   <string name="studyPgn">PGN de la studo</string>
+  <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="chapterPgn">PGN de la ĉapitro</string>
+  <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
   <string name="startAtInitialPosition">Starti ekde komenca pozicio</string>
@@ -94,6 +97,7 @@
   <string name="urlOfTheGame">URL de la ludo</string>
   <string name="loadAGameFromXOrY">Ŝarĝu ludon el %1$s aŭ %2$s</string>
   <string name="createChapter">Krei ĉapitron</string>
+  <string name="configureLiveBroadcast">Agordu vivan elsendon</string>
   <string name="createStudy">Krei studon</string>
   <string name="editStudy">Redakti studon</string>
   <string name="visibility">Videbleco</string>
