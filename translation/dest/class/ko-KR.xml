@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">클래스</string>
+  <string name="teachClassesOfChessStudents">Lichess 클래스 툴 모음을 사용해서 학생들을 가르치세요.</string>
+  <string name="features">기능</string>
+  <string name="quicklyGenerateSafeUsernames">학생을 위한 안전한 사용자 이름과 비밀번호를 빠르게 생성합니다</string>
+  <string name="trackStudentProgress">게임과 퍼즐에서 학생의 진도를 추적합니다</string>
+  <string name="messageAllStudents">새로운 수업 자료에 대해 모든 학생들에게 메시지를 보냅니다</string>
   <string name="passwordX">비밀번호: %s</string>
   <string name="realName">실명</string>
   <string name="addStudent">학생 추가</string>
