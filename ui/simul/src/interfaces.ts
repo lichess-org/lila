@@ -23,6 +23,7 @@ export interface SimulData {
   isRunning: boolean;
   isFinished: boolean;
   text: string;
+  estimatedStartAt: string;
   host: Host;
   variants: Variant[];
   applicants: Applicant[];

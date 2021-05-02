@@ -153,6 +153,15 @@ final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurre
       )
       .void
 
+  def removeEstimatedStartAt(simul: Simul) = {
+    coll.update
+      .one(
+        $id(simul.id),
+        $unset("estimatedStartAt")
+      )
+      .void
+  }
+
   def setText(simul: Simul, text: String) =
     coll.update
       .one(
