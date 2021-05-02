@@ -28,7 +28,7 @@
   <string name="notTheMove">Itu bukan langkahnya!</string>
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">sembunyi</string>
+  <string name="hidden">tersembunyi</string>
   <plurals name="playedXTimes">
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>
