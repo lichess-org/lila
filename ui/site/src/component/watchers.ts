@@ -7,34 +7,39 @@ interface Data {
 
 let watchersData: Data | undefined;
 
-export default function watchers(element: HTMLElement, ctrlTrans?: Trans) {
-  if (element.dataset.watched) return;
-  element.dataset.watched = '1';
+export default function watchers(element: HTMLElement) {
+  const $element = $(element);
 
-  const listEl: HTMLElement | null = element.querySelector('.list');
-  const numberEl: HTMLElement | null = element.querySelector('.number');
+  if ($element.data('watched')) return;
+
+  $element.data('watched', 1);
+  const $innerElement = $('<div class="chat__members__inner">').appendTo($element);
+  const $numberEl = $(
+    '<div class="number-container" title="Spectators"><span data-icon="r"></span><span class="number"></span></div>'
+  )
+    .appendTo($innerElement)
+    .find('.number');
+  const $listEl = $('<div class="list">').appendTo($innerElement);
+
   lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
-
-  const i18n = element.dataset.i18n;
-  const trans: Trans = ctrlTrans || lichess.trans(i18n ? JSON.parse(i18n) : {});
 
   const set = (data: Data) => {
     watchersData = data;
-    if (!data || !data.nb) return element.classList.add('none');
-    if (numberEl) numberEl.textContent = trans.plural('nbSpectators', data.nb) + (listEl && data.users ? ':' : '');
-    if (listEl) {
-      if (data.users) {
-        const anon = trans.noarg('anonymous');
-        const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : anon
-        );
-        if (data.anons === 1) tags.push(anon);
-        else if (data.anons) tags.push(`${anon} (${data.anons})`);
-        listEl.innerHTML = tags.join(', ');
-      } else if (!numberEl) listEl.innerHTML = trans.plural('nbPlayersInChat', data.nb);
-      else listEl.innerHTML = '';
-    }
-    element.classList.remove('none');
+
+    if (!data || !data.nb) return $element.addClass('none');
+
+    $numberEl.text('' + data.nb);
+
+    if (data.users) {
+      const tags = data.users.map(u =>
+        u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
+      );
+      if (data.anons === 1) tags.push('Anonymous');
+      else if (data.anons) tags.push(`Anonymous (${data.anons})`);
+      $listEl.html(tags.join(', '));
+    } else $listEl.html('');
+
+    $element.removeClass('none');
   };
 
   if (watchersData) set(watchersData);

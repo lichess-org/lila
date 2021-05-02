@@ -14,7 +14,7 @@ object userAnalysisI18n {
       withAdvantageChart: Boolean = false
   )(implicit lang: Lang) =
     i18nJsObject(
-      baseTranslations ++ views.html.chat.spectatorsI18nKeys ++ {
+      baseTranslations ++ {
         withCeval ?? cevalTranslations
       } ++ {
         withExplorer ?? explorerTranslations

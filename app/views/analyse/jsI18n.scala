@@ -7,7 +7,7 @@ import lila.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys ++ views.html.chat.spectatorsI18nKeys)
+  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.flipBoard,

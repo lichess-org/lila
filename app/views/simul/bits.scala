@@ -13,7 +13,7 @@ object bits {
   def link(simulId: lila.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations ++ views.html.chat.spectatorsI18nKeys)
+  def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(

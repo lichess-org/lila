@@ -27,7 +27,7 @@ interface Lichess {
   unload: {
     expected: boolean;
   };
-  watchers(el: HTMLElement, ctrlTrans?: Trans): void;
+  watchers(el: HTMLElement): void;
   redirect(o: RedirectTo): void;
   reload(): void;
   escapeHtml(str: string): string;

@@ -435,13 +435,9 @@ export default function (ctrl: AnalyseCtrl): VNode {
         }),
       ctrl.embed
         ? null
-        : h(
-            'div.chat__members.none',
-            {
-              hook: onInsert(el => lichess.watchers(el, ctrl.trans)),
-            },
-            [h('span.number', '\xa0'), ' ', h('span.list')]
-          ),
+        : h('div.chat__members.none', {
+            hook: onInsert(lichess.watchers),
+          }),
     ]
   );
 }

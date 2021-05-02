@@ -34,13 +34,9 @@ export default function (ctrl: SimulCtrl) {
         },
         handler(ctrl)
       ),
-      h(
-        'div.chat__members.none',
-        {
-          hook: util.onInsert(el => lichess.watchers(el, ctrl.trans)),
-        },
-        h('span.list')
-      ),
+      h('div.chat__members.none', {
+        hook: util.onInsert(lichess.watchers),
+      }),
     ]
   );
 }
