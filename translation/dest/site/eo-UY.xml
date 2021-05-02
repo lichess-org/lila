@@ -464,6 +464,7 @@
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
+  <string name="descPrivate">Privata priskribo</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="help">Helpo:</string>
@@ -830,4 +831,5 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
 </resources>
