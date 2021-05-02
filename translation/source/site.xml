@@ -25,7 +25,8 @@
 	<string name="blackIsVictorious">Sente is victorious</string>
 	<string name="youPlayTheWhitePieces">You play as gote</string>
 	<string name="youPlayTheBlackPieces">You play as sente</string>
-	<string name="itsYourTurn">It's your turn!</string>
+    <string name="itsYourTurn">It's your turn!</string>
+    <string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">King in the centre</string>
 	<string name="threeChecks">Three checks</string>
 	<string name="raceFinished">Race finished</string>
