@@ -6,8 +6,37 @@
   <string name="quicklyGenerateSafeUsernames">학생을 위한 안전한 사용자 이름과 비밀번호를 빠르게 생성합니다</string>
   <string name="trackStudentProgress">게임과 퍼즐에서 학생의 진도를 추적합니다</string>
   <string name="messageAllStudents">새로운 수업 자료에 대해 모든 학생들에게 메시지를 보냅니다</string>
+  <string name="freeForAllForever">광고나 추적기 없이 모두에게, 영원히, 100% 무료</string>
+  <string name="applyToBeLichessTeacher">Lichess 교사 지원하기</string>
+  <string name="noClassesYet">수업이 없습니다.</string>
+  <string name="teachersX">교사: %s</string>
+  <string name="newClass">새 클래스</string>
+  <string name="closeClass">클래스 닫기</string>
+  <string name="closedByX">%s에 의해 닫힘</string>
+  <string name="reopen">다시 열기</string>
+  <string name="removeStudent">학생 삭제</string>
+  <string name="removedStudents">삭제됨</string>
+  <string name="inviteTheStudentBack">학생을 다시 초대</string>
+  <string name="sendAMessage">모든 학생에게 메시지 보내기</string>
+  <string name="aLinkToTheClassWillBeAdded">수업 링크는 메시지 끝에 자동으로 추가되므로 직접 포함 할 필요가 없습니다.</string>
+  <string name="className">클래스 이름</string>
+  <string name="classDescription">수업 설명</string>
+  <string name="visibleByBothStudentsAndTeachers">수업의 교사와 학생 모두에게 표시됩니다</string>
+  <string name="teachersOfTheClass">선생님</string>
+  <string name="addLichessUsernames">Lichess 사용자 이름을 추가하여 선생님으로 초대하세요. 한 줄에 하나씩.</string>
+  <string name="resetPassword">비밀번호 재설정</string>
+  <string name="makeSureToCopy">지금 암호를 복사하거나 적어두세요. 다시 볼 수 없습니다!</string>
   <string name="passwordX">비밀번호: %s</string>
+  <string name="generateANewPassword">학생을 위해 새 비밀번호 생성</string>
+  <string name="invitedToXByY">%2$s가 %1$s에 초대함</string>
   <string name="realName">실명</string>
+  <string name="privateWillNeverBeShown">클래스 외부에 보여지지 않습니다. 학생이 누구인지 기억하는데 도움이 됩니다.</string>
   <string name="addStudent">학생 추가</string>
+  <string name="lichessProfileXCreatedForY">%2$s를 위해 생성된 Lichess 프로필 %1$s</string>
+  <string name="studentCredentials">학생:  %1$s
+유저이름: %2$s
+비밀번호: %3$s</string>
+  <string name="inviteALichessAccount">Lichess 계정을 초대</string>
+  <string name="inviteDesc1">학생이 이미 Lichess 계정이 있는 경우 수업에 초대 할 수 있습니다.</string>
   <string name="lastActiveDate">활성화</string>
 </resources>
