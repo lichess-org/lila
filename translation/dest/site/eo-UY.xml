@@ -83,7 +83,7 @@
   <string name="averageRatingX">Meznombra rango: %s</string>
   <string name="recentGames">Lastaj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
-  <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
+  <string name="masterDbExplanation">Du milionoj ludoj fizikaj de %1$s+ FIDE-taksitaj ludantoj ekde %2$s ĝis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mato post %s duonmovo</item>
     <item quantity="other">Mato post %s duonmovoj</item>
@@ -93,17 +93,17 @@
     <item quantity="other">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
   </plurals>
   <string name="noGameFound">Neniu ludo trovita</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivas pli da ludoj de la menuo de preferoj?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
-  <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
-  <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
+  <string name="winPreventedBy50MoveRule">Venko blokita per la regulo pri 50-movoj</string>
+  <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la regulo pri 50-movoj</string>
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importi PGN</string>
   <string name="delete">Forigi</string>
   <string name="deleteThisImportedGame">Ĉu forigi ĉi tiun importitan ludon?</string>
   <string name="replayMode">Reluda reĝimo</string>
-  <string name="realtimeReplay">Reala tempo</string>
+  <string name="realtimeReplay">Realtempe</string>
   <string name="byCPL">Per eraroj</string>
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
@@ -831,5 +831,9 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="congratsYouWon">Gratulon, vi venkis!</string>
+  <string name="gameVsX">Ludo kontraŭ %1$s</string>
+  <string name="resVsX">%1$s kontraŭ %2$s</string>
+  <string name="youJustBecamePatron">Vi ĵus iĝis Lichess patrono.</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
 </resources>
