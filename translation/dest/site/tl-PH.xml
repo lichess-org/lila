@@ -509,6 +509,7 @@
   <string name="clockInitialTime">Panimulang oras ng Orasan</string>
   <string name="clockIncrement">Dagdag sa orasan</string>
   <string name="privacy">Pagiging Pribado</string>
+  <string name="privacyPolicy">Patakaran sa Privacy</string>
   <string name="letOtherPlayersFollowYou">Hayaan ang ibang manlalaro na sundan ka</string>
   <string name="letOtherPlayersChallengeYou">Hayaan ang ibang manlalaro na hamunin ka</string>
   <string name="letOtherPlayersInviteYouToStudy">Hayaan ang ibang mga manlalaro na imbitahan ka a pag-aralan</string>
@@ -577,6 +578,7 @@
   <string name="error.email_unique">Ang email address na ito ay nakuha na</string>
   <string name="error.email_different">Ito ay email address mo na</string>
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
+  <string name="onlyExistingConversations">Mga nabubuhay na pagsasalitaan lamang</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
   <string name="menu">Menu</string>
   <string name="castling">Pag-enrock</string>
@@ -654,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung wala kang nakikitang email, suriin ang ibang lugar kagaya ng junk, spam, mga sosyal, o ibang mga folder.</string>
   <string name="weHaveSentYouAnEmailTo">Kami ay nagpadala ng email kay %s. I-click ang link sa email upang ibalik ang iyong password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Sa pagrerehistro, ikaw ay pumayag na madikit sa aming %s.</string>
+  <string name="readAboutOur">Basahin ang aming %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng lichess</string>
   <string name="downloadAnnotated">I-download ang na-annotate</string>
@@ -831,7 +834,15 @@
   <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
   <string name="subscribe">Mag-subscribe</string>
   <string name="unsubscribe">Mag-unsubscribe</string>
+  <string name="mentionedYouInX"> ay nabanggit ka sa \"%1$s\".</string>
+  <string name="xMentionedYouInY"> Nabanggit ka ni %1$s sa \"%2$s\".</string>
+  <string name="invitedYouToX"> ay inanyayahan ka sa \"%1$s\".</string>
+  <string name="xInvitedYouToY">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Ikaw ay miyembro na ng team.</string>
+  <string name="youHaveJoinedTeamX">Sumali ka sa \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Yung na-report mong user ay pinagbawalan na</string>
   <string name="congratsYouWon">Tagumpay!</string>
   <string name="gameVsX">Laro laban kay %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
 </resources>
