@@ -303,7 +303,7 @@
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>
-  <string name="importGameExplanation">lonu fukpu\'i lo me pygyny cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
+  <string name="importGameExplanation">lonu fukpu\'i lo me PGN cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s da seljmina selkei</item>
   </plurals>
