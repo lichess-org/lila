@@ -60,14 +60,10 @@ object theirs {
                   hr,
                   badTag(
                     p(trans.thisGameIsRated()),
-                    p(
-                      trans.youMustXToJoinIt(
-                        a(
-                          cls := "button",
-                          href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
-                        )(trans.signIn())
-                      )
-                    )
+                    a(
+                      cls := "button",
+                      href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
+                    )(trans.signIn())
                   )
                 )
             )
