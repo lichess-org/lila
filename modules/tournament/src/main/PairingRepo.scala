@@ -21,8 +21,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       "tid" -> tourId,
       "u"   -> userId
     )
-  private val selectPlaying  = $doc("s" $lt chess.Status.Mate.id)
-  private val selectFinished = $doc("s" $gte chess.Status.Mate.id)
+  private val selectPlaying  = $doc("s" $lt shogi.Status.Mate.id)
+  private val selectFinished = $doc("s" $gte shogi.Status.Mate.id)
   private val recentSort     = $doc("d" -> -1)
   private val chronoSort     = $doc("d" -> 1)
 

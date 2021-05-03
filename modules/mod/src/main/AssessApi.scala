@@ -22,7 +22,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
 import lila.common.ThreadLocalRandom
 
-import chess.Color
+import shogi.Color
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
@@ -115,8 +115,8 @@ final class AssessApi(
         else true
       shouldAssess.?? {
         val analysed        = Analysed(game, analysis, holdAlerts)
-        val assessibleSente = Assessible(analysed, chess.Sente)
-        val assessibleGote  = Assessible(analysed, chess.Gote)
+        val assessibleSente = Assessible(analysed, shogi.Sente)
+        val assessibleGote  = Assessible(analysed, shogi.Gote)
         createPlayerAssessment(assessibleSente playerAssessment) >>
           createPlayerAssessment(assessibleGote playerAssessment)
       } >> ((shouldAssess && thenAssessUser) ?? {
@@ -180,8 +180,8 @@ final class AssessApi(
       val x = noFastCoefVariation(game player c)
       x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
-    lazy val senteSuspCoefVariation = suspCoefVariation(chess.Sente)
-    lazy val goteSuspCoefVariation  = suspCoefVariation(chess.Gote)
+    lazy val senteSuspCoefVariation = suspCoefVariation(shogi.Sente)
+    lazy val goteSuspCoefVariation  = suspCoefVariation(shogi.Gote)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)
@@ -207,7 +207,7 @@ final class AssessApi(
           else if (goteSuspCoefVariation.isDefined && randomPercent(70))
             goteSuspCoefVariation.map(_ => GoteMoveTime)
           // don't analyse half of other bullet games
-          else if (game.speed == chess.Speed.Bullet && randomPercent(50)) none
+          else if (game.speed == shogi.Speed.Bullet && randomPercent(50)) none
           // someone blurs a lot
           else if (game.players exists manyBlurs) Blurs.some
           // the winner shows a great rating progress

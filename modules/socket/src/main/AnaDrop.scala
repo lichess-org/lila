@@ -1,16 +1,16 @@
 package lila.socket
 
-import chess.format.{ FEN, Uci, UciCharPair }
-import chess.opening._
-import chess.variant.Variant
+import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.opening._
+import shogi.variant.Variant
 import play.api.libs.json.JsObject
 import scalaz.Validation.FlatMap._
 
 import lila.tree.Branch
 
 case class AnaDrop(
-    role: chess.Role,
-    pos: chess.Pos,
+    role: shogi.Role,
+    pos: shogi.Pos,
     variant: Variant,
     fen: String,
     path: String,
@@ -18,11 +18,11 @@ case class AnaDrop(
 ) extends AnaAny {
 
   def branch: Valid[Branch] =
-    chess.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
+    shogi.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
       game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
-        val fen     = chess.format.Forsyth >> game
+        val fen     = shogi.format.Forsyth >> game
         Branch(
           id = UciCharPair(uci),
           ply = game.turns,
@@ -45,9 +45,9 @@ object AnaDrop {
   def parse(o: JsObject) =
     for {
       d    <- o obj "d"
-      role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap chess.Pos.posAt
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      role <- d str "role" flatMap shogi.Role.allByName.get
+      pos  <- d str "pos" flatMap shogi.Pos.posAt
+      variant = shogi.variant.Variant orDefault ~d.str("variant")
       fen  <- d str "fen"
       path <- d str "path"
     } yield AnaDrop(

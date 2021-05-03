@@ -33,7 +33,7 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
       )
       .void
 
-  def bestScores(userIds: List[User.ID]): Fu[Map[User.ID, chess.Color.Map[Int]]] =
+  def bestScores(userIds: List[User.ID]): Fu[Map[User.ID, shogi.Color.Map[Int]]] =
     scoreColl
       .aggregateList(
         maxDocs = Int.MaxValue,
@@ -52,7 +52,7 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
       .map {
         _.flatMap { doc =>
           doc.string("_id") map {
-            _ -> chess.Color.Map(
+            _ -> shogi.Color.Map(
               ~doc.int("sente"),
               ~doc.int("gote")
             )

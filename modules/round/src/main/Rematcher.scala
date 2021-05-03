@@ -1,8 +1,8 @@
 package lila.round
 
-import chess.format.{ FEN, Forsyth }
-import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data }
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant._
+import shogi.{ Game => ShogiGame, Board, Color => ChessColor, Clock, Situation, Data }
 import ChessColor.{ Gote, Sente }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -113,12 +113,12 @@ final private class Rematcher(
       sPlayer = returnPlayer(pov.game, Sente, users)
       gPlayer = returnPlayer(pov.game, Gote, users)
       game <- Game.make(
-        chess = ChessGame(
+        shogi = ShogiGame(
           situation = Situation(
             board = Board(pieces, variant = pov.game.variant).withCrazyData {
-              situation.fold[Option[chess.Data]](Some(Data.init))(_.situation.board.crazyData)
+              situation.fold[Option[shogi.Data]](Some(Data.init))(_.situation.board.crazyData)
             },
-            color = situation.fold[chess.Color](Sente)(_.situation.color)
+            color = situation.fold[shogi.Color](Sente)(_.situation.color)
           ),
           clock = pov.game.clock map { c =>
             Clock(c.config)
@@ -128,7 +128,7 @@ final private class Rematcher(
         ),
         sentePlayer = if (isHandicap) gPlayer else sPlayer,
         gotePlayer = if (isHandicap) sPlayer else gPlayer,
-        mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
+        mode = if (users.exists(_.lame)) shogi.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
@@ -169,6 +169,6 @@ final private class Rematcher(
 private object Rematcher {
 
   case class Offers(sente: Boolean, gote: Boolean) {
-    def apply(color: chess.Color) = color.fold(sente, gote)
+    def apply(color: shogi.Color) = color.fold(sente, gote)
   }
 }

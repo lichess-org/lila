@@ -95,7 +95,7 @@ final class Env(
               boosting.check(game, senteUser, goteUser) >>
                 assessApi.onGameReady(game, senteUser, goteUser)
             }
-            if (game.status == chess.Status.Cheat)
+            if (game.status == shogi.Status.Cheat)
               game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
           case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
             logApi.chatTimeout(mod, user, reason, text)

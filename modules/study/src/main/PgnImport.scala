@@ -1,9 +1,9 @@
 package lila.study
 
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
+import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
 
-import chess.Centis
+import shogi.Centis
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
@@ -12,14 +12,14 @@ object PgnImport {
 
   case class Result(
       root: Node.Root,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       tags: Tags,
       end: Option[End]
   )
 
   case class End(
-      status: chess.Status,
-      winner: Option[chess.Color],
+      status: shogi.Status,
+      winner: Option[shogi.Color],
       resultText: String,
       statusText: String
   )
@@ -52,7 +52,7 @@ object PgnImport {
               End(
                 status = status,
                 winner = game.winnerColor,
-                resultText = chess.Color.showResult(game.winnerColor),
+                resultText = shogi.Color.showResult(game.winnerColor),
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
@@ -88,7 +88,7 @@ object PgnImport {
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)
   }
 
-  private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
+  private def makeVariations(sans: List[San], game: shogi.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
         makeNode(game, variation.value, annotator)
@@ -114,7 +114,7 @@ object PgnImport {
       }
     }
 
-  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
+  private def makeNode(prev: shogi.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
     try {
       sans match {
         case Nil => none

@@ -57,7 +57,7 @@ object side {
               if (game.variant.exotic)
                 views.html.game.bits.variantLink(
                   game.variant,
-                  (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
+                  (if (game.variant == shogi.variant.KingOfTheHill) game.variant.shortName
                    else game.variant.name).toUpperCase
                 )
               else

@@ -3,7 +3,7 @@ package lila.tv
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.hub.Trouper
 

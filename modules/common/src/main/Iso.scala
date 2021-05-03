@@ -1,8 +1,8 @@
 package lila.common
 
 import play.api.i18n.Lang
-import chess.format.FEN
-import chess.Centis
+import shogi.format.FEN
+import shogi.Centis
 
 trait Iso[A, B] {
   val from: A => B

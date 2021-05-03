@@ -70,14 +70,14 @@ final private class GameStarter(
   ) =
     Game(
       id = id,
-      chess = chess.Game(
-        situation = chess.Situation(chess.variant.Standard),
+      shogi = shogi.Game(
+        situation = shogi.Situation(shogi.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      sentePlayer = Player.make(chess.Sente, senteUser),
-      gotePlayer = Player.make(chess.Gote, goteUser),
-      mode = chess.Mode.Rated,
-      status = chess.Status.Created,
+      sentePlayer = Player.make(shogi.Sente, senteUser),
+      gotePlayer = Player.make(shogi.Gote, goteUser),
+      mode = shogi.Mode.Rated,
+      status = shogi.Status.Created,
       daysPerTurn = none,
       metadata = Game.metadata(lila.game.Source.Pool)
     )

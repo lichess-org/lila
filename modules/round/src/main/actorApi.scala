@@ -3,8 +3,8 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import chess.format.Uci
-import chess.{ Color, MoveMetrics }
+import shogi.format.Uci
+import shogi.{ Color, MoveMetrics }
 
 import lila.common.IpAddress
 import lila.game.Game.PlayerId

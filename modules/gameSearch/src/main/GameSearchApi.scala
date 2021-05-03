@@ -43,8 +43,8 @@ final class GameSearchApi(
     Json
       .obj(
         Fields.status -> (game.status match {
-          case s if s.is(_.Timeout) => chess.Status.Resign
-          case s if s.is(_.NoStart) => chess.Status.Resign
+          case s if s.is(_.Timeout) => shogi.Status.Resign
+          case s if s.is(_.NoStart) => shogi.Status.Resign
           case _                    => game.status
         }).id,
         Fields.turns         -> (game.turns + 1) / 2,

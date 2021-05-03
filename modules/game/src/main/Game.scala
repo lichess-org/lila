@@ -1,10 +1,10 @@
 package lila.game
 
-import chess.Color.{ Gote, Sente }
-import chess.format.{ FEN, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{
+import shogi.Color.{ Gote, Sente }
+import shogi.format.{ FEN, Uci }
+import shogi.opening.{ FullOpening, FullOpeningDB }
+import shogi.variant.{ FromPosition, Standard, Variant }
+import shogi.{
   Castles,
   Centis,
   CheckCount,
@@ -14,7 +14,7 @@ import chess.{
   MoveOrDrop,
   Speed,
   Status,
-  Game => ChessGame,
+  Game => ShogiGame,
   StartingPosition
 }
 import lila.common.Sequence
@@ -28,7 +28,7 @@ case class Game(
     id: Game.ID,
     sentePlayer: Player,
     gotePlayer: Player,
-    chess: ChessGame,
+    shogi: ShogiGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -39,15 +39,15 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
-  lazy val clockHistory = chess.clock flatMap loadClockHistory
+  lazy val clockHistory = shogi.clock flatMap loadClockHistory
 
-  def situation = chess.situation
-  def board     = chess.situation.board
-  def history   = chess.situation.board.history
-  def variant   = chess.situation.board.variant
-  def turns     = chess.turns
-  def clock     = chess.clock
-  def pgnMoves  = chess.pgnMoves
+  def situation = shogi.situation
+  def board     = shogi.situation.board
+  def history   = shogi.situation.board.history
+  def variant   = shogi.situation.board.variant
+  def turns     = shogi.turns
+  def clock     = shogi.clock
+  def pgnMoves  = shogi.pgnMoves
 
   val players = List(sentePlayer, gotePlayer)
 
@@ -77,13 +77,13 @@ case class Game(
   def firstPlayer     = player(firstColor)
   def secondPlayer    = player(!firstColor)
 
-  def turnColor = chess.player
+  def turnColor = shogi.player
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u) ?? turnOf
 
-  def playedTurns = turns - chess.startedAtTurn
+  def playedTurns = turns - shogi.startedAtTurn
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -192,7 +192,7 @@ case class Game(
 
   // apply a move
   def update(
-      game: ChessGame, // new chess position
+      game: ShogiGame, // new shogi position
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress = {
@@ -213,8 +213,8 @@ case class Game(
     val updated = copy(
       sentePlayer = copyPlayer(sentePlayer),
       gotePlayer = copyPlayer(gotePlayer),
-      chess = game,
-      binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
+      shogi = game,
+      binaryMoveTimes = (!isPgnImport && !shogi.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
@@ -235,7 +235,7 @@ case class Game(
       goteOffersDraw = gotePlayer.isOfferingDraw
     )
 
-    val clockEvent = updated.chess.clock map Event.Clock.apply orElse {
+    val clockEvent = updated.shogi.clock map Event.Clock.apply orElse {
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
@@ -296,7 +296,7 @@ case class Game(
           case Some(ch) =>
             start.withClockAndHistory(
               c.nextPeriod(turnColor),
-              ch.enteredNewPeriod(turnColor, chess.fullMoveNumber)
+              ch.enteredNewPeriod(turnColor, shogi.fullMoveNumber)
             )
           case _ => start.withClock(c.nextPeriod(turnColor))
         }
@@ -318,7 +318,7 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     playable ?? correspondenceClock
 
-  def speed = Speed(chess.clock.map(_.config))
+  def speed = Speed(shogi.clock.map(_.config))
 
   def perfKey  = PerfPicker.key(this)
   def perfType = PerfType(perfKey)
@@ -366,7 +366,7 @@ case class Game(
   def playerCanOfferDraw(color: Color) = false
   //started && playable &&
   //  turns >= 8 &&
-  //  chess.situation.impasse &&
+  //  shogi.situation.impasse &&
   //  !player(color).isOfferingDraw &&
   //  !opponent(color).isAi &&
   //  !playerHasOfferedDraw(color)
@@ -404,7 +404,7 @@ case class Game(
       Progress(
         this,
         copy(
-          chess = chess.copy(clock = Some(newClock)),
+          shogi = shogi.copy(clock = Some(newClock)),
           loadClockHistory = _ =>
             clockHistory.map(history => {
               if (history(color).isEmpty) history
@@ -431,7 +431,7 @@ case class Game(
         status = status,
         sentePlayer = sentePlayer.finish(winner contains Sente),
         gotePlayer = gotePlayer.finish(winner contains Gote),
-        chess = chess.copy(clock = newClock),
+        shogi = shogi.copy(clock = newClock),
         loadClockHistory = clk =>
           clockHistory map { history =>
             // If not already finished, we're ending due to an event
@@ -528,10 +528,10 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
+  def withClock(c: Clock) = Progress(this, copy(shogi = shogi.copy(clock = Some(c))))
 
   def withClockAndHistory(c: Clock, ch: ClockHistory) =
-    Progress(this, copy(chess = chess.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
+    Progress(this, copy(shogi = shogi.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -583,7 +583,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(chess.startedAtTurn % 2 == 0)
+  def startColor = Color(shogi.startedAtTurn % 2 == 0)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2
@@ -649,7 +649,7 @@ case class Game(
 
   def resetTurns =
     copy(
-      chess = chess.copy(turns = 0, startedAtTurn = 0)
+      shogi = shogi.copy(turns = 0, startedAtTurn = 0)
     )
 
   lazy val opening: Option[FullOpening.AtPly] =
@@ -696,8 +696,8 @@ object Game {
   val maxPlies = 600 // unlimited can cause StackOverflowError
 
   val analysableVariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.FromPosition
+    shogi.variant.Standard,
+    shogi.variant.FromPosition
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
@@ -705,8 +705,8 @@ object Game {
   val variantsWhereSenteIsBetter: Set[Variant] = Set()
 
   val blindModeVariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.FromPosition
+    shogi.variant.Standard,
+    shogi.variant.FromPosition
   )
 
   val hordeSentePawnsSince = new DateTime(2015, 4, 11, 10, 0)
@@ -738,7 +738,7 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0, 0, 0)
+  private val boardApiRatedMinClock = shogi.Clock.Config(20 * 60, 0, 0, 0)
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
@@ -747,7 +747,7 @@ object Game {
 
   def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
     if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+    else shogi.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game) =
     game.hasAi || game.source.contains(Source.Friend)
@@ -757,7 +757,7 @@ object Game {
   private[game] val someEmptyClockHistory = Some(ClockHistory())
 
   def make(
-      chess: ChessGame,
+      shogi: ShogiGame,
       sentePlayer: Player,
       gotePlayer: Player,
       mode: Mode,
@@ -771,7 +771,7 @@ object Game {
         id = IdGenerator.uncheckedGame,
         sentePlayer = sentePlayer,
         gotePlayer = gotePlayer,
-        chess = chess,
+        shogi = shogi,
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,

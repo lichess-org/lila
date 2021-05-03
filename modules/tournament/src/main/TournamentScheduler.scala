@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
 
-import chess.StartingPosition
+import shogi.StartingPosition
 
 final private class TournamentScheduler(
     api: TournamentApi,
@@ -15,7 +15,7 @@ final private class TournamentScheduler(
   import Schedule.Freq._
   import Schedule.Speed._
   import Schedule.Plan
-  import chess.variant._
+  import shogi.variant._
 
   implicit def ec = context.dispatcher
 
@@ -244,7 +244,7 @@ Thank you all, you rock!"""
       //            List(
       //              Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan,
       //              Schedule(Hourly, speed, Standard, std, finalDate plusMinutes 30, conditions)
-      //                .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+      //                .plan(_.copy(clock = shogi.Clock.Config(60, 1)))
       //            )
       //          else
       //            List(

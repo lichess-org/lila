@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.FEN
-import chess.format.pgn.Tag
+import shogi.format.FEN
+import shogi.format.pgn.Tag
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
@@ -159,7 +159,7 @@ final class GameApiV2(
                     pairing,
                     playerTeams.get(pairing.user1) |@| playerTeams.get(
                       pairing.user2
-                    ) apply chess.Color.Map.apply[String]
+                    ) apply shogi.Color.Map.apply[String]
                   )
                 }
               }
@@ -173,15 +173,15 @@ final class GameApiV2(
             config.format match {
               case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
               case Format.JSON =>
-                def addBerserk(color: chess.Color)(json: JsObject) =
+                def addBerserk(color: shogi.Color)(json: JsObject) =
                   if (pairing berserkOf color)
                     json deepMerge Json.obj(
                       "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
                     )
                   else json
                 toJson(game, fen, analysis, config.flags, teams) dmap
-                  addBerserk(chess.Sente) dmap
-                  addBerserk(chess.Gote) dmap { json =>
+                  addBerserk(shogi.Sente) dmap
+                  addBerserk(shogi.Gote) dmap { json =>
                     s"${Json.stringify(json)}\n"
                   }
             }
@@ -341,7 +341,7 @@ object GameApiV2 {
       perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,
       ongoing: Boolean = false,
-      color: Option[chess.Color],
+      color: Option[shogi.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond,
       playerFile: Option[String]

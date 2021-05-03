@@ -2,8 +2,8 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.{ FEN, Uci }
-import chess.variant.Variant
+import shogi.format.{ FEN, Uci }
+import shogi.variant.Variant
 import lila.common.IpAddress
 
 sealed trait Work {

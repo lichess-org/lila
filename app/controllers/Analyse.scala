@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -104,7 +104,7 @@ final class Analyse(
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color(color == "sente"))
+          val pov = Pov(game, shogi.Color(color == "sente"))
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
@@ -121,7 +121,7 @@ final class Analyse(
     get("fen").fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
-        chess.Replay
+        shogi.Replay
           .plyAtFen(pov.game.pgnMoves, initialFen.map(_.value), pov.game.variant, atFen)
           .fold(
             err => {

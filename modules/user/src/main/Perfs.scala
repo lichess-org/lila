@@ -2,7 +2,7 @@ package lila.user
 
 import org.joda.time.DateTime
 
-import chess.Speed
+import shogi.Speed
 import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
@@ -170,9 +170,9 @@ case object Perfs {
     )
   }
 
-  def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
+  def variantLens(variant: shogi.variant.Variant): Option[Perfs => Perf] =
     variant match {
-      case chess.variant.Standard => Some(_.standard) // todo variant
+      case shogi.variant.Standard => Some(_.standard) // todo variant
       case _                      => none
     }
 

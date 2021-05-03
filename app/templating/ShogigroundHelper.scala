@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Board, Color, Pos }
+import shogi.{ Board, Color, Pos }
 import lila.api.Context
 
 import lila.app.ui.ScalatagsTemplate._

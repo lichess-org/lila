@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.{ Centis, Stats }
+import shogi.{ Centis, Stats }
 import lila.common.Maths
 
 object Statistics {

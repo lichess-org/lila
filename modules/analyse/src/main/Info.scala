@@ -1,7 +1,7 @@
 package lila.analyse
 
-import chess.Color
-import chess.format.Uci
+import shogi.Color
+import shogi.format.Uci
 
 import lila.tree.Eval
 

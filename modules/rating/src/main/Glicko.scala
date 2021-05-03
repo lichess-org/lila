@@ -20,7 +20,7 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval    = intervalMin -> intervalMax
 
-  def rankable(variant: chess.variant.Variant) =
+  def rankable(variant: shogi.variant.Variant) =
     deviation <= {
       if (variant.standard) Glicko.standardRankableDeviation
       else Glicko.variantRankableDeviation

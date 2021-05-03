@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.FEN
+import shogi.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.bson._
@@ -47,7 +47,7 @@ final private[api] class GameApi(
             else
               $doc(
                 G.playerUids -> user.id,
-                G.status $gte chess.Status.Mate.id,
+                G.status $gte shogi.Status.Mate.id,
                 G.analysed -> analysed.map[BSONValue] {
                   case true => BSONBoolean(true)
                   case _    => $doc("$exists" -> false)
@@ -105,7 +105,7 @@ final private[api] class GameApi(
             if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
             else
               lila.game.Query.opponents(users._1, users._2) ++ $doc(
-                G.status $gte chess.Status.Mate.id,
+                G.status $gte shogi.Status.Mate.id,
                 G.analysed -> analysed.map[BSONValue] {
                   case true => BSONBoolean(true)
                   case _    => $doc("$exists" -> false)
@@ -150,7 +150,7 @@ final private[api] class GameApi(
           if (~playing) lila.game.Query.nowPlayingVs(userIds)
           else
             lila.game.Query.opponents(userIds) ++ $doc(
-              G.status $gte chess.Status.Mate.id,
+              G.status $gte shogi.Status.Mate.id,
               G.analysed -> analysed.map[BSONValue] {
                 case true => BSONBoolean(true)
                 case _    => $doc("$exists" -> false)
@@ -238,14 +238,14 @@ final private[api] class GameApi(
         "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
         "opening"  -> withFlags.opening.??(g.opening),
         "fens" -> (withFlags.fens && g.finished) ?? {
-          chess.Replay
+          shogi.Replay
             .situations(
               moveStrs = g.pgnMoves,
               initialFen = initialFen,
               variant = g.variant
             )
             .toOption map { sits =>
-            JsArray(sits map chess.format.Forsyth.exportSituation map JsString.apply)
+            JsArray(sits map shogi.format.Forsyth.exportSituation map JsString.apply)
           }
         },
         "winner" -> g.winnerColor.map(_.name),

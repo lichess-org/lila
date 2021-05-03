@@ -1,7 +1,7 @@
 package lila.explorer
 
 import akka.stream.scaladsl._
-import chess.format.pgn.Tag
+import shogi.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import lila.common.ThreadLocalRandom.nextFloat
@@ -99,7 +99,7 @@ final private class ExplorerIndexer(
     game.finished &&
       game.rated &&
       game.turns >= 10 &&
-      game.variant != chess.variant.FromPosition &&
+      game.variant != shogi.variant.FromPosition &&
       !Game.isOldHorde(game)
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
@@ -140,7 +140,7 @@ final private class ExplorerIndexer(
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>
       userRepo.usernamesByIds(game.userIds) map { usernames =>
-        def username(color: chess.Color) =
+        def username(color: shogi.Color) =
           game.player(color).userId flatMap { id =>
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
@@ -152,8 +152,8 @@ final private class ExplorerIndexer(
           s"[LishogiID ${game.id}]",
           s"[Variant ${game.variant.name}]",
           s"[TimeControl $timeControl]",
-          s"[Sente ${username(chess.Sente)}]",
-          s"[Gote ${username(chess.Gote)}]",
+          s"[Sente ${username(shogi.Sente)}]",
+          s"[Gote ${username(shogi.Gote)}]",
           s"[SenteElo $senteRating]",
           s"[GoteElo $goteRating]",
           s"[Result ${PgnDump.result(game)}]",

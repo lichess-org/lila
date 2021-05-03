@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Color, Gote, Sente }
+import shogi.{ Color, Gote, Sente }
 import org.joda.time.DateTime
 import scala.util.chaining._
 
@@ -83,7 +83,7 @@ final private class SwissDirector(
   ): Game =
     Game
       .make(
-        chess = chess.Game(
+        shogi = shogi.Game(
           variantOption = Some(swiss.variant),
           fen = none
         ) pipe { g =>
@@ -96,7 +96,7 @@ final private class SwissDirector(
         },
         sentePlayer = makePlayer(Sente, players get pairing.sente err s"Missing pairing sente $pairing"),
         gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
-        mode = chess.Mode(swiss.settings.rated),
+        mode = shogi.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
         pgnImport = None
       )

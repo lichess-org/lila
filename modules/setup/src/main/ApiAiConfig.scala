@@ -1,8 +1,8 @@
 package lila.setup
 
-import chess.Clock
-import chess.format.{ FEN, Forsyth }
-import chess.variant.{ FromPosition, Variant }
+import shogi.Clock
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.{ FromPosition, Variant }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
@@ -32,25 +32,25 @@ final case class ApiAiConfig(
     else TimeMode.Unlimited
 
   def game(user: Option[User]) =
-    fenGame { chessGame =>
+    fenGame { shogiGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
-        chess.Speed(chessGame.clock.map(_.config)),
-        chessGame.situation.board.variant,
+        shogi.Speed(shogiGame.clock.map(_.config)),
+        shogiGame.situation.board.variant,
         makeDaysPerTurn
       )
       Game
         .make(
-          chess = chessGame,
+          shogi = shogiGame,
           sentePlayer = creatorColor.fold(
-            Player.make(chess.Sente, user, perfPicker),
-            Player.make(chess.Sente, level.some)
+            Player.make(shogi.Sente, user, perfPicker),
+            Player.make(shogi.Sente, level.some)
           ),
           gotePlayer = creatorColor.fold(
-            Player.make(chess.Gote, level.some),
-            Player.make(chess.Gote, user, perfPicker)
+            Player.make(shogi.Gote, level.some),
+            Player.make(shogi.Gote, user, perfPicker)
           ),
-          mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          mode = shogi.Mode.Casual,
+          source = if (shogiGame.board.variant.fromPosition) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
@@ -77,7 +77,7 @@ object ApiAiConfig extends BaseConfig {
       pos: Option[String]
   ) =
     new ApiAiConfig(
-      variant = chess.variant.Variant.orDefault(~v),
+      variant = shogi.variant.Variant.orDefault(~v),
       clock = cl,
       daysO = d,
       color = Color.orDefault(~c),

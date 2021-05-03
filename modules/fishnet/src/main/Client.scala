@@ -34,8 +34,8 @@ case class Client(
 
   def getVariants =
     evaluation match {
-      case Client.Evaluation.NNUE  => List(chess.variant.Standard)
-      case Client.Evaluation.FAIRY => List(chess.variant.FromPosition)
+      case Client.Evaluation.NNUE  => List(shogi.variant.Standard)
+      case Client.Evaluation.FAIRY => List(shogi.variant.FromPosition)
     }
 
   override def toString = s"$key by $userId"

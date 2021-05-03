@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Mode, Status }
+import shogi.{ Mode, Status }
 import org.joda.time.DateTime
 
 import lila.common.Json.jodaWrites

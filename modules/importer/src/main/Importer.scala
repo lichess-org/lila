@@ -1,6 +1,6 @@
 package lila.importer
 
-import chess.format.FEN
+import shogi.format.FEN
 
 import lila.game.{ Game, GameRepo }
 

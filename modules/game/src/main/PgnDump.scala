@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.format.Forsyth
-import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ FEN, pgn => chessPgn }
-import chess.{ Centis, Color }
+import shogi.format.Forsyth
+import shogi.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
+import shogi.format.{ FEN, pgn => shogiPgn }
+import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
 import lila.common.LightUser
@@ -57,8 +57,8 @@ final class PgnDump(
   def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lishogi AI level " + _)
 
-  private val customStartPosition: Set[chess.variant.Variant] =
-    Set(chess.variant.FromPosition)
+  private val customStartPosition: Set[shogi.variant.Variant] =
+    Set(shogi.variant.FromPosition)
 
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
@@ -123,7 +123,7 @@ final class PgnDump(
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
           Tag(
             _.Termination, {
-              import chess.Status._
+              import shogi.Status._
               game.status match {
                 case Created | Started                                                        => "Unterminated"
                 case Aborted | NoStart                                                        => "Abandoned"
@@ -148,19 +148,19 @@ final class PgnDump(
       from: Int,
       clocks: Vector[Centis],
       startColor: Color
-  ): List[chessPgn.Turn] =
+  ): List[shogiPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
       val clockOffset = startColor.fold(0, 1)
-      chessPgn.Turn(
+      shogiPgn.Turn(
         number = index + from,
         sente = moves.headOption filter (".." !=) map { san =>
-          chessPgn.Move(
+          shogiPgn.Move(
             san = san,
             secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
           )
         },
         gote = moves lift 1 map { san =>
-          chessPgn.Move(
+          shogiPgn.Move(
             san = san,
             secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
           )

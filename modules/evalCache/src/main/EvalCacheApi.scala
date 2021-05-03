@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Variant
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.Variant
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.socket.Socket
@@ -54,7 +54,7 @@ final class EvalCacheApi(
     )
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
-    val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
+    val id = Id(shogi.variant.Standard, SmallFen.make(variant, fen))
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
@@ -104,5 +104,5 @@ final class EvalCacheApi(
     }
 
   private def destSize(fen: FEN): Int =
-    chess.Game(chess.variant.Standard.some, fen.value.some).situation.destinations.size
+    shogi.Game(shogi.variant.Standard.some, fen.value.some).situation.destinations.size
 }

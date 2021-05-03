@@ -10,8 +10,8 @@ import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import chess.format.{ FEN, Forsyth }
-import chess.{ Clock, Color }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Clock, Color }
 
 import actorApi.SocketStatus
 
@@ -34,7 +34,7 @@ final class JsonView(
   private val moretimeSeconds = moretime.value.toSeconds.toInt
 
   private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
+    (game.variant == shogi.variant.ThreeCheck) option game.history.checkCount(color)
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
@@ -92,7 +92,7 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
+                "autoQueen" -> (if (pov.game.variant == shogi.variant.Antichess) Pref.AutoQueen.NEVER
                                 else pref.autoQueen),
                 "clockTenths"    -> pref.clockTenths,
                 "clockCountdown" -> pref.clockCountdown,
@@ -220,13 +220,13 @@ final class JsonView(
       pov: Pov,
       pref: Pref,
       initialFen: Option[FEN],
-      orientation: chess.Color,
+      orientation: shogi.Color,
       owner: Boolean,
       me: Option[User],
-      division: Option[chess.Division] = none
+      division: Option[shogi.Division] = none
   ) = {
     import pov._
-    val fen = Forsyth >> game.chess
+    val fen = Forsyth >> game.shogi
     Json
       .obj(
         "game" -> Json
@@ -234,7 +234,7 @@ final class JsonView(
             "id"         -> gameId,
             "variant"    -> game.variant,
             "opening"    -> game.opening,
-            "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
+            "initialFen" -> initialFen.fold(shogi.format.Forsyth.initial)(_.value),
             "fen"        -> fen,
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,

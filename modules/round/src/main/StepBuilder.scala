@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.format.Forsyth
-import chess.variant.Variant
+import shogi.format.Forsyth
+import shogi.variant.Variant
 import lila.socket.Step
 
 import play.api.libs.json._
@@ -16,7 +16,7 @@ object StepBuilder {
       variant: Variant,
       initialFen: String
   ): JsArray = {
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
+    shogi.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         JsArray {

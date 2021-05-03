@@ -104,7 +104,7 @@ object TournamentShield {
       )
   }
 
-  private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
+  private type SpeedOrVariant = Either[Schedule.Speed, shogi.variant.Variant]
 
   sealed abstract class Category(
       val of: SpeedOrVariant,

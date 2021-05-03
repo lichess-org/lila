@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Game => ChessGame, Situation }
+import shogi.{ Game => ShogiGame, Situation }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, PerfPicker, Player }
@@ -56,25 +56,25 @@ final private class Biter(
       creatorUser: Option[User],
       joinerUser: Option[User],
       color: Color
-  ): Fu[chess.Color] =
+  ): Fu[shogi.Color] =
     color match {
       case Color.Random =>
-        userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
-      case Color.Sente => fuccess(chess.Sente)
-      case Color.Gote  => fuccess(chess.Gote)
+        userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map shogi.Color.apply
+      case Color.Sente => fuccess(shogi.Sente)
+      case Color.Gote  => fuccess(shogi.Gote)
     }
 
   private def makeGame(hook: Hook, senteUser: Option[User], goteUser: Option[User]) = {
     val clock      = hook.clock.toClock
-    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(clock.config), hook.realVariant, none)
+    val perfPicker = PerfPicker.mainOrDefault(shogi.Speed(clock.config), hook.realVariant, none)
     Game
       .make(
-        chess = ChessGame(
+        shogi = ShogiGame(
           situation = Situation(hook.realVariant),
           clock = clock.some
         ),
-        sentePlayer = Player.make(chess.Sente, senteUser, perfPicker),
-        gotePlayer = Player.make(chess.Gote, goteUser, perfPicker),
+        sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
+        gotePlayer = Player.make(shogi.Gote, goteUser, perfPicker),
         mode = hook.realMode,
         source = lila.game.Source.Lobby,
         pgnImport = None
@@ -83,15 +83,15 @@ final private class Biter(
   }
 
   private def makeGame(seek: Seek, senteUser: Option[User], goteUser: Option[User]) = {
-    val perfPicker = PerfPicker.mainOrDefault(chess.Speed(none), seek.realVariant, seek.daysPerTurn)
+    val perfPicker = PerfPicker.mainOrDefault(shogi.Speed(none), seek.realVariant, seek.daysPerTurn)
     Game
       .make(
-        chess = ChessGame(
+        shogi = ShogiGame(
           situation = Situation(seek.realVariant),
           clock = none
         ),
-        sentePlayer = Player.make(chess.Sente, senteUser, perfPicker),
-        gotePlayer = Player.make(chess.Gote, goteUser, perfPicker),
+        sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
+        gotePlayer = Player.make(shogi.Gote, goteUser, perfPicker),
         mode = seek.realMode,
         source = lila.game.Source.Lobby,
         daysPerTurn = seek.daysPerTurn,

@@ -220,7 +220,7 @@ object Metric {
           MetricValue(BSONInteger(r.id), MetricValueName(r.name))
         }
       case PieceRole =>
-        chess.Role.all.reverse.map { r =>
+        shogi.Role.all.reverse.map { r =>
           MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
         }
       case _ => Nil

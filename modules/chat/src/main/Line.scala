@@ -2,7 +2,7 @@ package lila.chat
 
 import lila.user.User
 
-import chess.Color
+import shogi.Color
 
 sealed trait Line {
   def text: String

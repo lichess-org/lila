@@ -274,15 +274,15 @@ final class JsonView(
     }
     Json.obj(
       "id"      -> game.id,
-      "fen"     -> (chess.format.Forsyth exportSituation game.situation),
-      "pockets" -> (chess.format.Forsyth exportCrazyPocket game.board),
+      "fen"     -> (shogi.format.Forsyth exportSituation game.situation),
+      "pockets" -> (shogi.format.Forsyth exportCrazyPocket game.board),
       "color" -> (game.variant match {
-        case chess.variant.RacingKings => chess.Sente
+        case shogi.variant.RacingKings => shogi.Sente
         case _                         => game.firstColor
       }).name,
       "lastMove" -> ~game.lastMoveKeys,
-      "sente"    -> ofPlayer(featured.sente, game player chess.Sente),
-      "gote"     -> ofPlayer(featured.gote, game player chess.Gote)
+      "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
+      "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)
     )
   }
 
@@ -505,7 +505,7 @@ object JsonView {
       "speed" -> s.speed.key
     )
 
-  implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+  implicit val clockWrites: OWrites[shogi.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit"     -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds,
@@ -513,7 +513,7 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: chess.StartingPosition) =
+  private[tournament] def positionJson(s: shogi.StartingPosition) =
     Json.obj(
       "eco"      -> s.eco,
       "name"     -> s.name,

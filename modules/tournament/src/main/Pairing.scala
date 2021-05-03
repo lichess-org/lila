@@ -1,13 +1,13 @@
 package lila.tournament
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.user.User
 
 case class Pairing(
     id: Game.ID,
     tourId: Tournament.ID,
-    status: chess.Status,
+    status: shogi.Status,
     user1: User.ID,
     user2: User.ID,
     winner: Option[User.ID],
@@ -29,7 +29,7 @@ case class Pairing(
     else if (userId == user2) user1.some
     else none
 
-  def finished = status >= chess.Status.Mate
+  def finished = status >= shogi.Status.Mate
   def playing  = !finished
 
   def quickFinish      = finished && turns.exists(20 >)
@@ -70,7 +70,7 @@ private[tournament] object Pairing {
     new Pairing(
       id = gameId,
       tourId = tourId,
-      status = chess.Status.Created,
+      status = shogi.Status.Created,
       user1 = u1,
       user2 = u2,
       winner = none,

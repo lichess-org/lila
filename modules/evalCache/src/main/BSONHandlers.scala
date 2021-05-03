@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 import scalaz.NonEmptyList
 
-import chess.format.Uci
+import shogi.format.Uci
 import lila.db.dsl._
 import lila.tree.Eval._
 
@@ -61,11 +61,11 @@ private object BSONHandlers {
   implicit val EntryIdHandler = tryHandler[Id](
     { case BSONString(value) =>
       value split '@' match {
-        case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
+        case Array(fen) => Success(Id(shogi.variant.Standard, SmallFen raw fen))
         case Array(variantId, fen) =>
           Success(
             Id(
-              variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+              variantId.toIntOption flatMap shogi.variant.Variant.apply err s"Invalid evalcache variant $variantId",
               SmallFen raw fen
             )
           )
@@ -74,7 +74,7 @@ private object BSONHandlers {
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant == chess.variant.FromPosition) x.smallFen.value
+        if (x.variant.standard || x.variant == shogi.variant.FromPosition) x.smallFen.value
         else s"${x.variant.id}:${x.smallFen.value}"
       }
   )

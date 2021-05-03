@@ -68,7 +68,7 @@ object Preset {
             D.Perf,
             List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
           ),
-          Filter(D.Color, List(chess.Sente))
+          Filter(D.Color, List(shogi.Sente))
         )
       )
     ),

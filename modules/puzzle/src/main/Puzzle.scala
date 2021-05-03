@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import scalaz.NonEmptyList
-import chess.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Uci }
 
 import lila.rating.Glicko
 
@@ -42,10 +42,10 @@ case class Puzzle(
 
   } err s"Can't apply puzzle $id first move"
 
-  def color: chess.Color =
+  def color: shogi.Color =
     gameId match {
-      case Some(_) => Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
-      case None    => Forsyth.getColor(fen).getOrElse(chess.Sente)
+      case Some(_) => Forsyth.getColor(fen).fold[shogi.Color](shogi.Sente)(!_)
+      case None    => Forsyth.getColor(fen).getOrElse(shogi.Sente)
     }
 
   def lastMove: String =

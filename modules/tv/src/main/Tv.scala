@@ -50,7 +50,7 @@ final class Tv(
 }
 
 object Tv {
-  import chess.{ Speed => S, variant => V }
+  import shogi.{ Speed => S, variant => V }
   import lila.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
@@ -151,8 +151,8 @@ object Tv {
 
   private def rated(min: Int)                         = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def minRating(min: Int)                     = (c: Candidate) => hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed)               = (c: Candidate) => c.game.speed == speed
-  private def variant(variant: chess.variant.Variant) = (c: Candidate) => c.game.variant == variant
+  private def speed(speed: shogi.Speed)               = (c: Candidate) => c.game.speed == speed
+  private def variant(variant: shogi.variant.Variant) = (c: Candidate) => c.game.variant == variant
   private def standardShogiRules(c: Candidate) =
     c.game.variant == V.Standard || c.game.variant == V.FromPosition
   private val freshBlitz                          = 60 * 2

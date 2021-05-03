@@ -1,9 +1,9 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.Variant
-import chess.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
+import shogi.format.pgn.{ Glyph, Glyphs, Tag, Tags }
+import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.variant.Variant
+import shogi.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -125,7 +125,7 @@ object BSONHandlers {
   implicit private def CrazyDataBSONHandler: BSON[Data] =
     new BSON[Data] {
       private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)  = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      private def readPocket(p: String)  = Pocket(p.view.flatMap(shogi.Role.forsyth).toList)
       def reads(r: Reader) =
         Data(
           promoted = r.getsD[Pos]("o").toSet,

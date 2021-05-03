@@ -5,7 +5,7 @@ import akka.pattern.ask
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
@@ -55,13 +55,13 @@ final class SimulApi(
       name = setup.name,
       clock = SimulClock(
         config =
-          chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
+          shogi.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
         hostExtraTime = setup.clockExtra * 60
       ),
-      variants = setup.variants.flatMap { chess.variant.Variant(_) },
+      variants = setup.variants.flatMap { shogi.variant.Variant(_) },
       position = setup.position
         .map {
-          SimulForm.startingPosition(_, chess.variant.Standard)
+          SimulForm.startingPosition(_, shogi.variant.Standard)
         }
         .filterNot(_.initial),
       host = me,
@@ -85,7 +85,7 @@ final class SimulApi(
               user,
               variant,
               PerfPicker.mainOrDefault(
-                speed = chess.Speed(simul.clock.config.some),
+                speed = shogi.Speed(simul.clock.config.some),
                 variant = variant,
                 daysPerTurn = none
               )(user.perfs)
@@ -204,27 +204,27 @@ final class SimulApi(
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id dmap2 { _.fullName }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] =
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, shogi.Color)] =
     for {
       user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
       hostColor  = simul.hostColor
       senteUser  = hostColor.fold(host, user)
       goteUser   = hostColor.fold(user, host)
       clock      = simul.clock.chessClockOf(hostColor)
-      perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
+      perfPicker = lila.game.PerfPicker.mainOrDefault(shogi.Speed(clock.config), pairing.player.variant, none)
       game1 = Game.make(
-        chess = chess
+        shogi = shogi
           .Game(
             variantOption = Some {
               if (simul.position.isEmpty) pairing.player.variant
-              else chess.variant.FromPosition
+              else shogi.variant.FromPosition
             },
             fen = simul.position.map(_.fen)
           )
           .copy(clock = clock.start.some),
-        sentePlayer = lila.game.Player.make(chess.Sente, senteUser.some, perfPicker),
-        gotePlayer = lila.game.Player.make(chess.Gote, goteUser.some, perfPicker),
-        mode = chess.Mode.Casual,
+        sentePlayer = lila.game.Player.make(shogi.Sente, senteUser.some, perfPicker),
+        gotePlayer = lila.game.Player.make(shogi.Gote, goteUser.some, perfPicker),
+        mode = shogi.Mode.Casual,
         source = lila.game.Source.Simul,
         pgnImport = None
       )

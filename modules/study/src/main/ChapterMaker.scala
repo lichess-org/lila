@@ -1,9 +1,9 @@
 package lila.study
 
-import chess.format.pgn.Tags
-import chess.{ Data => ChessData }
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Variant
+import shogi.format.pgn.Tags
+import shogi.{ Data => ChessData }
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.Variant
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
@@ -198,7 +198,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color(orientation) | chess.Sente
+    def realOrientation = shogi.Color(orientation) | shogi.Sente
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key

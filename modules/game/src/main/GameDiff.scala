@@ -1,11 +1,11 @@
 package lila.game
 
-import chess.{ CheckCount, Clock, Color, Data, Gote, Sente }
+import shogi.{ CheckCount, Clock, Color, Data, Gote, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
 
-import chess.Centis
+import shogi.Centis
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler

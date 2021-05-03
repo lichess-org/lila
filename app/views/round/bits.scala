@@ -3,7 +3,7 @@ package round
 
 import scala.util.chaining._
 
-import chess.variant.{ Standard, Variant }
+import shogi.variant.{ Standard, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -129,7 +129,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN),
+      (data \ "game" \ "initialFen").asOpt[String].map(shogi.format.FEN),
       tour,
       simul = simul,
       userTv = userTv,

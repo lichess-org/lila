@@ -1,8 +1,8 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
-import chess.format.{ Forsyth, pgn => chessPgn }
+import shogi.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
+import shogi.format.{ Forsyth, pgn => shogiPgn }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
@@ -95,7 +95,7 @@ object PgnDump {
   private val noVariations: Variations = Vector.empty
 
   private def node2move(node: Node, variations: Variations)(implicit flags: WithFlags) =
-    chessPgn.Move(
+    shogiPgn.Move(
       san = node.move.san,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
@@ -137,23 +137,23 @@ object PgnDump {
   }
 
   def toTurn(first: Node, second: Option[Node], variations: Variations)(implicit flags: WithFlags) =
-    chessPgn.Turn(
+    shogiPgn.Turn(
       number = first.fullMoveNumber,
       sente = node2move(first, variations).some,
       gote = second map { node2move(_, first.children.variations) }
     )
 
-  def toTurns(root: Node.Root)(implicit flags: WithFlags): Vector[chessPgn.Turn] =
+  def toTurns(root: Node.Root)(implicit flags: WithFlags): Vector[shogiPgn.Turn] =
     toTurns(root.mainline, root.children.variations)
 
   def toTurns(
       line: Vector[Node],
       variations: Variations
-  )(implicit flags: WithFlags): Vector[chessPgn.Turn] = {
+  )(implicit flags: WithFlags): Vector[shogiPgn.Turn] = {
     line match {
       case Vector() => Vector()
       case first +: rest if first.ply % 2 == 0 =>
-        chessPgn.Turn(
+        shogiPgn.Turn(
           number = 1 + (first.ply - 1) / 2,
           sente = none,
           gote = node2move(first, variations).some
@@ -164,10 +164,10 @@ object PgnDump {
 
   def toTurnsFromSente(line: Vector[Node], variations: Variations)(implicit
       flags: WithFlags
-  ): Vector[chessPgn.Turn] =
+  ): Vector[shogiPgn.Turn] =
     line
       .grouped(2)
-      .foldLeft(variations -> Vector.empty[chessPgn.Turn]) { case variations ~ turns ~ pair =>
+      .foldLeft(variations -> Vector.empty[shogiPgn.Turn]) { case variations ~ turns ~ pair =>
         pair.headOption.fold(variations -> turns) { first =>
           pair
             .lift(1)

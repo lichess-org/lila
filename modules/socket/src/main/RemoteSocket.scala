@@ -1,7 +1,7 @@
 package lila.socket
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
-import chess.Centis
+import shogi.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
@@ -275,7 +275,7 @@ object RemoteSocket {
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
-      def color(c: chess.Color): String       = c.fold("b", "w")
+      def color(c: shogi.Color): String       = c.fold("b", "w")
       def optional(str: Option[String])       = str getOrElse "-"
     }
   }

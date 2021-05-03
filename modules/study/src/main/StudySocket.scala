@@ -1,8 +1,8 @@
 package lila.study
 
 import actorApi.Who
-import chess.Centis
-import chess.format.pgn.{ Glyph, Glyphs }
+import shogi.Centis
+import shogi.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -273,7 +273,7 @@ final private class StudySocket(
   def addNode(
       pos: Position.Ref,
       node: Node,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       sticky: Boolean,
       relay: Option[Chapter.Relay],
       who: Who
@@ -395,7 +395,7 @@ final private class StudySocket(
         "ply" -> ply.map(_.value)
       )
     )
-  def setTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, who: Who) =
+  def setTags(chapterId: Chapter.Id, tags: shogi.format.pgn.Tags, who: Who) =
     version(
       "setTags",
       Json.obj(

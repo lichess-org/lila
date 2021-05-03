@@ -2,9 +2,9 @@ package lila.swiss
 
 import scala.concurrent.duration._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.variant.Variant
-import chess.{ Color, StartingPosition }
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.variant.Variant
+import shogi.{ Color, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User

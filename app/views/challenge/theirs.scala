@@ -14,7 +14,7 @@ object theirs {
       c: Challenge,
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
-      color: Option[chess.Color]
+      color: Option[shogi.Color]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = challengeTitle(c),

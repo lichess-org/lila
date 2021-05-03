@@ -1,8 +1,8 @@
 package lila.game
 
-import chess.format.{ FEN, Uci }
-import chess.variant.Variant
-import chess.{
+import shogi.format.{ FEN, Uci }
+import shogi.variant.Variant
+import shogi.{
   CheckCount,
   Color,
   Clock,
@@ -15,7 +15,7 @@ import chess.{
   Pocket,
   Pockets,
   History => ChessHistory,
-  Game => ChessGame
+  Game => ShogiGame
 }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
@@ -50,8 +50,8 @@ object BSONHandlers {
       Data(
         pockets = {
           val (sente, gote) = {
-            r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
-          }.partition(_ is chess.Sente)
+            r.str("p").view.flatMap(shogi.Piece.fromChar).to(List)
+          }.partition(_ is shogi.Sente)
           Pockets(
             sente = Pocket(sente.map(_.role)),
             gote = Pocket(gote.map(_.role))
@@ -88,14 +88,14 @@ object BSONHandlers {
       val createdAt     = r date F.createdAt
 
       val playedPlies = plies - startedAtTurn
-      val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
+      val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
       val decoded = {
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-          positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
+          positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
           lastMove = r strO F.historyLastMove flatMap Uci.apply,
           checkCount = r.intsD(F.checkCount),
           halfMoveClock = pgnMoves.reverse.indexWhere(san =>
@@ -103,9 +103,9 @@ object BSONHandlers {
           ) atLeast 0
         )
       }
-      val chessGame = ChessGame(
-        situation = chess.Situation(
-          chess.Board(
+      val shogiGame = ShogiGame(
+        situation = shogi.Situation(
+          shogi.Board(
             pieces = decoded.pieces,
             history = ChessHistory(
               lastMove = decoded.lastMove,
@@ -138,7 +138,7 @@ object BSONHandlers {
         id = light.id,
         sentePlayer = light.sentePlayer,
         gotePlayer = light.gotePlayer,
-        chess = chessGame,
+        shogi = shogiGame,
         loadClockHistory = clk =>
           for {
             bs <- senteClockHistory
@@ -182,15 +182,15 @@ object BSONHandlers {
           )
         ),
         F.status        -> o.status,
-        F.turns         -> o.chess.turns,
-        F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
-        F.clock -> (o.chess.clock flatMap { c =>
+        F.turns         -> o.shogi.turns,
+        F.startedAtTurn -> w.intO(o.shogi.startedAtTurn),
+        F.clock -> (o.shogi.clock flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
         }),
         F.daysPerTurn       -> o.daysPerTurn,
         F.moveTimes         -> o.binaryMoveTimes,
-        F.senteClockHistory -> clockHistory(Sente, o.clockHistory, o.chess.clock, o.flagged),
-        F.goteClockHistory  -> clockHistory(Gote, o.clockHistory, o.chess.clock, o.flagged),
+        F.senteClockHistory -> clockHistory(Sente, o.clockHistory, o.shogi.clock, o.flagged),
+        F.goteClockHistory  -> clockHistory(Gote, o.clockHistory, o.shogi.clock, o.flagged),
         F.periodsSente      -> periodEntries(Sente, o.clockHistory),
         F.periodsGote       -> periodEntries(Gote, o.clockHistory),
         F.rated             -> w.boolO(o.mode.rated),

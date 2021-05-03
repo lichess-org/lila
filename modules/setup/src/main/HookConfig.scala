@@ -1,13 +1,13 @@
 package lila.setup
 
-import chess.Mode
+import shogi.Mode
 import lila.lobby.Color
 import lila.lobby.{ Hook, Seek }
 import lila.rating.RatingRange
 import lila.user.User
 
 case class HookConfig(
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -33,7 +33,7 @@ case class HookConfig(
 
   private def perfType = lila.game.PerfPicker.perfType(makeSpeed, variant, makeDaysPerTurn)
 
-  def makeSpeed = chess.Speed(makeClock)
+  def makeSpeed = shogi.Speed(makeClock)
 
   def fixColor =
     copy(
@@ -137,7 +137,7 @@ object HookConfig extends BaseHumanConfig {
   ) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
-      variant = chess.variant.Variant(v) err s"Invalid game variant $v",
+      variant = shogi.variant.Variant(v) err s"Invalid game variant $v",
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -170,7 +170,7 @@ object HookConfig extends BaseHumanConfig {
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = shogi.variant.Variant orDefault (r int "v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",

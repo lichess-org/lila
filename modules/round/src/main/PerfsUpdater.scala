@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Color, Speed }
+import shogi.{ Color, Speed }
 import org.goochjs.glicko2._
 
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
@@ -28,7 +28,7 @@ final class PerfsUpdater(
             val ratingsB = mkRatings(gote.perfs)
             val result   = resultOf(game)
             game.ratingVariant match { // todo variant
-              case chess.variant.Standard =>
+              case shogi.variant.Standard =>
                 game.speed match {
                   case Speed.Bullet =>
                     updateRatings(ratingsW.bullet, ratingsB.bullet, result)
@@ -84,8 +84,8 @@ final class PerfsUpdater(
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
-      case Some(chess.Sente) => Glicko.Result.Win
-      case Some(chess.Gote)  => Glicko.Result.Loss
+      case Some(shogi.Sente) => Glicko.Result.Win
+      case Some(shogi.Gote)  => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
     }
 

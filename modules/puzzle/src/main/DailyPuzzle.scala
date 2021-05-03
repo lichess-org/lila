@@ -100,7 +100,7 @@ final private[puzzle] class DailyPuzzle(
 object DailyPuzzle {
   type Try = () => Fu[Option[DailyPuzzle.Html]]
 
-  case class Html(html: String, color: chess.Color, id: Puzzle.Id)
+  case class Html(html: String, color: shogi.Color, id: Puzzle.Id)
 
-  case class Render(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
+  case class Render(puzzle: Puzzle, fen: shogi.format.FEN, lastMove: String)
 }

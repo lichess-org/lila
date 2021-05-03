@@ -9,7 +9,7 @@ object replayBot {
 
   def apply(
       pov: Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       pgn: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]

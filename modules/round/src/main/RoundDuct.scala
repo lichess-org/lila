@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import actorApi._, round._
-import chess.{ Centis, Color, Gote, Sente }
+import shogi.{ Centis, Color, Gote, Sente }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{

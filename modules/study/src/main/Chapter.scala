@@ -1,11 +1,11 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags }
-import chess.variant.Variant
-import chess.{ Centis, Color }
+import shogi.format.pgn.{ Glyph, Tags }
+import shogi.variant.Variant
+import shogi.{ Centis, Color }
 import org.joda.time.DateTime
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import shogi.opening.{ FullOpening, FullOpeningDB }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 

@@ -63,7 +63,7 @@ final class Challenge(
           }
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
+              Ok(html.challenge.theirs(c, json, user, get("color") flatMap shogi.Color.apply))
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
@@ -82,7 +82,7 @@ final class Challenge(
   def accept(id: String, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
-        val cc = color flatMap chess.Color.apply
+        val cc = color flatMap shogi.Color.apply
         isForMe(c) ?? api
           .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
           .flatMap {
@@ -300,7 +300,7 @@ final class Challenge(
                   timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
                     TimeControl.Clock.apply
                   },
-                  mode = chess.Mode.Casual,
+                  mode = shogi.Mode.Casual,
                   color = "random",
                   challenger = Challenger.Open,
                   destUser = none,

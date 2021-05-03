@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.game.{ Namer, Pov }
 import lila.user.User
 

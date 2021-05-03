@@ -3,7 +3,7 @@ package lila.playban
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
@@ -57,7 +57,7 @@ final private class SandbagWatch(
 
   private def isSandbag(game: Game): Boolean =
     game.turns <= {
-      if (game.variant == chess.variant.Atomic) 3
+      if (game.variant == shogi.variant.Atomic) 3
       else 6
     }
 }

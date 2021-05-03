@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.FEN
+import shogi.format.FEN
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -171,7 +171,7 @@ final private[api] class RoundApi(
       pov: Pov,
       pref: Pref,
       initialFen: Option[FEN],
-      orientation: chess.Color,
+      orientation: shogi.Color,
       owner: Boolean,
       me: Option[User]
   ) =
@@ -187,7 +187,7 @@ final private[api] class RoundApi(
       pov: Pov,
       pref: Pref,
       initialFen: Option[FEN],
-      orientation: chess.Color,
+      orientation: shogi.Color,
       me: Option[User]
   ) =
     withTree(pov, analysis = none, initialFen, WithFlags(opening = true))(

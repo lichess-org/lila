@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import chess.format.Forsyth
-import chess.format.UciCharPair
+import shogi.format.Forsyth
+import shogi.format.UciCharPair
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -65,7 +65,7 @@ final private class GameJson(
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "pgn"     -> game.chess.pgnMoves.take(plies + 1).mkString(" ")
+        "pgn"     -> game.shogi.pgnMoves.take(plies + 1).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -100,7 +100,7 @@ final private class GameJson(
           val pgnMoves = game.pgnMoves.take(plies + 1)
           for {
             pgnMove <- pgnMoves.lastOption
-            situation <- chess.Replay
+            situation <- shogi.Replay
               .situations(pgnMoves, None, game.variant)
               .valueOr { err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")

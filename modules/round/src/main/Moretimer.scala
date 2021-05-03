@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.Color
+import shogi.Color
 
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }

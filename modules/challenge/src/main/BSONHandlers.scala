@@ -2,8 +2,8 @@ package lila.challenge
 
 import reactivemongo.api.bson._
 
-import chess.Mode
-import chess.variant.Variant
+import shogi.Mode
+import shogi.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
@@ -28,14 +28,14 @@ private object BSONHandlers {
     def reads(r: Reader) =
       (r.intO("l") |@| r.intO("i") |@| r.intD("b").some |@| r.intD("p").some) {
         case (limit, inc, byo, per) => {
-          TimeControl.Clock(chess.Clock.Config(limit, inc, byo, per))
+          TimeControl.Clock(shogi.Clock.Config(limit, inc, byo, per))
         }
       } orElse {
         r intO "d" map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) =
       t match {
-        case TimeControl.Clock(chess.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
+        case TimeControl.Clock(shogi.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
         case TimeControl.Correspondence(d)                     => $doc("d" -> d)
         case TimeControl.Unlimited                             => $empty
       }

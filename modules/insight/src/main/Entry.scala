@@ -1,7 +1,7 @@
 package lila.insight
 
-import chess.opening.Ecopening
-import chess.{ Color, Role }
+import shogi.opening.Ecopening
+import shogi.{ Color, Role }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -88,9 +88,9 @@ object Termination {
     (p.id, p)
   } toMap
 
-  import chess.{ Status => S }
+  import shogi.{ Status => S }
 
-  def fromStatus(s: chess.Status) =
+  def fromStatus(s: shogi.Status) =
     s match {
       case S.Timeout             => Disconnect
       case S.Outoftime           => ClockFlag
@@ -128,7 +128,7 @@ object Phase {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def of(div: chess.Division, ply: Int): Phase =
+  def of(div: shogi.Division, ply: Int): Phase =
     div.middle.fold[Phase](Opening) {
       case m if m > ply => Opening
       case _ =>

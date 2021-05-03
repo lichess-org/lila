@@ -1,8 +1,8 @@
 package lila.challenge
 
-import chess.format.FEN
-import chess.variant.{ FromPosition, Variant }
-import chess.{ Color, Mode, Speed }
+import shogi.format.FEN
+import shogi.variant.{ FromPosition, Variant }
+import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
 import lila.game.PerfPicker
@@ -17,7 +17,7 @@ case class Challenge(
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
-    finalColor: chess.Color,
+    finalColor: shogi.Color,
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[String],
@@ -130,7 +130,7 @@ object Challenge {
   object TimeControl {
     case object Unlimited                extends TimeControl
     case class Correspondence(days: Int) extends TimeControl
-    case class Clock(config: chess.Clock.Config) extends TimeControl {
+    case class Clock(config: shogi.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit     = config.limit
       def increment = config.increment
@@ -165,7 +165,7 @@ object Challenge {
         }
       )
       .orElse {
-        (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
+        (variant == FromPosition) option perfTypeOf(shogi.variant.Standard, timeControl)
       }
       .|(PerfType.Correspondence)
 
@@ -176,7 +176,7 @@ object Challenge {
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = shogi.Color(lila.common.ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,
@@ -189,8 +189,8 @@ object Challenge {
       rematchOf: Option[String]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
-      case "sente" => ColorChoice.Sente  -> chess.Sente
-      case "gote"  => ColorChoice.Gote   -> chess.Gote
+      case "sente" => ColorChoice.Sente  -> shogi.Sente
+      case "gote"  => ColorChoice.Gote   -> shogi.Gote
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {

@@ -1,7 +1,7 @@
 package controllers
 
-import chess.format.Forsyth
-import chess.Situation
+import shogi.format.Forsyth
+import shogi.Situation
 import play.api.libs.json._
 
 import lila.app._
@@ -10,7 +10,7 @@ import views._
 final class Editor(env: Env) extends LilaController(env) {
 
   private lazy val positionsJson = lila.common.String.html.safeJsonValue {
-    JsArray(chess.StartingPosition.all map { p =>
+    JsArray(shogi.StartingPosition.all map { p =>
       Json.obj(
         "eco"  -> p.eco,
         "name" -> p.name,
@@ -57,7 +57,7 @@ final class Editor(env: Env) extends LilaController(env) {
 
   private def readFen(fen: Option[String]): Situation =
     fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(
-      chess.variant.Standard
+      shogi.variant.Standard
     )
 
   def game(id: String) =
@@ -65,7 +65,7 @@ final class Editor(env: Env) extends LilaController(env) {
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "sente")
-          else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
+          else routes.Editor.load(get("fen") | (shogi.format.Forsyth >> game.shogi))
         }
       }
     }

@@ -1,8 +1,8 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
-import chess.opening._
-import chess.{ Color, Status }
+import shogi.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
+import shogi.opening._
+import shogi.{ Color, Status }
 
 final class Annotator(netDomain: lila.common.config.NetDomain) {
 
@@ -22,7 +22,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
     }
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
-    lila.game.StatusText(status, winner, chess.variant.Standard) match {
+    lila.game.StatusText(status, winner, shogi.variant.Standard) match {
       case ""   => p
       case text => p.updateLastPly(_.copy(result = text.some))
     }

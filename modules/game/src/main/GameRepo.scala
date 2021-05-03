@@ -2,8 +2,8 @@ package lila.game
 
 import lila.common.ThreadLocalRandom
 
-import chess.format.{ FEN, Forsyth }
-import chess.{ Color, Status }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
@@ -271,14 +271,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $doc(
         F.id -> game.id,
         $or(
-          holdAlertField(chess.Sente) $exists true,
-          holdAlertField(chess.Gote) $exists true
+          holdAlertField(shogi.Sente) $exists true,
+          holdAlertField(shogi.Gote) $exists true
         )
       ),
       $doc(
         F.id                        -> false,
-        holdAlertField(chess.Sente) -> true,
-        holdAlertField(chess.Gote)  -> true
+        holdAlertField(shogi.Sente) -> true,
+        holdAlertField(shogi.Gote)  -> true
       )
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>
@@ -345,15 +345,15 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
+  def insertDenormalized(g: Game, initialFen: Option[shogi.format.FEN] = None): Funit = {
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
-        g.copy(mode = chess.Mode.Casual)
+        g.copy(mode = shogi.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
     val fen = initialFen.map(_.value) orElse {
       (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.chess)
+        .option(Forsyth >> g2.shogi)
         .filter(Forsyth.initial !=)
     }
     val checkInHours =
@@ -395,7 +395,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def initialFen(game: Game): Fu[Option[FEN]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => FEN(Forsyth.initial).some
+      case None if game.variant == shogi.variant.Chess960 => FEN(Forsyth.initial).some
       case fen                                            => fen
     }
     else fuccess(none)

@@ -3,9 +3,9 @@ package lila.game
 import org.joda.time.DateTime
 import scala.util.Try
 
-import chess.variant.Variant
-import chess.{ ToOptionOpsFromOption => _, _ }
-import chess.format.Uci
+import shogi.variant.Variant
+import shogi.{ ToOptionOpsFromOption => _, _ }
+import shogi.format.Uci
 import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray
@@ -278,7 +278,7 @@ object BinaryFormat {
     }
 
     // cache standard start position
-    val standard = write(Board.init(chess.variant.Standard).pieces)
+    val standard = write(Board.init(shogi.variant.Standard).pieces)
 
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match {

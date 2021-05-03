@@ -1,9 +1,9 @@
 package lila.evalCache
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import play.api.libs.json._
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.socket._
 import lila.user.User
 

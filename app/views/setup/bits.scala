@@ -18,9 +18,9 @@ private object bits {
     val handicapChoices: List[SelectChoice] =
       List(
         ("", trans.selectHandicap.txt(), None),
-        (chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))
+        (shogi.StartingPosition.initial.fen, "平手 - Even", Some("default"))
       ) ++
-        chess.StartingPosition.categories(0).positions.map { v =>
+        shogi.StartingPosition.categories(0).positions.map { v =>
           (v.fen, v.fullName, None)
         }
     val url = form("fen").value.fold(routes.Editor.index())(routes.Editor.load).url
@@ -140,7 +140,7 @@ private object bits {
             trans.minutesPerSide(),
             ": ",
             span(
-              chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString
+              shogi.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString
             ),
             renderInput(form("time"))
           ),

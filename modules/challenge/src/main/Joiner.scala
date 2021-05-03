@@ -2,9 +2,9 @@ package lila.challenge
 
 import scala.util.chaining._
 
-import chess.format.Forsyth
-import chess.format.Forsyth.SituationPlus
-import chess.{ Color, Mode, Situation }
+import shogi.format.Forsyth
+import shogi.format.Forsyth.SituationPlus
+import shogi.{ Color, Mode, Situation }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 
@@ -20,30 +20,30 @@ final private class Joiner(
       case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
-          def makeChess(variant: chess.variant.Variant): chess.Game =
-            chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
+          def makeChess(variant: shogi.variant.Variant): shogi.Game =
+            shogi.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
           val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap { fen =>
-            Forsyth.<<<@(chess.variant.FromPosition, fen.value)
+            Forsyth.<<<@(shogi.variant.FromPosition, fen.value)
           }
-          val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
+          val (shogiGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>
-              val game = chess.Game(
+              val game = shogi.Game(
                 situation = s,
                 turns = sit.turns,
                 startedAtTurn = sit.turns,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
+              if (Forsyth.>>(game) == Forsyth.initial) makeChess(shogi.variant.Standard) -> none
               else game                                                                  -> baseState
           }
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game
             .make(
-              chess = chessGame,
-              sentePlayer = Player.make(chess.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
-              gotePlayer = Player.make(chess.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
-              mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
+              shogi = shogiGame,
+              sentePlayer = Player.make(shogi.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
+              gotePlayer = Player.make(shogi.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
+              mode = if (shogiGame.board.variant.fromPosition) Mode.Casual else c.mode,
               source = Source.Friend,
               daysPerTurn = c.daysPerTurn,
               pgnImport = None
@@ -52,11 +52,11 @@ final private class Joiner(
             .pipe { g =>
               state.fold(g) { case sit @ SituationPlus(Situation(board, _), _) =>
                 g.copy(
-                  chess = g.chess.copy(
+                  shogi = g.shogi.copy(
                     situation = g.situation.copy(
                       board = g.board.copy(
                         history = board.history,
-                        variant = chess.variant.FromPosition
+                        variant = shogi.variant.FromPosition
                       )
                     ),
                     turns = sit.turns

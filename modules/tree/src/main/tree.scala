@@ -2,13 +2,13 @@ package lila.tree
 
 import play.api.libs.json._
 
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair }
-import chess.opening.FullOpening
-import chess.{ Data, Pos, Piece => ChessPiece }
-import chess.variant.Standard
+import shogi.format.pgn.{ Glyph, Glyphs }
+import shogi.format.{ Uci, UciCharPair }
+import shogi.opening.FullOpening
+import shogi.{ Data, Pos, Piece => ChessPiece }
+import shogi.variant.Standard
 
-import chess.Centis
+import shogi.Centis
 
 sealed trait Node {
   def ply: Int
@@ -36,7 +36,7 @@ sealed trait Node {
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = chess.Color(ply % 2 == 0)
+  def color = shogi.Color(ply % 2 == 0)
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)
@@ -196,7 +196,7 @@ object Node {
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[chess.Pocket] = OWrites { v =>
+  implicit private val crazyhousePocketWriter: OWrites[shogi.Pocket] = OWrites { v =>
     JsObject(
       Data.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -209,7 +209,7 @@ object Node {
     Json.obj("pockets" -> List(v.pockets.sente, v.pockets.gote))
   }
 
-  implicit val openingWriter: OWrites[chess.opening.FullOpening] = OWrites { o =>
+  implicit val openingWriter: OWrites[shogi.opening.FullOpening] = OWrites { o =>
     Json.obj(
       "eco"  -> o.eco,
       "name" -> o.name

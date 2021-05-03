@@ -40,7 +40,7 @@ final class Messenger(api: ChatApi) {
         api.userChat.write(Chat.Id(gameId.value), userId, text, publicSource = none, _.Round).some
     }
 
-  def owner(gameId: Game.Id, anonColor: chess.Color, text: String): Unit =
+  def owner(gameId: Game.Id, anonColor: shogi.Color, text: String): Unit =
     api.playerChat.write(Chat.Id(gameId.value), anonColor, text, _.Round)
 
   def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Unit =

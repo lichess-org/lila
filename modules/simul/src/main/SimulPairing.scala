@@ -5,18 +5,18 @@ import lila.game.IdGenerator
 final case class SimulPairing(
     player: SimulPlayer,
     gameId: String,
-    status: chess.Status,
+    status: shogi.Status,
     wins: Option[Boolean],
-    hostColor: chess.Color
+    hostColor: shogi.Color
 ) {
 
-  def finished = status >= chess.Status.Aborted
+  def finished = status >= shogi.Status.Aborted
   def ongoing  = !finished
 
   def is(userId: String): Boolean     = player is userId
   def is(other: SimulPlayer): Boolean = player is other
 
-  def finish(s: chess.Status, w: Option[String]) =
+  def finish(s: shogi.Status, w: Option[String]) =
     copy(
       status = s,
       wins = w map player.is
@@ -34,8 +34,8 @@ private[simul] object SimulPairing {
     new SimulPairing(
       player = player,
       gameId = IdGenerator.uncheckedGame,
-      status = chess.Status.Created,
+      status = shogi.Status.Created,
       wins = none,
-      hostColor = chess.Sente
+      hostColor = shogi.Sente
     )
 }

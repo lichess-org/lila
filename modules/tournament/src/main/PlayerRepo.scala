@@ -169,7 +169,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     game.twoUserIds ?? { case (s, g) =>
       teamsOfPlayers(tourId, List(s, g)).dmap(_.toMap) map { m =>
         (m.get(s) |@| m.get(g)).tupled ?? { case (st, gt) =>
-          TeamBattle.TeamVs(chess.Color.Map(st, gt)).some
+          TeamBattle.TeamVs(shogi.Color.Map(st, gt)).some
         }
       }
     }

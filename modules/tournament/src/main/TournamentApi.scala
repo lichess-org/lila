@@ -76,7 +76,7 @@ final class TournamentApi(
       password = setup.password,
       variant = setup.realVariant,
       position =
-        DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
+        DataForm.startingPosition(setup.position | shogi.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -116,7 +116,7 @@ final class TournamentApi(
       password = data.password,
       position =
         if (old.isCreated || !old.position.initial)
-          DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
+          DataForm.startingPosition(position | shogi.StartingPosition.initial.fen, realVariant)
         else old.position,
       noBerserk = !(~berserkable),
       noStreak = !(~streakable),
@@ -469,7 +469,7 @@ final class TournamentApi(
     } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
-    if (game.status == chess.Status.NoStart) for {
+    if (game.status == shogi.Status.NoStart) for {
       tourId <- game.tournamentId
       player <- game.playerWhoDidNotMove
       userId <- player.userId

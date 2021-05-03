@@ -1,8 +1,8 @@
 package lila.game
 
-import chess.format.Uci
-import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
-import chess.variant.{ Standard }
+import shogi.format.Uci
+import shogi.{ variant => _, ToOptionOpsFromOption => _, _ }
+import shogi.variant.{ Standard }
 import lila.db.ByteArray
 
 sealed trait PgnStorage
@@ -56,9 +56,9 @@ private object PgnStorage {
   //       )
   //     }
   //
-  //   private def chessPos(sq: Integer): Option[Pos] =
+  //   private def shogiPos(sq: Integer): Option[Pos] =
   //     Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
-  //   private def chessRole(role: JavaRole): Role =
+  //   private def shogiRole(role: JavaRole): Role =
   //     role match {
   //       case JavaRole.PAWN   => Pawn
   //       case JavaRole.KNIGHT => Knight
@@ -67,7 +67,7 @@ private object PgnStorage {
   //       case JavaRole.KING   => King
   //       case _ => Lance
   //     }
-  //   private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.sente), chessRole(piece.role))
+  //   private def shogiPiece(piece: JavaPiece): Piece = Piece(Color(piece.sente), shogiRole(piece.role))
   // }
 
   case class Decoded(

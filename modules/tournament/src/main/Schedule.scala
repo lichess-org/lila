@@ -1,7 +1,7 @@
 package lila.tournament
 
-import chess.StartingPosition
-import chess.variant.Variant
+import shogi.StartingPosition
+import shogi.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 
@@ -212,7 +212,7 @@ object Schedule {
         case (Blitz, HyperRapid) | (HyperRapid, Blitz)   => true
         case _                                           => false
       }
-    def fromClock(clock: chess.Clock.Config) = {
+    def fromClock(clock: shogi.Clock.Config) = {
       val time = clock.estimateTotalSeconds
       if (time < 60) UltraBullet
       else if (time < 180) HyperBullet
@@ -243,7 +243,7 @@ object Schedule {
 
   private[tournament] def durationFor(s: Schedule): Int = {
     import Freq._, Speed._
-    import chess.variant._
+    import shogi.variant._
 
     (s.freq, s.variant, s.speed) match {
 
@@ -302,9 +302,9 @@ object Schedule {
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
-    import chess.variant._
+    import shogi.variant._
 
-    val TC = chess.Clock.Config
+    val TC = shogi.Clock.Config
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.

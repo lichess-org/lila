@@ -2,8 +2,8 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.format.{ FEN, Forsyth }
-import chess.{ Clock, Color, Data, Pocket }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Clock, Color, Data, Pocket }
 import lila.common.Json.jodaWrites
 
 final class JsonView(rematches: Rematches) {
@@ -18,11 +18,11 @@ final class JsonView(rematches: Rematches) {
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "initialFen"    -> initialFen.|(FEN(chess.format.Forsyth.initial)),
-        "fen"           -> (Forsyth >> game.chess),
+        "initialFen"    -> initialFen.|(FEN(shogi.format.Forsyth.initial)),
+        "fen"           -> (Forsyth >> game.shogi),
         "player"        -> game.turnColor,
         "turns"         -> game.turns,
-        "startedAtTurn" -> game.chess.startedAtTurn,
+        "startedAtTurn" -> game.shogi.startedAtTurn,
         "source"        -> game.source,
         "status"        -> game.status,
         "createdAt"     -> game.createdAt
@@ -38,7 +38,7 @@ final class JsonView(rematches: Rematches) {
 
 object JsonView {
 
-  implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
+  implicit val statusWrites: OWrites[shogi.Status] = OWrites { s =>
     Json.obj(
       "id"   -> s.id,
       "name" -> s.name
@@ -90,7 +90,7 @@ object JsonView {
     )
   }
 
-  implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>
+  implicit val variantWriter: OWrites[shogi.variant.Variant] = OWrites { v =>
     Json.obj(
       "key"   -> v.key,
       "name"  -> v.name,
@@ -122,7 +122,7 @@ object JsonView {
     )
   }
 
-  implicit val openingWriter: OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
+  implicit val openingWriter: OWrites[shogi.opening.FullOpening.AtPly] = OWrites { o =>
     Json.obj(
       "eco"  -> o.opening.eco,
       "name" -> o.opening.name,
@@ -130,7 +130,7 @@ object JsonView {
     )
   }
 
-  implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
+  implicit val divisionWriter: OWrites[shogi.Division] = OWrites { o =>
     Json.obj(
       "middle" -> o.middle,
       "end"    -> o.end

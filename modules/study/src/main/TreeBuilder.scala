@@ -1,18 +1,18 @@
 package lila.study
 
-import chess.opening._
-import chess.variant.Variant
+import shogi.opening._
+import shogi.variant.Variant
 import lila.tree
 
 object TreeBuilder {
 
-  private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
+  private val initialStandardDests = shogi.Game(shogi.variant.Standard).situation.destinations
 
   def apply(root: Node.Root, variant: Variant): tree.Root = {
     val dests =
-      if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
+      if (variant.standard && root.fen.value == shogi.format.Forsyth.initial) initialStandardDests
       else {
-        val sit = chess.Game(variant.some, root.fen.value.some).situation
+        val sit = shogi.Game(variant.some, root.fen.value.some).situation
         sit.playable(false) ?? sit.destinations
       }
     makeRoot(root, variant).copy(dests = dests.some)

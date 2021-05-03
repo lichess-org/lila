@@ -1,8 +1,8 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
-import chess.variant.Variant
+import shogi.{ Mode, Speed }
+import shogi.variant.Variant
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
@@ -134,7 +134,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoices(encode: Variant => String)(implicit lang: Lang): List[SelectChoice] =
     List(
-      (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
+      (encode(shogi.variant.Standard), trans.standard.txt(), shogi.variant.Standard.title.some)
     )
 
   def translatedVariantChoicesWithVariants(implicit lang: Lang): List[SelectChoice] =
@@ -148,24 +148,24 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
     translatedVariantChoices
-  //variantTupleId(chess.variant.Chess960) :+
-  //variantTupleId(chess.variant.FromPosition)
+  //variantTupleId(shogi.variant.Chess960) :+
+  //variantTupleId(shogi.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit lang: Lang) =
     translatedVariantChoices :+
-      //variantTupleId(chess.variant.Crazyhouse) :+
-      //variantTupleId(chess.variant.Chess960) :+
-      //variantTupleId(chess.variant.KingOfTheHill) :+
-      //variantTupleId(chess.variant.ThreeCheck) :+
-      //variantTupleId(chess.variant.Antichess) :+
-      //variantTupleId(chess.variant.Atomic) :+
-      //variantTupleId(chess.variant.Horde) :+
-      //variantTupleId(chess.variant.RacingKings) :+
-      variantTupleId(chess.variant.FromPosition)
+      //variantTupleId(shogi.variant.Crazyhouse) :+
+      //variantTupleId(shogi.variant.Chess960) :+
+      //variantTupleId(shogi.variant.KingOfTheHill) :+
+      //variantTupleId(shogi.variant.ThreeCheck) :+
+      //variantTupleId(shogi.variant.Antichess) :+
+      //variantTupleId(shogi.variant.Atomic) :+
+      //variantTupleId(shogi.variant.Horde) :+
+      //variantTupleId(shogi.variant.RacingKings) :+
+      variantTupleId(shogi.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =
     translatedVariantChoicesWithVariants :+
-      variantTupleId(chess.variant.FromPosition)
+      variantTupleId(shogi.variant.FromPosition)
 
   def translatedSpeedChoices(implicit lang: Lang) =
     Speed.limited map { s =>

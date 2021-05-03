@@ -67,7 +67,7 @@ final class Page(
           views.html.site.variant.home(doc, resolver)
         },
         api = _ =>
-          Ok(JsArray(chess.variant.Variant.all.map { v =>
+          Ok(JsArray(shogi.variant.Variant.all.map { v =>
             Json.obj(
               "id"   -> v.id,
               "key"  -> v.key,
@@ -80,7 +80,7 @@ final class Page(
   def variant(key: String) =
     Open { implicit ctx =>
       (for {
-        variant  <- chess.variant.Variant.byKey get key
+        variant  <- shogi.variant.Variant.byKey get key
         perfType <- lila.rating.PerfType byVariant variant
       } yield OptionOk(prismicC getVariant variant) { case (doc, resolver) =>
         views.html.site.variant.show(doc, resolver, variant, perfType)

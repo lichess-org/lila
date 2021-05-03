@@ -8,8 +8,8 @@ import play.api.libs.ws.WSClient
 import lila.common.Maths
 import lila.common.config.BaseUrl
 
-import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
-import chess.format.{ FEN, Forsyth, Uci }
+import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
+import shogi.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
     ws: WSClient,
@@ -45,7 +45,7 @@ final class GifExport(
 
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> (Forsyth >> game.chess),
+      "fen"         -> (Forsyth >> game.shogi),
       "sente"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
       "gote"        -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
       "orientation" -> game.firstColor.name
@@ -119,7 +119,7 @@ final class GifExport(
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(games: List[((ShogiGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
     games match {
       case Nil =>
         arr

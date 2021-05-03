@@ -137,7 +137,7 @@ object layout {
 
   private lazy val botImage = img(
     src := staticUrl("images/icons/bot.png"),
-    title := "Robot chess",
+    title := "Robot shogi",
     style :=
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.game.Game
 import lila.round.JsonView.WithFlags
 
@@ -23,7 +23,7 @@ private object GameToRoot {
   private def endComment(game: Game) =
     game.finished option {
       import lila.tree.Node.Comment
-      val result = chess.Color.showResult(game.winnerColor)
+      val result = shogi.Color.showResult(game.winnerColor)
       val status = lila.game.StatusText(game)
       val text   = s"$result $status"
       Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)

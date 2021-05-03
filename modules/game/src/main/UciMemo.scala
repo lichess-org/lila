@@ -3,7 +3,7 @@ package lila.game
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
-import chess.format.UciDump
+import shogi.format.UciDump
 
 final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -19,7 +19,7 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
     val current = ~cache.getIfPresent(game.id)
     cache.put(game.id, current :+ uciMove)
   }
-  def add(game: Game, move: chess.MoveOrDrop): Unit =
+  def add(game: Game, move: shogi.MoveOrDrop): Unit =
     add(game, UciDump.move(game.variant)(move))
 
   def set(game: Game, uciMoves: Seq[String]) =

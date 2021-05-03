@@ -44,7 +44,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       .cursor[Challenge]()
       .list()
 
-  def setChallenger(c: Challenge, color: Option[chess.Color]) =
+  def setChallenger(c: Challenge, color: Option[shogi.Color]) =
     coll.update
       .one(
         $id(c.id),

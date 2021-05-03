@@ -6,8 +6,8 @@ import play.api.data.Forms._
 import play.api.data.validation
 import play.api.data.validation.{ Constraint, Constraints }
 
-import chess.Mode
-import chess.StartingPosition
+import shogi.Mode
+import shogi.StartingPosition
 import lila.common.Form._
 import lila.hub.LightTeam._
 import lila.user.User
@@ -26,7 +26,7 @@ final class DataForm {
       minutes = minuteDefault,
       waitMinutes = waitMinuteDefault.some,
       startDate = none,
-      variant = chess.variant.Standard.id.toString.some,
+      variant = shogi.variant.Standard.id.toString.some,
       position = StartingPosition.initial.fen.some,
       password = None,
       mode = none,
@@ -111,14 +111,14 @@ final class DataForm {
 
 object DataForm {
 
-  import chess.variant._
+  import shogi.variant._
 
   val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
     (2 to 7 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   }.map(_.toDouble)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
-    chess.Clock.Config(l * 60 toInt, 0, 0, 1).limitString + {
+    shogi.Clock.Config(l * 60 toInt, 0, 0, 1).limitString + {
       if (l <= 1) " minute" else " minutes"
     }
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
@@ -187,9 +187,9 @@ private[tournament] case class TournamentSetup(
 
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
-  def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
+  def realVariant = variant.flatMap(DataForm.guessVariant) | shogi.variant.Standard
 
-  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
+  def clockConfig = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
 
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||

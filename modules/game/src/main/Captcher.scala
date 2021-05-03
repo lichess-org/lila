@@ -2,9 +2,9 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
-import chess.format.pgn.{ Sans, Tags }
-import chess.format.{ pgn, Forsyth }
-import chess.{ Game => ChessGame }
+import shogi.format.pgn.{ Sans, Tags }
+import shogi.format.{ pgn, Forsyth }
+import shogi.{ Game => ShogiGame }
 import scala.util.Success
 import scalaz.Validation.FlatMap._
 import scalaz.NonEmptyList
@@ -83,7 +83,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         }
       } yield Captcha(game.id, fen(rewinded), rewinded.player.sente, solutions, moves = moves)
 
-    private def solve(game: ChessGame): Option[Captcha.Solutions] =
+    private def solve(game: ShogiGame): Option[Captcha.Solutions] =
       game.situation.moves.view
         .flatMap { case (_, moves) =>
           moves filter { move =>
@@ -94,7 +94,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         s"${move.orig} ${move.dest}"
       } toNel
 
-    private def rewind(moves: PgnMoves): Option[ChessGame] =
+    private def rewind(moves: PgnMoves): Option[ShogiGame] =
       pgn.Reader
         .movesWithSans(
           moves,
@@ -110,6 +110,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         case _        => Nil
       }
 
-    private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
+    private def fen(game: ShogiGame): String = Forsyth >> game takeWhile (_ != ' ')
   }
 }

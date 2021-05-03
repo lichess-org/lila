@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.Uci
+import shogi.format.Uci
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
@@ -27,7 +27,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
        */
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
-      chess
+      shogi
         .Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant)
         .fold(
           fufail(_),

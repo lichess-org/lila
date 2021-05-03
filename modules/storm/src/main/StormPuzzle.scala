@@ -1,7 +1,7 @@
 package lila.storm
 
 import scalaz.NonEmptyList
-import chess.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Uci }
 
 import lila.puzzle.Puzzle
 
@@ -24,5 +24,5 @@ case class StormPuzzle(
     } yield FEN(Forsyth >> sit2)
   } err s"Can't apply puzzle $id first move"
 
-  def color = Forsyth.getColor(fen).fold[chess.Color](chess.Sente)(!_)
+  def color = Forsyth.getColor(fen).fold[shogi.Color](shogi.Sente)(!_)
 }

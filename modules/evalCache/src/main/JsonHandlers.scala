@@ -2,7 +2,7 @@ package lila.evalCache
 
 import play.api.libs.json._
 
-import chess.format.{ FEN, Uci }
+import shogi.format.{ FEN, Uci }
 import EvalCacheEntry._
 import lila.common.Json._
 import lila.tree.Eval._
@@ -39,7 +39,7 @@ object JsonHandlers {
       depth  <- d int "depth"
       pvObjs <- d objs "pvs"
       pvs    <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      variant = shogi.variant.Variant orDefault ~d.str("variant")
     } yield Input.Candidate(
       variant,
       fen,

@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import chess.format.pgn.{ Tag, Tags }
+import shogi.format.pgn.{ Tag, Tags }
 import lila.socket.Socket.Sri
 import lila.study._
 
@@ -150,7 +150,7 @@ final private class RelaySync(
         setup = Chapter.Setup(
           none,
           game.variant,
-          chess.Color.Sente
+          shogi.Color.Sente
         ),
         root = game.root,
         tags = game.tags,

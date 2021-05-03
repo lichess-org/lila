@@ -37,7 +37,7 @@ final class JsonView(
         }
       }
     }
-    implicit val variantWrites: Writes[chess.variant.Variant] = Writes { v =>
+    implicit val variantWrites: Writes[shogi.variant.Variant] = Writes { v =>
       JsString(v.key)
     }
     // writes as percentage

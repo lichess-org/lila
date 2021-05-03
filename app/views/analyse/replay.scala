@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import chess.variant.Standard
+import shogi.variant.Standard
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.utils.UriEncoding
@@ -23,7 +23,7 @@ object replay {
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       kifu: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -52,7 +52,7 @@ object replay {
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
       ),*/
-      game.variant == chess.variant.Standard option a(
+      game.variant == shogi.variant.Standard option a(
         dataIcon := "x",
         cls := "text",
         href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}",
@@ -156,7 +156,7 @@ object replay {
                     strong("Kifu"),
                     pgnLinks
                   ),
-                  game.variant == chess.variant.Standard option div(cls := "pgn")(kifu)
+                  game.variant == shogi.variant.Standard option div(cls := "pgn")(kifu)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(

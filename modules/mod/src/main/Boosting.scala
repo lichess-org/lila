@@ -1,6 +1,6 @@
 package lila.mod
 
-import chess.{ variant, Color }
+import shogi.{ variant, Color }
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User

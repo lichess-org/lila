@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.Centis
+import shogi.Centis
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 

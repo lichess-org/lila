@@ -7,8 +7,8 @@ import scala.concurrent.ExecutionContext
 
 import actorApi._
 import actorApi.round._
-import chess.format.Uci
-import chess.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
+import shogi.format.Uci
+import shogi.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
@@ -220,8 +220,8 @@ object RoundSocket {
         case _               => 1
       }
     } / {
-      import chess.variant._
-      (pov.game.chess.board.materialImbalance, pov.game.variant) match {
+      import shogi.variant._
+      (pov.game.shogi.board.materialImbalance, pov.game.variant) match {
         case (_, Antichess | Horde)                                               => 1
         case (i, _) if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
         case _                                                                    => 1
@@ -338,7 +338,7 @@ object RoundSocket {
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
       }
 
-      def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
+      def tvSelect(gameId: Game.ID, speed: shogi.Speed, data: JsObject) =
         s"tv/select $gameId ${speed.id} ${Json stringify data}"
 
       def botConnected(gameId: Game.ID, color: Color, v: Boolean) =

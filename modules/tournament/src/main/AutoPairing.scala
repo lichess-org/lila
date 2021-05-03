@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Color, Gote, Sente }
+import shogi.{ Color, Gote, Sente }
 import scala.util.chaining._
 
 import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }
@@ -24,10 +24,10 @@ final class AutoPairing(
     val clock   = tour.clock.toClock
     val game = Game
       .make(
-        chess = chess.Game(
+        shogi = shogi.Game(
           variantOption = Some {
             if (tour.position.initial) tour.variant
-            else chess.variant.FromPosition
+            else shogi.variant.FromPosition
           },
           fen = tour.position.some.filterNot(_.initial).map(_.fen)
         ) pipe { g =>

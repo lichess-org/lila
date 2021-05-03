@@ -2,16 +2,16 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.{
+import shogi.{
   Centis,
   PromotableRole,
   Pos,
   Color,
   Situation,
   Data,
-  Move => ChessMove,
-  Drop => ChessDrop,
-  Clock => ChessClock,
+  Move => ShogiMove,
+  Drop => ShogiDrop,
+  Clock => ShogiClock,
   Status
 }
 import JsonView._
@@ -102,7 +102,7 @@ object Event {
   }
   object Move {
     def apply(
-        move: ChessMove,
+        move: ShogiMove,
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
@@ -111,8 +111,8 @@ object Event {
       Move(
         orig = move.orig,
         dest = move.dest,
-        san = chess.format.pgn.Dumper(move),
-        fen = chess.format.Forsyth.exportSituation(situation),
+        san = shogi.format.pgn.Dumper(move),
+        fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion,
@@ -131,7 +131,7 @@ object Event {
   }
 
   case class Drop(
-      role: chess.Role,
+      role: shogi.Role,
       pos: Pos,
       san: String,
       fen: String,
@@ -156,7 +156,7 @@ object Event {
   }
   object Drop {
     def apply(
-        drop: ChessDrop,
+        drop: ShogiDrop,
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
@@ -165,8 +165,8 @@ object Event {
       Drop(
         role = drop.piece.role,
         pos = drop.pos,
-        san = chess.format.pgn.Dumper(drop),
-        fen = chess.format.Forsyth.exportSituation(situation),
+        san = shogi.format.pgn.Dumper(drop),
+        fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
         threefold = situation.threefoldRepetition,
         state = state,
@@ -354,7 +354,7 @@ object Event {
         .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
-    def apply(clock: ChessClock): Clock =
+    def apply(clock: ShogiClock): Clock =
       Clock(
         sente = clock remainingTime Color.Sente,
         gote = clock remainingTime Color.Gote,

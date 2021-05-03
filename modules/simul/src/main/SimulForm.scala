@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Constraints }
 import lila.user.User
 
-import chess.StartingPosition
+import shogi.StartingPosition
 import lila.common.Form._
 
 object SimulForm {
@@ -78,7 +78,7 @@ object SimulForm {
         "variants" -> list {
           number.verifying(
             Set(
-              chess.variant.Standard.id
+              shogi.variant.Standard.id
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
@@ -94,7 +94,7 @@ object SimulForm {
       clockByoyomi = clockByoyomiDefault,
       periods = periodsDefault,
       clockExtra = clockExtraDefault,
-      variants = List(chess.variant.Standard.id),
+      variants = List(shogi.variant.Standard.id),
       position = StartingPosition.initial.fen.some,
       color = colorDefault,
       text = "",
@@ -107,7 +107,7 @@ object SimulForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  def startingPosition(fen: String, variant: chess.variant.Variant): StartingPosition =
+  def startingPosition(fen: String, variant: shogi.variant.Variant): StartingPosition =
     Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
 
   def setText = Form(single("text" -> text))

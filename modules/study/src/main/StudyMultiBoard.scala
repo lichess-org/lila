@@ -1,9 +1,9 @@
 package lila.study
 
 import BSONHandlers._
-import chess.Color
-import chess.format.pgn.Tags
-import chess.format.{ FEN, Uci }
+import shogi.Color
+import shogi.format.pgn.Tags
+import shogi.format.{ FEN, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import JsonView._
 import play.api.libs.json._

@@ -1,6 +1,6 @@
 package lila.storm
 
-import chess.format.{ FEN, Uci }
+import shogi.format.{ FEN, Uci }
 import reactivemongo.api.bson._
 
 import lila.db.dsl._

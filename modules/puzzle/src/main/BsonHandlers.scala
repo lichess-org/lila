@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import chess.format.{ FEN, Uci }
+import shogi.format.{ FEN, Uci }
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 

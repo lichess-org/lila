@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.Glyph
+import shogi.format.pgn.Glyph
 import lila.tree.Eval._
 import scala.util.chaining._
 

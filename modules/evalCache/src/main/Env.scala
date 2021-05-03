@@ -47,7 +47,7 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = { case "eval-cache" :: "drop" :: fenParts =>
-        api.drop(chess.variant.Standard, chess.format.FEN(fenParts mkString " ")) inject "done!"
+        api.drop(shogi.variant.Standard, shogi.format.FEN(fenParts mkString " ")) inject "done!"
       }
     }
 }

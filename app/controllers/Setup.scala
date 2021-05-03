@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Results
 import scala.concurrent.duration._
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }

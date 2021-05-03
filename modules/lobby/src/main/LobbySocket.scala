@@ -280,7 +280,7 @@ private object LobbySocket {
       def pairings(pairings: List[PoolApi.Pairing]) = {
         val redirs = for {
           pairing <- pairings
-          color   <- chess.Color.all
+          color   <- shogi.Color.all
           sri    = pairing sri color
           fullId = pairing.game fullIdOf color
         } yield s"$sri:$fullId"

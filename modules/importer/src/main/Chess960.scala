@@ -1,6 +1,6 @@
 package lila.importer
 
-import chess._
+import shogi._
 
 private object Chess960 {
 

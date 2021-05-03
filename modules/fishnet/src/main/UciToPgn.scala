@@ -1,8 +1,8 @@
 package lila.fishnet
 
-import chess.format.pgn.Dumper
-import chess.format.Uci
-import chess.{ Drop, Move, Replay, Situation }
+import shogi.format.pgn.Dumper
+import shogi.format.Uci
+import shogi.{ Drop, Move, Replay, Situation }
 import scalaz.Validation.success
 import scalaz.Validation.FlatMap._
 

@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.Color
+import shogi.Color
 
 case class PlayerAssessments(
     sente: Option[PlayerAssessment],

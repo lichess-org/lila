@@ -147,7 +147,7 @@ final class Round(
     }
 
   private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] =
-    chess.Color(color) ?? {
+    shogi.Color(color) ?? {
       env.round.proxyRepo.pov(gameId, _)
     }
 
@@ -156,7 +156,7 @@ final class Round(
   ): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.gote =>
+      case _ if pov.game.variant == shogi.variant.RacingKings && pov.color.gote =>
         Redirect(routes.Round.watcher(pov.gameId, "sente")).fuccess
       case _ =>
         negotiate(
@@ -312,7 +312,7 @@ final class Round(
         Redirect(
           "%s?fen=%s#%s".format(
             routes.Lobby.home(),
-            get("fen") | (chess.format.Forsyth >> game.chess),
+            get("fen") | (shogi.format.Forsyth >> game.shogi),
             mode
           )
         )
@@ -336,7 +336,7 @@ final class Round(
   def mini(gameId: String, color: String) =
     Open { implicit ctx =>
       OptionOk(
-        chess.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
+        shogi.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
           .pov(gameId, color)
       )(html.game.bits.mini)
     }

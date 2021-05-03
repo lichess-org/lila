@@ -3,7 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 import org.joda.time.DateTime
 
-import chess.{ Clock, Gote, Sente }
+import shogi.{ Clock, Gote, Sente }
 
 import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }

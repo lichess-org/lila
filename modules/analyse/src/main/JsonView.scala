@@ -54,8 +54,8 @@ object JsonView {
   def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) =
     Json.obj(
       "id"    -> analysis.id,
-      "sente" -> player(pov.copy(color = chess.Sente))(analysis),
-      "gote"  -> player(pov.copy(color = chess.Gote))(analysis)
+      "sente" -> player(pov.copy(color = shogi.Sente))(analysis),
+      "gote"  -> player(pov.copy(color = shogi.Gote))(analysis)
     )
 
   def mobile(game: Game, analysis: Analysis) =

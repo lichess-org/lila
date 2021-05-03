@@ -59,7 +59,7 @@ final class Prismic(
       none
     }
 
-  def getVariant(variant: chess.variant.Variant) =
+  def getVariant(variant: shogi.variant.Variant) =
     prismicApi flatMap { api =>
       api
         .forms("variant")

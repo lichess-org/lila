@@ -1,14 +1,14 @@
 package lila.setup
 
-import chess.Clock
-import chess.format.{ FEN, Forsyth }
-import chess.variant.FromPosition
+import shogi.Clock
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.FromPosition
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.game.PerfPicker
 
 final case class ApiConfig(
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     clock: Option[Clock.Config],
     days: Option[Int],
     rated: Boolean,
@@ -21,7 +21,7 @@ final case class ApiConfig(
 
   def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
+  def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, days)
 
   def validFen =
     variant != FromPosition || {
@@ -30,7 +30,7 @@ final case class ApiConfig(
       }
     }
 
-  def mode = chess.Mode(rated)
+  def mode = shogi.Mode(rated)
 
   def autoVariant =
     if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
@@ -51,7 +51,7 @@ object ApiConfig extends BaseHumanConfig {
       tok: Option[String]
   ) =
     new ApiConfig(
-      variant = chess.variant.Variant.orDefault(~v),
+      variant = shogi.variant.Variant.orDefault(~v),
       clock = cl,
       days = d,
       rated = r,

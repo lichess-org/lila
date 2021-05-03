@@ -78,7 +78,7 @@ case class Perf(
   def isEmpty  = latest.isEmpty
   def nonEmpty = !isEmpty
 
-  def rankable(variant: chess.variant.Variant) = glicko.rankable(variant)
+  def rankable(variant: shogi.variant.Variant) = glicko.rankable(variant)
   def clueless                                 = glicko.clueless
   def provisional                              = glicko.provisional
   def established                              = glicko.established

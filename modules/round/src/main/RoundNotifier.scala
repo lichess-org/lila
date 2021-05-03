@@ -12,7 +12,7 @@ final private class RoundNotifier(
     notifyApi: NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameEnd(game: Game)(color: chess.Color) =
+  def gameEnd(game: Game)(color: shogi.Color) =
     if (!game.aborted) game.player(color).userId foreach { userId =>
       game.perfType foreach { perfType =>
         timeline ! (Propagate(

@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }

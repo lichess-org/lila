@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.Mode
+import shogi.Mode
 
 private[setup] trait HumanConfig extends Config {
 

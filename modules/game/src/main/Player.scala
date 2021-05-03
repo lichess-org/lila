@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.Color
+import shogi.Color
 import scala.util.chaining._
 
 import lila.user.User
@@ -212,7 +212,7 @@ object Player {
               )
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.Sente)("0000")(none)(none) pipe { p =>
+      o(shogi.Sente)("0000")(none)(none) pipe { p =>
         BSONDocument(
           aiLevel           -> p.aiLevel,
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),

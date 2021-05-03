@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Color, DecayingStats, Status }
+import shogi.{ Color, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }

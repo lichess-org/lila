@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.variant.{ FromPosition, Standard, Variant }
+import shogi.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl._
 import Schedule.{ Freq, Speed }
 

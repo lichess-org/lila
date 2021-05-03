@@ -1,7 +1,7 @@
 package lila.round
 
-import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, Color, MoveMetrics, MoveOrDrop, Status }
+import shogi.format.{ Forsyth, Uci }
+import shogi.{ Centis, Color, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
@@ -123,14 +123,14 @@ final private class Player(
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] = {
     (uci match {
       case Uci.Move(orig, dest, prom) => {
-        game.chess(orig, dest, prom, metrics) map {
+        game.shogi(orig, dest, prom, metrics) map {
           case (ncg, move) => {
             ncg -> (Left(move): MoveOrDrop)
           }
         }
       }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
+        game.shogi.drop(role, pos, metrics) map { case (ncg, drop) =>
           ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
@@ -139,9 +139,9 @@ final private class Player(
             c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
           ) =>
         Flagged
-      case (newChessGame, moveOrDrop) =>
+      case (newShogiGame, moveOrDrop) =>
         MoveApplied(
-          game.update(newChessGame, moveOrDrop, blur),
+          game.update(newShogiGame, moveOrDrop, blur),
           moveOrDrop
         )
     }

@@ -257,7 +257,7 @@ object SwissJson {
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
     Json.obj(
       "id"       -> b.game.id,
-      "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
+      "fen"      -> (shogi.format.Forsyth exportBoard b.game.board),
       "lastMove" -> ~b.game.lastMoveKeys,
       "sente"    -> boardPlayerJson(b.board.sente),
       "gote"     -> boardPlayerJson(b.board.gote)
@@ -283,7 +283,7 @@ object SwissJson {
     JsNumber(t.value.toInt)
   }
 
-  implicit private val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+  implicit private val clockWrites: OWrites[shogi.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit"     -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds

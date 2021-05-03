@@ -4,7 +4,7 @@ import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 
-import chess.Centis
+import shogi.Centis
 import lila.common.Bus
 
 final private[round] class Drawer(

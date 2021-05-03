@@ -5,8 +5,8 @@ import lila.common.ThreadLocalRandom
 import play.api.i18n.Lang
 import scala.util.chaining._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.{ Mode, Speed, StartingPosition }
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.{ Mode, Speed, StartingPosition }
 import lila.common.Animal
 import lila.game.PerfPicker
 import lila.i18n.defaultLang
@@ -19,7 +19,7 @@ case class Tournament(
     status: Status,
     clock: ClockConfig,
     minutes: Int,
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     position: StartingPosition,
     mode: Mode,
     password: Option[String] = None,
@@ -136,7 +136,7 @@ case class Tournament(
 
   def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
-  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+  def ratingVariant = if (variant.fromPosition) shogi.variant.Standard else variant
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
@@ -156,7 +156,7 @@ object Tournament {
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       position: StartingPosition,
       mode: Mode,
       password: Option[String],

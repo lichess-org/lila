@@ -1,9 +1,9 @@
 package controllers
 
-import chess.format.Forsyth.SituationPlus
-import chess.format.{ FEN, Forsyth }
-import chess.Situation
-import chess.variant.{ Crazyhouse, FromPosition, Standard, Variant }
+import shogi.format.Forsyth.SituationPlus
+import shogi.format.{ FEN, Forsyth }
+import shogi.Situation
+import shogi.variant.{ Crazyhouse, FromPosition, Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -46,7 +46,7 @@ final class UserAnalysis(
         .filter(_.nonEmpty)
         .orElse(get("fen")) map FEN.apply
       val pov         = makePov(decodedFen, variant)
-      val orientation = get("color").flatMap(chess.Color.apply) | pov.color
+      val orientation = get("color").flatMap(shogi.Color.apply) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
         EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
@@ -64,13 +64,13 @@ final class UserAnalysis(
     Pov(
       lila.game.Game
         .make(
-          chess = chess.Game(
+          shogi = shogi.Game(
             situation = from.situation,
             turns = from.turns
           ),
-          sentePlayer = lila.game.Player.make(chess.Sente, none),
-          gotePlayer = lila.game.Player.make(chess.Gote, none),
-          mode = chess.Mode.Casual,
+          sentePlayer = lila.game.Player.make(shogi.Sente, none),
+          gotePlayer = lila.game.Player.make(shogi.Gote, none),
+          mode = shogi.Mode.Casual,
           source = lila.game.Source.Api,
           pgnImport = None
         )
@@ -82,7 +82,7 @@ final class UserAnalysis(
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
-          val pov = Pov(game, chess.Color(color == "sente"))
+          val pov = Pov(game, shogi.Color(color == "sente"))
           negotiate(
             html =
               if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
@@ -145,7 +145,7 @@ final class UserAnalysis(
               .fold(
                 err => BadRequest(jsonError(err.toString)).fuccess,
                 { case (game, fen) =>
-                  val pov = Pov(game, chess.Sente)
+                  val pov = Pov(game, shogi.Sente)
                   env.api.roundApi.userAnalysisJson(
                     pov,
                     ctx.pref,

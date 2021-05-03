@@ -2,8 +2,8 @@ package lila.study
 
 import actorApi.Who
 import akka.stream.scaladsl._
-import chess.Centis
-import chess.format.pgn.{ Glyph, Tags }
+import shogi.Centis
+import shogi.format.pgn.{ Glyph, Tags }
 import scala.concurrent.duration._
 
 import lila.chat.{ Chat, ChatApi }

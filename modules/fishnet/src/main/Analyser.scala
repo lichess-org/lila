@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import chess.format.Forsyth
+import shogi.format.Forsyth
 import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
@@ -104,7 +104,7 @@ final class Analyser(
           variant = game.variant,
           moves = moves take maxPlies mkString " "
         ),
-        startPly = game.chess.startedAtTurn,
+        startPly = game.shogi.startedAtTurn,
         sender = sender
       )
     }

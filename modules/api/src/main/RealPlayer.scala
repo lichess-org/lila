@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.pgn.{ Pgn, Tag, Tags }
+import shogi.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 

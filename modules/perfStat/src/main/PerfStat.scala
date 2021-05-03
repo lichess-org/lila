@@ -143,7 +143,7 @@ case class Count(
         case _                           => 0
       }),
       disconnects = disconnects + {
-        if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
+        if (~pov.loss && pov.game.status == shogi.Status.Timeout) 1 else 0
       }
     )
   def period = new Period(seconds * 1000L)

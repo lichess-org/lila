@@ -1,8 +1,8 @@
 package lila.tournament
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.variant.Variant
-import chess.{ Mode, StartingPosition }
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.variant.Variant
+import shogi.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
@@ -68,7 +68,7 @@ object BSONHandlers {
         id = r str "_id",
         name = r str "name",
         status = r.get[Status]("status"),
-        clock = r.get[chess.Clock.Config]("clock"),
+        clock = r.get[shogi.Clock.Config]("clock"),
         minutes = r int "minutes",
         variant = variant,
         position = position,
@@ -165,7 +165,7 @@ object BSONHandlers {
       Pairing(
         id = r str "_id",
         tourId = r str "tid",
-        status = chess.Status(r int "s") err "tournament pairing status",
+        status = shogi.Status(r int "s") err "tournament pairing status",
         user1 = user1,
         user2 = user2,
         winner = r boolO "w" map {

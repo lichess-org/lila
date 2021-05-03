@@ -4,7 +4,7 @@ import lila.common.ThreadLocalRandom.nextBoolean
 
 sealed abstract class Color(val name: String) {
 
-  def resolve: chess.Color
+  def resolve: shogi.Color
 
   def unary_! : Color
 
@@ -15,21 +15,21 @@ object Color {
 
   object Sente extends Color("sente") {
 
-    def resolve = chess.Sente
+    def resolve = shogi.Sente
 
     def unary_! = Gote
   }
 
   object Gote extends Color("gote") {
 
-    def resolve = chess.Gote
+    def resolve = shogi.Gote
 
     def unary_! = Sente
   }
 
   object Random extends Color("random") {
 
-    def resolve = chess.Color(nextBoolean())
+    def resolve = shogi.Color(nextBoolean())
 
     def unary_! = this
   }

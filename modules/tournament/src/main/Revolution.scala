@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import lila.db.dsl._
 import lila.user.User
 import lila.memo.CacheApi._

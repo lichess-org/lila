@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.user.User
 
@@ -16,7 +16,7 @@ case class SwissPairing(
   def gameId                      = id
   def players                     = List(sente, gote)
   def has(userId: User.ID)        = sente == userId || gote == userId
-  def colorOf(userId: User.ID)    = chess.Color(sente == userId)
+  def colorOf(userId: User.ID)    = shogi.Color(sente == userId)
   def opponentOf(userId: User.ID) = if (sente == userId) gote else sente
   def winner: Option[User.ID]     = (~status.toOption).map(apply)
   def isOngoing                   = status.isLeft

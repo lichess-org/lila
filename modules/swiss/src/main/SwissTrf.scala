@@ -34,7 +34,7 @@ final class SwissTrf(
         s"092 Individual: Swiss-System",
         s"102 ${baseUrl}/swiss",
         s"XXR ${swiss.settings.nbRounds}",
-        s"XXC ${chess.Color(swiss.id.value(0).toInt % 2 == 0).name}1"
+        s"XXC ${shogi.Color(swiss.id.value(0).toInt % 2 == 0).name}1"
       )
     )
 

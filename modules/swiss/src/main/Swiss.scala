@@ -1,7 +1,7 @@
 package lila.swiss
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.Speed
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
@@ -14,7 +14,7 @@ case class Swiss(
     _id: Swiss.Id,
     name: String,
     clock: ClockConfig,
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     round: SwissRound.Number, // ongoing round
     nbPlayers: Int,
     nbOngoing: Int,

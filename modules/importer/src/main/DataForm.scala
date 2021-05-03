@@ -1,8 +1,8 @@
 package lila.importer
 
-import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
-import chess.format.{ FEN, Forsyth }
-import chess.{ Color, Mode, Replay, Status }
+import shogi.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
@@ -53,14 +53,14 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
         val variant = {
           parsed.tags.variant | {
-            if (fromPosition) chess.variant.FromPosition
-            else chess.variant.Standard
+            if (fromPosition) shogi.variant.FromPosition
+            else shogi.variant.Standard
           }
         } match {
-          case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
-            chess.variant.FromPosition
-          case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
-          case chess.variant.Standard if fromPosition                => chess.variant.FromPosition
+          case shogi.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
+            shogi.variant.FromPosition
+          case shogi.variant.FromPosition if parsed.tags.fen.isEmpty => shogi.variant.Standard
+          case shogi.variant.Standard if fromPosition                => shogi.variant.FromPosition
           case v                                                     => v
         }
         val game = state.copy(situation = state.situation withVariant variant)
@@ -85,9 +85,9 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
         val dbGame = Game
           .make(
-            chess = game,
-            sentePlayer = Player.make(chess.Sente, None) withName name(_.Sente, _.SenteElo),
-            gotePlayer = Player.make(chess.Gote, None) withName name(_.Gote, _.GoteElo),
+            shogi = game,
+            sentePlayer = Player.make(shogi.Sente, None) withName name(_.Sente, _.SenteElo),
+            gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some

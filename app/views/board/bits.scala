@@ -1,6 +1,6 @@
 package views.html.board
 
-import chess.format.{ FEN, Forsyth }
+import shogi.format.{ FEN, Forsyth }
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
@@ -14,17 +14,17 @@ object bits {
 
   private val dataState = attr("data-state")
 
-  def mini(fen: chess.format.FEN, color: chess.Color = chess.Sente, lastMove: String = "")(tag: Tag): Tag =
+  def mini(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
       cls := "mini-board mini-board--init cg-wrap is2d",
       dataState := s"${fen.value},${color.name},$lastMove"
     )(cgWrapContent)
 
-  def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.Sente, lastMove: String = "") =
+  def miniSpan(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "") =
     mini(fen, color, lastMove)(span)
 
   def jsData(
-      sit: chess.Situation,
+      sit: shogi.Situation,
       fen: String,
       animationDuration: Duration
   )(implicit ctx: Context) =
@@ -33,10 +33,10 @@ object bits {
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
       "castles" -> Json.obj(
-        "K" -> (sit canCastle chess.Sente on chess.KingSide),
-        "Q" -> (sit canCastle chess.Sente on chess.QueenSide),
-        "k" -> (sit canCastle chess.Gote on chess.KingSide),
-        "q" -> (sit canCastle chess.Gote on chess.QueenSide)
+        "K" -> (sit canCastle shogi.Sente on shogi.KingSide),
+        "Q" -> (sit canCastle shogi.Sente on shogi.QueenSide),
+        "k" -> (sit canCastle shogi.Gote on shogi.KingSide),
+        "q" -> (sit canCastle shogi.Gote on shogi.QueenSide)
       ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis

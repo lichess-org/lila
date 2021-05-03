@@ -3,7 +3,7 @@ package lila.bot
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.format.Uci
+import shogi.format.Uci
 import lila.common.Bus
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }

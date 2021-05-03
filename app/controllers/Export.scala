@@ -5,7 +5,7 @@ import akka.util.ByteString
 import scala.concurrent.duration._
 import play.api.mvc.Result
 
-import chess.Color
+import shogi.Color
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov
