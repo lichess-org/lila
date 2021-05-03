@@ -234,7 +234,6 @@
   <string name="send">mrilu</string>
   <string name="incrementInSeconds">snidu se jmina</string>
   <string name="freeOnlineChess">kibro caxmati co nonsedi</string>
-  <string name="spectators">lo zgana</string>
   <plurals name="nbRated">
     <item quantity="other">nilcre %s lo co\'e</item>
   </plurals>

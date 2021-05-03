@@ -247,7 +247,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Vøkstur í sekundum</string>
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
-  <string name="spectators">Áskoðarar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s styrkismettur</item>
     <item quantity="other">%s styrkismett</item>

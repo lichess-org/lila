@@ -91,4 +91,11 @@ object chat {
       withNote option I18nKeys.notes,
       withNote option I18nKeys.typePrivateNotesHere
     )
+
+  val spectatorsFrag =
+    div(
+      cls := "chat__members none",
+      aria.live := "off",
+      aria.relevant := "additions removals text",
+    )
 }

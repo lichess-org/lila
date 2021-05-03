@@ -260,7 +260,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
-  <string name="spectators">Spectators:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rated</item>
     <item quantity="other">%s rated</item>

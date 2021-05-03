@@ -7,4 +7,20 @@
   // max-height: 9em;
   height: 100%;
   overflow: hidden;
+
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .number-container {
+    margin-bottom: 0.3em;
+    margin-right: 0.9em;
+    margin-top: -0.15em;
+
+    [data-icon] {
+      font-size: 1.1em;
+    }
+  }
 }

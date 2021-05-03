@@ -269,7 +269,6 @@
   <string name="send">Pošlji</string>
   <string name="incrementInSeconds">Dodan čas na potezo v sekundah</string>
   <string name="freeOnlineChess">Brezplačni internetni šah</string>
-  <string name="spectators">Gledalci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rangiran</item>
     <item quantity="two">%s rangirana</item>

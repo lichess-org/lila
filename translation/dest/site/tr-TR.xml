@@ -259,7 +259,6 @@
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
-  <string name="spectators">İzleyiciler</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
     <item quantity="other">%s puanlı</item>

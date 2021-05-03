@@ -200,7 +200,6 @@
   <string name="send">Alefaso</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
-  <string name="spectators">Mpijery:</string>
   <plurals name="nbRated">
     <item quantity="one">%s lalao misy naoty</item>
     <item quantity="other">%s lalao misy naoty</item>

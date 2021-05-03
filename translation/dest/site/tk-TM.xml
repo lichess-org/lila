@@ -242,7 +242,6 @@
   <string name="send">Iber</string>
   <string name="incrementInSeconds">Sekunt gatanjy</string>
   <string name="freeOnlineChess">Tölegsiz onlaýn küşt</string>
-  <string name="spectators">Tomaşaçylar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s reýtingli</item>
     <item quantity="other">%s reýtingli</item>

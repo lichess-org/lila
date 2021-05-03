@@ -41,13 +41,9 @@ export default function (ctrl: TournamentController) {
       )
     ),
     ctrl.opts.chat
-      ? h('div.chat__members.none', [
-          h('span.number', '\xa0'),
-          ' ',
-          ctrl.trans.noarg('spectators'),
-          ' ',
-          h('span.list'),
-        ])
+      ? h('div.chat__members.none', {
+          hook: onInsert(lichess.watchers),
+        })
       : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);

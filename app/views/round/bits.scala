@@ -45,17 +45,7 @@ object bits {
 
   def underchat(game: Game)(implicit ctx: Context) =
     frag(
-      div(
-        cls := "chat__members none",
-        aria.live := "off",
-        aria.relevant := "additions removals text"
-      )(
-        span(cls := "number")(nbsp),
-        " ",
-        trans.spectators.txt().replace(":", ""),
-        " ",
-        span(cls := "list")
-      ),
+      views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs) option div(cls := "round__mod")(
         game.players.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
           div(

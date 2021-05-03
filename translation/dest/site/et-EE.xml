@@ -247,7 +247,6 @@
   <string name="send">Saada</string>
   <string name="incrementInSeconds">Lisatavad sekundid</string>
   <string name="freeOnlineChess">Tasuta interneti male</string>
-  <string name="spectators">Pealtvaatajad</string>
   <plurals name="nbRated">
     <item quantity="one">%s reitinguga</item>
     <item quantity="other">%s reitinguga</item>

@@ -259,7 +259,6 @@
   <string name="send">Küldés</string>
   <string name="incrementInSeconds">Többletidő (másodpercben)</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
-  <string name="spectators">Nézők:</string>
   <plurals name="nbRated">
     <item quantity="one">%s értékelt</item>
     <item quantity="other">%s értékelt</item>

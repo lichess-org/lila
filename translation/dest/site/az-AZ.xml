@@ -259,7 +259,6 @@
   <string name="send">Göndər</string>
   <string name="incrementInSeconds">Gediş başına saniyə</string>
   <string name="freeOnlineChess">Pulsuz Onlayn Şahmat</string>
-  <string name="spectators">Tamaşaçılar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytinqli</item>
     <item quantity="other">%s reytinqli</item>

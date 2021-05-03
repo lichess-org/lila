@@ -259,7 +259,6 @@
   <string name="send">Изпрати</string>
   <string name="incrementInSeconds">Добавка в секунди</string>
   <string name="freeOnlineChess">Безплатен онлайн шах</string>
-  <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
     <item quantity="one">%s оценена</item>
     <item quantity="other">%s оценени</item>

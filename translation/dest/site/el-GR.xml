@@ -259,7 +259,6 @@
   <string name="send">Αποστολή</string>
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
-  <string name="spectators">Θεατές:</string>
   <plurals name="nbRated">
     <item quantity="one">%s βαθμολογημένο</item>
     <item quantity="other">%s βαθμολογημένα</item>

@@ -287,7 +287,6 @@
   <string name="send">Siųsti</string>
   <string name="incrementInSeconds">Sekundžių prieaugis</string>
   <string name="freeOnlineChess">Nemokami šachmatai internete</string>
-  <string name="spectators">Žiūrovai:</string>
   <plurals name="nbRated">
     <item quantity="one">%s vertinama</item>
     <item quantity="few">%s vertinamos</item>

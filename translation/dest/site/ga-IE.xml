@@ -301,7 +301,6 @@
   <string name="send">Seol</string>
   <string name="incrementInSeconds">Incrimint i soicindí</string>
   <string name="freeOnlineChess">Ficheall Saor in Aisce Ar Líne</string>
-  <string name="spectators">Lucht féachana:</string>
   <plurals name="nbRated">
     <item quantity="one">%s cluiche rátáilte</item>
     <item quantity="two">%s chluiche rátáilte</item>

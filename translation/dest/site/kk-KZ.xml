@@ -247,7 +247,6 @@
   <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
-  <string name="spectators">Көрермен:</string>
   <plurals name="nbRated">
     <item quantity="one">бағаланатын %s</item>
     <item quantity="other">бағаланатын %s</item>

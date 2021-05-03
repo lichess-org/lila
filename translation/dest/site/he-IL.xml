@@ -269,7 +269,6 @@
   <string name="send">שלח</string>
   <string name="incrementInSeconds">תוספת בשניות</string>
   <string name="freeOnlineChess">שחמט חינמי ברשת</string>
-  <string name="spectators">צופים:</string>
   <plurals name="nbRated">
     <item quantity="one">מדורג %s</item>
     <item quantity="two">מדורג %s</item>

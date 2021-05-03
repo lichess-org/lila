@@ -238,7 +238,6 @@
   <string name="send">ส่ง</string>
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
-  <string name="spectators">ผู้สังเกตการณ์:</string>
   <plurals name="nbRated">
     <item quantity="other">%s เกมที่คิดคะแนน</item>
   </plurals>

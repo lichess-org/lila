@@ -259,7 +259,6 @@
   <string name="send">അയക്കുക</string>
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
   <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
-  <string name="spectators">വീക്ഷകര്‍</string>
   <plurals name="nbRated">
     <item quantity="one">%s റേറ്റഡ്</item>
     <item quantity="other">%s റേറ്റഡ്</item>

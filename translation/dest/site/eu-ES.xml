@@ -259,7 +259,6 @@
   <string name="send">Bidali</string>
   <string name="incrementInSeconds">Segundo-gehiketa</string>
   <string name="freeOnlineChess">Doako xakea Interneten</string>
-  <string name="spectators">Ikusleak</string>
   <plurals name="nbRated">
     <item quantity="one">Sailkatutako %s</item>
     <item quantity="other">Sailkatutako %s</item>

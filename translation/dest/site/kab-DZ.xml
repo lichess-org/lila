@@ -151,7 +151,6 @@
   <string name="send">Ceyyeε</string>
   <string name="incrementInSeconds">Tifest s tisinin</string>
   <string name="freeOnlineChess">Icahen baṭel askar uqqin</string>
-  <string name="spectators">Imeshanayen:</string>
   <plurals name="nbWins">
     <item quantity="one">%s tarennawt</item>
     <item quantity="other">%s tarennawt</item>

@@ -247,7 +247,6 @@
   <string name="send">Mandare</string>
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
-  <string name="spectators">Spectatores</string>
   <plurals name="nbRated">
     <item quantity="one">%s ordinatus</item>
     <item quantity="other">%s ordinati</item>

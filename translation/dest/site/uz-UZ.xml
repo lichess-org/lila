@@ -247,7 +247,6 @@
   <string name="send">Jo\'natish</string>
   <string name="incrementInSeconds">Sekundlarda oshirish</string>
   <string name="freeOnlineChess">Bepul online shahmat</string>
-  <string name="spectators">Kuzatuvchilar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytingda</item>
     <item quantity="other">%s reytingda</item>

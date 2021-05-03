@@ -245,7 +245,6 @@
   <string name="send">发送</string>
   <string name="incrementInSeconds">每步加时（秒）</string>
   <string name="freeOnlineChess">免费在线国际象棋</string>
-  <string name="spectators">观众：</string>
   <plurals name="nbRated">
     <item quantity="other">%s 排位赛</item>
   </plurals>

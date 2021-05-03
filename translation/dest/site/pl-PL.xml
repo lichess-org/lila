@@ -287,7 +287,6 @@
   <string name="send">Wyślij</string>
   <string name="incrementInSeconds">Dodawany czas w sekundach</string>
   <string name="freeOnlineChess">Darmowe szachy online</string>
-  <string name="spectators">Widzowie:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rankingowa</item>
     <item quantity="few">%s rankingowe</item>

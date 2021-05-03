@@ -36,13 +36,9 @@ export default function (ctrl: SwissCtrl) {
       playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards),
       h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards)]),
       ctrl.opts.chat
-        ? h('div.chat__members.none', [
-            h('span.number', '\xa0'),
-            ' ',
-            ctrl.trans.noarg('spectators'),
-            ' ',
-            h('span.list'),
-          ])
+        ? h('div.chat__members.none', {
+            hook: onInsert(lichess.watchers),
+          })
         : null,
     ]
   );

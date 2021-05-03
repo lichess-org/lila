@@ -247,7 +247,6 @@
   <string name="send">भेजें</string>
   <string name="incrementInSeconds">हर चाल पर सेकंड्स की वृद्धि</string>
   <string name="freeOnlineChess">मुफ्त ऑनलाइन शतरंज</string>
-  <string name="spectators">दर्शक</string>
   <plurals name="nbRated">
     <item quantity="one">%s रेटेड खेल</item>
     <item quantity="other">%s रेटेड खेल</item>

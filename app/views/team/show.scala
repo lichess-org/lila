@@ -84,17 +84,7 @@ object show {
             ),
             (t.enabled && chatOption.isDefined) option frag(
               views.html.chat.frag,
-              div(
-                cls := "chat__members",
-                aria.live := "off",
-                aria.relevant := "additions removals text"
-              )(
-                span(cls := "number")(nbsp),
-                " ",
-                trans.spectators.txt().replace(":", ""),
-                " ",
-                span(cls := "list")
-              )
+              views.html.chat.spectatorsFrag
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(

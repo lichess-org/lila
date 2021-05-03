@@ -259,7 +259,6 @@
   <string name="send">Invia</string>
   <string name="incrementInSeconds">Incremento in secondi</string>
   <string name="freeOnlineChess">Scacchi Online Gratis</string>
-  <string name="spectators">Spettatori:</string>
   <plurals name="nbRated">
     <item quantity="one">%s classificata</item>
     <item quantity="other">%s classificate</item>

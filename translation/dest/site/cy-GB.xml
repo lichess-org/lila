@@ -219,7 +219,6 @@
   <string name="send">Anfon</string>
   <string name="incrementInSeconds">Cynyddiad (eiliadau)</string>
   <string name="freeOnlineChess">Gwyddbwyll ar-lein am ddim</string>
-  <string name="spectators">Ymwelwyr</string>
   <plurals name="nbWins">
     <item quantity="zero">Enillodd %s gêmau</item>
     <item quantity="one">Enillodd %s gêm</item>

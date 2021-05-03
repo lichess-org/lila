@@ -259,7 +259,6 @@
   <string name="send">Bişeyne</string>
   <string name="incrementInSeconds">Evqas sanîye tê zêde kirin</string>
   <string name="freeOnlineChess">Kişika Belaş a Serxet</string>
-  <string name="spectators">Temaşevan:</string>
   <plurals name="nbRated">
     <item quantity="one">%s pûan</item>
     <item quantity="other">%s puan</item>

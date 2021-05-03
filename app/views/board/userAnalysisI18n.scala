@@ -55,7 +55,6 @@ object userAnalysisI18n {
     trans.learnFromYourMistakes,
     trans.averageCentipawnLoss,
     trans.viewTheSolution,
-    trans.spectators,
     // action menu
     trans.menu,
     trans.boardEditor,

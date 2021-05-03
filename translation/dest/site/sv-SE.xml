@@ -247,7 +247,6 @@
   <string name="send">Skicka</string>
   <string name="incrementInSeconds">Tilläggssekunder</string>
   <string name="freeOnlineChess">Gratis schack på internet</string>
-  <string name="spectators">Åskådare:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rankat</item>
     <item quantity="other">%s rankade</item>

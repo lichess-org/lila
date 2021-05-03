@@ -245,7 +245,6 @@
   <string name="send">發送</string>
   <string name="incrementInSeconds">增加秒數</string>
   <string name="freeOnlineChess">免費線上國際象棋</string>
-  <string name="spectators">旁觀者：</string>
   <plurals name="nbRated">
     <item quantity="other">%s 場排位賽</item>
   </plurals>

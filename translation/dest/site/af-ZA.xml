@@ -247,7 +247,6 @@
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Inkrement in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
-  <string name="spectators">Toeskouers:</string>
   <plurals name="nbRated">
     <item quantity="one">%s gegradeer</item>
     <item quantity="other">%s gegradeer</item>

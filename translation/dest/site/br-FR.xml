@@ -272,7 +272,6 @@
   <string name="send">Kas</string>
   <string name="incrementInSeconds">Inkremant e eilennoù</string>
   <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
-  <string name="spectators">Arvester:</string>
   <plurals name="nbRated">
     <item quantity="one">%s c\'hoari renket</item>
     <item quantity="two">%s c\'hoari renket</item>

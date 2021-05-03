@@ -245,7 +245,6 @@
   <string name="send">पठाउनु</string>
   <string name="incrementInSeconds">हरेक चालमा थप सेकेण्ड</string>
   <string name="freeOnlineChess">निःशुल्क अनलाईन बुद्धिचाल</string>
-  <string name="spectators">दर्शकहरु:</string>
   <plurals name="nbRated">
     <item quantity="one">%s रेटेड</item>
     <item quantity="other">%s रेटेड</item>

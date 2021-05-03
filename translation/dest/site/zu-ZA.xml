@@ -231,7 +231,6 @@
   <string name="send">Thumela</string>
   <string name="incrementInSeconds">Ukwanda ngamasekhondi</string>
   <string name="freeOnlineChess">I-Chess Yamahhala e-Inthanethi</string>
-  <string name="spectators">Izibukeli:</string>
   <plurals name="nbRated">
     <item quantity="one">%s kulinganiswe</item>
     <item quantity="other">%s kulinganiswe</item>

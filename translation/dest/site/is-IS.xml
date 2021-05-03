@@ -242,7 +242,6 @@
   <string name="send">Senda</string>
   <string name="incrementInSeconds">Tímaaukning í sekúndum</string>
   <string name="freeOnlineChess">Ókeypis vefskák</string>
-  <string name="spectators">Áhorfendur</string>
   <plurals name="nbRated">
     <item quantity="one">%s með stigagjöf</item>
     <item quantity="other">%s með stigagjöf</item>
