@@ -259,7 +259,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillegg i sekunder per trekk</string>
   <string name="freeOnlineChess">Gratis nettsjakk</string>
-  <string name="spectators">Tilskuere:</string>
   <plurals name="nbRated">
     <item quantity="one">%s ratet</item>
     <item quantity="other">%s ratede</item>
