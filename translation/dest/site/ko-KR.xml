@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">부정행위 감지됨</string>
+  <string name="cheatDetected">부정행위 감지됨</string>
   <string name="kingInTheCenter">킹이 중앙에 도달함</string>
   <string name="threeChecks">세 번의 체크</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
@@ -820,7 +820,7 @@
   <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
   <string name="patronAccountExpired">Patron 계정 만료됨</string>
   <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
-  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
+  <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
   <string name="newPendingReview">새 대기중 리뷰</string>
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
