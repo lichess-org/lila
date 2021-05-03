@@ -259,7 +259,6 @@
   <string name="send">Enviar</string>
   <string name="incrementInSeconds">Incremento em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
-  <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
     <item quantity="one">%s partida a valer pontos</item>
     <item quantity="other">%s partidas a valer pontos</item>
