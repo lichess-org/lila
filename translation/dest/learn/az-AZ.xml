@@ -92,8 +92,7 @@ bir hərəkətdə!</string>
   <string name="checkInOneComplete">Təbriklər! Şah verdiyiniz üçün, rəqibi şahını qorumağa məcbur etdiz!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
-  <string name="outOfCheckIntro">Rəqib sizə şah verdi!
-Şahı qaçmalı və ya hücumu blok etməlisiz.</string>
+  <string name="outOfCheckIntro">Rəqib sizə şah verdi! Şahı qaçmalı və ya hücumu blok etməlisiz.</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
   <string name="theKingCannotEscapeButBlock">Şah qaça bilməz,
 lakin hücumun bloklaya bilərsiz!</string>
