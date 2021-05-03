@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting piyesa</string>
   <string name="youPlayTheBlackPieces">Nilalaro mo ang mga itim na piyesa</string>
   <string name="itsYourTurn">Turno mo na!</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Natuklasan na Mandaraya</string>
+  <string name="cheatDetected">Natuklasan na Mandaraya</string>
   <string name="kingInTheCenter">Hari sa gitna</string>
   <string name="threeChecks">Tatlong pagkacheck</string>
   <string name="raceFinished">Tapos na ang Laro</string>
@@ -848,7 +848,7 @@
   <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
   <string name="patronAccountExpired">Expired na ang Patron account</string>
   <string name="pleaseReconsiderRenewIt">Isaalang-alang niyo pong mag-renew!</string>
-  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Merong tao na nag-review ng coach profile mo.</string>
+  <string name="someoneReviewedYourCoachProfile">Merong tao na nag-review ng coach profile mo.</string>
   <string name="newPendingReview">Bagong pending na review</string>
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
