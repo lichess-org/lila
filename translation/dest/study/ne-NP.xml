@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">पाठ छोड्नुहोस्।</string>
   <string name="youAreNowAContributor">तपाई अब योगदान कर्ता हुनुभयो।</string>
   <string name="youAreNowASpectator">तपाई अब दर्शक हुनुभयो</string>
-  <string name="pgnTags">पिजिएन् ट्यागहरु</string>
+  <string name="pgnTags">PGN ट्यागहरु</string>
   <string name="like">लाईक</string>
   <string name="newTag">नयाँ ट्याग</string>
   <string name="commentThisPosition">यो पोजिसनमा कमेन्ट गर्नुहोस्।</string>
@@ -57,8 +57,8 @@
   <string name="last">अन्तिम</string>
   <string name="shareAndExport">सेयर</string>
   <string name="cloneStudy">क्लोन गर्नुहोस्</string>
-  <string name="studyPgn">पाठको पिजिएन</string>
-  <string name="chapterPgn">अध्यायको पिजिएन</string>
+  <string name="studyPgn">पाठको PGN</string>
+  <string name="chapterPgn">अध्यायको PGN</string>
   <string name="studyUrl">पाठको युआरएल</string>
   <string name="currentChapterUrl">यो अध्यायको युआरएल</string>
   <string name="startAtInitialPosition">प्रारम्भिक पोजिशनमा शुरु गर्नुहोस्</string>
