@@ -120,7 +120,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     Namer.gameVsTextBlocking(game, withRatings)(lightUser)
 
   val berserkIconSpan = iconTag("`")
-  val statusIconSpan  = i(cls := "status")
 
   def playerLink(
       player: Player,
@@ -129,15 +128,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withRating: Boolean = true,
       withDiff: Boolean = true,
       engine: Boolean = false,
-      withStatus: Boolean = false,
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
   )(implicit lang: Lang): Frag = {
-    val statusIcon =
-      if (withStatus) statusIconSpan.some
-      else if (withBerserk && player.berserk) berserkIconSpan.some
-      else none
+    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
