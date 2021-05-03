@@ -287,7 +287,6 @@
   <string name="send">Odeslat</string>
   <string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
   <string name="freeOnlineChess">Šachy online zdarma</string>
-  <string name="spectators">Diváci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s hodnocená</item>
     <item quantity="few">%s hodnocené</item>
