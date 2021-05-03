@@ -222,7 +222,6 @@
   <string name="send">გაგზავნა</string>
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
-  <string name="spectators">მაყურებლები</string>
   <plurals name="nbRated">
     <item quantity="one">%sრეიტინგული</item>
     <item quantity="other">%sრეიტინგული</item>
