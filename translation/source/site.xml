@@ -836,7 +836,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="puzzleDesc">Chess tactics trainer</string>
   <string name="important">Important</string>
   <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
-  <string name="inTheFAQ">in the F.A.Q.</string>
+  <string name="inTheFAQ">in the FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">To report a user for cheating or bad behaviour, %1$s</string>
   <string name="useTheReportForm">use the report form</string>
   <string name="toRequestSupport">To request support, %1$s</string>
