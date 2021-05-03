@@ -247,7 +247,6 @@
   <string name="send">Sendi</string>
   <string name="incrementInSeconds">Pliigo en sekundoj</string>
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
-  <string name="spectators">Spektantoj:</string>
   <plurals name="nbRated">
     <item quantity="one">%s taksaj ludoj</item>
     <item quantity="other">%s taksaj ludoj</item>
