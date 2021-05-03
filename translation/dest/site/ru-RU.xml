@@ -662,8 +662,8 @@
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
-  <string name="whiteCastlingKingside">Белые О-О</string>
-  <string name="blackCastlingKingside">Чёрные О-О</string>
+  <string name="whiteCastlingKingside">Белые O-O</string>
+  <string name="blackCastlingKingside">Чёрные O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщение на форуме</item>
     <item quantity="few">%s сообщения на форуме</item>
