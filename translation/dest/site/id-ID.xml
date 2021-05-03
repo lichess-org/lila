@@ -236,7 +236,6 @@
   <string name="send">Kirim</string>
   <string name="incrementInSeconds">Kenaikan dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
-  <string name="spectators">Penonton:</string>
   <plurals name="nbRated">
     <item quantity="other">%s dengan rating</item>
   </plurals>
