@@ -39,8 +39,10 @@
   <string name="yourRankX">你的排名: %s</string>
   <string name="waitForRematch">等候重賽</string>
   <string name="nextRace">下一場競賽</string>
+  <string name="joinRematch">再來一局</string>
   <string name="waitingToStart">等待開始</string>
   <string name="createNewGame">開始新遊戲</string>
   <string name="skip">跳過</string>
   <string name="skipHelp">每場賽可略一手棋</string>
+  <string name="skipExplanation">跳過這一步來維持您的連擊紀錄！每次遊玩只能使用一次。</string>
 </resources>
