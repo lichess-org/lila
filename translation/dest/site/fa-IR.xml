@@ -243,7 +243,6 @@
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
-  <string name="spectators">تماشاگران :</string>
   <plurals name="nbRated">
     <item quantity="one">%s بازی رسمی</item>
     <item quantity="other">%s بازی رسمی</item>
