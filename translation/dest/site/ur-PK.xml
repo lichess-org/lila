@@ -246,7 +246,6 @@
   <string name="send">ارسال کریں</string>
   <string name="incrementInSeconds">اضافہ سیکنڈوں میں</string>
   <string name="freeOnlineChess">مفت آن لائن شطرنج</string>
-  <string name="spectators">ناظرین:</string>
   <plurals name="nbRated">
     <item quantity="one">%s سنجیدہ</item>
     <item quantity="other">%s سنجیدہ</item>
