@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
   <string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
   <string name="itsYourTurn">Είναι η σειρά σας!</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Βρέθηκε απάτη</string>
+  <string name="cheatDetected">Βρέθηκε απάτη</string>
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>
@@ -861,7 +861,7 @@
   <string name="youJustBecamePatron">Μόλις γίνατε ένας Υποστηρικτής του Lichess.</string>
   <string name="patronAccountExpired">Η συνδρομή Υποστηρικτή έχει λήξει</string>
   <string name="pleaseReconsiderRenewIt">Σκεφτείτε να την ανανεώσετε!</string>
-  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
+  <string name="someoneReviewedYourCoachProfile">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
   <string name="newPendingReview">Νέα κριτική σε αναμονή</string>
   <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
   <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
