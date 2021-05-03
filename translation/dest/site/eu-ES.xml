@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
   <string name="youPlayTheBlackPieces">Zuk pieza beltzekin jokatzen duzu</string>
   <string name="itsYourTurn">Zure txanda da!</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Tranpak detektatu ditugu</string>
+  <string name="cheatDetected">Tranpak detektatu ditugu</string>
   <string name="kingInTheCenter">Erregea erdian</string>
   <string name="threeChecks">Hiru xake</string>
   <string name="raceFinished">Lasterketa bukatuta</string>
@@ -860,7 +860,7 @@
   <string name="youJustBecamePatron">Lichess babesle bihurtu zara.</string>
   <string name="patronAccountExpired">Babesle kontua iraungi egin da</string>
   <string name="pleaseReconsiderRenewIt">Berritzea aztertu ezazu!</string>
-  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">Entrenatzaile profila norbaitek errebisatu du.</string>
+  <string name="someoneReviewedYourCoachProfile">Entrenatzaile profila norbaitek errebisatu du.</string>
   <string name="newPendingReview">Berrikusketa berri egiteke</string>
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
   <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
