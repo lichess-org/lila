@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Je speelt met wit</string>
   <string name="youPlayTheBlackPieces">Je speelt met zwart</string>
   <string name="itsYourTurn">Je bent aan zet!</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">Valsspelen gedetecteerd</string>
+  <string name="cheatDetected">Valsspelen gedetecteerd</string>
   <string name="kingInTheCenter">Koning in het centrum</string>
   <string name="threeChecks">Drie keer schaak</string>
   <string name="raceFinished">De race is voorbij</string>
