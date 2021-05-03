@@ -232,7 +232,6 @@
   <string name="send">Ուղարկել</string>
   <string name="incrementInSeconds">Ավելացումը ըստ վայրկյանների</string>
   <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
-  <string name="spectators">Հանդիսատեսներ՝</string>
   <plurals name="nbRated">
     <item quantity="one">%s վարկանիշային</item>
     <item quantity="other">%s վարկանիշային</item>
