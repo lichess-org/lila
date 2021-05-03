@@ -291,7 +291,6 @@
   <string name="send">إرسال</string>
   <string name="incrementInSeconds">الزيادة بالثواني</string>
   <string name="freeOnlineChess">شطرنج مجاني على الإنترنت</string>
-  <string name="spectators">المشاهدون</string>
   <plurals name="nbRated">
     <item quantity="zero">%s مقيمة</item>
     <item quantity="one">%s مقيمة</item>
