@@ -866,6 +866,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lostAgainstTOSViolator">You lost to someone who violated the Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
-  <string name="thisGameIsRated">This game is rated</string>
   <string name="youMustXToJoinIt">You must %s to join it.</string>
 </resources>

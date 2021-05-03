@@ -749,7 +749,6 @@ val `availableInNbLanguages` = new I18nKey("availableInNbLanguages")
 val `nbSecondsToPlayTheFirstMove` = new I18nKey("nbSecondsToPlayTheFirstMove")
 val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
-val `thisGameIsRated` = new I18nKey("thisGameIsRated")
 val `youMustXToJoinIt` = new I18nKey("youMustXToJoinIt")
 
 object arena {
