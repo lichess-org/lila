@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">あなたは白です</string>
   <string name="youPlayTheBlackPieces">あなたは黒です</string>
   <string name="itsYourTurn">あなたの手番です！</string>
-  <string name="cheatDetected" comment="cheatDetected&#10;&#10;This is a game ending condition, if a player cheats while the game is ongoing. The game immediately ends.&#10;&#10;The translation should be in the passive voice as both players and spectators see it. Please keep as short as possible.">不正行為検出</string>
+  <string name="cheatDetected">不正行為検出</string>
   <string name="kingInTheCenter">キングが中央マスに入りました</string>
   <string name="threeChecks">3 回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
@@ -821,7 +821,7 @@
   <string name="youJustBecamePatron">あなたは Lichess パトロンになりました。</string>
   <string name="patronAccountExpired">パトロン期間の終了です</string>
   <string name="pleaseReconsiderRenewIt">更新をご検討ください。</string>
-  <string name="someoneReviewedYourCoachProfile" comment="someoneReviewedYourCoachProfile&#10;&#10;If you are a Lichess coach, this message notifies that someone reviewed your service on your coach profile https://lichess.org/coach">誰かがあなたのコーチ・プロフィールを審査しました。</string>
+  <string name="someoneReviewedYourCoachProfile">誰かがあなたのコーチ・プロフィールを審査しました。</string>
   <string name="newPendingReview">現在審査中</string>
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
