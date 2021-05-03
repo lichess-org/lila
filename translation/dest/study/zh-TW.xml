@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">新增日期(由舊到新)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受歡迎</string>
+  <string name="alphabetical">按字母順序</string>
   <string name="addNewChapter">加入新章節</string>
   <plurals name="nbChapters">
     <item quantity="other">第%s章</item>
