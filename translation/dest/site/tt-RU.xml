@@ -245,7 +245,6 @@
   <string name="send">Җибәрү</string>
   <string name="incrementInSeconds">Секунд кушыла</string>
   <string name="freeOnlineChess">Түләүсез Онлайн Шахмат</string>
-  <string name="spectators">Күзәтүчеләр:</string>
   <plurals name="nbRated">
     <item quantity="other">%s рейтинглы</item>
   </plurals>
