@@ -287,7 +287,6 @@
   <string name="send">Даслаць</string>
   <string name="incrementInSeconds">Дадаванне секунд за ход</string>
   <string name="freeOnlineChess">Бясплатныя шахматы онлайн</string>
-  <string name="spectators">Назіральнікі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рэйтынгавая</item>
     <item quantity="few">%s рэйтынгавыя</item>
