@@ -2,7 +2,7 @@
 <resources>
   <string name="private">sina wile e nimi pi sona ala</string>
   <string name="myStudies">pali sona mi</string>
-  <string name="noneYet">tenpo ni la ala</string>
+  <string name="noneYet">tenpo ni la ala.</string>
   <string name="hot">suli</string>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
