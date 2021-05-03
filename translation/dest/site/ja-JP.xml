@@ -561,8 +561,8 @@
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
-  <string name="whiteCastlingKingside">白　o-o</string>
-  <string name="blackCastlingKingside">黒　o-o</string>
+  <string name="whiteCastlingKingside">白　O-O</string>
+  <string name="blackCastlingKingside">黒　O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s フォーラム投稿</item>
   </plurals>
