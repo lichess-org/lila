@@ -359,7 +359,7 @@
     <item quantity="other">%s Добавени игри</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Това е шахматна CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
+  <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек.</string>
   <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
   <string name="whiteCheckmatesInOneMove">Белите на ход, мат в един ход</string>
