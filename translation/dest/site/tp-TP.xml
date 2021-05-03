@@ -259,7 +259,6 @@
   <string name="send">o pana</string>
   <string name="incrementInSeconds">tenpo sin pi tawa wan</string>
   <string name="freeOnlineChess">musi pi mani ala</string>
-  <string name="spectators">jan lukin</string>
   <plurals name="nbRated">
     <item quantity="one">musi %s li ante e nanpa wawa</item>
     <item quantity="other">musi %s li ante e nanpa wawa</item>
