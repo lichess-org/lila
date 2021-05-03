@@ -14,12 +14,10 @@ export default function watchers(element: HTMLElement) {
 
   $element.data('watched', 1);
   const $innerElement = $('<div class="chat__members__inner">').appendTo($element);
-  const $numberEl = $(
-    '<div class="number-container" title="Spectators"><span data-icon="r"></span><span class="number"></span></div>'
-  )
-    .appendTo($innerElement)
-    .find('.number');
-  const $listEl = $('<div class="list">').appendTo($innerElement);
+  const $numberEl = $('<div class="chat__members__number" data-icon="r" title="Spectators"></div>').appendTo(
+    $innerElement
+  );
+  const $listEl = $('<div>').appendTo($innerElement);
 
   lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 

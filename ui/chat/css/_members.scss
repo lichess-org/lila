@@ -10,17 +10,16 @@
 
   &__inner {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    align-items: flex-start;
   }
 
-  .number-container {
-    margin-bottom: 0.3em;
-    margin-right: 0.9em;
-    margin-top: -0.15em;
-
-    [data-icon] {
-      font-size: 1.1em;
+  &__number {
+    @extend %flex-center-nowrap;
+    margin-right: 1ch;
+    &::before {
+      font-size: 1em;
+      color: $c-font-dim;
+      margin-right: 0.2ch;
     }
   }
 }
