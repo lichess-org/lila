@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spiller med de hvite brikkene</string>
   <string name="youPlayTheBlackPieces">Du spiller med de svarte brikkene</string>
   <string name="itsYourTurn">Det er ditt trekk!</string>
+  <string name="cheatDetected">Juks oppdaget</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Tre sjakker</string>
   <string name="raceFinished">Målgang</string>
@@ -330,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
-  <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
+  <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s denne uken</string>
   <string name="mustBeInTeam">Du må være med i laget %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
@@ -594,7 +595,7 @@
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>
-  <string name="blackCastlingKingside">Svart 0-0</string>
+  <string name="blackCastlingKingside">Svart O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminnlegg</item>
     <item quantity="other">%s Foruminnlegg</item>
@@ -834,7 +835,7 @@
   <string name="puzzleDesc">Sjakktaktikktrener</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
-  <string name="inTheFAQ">i FAQ-en.</string>
+  <string name="inTheFAQ">i FAQ-en</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">For å rapportere en bruker for juks eller dårlig oppførsel, %1$s</string>
   <string name="useTheReportForm">bruk rapportskjemaet</string>
   <string name="toRequestSupport">For å få hjelp, %1$s</string>
@@ -845,9 +846,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan ikke skrive innlegg i forumene ennå. Spill noen partier!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
-  <string name="mentionedYouInX"> nevnte deg i «%1$s».</string>
-  <string name="xMentionedYouInY"> %1$s nevnte deg i «%2$s».</string>
-  <string name="invitedYouToX"> inviterte deg til «%1$s».</string>
+  <string name="mentionedYouInX">nevnte deg i «%1$s».</string>
+  <string name="xMentionedYouInY">%1$s nevnte deg i «%2$s».</string>
+  <string name="invitedYouToX">inviterte deg til «%1$s».</string>
   <string name="xInvitedYouToY">%1$s inviterte deg til «%2$s».</string>
   <string name="youAreNowPartOfTeam">Du er nå med på laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i «%1$s».</string>
