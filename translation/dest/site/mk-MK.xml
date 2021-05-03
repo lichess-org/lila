@@ -244,7 +244,6 @@
   <string name="send">Испрати</string>
   <string name="incrementInSeconds">Зголемување во секунди</string>
   <string name="freeOnlineChess">Бесплатен Онлајн Шах</string>
-  <string name="spectators">Набљудувачи</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирани игри</item>
     <item quantity="other">%s рангирани игри</item>
