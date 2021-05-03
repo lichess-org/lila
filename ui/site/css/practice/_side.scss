@@ -32,9 +32,9 @@
     opacity: 0.8;
     animation: 1.2s fat-glide ease-in-out infinite;
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
-    .fat{
+    .fat {
       animation: none;
       opacity: 0.8;
     }
