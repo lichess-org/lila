@@ -247,7 +247,6 @@
   <string name="send">Dërgo</string>
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
   <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
-  <string name="spectators">Shikues:</string>
   <plurals name="nbRated">
     <item quantity="one">%s të vlerësuara</item>
     <item quantity="other">%s të vlerësuara</item>
