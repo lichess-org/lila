@@ -158,7 +158,6 @@
   <string name="send">Йар</string>
   <string name="incrementInSeconds">Ҫеккунт инкременчӗ</string>
   <string name="freeOnlineChess">Тӳлевсӗр Онлайн Шахмат</string>
-  <string name="spectators">Сӑнавҫӑ:</string>
   <plurals name="nbWins">
     <item quantity="other">%s ҫӗнтерӳ</item>
   </plurals>
