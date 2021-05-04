@@ -18,4 +18,11 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">예, Lichess는 실제로 다른 오픈 소스 웹사이트에 영감을 주었으며 우리 %1$s, %2$s, %3$s를 사용합니다.</string>
   <string name="fairPlay">페어플레이</string>
   <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
+  <string name="ratingRefundExplanation">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
+  (예를 들어, 이 게임 이후에 레이팅이 크게 올랐다면, 환급을 받지 못하거나 일부만 받습니다.) 환급은 150포인트를 초과하지 않습니다.</string>
+  <string name="preventLeavingGameWithoutResigning">플레이어가 기권하지 않고 게임을 나가면 어떻게 되나요?</string>
+  <string name="leavingGameWithoutResigningExplanation">상대가 게임을 자주 중단/탈주하면 \"플레이 금지\" 처분을 받습니다. 이는 일시적으로 게임을 할 수 없다는 의미입니다. 이것은 프로필에 공개적으로 표시되지 않습니다. 이러한 행동이 계속된다면 금지 기간은 계속 증가하고 계정 폐쇄로 이어질 수 있습니다.</string>
+  <string name="howCanIBecomeModerator">중재자가 되려면 어떻게 하나요?</string>
+  <string name="youCannotApply">중재자 신청은 받지 않습니다. 저희가 보기에 중재자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것입니다.</string>
+  <string name="isCorrespondenceDifferent">긴 대국은 일반 체스와 다른점이 있나요?</string>
 </resources>
