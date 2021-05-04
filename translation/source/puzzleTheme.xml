@@ -96,7 +96,7 @@
   <string name="queensideAttack">Queenside attack</string>
   <string name="queensideAttackDescription">An attack of the opponent's king, after they castled on the queen side.</string>
   <string name="quietMove">Quiet move</string>
-  <string name="quietMoveDescription">A move that does not make a check or capture, but does prepare an unavoidable threat for a later move.</string>
+  <string name="quietMoveDescription">A move that does neither make a check or capture, nor an immediate threat to capture, but does prepare a more hidden unavoidable threat for a later move.</string>
   <string name="rookEndgame">Rook endgame</string>
   <string name="rookEndgameDescription">An endgame with only rooks and pawns.</string>
   <string name="sacrifice">Sacrifice</string>
