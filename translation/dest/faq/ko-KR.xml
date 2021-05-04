@@ -10,4 +10,12 @@
   <string name="whyIsLilaCalledLila">비슷하게, Lichess의 소스코드인 %1$s는 li[chess in sca]la의 약자입니다. Lichess는 대부분 직관적인 프로그래밍 언어인 %2$s로 작성되어 있습니다.</string>
   <string name="howCanIContributeToLichess">Lichess에 어떻게 기여할 수 있나요?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess는 후원자들의 기부와 자원봉사자들의 노력으로 운영됩니다.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s에 대해 알아보세요. (%2$s 포함) 자신의 시간과 기술을 Lichess를 돕는데 쓰고 싶다면 %3$s이 있습니다.</string>
+  <string name="beingAPatron">후원하는 법</string>
+  <string name="breakdownOfOurCosts">지출 내역</string>
+  <string name="otherWaysToHelp">다른 방법들</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess를 기반으로 하는 웹사이트가 있나요?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">예, Lichess는 실제로 다른 오픈 소스 웹사이트에 영감을 주었으며 우리 %1$s, %2$s, %3$s를 사용합니다.</string>
+  <string name="fairPlay">페어플레이</string>
+  <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
 </resources>
