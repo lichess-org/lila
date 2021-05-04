@@ -135,14 +135,12 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       el.oncontextmenu = callback;
       bindMobileTapHold(el, callback, ctrl.redraw);
 
-      for (const mousedownEvent of ['touchstart', 'mousedown']) {
-        el.addEventListener(mousedownEvent, (e: MouseEvent) => {
-          if (defined(e.button) && e.button !== 0) return; // only touch or left click
-          const path = eventPath(e);
-          if (path) ctrl.userJump(path);
-          ctrl.redraw();
-        });
-      }
+      el.addEventListener('click', (e: MouseEvent) => {
+        if (defined(e.button) && e.button !== 0) return; // only touch or left click
+        const path = eventPath(e);
+        if (path) ctrl.userJump(path);
+        ctrl.redraw();
+      });
     },
     postpatch: (_, vnode) => {
       if (ctrl.autoScrollRequested) {
