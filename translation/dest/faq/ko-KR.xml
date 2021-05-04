@@ -37,4 +37,11 @@
   <string name="lichessSupportChessAnd">Lichess는 일반 체스와 %1$s를 지원합니다.</string>
   <string name="eightVariants">8가지 변형 체스</string>
   <string name="whatIsACPL">평균 CP(centipawn) 손실(ACPL)은 무슨 뜻인가요?</string>
+  <string name="acplExplanation">센티폰은 체스에서 이점을 나타내는 단위입니다. 1센티폰은 폰의 가치의 1/100이며 따라서 100센티폰은 1폰입니다. 이 값은 게임에서 공식적인 역할을 하지는 않지만 플레이어에게 유용하며, 컴퓨터 체스에서 포지션 평가를 하기 위해서 필수적입니다.
+
+최고 수준 컴퓨터의 수는 0 센티폰을 잃습니다. 이보다 떨어지는 수들은 포지션 평가만큼의 센티폰 손실이 있게 됩니다.
+
+이 값은 플레이 수준의 지표로 사용될 수 있습니다. 매 수마다 잃는 센티폰이 적을 수록 더 강한 플레이입니다.
+
+Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
 </resources>
