@@ -30,7 +30,7 @@
   <string name="generateANewPassword">학생을 위해 새 비밀번호 생성</string>
   <string name="invitedToXByY">%2$s가 %1$s에 초대함</string>
   <string name="realName">실명</string>
-  <string name="privateWillNeverBeShown">클래스 외부에 보여지지 않습니다. 학생이 누구인지 기억하는데 도움이 됩니다.</string>
+  <string name="privateWillNeverBeShown">비공개. 클래스 외부에 보여지지 않습니다. 학생이 누구인지 기억하는데 도움이 됩니다.</string>
   <string name="addStudent">학생 추가</string>
   <string name="lichessProfileXCreatedForY">%2$s를 위해 생성된 Lichess 프로필 %1$s</string>
   <string name="studentCredentials">학생:  %1$s
