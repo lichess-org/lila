@@ -1,8 +1,7 @@
 package lila.lobby
 
-import chess.{ Mode, Speed }
+import shogi.{ Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.api.i18n.Lang
 
@@ -10,7 +9,7 @@ import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
 
-// correspondence chess, persistent
+// correspondence shogi, persistent
 case class Seek(
     _id: String,
     variant: Int,
@@ -26,7 +25,7 @@ case class Seek(
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = shogi.variant.Variant orDefault variant
 
   val realMode = Mode orDefault mode
 
@@ -62,7 +61,7 @@ case class Seek(
         ),
         "mode"  -> realMode.id,
         "days"  -> daysPerTurn,
-        "color" -> chess.Color(color).??(_.name),
+        "color" -> shogi.Color(color).??(_.name),
         "perf" -> Json.obj(
           "icon" -> perfType.map(_.iconChar.toString),
           "name" -> perfType.map(_.trans)
@@ -78,7 +77,7 @@ object Seek {
   val idSize = 8
 
   def make(
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       daysPerTurn: Option[Int],
       mode: Mode,
       color: String,
@@ -87,7 +86,7 @@ object Seek {
       blocking: Set[String]
   ): Seek =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = variant.id,
       daysPerTurn = daysPerTurn,
       mode = mode.id,
@@ -99,7 +98,7 @@ object Seek {
 
   def renew(seek: Seek) =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = seek.variant,
       daysPerTurn = seek.daysPerTurn,
       mode = seek.mode,

@@ -49,7 +49,8 @@
     }
   }
   td {
-    @extend %nowrap-hidden;
+    word-break: break-all;
+    overflow: hidden;
     padding: .5em .7em;
     border-bottom: $border;
     cursor: pointer;

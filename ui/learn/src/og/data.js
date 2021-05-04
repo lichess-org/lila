@@ -1,11 +1,11 @@
-var fen = require("./fen");
-var configure = require("./configure");
+var fen = require('./fen');
+var configure = require('./configure');
 
 module.exports = function (cfg) {
   var defaults = {
     pieces: fen.read(fen.initial),
-    orientation: "white", // board orientation. white | black
-    turnColor: "white", // turn to play. white | black
+    orientation: 'sente', // board orientation. sente | gote
+    turnColor: 'sente', // turn to play. sente | gote
     check: null, // square currently in check "a2" | null
     lastMove: null, // squares part of the last move ["c3", "c4"] | null
     selected: null, // square currently selected "a1" | null
@@ -40,7 +40,7 @@ module.exports = function (cfg) {
        *      pos: [80, 120], // position relative to the board
        *      opacity: 0.34,
        *      role: 'rook',
-       *      color: 'black'
+       *      color: 'gote'
        *    }
        *  }
        *}*/
@@ -48,9 +48,9 @@ module.exports = function (cfg) {
     },
     movable: {
       free: true, // all moves are valid - board editor
-      color: "both", // color that can move. white | black | both | null
+      color: 'both', // color that can move. sente | gote | both | null
       dests: {}, // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]} | null
-      dropOff: "revert", // when a piece is dropped outside the board. "revert" | "trash"
+      dropOff: 'revert', // when a piece is dropped outside the board. "revert" | "trash"
       dropped: [], // last dropped [orig, dest], not to be animated
       showDests: true, // whether to add the move-dest class on squares
       events: {
@@ -100,12 +100,12 @@ module.exports = function (cfg) {
     stats: {
       // was last piece dragged or clicked?
       // needs default to false for touch
-      dragged: !("ontouchstart" in window),
+      dragged: !('ontouchstart' in window),
     },
     events: {
       change: function () {}, // called after the situation changes on the board
       // called after a piece has been moved.
-      // capturedPiece is null or like {color: 'white', 'role': 'queen'}
+      // capturedPiece is null or like {color: 'sente', 'role': 'queen'}
       move: function (orig, dest, capturedPiece) {},
       dropNewPiece: function (role, pos) {},
       capture: function (key, piece) {}, // DEPRECATED called when a piece has been captured
@@ -136,57 +136,57 @@ module.exports = function (cfg) {
       current: {},
       brushes: {
         green: {
-          key: "g",
-          color: "#15781B",
+          key: 'g',
+          color: '#15781B',
           opacity: 1,
           lineWidth: 10,
         },
         red: {
-          key: "r",
-          color: "#882020",
+          key: 'r',
+          color: '#882020',
           opacity: 1,
           lineWidth: 10,
         },
         blue: {
-          key: "b",
-          color: "#003088",
+          key: 'b',
+          color: '#003088',
           opacity: 1,
           lineWidth: 10,
         },
         yellow: {
-          key: "y",
-          color: "#e68f00",
+          key: 'y',
+          color: '#e68f00',
           opacity: 1,
           lineWidth: 10,
         },
         paleBlue: {
-          key: "pb",
-          color: "#003088",
+          key: 'pb',
+          color: '#003088',
           opacity: 0.4,
           lineWidth: 15,
         },
         paleGreen: {
-          key: "pg",
-          color: "#15781B",
+          key: 'pg',
+          color: '#15781B',
           opacity: 0.4,
           lineWidth: 15,
         },
         paleRed: {
-          key: "pr",
-          color: "#882020",
+          key: 'pr',
+          color: '#882020',
           opacity: 0.4,
           lineWidth: 15,
         },
         paleGrey: {
-          key: "pgr",
-          color: "#4a4a4a",
+          key: 'pgr',
+          color: '#4a4a4a',
           opacity: 0.35,
           lineWidth: 15,
         },
       },
       // drawable SVG pieces, used for crazyhouse drop
       pieces: {
-        baseUrl: "piece/cburnett/",
+        baseUrl: 'piece/cburnett/',
       },
       notation: 0,
     },

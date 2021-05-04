@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Задачи</string>
+  <string name="puzzleThemes">Темы задач</string>
+  <string name="recommended">Рекомендуемые</string>
+  <string name="phases">Этапы</string>
+  <string name="motifs">Мотивы</string>
+  <string name="advanced">Продвинутый уровень</string>
+  <string name="lengths">Разной длины</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Цели</string>
+  <string name="origin">Из разных источников</string>
+  <string name="specialMoves">Особые ходы</string>
+  <string name="didYouLikeThisPuzzle">Вам понравилась эта задача?</string>
+  <string name="voteToLoadNextOne">Проголосуйте, чтобы загрузить следующую!</string>
+  <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
+  <string name="findTheBestMoveForWhite">Найдите лучший ход за готэ.</string>
+  <string name="findTheBestMoveForBlack">Найдите лучший ход за сэнтэ.</string>
+  <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
+  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
+  <string name="clickToSolve">Нажмите, чтобы решить</string>
+  <string name="goodMove">Хороший ход</string>
+  <string name="bestMove">Лучший ход!</string>
+  <string name="keepGoing">Продолжайте...</string>
+  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleComplete">Задача решена!</string>
+  <string name="notTheMove">Это не тот ход!</string>
+  <string name="trySomethingElse">Попробуйте иначе.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрыт</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решена %s раз</item>
+    <item quantity="few">Решена %s раз</item>
+    <item quantity="many">Решена %s раз</item>
+    <item quantity="other">Решена %s раз</item>
+  </plurals>
+  <plurals name="xMovesLeft">
+    <item quantity="one">%s ход остался</item>
+    <item quantity="few">%s ходов осталось</item>
+    <item quantity="many">%s ходов осталось</item>
+    <item quantity="other">%s ходов осталось</item>
+  </plurals>
+  <string name="fromGameLink">Из партии %s</string>
+  <string name="puzzleSource">Источник: %s</string>
+  <string name="continueTraining">Продолжить обучение</string>
+  <string name="difficultyLevel">Уровень сложности</string>
+  <string name="normal">Средний</string>
+  <string name="easier">Лёгкий</string>
+  <string name="easiest">Легчайший</string>
+  <string name="harder">Сложный</string>
+  <string name="hardest">Сложнейший</string>
+  <string name="example">Пример</string>
+  <string name="addAnotherTheme">Добавить другую тему</string>
+  <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
+  <string name="puzzleDashboard">Панель головоломок</string>
+  <string name="improvementAreas">Направления улучшения</string>
+  <string name="strengths">Сильные стороны</string>
+  <string name="history">История задач</string>
+  <string name="solved">решено</string>
+  <string name="failed">провалено</string>
+</resources>

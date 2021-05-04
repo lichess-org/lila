@@ -1,11 +1,11 @@
 .forum .slist {
-
   td {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
 
-  td.right, & th.right {
+  td.right,
+  & th.right {
     display: none;
     @include breakpoint($mq-small) {
       display: table-cell;
@@ -40,6 +40,6 @@
     }
   }
   &.categs .subject p {
-    margin-top: .3em;
+    margin-top: 0.3em;
   }
 }

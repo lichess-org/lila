@@ -1,15 +1,13 @@
-var m = require("mithril");
-var key2pos = require("./util").key2pos;
-var isTrident = require("./util").isTrident;
+var m = require('mithril');
+var key2pos = require('./util').key2pos;
+var isTrident = require('./util').isTrident;
 
 function circleWidth(current, bounds) {
   return ((current ? 3 : 4) / 512) * bounds.width;
 }
 
 function lineWidth(brush, current, bounds) {
-  return (
-    (((brush.lineWidth || 10) * (current ? 0.85 : 1)) / 512) * bounds.width
-  );
+  return (((brush.lineWidth || 10) * (current ? 0.85 : 1)) / 512) * bounds.width;
 }
 
 function opacity(brush, current) {
@@ -30,11 +28,11 @@ function circle(brush, pos, current, bounds) {
   var width = circleWidth(current, bounds);
   var radius = bounds.width / 18;
   return {
-    tag: "circle",
+    tag: 'circle',
     attrs: {
       stroke: brush.color,
-      "stroke-width": width,
-      fill: "none",
+      'stroke-width': width,
+      fill: 'none',
       opacity: opacity(brush, current),
       cx: o[0],
       cy: o[1],
@@ -53,12 +51,12 @@ function arrow(brush, orig, dest, current, bounds) {
   var xo = Math.cos(angle) * m,
     yo = Math.sin(angle) * m;
   return {
-    tag: "line",
+    tag: 'line',
     attrs: {
       stroke: brush.color,
-      "stroke-width": lineWidth(brush, current, bounds),
-      "stroke-linecap": "round",
-      "marker-end": isTrident() ? null : "url(#arrowhead-" + brush.key + ")",
+      'stroke-width': lineWidth(brush, current, bounds),
+      'stroke-linecap': 'round',
+      'marker-end': isTrident() ? null : 'url(#arrowhead-' + brush.key + ')',
       opacity: opacity(brush, current),
       x1: a[0],
       y1: a[1],
@@ -71,13 +69,13 @@ function arrow(brush, orig, dest, current, bounds) {
 function piece(cfg, pos, piece, bounds) {
   var o = pos2px(pos, bounds);
   var size = (bounds.width / 9) * (piece.scale || 1);
-  var name = piece.color === "white" ? "w" : "b";
-  name += (piece.role === "knight" ? "n" : piece.role[0]).toUpperCase();
-  var href = cfg.baseUrl + name + ".svg";
+  var name = piece.color === 'sente' ? 'b' : 'w';
+  name += (piece.role === 'knight' ? 'n' : piece.role[0]).toUpperCase();
+  var href = cfg.baseUrl + name + '.svg';
   return {
-    tag: "image",
+    tag: 'image',
     attrs: {
-      class: piece.color + " " + piece.role,
+      class: piece.color + ' ' + piece.role,
       x: o[0] - size / 2,
       y: o[1] - size / 2,
       width: size,
@@ -89,14 +87,14 @@ function piece(cfg, pos, piece, bounds) {
 
 function defs(brushes) {
   return {
-    tag: "defs",
+    tag: 'defs',
     children: [
       brushes.map(function (brush) {
         return {
-          tag: "marker",
+          tag: 'marker',
           attrs: {
-            id: "arrowhead-" + brush.key,
-            orient: "auto",
+            id: 'arrowhead-' + brush.key,
+            orient: 'auto',
             markerWidth: 4,
             markerHeight: 8,
             refX: 2.05,
@@ -104,9 +102,9 @@ function defs(brushes) {
           },
           children: [
             {
-              tag: "path",
+              tag: 'path',
               attrs: {
-                d: "M0,0 V4 L3,2 Z",
+                d: 'M0,0 V4 L3,2 Z',
                 fill: brush.color,
               },
             },
@@ -118,35 +116,20 @@ function defs(brushes) {
 }
 
 function orient(pos, color) {
-  return color === "white" ? pos : [10 - pos[0], 10 - pos[1]];
+  return color === 'sente' ? pos : [10 - pos[0], 10 - pos[1]];
 }
 
 function renderShape(data, current, bounds) {
   return function (shape, i) {
     if (shape.piece)
-      return piece(
-        data.drawable.pieces,
-        orient(key2pos(shape.orig), data.orientation),
-        shape.piece,
-        bounds
-      );
+      return piece(data.drawable.pieces, orient(key2pos(shape.orig), data.orientation), shape.piece, bounds);
     else if (shape.brush) {
       var brush = shape.brushModifiers
-        ? makeCustomBrush(
-            data.drawable.brushes[shape.brush],
-            shape.brushModifiers,
-            i
-          )
+        ? makeCustomBrush(data.drawable.brushes[shape.brush], shape.brushModifiers, i)
         : data.drawable.brushes[shape.brush];
       var orig = orient(key2pos(shape.orig), data.orientation);
       if (shape.orig && shape.dest)
-        return arrow(
-          brush,
-          orig,
-          orient(key2pos(shape.dest), data.orientation),
-          current,
-          bounds
-        );
+        return arrow(brush, orig, orient(key2pos(shape.dest), data.orientation), current, bounds);
       else if (shape.orig) return circle(brush, orig, current, bounds);
     }
   };
@@ -154,7 +137,7 @@ function renderShape(data, current, bounds) {
 
 function makeCustomBrush(base, modifiers, i) {
   return {
-    key: "cb_" + i,
+    key: 'cb_' + i,
     color: modifiers.color || base.color,
     opacity: modifiers.opacity || base.opacity,
     lineWidth: modifiers.lineWidth || base.lineWidth,
@@ -169,10 +152,7 @@ function computeUsedBrushes(d, drawn, current) {
     var shape = shapes[i];
     if (!shape.dest) continue;
     var brushKey = shape.brush;
-    if (shape.brushModifiers)
-      brushes.push(
-        makeCustomBrush(d.brushes[brushKey], shape.brushModifiers, i)
-      );
+    if (shape.brushModifiers) brushes.push(makeCustomBrush(d.brushes[brushKey], shape.brushModifiers, i));
     else {
       if (keys.indexOf(brushKey) === -1) {
         brushes.push(d.brushes[brushKey]);
@@ -198,9 +178,9 @@ module.exports = function (ctrl) {
   var renderedCurrent = renderShape(ctrl.data, true, bounds)(d.current, 9999);
   if (renderedCurrent) renderedShapes.push(renderedCurrent);
   return {
-    tag: "svg",
+    tag: 'svg',
     attrs: {
-      key: "svg",
+      key: 'svg',
     },
     children: [defs(usedBrushes), renderedShapes],
   };

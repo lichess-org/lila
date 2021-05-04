@@ -1,12 +1,12 @@
 package lila.round
 
-import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, MoveMetrics, MoveOrDrop, Status, Color }
+import shogi.format.{ Forsyth, Uci }
+import shogi.{ Centis, Color, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Game, Pov, Progress, UciMemo, Event }
+import lila.game.{ Event, Game, Pov, Progress, UciMemo }
 import lila.game.Game.PlayerId
 
 final private class Player(
@@ -78,9 +78,10 @@ final private class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
-      if (progress.game.forecastable) moveOrDrop.fold(
-        move => round ! ForecastPlay(move.toUci),
-        drop => round ! ForecastPlay(drop.toUci)
+      if (progress.game.forecastable)
+        moveOrDrop.fold(
+          move => round ! ForecastPlay(move.toUci),
+          drop => round ! ForecastPlay(drop.toUci)
         )
       scheduleExpiration(progress.game)
       fuccess(progress.events)
@@ -97,10 +98,10 @@ final private class Player(
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
-              if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-              else
-                fuccess(progress.events :+ Event.Reload)
-            }
+                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+                else
+                  fuccess(progress.events :+ Event.Reload)
+              }
         }
     } else
       fufail(
@@ -108,7 +109,7 @@ final private class Player(
           s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"
         )
       )
-    }
+  }
 
   private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
     game.playableByAi ?? {
@@ -122,23 +123,25 @@ final private class Player(
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] = {
     (uci match {
       case Uci.Move(orig, dest, prom) => {
-        game.chess(orig, dest, prom, metrics) map {
+        game.shogi(orig, dest, prom, metrics) map {
           case (ncg, move) => {
             ncg -> (Left(move): MoveOrDrop)
-            }
+          }
         }
       }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map {
-          case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
+        game.shogi.drop(role, pos, metrics) map { case (ncg, drop) =>
+          ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(c => 
-        c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
-        ) => Flagged
-      case (newChessGame, moveOrDrop) =>
+      case (ncg, _)
+          if ncg.clock.exists(c =>
+            c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
+          ) =>
+        Flagged
+      case (newShogiGame, moveOrDrop) =>
         MoveApplied(
-          game.update(newChessGame, moveOrDrop, blur),
+          game.update(newShogiGame, moveOrDrop, blur),
           moveOrDrop
         )
     }
@@ -149,7 +152,7 @@ final private class Player(
     val color = moveOrDrop.fold(_.color, _.color)
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Forsyth exportBoard game.board,
+      fen = Forsyth exportSituation game.situation,
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 
@@ -183,13 +186,13 @@ final private class Player(
 
   private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     game.status match {
-      case Status.Mate                               => finisher.other(game, _.Mate, game.situation.winner)
-      case Status.Stalemate                          => finisher.other(game, _.Stalemate, game.situation.winner)
-      case Status.Impasse                            => finisher.other(game, _.Impasse, game.situation.winner)
-      case Status.PerpetualCheck                     => finisher.other(game, _.PerpetualCheck, game.situation.winner)
-      case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.situation.winner)
-      case Status.Draw                               => finisher.other(game, _.Draw, None)
-      case _                                         => fuccess(Nil)
+      case Status.Mate           => finisher.other(game, _.Mate, game.situation.winner)
+      case Status.Stalemate      => finisher.other(game, _.Stalemate, game.situation.winner)
+      case Status.Impasse        => finisher.other(game, _.Impasse, game.situation.winner)
+      case Status.PerpetualCheck => finisher.other(game, _.PerpetualCheck, game.situation.winner)
+      case Status.VariantEnd     => finisher.other(game, _.VariantEnd, game.situation.winner)
+      case Status.Draw           => finisher.other(game, _.Draw, None)
+      case _                     => fuccess(Nil)
     }
   }
 }

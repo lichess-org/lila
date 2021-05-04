@@ -26,7 +26,7 @@
         @extend %flex-center-nowrap;
       }
       &__country {
-        margin-left: .5em;
+        margin-left: 0.5em;
       }
       .user-link {
         @extend %ellipsis;
@@ -37,9 +37,9 @@
       }
       &__country {
         @extend %flex-center;
-        font-size: .9em;
+        font-size: 0.9em;
         img {
-          margin-right: .3em;
+          margin-right: 0.3em;
         }
       }
     }
@@ -88,13 +88,13 @@
       color: #fff;
     }
     span {
-      padding: .2em .5em;
+      padding: 0.2em 0.5em;
       margin: 0;
     }
   }
   &__game-legend {
     @extend %flex-between;
-    padding: .2em 1em;
+    padding: 0.2em 1em;
   }
 }
 #miniGame {

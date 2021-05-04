@@ -8,8 +8,8 @@ import play.api.libs.ws.WSClient
 import lila.common.Maths
 import lila.common.config.BaseUrl
 
-import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
-import chess.format.{ FEN, Forsyth, Uci }
+import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
+import shogi.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
     ws: WSClient,
@@ -27,8 +27,8 @@ final class GifExport(
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white"       -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "sente"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
+            "gote"        -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
             "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> pov.color.name,
             "delay"       -> targetMedianTime.centis, // default delay for frames
@@ -45,9 +45,9 @@ final class GifExport(
 
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> (Forsyth >> game.chess),
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+      "fen"         -> (Forsyth >> game.shogi),
+      "sente"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
+      "gote"        -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
       "orientation" -> game.firstColor.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
@@ -108,8 +108,8 @@ final class GifExport(
       game.variant
     ) match {
       case (init, games, _) =>
-        val steps = (init, None) :: (games map {
-          case (g, Uci.WithSan(uci, _)) => (g, uci.some)
+        val steps = (init, None) :: (games map { case (g, Uci.WithSan(uci, _)) =>
+          (g, uci.some)
         })
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
@@ -119,7 +119,7 @@ final class GifExport(
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(games: List[((ShogiGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
     games match {
       case Nil =>
         arr

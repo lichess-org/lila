@@ -10,12 +10,12 @@
     border-bottom: $border;
     .name {
       @extend %ellipsis;
-      padding: .7rem 0;
+      padding: 0.7rem 0;
     }
     .credit {
       display: block;
-      font-size: .8rem;
-      margin: .2rem 0 -.3rem 0;
+      font-size: 0.8rem;
+      margin: 0.2rem 0 -0.3rem 0;
     }
     .liking {
       margin-left: 1rem;
@@ -37,7 +37,7 @@
     font-weight: bold;
     color: $c-font-dim;
     width: 1px;
-    padding: 0 .3em 0 1em!important;
+    padding: 0 0.3em 0 1em !important;
   }
   td {
     padding: 0;
@@ -45,7 +45,7 @@
   input,
   span {
     display: block;
-    padding: .6em 1em .6em .7em;
+    padding: 0.6em 1em 0.6em 0.7em;
     line-height: 1.7;
   }
   input {
@@ -71,11 +71,11 @@
   .topic {
     @extend %box-radius;
     background: mix($c-primary, $c-bg-box, 17%);
-    padding: .2em .6em;
-    margin: .2em;
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
   }
   .manage {
-    margin: .2em;
+    margin: 0.2em;
   }
 }
 

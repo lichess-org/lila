@@ -1,6 +1,10 @@
-var chessground = require("./og/main");
+const { opposite } = require('shogiops');
+const { makeChessSquare } = require('shogiops/compat');
+var squareSet = require('shogiops/squareSet');
+var chessground = require('./og/main');
 var raf = chessground.util.requestAnimationFrame;
-var util = require("./util");
+var util = require('./util');
+const timeouts = require('./timeouts');
 
 var cg = new chessground.controller();
 
@@ -45,7 +49,7 @@ module.exports = {
         duration: 200,
       },
       disableContextMenu: true,
-      notation: document.getElementsByClassName("notation-0")[0] ? 0 : 1,
+      notation: document.getElementsByClassName('notation-0')[0] ? 0 : 1,
     });
     setTimeout(function () {
       cg.set({
@@ -87,14 +91,14 @@ module.exports = {
     if (checks)
       cg.setShapes(
         checks.map(function (move) {
-          return util.arrow(move.orig + move.dest, "yellow");
+          return util.arrow(move.orig + move.dest, 'yellow');
         })
       );
   },
   promote: function (key, role) {
     var pieces = {};
     var piece = cg.data.pieces[key];
-    if (piece && piece.role === "pawn") {
+    if (piece) {
       pieces[key] = {
         color: piece.color,
         role: role,
@@ -114,34 +118,36 @@ module.exports = {
   },
   showCapture: function (move) {
     raf(function () {
-      var $square = $("#learn-app piece[data-key=" + move.orig + "]");
-      $square.addClass("wriggle");
-      setTimeout(function () {
-        $square.removeClass("wriggle");
+      var $square = $('#learn-app piece[data-key=' + move.orig + ']');
+      $square.addClass('wriggle');
+      timeouts.setTimeout(function () {
+        $square.removeClass('wriggle');
         cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
       }, 600);
     });
   },
   showCheckmate: function (shogi) {
-    //var turn = shogi.instance.player === "white" ? "b" : "w";
-    //var fen = [cg.getFen(), turn, "- 1"].join(" ");
-    //var s = shogi.instance.init(fen);
-    //var kingKey = shogi.kingKey(turn === "w" ? "black" : "white");
-    //var shapes = chess.instance
-    //  .moves({
-    //    verbose: true,
-    //  })
-    //  .filter(function (m) {
-    //    return m.to === kingKey;
-    //  })
-    //  .map(function (m) {
-    //    return util.arrow(m.from + m.to, "red");
-    //  });
-    //cg.set({
-    //  check: shapes.length ? kingKey : null,
-    //});
-    //cg.setShapes(shapes);
+    // didin't test this
+    const kingSquare = shogi.board.kingOf(opposite(shogi.color()));
+    const allDests = shogi.instance.allDests({
+      king: undefined,
+      blockers: squareSet.SquareSet.empty(),
+      checkers: squareSet.SquareSet.empty(),
+      variantEnd: false,
+      mustCapture: false,
+    });
+    var attacksOnKing = [];
+    for (let m of allDests.keys()) {
+      if (allDests[m].has(kingSquare)) attacksOnKing.push(m);
+    }
+    const shapes = attacksOnKing.map(function (m) {
+      return util.arrow(makeChessSquare(m) + makeChessSquare(kingSquare), 'red');
+    });
+    cg.set({
+      check: shapes.length ? makeChessSquare(kingSquare) : null,
+    });
+    cg.setShapes(shapes);
   },
   setShapes: function (shapes) {
     if (shapes) cg.setShapes(shapes);
@@ -155,8 +161,7 @@ module.exports = {
   newPieces: function (arr) {
     if (!arr) return;
     for (var i of arr) {
-      if (!!i[0] && !!i[1] && !!i[2])
-        cg.apiNewPiece({ role: i[0], color: i[1] }, i[2]);
+      if (!!i[0] && !!i[1] && !!i[2]) cg.apiNewPiece({ role: i[0], color: i[1] }, i[2]);
     }
     cg.data.lastMove = null;
   },

@@ -2,7 +2,7 @@
   white-space: nowrap;
 }
 .br-widget a {
-  font: 2em "lishogi";
+  font: 2em 'lishogi';
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
@@ -10,7 +10,7 @@
   display: inline-block;
 }
 .br-widget a:after {
-  content: "t";
+  content: 't';
   color: $c-shade;
 }
 .br-widget a.br-active:after,

@@ -12,7 +12,7 @@ export interface EditorConfig {
   fen: string;
   options?: EditorOptions;
   is3d: boolean;
-  pieceNotation: number,
+  pieceNotation: number;
   animation: {
     duration: number;
   };
@@ -31,8 +31,6 @@ export interface EditorState {
   fen: string;
   legalFen: string | undefined;
   playable: boolean;
-  tsumeFen: string | undefined;
-  standardPieceNumber: boolean;
 }
 
 export type Redraw = () => void;

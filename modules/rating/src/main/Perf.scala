@@ -2,7 +2,7 @@ package lila.rating
 
 import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON
 
@@ -30,8 +30,14 @@ case class Perf(
     )
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
-    val glicko = Glicko(r.getRating, r.getRatingDeviation, r.getVolatility)
-    glicko.sanityCheck option add(glicko, date)
+    val newGlicko = Glicko(
+      rating = r.getRating
+        .atMost(glicko.rating + Glicko.maxRatingDelta)
+        .atLeast(glicko.rating - Glicko.maxRatingDelta),
+      deviation = r.getRatingDeviation,
+      volatility = r.getVolatility
+    )
+    newGlicko.sanityCheck option add(newGlicko, date)
   }
 
   def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating, date: DateTime): Perf =
@@ -58,6 +64,8 @@ case class Perf(
     if (nb < 10) recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
+  def clearRecent = copy(recent = Nil)
+
   def toRating =
     new Rating(
       math.max(Glicko.minRating, glicko.rating),
@@ -70,7 +78,8 @@ case class Perf(
   def isEmpty  = latest.isEmpty
   def nonEmpty = !isEmpty
 
-  def rankable(variant: chess.variant.Variant) = glicko.rankable(variant)
+  def rankable(variant: shogi.variant.Variant) = glicko.rankable(variant)
+  def clueless                                 = glicko.clueless
   def provisional                              = glicko.provisional
   def established                              = glicko.established
 
@@ -91,6 +100,14 @@ case object Perf {
   val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, DateTime.now.some)
 
   val recentMaxSize = 12
+
+  case class Storm(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+
+  object Storm {
+    val default = Storm(0, 0)
+  }
 
   implicit val perfBSONHandler = new BSON[Perf] {
 
@@ -114,4 +131,6 @@ case object Perf {
         "la" -> o.latest.map(w.date)
       )
   }
+
+  implicit val stormBSONHandler = Macros.handler[Storm]
 }

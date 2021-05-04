@@ -1,11 +1,9 @@
-var m = require("mithril");
-var simul = require("./simul");
-var xhr = require("./xhr");
+var m = require('mithril');
+var simul = require('./simul');
+var xhr = require('./xhr');
 
 function enrichText(text) {
-  return m.trust(
-    autolink(lishogi.escapeHtml(text), toLink).replace(newLineRegex, "<br>")
-  );
+  return m.trust(autolink(lishogi.escapeHtml(text), toLink).replace(newLineRegex, '<br>'));
 }
 function autolink(str, callback) {
   return str.replace(linkRegex, function (_, space, url) {
@@ -17,8 +15,8 @@ function toLink(url) {
     '<a target="_blank" rel="nofollow noopener noreferrer" href="' +
     url +
     '">' +
-    url.replace(/https?:\/\//, "") +
-    "</a>"
+    url.replace(/https?:\/\//, '') +
+    '</a>'
   );
 }
 // from ui/analyse
@@ -26,32 +24,32 @@ var linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[-A-Z0-9+\u0026\u2
 var newLineRegex = /\n/g;
 
 function editor(ctrl) {
-  return m("div.editor", [
+  return m('div.editor', [
     m(
-      "button.button.button-empty.open",
+      'button.button.button-empty.open',
       {
         onclick: ctrl.text.toggle,
       },
-      "Edit"
+      'Edit'
     ),
     ctrl.text.editing()
       ? m(
-          "form",
+          'form',
           {
             onsubmit: function (e) {
-              xhr.setText(ctrl, e.target.querySelector("textarea").value);
+              xhr.setText(ctrl, e.target.querySelector('textarea').value);
               ctrl.text.toggle();
               return false;
             },
           },
           [
-            m("textarea", ctrl.data.text),
+            m('textarea', ctrl.data.text),
             m(
-              "button.button.save",
+              'button.button.save',
               {
-                type: "submit",
+                type: 'submit',
               },
-              "Save"
+              'Save'
             ),
           ]
         )
@@ -73,8 +71,8 @@ module.exports = {
   },
   view: function (ctrl) {
     return ctrl.data.text || simul.createdByMe(ctrl)
-      ? m("div.simul-text" + (ctrl.text.editing() ? ".editing" : ""), [
-          m("p", enrichText(ctrl.data.text)),
+      ? m('div.simul-text' + (ctrl.text.editing() ? '.editing' : ''), [
+          m('p', enrichText(ctrl.data.text)),
           simul.createdByMe(ctrl) ? editor(ctrl) : null,
         ])
       : null;

@@ -6,8 +6,7 @@ import lila.notify.{ MentionedInThread, Notification }
 import lila.relation.RelationApi
 import lila.user.{ User, UserRepo }
 
-/**
-  * Notifier to inform users if they have been mentioned in a post
+/** Notifier to inform users if they have been mentioned in a post
   *
   * @param notifyApi Api for sending inbox messages
   */
@@ -28,8 +27,7 @@ final class MentionNotifier(
       }
     }
 
-  /**
-    * Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
+  /** Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
     * or block the mentioner from the returned list.
     */
   private def filterValidUsers(users: Set[User.ID], mentionedBy: User.ID): Fu[List[Notification.Notifies]] = {

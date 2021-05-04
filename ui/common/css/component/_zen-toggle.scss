@@ -1,0 +1,16 @@
+#zentog {
+  position: absolute;
+  padding: 0.5em 1em;
+  opacity: 0.5;
+  z-index: z('zen-toggle');
+  display: none;
+  border-bottom-right-radius: $box-radius-size;
+
+  body.playing.zen & {
+    display: block;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -93,8 +93,7 @@ object TempBan {
 
   private val baseMinutes = 10
 
-  /**
-    * Create a playban. First offense: 10 min.
+  /** Create a playban. First offense: 10 min.
     * Multiplier of repeat offense after X days:
     * - 0 days: 3x
     * - 0 - 3 days: linear scale from 3x to 1x

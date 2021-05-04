@@ -53,7 +53,7 @@ final private class Streaming(
       (twitchStreams, youTubeStreams) <-
         fetchTwitchStreams(streamers, 0, None, Nil) zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        scala.util.Random.shuffle {
+        lila.common.ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
@@ -117,10 +117,9 @@ final private class Streaming(
             }
           case res => fufail(s"twitch ${lila.log http res}")
         }
-        .recover {
-          case e: Exception =>
-            logger.warn(e.getMessage)
-            Twitch.Result(None, None)
+        .recover { case e: Exception =>
+          logger.warn(e.getMessage)
+          Twitch.Result(None, None)
         }
         .monSuccess(_.tv.streamer.twitch)
         .flatMap { result =>
@@ -170,10 +169,9 @@ final private class Streaming(
               }
             }
             .monSuccess(_.tv.streamer.youTube)
-            .recover {
-              case e: Exception =>
-                logger.warn(e.getMessage)
-                YouTube.StreamsFetched(Nil, now)
+            .recover { case e: Exception =>
+              logger.warn(e.getMessage)
+              YouTube.StreamsFetched(Nil, now)
             }
         }
       res dmap { r =>

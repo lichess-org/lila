@@ -3,7 +3,7 @@ package lila.activity
 import reactivemongo.api.bson._
 import scala.util.Success
 
-import lila.common.Iso
+import lila.common.{ Day, Iso }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
@@ -22,12 +22,11 @@ private object BSONHandlers {
   implicit lazy val activityIdHandler = {
     val sep = ':'
     tryHandler[Id](
-      {
-        case BSONString(v) =>
-          v split sep match {
-            case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
-            case _                     => handlerBadValue(s"Invalid activity id $v")
-          }
+      { case BSONString(v) =>
+        v split sep match {
+          case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
+          case _                     => handlerBadValue(s"Invalid activity id $v")
+        }
       },
       id => BSONString(s"${id.userId}$sep${id.day.value}")
     )
@@ -35,12 +34,11 @@ private object BSONHandlers {
 
   implicit private lazy val ratingHandler = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
   implicit private lazy val ratingProgHandler = tryHandler[RatingProg](
-    {
-      case v: BSONArray =>
-        for {
-          before <- v.getAsTry[Rating](0)
-          after  <- v.getAsTry[Rating](1)
-        } yield RatingProg(before, after)
+    { case v: BSONArray =>
+      for {
+        before <- v.getAsTry[Rating](0)
+        after  <- v.getAsTry[Rating](1)
+      } yield RatingProg(before, after)
     },
     o => BSONArray(o.before, o.after)
   )
@@ -78,6 +76,11 @@ private object BSONHandlers {
   implicit lazy val postsHandler          = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
 
   implicit lazy val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
+
+  implicit lazy val stormHandler = new lila.db.BSON[Storm] {
+    def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))
+    def writes(w: lila.db.BSON.Writer, s: Storm) = BSONDocument("r" -> s.runs, "s" -> s.score)
+  }
 
   implicit private lazy val learnHandler =
     typedMapHandler[Learn.Stage, Int](Iso.string(Learn.Stage.apply, _.value))
@@ -119,6 +122,7 @@ private object BSONHandlers {
     val games    = "g"
     val posts    = "p"
     val puzzles  = "z"
+    val storm    = "m"
     val learn    = "l"
     val practice = "r"
     val simuls   = "s"
@@ -140,6 +144,7 @@ private object BSONHandlers {
         games = r.getO[Games](games),
         posts = r.getO[Posts](posts),
         puzzles = r.getO[Puzzles](puzzles),
+        storm = r.getO[Storm](storm),
         learn = r.getO[Learn](learn),
         practice = r.getO[Practice](practice),
         simuls = r.getO[Simuls](simuls),
@@ -157,6 +162,7 @@ private object BSONHandlers {
         games    -> o.games,
         posts    -> o.posts,
         puzzles  -> o.puzzles,
+        storm    -> o.storm,
         learn    -> o.learn,
         practice -> o.practice,
         simuls   -> o.simuls,

@@ -12,7 +12,7 @@
   <string name="welcome_subject">Welcome to lishogi.org, %s</string>
   <string name="welcome_text">You have successfully created your account on https://lishogi.org.
 
-Here is your profile page: %1$s. You can personalise it on %2$s.
+Here is your profile page: %1$s. You can personalize it on %2$s.
 
 Have fun, and may your pieces always find their way to your opponent\'s king!</string>
   <string name="logInToLishogi">Log in to lishogi.org, %s</string>

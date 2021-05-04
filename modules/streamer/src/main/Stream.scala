@@ -36,14 +36,13 @@ object Stream {
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]) {
       def liveStreams = (~data).filter(_.isLive)
       def streams(keyword: Keyword, streamers: List[Streamer], alwaysFeatured: List[User.ID]): List[Stream] =
-        liveStreams.collect {
-          case TwitchStream(name, title, _) =>
-            streamers.find { s =>
-              s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
-                title.toLowerCase.contains(keyword.toLowerCase) ||
-                alwaysFeatured.contains(s.userId)
-              }
-            } map { Stream(name, title, _) }
+        liveStreams.collect { case TwitchStream(name, title, _) =>
+          streamers.find { s =>
+            s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
+              title.toLowerCase.contains(keyword.toLowerCase) ||
+              alwaysFeatured.contains(s.userId)
+            }
+          } map { Stream(name, title, _) }
         }.flatten
     }
     case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.StartingPosition
+import shogi.StartingPosition
 
 private object Thematic {
 

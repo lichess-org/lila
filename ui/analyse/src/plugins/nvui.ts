@@ -1,27 +1,26 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import { prop, Prop } from "common";
-import AnalyseController from "../ctrl";
-import { makeConfig as makeCgConfig } from "../ground";
-import { Shogiground } from "shogiground";
-import { Redraw, AnalyseData, MaybeVNodes } from "../interfaces";
-import { Player } from "game";
-import { renderSan, renderPieces, renderBoard, styleSetting } from "nvui/chess";
-import { renderSetting } from "nvui/setting";
-import { Notify } from "nvui/notify";
-import { Style } from "nvui/chess";
-import { commands } from "nvui/command";
-import * as moveView from "../moveView";
-import { bind } from "../util";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { prop, Prop } from 'common';
+import AnalyseController from '../ctrl';
+import { makeConfig as makeCgConfig } from '../ground';
+import { Shogiground } from 'shogiground';
+import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
+import { Player } from 'game';
+import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSetting } from 'nvui/setting';
+import { Notify } from 'nvui/notify';
+import { Style } from 'nvui/chess';
+import { commands } from 'nvui/command';
+import * as moveView from '../moveView';
+import { bind } from '../util';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     analysisInProgress = prop(false);
 
-  window.lishogi.pubsub.on("analysis.server.progress", (data: AnalyseData) => {
-    if (data.analysis && !data.analysis.partial)
-      notify.set("Server-side analysis complete");
+  window.lishogi.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+    if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
   return {
@@ -29,72 +28,65 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.shogiground)
-        ctrl.shogiground = Shogiground(document.createElement("div"), {
+        ctrl.shogiground = Shogiground(document.createElement('div'), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },
           coordinates: false,
         });
-      return h("main.analyse", [
-        h("div.nvui", [
-          h("h1", "Textual representation"),
-          h("h2", "Game info"),
-          ...["white", "black"].map((color: Color) =>
-            h("p", [
-              color + " player: ",
-              renderPlayer(ctrl, playerByColor(d, color)),
-            ])
+      return h('main.analyse', [
+        h('div.nvui', [
+          h('h1', 'Textual representation'),
+          h('h2', 'Game info'),
+          ...['sente', 'gote'].map((color: Color) =>
+            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))])
           ),
-          h("p", `${d.game.rated ? "Rated" : "Casual"} ${d.game.perf}`),
-          d.clock
-            ? h("p", `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`)
-            : null,
-          h("h2", "Moves"),
+          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+          d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+          h('h2', 'Moves'),
           h(
-            "p.moves",
+            'p.moves',
             {
               attrs: {
-                role: "log",
-                "aria-live": "off",
+                role: 'log',
+                'aria-live': 'off',
               },
             },
             renderMainline(ctrl.mainline, ctrl.path, style)
           ),
-          h("h2", "Pieces"),
-          h("div.pieces", renderPieces(ctrl.shogiground.state.pieces, style)),
-          h("h2", "Current position"),
+          h('h2', 'Pieces'),
+          h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
+          h('h2', 'Current position'),
           h(
-            "p.position",
+            'p.position',
             {
               attrs: {
-                "aria-live": "assertive",
-                "aria-atomic": true,
+                'aria-live': 'assertive',
+                'aria-atomic': true,
               },
             },
             renderCurrentNode(ctrl.node, style)
           ),
-          h("h2", "Move form"),
+          h('h2', 'Move form'),
           h(
-            "form",
+            'form',
             {
               hook: {
                 insert(vnode) {
                   const $form = $(vnode.elm as HTMLFormElement),
-                    $input = $form.find(".move").val("").focus();
-                  $form.submit(
-                    onSubmit(ctrl, notify.set, moveStyle.get, $input)
-                  );
+                    $input = $form.find('.move').val('').focus();
+                  $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },
             },
             [
-              h("label", [
-                "Command input",
-                h("input.move.mousetrap", {
+              h('label', [
+                'Command input',
+                h('input.move.mousetrap', {
                   attrs: {
-                    name: "move",
-                    type: "text",
-                    autocomplete: "off",
+                    name: 'move',
+                    type: 'text',
+                    autocomplete: 'off',
                     autofocus: true,
                   },
                 }),
@@ -104,36 +96,29 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           notify.render(),
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
-          h("h2", "Computer analysis"),
-          ...(renderAcpl(ctrl, style) || [
-            requestAnalysisButton(ctrl, analysisInProgress, notify.set),
-          ]),
-          h("h2", "Board"),
-          h(
-            "pre.board",
-            renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color)
-          ),
-          h("div.content", {
+          h('h2', 'Computer analysis'),
+          ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
+          h('h2', 'Board'),
+          h('pre.board', renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color)),
+          h('div.content', {
             hook: {
-              insert: (vnode) => {
-                $(vnode.elm as HTMLElement).append(
-                  $(".blind-content").removeClass("none")
-                );
+              insert: vnode => {
+                $(vnode.elm as HTMLElement).append($('.blind-content').removeClass('none'));
               },
             },
           }),
-          h("h2", "Settings"),
-          h("label", ["Move notation", renderSetting(moveStyle, ctrl.redraw)]),
-          h("h2", "Keyboard shortcuts"),
-          h("p", ["Use arrow keys to navigate in the game."]),
-          h("h2", "Commands"),
-          h("p", [
-            "Type these commands in the command input.",
-            h("br"),
+          h('h2', 'Settings'),
+          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+          h('h2', 'Keyboard shortcuts'),
+          h('p', ['Use arrow keys to navigate in the game.']),
+          h('h2', 'Commands'),
+          h('p', [
+            'Type these commands in the command input.',
+            h('br'),
             commands.piece.help,
-            h("br"),
+            h('br'),
             commands.scan.help,
-            h("br"),
+            h('br'),
           ]),
         ]),
       ]);
@@ -141,82 +126,61 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   };
 };
 
-function onSubmit(
-  ctrl: AnalyseController,
-  notify: (txt: string) => void,
-  style: () => Style,
-  $input: JQuery
-) {
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function () {
     let input = $input.val().trim();
-    if (isShortCommand(input)) input = "/" + input;
-    if (input[0] === "/") onCommand(ctrl, notify, input.slice(1), style());
-    else notify("Invalid command");
-    $input.val("");
+    if (isShortCommand(input)) input = '/' + input;
+    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
+    else notify('Invalid command');
+    $input.val('');
     return false;
   };
 }
 
-const shortCommands = ["p", "scan"];
+const shortCommands = ['p', 'scan'];
 
 function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(" ")[0]);
+  return shortCommands.includes(input.split(' ')[0]);
 }
 
-function onCommand(
-  ctrl: AnalyseController,
-  notify: (txt: string) => void,
-  c: string,
-  style: Style
-) {
+function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
   const pieces = ctrl.shogiground.state.pieces;
-  notify(
-    commands.piece.apply(c, pieces, style) ||
-      commands.scan.apply(c, pieces, style) ||
-      `Invalid command: ${c}`
-  );
+  notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);
 }
 
-const analysisGlyphs = ["?!", "?", "??"];
+const analysisGlyphs = ['?!', '?', '??'];
 
-function renderAcpl(
-  ctrl: AnalyseController,
-  style: Style
-): MaybeVNodes | undefined {
+function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter((n) =>
-    (n.glyphs || []).find((g) => analysisGlyphs.includes(g.symbol))
-  );
+  const analysisNodes = ctrl.mainline.filter(n => (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
-  ["white", "black"].forEach((color: Color) => {
+  ['sente', 'gote'].forEach((color: Color) => {
     const acpl = anal[color].acpl;
-    res.push(h("h3", `${color} player: ${acpl} ACPL`));
+    res.push(h('h3', `${color} player: ${acpl} ACPL`));
     res.push(
       h(
-        "select",
+        'select',
         {
-          hook: bind("change", (e) => {
+          hook: bind('change', e => {
             ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value));
             ctrl.redraw();
           }),
         },
         analysisNodes
-          .filter((n) => (n.ply % 2 === 1) === (color === "white"))
-          .map((node) =>
+          .filter(n => (n.ply % 2 === 1) === (color === 'sente'))
+          .map(node =>
             h(
-              "option",
+              'option',
               {
                 attrs: {
                   value: node.ply,
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [
-                moveView.plyToTurn(node.ply),
-                renderSan(node.san!, node.uci, style),
-                renderComments(node, style),
-              ].join(" ")
+              [moveView.plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
+                ' '
+              )
             )
           )
       )
@@ -225,49 +189,41 @@ function renderAcpl(
   return res;
 }
 
-function requestAnalysisButton(
-  ctrl: AnalyseController,
-  inProgress: Prop<boolean>,
-  notify: (msg: string) => void
-) {
-  if (inProgress()) return h("p", "Server-side analysis in progress");
+function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean>, notify: (msg: string) => void) {
+  if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h(
-    "button",
+    'button',
     {
-      hook: bind("click", (_) => {
+      hook: bind('click', _ => {
         $.ajax({
-          method: "post",
+          method: 'post',
           url: `/${ctrl.data.game.id}/request-analysis`,
           success: () => {
             inProgress(true);
-            notify("Server-side analysis in progress");
+            notify('Server-side analysis in progress');
           },
-          error: () => notify("Cannot run server-side analysis"),
+          error: () => notify('Cannot run server-side analysis'),
         });
       }),
     },
-    "Request a computer analysis"
+    'Request a computer analysis'
   );
 }
 
-function renderMainline(
-  nodes: Tree.Node[],
-  currentPath: Tree.Path,
-  style: Style
-) {
+function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
   const res: Array<string | VNode> = [];
-  let path: Tree.Path = "";
-  nodes.forEach((node) => {
+  let path: Tree.Path = '';
+  nodes.forEach(node => {
     if (!node.san || !node.uci) return;
     path += node.id;
     const content: MaybeVNodes = [
-      node.ply & 1 ? moveView.plyToTurn(node.ply) + " " : null,
+      node.ply & 1 ? moveView.plyToTurn(node.ply) + ' ' : null,
       renderSan(node.san, node.uci, style),
     ];
     res.push(
       h(
-        "move",
+        'move',
         {
           attrs: { p: path },
           class: { active: path === currentPath },
@@ -276,39 +232,30 @@ function renderMainline(
       )
     );
     res.push(renderComments(node, style));
-    res.push(", ");
-    if (node.ply % 2 === 0) res.push(h("br"));
+    res.push(', ');
+    if (node.ply % 2 === 0) res.push(h('br'));
   });
   return res;
 }
 
 function renderCurrentNode(node: Tree.Node, style: Style): string {
-  if (!node.san || !node.uci) return "Initial position";
-  return [
-    moveView.plyToTurn(node.ply),
-    renderSan(node.san, node.uci, style),
-    renderComments(node, style),
-  ].join(" ");
+  if (!node.san || !node.uci) return 'Initial position';
+  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)].join(' ');
 }
 
 function renderComments(node: Tree.Node, style: Style): string {
-  if (!node.comments) return "";
-  return (node.comments || []).map((c) => renderComment(c, style)).join(". ");
+  if (!node.comments) return '';
+  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
 }
 
 function renderComment(comment: Tree.Comment, style: Style): string {
-  return comment.by === "lishogi"
-    ? comment.text.replace(
-        /Best move was (.+)\./,
-        (_, san) => "Best move was " + renderSan(san, undefined, style)
-      )
+  return comment.by === 'lishogi'
+    ? comment.text.replace(/Best move was (.+)\./, (_, san) => 'Best move was ' + renderSan(san, undefined, style))
     : comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai
-    ? ctrl.trans("aiNameLevelAiLevel", "Engine", player.ai)
-    : userHtml(ctrl, player);
+  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Engine', player.ai) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {
@@ -317,20 +264,20 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : perf && perf.rating,
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? "+" + rd : rd < 0 ? "−" + -rd : "") : "";
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
-    ? h("span", [
+    ? h('span', [
         h(
-          "a",
+          'a',
           {
-            attrs: { href: "/@/" + user.username },
+            attrs: { href: '/@/' + user.username },
           },
           user.title ? `${user.title} ${user.username}` : user.username
         ),
         rating ? ` ${rating}` : ``,
-        " " + ratingDiff,
+        ' ' + ratingDiff,
       ])
-    : "Anonymous";
+    : 'Anonymous';
 }
 
 function playerByColor(d: AnalyseData, color: Color) {

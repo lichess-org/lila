@@ -68,9 +68,8 @@ object forms {
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
               div(cls := "ai_info")(
-                ratings.toList.map {
-                  case (level, _) =>
-                    div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                ratings.toList.map { case (level, _) =>
+                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
                 }
               )
             )

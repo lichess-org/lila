@@ -111,7 +111,7 @@
     <item quantity="other">Wklej tutaj swój PGN, max %s partii</item>
   </plurals>
   <string name="urlOfTheGame">Link do partii</string>
-  <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s lub %2$s</string>
+  <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s</string>
   <string name="createChapter">Stwórz rozdział</string>
   <string name="configureLiveBroadcast">Skonfiguruj przekaz na żywo</string>
   <string name="createStudy">Stwórz opracowanie</string>

@@ -79,8 +79,8 @@ final class Env(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.scheduleOnce(10 seconds){ shieldApi.clear() }
-      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds){ revolutionApi.clear() }
+      if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
+      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
     },
     indexLeaderboard = leaderboardIndexer.indexOne _
   )
@@ -128,9 +128,8 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-          leaderboardIndexer.generateAll inject "Done!"
+      def process = { case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        leaderboardIndexer.generateAll inject "Done!"
       }
     }
 }

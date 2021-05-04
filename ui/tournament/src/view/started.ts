@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
@@ -12,18 +12,19 @@ import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
-  return h('a.tour__ur-playing.button.is.is-after', {
-    attrs: { href: '/' + gameId }
-  }, [
-    ctrl.trans('youArePlaying'), h('br'),
-    ctrl.trans('joinTheGame')
-  ]);
+  return h(
+    'a.tour__ur-playing.button.is.is-after',
+    {
+      attrs: { href: '/' + gameId },
+    },
+    [ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')]
+  );
 }
 
 function notice(ctrl: TournamentController): VNode {
-  return tour.willBePaired(ctrl) ? h('div.tour__notice.bar-glider',
-    ctrl.trans('standByX', ctrl.data.me.username)
-  ) : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
+  return tour.willBePaired(ctrl)
+    ? h('div.tour__notice.bar-glider', ctrl.trans('standByX', ctrl.data.me.username))
+    : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
 
 export const name = 'started';
@@ -33,7 +34,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     pag = pagination.players(ctrl);
   return [
     header(ctrl),
-    gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
+    gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
     teamStanding(ctrl, 'started'),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
@@ -41,6 +42,5 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function table(ctrl: TournamentController): VNode | undefined {
-  return ctrl.playerInfo.id ? playerInfo(ctrl) :
-    ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
 }

@@ -50,26 +50,26 @@
     &:hover {
       @extend %metal;
       a {
-        opacity: 1!important;
+        opacity: 1 !important;
       }
     }
     a.loss {
-      opacity: .2;
+      opacity: 0.2;
     }
     &.current a {
       background: mix($c-accent, $c-bg-box, 70%);
       color: #fff;
-      opacity: 1!important;
+      opacity: 1 !important;
     }
     &.new {
       border: $c-border;
     }
     a.loss {
-      opacity: .2;
+      opacity: 0.2;
     }
     @include breakpoint($mq-not-x-small) {
       display: none;
-      &:nth-last-child(-n+12) {
+      &:nth-last-child(-n + 12) {
         display: flex;
       }
     }
@@ -77,7 +77,7 @@
   .sep {
     @extend %box-radius-left;
     border-left: $border;
-    margin-left: .3em;
+    margin-left: 0.3em;
   }
   .win {
     font-weight: bold;

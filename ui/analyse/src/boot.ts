@@ -1,5 +1,5 @@
-import { AnalyseApi, AnalyseOpts } from "./interfaces";
-import { start } from "./main";
+import { AnalyseApi, AnalyseOpts } from './interfaces';
+import { start } from './main';
 
 export default function (cfg: AnalyseOpts) {
   const li = window.lishogi,
@@ -8,7 +8,7 @@ export default function (cfg: AnalyseOpts) {
 
   li.socket = li.StrongSocket(data.url.socket, data.player.version, {
     options: {
-      name: "analyse",
+      name: 'analyse',
     },
     params: {
       userTv: data.userTv && data.userTv.id,
@@ -18,10 +18,10 @@ export default function (cfg: AnalyseOpts) {
     },
     events: {},
   });
-  cfg.$side = $(".analyse__side").clone();
-  cfg.$underboard = $(".analyse__underboard").clone();
+  cfg.$side = $('.analyse__side').clone();
+  cfg.$underboard = $('.analyse__underboard').clone();
   cfg.trans = li.trans(cfg.i18n);
-  cfg.initialPly = "url";
+  cfg.initialPly = 'url';
   cfg.socketSend = li.socket.send;
   analyse = start(cfg);
 }

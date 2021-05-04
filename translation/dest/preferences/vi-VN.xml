@@ -6,6 +6,7 @@
 	<string name="materialDifference">Khác chất</string>
 	<string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
 	<string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi trước)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Tạo độ bàn cờ (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Biên bản ván đấu</string>
 	<string name="pgnPieceNotation">Kí hiệu di chuyển</string>

@@ -18,15 +18,15 @@ final class GifExport(
         Json.obj(
           "delay"       -> 80,
           "orientation" -> chapter.setup.orientation.name,
-          "white" -> List(
-            chapter.tags(_.WhiteTitle),
-            chapter.tags(_.White),
-            chapter.tags(_.WhiteElo).map(elo => s"($elo)")
+          "sente" -> List(
+            chapter.tags(_.SenteTitle),
+            chapter.tags(_.Sente),
+            chapter.tags(_.SenteElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "black" -> List(
-            chapter.tags(_.BlackTitle),
-            chapter.tags(_.Black),
-            chapter.tags(_.BlackElo).map(elo => s"($elo)")
+          "gote" -> List(
+            chapter.tags(_.GoteTitle),
+            chapter.tags(_.Gote),
+            chapter.tags(_.GoteElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
           "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr())
         )

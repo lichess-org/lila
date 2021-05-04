@@ -1,0 +1,53 @@
+.e-pocket {
+  @extend %box-radius;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: center;
+  background: $c-font-dimmer;
+  width: 100%;
+  .no-square {
+    flex: 0 0 calc(100% / 7);
+    div {
+      @extend %square;
+    }
+  }
+  min-height: 50px;
+  max-height: 65px;
+  piece {
+    display: block;
+    width: 100%;
+    height: 100%;
+    @include transition();
+    &::after {
+      @extend %active, %box-radius;
+      content: attr(data-nb);
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      line-height: 0.9em;
+      padding: 3px 0.3em;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    &[data-nb='0'] {
+      cursor: auto;
+      opacity: 0.1;
+      &::after {
+        content: none;
+      }
+    }
+    &.premove {
+      background-color: #555;
+    }
+  }
+}
+
+.e-pocket {
+  &-top {
+    grid-area: pocket-top;
+  }
+  &-bottom {
+    grid-area: pocket-bot;
+  }
+}

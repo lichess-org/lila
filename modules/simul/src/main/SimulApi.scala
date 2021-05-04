@@ -5,7 +5,7 @@ import akka.pattern.ask
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
@@ -54,13 +54,14 @@ final class SimulApi(
     val simul = Simul.make(
       name = setup.name,
       clock = SimulClock(
-        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
+        config =
+          shogi.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
         hostExtraTime = setup.clockExtra * 60
       ),
-      variants = setup.variants.flatMap { chess.variant.Variant(_) },
+      variants = setup.variants.flatMap { shogi.variant.Variant(_) },
       position = setup.position
         .map {
-          SimulForm.startingPosition(_, chess.variant.Standard)
+          SimulForm.startingPosition(_, shogi.variant.Standard)
         }
         .filterNot(_.initial),
       host = me,
@@ -84,7 +85,7 @@ final class SimulApi(
               user,
               variant,
               PerfPicker.mainOrDefault(
-                speed = chess.Speed(simul.clock.config.some),
+                speed = shogi.Speed(simul.clock.config.some),
                 variant = variant,
                 daysPerTurn = none
               )(user.perfs)
@@ -111,11 +112,11 @@ final class SimulApi(
           simul.start ?? { started =>
             userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
-                games.headOption foreach {
-                  case (game, _) => socket.startSimul(simul, game)
+                games.headOption foreach { case (game, _) =>
+                  socket.startSimul(simul, game)
                 }
-                games.foldLeft(started) {
-                  case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
+                games.foldLeft(started) { case (s, (g, hostColor)) =>
+                  s.setPairingHostColor(g.id, hostColor)
                 }
               }
             } flatMap { s =>
@@ -203,27 +204,27 @@ final class SimulApi(
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id dmap2 { _.fullName }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] =
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, shogi.Color)] =
     for {
       user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
       hostColor  = simul.hostColor
-      whiteUser  = hostColor.fold(host, user)
-      blackUser  = hostColor.fold(user, host)
+      senteUser  = hostColor.fold(host, user)
+      goteUser   = hostColor.fold(user, host)
       clock      = simul.clock.chessClockOf(hostColor)
-      perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
+      perfPicker = lila.game.PerfPicker.mainOrDefault(shogi.Speed(clock.config), pairing.player.variant, none)
       game1 = Game.make(
-        chess = chess
+        shogi = shogi
           .Game(
             variantOption = Some {
               if (simul.position.isEmpty) pairing.player.variant
-              else chess.variant.FromPosition
+              else shogi.variant.FromPosition
             },
             fen = simul.position.map(_.fen)
           )
           .copy(clock = clock.start.some),
-        whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
-        blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
-        mode = chess.Mode.Casual,
+        sentePlayer = lila.game.Player.make(shogi.Sente, senteUser.some, perfPicker),
+        gotePlayer = lila.game.Player.make(shogi.Gote, goteUser.some, perfPicker),
+        mode = shogi.Mode.Casual,
         source = lila.game.Source.Simul,
         pgnImport = None
       )
@@ -263,8 +264,8 @@ final class SimulApi(
           { (_: Debouncer.Nothing) =>
             Bus.publish(siteMessage, "sendToFlag")
             repo.allCreatedFeaturable foreach { simuls =>
-              renderer.actor ? actorApi.SimulTable(simuls) map {
-                case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
+              renderer.actor ? actorApi.SimulTable(simuls) map { case view: String =>
+                Bus.publish(ReloadSimuls(view), "lobbySocket")
               }
             }
           }

@@ -6,6 +6,7 @@
 	<string name="materialDifference">子力差距</string>
 	<string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
 	<string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
 	<string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
 	<string name="pgnPieceNotation">Move notation</string>

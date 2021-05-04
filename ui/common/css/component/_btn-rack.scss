@@ -4,7 +4,8 @@
   align-items: center;
   border: $border;
   user-select: none;
-  .btn-rack { /* embedded racks */
+  .btn-rack {
+    /* embedded racks */
     border: none;
   }
   &__btn,
@@ -33,7 +34,7 @@
     }
   }
   &__btn {
-    padding: 0 .6em;
+    padding: 0 0.6em;
     &.active {
       @extend %active;
       color: #fff;

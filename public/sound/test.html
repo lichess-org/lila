@@ -26,48 +26,40 @@
       <tbody id="sounds"></tbody>
     </table>
     <script>
-      var soundSets = [
-        "standard",
-        "piano",
-        "nes",
-        "sfx",
-        "futuristic",
-        "robot",
-      ];
+      var soundSets = ['standard', 'piano', 'nes', 'sfx', 'futuristic', 'robot'];
       var soundNames = {
-        genericNotify: "GenericNotify",
-        move: "Move",
-        capture: "Capture",
-        explode: "Explosion",
-        lowtime: "LowTime",
-        victory: "Victory",
-        defeat: "Defeat",
-        draw: "Draw",
-        tournament1st: "Tournament1st",
-        tournament2nd: "Tournament2nd",
-        tournament3rd: "Tournament3rd",
-        tournamentOther: "TournamentOther",
-        berserk: "Berserk",
-        check: "Check",
-        newChallenge: "NewChallenge",
-        newPM: "NewPM",
+        genericNotify: 'GenericNotify',
+        move: 'Move',
+        capture: 'Capture',
+        explode: 'Explosion',
+        lowtime: 'LowTime',
+        victory: 'Victory',
+        defeat: 'Defeat',
+        draw: 'Draw',
+        tournament1st: 'Tournament1st',
+        tournament2nd: 'Tournament2nd',
+        tournament3rd: 'Tournament3rd',
+        tournamentOther: 'TournamentOther',
+        berserk: 'Berserk',
+        check: 'Check',
+        newChallenge: 'NewChallenge',
+        newPM: 'NewPM',
       };
-      for (var i = 0; i <= 10; i++)
-        soundNames["countDown" + i] = "CountDown" + i;
+      for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
       $.each(soundSets, function (i, soundSet) {
-        $("#sets").append($("<th>" + soundSet + "</th>"));
+        $('#sets').append($('<th>' + soundSet + '</th>'));
       });
       $.each(soundNames, function (i, soundName) {
-        var tr = $("<tr>");
+        var tr = $('<tr>');
         $.each(soundSets, function (i, soundSet) {
-          var id = "soundSet_" + soundSet;
-          $("<td>")
+          var id = 'soundSet_' + soundSet;
+          $('<td>')
             .append(
-              $("<button>")
+              $('<button>')
                 .click(function () {
                   new Howl({
-                    src: ["ogg", "mp3"].map(function (ext) {
-                      return [soundSet, soundName + "." + ext].join("/");
+                    src: ['ogg', 'mp3'].map(function (ext) {
+                      return [soundSet, soundName + '.' + ext].join('/');
                     }),
                   }).play();
                 })
@@ -75,28 +67,28 @@
             )
             .appendTo(tr);
         });
-        tr.appendTo($("#sounds"));
+        tr.appendTo($('#sounds'));
       });
-      var tr = $("<tr>");
+      var tr = $('<tr>');
       $.each(soundSets, function (i, soundSet) {
-        $("<td>")
+        $('<td>')
           .append(
-            $("<button>")
+            $('<button>')
               .click(function () {
                 var i = 10;
                 var tId = setInterval(function () {
                   new Howl({
-                    src: ["ogg", "mp3"].map(function (ext) {
-                      return [soundSet, "CountDown" + i + "." + ext].join("/");
+                    src: ['ogg', 'mp3'].map(function (ext) {
+                      return [soundSet, 'CountDown' + i + '.' + ext].join('/');
                     }),
                   }).play();
                   i-- || clearInterval(tId);
                 }, 1000);
               })
-              .text("CountDown10 --1> 0")
+              .text('CountDown10 --1> 0')
           )
           .appendTo(tr);
-        tr.appendTo($("#sounds"));
+        tr.appendTo($('#sounds'));
       });
     </script>
   </body>

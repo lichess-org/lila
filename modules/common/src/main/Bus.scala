@@ -29,8 +29,8 @@ object Bus {
   }
 
   def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
-    subscriptions foreach {
-      case (channel, subscriber) => subscribeFun(channel)(subscriber)
+    subscriptions foreach { case (channel, subscriber) =>
+      subscribeFun(channel)(subscriber)
     }
 
   def unsubscribe                               = bus.unsubscribe _

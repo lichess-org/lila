@@ -38,15 +38,15 @@ $player-height: 1.6rem;
   }
   .result {
     flex: 0 0 auto;
-    margin-left: .8em;
-    padding-right: .8em;
+    margin-left: 0.8em;
+    padding-right: 0.8em;
     border-right: $border;
   }
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
     align-self: stretch;
     font-size: 1.2em;
-    padding: 0 .8em;
+    padding: 0 0.8em;
     border-radius: 0 4px 0 0;
   }
   &-bot .analyse__clock {
@@ -61,7 +61,7 @@ $player-height: 1.6rem;
     margin-left: 10px;
   }
   .elo {
-    margin-left: .5em;
+    margin-left: 0.5em;
     font-weight: normal;
   }
 }

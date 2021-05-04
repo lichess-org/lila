@@ -2,8 +2,8 @@ package lila.rating
 
 import play.api.i18n.Lang
 
-import chess.Centis
-import chess.Speed
+import shogi.Centis
+import shogi.Speed
 import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(
@@ -81,8 +81,8 @@ object PerfType {
       extends PerfType(
         5,
         key = "standard",
-        name = chess.variant.Standard.name,
-        title = "Standard rules of chess",
+        name = shogi.variant.Standard.name,
+        title = "Standard rules of shogi",
         iconChar = '8'
       )
 
@@ -129,30 +129,27 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    Correspondence,
+    Correspondence
   )
-  val nonGame: List[PerfType] = List(Puzzle)
   val leaderboardable: List[PerfType] = List(
     Bullet,
     Blitz,
     Rapid,
     Classical,
     UltraBullet,
-    Correspondence,
+    Correspondence
   )
   val variants: List[PerfType] = Nil
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
-  def isGame(pt: PerfType) = !nonGame.contains(pt)
-
-  def variantOf(pt: PerfType): chess.variant.Variant =
+  def variantOf(pt: PerfType): shogi.variant.Variant =
     pt match {
-      case _             => chess.variant.Standard // todo variant
+      case _ => shogi.variant.Standard // todo variant
     }
 
-  def byVariant(variant: chess.variant.Variant): Option[PerfType] =
+  def byVariant(variant: shogi.variant.Variant): Option[PerfType] =
     variant match {
-      case _                           => none
+      case _ => none
     }
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
@@ -169,7 +166,7 @@ object PerfType {
     }
     .to(Map)
 
-  def iconByVariant(variant: chess.variant.Variant): Char =
+  def iconByVariant(variant: shogi.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)
 
   def trans(pt: PerfType)(implicit lang: Lang): String =

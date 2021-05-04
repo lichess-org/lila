@@ -68,8 +68,8 @@ final class TournamentShieldApi(
             tourId = tour.id
           )
         } map {
-          _.foldLeft(Map.empty[Category, List[Award]]) {
-            case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
+          _.foldLeft(Map.empty[Category, List[Award]]) { case (hist, entry) =>
+            hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
           }
         } dmap History.apply
       }
@@ -104,7 +104,7 @@ object TournamentShield {
       )
   }
 
-  private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
+  private type SpeedOrVariant = Either[Schedule.Speed, shogi.variant.Variant]
 
   sealed abstract class Category(
       val of: SpeedOrVariant,

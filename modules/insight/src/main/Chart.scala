@@ -54,7 +54,7 @@ object Chart {
       povs.map { pov =>
         Json.obj(
           "id"       -> pov.gameId,
-          "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+          "fen"      -> (shogi.format.Forsyth exportSituation pov.game.situation),
           "color"    -> pov.player.color.name,
           "lastMove" -> ~pov.game.lastMoveKeys,
           "user1"    -> gameUserJson(pov.player),
@@ -79,46 +79,44 @@ object Chart {
 
     def series =
       clusters
-        .foldLeft(Map.empty[String, Serie]) {
-          case (acc, cluster) =>
-            cluster.insight match {
-              case Insight.Single(point) =>
-                val key = metric.name
+        .foldLeft(Map.empty[String, Serie]) { case (acc, cluster) =>
+          cluster.insight match {
+            case Insight.Single(point) =>
+              val key = metric.name
+              acc.updated(
+                key,
+                acc.get(key) match {
+                  case None =>
+                    Serie(
+                      name = metric.name,
+                      dataType = metric.dataType.name,
+                      stack = none,
+                      data = List(point.y)
+                    )
+                  case Some(s) => s.copy(data = point.y :: s.data)
+                }
+              )
+            case Insight.Stacked(points) =>
+              points.foldLeft(acc) { case (acc, (metricValueName, point)) =>
+                val key = s"${metric.name}/${metricValueName.name}"
                 acc.updated(
                   key,
                   acc.get(key) match {
                     case None =>
                       Serie(
-                        name = metric.name,
+                        name = metricValueName.name,
                         dataType = metric.dataType.name,
-                        stack = none,
+                        stack = metric.name.some,
                         data = List(point.y)
                       )
                     case Some(s) => s.copy(data = point.y :: s.data)
                   }
                 )
-              case Insight.Stacked(points) =>
-                points.foldLeft(acc) {
-                  case (acc, (metricValueName, point)) =>
-                    val key = s"${metric.name}/${metricValueName.name}"
-                    acc.updated(
-                      key,
-                      acc.get(key) match {
-                        case None =>
-                          Serie(
-                            name = metricValueName.name,
-                            dataType = metric.dataType.name,
-                            stack = metric.name.some,
-                            data = List(point.y)
-                          )
-                        case Some(s) => s.copy(data = point.y :: s.data)
-                      }
-                    )
-                }
-            }
+              }
+          }
         }
-        .map {
-          case (_, serie) => serie.copy(data = serie.data.reverse)
+        .map { case (_, serie) =>
+          serie.copy(data = serie.data.reverse)
         }
         .toList
 

@@ -8,7 +8,7 @@
     h1 {
       @extend %roboto;
       margin: 0;
-      padding: 0!important;
+      padding: 0 !important;
       font-size: 2rem;
       line-height: 2;
       text-transform: uppercase;
@@ -29,10 +29,10 @@
 }
 
 .coach-edit {
-
   .top .upload_picture {
     text-align: center;
-    margin-top: 80px;
+    margin: 0 10px;
+    margin-top: 50%;
   }
 
   .overview {
@@ -48,11 +48,12 @@
   .overview.with-todo .todo {
     @extend %box-radius;
     display: block;
+    width: 85%;
     border-radius: 20px;
     padding: 1rem;
     background: mix($c-error, $c-bg-box, 15%);
     border: 1px solid $c-error;
-    margin-bottom: 2rem;
+    margin: auto;
   }
   .overview .todo h3 {
     margin: 0;
@@ -137,7 +138,7 @@
     .actions {
       font-size: 1.4em;
       a {
-        padding: .5em .7em;
+        padding: 0.5em 0.7em;
       }
       .yes {
         color: $c-good;

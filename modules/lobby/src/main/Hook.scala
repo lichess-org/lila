@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Clock, Mode, Speed }
+import shogi.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.i18n.Lang
@@ -11,7 +11,7 @@ import lila.rating.RatingRange
 import lila.socket.Socket.Sri
 import lila.user.User
 
-// realtime chess, volatile
+// realtime shogi, volatile
 case class Hook(
     id: String,
     sri: Sri,            // owner socket sri
@@ -28,7 +28,7 @@ case class Hook(
 
   val realColor = Color orDefault color
 
-  val realVariant = chess.variant.Variant orDefault variant
+  val realVariant = shogi.variant.Variant orDefault variant
 
   val realMode = Mode orDefault mode
 
@@ -78,7 +78,7 @@ case class Hook(
       .add("rating" -> rating)
       .add("variant" -> realVariant.exotic.option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color(color).map(_.name))
+      .add("c" -> shogi.Color(color).map(_.name))
       .add("perf" -> perfType.map(_.trans))
 
   def randomColor = color == "random"
@@ -87,7 +87,7 @@ case class Hook(
     realMode.rated && realVariant.standard && randomColor &&
       lila.pool.PoolList.clockStringSet.contains(clock.show)
 
-  def compatibleWithPool(poolClock: chess.Clock.Config) =
+  def compatibleWithPool(poolClock: shogi.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
   def toPool =
@@ -114,7 +114,7 @@ object Hook {
 
   def make(
       sri: Sri,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       clock: Clock.Config,
       mode: Mode,
       color: String,
@@ -125,7 +125,7 @@ object Hook {
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = Random nextString idSize,
+      id = lila.common.ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

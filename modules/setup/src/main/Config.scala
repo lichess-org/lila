@@ -1,8 +1,8 @@
 package lila.setup
 
-import chess.{ Game => ChessGame, Situation, Clock, Speed }
-import chess.variant.{ FromPosition, Variant }
-import chess.format.FEN
+import shogi.{ Game => ShogiGame, Situation, Clock, Speed }
+import shogi.variant.{ FromPosition, Variant }
+import shogi.format.FEN
 
 import lila.game.Game
 import lila.lobby.Color
@@ -37,10 +37,10 @@ private[setup] trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame(v: Variant): ChessGame =
-    ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
+  def makeGame(v: Variant): ShogiGame =
+    ShogiGame(situation = Situation(v), clock = makeClock.map(_.toClock))
 
-  def makeGame: ChessGame = makeGame(variant)
+  def makeGame: ShogiGame = makeGame(variant)
 
   def validClock = !hasClock || clockHasTimeInc || clockHasTimeByo
 
@@ -50,13 +50,18 @@ private[setup] trait Config {
 
   def makeClock = hasClock option justMakeClock
 
-  protected def justMakeClock = Clock.Config((time * 60).toInt, if (clockHasTimeInc) increment else 0, if (clockHasTimeByo) byoyomi else 0, periods)
+  protected def justMakeClock = Clock.Config(
+    (time * 60).toInt,
+    if (clockHasTimeInc) increment else 0,
+    if (clockHasTimeByo) byoyomi else 0,
+    periods
+  )
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
 trait Positional { self: Config =>
 
-  import chess.format.Forsyth, Forsyth.SituationPlus
+  import shogi.format.Forsyth, Forsyth.SituationPlus
 
   def fen: Option[FEN]
 
@@ -68,26 +73,26 @@ trait Positional { self: Config =>
     }
   }
 
-  def fenGame(builder: ChessGame => Game): Game = {
+  def fenGame(builder: ShogiGame => Game): Game = {
     val baseState = fen ifTrue (variant.fromPosition) flatMap { f =>
       Forsyth.<<<@(FromPosition, f.value)
     }
-    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
+    val (shogiGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit @ SituationPlus(s, _) =>
-        val game = ChessGame(
+        val game = ShogiGame(
           situation = s,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock.map(_.toClock)
         )
-        if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
+        if (Forsyth.>>(game) == Forsyth.initial) makeGame(shogi.variant.Standard) -> none
         else game                                                                 -> baseState
     }
-    val game = builder(chessGame)
+    val game = builder(shogiGame)
     state.fold(game) {
       case sit @ SituationPlus(Situation(board, _), _) => {
         game.copy(
-          chess = game.chess.copy(
+          shogi = game.shogi.copy(
             situation = game.situation.copy(
               board = game.board.copy(
                 history = board.history,
@@ -106,28 +111,28 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val variants       = List(chess.variant.Standard.id, chess.variant.Chess960.id)
-  val variantDefault = chess.variant.Standard
+  val variants       = List(shogi.variant.Standard.id, shogi.variant.Chess960.id)
+  val variantDefault = shogi.variant.Standard
 
   val variantsWithFen = variants :+ FromPosition.id
   val aiVariants = variants :+
-    chess.variant.Crazyhouse.id :+
-    chess.variant.KingOfTheHill.id :+
-    chess.variant.ThreeCheck.id :+
-    chess.variant.Antichess.id :+
-    chess.variant.Atomic.id :+
-    chess.variant.Horde.id :+
-    chess.variant.RacingKings.id :+
-    chess.variant.FromPosition.id
+    shogi.variant.Crazyhouse.id :+
+    shogi.variant.KingOfTheHill.id :+
+    shogi.variant.ThreeCheck.id :+
+    shogi.variant.Antichess.id :+
+    shogi.variant.Atomic.id :+
+    shogi.variant.Horde.id :+
+    shogi.variant.RacingKings.id :+
+    shogi.variant.FromPosition.id
   val variantsWithVariants =
     variants :+
-      chess.variant.Crazyhouse.id :+
-      chess.variant.KingOfTheHill.id :+
-      chess.variant.ThreeCheck.id :+
-      chess.variant.Antichess.id :+
-      chess.variant.Atomic.id :+
-      chess.variant.Horde.id :+
-      chess.variant.RacingKings.id
+      shogi.variant.Crazyhouse.id :+
+      shogi.variant.KingOfTheHill.id :+
+      shogi.variant.ThreeCheck.id :+
+      shogi.variant.Antichess.id :+
+      shogi.variant.Atomic.id :+
+      shogi.variant.Horde.id :+
+      shogi.variant.RacingKings.id
   val variantsWithFenAndVariants =
     variantsWithVariants :+ FromPosition.id
 

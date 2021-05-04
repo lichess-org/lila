@@ -1,8 +1,8 @@
 package lila.app
 package templating
 
-import chess.format.Forsyth
-import chess.{ Status => S, Color, Clock, Mode }
+import shogi.format.Forsyth
+import shogi.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -32,9 +32,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     )
 
   def titleGame(g: Game) = {
-    val speed   = chess.Speed(g.clock.map(_.config)).name
+    val speed   = shogi.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
-    s"$speed$variant Shogi • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
+    s"$speed$variant Shogi • ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -44,15 +44,15 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speedAndClock =
       if (game.imported) "imported"
       else
-        game.clock.fold(chess.Speed.Correspondence.name) { c =>
-          s"${chess.Speed(c.config).name} (${c.config.show})"
+        game.clock.fold(shogi.Speed.Correspondence.name) { c =>
+          s"${shogi.Speed(c.config).name} (${c.config.show})"
         }
     val mode = game.mode.name
     val variant =
-      if (game.variant == chess.variant.FromPosition) "position setup shogi"
+      if (game.variant == shogi.variant.FromPosition) "position setup shogi"
       else if (game.variant.exotic) game.variant.name
       else "shogi"
-    import chess.Status._
+    import shogi.Status._
     val result = (game.winner, game.loser, game.status) match {
       case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
@@ -69,18 +69,18 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
       case _ => "Game is still being played"
     }
-    val moves = s"${game.chess.turns} moves"
+    val moves = s"${game.shogi.turns} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit lang: Lang) =
+  def variantName(variant: shogi.variant.Variant)(implicit lang: Lang) =
     variant match {
-      case chess.variant.Standard     => trans.standard.txt()
-      case chess.variant.FromPosition => trans.fromPosition.txt()
+      case shogi.variant.Standard     => trans.standard.txt()
+      case shogi.variant.FromPosition => trans.fromPosition.txt()
       case v                          => v.name
     }
 
-  def variantNameNoCtx(variant: chess.variant.Variant) = variantName(variant)(defaultLang)
+  def variantNameNoCtx(variant: shogi.variant.Variant) = variantName(variant)(defaultLang)
 
   def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
@@ -178,31 +178,31 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
         game.loser match {
-          case Some(p) if p.color.white => trans.blackResigned.txt() // swapped
+          case Some(p) if p.color.sente => trans.blackResigned.txt()
           case _                        => trans.whiteResigned.txt()
         }
-      case S.UnknownFinish => trans.finished.txt()
-      case S.Stalemate     => trans.stalemate.txt()
-      case S.Impasse       => "Impasse"
-      case S.PerpetualCheck=> "Perpetual Check"
+      case S.UnknownFinish  => trans.finished.txt()
+      case S.Stalemate      => trans.stalemate.txt()
+      case S.Impasse        => "Impasse"
+      case S.PerpetualCheck => "Perpetual Check"
       case S.Timeout =>
         game.loser match {
-          case Some(p) if p.color.white => trans.blackLeftTheGame.txt() // swapped
+          case Some(p) if p.color.sente => trans.blackLeftTheGame.txt()
           case Some(_)                  => trans.whiteLeftTheGame.txt()
           case None                     => trans.draw.txt()
         }
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
       case S.NoStart => {
-        val color = if(game.loser.fold(Color.black)(_.color).name.capitalize == "White") "Sente" else "Gote" // swapped   
+        val color = game.loser.fold(Color.sente)(_.color).name.capitalize
         s"$color didn't move"
       }
-      case S.Cheat => "Cheat detected"
+      case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
-          case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
-          case chess.variant.ThreeCheck    => trans.threeChecks.txt()
-          case chess.variant.RacingKings   => trans.raceFinished.txt()
+          case shogi.variant.KingOfTheHill => trans.kingInTheCenter.txt()
+          case shogi.variant.ThreeCheck    => trans.threeChecks.txt()
+          case shogi.variant.RacingKings   => trans.raceFinished.txt()
           case _                           => trans.variantEnding.txt()
         }
       case _ => ""
@@ -218,14 +218,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$u1 vs $u2$clock$variant"
   }
 
-  // whiteUsername 1-0 blackUsername
-  def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) chess.Color.showResult(result map Color.apply) else "*"
-    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
+  // senteUsername 1-0 goteUsername
+  def gameSummary(senteUserId: String, goteUserId: String, finished: Boolean, result: Option[Boolean]) = {
+    val res = if (finished) shogi.Color.showResult(result map Color.apply) else "*"
+    s"${usernameOrId(senteUserId)} $res ${usernameOrId(goteUserId)}"
   }
 
   def gameResult(game: Game) =
-    if (game.finished) chess.Color.showResult(game.winnerColor)
+    if (game.finished) shogi.Color.showResult(game.winnerColor)
     else "*"
 
   def gameLink(
@@ -263,7 +263,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(game.board),
+      dataFen := Forsyth.exportSituation(game.situation),
       dataLastmove := ~game.lastMoveKeys,
       dataPocket := ~game.pocketsKeys
     )(cgWrapContent)
@@ -281,7 +281,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(pov.game.board),
+      dataFen := Forsyth.exportSituation(pov.game.situation),
       dataLastmove := ~pov.game.lastMoveKeys,
       dataPocket := ~pov.game.pocketsKeys,
       target := blank.option("_blank")
@@ -289,8 +289,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def challengeTitle(c: lila.challenge.Challenge) = {
-    val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
-      s"${chess.Speed(clock).name} (${clock.show})"
+    val speed = c.clock.map(_.config).fold(shogi.Speed.Correspondence.name) { clock =>
+      s"${shogi.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(User.anonymous) { reg =>
@@ -308,7 +308,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def challengeOpenGraph(c: lila.challenge.Challenge) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
-      url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
+      url = s"$netBaseUrl${routes.Round.watcher(c.id, shogi.Sente.name).url}",
       description = "Join the challenge or watch the game here."
     )
 }

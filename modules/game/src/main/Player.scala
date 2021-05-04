@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.Color
+import shogi.Color
 import scala.util.chaining._
 
 import lila.user.User
@@ -38,8 +38,8 @@ case class Player(
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def userInfos: Option[Player.UserInfo] =
-    (userId |@| rating) {
-      case (id, ra) => Player.UserInfo(id, ra, provisional)
+    (userId |@| rating) { case (id, ra) =>
+      Player.UserInfo(id, ra, provisional)
     }
 
   def wins = isWinner getOrElse false
@@ -48,7 +48,7 @@ case class Player(
 
   def finish(winner: Boolean) = {
     copy(isWinner = winner option true)
-    }
+  }
 
   def offerDraw(turn: Int) =
     copy(
@@ -212,7 +212,7 @@ object Player {
               )
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) pipe { p =>
+      o(shogi.Sente)("0000")(none)(none) pipe { p =>
         BSONDocument(
           aiLevel           -> p.aiLevel,
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),

@@ -49,10 +49,10 @@ final class Env(
       api.reviews deleteAllBy userId
     case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
       api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey))
-    case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
+    case lila.game.actorApi.FinishGame(game, sente, gote) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
-        white ?? api.setRating
-        black ?? api.setRating
+        sente ?? api.setRating
+        gote ?? api.setRating
       }
     case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
   }

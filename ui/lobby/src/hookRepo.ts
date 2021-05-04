@@ -1,5 +1,5 @@
-import LobbyController from "./ctrl";
-import { Hook } from "./interfaces";
+import LobbyController from './ctrl';
+import { Hook } from './interfaces';
 
 function ratingOrder(a, b) {
   return (a.rating || 0) > (b.rating || 0) ? -1 : 1;
@@ -10,12 +10,12 @@ function timeOrder(a, b) {
 }
 
 export function sort(ctrl: LobbyController, hooks: Hook[]) {
-  hooks.sort(ctrl.sort === "time" ? timeOrder : ratingOrder);
+  hooks.sort(ctrl.sort === 'time' ? timeOrder : ratingOrder);
 }
 
 export function init(hook: Hook) {
-  hook.action = hook.sri === window.lishogi.sri ? "cancel" : "join";
-  hook.variant = hook.variant || "standard";
+  hook.action = hook.sri === window.lishogi.sri ? 'cancel' : 'join';
+  hook.variant = hook.variant || 'standard';
 }
 
 export function initAll(ctrl: LobbyController) {
@@ -31,14 +31,14 @@ export function setAll(ctrl: LobbyController, hooks: Hook[]) {
   initAll(ctrl);
 }
 export function remove(ctrl: LobbyController, id) {
-  ctrl.data.hooks = ctrl.data.hooks.filter((h) => h.id !== id);
-  ctrl.stepHooks.forEach((h) => {
+  ctrl.data.hooks = ctrl.data.hooks.filter(h => h.id !== id);
+  ctrl.stepHooks.forEach(h => {
     if (h.id === id) h.disabled = true;
   });
 }
 export function syncIds(ctrl: LobbyController, ids) {
-  ctrl.data.hooks = ctrl.data.hooks.filter((h) => ids.includes(h.id));
+  ctrl.data.hooks = ctrl.data.hooks.filter(h => ids.includes(h.id));
 }
 export function find(ctrl: LobbyController, id) {
-  return ctrl.data.hooks.find((h) => h.id === id);
+  return ctrl.data.hooks.find(h => h.id === id);
 }

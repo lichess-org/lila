@@ -7,7 +7,7 @@ import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import chess.format.Uci
+import shogi.format.Uci
 import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
@@ -92,7 +92,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.delete.one($inIds(chess.Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game) = coll.delete.one($inIds(shogi.Color.all.map(g.fullIdOf))).void
 
   def clearPov(pov: Pov) = coll.delete.one($id(pov.fullId)).void
 }

@@ -126,13 +126,12 @@ object LeaderboardApi {
     import ChartData._
     lazy val allPerfResults: PerfResult = perfResults.map(_._2) match {
       case head :: tail =>
-        tail.foldLeft(head) {
-          case (acc, res) =>
-            PerfResult(
-              nb = acc.nb + res.nb,
-              points = res.points ::: acc.points,
-              rank = res.rank ::: acc.rank
-            )
+        tail.foldLeft(head) { case (acc, res) =>
+          PerfResult(
+            nb = acc.nb + res.nb,
+            points = res.points ::: acc.points,
+            rank = res.rank ::: acc.rank
+          )
         }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
     }

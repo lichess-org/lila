@@ -47,7 +47,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                   val prog = data.progressOn(stud.id)
                   a(
                     cls := s"study ${if (prog.complete) "done" else "ongoing"}",
-                    href := routes.Page.notSupported()// section.id, stud.slug, stud.id.value) //show
+                    href := routes.Page.notSupported() // section.id, stud.slug, stud.id.value) //show
                   )(
                     ctx.isAuth option span(cls := "ribbon-wrapper")(
                       span(cls := "ribbon")(prog.done, " / ", prog.total)

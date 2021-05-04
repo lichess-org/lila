@@ -1,11 +1,10 @@
 package lila.simul
 
-import chess.variant.Variant
-import chess.{ Speed, StartingPosition }
+import shogi.variant.Variant
+import shogi.{ Speed, StartingPosition }
 import lila.rating.PerfType
 import lila.user.User
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 case class Simul(
     _id: Simul.ID,
@@ -123,9 +122,9 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean())
+  def hostColor = (color flatMap shogi.Color.apply) | shogi.Color(scala.util.Random.nextBoolean())
 
-  def setPairingHostColor(gameId: String, hostColor: chess.Color) =
+  def setPairingHostColor(gameId: String, hostColor: shogi.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
@@ -153,7 +152,7 @@ object Simul {
       team: Option[String]
   ): Simul =
     Simul(
-      _id = Random nextString 8,
+      _id = lila.common.ThreadLocalRandom nextString 8,
       name = name,
       status = SimulStatus.Created,
       clock = clock,
@@ -169,7 +168,7 @@ object Simul {
       },
       hostGameId = none,
       createdAt = DateTime.now,
-      variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+      variants = if (position.isDefined) List(shogi.variant.Standard) else variants,
       position = position,
       applicants = Nil,
       pairings = Nil,

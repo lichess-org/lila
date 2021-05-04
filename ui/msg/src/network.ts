@@ -1,6 +1,6 @@
-import MsgCtrl from "./ctrl";
-import { MsgData, Contact, User, Msg, Convo, SearchResult } from "./interfaces";
-import { json, form } from "common/xhr";
+import MsgCtrl from './ctrl';
+import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
+import { json, form } from 'common/xhr';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return json(`/inbox/${userId}`).then(upgradeData);
@@ -16,7 +16,7 @@ export function loadContacts(): Promise<MsgData> {
 
 export function search(q: string): Promise<SearchResult> {
   return json(`/inbox/search?q=${q}`).then(
-    (res) =>
+    res =>
       ({
         ...res,
         contacts: res.contacts.map(upgradeContact),
@@ -25,58 +25,58 @@ export function search(q: string): Promise<SearchResult> {
 }
 
 export function block(u: string) {
-  return json(`/rel/block/${u}`, { method: "post" });
+  return json(`/rel/block/${u}`, { method: 'post' });
 }
 
 export function unblock(u: string) {
-  return json(`/rel/unblock/${u}`, { method: "post" });
+  return json(`/rel/unblock/${u}`, { method: 'post' });
 }
 
 export function del(u: string): Promise<MsgData> {
-  return json(`/inbox/${u}`, { method: "delete" }).then(upgradeData);
+  return json(`/inbox/${u}`, { method: 'delete' }).then(upgradeData);
 }
 
 export function report(name: string, text: string): Promise<any> {
-  return json("/report/flag", {
-    method: "post",
+  return json('/report/flag', {
+    method: 'post',
     body: form({
       username: name,
       text: text,
-      resource: "msg",
+      resource: 'msg',
     }),
   });
 }
 
 export function post(dest: string, text: string) {
-  window.lishogi.pubsub.emit("socket.send", "msgSend", { dest, text });
+  window.lishogi.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
 export function setRead(dest: string) {
-  window.lishogi.pubsub.emit("socket.send", "msgRead", dest);
+  window.lishogi.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
 export function typing(dest: string) {
-  window.lishogi.pubsub.emit("socket.send", "msgType", dest);
+  window.lishogi.pubsub.emit('socket.send', 'msgType', dest);
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
   const listen = window.lishogi.pubsub.on;
-  listen("socket.in.msgNew", (msg) => {
+  listen('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),
       read: false,
     });
   });
-  listen("socket.in.msgType", ctrl.receiveTyping);
-  listen("socket.in.blockedBy", ctrl.changeBlockBy);
-  listen("socket.in.unblockedBy", ctrl.changeBlockBy);
+  listen('socket.in.msgType', ctrl.receiveTyping);
+  listen('socket.in.blockedBy', ctrl.changeBlockBy);
+  listen('socket.in.unblockedBy', ctrl.changeBlockBy);
 
   let connected = true;
-  listen("socket.close", () => {
+  listen('socket.close', () => {
     connected = false;
     ctrl.redraw();
   });
-  listen("socket.open", () => {
+  listen('socket.open', () => {
     if (!connected) {
       connected = true;
       ctrl.onReconnect();

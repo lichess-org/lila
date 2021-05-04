@@ -10,7 +10,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleRoundRepo: lila.puzzle.RoundRepo,
+    puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.msg.MsgApi,
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
@@ -34,12 +34,11 @@ final class Env(
   lazy val markup = wire[ClasMarkup]
 
   lila.common.Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, _, _) => progressApi.onFinishGame(game)
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
+      progressApi.onFinishGame(game)
     },
-    "clas" -> {
-      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
-        promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
+    "clas" -> { case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
     }
   )
 }

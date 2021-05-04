@@ -228,8 +228,8 @@ object Permission {
     )
   )
 
-  lazy val all: Set[Permission] = categorized.flatMap {
-    case (_, perms) => perms
+  lazy val all: Set[Permission] = categorized.flatMap { case (_, perms) =>
+    perms
   }.toSet
 
   lazy val nonModPermissions: Set[Permission] =

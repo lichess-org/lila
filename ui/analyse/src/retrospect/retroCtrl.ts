@@ -7,16 +7,15 @@ import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
-  isSolving(): boolean
-  trans: Trans
-  [key: string]: any
-  notation: number
+  isSolving(): boolean;
+  trans: Trans;
+  [key: string]: any;
+  notation: number;
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
-
   const game = root.data.game;
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
@@ -28,13 +27,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function isPlySolved(ply: Ply): boolean {
     return solvedPlies.includes(ply);
-  };
+  }
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = color == 'white' ? 1 : 0;
+    const colorModulo = color == 'sente' ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
-  };
+  }
 
   function jumpToNext(): void {
     feedback('find');
@@ -45,12 +44,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     }
     const fault = {
       node,
-      path: root.mainlinePathToPly(node.ply)
+      path: root.mainlinePathToPly(node.ply),
     };
     const prevPath = treePath.init(fault.path);
     const prev = {
       node: root.tree.nodeAtPath(prevPath),
-      path: prevPath
+      path: prevPath,
     };
     const solutionNode = prev.node.children.find(n => !!n.comp);
     current({
@@ -58,17 +57,21 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       prev,
       solution: {
         node: solutionNode,
-        path: prevPath + solutionNode!.id
+        path: prevPath + solutionNode!.id,
       },
-      openingUcis: []
+      openingUcis: [],
     });
     // fetch opening explorer moves
-    if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
+    if (
+      game.variant.key === 'standard' &&
+      game.division &&
+      (!game.division.middle || fault.node.ply < game.division.middle)
+    ) {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
         res!.moves.forEach(m => {
-          if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
+          if (m.sente + m.draws + m.gote > 1) ucis.push(m.uci);
         });
         if (ucis.includes(fault.node.uci!)) {
           explorerCancelPlies.push(fault.node.ply);
@@ -81,10 +84,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     }
     root.userJump(prev.path);
     redraw();
-  };
+  }
 
   function onJump(): void {
-    const node = root.node, fb = feedback(), cur = current();
+    const node = root.node,
+      fb = feedback(),
+      cur = current();
     if (!cur) return;
     if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
       feedback('find');
@@ -92,9 +97,12 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci)) onWin(); // found in opening explorer
-      else if (node.comp) onWin(); // the computer solution line
-      else if (node.eval) onFail(); // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci)) onWin();
+      // found in opening explorer
+      else if (node.comp) onWin();
+      // the computer solution line
+      else if (node.eval) onFail();
+      // the move that was played in the game
       else {
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
@@ -102,14 +110,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       }
     }
     root.setAutoShapes();
-  };
+  }
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval ? (
-      node.ceval.depth >= 18 ||
-      (node.ceval.depth >= 14 && node.ceval.millis > 7000)
-    ) : false;
-  };
+    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && node.ceval.millis > 7000) : false;
+  }
 
   function checkCeval(): void {
     var node = root.node,
@@ -132,11 +137,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     feedback('fail');
     const bad = {
       node: root.node,
-      path: root.path
+      path: root.path,
     };
     root.userJump(current().prev.path);
-    if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
-      root.tree.deleteNodeAt(bad.path);
+    if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children)) root.tree.deleteNodeAt(bad.path);
     redraw();
   }
 
@@ -156,8 +160,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function hideComputerLine(node: Tree.Node): boolean {
-    return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
-  };
+    return (node.ply % 2 === 0) !== (color === 'sente') && !isPlySolved(node.ply);
+  }
 
   function showBadNode(): Tree.Node | undefined {
     const cur = current();
@@ -204,6 +208,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     noarg: root.trans.noarg,
     node: () => root.node,
     redraw,
-    notation: root.data.pref.pieceNotation
+    notation: root.data.pref.pieceNotation,
   };
-};
+}

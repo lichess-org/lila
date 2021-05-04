@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'shogiground/types';
 import { ForecastData } from './forecast/interfaces';
@@ -7,7 +7,7 @@ import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
 
 export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[]
+export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
 
 export { Key, Piece } from 'shogiground/types';
@@ -40,11 +40,11 @@ export interface AnalyseData {
   clock?: Clock;
   pref: any;
   url: {
-    socket: string
-  }
+    socket: string;
+  };
   userTv?: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export interface ServerEvalData {
@@ -82,13 +82,13 @@ export interface Opening {
 
 export interface Division {
   middle?: number;
-  end?: number
+  end?: number;
 }
 
 export interface Analysis {
   id: string;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  sente: AnalysisSide;
+  gote: AnalysisSide;
   partial: boolean;
 }
 
@@ -127,5 +127,3 @@ export type Conceal = boolean | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 export type Redraw = () => void;
-
-export type Selected = undefined | [cg.Color, cg.Role];

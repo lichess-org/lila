@@ -12,7 +12,8 @@
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="beingAPatron">Become a Patron.</string>
+	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">breakdown of our costs</string>
 	<string name="otherWaysToHelp">other ways to help</string>
 	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
@@ -32,8 +33,8 @@
 	<string name="gameplay">Gameplay</string>
 	<string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
 	<string name="basedOnGameDuration">Lishogi time controls are based on estimated game duration = %1$s
-For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
-	<string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
+For instance, the estimated duration of a 5+3|4 game is 60 × 5 + 60 × 3 + 25 × 4 = 580 seconds.</string>
+	<string name="durationFormula">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">What variants can I play on Lishogi?</string>

@@ -2,7 +2,7 @@ package lila.study
 
 import scala.util.chaining._
 
-import chess.format.pgn.{ Tag, TagType, Tags }
+import shogi.format.pgn.{ Tag, TagType, Tags }
 
 object PgnTags {
 
@@ -29,14 +29,14 @@ object PgnTags {
   private val sortedTypes: List[TagType] = {
     import Tag._
     List(
-      White,
-      WhiteElo,
-      WhiteTitle,
-      WhiteTeam,
-      Black,
-      BlackElo,
-      BlackTitle,
-      BlackTeam,
+      Sente,
+      SenteElo,
+      SenteTitle,
+      SenteTeam,
+      Gote,
+      GoteElo,
+      GoteTitle,
+      GoteTeam,
       TimeControl,
       Date,
       Result,

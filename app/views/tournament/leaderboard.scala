@@ -83,6 +83,7 @@ object leaderboard {
             freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
             freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
+            freqWinners(winners.hyperrapid, PerfType.Rapid, "HyperRapid"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>

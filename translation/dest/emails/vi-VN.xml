@@ -15,7 +15,7 @@
 Đây là trang cá nhân của bạn: %1$s. Bạn có thể cá nhân hóa nó trên %2$s.
 
 Chúc bạn chơi vui, và quân cờ của bạn luôn tìm đến quân vua đối thủ!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="logInToLishogi">Đăng nhập vào lishogi.org, %s</string>
   <string name="common_orPaste">(Không nhấn được? Hãy thử dán vào trình duyệt của bạn!)</string>
   <string name="common_note">Đây là email dịch vụ liên quan đến việc bạn dùng %s.</string>
   <string name="common_contact">Để liên hệ chúng tôi, hãy dùng %s.</string>

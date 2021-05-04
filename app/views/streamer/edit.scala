@@ -89,40 +89,39 @@ object edit extends Context.ToLang {
                   )
                 )
               ),
-              modData.map {
-                case (log, notes) =>
-                  div(cls := "mod_log status")(
-                    strong(cls := "text", dataIcon := "!")(
-                      "Moderation history",
-                      log.isEmpty option ": nothing to show."
-                    ),
-                    log.nonEmpty option ul(
-                      log.map { e =>
-                        li(
-                          userIdLink(e.mod.some, withTitle = false),
-                          " ",
-                          b(e.showAction),
-                          " ",
-                          e.details,
-                          " ",
-                          momentFromNow(e.date)
-                        )
-                      }
-                    ),
-                    br,
-                    strong(cls := "text", dataIcon := "!")(
-                      "Moderator notes",
-                      notes.isEmpty option ": nothing to show."
-                    ),
-                    notes.nonEmpty option ul(
-                      notes.map { note =>
-                        li(
-                          p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
-                          p(cls := "text")(richText(note.text))
-                        )
-                      }
-                    )
+              modData.map { case (log, notes) =>
+                div(cls := "mod_log status")(
+                  strong(cls := "text", dataIcon := "!")(
+                    "Moderation history",
+                    log.isEmpty option ": nothing to show."
+                  ),
+                  log.nonEmpty option ul(
+                    log.map { e =>
+                      li(
+                        userIdLink(e.mod.some, withTitle = false),
+                        " ",
+                        b(e.showAction),
+                        " ",
+                        e.details,
+                        " ",
+                        momentFromNow(e.date)
+                      )
+                    }
+                  ),
+                  br,
+                  strong(cls := "text", dataIcon := "!")(
+                    "Moderator notes",
+                    notes.isEmpty option ": nothing to show."
+                  ),
+                  notes.nonEmpty option ul(
+                    notes.map { note =>
+                      li(
+                        p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
+                        p(cls := "text")(richText(note.text))
+                      )
+                    }
                   )
+                )
               },
               postForm(
                 cls := "form3",

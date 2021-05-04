@@ -1,14 +1,14 @@
-import { Prop } from "common";
-import { StoredProp, StoredJsonProp } from "common/storage";
+import { Prop } from 'common';
+import { StoredProp, StoredJsonProp } from 'common/storage';
 
 export interface Hovering {
   fen: Fen;
   uci: Uci;
 }
 
-export type ExplorerDb = "lishogi" | "masters";
+export type ExplorerDb = 'lishogi' | 'masters';
 
-export type ExplorerSpeed = "bullet" | "blitz" | "rapid" | "classical";
+export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -58,8 +58,8 @@ export interface Opening {
 
 export interface OpeningGame {
   id: string;
-  white: OpeningPlayer;
-  black: OpeningPlayer;
+  sente: OpeningPlayer;
+  gote: OpeningPlayer;
   winner?: Color;
   year?: string;
 }
@@ -87,8 +87,8 @@ export interface MoveStats {
 }
 
 export interface OpeningMoveStats extends MoveStats {
-  white: number;
-  black: number;
+  sente: number;
+  gote: number;
   draws: number;
   averageRating: number;
 }

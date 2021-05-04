@@ -1,7 +1,7 @@
 package lila.relay
 
 import akka.actor._
-import chess.format.pgn.Tags
+import shogi.format.pgn.Tags
 import com.github.blemale.scaffeine.LoadingCache
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
@@ -78,19 +78,18 @@ final private class RelayFetch(
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
             }
         }
-        .recover {
-          case e: Exception =>
-            (e match {
-              case SyncResult.Timeout =>
-                if (relay.official) logger.info(s"Sync timeout $relay")
-                SyncResult.Timeout
-              case _ =>
-                if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
-                SyncResult.Error(e.getMessage)
-            }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+        .recover { case e: Exception =>
+          (e match {
+            case SyncResult.Timeout =>
+              if (relay.official) logger.info(s"Sync timeout $relay")
+              SyncResult.Timeout
+            case _ =>
+              if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
+              SyncResult.Error(e.getMessage)
+          }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
         }
-        .map {
-          case (result, newRelay) => afterSync(result, newRelay)
+        .map { case (result, newRelay) =>
+          afterSync(result, newRelay)
         }
 
   def afterSync(result: SyncResult, relay: Relay): Relay =
@@ -166,15 +165,14 @@ final private class RelayFetch(
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
         httpGetJson[RoundJson](indexUrl) flatMap { round =>
           round.pairings.zipWithIndex
-            .map {
-              case (pairing, i) =>
-                val number  = i + 1
-                val gameDoc = makeGameDoc(number)
-                (gameDoc.format match {
-                  case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
-                  case RelayFormat.DocFormat.Json =>
-                    httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
-                }) map (number -> _)
+            .map { case (pairing, i) =>
+              val number  = i + 1
+              val gameDoc = makeGameDoc(number)
+              (gameDoc.format match {
+                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Json =>
+                  httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+              }) map (number -> _)
             }
             .sequenceFu
             .map { results =>
@@ -226,22 +224,22 @@ private object RelayFetch {
           List(fname, mname, lname).flatten mkString " "
         }.filter(_.nonEmpty)
     }
-    case class RoundJsonPairing(white: PairingPlayer, black: PairingPlayer, result: String) {
-      import chess.format.pgn._
+    case class RoundJsonPairing(sente: PairingPlayer, gote: PairingPlayer, result: String) {
+      import shogi.format.pgn._
       def tags =
         Tags(
           List(
-            white.fullName map { v =>
-              Tag(_.White, v)
+            sente.fullName map { v =>
+              Tag(_.Sente, v)
             },
-            white.title map { v =>
-              Tag(_.WhiteTitle, v)
+            sente.title map { v =>
+              Tag(_.SenteTitle, v)
             },
-            black.fullName map { v =>
-              Tag(_.Black, v)
+            gote.fullName map { v =>
+              Tag(_.Gote, v)
             },
-            black.title map { v =>
-              Tag(_.BlackTitle, v)
+            gote.title map { v =>
+              Tag(_.GoteTitle, v)
             },
             Tag(_.Result, result).some
           ).flatten
@@ -255,7 +253,7 @@ private object RelayFetch {
     case class GameJson(moves: List[String], result: Option[String]) {
       def toPgn(extraTags: Tags = Tags.empty) = {
         val strMoves = moves.map(_ split ' ') map { move =>
-          chess.format.pgn.Move(
+          shogi.format.pgn.Move(
             san = ~move.headOption,
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )

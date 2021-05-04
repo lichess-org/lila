@@ -20,6 +20,16 @@ object Chronometer {
       this
     }
 
+    def mon(path: lila.mon.TimerPath) = {
+      path(lila.mon).record(nanos)
+      this
+    }
+
+    def monValue(path: A => lila.mon.TimerPath) = {
+      path(result)(lila.mon).record(nanos)
+      this
+    }
+
     def pp: A = {
       println(s"chrono $showDuration")
       result
@@ -48,6 +58,11 @@ object Chronometer {
       lap dforeach { l =>
         path(lila.mon).record(l.nanos)
       }
+      this
+    }
+
+    def monValue(path: A => lila.mon.TimerPath) = {
+      lap dforeach { _.monValue(path) }
       this
     }
 

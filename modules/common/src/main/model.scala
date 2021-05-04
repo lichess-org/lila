@@ -6,6 +6,7 @@ case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiV
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
   def gt(other: Int)             = value > other
   def gte(other: Int)            = value >= other
+  def puzzleV2                   = value >= 6
 }
 
 case class AssetVersion(value: String) extends AnyVal with StringValue

@@ -1,11 +1,11 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags }
-import chess.variant.Variant
-import chess.{ Centis, Color }
+import shogi.format.pgn.{ Glyph, Tags }
+import shogi.variant.Variant
+import shogi.{ Centis, Color }
 import org.joda.time.DateTime
 
-import chess.opening.{ FullOpening, FullOpeningDB }
+import shogi.opening.{ FullOpening, FullOpeningDB }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
@@ -62,8 +62,8 @@ case class Chapter(
 
   def opening: Option[FullOpening] = None
   // no openings in lishogi right now
-    //if (!Variant.openingSensibleVariants(setup.variant)) none
-    //else FullOpeningDB searchInFens root.mainline.map(_.fen) 
+  //if (!Variant.openingSensibleVariants(setup.variant)) none
+  //else FullOpeningDB searchInFens root.mainline.map(_.fen)
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
@@ -164,7 +164,7 @@ object Chapter {
 
   val idSize = 8
 
-  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
 
   def make(
       studyId: Study.Id,

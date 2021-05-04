@@ -6,6 +6,7 @@
 	<string name="materialDifference">Разлика у материјалу</string>
 	<string name="boardHighlights">Осветли последњи потез и шах</string>
 	<string name="pieceDestinations">Bажећи потези (важећи помаци и претпотези)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Листа потеза током партије</string>
 	<string name="pgnPieceNotation">Нотација</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="coordinates">Coordinates</string>
-	<string name="coordinateTraining">Coordinate training</string>
+	<string name="coordinates">Mga Koordina</string>
+	<string name="coordinateTraining">Pagsasanay sa mga koordina</string>
 	<string name="averageScoreAsWhiteX">Average score as gote: %s</string>
 	<string name="averageScoreAsBlackX">Average score as sente: %s</string>
 	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>

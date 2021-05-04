@@ -1,6 +1,6 @@
 package lila.notify
 
-import chess.Color
+import shogi.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.db.{ dsl, BSON }
@@ -49,7 +49,7 @@ private object BSONHandlers {
   implicit val IrwinDoneHandler    = Macros.handler[IrwinDone]
   implicit val GenericLinkHandler  = Macros.handler[GenericLink]
 
-  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.apply, _.white)
+  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.apply, _.sente)
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 

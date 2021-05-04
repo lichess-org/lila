@@ -13,15 +13,14 @@ export interface State {
 }
 
 export default class GamebookPlayCtrl {
-
   state: State;
 
   constructor(
     readonly root: AnalyseCtrl,
     readonly chapterId: string,
     readonly trans: Trans,
-    readonly redraw: () => void) {
-
+    readonly redraw: () => void
+  ) {
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
     treeOps.updateAll(root.tree.root, n => {
@@ -45,8 +44,7 @@ export default class GamebookPlayCtrl {
     if (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath)) return;
     if (this.root.onMainline && !node.children[0]) {
       state.feedback = 'end';
-    }
-    else if (this.isMyMove()) {
+    } else if (this.isMyMove()) {
       state.feedback = 'play';
       state.hint = (node.gamebook || {}).hint;
     } else if (this.root.onMainline) {
@@ -62,7 +60,7 @@ export default class GamebookPlayCtrl {
       if (state.feedback === 'good') setTimeout(this.next, this.root.path ? 1000 : 300);
       else if (state.feedback === 'bad') setTimeout(this.retry, 800);
     }
-  }
+  };
 
   isMyMove = () => this.root.turnColor() === this.root.data.orientation;
 
@@ -71,7 +69,7 @@ export default class GamebookPlayCtrl {
     while (path && !this.root.tree.pathIsMainline(path)) path = treePath.init(path);
     this.root.userJump(path);
     this.redraw();
-  }
+  };
 
   next = () => {
     if (!this.isMyMove()) {
@@ -79,7 +77,7 @@ export default class GamebookPlayCtrl {
       if (child) this.root.userJump(this.root.path + child.id);
     }
     this.redraw();
-  }
+  };
 
   onSpace = () => {
     switch (this.state.feedback) {
@@ -94,20 +92,19 @@ export default class GamebookPlayCtrl {
       default:
         this.next();
     }
-  }
+  };
 
   onPremoveSet = () => {
     this.next();
-  }
+  };
 
   hint = () => {
     if (this.state.hint) this.state.showHint = !this.state.showHint;
-  }
+  };
 
   solution = () => {
-    this.root.shogiground.setShapes(
-      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'));
-  }
+    this.root.shogiground.setShapes(makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'));
+  };
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 
@@ -115,7 +112,7 @@ export default class GamebookPlayCtrl {
     this.makeState();
     // wait for the root ctrl to make the move
     setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
-  }
+  };
 
   onShapeChange = (shapes: Tree.Shape[]) => {
     const node = this.root.node;

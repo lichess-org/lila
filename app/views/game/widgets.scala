@@ -41,7 +41,7 @@ object widgets {
                   frag(
                     showClock(g),
                     separator,
-                    g.perfType.fold(chess.variant.FromPosition.name)(_.trans),
+                    g.perfType.fold(shogi.variant.FromPosition.name)(_.trans),
                     separator,
                     if (g.rated) trans.rated.txt() else trans.casual.txt()
                   )
@@ -59,9 +59,9 @@ object widgets {
             )
           ),
           div(cls := "versus")(
-            gamePlayer(g.whitePlayer),
+            gamePlayer(g.sentePlayer),
             div(cls := "swords", dataIcon := "U"),
-            gamePlayer(g.blackPlayer)
+            gamePlayer(g.gotePlayer)
           ),
           div(cls := "result")(
             if (g.isBeingPlayed) trans.playingRightNow()
@@ -72,11 +72,11 @@ object widgets {
                   g.winner.map { winner =>
                     frag(
                       ", ",
-                      winner.color.fold(trans.blackIsVictorious(), trans.whiteIsVictorious()) // swapped
+                      winner.color.fold(trans.blackIsVictorious(), trans.whiteIsVictorious())
                     )
                   }
                 )
-              else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+              else g.turnColor.fold(trans.blackPlays(), trans.whitePlays())
             }
           ),
           // if (g.turns > 0) {
@@ -93,7 +93,7 @@ object widgets {
           //       g.turns > 6 option s" ... ${1 + (g.turns - 1) / 2} moves "
           //     )
           //   )
-          // } else 
+          // } else
           frag(br, br),
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
@@ -143,14 +143,13 @@ object widgets {
             aiRating(level)
           )
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) {
-            case (name, rating) =>
-              frag(
-                span(name),
-                rating.map { r =>
-                  frag(br, r)
-                }
-              )
+          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+            frag(
+              span(name),
+              rating.map { r =>
+                frag(br, r)
+              }
+            )
           })
         }
       }

@@ -17,7 +17,7 @@
       }
       &.faq strong {
         display: block;
-        margin-bottom: .4em;
+        margin-bottom: 0.4em;
       }
     }
   }
@@ -34,7 +34,7 @@
       font-size: 1em;
     }
     td {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
     }
     .header {
       padding: 0;
@@ -46,7 +46,8 @@
       padding: 1em;
       display: block;
       color: $c-font;
-      &:hover, &:hover .team {
+      &:hover,
+      &:hover .team {
         color: $c-link;
       }
     }
@@ -64,7 +65,7 @@
       @extend %data-icon-top;
       display: block;
       font-weight: bold;
-      margin-top: .2em;
+      margin-top: 0.2em;
       color: $c-brag;
     }
     .icon {

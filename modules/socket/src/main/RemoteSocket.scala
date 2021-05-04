@@ -1,7 +1,7 @@
 package lila.socket
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
-import chess.Centis
+import shogi.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
@@ -38,7 +38,7 @@ final class RemoteSocket(
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
-    val id = Math.abs(scala.util.Random.nextInt())
+    val id = lila.common.ThreadLocalRandom.nextPositiveInt()
     sendReq(id)
     val promise = Promise[String]()
     requests.put(id, promise)
@@ -220,27 +220,25 @@ object RemoteSocket {
             }.toMap).some
           case "tell/sri" => raw.get(3)(tellSriMapper)
           case "tell/user" =>
-            raw.get(2) {
-              case Array(user, payload) =>
-                for {
-                  obj <- Json.parse(payload).asOpt[JsObject]
-                  typ <- obj str "t"
-                } yield TellUser(user, typ, obj)
+            raw.get(2) { case Array(user, payload) =>
+              for {
+                obj <- Json.parse(payload).asOpt[JsObject]
+                typ <- obj str "t"
+              } yield TellUser(user, typ, obj)
             }
           case "req/response" =>
-            raw.get(2) {
-              case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
+            raw.get(2) { case Array(reqId, response) =>
+              reqId.toIntOption map { ReqResponse(_, response) }
             }
           case "boot" => WsBoot.some
           case _      => none
         }
 
-      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
-        case Array(sri, user, payload) =>
-          for {
-            obj <- Json.parse(payload).asOpt[JsObject]
-            typ <- obj str "t"
-          } yield TellSri(Sri(sri), optional(user), typ, obj)
+      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
+        for {
+          obj <- Json.parse(payload).asOpt[JsObject]
+          typ <- obj str "t"
+        } yield TellSri(Sri(sri), optional(user), typ, obj)
       }
 
       def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','
@@ -277,7 +275,7 @@ object RemoteSocket {
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
-      def color(c: chess.Color): String       = c.fold("w", "b")
+      def color(c: shogi.Color): String       = c.fold("b", "w")
       def optional(str: Option[String])       = str getOrElse "-"
     }
   }

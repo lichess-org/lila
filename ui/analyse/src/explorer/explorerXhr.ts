@@ -1,4 +1,4 @@
-import { OpeningData, TablebaseData } from "./interfaces";
+import { OpeningData, TablebaseData } from './interfaces';
 
 export function opening(
   endpoint: string,
@@ -12,15 +12,15 @@ export function opening(
   let url: string;
   const params: any = {
     fen: rootFen,
-    play: play.join(","),
+    play: play.join(','),
   };
   if (!withGames) params.topGames = params.recentGames = 0;
-  if (config.db.selected() === "masters") url = "/master";
+  if (config.db.selected() === 'masters') url = '/master';
   else {
-    url = "/lishogi";
-    params["variant"] = variant;
-    params["speeds[]"] = config.speed.selected();
-    params["ratings[]"] = config.rating.selected();
+    url = '/lishogi';
+    params['variant'] = variant;
+    params['speeds[]'] = config.speed.selected();
+    params['ratings[]'] = config.rating.selected();
   }
   return $.ajax({
     url: endpoint + url,
@@ -33,15 +33,10 @@ export function opening(
   });
 }
 
-export function tablebase(
-  endpoint: string,
-  variant: VariantKey,
-  fen: Fen
-): JQueryPromise<TablebaseData> {
-  const effectiveVariant =
-    variant === "fromPosition" ? "standard" : variant;
+export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): JQueryPromise<TablebaseData> {
+  const effectiveVariant = variant === 'fromPosition' ? 'standard' : variant;
   return $.ajax({
-    url: endpoint + "/" + effectiveVariant,
+    url: endpoint + '/' + effectiveVariant,
     data: { fen },
     cache: true,
   }).then((data: Partial<TablebaseData>) => {

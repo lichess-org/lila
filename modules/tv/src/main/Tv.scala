@@ -50,7 +50,7 @@ final class Tv(
 }
 
 object Tv {
-  import chess.{ Speed => S, variant => V }
+  import shogi.{ Speed => S, variant => V }
   import lila.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
@@ -89,7 +89,7 @@ object Tv {
         extends Channel(
           name = S.Bullet.name,
           icon = P.Bullet.iconChar.toString,
-          secondsSinceLastMove = 35,
+          secondsSinceLastMove = 40,
           filters = Seq(speed(S.Bullet), standardShogiRules, noBot)
         )
     case object Blitz
@@ -117,7 +117,7 @@ object Tv {
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.iconChar.toString,
-          secondsSinceLastMove = 20,
+          secondsSinceLastMove = 30,
           filters = Seq(speed(S.UltraBullet), standardShogiRules, noBot)
         )
     case object Bot
@@ -149,15 +149,16 @@ object Tv {
     }.toMap
   }
 
-  private def rated(min: Int)                           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def minRating(min: Int)                       = (c: Candidate) => hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
-  private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
-  private def standardShogiRules(c: Candidate)          = c.game.variant == V.Standard || c.game.variant == V.FromPosition
-  private val freshBlitz                                = 60 * 2
-  private def computerStandardRules(c: Candidate)       = c.game.hasAi && standardShogiRules(c)
-  private def hasBot(c: Candidate)                      = c.hasBot
-  private def noBot(c: Candidate)                       = !c.hasBot
+  private def rated(min: Int)                         = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def minRating(min: Int)                     = (c: Candidate) => hasMinRating(c.game, min)
+  private def speed(speed: shogi.Speed)               = (c: Candidate) => c.game.speed == speed
+  private def variant(variant: shogi.variant.Variant) = (c: Candidate) => c.game.variant == variant
+  private def standardShogiRules(c: Candidate) =
+    c.game.variant == V.Standard || c.game.variant == V.FromPosition
+  private val freshBlitz                          = 60 * 2
+  private def computerStandardRules(c: Candidate) = c.game.hasAi && standardShogiRules(c)
+  private def hasBot(c: Candidate)                = c.hasBot
+  private def noBot(c: Candidate)                 = !c.hasBot
 
   private def fresh(seconds: Int, game: Game): Boolean = {
     game.isBeingPlayed && !game.olderThan(seconds)

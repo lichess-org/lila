@@ -4,7 +4,7 @@
     display: inline;
   }
   .ua {
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .icon span {
     font-size: 3.5em;
@@ -41,9 +41,9 @@
     display: block;
     margin: 10px 0 20px 0;
     padding: 10px 20px;
-    background: rgba(128,128,128,0.1);
+    background: rgba(128, 128, 128, 0.1);
     td {
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       font-family: monospace;
     }
   }
@@ -57,7 +57,7 @@
 
   h2 {
     font-size: 1.2em;
-    margin: -1em 0 .5em 0;
+    margin: -1em 0 0.5em 0;
   }
   .scopes {
     margin-bottom: 4em;
@@ -135,7 +135,9 @@
   }
 
   @include breakpoint($mq-not-xx-small) {
-    td.icon { display: none }
+    td.icon {
+      display: none;
+    }
   }
 
   .kiddo {

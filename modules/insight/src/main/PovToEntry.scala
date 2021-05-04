@@ -3,8 +3,8 @@ package lila.insight
 import scala.util.chaining._
 import scalaz.NonEmptyList
 
-import chess.format.FEN
-import chess.{ Board, Centis, Role, Stats }
+import shogi.format.FEN
+import shogi.{ Board, Centis, Role, Stats }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 
@@ -20,7 +20,7 @@ final private class PovToEntry(
       provisional: Boolean,
       initialFen: Option[FEN],
       analysis: Option[lila.analyse.Analysis],
-      division: chess.Division,
+      division: shogi.Division,
       moveAccuracy: Option[List[Int]],
       boards: NonEmptyList[Board],
       movetimes: NonEmptyList[Centis],
@@ -45,11 +45,10 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
-          case (fen, an) =>
+          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
             for {
               boards <-
-                chess.Replay
+                shogi.Replay
                   .boards(
                     moveStrs = game.pgnMoves,
                     initialFen = fen,
@@ -63,7 +62,7 @@ final private class PovToEntry(
               provisional = provisional,
               initialFen = fen,
               analysis = an,
-              division = chess.Divider(boards.toList),
+              division = shogi.Divider(boards.toList),
               moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
               boards = boards,
               movetimes = movetimes,
@@ -73,16 +72,16 @@ final private class PovToEntry(
                 }.toMap
               }
             )
-        }
+          }
       }
 
   private def pgnMoveToRole(pgn: String): Role =
     pgn.head match {
-      case 'N'       => chess.Knight
-      case 'B'       => chess.Bishop
-      case 'R'       => chess.Rook
-      case 'K' | 'O' => chess.King
-      case _         => chess.Pawn
+      case 'N'       => shogi.Knight
+      case 'B'       => shogi.Bishop
+      case 'R'       => shogi.Rook
+      case 'K' | 'O' => shogi.King
+      case _         => shogi.Pawn
     }
 
   private def makeMoves(from: RichPov): List[Move] = {
@@ -166,8 +165,8 @@ final private class PovToEntry(
     QueenTrade {
       from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
         case Some(board) =>
-          chess.Color.all.forall { color =>
-            !board.hasPiece(chess.Piece(color, chess.Lance))
+          shogi.Color.all.forall { color =>
+            !board.hasPiece(shogi.Piece(color, shogi.Lance))
           }
         case _ =>
           logger.warn(s"https://lishogi.org/${from.pov.gameId} missing endgame board")
@@ -191,7 +190,7 @@ final private class PovToEntry(
       perf = perfType,
       eco =
         if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else chess.opening.Ecopening fromGame game.pgnMoves.toList,
+        else shogi.opening.Ecopening fromGame game.pgnMoves.toList,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),

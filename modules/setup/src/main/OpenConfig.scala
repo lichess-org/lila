@@ -1,13 +1,13 @@
 package lila.setup
 
-import chess.Clock
-import chess.format.{ FEN, Forsyth }
-import chess.variant.FromPosition
+import shogi.Clock
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.FromPosition
 import lila.rating.PerfType
 import lila.game.PerfPicker
 
 final case class OpenConfig(
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     clock: Option[Clock.Config],
     position: Option[FEN] = None
 ) {
@@ -16,7 +16,7 @@ final case class OpenConfig(
 
   def >> = (variant.key.some, clock, position.map(_.value)).some
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
+  def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, none)
 
   def validFen =
     variant != FromPosition || {
@@ -34,7 +34,7 @@ object OpenConfig {
 
   def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
     new OpenConfig(
-      variant = chess.variant.Variant.orDefault(~v),
+      variant = shogi.variant.Variant.orDefault(~v),
       clock = cl,
       position = pos map FEN
     ).autoVariant

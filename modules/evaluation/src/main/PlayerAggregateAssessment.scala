@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.Color
+import shogi.Color
 import lila.user.User
 import org.joda.time.DateTime
 import scala.math.sqrt
@@ -9,7 +9,7 @@ case class PlayerAssessment(
     _id: String,
     gameId: String,
     userId: String,
-    white: Boolean,
+    sente: Boolean,
     assessment: GameAssessment,
     date: DateTime,
     // meta
@@ -25,7 +25,7 @@ case class PlayerAssessment(
     tcFactor: Option[Double]
 ) {
 
-  val color = Color(white)
+  val color = Color(sente)
 }
 
 case class PlayerAggregateAssessment(

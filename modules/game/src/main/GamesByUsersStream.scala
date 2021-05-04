@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi.{ FinishGame, StartGame }
-import chess.format.FEN
+import shogi.format.FEN
 import lila.common.Bus
 import lila.common.Json.jodaWrites
 import lila.game.Game

@@ -34,7 +34,7 @@ object newPlayer {
       ),
       ul(
         li(a(href := routes.Learn.index())("Learn shogi rules")),
-        li(a(href := routes.Page.notSupported())("Improve with shogi tactics puzzles - coming soon")), // puzzle
+        li(a(href := routes.Puzzle.home())("Improve with shogi tactics puzzles")), // puzzle
         li(a(href := s"${routes.Lobby.home()}#ai")("Play the artificial intelligence")),
         li(a(href := s"${routes.Lobby.home()}#hook")("Play opponents from around the world")),
         li(a(href := routes.User.list())("Follow your friends on Lishogi")),

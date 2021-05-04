@@ -1,6 +1,6 @@
 $(function () {
-  $(".security table form").submit(function () {
-    $.post($(this).attr("action"));
+  $('.security table form').submit(function () {
+    $.post($(this).attr('action'));
     $(this)
       .parent()
       .parent()
@@ -10,13 +10,13 @@ $(function () {
     return false;
   });
 
-  $("form.autosubmit").each(function () {
+  $('form.autosubmit').each(function () {
     var $form = $(this);
-    $form.find("input").change(function () {
+    $form.find('input').change(function () {
       const cfg = lishogi.formAjax($form);
       cfg.success = function () {
-        $form.find(".saved").fadeIn();
-        lishogi.storage.fire("reload-round-tabs");
+        $form.find('.saved').fadeIn();
+        lishogi.storage.fire('reload-round-tabs');
       };
       $.ajax(cfg);
     });

@@ -12,7 +12,7 @@ final class JsonView(
     proxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val colorWriter: Writes[chess.Color] = Writes { c =>
+  implicit private val colorWriter: Writes[shogi.Color] = Writes { c =>
     JsString(c.name)
   }
 
@@ -86,14 +86,14 @@ final class JsonView(
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,
-      "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
+      "variants"   -> simul.variants.map(variantJson(shogi.Speed(simul.clock.config.some))),
       "isCreated"  -> simul.isCreated,
       "isRunning"  -> simul.isRunning,
       "isFinished" -> simul.isFinished,
       "text"       -> simul.text
     )
 
-  private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
+  private def variantJson(speed: shogi.Speed)(v: shogi.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
       "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
@@ -126,8 +126,8 @@ final class JsonView(
     Json.obj(
       "id"       -> g.id,
       "status"   -> g.status.id,
-      "fen"      -> (chess.format.Forsyth exportBoard g.board),
-      "pockets"  -> (chess.format.Forsyth exportCrazyPocket g.board),
+      "fen"      -> (shogi.format.Forsyth exportSituation g.situation),
+      "pockets"  -> (shogi.format.Forsyth exportCrazyPocket g.board),
       "lastMove" -> ~g.lastMoveKeys,
       "orient"   -> g.playerByUserId(hostId).map(_.color)
     )

@@ -4,8 +4,7 @@ import akka.actor._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-/**
-  * Delays the work, only runs once at a time per id.
+/** Delays the work, only runs once at a time per id.
   * Work is ran as late as possible.
   */
 final class LateMultiThrottler(

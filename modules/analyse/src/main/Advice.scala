@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.format.pgn.Glyph
+import shogi.format.pgn.Glyph
 import lila.tree.Eval._
 import scala.util.chaining._
 
@@ -23,13 +23,13 @@ sealed trait Advice {
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
       }) + "." + {
-      withBestMove ?? {
-        info.variation.headOption ?? { move =>
-          //s" $move was best." // we would need to take care of notation
-          " The best move was:"
+        withBestMove ?? {
+          info.variation.headOption ?? { move =>
+            //s" $move was best." // we would need to take care of notation
+            " The best move was:"
+          }
         }
       }
-    }
 
   def evalComment: Option[String] = {
     List(prev.evalComment, info.evalComment).flatten mkString " → "
@@ -112,8 +112,8 @@ private[analyse] case class MateAdvice(
 private[analyse] object MateAdvice {
 
   def apply(prev: Info, info: Info): Option[MateAdvice] = {
-    def invertCp(cp: Cp)       = cp invertIf info.color.black
-    def invertMate(mate: Mate) = mate invertIf info.color.black
+    def invertCp(cp: Cp)       = cp invertIf info.color.gote
+    def invertMate(mate: Mate) = mate invertIf info.color.gote
     def prevCp                 = prev.cp.map(invertCp).??(_.centipawns)
     def nextCp                 = info.cp.map(invertCp).??(_.centipawns)
     MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>
@@ -121,11 +121,11 @@ private[analyse] object MateAdvice {
       val judgment: Option[Advice.Judgement] = sequence match {
         case MateCreated if prevCp < -4000 => Option(Inaccuracy)
         case MateCreated if prevCp < -1000 => Option(Mistake)
-        case MateCreated                  => Option(Blunder)
+        case MateCreated                   => Option(Blunder)
         case MateLost if nextCp > 4000     => Option(Inaccuracy)
         case MateLost if nextCp > 1000     => Option(Mistake)
-        case MateLost                     => Option(Blunder)
-        case MateDelayed                  => None
+        case MateLost                      => Option(Blunder)
+        case MateDelayed                   => None
       }
       judgment map { MateAdvice(sequence, _, info, prev) }
     }

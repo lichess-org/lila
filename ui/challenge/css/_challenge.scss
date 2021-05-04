@@ -10,9 +10,9 @@
   }
 
   &.rendered {
-    background: transparent!important;
-    box-shadow: none!important;
-    border: 0!important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
   }
   .challenge {
     @extend %box-radius-force, %dropdown-shadow;
@@ -135,13 +135,13 @@
     display: inline-block;
     padding: 0 28px 3px 28px;
     margin: auto;
-    background: rgba(56,147,232,0.5);
-    color: rgba(255,255,255,0.6);
+    background: rgba(56, 147, 232, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     @include transition();
   }
   .create:hover {
-    background: rgba(56,147,232,0.9);
-    color: rgba(255,255,255,0.6);
+    background: rgba(56, 147, 232, 0.9);
+    color: rgba(255, 255, 255, 0.6);
     padding-top: 4px;
   }
 }

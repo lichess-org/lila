@@ -3,35 +3,35 @@ $scale-out: 1.15;
 
 @keyframes inner-circle-loop {
   0% {
-    opacity: .2;
-    transform: scale(#{$scale-out})
+    opacity: 0.2;
+    transform: scale(#{$scale-out});
   }
 
   42% {
-    opacity: .8;
-    transform: scale(.9)
+    opacity: 0.8;
+    transform: scale(0.9);
   }
 
   to {
-    opacity: .2;
-    transform: scale(#{$scale-out})
+    opacity: 0.2;
+    transform: scale(#{$scale-out});
   }
 }
 
 @keyframes outer-circle-loop {
   0% {
     opacity: 0;
-    transform: scale(#{$scale-out})
+    transform: scale(#{$scale-out});
   }
 
   51% {
-    opacity: .9;
-    transform: scale(.9)
+    opacity: 0.9;
+    transform: scale(0.9);
   }
 
   to {
     opacity: 0;
-    transform: scale(#{$scale-out})
+    transform: scale(#{$scale-out});
   }
 }
 
@@ -53,12 +53,12 @@ $scale-out: 1.15;
     left: 3px;
   }
 
-
   &::after {
     content: ' ';
     animation: outer-circle-loop 1.5s infinite;
     position: absolute;
-    background: url("data:image/svg+xml,%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'%3E%3Cg%3E%3Cpath fill='%23#{$c-circle}' d='M9.994,1c0.784,0,1.569,0.104,2.335,0.309c4.792,1.284,7.646,6.228,6.362,11.02 C17.638,16.257,14.067,19,10.006,19c-0.784,0-1.57-0.104-2.335-0.309c-2.322-0.622-4.262-2.111-5.463-4.192 c-1.202-2.081-1.521-4.506-0.899-6.828C2.362,3.743,5.933,1,9.994,1 M9.994,0C5.58,0,1.54,2.946,0.343,7.412 c-1.429,5.333,1.736,10.815,7.069,12.244C8.279,19.889,9.15,20,10.006,20c4.414,0,8.454-2.946,9.651-7.412 c1.429-5.333-1.736-10.815-7.069-12.244C11.721,0.111,10.85,0,9.994,0L9.994,0z'/%3E%3C/g%3E%3C/svg%3E ") 50% no-repeat;
+    background: url("data:image/svg+xml,%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'%3E%3Cg%3E%3Cpath fill='%23#{$c-circle}' d='M9.994,1c0.784,0,1.569,0.104,2.335,0.309c4.792,1.284,7.646,6.228,6.362,11.02 C17.638,16.257,14.067,19,10.006,19c-0.784,0-1.57-0.104-2.335-0.309c-2.322-0.622-4.262-2.111-5.463-4.192 c-1.202-2.081-1.521-4.506-0.899-6.828C2.362,3.743,5.933,1,9.994,1 M9.994,0C5.58,0,1.54,2.946,0.343,7.412 c-1.429,5.333,1.736,10.815,7.069,12.244C8.279,19.889,9.15,20,10.006,20c4.414,0,8.454-2.946,9.651-7.412 c1.429-5.333-1.736-10.815-7.069-12.244C11.721,0.111,10.85,0,9.994,0L9.994,0z'/%3E%3C/g%3E%3C/svg%3E ")
+      50% no-repeat;
     background-size: contain;
     width: 36px;
     height: 36px;

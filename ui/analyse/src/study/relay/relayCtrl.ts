@@ -3,25 +3,32 @@ import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 
 export default class RelayCtrl {
-
   log: LogEvent[] = [];
   cooldown: boolean = false;
   clockInterval?: number;
   intro: RelayIntro;
 
-  constructor(public data: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any, chapter: StudyChapter) {
+  constructor(
+    public data: RelayData,
+    readonly send: SocketSend,
+    readonly redraw: () => void,
+    readonly members: any,
+    chapter: StudyChapter
+  ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.intro = {
       exists: !!data.markup,
-      active: !!data.markup && (location.pathname.match(/\//g)||[]).length < 4,
-      disable: () => { this.intro.active = false }
+      active: !!data.markup && (location.pathname.match(/\//g) || []).length < 4,
+      disable: () => {
+        this.intro.active = false;
+      },
     };
   }
 
   setSync = (v: Boolean) => {
     this.send('relaySync', v);
     this.redraw();
-  }
+  };
 
   loading = () => !this.cooldown && this.data.sync.ongoing;
 
@@ -31,14 +38,14 @@ export default class RelayCtrl {
       c.relay = this.convertDate(r);
       if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
     }
-  }
+  };
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
       r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
     }
     return r;
-  }
+  };
 
   private socketHandlers = {
     relayData: (d: RelayData) => {
@@ -51,10 +58,13 @@ export default class RelayCtrl {
       this.data.sync.log.push(event);
       this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;
-      setTimeout(() => { this.cooldown = false; this.redraw(); }, 4500);
+      setTimeout(() => {
+        this.cooldown = false;
+        this.redraw();
+      }, 4500);
       this.redraw();
       if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
-    }
+    },
   };
 
   socketHandler = (t: string, d: any) => {
@@ -64,5 +74,5 @@ export default class RelayCtrl {
       return true;
     }
     return false;
-  }
+  };
 }

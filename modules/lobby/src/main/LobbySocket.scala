@@ -236,8 +236,8 @@ final class LobbySocket(
 
   private val handler: Handler = {
     case P.In.ConnectSris(cons) =>
-      cons foreach {
-        case (sri, userId) => getOrConnect(sri, userId)
+      cons foreach { case (sri, userId) =>
+        getOrConnect(sri, userId)
       }
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
@@ -250,8 +250,8 @@ final class LobbySocket(
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(
           tpe -> msg,
-          {
-            case _ => logger.warn(s"Can't handle $tpe")
+          { case _ =>
+            logger.warn(s"Can't handle $tpe")
           }: SocketController
         )
       }
@@ -280,7 +280,7 @@ private object LobbySocket {
       def pairings(pairings: List[PoolApi.Pairing]) = {
         val redirs = for {
           pairing <- pairings
-          color   <- chess.Color.all
+          color   <- shogi.Color.all
           sri    = pairing sri color
           fullId = pairing.game fullIdOf color
         } yield s"$sri:$fullId"

@@ -3,29 +3,29 @@ lishogi.divisionLines = function (div, trans) {
   if (div.middle) {
     divisionLines.push({
       label: {
-        text: trans("opening"),
-        verticalAlign: "top",
-        align: "left",
+        text: trans('opening'),
+        verticalAlign: 'top',
+        align: 'left',
         y: 0,
         style: {
           color: Highcharts.theme.lishogi.text.weak,
         },
       },
-      color: "#639B24",
+      color: '#639B24',
       width: 1,
       value: 0,
     });
     divisionLines.push({
       label: {
-        text: trans("middlegame"),
-        verticalAlign: "top",
-        align: "left",
+        text: trans('middlegame'),
+        verticalAlign: 'top',
+        align: 'left',
         y: 0,
         style: {
           color: Highcharts.theme.lishogi.text.weak,
         },
       },
-      color: "#3093cc",
+      color: '#3093cc',
       width: div.middle === null ? 0 : 1,
       value: div.middle,
     });
@@ -33,15 +33,15 @@ lishogi.divisionLines = function (div, trans) {
   if (div.end)
     divisionLines.push({
       label: {
-        text: trans("endgame"),
-        verticalAlign: "top",
-        align: "left",
+        text: trans('endgame'),
+        verticalAlign: 'top',
+        align: 'left',
         y: 0,
         style: {
           color: Highcharts.theme.lishogi.text.weak,
         },
       },
-      color: "#cc9730",
+      color: '#cc9730',
       width: div.end === null ? 0 : 1,
       value: div.end,
     });

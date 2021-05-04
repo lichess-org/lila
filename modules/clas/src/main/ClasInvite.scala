@@ -19,7 +19,7 @@ object ClasInvite {
 
   def make(clas: Clas, user: User, realName: String, teacher: User) =
     ClasInvite(
-      _id = Id(scala.util.Random.alphanumeric take 8 mkString),
+      _id = Id(lila.common.ThreadLocalRandom nextString 8),
       userId = user.id,
       realName = realName,
       clasId = clas.id,

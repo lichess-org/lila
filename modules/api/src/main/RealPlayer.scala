@@ -1,6 +1,6 @@
 package lila.api
 
-import chess.format.pgn.{ Pgn, Tag, Tags }
+import shogi.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
@@ -54,8 +54,8 @@ case class RealPlayers(players: Map[User.ID, RealPlayer]) {
         game.players.flatMap { player =>
           player.userId.flatMap(players.get) ?? { rp =>
             List(
-              rp.name.map { name => Tag(player.color.fold(Tag.White, Tag.Black), name) },
-              rp.rating.map { rating => Tag(player.color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) }
+              rp.name.map { name => Tag(player.color.fold(Tag.Sente, Tag.Gote), name) },
+              rp.rating.map { rating => Tag(player.color.fold(Tag.SenteElo, Tag.GoteElo), rating.toString) }
             ).flatten
           }
         }

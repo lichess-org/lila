@@ -1,7 +1,3 @@
-function fixCrazySan(san) {
-  return san; //[0] === 'P' ? san.slice(1) : san;
-}
-
 function decomposeUci(uci) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
 }
@@ -22,23 +18,25 @@ function readFen(fen) {
   var parts = fen.split(' ');
   var board = {
     pieces: {},
-    turn: parts[1] === 'w'
+    turn: parts[1] === 'b',
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function (row, y) {
-    var x = 0;
-    row.split('').forEach(function (v) {
-      if (v == '~') return;
-      var nb = parseInt(v, 10);
-      if (nb) x += nb;
-      else {
-        var square = (8 - y) * 9 + x;
-        board.pieces[square] = v;
-        if (v === 'k' || v === 'K') board[v] = square;
-        x++;
-      }
+  parts[0]
+    .split('/')
+    .slice(0, 9)
+    .forEach(function (row, y) {
+      var x = 0;
+      row.split('').forEach(function (v) {
+        var nb = parseInt(v, 10);
+        if (nb) x += nb;
+        else {
+          var square = (8 - y) * 9 + x;
+          board.pieces[square] = v;
+          if (v === 'k' || v === 'K') board[v] = square;
+          x++;
+        }
+      });
     });
-  });
 
   return board;
 }
@@ -62,7 +60,11 @@ var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 function slidingMovesTo(s: number, deltas: number[], board): number[] {
   var result: number[] = [];
   deltas.forEach(function (delta) {
-    for (var square = s + delta; square >= 0 && square < 64 && squareDist(square, square - delta) === 1; square += delta) {
+    for (
+      var square = s + delta;
+      square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
+      square += delta
+    ) {
       result.push(square);
       if (board.pieces[square]) break;
     }
@@ -71,7 +73,7 @@ function slidingMovesTo(s: number, deltas: number[], board): number[] {
 }
 
 function sanOf(board, uci) {
-  if (uci.includes('*')) return fixCrazySan(uci);
+  if (uci.includes('*')) return uci;
 
   var move = decomposeUci(uci);
   var from = square(move[0]);
@@ -103,7 +105,7 @@ function sanOf(board, uci) {
     file = false;
   for (var i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
-    if ((from >> 3) === (candidates[i] >> 3)) file = true;
+    if (from >> 3 === candidates[i] >> 3) file = true;
     if ((from & 7) === (candidates[i] & 7)) rank = true;
     else file = true;
   }
@@ -118,7 +120,7 @@ function sanOf(board, uci) {
 
 export default function sanWriter(fen, ucis) {
   var board = readFen(fen);
-  var sans = {}
+  var sans = {};
   ucis.forEach(function (uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;

@@ -7,8 +7,8 @@ object AutoAnalysis {
   object Reason {
 
     case object HoldAlert            extends Reason
-    case object WhiteMoveTime        extends Reason
-    case object BlackMoveTime        extends Reason
+    case object SenteMoveTime        extends Reason
+    case object GoteMoveTime         extends Reason
     case object Blurs                extends Reason
     case object WinnerRatingProgress extends Reason
     case object NewPlayerWin         extends Reason

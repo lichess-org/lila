@@ -19,7 +19,8 @@
     outline: none;
   }
   .tt-menu {
-    .empty, .spinner {
+    .empty,
+    .spinner {
       display: none;
     }
   }
@@ -27,13 +28,21 @@
 
 body.clinput #top {
   @include breakpoint($mq-not-x-large) {
-    #topnav { display: none }
+    #topnav {
+      display: none;
+    }
   }
   @include breakpoint($mq-not-x-small) {
-    .site-title { display: none }
+    .site-title {
+      display: none;
+    }
   }
   @include breakpoint($mq-not-xx-small) {
-    .site-buttons > *:not(#clinput) { display: none }
-    #clinput { width: 75vw; }
+    .site-buttons > *:not(#clinput) {
+      display: none;
+    }
+    #clinput {
+      width: 75vw;
+    }
   }
 }

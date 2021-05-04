@@ -1,12 +1,13 @@
-var m = require("mithril");
-var makeItems = require("./item").ctrl;
-var itemView = require("./item").view;
-var makeScenario = require("./scenario");
-var makeShogi = require("./chess");
-var ground = require("./ground");
-var scoring = require("./score");
-var sound = require("./sound");
-var promotion = require("./promotion");
+var m = require('mithril');
+var makeItems = require('./item').ctrl;
+var itemView = require('./item').view;
+var makeScenario = require('./scenario');
+var makeShogi = require('./chess');
+var ground = require('./ground');
+var scoring = require('./score');
+var sound = require('./sound');
+var promotion = require('./promotion');
+const timeouts = require('./timeouts');
 
 module.exports = function (blueprint, opts) {
   var items = makeItems({
@@ -24,7 +25,7 @@ module.exports = function (blueprint, opts) {
 
   var complete = function () {
     vm.willComplete = true;
-    setTimeout(
+    timeouts.setTimeout(
       function () {
         vm.lastStep = false;
         vm.completed = true;
@@ -32,14 +33,14 @@ module.exports = function (blueprint, opts) {
         vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
         ground.stop();
         m.redraw();
-        if (!blueprint.nextButton) setTimeout(opts.onComplete, 1200);
+        if (!blueprint.nextButton) timeouts.setTimeout(opts.onComplete, 1200);
       },
       ground.data().stats.dragged ? 1 : 250
     );
   };
 
   // cheat
-  Mousetrap.bind(["shift+enter"], complete);
+  Mousetrap.bind(['shift+enter'], complete);
 
   var assertData = function () {
     return {
@@ -57,15 +58,12 @@ module.exports = function (blueprint, opts) {
 
   var detectSuccess = function () {
     if (blueprint.success) return blueprint.success(assertData());
-    else return !items.hasItem("apple");
+    else return !items.hasItem('apple');
   };
 
   var detectCapture = function () {
     if (!blueprint.detectCapture) return false;
-    var fun =
-      blueprint.detectCapture === "unprotected"
-        ? "findUnprotectedCapture"
-        : "findCapture";
+    var fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
     var move = shogi[fun]();
     if (!move) return;
     vm.failed = true;
@@ -90,20 +88,19 @@ module.exports = function (blueprint, opts) {
       inScenario,
       captured = false;
     items.withItem(move.to, function (item) {
-      if (item === "apple") {
+      if (item === 'apple') {
         vm.score += scoring.apple;
         items.remove(move.to);
         took = true;
       }
     });
     if (!took && move.captured && blueprint.pointsForCapture) {
-      if (blueprint.showPieceValues)
-        vm.score += scoring.pieceValue(move.captured);
+      if (blueprint.showPieceValues) vm.score += scoring.pieceValue(move.captured);
       else vm.score += scoring.capture;
       took = true;
     }
     ground.check(shogi);
-    if (scenario.player(move.from + move.to + (move.promotion || ""))) {
+    if (scenario.player(move.from + move.to + (move.promotion || ''))) {
       vm.score += scoring.scenario;
       inScenario = true;
     } else {
@@ -117,7 +114,7 @@ module.exports = function (blueprint, opts) {
     else sound.move();
     if (vm.failed) {
       if (blueprint.showFailureFollowUp && !captured)
-        setTimeout(function () {
+        timeouts.setTimeout(function () {
           var rm = shogi.playRandomMove();
           ground.fen(shogi.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
         }, 600);
@@ -143,10 +140,7 @@ module.exports = function (blueprint, opts) {
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var shogi = makeShogi(
-    blueprint.fen,
-    blueprint.emptyApples ? [] : items.appleKeys()
-  );
+  var shogi = makeShogi(blueprint.fen, blueprint.emptyApples ? [] : items.appleKeys());
 
   var scenario = makeScenario(blueprint.scenario, {
     shogi: shogi,
@@ -169,7 +163,7 @@ module.exports = function (blueprint, opts) {
     shapes: blueprint.shapes,
     events: blueprint.events,
     lastMoves: blueprint.lastMoves,
-    notation: document.getElementsByClassName("notation-0")[0] ? 0 : 1,
+    notation: document.getElementsByClassName('notation-0')[0] ? 0 : 1,
   });
 
   return {
@@ -179,8 +173,7 @@ module.exports = function (blueprint, opts) {
     scenario: scenario,
     start: function () {
       sound.levelStart();
-      if (shogi.color() !== blueprint.color)
-        setTimeout(scenario.opponent, 1000);
+      if (shogi.color() !== blueprint.color) timeouts.setTimeout(scenario.opponent, 1000);
     },
     onComplete: opts.onComplete,
     complete: complete,

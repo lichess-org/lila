@@ -103,7 +103,7 @@
     <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
   </plurals>
   <string name="urlOfTheGame">URL till partiet</string>
-  <string name="loadAGameFromXOrY">Importera ett parti från %1$s eller %2$s</string>
+  <string name="loadAGameFromXOrY">Importera ett parti från %1$s</string>
   <string name="createChapter">Skapa kapitel</string>
   <string name="configureLiveBroadcast">Konfigurera direktsändning</string>
   <string name="createStudy">Skapa en studie</string>

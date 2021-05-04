@@ -55,8 +55,8 @@ final class ESClientHttp(
   def storeBulk(docs: Seq[(Id, JsObject)]) =
     HTTP(
       s"store/bulk/${index.name}",
-      JsObject(docs map {
-        case (Id(id), doc) => id -> JsString(Json.stringify(doc))
+      JsObject(docs map { case (Id(id), doc) =>
+        id -> JsString(Json.stringify(doc))
       })
     )
 

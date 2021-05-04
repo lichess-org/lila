@@ -179,15 +179,14 @@ object SwissJson {
       "sheet" -> swiss.allRounds
         .zip(view.sheet.outcomes)
         .reverse
-        .map {
-          case (round, outcome) =>
-            view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
-              pairingJson(view.player, p.pairing) ++
-                Json.obj(
-                  "user"   -> p.player.user,
-                  "rating" -> p.player.player.rating
-                )
-            }
+        .map { case (round, outcome) =>
+          view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
+            pairingJson(view.player, p.pairing) ++
+              Json.obj(
+                "user"   -> p.player.user,
+                "rating" -> p.player.player.rating
+              )
+          }
         }
     )
 
@@ -236,7 +235,7 @@ object SwissJson {
       )
       .add("o" -> pairing.isOngoing)
       .add("w" -> pairing.resultFor(player.userId))
-      .add("c" -> (pairing.white == player.userId))
+      .add("c" -> (pairing.sente == player.userId))
 
   private def pairingJsonOrOutcome(
       player: SwissPlayer
@@ -258,10 +257,10 @@ object SwissJson {
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
     Json.obj(
       "id"       -> b.game.id,
-      "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
+      "fen"      -> (shogi.format.Forsyth exportBoard b.game.board),
       "lastMove" -> ~b.game.lastMoveKeys,
-      "white"    -> boardPlayerJson(b.board.white),
-      "black"    -> boardPlayerJson(b.board.black)
+      "sente"    -> boardPlayerJson(b.board.sente),
+      "gote"     -> boardPlayerJson(b.board.gote)
     )
 
   private def boardPlayerJson(player: SwissBoard.Player) =
@@ -284,7 +283,7 @@ object SwissJson {
     JsNumber(t.value.toInt)
   }
 
-  implicit private val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+  implicit private val clockWrites: OWrites[shogi.Clock.Config] = OWrites { clock =>
     Json.obj(
       "limit"     -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds

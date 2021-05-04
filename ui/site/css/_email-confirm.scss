@@ -9,9 +9,16 @@
     display: inline;
   }
   @keyframes appear {
-    from { opacity: 0; }
-    30% { transform: translateY(0); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+    }
+    30% {
+      transform: translateY(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   ol li {
     margin: 2em 0;

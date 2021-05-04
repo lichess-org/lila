@@ -5,7 +5,7 @@
   @include transition();
   transition-delay: 0.3s;
   overflow-y: scroll;
-  font-size: .9em;
+  font-size: 0.9em;
   &.reduced {
     flex: 0.3 3 0px;
     &:hover {
@@ -59,7 +59,7 @@
     padding-left: 7px;
   }
   .moves td:nth-child(2) {
-    font-size: .75em;
+    font-size: 0.75em;
     text-align: right;
   }
   .moves td:last-child {
@@ -75,24 +75,24 @@
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
-    font-size: .9em;
+    font-size: 0.9em;
   }
-  .white {
+  .sente {
     background: if($theme-light, #fff, #ccc);
-    box-shadow: 0 -5px 7px rgba(0,0,0,if($theme-light, .1, .25)) inset;
+    box-shadow: 0 -5px 7px rgba(0, 0, 0, if($theme-light, 0.1, 0.25)) inset;
     @if $theme-dark {
       color: #222;
     }
   }
   .draws,
-  .black {
+  .gote {
     color: if($theme-light, #fff, #ddd);
-    box-shadow: 0 5px 7px rgba(255,255,255, if($theme-light, .2, .1)) inset;
+    box-shadow: 0 5px 7px rgba(255, 255, 255, if($theme-light, 0.2, 0.1)) inset;
   }
   .draws {
     background: if($theme-light, #a0a0a0, #666);
   }
-  .black {
+  .gote {
     background: if($theme-light, #555, #333);
     color: #ddd;
   }
@@ -120,7 +120,7 @@
     text-align: center;
     padding: 3px 5px;
     border-radius: 3px;
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .game_menu {
     background: $c-secondary;
@@ -140,7 +140,7 @@
         padding: 4px 8px;
       }
       a:hover {
-        background: rgba(255,255,255,0.2);
+        background: rgba(255, 255, 255, 0.2);
       }
     }
   }
@@ -160,7 +160,7 @@
       padding: 3px 5px;
       margin-left: 5px;
       border-radius: 3px;
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
   .toconf {
@@ -219,7 +219,7 @@
   }
   .config {
     section {
-      margin: .4em $block-gap 0 $block-gap;
+      margin: 0.4em $block-gap 0 $block-gap;
     }
     section.save {
       text-align: center;
@@ -254,9 +254,9 @@
         &.selected {
           background: $c-secondary;
           color: $c-secondary-over;
-          text-shadow: 1px 0 0 rgba(0,0,0,0.5);
+          text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
           font-weight: bold;
-          box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset;
+          box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;
         }
       }
     }

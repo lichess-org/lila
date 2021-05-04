@@ -1,8 +1,14 @@
 $recon-height: 2.5rem;
 
 @keyframes reconnected {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY($recon-height); }
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY($recon-height);
+  }
 }
 
 #reconnecting {
@@ -34,6 +40,6 @@ $recon-height: 2.5rem;
     animation: reconnected 2.5s ease-out 1.5s backwards;
   }
   .online &::before {
-    content: 'J'
+    content: 'J';
   }
 }

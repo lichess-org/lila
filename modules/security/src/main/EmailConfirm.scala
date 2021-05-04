@@ -118,8 +118,8 @@ object EmailConfirm {
     def has(req: RequestHeader) = req.session.data contains name
 
     def get(req: RequestHeader): Option[UserEmail] =
-      req.session get name map (_.split(sep, 2)) collect {
-        case Array(username, email) => UserEmail(username, EmailAddress(email))
+      req.session get name map (_.split(sep, 2)) collect { case Array(username, email) =>
+        UserEmail(username, EmailAddress(email))
       }
   }
 

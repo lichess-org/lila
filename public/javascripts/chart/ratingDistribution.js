@@ -1,14 +1,14 @@
 lishogi.ratingDistributionChart = function (data) {
   const trans = lishogi.trans(data.i18n);
-  lishogi.loadScript("javascripts/chart/common.js").done(function () {
-    lishogi.chartCommon("highchart").done(function () {
+  lishogi.loadScript('javascripts/chart/common.js').done(function () {
+    lishogi.chartCommon('highchart').done(function () {
       var disabled = {
         enabled: false,
       };
       var noText = {
         text: null,
       };
-      $("#rating_distribution_chart").each(function () {
+      $('#rating_distribution_chart').each(function () {
         var colors = Highcharts.getOptions().colors;
         var ratingAt = function (i) {
           return 600 + i * 25;
@@ -30,8 +30,8 @@ lishogi.ratingDistributionChart = function (data) {
           legend: disabled,
           series: [
             {
-              name: trans.noarg("players"),
-              type: "area",
+              name: trans.noarg('players'),
+              type: 'area',
               data: data.freq.map(function (nb, i) {
                 return [ratingAt(i), nb];
               }),
@@ -45,7 +45,7 @@ lishogi.ratingDistributionChart = function (data) {
                 },
                 stops: [
                   [0, colors[1]],
-                  [1, Highcharts.Color(colors[1]).setOpacity(0).get("rgba")],
+                  [1, Highcharts.Color(colors[1]).setOpacity(0).get('rgba')],
                 ],
               },
               marker: {
@@ -54,32 +54,32 @@ lishogi.ratingDistributionChart = function (data) {
               lineWidth: 4,
             },
             {
-              name: trans.noarg("cumulative"),
-              type: "line",
+              name: trans.noarg('cumulative'),
+              type: 'line',
               yAxis: 1,
               data: cumul.map(function (p, i) {
                 return [ratingAt(i), p];
               }),
-              color: Highcharts.Color(colors[11]).setOpacity(0.8).get("rgba"),
+              color: Highcharts.Color(colors[11]).setOpacity(0.8).get('rgba'),
               marker: {
                 radius: 1,
               },
               shadow: true,
               tooltip: {
-                valueSuffix: "%",
+                valueSuffix: '%',
               },
             },
           ],
           chart: {
-            zoomType: "xy",
+            zoomType: 'xy',
             alignTicks: false,
           },
           plotOptions: {},
           title: noText,
           xAxis: {
-            type: "category",
+            type: 'category',
             title: {
-              text: trans.noarg("glicko2Rating"),
+              text: trans.noarg('glicko2Rating'),
             },
             labels: {
               rotation: -45,
@@ -92,9 +92,9 @@ lishogi.ratingDistributionChart = function (data) {
                 ? [
                     {
                       label: {
-                        text: trans.noarg("yourRating"),
-                        verticalAlign: "top",
-                        align: right ? "right" : "left",
+                        text: trans.noarg('yourRating'),
+                        verticalAlign: 'top',
+                        align: right ? 'right' : 'left',
                         y: 13,
                         x: right ? -5 : 5,
                         style: {
@@ -102,7 +102,7 @@ lishogi.ratingDistributionChart = function (data) {
                         },
                         rotation: -0,
                       },
-                      dashStyle: "dash",
+                      dashStyle: 'dash',
                       color: colors[2],
                       width: 3,
                       value: v,
@@ -115,7 +115,7 @@ lishogi.ratingDistributionChart = function (data) {
             {
               // frequency
               title: {
-                text: trans.noarg("players"),
+                text: trans.noarg('players'),
               },
             },
             {
@@ -124,10 +124,10 @@ lishogi.ratingDistributionChart = function (data) {
               max: 100,
               gridLineWidth: 0,
               title: {
-                text: trans.noarg("cumulative"),
+                text: trans.noarg('cumulative'),
               },
               labels: {
-                format: "{value}%",
+                format: '{value}%',
               },
               opposite: true,
             },

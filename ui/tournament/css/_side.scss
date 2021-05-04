@@ -15,6 +15,10 @@
   padding: #{$block-gap * 0.6} $block-gap;
   section {
     margin-bottom: $block-gap;
+    @include breakpoint($mq-col2) {
+      max-height: 25vmin;
+      overflow: auto;
+    }
     &[data-icon] {
       @extend %flex-center-nowrap;
     }
@@ -33,8 +37,8 @@
     }
     .defender::before {
       font-size: 1.6em;
-      vertical-align: -.26em;
-      margin: 0 .15em 0 -.15em;
+      vertical-align: -0.26em;
+      margin: 0 0.15em 0 -0.15em;
     }
     &.conditions {
       &::before {
@@ -58,7 +62,7 @@
     padding: 1em;
     background: mix($c-fancy, $c-bg-box, 15%);
     margin-bottom: 1em;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 .chat__members {

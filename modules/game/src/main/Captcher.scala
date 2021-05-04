@@ -2,9 +2,9 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
-import chess.format.pgn.{ Sans, Tags }
-import chess.format.{ pgn, Forsyth }
-import chess.{ Game => ChessGame }
+import shogi.format.pgn.{ Sans, Tags }
+import shogi.format.{ pgn, Forsyth }
+import shogi.{ Game => ShogiGame }
 import scala.util.Success
 import scalaz.Validation.FlatMap._
 import scalaz.NonEmptyList
@@ -38,8 +38,8 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     def current = challenges.head
 
     def refresh =
-      createFromDb andThen {
-        case Success(Some(captcha)) => add(captcha)
+      createFromDb andThen { case Success(Some(captcha)) =>
+        add(captcha)
       }
 
     // Private stuff
@@ -78,24 +78,23 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations map {
-          case (from, dests) => from.key -> dests.mkString
+        moves = rewinded.situation.destinations map { case (from, dests) =>
+          from.key -> dests.mkString
         }
-      } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
+      } yield Captcha(game.id, fen(rewinded), rewinded.player.sente, solutions, moves = moves)
 
-    private def solve(game: ChessGame): Option[Captcha.Solutions] =
+    private def solve(game: ShogiGame): Option[Captcha.Solutions] =
       game.situation.moves.view
-        .flatMap {
-          case (_, moves) =>
-            moves filter { move =>
-              (move.after situationOf !game.player).checkMate
-            }
+        .flatMap { case (_, moves) =>
+          moves filter { move =>
+            (move.after situationOf !game.player).checkMate
+          }
         }
         .to(List) map { move =>
         s"${move.orig} ${move.dest}"
       } toNel
 
-    private def rewind(moves: PgnMoves): Option[ChessGame] =
+    private def rewind(moves: PgnMoves): Option[ShogiGame] =
       pgn.Reader
         .movesWithSans(
           moves,
@@ -111,6 +110,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         case _        => Nil
       }
 
-    private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
+    private def fen(game: ShogiGame): String = Forsyth >> game takeWhile (_ != ' ')
   }
 }

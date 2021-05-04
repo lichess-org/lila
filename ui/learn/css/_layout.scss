@@ -12,20 +12,26 @@ $mq-col3: $mq-col3-uniboard;
   grid-area: main;
   display: grid;
 
-  &__side { grid-area: side; }
-  &__main { grid-area: main; }
-  &__table { grid-area: table; }
+  &__side {
+    grid-area: side;
+  }
+  &__main {
+    grid-area: main;
+  }
+  &__table {
+    grid-area: table;
+  }
 
   &--run {
     grid-template-areas:
-    'main'
-    'table'
-    'side';
+      'main'
+      'table'
+      'side';
   }
   &--map {
     grid-template-areas:
-    'side'
-    'main';
+      'side'
+      'main';
   }
   grid-gap: $block-gap;
 
@@ -34,8 +40,8 @@ $mq-col3: $mq-col3-uniboard;
       grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
       grid-template-rows: fit-content(0);
       grid-template-areas:
-      'main table'
-      'side .';
+        'main table'
+        'side .';
     }
     &--map {
       grid-template-areas: 'side main';
@@ -49,8 +55,7 @@ $mq-col3: $mq-col3-uniboard;
   @include breakpoint($mq-col3) {
     &--run {
       grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-      grid-template-areas:
-      'side main table';
+      grid-template-areas: 'side main table';
     }
   }
 }

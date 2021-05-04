@@ -17,7 +17,7 @@
 	<string name="removeStudent">Magtanggal ng estudyante</string>
 	<string name="removedStudents">Natanggal na</string>
 	<string name="inviteTheStudentBack">Imbitahin muli ang estudyante</string>
-	<string name="sendAMessage">Magbigay ng mensahe sa lahat ng mga estudyante</string>
+	<string name="sendAMessage">Magpadala ng mensahe sa lahat ng mga estudyante</string>
 	<string name="aLinkToTheClassWillBeAdded">Ang isang link papunta sa klase ay awtomatikong ilalagay sa huli ng mensahe kaya\'t hindi mo na ito kailangan ilagay pa.</string>
 	<string name="className">Pangalan ng klase</string>
 	<string name="classDescription">Deskripsyon ng klase</string>

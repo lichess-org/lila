@@ -7,7 +7,7 @@ body {
     --site-header-height: #{$site-header-tall-height};
   }
 
-  --site-header-margin: 0px;
+  --site-header-margin: 12px;
   &.header-margin {
     --site-header-margin: 1em;
   }
@@ -19,8 +19,12 @@ body {
   }
 
   /* Feature detection for JS to read */
-  @media (hover: hover) { --hoverable: 1; }
-  @supports (display: grid) { --grid: 1; }
+  @media (hover: hover) {
+    --hoverable: 1;
+  }
+  @supports (display: grid) {
+    --grid: 1;
+  }
 }
 
 #main-wrap {

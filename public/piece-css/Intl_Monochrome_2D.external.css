@@ -1,381 +1,190 @@
-piece.pawn.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0FU.svg");
-}
-piece.bishop.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KA.svg");
-}
-piece.knight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KE.svg");
-}
-piece.rook.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0HI.svg");
-}
-piece.king.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0OU.svg");
-}
-piece.gold.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KI.svg");
-}
-piece.silver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GI.svg");
-}
-piece.lance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KY.svg");
-}
-
-piece.horse.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0UM.svg");
-}
-piece.promotedlance.white,
-piece.promotedLance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NY.svg");
-}
-piece.dragon.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0RY.svg");
-}
-piece.promotedsilver.white,
-piece.promotedSilver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NG.svg");
-}
-piece.promotedknight.white,
-piece.promotedKnight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NK.svg");
-}
-piece.tokin.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0TO.svg");
-}
-
-piece.pawn.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1FU.svg");
-}
-piece.bishop.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KA.svg");
-}
-piece.knight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KE.svg");
-}
-piece.rook.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1HI.svg");
-}
-piece.king.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1OU.svg");
-}
-piece.gold.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KI.svg");
-}
-piece.silver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1GI.svg");
-}
-piece.lance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KY.svg");
-}
-
-piece.horse.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1UM.svg");
-}
-piece.promotedlance.black,
-piece.promotedLance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NY.svg");
-}
-piece.dragon.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1RY.svg");
-}
-piece.promotedsilver.black,
-piece.promotedSilver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NG.svg");
-}
-piece.promotedknight.black,
-piece.promotedKnight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NK.svg");
-}
-piece.tokin.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1TO.svg");
-}
-
-/*
-      Pieces for white
-      */
-
-.cg-wrap.orientation-white piece.pawn.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0FU.svg");
-}
-.cg-wrap.orientation-white piece.bishop.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KA.svg");
-}
-.cg-wrap.orientation-white piece.knight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KE.svg");
-}
-.cg-wrap.orientation-white piece.rook.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0HI.svg");
-}
-.cg-wrap.orientation-white piece.king.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GY.svg");
-}
-.cg-wrap.orientation-white piece.gold.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KI.svg");
-}
-.cg-wrap.orientation-white piece.silver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GI.svg");
-}
-.cg-wrap.orientation-white piece.lance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KY.svg");
-}
-
-.cg-wrap.orientation-white piece.horse.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0UM.svg");
-}
-.cg-wrap.orientation-white piece.promotedlance.white,
-.cg-wrap.orientation-white piece.promotedLance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NY.svg");
-}
-.cg-wrap.orientation-white piece.dragon.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0RY.svg");
-}
-.cg-wrap.orientation-white piece.promotedsilver.white,
-.cg-wrap.orientation-white piece.promotedSilver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NG.svg");
-}
-.cg-wrap.orientation-white piece.promotedknight.white,
-.cg-wrap.orientation-white piece.promotedKnight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NK.svg");
-}
-.cg-wrap.orientation-white piece.tokin.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0TO.svg");
-}
-
-.cg-wrap.orientation-white piece.pawn.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1FU.svg");
-}
-.cg-wrap.orientation-white piece.bishop.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KA.svg");
-}
-.cg-wrap.orientation-white piece.knight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KE.svg");
-}
-.cg-wrap.orientation-white piece.rook.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1HI.svg");
-}
-.cg-wrap.orientation-white piece.king.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1OU.svg");
-}
-.cg-wrap.orientation-white piece.gold.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KI.svg");
-}
-.cg-wrap.orientation-white piece.silver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1GI.svg");
-}
-.cg-wrap.orientation-white piece.lance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KY.svg");
-}
-
-.cg-wrap.orientation-white piece.horse.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1UM.svg");
-}
-.cg-wrap.orientation-white piece.promotedlance.black,
-.cg-wrap.orientation-white piece.promotedLance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NY.svg");
-}
-.cg-wrap.orientation-white piece.dragon.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1RY.svg");
-}
-.cg-wrap.orientation-white piece.promotedsilver.black,
-.cg-wrap.orientation-white piece.promotedSilver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NG.svg");
-}
-.cg-wrap.orientation-white piece.promotedknight.black,
-.cg-wrap.orientation-white piece.promotedKnight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NK.svg");
-}
-.cg-wrap.orientation-white piece.tokin.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1TO.svg");
-}
-
-/*
-      Pieces for black
-      */
-
-.cg-wrap.orientation-black piece.pawn.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0FU.svg");
-}
-.cg-wrap.orientation-black piece.bishop.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KA.svg");
-}
-.cg-wrap.orientation-black piece.knight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KE.svg");
-}
-.cg-wrap.orientation-black piece.rook.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0HI.svg");
-}
-.cg-wrap.orientation-black piece.king.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0OU.svg");
-}
-.cg-wrap.orientation-black piece.gold.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KI.svg");
-}
-.cg-wrap.orientation-black piece.silver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GI.svg");
-}
-.cg-wrap.orientation-black piece.lance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KY.svg");
-}
-
-.cg-wrap.orientation-black piece.horse.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0UM.svg");
-}
-.cg-wrap.orientation-black piece.promotedlance.black,
-.cg-wrap.orientation-black piece.promotedLance.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NY.svg");
-}
-.cg-wrap.orientation-black piece.dragon.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0RY.svg");
-}
-.cg-wrap.orientation-black piece.promotedsilver.black,
-.cg-wrap.orientation-black piece.promotedSilver.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NG.svg");
-}
-.cg-wrap.orientation-black piece.promotedknight.black,
-.cg-wrap.orientation-black piece.promotedKnight.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NK.svg");
-}
-.cg-wrap.orientation-black piece.tokin.black {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0TO.svg");
-}
-
-.cg-wrap.orientation-black piece.pawn.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1FU.svg");
-}
-.cg-wrap.orientation-black piece.bishop.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KA.svg");
-}
-.cg-wrap.orientation-black piece.knight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KE.svg");
-}
-.cg-wrap.orientation-black piece.rook.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1HI.svg");
-}
-.cg-wrap.orientation-black piece.king.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1GY.svg");
-}
-.cg-wrap.orientation-black piece.gold.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KI.svg");
-}
-.cg-wrap.orientation-black piece.silver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1GI.svg");
-}
-.cg-wrap.orientation-black piece.lance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KY.svg");
-}
-
-.cg-wrap.orientation-black piece.horse.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1UM.svg");
-}
-.cg-wrap.orientation-black piece.promotedlance.white,
-.cg-wrap.orientation-black piece.promotedLance.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NY.svg");
-}
-.cg-wrap.orientation-black piece.dragon.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1RY.svg");
-}
-.cg-wrap.orientation-black piece.promotedsilver.white,
-.cg-wrap.orientation-black piece.promotedSilver.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NG.svg");
-}
-.cg-wrap.orientation-black piece.promotedknight.white,
-.cg-wrap.orientation-black piece.promotedKnight.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1NK.svg");
-}
-.cg-wrap.orientation-black piece.tokin.white {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1TO.svg");
-}
-
-/*
-      Promotions
-      */
-
-#promotion-choice piece.pawn {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0FU.svg");
-}
-#promotion-choice piece.silver {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GI.svg");
-}
-#promotion-choice piece.lance {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KY.svg");
-}
-#promotion-choice piece.knight {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KE.svg");
-}
-#promotion-choice piece.rook {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0HI.svg");
-}
-#promotion-choice piece.bishop {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KA.svg");
-}
-#promotion-choice piece.tokin {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0TO.svg");
-}
-#promotion-choice piece.promotedsilver,
-#promotion-choice piece.promotedSilver {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NG.svg");
-}
-#promotion-choice piece.promotedlance,
-#promotion-choice piece.promotedLance {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NY.svg");
-}
-#promotion-choice piece.promotedknight,
-#promotion-choice piece.promotedKnight {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0NK.svg");
-}
-#promotion-choice piece.dragon {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0RY.svg");
-}
-#promotion-choice piece.horse {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0UM.svg");
-}
-
-/*
-      Pockets
-      */
-
-.pocket-top piece.pawn {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1FU.svg");
-}
-.pocket-top piece.lance {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KY.svg");
-}
-.pocket-top piece.knight {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KE.svg");
-}
-.pocket-top piece.silver {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1GI.svg");
-}
-.pocket-top piece.gold {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KI.svg");
-}
-.pocket-top piece.bishop {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1KA.svg");
-}
-.pocket-top piece.rook {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/1HI.svg");
-}
-
-.pocket-bottom piece.pawn {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0FU.svg");
-}
-.pocket-bottom piece.lance {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KY.svg");
-}
-.pocket-bottom piece.knight {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KE.svg");
-}
-.pocket-bottom piece.silver {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0GI.svg");
-}
-.pocket-bottom piece.gold {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KI.svg");
-}
-.pocket-bottom piece.bishop {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0KA.svg");
-}
-.pocket-bottom piece.rook {
-  background-image: url("/assets/piece/Intl_Monochrome_2D/0HI.svg");
-}
+piece.pawn.sente,
+      .cg-wrap.orientation-sente piece.pawn.sente,
+      .cg-wrap.orientation-gote piece.pawn.gote,
+      .pocket-bottom piece.pawn.gote,
+      .e-pocket-bottom piece.pawn.gote,
+      #promotion-choice.top piece.pawn,
+      .spare-bottom piece.pawn.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0FU.svg')}
+piece.silver.sente,
+      .cg-wrap.orientation-sente piece.silver.sente,
+      .cg-wrap.orientation-gote piece.silver.gote,
+      .pocket-bottom piece.silver.gote,
+      .e-pocket-bottom piece.silver.gote,
+      #promotion-choice.top piece.silver,
+      .spare-bottom piece.silver.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0GI.svg')}
+piece.king.sente,
+      .cg-wrap.orientation-sente piece.king.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/0GY.svg')}
+piece.rook.sente,
+      .cg-wrap.orientation-sente piece.rook.sente,
+      .cg-wrap.orientation-gote piece.rook.gote,
+      .pocket-bottom piece.rook.gote,
+      .e-pocket-bottom piece.rook.gote,
+      #promotion-choice.top piece.rook,
+      .spare-bottom piece.rook.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0HI.svg')}
+piece.bishop.sente,
+      .cg-wrap.orientation-sente piece.bishop.sente,
+      .cg-wrap.orientation-gote piece.bishop.gote,
+      .pocket-bottom piece.bishop.gote,
+      .e-pocket-bottom piece.bishop.gote,
+      #promotion-choice.top piece.bishop,
+      .spare-bottom piece.bishop.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0KA.svg')}
+piece.knight.sente,
+      .cg-wrap.orientation-sente piece.knight.sente,
+      .cg-wrap.orientation-gote piece.knight.gote,
+      .pocket-bottom piece.knight.gote,
+      .e-pocket-bottom piece.knight.gote,
+      #promotion-choice.top piece.knight,
+      .spare-bottom piece.knight.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0KE.svg')}
+piece.gold.sente,
+      .cg-wrap.orientation-sente piece.gold.sente,
+      .cg-wrap.orientation-gote piece.gold.gote,
+      .pocket-bottom piece.gold.gote,
+      .e-pocket-bottom piece.gold.gote,
+      #promotion-choice.top piece.gold,
+      .spare-bottom piece.gold.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0KI.svg')}
+piece.lance.sente,
+      .cg-wrap.orientation-sente piece.lance.sente,
+      .cg-wrap.orientation-gote piece.lance.gote,
+      .pocket-bottom piece.lance.gote,
+      .e-pocket-bottom piece.lance.gote,
+      #promotion-choice.top piece.lance,
+      .spare-bottom piece.lance.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0KY.svg')}
+piece.promotedsilver.sente,
+      .cg-wrap.orientation-sente piece.promotedsilver.sente,
+      .cg-wrap.orientation-gote piece.promotedsilver.gote,
+      .pocket-bottom piece.promotedsilver.gote,
+      .e-pocket-bottom piece.promotedsilver.gote,
+      #promotion-choice.top piece.promotedsilver,
+      .spare-bottom piece.promotedsilver.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0NG.svg')}
+piece.promotedknight.sente,
+      .cg-wrap.orientation-sente piece.promotedknight.sente,
+      .cg-wrap.orientation-gote piece.promotedknight.gote,
+      .pocket-bottom piece.promotedknight.gote,
+      .e-pocket-bottom piece.promotedknight.gote,
+      #promotion-choice.top piece.promotedknight,
+      .spare-bottom piece.promotedknight.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0NK.svg')}
+piece.promotedlance.sente,
+      .cg-wrap.orientation-sente piece.promotedlance.sente,
+      .cg-wrap.orientation-gote piece.promotedlance.gote,
+      .pocket-bottom piece.promotedlance.gote,
+      .e-pocket-bottom piece.promotedlance.gote,
+      #promotion-choice.top piece.promotedlance,
+      .spare-bottom piece.promotedlance.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0NY.svg')}
+.cg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom piece.king.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0OU.svg')}
+piece.dragon.sente,
+      .cg-wrap.orientation-sente piece.dragon.sente,
+      .cg-wrap.orientation-gote piece.dragon.gote,
+      .pocket-bottom piece.dragon.gote,
+      .e-pocket-bottom piece.dragon.gote,
+      #promotion-choice.top piece.dragon,
+      .spare-bottom piece.dragon.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0RY.svg')}
+piece.tokin.sente,
+      .cg-wrap.orientation-sente piece.tokin.sente,
+      .cg-wrap.orientation-gote piece.tokin.gote,
+      .pocket-bottom piece.tokin.gote,
+      .e-pocket-bottom piece.tokin.gote,
+      #promotion-choice.top piece.tokin,
+      .spare-bottom piece.tokin.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0TO.svg')}
+piece.horse.sente,
+      .cg-wrap.orientation-sente piece.horse.sente,
+      .cg-wrap.orientation-gote piece.horse.gote,
+      .pocket-bottom piece.horse.gote,
+      .e-pocket-bottom piece.horse.gote,
+      #promotion-choice.top piece.horse,
+      .spare-bottom piece.horse.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/0UM.svg')}
+piece.pawn.gote,
+      .cg-wrap.orientation-sente piece.pawn.gote,
+      .cg-wrap.orientation-gote piece.pawn.sente,
+      .pocket-top piece.pawn,
+      .e-pocket-top piece.pawn,
+      #promotion-choice.bottom piece.pawn,
+      .spare-top piece.pawn.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1FU.svg')}
+piece.silver.gote,
+      .cg-wrap.orientation-sente piece.silver.gote,
+      .cg-wrap.orientation-gote piece.silver.sente,
+      .pocket-top piece.silver,
+      .e-pocket-top piece.silver,
+      #promotion-choice.bottom piece.silver,
+      .spare-top piece.silver.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1GI.svg')}
+.cg-wrap.orientation-gote piece.king.sente,
+      .spare-top piece.king.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1GY.svg')}
+piece.rook.gote,
+      .cg-wrap.orientation-sente piece.rook.gote,
+      .cg-wrap.orientation-gote piece.rook.sente,
+      .pocket-top piece.rook,
+      .e-pocket-top piece.rook,
+      #promotion-choice.bottom piece.rook,
+      .spare-top piece.rook.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1HI.svg')}
+piece.bishop.gote,
+      .cg-wrap.orientation-sente piece.bishop.gote,
+      .cg-wrap.orientation-gote piece.bishop.sente,
+      .pocket-top piece.bishop,
+      .e-pocket-top piece.bishop,
+      #promotion-choice.bottom piece.bishop,
+      .spare-top piece.bishop.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1KA.svg')}
+piece.knight.gote,
+      .cg-wrap.orientation-sente piece.knight.gote,
+      .cg-wrap.orientation-gote piece.knight.sente,
+      .pocket-top piece.knight,
+      .e-pocket-top piece.knight,
+      #promotion-choice.bottom piece.knight,
+      .spare-top piece.knight.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1KE.svg')}
+piece.gold.gote,
+      .cg-wrap.orientation-sente piece.gold.gote,
+      .cg-wrap.orientation-gote piece.gold.sente,
+      .pocket-top piece.gold,
+      .e-pocket-top piece.gold,
+      #promotion-choice.bottom piece.gold,
+      .spare-top piece.gold.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1KI.svg')}
+piece.lance.gote,
+      .cg-wrap.orientation-sente piece.lance.gote,
+      .cg-wrap.orientation-gote piece.lance.sente,
+      .pocket-top piece.lance,
+      .e-pocket-top piece.lance,
+      #promotion-choice.bottom piece.lance,
+      .spare-top piece.lance.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1KY.svg')}
+piece.promotedsilver.gote,
+      .cg-wrap.orientation-sente piece.promotedsilver.gote,
+      .cg-wrap.orientation-gote piece.promotedsilver.sente,
+      .pocket-top piece.promotedsilver,
+      .e-pocket-top piece.promotedsilver,
+      #promotion-choice.bottom piece.promotedsilver,
+      .spare-top piece.promotedsilver.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1NG.svg')}
+piece.promotedknight.gote,
+      .cg-wrap.orientation-sente piece.promotedknight.gote,
+      .cg-wrap.orientation-gote piece.promotedknight.sente,
+      .pocket-top piece.promotedknight,
+      .e-pocket-top piece.promotedknight,
+      #promotion-choice.bottom piece.promotedknight,
+      .spare-top piece.promotedknight.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1NK.svg')}
+piece.promotedlance.gote,
+      .cg-wrap.orientation-sente piece.promotedlance.gote,
+      .cg-wrap.orientation-gote piece.promotedlance.sente,
+      .pocket-top piece.promotedlance,
+      .e-pocket-top piece.promotedlance,
+      #promotion-choice.bottom piece.promotedlance,
+      .spare-top piece.promotedlance.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1NY.svg')}
+piece.king.gote,
+      .cg-wrap.orientation-sente piece.king.gote {background-image:url('/assets/piece/Intl_Monochrome_2D/1OU.svg')}
+piece.dragon.gote,
+      .cg-wrap.orientation-sente piece.dragon.gote,
+      .cg-wrap.orientation-gote piece.dragon.sente,
+      .pocket-top piece.dragon,
+      .e-pocket-top piece.dragon,
+      #promotion-choice.bottom piece.dragon,
+      .spare-top piece.dragon.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1RY.svg')}
+piece.tokin.gote,
+      .cg-wrap.orientation-sente piece.tokin.gote,
+      .cg-wrap.orientation-gote piece.tokin.sente,
+      .pocket-top piece.tokin,
+      .e-pocket-top piece.tokin,
+      #promotion-choice.bottom piece.tokin,
+      .spare-top piece.tokin.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1TO.svg')}
+piece.horse.gote,
+      .cg-wrap.orientation-sente piece.horse.gote,
+      .cg-wrap.orientation-gote piece.horse.sente,
+      .pocket-top piece.horse,
+      .e-pocket-top piece.horse,
+      #promotion-choice.bottom piece.horse,
+      .spare-top piece.horse.sente {background-image:url('/assets/piece/Intl_Monochrome_2D/1UM.svg')}

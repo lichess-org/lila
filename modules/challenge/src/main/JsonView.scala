@@ -84,7 +84,7 @@ final class JsonView(
       .add("initialFen" -> c.initialFen)
 
   private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) '*'
+    if (c.variant == shogi.variant.FromPosition) '*'
     else c.perfType.iconChar
 
   private val i18nKeys = List(

@@ -3,7 +3,7 @@ package lila.tv
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.hub.Trouper
 
@@ -79,8 +79,8 @@ final private[tv] class ChannelTrouper(
 
   private def score(game: Game): Int =
     math.round {
-      (heuristics map {
-        case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
+      (heuristics map { case (fn, coefficient) =>
+        heuristicBox(fn(game)) * coefficient
       }).sum * 1000
     }
 
@@ -90,8 +90,8 @@ final private[tv] class ChannelTrouper(
   private val turnBox      = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    ratingHeuristic(Color.White) -> 1.2f,
-    ratingHeuristic(Color.Black) -> 1.2f,
+    ratingHeuristic(Color.Sente) -> 1.2f,
+    ratingHeuristic(Color.Gote)  -> 1.2f,
     progressHeuristic            -> 0.7f
   )
 

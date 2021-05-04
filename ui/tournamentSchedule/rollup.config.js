@@ -1,9 +1,9 @@
-import { rollupProject } from "@build/rollupProject";
+import { rollupProject } from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: "LishogiTournamentSchedule",
-    input: "src/main.ts",
-    output: "lishogi.tournamentSchedule",
+    name: 'LishogiTournamentSchedule',
+    input: 'src/main.ts',
+    output: 'lishogi.tournamentSchedule',
   },
 });

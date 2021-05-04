@@ -1,7 +1,7 @@
 package lila.game
 
-import chess.variant.Variant
-import chess.{ Color, Status }
+import shogi.variant.Variant
+import shogi.{ Color, Status }
 
 object StatusText {
 

@@ -20,13 +20,14 @@ object activity {
             a.patron map renderPatron,
             a.practice map renderPractice,
             a.puzzles map renderPuzzles,
+//            a.storm map renderStorm,
             a.games map renderGames,
             a.posts map renderPosts,
-            a.corresMoves map {
-              case (nb, povs) => renderCorresMoves(nb, povs)
+            a.corresMoves map { case (nb, povs) =>
+              renderCorresMoves(nb, povs)
             },
-            a.corresEnds map {
-              case (score, povs) => renderCorresEnds(score, povs)
+            a.corresEnds map { case (score, povs) =>
+              renderCorresEnds(score, povs)
             },
             a.follows map renderFollows,
             a.simuls map renderSimuls(u),
@@ -46,7 +47,8 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron")) // patron
+        trans.activity.supportedNbMonths
+          .plural(p.months, p.months, a(href := routes.Plan.index())("Patron")) // patron
       )
     )
 
@@ -84,35 +86,43 @@ object activity {
       )
     )
 
+  private def renderStorm(s: Storm)(implicit ctx: Context) =
+    entryTag(
+      iconTag("~"),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
+      )
+    )
+
   private def renderGames(games: Games)(implicit ctx: Context) =
-    games.value.toSeq.sortBy(-_._2.size).map {
-      case (pt, score) =>
-        entryTag(
-          iconTag(pt.iconChar),
-          scoreFrag(score),
-          div(
-            trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
-            score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
-          )
+    games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
+      entryTag(
+        iconTag(pt.iconChar),
+        scoreFrag(score),
+        div(
+          trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
+          score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
         )
+      )
     }
 
   private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
     ctx.noKid option entryTag(
       iconTag("d"),
       div(
-        posts.toSeq.map {
-          case (topic, posts) =>
-            val url = routes.ForumTopic.show(topic.categId, topic.slug)
-            frag(
-              trans.activity.postedNbMessages
-                .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
-              subTag(
-                posts.map { post =>
-                  div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
-                }
-              )
+        posts.toSeq.map { case (topic, posts) =>
+          val url = routes.ForumTopic.show(topic.categId, topic.slug)
+          frag(
+            trans.activity.postedNbMessages
+              .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
+            subTag(
+              posts.map { post =>
+                div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
+              }
             )
+          )
         }
       )
     )
@@ -167,18 +177,17 @@ object activity {
     entryTag(
       iconTag("h"),
       div(
-        List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map {
-          case (f, in) =>
-            frag(
-              if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
-              else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
-              subTag(
-                fragList(f.ids.map(id => userIdLink(id.some))),
-                f.nb.map { nb =>
-                  frag(" and ", nb - maxSubEntries, " more")
-                }
-              )
+        List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map { case (f, in) =>
+          frag(
+            if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
+            else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
+            subTag(
+              fragList(f.ids.map(id => userIdLink(id.some))),
+              f.nb.map { nb =>
+                frag(" and ", nb - maxSubEntries, " more")
+              }
             )
+          )
         }
       )
     )
@@ -187,24 +196,23 @@ object activity {
     entryTag(
       iconTag("f"),
       div(
-        simuls.groupBy(_.isHost(u.some)).toSeq.map {
-          case (isHost, simuls) =>
-            frag(
-              if (isHost) trans.activity.hostedNbSimuls.pluralSame(simuls.size)
-              else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
-              subTag(
-                simuls.map { s =>
-                  div(
-                    a(href := routes.Simul.show(s.id))(
-                      s.name,
-                      " simul by ",
-                      userIdLink(s.hostId.some)
-                    ),
-                    scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  )
-                }
-              )
+        simuls.groupBy(_.isHost(u.some)).toSeq.map { case (isHost, simuls) =>
+          frag(
+            if (isHost) trans.activity.hostedNbSimuls.pluralSame(simuls.size)
+            else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
+            subTag(
+              simuls.map { s =>
+                div(
+                  a(href := routes.Simul.show(s.id))(
+                    s.name,
+                    " simul by ",
+                    userIdLink(s.hostId.some)
+                  ),
+                  scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                )
+              }
             )
+          )
         }
       )
     )
@@ -274,6 +282,8 @@ object activity {
 
   private val entryTag = div(cls := "entry")
   private val subTag   = div(cls := "sub")
+  private val scoreTag = tag("score")
+  private val winTag   = tag("win")
 
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {

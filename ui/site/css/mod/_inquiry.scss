@@ -1,5 +1,6 @@
-body, #mz_menu .inner {
-  margin-top: 53px!important;
+body,
+#mz_menu .inner {
+  margin-top: 53px !important;
 }
 body.no-inquiry {
   transition: margin 0.3s;
@@ -7,8 +8,14 @@ body.no-inquiry {
 }
 
 @keyframes octopus {
-  50% { transform: scale(1.03); background-color: #4a4a4a; }
-  100% { transform: scale(1); background-color: #484541; }
+  50% {
+    transform: scale(1.03);
+    background-color: #4a4a4a;
+  }
+  100% {
+    transform: scale(1);
+    background-color: #484541;
+  }
 }
 #inquiry {
   height: 48px;
@@ -51,7 +58,9 @@ body.no-inquiry {
       opacity: 0.5;
     }
   }
-  &, a, a.user-link .line {
+  &,
+  a,
+  a.user-link .line {
     color: #f0f0f0;
   }
   .meat {
@@ -74,7 +83,7 @@ body.no-inquiry {
     flex: 4 1 auto;
   }
   .counter {
-    margin-left: .3em;
+    margin-left: 0.3em;
     flex: 0 0 auto;
   }
   .docs .expendable {
@@ -108,9 +117,9 @@ body.no-inquiry {
     margin: 0;
   }
   .report .atom {
-    margin-bottom: .8em;
+    margin-bottom: 0.8em;
     border-bottom: 1px solid #777;
-    padding-bottom: .8em;
+    padding-bottom: 0.8em;
   }
   .report .atom:last-child {
     margin-bottom: 0;
@@ -120,9 +129,9 @@ body.no-inquiry {
     display: inline-block;
     white-space: nowrap;
     font-weight: bold;
-    font-size: .9em;
-    padding: .1em .5em;
-    border-radius: .3em;
+    font-size: 0.9em;
+    padding: 0.1em 0.5em;
+    border-radius: 0.3em;
   }
   .score.green {
     /* actually blue */
@@ -167,12 +176,12 @@ body.no-inquiry {
   }
   .fbt {
     height: 100%;
-    color: #f0f0f0!important;
+    color: #f0f0f0 !important;
     background: transparent;
     padding: 0 1em;
   }
   .fbt:hover {
-    background: rgba(56,147,232,0.8);
+    background: rgba(56, 147, 232, 0.8);
   }
   .fbt.icon::before,
   .warn i::before,
@@ -180,7 +189,7 @@ body.no-inquiry {
     font-size: 1.7em;
   }
   .fbt.active {
-    color: #fff!important;
+    color: #fff !important;
   }
   .links {
     padding: 0 10px;
@@ -203,7 +212,7 @@ body.no-inquiry {
   }
   .cancel button {
     margin-left: 5px;
-    font-size: .8em;
+    font-size: 0.8em;
     padding: 0 8px;
   }
   .accuracy {
@@ -229,7 +238,7 @@ body.no-inquiry {
       right: 0;
       background: #555;
       overflow: hidden;
-      padding: .4em 0;
+      padding: 0.4em 0;
     }
     &:hover {
       > span,
@@ -249,7 +258,7 @@ body.no-inquiry {
       line-height: 40px;
     }
     &.buttons button {
-      padding: .5em 1.3em;
+      padding: 0.5em 1.3em;
       text-transform: initial;
     }
 

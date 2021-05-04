@@ -1,7 +1,7 @@
 package lila.analyse
 
-import chess.Color
-import chess.format.Uci
+import shogi.Color
+import shogi.format.Uci
 
 import lila.tree.Eval
 
@@ -79,8 +79,8 @@ object Info {
     }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
+    str.split(listSeparator).toList.zipWithIndex map { case (infoStr, index) =>
+      decode(index + 1 + fromPly, infoStr)
     }
   }.sequence
 

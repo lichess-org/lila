@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Constraints }
 import lila.user.User
 
-import chess.StartingPosition
+import shogi.StartingPosition
 import lila.common.Form._
 
 object SimulForm {
@@ -22,21 +22,21 @@ object SimulForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  val clockByoyomi          = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
-  val clockByoyomiDefault   = 0
+  val clockByoyomi        = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockByoyomiDefault = 0
   val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
 
-  val periods         = (1 to 5)
-  val periodsDefault   = 1
+  val periods        = 1 to 5
+  val periodsDefault = 1
   val periodsChoices = options(periods, "%d period{s}")
 
-  val colors = List("white", "random", "black")
+  val colors = List("sente", "random", "gote")
   val colorChoices = List(
-    "white"  -> "Sente/Shitate",
+    "sente"  -> "Sente/Shitate",
     "random" -> "Random",
-    "black"  -> "Gote/Uwate"
+    "gote"   -> "Gote/Uwate"
   )
-  val colorDefault = "black"
+  val colorDefault = "gote"
 
   private def nameType(host: User) =
     clean(text).verifying(
@@ -54,11 +54,10 @@ object SimulForm {
       Constraint[String] { (t: String) =>
         if (
           t.toUpperCase.split(' ').exists { word =>
-            lila.user.Title.all.exists {
-              case (title, name) =>
-                !host.title.has(title) && {
-                  title.value == word || name.toUpperCase == word
-                }
+            lila.user.Title.all.exists { case (title, name) =>
+              !host.title.has(title) && {
+                title.value == word || name.toUpperCase == word
+              }
             }
           }
         )
@@ -79,7 +78,7 @@ object SimulForm {
         "variants" -> list {
           number.verifying(
             Set(
-              chess.variant.Standard.id
+              shogi.variant.Standard.id
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
@@ -95,7 +94,7 @@ object SimulForm {
       clockByoyomi = clockByoyomiDefault,
       periods = periodsDefault,
       clockExtra = clockExtraDefault,
-      variants = List(chess.variant.Standard.id),
+      variants = List(shogi.variant.Standard.id),
       position = StartingPosition.initial.fen.some,
       color = colorDefault,
       text = "",
@@ -108,7 +107,7 @@ object SimulForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  def startingPosition(fen: String, variant: chess.variant.Variant): StartingPosition =
+  def startingPosition(fen: String, variant: shogi.variant.Variant): StartingPosition =
     Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
 
   def setText = Form(single("text" -> text))

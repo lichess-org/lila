@@ -103,7 +103,7 @@
     <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
   </plurals>
   <string name="urlOfTheGame">URL del joc</string>
-  <string name="loadAGameFromXOrY">Carregar una partida desde %1$s o %2$s</string>
+  <string name="loadAGameFromXOrY">Carregar una partida desde %1$s</string>
   <string name="createChapter">Crear capítol</string>
   <string name="configureLiveBroadcast">Configurar l’emisió en directe</string>
   <string name="createStudy">Crear estudi</string>

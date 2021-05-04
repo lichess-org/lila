@@ -7,10 +7,10 @@
   coords {
     text-shadow: var(--cg-coord-shadow);
   }
-  .orientation-white .files,
-  .orientation-white .ranks,
-  .orientation-black .files,
-  .orientation-black .ranks {
+  .orientation-sente .files,
+  .orientation-sente .ranks,
+  .orientation-gote .files,
+  .orientation-gote .ranks {
     color: var(--cg-coord-color);
   }
 }

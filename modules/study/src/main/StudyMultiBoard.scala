@@ -1,9 +1,9 @@
 package lila.study
 
 import BSONHandlers._
-import chess.Color
-import chess.format.pgn.Tags
-import chess.format.{ FEN, Uci }
+import shogi.Color
+import shogi.format.pgn.Tags
+import shogi.format.{ FEN, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import JsonView._
 import play.api.libs.json._
@@ -70,7 +70,7 @@ final class StudyMultiBoard(
                       "lang" -> "js",
                       "args" -> $arr("$root", "$tags"),
                       "body" -> """function(root, tags) {
-                    |tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
+                    |tags = tags.filter(t => t.startsWith('Sente') || t.startsWith('Gote') || t.startsWith('Result'));
                     |const node = tags.length ? Object.keys(root).reduce((acc, i) => (root[i].p > acc.p) ? root[i] : acc, root['ÿ']) : root['ÿ'];
                     |return {node:{fen:node.f,uci:node.u},tags} }""".stripMargin
                     )
@@ -96,7 +96,7 @@ final class StudyMultiBoard(
             id = id,
             name = name,
             players = tags flatMap ChapterPreview.players,
-            orientation = doc.getAsOpt[Color]("orientation") | Color.White,
+            orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
             fen = fen,
             lastMove = lastMove,
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
@@ -115,7 +115,7 @@ final class StudyMultiBoard(
 
     implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] {
       players =>
-        Json.obj("white" -> players.white, "black" -> players.black)
+        Json.obj("sente" -> players.sente, "gote" -> players.gote)
     }
 
     implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
@@ -142,11 +142,11 @@ object StudyMultiBoard {
 
     def players(tags: Tags): Option[Players] =
       for {
-        wName <- tags(_.White)
-        bName <- tags(_.Black)
+        sName <- tags(_.Sente)
+        gName <- tags(_.Gote)
       } yield Color.Map(
-        white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
-        black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
+        sente = Player(sName, tags(_.SenteTitle), tags(_.SenteElo) flatMap (_.toIntOption)),
+        gote = Player(gName, tags(_.GoteTitle), tags(_.GoteElo) flatMap (_.toIntOption))
       )
   }
 }

@@ -2,9 +2,9 @@ package lila.socket
 
 import play.api.libs.json._
 
-import chess.format.FEN
-import chess.opening._
-import chess.variant.Variant
+import shogi.format.FEN
+import shogi.opening._
+import shogi.variant.Variant
 import lila.tree.Node.{ destString, openingWriter }
 
 case class AnaDests(
@@ -15,12 +15,12 @@ case class AnaDests(
 ) {
 
   def isInitial =
-    variant.standard && fen.value == chess.format.Forsyth.initial && path == ""
+    variant.standard && fen.value == shogi.format.Forsyth.initial && path == ""
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
     else {
-      val sit = chess.Game(variant.some, fen.value.some).situation
+      val sit = shogi.Game(variant.some, fen.value.some).situation
       sit.playable(false) ?? destString(sit.destinations)
     }
 
@@ -45,7 +45,7 @@ object AnaDests {
   def parse(o: JsObject) =
     for {
       d <- o obj "d"
-      variant = chess.variant.Variant orDefault ~d.str("variant")
+      variant = shogi.variant.Variant orDefault ~d.str("variant")
       fen  <- d str "fen"
       path <- d str "path"
     } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = d str "ch")

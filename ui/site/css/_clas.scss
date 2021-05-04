@@ -31,7 +31,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
     @include breakpoint($mq-subnav-side) {
       font-weight: bold;
-      padding: .4rem 2vw .4rem .8rem;
+      padding: 0.4rem 2vw 0.4rem 0.8rem;
       em {
         font-weight: normal;
         display: block;
@@ -47,11 +47,14 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 .clas-index {
   .box__top {
     background: $c-bg-clas;
-    &, a {
+    &,
+    a {
       color: $c-bg-clas-over;
     }
     flex-flow: row nowrap;
-    h1 { margin: 0 }
+    h1 {
+      margin: 0;
+    }
   }
   .new::before {
     font-size: 3em;
@@ -69,7 +72,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       &::before {
         color: mix($c-clas, $c-bg-box, 80%);
         font-size: 5em;
-        margin-right: .4em;
+        margin-right: 0.4em;
         @include transition();
         @include breakpoint($mq-not-xx-small) {
           display: none;
@@ -82,17 +85,18 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         }
       }
       .overlay {
-        @extend %link-overlay
+        @extend %link-overlay;
       }
       h3 {
         @include fluid-size('font-size', 23px, 35px);
         color: $c-clas;
       }
       p {
-        margin: .5em 0 0 0;
+        margin: 0.5em 0 0 0;
       }
       &-archived {
-        &::before, h3 {
+        &::before,
+        h3 {
           color: $c-font-dim;
         }
       }
@@ -105,7 +109,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   &__top {
     background: $c-bg-clas;
-    &, a, .button, .title {
+    &,
+    a,
+    .button,
+    .title {
       color: $c-bg-clas-over;
     }
   }
@@ -124,7 +131,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .dashboard {
-
   .flash {
     margin: 2em 2em 0 2em;
     &__content {
@@ -132,7 +138,8 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
   }
 
-  .students, .teachers {
+  .students,
+  .teachers {
     th {
       font-weight: bold;
     }
@@ -163,7 +170,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         &::before {
           margin: 0;
         }
-        margin: 0 .3em;
+        margin: 0 0.3em;
       }
     }
   }
@@ -173,13 +180,13 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     justify-content: center;
     align-items: flex-end;
     @include breakpoint($mq-not-xx-small) {
-      font-size: .9em;
+      font-size: 0.9em;
     }
     a {
       @extend %box-radius-top;
       flex: 1 1 auto;
       text-align: center;
-      padding: 1.2em 0 .8em 0;
+      padding: 1.2em 0 0.8em 0;
       &:first-child {
         @extend %box-radius-top-right;
       }
@@ -225,7 +232,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   &-teacher {
-
     .clas-show__top h1 {
       padding: 1.5em var(--box-padding);
       margin: 0;
@@ -261,7 +267,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         flex: 1 1 auto;
         text-align: center;
         font-weight: bold;
-        padding: .7em;
+        padding: 0.7em;
         color: $c-clas;
         &:hover {
           background: mix($c-bg-box, $c-clas, 70%);
@@ -288,9 +294,9 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
 
     .coords i {
-      margin: 0 .4em;
+      margin: 0 0.4em;
       &::before {
-        margin-right: .2em;
+        margin-right: 0.2em;
       }
     }
 
@@ -320,10 +326,13 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
   li {
     list-style: disc outside;
-    margin: .2em 0 0 1.2em;
+    margin: 0.2em 0 0 1.2em;
   }
-  h1, h2, h3, h4 {
-    margin: .7em 0;
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0.7em 0;
   }
   em {
     font-style: italic;
@@ -339,20 +348,22 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__edit {
     li {
       list-style: disc outside;
-      margin: .5em 0 0 1.5em;
+      margin: 0.5em 0 0 1.5em;
     }
   }
 }
 
 .student-show {
-
   padding-bottom: 3em;
 
   &__top {
     padding: calc(5vh - 1rem) var(--box-padding);
     background: $c-bg-clas;
     margin-bottom: 3em;
-    &, a, .button, .title {
+    &,
+    a,
+    .button,
+    .title {
       color: $c-bg-clas-over;
     }
     a:not(.button) {
@@ -361,10 +372,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
     h1 {
       @extend %flex-center;
-      margin-bottom: .6em;
+      margin-bottom: 0.6em;
       &::before {
         font-size: 2.5em;
-        margin-right: .4em;
+        margin-right: 0.4em;
         color: $c-bg-clas-over-dim;
       }
       strong {
@@ -390,7 +401,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   &__managed {
     @extend %box-radius, %flex-between;
-    background: fade-out($c-primary, .8);
+    background: fade-out($c-primary, 0.8);
     padding: 1em 2em;
     margin: 1em 0 2em 0;
     p {
@@ -434,7 +445,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .student-add {
-
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
@@ -481,7 +491,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .clas-home {
-
   background: $c-bg-clas;
   color: $c-bg-clas-over;
 
@@ -505,7 +514,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   li {
     list-style: none;
     border-top: $border;
-    padding: .5em;
+    padding: 0.5em;
     min-width: 100px;
     font-weight: bold;
     cursor: pointer;

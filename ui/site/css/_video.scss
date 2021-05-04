@@ -72,7 +72,7 @@
       z-index: 2;
       opacity: 1;
       padding: 0 5px;
-      background: fade-out($c-bg-box, .2);
+      background: fade-out($c-bg-box, 0.2);
     }
     .view {
       @extend %box-radius;
@@ -81,7 +81,7 @@
       left: 5px;
       z-index: 2;
       padding: 3px 5px;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       color: #ddd;
       text-transform: uppercase;
       font-weight: bold;
@@ -92,14 +92,14 @@
     }
     .author {
       display: block;
-      margin-bottom: .8em;
+      margin-bottom: 0.8em;
       opacity: 0.8;
     }
     .target {
       text-transform: uppercase;
       text-align: center;
       display: block;
-      margin-bottom: .8em;
+      margin-bottom: 0.8em;
     }
     .tags span {
       display: block;
@@ -144,7 +144,7 @@
     text-transform: capitalize;
     a {
       @extend %flex-between;
-      padding: .5em .8em;
+      padding: 0.5em 0.8em;
       em {
         font-weight: bold;
         color: $c-font-dim;
@@ -156,7 +156,7 @@
       &.full span::before {
         content: '+';
         font-size: 1.2em;
-        margin-right: .5em;
+        margin-right: 0.5em;
         font-weight: bold;
       }
       &.checked {
@@ -203,7 +203,7 @@
       }
       em {
         font-weight: bold;
-        opacity: .6;
+        opacity: 0.6;
         color: $c-brag;
       }
     }

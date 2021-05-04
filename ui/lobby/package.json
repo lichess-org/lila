@@ -21,7 +21,7 @@
     "common": "2.0.0",
     "shogiground": "7.8.1",
     "snabbdom": "^0.7.4",
-    "shogiops": "^0.1.5"
+    "shogiops": "^0.2.1"
   },
   "scripts": {
     "dev": "rollup --config",

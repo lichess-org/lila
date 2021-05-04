@@ -1,9 +1,9 @@
-import makeSocket from "./socket";
-import xhr from "./xhr";
-import throttle from "common/throttle";
-import { myPage, players } from "./pagination";
-import { SwissData, SwissOpts, Pages, Standing, Player } from "./interfaces";
-import { SwissSocket } from "./socket";
+import makeSocket from './socket';
+import xhr from './xhr';
+import throttle from 'common/throttle';
+import { myPage, players } from './pagination';
+import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
+import { SwissSocket } from './socket';
 
 export default class SwissCtrl {
   opts: SwissOpts;
@@ -20,7 +20,7 @@ export default class SwissCtrl {
   searching: boolean = false;
   redraw: () => void;
 
-  private lastStorage = window.lishogi.storage.make("last-redirect");
+  private lastStorage = window.lishogi.storage.make('last-redirect');
 
   constructor(opts: SwissOpts, redraw: () => void) {
     this.opts = opts;
@@ -47,9 +47,9 @@ export default class SwissCtrl {
     this.redrawNbRounds();
   };
 
-  isCreated = () => this.data.status == "created";
-  isStarted = () => this.data.status == "started";
-  isFinished = () => this.data.status == "finished";
+  isCreated = () => this.data.status == 'created';
+  isStarted = () => this.data.status == 'started';
+  isFinished = () => this.data.status == 'finished';
 
   myGameId = () => this.data.me?.gameId;
 
@@ -65,12 +65,11 @@ export default class SwissCtrl {
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
-    const delay =
-      rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
+    const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        window.lishogi.redirect("/" + gameId);
+        window.lishogi.redirect('/' + gameId);
       }
     }, delay);
   };
@@ -100,14 +99,12 @@ export default class SwissCtrl {
 
   jumpToPageOf = (name: string) => {
     const userId = name.toLowerCase();
-    xhr.loadPageOf(this, userId).then((data) => {
+    xhr.loadPageOf(this, userId).then(data => {
       this.loadPage(data);
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page]
-        .filter((p) => p.user.id == userId)
-        .forEach(this.showPlayerInfo);
+      this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
   };
@@ -122,14 +119,12 @@ export default class SwissCtrl {
   userLastPage = () => this.userSetPage(players(this).nbPages);
 
   showPlayerInfo = (player: Player) => {
-    this.playerInfoId =
-      this.playerInfoId === player.user.id ? undefined : player.user.id;
+    this.playerInfoId = this.playerInfoId === player.user.id ? undefined : player.user.id;
     if (this.playerInfoId) xhr.playerInfo(this, this.playerInfoId);
   };
 
   askReload = () => {
-    if (this.joinSpinner || (this.data.nextRound && this.data.me))
-      xhr.reloadNow(this);
+    if (this.joinSpinner || (this.data.nextRound && this.data.me)) xhr.reloadNow(this);
     else this.reloadSoon();
   };
 
@@ -142,17 +137,15 @@ export default class SwissCtrl {
 
   private reloadSoon = () => {
     if (!this.reloadSoonThrottle)
-      this.reloadSoonThrottle = throttle(
-        Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
-        () => xhr.reloadNow(this)
+      this.reloadSoonThrottle = throttle(Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)), () =>
+        xhr.reloadNow(this)
       );
     this.reloadSoonThrottle();
   };
 
   private isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () =>
-    $(".swiss__meta__round").text(`${this.data.round}/${this.data.nbRounds}`);
+  private redrawNbRounds = () => $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
 
   private readData = (data: SwissData) => ({
     ...data,
@@ -161,7 +154,7 @@ export default class SwissCtrl {
 
   private readStanding = (standing: Standing) => ({
     ...standing,
-    players: standing.players.map((p) => ({
+    players: standing.players.map(p => ({
       ...p,
       sheet: xhr.readSheetMin(p.sheetMin),
     })),

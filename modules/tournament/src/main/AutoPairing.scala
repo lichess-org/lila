@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Black, Color, White }
+import shogi.{ Color, Gote, Sente }
 import scala.util.chaining._
 
 import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }
@@ -24,10 +24,10 @@ final class AutoPairing(
     val clock   = tour.clock.toClock
     val game = Game
       .make(
-        chess = chess.Game(
+        shogi = shogi.Game(
           variantOption = Some {
             if (tour.position.initial) tour.variant
-            else chess.variant.FromPosition
+            else shogi.variant.FromPosition
           },
           fen = tour.position.some.filterNot(_.initial).map(_.fen)
         ) pipe { g =>
@@ -38,8 +38,8 @@ final class AutoPairing(
             startedAtTurn = turns
           )
         },
-        whitePlayer = makePlayer(White, player1),
-        blackPlayer = makePlayer(Black, player2),
+        sentePlayer = makePlayer(Sente, player1),
+        gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,
         source = Source.Tournament,
         pgnImport = None
@@ -52,8 +52,8 @@ final class AutoPairing(
       duelStore.add(
         tour = tour,
         game = game,
-        p1 = (usernameOf(pairing.user1) -> ~game.whitePlayer.rating),
-        p2 = (usernameOf(pairing.user2) -> ~game.blackPlayer.rating),
+        p1 = (usernameOf(pairing.user1) -> ~game.sentePlayer.rating),
+        p2 = (usernameOf(pairing.user2) -> ~game.gotePlayer.rating),
         ranking = ranking
       )
     } inject game

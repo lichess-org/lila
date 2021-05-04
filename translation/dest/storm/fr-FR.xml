@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Jouez un coup pour commencer</string>
+  <string name="puzzlesSolved">problèmes résolus</string>
+  <string name="newDailyHighscore">Nouveau record du jour !</string>
+  <string name="newWeeklyHighscore">Nouveau record de la semaine !</string>
+  <string name="newMonthlyHighscore">Nouveau record du mois !</string>
+  <string name="newAllTimeHighscore">Nouveau record absolu!</string>
+  <string name="previousHighscoreWasX">Le record précédent était %s</string>
+  <string name="playAgain">Recommencer</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 run</item>
+    <item quantity="other">%s runs</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Played one run of %2$s</item>
+    <item quantity="other">Played %1$s runs of %2$s</item>
+  </plurals>
+  <string name="highscoreX">Record : %s</string>
+  <string name="score">Score</string>
+  <string name="moves">Coups</string>
+  <string name="accuracy">Précision</string>
+  <string name="combo">Enchaînement</string>
+  <string name="time">Temps</string>
+  <string name="timePerMove">Temps par coup</string>
+  <string name="highestSolved">Highest solved</string>
+  <string name="puzzlesPlayed">Problèmes joués</string>
+  <string name="newRun">New run (hotkey: Space)</string>
+  <string name="endRun">End run (hotkey: Enter)</string>
+  <string name="highscores">Meilleurs scores</string>
+  <string name="viewBestRuns">View best runs</string>
+  <string name="bestRunOfDay">Best run of day</string>
+  <string name="runs">Runs</string>
+</resources>

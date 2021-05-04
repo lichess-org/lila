@@ -13,8 +13,7 @@ final class LobbyApi(
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
-      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap {
-      case (seeks, povs) =>
+      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
           implicit val lang = ctx.lang
@@ -27,15 +26,15 @@ final class LobbyApi(
             "nbNowPlaying" -> povs.size
           ) -> displayedPovs
         }
-    }
+      }
 
   def nowPlaying(pov: Pov) =
     Json
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
-        "pockets"  -> (chess.format.Forsyth exportCrazyPocket pov.game.board),
+        "fen"      -> (shogi.format.Forsyth exportSituation pov.game.situation),
+        "pockets"  -> (shogi.format.Forsyth exportCrazyPocket pov.game.board),
         "color"    -> pov.color.name,
         "lastMove" -> ~pov.game.lastMoveKeys,
         "variant" -> Json.obj(

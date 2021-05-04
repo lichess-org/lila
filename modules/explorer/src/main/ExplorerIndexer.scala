@@ -1,10 +1,10 @@
 package lila.explorer
 
 import akka.stream.scaladsl._
-import chess.format.pgn.Tag
+import shogi.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import scala.util.Random.nextFloat
+import lila.common.ThreadLocalRandom.nextFloat
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
@@ -99,7 +99,7 @@ final private class ExplorerIndexer(
     game.finished &&
       game.rated &&
       game.turns >= 10 &&
-      game.variant != chess.variant.FromPosition &&
+      game.variant != shogi.variant.FromPosition &&
       !Game.isOldHorde(game)
 
   private def stableRating(player: Player) = player.rating ifFalse player.provisional
@@ -127,20 +127,20 @@ final private class ExplorerIndexer(
 
   private def makeFastPgn(game: Game, botUserIds: Set[User.ID]): Fu[Option[String]] =
     ~(for {
-      whiteRating <- stableRating(game.whitePlayer)
-      blackRating <- stableRating(game.blackPlayer)
+      senteRating <- stableRating(game.sentePlayer)
+      goteRating  <- stableRating(game.gotePlayer)
       minPlayerRating  = if (game.variant.exotic) 1400 else 1500
       minAverageRating = if (game.variant.exotic) 1520 else 1600
-      if whiteRating >= minPlayerRating
-      if blackRating >= minPlayerRating
-      averageRating = (whiteRating + blackRating) / 2
+      if senteRating >= minPlayerRating
+      if goteRating >= minPlayerRating
+      averageRating = (senteRating + goteRating) / 2
       if averageRating >= minAverageRating
       if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>
       userRepo.usernamesByIds(game.userIds) map { usernames =>
-        def username(color: chess.Color) =
+        def username(color: shogi.Color) =
           game.player(color).userId flatMap { id =>
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
@@ -152,10 +152,10 @@ final private class ExplorerIndexer(
           s"[LishogiID ${game.id}]",
           s"[Variant ${game.variant.name}]",
           s"[TimeControl $timeControl]",
-          s"[White ${username(chess.White)}]",
-          s"[Black ${username(chess.Black)}]",
-          s"[WhiteElo $whiteRating]",
-          s"[BlackElo $blackRating]",
+          s"[Sente ${username(shogi.Sente)}]",
+          s"[Gote ${username(shogi.Gote)}]",
+          s"[SenteElo $senteRating]",
+          s"[GoteElo $goteRating]",
           s"[Result ${PgnDump.result(game)}]",
           s"[Date ${pgnDateFormat.print(game.createdAt)}]"
         )

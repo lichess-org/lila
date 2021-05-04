@@ -1,6 +1,6 @@
-var m = require("mithril");
-var util = require("./util");
-var status = require("game/status");
+var m = require('mithril');
+var util = require('./util');
+var status = require('game/status');
 
 function miniPairing(ctrl) {
   return function (pairing) {
@@ -8,45 +8,36 @@ function miniPairing(ctrl) {
     var player = pairing.player;
     var result =
       pairing.game.status >= status.ids.mate
-        ? pairing.winnerColor === "white"
-          ? "1-0"
-          : pairing.winnerColor === "black"
-          ? "0-1"
-          : "½/½"
-        : "*";
+        ? pairing.winnerColor === 'sente'
+          ? '1-0'
+          : pairing.winnerColor === 'gote'
+          ? '0-1'
+          : '½/½'
+        : '*';
     return m(
-      "a",
+      'a',
       {
-        href: "/" + game.id + "/" + game.orient,
-        class: ctrl.data.host.gameId === game.id ? "host" : "",
+        href: '/' + game.id + '/' + game.orient,
+        class: ctrl.data.host.gameId === game.id ? 'host' : '',
       },
       [
         m(
-          "span",
+          'span',
           {
-            class: "mini-board mini-board-" + game.id + " parse-fen is2d",
-            "data-color": game.orient,
-            "data-fen": game.fen,
-            "data-pocket": game.pockets,
-            "data-lastmove": game.lastMove,
+            class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
+            'data-color': game.orient,
+            'data-fen': game.fen,
+            'data-pocket': game.pockets,
+            'data-lastmove': game.lastMove,
             config: function (el, isUpdate) {
               if (!isUpdate) lishogi.parseFen($(el));
             },
           },
-          m("div.cg-wrap")
+          m('div.cg-wrap')
         ),
-        m("span.vstext", [
-          m("span.vstext__pl", [
-            util.playerVariant(ctrl, player).name,
-            m("br"),
-            result,
-          ]),
-          m("div.vstext__op", [
-            player.name,
-            m("br"),
-            player.title ? player.title + " " : "",
-            player.rating,
-          ]),
+        m('span.vstext', [
+          m('span.vstext__pl', [util.playerVariant(ctrl, player).name, m('br'), result]),
+          m('div.vstext__op', [player.name, m('br'), player.title ? player.title + ' ' : '', player.rating]),
         ]),
       ]
     );
@@ -54,8 +45,5 @@ function miniPairing(ctrl) {
 }
 
 module.exports = function (ctrl) {
-  return m(
-    "div.game-list.now-playing.box__pad",
-    ctrl.data.pairings.map(miniPairing(ctrl))
-  );
+  return m('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 };

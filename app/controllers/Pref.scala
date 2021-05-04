@@ -35,16 +35,18 @@ final class Pref(env: Env) extends LilaController(env) {
     AuthBody { implicit ctx => _ =>
       def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
       implicit val req                                 = ctx.body
-      forms.pref.bindFromRequest().fold(
-        _ =>
-          forms.pref
-            .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
-            .fold(
-              err => BadRequest(err.toString).fuccess,
-              onSuccess
-            ),
-        onSuccess
-      )
+      forms.pref
+        .bindFromRequest()
+        .fold(
+          _ =>
+            forms.pref
+              .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
+              .fold(
+                err => BadRequest(err.toString).fuccess,
+                onSuccess
+              ),
+          onSuccess
+        )
     }
 
   def set(name: String) =
@@ -53,13 +55,12 @@ final class Pref(env: Env) extends LilaController(env) {
         Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
       } else {
         implicit val req = ctx.body
-        (setters get name) ?? {
-          case (form, fn) =>
-            FormResult(form) { v =>
-              fn(v, ctx) map { cookie =>
-                Ok(()).withCookies(cookie)
-              }
+        (setters get name) ?? { case (form, fn) =>
+          FormResult(form) { v =>
+            fn(v, ctx) map { cookie =>
+              Ok(()).withCookies(cookie)
             }
+          }
         }
       }
     }
@@ -68,26 +69,28 @@ final class Pref(env: Env) extends LilaController(env) {
     AuthBody { implicit ctx => me =>
       import play.api.data._, Forms._
       implicit val req = ctx.body
-      Form(single("v" -> boolean)).bindFromRequest().fold(
-        _ => fuccess(Redirect(routes.User.show(me.username))),
-        v =>
-          api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
-            if (v) routes.Page.notSupported() else routes.User.show(me.username) // master
-          }
-      )
+      Form(single("v" -> boolean))
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(Redirect(routes.User.show(me.username))),
+          v =>
+            api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
+              if (v) routes.Page.notSupported() else routes.User.show(me.username) // master
+            }
+        )
     }
 
   private lazy val setters = Map(
-    "theme"      -> (forms.theme      -> save("theme") _),
-    "pieceSet"   -> (forms.pieceSet   -> save("pieceSet") _),
-    "theme3d"    -> (forms.theme3d    -> save("theme3d") _),
-    "pieceSet3d" -> (forms.pieceSet3d -> save("pieceSet3d") _),
-    "soundSet"   -> (forms.soundSet   -> save("soundSet") _),
-    "bg"         -> (forms.bg         -> save("bg") _),
-    "bgImg"      -> (forms.bgImg      -> save("bgImg") _),
-    "is3d"       -> (forms.is3d       -> save("is3d") _),
-    "zen"        -> (forms.zen        -> save("zen") _),
-    "pieceNotation"   -> (forms.pieceNotation -> save("pieceNotation") _)
+    "theme"         -> (forms.theme         -> save("theme") _),
+    "pieceSet"      -> (forms.pieceSet      -> save("pieceSet") _),
+    "theme3d"       -> (forms.theme3d       -> save("theme3d") _),
+    "pieceSet3d"    -> (forms.pieceSet3d    -> save("pieceSet3d") _),
+    "soundSet"      -> (forms.soundSet      -> save("soundSet") _),
+    "bg"            -> (forms.bg            -> save("bg") _),
+    "bgImg"         -> (forms.bgImg         -> save("bgImg") _),
+    "is3d"          -> (forms.is3d          -> save("is3d") _),
+    "zen"           -> (forms.zen           -> save("zen") _),
+    "pieceNotation" -> (forms.pieceNotation -> save("pieceNotation") _)
   )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =

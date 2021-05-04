@@ -1,4 +1,4 @@
-var files = "abcdefghi".split("");
+var files = 'abcdefghi'.split('');
 var ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 var invRanks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 var fileNumbers = {
@@ -38,7 +38,7 @@ var allKeys = allPos.map(pos2key);
 var invKeys = allKeys.slice(0).reverse();
 
 function opposite(color) {
-  return color === "white" ? "black" : "white";
+  return color === 'sente' ? 'gote' : 'sente';
 }
 
 function containsX(xs, x) {
@@ -46,24 +46,22 @@ function containsX(xs, x) {
 }
 
 function distance(pos1, pos2) {
-  return Math.sqrt(
-    Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
-  );
+  return Math.sqrt(Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2));
 }
 
 // this must be cached because of the access to document.body.style
 var cachedTransformProp;
 
 function computeTransformProp() {
-  return "transform" in document.body.style
-    ? "transform"
-    : "webkitTransform" in document.body.style
-    ? "webkitTransform"
-    : "mozTransform" in document.body.style
-    ? "mozTransform"
-    : "oTransform" in document.body.style
-    ? "oTransform"
-    : "msTransform";
+  return 'transform' in document.body.style
+    ? 'transform'
+    : 'webkitTransform' in document.body.style
+    ? 'webkitTransform'
+    : 'mozTransform' in document.body.style
+    ? 'mozTransform'
+    : 'oTransform' in document.body.style
+    ? 'oTransform'
+    : 'msTransform';
 }
 
 function transformProp() {
@@ -74,19 +72,17 @@ function transformProp() {
 var cachedIsTrident = null;
 
 function isTrident() {
-  if (cachedIsTrident === null)
-    cachedIsTrident = window.navigator.userAgent.indexOf("Trident/") > -1;
+  if (cachedIsTrident === null) cachedIsTrident = window.navigator.userAgent.indexOf('Trident/') > -1;
   return cachedIsTrident;
 }
 
 function translate(pos) {
-  return "translate(" + pos[0] + "px," + pos[1] + "px)";
+  return 'translate(' + pos[0] + 'px,' + pos[1] + 'px)';
 }
 
 function eventPosition(e) {
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
-  if (e.touches && e.targetTouches[0])
-    return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
+  if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
 }
 
 function partialApply(fn, args) {
@@ -132,9 +128,7 @@ module.exports = {
   partial: partial,
   transformProp: transformProp,
   isTrident: isTrident,
-  requestAnimationFrame: (
-    window.requestAnimationFrame || window.setTimeout
-  ).bind(window),
+  requestAnimationFrame: (window.requestAnimationFrame || window.setTimeout).bind(window),
   isRightButton: isRightButton,
   memo: memo,
 };

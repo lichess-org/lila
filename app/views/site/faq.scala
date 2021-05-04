@@ -35,7 +35,10 @@ object faq {
           howCanIContributeToLishogi.txt(),
           p(lishogiPoweredByDonationsAndVolunteers()),
           p(
-            a(href := routes.Page.patron())(beingAPatron()), // patron
+            a(href := routes.Page.patron())(beingAPatron()) // patron
+          ),
+          p(
+            a(href := routes.Page.help())(otherWaysToContribute()) // other ways to contribute
           )
         ),
         // question(
@@ -98,9 +101,9 @@ object faq {
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(30, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(180, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(480, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(60, "UltraBullet")),
+            li(inferiorThanXsEqualYtimeControl(300, "Bullet")),
+            li(inferiorThanXsEqualYtimeControl(600, "Blitz")),
             li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )

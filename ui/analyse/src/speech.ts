@@ -1,16 +1,15 @@
 export function setup() {
-  window.lishogi.pubsub.on("speech.enabled", onSpeechChange);
+  window.lishogi.pubsub.on('speech.enabled', onSpeechChange);
   onSpeechChange(window.lishogi.sound.speech());
 }
 
 function onSpeechChange(enabled: boolean) {
-  if (!window.LishogiSpeech && enabled)
-    window.lishogi.loadScript(window.lishogi.compiledScript("speech"));
+  if (!window.LishogiSpeech && enabled) window.lishogi.loadScript(window.lishogi.compiledScript('speech'));
   else if (window.LishogiSpeech && !enabled) window.LishogiSpeech = undefined;
 }
 
 export function node(n: Tree.Node) {
-  withSpeech((s) => s.step(n, true));
+  withSpeech(s => s.step(n, true));
 }
 
 function withSpeech(f: (speech: LishogiSpeech) => void) {

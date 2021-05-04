@@ -35,7 +35,7 @@
           top: 100%;
         }
         @include breakpoint($mq-col2-uniboard) {
-        /*
+          /*
           &-top {
           }
           &-bottom {
@@ -77,7 +77,7 @@
             font-weight: bold;
             font-size: 0.7em;
           }
-          &[data-nb="0"] {
+          &[data-nb='0'] {
             cursor: auto;
             opacity: 0.1;
             &::after {

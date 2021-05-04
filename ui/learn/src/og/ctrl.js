@@ -1,9 +1,9 @@
-var board = require("./board");
-var data = require("./data");
-var fen = require("./fen");
-var configure = require("./configure");
-var anim = require("./anim");
-var drag = require("./drag");
+var board = require('./board');
+var data = require('./data');
+var fen = require('./fen');
+var configure = require('./configure');
+var anim = require('./anim');
+var drag = require('./drag');
 
 module.exports = function (cfg) {
   this.data = data(cfg);

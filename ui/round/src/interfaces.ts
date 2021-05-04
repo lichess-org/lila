@@ -1,10 +1,10 @@
-import { VNode } from "snabbdom/vnode";
-import { GameData, Status } from "game";
-import { ClockData, Seconds, Centis } from "./clock/clockCtrl";
-import { CorresClockData } from "./corresClock/corresClockCtrl";
-import RoundController from "./ctrl";
-import { ChatPlugin } from "chat";
-import * as cg from "shogiground/types";
+import { VNode } from 'snabbdom/vnode';
+import { GameData, Status } from 'game';
+import { ClockData, Seconds, Centis } from './clock/clockCtrl';
+import { CorresClockData } from './corresClock/corresClockCtrl';
+import RoundController from './ctrl';
+import { ChatPlugin } from 'chat';
+import * as cg from 'shogiground/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -93,7 +93,7 @@ export interface RoundOpts {
 }
 
 export interface Chat {
-  preset: "start" | "end" | undefined;
+  preset: 'start' | 'end' | undefined;
   parseMoves?: boolean;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
@@ -114,31 +114,22 @@ export interface Step {
 export interface ApiMove extends Step {
   dests: EncodedDests;
   clock?: {
-    white: Seconds;
-    black: Seconds;
-    wPer: number;
-    bPer: number;
+    sente: Seconds;
+    gote: Seconds;
+    sPer: number;
+    gPer: number;
     lag?: Centis;
   };
   status: Status;
   winner?: Color;
   check: boolean;
   threefold: boolean;
-  wDraw: boolean;
-  bDraw: boolean;
+  sDraw: boolean;
+  gDraw: boolean;
   crazyhouse?: CrazyData;
   role?: cg.Role;
   drops?: string;
   promotion?: boolean;
-  enpassant?: {
-    key: cg.Key;
-    color: Color;
-  };
-  castle?: {
-    king: [cg.Key, cg.Key];
-    rook: [cg.Key, cg.Key];
-    color: Color;
-  };
   isMove?: true;
   isDrop?: true;
 }
@@ -147,15 +138,15 @@ export interface ApiEnd {
   winner?: Color;
   status: Status;
   ratingDiff?: {
-    white: number;
-    black: number;
+    sente: number;
+    gote: number;
   };
   boosted: boolean;
   clock?: {
-    wc: Centis;
-    bc: Centis;
-    wp: number;
-    bp: number;
+    sc: Centis;
+    gc: Centis;
+    sp: number;
+    gp: number;
   };
 }
 
@@ -163,7 +154,6 @@ export interface StepCrazy extends Untyped {}
 
 export interface Pref {
   animationDuration: number;
-  autoQueen: 1 | 2 | 3;
   blindfold: boolean;
   clockBar: boolean;
   clockSound: boolean;
@@ -172,13 +162,13 @@ export interface Pref {
   confirmResign: boolean;
   coords: 0 | 1 | 2;
   destination: boolean;
+  dropDestination: boolean;
   enablePremove: boolean;
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
-  rookCastle: boolean;
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: 0 | 1 | 2;
@@ -191,16 +181,16 @@ export interface MoveMetadata {
   justCaptured?: cg.Piece;
 }
 
-export type Position = "top" | "bottom";
+export type Position = 'top' | 'bottom';
 
 export interface MaterialDiffSide {
   [role: string]: number;
 }
 export interface MaterialDiff {
-  white: MaterialDiffSide;
-  black: MaterialDiffSide;
+  sente: MaterialDiffSide;
+  gote: MaterialDiffSide;
 }
 export interface CheckCount {
-  white: number;
-  black: number;
+  sente: number;
+  gote: number;
 }

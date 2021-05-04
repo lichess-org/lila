@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import chess.variant.Standard
+import shogi.variant.Standard
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.utils.UriEncoding
@@ -17,13 +17,13 @@ import controllers.routes
 object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
-    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
+    s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${pov.game.opening
       .fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       kifu: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -52,7 +52,14 @@ object replay {
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
       ),*/
-      game.variant == chess.variant.Standard option a(dataIcon := "x", cls := "text", href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}", attr("download") := s"${game.createdAt}-${game.whitePlayer.userId | "Anonymous"}-vs-${game.blackPlayer.userId | "Anonymous"}.kifu")(
+      game.variant == shogi.variant.Standard option a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}",
+        attr(
+          "download"
+        ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kifu"
+      )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
@@ -149,7 +156,7 @@ object replay {
                     strong("Kifu"),
                     pgnLinks
                   ),
-                  game.variant == chess.variant.Standard option div(cls := "pgn")(kifu)
+                  game.variant == shogi.variant.Standard option div(cls := "pgn")(kifu)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(

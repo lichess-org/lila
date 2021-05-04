@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import chess.format.pgn.Tags
+import shogi.format.pgn.Tags
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
@@ -128,9 +128,9 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook) _
 
-  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
+  def setGlyphs(glyphs: shogi.format.pgn.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
 
-  def setClock(clock: Option[chess.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
+  def setClock(clock: Option[shogi.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
 
   def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
 

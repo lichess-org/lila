@@ -1,7 +1,7 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import { Close, header } from "./util";
+import { Close, header } from './util';
 
 type Code = string;
 
@@ -28,10 +28,7 @@ export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
   const accepted = new Set(data.accepted);
   return {
     list() {
-      return [
-        ...data.list.filter((lang) => accepted.has(lang[0])),
-        ...data.list.filter((lang) => !accepted.has(lang[0])),
-      ];
+      return [...data.list.filter(lang => accepted.has(lang[0])), ...data.list.filter(lang => !accepted.has(lang[0]))];
     },
     current: data.current,
     accepted,
@@ -41,24 +38,24 @@ export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
 }
 
 export function view(ctrl: LangsCtrl): VNode {
-  return h("div.sub.langs", [
-    header(ctrl.trans.noarg("language"), ctrl.close),
+  return h('div.sub.langs', [
+    header(ctrl.trans.noarg('language'), ctrl.close),
     h(
-      "form",
+      'form',
       {
-        attrs: { method: "post", action: "/translation/select" },
+        attrs: { method: 'post', action: '/translation/select' },
       },
       ctrl.list().map(langView(ctrl.current, ctrl.accepted))
     ),
     h(
-      "a.help.text",
+      'a.help.text',
       {
         attrs: {
-          href: "https://crowdin.com/project/lishogi",
-          "data-icon": "",
+          href: 'https://crowdin.com/project/lishogi',
+          'data-icon': '',
         },
       },
-      "Help translate Lishogi"
+      'Help translate Lishogi'
     ),
   ]);
 }
@@ -66,13 +63,11 @@ export function view(ctrl: LangsCtrl): VNode {
 function langView(current: Code, accepted: Set<Code>) {
   return (l: Lang) =>
     h(
-      "button" +
-        (current === l[0] ? ".current" : "") +
-        (accepted.has(l[0]) ? ".accepted" : ""),
+      'button' + (current === l[0] ? '.current' : '') + (accepted.has(l[0]) ? '.accepted' : ''),
       {
         attrs: {
-          type: "submit",
-          name: "lang",
+          type: 'submit',
+          name: 'lang',
           value: l[0],
           title: l[0],
         },

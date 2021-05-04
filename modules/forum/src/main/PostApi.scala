@@ -33,37 +33,36 @@ final class PostApi(
       data: DataForm.PostData
   )(implicit ctx: UserContext): Fu[Post] =
     lastNumberOf(topic) flatMap { number =>
-      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap {
-        case (lang, topicUserIds) =>
-          val post = Post.make(
-            topicId = topic.id,
-            author = none,
-            userId = ctx.me.map(_.id),
-            ip = ctx.req.remoteAddress.some,
-            text = spam.replace(data.text),
-            number = number + 1,
-            lang = lang.map(_.language),
-            troll = ctx.troll,
-            hidden = topic.hidden,
-            categId = categ.id,
-            modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
-          )
-          env.postRepo findDuplicate post flatMap {
-            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-            case _ =>
-              env.postRepo.coll.insert.one(post) >>
-                env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
+      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
+        val post = Post.make(
+          topicId = topic.id,
+          author = none,
+          userId = ctx.me.map(_.id),
+          ip = ctx.req.remoteAddress.some,
+          text = spam.replace(data.text),
+          number = number + 1,
+          lang = lang.map(_.language),
+          troll = ctx.troll,
+          hidden = topic.hidden,
+          categId = categ.id,
+          modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
+        )
+        env.postRepo findDuplicate post flatMap {
+          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+          case _ =>
+            env.postRepo.coll.insert.one(post) >>
+              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
                 shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
               } >>
-                env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
-                (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-                (!categ.quiet ?? env.recent.invalidate()) >>-
-                ctx.userId.?? { userId =>
-                  shutup ! {
-                    if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
-                    else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
-                  }
-                } >>- {
+              env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
+              (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
+              (!categ.quiet ?? env.recent.invalidate()) >>-
+              ctx.userId.?? { userId =>
+                shutup ! {
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                }
+              } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).pipe {
                     _ toFollowersOf userId toUsers topicUserIds exceptUser userId
@@ -73,7 +72,7 @@ final class PostApi(
                 env.mentionNotifier.notifyMentionedUsers(post, topic)
                 Bus.publish(actorApi.CreatePost(post), "forumPost")
               } inject post
-          }
+        }
       }
     }
 

@@ -103,7 +103,7 @@
     <item quantity="other">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
   </plurals>
   <string name="urlOfTheGame">URL παρτίδας</string>
-  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s ή %2$s</string>
+  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
   <string name="createStudy">Δημιουργία μελέτης</string>

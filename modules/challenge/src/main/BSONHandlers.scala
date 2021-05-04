@@ -2,8 +2,8 @@ package lila.challenge
 
 import reactivemongo.api.bson._
 
-import chess.Mode
-import chess.variant.Variant
+import shogi.Mode
+import shogi.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
@@ -14,13 +14,13 @@ private object BSONHandlers {
 
   implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
     {
-      case 1 => ColorChoice.White
-      case 2 => ColorChoice.Black
+      case 1 => ColorChoice.Sente
+      case 2 => ColorChoice.Gote
       case _ => ColorChoice.Random
     },
     {
-      case ColorChoice.White  => 1
-      case ColorChoice.Black  => 2
+      case ColorChoice.Sente  => 1
+      case ColorChoice.Gote   => 2
       case ColorChoice.Random => 0
     }
   )
@@ -28,16 +28,16 @@ private object BSONHandlers {
     def reads(r: Reader) =
       (r.intO("l") |@| r.intO("i") |@| r.intD("b").some |@| r.intD("p").some) {
         case (limit, inc, byo, per) => {
-          TimeControl.Clock(chess.Clock.Config(limit, inc, byo, per))
+          TimeControl.Clock(shogi.Clock.Config(limit, inc, byo, per))
         }
       } orElse {
         r intO "d" map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) =
       t match {
-        case TimeControl.Clock(chess.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
-        case TimeControl.Correspondence(d)               => $doc("d" -> d)
-        case TimeControl.Unlimited                       => $empty
+        case TimeControl.Clock(shogi.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
+        case TimeControl.Correspondence(d)                     => $doc("d" -> d)
+        case TimeControl.Unlimited                             => $empty
       }
   }
   implicit val VariantBSONHandler = tryHandler[Variant](

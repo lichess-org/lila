@@ -3,7 +3,7 @@ package lila.playban
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import chess.{ Centis, Color, Status }
+import shogi.{ Centis, Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Game, Player, Pov, Source }

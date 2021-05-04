@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Color, White }
+import shogi.{ Color, Gote, Sente }
 import org.joda.time.DateTime
 import scala.util.chaining._
 
@@ -32,16 +32,15 @@ final private class SwissDirector(
               colls.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
-            pairings = pendingPairings.zip(ids).map {
-              case (SwissPairing.Pending(w, b), id) =>
-                SwissPairing(
-                  id = id,
-                  swissId = swiss.id,
-                  round = swiss.round,
-                  white = w,
-                  black = b,
-                  status = Left(SwissPairing.Ongoing)
-                )
+            pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(s, g), id) =>
+              SwissPairing(
+                id = id,
+                swissId = swiss.id,
+                round = swiss.round,
+                sente = s,
+                gote = g,
+                status = Left(SwissPairing.Ongoing)
+              )
             }
             _ <-
               colls.swiss.update
@@ -69,14 +68,13 @@ final private class SwissDirector(
           } yield swiss.some
         }
       }
-      .recover {
-        case PairingSystem.BBPairingException(msg, input) =>
-          if (msg contains "The number of rounds is larger than the reported number of rounds.") none
-          else {
-            logger.warn(s"BBPairing ${from.id} $msg")
-            logger.info(s"BBPairing ${from.id} $input")
-            from.some
-          }
+      .recover { case PairingSystem.BBPairingException(msg, input) =>
+        if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+        else {
+          logger.warn(s"BBPairing ${from.id} $msg")
+          logger.info(s"BBPairing ${from.id} $input")
+          from.some
+        }
       }
       .monSuccess(_.swiss.startRound)
 
@@ -85,7 +83,7 @@ final private class SwissDirector(
   ): Game =
     Game
       .make(
-        chess = chess.Game(
+        shogi = shogi.Game(
           variantOption = Some(swiss.variant),
           fen = none
         ) pipe { g =>
@@ -96,9 +94,9 @@ final private class SwissDirector(
             startedAtTurn = turns
           )
         },
-        whitePlayer = makePlayer(White, players get pairing.white err s"Missing pairing white $pairing"),
-        blackPlayer = makePlayer(Black, players get pairing.black err s"Missing pairing black $pairing"),
-        mode = chess.Mode(swiss.settings.rated),
+        sentePlayer = makePlayer(Sente, players get pairing.sente err s"Missing pairing sente $pairing"),
+        gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
+        mode = shogi.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
         pgnImport = None
       )

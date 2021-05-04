@@ -59,8 +59,8 @@ final private[tv] class TvTrouper(
       import lila.socket.Socket.makeMessage
       val player = game.firstPlayer
       val user   = player.userId flatMap lightUser
-      (user |@| player.rating) apply {
-        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
+      (user |@| player.rating) apply { case (u, r) =>
+        channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
       recentTvGames.put(game)
       val data = Json.obj(
@@ -78,20 +78,19 @@ final private[tv] class TvTrouper(
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
-        actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach {
-          case html: String =>
-            val event = lila.hub.actorApi.game.ChangeFeatured(
-              game.id,
-              makeMessage(
-                "featured",
-                Json.obj(
-                  "html"  -> html,
-                  "color" -> game.firstColor.name,
-                  "id"    -> game.id
-                )
+        actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
+          val event = lila.hub.actorApi.game.ChangeFeatured(
+            game.id,
+            makeMessage(
+              "featured",
+              Json.obj(
+                "html"  -> html,
+                "color" -> game.firstColor.name,
+                "id"    -> game.id
               )
             )
-            Bus.publish(event, "changeFeaturedGame")
+          )
+          Bus.publish(event, "changeFeaturedGame")
         }
       }
   }

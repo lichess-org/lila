@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Complete a password reset to remove your second factor</string>
   <string name="accountSupport">I need account support</string>
   <string name="wantTitle">I want my title displayed on Lishogi</string>
-  <string name="visitTitleConfirmation">To show your title on your Lishogi profile, and participate in Titled Arenas, visit the title confirmation page</string>
+  <string name="visitTitleConfirmation">To show your title on your Lishogi profile, and participate in Titled Arenas, contact lishogi at contact@lishogi.org</string>
   <string name="wantCloseAccount">I want to close my account</string>
   <string name="closeYourAccount">You can close your account on this page</string>
   <string name="doNotAskByEmail">Do not ask us by email to close an account, we won\'t do it.</string>

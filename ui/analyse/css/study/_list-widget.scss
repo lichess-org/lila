@@ -10,7 +10,7 @@ $c-study: $c-primary;
     position: relative;
     border: $border;
     border-width: 0 1px 1px 0;
-    padding: 1em .6em 1em 1.3em;
+    padding: 1em 0.6em 1em 1.3em;
     overflow: hidden;
     @include transition();
     .overlay {
@@ -18,7 +18,7 @@ $c-study: $c-primary;
     }
     .body {
       display: flex;
-      font-size: .9em;
+      font-size: 0.9em;
     }
     .chapters {
       flex: 0 0 58%;
@@ -50,14 +50,14 @@ $c-study: $c-primary;
         overflow: hidden;
       }
       span {
-        font-size: .9rem;
+        font-size: 0.9rem;
         display: block;
         color: $c-font-dim;
       }
       &::before {
         color: mix($c-link, $c-bg-box, 80%);
         font-size: 4em;
-        margin-right: .2em;
+        margin-right: 0.2em;
         @include transition();
         @include breakpoint($mq-not-xx-small) {
           display: none;

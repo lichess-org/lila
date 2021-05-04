@@ -12,7 +12,7 @@ import controllers.routes
 
 object bits {
 
-  def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[chess.Color] = None)(
+  def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[shogi.Color] = None)(
       implicit ctx: Context
   ) =
     frag(

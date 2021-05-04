@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Mode }
+import shogi.{ Mode }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
@@ -17,8 +17,8 @@ final private[gameSearch] class DataForm {
         "b"      -> optional(nonEmptyText),
         "winner" -> optional(nonEmptyText),
         "loser"  -> optional(nonEmptyText),
-        "white"  -> optional(nonEmptyText),
-        "black"  -> optional(nonEmptyText)
+        "sente"  -> optional(nonEmptyText),
+        "gote"   -> optional(nonEmptyText)
       )(SearchPlayer.apply)(SearchPlayer.unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
@@ -103,8 +103,8 @@ private[gameSearch] case class SearchData(
       date = Range(dateMin, dateMax),
       status = status,
       analysed = analysed map (_ == 1),
-      whiteUser = players.cleanWhite,
-      blackUser = players.cleanBlack,
+      senteUser = players.cleanSente,
+      goteUser = players.cleanGote,
       sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
     )
 
@@ -116,16 +116,16 @@ private[gameSearch] case class SearchPlayer(
     b: Option[String] = None,
     winner: Option[String] = None,
     loser: Option[String] = None,
-    white: Option[String] = None,
-    black: Option[String] = None
+    sente: Option[String] = None,
+    gote: Option[String] = None
 ) {
 
   lazy val cleanA = clean(a)
   lazy val cleanB = clean(b)
   def cleanWinner = oneOf(winner)
   def cleanLoser  = oneOf(loser)
-  def cleanWhite  = oneOf(white)
-  def cleanBlack  = oneOf(black)
+  def cleanSente  = oneOf(sente)
+  def cleanGote   = oneOf(gote)
 
   private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
   private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)

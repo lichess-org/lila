@@ -1,9 +1,9 @@
 package lila.study
 
-import chess.format.pgn.Tags
-import chess.{ Data => ChessData }
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Variant
+import shogi.format.pgn.Tags
+import shogi.{ Data => ChessData }
+import shogi.format.{ FEN, Forsyth }
+import shogi.variant.Variant
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
@@ -45,14 +45,14 @@ final private class ChapterMaker(
       }
     } yield Chapter.make(
       studyId = study.id,
-      name = parsed.tags(_.White).flatMap { white =>
+      name = parsed.tags(_.Sente).flatMap { sente =>
         parsed
-          .tags(_.Black)
+          .tags(_.Gote)
           .ifTrue {
             data.name.value.isEmpty || data.isDefaultName
           }
-          .map { black =>
-            Chapter.Name(s"$white - $black")
+          .map { gote =>
+            Chapter.Name(s"$sente - $gote")
           }
       } | data.name,
       setup = Chapter.Setup(
@@ -198,7 +198,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color(orientation) | chess.White
+    def realOrientation = shogi.Color(orientation) | shogi.Sente
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key
@@ -210,7 +210,7 @@ private[study] object ChapterMaker {
       variant: Option[String] = None,
       fen: Option[String] = None,
       pgn: Option[String] = None,
-      orientation: String = "white",
+      orientation: String = "sente",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,
       isDefaultName: Boolean = true

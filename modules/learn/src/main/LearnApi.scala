@@ -58,8 +58,8 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
           .flatMap { obj =>
             (obj.string("_id") |@| obj.int("nb")).tupled
           }
-          .map {
-            case (k, v) => k -> (v * 100f / maxCompletion).toInt
+          .map { case (k, v) =>
+            k -> (v * 100f / maxCompletion).toInt
           }
           .toMap
       }

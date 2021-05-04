@@ -8,7 +8,7 @@ final class InfluxEvent(
     env: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val seed = ornicar.scalalib.Random.nextString(6)
+  private val seed = lila.common.ThreadLocalRandom.nextString(6)
 
   def start() = apply("lila_start", s"Lila starts: $seed")
 

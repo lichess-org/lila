@@ -1,13 +1,13 @@
 package lila.tournament
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.user.User
 
 case class Pairing(
     id: Game.ID,
     tourId: Tournament.ID,
-    status: chess.Status,
+    status: shogi.Status,
     user1: User.ID,
     user2: User.ID,
     winner: Option[User.ID],
@@ -29,7 +29,7 @@ case class Pairing(
     else if (userId == user2) user1.some
     else none
 
-  def finished = status >= chess.Status.Mate
+  def finished = status >= shogi.Status.Mate
   def playing  = !finished
 
   def quickFinish      = finished && turns.exists(20 >)
@@ -43,8 +43,8 @@ case class Pairing(
   def draw: Boolean                     = finished && winner.isEmpty
 
   def colorOf(userId: User.ID): Option[Color] =
-    if (userId == user1) Color.White.some
-    else if (userId == user2) Color.Black.some
+    if (userId == user1) Color.Sente.some
+    else if (userId == user2) Color.Gote.some
     else none
 
   def berserkOf(userId: User.ID): Boolean =
@@ -70,7 +70,7 @@ private[tournament] object Pairing {
     new Pairing(
       id = gameId,
       tourId = tourId,
-      status = chess.Status.Created,
+      status = shogi.Status.Created,
       user1 = u1,
       user2 = u2,
       winner = none,
@@ -80,8 +80,8 @@ private[tournament] object Pairing {
     )
 
   case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID)(firstGetsWhite: Boolean): Pairing =
-      if (firstGetsWhite) make(gameId, tourId, user1, user2)
+    def toPairing(gameId: Game.ID)(firstGetsSente: Boolean): Pairing =
+      if (firstGetsSente) make(gameId, tourId, user1, user2)
       else make(gameId, tourId, user2, user1)
   }
 

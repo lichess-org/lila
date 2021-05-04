@@ -1,167 +1,129 @@
 package lila.puzzle
 
-import chess.Color
-import chess.format.{ Forsyth, Uci }
-import org.joda.time.DateTime
-import scala.util.{ Success, Try }
+import scalaz.NonEmptyList
+import shogi.format.{ FEN, Forsyth, Uci }
+
+import lila.rating.Glicko
 
 case class Puzzle(
-    id: PuzzleId,
-    gameId: String,
-    history: List[String],
+    id: Puzzle.Id,
     fen: String,
-    lines: List[Line],
-    depth: Int,
-    color: Color,
-    date: DateTime,
-    perf: PuzzlePerf,
-    vote: AggregateVote,
-    attempts: Int,
-    mate: Boolean
+    line: NonEmptyList[Uci],
+    glicko: Glicko,
+    plays: Int,
+    vote: Float, // denormalized ratio of voteUp/voteDown
+    gameId: Option[lila.game.Game.ID],
+    themes: Set[PuzzleTheme.Key],
+    author: Option[String] = None,
+    description: Option[String] = None
 ) {
-
   // ply after "initial move" when we start solving
   def initialPly: Int = {
-    fen.split(' ').lastOption flatMap (_.toIntOption) map { move =>
-      move * 2 - color.fold(0, 1)
+    fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
+      move - 1
     }
-  } | 0
-
-  // (1 - 3)/(1 + 3) = -0.5
-  def enabled = vote.ratio > AggregateVote.minRatio || vote.nb < AggregateVote.minVotes
-
-  def withVote(f: AggregateVote => AggregateVote) = copy(vote = f(vote))
-
-  def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
-
-  def fenAfterInitialMove: Option[String] = {
-    for {
-      sit1 <- Forsyth << fen
-      sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
-    } yield Forsyth >> sit2
   }
+
+  lazy val fenAfterInitialMove: FEN = {
+    gameId match {
+      case Some(_) =>
+        for {
+          sit1 <- Forsyth << fen
+          sit2 <- line.head match {
+            case Uci.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
+            case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
+          }
+        } yield FEN(Forsyth >> sit2)
+      case None =>
+        for {
+          sit1 <- Forsyth << fen
+        } yield FEN(Forsyth >> sit1)
+    }
+
+  } err s"Can't apply puzzle $id first move"
+
+  def color: shogi.Color =
+    gameId match {
+      case Some(_) => Forsyth.getColor(fen).fold[shogi.Color](shogi.Sente)(!_)
+      case None    => Forsyth.getColor(fen).getOrElse(shogi.Sente)
+    }
+
+  def lastMove: String =
+    gameId match {
+      case Some(_) => line.head.uci
+      case None    => ""
+    }
 }
 
 object Puzzle {
 
+  val idSize = 5
+
+  case class Id(value: String) extends AnyVal with StringValue
+
+  def toId(id: String) = id.size == idSize option Id(id)
+
+  /* The mobile app requires numerical IDs.
+   * We convert string ids from and to Longs using base 62
+   */
+  object numericalId {
+
+    private val powers: List[Long] =
+      (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
+
+    def apply(id: Id): Long = id.value.toList
+      .zip(powers)
+      .foldLeft(0L) { case (l, (char, pow)) =>
+        l + charToInt(char) * pow
+      }
+
+    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
+      val str = powers.reverse
+        .foldLeft(("", l)) { case ((id, rest), pow) =>
+          val frac = rest / pow
+          (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
+        }
+        ._1
+      (str.size == idSize) option Id(str)
+    }
+
+    private def charToInt(c: Char) = {
+      val i = c.toInt
+      if (i > 96) i - 71
+      else if (i > 64) i - 65
+      else i + 4
+    }
+
+    private def intToChar(i: Int): Char = {
+      if (i < 26) i + 65
+      else if (i < 52) i + 71
+      else i - 4
+    }.toChar
+  }
+
   case class UserResult(
-      puzzleId: PuzzleId,
+      puzzleId: Id,
       userId: lila.user.User.ID,
       result: Result,
       rating: (Int, Int)
   )
 
-  def make(
-      gameId: String,
-      history: List[String],
-      fen: String,
-      color: Color,
-      lines: Lines,
-      mate: Boolean
-  )(id: PuzzleId) =
-    new Puzzle(
-      id = id,
-      gameId = gameId,
-      history = history,
-      fen = fen,
-      lines = lines,
-      depth = Line minDepth lines,
-      color = color,
-      date = DateTime.now,
-      perf = PuzzlePerf.default,
-      vote = AggregateVote.default,
-      attempts = 0,
-      mate = mate
-    )
-
-  import reactivemongo.api.bson._
-  import lila.db.BSON
-  import BSON.BSONJodaDateTimeHandler
-  implicit private val linesBSONHandler =
-    new BSONDocumentReader[Lines] with BSONDocumentWriter[Lines] {
-      private def readMove(move: String) =
-        chess.Pos.doublePiotrToKey(move take 2) match {
-          case Some(m) => s"$m${move drop 2}"
-          case _       => sys error s"Invalid piotr move notation: $move"
-        }
-      def readDocument(doc: BSONDocument): Try[Lines] =
-        Try {
-          doc.elements.map {
-            case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
-            case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
-            case BSONElement(move, more: BSONDocument) => Node(readMove(move), readDocument(more).get)
-            case BSONElement(move, value) =>
-              throw new Exception(s"Can't read value of $move: $value")
-          } to List
-        }
-      private def writeMove(move: String) =
-        chess.Pos.doubleKeyToPiotr(move take 4) match {
-          case Some(m) => s"$m${move drop 4}"
-          case _       => sys error s"Invalid move notation: $move"
-        }
-      def writeTry(lines: Lines): Try[BSONDocument] =
-        Success(BSONDocument(lines map {
-          case Win(move)         => writeMove(move) -> BSONBoolean(true)
-          case Retry(move)       => writeMove(move) -> BSONBoolean(false)
-          case Node(move, lines) => writeMove(move) -> writeTry(lines).get
-        }))
-    }
-
   object BSONFields {
-    val id        = "_id"
-    val gameId    = "gameId"
-    val history   = "history"
-    val fen       = "fen"
-    val lines     = "lines"
-    val depth     = "depth"
-    val white     = "white"
-    val date      = "date"
-    val perf      = "perf"
-    val rating    = s"$perf.gl.r"
-    val vote      = "vote"
-    val voteNb    = s"$vote.nb"
-    val voteRatio = s"$vote.ratio"
-    val day       = "day"
-    val attempts  = "attempts"
-    val mate      = "mate"
+    val id          = "_id"
+    val gameId      = "gameId"
+    val fen         = "fen"
+    val line        = "line"
+    val glicko      = "glicko"
+    val vote        = "vote"
+    val voteUp      = "vu"
+    val voteDown    = "vd"
+    val plays       = "plays"
+    val themes      = "themes"
+    val day         = "day"
+    val dirty       = "dirty" // themes need to be denormalized
+    val author      = "a"
+    val description = "dsc"
   }
 
-  implicit val puzzleBSONHandler = new BSON[Puzzle] {
-
-    import BSONFields._
-    import PuzzlePerf.puzzlePerfBSONHandler
-    import AggregateVote.aggregatevoteBSONHandler
-
-    def reads(r: BSON.Reader): Puzzle =
-      Puzzle(
-        id = r int id,
-        gameId = r str gameId,
-        history = r str history split ' ' toList,
-        fen = r str fen,
-        lines = r.get[Lines](lines),
-        depth = r int depth,
-        color = Color(r bool white),
-        date = r date date,
-        perf = r.get[PuzzlePerf](perf),
-        vote = r.get[AggregateVote](vote),
-        attempts = r int attempts,
-        mate = r bool mate
-      )
-
-    def writes(w: BSON.Writer, o: Puzzle) =
-      BSONDocument(
-        id       -> o.id,
-        gameId   -> o.gameId,
-        history  -> o.history.mkString(" "),
-        fen      -> o.fen,
-        lines    -> o.lines,
-        depth    -> o.depth,
-        white    -> o.color.white,
-        date     -> o.date,
-        perf     -> o.perf,
-        vote     -> o.vote,
-        attempts -> o.attempts,
-        mate     -> o.mate
-      )
-  }
+  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
 }

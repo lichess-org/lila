@@ -1,7 +1,7 @@
 package lila.study
 
-import chess.format.{ FEN, Uci }
-import chess.{Pos, Piece => ChessPiece }
+import shogi.format.{ FEN, Uci }
+import shogi.{ Pos, Piece => ChessPiece }
 import play.api.libs.json._
 import scala.util.chaining._
 
@@ -133,18 +133,19 @@ object JsonView {
   implicit private val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val colorReader: Reads[chess.Color] = Reads[chess.Color] { c =>
-    (c.asOpt[String] flatMap chess.Color.apply).fold[JsResult[chess.Color]](JsError(Nil))(JsSuccess(_))
+  implicit private val colorReader: Reads[shogi.Color] = Reads[shogi.Color] { c =>
+    (c.asOpt[String] flatMap shogi.Color.apply).fold[JsResult[shogi.Color]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val roleReader: Reads[chess.Role] = Reads[chess.Role] { v =>
-    (v.asOpt[String] flatMap {r => chess.Role.forsyth(if(r == "knight") 'n' else r.head)}).fold[JsResult[chess.Role]](JsError(Nil))(JsSuccess(_))
+  implicit private val roleReader: Reads[shogi.Role] = Reads[shogi.Role] { v =>
+    (v.asOpt[String] flatMap { r => shogi.Role.forsyth(if (r == "knight") 'n' else r.head) })
+      .fold[JsResult[shogi.Role]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val pieceReader = Json.reads[ChessPiece]
 
   implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
   }
-  implicit private[study] val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
+  implicit private[study] val colorWriter: Writes[shogi.Color] = Writes[shogi.Color] { c =>
     JsString(c.name)
   }
   implicit private[study] val fenWriter: Writes[FEN] = Writes[FEN] { f =>
@@ -175,9 +176,10 @@ object JsonView {
           orig  <- o.get[Pos]("orig")
         } yield o.get[Pos]("dest") match {
           case Some(dest) => Shape.Arrow(brush, orig, dest)
-          case _          => { o.get[ChessPiece]("piece") match {
-            case Some(piece)  => Shape.Piece(brush, orig, piece)
-            case _            => Shape.Circle(brush, orig)
+          case _ => {
+            o.get[ChessPiece]("piece") match {
+              case Some(piece) => Shape.Piece(brush, orig, piece)
+              case _           => Shape.Circle(brush, orig)
             }
           }
         }
@@ -188,13 +190,13 @@ object JsonView {
     JsNumber(p.value)
   }
 
-  implicit private val variantWrites = OWrites[chess.variant.Variant] { v =>
+  implicit private val variantWrites = OWrites[shogi.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+  implicit val pgnTagWrites: Writes[shogi.format.pgn.Tag] = Writes[shogi.format.pgn.Tag] { t =>
     Json.arr(t.name.toString, t.value)
   }
-  implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
+  implicit val pgnTagsWrites = Writes[shogi.format.pgn.Tags] { tags =>
     JsArray(tags.value map pgnTagWrites.writes)
   }
   implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]

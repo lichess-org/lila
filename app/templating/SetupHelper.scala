@@ -1,8 +1,8 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
-import chess.variant.Variant
+import shogi.{ Mode, Speed }
+import shogi.variant.Variant
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
@@ -85,7 +85,7 @@ trait SetupHelper { self: I18nHelper =>
   def translatedTimeModeChoices(implicit lang: Lang) = {
     List(
       (TimeMode.RealTime.id.toString, trans.realTime.txt(), none),
-      (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none),
+      (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none)
       //(TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
     )
   }
@@ -134,7 +134,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoices(encode: Variant => String)(implicit lang: Lang): List[SelectChoice] =
     List(
-      (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
+      (encode(shogi.variant.Standard), trans.standard.txt(), shogi.variant.Standard.title.some)
     )
 
   def translatedVariantChoicesWithVariants(implicit lang: Lang): List[SelectChoice] =
@@ -143,29 +143,29 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(
       encode: Variant => String
   )(implicit lang: Lang): List[SelectChoice] =
-    translatedVariantChoices(encode) ::: List(// todo variants
+    translatedVariantChoices(encode) ::: List( // todo variants
     ).map(variantTuple(encode))
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
     translatedVariantChoices
-      //variantTupleId(chess.variant.Chess960) :+
-      //variantTupleId(chess.variant.FromPosition)
+  //variantTupleId(shogi.variant.Chess960) :+
+  //variantTupleId(shogi.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit lang: Lang) =
     translatedVariantChoices :+
-      //variantTupleId(chess.variant.Crazyhouse) :+
-      //variantTupleId(chess.variant.Chess960) :+
-      //variantTupleId(chess.variant.KingOfTheHill) :+
-      //variantTupleId(chess.variant.ThreeCheck) :+
-      //variantTupleId(chess.variant.Antichess) :+
-      //variantTupleId(chess.variant.Atomic) :+
-      //variantTupleId(chess.variant.Horde) :+
-      //variantTupleId(chess.variant.RacingKings) :+
-      variantTupleId(chess.variant.FromPosition)
+      //variantTupleId(shogi.variant.Crazyhouse) :+
+      //variantTupleId(shogi.variant.Chess960) :+
+      //variantTupleId(shogi.variant.KingOfTheHill) :+
+      //variantTupleId(shogi.variant.ThreeCheck) :+
+      //variantTupleId(shogi.variant.Antichess) :+
+      //variantTupleId(shogi.variant.Atomic) :+
+      //variantTupleId(shogi.variant.Horde) :+
+      //variantTupleId(shogi.variant.RacingKings) :+
+      variantTupleId(shogi.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =
     translatedVariantChoicesWithVariants :+
-      variantTupleId(chess.variant.FromPosition)
+      variantTupleId(shogi.variant.FromPosition)
 
   def translatedSpeedChoices(implicit lang: Lang) =
     Speed.limited map { s =>
@@ -179,9 +179,9 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedSideChoices(implicit lang: Lang) =
     List(
-      ("white", trans.black.txt(), none),
+      ("sente", trans.black.txt(), none),
       ("random", trans.randomColor.txt(), none),
-      ("black", trans.white.txt(), none)
+      ("gote", trans.white.txt(), none)
     )
 
   def translatedAnimationChoices(implicit lang: Lang) =
@@ -211,7 +211,7 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.PieceNotation.WESTERN, "Western notation"),
       (Pref.PieceNotation.WESTERN2, "Western2 notation"),
       (Pref.PieceNotation.JAPANESE, "Japanese notation"),
-      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation"), // trans.preferences.pgnLetter.txt()
+      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation") // trans.preferences.pgnLetter.txt()
     )
 
   def translatedClockTenthsChoices(implicit lang: Lang) =

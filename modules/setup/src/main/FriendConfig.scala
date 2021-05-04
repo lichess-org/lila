@@ -1,13 +1,13 @@
 package lila.setup
 
-import chess.Mode
-import chess.format.FEN
+import shogi.Mode
+import shogi.format.FEN
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.game.PerfPicker
 
 case class FriendConfig(
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -22,18 +22,40 @@ case class FriendConfig(
 
   val strictFen = false
 
-  def >> = (variant.id, timeMode.id, time, increment, byoyomi, periods, days, mode.id.some, color.name, fen.map(_.value)).some
+  def >> = (
+    variant.id,
+    timeMode.id,
+    time,
+    increment,
+    byoyomi,
+    periods,
+    days,
+    mode.id.some,
+    color.name,
+    fen.map(_.value)
+  ).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
+  def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(makeClock), variant, makeDaysPerTurn)
 }
 
 object FriendConfig extends BaseHumanConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def from(
+      v: Int,
+      tm: Int,
+      t: Double,
+      i: Int,
+      b: Int,
+      p: Int,
+      d: Int,
+      m: Option[Int],
+      c: String,
+      fen: Option[String]
+  ) =
     new FriendConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = shogi.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -65,7 +87,7 @@ object FriendConfig extends BaseHumanConfig {
 
     def reads(r: BSON.Reader): FriendConfig =
       FriendConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = shogi.variant.Variant orDefault (r int "v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
@@ -73,7 +95,7 @@ object FriendConfig extends BaseHumanConfig {
         periods = r intD "p",
         days = r int "d",
         mode = Mode orDefault (r int "m"),
-        color = Color.White,
+        color = Color.Sente,
         fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
       )
 

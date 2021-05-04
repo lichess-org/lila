@@ -4,8 +4,8 @@
     grid-template-columns: minmax(280px, 15vw);
     grid-template-rows: 60px;
     grid-template-areas:
-    'side head'
-    'side meat';
+      'side head'
+      'side meat';
     grid-gap: 0 $block-gap;
   }
 
@@ -135,21 +135,21 @@
       @extend %roboto;
       flex: 1 1 auto;
       text-align: center;
-      padding: .5em .2em;
+      padding: 0.5em 0.2em;
       cursor: pointer;
       position: relative;
       color: $c-font-page;
-      @include transition(color, .25s);
+      @include transition(color, 0.25s);
       min-width: 15%;
       &::after {
         content: '';
-        background: fade-out($c-accent, .4);
+        background: fade-out($c-accent, 0.4);
         height: 2px;
         position: absolute;
         width: 96%;
         left: 2%;
         bottom: -2px;
-        @include transition(all, .25s);
+        @include transition(all, 0.25s);
         transform: scale(0);
       }
       &.active,
@@ -168,7 +168,7 @@
     a {
       color: $c-font;
       display: block;
-      padding: .7em;
+      padding: 0.7em;
       @include transition();
     }
     a::before {
@@ -187,8 +187,8 @@
   }
   .clear {
     color: $c-bad;
-    font-size: .9em;
-    margin-bottom: .5em;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
   }
 
   .filters {
@@ -196,7 +196,7 @@
       border-bottom-width: 0;
     }
     .box:last-child {
-      border-bottom-width: 1px
+      border-bottom-width: 1px;
     }
     .ms-parent {
       display: block;
@@ -210,8 +210,14 @@
       border-bottom: 0;
     }
     .ms-parent.selected .ms-choice {
-      $c-sel-ms-choice: fade-out($c-accent, .3);
-      background: linear-gradient(to right, $c-sel-ms-choice 0px, $c-sel-ms-choice 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+      $c-sel-ms-choice: fade-out($c-accent, 0.3);
+      background: linear-gradient(
+        to right,
+        $c-sel-ms-choice 0px,
+        $c-sel-ms-choice 5px,
+        rgba(0, 0, 0, 0) 5px,
+        rgba(0, 0, 0, 0) 100%
+      );
     }
     .ms-parent:hover .ms-choice {
       background: mix($c-accent, $c-bg-box, 20%);
@@ -245,7 +251,7 @@
     outline: 0;
   }
   .ms-drop {
-    font-size: .9em;
+    font-size: 0.9em;
     ul {
       padding: 0;
       overflow: auto;
@@ -333,7 +339,7 @@
       @extend %box-radius;
       @include transition(background);
       color: $c-font;
-      padding: .4em;
+      padding: 0.4em;
       span {
         box-shadow: none;
         background: none;

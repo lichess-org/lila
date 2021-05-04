@@ -87,11 +87,11 @@ final class RankingApi(
 
   private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
     for {
-      ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
-      bullet        <- topPerf(PerfType.Bullet.id, nb)
-      blitz         <- topPerf(PerfType.Blitz.id, nb)
-      rapid         <- topPerf(PerfType.Rapid.id, nb)
-      classical     <- topPerf(PerfType.Classical.id, nb)
+      ultraBullet    <- topPerf(PerfType.UltraBullet.id, nb)
+      bullet         <- topPerf(PerfType.Bullet.id, nb)
+      blitz          <- topPerf(PerfType.Blitz.id, nb)
+      rapid          <- topPerf(PerfType.Rapid.id, nb)
+      classical      <- topPerf(PerfType.Classical.id, nb)
       correspondence <- topPerf(PerfType.Correspondence.id, nb)
     } yield Perfs.Leaderboards(
       ultraBullet = ultraBullet,
@@ -108,8 +108,8 @@ final class RankingApi(
 
     def of(userId: User.ID): Fu[Map[PerfType, Rank]] =
       cache.getUnit map { all =>
-        all.flatMap {
-          case (pt, ranking) => ranking get userId map (pt -> _)
+        all.flatMap { case (pt, ranking) =>
+          ranking get userId map (pt -> _)
         } toMap
       }
 
@@ -132,13 +132,12 @@ final class RankingApi(
         )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-        .fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state @ (rank, b), doc) =>
-            doc.string("_id").fold(state) { id =>
-              val user = id takeWhile (':' !=)
-              b += (user -> rank)
-              (rank + 1) -> b
-            }
+        .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
+          doc.string("_id").fold(state) { id =>
+            val user = id takeWhile (':' !=)
+            b += (user -> rank)
+            (rank + 1) -> b
+          }
         }
         .map(_._2.result())
   }

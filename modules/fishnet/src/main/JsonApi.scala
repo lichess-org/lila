@@ -3,8 +3,8 @@ package lila.fishnet
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import chess.format.{ FEN, Uci }
-import chess.variant.Variant
+import shogi.format.{ FEN, Uci }
+import shogi.variant.Variant
 
 import lila.common.{ IpAddress, Maths }
 import lila.fishnet.{ Work => W }

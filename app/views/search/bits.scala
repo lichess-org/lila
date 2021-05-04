@@ -23,14 +23,14 @@ private object bits {
     new {
 
       def dataReqs =
-        List("winner", "loser", "white", "black").map { f =>
+        List("winner", "loser", "sente", "gote").map { f =>
           data(s"req-$f") := ~form("players")(f).value
         }
 
       def colors(hide: Boolean) =
-        chess.Color.all.map { color =>
+        shogi.Color.all.map { color =>
           tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
-            th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.white, trans.black)())),
+            th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.black, trans.white)())),
             td(cls := "single")(
               st.select(
                 id := form3.id(form("players")(color.name)),

@@ -103,7 +103,7 @@
     <item quantity="other">Plak jou PGN teks hier, tot by %s spelle</item>
   </plurals>
   <string name="urlOfTheGame">URL van die wedstryd</string>
-  <string name="loadAGameFromXOrY">Laai \'n wedstryd van %1$s of %2$s</string>
+  <string name="loadAGameFromXOrY">Laai \'n wedstryd van %1$s</string>
   <string name="createChapter">Skep \'n hoofstuk</string>
   <string name="configureLiveBroadcast">Stel \'n lewendige uitsending op</string>
   <string name="createStudy">Skep \'n studie</string>

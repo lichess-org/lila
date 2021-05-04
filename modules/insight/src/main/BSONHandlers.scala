@@ -2,8 +2,8 @@ package lila.insight
 
 import reactivemongo.api.bson._
 
-import chess.opening.{ Ecopening, EcopeningDB }
-import chess.{ Color, Role }
+import shogi.opening.{ Ecopening, EcopeningDB }
+import shogi.{ Color, Role }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler

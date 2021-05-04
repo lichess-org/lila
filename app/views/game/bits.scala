@@ -10,6 +10,8 @@ import controllers.routes
 
 object bits {
 
+  private val dataLastmove = attr("data-lastmove")
+
   def featuredJs(pov: Pov): Frag =
     frag(
       gameFenNoCtx(pov, tv = true),
@@ -22,11 +24,19 @@ object bits {
       vstext(pov)(ctx.some)
     )
 
-  def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag =
+  def miniBoard(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente): Frag =
     div(
       cls := "mini-board parse-fen cg-wrap is2d",
       dataColor := color.name,
       dataFen := fen.value
+    )(cgWrapContent)
+
+  def miniTag(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
+    tag(
+      cls := "mini-board parse-fen cg-wrap is2d",
+      dataColor := color.name,
+      dataFen := fen.value,
+      dataLastmove := lastMove
     )(cgWrapContent)
 
   def gameIcon(game: Game): Char =
@@ -41,7 +51,7 @@ object bits {
 
   def sides(
       pov: Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
@@ -56,15 +66,15 @@ object bits {
     )
 
   def variantLink(
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       name: String,
-      initialFen: Option[chess.format.FEN] = None
+      initialFen: Option[shogi.format.FEN] = None
   ) =
     a(
       cls := "variant-link",
       href := (variant match {
-        case chess.variant.Standard => "https://en.wikipedia.org/wiki/Shogi"
-        case chess.variant.FromPosition =>
+        case shogi.variant.Standard => "https://en.wikipedia.org/wiki/Shogi"
+        case shogi.variant.FromPosition =>
           s"""${routes.Editor.index()}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
         case v => routes.Page.variant(v.key).url
       }),

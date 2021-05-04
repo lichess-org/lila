@@ -15,8 +15,8 @@ object Accuracy {
   }
 
   case class PovLike(
-      color: chess.Color,
-      startColor: chess.Color,
+      color: shogi.Color,
+      startColor: shogi.Color,
       startedAtTurn: Int
   )
 
@@ -24,7 +24,7 @@ object Accuracy {
     PovLike(
       color = pov.color,
       startColor = pov.game.startColor,
-      startedAtTurn = pov.game.chess.startedAtTurn
+      startedAtTurn = pov.game.shogi.startedAtTurn
     )
 
   def diffsList(pov: PovLike, analysis: Analysis): List[Int] = {
@@ -34,7 +34,7 @@ object Accuracy {
     .foldLeft(List[Int]()) {
       case (list, List(i1, i2)) =>
         makeDiff.lift((i1.cp, i1.mate, i2.cp, i2.mate)).fold(list) { diff =>
-          (if (pov.color.white) -diff else diff).max(0) :: list
+          (if (pov.color.sente) -diff else diff).max(0) :: list
         }
       case (list, _) => list
     }

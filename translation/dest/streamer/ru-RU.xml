@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
+  <string name="xStreamsShogi">%s стримит сёги</string>
   <string name="lishogiStreamers">Стримеры Lishogi</string>
   <string name="lishogiStreamer">Стример Lishogi</string>
   <string name="live">В ЭФИРЕ!</string>
@@ -24,9 +24,9 @@
   <string name="perk2">Переместит наверх в списке стримеров.</string>
   <string name="perk3">Уведомит ваших подписчиков Lishogi.</string>
   <string name="perk4">Покажет, что вы стримите, в ваших играх, турнирах и студиях.</string>
-  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
-  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
-  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
+  <string name="youHaveBeenSelectedFrontpage">Вы были выбраны для показа на главной странице!</string>
+  <string name="noteThatOnlyLimited">Обратите внимание, что мы можем показывать только ограниченное количество стримов на главной странице, </string>
+  <string name="soYoursMayNotAlwaysAppear">так что ваши не всегда могут появляться.</string>
   <string name="approved">Ваш стрим подтверждён.</string>
   <string name="pendingReview">Ваш стрим на проверке у модераторов.</string>
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>

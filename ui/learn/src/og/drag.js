@@ -1,16 +1,16 @@
-var board = require("./board");
-var util = require("./util");
-var draw = require("./draw");
+var board = require('./board');
+var util = require('./util');
+var draw = require('./draw');
 
 var originTarget;
 
 function hashPiece(piece) {
-  return piece ? piece.color + piece.role : "";
+  return piece ? piece.color + piece.role : '';
 }
 
 function computeSquareBounds(data, bounds, key) {
   var pos = util.key2pos(key);
-  if (data.orientation !== "white") {
+  if (data.orientation !== 'sente') {
     pos[0] = 10 - pos[0];
     pos[1] = 10 - pos[1];
   }
@@ -33,11 +33,7 @@ function start(data, e) {
   var bounds = data.bounds();
   var orig = board.getKeyAtDomPos(data, position, bounds);
   var piece = data.pieces[orig];
-  if (
-    !previouslySelected &&
-    (data.drawable.eraseOnClick || !piece || piece.color !== data.turnColor)
-  )
-    draw.clear(data);
+  if (!previouslySelected && (data.drawable.eraseOnClick || !piece || piece.color !== data.turnColor)) draw.clear(data);
   if (data.viewOnly) return;
   var hadPremove = !!data.premovable.current;
   var hadPredrop = !!data.predroppable.current.key;
@@ -74,19 +70,11 @@ function processDrag(data) {
     var cur = data.draggable.current;
     if (cur.orig) {
       // cancel animations while dragging
-      if (
-        data.animation.current.start &&
-        data.animation.current.anims[cur.orig]
-      )
-        data.animation.current = {};
+      if (data.animation.current.start && data.animation.current.anims[cur.orig]) data.animation.current = {};
       // if moving piece is gone, cancel
       if (hashPiece(data.pieces[cur.orig]) !== cur.piece) cancel(data);
       else {
-        if (
-          !cur.started &&
-          util.distance(cur.epos, cur.rel) >= data.draggable.distance
-        )
-          cur.started = true;
+        if (!cur.started && util.distance(cur.epos, cur.rel) >= data.draggable.distance) cur.started = true;
         if (cur.started) {
           cur.pos = [cur.epos[0] - cur.rel[0], cur.epos[1] - cur.rel[1]];
           cur.over = board.getKeyAtDomPos(data, cur.epos, cur.bounds);
@@ -100,8 +88,7 @@ function processDrag(data) {
 
 function move(data, e) {
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
-  if (data.draggable.current.orig)
-    data.draggable.current.epos = util.eventPosition(e);
+  if (data.draggable.current.orig) data.draggable.current.epos = util.eventPosition(e);
 }
 
 function end(data, e) {
@@ -110,16 +97,14 @@ function end(data, e) {
   if (!orig) return;
   // comparing with the origin target is an easy way to test that the end event
   // has the same touch origin
-  if (e.type === "touchend" && originTarget !== e.target && !cur.newPiece) {
+  if (e.type === 'touchend' && originTarget !== e.target && !cur.newPiece) {
     data.draggable.current = {};
     return;
   }
   board.unsetPremove(data);
   board.unsetPredrop(data);
   var eventPos = util.eventPosition(e);
-  var dest = eventPos
-    ? board.getKeyAtDomPos(data, eventPos, cur.bounds)
-    : cur.over;
+  var dest = eventPos ? board.getKeyAtDomPos(data, eventPos, cur.bounds) : cur.over;
   if (cur.started) {
     if (cur.newPiece) board.dropNewPiece(data, orig, dest);
     else {
@@ -128,8 +113,7 @@ function end(data, e) {
       if (board.userMove(data, orig, dest)) data.stats.dragged = true;
     }
   }
-  if (orig === cur.previouslySelected && (orig === dest || !dest))
-    board.setSelected(data, null);
+  if (orig === cur.previouslySelected && (orig === dest || !dest)) board.setSelected(data, null);
   else if (!data.selectable.enabled) board.setSelected(data, null);
   data.draggable.current = {};
 }

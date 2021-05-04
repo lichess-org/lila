@@ -31,7 +31,7 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="thereIsACountdown">Mayroong countdown para sa iyong unang galaw. Ang hindi paggalaw ng isang pyesa sa loob ng itinakdang oras ay magreresulta sa pag-forfeit ng laro sa iyong kalaban.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Ang pagtabla ng laro sa loob ng unang %s na galaw ay magreresulta sa parehas na manlalaro na walang matatanggap na puntos.</item>
-    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+    <item quantity="other">Ang pagtabla ng laro sa loob ng unang %s na mga galaw ay magreresulta sa parehas na manlalaro na walang matatanggap na puntos.</item>
   </plurals>
   <string name="thisIsPrivate">Ito ay isang pribadong torneo</string>
   <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao:%s</string>

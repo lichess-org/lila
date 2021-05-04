@@ -20,20 +20,20 @@ $mq-not-col3: $mq-not-small;
   display: grid;
 
   grid-template-areas:
-  'app'
-  'table'
-  'side'
-  'blog'
-  'tv'
-  'puzzle'
-  'leader'
-  'winner'
-  'tours'
-  'simuls'
-  'forum'
-  'support'
-  'about'
-  '.';
+    'app'
+    'table'
+    'side'
+    'blog'
+    'tv'
+    'puzzle'
+    'leader'
+    'winner'
+    'tours'
+    'simuls'
+    'forum'
+    'support'
+    'about'
+    '.';
   grid-gap: $block-gap;
 
   &__counters {
@@ -41,36 +41,34 @@ $mq-not-col3: $mq-not-small;
   }
 
   @include breakpoint($mq-col2) {
-
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
     grid-template-areas:
-    'table  table'
-    'app    app'
-    'side   tv'
-    'side   puzzle'
-    'blog   blog'
-    'leader winner'
-    'tours  tours'
-    'simuls simuls'
-    'forum  forum'
-    'about  support';
+      'table  table'
+      'app    app'
+      'side   tv'
+      'side   puzzle'
+      'blog   blog'
+      'leader winner'
+      'tours  tours'
+      'simuls simuls'
+      'forum  forum'
+      'about  support';
   }
 
   @include breakpoint($mq-col3) {
-
     grid-template-columns: repeat(3, 1fr);
 
     grid-template-rows: 12em repeat(2, fit-content(0));
 
     grid-template-areas:
-    'table   app     app'
-    'side    app     app'
-    'tv      leader  winner'
-    'puzzle  tours   tours'
-    'support blog    blog '
-    'about   simuls  simuls'
-    '. forum forum ';
+      'table   app     app'
+      'side    app     app'
+      'tv      leader  winner'
+      'puzzle  tours   tours'
+      'support blog    blog '
+      'about   simuls  simuls'
+      '. forum forum ';
 
     &__start {
       flex-flow: column;
@@ -86,18 +84,17 @@ $mq-not-col3: $mq-not-small;
   }
 
   @include breakpoint($mq-col4) {
-
     grid-template-columns: repeat(4, 1fr);
 
     grid-template-rows: repeat(2, fit-content(0));
 
     grid-template-areas:
-    'side   app     app    table'
-    'tv     leader  winner puzzle'
-    'about  blog    blog   support'
-    '.      tours   tours  .'
-    '.      simuls  simuls .'
-    '.      forum   forum  .';
+      'side   app     app    table'
+      'tv     leader  winner puzzle'
+      'about  blog    blog   support'
+      '.      tours   tours  .'
+      '.      simuls  simuls .'
+      '.      forum   forum  .';
 
     &__tournaments,
     &__simuls {
@@ -111,18 +108,44 @@ $mq-not-col3: $mq-not-small;
     }
   }
 
-  &__side { grid-area: side; }
+  &__side {
+    grid-area: side;
+  }
   &__app,
-  &__nope { grid-area: app; }
-  &__table { grid-area: table; }
-  &__tv { grid-area: tv; }
-  &__leaderboard { grid-area: leader; }
-  &__winners { grid-area: winner; }
-  &__puzzle { grid-area: puzzle; }
-  &__tournaments { grid-area: tours; }
-  &__simuls { grid-area: simuls; }
-  &__forum { grid-area: forum; }
-  &__blog { grid-area: blog; }
-  &__support { grid-area: support; }
-  &__about  { grid-area: about ; }
+  &__nope {
+    grid-area: app;
+  }
+  &__table {
+    grid-area: table;
+  }
+  &__tv {
+    grid-area: tv;
+  }
+  &__leaderboard {
+    grid-area: leader;
+  }
+  &__winners {
+    grid-area: winner;
+  }
+  &__puzzle {
+    grid-area: puzzle;
+  }
+  &__tournaments {
+    grid-area: tours;
+  }
+  &__simuls {
+    grid-area: simuls;
+  }
+  &__forum {
+    grid-area: forum;
+  }
+  &__blog {
+    grid-area: blog;
+  }
+  &__support {
+    grid-area: support;
+  }
+  &__about {
+    grid-area: about;
+  }
 }

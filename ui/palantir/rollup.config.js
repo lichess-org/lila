@@ -1,9 +1,9 @@
-import { rollupProject } from "@build/rollupProject";
+import { rollupProject } from '@build/rollupProject';
 
 export default rollupProject({
   main: {
-    name: "Palantir",
-    input: "src/main.ts",
-    output: "lishogi.palantir",
+    name: 'Palantir',
+    input: 'src/main.ts',
+    output: 'lishogi.palantir',
   },
 });

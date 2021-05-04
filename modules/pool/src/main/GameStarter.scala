@@ -39,46 +39,45 @@ final private class GameStarter(
       id: Game.ID
   ): Fu[Option[Pairing]] = {
     import couple._
-    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
-      case (perf1, perf2) =>
-        for {
-          p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
-          (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
-          (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-          game = makeGame(
-            id,
-            pool,
-            whiteMember.userId -> whitePerf,
-            blackMember.userId -> blackPerf
-          ).start
-          _ <- gameRepo insertDenormalized game
-        } yield {
-          onStart(Game.Id(game.id))
-          Pairing(
-            game,
-            whiteSri = whiteMember.sri,
-            blackSri = blackMember.sri
-          ).some
-        }
+    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? { case (perf1, perf2) =>
+      for {
+        p1Sente <- userRepo.firstGetsSente(p1.userId, p2.userId)
+        (sentePerf, gotePerf)     = if (p1Sente) perf1 -> perf2 else perf2 -> perf1
+        (senteMember, goteMember) = if (p1Sente) p1 -> p2 else p2 -> p1
+        game = makeGame(
+          id,
+          pool,
+          senteMember.userId -> sentePerf,
+          goteMember.userId  -> gotePerf
+        ).start
+        _ <- gameRepo insertDenormalized game
+      } yield {
+        onStart(Game.Id(game.id))
+        Pairing(
+          game,
+          senteSri = senteMember.sri,
+          goteSri = goteMember.sri
+        ).some
+      }
     }
   }
 
   private def makeGame(
       id: Game.ID,
       pool: PoolConfig,
-      whiteUser: (User.ID, Perf),
-      blackUser: (User.ID, Perf)
+      senteUser: (User.ID, Perf),
+      goteUser: (User.ID, Perf)
   ) =
     Game(
       id = id,
-      chess = chess.Game(
-        situation = chess.Situation(chess.variant.Standard),
+      shogi = shogi.Game(
+        situation = shogi.Situation(shogi.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      whitePlayer = Player.make(chess.White, whiteUser),
-      blackPlayer = Player.make(chess.Black, blackUser),
-      mode = chess.Mode.Rated,
-      status = chess.Status.Created,
+      sentePlayer = Player.make(shogi.Sente, senteUser),
+      gotePlayer = Player.make(shogi.Gote, goteUser),
+      mode = shogi.Mode.Rated,
+      status = shogi.Status.Created,
       daysPerTurn = none,
       metadata = Game.metadata(lila.game.Source.Pool)
     )

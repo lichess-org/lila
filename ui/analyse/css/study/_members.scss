@@ -8,13 +8,13 @@
   }
   .user-link {
     @extend %ellipsis;
-    margin: .5em 0;
+    margin: 0.5em 0;
   }
   .status {
     @extend %flex-center;
     justify-content: center;
     width: 2.4em;
-    margin-right: .1em;
+    margin-right: 0.1em;
     transition: 2.5s;
   }
   i {
@@ -54,7 +54,7 @@
   }
   .leave {
     color: $c-bad;
-    opacity: .7;
+    opacity: 0.7;
   }
   > div:hover .leave:hover {
     background-color: $c-bad;
@@ -70,16 +70,17 @@
   .admin {
     text-align: center;
     button {
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
   }
 
-  m-config, .editing {
-    background: mix($c-accent, $c-bg-box, 10%)!important;
+  m-config,
+  .editing {
+    background: mix($c-accent, $c-bg-box, 10%) !important;
   }
   m-config {
     @extend %flex-between;
-    padding: .4em .8em 1em .8em;
+    padding: 0.4em 0.8em 1em 0.8em;
     .role {
       @extend %flex-center;
       label {
@@ -87,7 +88,7 @@
       }
     }
     .switch {
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
   }
 }

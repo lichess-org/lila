@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materialskillnad</string>
 	<string name="boardHighlights">Brädmarkeringar (föregående drag och schack)</string>
 	<string name="pieceDestinations">Möjliga drag (giltiga drag och premoves)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
 	<string name="pgnPieceNotation">Dragnotation</string>

@@ -13,7 +13,8 @@ cg-resize {
     width: $resize-width;
     height: $resize-width;
     cursor: nwse-resize;
-    &::before, &::after {
+    &::before,
+    &::after {
       background: #000;
       content: '';
       position: absolute;
@@ -22,14 +23,10 @@ cg-resize {
     }
     &::before {
       width: 5px;
-      transform:
-        translate(7px, 8px)
-        rotate(-45deg);
+      transform: translate(7px, 8px) rotate(-45deg);
     }
     &::after {
-      transform:
-        translate(1px, 6px)
-        rotate(-45deg);
+      transform: translate(1px, 6px) rotate(-45deg);
     }
     &:hover {
       border-radius: 50%;

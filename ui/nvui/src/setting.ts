@@ -1,5 +1,5 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
 export interface Setting<A> {
   choices: Choices<A>;
@@ -27,30 +27,27 @@ export function makeSetting<A>(opts: Opts<A>): Setting<A> {
   };
 }
 
-export function renderSetting<A>(
-  setting: Setting<A>,
-  redraw: () => void
-): VNode {
+export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode {
   const v = setting.get();
   return h(
-    "select",
+    'select',
     {
       hook: {
         insert(vnode) {
-          (vnode.elm as HTMLSelectElement).addEventListener("change", (e) => {
+          (vnode.elm as HTMLSelectElement).addEventListener('change', e => {
             setting.set(cast<A>((e.target as HTMLSelectElement).value));
             redraw();
           });
         },
       },
     },
-    setting.choices.map((choice) => {
+    setting.choices.map(choice => {
       const [key, name] = choice;
       return h(
-        "option",
+        'option',
         {
           attrs: {
-            value: "" + key,
+            value: '' + key,
             selected: key === v,
           },
         },

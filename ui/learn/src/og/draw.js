@@ -1,10 +1,10 @@
-var board = require("./board");
-var util = require("./util");
+var board = require('./board');
+var util = require('./util');
 
-var brushes = ["green", "red", "blue", "yellow"];
+var brushes = ['green', 'red', 'blue', 'yellow'];
 
 function hashPiece(piece) {
-  return piece ? piece.color + " " + piece.role : "";
+  return piece ? piece.color + ' ' + piece.role : '';
 }
 
 function start(data, e) {
@@ -38,8 +38,7 @@ function processDraw(data) {
 }
 
 function move(data, e) {
-  if (data.drawable.current.orig)
-    data.drawable.current.epos = util.eventPosition(e);
+  if (data.drawable.current.orig) data.drawable.current.epos = util.eventPosition(e);
 }
 
 function end(data, e) {
@@ -88,12 +87,7 @@ function addCircle(drawable, key) {
 function addLine(drawable, orig, dest) {
   var brush = drawable.current.brush;
   var sameLine = function (s) {
-    return (
-      s.orig &&
-      s.dest &&
-      ((s.orig === orig && s.dest === dest) ||
-        (s.dest === orig && s.orig === dest))
-    );
+    return s.orig && s.dest && ((s.orig === orig && s.dest === dest) || (s.dest === orig && s.orig === dest));
   };
   var exists = drawable.shapes.filter(sameLine).length > 0;
   if (exists) drawable.shapes = drawable.shapes.filter(not(sameLine));

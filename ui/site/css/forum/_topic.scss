@@ -1,7 +1,5 @@
 .forum-topic {
-
   &.topic-form {
-
     .warning {
       @extend %box-radius;
       border-radius: 20px;
@@ -41,7 +39,7 @@
     }
   }
 
-  .reply label[for=form3-text] {
+  .reply label[for='form3-text'] {
     display: none;
   }
 }

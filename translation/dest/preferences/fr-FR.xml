@@ -5,7 +5,8 @@
 	<string name="pieceAnimation">Animation des pièces</string>
 	<string name="materialDifference">Différence de matériel</string>
 	<string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
-	<string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
+	<string name="pieceDestinations">Cases de destination (coups et pré-coups valides)</string>
+	<string name="dropDestinations">Cases de parachutage (parachutages et pré-coups de parachutage valides)</string>
 	<string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
 	<string name="moveListWhilePlaying">Liste des coups durant la partie</string>
 	<string name="pgnPieceNotation">Notation des coups</string>

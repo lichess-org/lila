@@ -60,7 +60,7 @@ object form {
               form("clockByoyomi"),
               trans.clockByoyomi(),
               half = true
-              )(form3.select(_, clockByoyomiChoices))
+            )(form3.select(_, clockByoyomiChoices))
           ),
           form3.split(
             form3.group(
@@ -72,7 +72,7 @@ object form {
               form("periods"),
               trans.numberOfByoyomiPeriods(),
               half = true
-              )(form3.select(_, periodsChoices))
+            )(form3.select(_, periodsChoices))
           ),
           form3.split(
             form3.group(
@@ -106,10 +106,10 @@ object form {
                 cls := "form-control"
               )(
                 option(
-                  value := chess.StartingPosition.initial.fen,
-                  field.value.has(chess.StartingPosition.initial.fen) option selected
-                )(chess.StartingPosition.initial.name),
-                chess.StartingPosition.categories.map { categ =>
+                  value := shogi.StartingPosition.initial.fen,
+                  field.value.has(shogi.StartingPosition.initial.fen) option selected
+                )(shogi.StartingPosition.initial.name),
+                shogi.StartingPosition.categories.map { categ =>
                   optgroup(attr("label") := categ.name)(
                     categ.positions.map { v =>
                       option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)

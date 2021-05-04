@@ -5,8 +5,8 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import chess.StartingPosition
-import chess.variant.Variant
+import shogi.StartingPosition
+import shogi.variant.Variant
 import lila.common.Form._
 
 object CrudForm {
@@ -45,7 +45,7 @@ object CrudForm {
     clockByoyomi = clockByoyomiDefault,
     periods = periodsDefault,
     minutes = minuteDefault,
-    variant = chess.variant.Standard.id,
+    variant = shogi.variant.Standard.id,
     position = StartingPosition.initial.fen,
     date = DateTime.now plusDays 7,
     image = "",
@@ -85,11 +85,8 @@ object CrudForm {
   }
 
   val imageChoices = List(
-    ""                    -> "Lishogi",
-    "chesswhiz.logo.png"  -> "ChessWhiz",
-    "chessat3.logo.png"   -> "Chessat3",
-    "bitchess.logo.png"   -> "Bitchess",
-    "offerspill.logo.png" -> "Offerspill"
+    ""                  -> "Lishogi",
+    "bougyoku.logo.png" -> "Bougyoku"
   )
   val imageDefault = ""
 }

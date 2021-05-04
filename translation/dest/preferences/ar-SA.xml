@@ -6,6 +6,7 @@
 	<string name="materialDifference">الفرق المادي</string>
 	<string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
 	<string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
 	<string name="pgnPieceNotation">تدوين النقلة</string>

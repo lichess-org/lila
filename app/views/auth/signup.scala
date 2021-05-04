@@ -57,8 +57,8 @@ object signup {
           "You must agree to the Lishogi policies listed below:"
         )
       ),
-      agreements.map {
-        case (field, i18n) => form3.checkbox(form(field), i18n())
+      agreements.map { case (field, i18n) =>
+        form3.checkbox(form(field), i18n())
       }
     )
 

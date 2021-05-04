@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
@@ -102,8 +102,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
-  def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
-    coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
+  def clockById(id: Tournament.ID): Fu[Option[shogi.Clock.Config]] =
+    coll.primitiveOne[shogi.Clock.Config]($id(id), "clock")
 
   def byTeamCursor(teamId: TeamID) =
     coll.ext
@@ -207,8 +207,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     ) zip
       coll
         .list[Tournament](startedSelect ++ forTeamsSelect(teamIds), ReadPreference.secondaryPreferred) dmap {
-      case (created, started) => created ::: started
-    }
+        case (created, started) => created ::: started
+      }
 
   private[tournament] def shouldStartCursor =
     coll.ext
@@ -291,7 +291,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] =
     coll.ext
       .find(
-        finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
+        finishedSelect ++ sinceSelect(since) ++ variantSelect(shogi.variant.Standard) ++ $doc(
           "schedule.freq" -> freq.name,
           "schedule.speed" $in Schedule.Speed.mostPopular.map(_.key)
         )

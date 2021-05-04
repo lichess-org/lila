@@ -2,6 +2,7 @@ package lila.common
 
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json => PlayJson, _ }
+import shogi.format.FEN
 
 object Json {
 
@@ -34,9 +35,11 @@ object Json {
       }
     )
 
-  implicit val centisReads = Reads.of[Int] map chess.Centis.apply
+  implicit val centisReads = Reads.of[Int] map shogi.Centis.apply
 
   implicit val jodaWrites = Writes[DateTime] { time =>
     JsNumber(time.getMillis)
   }
+
+  implicit val fenFormat: Format[FEN] = stringIsoFormat[FEN](Iso.fenIso)
 }

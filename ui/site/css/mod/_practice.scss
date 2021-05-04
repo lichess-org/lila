@@ -1,7 +1,8 @@
 .practice_config {
   .both {
     display: flex;
-    > form, & > div {
+    > form,
+    & > div {
       flex: 1 1 50%;
       width: auto;
     }
@@ -11,7 +12,7 @@
       overflow-y: auto;
     }
     ol a {
-      color: #3893E8;
+      color: #3893e8;
     }
     > ol {
       width: 100%;
@@ -31,12 +32,12 @@
       margin: 0;
     }
     li li li {
-      font-size: .9em;
+      font-size: 0.9em;
     }
     em {
       display: block;
       font-style: italic;
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
   textarea.practice_text {

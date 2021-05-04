@@ -194,7 +194,7 @@ object perfStat {
       case Some(r) =>
         div(
           h2(title(strong(tag(color)(r.int)))),
-          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
+          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(absClientDateTime(r.at))
         )
       case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
     }
@@ -209,10 +209,10 @@ object perfStat {
     s.from match {
       case Some(from) =>
         fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "sente"))(absClientDateTime(from.at)),
           s.to match {
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "sente"))(absClientDateTime(to.at))
             case None => now()
           }
         )
@@ -259,7 +259,7 @@ object perfStat {
           results.results map { r =>
             tr(
               td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
-              td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at)))
+              td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(absClientDateTime(r.at)))
             )
           }
         )

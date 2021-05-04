@@ -1,9 +1,9 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.Variant
-import chess.{ Centis, Pos, PromotableRole, Role, Piece, Data, Pockets, Pocket }
+import shogi.format.pgn.{ Glyph, Glyphs, Tag, Tags }
+import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.variant.Variant
+import shogi.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -53,9 +53,10 @@ object BSONHandlers {
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)         => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest)   => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
-        case Shape.Piece(brush, orig, piece)  => $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
+        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
+        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Piece(brush, orig, piece) =>
+          $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
       }
   }
 
@@ -124,20 +125,20 @@ object BSONHandlers {
   implicit private def CrazyDataBSONHandler: BSON[Data] =
     new BSON[Data] {
       private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)             = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      private def readPocket(p: String)  = Pocket(p.view.flatMap(shogi.Role.forsyth).toList)
       def reads(r: Reader) =
         Data(
           promoted = r.getsD[Pos]("o").toSet,
           pockets = Pockets(
-            white = readPocket(r.strD("w")),
-            black = readPocket(r.strD("b"))
+            sente = readPocket(r.strD("w")),
+            gote = readPocket(r.strD("b"))
           )
         )
       def writes(w: Writer, s: Data) =
         $doc(
           "o" -> w.listO(s.promoted.toList),
-          "w" -> w.strO(writePocket(s.pockets.white)),
-          "b" -> w.strO(writePocket(s.pockets.black))
+          "w" -> w.strO(writePocket(s.pockets.sente)),
+          "b" -> w.strO(writePocket(s.pockets.gote))
         )
     }
 

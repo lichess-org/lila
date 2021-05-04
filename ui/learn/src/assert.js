@@ -1,5 +1,5 @@
-var readKeys = require("./util").readKeys;
-var compat = require("shogiops/compat");
+var readKeys = require('./util').readKeys;
+var compat = require('shogiops/compat');
 
 function pieceMatch(piece, matcher) {
   if (!piece) return false;
@@ -9,8 +9,7 @@ function pieceMatch(piece, matcher) {
 
 function pieceOnAnyOf(matcher, keys) {
   return function (level) {
-    for (var i in keys)
-      if (pieceMatch(level.shogi.board.get(compat.parseChessSquare(i)), matcher)) return true;
+    for (var i in keys) if (pieceMatch(level.shogi.board.get(compat.parseChessSquare(i)), matcher)) return true;
     return false;
   };
 }
@@ -18,7 +17,7 @@ function pieceOnAnyOf(matcher, keys) {
 function fenToMatcher(fenPiece) {
   return {
     type: fenPiece.toLowerCase(),
-    color: fenPiece.toLowerCase() === fenPiece ? "b" : "w",
+    color: fenPiece.toLowerCase() === fenPiece ? 'w' : 'b',
   };
 }
 
@@ -36,32 +35,29 @@ module.exports = {
   noPieceOn: function (keys) {
     keys = readKeys(keys);
     return function (level) {
-      for (var key in level.shogi.occupation())
-        if (!keys.includes(compat.makeChessSquare(key))) return true;
+      for (var key in level.shogi.occupation()) if (!keys.includes(compat.makeChessSquare(key))) return true;
       return false;
     };
   },
-  whitePawnOnAnyOf: function (keys) {
-    return pieceOnAnyOf(fenToMatcher("P"), readKeys(keys));
+  sentePawnOnAnyOf: function (keys) {
+    return pieceOnAnyOf(fenToMatcher('P'), readKeys(keys));
   },
   extinct: function (color) {
     return function (level) {
-      var fen = level.shogi.fen().split(" ")[0].replace(/\//g, "");
-      return (
-        fen === (color === "white" ? fen.toLowerCase() : fen.toUpperCase())
-      );
+      var fen = level.shogi.fen().split(' ')[0].replace(/\//g, '');
+      return fen === (color === 'sente' ? fen.toLowerCase() : fen.toUpperCase());
     };
   },
   check: function (level) {
     return level.shogi.isCheck();
   },
   mate: function (level) {
-    return level.shogi.instance.isCheckmate() !== "undefined";
+    return level.shogi.instance.isCheckmate() !== 'undefined';
   },
   lastMoveSan: function (san) {
     return function (level) {
       var move = level.shogi.instance.lastMove;
-      if (move === "undefined") return false;
+      if (move === 'undefined') return false;
       return move === san;
     };
   },

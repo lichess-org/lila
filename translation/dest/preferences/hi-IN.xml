@@ -6,6 +6,7 @@
 	<string name="materialDifference">सामग्री का अंतर</string>
 	<string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और सह)</string>
 	<string name="pieceDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
+	<string name="dropDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
 	<string name="boardCoordinates">बोर्ड का निर्देशांक</string>
 	<string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
 	<string name="pgnPieceNotation">चाल नोटेशन</string>

@@ -2,8 +2,8 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.{ FEN, Uci }
-import chess.variant.Variant
+import shogi.format.{ FEN, Uci }
+import shogi.variant.Variant
 import lila.common.IpAddress
 
 sealed trait Work {
@@ -66,7 +66,7 @@ object Work {
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
-  case class Clock(wtime: Int, btime: Int, inc: Int, byo: Int)
+  case class Clock(btime: Int, wtime: Int, inc: Int, byo: Int)
 
   case class Move(
       _id: Work.Id, // random
@@ -140,5 +140,5 @@ object Work {
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

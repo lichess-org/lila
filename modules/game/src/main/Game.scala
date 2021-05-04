@@ -1,10 +1,22 @@
 package lila.game
 
-import chess.Color.{ Black, White }
-import chess.format.{ FEN, Uci }
-import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame, StartingPosition }
+import shogi.Color.{ Gote, Sente }
+import shogi.format.{ FEN, Uci }
+import shogi.opening.{ FullOpening, FullOpeningDB }
+import shogi.variant.{ FromPosition, Standard, Variant }
+import shogi.{
+  Castles,
+  Centis,
+  CheckCount,
+  Clock,
+  Color,
+  Mode,
+  MoveOrDrop,
+  Speed,
+  Status,
+  Game => ShogiGame,
+  StartingPosition
+}
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -14,9 +26,9 @@ import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
-    whitePlayer: Player,
-    blackPlayer: Player,
-    chess: ChessGame,
+    sentePlayer: Player,
+    gotePlayer: Player,
+    shogi: ShogiGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Int],
@@ -27,19 +39,19 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
-  lazy val clockHistory = chess.clock flatMap loadClockHistory
+  lazy val clockHistory = shogi.clock flatMap loadClockHistory
 
-  def situation = chess.situation
-  def board     = chess.situation.board
-  def history   = chess.situation.board.history
-  def variant   = chess.situation.board.variant
-  def turns     = chess.turns
-  def clock     = chess.clock
-  def pgnMoves  = chess.pgnMoves
+  def situation = shogi.situation
+  def board     = shogi.situation.board
+  def history   = shogi.situation.board.history
+  def variant   = shogi.situation.board.variant
+  def turns     = shogi.turns
+  def clock     = shogi.clock
+  def pgnMoves  = shogi.pgnMoves
 
-  val players = List(whitePlayer, blackPlayer)
+  val players = List(sentePlayer, gotePlayer)
 
-  def player(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+  def player(color: Color): Player = color.fold(sentePlayer, gotePlayer)
 
   def player(playerId: Player.ID): Option[Player] =
     players find (_.id == playerId)
@@ -61,17 +73,17 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val firstColor = Color(whitePlayer before blackPlayer)
+  lazy val firstColor = Color(sentePlayer before gotePlayer)
   def firstPlayer     = player(firstColor)
   def secondPlayer    = player(!firstColor)
 
-  def turnColor = chess.player
+  def turnColor = shogi.player
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u) ?? turnOf
 
-  def playedTurns = turns - chess.startedAtTurn
+  def playedTurns = turns - shogi.startedAtTurn
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -130,23 +142,24 @@ case class Game(
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
-      
+
       val byoStart = {
-        if(clk.players(color).startsAtZero)
+        if (clk.players(color).startsAtZero)
           0
         else (history.turnByoyomiStarted(color) - 1)
       }
 
       val outOfTimeByo = (status == Status.Outoftime) && (color == turnColor)
 
-      pairs.zipWithIndex.map {
-        case ((first, second), index) => {
-            val d = first - second
-            if(((index+1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
-              clk.byoyomi // If we time out over a period(s) this doesn't work
-            else if((index+1) >= byoStart) second
-            else if (pairs.hasNext || !noLastInc) d + inc else d
-          } nonNeg
+      pairs.zipWithIndex.map { case ((first, second), index) =>
+        {
+          val d = first - second
+          if (((index + 1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
+            clk.byoyomi // If we time out over a period(s) this doesn't work
+          else if ((index + 1) >= byoStart) second
+          else if (pairs.hasNext || !noLastInc) d + inc
+          else d
+        } nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -165,8 +178,8 @@ case class Game(
   def bothClockStates: Option[Vector[Centis]] = {
     (clock, clockHistory) match {
       case (Some(c), Some(ch)) => Some(ch.bothClockStates(startColor, c.byoyomi))
-      case (_, Some(ch)) => Some(ch.bothClockStates(startColor, Centis(0)))
-      case _ => None
+      case (_, Some(ch))       => Some(ch.bothClockStates(startColor, Centis(0)))
+      case _                   => None
     }
   }
 
@@ -179,7 +192,7 @@ case class Game(
 
   // apply a move
   def update(
-      game: ChessGame, // new chess position
+      game: ShogiGame, // new shogi position
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress = {
@@ -198,10 +211,10 @@ case class Game(
     } yield ch.record(turnColor, clk).validateStart(clk)
 
     val updated = copy(
-      whitePlayer = copyPlayer(whitePlayer),
-      blackPlayer = copyPlayer(blackPlayer),
-      chess = game,
-      binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
+      sentePlayer = copyPlayer(sentePlayer),
+      gotePlayer = copyPlayer(gotePlayer),
+      shogi = game,
+      binaryMoveTimes = (!isPgnImport && !shogi.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
@@ -218,11 +231,11 @@ case class Game(
       turns = game.turns,
       status = (status != updated.status) option updated.status,
       winner = game.situation.winner,
-      whiteOffersDraw = whitePlayer.isOfferingDraw,
-      blackOffersDraw = blackPlayer.isOfferingDraw
+      senteOffersDraw = sentePlayer.isOfferingDraw,
+      goteOffersDraw = gotePlayer.isOfferingDraw
     )
 
-    val clockEvent = updated.chess.clock map Event.Clock.apply orElse {
+    val clockEvent = updated.shogi.clock map Event.Clock.apply orElse {
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
@@ -233,8 +246,8 @@ case class Game(
       // abstraction leak, I know.
       (updated.board.variant.threeCheck && game.situation.check) ?? List(
         Event.CheckCount(
-          white = updated.history.checkCount.white,
-          black = updated.history.checkCount.black
+          sente = updated.history.checkCount.sente,
+          gote = updated.history.checkCount.gote
         )
       )
     }
@@ -253,14 +266,14 @@ case class Game(
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
-      copy(whitePlayer = f(whitePlayer)),
-      copy(blackPlayer = f(blackPlayer))
+      copy(sentePlayer = f(sentePlayer)),
+      copy(gotePlayer = f(gotePlayer))
     )
 
   def updatePlayers(f: Player => Player) =
     copy(
-      whitePlayer = f(whitePlayer),
-      blackPlayer = f(blackPlayer)
+      sentePlayer = f(sentePlayer),
+      gotePlayer = f(gotePlayer)
     )
 
   def start =
@@ -277,10 +290,14 @@ case class Game(
     }
 
   def moveToNextPeriod = {
-    clock map { c => {
+    clock map { c =>
+      {
         clockHistory match {
           case Some(ch) =>
-            start.withClockAndHistory(c.nextPeriod(turnColor), ch.enteredNewPeriod(turnColor, chess.fullMoveNumber))
+            start.withClockAndHistory(
+              c.nextPeriod(turnColor),
+              ch.enteredNewPeriod(turnColor, shogi.fullMoveNumber)
+            )
           case _ => start.withClock(c.nextPeriod(turnColor))
         }
       }
@@ -293,15 +310,15 @@ case class Game(
       val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
-        whiteTime = turnColor.fold(secondsLeft, increment).toFloat,
-        blackTime = turnColor.fold(increment, secondsLeft).toFloat
+        senteTime = turnColor.fold(secondsLeft, increment).toFloat,
+        goteTime = turnColor.fold(increment, secondsLeft).toFloat
       )
     }
 
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     playable ?? correspondenceClock
 
-  def speed = Speed(chess.clock.map(_.config))
+  def speed = Speed(shogi.clock.map(_.config))
 
   def perfKey  = PerfPicker.key(this)
   def perfType = PerfType(perfKey)
@@ -330,7 +347,8 @@ case class Game(
 
   def alarmable = hasCorrespondenceClock && playable && nonAi
 
-  def continuable = status != Status.Mate && status != Status.Stalemate && status != Status.Impasse && status != Status.PerpetualCheck// todo
+  def continuable =
+    status != Status.Mate && status != Status.Stalemate && status != Status.Impasse && status != Status.PerpetualCheck // todo
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
@@ -341,17 +359,17 @@ case class Game(
 
   def mapPlayers(f: Player => Player) =
     copy(
-      whitePlayer = f(whitePlayer),
-      blackPlayer = f(blackPlayer)
+      sentePlayer = f(sentePlayer),
+      gotePlayer = f(gotePlayer)
     )
 
   def playerCanOfferDraw(color: Color) = false
-    //started && playable &&
-    //  turns >= 8 &&
-    //  chess.situation.impasse &&
-    //  !player(color).isOfferingDraw &&
-    //  !opponent(color).isAi &&
-    //  !playerHasOfferedDraw(color)
+  //started && playable &&
+  //  turns >= 8 &&
+  //  shogi.situation.impasse &&
+  //  !player(color).isOfferingDraw &&
+  //  !opponent(color).isAi &&
+  //  !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
@@ -360,8 +378,8 @@ case class Game(
     finishedOrAborted &&
       nonMandatory &&
       !boosted && ! {
-      hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
-    }
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -386,7 +404,7 @@ case class Game(
       Progress(
         this,
         copy(
-          chess = chess.copy(clock = Some(newClock)),
+          shogi = shogi.copy(clock = Some(newClock)),
           loadClockHistory = _ =>
             clockHistory.map(history => {
               if (history(color).isEmpty) history
@@ -411,9 +429,9 @@ case class Game(
       this,
       copy(
         status = status,
-        whitePlayer = whitePlayer.finish(winner contains White),
-        blackPlayer = blackPlayer.finish(winner contains Black),
-        chess = chess.copy(clock = newClock),
+        sentePlayer = sentePlayer.finish(winner contains Sente),
+        gotePlayer = gotePlayer.finish(winner contains Gote),
+        shogi = shogi.copy(clock = newClock),
         loadClockHistory = clk =>
           clockHistory map { history =>
             // If not already finished, we're ending due to an event
@@ -481,7 +499,7 @@ case class Game(
     else outoftimeClock(withGrace)
   }
 
-  def nextPeriodClock(withGrace: Boolean): Boolean = 
+  def nextPeriodClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
       !isCorrespondence && clockValidity && c.outOfTime(turnColor, withGrace) && c.hasPeriodsLeft(turnColor)
     }
@@ -510,10 +528,10 @@ case class Game(
 
   def isClockRunning = clock ?? (_.isRunning)
 
-  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
+  def withClock(c: Clock) = Progress(this, copy(shogi = shogi.copy(clock = Some(c))))
 
   def withClockAndHistory(c: Clock, ch: ClockHistory) =
-    Progress(this, copy(chess = chess.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
+    Progress(this, copy(shogi = shogi.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -565,7 +583,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(chess.startedAtTurn % 2 == 0)
+  def startColor = Color(shogi.startedAtTurn % 2 == 0)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2
@@ -603,10 +621,10 @@ case class Game(
 
   def twoUserIds: Option[(User.ID, User.ID)] =
     for {
-      w <- whitePlayer.userId
-      b <- blackPlayer.userId
-      if w != b
-    } yield w -> b
+      s <- sentePlayer.userId
+      g <- gotePlayer.userId
+      if s != g
+    } yield s -> g
 
   def userRatings = playerMaps(_.rating)
 
@@ -631,7 +649,7 @@ case class Game(
 
   def resetTurns =
     copy(
-      chess = chess.copy(turns = 0, startedAtTurn = 0)
+      shogi = shogi.copy(turns = 0, startedAtTurn = 0)
     )
 
   lazy val opening: Option[FullOpening.AtPly] =
@@ -644,8 +662,8 @@ case class Game(
 
   def pov(c: Color)                                 = Pov(this, c)
   def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
-  def whitePov                                      = pov(White)
-  def blackPov                                      = pov(Black)
+  def sentePov                                      = pov(Sente)
+  def gotePov                                       = pov(Gote)
   def playerPov(p: Player)                          = pov(p.color)
   def loserPov                                      = loser map playerPov
 
@@ -678,20 +696,20 @@ object Game {
   val maxPlies = 600 // unlimited can cause StackOverflowError
 
   val analysableVariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.FromPosition,
+    shogi.variant.Standard,
+    shogi.variant.FromPosition
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
-  val variantsWhereWhiteIsBetter: Set[Variant] = Set()
+  val variantsWhereSenteIsBetter: Set[Variant] = Set()
 
   val blindModeVariants: Set[Variant] = Set(
-    chess.variant.Standard,
-    chess.variant.FromPosition
+    shogi.variant.Standard,
+    shogi.variant.FromPosition
   )
 
-  val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
+  val hordeSentePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) = false
 
@@ -720,7 +738,7 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0, 0, 0)
+  private val boardApiRatedMinClock = shogi.Clock.Config(20 * 60, 0, 0, 0)
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
@@ -729,7 +747,7 @@ object Game {
 
   def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
     if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+    else shogi.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game) =
     game.hasAi || game.source.contains(Source.Friend)
@@ -739,9 +757,9 @@ object Game {
   private[game] val someEmptyClockHistory = Some(ClockHistory())
 
   def make(
-      chess: ChessGame,
-      whitePlayer: Player,
-      blackPlayer: Player,
+      shogi: ShogiGame,
+      sentePlayer: Player,
+      gotePlayer: Player,
       mode: Mode,
       source: Source,
       pgnImport: Option[PgnImport],
@@ -751,9 +769,9 @@ object Game {
     NewGame(
       Game(
         id = IdGenerator.uncheckedGame,
-        whitePlayer = whitePlayer,
-        blackPlayer = blackPlayer,
-        chess = chess,
+        sentePlayer = sentePlayer,
+        gotePlayer = gotePlayer,
+        shogi = shogi,
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
@@ -784,8 +802,8 @@ object Game {
   object BSONFields {
 
     val id                = "_id"
-    val whitePlayer       = "p0"
-    val blackPlayer       = "p1"
+    val sentePlayer       = "p0"
+    val gotePlayer        = "p1"
     val playerIds         = "is"
     val playerUids        = "us"
     val playingUids       = "pl"
@@ -801,10 +819,10 @@ object Game {
     val historyLastMove   = "cl"
     val daysPerTurn       = "cd"
     val moveTimes         = "mt"
-    val whiteClockHistory = "cw"
-    val blackClockHistory = "cb"
-    val periodsWhite      = "pw"
-    val periodsBlack      = "pb"
+    val senteClockHistory = "cw"
+    val goteClockHistory  = "cb"
+    val periodsSente      = "pw"
+    val periodsGote       = "pb"
     val rated             = "ra"
     val analysed          = "an"
     val variant           = "v"
@@ -849,69 +867,68 @@ object CastleLastMove {
 }
 
 // Represents at what turn we entered a new period
-case class PeriodEntries(white: Vector[Int], black: Vector[Int]){
+case class PeriodEntries(sente: Vector[Int], gote: Vector[Int]) {
   def apply(c: Color) =
-    c.fold(white, black)
+    c.fold(sente, gote)
 
   def update(c: Color, t: Int) =
-    c.fold(copy(white = white :+ t), copy(black = black :+ t))
+    c.fold(copy(sente = sente :+ t), copy(gote = gote :+ t))
 
   def byoyomi(c: Color): Boolean =
-    c.fold(!white.isEmpty, !black.isEmpty)
+    c.fold(!sente.isEmpty, !gote.isEmpty)
 
-  def turnIsPresent(c: Color, t: Int): Boolean = c.fold(white contains t, black contains t)
-  def dropTurn(c: Color, t: Int) = 
+  def turnIsPresent(c: Color, t: Int): Boolean = c.fold(sente contains t, gote contains t)
+  def dropTurn(c: Color, t: Int) =
     c.fold(
-      copy(white = white filterNot(_ == t)),
-      copy(black = black filterNot(_ == t))
+      copy(sente = sente filterNot (_ == t)),
+      copy(gote = gote filterNot (_ == t))
     )
 
-  def first(c: Color): Option[Int] = c.fold(white.headOption, black.headOption)
-  def last(c: Color): Option[Int] = c.fold(white.lastOption, black.lastOption)
+  def first(c: Color): Option[Int] = c.fold(sente.headOption, gote.headOption)
+  def last(c: Color): Option[Int]  = c.fold(sente.lastOption, gote.lastOption)
 }
 
 object PeriodEntries {
   val default = PeriodEntries(Vector(), Vector())
-  val zeroes = PeriodEntries(Vector(0), Vector(0))
+  val zeroes  = PeriodEntries(Vector(0), Vector(0))
 }
 
 case class ClockHistory(
-    white: Vector[Centis] = Vector.empty,
-    black: Vector[Centis] = Vector.empty,
+    sente: Vector[Centis] = Vector.empty,
+    gote: Vector[Centis] = Vector.empty,
     periodEntries: PeriodEntries = PeriodEntries.default
 ) {
 
   def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
-    color.fold(copy(white = f(white)), copy(black = f(black)))
+    color.fold(copy(sente = f(sente)), copy(gote = f(gote)))
 
   def record(color: Color, clock: Clock, finalRecord: Boolean = false): ClockHistory = {
-    if(finalRecord && clock.isUsingByoyomi(color)){
+    if (finalRecord && clock.isUsingByoyomi(color)) {
       val remTime = clock.remainingTime(color)
       update(color, _ :+ (clock.byoyomi - remTime))
-    }
-    else update(color, _ :+ clock.remainingTimeTurn(color))
+    } else update(color, _ :+ clock.remainingTimeTurn(color))
   }
 
   def validateStart(clock: Clock): ClockHistory = {
-    if(clock.startsAtZero && periodEntries(White).isEmpty && periodEntries(Black).isEmpty)
+    if (clock.startsAtZero && periodEntries(Sente).isEmpty && periodEntries(Gote).isEmpty)
       copy(periodEntries = PeriodEntries.zeroes)
     else this
   }
-  
+
   def reset(color: Color) = update(color, _ => Vector.empty)
 
-  def apply(color: Color): Vector[Centis] = color.fold(white, black)
+  def apply(color: Color): Vector[Centis] = color.fold(sente, gote)
 
   def last(color: Color) = apply(color).lastOption
 
-  def size = white.size + black.size
+  def size = sente.size + gote.size
 
   def updateWithByoTime(color: Color, byo: Centis): Vector[Centis] = {
     val standardTimes = color.fold(
-      white.take(turnByoyomiStarted(color) - 1),
-      black.take(turnByoyomiStarted(color) - 1)
+      sente.take(turnByoyomiStarted(color) - 1),
+      gote.take(turnByoyomiStarted(color) - 1)
     )
-    standardTimes.padTo(color.fold(white.size, black.size), byo)
+    standardTimes.padTo(color.fold(sente.size, gote.size), byo)
   }
 
   def turnByoyomiStarted(color: Color): Int =
@@ -924,14 +941,14 @@ case class ClockHistory(
     periodEntries.turnIsPresent(color, turn)
 
   def dropTurn(color: Color, turn: Int) = {
-    if(turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
+    if (turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
     else this
   }
 
   // first state is of the color that moved first.
   def bothClockStates(firstMoveBy: Color, byo: Centis): Vector[Centis] =
     Sequence.interleave(
-      firstMoveBy.fold(updateWithByoTime(White, byo), updateWithByoTime(Black, byo)),
-      firstMoveBy.fold(updateWithByoTime(Black, byo), updateWithByoTime(White, byo))
+      firstMoveBy.fold(updateWithByoTime(Sente, byo), updateWithByoTime(Gote, byo)),
+      firstMoveBy.fold(updateWithByoTime(Gote, byo), updateWithByoTime(Sente, byo))
     )
 }

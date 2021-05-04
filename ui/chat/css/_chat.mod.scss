@@ -1,12 +1,11 @@
 .mchat-mod {
-
   .top {
     @extend %flex-center;
     justify-content: space-between;
     flex: 0 0 auto;
     background: $c-accent;
     color: #fff;
-    padding: .4em 10px;
+    padding: 0.4em 10px;
     line-height: 1.4em;
     a {
       color: #fff;
@@ -21,7 +20,7 @@
     }
     .history {
       td {
-        padding: .3rem .5rem .3rem 0;
+        padding: 0.3rem 0.5rem 0.3rem 0;
       }
       table {
         width: 100%;

@@ -1,9 +1,10 @@
-import { State } from "./state";
-import * as board from "./board";
-import * as util from "./util";
-import { clear as drawClear } from "./draw";
-import * as cg from "./types";
-import { anim } from "./anim";
+import { State } from './state';
+import * as board from './board';
+import * as util from './util';
+import { clear as drawClear } from './draw';
+import * as cg from './types';
+import { anim } from './anim';
+import { predrop } from './premove';
 
 export interface DragCurrent {
   orig: cg.Key; // orig key of dragging piece
@@ -25,15 +26,11 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
   const bounds = s.dom.bounds(),
     position = util.eventPosition(e)!,
-    orig = board.getKeyAtDomPos(position, board.whitePov(s), bounds);
+    orig = board.getKeyAtDomPos(position, board.sentePov(s), bounds);
   if (!orig) return;
   const piece = s.pieces.get(orig);
   const previouslySelected = s.selected;
-  if (
-    !previouslySelected &&
-    s.drawable.enabled &&
-    (s.drawable.eraseOnClick || !piece || piece.color !== s.turnColor)
-  )
+  if (!previouslySelected && s.drawable.enabled && (s.drawable.eraseOnClick || !piece || piece.color !== s.turnColor))
     drawClear(s);
   // Prevent touch scroll and create no corresponding mouse event, if there
   // is an intent to interact with the board. If no color is movable
@@ -41,19 +38,15 @@ export function start(s: State, e: cg.MouchEvent): void {
   // select squares.
   if (
     e.cancelable !== false &&
-    (!e.touches ||
-      !s.movable.color ||
-      piece ||
-      previouslySelected ||
-      pieceCloseTo(s, position))
+    (!e.touches || !s.movable.color || piece || previouslySelected || pieceCloseTo(s, position))
   )
     /* eslint-disable-line */
     e.preventDefault();
   const hadPremove = !!s.premovable.current;
-  const hadPredrop = !!s.predroppable.current;
+  const hadPredrop = !!s.predroppable.current || !!s.predroppable.dropDests;
   s.stats.ctrlKey = e.ctrlKey;
   if (s.selected && board.canMove(s, s.selected, orig)) {
-    anim((state) => board.selectSquare(state, orig), s);
+    anim(state => board.selectSquare(state, orig), s);
   } else {
     board.selectSquare(s, orig);
   }
@@ -71,16 +64,13 @@ export function start(s: State, e: cg.MouchEvent): void {
       originTarget: e.target,
     };
     element.cgDragging = true;
-    element.classList.add("dragging");
-    element.classList.remove("fix-blur");
+    element.classList.add('dragging');
+    element.classList.remove('fix-blur');
     // place ghost
     const ghost = s.dom.elements.ghost;
     if (ghost) {
       ghost.className = `ghost ${piece.color} ${piece.role}`;
-      util.translateAbs(
-        ghost,
-        util.posToTranslateAbs(bounds)(util.key2pos(orig), board.whitePov(s))
-      );
+      util.translateAbs(ghost, util.posToTranslateAbs(bounds)(util.key2pos(orig), board.sentePov(s)));
       util.setVisible(ghost, true);
     }
     processDrag(s);
@@ -92,24 +82,20 @@ export function start(s: State, e: cg.MouchEvent): void {
 }
 
 function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
-  const asWhite = board.whitePov(s),
+  const asSente = board.sentePov(s),
     bounds = s.dom.bounds(),
     radiusSq = Math.pow(bounds.width / 9, 2);
   for (const key in s.pieces) {
-    const center = computeSquareCenter(key as cg.Key, asWhite, bounds);
+    const center = computeSquareCenter(key as cg.Key, asSente, bounds);
     if (util.distanceSq(center, pos) <= radiusSq) return true;
   }
   return false;
 }
 
-export function dragNewPiece(
-  s: State,
-  piece: cg.Piece,
-  e: cg.MouchEvent,
-  force?: boolean
-): void {
-  const key: cg.Key = "a0";
+export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?: boolean): void {
+  const key: cg.Key = 'a0';
   s.pieces.set(key, piece);
+  board.unselect(s);
   s.dom.redraw();
 
   const position = util.eventPosition(e)!;
@@ -125,6 +111,9 @@ export function dragNewPiece(
     newPiece: true,
     force: !!force,
   };
+  if (piece && board.isPredroppable(s)) {
+    s.predroppable.dropDests = predrop(s.pieces, piece);
+  }
   processDrag(s);
 }
 
@@ -133,26 +122,21 @@ function processDrag(s: State): void {
     const cur = s.draggable.current;
     if (!cur) return;
     // cancel animations while dragging
-    if (s.animation.current?.plan.anims.has(cur.orig))
-      s.animation.current = undefined;
+    if (s.animation.current?.plan.anims.has(cur.orig)) s.animation.current = undefined;
     // if moving piece is gone, cancel
     const origPiece = s.pieces.get(cur.orig);
     if (!origPiece || !util.samePiece(origPiece, cur.piece)) cancel(s);
     else {
-      if (
-        !cur.started &&
-        util.distanceSq(cur.pos, cur.origPos) >=
-          Math.pow(s.draggable.distance, 2)
-      )
+      if (!cur.started && util.distanceSq(cur.pos, cur.origPos) >= Math.pow(s.draggable.distance, 2))
         cur.started = true;
       if (cur.started) {
         // support lazy elements
-        if (typeof cur.element === "function") {
+        if (typeof cur.element === 'function') {
           const found = cur.element();
           if (!found) return;
           found.cgDragging = true;
-          found.classList.add("dragging");
-          found.classList.remove("fix-blur");
+          found.classList.add('dragging');
+          found.classList.remove('fix-blur');
           cur.element = found;
         }
 
@@ -179,10 +163,10 @@ export function end(s: State, e: cg.MouchEvent): void {
   const cur = s.draggable.current;
   if (!cur) return;
   // create no corresponding mouse event
-  if (e.type === "touchend" && e.cancelable !== false) e.preventDefault();
+  if (e.type === 'touchend' && e.cancelable !== false) e.preventDefault();
   // comparing with the origin target is an easy way to test that the end event
   // has the same touch origin
-  if (e.type === "touchend" && cur.originTarget !== e.target && !cur.newPiece) {
+  if (e.type === 'touchend' && cur.originTarget !== e.target && !cur.newPiece) {
     s.draggable.current = undefined;
     return;
   }
@@ -190,11 +174,7 @@ export function end(s: State, e: cg.MouchEvent): void {
   board.unsetPredrop(s);
   // touchend has no position; so use the last touchmove position instead
   const eventPos = util.eventPosition(e) || cur.pos;
-  const dest = board.getKeyAtDomPos(
-    eventPos,
-    board.whitePov(s),
-    s.dom.bounds()
-  );
+  const dest = board.getKeyAtDomPos(eventPos, board.sentePov(s), s.dom.bounds());
   if (dest && cur.started && cur.orig !== dest) {
     if (cur.newPiece) board.dropNewPiece(s, cur.orig, dest, cur.force);
     else {
@@ -207,8 +187,7 @@ export function end(s: State, e: cg.MouchEvent): void {
     s.pieces.delete(cur.orig);
     board.callUserFunction(s.events.change);
   }
-  if (cur.orig === cur.previouslySelected && (cur.orig === dest || !dest))
-    board.unselect(s);
+  if (cur.orig === cur.previouslySelected && (cur.orig === dest || !dest)) board.unselect(s);
   else if (!s.selectable.enabled) board.unselect(s);
 
   removeDragElements(s);
@@ -233,13 +212,9 @@ function removeDragElements(s: State): void {
   if (e.ghost) util.setVisible(e.ghost, false);
 }
 
-function computeSquareCenter(
-  key: cg.Key,
-  asWhite: boolean,
-  bounds: ClientRect
-): cg.NumberPair {
+function computeSquareCenter(key: cg.Key, asSente: boolean, bounds: ClientRect): cg.NumberPair {
   const pos = util.key2pos(key);
-  if (!asWhite) {
+  if (!asSente) {
     pos[0] = 8 - pos[0];
     pos[1] = 8 - pos[1];
   }
@@ -252,11 +227,7 @@ function computeSquareCenter(
 function pieceElementByKey(s: State, key: cg.Key): cg.PieceNode | undefined {
   let el = s.dom.elements.board.firstChild;
   while (el) {
-    if (
-      (el as cg.KeyedNode).cgKey === key &&
-      (el as cg.KeyedNode).tagName === "PIECE"
-    )
-      return el as cg.PieceNode;
+    if ((el as cg.KeyedNode).cgKey === key && (el as cg.KeyedNode).tagName === 'PIECE') return el as cg.PieceNode;
     el = el.nextSibling;
   }
   return;

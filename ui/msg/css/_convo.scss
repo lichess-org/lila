@@ -7,7 +7,9 @@
     @include breakpoint($mq-not-small) {
       flex: 1 0 100%;
       display: none;
-      .pane-convo & { display: flex; }
+      .pane-convo & {
+        display: flex;
+      }
     }
     &__head {
       @extend %flex-between-nowrap;
@@ -34,7 +36,7 @@
         color: $c-font-clear;
         font-size: 1.4em;
         .title {
-          margin-right: .7ch;
+          margin-right: 0.7ch;
         }
         .line {
           flex: 0 0 auto;
@@ -55,7 +57,7 @@
       }
       &__sep {
         color: $c-font-dimmer;
-        margin: 0 .5em;
+        margin: 0 0.5em;
       }
     }
     &__reply {
@@ -67,7 +69,7 @@
       &__block {
         flex: 1 1 auto;
         text-align: center;
-        margin: .6em;
+        margin: 0.6em;
       }
     }
     &__post {
@@ -85,20 +87,27 @@
         margin-left: 1em;
         border-radius: 99px;
         background: $c-font-dimmer;
-        &.connected, &.connected:hover {
+        &.connected,
+        &.connected:hover {
           background: $c-msg;
         }
       }
     }
     @include breakpoint($mq-not-xx-small) {
       &__head__back {
-        padding: 0 .5em;
+        padding: 0 0.5em;
       }
       .user-link {
         font-size: 1.2em;
-        .line, .title { display: none }
+        .line,
+        .title {
+          display: none;
+        }
       }
-      &__action__sep, .play { display: none }
+      &__action__sep,
+      .play {
+        display: none;
+      }
     }
   }
 }

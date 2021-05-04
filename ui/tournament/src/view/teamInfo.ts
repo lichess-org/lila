@@ -1,29 +1,19 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import TournamentController from "../ctrl";
-import {
-  bind,
-  numberRow,
-  spinner,
-  dataIcon,
-  player as renderPlayer,
-} from "./util";
-import { teamName } from "./battle";
+import TournamentController from '../ctrl';
+import { bind, numberRow, spinner, dataIcon, player as renderPlayer } from './util';
+import { teamName } from './battle';
 
 export default function (ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
     data = ctrl.teamInfo.loaded,
     noarg = ctrl.trans.noarg;
   if (!battle) return undefined;
-  const teamTag = ctrl.teamInfo.requested
-    ? teamName(battle, ctrl.teamInfo.requested)
-    : null;
-  const tag = "div.tour__team-info.tour__actor-info";
-  if (!data || data.id !== ctrl.teamInfo.requested)
-    return h(tag, [h("div.stats", [h("h2", [teamTag]), spinner()])]);
-  const nbLeaders =
-    ctrl.data.teamStanding?.find((s) => s.id == data.id)?.players.length || 0;
+  const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
+  const tag = 'div.tour__team-info.tour__actor-info';
+  if (!data || data.id !== ctrl.teamInfo.requested) return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
+  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
     window.lishogi.powertip.manualUserIn(vnode.elm as HTMLElement);
@@ -39,67 +29,59 @@ export default function (ctrl: TournamentController): VNode | undefined {
       },
     },
     [
-      h("a.close", {
-        attrs: dataIcon("L"),
-        hook: bind("click", () => ctrl.showTeamInfo(data.id), ctrl.redraw),
+      h('a.close', {
+        attrs: dataIcon('L'),
+        hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
       }),
-      h("div.stats", [
-        h("h2", [teamTag]),
-        h("table", [
-          numberRow("Players", data.nbPlayers),
+      h('div.stats', [
+        h('h2', [teamTag]),
+        h('table', [
+          numberRow('Players', data.nbPlayers),
           ...(data.rating
             ? [
-                numberRow(noarg("averageElo"), data.rating, "raw"),
+                numberRow(noarg('averageElo'), data.rating, 'raw'),
                 ...(data.perf
-                  ? [
-                      numberRow("Average performance", data.perf, "raw"),
-                      numberRow("Average score", data.score, "raw"),
-                    ]
+                  ? [numberRow('Average performance', data.perf, 'raw'), numberRow('Average score', data.score, 'raw')]
                   : []),
               ]
             : []),
           h(
-            "tr",
+            'tr',
             h(
-              "th",
+              'th',
               h(
-                "a",
+                'a',
                 {
-                  attrs: { href: "/team/" + data.id },
+                  attrs: { href: '/team/' + data.id },
                 },
-                "Team page"
+                'Team page'
               )
             )
           ),
         ]),
       ]),
-      h("div", [
+      h('div', [
         h(
-          "table.players.sublist",
+          'table.players.sublist',
           {
-            hook: bind("click", (e) => {
-              const username = ((e.target as HTMLElement)
-                .parentNode as HTMLElement).getAttribute("data-name");
+            hook: bind('click', e => {
+              const username = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-name');
               if (username) ctrl.jumpToPageOf(username);
             }),
           },
           data.topPlayers.map((p, i) =>
             h(
-              "tr",
+              'tr',
               {
                 key: p.name,
               },
               [
-                h("th", "" + (i + 1)),
-                h("td", renderPlayer(p, false, true, false, i < nbLeaders)),
-                h("td.total", [
+                h('th', '' + (i + 1)),
+                h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
+                h('td.total', [
                   p.fire && !ctrl.data.isFinished
-                    ? h(
-                        "strong.is-gold",
-                        { attrs: dataIcon("Q") },
-                        "" + p.score
-                      )
-                    : h("strong", "" + p.score),
+                    ? h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score)
+                    : h('strong', '' + p.score),
                 ]),
               ]
             )

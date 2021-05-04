@@ -84,7 +84,7 @@ object bits {
       )
     )
 
-  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] ={
+  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
         a(cls := "lobby__box__top", href := routes.Blog.index())(
@@ -92,7 +92,7 @@ object bits {
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
-          posts filter { post => post.langCode == BlogLangs.parse(ctx.lang.code)} map { post =>
+          posts filter { post => post.langCode == BlogLangs.parse(ctx.lang.code) } map { post =>
             a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
               img(src := post.image),
               span(cls := "text")(
@@ -103,7 +103,8 @@ object bits {
             )
           }
         )
-      )}
+      )
+  }
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
     nopeInfo(

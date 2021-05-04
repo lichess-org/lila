@@ -47,8 +47,8 @@ object layout {
     raw {
       s"""<link rel="preload" href="${assetUrl(
         s"font/lishogi.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" + 
-      s"""<link rel="preload" href="${assetUrl(
+      )}" as="font" type="font/woff2" crossorigin>""" +
+        s"""<link rel="preload" href="${assetUrl(
           s"font/lishogi.shogi.woff2"
         )}" as="font" type="font/woff2" crossorigin>"""
     }
@@ -59,18 +59,23 @@ object layout {
   private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
   private val favicons = raw {
-    List(512, 256, 192, 128, 64).map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(
-        s"logo/lishogi-favicon-$px.png"
-      )}" sizes="${px}x${px}">"""
-    }.mkString("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
-      "logo/lishogi-favicon-32.png"
-    )}" sizes="32x32">""")
+    List(512, 256, 192, 128, 64)
+      .map { px =>
+        s"""<link rel="icon" type="image/png" href="${staticUrl(
+          s"logo/lishogi-favicon-$px.png"
+        )}" sizes="${px}x${px}">"""
+      }
+      .mkString(
+        "",
+        "",
+        s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
+          "logo/lishogi-favicon-32.png"
+        )}" sizes="32x32">"""
+      )
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode()}" method="POST"><input type="hidden" name="enable" value="${if (
-      ctx.blind
-    )
+    raw(s"""<form id="blind-mode" action="${routes.Main
+      .toggleBlindMode()}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind)
       0
     else
       1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
@@ -125,13 +130,14 @@ object layout {
 
   private def switchLanguage(implicit ctx: Context) =
     spaceless(s"""<form method="post" action="/translation/select" class="header-langs">
-    ${ if (ctx.lang.language == "en") """<button type="submit" name="lang" value="ja-JP" title="ja-JP">日本語</button>"""
-        else """<button type="submit" name="lang" value="en-US" title="en-US">English</button>""" }
+    ${if (ctx.lang.language == "en")
+      """<button type="submit" name="lang" value="ja-JP" title="ja-JP">日本語</button>"""
+    else """<button type="submit" name="lang" value="en-US" title="en-US">English</button>"""}
     </form>""")
 
   private lazy val botImage = img(
     src := staticUrl("images/icons/bot.png"),
-    title := "Robot chess",
+    title := "Robot shogi",
     style :=
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
@@ -141,11 +147,16 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  private val dataSoundSet      = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataPreload       = attr("data-preload")
+  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
+  val dataSoundSet              = attr("data-sound-set")
+  val dataTheme                 = attr("data-theme")
+  val dataAssetUrl              = attr("data-asset-url")
+  val dataAssetVersion          = attr("data-asset-version")
+  val dataDev                   = attr("data-dev")
 
   def apply(
       title: String,
@@ -209,11 +220,11 @@ object layout {
         st.body(
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass} notation-${ctx.pref.pieceNotation}" -> true,
-            "zen"                                                                                                                                            -> ctx.pref.isZen,
-            "blind-mode"                                                                                                                                     -> ctx.blind,
-            "kid"                                                                                                                                            -> ctx.kid,
-            "mobile"                                                                                                                                         -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                                                                                                           -> playing
+            "zen"                                                                                                                                                                               -> ctx.pref.isZen,
+            "blind-mode"                                                                                                                                                                        -> ctx.blind,
+            "kid"                                                                                                                                                                               -> ctx.kid,
+            "mobile"                                                                                                                                                                            -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                                                                                                                                              -> playing
           ),
           dataDev := (!isProd).option("true"),
           dataVapid := vapidPublicKey,

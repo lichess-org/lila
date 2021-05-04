@@ -33,19 +33,14 @@ export const menuHover = () =>
     // event = string representing the namespaced event used for mouse tracking
     let state: State = {};
 
-    $("#topnav.hover").each(function (this: HTMLElement) {
-      const $el = $(this).removeClass("hover"),
-        handler = () => $el.toggleClass("hover");
+    $('#topnav.hover').each(function (this: HTMLElement) {
+      const $el = $(this).removeClass('hover'),
+        handler = () => $el.toggleClass('hover');
 
       // compares current and previous mouse positions
       const compare = function () {
         // compare mouse positions to see if pointer has slowed enough to trigger `over` function
-        if (
-          Math.sqrt(
-            (state.pX - cX) * (state.pX - cX) +
-              (state.pY - cY) * (state.pY - cY)
-          ) < sensitivity
-        ) {
+        if (Math.sqrt((state.pX - cX) * (state.pX - cX) + (state.pY - cY) * (state.pY - cY)) < sensitivity) {
           $el.off(state.event, track);
           delete state.timeoutId;
           // set hoverIntent state as active for this element (permits `out` handler to trigger)
@@ -68,13 +63,12 @@ export const menuHover = () =>
         }
 
         // namespaced event used to register and unregister mousemove tracking
-        var mousemove = (state.event = "mousemove");
+        var mousemove = (state.event = 'mousemove');
 
         // handle the event, based on its type
-        if (ev.type == "mouseenter") {
+        if (ev.type == 'mouseenter') {
           // do nothing if already active or a button is pressed (dragging a piece)
-          if (state.isActive || (ev.originalEvent as MouseEvent).buttons)
-            return;
+          if (state.isActive || (ev.originalEvent as MouseEvent).buttons) return;
           // set "previous" X and Y position based on initial entry point
           state.pX = ev.pageX;
           state.pY = ev.pageY;
@@ -94,6 +88,6 @@ export const menuHover = () =>
         }
       };
 
-      $el.on("mouseenter", handleHover).on("mouseleave", handleHover);
+      $el.on('mouseenter', handleHover).on('mouseleave', handleHover);
     });
   });

@@ -1,20 +1,17 @@
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import makeCtrl from "./ctrl";
-import { loaded, loading } from "./view";
-import { load } from "./xhr";
-import { ChallengeOpts, ChallengeData, Ctrl } from "./interfaces";
+import makeCtrl from './ctrl';
+import { loaded, loading } from './view';
+import { load } from './xhr';
+import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
 
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export default function LishogiChallenge(
-  element: Element,
-  opts: ChallengeOpts
-) {
+export default function LishogiChallenge(element: Element, opts: ChallengeOpts) {
   let vnode: VNode, ctrl: Ctrl;
 
   function redraw() {
@@ -25,7 +22,7 @@ export default function LishogiChallenge(
     if (ctrl) ctrl.update(d);
     else {
       ctrl = makeCtrl(opts, d, redraw);
-      element.innerHTML = "";
+      element.innerHTML = '';
     }
     redraw();
   }
@@ -34,9 +31,7 @@ export default function LishogiChallenge(
   else
     load()
       .then(update)
-      .fail(() =>
-        window.lishogi.announce({ msg: "Failed to load challenges" })
-      );
+      .fail(() => window.lishogi.announce({ msg: 'Failed to load challenges' }));
 
   return {
     update,

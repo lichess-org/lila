@@ -1,9 +1,9 @@
 package lila.game
 
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
-import chess.format.{ FEN, Forsyth }
-import chess.{ Color, Status }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
@@ -154,7 +154,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .one(
         $id(pov.gameId),
         $set(
-          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
+          s"${pov.color.fold(F.sentePlayer, F.gotePlayer)}.${Player.BSONFields.berserk}" -> true
         )
       )
       .void
@@ -181,8 +181,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update.one(
       $id(id),
       $set(
-        s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.white,
-        s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
+        s"${F.sentePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.sente,
+        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}"  -> diffs.gote
       )
     )
 
@@ -271,22 +271,22 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $doc(
         F.id -> game.id,
         $or(
-          holdAlertField(chess.White) $exists true,
-          holdAlertField(chess.Black) $exists true
+          holdAlertField(shogi.Sente) $exists true,
+          holdAlertField(shogi.Gote) $exists true
         )
       ),
       $doc(
         F.id                        -> false,
-        holdAlertField(chess.White) -> true,
-        holdAlertField(chess.Black) -> true
+        holdAlertField(shogi.Sente) -> true,
+        holdAlertField(shogi.Gote)  -> true
       )
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>
         def holdAlertOf(playerField: String) =
           doc.child(playerField).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
         Color.Map(
-          white = holdAlertOf("p0"),
-          black = holdAlertOf("p1")
+          sente = holdAlertOf("p0"),
+          gote = holdAlertOf("p1")
         )
       }
     }
@@ -324,7 +324,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         "$set",
         $doc(
           F.winnerId    -> winnerId,
-          F.winnerColor -> winnerColor.map(_.white),
+          F.winnerColor -> winnerColor.map(_.sente),
           F.status      -> status
         )
       ) ++ $doc(
@@ -342,18 +342,18 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.mate ++ Query.variantStandard ++ Query.lastMoveNotDrop
       )
       .sort(Query.sortCreated)
-      .skip(Random nextInt distribution)
+      .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
+  def insertDenormalized(g: Game, initialFen: Option[shogi.format.FEN] = None): Funit = {
     val g2 =
       if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
-        g.copy(mode = chess.Mode.Casual)
+        g.copy(mode = shogi.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
     val fen = initialFen.map(_.value) orElse {
       (!g2.variant.standardInitialPosition)
-        .option(Forsyth >> g2.chess)
+        .option(Forsyth >> g2.shogi)
         .filter(Forsyth.initial !=)
     }
     val checkInHours =
@@ -395,7 +395,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def initialFen(game: Game): Fu[Option[FEN]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => FEN(Forsyth.initial).some
+      case None if game.variant == shogi.variant.Chess960 => FEN(Forsyth.initial).some
       case fen                                            => fen
     }
     else fuccess(none)
@@ -458,7 +458,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.ext
       .find($empty)
       .sort(Query.sortCreated)
-      .skip(Random nextInt 1000)
+      .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]
 
   def findPgnImport(pgn: String): Fu[Option[Game]] =

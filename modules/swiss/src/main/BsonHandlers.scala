@@ -2,9 +2,9 @@ package lila.swiss
 
 import scala.concurrent.duration._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.variant.Variant
-import chess.{ Color, StartingPosition }
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.variant.Variant
+import shogi.{ Color, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
@@ -13,12 +13,11 @@ import reactivemongo.api.bson._
 private object BsonHandlers {
 
   implicit val clockHandler = tryHandler[ClockConfig](
-    {
-      case doc: BSONDocument =>
-        for {
-          limit <- doc.getAsTry[Int]("limit")
-          inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc, 0, 1)
+    { case doc: BSONDocument =>
+      for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc   <- doc.getAsTry[Int]("increment")
+      } yield ClockConfig(limit, inc, 0, 1)
     },
     c =>
       BSONDocument(
@@ -102,13 +101,13 @@ private object BsonHandlers {
     import SwissPairing.Fields._
     def reads(r: BSON.Reader) =
       r.get[List[User.ID]](players) match {
-        case List(w, b) =>
+        case List(s, g) =>
           SwissPairing(
             id = r str id,
             swissId = r.get[Swiss.Id](swissId),
             round = r.get[SwissRound.Number](round),
-            white = w,
-            black = b,
+            sente = s,
+            gote = g,
             status = r.getO[SwissPairing.Status](status) | Right(none)
           )
         case _ => sys error "Invalid swiss pairing users"

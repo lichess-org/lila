@@ -1,6 +1,6 @@
 package lila.mod
 
-import chess.{ variant, Color }
+import shogi.{ variant, Color }
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
@@ -41,7 +41,7 @@ final class BoostingApi(
 
   def boostingId(winner: User, loser: User): String = winner.id + "/" + loser.id
 
-  def check(game: Game, whiteUser: User, blackUser: User): Funit = {
+  def check(game: Game, senteUser: User, goteUser: User): Funit = {
     if (
       game.rated
       && game.accountable
@@ -55,8 +55,8 @@ final class BoostingApi(
       game.winnerColor match {
         case Some(a) => {
           val result: GameResult = a match {
-            case Color.White => GameResult(winner = whiteUser, loser = blackUser)
-            case Color.Black => GameResult(winner = blackUser, loser = whiteUser)
+            case Color.Sente => GameResult(winner = senteUser, loser = goteUser)
+            case Color.Gote  => GameResult(winner = goteUser, loser = senteUser)
           }
           val id = boostingId(result.winner, result.loser)
           getBoostingRecord(id).flatMap {

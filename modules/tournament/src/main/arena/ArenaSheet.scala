@@ -70,37 +70,36 @@ object Sheet {
     Sheet {
       val streaks = streakable == Streaks
       val nexts   = (pairings drop 1 map some) :+ None
-      pairings.zip(nexts).foldLeft(List.empty[Score]) {
-        case (scores, (p, n)) =>
-          val berserk = if (p berserkOf userId) {
-            if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
-          } else NoBerserk
-          (p.winner match {
-            case None if p.quickDraw => Score(ResDQ, Normal, berserk)
-            case None =>
-              Score(
-                ResDraw,
-                if (streaks && isOnFire(scores)) Double
-                else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
-                else Normal,
-                berserk
-              )
-            case Some(w) if userId == w =>
-              Score(
-                ResWin,
-                if (!streaks) Normal
-                else if (isOnFire(scores)) Double
-                else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
-                else
-                  n match {
-                    case None                                 => StreakStarter
-                    case Some(s) if s.winner.contains(userId) => StreakStarter
-                    case _                                    => Normal
-                  },
-                berserk
-              )
-            case _ => Score(ResLoss, Normal, berserk)
-          }) :: scores
+      pairings.zip(nexts).foldLeft(List.empty[Score]) { case (scores, (p, n)) =>
+        val berserk = if (p berserkOf userId) {
+          if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
+        } else NoBerserk
+        (p.winner match {
+          case None if p.quickDraw => Score(ResDQ, Normal, berserk)
+          case None =>
+            Score(
+              ResDraw,
+              if (streaks && isOnFire(scores)) Double
+              else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
+              else Normal,
+              berserk
+            )
+          case Some(w) if userId == w =>
+            Score(
+              ResWin,
+              if (!streaks) Normal
+              else if (isOnFire(scores)) Double
+              else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
+              else
+                n match {
+                  case None                                 => StreakStarter
+                  case Some(s) if s.winner.contains(userId) => StreakStarter
+                  case _                                    => Normal
+                },
+              berserk
+            )
+          case _ => Score(ResLoss, Normal, berserk)
+        }) :: scores
       }
     }
 

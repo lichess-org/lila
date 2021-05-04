@@ -1,17 +1,42 @@
 /* circular loader */
 @keyframes spinner-rotate {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 @keyframes spinner-dash {
-  0%,10% { stroke-dasharray: 1,270; stroke-dashoffset: 0 }
-  40% { stroke-dasharray: 89,240; stroke-dashoffset: 0 }
-  100% { stroke-dasharray: 1,240; stroke-dashoffset: -110 }
+  0%,
+  10% {
+    stroke-dasharray: 1, 270;
+    stroke-dashoffset: 0;
+  }
+  40% {
+    stroke-dasharray: 89, 240;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 1, 240;
+    stroke-dashoffset: -110;
+  }
 }
 @keyframes spinner-color {
-  0%,20%,100% { stroke: #42a5f5 }
-  30%,45% { stroke: #f44336 }
-  50%,70% { stroke: #fdd835 }
-  75%,95% { stroke: #4caf50 }
+  0%,
+  20%,
+  100% {
+    stroke: #42a5f5;
+  }
+  30%,
+  45% {
+    stroke: #f44336;
+  }
+  50%,
+  70% {
+    stroke: #fdd835;
+  }
+  75%,
+  95% {
+    stroke: #4caf50;
+  }
 }
 .spinner {
   width: 70px;
@@ -33,8 +58,12 @@
 
 /* small horizontal loader */
 @keyframes ddloader {
-  0% { background-position: left }
-  100% { background-position: right }
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }
 .ddloader {
   @if $theme-light {

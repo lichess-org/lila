@@ -1,6 +1,5 @@
 package lila.clas
 
-import scala.util.Random
 import scala.concurrent.ExecutionContext
 
 final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
@@ -16,7 +15,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
   }
 
   private def anyOf[A](vec: Vector[A]): A =
-    vec(Random.between(0, vec.size))
+    vec(lila.common.ThreadLocalRandom.nextInt(vec.size))
 
   lazy val combinations = Vector(
     List(adjectives, nouns)
@@ -56,10 +55,11 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
   def pieces =
     Vector(
       "Pawn",
-      "Bishop",
+      "Lance",
       "Knight",
+      "General",
+      "Bishop",
       "Rook",
-      "Queen",
       "King"
     )
 

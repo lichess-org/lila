@@ -4,7 +4,7 @@
   background-color: $c-bg-box;
 }
 .tt-menu .empty {
-  padding: .5em 0 .5em 1em;
+  padding: 0.5em 0 0.5em 1em;
 }
 .tt-menu .spinner {
   margin: 10px auto;
@@ -13,7 +13,7 @@
 }
 .tt-suggestion {
   color: $c-font;
-  padding: .4em 0 .4em .4em;
+  padding: 0.4em 0 0.4em 0.4em;
   display: block;
   cursor: pointer;
   @include transition();

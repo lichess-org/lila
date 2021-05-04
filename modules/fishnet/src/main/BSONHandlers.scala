@@ -4,7 +4,7 @@ import lila.db.dsl._
 import lila.game.BSONHandlers.FENBSONHandler
 import reactivemongo.api.bson._
 
-import chess.variant.Variant
+import shogi.variant.Variant
 
 private object BSONHandlers {
 

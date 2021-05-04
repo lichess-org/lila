@@ -13,7 +13,7 @@
     h1 {
       font: 1.95em Roboto;
       text-transform: uppercase;
-      color: #639B24;
+      color: #639b24;
       white-space: nowrap;
       margin-bottom: 1em;
     }
@@ -37,7 +37,9 @@
       }
     }
     @include breakpoint($mq-not-xx-small) {
-      .rating { display: none }
+      .rating {
+        display: none;
+      }
     }
   }
 }

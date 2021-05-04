@@ -6,6 +6,7 @@
 	<string name="materialDifference">Taş farkı</string>
 	<string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>
 	<string name="pieceDestinations">Taşın gidebileceği kareler (kurallara uygun hamleler)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Tahta kordinatları</string>
 	<string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
 	<string name="pgnPieceNotation">Notasyon tut</string>

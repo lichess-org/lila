@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
-import Client.{ Skill, Evaluation }
+import Client.{ Evaluation, Skill }
 import lila.common.IpAddress
 import lila.db.dsl._
 
@@ -32,7 +32,8 @@ final class FishnetApi(
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
-  def clientUserId(key: Client.Key): Fu[Option[Client.UserId]] = repo.getEnabledClient(key).map(_.map(_.userId))
+  def clientUserId(key: Client.Key): Fu[Option[Client.UserId]] =
+    repo.getEnabledClient(key).map(_.map(_.userId))
 
   def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
     if (config.offlineMode && req.fishnet.apikey.value.isEmpty) repo.getOfflineClient map some
@@ -51,10 +52,9 @@ final class FishnetApi(
       case Skill.Analysis => acquireAnalysis(client, slow)
       case Skill.All      => acquireMove(client) orElse acquireAnalysis(client, slow)
     }).monSuccess(_.fishnet.acquire)
-      .recover {
-        case e: Exception =>
-          logger.error("Fishnet.acquire", e)
-          none
+      .recover { case e: Exception =>
+        logger.error("Fishnet.acquire", e)
+        none
       }
 
   private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
@@ -104,7 +104,8 @@ final class FishnetApi(
           fufail(WorkNotFound)
         case Some(work) if work isAcquiredBy client =>
           data.completeOrPartial match {
-            case complete: CompleteAnalysis => {
+            case complete: CompleteAnalysis =>
+              {
                 if (complete.weak && work.game.variant.standard) {
                   Monitor.weak(work, client, complete)
                   repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
@@ -113,12 +114,12 @@ final class FishnetApi(
                     monitor.analysis(work, client, complete)
                     repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
                   }
-              } recoverWith {
-                case e: Exception =>
-                  Monitor.failure(work, client, e)
-                  repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+              } recoverWith { case e: Exception =>
+                Monitor.failure(work, client, e)
+                repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
               }
-            case partial: PartialAnalysis => {
+            case partial: PartialAnalysis =>
+              {
                 fuccess(work.game.studyId.isDefined) >>| socketExists(work.game.id)
               } flatMap {
                 case true =>

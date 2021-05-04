@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena tournaments</string>
-  <string name="isItRated">Có tính Elo?</string>
+  <string name="arenaTournaments">Các giải đấu - đấu trường</string>
+  <string name="isItRated">Có tính xếp hạng không?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
-  <string name="isRated">Giải đấu này có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
-  <string name="isNotRated">Giải đấu này *không* tính Elo và sẽ *không* ảnh hưởng Elo của bạn.</string>
-  <string name="someRated">Một số giải đấu có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
+  <string name="isRated">Giải đấu này có tính xếp hạng và sẽ ảnh hưởng Elo của bạn.</string>
+  <string name="isNotRated">Giải đấu này *không* tính xếp hạng và sẽ *không* ảnh hưởng Elo của bạn.</string>
+  <string name="someRated">Một số giải đấu có tính xếp hạng và sẽ ảnh hưởng Elo của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
-Nếu bạn thắng hai ván liên tiếp bạn bắt đầu có vận gấp đôi điểm, thể hiện bằng hình ngọn lửa.
+Nếu bạn thắng hai ván liên tiếp bạn bắt đầu có chuỗi gấp đôi điểm, thể hiện bằng hình ngọn lửa.
 Các ván đấu sau đó sẽ tiếp tục gấp đôi điểm đến khi bạn thua một ván.
 Nghĩa là, một ván thắng được 4 điểm, hòa: 2 điểm, thua: 0 điểm.
 
@@ -20,8 +20,8 @@ Dùng Berserk trong ván tính giờ với gia số sẽ hủy bỏ gia số. (1
 
 Berserk không áp dụng cho ván đấu không có thời gian bắt đầu (0+1, 0+2).
 
-Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 lượt trong một ván.</string>
-  <string name="howIsTheWinnerDecided">Cách xác định người thắng?</string>
+Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước đi trong một ván.</string>
+  <string name="howIsTheWinnerDecided">Cách xác định người thắng cuộc?</string>
   <string name="howIsTheWinnerDecidedAnswer">(Các) kỳ thủ có điểm cao nhất khi kết thúc giải đấu sẽ là (những) người thắng cuộc.
 
 Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua tie break.</string>
@@ -37,5 +37,5 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham dự: %s</string>
-  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+  <string name="drawStreak">Chuỗi hòa: Khi một người chơi có một chuỗi các trận hòa trong một đấu trường, chỉ có trận hòa đầu tiên được tính điểm, hoặc trận hòa đó được kéo dài hơn %s nước đi. Chuỗi hòa này chỉ có thể bị chấm dứt bằng một chiến thắng, không thể bị chấm dứt bởi một trận thua hay một trận hòa.</string>
 </resources>

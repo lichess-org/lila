@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.variant.{ FromPosition, Standard, Variant }
+import shogi.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl._
 import Schedule.{ Freq, Speed }
 
@@ -36,6 +36,7 @@ case class AllWinners(
     bullet: FreqWinners,
     superblitz: FreqWinners,
     blitz: FreqWinners,
+    hyperrapid: FreqWinners,
     rapid: FreqWinners,
     elite: List[Winner],
     marathon: List[Winner],
@@ -43,7 +44,7 @@ case class AllWinners(
 ) {
 
   lazy val top: List[Winner] = List(
-    List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.top),
+    List(hyperbullet, bullet, superblitz, blitz, hyperrapid, rapid).flatMap(_.top),
     List(elite.headOption, marathon.headOption).flatten,
     WinnersApi.variants.flatMap { v =>
       variants get v.key flatMap (_.top)
@@ -51,7 +52,7 @@ case class AllWinners(
   ).flatten
 
   def userIds =
-    List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.userIds) :::
+    List(hyperbullet, bullet, superblitz, blitz, hyperrapid, rapid).flatMap(_.userIds) :::
       elite.map(_.userId) ::: marathon.map(_.userId) :::
       variants.values.toList.flatMap(_.userIds)
 }
@@ -111,6 +112,7 @@ final class WinnersApi(
         bullet = standardFreqWinners(Speed.Bullet),
         superblitz = standardFreqWinners(Speed.SuperBlitz),
         blitz = standardFreqWinners(Speed.Blitz),
+        hyperrapid = standardFreqWinners(Speed.HyperRapid),
         rapid = standardFreqWinners(Speed.Rapid),
         elite = elites flatMap (_.winner) take 4,
         marathon = marathons flatMap (_.winner) take 4,

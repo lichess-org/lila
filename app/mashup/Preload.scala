@@ -22,7 +22,7 @@ final class Preload(
     tourWinners: lila.tournament.WinnersApi,
     timelineApi: lila.timeline.EntryApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
-    dailyPuzzle: lila.puzzle.Daily.Try,
+    dailyPuzzle: lila.puzzle.DailyPuzzle.Try,
     lobbyApi: lila.api.LobbyApi,
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
@@ -55,38 +55,37 @@ final class Preload(
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
-      case (
-            data,
-            povs
-          ) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
-          .mon(_.lobby segment "currentGame") zip
-          lightUserApi
-            .preloadMany {
-              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
-            }
-            .mon(_.lobby segment "lightUsers") map {
-          case (currentGame, _) =>
-            Homepage(
+        case (
               data,
-              entries,
-              posts,
-              tours,
-              events,
-              simuls,
-              feat,
-              lead,
-              tWinners,
-              puzzle,
-              streams.excludeUsers(events.flatMap(_.hostedBy)),
-              lastPostCache.apply,
-              playban,
-              currentGame,
-              simulIsFeaturable,
-              blindGames
-            )
-        }
-    }
+              povs
+            ) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
+          (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
+            .mon(_.lobby segment "currentGame") zip
+            lightUserApi
+              .preloadMany {
+                tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+              }
+              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              Homepage(
+                data,
+                entries,
+                posts,
+                tours,
+                events,
+                simuls,
+                feat,
+                lead,
+                tWinners,
+                puzzle,
+                streams.excludeUsers(events.flatMap(_.hostedBy)),
+                lastPostCache.apply,
+                playban,
+                currentGame,
+                simulIsFeaturable,
+                blindGames
+              )
+            }
+      }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
     gameRepo.playingRealtimeNoAi(user).flatMap {
@@ -127,7 +126,7 @@ object Preload {
       featured: Option[Game],
       leaderboard: List[User.LightPerf],
       tournamentWinners: List[Winner],
-      puzzle: Option[lila.puzzle.DailyPuzzle],
+      puzzle: Option[lila.puzzle.DailyPuzzle.Html],
       streams: LiveStreams.WithTitles,
       lastPost: List[lila.blog.MiniPost],
       playban: Option[TempBan],

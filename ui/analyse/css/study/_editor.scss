@@ -1,5 +1,6 @@
 @import '../../../editor/css/spare';
 @import '../../../editor/css/tools';
+@import '../../../editor/css/pocket';
 
 .board-editor-wrap {
   min-height: 280px;
@@ -14,14 +15,20 @@
   grid-template-columns: 280px 2vmin 210px;
   grid-template-rows: min-content auto min-content;
   grid-template-areas:
-  '.            . e-tools'
-  'spare-top    . e-tools'
-  'e-board      . e-tools'
-  'spare-bottom . e-tools'
-  '.            . e-tools';
+    'spare-top    . e-pocket-top'
+    'e-board      . e-tools'
+    'spare-bottom . e-pocket-bot';
   user-select: none;
   .main-board {
     grid-area: e-board;
+  }
+  .e-pocket {
+    &-top {
+      grid-area: e-pocket-top;
+    }
+    &-bottom {
+      grid-area: e-pocket-bot;
+    }
   }
   cg-board {
     cursor: inherit;
@@ -40,6 +47,6 @@
   }
   .metadata {
     background: $c-bg-zebra;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

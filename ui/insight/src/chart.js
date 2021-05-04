@@ -1,29 +1,29 @@
-var m = require("mithril");
+var m = require('mithril');
 
 function metricDataTypeFormat(dt) {
-  if (dt === "seconds") return "{point.y:.1f}";
-  if (dt === "average") return "{point.y:,.1f}";
-  if (dt === "percent") return "{point.y:.1f}%";
-  return "{point.y:,.0f}";
+  if (dt === 'seconds') return '{point.y:.1f}';
+  if (dt === 'average') return '{point.y:,.1f}';
+  if (dt === 'percent') return '{point.y:.1f}%';
+  return '{point.y:,.0f}';
 }
 
 function dimensionDataTypeFormat(dt) {
-  if (dt === "date") return "{value:%Y-%m-%d}";
-  return "{value}";
+  if (dt === 'date') return '{value:%Y-%m-%d}';
+  return '{value}';
 }
 
 function yAxisTypeFormat(dt) {
-  if (dt === "seconds") return "{value:.1f}";
-  if (dt === "average") return "{value:,.1f}";
-  if (dt === "percent") return "{value:.0f}%";
-  return "{value:,.0f}";
+  if (dt === 'seconds') return '{value:.1f}';
+  if (dt === 'average') return '{value:,.1f}';
+  if (dt === 'percent') return '{value:.0f}%';
+  return '{value:,.0f}';
 }
 
 var colors = {
-  green: "#759900",
-  red: "#dc322f",
-  orange: "#d59120",
-  blue: "#007599",
+  green: '#759900',
+  red: '#dc322f',
+  orange: '#d59120',
+  blue: '#007599',
 };
 var resultColors = {
   Victory: colors.green,
@@ -32,32 +32,32 @@ var resultColors = {
 };
 
 var theme = (function () {
-  var light = $("body").hasClass("light");
+  var light = $('body').hasClass('light');
   var t = {
     light: light,
     text: {
-      weak: light ? "#808080" : "#9a9a9a",
-      strong: light ? "#505050" : "#c0c0c0",
+      weak: light ? '#808080' : '#9a9a9a',
+      strong: light ? '#505050' : '#c0c0c0',
     },
     line: {
-      weak: light ? "#ccc" : "#404040",
-      strong: light ? "#a0a0a0" : "#606060",
-      fat: "#d85000", // light ? '#a0a0a0' : '#707070'
+      weak: light ? '#ccc' : '#404040',
+      strong: light ? '#a0a0a0' : '#606060',
+      fat: '#d85000', // light ? '#a0a0a0' : '#707070'
     },
   };
   if (!light)
     t.colors = [
-      "#2b908f",
-      "#90ee7e",
-      "#f45b5b",
-      "#7798BF",
-      "#aaeeee",
-      "#ff0066",
-      "#eeaaee",
-      "#55BF3B",
-      "#DF5353",
-      "#7798BF",
-      "#aaeeee",
+      '#2b908f',
+      '#90ee7e',
+      '#f45b5b',
+      '#7798BF',
+      '#aaeeee',
+      '#ff0066',
+      '#eeaaee',
+      '#55BF3B',
+      '#DF5353',
+      '#7798BF',
+      '#aaeeee',
     ];
   return t;
 })();
@@ -67,28 +67,26 @@ function makeChart(el, data) {
     name: data.sizeSerie.name,
     data: data.sizeSerie.data,
     yAxis: 1,
-    type: "column",
-    stack: "size",
+    type: 'column',
+    stack: 'size',
     animation: {
       duration: 300,
     },
-    color: "rgba(120,120,120,0.2)",
+    color: 'rgba(120,120,120,0.2)',
   };
   var valueSeries = data.series.map(function (s) {
     var c = {
       name: s.name,
       data: s.data,
       yAxis: 0,
-      type: "column",
+      type: 'column',
       stack: s.stack,
       // animation: {
       //   duration: 300
       // },
       dataLabels: {
         enabled: true,
-        format: s.stack
-          ? "{point.percentage:.0f}%"
-          : metricDataTypeFormat(s.dataType),
+        format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType),
       },
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
@@ -96,19 +94,19 @@ function makeChart(el, data) {
           return (
             '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' +
             metricDataTypeFormat(s.dataType) +
-            "</b><br/>"
+            '</b><br/>'
           );
         })(),
         shared: true,
       },
     };
-    if (data.valueYaxis.name === "Game result") c.color = resultColors[s.name];
+    if (data.valueYaxis.name === 'Game result') c.color = resultColors[s.name];
     return c;
   });
   var chartConf = {
     chart: {
-      type: "column",
-      alignTicks: data.valueYaxis.dataType !== "percent",
+      type: 'column',
+      alignTicks: data.valueYaxis.dataType !== 'percent',
       spacing: [20, 7, 20, 5],
       backgroundColor: null,
       borderWidth: 0,
@@ -117,17 +115,16 @@ function makeChart(el, data) {
       plotShadow: false,
       plotBorderWidth: 0,
       style: {
-        font:
-          "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
+        font: "12px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
       },
     },
     title: {
       text: null,
     },
     xAxis: {
-      type: data.xAxis.dataType === "date" ? "datetime" : "linear",
+      type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
       categories: data.xAxis.categories.map(function (v) {
-        return data.xAxis.dataType === "date" ? v * 1000 : v;
+        return data.xAxis.dataType === 'date' ? v * 1000 : v;
       }),
       crosshair: true,
       labels: {
@@ -148,7 +145,7 @@ function makeChart(el, data) {
       tickColor: theme.line.strong,
     },
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function (a, i) {
-      var isPercent = data.valueYaxis.dataType === "percent";
+      var isPercent = data.valueYaxis.dataType === 'percent';
       var isSize = i % 2 === 1;
       var c = {
         opposite: isSize,
@@ -182,7 +179,7 @@ function makeChart(el, data) {
         animation: {
           duration: 300,
         },
-        stacking: "normal",
+        stacking: 'normal',
         dataLabels: {
           color: theme.text.strong,
         },
@@ -211,16 +208,16 @@ function makeChart(el, data) {
         },
         stops: theme.light
           ? [
-              [0, "rgba(200, 200, 200, .8)"],
-              [1, "rgba(250, 250, 250, .8)"],
+              [0, 'rgba(200, 200, 200, .8)'],
+              [1, 'rgba(250, 250, 250, .8)'],
             ]
           : [
-              [0, "rgba(56, 56, 56, .8)"],
-              [1, "rgba(16, 16, 16, .8)"],
+              [0, 'rgba(56, 56, 56, .8)'],
+              [1, 'rgba(16, 16, 16, .8)'],
             ],
       },
       style: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         color: theme.text.strong,
       },
     },
@@ -239,16 +236,14 @@ function makeChart(el, data) {
 }
 
 function empty(txt) {
-  return m("div.chart.empty", [m("i[data-icon=7]"), txt]);
+  return m('div.chart.empty', [m('i[data-icon=7]'), txt]);
 }
 
 module.exports = function (ctrl) {
-  if (!ctrl.validCombinationCurrent())
-    return empty("Invalid dimension/metric combination");
-  if (!ctrl.vm.answer.series.length)
-    return empty("No data. Try widening or clearing the filters.");
+  if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
+  if (!ctrl.vm.answer.series.length) return empty('No data. Try widening or clearing the filters.');
   return [
-    m("div.chart", {
+    m('div.chart', {
       config: function (el) {
         if (ctrl.vm.loading) return;
         makeChart(el, ctrl.vm.answer);

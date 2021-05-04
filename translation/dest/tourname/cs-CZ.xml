@@ -35,13 +35,13 @@
   <string name="yearlyXArena">Ročně aréna %s</string>
   <string name="yearlyX">Ročně %s</string>
   <string name="rapidShieldArena">Rapid Shield aréna</string>
-  <string name="rapidShield">Rapid Shield</string>
+  <string name="rapidShield">Rychlý štít</string>
   <string name="classicalShieldArena">Klasická Shield aréna</string>
   <string name="classicalShield">Klasická Shield</string>
   <string name="xShieldArena">%s Shield aréna</string>
-  <string name="xShield">%s Shield</string>
-  <string name="openingRapidArena">%s Rapid Arena</string>
-  <string name="openingRapid">%s Rapid</string>
+  <string name="xShield">%s Štít</string>
+  <string name="openingRapidArena">%s Rychlá Aréna</string>
+  <string name="openingRapid">%s Rychlý</string>
   <string name="xTeamBattle">Týmová bitva %s</string>
   <string name="eliteXArena">Elitní %s aréna</string>
   <string name="eliteX">Elitní %s</string>

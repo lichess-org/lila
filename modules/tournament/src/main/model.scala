@@ -54,14 +54,14 @@ case class PlayerInfoExt(
     recentPovs: List[lila.game.LightPov]
 )
 
-case class GameRanks(whiteRank: Int, blackRank: Int)
+case class GameRanks(senteRank: Int, goteRank: Int)
 
 case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
 
   def bestRank = rank1 min rank2
   // def rankSum = rank1 + rank2
 
-  def bestColor = chess.Color(rank1 < rank2)
+  def bestColor = shogi.Color(rank1 < rank2)
 }
 
 object RankedPairing {
@@ -90,8 +90,8 @@ object RankedPlayer {
 
 case class FeaturedGame(
     game: lila.game.Game,
-    white: RankedPlayer,
-    black: RankedPlayer
+    sente: RankedPlayer,
+    gote: RankedPlayer
 )
 
 final class GetTourName(f: (Tournament.ID, Lang) => Option[String])

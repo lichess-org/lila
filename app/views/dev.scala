@@ -78,7 +78,7 @@ fishnet client create {username}
 gdpr erase {username} forever
 patron lifetime {username}
 patron month {username}
-eval-cache drop 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
+eval-cache drop 9/9/9/2k6/9/3K5/2P6/9/9 b - 1
 """)
         )
       )

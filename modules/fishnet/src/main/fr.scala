@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.Uci
+import shogi.format.Uci
 import io.lettuce.core._
 import io.lettuce.core.pubsub._
 import scala.concurrent.Future
@@ -61,8 +61,8 @@ final class FishnetRedis(
 
   private def writeClock(clock: Work.Clock): String =
     List(
-      clock.wtime,
       clock.btime,
+      clock.wtime,
       clock.inc,
       clock.byo
     ) mkString " "

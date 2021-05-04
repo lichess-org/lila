@@ -108,7 +108,7 @@
 	<string name="replayMode">Replay mode</string>
 	<string name="realtimeReplay">Totoong oras</string>
 	<string name="byCPL">Sa pamamagitan ng CPL</string>
-	<string name="openStudy">Bukas na pagsusuri</string>
+	<string name="openStudy">Bukas na pag-aaral</string>
 	<string name="enable">Paganahin</string>
 	<string name="bestMoveArrow">Pinakamahusay na galaw na arrow</string>
 	<string name="evaluationGauge">Panukat ng pagsusuri</string>
@@ -175,7 +175,7 @@
 	</plurals>
 	<string name="time">Oras</string>
 	<string name="rating">Marka</string>
-	<string name="ratingStats">Istats ng Marka</string>
+	<string name="ratingStats">Istats ng rating</string>
 	<string name="username">Pangalan ng user</string>
 	<string name="usernameOrEmail">Pangalan ng gumamit o email</string>
 	<string name="changeUsername">Palitan ang iyong pangalan</string>
@@ -301,8 +301,8 @@
 		<item quantity="other">%s mga puntos ng torneo</item>
 	</plurals>
 	<plurals name="nbStudies">
-		<item quantity="one">%s pagaaral</item>
-		<item quantity="other">%s mga pagaaral</item>
+		<item quantity="one">%s pag-aaral</item>
+		<item quantity="other">%s mga pag-aaral</item>
 	</plurals>
 	<string name="viewTournament">Tingnan ang torneo</string>
 	<string name="backToTournament">Bumalik sa torneo</string>
@@ -449,7 +449,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="savePosition">Save position</string>
 	<string name="loadPosition">Load position</string>
 	<string name="isPrivate">Pribado</string>
-	<string name="reportXToModerators">I-report si %s sa mga moderator</string>
+	<string name="reportXToModerators">Ireport %s sa mga moderator</string>
 	<string name="profileCompletion">Pagkakompleto ng profile: %s</string>
 	<string name="xRating">%s rating</string>
 	<string name="ifNoneLeaveEmpty">If none, leave empty</string>
@@ -520,7 +520,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="reply">Reply</string>
 	<string name="message">Message</string>
 	<string name="createTheTopic">Create the topic</string>
-	<string name="reportAUser">Report a user</string>
+	<string name="reportAUser">Ireport ang isang user</string>
 	<string name="user">User</string>
 	<string name="reason">Reason</string>
 	<string name="whatIsIheMatter">What\'s the matter?</string>
@@ -550,7 +550,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="privacy">Privacy</string>
 	<string name="letOtherPlayersFollowYou">Let other players follow you</string>
 	<string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
-	<string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
+	<string name="letOtherPlayersInviteYouToStudy">Hayaan ang ibang mga manlalaro na imbitahan ka sa pag-aaral</string>
 	<string name="sound">Sound</string>
 	<string name="none">Wala</string>
 	<string name="fast">Mabilis</string>
@@ -600,7 +600,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="playOfflineComputer">Computer</string>
 	<string name="opponent">Opponent</string>
 	<string name="learnMenu">Learn</string>
-	<string name="studyMenu">Study</string>
+	<string name="studyMenu">Pag-aaral</string>
 	<string name="practice">Practice</string>
 	<string name="community">Community</string>
 	<string name="tools">Tools</string>
@@ -742,7 +742,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="xHostsY">%1$s mga host %2$s</string>
 	<string name="xJoinsY">%1$s sumali %2$s</string>
 	<string name="xLikesY">%1$s likes %2$s</string>
-	<string name="xCreatesStudyY">%1$s creates study %2$s</string>
+	<string name="xCreatesStudyY">%1$s gumawa ng pag-aaral %2$s</string>
 	<string name="quickPairing">Quick pairing</string>
 	<string name="lobby">Lobby</string>
 	<string name="anonymous">Anonymous</string>

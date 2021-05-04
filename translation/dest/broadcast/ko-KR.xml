@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Broadcasts</string>
-  <string name="liveBroadcasts">Live tournament broadcasts</string>
-  <string name="newBroadcast">New live broadcast</string>
-  <string name="ongoing">Ongoing</string>
-  <string name="upcoming">Upcoming</string>
-  <string name="completed">Completed</string>
-  <string name="eventName">Event name</string>
-  <string name="eventDescription">Short event description</string>
-  <string name="fullDescription">Full event description</string>
+  <string name="broadcasts">방송</string>
+  <string name="liveBroadcasts">라이브 토너먼트 방송</string>
+  <string name="newBroadcast">새로운 생방송</string>
+  <string name="ongoing">전진</string>
+  <string name="upcoming">예상</string>
+  <string name="completed">완전한</string>
+  <string name="eventName">이벤트 이름</string>
+  <string name="eventDescription">짧은 이벤트 설명</string>
+  <string name="fullDescription">전체 이벤트 설명</string>
   <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
   <string name="sourceUrl">Source URL</string>
   <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>

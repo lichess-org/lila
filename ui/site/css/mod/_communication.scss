@@ -4,7 +4,7 @@
     font-size: 1.5em;
   }
   .user-link {
-    margin-left: -.5em;
+    margin-left: -0.5em;
   }
   .actions {
     @extend %flex-center;
@@ -26,10 +26,10 @@
   .public_chats,
   .notes,
   .history {
-    margin-top: .5em;
+    margin-top: 0.5em;
     max-height: 150px;
     overflow-y: auto;
-    padding-bottom: .5em;
+    padding-bottom: 0.5em;
     border-bottom: 1px solid $border;
   }
   .player_chats {
@@ -71,7 +71,7 @@
   .player_chats .line,
   .threads .post {
     opacity: 0.5;
-    padding: 0 .5em;
+    padding: 0 0.5em;
   }
   .player_chats .line.author,
   .threads .post.author {
@@ -116,5 +116,5 @@
   opacity: 1;
 }
 #communication.public_chat .chat {
-  overflow-y: auto!important;
+  overflow-y: auto !important;
 }

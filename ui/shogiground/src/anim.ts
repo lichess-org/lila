@@ -1,6 +1,6 @@
-import { State } from "./state";
-import * as util from "./util";
-import * as cg from "./types";
+import { State } from './state';
+import * as util from './util';
+import * as cg from './types';
 
 export type Mutation<A> = (state: State) => A;
 
@@ -24,9 +24,7 @@ export interface AnimCurrent {
 }
 
 export function anim<A>(mutation: Mutation<A>, state: State): A {
-  return state.animation.enabled
-    ? animate(mutation, state)
-    : render(mutation, state);
+  return state.animation.enabled ? animate(mutation, state) : render(mutation, state);
 }
 
 export function render<A>(mutation: Mutation<A>, state: State): A {
@@ -52,9 +50,7 @@ function makePiece(key: cg.Key, piece: cg.Piece): AnimPiece {
 
 function closer(piece: AnimPiece, pieces: AnimPiece[]): AnimPiece | undefined {
   return pieces.sort((p1, p2) => {
-    return (
-      util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos)
-    );
+    return util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos);
   })[0];
 }
 
@@ -65,9 +61,7 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
     missings: AnimPiece[] = [],
     news: AnimPiece[] = [],
     prePieces: AnimPieces = new Map();
-  let curP: cg.Piece | undefined,
-    preP: AnimPiece | undefined,
-    vector: cg.NumberPair;
+  let curP: cg.Piece | undefined, preP: AnimPiece | undefined, vector: cg.NumberPair;
   for (const [k, p] of prevPieces) {
     prePieces.set(k, makePiece(k, p));
   }
@@ -86,7 +80,7 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
   for (const newP of news) {
     preP = closer(
       newP,
-      missings.filter((p) => util.samePiece(newP.piece, p.piece))
+      missings.filter(p => util.samePiece(newP.piece, p.piece))
     );
     if (preP) {
       vector = [preP.pos[0] - newP.pos[0], preP.pos[1] - newP.pos[1]];
@@ -133,8 +127,7 @@ function animate<A>(mutation: Mutation<A>, state: State): A {
   const result = mutation(state);
   const plan = computePlan(prevPieces, state);
   if (plan.anims.size || plan.fadings.size) {
-    const alreadyRunning =
-      state.animation.current && state.animation.current.start;
+    const alreadyRunning = state.animation.current && state.animation.current.start;
     state.animation.current = {
       start: performance.now(),
       frequency: 1 / state.animation.duration,

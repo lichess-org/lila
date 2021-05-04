@@ -1,12 +1,12 @@
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-import makeCtrl from "./ctrl";
-import view from "./view";
-import { NotifyOpts, Ctrl } from "./interfaces";
+import makeCtrl from './ctrl';
+import view from './view';
+import { NotifyOpts, Ctrl } from './interfaces';
 
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 

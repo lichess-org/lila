@@ -1,11 +1,11 @@
 @import 'layout';
 @import 'spare';
 @import 'tools';
+@import 'pocket';
 
 @include body-fixed-scroll;
 
 .board-editor {
-
   user-select: none;
 
   .main-board {

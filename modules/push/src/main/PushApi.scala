@@ -230,7 +230,7 @@ final private class PushApi(
     }
 
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
+    c.challengerUser.ifTrue(c.finalColor.sente && !c.hasClock) ?? { challenger =>
       joinerId ?? lightUser flatMap { lightJoiner =>
         pushToAll(
           challenger.id,

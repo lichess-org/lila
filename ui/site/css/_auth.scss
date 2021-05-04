@@ -16,7 +16,7 @@
 
   .alternative {
     margin-top: 2rem;
-    font-size: .9em;
+    font-size: 0.9em;
     @extend %flex-between;
   }
 
@@ -33,6 +33,10 @@
 
 /* presumably the keyboard is up */
 @include breakpoint($mq-not-x-short) {
-  #top { display: none; }
-  .form-group { margin-bottom: 1rem; }
+  #top {
+    display: none;
+  }
+  .form-group {
+    margin-bottom: 1rem;
+  }
 }

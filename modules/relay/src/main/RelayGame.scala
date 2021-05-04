@@ -1,12 +1,12 @@
 package lila.relay
 
-import chess.format.pgn.Tags
+import shogi.format.pgn.Tags
 import lila.study.{ Chapter, Node, PgnImport }
 
 case class RelayGame(
     index: Int,
     tags: Tags,
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     root: Node.Root,
     end: Option[PgnImport.End]
 ) {
@@ -34,5 +34,5 @@ private object RelayGame {
 
   val lishogiDomains = List("lishogi.org", "lishogi.dev")
 
-  val staticTags = List("white", "black", "round", "event", "site")
+  val staticTags = List("sente", "gote", "round", "event", "site")
 }

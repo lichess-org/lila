@@ -1,11 +1,11 @@
 package lila.game
 
-import chess.{ Black, CheckCount, Clock, Color, White, Data }
+import shogi.{ CheckCount, Clock, Color, Data, Gote, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
 
-import chess.Centis
+import shogi.Centis
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
@@ -60,10 +60,10 @@ object GameDiff {
       } yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =
-      o.flatMap {
-        case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
+      o.flatMap { case (x, y, z) =>
+        ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
-    
+
     def getPeriodEntries(color: Color)(g: Game): Option[Vector[Int]] =
       for {
         history <- g.clockHistory
@@ -74,33 +74,32 @@ object GameDiff {
         ByteArrayBSONHandler.writeOpt(BinaryFormat.periodEntries.writeSide(x))
       }
 
-    if (false) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
-    else {
-      val f = PgnStorage.OldBin
-      dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
-      dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
-      d(positionHashes, _.history.positionHashes, w.bytes)
-      d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
-      // since variants are always OldBin
-      if (a.variant.standard || a.variant.fromPosition)
-        dOpt(
-          checkCount,
-          _.history.checkCount,
-          (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
-        )
-      if (a.variant.standard || a.variant.fromPosition)
-        dOpt(
-          crazyData,
-          _.board.crazyData,
-          (o: Option[Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
-        )
-    }
+    // if (false) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    // else {
+    val f = PgnStorage.OldBin
+    dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
+    dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
+    d(positionHashes, _.history.positionHashes, w.bytes)
+    d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
+    // since variants are always OldBin
+    if (a.variant.standard || a.variant.fromPosition)
+      dOpt(
+        checkCount,
+        _.history.checkCount,
+        (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
+      )
+    if (a.variant.standard || a.variant.fromPosition)
+      dOpt(
+        crazyData,
+        _.board.crazyData,
+        (o: Option[Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
+      )
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
-    dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
-    dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
-    dOpt(periodsWhite, getPeriodEntries(White), periodEntriesToBytes)
-    dOpt(periodsBlack, getPeriodEntries(Black), periodEntriesToBytes)
+    dOpt(senteClockHistory, getClockHistory(Sente), clockHistoryToBytes)
+    dOpt(goteClockHistory, getClockHistory(Gote), clockHistoryToBytes)
+    dOpt(periodsSente, getPeriodEntries(Sente), periodEntriesToBytes)
+    dOpt(periodsGote, getPeriodEntries(Gote), periodEntriesToBytes)
     dOpt(
       clock,
       _.clock,
@@ -112,7 +111,7 @@ object GameDiff {
     for (i <- 0 to 1) {
       import Player.BSONFields._
       val name                   = s"p$i."
-      val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
+      val player: Game => Player = if (i == 0) (_.sentePlayer) else (_.gotePlayer)
       dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, (l: Option[Int]) => l flatMap w.intO)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)

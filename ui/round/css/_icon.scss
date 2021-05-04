@@ -4,7 +4,7 @@
   margin-top: 10px;
   .fbt {
     font-size: 1.4em;
-    padding: .1em 1em;
+    padding: 0.1em 1em;
   }
   &.confirm > button {
     visibility: hidden;
@@ -14,7 +14,7 @@
     position: relative;
     width: 60px;
     .fbt.no {
-      padding: .1em 0;
+      padding: 0.1em 0;
       width: 30px;
       text-align: center;
       position: absolute;
@@ -22,7 +22,7 @@
       right: -34px;
     }
 
-    .fbt.yes  {
+    .fbt.yes {
       $act-confirm-shade: mix(#000, $c-accent, 30%);
       position: absolute;
       right: 0;
@@ -34,12 +34,12 @@
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
       @include transition();
-      transform: translate(0px,0px);
+      transform: translate(0px, 0px);
       &:hover {
         filter: brightness(1.07);
       }
       &:active {
-        transform: translate(0px,5px);
+        transform: translate(0px, 5px);
         border-bottom-width: 1px;
         text-shadow: 0 0 $act-confirm-shade;
         filter: brightness(1);

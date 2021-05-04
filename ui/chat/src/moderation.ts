@@ -1,25 +1,20 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import {
-  ModerationCtrl,
-  ModerationOpts,
-  ModerationData,
-  ModerationReason,
-} from "./interfaces";
-import { userModInfo } from "./xhr";
-import { userLink, spinner, bind } from "./util";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
+import { userModInfo } from './xhr';
+import { userLink, spinner, bind } from './util';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
   let loading = false;
 
   const open = (line: HTMLElement) => {
-    const userA = line.querySelector("a.user-link") as HTMLLinkElement;
-    const text = (line.querySelector("t") as HTMLElement).innerText;
-    const id = userA.href.split("/")[4];
+    const userA = line.querySelector('a.user-link') as HTMLLinkElement;
+    const text = (line.querySelector('t') as HTMLElement).innerText;
+    const id = userA.href.split('/')[4];
     if (opts.permissions.timeout) {
       loading = true;
-      userModInfo(id).then((d) => {
+      userModInfo(id).then(d => {
         data = { ...d, text };
         loading = false;
         opts.redraw();
@@ -49,7 +44,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     close,
     timeout(reason: ModerationReason, text: string) {
       data &&
-        window.lishogi.pubsub.emit("socket.send", "timeout", {
+        window.lishogi.pubsub.emit('socket.send', 'timeout', {
           userId: data.id,
           reason: reason.key,
           text,
@@ -60,47 +55,47 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export const lineAction = () => h("i.mod", { attrs: { "data-icon": "" } });
+export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
-  if (ctrl.loading()) return [h("div.loading", spinner())];
+  if (ctrl.loading()) return [h('div.loading', spinner())];
   const data = ctrl.data();
   if (!data) return;
   const perms = ctrl.permissions();
 
   const infos = data.history
     ? h(
-        "div.infos.block",
+        'div.infos.block',
         [
-          window.lishogi.numberFormat(data.games || 0) + " games",
-          data.troll ? "TROLL" : undefined,
-          data.engine ? "ENGINE" : undefined,
-          data.booster ? "BOOSTER" : undefined,
+          window.lishogi.numberFormat(data.games || 0) + ' games',
+          data.troll ? 'TROLL' : undefined,
+          data.engine ? 'ENGINE' : undefined,
+          data.booster ? 'BOOSTER' : undefined,
         ]
-          .map((t) => t && h("span", t))
+          .map(t => t && h('span', t))
           .concat([
             h(
-              "a",
+              'a',
               {
                 attrs: {
-                  href: "/@/" + data.username + "?mod",
+                  href: '/@/' + data.username + '?mod',
                 },
               },
-              "profile"
+              'profile'
             ),
           ])
           .concat(
             perms.shadowban
               ? [
                   h(
-                    "a",
+                    'a',
                     {
                       attrs: {
-                        href: "/mod/" + data.username + "/communication",
+                        href: '/mod/' + data.username + '/communication',
                       },
                     },
-                    "coms"
+                    'coms'
                   ),
                 ]
               : []
@@ -109,50 +104,50 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     : undefined;
 
   const timeout = perms.timeout
-    ? h("div.timeout.block", [
-        h("strong", "Timeout 10 minutes for"),
-        ...ctrl.reasons.map((r) => {
+    ? h('div.timeout.block', [
+        h('strong', 'Timeout 10 minutes for'),
+        ...ctrl.reasons.map(r => {
           return h(
-            "a.text",
+            'a.text',
             {
-              attrs: { "data-icon": "p" },
-              hook: bind("click", () => ctrl.timeout(r, data.text)),
+              attrs: { 'data-icon': 'p' },
+              hook: bind('click', () => ctrl.timeout(r, data.text)),
             },
             r.name
           );
         }),
       ])
-    : h("div.timeout.block", [
-        h("strong", "Moderation"),
+    : h('div.timeout.block', [
+        h('strong', 'Moderation'),
         h(
-          "a.text",
+          'a.text',
           {
-            attrs: { "data-icon": "p" },
-            hook: bind("click", () => ctrl.timeout(ctrl.reasons[0], data.text)),
+            attrs: { 'data-icon': 'p' },
+            hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text)),
           },
-          "Timeout 10 minutes"
+          'Timeout 10 minutes'
         ),
       ]);
 
   const history = data.history
-    ? h("div.history.block", [
-        h("strong", "Timeout history"),
+    ? h('div.history.block', [
+        h('strong', 'Timeout history'),
         h(
-          "table",
+          'table',
           h(
-            "tbody.slist",
+            'tbody.slist',
             {
               hook: {
-                insert: () => window.lishogi.pubsub.emit("content_loaded"),
+                insert: () => window.lishogi.pubsub.emit('content_loaded'),
               },
             },
             data.history.map(function (e) {
-              return h("tr", [
-                h("td.reason", e.reason),
-                h("td.mod", e.mod),
+              return h('tr', [
+                h('td.reason', e.reason),
+                h('td.mod', e.mod),
                 h(
-                  "td",
-                  h("time.timeago", {
+                  'td',
+                  h('time.timeago', {
                     attrs: { datetime: e.date },
                   })
                 ),
@@ -164,24 +159,19 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     : undefined;
 
   return [
-    h("div.top", { key: "mod-" + data.id }, [
+    h('div.top', { key: 'mod-' + data.id }, [
       h(
-        "span.text",
+        'span.text',
         {
-          attrs: { "data-icon": "" },
+          attrs: { 'data-icon': '' },
         },
         [userLink(data.username)]
       ),
-      h("a", {
-        attrs: { "data-icon": "L" },
-        hook: bind("click", ctrl.close),
+      h('a', {
+        attrs: { 'data-icon': 'L' },
+        hook: bind('click', ctrl.close),
       }),
     ]),
-    h("div.mchat__content.moderation", [
-      h("i.line-text.block", ['"', data.text, '"']),
-      infos,
-      timeout,
-      history,
-    ]),
+    h('div.mchat__content.moderation', [h('i.line-text.block', ['"', data.text, '"']), infos, timeout, history]),
   ];
 }

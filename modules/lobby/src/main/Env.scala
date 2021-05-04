@@ -51,7 +51,7 @@ final class Env(
 
   wire[LobbySocket]
 
-  lila.common.Bus.subscribeFun("abortGame") {
-    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
+  lila.common.Bus.subscribeFun("abortGame") { case lila.game.actorApi.AbortedBy(pov) =>
+    abortListener(pov)
   }
 }

@@ -4,7 +4,7 @@ import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 import scala.util.Success
 
-import chess.Color
+import shogi.Color
 import lila.game.{ Game, GameRepo, Pov, Progress }
 
 // NOT thread safe
@@ -85,7 +85,7 @@ final private class GameProxy(
 
   private def scheduleFlushProgress() = {
     scheduledFlush.cancel()
-    scheduledFlush = scheduler.scheduleOnce(scheduleDelay){ flushProgress() }
+    scheduledFlush = scheduler.scheduleOnce(scheduleDelay) { flushProgress() }
   }
 
   private def flushProgress() = {

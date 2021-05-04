@@ -1,11 +1,11 @@
-import * as game from "game";
-import throttle from "common/throttle";
-import notify from "common/notification";
-import { isPlayerTurn } from "game";
-import * as xhr from "./xhr";
-import * as sound from "./sound";
-import RoundController from "./ctrl";
-import { Untyped } from "./interfaces";
+import * as game from 'game';
+import throttle from 'common/throttle';
+import notify from 'common/notification';
+import { isPlayerTurn } from 'game';
+import * as xhr from './xhr';
+import * as sound from './sound';
+import RoundController from './ctrl';
+import { Untyped } from './interfaces';
 
 const li = window.lishogi;
 
@@ -59,7 +59,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       handlers[o.t](o.d);
     } else
-      xhr.reload(ctrl).then((data) => {
+      xhr.reload(ctrl).then(data => {
         if (li.socket.getVersion() > data.player.version) {
           // race condition! try to reload again
           if (isRetry) li.reload();
@@ -73,9 +73,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      const fromOp = (ctrl.data.opponent.proposingTakeback =
-        o[ctrl.data.opponent.color]);
-      if (fromOp) notify(ctrl.noarg("yourOpponentProposesATakeback"));
+      const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
+      if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -90,24 +89,22 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
-        ctrl.corresClock.update(o.white, o.black);
+        ctrl.data.correspondence.sente = o.sente;
+        ctrl.data.correspondence.gote = o.gote;
+        ctrl.corresClock.update(o.sente, o.gote);
         ctrl.redraw();
       }
     },
     crowd(o) {
-      game.setOnGame(ctrl.data, "white", o["white"]);
-      game.setOnGame(ctrl.data, "black", o["black"]);
+      game.setOnGame(ctrl.data, 'sente', o['sente']);
+      game.setOnGame(ctrl.data, 'gote', o['gote']);
       ctrl.redraw();
     },
     endData: ctrl.endWithData,
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      if (
-        (ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color)
-      )
-        notify(ctrl.noarg("yourOpponentWantsToPlayANewGameWithYou"));
+      if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
+        notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -117,9 +114,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      const fromOp = (ctrl.data.opponent.offeringDraw =
-        by === ctrl.data.opponent.color);
-      if (fromOp) notify(ctrl.noarg("yourOpponentOffersADraw"));
+      const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
+      if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     berserk(color: Color) {
@@ -128,10 +124,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     gone: ctrl.setGone,
     goneIn: ctrl.setGone,
     checkCount(e) {
-      ctrl.data.player.checks =
-        ctrl.data.player.color == "white" ? e.white : e.black;
-      ctrl.data.opponent.checks =
-        ctrl.data.opponent.color == "white" ? e.white : e.black;
+      ctrl.data.player.checks = ctrl.data.player.color == 'sente' ? e.sente : e.gote;
+      ctrl.data.opponent.checks = ctrl.data.opponent.color == 'sente' ? e.sente : e.gote;
       ctrl.redraw();
     },
     simulPlayerMove(gameId: string) {
@@ -146,38 +140,41 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.setRedirecting();
         sound.move();
         li.hasToReload = true;
-        location.href = "/" + gameId;
+        location.href = '/' + gameId;
       }
     },
     simulEnd(simul: game.Simul) {
-      li.loadCssPath("modal");
+      li.loadCssPath('modal');
       $.modal(
         $(
-          "<p>Simul complete!</p><br /><br />" +
+          '<p>Simul complete!</p><br /><br />' +
             '<a class="button" href="/simul/' +
             simul.id +
             '">Back to ' +
             simul.name +
-            " simul</a>"
+            ' simul</a>'
         )
       );
     },
   };
 
-  li.pubsub.on("ab.rep", (n) => send("rep", { n }));
+  li.pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,
     handlers,
-    moreTime: throttle(300, () => send("moretime")),
+    moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => {
-      if(ctrl.clock && ctrl.clock.byoyomi > 0 && ctrl.clock.curPeriods[ctrl.data.game.player] < ctrl.clock.startPeriod){
+      if (
+        ctrl.clock &&
+        ctrl.clock.byoyomi > 0 &&
+        ctrl.clock.curPeriods[ctrl.data.game.player] < ctrl.clock.startPeriod
+      ) {
         ctrl.clock.nextPeriod(ctrl.data.game.player);
-        send("flag", ctrl.data.game.player);
-      }
-      else send("flag", ctrl.data.game.player);
+        send('flag', ctrl.data.game.player);
+      } else send('flag', ctrl.data.game.player);
     }),
-    berserk: throttle(200, () => send("berserk", null, { ackable: true })),
+    berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);
       send(typ, data);

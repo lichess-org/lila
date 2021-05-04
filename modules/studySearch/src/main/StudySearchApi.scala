@@ -7,7 +7,7 @@ import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.pgn.Tag
+import shogi.format.pgn.Tag
 import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
@@ -66,12 +66,12 @@ final class StudySearchApi(
       Fields.public -> s.study.isPublic
     )
 
-  private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
+  private val relevantPgnTags: Set[shogi.format.pgn.TagType] = Set(
     Tag.Variant,
     Tag.Event,
     Tag.Round,
-    Tag.White,
-    Tag.Black,
+    Tag.Sente,
+    Tag.Gote,
     Tag.ECO,
     Tag.Opening,
     Tag.Annotator

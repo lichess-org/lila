@@ -10,7 +10,7 @@
   @include transition();
   &::before {
     font-size: 1.3em;
-    margin-left: .4em;
+    margin-left: 0.4em;
   }
   &:hover {
     background: mix($c-secondary, $c-bg-page, 80%);

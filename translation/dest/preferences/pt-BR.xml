@@ -6,6 +6,7 @@
 	<string name="materialDifference">Diferença material</string>
 	<string name="boardHighlights">Luzes do tabuleiro (último movimento e xeque)</string>
 	<string name="pieceDestinations">Destino das peças (movimentos válidos e pré-movimentos)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Coordenadas do tabuleiro</string>
 	<string name="moveListWhilePlaying">Lista de movimentos</string>
 	<string name="pgnPieceNotation">Modo de notação das jogadas</string>

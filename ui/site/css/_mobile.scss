@@ -24,11 +24,11 @@
     }
     li:before {
       vertical-align: middle;
-      content:'\2713';
-      display:inline-block;
+      content: '\2713';
+      display: inline-block;
       color: $c-good;
       font-weight: bold;
-      padding:0 6px 0 0;
+      padding: 0 6px 0 0;
     }
   }
   .right-side {

@@ -4,8 +4,8 @@ import play.api.libs.json.{ JsObject, JsString }
 import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration._
 
-import chess.format.FEN
-import chess.variant.Variant
+import shogi.format.FEN
+import shogi.variant.Variant
 import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
 
@@ -39,7 +39,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { sris =>
-      val wms = sris.filter{ s => sri.map(s != _.value).getOrElse(true) } flatMap members.get
+      val wms = sris.filter { s => sri.map(s != _.value).getOrElse(true) } flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>

@@ -3,7 +3,7 @@ package lila.tournament
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import chess.Clock.{ Config => TournamentClock }
+import shogi.Clock.{ Config => TournamentClock }
 import lila.user.User
 
 private[tournament] case class WaitingUsers(

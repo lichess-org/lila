@@ -121,18 +121,18 @@ $c-slider: $c-setup;
         height: 50px;
         background-size: 50px 50px;
       }
-      &.white i {
-        background-image: img-url("../images/blackPiece.svg");
+      &.sente i {
+        background-image: img-url('../images/blackPiece.svg');
       }
-      &.black i {
-        background-image: img-url("../images/whitePiece.svg");
+      &.gote i {
+        background-image: img-url('../images/whitePiece.svg');
       }
       &.random {
         width: 85px;
         height: 85px;
         padding: 10px;
         i {
-          background-image: img-url("bwPiece.svg");
+          background-image: img-url('bwPiece.svg');
           background-size: 65px 65px;
           width: 65px;
           height: 65px;

@@ -15,7 +15,7 @@ object side {
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -28,7 +28,7 @@ object side {
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.FEN],
+      initialFen: Option[shogi.format.FEN],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -50,7 +50,7 @@ object side {
                       if (game.variant.exotic)
                         bits.variantLink(
                           game.variant,
-                          (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
+                          (if (game.variant == shogi.variant.KingOfTheHill) game.variant.shortName
                            else game.variant.name).toUpperCase,
                           initialFen = initialFen
                         )
@@ -66,7 +66,7 @@ object side {
                       if (game.variant.exotic)
                         bits.variantLink(
                           game.variant,
-                          (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
+                          (if (game.variant == shogi.variant.KingOfTheHill) game.variant.shortName
                            else game.variant.name).toUpperCase,
                           initialFen = initialFen
                         )
@@ -105,7 +105,7 @@ object side {
             game.winner.map { winner =>
               frag(
                 separator,
-                winner.color.fold(trans.blackIsVictorious, trans.whiteIsVictorious)() // swapped color
+                winner.color.fold(trans.blackIsVictorious, trans.whiteIsVictorious)()
               )
             }
           )
@@ -114,7 +114,7 @@ object side {
           .ifTrue(game.variant.chess960)
           .map(_.value)
           .flatMap {
-            chess.variant.Chess960.positionNumber
+            shogi.variant.Chess960.positionNumber
           }
           .map { number =>
             st.section(

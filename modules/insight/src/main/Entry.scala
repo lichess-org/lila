@@ -1,7 +1,7 @@
 package lila.insight
 
-import chess.opening.Ecopening
-import chess.{ Color, Role }
+import shogi.opening.Ecopening
+import shogi.{ Color, Role }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -74,13 +74,13 @@ case class Move(
 
 sealed abstract class Termination(val id: Int, val name: String)
 object Termination {
-  case object ClockFlag   extends Termination(1, "Clock flag")
-  case object Disconnect  extends Termination(2, "Disconnect")
-  case object Resignation extends Termination(3, "Resignation")
-  case object Draw        extends Termination(4, "Draw")
-  case object Stalemate   extends Termination(5, "Stalemate")
-  case object Checkmate   extends Termination(6, "Checkmate")
-  case object Impasse     extends Termination(7, "Impasse")
+  case object ClockFlag      extends Termination(1, "Clock flag")
+  case object Disconnect     extends Termination(2, "Disconnect")
+  case object Resignation    extends Termination(3, "Resignation")
+  case object Draw           extends Termination(4, "Draw")
+  case object Stalemate      extends Termination(5, "Stalemate")
+  case object Checkmate      extends Termination(6, "Checkmate")
+  case object Impasse        extends Termination(7, "Impasse")
   case object PerpetualCheck extends Termination(8, "Perpetual Check")
 
   val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate, Impasse, PerpetualCheck)
@@ -88,9 +88,9 @@ object Termination {
     (p.id, p)
   } toMap
 
-  import chess.{ Status => S }
+  import shogi.{ Status => S }
 
-  def fromStatus(s: chess.Status) =
+  def fromStatus(s: shogi.Status) =
     s match {
       case S.Timeout             => Disconnect
       case S.Outoftime           => ClockFlag
@@ -128,7 +128,7 @@ object Phase {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def of(div: chess.Division, ply: Int): Phase =
+  def of(div: shogi.Division, ply: Int): Phase =
     div.middle.fold[Phase](Opening) {
       case m if m > ply => Opening
       case _ =>

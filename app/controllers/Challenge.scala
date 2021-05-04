@@ -63,7 +63,7 @@ final class Challenge(
           }
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
+              Ok(html.challenge.theirs(c, json, user, get("color") flatMap shogi.Color.apply))
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
@@ -82,18 +82,18 @@ final class Challenge(
   def accept(id: String, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
-        val cc = color flatMap chess.Color.apply
+        val cc = color flatMap shogi.Color.apply
         isForMe(c) ?? api
           .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
           .flatMap {
             case Some(pov) =>
               negotiate(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("sente")(_.name))).fuccess,
                 api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
             case None =>
               negotiate(
-                html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,
+                html = Redirect(routes.Round.watcher(c.id, cc.fold("sente")(_.name))).fuccess,
                 api = _ => notFoundJson("Someone else accepted the challenge")
               )
           }
@@ -184,21 +184,22 @@ final class Challenge(
             single(
               "username" -> lila.user.DataForm.historicalUsernameField
             )
-          ).bindFromRequest().fold(
-            _ => funit,
-            username =>
-              ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
-                env.user.repo named username flatMap {
-                  case None => Redirect(routes.Challenge.show(c.id)).fuccess
-                  case Some(dest) =>
-                    env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
-                      case Some(denied) =>
-                        showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
-                      case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
-                    }
-                }
-              }(rateLimitedFu)
-          )
+          ).bindFromRequest()
+            .fold(
+              _ => funit,
+              username =>
+                ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
+                  env.user.repo named username flatMap {
+                    case None => Redirect(routes.Challenge.show(c.id)).fuccess
+                    case Some(dest) =>
+                      env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
+                        case Some(denied) =>
+                          showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
+                        case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
+                      }
+                  }
+                }(rateLimitedFu)
+            )
         else notFound
       }
     }
@@ -206,14 +207,15 @@ final class Challenge(
   def apiCreate(userId: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      env.setup.forms.api.user.bindFromRequest().fold(
-        err => BadRequest(apiFormError(err)).fuccess,
-        config => {
-          val cost = if (me.isApiHog) 0 else 1
-          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
-            ChallengeUserRateLimit(me.id, cost = cost) {
-              env.user.repo enabledById userId.toLowerCase flatMap {
-                destUser =>
+      env.setup.forms.api.user
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(apiFormError(err)).fuccess,
+          config => {
+            val cost = if (me.isApiHog) 0 else 1
+            ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
+              ChallengeUserRateLimit(me.id, cost = cost) {
+                env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
                   import lila.challenge.Challenge._
                   val timeControl = config.clock map {
                     TimeControl.Clock.apply
@@ -248,11 +250,11 @@ final class Challenge(
                           }
                       } map (_ as JSON)
                   }
-              }
+                }
+              }(rateLimitedFu)
             }(rateLimitedFu)
-          }(rateLimitedFu)
-        }
-      )
+          }
+        )
     }
 
   private def apiChallengeAccept(
@@ -284,37 +286,39 @@ final class Challenge(
   def openCreate =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      env.setup.forms.api.open.bindFromRequest().fold(
-        err => BadRequest(apiFormError(err)).fuccess,
-        config =>
-          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
-            import lila.challenge.Challenge._
-            val challenge = lila.challenge.Challenge
-              .make(
-                variant = config.variant,
-                initialFen = config.position,
-                timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
-                  TimeControl.Clock.apply
-                },
-                mode = chess.Mode.Casual,
-                color = "random",
-                challenger = Challenger.Open,
-                destUser = none,
-                rematchOf = none
-              )
-            (env.challenge.api create challenge) map {
-              case true =>
-                JsonOk(
-                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
-                  )
+      env.setup.forms.api.open
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(apiFormError(err)).fuccess,
+          config =>
+            ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
+              import lila.challenge.Challenge._
+              val challenge = lila.challenge.Challenge
+                .make(
+                  variant = config.variant,
+                  initialFen = config.position,
+                  timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
+                    TimeControl.Clock.apply
+                  },
+                  mode = shogi.Mode.Casual,
+                  color = "random",
+                  challenger = Challenger.Open,
+                  destUser = none,
+                  rematchOf = none
                 )
-              case false =>
-                BadRequest(jsonError("Challenge not created"))
-            }
-          }(rateLimitedFu) dmap (_ as JSON)
-      )
+              (env.challenge.api create challenge) map {
+                case true =>
+                  JsonOk(
+                    env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                      "urlSente" -> s"${env.net.baseUrl}/${challenge.id}?color=sente",
+                      "urlGote"  -> s"${env.net.baseUrl}/${challenge.id}?color=gote"
+                    )
+                  )
+                case false =>
+                  BadRequest(jsonError("Challenge not created"))
+              }
+            }(rateLimitedFu) dmap (_ as JSON)
+        )
     }
 
   def rematchOf(gameId: String) =

@@ -43,8 +43,8 @@ final class CoachPager(
         _.id
       )
     } map { users =>
-      coaches zip users collect {
-        case (coach, Some(user)) => Coach.WithUser(coach, user)
+      coaches zip users collect { case (coach, Some(user)) =>
+        Coach.WithUser(coach, user)
       }
     }
 }

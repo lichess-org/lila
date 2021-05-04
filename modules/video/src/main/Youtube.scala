@@ -42,8 +42,8 @@ final private[video] class Youtube(
                 }
               )
             )
-            .recover {
-              case e: Exception => logger.warn("update all youtube", e)
+            .recover { case e: Exception =>
+              logger.warn("update all youtube", e)
             }
         }
         .void
@@ -53,7 +53,7 @@ final private[video] class Youtube(
     api.video.allIds flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
+          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )

@@ -107,7 +107,7 @@
     <item quantity="other">Lipiți textul PGN aici, până la %s meciuri</item>
   </plurals>
   <string name="urlOfTheGame">URL-ul jocului</string>
-  <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s sau %2$s</string>
+  <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s</string>
   <string name="createChapter">Creați capitolul</string>
   <string name="configureLiveBroadcast">Configurați o transmisiune live</string>
   <string name="createStudy">Creați studiul</string>

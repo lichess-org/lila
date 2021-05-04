@@ -1,28 +1,28 @@
-import { h } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import { Convo } from "../interfaces";
-import { userName, bindMobileMousedown } from "./util";
-import renderMsgs from "./msgs";
-import renderActions from "./actions";
-import renderInteract from "./interact";
-import MsgCtrl from "../ctrl";
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { Convo } from '../interfaces';
+import { userName, bindMobileMousedown } from './util';
+import renderMsgs from './msgs';
+import renderActions from './actions';
+import renderInteract from './interact';
+import MsgCtrl from '../ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
   return h(
-    "div.msg-app__convo",
+    'div.msg-app__convo',
     {
       key: user.id,
     },
     [
-      h("div.msg-app__convo__head", [
-        h("div.msg-app__convo__head__left", [
-          h("span.msg-app__convo__head__back", {
-            attrs: { "data-icon": "I" },
+      h('div.msg-app__convo__head', [
+        h('div.msg-app__convo__head__left', [
+          h('span.msg-app__convo__head__back', {
+            attrs: { 'data-icon': 'I' },
             hook: bindMobileMousedown(ctrl.showSide),
           }),
           h(
-            "a.user-link.ulpt",
+            'a.user-link.ulpt',
             {
               attrs: { href: `/@/${user.name}` },
               class: {
@@ -30,37 +30,27 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
                 offline: !user.online,
               },
             },
-            [
-              h(
-                "i.line" +
-                  (user.id == "lishogi"
-                    ? ".moderator"
-                    : user.patron
-                    ? ".patron"
-                    : "")
-              ),
-              ...userName(user),
-            ]
+            [h('i.line' + (user.id == 'lishogi' ? '.moderator' : user.patron ? '.patron' : '')), ...userName(user)]
           ),
         ]),
-        h("div.msg-app__convo__head__actions", renderActions(ctrl, convo)),
+        h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
       ]),
       renderMsgs(ctrl, convo),
-      h("div.msg-app__convo__reply", [
+      h('div.msg-app__convo__reply', [
         convo.relations.out === false || convo.relations.in === false
           ? h(
-              "div.msg-app__convo__reply__block.text",
+              'div.msg-app__convo__reply__block.text',
               {
-                attrs: { "data-icon": "k" },
+                attrs: { 'data-icon': 'k' },
               },
-              "This conversation is blocked."
+              'This conversation is blocked.'
             )
           : convo.postable
           ? renderInteract(ctrl, user)
           : h(
-              "div.msg-app__convo__reply__block.text",
+              'div.msg-app__convo__reply__block.text',
               {
-                attrs: { "data-icon": "k" },
+                attrs: { 'data-icon': 'k' },
               },
               `${user.name} doesn't accept new messages.`
             ),

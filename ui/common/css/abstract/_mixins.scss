@@ -49,10 +49,14 @@
 }
 
 @mixin crosstable-large {
-  .crosstable__users { flex: 7 1 auto; }
+  .crosstable__users {
+    flex: 7 1 auto;
+  }
 }
 @mixin crosstable-small {
-  .crosstable__users { flex: 1 1 auto; }
+  .crosstable__users {
+    flex: 1 1 auto;
+  }
 }
 
 /* atm only chrome supports min-content, max-content */

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Сделайте ход, чтобы начать</string>
+  <string name="puzzlesSolved">задач решено</string>
+  <string name="newDailyHighscore">Новый дневной рекорд!</string>
+  <string name="newWeeklyHighscore">Новый недельный рекорд!</string>
+  <string name="newMonthlyHighscore">Новый месячный рекорд!</string>
+  <string name="newAllTimeHighscore">Новый рекорд за всё время!</string>
+  <string name="previousHighscoreWasX">Предыдущий рекорд - %s</string>
+  <string name="playAgain">Сыграть ещё раз</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 попытка</item>
+    <item quantity="few">%s попыток</item>
+    <item quantity="many">%s попыток</item>
+    <item quantity="other">%s попыток</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Сыграна одна серия в %2$s</item>
+    <item quantity="few">Сыграно %1$s серий в %2$s</item>
+    <item quantity="many">Сыграно %1$s серий в %2$s</item>
+    <item quantity="other">Сыграно %1$s серий в %2$s</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Очки</string>
+  <string name="moves">Ходы</string>
+  <string name="accuracy">Точность</string>
+  <string name="combo">Комбо</string>
+  <string name="time">Время</string>
+  <string name="timePerMove">Время на ход</string>
+  <string name="highestSolved">Труднейшая задача</string>
+  <string name="puzzlesPlayed">Сыграно задач</string>
+  <string name="newRun">Новая попытка (клавиша: Пробел)</string>
+  <string name="endRun">Закончить попытку (клавиша: Энтер)</string>
+  <string name="highscores">Лучшие результаты</string>
+  <string name="viewBestRuns">Посмотреть лучшие попытки</string>
+  <string name="bestRunOfDay">Лучшая попытка дня</string>
+  <string name="runs">Попытки</string>
+</resources>

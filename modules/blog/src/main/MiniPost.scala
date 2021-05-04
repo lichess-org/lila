@@ -14,7 +14,9 @@ case class MiniPost(
 
 object MiniPost {
 
-  def fromDocument(coll: String, imgSize: String = "icon", langCode: String = "en-US")(doc: io.prismic.Document): Option[MiniPost] = {
+  def fromDocument(coll: String, imgSize: String = "icon", langCode: String = "en-US")(
+      doc: io.prismic.Document
+  ): Option[MiniPost] = {
     for {
       title <- doc getText s"$coll.title"
       shortlede = ~(doc getText s"$coll.shortlede")

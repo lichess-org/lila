@@ -7,7 +7,7 @@ export interface Ctrl {
     since: number;
     to: number;
     tournaments: Tournament[];
-  }
+  };
 }
 
-export type Lanes = Array<Array<Tournament>>
+export type Lanes = Array<Array<Tournament>>;

@@ -6,6 +6,7 @@
 	<string name="materialDifference">הבדל בחומר</string>
 	<string name="boardHighlights">הדגשת המשבצות בלוח: המהלך האחרון ושח</string>
 	<string name="pieceDestinations">יעדי הכלים: מהלכים וקדם-מהלכים מותרים</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
 	<string name="pgnPieceNotation">תיאור המהלכים</string>

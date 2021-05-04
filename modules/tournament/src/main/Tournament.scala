@@ -1,12 +1,12 @@
 package lila.tournament
 
 import org.joda.time.{ DateTime, Duration, Interval }
-import ornicar.scalalib.Random
+import lila.common.ThreadLocalRandom
 import play.api.i18n.Lang
 import scala.util.chaining._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.{ Mode, Speed, StartingPosition }
+import shogi.Clock.{ Config => ClockConfig }
+import shogi.{ Mode, Speed, StartingPosition }
 import lila.common.Animal
 import lila.game.PerfPicker
 import lila.i18n.defaultLang
@@ -19,7 +19,7 @@ case class Tournament(
     status: Status,
     clock: ClockConfig,
     minutes: Int,
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     position: StartingPosition,
     mode: Mode,
     password: Option[String] = None,
@@ -136,7 +136,7 @@ case class Tournament(
 
   def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
-  def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+  def ratingVariant = if (variant.fromPosition) shogi.variant.Standard else variant
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
@@ -156,7 +156,7 @@ object Tournament {
       name: Option[String],
       clock: ClockConfig,
       minutes: Int,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       position: StartingPosition,
       mode: Mode,
       password: Option[String],
@@ -190,7 +190,7 @@ object Tournament {
       noStreak = !streakable,
       schedule = None,
       startsAt = startDate match {
-        case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
+        case Some(startDate) => startDate plusSeconds ThreadLocalRandom.nextInt(60)
         case None            => DateTime.now plusMinutes waitMinutes
       },
       description = description,
@@ -212,12 +212,12 @@ object Tournament {
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
+      startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
   def tournamentUrl(tourId: String): String = s"https://lishogi.org/tournament/$tourId"
 
-  def makeId = Random nextString 8
+  def makeId = ThreadLocalRandom nextString 8
 
   case class TournamentTable(tours: List[Tournament])
 

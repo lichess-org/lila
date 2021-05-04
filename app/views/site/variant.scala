@@ -11,7 +11,7 @@ object variant {
   def show(
       doc: io.prismic.Document,
       resolver: io.prismic.DocumentLinkResolver,
-      variant: chess.variant.Variant,
+      variant: shogi.variant.Variant,
       perfType: lila.rating.PerfType
   )(implicit ctx: Context) =
     layout(

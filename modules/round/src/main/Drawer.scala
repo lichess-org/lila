@@ -4,7 +4,7 @@ import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 
-import chess.Centis
+import shogi.Centis
 import lila.common.Bus
 
 final private[round] class Drawer(
@@ -37,7 +37,7 @@ final private[round] class Drawer(
         finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
       case Pov(g, color) if g playerCanOfferDraw color =>
         proxy.save {
-          messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
+          messenger.system(g, color.fold(trans.blackOffersDraw, trans.whiteOffersDraw).txt())
           Progress(g) map { g =>
             g.updatePlayer(color, _ offerDraw g.turns)
           }
@@ -56,7 +56,7 @@ final private[round] class Drawer(
         } inject List(Event.DrawOffer(by = none))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy.save {
-          messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
+          messenger.system(g, color.fold(trans.blackDeclinesDraw, trans.whiteDeclinesDraw).txt())
           Progress(g) map { g =>
             g.updatePlayer(!color, _.removeDrawOffer)
           }

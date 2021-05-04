@@ -30,7 +30,7 @@
     border-top: $border;
   }
   .categ > h2:hover {
-    background: fade-out($c-primary, .8);
+    background: fade-out($c-primary, 0.8);
   }
   .categ.active {
     border: $border;
@@ -51,7 +51,7 @@
     @extend %roboto, %flex-center;
     @include transition();
     font-size: 1.1em;
-    opacity: .9;
+    opacity: 0.9;
     color: $c-font;
 
     img,
@@ -66,19 +66,19 @@
       font-size: 30px;
     }
     &.active {
-      background: fade-out($c-primary, .8);
+      background: fade-out($c-primary, 0.8);
     }
     &.active img {
       background: $c-primary;
     }
     &.done:hover {
-      background: fade-out($c-good, .8);
+      background: fade-out($c-good, 0.8);
     }
     &.done img {
       background: $c-good;
     }
     &.future:hover {
-      background: fade-out($c-primary, .8);
+      background: fade-out($c-primary, 0.8);
     }
     &.future img {
       opacity: 0.7;

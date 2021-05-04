@@ -1,7 +1,23 @@
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
+  }
+}
+
+$pocket-col1-height: auto;
+$pocket-height: 60px;
+
+.pocket {
+  &-top {
+    grid-area: pocket-top;
+  }
+  &-bottom {
+    grid-area: pocket-bot;
+  }
+  &-c1 {
+    max-width: $pocket-height;
   }
 }
 
@@ -9,63 +25,135 @@
   grid-area: main;
   display: grid;
 
-  &__side { grid-area: side; }
-  &__board { grid-area: board; }
-  &__tools { grid-area: tools; }
-  &__controls { grid-area: controls; }
-  &__history { grid-area: history; }
-  .eval-gauge { grid-area: gauge; }
+  &__side {
+    @extend %zen;
+    grid-area: side;
+  }
+
+  &__board {
+    grid-area: board;
+  }
+
+  &__tools {
+    grid-area: tools;
+  }
+
+  &__controls {
+    @extend %zen;
+    grid-area: controls;
+  }
+
+  &__session {
+    @extend %zen;
+    grid-area: session;
+    align-self: start;
+  }
+
+  .eval-gauge {
+    grid-area: gauge;
+  }
 
   grid-template-areas:
-  'board'
-  'controls'
-  'tools'
-  'history'
-  'side';
-  grid-row-gap: $block-gap;
+    'pocket-top'
+    'board'
+    'pocket-bot'
+    'controls'
+    'tools'
+    'session'
+    'side';
 
-  &__moves { display: none; }
+  &__moves {
+    display: none;
+  }
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
-    grid-template-rows: fit-content(0);
+    grid-template-rows: $pocket-height auto $pocket-height;
     grid-template-areas:
-    'board   gauge tools'
-    'history .     controls'
-    'side    side  side';
+      'board   gauge pocket-top'
+      'board   gauge tools'
+      'board   gauge pocket-bot'
+      'session .     controls'
+      'side    side  side';
 
-    &__moves { display: block; }
+    &__moves {
+      display: block;
+    }
   }
 
   @include breakpoint($mq-col3) {
     grid-template-areas:
-    'side    . board   gauge tools'
-    '.       . history .     controls';
-    grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
+      'side    . board   gauge pocket-top'
+      'side    . board   gauge tools'
+      'side    . board   gauge pocket-bot'
+      'side    . session .     controls'
+      'side    . .       .     .';
+    grid-template-columns:
+      $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap)
+      $col3-uniboard-table;
   }
 
   &__side {
     display: grid;
-    grid-template-areas:
-    'metas'
-    'user';
     grid-gap: $block-gap;
-    @include breakpoint($mq-x-small) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-      'metas user';
+    grid-template-areas: 'user' 'theme' 'metas' 'config';
+
+    .puzzle-replay & {
+      grid-template-areas: 'replay' 'user' 'metas' 'config';
     }
+
+    @include breakpoint($mq-xx-small) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
+      grid-template-rows: min-content min-content min-content;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas replay' 'metas user' 'config user';
+      }
+    }
+
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
-      grid-template-rows: min-content;
-      grid-template-areas:
-      'metas'
-      'user';
+      grid-template-areas: 'metas' 'user' 'theme' 'config';
+      grid-template-rows: min-content min-content min-content;
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas' 'replay' 'user' 'config';
+      }
     }
-    &__metas { grid-area: metas; }
-    &__user { grid-area: user; }
+
+    &__metas {
+      grid-area: metas;
+    }
+
+    &__user {
+      grid-area: user;
+    }
+
+    &__config {
+      grid-area: config;
+    }
+
+    &__theme {
+      grid-area: theme;
+    }
+
+    &__replay {
+      grid-area: replay;
+    }
+  }
+}
+
+@include breakpoint($mq-col1-uniboard) {
+  .pocket {
+    &-top {
+      margin-bottom: #{$block-gap};
+    }
+    &-bottom {
+      margin-top: #{$block-gap};
+    }
   }
 }

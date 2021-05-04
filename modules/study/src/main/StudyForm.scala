@@ -29,7 +29,7 @@ object StudyForm {
         asStr: Option[String] = None
     ) {
 
-      def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
+      def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
 
       def as: As =
         asStr match {
@@ -79,7 +79,7 @@ object StudyForm {
         pgn: String
     ) {
 
-      def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
+      def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
 
       def toChapterDatas =
         MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>

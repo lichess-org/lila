@@ -155,8 +155,7 @@ final class Env(
 
   def cli = wire[Cli]
 
-  Bus.subscribeFun("fishnet") {
-    case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-      automaticEmail.onFishnetKey(userId, key)
+  Bus.subscribeFun("fishnet") { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+    automaticEmail.onFishnetKey(userId, key)
   }
 }

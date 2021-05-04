@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Color
+import shogi.Color
 import lila.game.Game
 import lila.user.User
 
@@ -8,21 +8,21 @@ case class SwissPairing(
     id: Game.ID,
     swissId: Swiss.Id,
     round: SwissRound.Number,
-    white: User.ID,
-    black: User.ID,
+    sente: User.ID,
+    gote: User.ID,
     status: SwissPairing.Status
 ) {
-  def apply(c: Color)             = c.fold(white, black)
+  def apply(c: Color)             = c.fold(sente, gote)
   def gameId                      = id
-  def players                     = List(white, black)
-  def has(userId: User.ID)        = white == userId || black == userId
-  def colorOf(userId: User.ID)    = chess.Color(white == userId)
-  def opponentOf(userId: User.ID) = if (white == userId) black else white
+  def players                     = List(sente, gote)
+  def has(userId: User.ID)        = sente == userId || gote == userId
+  def colorOf(userId: User.ID)    = shogi.Color(sente == userId)
+  def opponentOf(userId: User.ID) = if (sente == userId) gote else sente
   def winner: Option[User.ID]     = (~status.toOption).map(apply)
   def isOngoing                   = status.isLeft
   def resultFor(userId: User.ID)  = winner.map(userId.==)
-  def whiteWins                   = status == Right(Some(Color.White))
-  def blackWins                   = status == Right(Some(Color.Black))
+  def senteWins                   = status == Right(Some(Color.Sente))
+  def goteWins                    = status == Right(Some(Color.Gote))
   def isDraw                      = status == Right(None)
 }
 
@@ -35,8 +35,8 @@ object SwissPairing {
   val ongoing: Status = Left(Ongoing)
 
   case class Pending(
-      white: User.ID,
-      black: User.ID
+      sente: User.ID,
+      gote: User.ID
   )
   case class Bye(player: User.ID)
 
@@ -57,13 +57,11 @@ object SwissPairing {
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
-    pairings.foldLeft[PairingMap](Map.empty) {
-      case (acc, pairing) =>
-        pairing.players.foldLeft(acc) {
-          case (acc, player) =>
-            acc.updatedWith(player) { acc =>
-              (~acc).updated(pairing.round, pairing).some
-            }
+    pairings.foldLeft[PairingMap](Map.empty) { case (acc, pairing) =>
+      pairing.players.foldLeft(acc) { case (acc, player) =>
+        acc.updatedWith(player) { acc =>
+          (~acc).updated(pairing.round, pairing).some
         }
+      }
     }
 }

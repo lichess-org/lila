@@ -6,6 +6,7 @@
 	<string name="materialDifference">Materialunterschied</string>
 	<string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
 	<string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
 	<string name="pgnPieceNotation">Zugnotation</string>

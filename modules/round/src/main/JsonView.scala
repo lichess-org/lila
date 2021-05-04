@@ -10,8 +10,8 @@ import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import chess.format.{ FEN, Forsyth }
-import chess.{ Clock, Color }
+import shogi.format.{ FEN, Forsyth }
+import shogi.{ Clock, Color }
 
 import actorApi.SocketStatus
 
@@ -34,7 +34,7 @@ final class JsonView(
   private val moretimeSeconds = moretime.value.toSeconds.toInt
 
   private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
+    (game.variant == shogi.variant.ThreeCheck) option game.history.checkCount(color)
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
@@ -64,8 +64,7 @@ final class JsonView(
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byId) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map {
-      case socket ~ opponentUser ~ takebackable ~ moretimeable =>
+      moretimer.isAllowedIn(pov.game) map { case socket ~ opponentUser ~ takebackable ~ moretimeable =>
         import pov._
         Json
           .obj(
@@ -93,12 +92,12 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
+                "autoQueen" -> (if (pov.game.variant == shogi.variant.Antichess) Pref.AutoQueen.NEVER
                                 else pref.autoQueen),
-                "clockTenths" -> pref.clockTenths,
+                "clockTenths"    -> pref.clockTenths,
                 "clockCountdown" -> pref.clockCountdown,
-                "moveEvent"   -> pref.moveEvent,
-                "pieceNotation" -> pref.pieceNotation
+                "moveEvent"      -> pref.moveEvent,
+                "pieceNotation"  -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -109,6 +108,7 @@ final class JsonView(
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("submitMove" -> {
@@ -135,7 +135,7 @@ final class JsonView(
               "millisToMove" -> game.timeForFirstMove.millis
             )
           })
-    }
+      }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
@@ -162,8 +162,7 @@ final class JsonView(
       withFlags: WithFlags
   ) =
     getSocketStatus(pov.game) zip
-      userRepo.pair(pov.player.userId, pov.opponent.userId) map {
-      case (socket, (playerUser, opponentUser)) =>
+      userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
         import pov._
         Json
           .obj(
@@ -196,37 +195,38 @@ final class JsonView(
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
                 "clockCountdown"    -> pref.clockCountdown,
-                "pieceNotation" -> pref.pieceNotation
+                "pieceNotation"     -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
+              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
-          .add("tv" -> tv.collect {
-            case OnLishogiTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+          .add("tv" -> tv.collect { case OnLishogiTv(channel, flip) =>
+            Json.obj("channel" -> channel, "flip" -> flip)
           })
-          .add("userTv" -> tv.collect {
-            case OnUserTv(userId) => Json.obj("id" -> userId)
+          .add("userTv" -> tv.collect { case OnUserTv(userId) =>
+            Json.obj("id" -> userId)
           })
 
-    }
+      }
 
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
       initialFen: Option[FEN],
-      orientation: chess.Color,
+      orientation: shogi.Color,
       owner: Boolean,
       me: Option[User],
-      division: Option[chess.Division] = none
+      division: Option[shogi.Division] = none
   ) = {
     import pov._
-    val fen = Forsyth >> game.chess
+    val fen = Forsyth >> game.shogi
     Json
       .obj(
         "game" -> Json
@@ -234,7 +234,7 @@ final class JsonView(
             "id"         -> gameId,
             "variant"    -> game.variant,
             "opening"    -> game.opening,
-            "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
+            "initialFen" -> initialFen.fold(shogi.format.Forsyth.initial)(_.value),
             "fen"        -> fen,
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,
@@ -257,12 +257,13 @@ final class JsonView(
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
             "resizeHandle"      -> pref.resizeHandle,
-            "pieceNotation" -> pref.pieceNotation
+            "pieceNotation"     -> pref.pieceNotation
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
-          .add("destination" -> (pref.destination && !pref.isBlindfold)),
+          .add("destination" -> (pref.destination && !pref.isBlindfold))
+          .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
         "path"         -> pov.game.turns,
         "userAnalysis" -> true
       )

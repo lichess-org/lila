@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
 
-import chess.StartingPosition
+import shogi.StartingPosition
 
 final private class TournamentScheduler(
     api: TournamentApi,
@@ -15,7 +15,7 @@ final private class TournamentScheduler(
   import Schedule.Freq._
   import Schedule.Speed._
   import Schedule.Plan
-  import chess.variant._
+  import shogi.variant._
 
   implicit def ec = context.dispatcher
 
@@ -34,7 +34,6 @@ final private class TournamentScheduler(
   // )
   private[tournament] def allWithConflicts(rightNow: DateTime): List[Plan] = {
     val today       = rightNow.withTimeAtStartOfDay
-    val tomorrow    = rightNow plusDays 1
     val startOfYear = today.dayOfYear.withMinimumValue
 
     class OfMonth(fromNow: Int) {
@@ -67,13 +66,7 @@ final private class TournamentScheduler(
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
     def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
-    val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
-
     val std = StartingPosition.initial
-    def opening(offset: Int) = {
-      val positions = StartingPosition.featurable
-      positions((today.getDayOfYear + offset) % positions.size)
-    }
 
     val farFuture = today plusMonths 7
 
@@ -101,36 +94,34 @@ Thank you all, you rock!"""
       ).flatten,
       List( // yearly tournaments!
         secondWeekOf(JANUARY).withDayOfWeek(MONDAY)      -> Bullet,
-        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY)    -> SuperBlitz,
-        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY)     -> Blitz,
+        secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY)    -> Blitz,
+        secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY)     -> SuperBlitz,
         secondWeekOf(APRIL).withDayOfWeek(THURSDAY)      -> Rapid,
         secondWeekOf(MAY).withDayOfWeek(FRIDAY)          -> Classical,
-        secondWeekOf(JUNE).withDayOfWeek(SATURDAY)       -> Blitz,
+        secondWeekOf(JUNE).withDayOfWeek(SATURDAY)       -> HyperRapid,
         secondWeekOf(JULY).withDayOfWeek(MONDAY)         -> Bullet,
-        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY)      -> SuperBlitz,
-        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz,
+        secondWeekOf(AUGUST).withDayOfWeek(TUESDAY)      -> Blitz,
+        secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> HyperRapid,
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> Blitz
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 17) filter farFuture.isAfter map { date =>
-            Schedule(Yearly, speed, Standard, std, date).plan
-          }
+      ).flatMap { case (day, speed) =>
+        at(day, 13) filter farFuture.isAfter map { date =>
+          Schedule(Yearly, speed, Standard, std, date).plan
+        }
       },
       List(thisMonth, nextMonth).flatMap { month =>
         List(
           List( // monthly standard tournaments!
-            month.lastWeek.withDayOfWeek(MONDAY)    -> Rapid,
+            month.lastWeek.withDayOfWeek(MONDAY)    -> HyperRapid,
             month.lastWeek.withDayOfWeek(TUESDAY)   -> SuperBlitz,
             month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.lastWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical
-          ).flatMap {
-            case (day, speed) =>
-              at(day, 17) map { date =>
-                Schedule(Monthly, speed, Standard, std, date).plan
-              }
+          ).flatMap { case (day, speed) =>
+            at(day, 13) map { date =>
+              Schedule(Monthly, speed, Standard, std, date).plan
+            }
           },
           List( // shield tournaments!
             month.firstWeek.withDayOfWeek(MONDAY)    -> Bullet,
@@ -138,17 +129,16 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.firstWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical
-          ).flatMap {
-            case (day, speed) =>
-              at(day, 16) map { date =>
-                Schedule(Shield, speed, Standard, std, date) plan {
-                  _.copy(
-                    name = s"${speed.toString} Shield",
-                    spotlight = Some(TournamentShield spotlight speed.toString)
-                  )
-                }
+          ).flatMap { case (day, speed) =>
+            at(day, 12) map { date =>
+              Schedule(Shield, speed, Standard, std, date) plan {
+                _.copy(
+                  name = s"${speed.toString} Shield",
+                  spotlight = Some(TournamentShield spotlight speed.toString)
+                )
               }
-          },
+            }
+          }
         ).flatten
       },
       List( // weekly standard tournaments!
@@ -156,36 +146,37 @@ Thank you all, you rock!"""
         nextTuesday   -> SuperBlitz,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
-        nextFriday    -> Classical,
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 17) map { date =>
-            Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
-          }
+        nextFriday    -> Classical
+      ).flatMap { case (day, speed) =>
+        at(day, 13) map { date =>
+          Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
+        }
       },
       List( // week-end elite tournaments!
         nextSaturday -> Blitz,
-        nextSunday   -> Bullet
-      ).flatMap {
-        case (day, speed) =>
-          at(day, 17) map { date =>
-            Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
-          }
+        nextSunday   -> HyperRapid
+      ).flatMap { case (day, speed) =>
+        at(day, 13) map { date =>
+          Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
+        }
       },
       List( // daily tournaments!
         at(today, 14) map { date =>
-          Schedule(Daily, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 16) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 18) map { date =>
-          Schedule(Daily, Blitz, Standard, std, date pipe orTomorrow).plan
-        },
-        at(today, 20) map { date =>
           Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
         },
+        at(today, 20) map { date =>
+          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
+        },
         at(today, 22) map { date =>
+          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 0) map { date =>
           Schedule(Daily, Classical, Standard, std, date pipe orTomorrow).plan
         }
       ).flatten,
@@ -194,15 +185,21 @@ Thank you all, you rock!"""
           Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 4) map { date =>
-          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, SuperBlitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
           Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 8) map { date =>
+          Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 10) map { date =>
           Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 12) map { date =>
+          Schedule(Eastern, Classical, Standard, std, date pipe orTomorrow).plan
         }
-      ).flatten,
+      ).flatten
       // hourly standard tournaments!
       // (-1 to 6).toList.flatMap { hourDelta =>
       //   val date = rightNow plusHours hourDelta
@@ -247,7 +244,7 @@ Thank you all, you rock!"""
       //            List(
       //              Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan,
       //              Schedule(Hourly, speed, Standard, std, finalDate plusMinutes 30, conditions)
-      //                .plan(_.copy(clock = chess.Clock.Config(60, 1)))
+      //                .plan(_.copy(clock = shogi.Clock.Config(60, 1)))
       //            )
       //          else
       //            List(
@@ -266,10 +263,9 @@ Thank you all, you rock!"""
 
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
     newTourns
-      .foldLeft(List[Tournament]()) {
-        case (tourns, t) =>
-          if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
-          else t :: tourns
+      .foldLeft(List[Tournament]()) { case (tourns, t) =>
+        if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
+        else t :: tourns
       } reverse
   }
 

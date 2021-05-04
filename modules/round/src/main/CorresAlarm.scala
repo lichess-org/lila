@@ -30,11 +30,10 @@ final private class CorresAlarm(
 
   private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds) { run() }
 
-  system.scheduler.scheduleOnce(10 seconds){scheduleNext()}
+  system.scheduler.scheduleOnce(10 seconds) { scheduleNext() }
 
-  Bus.subscribeFun("finishGame") {
-    case lila.game.actorApi.FinishGame(game, _, _) =>
-      if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id))
+  Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _, _) =>
+    if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id))
   }
 
   Bus.subscribeFun("moveEventCorres") {
@@ -79,5 +78,5 @@ final private class CorresAlarm(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .mon(_.round.alarm.time)
-      .addEffectAnyway{ scheduleNext() }
+      .addEffectAnyway { scheduleNext() }
 }

@@ -20,9 +20,9 @@ import lila.user.User
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
-import chess.Color
+import shogi.Color
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
@@ -57,10 +57,10 @@ final class AssessApi(
     getPlayerAssessmentById(gameId + "/" + color.name)
 
   def getGameResultsById(gameId: String) =
-    getResultsByGameIdAndColor(gameId, Color.White) zip
-      getResultsByGameIdAndColor(gameId, Color.Black) map { a =>
-      PlayerAssessments(a._1, a._2)
-    }
+    getResultsByGameIdAndColor(gameId, Color.Sente) zip
+      getResultsByGameIdAndColor(gameId, Color.Gote) map { a =>
+        PlayerAssessments(a._1, a._2)
+      }
 
   private def getPlayerAggregateAssessment(
       userId: String,
@@ -115,12 +115,12 @@ final class AssessApi(
         else true
       shouldAssess.?? {
         val analysed        = Analysed(game, analysis, holdAlerts)
-        val assessibleWhite = Assessible(analysed, chess.White)
-        val assessibleBlack = Assessible(analysed, chess.Black)
-        createPlayerAssessment(assessibleWhite playerAssessment) >>
-          createPlayerAssessment(assessibleBlack playerAssessment)
+        val assessibleSente = Assessible(analysed, shogi.Sente)
+        val assessibleGote  = Assessible(analysed, shogi.Gote)
+        createPlayerAssessment(assessibleSente playerAssessment) >>
+          createPlayerAssessment(assessibleGote playerAssessment)
       } >> ((shouldAssess && thenAssessUser) ?? {
-        game.whitePlayer.userId.??(assessUser) >> game.blackPlayer.userId.??(assessUser)
+        game.sentePlayer.userId.??(assessUser) >> game.gotePlayer.userId.??(assessUser)
       })
     }
 
@@ -151,9 +151,9 @@ final class AssessApi(
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def randomPercent(percent: Int): Boolean =
-    Random.nextInt(100) < percent
+    ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User, black: User): Funit = {
+  def onGameReady(game: Game, sente: User, gote: User): Funit = {
 
     import AutoAnalysis.Reason._
 
@@ -163,13 +163,13 @@ final class AssessApi(
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
     } && game.perfType ?? { perfType =>
-      player.color.fold(white, black).perfs(perfType).progress >= 100
+      player.color.fold(sente, gote).perfs(perfType).progress >= 100
     }
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
 
-    def winnerUserOption = game.winnerColor.map(_.fold(white, black))
+    def winnerUserOption = game.winnerColor.map(_.fold(sente, gote))
     def winnerNbGames =
       for {
         user     <- winnerUserOption
@@ -178,10 +178,10 @@ final class AssessApi(
 
     def suspCoefVariation(c: Color) = {
       val x = noFastCoefVariation(game player c)
-      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean())
+      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
-    lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
-    lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
+    lazy val senteSuspCoefVariation = suspCoefVariation(shogi.Sente)
+    lazy val goteSuspCoefVariation  = suspCoefVariation(shogi.Gote)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if (!game.analysable) fuccess(none)
@@ -200,14 +200,14 @@ final class AssessApi(
       else
         gameRepo holdAlerts game map { holdAlerts =>
           if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
-          // white has consistent move times
-          else if (whiteSuspCoefVariation.isDefined && randomPercent(70))
-            whiteSuspCoefVariation.map(_ => WhiteMoveTime)
-          // black has consistent move times
-          else if (blackSuspCoefVariation.isDefined && randomPercent(70))
-            blackSuspCoefVariation.map(_ => BlackMoveTime)
+          // sente has consistent move times
+          else if (senteSuspCoefVariation.isDefined && randomPercent(70))
+            senteSuspCoefVariation.map(_ => SenteMoveTime)
+          // gote has consistent move times
+          else if (goteSuspCoefVariation.isDefined && randomPercent(70))
+            goteSuspCoefVariation.map(_ => GoteMoveTime)
           // don't analyse half of other bullet games
-          else if (game.speed == chess.Speed.Bullet && randomPercent(50)) none
+          else if (game.speed == shogi.Speed.Bullet && randomPercent(50)) none
           // someone blurs a lot
           else if (game.players exists manyBlurs) Blurs.some
           // the winner shows a great rating progress

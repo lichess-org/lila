@@ -2,7 +2,7 @@
 <resources>
 	<string name="playWithAFriend">和好友下棋</string>
 	<string name="playWithTheMachine">和電腦下棋</string>
-	<string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，請分享這個網址</string>
+	<string name="toInviteSomeoneToPlayGiveThisUrl">請分享這個網址以邀人下棋</string>
 	<string name="gameOver">遊戲結束</string>
 	<string name="waitingForOpponent">等待對手</string>
 	<string name="waiting">請稍等</string>
@@ -15,10 +15,10 @@
 	<string name="resign">認輸</string>
 	<string name="checkmate">將死</string>
 	<string name="stalemate">逼和</string>
-	<string name="white">白方</string>
-	<string name="black">黑方</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="white">後手</string>
+	<string name="black">先手</string>
+	<string name="shitate">下手</string>
+	<string name="uwate">上手</string>
 	<string name="randomColor">隨機選色</string>
 	<string name="createAGame">開始對局</string>
 	<string name="whiteIsVictorious">白方勝</string>
@@ -35,8 +35,8 @@
 	<string name="joinTheGame">加入這盤棋</string>
 	<string name="whitePlays">白方走棋</string>
 	<string name="blackPlays">黑方走棋</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">輪到下手</string>
+	<string name="uwatePlays">輪到上手</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
 	</plurals>
@@ -242,8 +242,8 @@
 	<string name="send">發送</string>
 	<string name="incrementInSeconds">增加秒數</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
-	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="numberOfPeriods">考慮時間</string>
+	<string name="freeOnlineChess">免費線上將棋</string>
 	<string name="spectators">旁觀者：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s 評分</item>
@@ -309,7 +309,7 @@
 	<string name="mustBeInTeam">需要在%s團隊內</string>
 	<string name="youAreNotInTeam">您不在%s團隊中</string>
 	<string name="backToGame">返回棋局</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">免費的線上將棋平台。用簡單的界面開始對局。毋須註冊，沒有廣告，也不需要任何插件。和電腦、朋友或是隨機對手來上一局！</string>
 	<string name="xJoinedTeamY">%1$s加入%2$s隊</string>
 	<string name="xCreatedTeamY">%1$s組建%2$s隊</string>
 	<string name="xStartedStreaming">%s開始直播</string>
@@ -320,7 +320,7 @@
 	<string name="apply">套用</string>
 	<string name="save">儲存</string>
 	<string name="leaderboard">排行榜</string>
-	<string name="selectHandicap">Select handicap</string>
+	<string name="selectHandicap">選擇讓子</string>
 	<string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
 	<string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
 	<string name="fromPosition">自定義局面</string>
@@ -328,14 +328,13 @@
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
 	<string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifuExplanation">貼上棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">已導入%s盤棋局</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">這是驗證碼。</string>
 	<string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">請完成驗證。</string>
 	<string name="notACheckmate">沒有將死</string>
 	<string name="whiteCheckmatesInOneMove">白方一步將死</string>
 	<string name="blackCheckmatesInOneMove">黑方一步棋將死對手</string>
@@ -382,7 +381,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="advancedSettings">高級設定</string>
 	<string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
 	<string name="inappropriateNameWarning">即便只是一點點的違規都有可能導致您的帳號被封鎖。</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">若不填入錦標賽的名稱，將會用一位著名棋手名字來做為錦標賽名稱。</string>
 	<string name="recommendNotTouching">我們建議您不要調整這些數據</string>
 	<string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
 	<string name="showAdvancedSettings">顯示進階設定</string>
@@ -412,11 +411,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="boardEditor">棋盤編輯器</string>
 	<string name="setTheBoard">設定版型</string>
 	<string name="popularOpenings">使用率最高的開局</string>
-	<string name="handicaps">Handicaps</string>
-	<string name="handicap">Handicap</string>
+	<string name="handicaps">讓子：</string>
+	<string name="handicap">讓子</string>
 	<string name="startPosition">初始佈局</string>
 	<string name="clearBoard">清空棋盤</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">輸入後手的著法</string>
 	<string name="savePosition">保存佈局</string>
 	<string name="loadPosition">裝入佈局</string>
 	<string name="isPrivate">私人</string>
@@ -433,8 +432,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="country">國家</string>
 	<string name="socialMediaLinks">官方社群連結</string>
 	<string name="inlineNotation">棋譜集中顯示</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">觀看Lishogi TV</string>
+	<string name="previouslyOnLishogiTV">過去的Lishogi TV對局</string>
 	<string name="onlinePlayers">在線棋手</string>
 	<string name="activeToday">本日活躍棋手</string>
 	<string name="activePlayers">活躍棋手</string>
@@ -687,15 +686,15 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">這是已登入到您帳戶的裝置列表，您可以登出任何您無法識別的裝置。</string>
 	<string name="alternativelyYouCanX">或者，您可以%s</string>
 	<string name="revokeAllSessions">登出所有裝置</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
-	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="playChessEverywhere">隨處下棋！</string>
+	<string name="asFreeAsLishogi">完全免費。</string>
+	<string name="builtForTheLoveOfChessNotMoney">由將棋的熱愛所創造</string>
 	<string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
 	<string name="zeroAdvertisement">沒有廣告</string>
 	<string name="fullFeatured">功能全面</string>
 	<string name="phoneAndTablet">手機和平板電腦</string>
 	<string name="bulletBlitzClassical">快棋與慢棋</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="correspondenceChess">通訊將棋</string>
 	<string name="onlineAndOfflinePlay">線上或離線下棋</string>
 	<string name="viewTheSolution">看解答</string>
 	<string name="followAndChallengeFriends">添加好友並與他們對戰</string>
@@ -727,10 +726,10 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="usernameSuffixInvalid">使用者名稱的結尾必須為字母或數字</string>
 	<string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
 	<string name="usernameUnacceptable">此使用者名稱不可用</string>
-	<string name="directlySupportLishogi">Directly support Lishogi</string>
+	<string name="directlySupportLishogi">直接支援 Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
-	<string name="shogiResources">Shogi resources</string>
+	<string name="chessBasics">將棋基本</string>
+	<string name="shogiResources">將棋資源</string>
 	<string name="coaches">教練</string>
 	<string name="invalidPgn">無效的PGN</string>
 	<string name="invalidFen">無效的FEN</string>
@@ -804,7 +803,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
 	<string name="timeoutExpires">封鎖結束至%s</string>
 	<string name="why">為什麼？</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantChessExperience">我們專注於為所有人提供愉快的將棋體驗</string>
 	<string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
 	<string name="potentialProblem">當檢測到不良行為時，我們將顯示此消息</string>
 	<string name="howToAvoidThis">如何避免這件事發生?</string>
@@ -816,7 +815,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thankYouForReading">感謝您的閱讀!</string>
 	<string name="lifetimeScore">帳戶總分</string>
 	<string name="currentMatchScore">最近的對局分數</string>
-	<string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a shogi computer, book, database or another person).</string>
+	<string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
 	<string name="agreementNice">我會一直尊重其他的玩家</string>
 	<string name="agreementAccount">我同意我不會創造許多副帳</string>
 	<string name="agreementPolicy">我同意我將會遵守Lishogi的規則</string>
@@ -830,7 +829,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="rapidDesc">一般模式:8到25分鐘</string>
 	<string name="classicalDesc">經典模式:25分鐘以上</string>
 	<string name="correspondenceDesc">長期模式:一天或好幾天一步</string>
-	<string name="puzzleDesc">Shogi tactics trainer</string>
+	<string name="puzzleDesc">練習問題</string>
 	<string name="important">重要</string>
 	<string name="yourQuestionMayHaveBeenAnswered">您的問題可能已經有答案了%1$s</string>
 	<string name="inTheFAQ">在F.A.Q裡</string>
@@ -844,12 +843,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
 	<string name="subscribe">訂閱</string>
 	<string name="unsubscribe">取消訂閱</string>
-	<string name="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">先手拒絕和棋</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
-	<string name="notationType">Notation</string>
+	<string name="notationType">記譜方法</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
-	<string name="notationSystem">Notation</string>
+	<string name="notationSystem">記譜方法</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>

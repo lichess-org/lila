@@ -36,10 +36,9 @@ object index {
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
-            areYouCoach(a(href := "https://lishogi.org/help/master")(nmOrFideTitle())),
+            becomeACoach(),
             br,
-            if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle())(confirmTitle())
-            else sendApplication(contactEmailLink)
+            sendApplication(contactEmailLink)
           )
         ),
         div(cls := "coach-list__main coach-main box")(
@@ -50,12 +49,11 @@ object index {
                 "coach-lang",
                 lang.fold("All languages")(LangList.name),
                 langSelections
-                  .map {
-                    case (code, name) =>
-                      a(
-                        href := routes.Coach.search(code, order.key),
-                        cls := (code == lang.fold("all")(_.code)).option("current")
-                      )(name)
+                  .map { case (code, name) =>
+                    a(
+                      href := routes.Coach.search(code, order.key),
+                      cls := (code == lang.fold("all")(_.code)).option("current")
+                    )(name)
                   }
               ),
               views.html.base.bits.mselect(

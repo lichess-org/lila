@@ -1,7 +1,7 @@
 package lila.api
 
-import chess.format.FEN
-import chess.format.pgn.Pgn
+import shogi.format.FEN
+import shogi.format.pgn.Pgn
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
@@ -42,23 +42,22 @@ final class PgnDump(
     }
 
   private def addEvals(p: Pgn, analysis: Analysis): Pgn =
-    analysis.infos.foldLeft(p) {
-      case (pgn, info) =>
-        pgn.updateTurn(
-          info.turn,
-          turn =>
-            turn.update(
-              info.color,
-              move => {
-                val comment = info.cp
-                  .map(_.pawns.toString)
-                  .orElse(info.mate.map(m => s"#${m.value}"))
-                move.copy(
-                  comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
-                )
-              }
-            )
-        )
+    analysis.infos.foldLeft(p) { case (pgn, info) =>
+      pgn.updateTurn(
+        info.turn,
+        turn =>
+          turn.update(
+            info.color,
+            move => {
+              val comment = info.cp
+                .map(_.pawns.toString)
+                .orElse(info.mate.map(m => s"#${m.value}"))
+              move.copy(
+                comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
+              )
+            }
+          )
+      )
     }
 
   def formatter(flags: WithFlags) =

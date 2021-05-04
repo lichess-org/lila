@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import chess.format.Forsyth
+import shogi.format.Forsyth
 import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
@@ -74,7 +74,7 @@ final class Analyser(
                 variant = variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
-              // if black moves first, use 1 as startPly so the analysis doesn't get reversed
+              // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
               startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
               sender = sender
             )
@@ -95,19 +95,18 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip uciMemo.get(game) map {
-      case (initialFen, moves) =>
-        makeWork(
-          game = Work.Game(
-            id = game.id,
-            initialFen = initialFen,
-            studyId = none,
-            variant = game.variant,
-            moves = moves take maxPlies mkString " "
-          ),
-          startPly = game.chess.startedAtTurn,
-          sender = sender
-        )
+    gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+      makeWork(
+        game = Work.Game(
+          id = game.id,
+          initialFen = initialFen,
+          studyId = none,
+          variant = game.variant,
+          moves = moves take maxPlies mkString " "
+        ),
+        startPly = game.shogi.startedAtTurn,
+        sender = sender
+      )
     }
 
   private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =

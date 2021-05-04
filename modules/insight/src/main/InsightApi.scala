@@ -30,7 +30,7 @@ final class InsightApi(
       .aggregate(question, user)
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
-        val gameIds  = scala.util.Random.shuffle(clusters.flatMap(_.gameIds)) take 4
+        val gameIds  = lila.common.ThreadLocalRandom.shuffle(clusters.flatMap(_.gameIds)) take 4
         gameRepo.userPovsByGameIds(gameIds, user) map { povs =>
           Answer(question, clusters, povs)
         }

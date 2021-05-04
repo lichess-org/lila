@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.pref.Pref.Color
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -52,7 +53,7 @@ object coordinate {
           ),
           form(cls := "color buttons", action := routes.Coordinate.color())(
             st.group(cls := "radio")(
-              List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
+              List(Color.GOTE, Color.RANDOM, Color.SENTE).map { id =>
                 div(
                   input(
                     tpe := "radio",
@@ -70,9 +71,7 @@ object coordinate {
         div(cls := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
-          div(cls := "next_coord", id := "next_coord2"),
-          shogigroundBoard,
-          div(cls := "bottom_color")
+          shogigroundBoard
         ),
         div(cls := "coord-trainer__table")(
           div(cls := "explanation")(
@@ -84,9 +83,21 @@ object coordinate {
             ),
             p(trans.coordinates.aSquareNameAppears())
           ),
-          button(cls := "start button button-fat")(trans.coordinates.startTraining())
+          div(cls := "box current-status")(
+            h1(trans.storm.score()),
+            div(cls := "coord-trainer__score")(0)
+          ),
+          div(cls := "box current-status")(
+            h1(trans.time()),
+            div(cls := "coord-trainer__timer")(30.0)
+          )
         ),
-        div(cls := "coord-trainer__score")(0),
+        div(cls := "coord-trainer__button")(
+          div(cls := "coord-start")(
+            button(cls := "start button button-fat")(trans.coordinates.startTraining())
+          ),
+          div(cls := "current-color")
+        ),
         div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))
       )
     )
@@ -94,16 +105,15 @@ object coordinate {
   def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
     frag(
       List(
-        (trans.coordinates.averageScoreAsWhiteX, score.black), // swapped
-        (trans.coordinates.averageScoreAsBlackX, score.white)
-      ).map {
-        case (averageScoreX, s) =>
-          div(cls := "chart_container")(
-            s.nonEmpty option frag(
-              p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
-              div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
-            )
+        (trans.coordinates.averageScoreAsWhiteX, score.gote),
+        (trans.coordinates.averageScoreAsBlackX, score.sente)
+      ).map { case (averageScoreX, s) =>
+        div(cls := "chart_container")(
+          s.nonEmpty option frag(
+            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
           )
+        )
       }
     )
 }

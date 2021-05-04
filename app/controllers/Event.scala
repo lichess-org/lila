@@ -50,13 +50,15 @@ final class Event(env: Env) extends LilaController(env) {
   def create =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
       implicit val req = ctx.body
-      api.createForm.bindFromRequest().fold(
-        err => BadRequest(html.event.create(err)).fuccess,
-        data =>
-          api.create(data, me.id) map { event =>
-            Redirect(routes.Event.edit(event.id)).flashSuccess
-          }
-      )
+      api.createForm
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.event.create(err)).fuccess,
+          data =>
+            api.create(data, me.id) map { event =>
+              Redirect(routes.Event.edit(event.id)).flashSuccess
+            }
+        )
     }
 
   def cloneE(id: String) =

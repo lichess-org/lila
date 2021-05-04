@@ -128,20 +128,19 @@ object student {
         a(href := routes.Clas.studentForm(c.id.value))("create more classes"),
         "."
       ),
-      created map {
-        case Student.WithPassword(student, password) =>
-          flashMessage(cls := "student-add__created")(
-            strong(
-              trans.clas.lishogiProfileXCreatedForY(
-                userIdLink(student.userId.some, withOnline = false),
-                student.realName
-              ),
-              p(trans.clas.makeSureToCopy()),
-              pre(
-                trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
-              )
+      created map { case Student.WithPassword(student, password) =>
+        flashMessage(cls := "student-add__created")(
+          strong(
+            trans.clas.lishogiProfileXCreatedForY(
+              userIdLink(student.userId.some, withOnline = false),
+              student.realName
+            ),
+            p(trans.clas.makeSureToCopy()),
+            pre(
+              trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
             )
           )
+        )
       },
       standardFlash(),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(

@@ -15,15 +15,15 @@ export default function (ctrl: EditorCtrl): VNode {
         ctrl.shogiground = Shogiground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
-      destroy: _ => ctrl.shogiground!.destroy()
-    }
+      destroy: _ => ctrl.shogiground!.destroy(),
+    },
   });
 }
 
 function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   const handler = onMouseEvent(ctrl);
   ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
-    el.addEventListener(ev, handler)
+    el.addEventListener(ev, handler);
   });
 }
 
@@ -49,10 +49,17 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
     // do not generate corresponding mouse event
     // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
-    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove')) e.preventDefault();
+    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove'))
+      e.preventDefault();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
-      if (sel === 'pointer' || (ctrl.shogiground && ctrl.shogiground.state.draggable.current && ctrl.shogiground.state.draggable.current.newPiece)) return;
+      if (
+        sel === 'pointer' ||
+        (ctrl.shogiground &&
+          ctrl.shogiground.state.draggable.current &&
+          ctrl.shogiground.state.draggable.current.newPiece)
+      )
+        return;
       const pos = util.eventPosition(e);
       if (!pos) return;
       const key = ctrl.shogiground!.getKeyAtDomPos(pos);
@@ -63,7 +70,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         const existingPiece = ctrl.shogiground!.state.pieces.get(key);
         const piece = {
           color: sel[0],
-          role: sel[1]
+          role: sel[1],
         };
         const samePiece = existingPiece && piece.color == existingPiece.color && piece.role == existingPiece.role;
 
@@ -71,7 +78,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           deleteOrHidePiece(ctrl, key, e);
           placeDelete = true;
           const endEvents = { mousedown: 'mouseup', touchstart: 'touchend' };
-          document.addEventListener(endEvents[e.type], () => placeDelete = false, { once: true });
+          document.addEventListener(endEvents[e.type], () => (placeDelete = false), { once: true });
         } else if (!placeDelete && (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)) {
           ctrl.shogiground!.setPieces(new Map([[key, piece]]));
           ctrl.onChange();
@@ -100,7 +107,9 @@ function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event): void {
       (ctrl.shogiground!.state.draggable.current!.element as HTMLElement).style.display = 'none';
       ctrl.shogiground!.cancelMove();
     }
-    document.addEventListener('touchend', () => deletePiece(ctrl, key), { once: true });
+    document.addEventListener('touchend', () => deletePiece(ctrl, key), {
+      once: true,
+    });
   } else if (e.type === 'mousedown' || key !== downKey) {
     deletePiece(ctrl, key);
   }
@@ -114,37 +123,37 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
     fen: ctrl.cfg.fen,
-    orientation: ctrl.options.orientation || 'white',
+    orientation: ctrl.options.orientation || 'sente',
     coordinates: !ctrl.cfg.embed,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,
-      color: 'both'
+      color: 'both',
     },
     animation: {
-      duration: ctrl.cfg.animation.duration
+      duration: ctrl.cfg.animation.duration,
     },
     premovable: {
-      enabled: false
+      enabled: false,
     },
     drawable: {
-      enabled: true
+      enabled: true,
     },
     draggable: {
       showGhost: true,
-      deleteOnDropOff: true
+      deleteOnDropOff: true,
     },
     selectable: {
-      enabled: false
+      enabled: false,
     },
     highlight: {
-      lastMove: false
+      lastMove: false,
     },
+    notation: ctrl.cfg.pieceNotation,
     events: {
       change: ctrl.onChange.bind(ctrl),
-      insert: changeColorHandle
+      insert: changeColorHandle,
     },
-    notation: ctrl.cfg.pieceNotation
   };
 }

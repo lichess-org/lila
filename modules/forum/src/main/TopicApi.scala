@@ -38,11 +38,10 @@ final private[forum] class TopicApi(
           }
         }
       }
-      res <- data ?? {
-        case (categ, topic) =>
-          lila.mon.forum.topic.view.increment()
-          env.topicRepo incViews topic
-          env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
+      res <- data ?? { case (categ, topic) =>
+        lila.mon.forum.topic.view.increment()
+        env.topicRepo incViews topic
+        env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -51,41 +50,40 @@ final private[forum] class TopicApi(
       data: DataForm.TopicData,
       me: User
   )(implicit ctx: UserContext): Fu[Topic] =
-    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
-      case (slug, lang) =>
-        val topic = Topic.make(
-          categId = categ.slug,
-          slug = slug,
-          name = noShouting(data.name),
-          userId = me.id,
-          troll = me.marks.troll,
-          hidden = categ.quiet || data.looksLikeVenting
-        )
-        val post = Post.make(
-          topicId = topic.id,
-          author = none,
-          userId = ctx.me map (_.id),
-          ip = ctx.isAnon option ctx.req.remoteAddress,
-          troll = ctx.troll,
-          hidden = topic.hidden,
-          text = spam.replace(data.post.text),
-          lang = lang map (_.language),
-          number = 1,
-          categId = categ.id,
-          modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
-        )
-        env.postRepo.coll.insert.one(post) >>
-          env.topicRepo.coll.insert.one(topic withPost post) >>
-          env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
-          (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-          (!categ.quiet ?? env.recent.invalidate()) >>-
-          ctx.userId.?? { userId =>
-            val text = s"${topic.name} ${post.text}"
-            shutup ! {
-              if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
-            }
-          } >>- {
+    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+      val topic = Topic.make(
+        categId = categ.slug,
+        slug = slug,
+        name = noShouting(data.name),
+        userId = me.id,
+        troll = me.marks.troll,
+        hidden = categ.quiet || data.looksLikeVenting
+      )
+      val post = Post.make(
+        topicId = topic.id,
+        author = none,
+        userId = ctx.me map (_.id),
+        ip = ctx.isAnon option ctx.req.remoteAddress,
+        troll = ctx.troll,
+        hidden = topic.hidden,
+        text = spam.replace(data.post.text),
+        lang = lang map (_.language),
+        number = 1,
+        categId = categ.id,
+        modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
+      )
+      env.postRepo.coll.insert.one(post) >>
+        env.topicRepo.coll.insert.one(topic withPost post) >>
+        env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
+        (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
+        (!categ.quiet ?? env.recent.invalidate()) >>-
+        ctx.userId.?? { userId =>
+          val text = s"${topic.name} ${post.text}"
+          shutup ! {
+            if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text)
+            else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
+          }
+        } >>- {
           (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
             timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
           }

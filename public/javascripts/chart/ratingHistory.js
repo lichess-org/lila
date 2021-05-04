@@ -18,9 +18,9 @@ lishogi.ratingHistoryChart = function (data, singlePerfName) {
     }
     return result;
   }
-  var $el = $("div.rating-history");
-  var $profile = $("#us_profile");
-  var singlePerfIndex = data.findIndex((x) => x.name === singlePerfName);
+  var $el = $('div.rating-history');
+  var $profile = $('#us_profile');
+  var singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && data[singlePerfIndex].points.length === 0) {
     $el.hide();
     return;
@@ -28,8 +28,8 @@ lishogi.ratingHistoryChart = function (data, singlePerfName) {
   var indexFilter = function (_, i) {
     return !singlePerfName || i === singlePerfIndex;
   };
-  lishogi.loadScript("javascripts/chart/common.js").done(function () {
-    lishogi.chartCommon("highstock").done(function () {
+  lishogi.loadScript('javascripts/chart/common.js').done(function () {
+    lishogi.chartCommon('highstock').done(function () {
       // support: Fx when user bio overflows
       var disabled = {
         enabled: false,
@@ -40,51 +40,51 @@ lishogi.ratingHistoryChart = function (data, singlePerfName) {
       $el.each(function () {
         var dashStyles = [
           // order of perfs from RatingChartApi.scala
-          "Solid", // Bullet
-          "Solid", // Blitz
-          "Solid", // Rapid
-          "Solid", // Classical
-          "ShortDash", // Correspondence
-          "ShortDash", // Chess960
-          "ShortDash", // KotH
-          "ShortDot", // 3+
-          "ShortDot", // Anti
-          "ShortDot", // Atomic
-          "Dash", // Horde
-          "ShortDot", // Racing Kings
-          "Dash", // Crazyhouse
-          "Dash", // Puzzle
-          "Dash", // Ultrabullet
+          'Solid', // Bullet
+          'Solid', // Blitz
+          'Solid', // Rapid
+          'Solid', // Classical
+          'ShortDash', // Correspondence
+          'ShortDash', // Chess960
+          'ShortDash', // KotH
+          'ShortDot', // 3+
+          'ShortDot', // Anti
+          'ShortDot', // Atomic
+          'Dash', // Horde
+          'ShortDot', // Racing Kings
+          'Dash', // Crazyhouse
+          'Dash', // Puzzle
+          'Dash', // Ultrabullet
         ].filter(indexFilter);
-        $(this).highcharts("StockChart", {
+        $(this).highcharts('StockChart', {
           yAxis: {
             title: noText,
           },
           credits: disabled,
           legend: disabled,
           colors: [
-            "#56B4E9",
-            "#0072B2",
-            "#009E73",
-            "#459F3B",
-            "#F0E442",
-            "#E69F00",
-            "#D55E00",
-            "#CC79A7",
-            "#DF5353",
-            "#66558C",
-            "#99E699",
-            "#FFAEAA",
-            "#56B4E9",
-            "#0072B2",
-            "#009E73",
+            '#56B4E9',
+            '#0072B2',
+            '#009E73',
+            '#459F3B',
+            '#F0E442',
+            '#E69F00',
+            '#D55E00',
+            '#CC79A7',
+            '#DF5353',
+            '#66558C',
+            '#99E699',
+            '#FFAEAA',
+            '#56B4E9',
+            '#0072B2',
+            '#009E73',
           ].filter(indexFilter),
           rangeSelector: {
             enabled: true,
             selected: 1,
             inputEnabled: false,
             labelStyle: {
-              display: "none",
+              display: 'none',
             },
           },
           tooltip: {
@@ -111,7 +111,7 @@ lishogi.ratingHistoryChart = function (data, singlePerfName) {
               });
               return {
                 name: serie.name,
-                type: "line",
+                type: 'line',
                 dashStyle: dashStyles[i],
                 marker: disabled,
                 data: smoothDates(originalDatesAndRatings),

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Hádanky</string>
+  <string name="puzzleThemes">Témata hádanek</string>
+  <string name="recommended">Doporučené</string>
+  <string name="phases">Pozice</string>
+  <string name="motifs">Motivy</string>
+  <string name="advanced">Pokročilé</string>
+  <string name="lengths">Délka</string>
+  <string name="mates">Maty</string>
+  <string name="goals">Cíle</string>
+  <string name="origin">Původní</string>
+  <string name="specialMoves">Speciální tahy</string>
+  <string name="didYouLikeThisPuzzle">Líbí se vám tato hádanka?</string>
+  <string name="voteToLoadNextOne">Hlasujte pro načtení dalšího!</string>
+  <string name="yourPuzzleRatingX">Vaše hodnocení: %s</string>
+  <string name="findTheBestMoveForWhite">Najděte nejlepší tah pro bílého.</string>
+  <string name="findTheBestMoveForBlack">Najděte nejlepší tah pro černého.</string>
+  <string name="toGetPersonalizedPuzzles">Možnost přizpůsobit hádanky:</string>
+  <string name="puzzleId">Hádanky %s</string>
+  <string name="puzzleOfTheDay">Hádanka dne</string>
+  <string name="clickToSolve">Klikněte pro vyřešení</string>
+  <string name="goodMove">Dobrý tah</string>
+  <string name="bestMove">Nejlepší tah!</string>
+  <string name="keepGoing">Pokračujte ....</string>
+  <string name="puzzleSuccess">Povedlo se!</string>
+  <string name="puzzleComplete">Hádanka dokončena!</string>
+  <string name="notTheMove">To není tah!</string>
+  <string name="trySomethingElse">Zkuste něco jiného.</string>
+  <string name="ratingX">Hodnocení: %s</string>
+  <string name="hidden">skryté</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Hráno %s x</item>
+    <item quantity="few">Hráno %s x</item>
+    <item quantity="many">Hráno %s x</item>
+    <item quantity="other">Hráno %s x</item>
+  </plurals>
+  <plurals name="xMovesLeft">
+    <item quantity="one">%s tah vlevo</item>
+    <item quantity="few">%s tahy vlevo</item>
+    <item quantity="many">%s tahy vlevo</item>
+    <item quantity="other">%s tahy vlevo</item>
+  </plurals>
+  <string name="fromGameLink">Z partie %s</string>
+  <string name="puzzleSource">Zdroj: %s</string>
+  <string name="continueTraining">Pokračovat v tréninku</string>
+  <string name="difficultyLevel">Úroveň obtížnosti</string>
+  <string name="normal">Normální</string>
+  <string name="easier">Snadný</string>
+  <string name="easiest">Nejjednodušší</string>
+  <string name="harder">Těžší</string>
+  <string name="hardest">Nejtěžší</string>
+  <string name="example">Příklad</string>
+  <string name="addAnotherTheme">Přidat novou šablonu</string>
+  <string name="jumpToNextPuzzleImmediately">Okamžitě přejít na další hádanku</string>
+  <string name="puzzleDashboard">Žebříček hádanek</string>
+  <string name="improvementAreas">Oblasti zlepšování</string>
+  <string name="strengths">Síla</string>
+  <string name="history">Historie hádanek</string>
+  <string name="solved">vyřešeno</string>
+  <string name="failed">nezdařilo se</string>
+</resources>

@@ -1,7 +1,7 @@
 package lila.tournament
 
-import chess.StartingPosition
-import chess.variant.Variant
+import shogi.StartingPosition
+import shogi.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 
@@ -194,39 +194,42 @@ object Schedule {
     case object UltraBullet extends Speed(5)
     case object HyperBullet extends Speed(10)
     case object Bullet      extends Speed(20)
-    case object HippoBullet extends Speed(25)
-    case object SuperBlitz  extends Speed(30)
-    case object Blitz       extends Speed(40)
+    case object SuperBlitz  extends Speed(25)
+    case object Blitz       extends Speed(30)
+    case object HyperRapid  extends Speed(40)
     case object Rapid       extends Speed(50)
     case object Classical   extends Speed(60)
     val all: List[Speed] =
-      List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
+      List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, HyperRapid, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
     def apply(key: String)       = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
     def byId(id: Int)            = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
-        case (a, b) if a == b                              => true
-        case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
-        case _                                             => false
+        // Similar speed tournaments should not be simultaneously scheduled
+        case (a, b) if a == b                            => true
+        case (Bullet, SuperBlitz) | (SuperBlitz, Bullet) => true
+        case (Blitz, HyperRapid) | (HyperRapid, Blitz)   => true
+        case _                                           => false
       }
-    def fromClock(clock: chess.Clock.Config) = {
+    def fromClock(clock: shogi.Clock.Config) = {
       val time = clock.estimateTotalSeconds
-      if (time < 30) UltraBullet
-      else if (time < 60) HyperBullet
-      else if (time < 120) Bullet
-      else if (time < 180) HippoBullet
-      else if (time < 480) Blitz
+      if (time < 60) UltraBullet
+      else if (time < 180) HyperBullet
+      else if (time < 300) Bullet
+      else if (time < 450) SuperBlitz
+      else if (time < 600) Blitz
+      else if (time < 1000) HyperRapid
       else if (time < 1500) Rapid
       else Classical
     }
     def toPerfType(speed: Speed) =
       speed match {
-        case UltraBullet                        => PerfType.UltraBullet
-        case HyperBullet | Bullet | HippoBullet => PerfType.Bullet
-        case SuperBlitz | Blitz                 => PerfType.Blitz
-        case Rapid                              => PerfType.Rapid
-        case Classical                          => PerfType.Classical
+        case UltraBullet          => PerfType.UltraBullet
+        case HyperBullet | Bullet => PerfType.Bullet
+        case SuperBlitz | Blitz   => PerfType.Blitz
+        case HyperRapid | Rapid   => PerfType.Rapid
+        case Classical            => PerfType.Classical
       }
   }
 
@@ -240,98 +243,83 @@ object Schedule {
 
   private[tournament] def durationFor(s: Schedule): Int = {
     import Freq._, Speed._
-    import chess.variant._
+    import shogi.variant._
 
     (s.freq, s.variant, s.speed) match {
 
       case (Hourly, _, UltraBullet | HyperBullet | Bullet) => 27
-      case (Hourly, _, HippoBullet | SuperBlitz | Blitz)   => 57
+      case (Hourly, _, SuperBlitz | Blitz | HyperRapid)    => 57
       case (Hourly, _, Rapid) if s.hasMaxRating            => 57
       case (Hourly, _, Rapid | Classical)                  => 117
 
-      case (Daily | Eastern, Standard, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz)      => 120
-      case (Daily | Eastern, _, Blitz)             => 90
-      case (Daily | Eastern, _, Rapid | Classical) => 150
-      case (Daily | Eastern, _, _)                 => 60
+      case (Daily | Eastern, Standard, HyperRapid) => 150
+      case (Daily | Eastern, _, HyperRapid)        => 120
+      case (Daily | Eastern, _, Rapid | Classical) => 180
+      case (Daily | Eastern, _, _)                 => 75
 
-      case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
-      case (Weekly, _, HippoBullet | SuperBlitz | Blitz)   => 60 * 3
-      case (Weekly, _, Rapid)                              => 60 * 4
-      case (Weekly, _, Classical)                          => 60 * 5
+      case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 1 + 30
+      case (Weekly, _, SuperBlitz | Blitz)                 => 60 * 2
+      case (Weekly, _, HyperRapid | Rapid)                 => 60 * 3
+      case (Weekly, _, Classical)                          => 60 * 4
 
-      case (Weekend, Crazyhouse, _)                         => 60 * 2
-      case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
-      case (Weekend, _, HippoBullet | SuperBlitz)           => 60 * 2
-      case (Weekend, _, Blitz)                              => 60 * 3
-      case (Weekend, _, Rapid)                              => 60 * 4
-      case (Weekend, _, Classical)                          => 60 * 5
+      case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 60 * 1 + 30
+      case (Weekend, _, SuperBlitz | Blitz)                 => 60 * 2
+      case (Weekend, _, HyperRapid)                         => 60 * 2
+      case (Weekend, _, Rapid)                              => 60 * 3
+      case (Weekend, _, Classical)                          => 60 * 4
 
-      case (Monthly, _, UltraBullet)              => 60 * 2
-      case (Monthly, _, HyperBullet | Bullet)     => 60 * 3
-      case (Monthly, _, HippoBullet | SuperBlitz) => 60 * 3 + 30
-      case (Monthly, _, Blitz)                    => 60 * 4
-      case (Monthly, _, Rapid)                    => 60 * 5
-      case (Monthly, _, Classical)                => 60 * 6
+      case (Monthly, _, UltraBullet)          => 60 * 2
+      case (Monthly, _, HyperBullet | Bullet) => 60 * 3
+      case (Monthly, _, SuperBlitz | Blitz)   => 60 * 3 + 30
+      case (Monthly, _, HyperRapid)           => 60 * 4
+      case (Monthly, _, Rapid)                => 60 * 5
+      case (Monthly, _, Classical)            => 60 * 6
 
-      case (Shield, _, UltraBullet)              => 60 * 3
-      case (Shield, _, HyperBullet | Bullet)     => 60 * 4
-      case (Shield, _, HippoBullet | SuperBlitz) => 60 * 5
-      case (Shield, _, Blitz)                    => 60 * 6
-      case (Shield, _, Rapid)                    => 60 * 8
-      case (Shield, _, Classical)                => 60 * 10
+      case (Shield, _, UltraBullet)          => 60 * 1 + 30
+      case (Shield, _, HyperBullet | Bullet) => 60 * 2
+      case (Shield, _, SuperBlitz | Blitz)   => 60 * 3
+      case (Shield, _, HyperRapid)           => 60 * 4
+      case (Shield, _, Rapid)                => 60 * 6
+      case (Shield, _, Classical)            => 60 * 8
 
-      case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 4
-      case (Yearly, _, HippoBullet | SuperBlitz)           => 60 * 5
-      case (Yearly, _, Blitz)                              => 60 * 6
-      case (Yearly, _, Rapid)                              => 60 * 8
-      case (Yearly, _, Classical)                          => 60 * 10
+      case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
+      case (Yearly, _, SuperBlitz | Blitz)                 => 60 * 3
+      case (Yearly, _, HyperRapid)                         => 60 * 4
+      case (Yearly, _, Rapid)                              => 60 * 6
+      case (Yearly, _, Classical)                          => 60 * 8
 
       case (Marathon, _, _)             => 60 * 24 // lol
-      case (ExperimentalMarathon, _, _) => 60 * 4
+      case (ExperimentalMarathon, _, _) => 60 * 3
 
       case (Unique, _, _) => 60 * 6
+      case (_, _, _)      => 60 * 1
     }
   }
 
   private val standardIncHours         = Set(1, 7, 13, 19)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
-  private def zhInc(s: Schedule)       = s.at.getHourOfDay % 2 == 0
-
-  private def zhEliteTc(s: Schedule) = {
-    val TC = chess.Clock.Config
-    s.at.getDayOfMonth / 7 match {
-      case 0 => TC(3 * 60, 0, 0, 1)
-      case 1 => TC(1 * 60, 1, 0, 1)
-      case 2 => TC(3 * 60, 2, 0, 1)
-      case 3 => TC(1 * 60, 0, 0, 1)
-      case _ => TC(2 * 60, 0, 0, 1) // for the sporadic 5th Saturday
-    }
-  }
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
-    import chess.variant._
+    import shogi.variant._
 
-    val TC = chess.Clock.Config
+    val TC = shogi.Clock.Config
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz)                 => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1, 0, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2, 0, 1)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2, 0, 1)
+      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2, 0, 1)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2, 0, 1)
 
-      case (_, _, UltraBullet) => TC(15, 0, 0, 1)
-      case (_, _, HyperBullet) => TC(30, 0, 0, 1)
-      case (_, _, Bullet)      => TC(60, 0, 0, 1)
-      case (_, _, HippoBullet) => TC(2 * 60, 0, 0, 1)
-      case (_, _, SuperBlitz)  => TC(3 * 60, 0, 0, 1)
-      case (_, _, Blitz)       => TC(5 * 60, 0, 0, 1)
-      case (_, _, Rapid)       => TC(10 * 60, 0, 0, 1)
-      case (_, _, Classical)   => TC(20 * 60, 10, 0, 1)
+      case (_, _, UltraBullet) => TC(30, 0, 0, 1)       // 30
+      case (_, _, HyperBullet) => TC(60, 1, 0, 1)       // 2 * 60
+      case (_, _, Bullet)      => TC(2 * 60, 2, 0, 1)   // 4 * 60
+      case (_, _, SuperBlitz)  => TC(3 * 60, 3, 0, 1)   // 6 * 60
+      case (_, _, Blitz)       => TC(8 * 60, 0, 0, 1)   // 8 * 60
+      case (_, _, HyperRapid)  => TC(10 * 60, 0, 0, 1)  // 10 * 60
+      case (_, _, Rapid)       => TC(10 * 60, 0, 10, 1) // 10 * 60 + 10 * 25
+      case (_, _, Classical)   => TC(20 * 60, 10, 0, 1) // 30 * 60
     }
   }
   private[tournament] def addCondition(s: Schedule) =
@@ -344,21 +332,20 @@ object Schedule {
 
       val nbRatedGame = (s.freq, s.speed) match {
 
-        case (Hourly | Daily | Eastern, HyperBullet | Bullet)             => 0
-        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 0
-        case (Hourly | Daily | Eastern, Rapid)                            => 0
+        case (Hourly | Daily | Eastern, HyperBullet | Bullet) => 0
+        case (Hourly | Daily | Eastern, SuperBlitz | Blitz)   => 0
+        case (Hourly | Daily | Eastern, HyperRapid | Rapid)   => 0
 
-        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)             => 1
-        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 1
-        case (Weekly | Weekend | Monthly | Shield, Rapid)                            => 1
+        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet) => 1
+        case (Weekly | Weekend | Monthly | Shield, SuperBlitz | Blitz)   => 1
+        case (Weekly | Weekend | Monthly | Shield, HyperRapid | Rapid)   => 1
 
         case _ => 0
       }
 
       val minRating = (s.freq, s.variant) match {
-        case (Weekend, chess.variant.Crazyhouse) => 2100
-        case (Weekend, _)                        => 2200
-        case _                                   => 0
+        // case (Weekend, _)                        => 2200
+        case _ => 0
       }
 
       Condition.All(

@@ -12,16 +12,16 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
     for {
       categs <- env.categRepo withTeams teams
       views <- (categs map { categ =>
-          env.postApi get (categ lastPostId forUser) map { topicPost =>
-            CategView(
-              categ,
-              topicPost map {
-                case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-              },
-              forUser
-            )
-          }
-        }).sequenceFu
+        env.postApi get (categ lastPostId forUser) map { topicPost =>
+          CategView(
+            categ,
+            topicPost map { case (topic, post) =>
+              (topic, post, env.postApi lastPageOf topic)
+            },
+            forUser
+          )
+        }
+      }).sequenceFu
     } yield views
 
   def makeTeam(slug: String, name: String): Funit =

@@ -2,7 +2,7 @@
 <resources>
   <string name="activity">Aktibidad</string>
   <string name="hostedALiveStream">Hosted a live stream</string>
-  <plurals name="supportedNbMonths">
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="one">Supported lishogi.org for %1$s month as a %2$s</item>
     <item quantity="other">Supported lishogi.org for %1$s months as a %2$s</item>
   </plurals>
@@ -51,8 +51,10 @@
     <item quantity="other">Participated in %s simultaneous exhibitions</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Created %s new study</item>
-    <item quantity="other">Created %s new studies</item>
+    <item quantity="one">Isa
+Gumawa %s bagong pag-aaral</item>
+    <item quantity="other">Iba pa
+Gumawa %s mga bagong pag-aaral</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Competed in %s tournament</item>

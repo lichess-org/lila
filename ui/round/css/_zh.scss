@@ -56,10 +56,8 @@
 
 // These images are also referenced in crazyCtrl.ts (for preloading).
 // The other file should be kept in sync. // todo
-@each $color, $c in ("white": w, "black": b) {
-  @each $role,
-    $r in (pawn: P, knight: N, bishop: B, rook: R, silver: S, gold: G)
-  {
+@each $color, $c in ('sente': w, 'gote': b) {
+  @each $role, $r in (pawn: P, knight: N, bishop: B, rook: R, silver: S, gold: G) {
     body.cursor-#{$color}-#{$role} * {
       cursor: url(piece/cburnett/#{$c}#{$r}.svg) 22 22, auto !important;
     }

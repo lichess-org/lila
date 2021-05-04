@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { Millis } from '../clock/clockCtrl';
 import { Position } from '../interfaces';
 import { CorresClockController } from './corresClockCtrl';
@@ -14,9 +14,10 @@ function bold(x: string) {
 
 function formatClockTime(trans: Trans, time: Millis) {
   const date = new Date(time),
-  minutes = prefixInteger(date.getUTCMinutes(), 2),
-  seconds = prefixInteger(date.getSeconds(), 2);
-  let hours: number, str = '';
+    minutes = prefixInteger(date.getUTCMinutes(), 2),
+    seconds = prefixInteger(date.getSeconds(), 2);
+  let hours: number,
+    str = '';
   if (time >= 86400 * 1000) {
     // days : hours
     const days = date.getUTCDate() - 1;
@@ -34,29 +35,41 @@ function formatClockTime(trans: Trans, time: Millis) {
   return str;
 }
 
-export default function(ctrl: CorresClockController, trans: Trans, color: Color, position: Position, runningColor: Color) {
+export default function (
+  ctrl: CorresClockController,
+  trans: Trans,
+  color: Color,
+  position: Position,
+  runningColor: Color
+) {
   const millis = ctrl.millisOf(color),
-  update = (el: HTMLElement) => {
-    el.innerHTML = formatClockTime(trans, millis);
-  },
-  isPlayer = ctrl.root.data.player.color === color;
-  return h('div.rclock.rclock-correspondence.rclock-' + position, {
-    class: {
-      outoftime: millis <= 0,
-      running: runningColor === color
-    }
-  }, [
-    ctrl.data.showBar ? h('div.bar', [
-      h('span', {
-        attrs: { style: `width: ${ctrl.timePercent(color)}%` }
-      })
-    ]) : null,
-    h('div.time', {
-      hook: {
-        insert: vnode => update(vnode.elm as HTMLElement),
-        postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
-      }
-    }),
-    isPlayer ? null : moretime(ctrl.root),
-  ]);
+    update = (el: HTMLElement) => {
+      el.innerHTML = formatClockTime(trans, millis);
+    },
+    isPlayer = ctrl.root.data.player.color === color;
+  return h(
+    'div.rclock.rclock-correspondence.rclock-' + position,
+    {
+      class: {
+        outoftime: millis <= 0,
+        running: runningColor === color,
+      },
+    },
+    [
+      ctrl.data.showBar
+        ? h('div.bar', [
+            h('span', {
+              attrs: { style: `width: ${ctrl.timePercent(color)}%` },
+            }),
+          ])
+        : null,
+      h('div.time', {
+        hook: {
+          insert: vnode => update(vnode.elm as HTMLElement),
+          postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
+        },
+      }),
+      isPlayer ? null : moretime(ctrl.root),
+    ]
+  );
 }

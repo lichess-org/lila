@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Třídy</string>
+	<string name="teachClassesOfChessStudents">Učte shogi s Lishogi nástrojem.</string>
 	<string name="features">Funkce</string>
 	<string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
 	<string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>
 	<string name="messageAllStudents">Napsat všem studentům o novém materiálu třídy</string>
 	<string name="freeForAllForever">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">Ucházet se o místo Lishogi učitele/lky</string>
 	<string name="noClassesYet">Zatím žádné třídy.</string>
 	<string name="teachersX">Učitelé: %s</string>
 	<string name="newClass">Nová třída</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Popis třídy</string>
 	<string name="visibleByBothStudentsAndTeachers">Viditelné jak učiteli, tak studenty třídy</string>
 	<string name="teachersOfTheClass">Učitelé třídy</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Přidejte Lishogi uživatelská jména, abyste je pozvali jako učitel/ka. Jeden na řádek.</string>
 	<string name="theyMustFirstApply">Nejdříve se musí ucházet o pozici Lishogi učitele.</string>
 	<string name="resetPassword">Obnovit heslo</string>
 	<string name="makeSureToCopy">Ujistěte se, že jste nyní heslo zkopírovali nebo zapsali. Nebudete si ho již moci znovu zobrazit!</string>
@@ -33,21 +33,21 @@
 	<string name="realName">Skutečné jméno</string>
 	<string name="privateWillNeverBeShown">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
 	<string name="addStudent">Přidat studenta</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Lichess profil %1$s vytvořen pro %2$s.</string>
 	<string name="studentCredentials">Student:  %1$s
 Uživatelské jméno: %2$s
 Heslo: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Pozvat Lishogi účet</string>
 	<string name="inviteDesc1">Pokud student již má Lishogi účet, můžete je pozvat do třídy.</string>
 	<string name="inviteDesc2">Dostanou zprávu na Lishogi s odkazem na připojení ke třídě.</string>
 	<string name="inviteDesc3">Důležité: Pozvěte pouze studenty, které znáte a kteří se aktivně chtějí připojit ke třídě.</string>
 	<string name="inviteDesc4">Nikdy neposílejte nevyžádané pozvánky náhodným hráčům.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Vytvořit nový Lishogi účet</string>
 	<string name="createDesc1">Pokud student ještě nemá Lishogi účet, můžete pro něj účet vytvořit.</string>
 	<string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
 	<string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
 	<string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Lishogi uživatelské jméno</string>
 	<string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
 	<string name="welcomeToClass">Vítejte ve vaší třídě: %s.
 Zde je odkaz pro přístup ke třídě.</string>
@@ -78,7 +78,7 @@ Zde je odkaz pro přístup ke třídě.</string>
 		<item quantity="other">%s učitelů</item>
 	</plurals>
 	<plurals name="nbStudents">
-		<item quantity="one">Student</item>
+		<item quantity="one">Žák</item>
 		<item quantity="few">%s studenti</item>
 		<item quantity="many">%s studentů</item>
 		<item quantity="other">%s studentů</item>

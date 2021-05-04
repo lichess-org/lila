@@ -1,10 +1,10 @@
 package lila.round
 
-import chess.Centis
-import chess.format.pgn.Glyphs
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
-import chess.opening._
-import chess.variant.Variant
+import shogi.Centis
+import shogi.format.pgn.Glyphs
+import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.opening._
+import shogi.variant.Variant
 import JsonView.WithFlags
 import lila.analyse.{ Advice, Analysis, Info }
 import lila.tree._
@@ -47,7 +47,7 @@ object TreeBuilder {
       clocks: Option[Vector[Centis]]
   ): Root = {
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
+    shogi.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         val openingOf: OpeningOf =
@@ -67,7 +67,7 @@ object TreeBuilder {
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+        def makeBranch(index: Int, g: shogi.Game, m: Uci.WithSan) = {
           val fen    = Forsyth >> g
           val info   = infos lift (index - 1)
           val advice = advices get g.turns
@@ -93,18 +93,17 @@ object TreeBuilder {
             }
           )
           advices.get(g.turns + 1).flatMap { adv =>
-            games.lift(index - 1).map {
-              case (fromGame, _) =>
-                val fromFen = FEN(Forsyth >> fromGame)
-                withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
+            games.lift(index - 1).map { case (fromGame, _) =>
+              val fromFen = FEN(Forsyth >> fromGame)
+              withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
             }
           } getOrElse branch
         }
         games.zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest =>
-            root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-              case (node, ((g, m), i)) => makeBranch(i + 1, g, m) prependChild node
+            root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>
+              makeBranch(i + 1, g, m) prependChild node
             }
         }
     }
@@ -117,7 +116,7 @@ object TreeBuilder {
       fromFen: FEN,
       openingOf: OpeningOf
   )(info: Info): Branch = {
-    def makeBranch(g: chess.Game, m: Uci.WithSan) = {
+    def makeBranch(g: shogi.Game, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
         id = UciCharPair(m.uci),
@@ -130,15 +129,15 @@ object TreeBuilder {
         eval = none
       )
     }
-    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
+    shogi.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
       case (_, games, error) =>
         error foreach logChessError(id)
         games.reverse match {
           case Nil => root
           case (g, m) :: rest =>
             root addChild rest
-              .foldLeft(makeBranch(g, m)) {
-                case (node, (g, m)) => makeBranch(g, m) addChild node
+              .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                makeBranch(g, m) addChild node
               }
               .setComp
         }

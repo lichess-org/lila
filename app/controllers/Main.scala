@@ -29,18 +29,19 @@ final class Main(
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       fuccess {
-        blindForm.bindFromRequest().fold(
-          _ => BadRequest,
-          {
-            case (enable, redirect) =>
+        blindForm
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest,
+            { case (enable, redirect) =>
               Redirect(redirect) withCookies env.lilaCookie.cookie(
                 env.api.config.accessibility.blindCookieName,
                 if (enable == "0") "" else env.api.config.accessibility.hash,
                 maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
                 httpOnly = true.some
               )
-          }
-        )
+            }
+          )
       }
     }
 
@@ -48,8 +49,8 @@ final class Main(
 
   def captchaCheck(id: String) =
     Open { implicit ctx =>
-      env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map {
-        case valid: Boolean => Ok(if (valid) 1 else 0)
+      env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
+        Ok(if (valid) 1 else 0)
       }
     }
 
@@ -72,8 +73,8 @@ final class Main(
   def mobile =
     Open { implicit ctx =>
       pageHit
-      OptionOk(prismicC getBookmark "mobile-apk") {
-        case (doc, resolver) => html.mobile(doc, resolver)
+      OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
+        html.mobile(doc, resolver)
       }
     }
 
@@ -96,8 +97,7 @@ final class Main(
       NoContent.fuccess
     }
 
-  /**
-    * Event monitoring endpoint
+  /** Event monitoring endpoint
     */
   def jsmon(event: String) =
     Action {
@@ -106,7 +106,7 @@ final class Main(
     }
 
   private lazy val glyphsResult: Result = {
-    import chess.format.pgn.Glyph
+    import shogi.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
     Ok(
       Json.obj(
@@ -164,17 +164,7 @@ Allow: /
               "sizes" -> s"${size}x${size}",
               "type"  -> "image/png"
             )
-          },
-          "related_applications" -> Json.arr(
-            Json.obj(
-              "platform" -> "play",
-              "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-            ),
-            Json.obj(
-              "platform" -> "itunes",
-              "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
-            )
-          )
+          }
         )
       } as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
     }

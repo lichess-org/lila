@@ -42,7 +42,6 @@ object features {
               "Standard shogi"
               // a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
-  
             tr(unlimited)(
               s"Instant local $engineName analysis"
             ),
@@ -70,7 +69,7 @@ object features {
               a(href := routes.Learn.index())("All shogi basics lessons")
             ),
             tr(unlimited)(
-              a(href := routes.Page.notSupported())("Tactical puzzles from user games - coming soon")
+              a(href := routes.Puzzle.home())("Tactical puzzles from user games")
             ),
             //tr(unlimited)(
             //  a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
@@ -88,15 +87,15 @@ object features {
             //  a(href := routes.Search.index(1))("Advanced search"),
             //  " through Lishogi 1.5 billion games"
             //),
-            //tr(unlimited)(
-            //  a(href := routes.Video.index())("Chess video library")
-            //),
+            tr(unlimited)(
+              a(href := routes.Video.index())("Shogi video library")
+            ),
             tr(check)(
               "Forum, teams, messaging, friends, challenges"
             ),
             tr(check)(
               "Available in ",
-              a(href := "https://crowdin.com/project/lishogi")("80+ languages")
+              a(href := "https://crowdin.com/project/lishogi")("many languages")
             ),
             tr(check)(
               "Light/dark theme, custom boards, pieces and background"
@@ -129,7 +128,7 @@ object features {
           //    a(href := routes.Puzzle.home())("Tactics puzzles")
           //  ),
           //  tr(check)(
-          //    "Available in 80+ languages"
+          //    "Available in many languages"
           //  ),
           //  tr(check)(
           //    "Light and dark theme, custom boards and pieces"

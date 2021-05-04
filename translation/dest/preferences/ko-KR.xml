@@ -6,6 +6,7 @@
 	<string name="materialDifference">기물 차이</string>
 	<string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
 	<string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">피스 움직임 기록</string>
 	<string name="pgnPieceNotation">PGN 기물표기방식</string>

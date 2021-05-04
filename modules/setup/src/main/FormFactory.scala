@@ -3,8 +3,8 @@ package lila.setup
 import play.api.data._
 import play.api.data.Forms._
 
-import chess.format.FEN
-import chess.variant.Variant
+import shogi.format.FEN
+import shogi.variant.Variant
 import lila.rating.RatingRange
 import lila.user.UserContext
 
@@ -15,8 +15,8 @@ final class FormFactory {
   val filter = Form(single("local" -> text))
 
   def aiFilled(fen: Option[FEN]): Form[AiConfig] =
-    ai fill fen.foldLeft(AiConfig.default) {
-      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
+      config.copy(fen = f.some, variant = shogi.variant.FromPosition)
     }
 
   lazy val ai = Form(
@@ -37,8 +37,8 @@ final class FormFactory {
   )
 
   def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
-    friend(ctx) fill fen.foldLeft(FriendConfig.default) {
-      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
+      config.copy(fen = f.some, variant = shogi.variant.FromPosition)
     }
 
   def friend(ctx: UserContext) =
@@ -62,7 +62,7 @@ final class FormFactory {
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
     hook fill HookConfig.default.withTimeModeString(timeModeString)
 
-  def hook(implicit ctx: UserContext) ={
+  def hook(implicit ctx: UserContext) = {
     Form(
       mapping(
         "variant"     -> variantWithVariants,
@@ -79,7 +79,7 @@ final class FormFactory {
         .verifying("Invalid clock", _.validClock)
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
-    }
+  }
 
   lazy val boardApiHook = Form(
     mapping(
@@ -100,7 +100,7 @@ final class FormFactory {
         byoyomi = b,
         periods = p,
         days = 1,
-        mode = chess.Mode(~r),
+        mode = shogi.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
       )
@@ -121,9 +121,9 @@ final class FormFactory {
       mapping(
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
         "increment" -> increment,
-        "byoyomi" -> byoyomi,
-        "periods" -> periods
-      )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
+        "byoyomi"   -> byoyomi,
+        "periods"   -> periods
+      )(shogi.Clock.Config.apply)(shogi.Clock.Config.unapply)
     )
 
     private lazy val variant =

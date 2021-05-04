@@ -1,12 +1,12 @@
 package lila.setup
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
 case class AiConfig(
-    variant: chess.variant.Variant,
+    variant: shogi.variant.Variant,
     timeMode: TimeMode,
     time: Double,
     increment: Int,
@@ -21,28 +21,39 @@ case class AiConfig(
 
   val strictFen = true
 
-  def >> = (variant.id, timeMode.id, time, increment, byoyomi, periods, days, level, color.name, fen.map(_.value)).some
+  def >> = (
+    variant.id,
+    timeMode.id,
+    time,
+    increment,
+    byoyomi,
+    periods,
+    days,
+    level,
+    color.name,
+    fen.map(_.value)
+  ).some
 
   def game(user: Option[User]) = {
-    fenGame { chessGame =>
+    fenGame { shogiGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
-        chess.Speed(chessGame.clock.map(_.config)),
-        chessGame.situation.board.variant,
+        shogi.Speed(shogiGame.clock.map(_.config)),
+        shogiGame.situation.board.variant,
         makeDaysPerTurn
       )
       Game
         .make(
-          chess = chessGame,
-          whitePlayer = creatorColor.fold(
-            Player.make(chess.White, user, perfPicker),
-            Player.make(chess.White, level.some)
+          shogi = shogiGame,
+          sentePlayer = creatorColor.fold(
+            Player.make(shogi.Sente, user, perfPicker),
+            Player.make(shogi.Sente, level.some)
           ),
-          blackPlayer = creatorColor.fold(
-            Player.make(chess.Black, level.some),
-            Player.make(chess.Black, user, perfPicker)
+          gotePlayer = creatorColor.fold(
+            Player.make(shogi.Gote, level.some),
+            Player.make(shogi.Gote, user, perfPicker)
           ),
-          mode = chess.Mode.Casual,
-          source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Ai,
+          mode = shogi.Mode.Casual,
+          source = if (shogiGame.board.variant.fromPosition) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
@@ -52,14 +63,25 @@ case class AiConfig(
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
 
-  def timeControlFromPosition = variant != chess.variant.FromPosition || time >= 1
+  def timeControlFromPosition = variant != shogi.variant.FromPosition || time >= 1
 }
 
 object AiConfig extends BaseConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, level: Int, c: String, fen: Option[String]) =
+  def from(
+      v: Int,
+      tm: Int,
+      t: Double,
+      i: Int,
+      b: Int,
+      p: Int,
+      d: Int,
+      level: Int,
+      c: String,
+      fen: Option[String]
+  ) =
     new AiConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = shogi.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -97,7 +119,7 @@ object AiConfig extends BaseConfig {
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(
-        variant = chess.variant.Variant orDefault (r int "v"),
+        variant = shogi.variant.Variant orDefault (r int "v"),
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
@@ -105,7 +127,7 @@ object AiConfig extends BaseConfig {
         periods = r intD "p",
         days = r int "d",
         level = r int "l",
-        color = Color.White,
+        color = Color.Sente,
         fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
       )
 

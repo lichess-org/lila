@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 
-import chess.format.FEN
+import shogi.format.FEN
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -51,8 +51,7 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap {
-            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
+            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               env.api.roundApi.review(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -68,8 +67,14 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                val finalPgn = env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-                val movesSeq = data("treeParts").as[JsArray].value.tail map {move: JsValue =>
+                val finalPgn = env.analyse.annotator(
+                  pgn,
+                  analysis,
+                  pov.game.opening,
+                  pov.game.winnerColor,
+                  pov.game.status
+                )
+                val movesSeq = data("treeParts").as[JsArray].value.tail map { move: JsValue =>
                   val nodeMap = move.as[JsObject].value
                   (nodeMap("uci").as[JsString].value, nodeMap("san").as[JsString].value)
                 }
@@ -91,7 +96,7 @@ final class Analyse(
                   )
                 )
               }
-          }
+            }
         }
       }
 
@@ -99,7 +104,7 @@ final class Analyse(
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, shogi.Color(color == "sente"))
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
@@ -116,7 +121,7 @@ final class Analyse(
     get("fen").fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
-        chess.Replay
+        shogi.Replay
           .plyAtFen(pov.game.pgnMoves, initialFen.map(_.value), pov.game.variant, atFen)
           .fold(
             err => {

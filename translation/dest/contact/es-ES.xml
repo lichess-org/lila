@@ -25,7 +25,7 @@
   <string name="cantChangeMore">No podemos cambiar más que las mayúsculas/minúsculas. Por razones técnicas, es totalmente imposible.</string>
   <string name="orCloseAccount">Sin embargo, puedes cerrar tu cuenta actual y crear una nueva.</string>
   <string name="wantClearHistory">Quiero borrar mi historial o puntuación</string>
-  <string name="cantClearHistory">No es posible borrar tu historial de juegos, historial de rompecabezas o calificaciones.</string>
+  <string name="cantClearHistory">No es posible borrar tu historial de juegos, historial de ejercicios o calificaciones.</string>
   <string name="wantReport">Quiero reportar un jugador</string>
   <string name="cheating">hacer trampa</string>
   <string name="sandbagging">reducción intencional del puntaje</string>

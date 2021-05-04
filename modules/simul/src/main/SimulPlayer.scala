@@ -1,6 +1,6 @@
 package lila.simul
 
-import chess.variant.Variant
+import shogi.variant.Variant
 import lila.rating.Perf
 import lila.user.User
 

@@ -91,7 +91,7 @@ object communication {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
-                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "white"))("Game #", id)
+                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "sente"))("Game #", id)
                   case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
@@ -103,36 +103,35 @@ object communication {
         priv option frag(
           h2("Recent private chats"),
           div(cls := "player_chats")(
-            players.map {
-              case (pov, chat) =>
-                div(cls := "game")(
-                  a(
-                    href := routes.Round.player(pov.fullId),
-                    cls := List(
-                      "title"        -> true,
-                      "friend_title" -> pov.game.fromFriend
-                    ),
-                    title := pov.game.fromFriend.option("Friend game")
-                  )(
-                    usernameOrAnon(pov.opponent.userId),
-                    " – ",
-                    momentFromNowOnce(pov.game.movedAt)
+            players.map { case (pov, chat) =>
+              div(cls := "game")(
+                a(
+                  href := routes.Round.player(pov.fullId),
+                  cls := List(
+                    "title"        -> true,
+                    "friend_title" -> pov.game.fromFriend
                   ),
-                  div(cls := "chat")(
-                    chat.lines.map { line =>
-                      div(
-                        cls := List(
-                          "line"   -> true,
-                          "author" -> (line.author.toLowerCase == u.id)
-                        )
-                      )(
-                        userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
-                        nbsp,
-                        richText(line.text)
+                  title := pov.game.fromFriend.option("Friend game")
+                )(
+                  usernameOrAnon(pov.opponent.userId),
+                  " – ",
+                  momentFromNowOnce(pov.game.movedAt)
+                ),
+                div(cls := "chat")(
+                  chat.lines.map { line =>
+                    div(
+                      cls := List(
+                        "line"   -> true,
+                        "author" -> (line.author.toLowerCase == u.id)
                       )
-                    }
-                  )
+                    )(
+                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      nbsp,
+                      richText(line.text)
+                    )
+                  }
                 )
+              )
             }
           ),
           div(cls := "threads")(

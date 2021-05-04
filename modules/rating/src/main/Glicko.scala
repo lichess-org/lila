@@ -20,7 +20,7 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval    = intervalMin -> intervalMax
 
-  def rankable(variant: chess.variant.Variant) =
+  def rankable(variant: shogi.variant.Variant) =
     deviation <= {
       if (variant.standard) Glicko.standardRankableDeviation
       else Glicko.variantRankableDeviation
@@ -28,6 +28,8 @@ case class Glicko(
   def provisional          = deviation >= Glicko.provisionalDeviation
   def established          = !provisional
   def establishedIntRating = established option intRating
+
+  def clueless = deviation >= Glicko.cluelessDeviation
 
   def refund(points: Int) = copy(rating = rating + points)
 
@@ -46,12 +48,15 @@ case class Glicko(
       volatility = volatility atMost Glicko.maxVolatility
     )
 
-  def average(other: Glicko) =
-    Glicko(
-      rating = (rating + other.rating) / 2,
-      deviation = (deviation + other.deviation) / 2,
-      volatility = (volatility + other.volatility) / 2
-    )
+  def average(other: Glicko, weight: Float = 0.5f) =
+    if (weight >= 1) other
+    else if (weight <= 0) this
+    else
+      Glicko(
+        rating = rating * (1 - weight) + other.rating * weight,
+        deviation = deviation * (1 - weight) + other.deviation * weight,
+        volatility = volatility * (1 - weight) + other.volatility * weight
+      )
 
   def display = s"$intRating${provisional ?? "?"}"
 
@@ -74,13 +79,16 @@ case object Glicko {
   val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
   val provisionalDeviation      = 110
-  val maxDeviation              = 350
+  val cluelessDeviation         = 260
+  val maxDeviation              = 500d
 
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
 
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
   val ratingPeriodsPerDay = 0.21436d
+
+  val maxRatingDelta = 700
 
   val tau    = 0.75d
   val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)

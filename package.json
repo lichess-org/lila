@@ -47,11 +47,13 @@
     "ui/lobby",
     "ui/notify",
     "ui/puzzle",
+    "ui/puz",
     "ui/round",
     "ui/serviceWorker",
     "ui/shogiground",
     "ui/simul",
     "ui/site",
+    "ui/storm",
     "ui/swiss",
     "ui/tournament",
     "ui/tournamentSchedule",
@@ -60,5 +62,8 @@
     "ui/msg",
     "ui/@build/rollupProject",
     "ui/@types/lishogi"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "2.2.1"
+  }
 }

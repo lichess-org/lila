@@ -26,7 +26,7 @@
     text-align: center;
   }
   &__players {
-    margin-top: .3rem;
+    margin-top: 0.3rem;
     font-size: 90%;
   }
   .bookmark {
@@ -52,7 +52,7 @@
     @extend %roboto;
     font-size: 2em;
     text-align: center;
-    margin-top: .2em;
+    margin-top: 0.2em;
   }
 }
 @media (hover: hover) {

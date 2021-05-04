@@ -1,16 +1,16 @@
-import { State } from './state'
-import { setCheck, setSelected } from './board'
-import { read as fenRead } from './fen'
-import { DrawShape, DrawBrush } from './draw'
-import { makePockets } from './pocket'
-import * as cg from './types'
+import { State } from './state';
+import { setCheck, setSelected } from './board';
+import { read as fenRead } from './fen';
+import { DrawShape, DrawBrush } from './draw';
+import { makePockets } from './pocket';
+import * as cg from './types';
 
 export interface Config {
-  fen?: cg.FEN; // chess position in Forsyth notation
+  fen?: cg.FEN; // shogi position in Forsyth notation
   hasPockets?: boolean;
   pockets?: string;
-  orientation?: cg.Color; // board orientation. white | black
-  turnColor?: cg.Color; // turn to play. white | black
+  orientation?: cg.Color; // board orientation. sente | gote
+  turnColor?: cg.Color; // turn to play. sente | gote
   check?: cg.Color | boolean; // true for current color, false to unset
   lastMove?: cg.Key[]; // squares part of the last move ["c3", "c4"]
   selected?: cg.Key; // square currently selected "a1"
@@ -31,7 +31,7 @@ export interface Config {
   };
   movable?: {
     free?: boolean; // all moves are valid - board editor
-    color?: cg.Color | 'both'; // color that can move. white | black | both | undefined
+    color?: cg.Color | 'both'; // color that can move. sente | gote | both | undefined
     dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     showDests?: boolean; // whether to add the move-dest class on squares
     events?: {
@@ -47,11 +47,13 @@ export interface Config {
     dests?: cg.Key[]; // premove destinations for the current selection
     events?: {
       set?: (orig: cg.Key, dest: cg.Key, metadata?: cg.SetPremoveMetadata) => void; // called after the premove has been set
-      unset?: () => void;  // called after the premove has been unset
+      unset?: () => void; // called after the premove has been unset
     };
   };
   predroppable?: {
     enabled?: boolean; // allow predrops for color that can not move
+    showDropDests?: boolean; // whether to add the premove-dest class on squares for drops
+    dropDests?: cg.Key[]; // premove destinations for the drop selection
     events?: {
       set?: (role: cg.Role, key: cg.Key) => void; // called after the predrop has been set
       unset?: () => void; // called after the predrop has been unset
@@ -71,16 +73,18 @@ export interface Config {
   events?: {
     change?: () => void; // called after the situation changes on the board
     // called after a piece has been moved.
-    // capturedPiece is undefined or like {color: 'white'; 'role': 'bishop'}
+    // capturedPiece is undefined or like {color: 'sente'; 'role': 'bishop'}
     move?: (orig: cg.Key, dest: cg.Key, capturedPiece?: cg.Piece) => void;
     dropNewPiece?: (piece: cg.Piece, key: cg.Key) => void;
     select?: (key: cg.Key) => void; // called when a square is selected
     insert?: (elements: cg.Elements) => void; // when the board DOM has been (re)inserted
   };
-  dropmode?:{
+  dropmode?: {
     active?: boolean;
     piece?: cg.Piece;
-  },
+    showDropDests?: boolean; // whether to add the move-dest class on squares for drops
+    dropDests?: cg.DropDests; // valid drops. {"pawn" ["a3" "a4"] "lance" ["a3" "c3"]}
+  };
   drawable?: {
     enabled?: boolean; // can draw
     visible?: boolean; // can view
@@ -97,9 +101,9 @@ export interface Config {
 }
 
 export function configure(state: State, config: Config): void {
-
   // don't merge destinations. Just override.
   if (config.movable?.dests) state.movable.dests = undefined;
+  if (config.dropmode?.dropDests) state.dropmode.dropDests = undefined;
 
   merge(state, config);
 
@@ -128,15 +132,19 @@ export function configure(state: State, config: Config): void {
   if (!state.animation.duration || state.animation.duration < 100) state.animation.enabled = false;
 
   if (!state.movable.rookCastle && state.movable.dests) {
-    const rank = state.movable.color === 'white' ? '1' : '9',
-      kingStartPos = 'e' + rank as cg.Key,
+    const rank = state.movable.color === 'sente' ? '1' : '9',
+      kingStartPos = ('e' + rank) as cg.Key,
       dests = state.movable.dests.get(kingStartPos),
       king = state.pieces.get(kingStartPos);
     if (!dests || !king || king.role !== 'king') return;
-    state.movable.dests.set(kingStartPos, dests.filter(d =>
-      !((d === 'a' + rank) && dests.includes('c' + rank as cg.Key)) &&
-      !((d === 'h' + rank) && dests.includes('g' + rank as cg.Key))
-    ));
+    state.movable.dests.set(
+      kingStartPos,
+      dests.filter(
+        d =>
+          !(d === 'a' + rank && dests.includes(('c' + rank) as cg.Key)) &&
+          !(d === 'h' + rank && dests.includes(('g' + rank) as cg.Key))
+      )
+    );
   }
 }
 

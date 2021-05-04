@@ -1,24 +1,24 @@
-import { AnalyseApi, AnalyseOpts } from "./interfaces";
-import AnalyseCtrl from "./ctrl";
+import { AnalyseApi, AnalyseOpts } from './interfaces';
+import AnalyseCtrl from './ctrl';
 
-import makeCtrl from "./ctrl";
-import view from "./view";
-import boot from "./boot";
-import { Shogiground } from "shogiground";
-import LishogiChat from "chat";
+import makeCtrl from './ctrl';
+import view from './view';
+import boot from './boot';
+import { Shogiground } from 'shogiground';
+import LishogiChat from 'chat';
 
-import { init } from "snabbdom";
-import { VNode } from "snabbdom/vnode";
-import klass from "snabbdom/modules/class";
-import attributes from "snabbdom/modules/attributes";
-import { menuHover } from "common/menuHover";
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
+import { menuHover } from 'common/menuHover';
 
 menuHover();
 
 export const patch = init([klass, attributes]);
 
 export function start(opts: AnalyseOpts): AnalyseApi {
-  opts.element = document.querySelector("main.analyse") as HTMLElement;
+  opts.element = document.querySelector('main.analyse') as HTMLElement;
 
   let vnode: VNode, ctrl: AnalyseCtrl;
 
@@ -29,7 +29,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   ctrl = new makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = "";
+  opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
   return {

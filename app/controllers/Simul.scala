@@ -21,25 +21,22 @@ final class Simul(
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls(ctx.me) flatMap {
-      case pending ~ created ~ started ~ finished =>
-        Ok(html.simul.home(pending, created, started, finished)).fuccess
+    fetchSimuls(ctx.me) flatMap { case pending ~ created ~ started ~ finished =>
+      Ok(html.simul.home(pending, created, started, finished)).fuccess
     }
   }
 
   val apiList = Action.async {
-    fetchSimuls(none) flatMap {
-      case pending ~ created ~ started ~ finished =>
-        env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
-          Ok(json) as JSON
-        }
+    fetchSimuls(none) flatMap { case pending ~ created ~ started ~ finished =>
+      env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
+        Ok(json) as JSON
+      }
     }
   }
 
   val homeReload = Open { implicit ctx =>
-    fetchSimuls(ctx.me) map {
-      case pending ~ created ~ started ~ finished =>
-        Ok(html.simul.homeInner(pending, created, started, finished))
+    fetchSimuls(ctx.me) map { case pending ~ created ~ started ~ finished =>
+      Ok(html.simul.homeInner(pending, created, started, finished))
     }
   }
 
@@ -125,10 +122,12 @@ final class Simul(
     OpenBody { implicit ctx =>
       AsHost(simulId) { simul =>
         implicit val req = ctx.body
-        forms.setText.bindFromRequest().fold(
-          _ => BadRequest.fuccess,
-          text => env.simul.api.setText(simul.id, text) inject jsonOkResult
-        )
+        forms.setText
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest.fuccess,
+            text => env.simul.api.setText(simul.id, text) inject jsonOkResult
+          )
       }
     }
 

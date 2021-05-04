@@ -3,9 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org puzzle solver",
-  "main": "src/main.js",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "puzzle",
     "training"
@@ -14,19 +13,20 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
+    "@types/chart.js": "^2.9.29",
     "@types/lishogi": "2.0.0"
   },
   "dependencies": {
     "ceval": "2.0.0",
+    "chart.js": "^2.9",
     "common": "2.0.0",
-    "shogiground": "7.8.1",
+    "shogiground": "^7.8.1",
+    "shogiops": "^0.2.2",
     "snabbdom": "^0.7.4",
-    "tree": "2.0.0",
-    "shogiops": "^0.1.5"
+    "tree": "2.0.0"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "dev": "rollup --config && rollup --config --config-plugin dashboard",
+    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin dashboard"
   }
 }

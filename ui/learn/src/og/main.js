@@ -5,7 +5,6 @@ var api = require('./api');
 
 // for usage outside of mithril
 function init(element, config) {
-
   var controller = new ctrl(config);
 
   m.render(element, view(controller));

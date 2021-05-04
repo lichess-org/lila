@@ -16,7 +16,7 @@ For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)
   <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
 
-Going Berserk in time controls with an increment also cancels the increment (1+2 is an exception, it gives 1+0).
+Going Berserk in time controls with an increment and byoyomi also cancels the increment and byoyomi time (1+2 is an exception, it gives 1+0).
 
 Berserk is not available for games with zero initial time (0+1, 0+2).
 

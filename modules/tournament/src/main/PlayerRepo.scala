@@ -35,8 +35,8 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   ): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
       res
-        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
-          case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
+        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) { case (p, (res, rank)) =>
+          (RankedPlayer(rank, p) :: res, rank - 1)
         }
         ._1
     }
@@ -81,16 +81,15 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
           for {
             teamId      <- doc.getAsOpt[TeamID]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
-            leaders = leadersBson.flatMap {
-              case p: Bdoc =>
-                for {
-                  id    <- p.getAsOpt[User.ID]("u")
-                  magic <- p.int("m")
-                } yield TeamLeader(id, magic)
+            leaders = leadersBson.flatMap { case p: Bdoc =>
+              for {
+                id    <- p.getAsOpt[User.ID]("u")
+                magic <- p.int("m")
+              } yield TeamLeader(id, magic)
             }
           } yield RankedTeam(0, teamId, leaders)
-        }.sortBy(-_.magicScore).zipWithIndex map {
-          case (rt, pos) => rt.copy(rank = pos + 1)
+        }.sortBy(-_.magicScore).zipWithIndex map { case (rt, pos) =>
+          rt.copy(rank = pos + 1)
         }
       } map { ranked =>
       if (ranked.size == battle.teams.size) ranked
@@ -167,13 +166,12 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       }
 
   def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds ?? {
-      case (w, b) =>
-        teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-          (m.get(w) |@| m.get(b)).tupled ?? {
-            case (wt, bt) => TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
-          }
+    game.twoUserIds ?? { case (s, g) =>
+      teamsOfPlayers(tourId, List(s, g)).dmap(_.toMap) map { m =>
+        (m.get(s) |@| m.get(g)).tupled ?? { case (st, gt) =>
+          TeamBattle.TeamVs(shogi.Color.Map(st, gt)).some
         }
+      }
     }
 
   def countActive(tourId: Tournament.ID): Fu[Int] =

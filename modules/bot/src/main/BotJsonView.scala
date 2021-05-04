@@ -36,8 +36,10 @@ final class BotJsonView(
         },
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.whitePov),
-        "black"      -> playerJson(game.blackPov),
+        "sente"      -> playerJson(game.sentePov),
+        "white"      -> playerJson(game.sentePov), // backwards support
+        "gote"       -> playerJson(game.gotePov),
+        "black"      -> playerJson(game.gotePov), // backwards support
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("tournamentId" -> game.tournamentId)
@@ -45,18 +47,18 @@ final class BotJsonView(
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] = {
     import wf._
-    chess.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
+    shogi.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
       Json
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> millisOf(game.whitePov),
-          "btime"  -> millisOf(game.blackPov),
-          "winc"   -> game.clock.??(_.config.increment.millis),
+          "btime"  -> millisOf(game.sentePov),
+          "wtime"  -> millisOf(game.gotePov),
           "binc"   -> game.clock.??(_.config.increment.millis),
+          "winc"   -> game.clock.??(_.config.increment.millis),
           "byo"    -> game.clock.??(_.config.byoyomi.millis),
-          "wdraw"  -> game.whitePlayer.isOfferingDraw,
-          "bdraw"  -> game.blackPlayer.isOfferingDraw,
+          "sdraw"  -> game.sentePlayer.isOfferingDraw,
+          "gdraw"  -> game.gotePlayer.isOfferingDraw,
           "status" -> game.status.name
         )
         .add("winner" -> game.winnerColor)
@@ -90,7 +92,7 @@ final class BotJsonView(
       .orElse(pov.game.correspondenceClock.map(_.remainingTime(pov.color).toInt * 1000))
       .getOrElse(Int.MaxValue)
 
-  implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  implicit private val clockConfigWriter: OWrites[shogi.Clock.Config] = OWrites { c =>
     Json.obj(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis,

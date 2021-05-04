@@ -1,10 +1,10 @@
 package lila.study
 
-import chess.{ Data => ChessData}
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ FEN, Uci, UciCharPair }
+import shogi.{ Data => ChessData }
+import shogi.format.pgn.{ Glyph, Glyphs }
+import shogi.format.{ FEN, Uci, UciCharPair }
 
-import chess.Centis
+import shogi.Centis
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
@@ -23,7 +23,7 @@ sealed trait RootOrNode {
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
-  def color = chess.Color(ply % 2 == 0)
+  def color = shogi.Color(ply % 2 == 0)
   def moveOption: Option[Uci.WithSan]
 }
 
@@ -123,11 +123,11 @@ object Node {
     // select all nodes on that path
     def nodesOn(path: Path): Vector[(Node, Path)] =
       path.split ?? { case (head, tail) =>
-          get(head) ?? { first =>
+        get(head) ?? { first =>
           (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
             (n, p prepend head)
-            }
           }
+        }
       }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
@@ -323,7 +323,7 @@ object Node {
 
   object Root {
 
-    def default(variant: chess.variant.Variant) =
+    def default(variant: shogi.variant.Variant) =
       Root(
         ply = 0,
         fen = FEN(variant.initialFen),

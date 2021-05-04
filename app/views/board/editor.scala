@@ -10,7 +10,7 @@ import controllers.routes
 object editor {
 
   def apply(
-      sit: chess.Situation,
+      sit: shogi.Situation,
       fen: String,
       positionsJson: String,
       animationDuration: scala.concurrent.duration.Duration

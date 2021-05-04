@@ -1,5 +1,5 @@
-var m = require("mithril");
-var throttle = require("common/throttle").default;
+var m = require('mithril');
+var throttle = require('common/throttle').default;
 
 module.exports = function (env, domElement) {
   this.ui = env.ui;
@@ -37,9 +37,7 @@ module.exports = function (env, domElement) {
     loading: true,
     broken: false,
     answer: null,
-    panel: Object.keys(env.initialQuestion.filters).length
-      ? "filter"
-      : "preset",
+    panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
   };
 
   this.setPanel = function (p) {
@@ -64,7 +62,7 @@ module.exports = function (env, domElement) {
       setTimeout(
         function () {
           m.request({
-            method: "post",
+            method: 'post',
             url: env.postUrl,
             data: {
               metric: this.vm.metric.key,
@@ -99,22 +97,18 @@ module.exports = function (env, domElement) {
   );
 
   this.makeUrl = function (dKey, mKey, filters) {
-    var url = [env.pageUrl, mKey, dKey].join("/");
+    var url = [env.pageUrl, mKey, dKey].join('/');
     var filters = Object.keys(filters)
       .map(function (filterKey) {
-        return filterKey + ":" + filters[filterKey].join(",");
+        return filterKey + ':' + filters[filterKey].join(',');
       })
-      .join("/");
-    if (filters.length) url += "/" + filters;
+      .join('/');
+    if (filters.length) url += '/' + filters;
     return url;
   };
 
   this.makeCurrentUrl = function () {
-    return this.makeUrl(
-      this.vm.dimension.key,
-      this.vm.metric.key,
-      this.vm.filters
-    );
+    return this.makeUrl(this.vm.dimension.key, this.vm.metric.key, this.vm.filters);
   }.bind(this);
 
   this.pushState = function () {
@@ -122,11 +116,7 @@ module.exports = function (env, domElement) {
   }.bind(this);
 
   this.validCombination = function (dimension, metric) {
-    return (
-      dimension &&
-      metric &&
-      (dimension.position === "game" || metric.position === "move")
-    );
+    return dimension && metric && (dimension.position === 'game' || metric.position === 'move');
   };
   this.validCombinationCurrent = function () {
     return this.validCombination(this.vm.dimension, this.vm.metric);
@@ -140,7 +130,7 @@ module.exports = function (env, domElement) {
           return this.validCombination(d, this.vm.metric);
         }.bind(this)
       );
-    this.vm.panel = "filter";
+    this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
@@ -152,7 +142,7 @@ module.exports = function (env, domElement) {
           return this.validCombination(this.vm.dimension, m);
         }.bind(this)
       );
-    this.vm.panel = "filter";
+    this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
@@ -167,9 +157,9 @@ module.exports = function (env, domElement) {
     this.vm.metric = findMetric(q.metric);
     this.vm.filters = q.filters;
     askQuestion();
-    $(domElement).find("select.ms").multipleSelect("open");
+    $(domElement).find('select.ms').multipleSelect('open');
     setTimeout(function () {
-      $(domElement).find("select.ms").multipleSelect("close");
+      $(domElement).find('select.ms').multipleSelect('close');
     }, 1000);
   }.bind(this);
 

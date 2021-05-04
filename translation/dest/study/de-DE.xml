@@ -103,7 +103,7 @@
     <item quantity="other">Füge dein PGN Text hier ein, bis zu %s Partien</item>
   </plurals>
   <string name="urlOfTheGame">URL der Partie</string>
-  <string name="loadAGameFromXOrY">Partie von %1$s oder %2$s laden</string>
+  <string name="loadAGameFromXOrY">Partie von %1$s laden</string>
   <string name="createChapter">Kapitel erstellen</string>
   <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
   <string name="createStudy">Studie erstellen</string>

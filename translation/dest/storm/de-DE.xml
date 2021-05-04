@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Ziehe, um zu beginnen</string>
+  <string name="puzzlesSolved">Aufgaben gelöst</string>
+  <string name="newDailyHighscore">Neuer Tagesrekord!</string>
+  <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
+  <string name="newMonthlyHighscore">Neuer Monatsrekord!</string>
+  <string name="newAllTimeHighscore">Neuer Allzeit-Rekord!</string>
+  <string name="previousHighscoreWasX">Dein vorheriger Rekord war %s</string>
+  <string name="playAgain">Nochmal spielen</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 Runde</item>
+    <item quantity="other">%s Runden</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Hat einen Durchlauf von %2$s gespielt</item>
+    <item quantity="other">Hat %1$s von %2$s Runden gespielt</item>
+  </plurals>
+  <string name="highscoreX">Bestleistung: %s</string>
+  <string name="score">Punktzahl</string>
+  <string name="moves">Züge</string>
+  <string name="accuracy">Genauigkeit</string>
+  <string name="combo">Combo</string>
+  <string name="time">Zeit</string>
+  <string name="timePerMove">Zeit pro Zug</string>
+  <string name="highestSolved">Highest solved</string>
+  <string name="puzzlesPlayed">Gespielte Puzzle</string>
+  <string name="newRun">Neuer Durchlauf (Kurzbefehl: Leertaste)</string>
+  <string name="endRun">Letzter Durchlauf (Kurzbefehl: Enter)</string>
+  <string name="highscores">Bestleistung</string>
+  <string name="viewBestRuns">Beste Durchläufe anzeigen</string>
+  <string name="bestRunOfDay">Beste Runde des Tages</string>
+  <string name="runs">Runden</string>
+</resources>

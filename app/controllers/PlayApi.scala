@@ -38,9 +38,9 @@ final class PlayApi(
               env.user.repo.setBot(me) >>
                 env.pref.api.setBot(me) >>-
                 env.user.lightUserApi.invalidate(me.id) pipe
-                toResult recover {
-                case lila.base.LilaInvalid(msg) => BadRequest(jsonError(msg))
-              }
+                toResult recover { case lila.base.LilaInvalid(msg) =>
+                  BadRequest(jsonError(msg))
+                }
           }
         case _ => impl.command(me, cmd)(WithPovAsBot)
       }
@@ -82,10 +82,12 @@ final class PlayApi(
       cmd.split('/') match {
         case Array("game", id, "chat") =>
           as(id, me) { pov =>
-            env.bot.form.chat.bindFromRequest().fold(
-              jsonFormErrorDefaultLang,
-              res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
-            ) pipe catchClientError
+            env.bot.form.chat
+              .bindFromRequest()
+              .fold(
+                jsonFormErrorDefaultLang,
+                res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
+              ) pipe catchClientError
           }
         case Array("game", id, "abort") =>
           as(id, me) { pov =>
@@ -107,8 +109,8 @@ final class PlayApi(
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
   private def catchClientError(f: Fu[Result]): Fu[Result] =
-    f recover {
-      case e: lila.round.BenignError => BadRequest(jsonError(e.getMessage))
+    f recover { case e: lila.round.BenignError =>
+      BadRequest(jsonError(e.getMessage))
     }
 
   private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =

@@ -50,15 +50,16 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       "Lishogi "    -> "",
       "Marathon"    -> icon('\\'),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
-      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
+      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}",
+      "HyperRapid"  -> s"S${icon(PerfType.Rapid.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
       pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
     }
 
     def apply(name: String): Frag =
       raw {
-        replacements.foldLeft(name) {
-          case (n, (from, to)) => n.replace(from, to)
+        replacements.foldLeft(name) { case (n, (from, to)) =>
+          n.replace(from, to)
         }
       }
   }

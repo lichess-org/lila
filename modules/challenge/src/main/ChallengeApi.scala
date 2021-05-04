@@ -33,7 +33,8 @@ final class ChallengeApi(
   def create(c: Challenge): Fu[Boolean] =
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
-      case false => {
+      case false =>
+        {
           repo like c flatMap { _ ?? repo.cancel }
         } >> (repo insert c) >>- {
           uncacheAndNotify(c)
@@ -75,7 +76,7 @@ final class ChallengeApi(
       c: Challenge,
       user: Option[User],
       sid: Option[String],
-      color: Option[chess.Color] = None
+      color: Option[shogi.Color] = None
   ): Fu[Option[Pov]] =
     acceptQueue {
       if (c.challengerIsOpen)

@@ -5,7 +5,7 @@
   <string name="studiesIContributeTo">Studies I contribute to</string>
   <string name="myPublicStudies">My public studies</string>
   <string name="myPrivateStudies">My private studies</string>
-  <string name="myFavoriteStudies">My favourite studies</string>
+  <string name="myFavoriteStudies">My favorite studies</string>
   <string name="whatAreStudies">What are studies?</string>
   <string name="allStudies">All studies</string>
   <string name="studiesCreatedByX">Studies created by %s</string>
@@ -44,7 +44,7 @@
   <string name="commentThisPosition">Comment on this position</string>
   <string name="commentThisMove">Comment on this move</string>
   <string name="annotateWithGlyphs">Annotate with glyphs</string>
-  <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analysed.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analyzed.</string>
   <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
   <string name="getAFullComputerAnalysis">Get a full server-side computer analysis of the mainline.</string>
   <string name="makeSureTheChapterIsComplete">Make sure the chapter is complete. You can only request analysis once.</string>
@@ -103,12 +103,12 @@
     <item quantity="other">Paste your PGN text here, up to %s games</item>
   </plurals>
   <string name="urlOfTheGame">URL of the games, one per line</string>
-  <string name="loadAGameFromXOrY">Load games from %1$s or %2$s</string>
+  <string name="loadAGameFromXOrY">Load games from %1$s</string>
   <string name="createChapter">Create chapter</string>
   <string name="configureLiveBroadcast">Configure live broadcast</string>
   <string name="createStudy">Create study</string>
   <string name="editStudy">Edit study</string>
-  <string name="visibility">Visibility</string>
+  <string name="visibility">Visiblility</string>
   <string name="public">Public</string>
   <string name="unlisted">Unlisted</string>
   <string name="inviteOnly">Invite only</string>

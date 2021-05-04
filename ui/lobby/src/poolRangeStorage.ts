@@ -1,5 +1,5 @@
 function makeKey(poolId) {
-  return "lobby-pool-range-" + poolId;
+  return 'lobby-pool-range-' + poolId;
 }
 
 export function set(poolId, range) {

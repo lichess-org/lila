@@ -100,10 +100,10 @@
     }
     @include breakpoint($mq-xx-small $mq-tall) {
       font-size: 3.5em;
-      letter-spacing: .12em;
+      letter-spacing: 0.12em;
       &.hour {
         font-size: 2.9em;
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
       }
     }
   }
@@ -125,7 +125,7 @@
   }
   tenths {
     font-size: 70%;
-    margin-bottom: -.18em;
+    margin-bottom: -0.18em;
   }
   huns {
     font-size: 80%;
@@ -135,7 +135,7 @@
   }
   sep {
     opacity: 0.5;
-    font-size: .8em;
+    font-size: 0.8em;
     &.low {
       opacity: 0.15;
     }
@@ -154,10 +154,10 @@
   }
   .go-berserk {
     font-size: 2.2em;
-    padding: 0 .3em;
+    padding: 0 0.3em;
     &:hover {
-      color: $c-accent!important;
-      background: none!important;
+      color: $c-accent !important;
+      background: none !important;
     }
   }
   .tour-rank,
@@ -170,7 +170,7 @@
       display: flex;
       flex: 0 1 auto;
       font-size: 1.7em;
-      padding: 0 .3em;
+      padding: 0 0.3em;
     }
     @include breakpoint($mq-col2) {
       order: inherit;
@@ -178,7 +178,7 @@
   }
   .tour-rank {
     @extend %page-text;
-    opacity: .65;
+    opacity: 0.65;
   }
   .moretime {
     opacity: 0.4;

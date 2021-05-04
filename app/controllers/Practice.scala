@@ -57,42 +57,42 @@ final class Practice(
       api.structure.get.flatMap { struct =>
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
-            Redirect(routes.Page.notSupported()).fuccess // show(section.id, study.slug, study.id.value)).fuccess
+            Redirect(
+              routes.Page.notSupported()
+            ).fuccess // show(section.id, study.slug, study.id.value)).fuccess
           }
         }
       }
     }
 
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) =
-    analysisJson(us) map {
-      case (analysisJson, studyJson) =>
-        NoCache(
-          EnableSharedArrayBuffer(
-            Ok(
-              html.practice.show(
-                us,
-                lila.practice.JsonView.JsData(
-                  study = studyJson,
-                  analysis = analysisJson,
-                  practice = lila.practice.JsonView(us)
-                )
+    analysisJson(us) map { case (analysisJson, studyJson) =>
+      NoCache(
+        EnableSharedArrayBuffer(
+          Ok(
+            html.practice.show(
+              us,
+              lila.practice.JsonView.JsData(
+                study = studyJson,
+                analysis = analysisJson,
+                practice = lila.practice.JsonView(us)
               )
             )
           )
         )
+      )
     }
 
   def chapter(studyId: String, chapterId: String) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
-        analysisJson(us) map {
-          case (analysisJson, studyJson) =>
-            Ok(
-              Json.obj(
-                "study"    -> studyJson,
-                "analysis" -> analysisJson
-              )
-            ) as JSON
+        analysisJson(us) map { case (analysisJson, studyJson) =>
+          Ok(
+            Json.obj(
+              "study"    -> studyJson,
+              "analysis" -> analysisJson
+            )
+          ) as JSON
         }
       } map NoCache
     }

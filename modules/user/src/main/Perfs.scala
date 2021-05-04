@@ -2,7 +2,7 @@ package lila.user
 
 import org.joda.time.DateTime
 
-import chess.Speed
+import shogi.Speed
 import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
@@ -14,7 +14,8 @@ case class Perfs(
     rapid: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf
+    puzzle: Perf,
+    storm: Perf.Storm
 ) {
 
   def perfs =
@@ -81,10 +82,9 @@ case class Perfs(
   def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): Int =
-    types.foldLeft(0) {
-      case (max, t) =>
-        val p = apply(t).progress
-        if (p > max) p else max
+    types.foldLeft(0) { case (max, t) =>
+      val p = apply(t).progress
+      if (p > max) p else max
     }
 
   lazy val perfsMap: Map[String, Perf] = Map(
@@ -116,8 +116,8 @@ case class Perfs(
     }
 
   def inShort =
-    perfs map {
-      case (name, perf) => s"$name:${perf.intRating}"
+    perfs map { case (name, perf) =>
+      s"$name:${perf.intRating}"
     } mkString ", "
 
   def updateStandard =
@@ -153,7 +153,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, Perf.Storm.default)
   }
 
   val defaultManaged = {
@@ -170,10 +170,10 @@ case object Perfs {
     )
   }
 
-  def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
+  def variantLens(variant: shogi.variant.Variant): Option[Perfs => Perf] =
     variant match {
-      case chess.variant.Standard      => Some(_.standard) // todo variant
-      case _                           => none
+      case shogi.variant.Standard => Some(_.standard) // todo variant
+      case _                      => none
     }
 
   def speedLens(speed: Speed): Perfs => Perf =
@@ -200,7 +200,8 @@ case object Perfs {
         rapid = perf("rapid"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle")
+        puzzle = perf("puzzle"),
+        storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default
       )
     }
 
@@ -215,7 +216,8 @@ case object Perfs {
         "rapid"          -> notNew(o.rapid),
         "classical"      -> notNew(o.classical),
         "correspondence" -> notNew(o.correspondence),
-        "puzzle"         -> notNew(o.puzzle)
+        "puzzle"         -> notNew(o.puzzle),
+        "storm"          -> (o.storm.nonEmpty option o.storm)
       )
   }
 

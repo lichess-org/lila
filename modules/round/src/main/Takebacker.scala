@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.Color
+import shogi.Color
 import lila.common.Bus
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
@@ -21,7 +21,8 @@ final private class Takebacker(
   )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     IfAllowed(pov.game) {
       pov match {
-        case Pov(game, color) if pov.opponent.isProposingTakeback => {
+        case Pov(game, color) if pov.opponent.isProposingTakeback =>
+          {
             if (
               pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
                 .fromPly(pov.opponent.proposeTakebackAt)
@@ -30,13 +31,14 @@ final private class Takebacker(
           } dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
         case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
-        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
+        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
+          {
             messenger.system(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
               g.updatePlayer(color, _ proposeTakeback g.turns)
             }
             proxy.save(progress) >>- publishTakebackOffer(pov) inject
-              List(Event.TakebackOffers(color.white, color.black))
+              List(Event.TakebackOffers(color.sente, color.gote))
           } dmap (_ -> situation)
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
       }

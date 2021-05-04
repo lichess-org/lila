@@ -6,6 +6,7 @@
 	<string name="materialDifference">Співвідношення матеріалу</string>
 	<string name="boardHighlights">Підсвітлення кольором (останнього ходу та шаху)</string>
 	<string name="pieceDestinations">Поля для ходів (можливі ходи та ходи на випередження)</string>
+	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">Координати (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Список ходів під час гри</string>
 	<string name="pgnPieceNotation">Нотація ходів</string>

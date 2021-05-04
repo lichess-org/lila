@@ -61,11 +61,11 @@ object Animal {
   )
 
   private val size = all.size
-  private val names: Vector[String] = all.view.map {
-    case (k, _) => k
+  private val names: Vector[String] = all.view.map { case (k, _) =>
+    k
   }.toVector
 
-  def randomName: String = names(scala.util.Random nextInt size)
+  def randomName: String = names(lila.common.ThreadLocalRandom nextInt size)
 
   def wikiUrl(name: String) =
     all get name map { s =>

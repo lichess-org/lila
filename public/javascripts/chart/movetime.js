@@ -1,18 +1,18 @@
 function toBlurArray(player) {
-  return player.blurs && player.blurs.bits ? player.blurs.bits.split("") : [];
+  return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lishogi.movetimeChart = function (data, trans, notation) {
   if (!data.game.moveCentis) return; // imported games
-  lishogi.loadScript("javascripts/chart/common.js").done(function () {
-    lishogi.loadScript("javascripts/chart/division.js").done(function () {
-      lishogi.chartCommon("highchart").done(function () {
+  lishogi.loadScript('javascripts/chart/common.js').done(function () {
+    lishogi.loadScript('javascripts/chart/division.js').done(function () {
+      lishogi.chartCommon('highchart').done(function () {
         lishogi.movetimeChart.render = function () {
-          $("#movetimes-chart:not(.rendered)").each(function () {
-            var $this = $(this).addClass("rendered");
+          $('#movetimes-chart:not(.rendered)').each(function () {
+            var $this = $(this).addClass('rendered');
 
             var series = {
-              white: [],
-              black: [],
+              sente: [],
+              gote: [],
             };
 
             var tree = data.treeParts;
@@ -22,39 +22,36 @@ lishogi.movetimeChart = function (data, trans, notation) {
             var logC = Math.pow(Math.log(3), 2);
 
             var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
-            if (data.player.color === "white") blurs.reverse();
+            if (data.player.color === 'sente') blurs.reverse();
 
             data.game.moveCentis.forEach(function (time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
-              var san = node
-                ? notation({ san: node.san, uci: node.uci, fen: node.fen })
-                : "-";
+              var san = node ? notation({ san: node.san, uci: node.uci, fen: node.fen }) : '-';
 
               var color = ply & 1;
 
-              var y =
-                Math.pow(Math.log(0.005 * Math.min(time, 12e4) + 3), 2) - logC;
+              var y = Math.pow(Math.log(0.005 * Math.min(time, 12e4) + 3), 2) - logC;
               max = Math.max(y, max);
 
               var point = {
-                name: ply + ". " + san,
+                name: ply + '. ' + san,
                 x: i,
                 y: color ? y : -y,
               };
 
-              if (blurs[color].shift() === "1") {
+              if (blurs[color].shift() === '1') {
                 point.marker = {
-                  symbol: "square",
+                  symbol: 'square',
                   radius: 3,
-                  lineWidth: "1px",
-                  lineColor: "#3893E8",
-                  fillColor: color ? "#fff" : "#333",
+                  lineWidth: '1px',
+                  lineColor: '#3893E8',
+                  fillColor: color ? '#fff' : '#333',
                 };
-                point.name += " [blur]";
+                point.name += ' [blur]';
               }
 
-              series[color ? "white" : "black"].push(point);
+              series[color ? 'sente' : 'gote'].push(point);
             });
 
             var disabled = {
@@ -68,16 +65,16 @@ lishogi.movetimeChart = function (data, trans, notation) {
               legend: disabled,
               series: [
                 {
-                  name: "White",
-                  data: series.white,
+                  name: 'Sente',
+                  data: series.sente,
                 },
                 {
-                  name: "Black",
-                  data: series.black,
+                  name: 'Gote',
+                  data: series.gote,
                 },
               ],
               chart: {
-                type: "area",
+                type: 'area',
                 spacing: [2, 0, 2, 0],
                 animation: false,
               },
@@ -85,11 +82,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
                 formatter: function () {
                   var seconds = data.game.moveCentis[this.x] / 100;
                   if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
-                  return (
-                    this.point.name +
-                    "<br />" +
-                    trans("nbSeconds", "<strong>" + seconds + "</strong>")
-                  );
+                  return this.point.name + '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
                 },
               },
               plotOptions: {
@@ -97,14 +90,14 @@ lishogi.movetimeChart = function (data, trans, notation) {
                   animation: false,
                 },
                 area: {
-                  fillColor: Highcharts.theme.lishogi.area.white,
-                  negativeFillColor: Highcharts.theme.lishogi.area.black,
+                  fillColor: Highcharts.theme.lishogi.area.sente,
+                  negativeFillColor: Highcharts.theme.lishogi.area.gote,
                   fillOpacity: 1,
                   threshold: 0,
                   lineWidth: 1,
-                  color: "#3893E8",
+                  color: '#3893E8',
                   allowPointSelect: true,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                   states: {
                     hover: {
                       lineWidth: 1,
@@ -114,10 +107,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
                     click: function (event) {
                       if (event.point) {
                         event.point.select();
-                        lishogi.pubsub.emit(
-                          "analysis.chart.click",
-                          event.point.x
-                        );
+                        lishogi.pubsub.emit('analysis.chart.click', event.point.x);
                       }
                     },
                   },
@@ -126,13 +116,13 @@ lishogi.movetimeChart = function (data, trans, notation) {
                     states: {
                       hover: {
                         radius: 3,
-                        lineColor: "#3893E8",
-                        fillColor: "#ffffff",
+                        lineColor: '#3893E8',
+                        fillColor: '#ffffff',
                       },
                       select: {
                         radius: 4,
-                        lineColor: "#3893E8",
-                        fillColor: "#ffffff",
+                        lineColor: '#3893E8',
+                        fillColor: '#ffffff',
                       },
                     },
                   },
@@ -155,7 +145,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
               },
             });
           });
-          lishogi.pubsub.emit("analysis.change.trigger");
+          lishogi.pubsub.emit('analysis.change.trigger');
         };
         lishogi.movetimeChart.render();
       });

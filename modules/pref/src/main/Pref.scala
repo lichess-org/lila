@@ -26,6 +26,7 @@ case class Pref(
     follow: Boolean,
     highlight: Boolean,
     destination: Boolean,
+    dropDestination: Boolean,
     coords: Int,
     replay: Int,
     challenge: Int,
@@ -90,11 +91,11 @@ case class Pref(
           copy(soundSet = s.key)
         }
       case "zen" => copy(zen = if (value == "1") 1 else 0).some
-      case "pieceNotation" => 
+      case "pieceNotation" =>
         Notations.allByKey get value map { n =>
           copy(pieceNotation = n.key.toInt)
         }
-      case _     => none
+      case _ => none
     }
 
   def animationFactor =
@@ -143,14 +144,14 @@ object Pref {
   }
 
   object Color {
-    val WHITE  = 1
+    val SENTE  = 1
     val RANDOM = 2
-    val BLACK  = 3
+    val GOTE   = 3
 
     val choices = Seq(
-      WHITE  -> "White",
+      SENTE  -> "Sente",
       RANDOM -> "Random",
-      BLACK  -> "Black"
+      GOTE   -> "Gote"
     )
   }
 
@@ -219,7 +220,7 @@ object Pref {
   }
 
   object PieceNotation {
-    val WESTERN = 0
+    val WESTERN  = 0
     val KAWASAKI = 1
     val JAPANESE = 2
     val WESTERN2 = 3
@@ -339,10 +340,10 @@ object Pref {
     val TEN   = 10
 
     val choices = Seq(
-      NEVER   -> "Never",
-      THREE   -> "Last three seconds",
-      FIVE    -> "Last five seconds",
-      TEN     -> "Last ten seconds"
+      NEVER -> "Never",
+      THREE -> "Last three seconds",
+      FIVE  -> "Last five seconds",
+      TEN   -> "Last ten seconds"
     )
   }
 
@@ -426,6 +427,7 @@ object Pref {
     follow = true,
     highlight = true,
     destination = true,
+    dropDestination = true,
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
