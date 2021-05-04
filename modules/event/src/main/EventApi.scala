@@ -22,7 +22,7 @@ final class EventApi(
         lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
           _.language == event.lang.language
         }
-      }
+      }.take(3)
     }
 
   private val promotable = cacheApi.unit[List[Event]] {
@@ -42,7 +42,7 @@ final class EventApi(
       .cursor[Event]()
       .list(50)
       .dmap {
-        _.filter(_.featureNow) take 3
+        _.filter(_.featureNow) take 10
       }
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
