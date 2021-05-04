@@ -2,4 +2,12 @@
 <resources>
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">자주 묻는 질문들</string>
+  <string name="whyIsLichessCalledLichess">Lichess는 무슨 뜻인가요?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 부릅니다.</string>
+  <string name="leechess">리체스</string>
+  <string name="hearItPronouncedBySpecialist">여기 전문가의 발음을 들어보세요.</string>
+  <string name="whyLiveLightLibre">라이브 - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. 라이트와 리브레는 Lichess가 다른 웹사이트를 오염시키는 독점적인 쓰레기로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
+  <string name="whyIsLilaCalledLila">비슷하게, Lichess의 소스코드인 %1$s는 li[chess in sca]la의 약자입니다. Lichess는 대부분 직관적인 프로그래밍 언어인 %2$s로 작성되어 있습니다.</string>
+  <string name="howCanIContributeToLichess">Lichess에 어떻게 기여할 수 있나요?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess는 후원자들의 기부와 자원봉사자들의 노력으로 운영됩니다.</string>
 </resources>
