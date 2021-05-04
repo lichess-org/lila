@@ -10,15 +10,14 @@ import lila.user.User
 
 final class PaginatorBuilder(
     coll: Coll,
-    gameRepo: GameRepo,
-    maxPerPage: lila.common.config.MaxPerPage
+    gameRepo: GameRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Game]] =
     Paginator(
       new UserAdapter(user),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = lila.common.config.MaxPerPage(12)
     )
 
   final class UserAdapter(user: User) extends AdapterLike[Game] {
