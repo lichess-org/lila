@@ -383,7 +383,7 @@ final class Api(
       name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
-      maxConcurrency = 10
+      maxConcurrency = 8
     )
 
   def moveStream(gameId: String) =
