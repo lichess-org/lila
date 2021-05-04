@@ -287,7 +287,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       h('input#' + id, {
                         attrs: {
                           type: 'range',
-                          min: 1,
+                          min: 0,
                           max,
                           step: 1,
                         },
