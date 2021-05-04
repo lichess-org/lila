@@ -25,4 +25,16 @@
   <string name="howCanIBecomeModerator">중재자가 되려면 어떻게 하나요?</string>
   <string name="youCannotApply">중재자 신청은 받지 않습니다. 저희가 보기에 중재자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것입니다.</string>
   <string name="isCorrespondenceDifferent">긴 대국은 일반 체스와 다른점이 있나요?</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 긴 대국(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 긴 대국에서 엔진 사용을 허용하지만 Lichess는 아닙니다.</string>
+  <string name="gameplay">게임 플레이</string>
+  <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>
+  <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
+예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
+  <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>
+  <string name="lichessSupportChessAnd">Lichess는 일반 체스와 %1$s를 지원합니다.</string>
+  <string name="eightVariants">8가지 변형 체스</string>
+  <string name="whatIsACPL">평균 CP(centipawn) 손실(ACPL)은 무슨 뜻인가요?</string>
 </resources>
