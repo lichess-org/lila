@@ -103,7 +103,7 @@
   <string name="delete">Forigi</string>
   <string name="deleteThisImportedGame">Ĉu forigi ĉi tiun importitan ludon?</string>
   <string name="replayMode">Reluda reĝimo</string>
-  <string name="realtimeReplay">Realtempe</string>
+  <string name="realtimeReplay">Reala tempo</string>
   <string name="byCPL">Per eraroj</string>
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
@@ -830,6 +830,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
