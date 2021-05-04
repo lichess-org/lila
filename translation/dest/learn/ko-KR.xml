@@ -20,7 +20,7 @@
   <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
   <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>
   <string name="youNeedBothBishops">밝은 칸 비숍 한 개, 어두운 칸 비숍 한 개 모두 필요합니다!</string>
-  <string name="bishopComplete">치하! 감독에게 명령 할 수 있습니다.</string>
+  <string name="bishopComplete">축하드립니다! 당신은 비숍을 조종할 수 있습니다.</string>
   <string name="theQueen">퀸</string>
   <string name="queenCombinesRookAndBishop">퀸 = 룩 + 비숍</string>
   <string name="queenIntro">가장 강력한 체스 조각이 들어갑니다. 폐하 여왕 폐하!</string>
