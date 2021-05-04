@@ -13,7 +13,6 @@ final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
-    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val gifUrl: String
@@ -36,7 +35,6 @@ final class Env(
 ) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
-  import config.paginatorMaxPerPage
 
   lazy val gameRepo = new GameRepo(db(config.gameColl))
 
