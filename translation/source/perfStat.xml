@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Not enough rated games have been played to establish a reliable rating.</string>
   <string name="progressOverLastXGames">Progression over the last %s games:</string>
   <string name="ratingDeviation">Rating deviation: %s.</string>
-  <string name="ratingDeviationHelp">Lower value means the rating is more stable. Above %s, the rating is considered provisional.</string>
+  <string name="ratingDeviationHelp">Lower value means the rating is more stable. Above %s, the rating is considered provisional. To be included in the standard chess rankings, this value should be below 75. To be included in the different variants' chess rankings, this value should be below 65.</string>
   <string name="totalGames">Total games</string>
   <string name="ratedGames">Rated games</string>
   <string name="tournamentGames">Tournament games</string>
