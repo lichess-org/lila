@@ -17,8 +17,6 @@ object JsonView {
       "soundSet"        -> p.soundSet,
       "pieceNotation"   -> p.pieceNotation,
       "blindfold"       -> p.blindfold,
-      "autoQueen"       -> p.autoQueen,
-      "autoThreefold"   -> p.autoThreefold,
       "takeback"        -> p.takeback,
       "moretime"        -> p.moretime,
       "clockTenths"     -> p.clockTenths,
@@ -43,7 +41,6 @@ object JsonView {
       "keyboardMove"    -> p.keyboardMove,
       "zen"             -> p.zen,
       "moveEvent"       -> p.moveEvent,
-      "rookCastle"      -> p.rookCastle
     )
   }
 }

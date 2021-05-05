@@ -33,12 +33,9 @@ object DataForm {
         "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
         "premove"       -> booleanNumber,
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
-        "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
-        "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
-        "keyboardMove"  -> optional(booleanNumber),
-        "rookCastle"    -> optional(booleanNumber)
+        "keyboardMove"  -> optional(booleanNumber)
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
         "tenths"    -> checkedNumber(Pref.ClockTenths.choices),
@@ -73,12 +70,9 @@ object DataForm {
       moveEvent: Option[Int],
       premove: Int,
       takeback: Int,
-      autoQueen: Int,
-      autoThreefold: Int,
       submitMove: Int,
       confirmResign: Int,
       keyboardMove: Option[Int],
-      rookCastle: Option[Int]
   )
 
   case class ClockData(
@@ -102,8 +96,6 @@ object DataForm {
 
     def apply(pref: Pref) =
       pref.copy(
-        autoQueen = behavior.autoQueen,
-        autoThreefold = behavior.autoThreefold,
         takeback = behavior.takeback,
         moretime = clock.moretime,
         clockTenths = clock.tenths,
@@ -129,7 +121,6 @@ object DataForm {
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
-        rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
@@ -155,12 +146,9 @@ object DataForm {
           moveEvent = pref.moveEvent.some,
           premove = if (pref.premove) 1 else 0,
           takeback = pref.takeback,
-          autoQueen = pref.autoQueen,
-          autoThreefold = pref.autoThreefold,
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
-          keyboardMove = pref.keyboardMove.some,
-          rookCastle = pref.rookCastle.some
+          keyboardMove = pref.keyboardMove.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,

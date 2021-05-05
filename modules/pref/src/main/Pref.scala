@@ -12,8 +12,6 @@ case class Pref(
     pieceSet3d: String,
     soundSet: String,
     blindfold: Int,
-    autoQueen: Int,
-    autoThreefold: Int,
     takeback: Int,
     moretime: Int,
     clockTenths: Int,
@@ -38,7 +36,6 @@ case class Pref(
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
-    rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
@@ -155,7 +152,7 @@ object Pref {
     )
   }
 
-  object AutoQueen {
+  object AutoPromote {
     val NEVER   = 1
     val PREMOVE = 2
     val ALWAYS  = 3
@@ -237,18 +234,6 @@ object Pref {
     override val choices = Seq(
       NO  -> "What? No!",
       YES -> "Yes, hide the pieces"
-    )
-  }
-
-  object AutoThreefold {
-    val NEVER  = 1
-    val TIME   = 2
-    val ALWAYS = 3
-
-    val choices = Seq(
-      NEVER  -> "Never",
-      ALWAYS -> "Always",
-      TIME   -> "When time remaining < 30 seconds"
     )
   }
 
@@ -415,8 +400,6 @@ object Pref {
     pieceSet3d = PieceSet3d.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
-    autoQueen = AutoQueen.NEVER,
-    autoThreefold = AutoThreefold.NEVER,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,
     clockBar = true,
@@ -441,7 +424,6 @@ object Pref {
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
-    rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.WESTERN,
     resizeHandle = ResizeHandle.INITIAL,

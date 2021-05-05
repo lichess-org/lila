@@ -28,8 +28,6 @@ object FormCompatLayer {
           "moveEvent",
           "premove",
           "takeback",
-          "autoQueen",
-          "autoThreefold",
           "submitMove",
           "confirmResign",
           "keyboardMove"

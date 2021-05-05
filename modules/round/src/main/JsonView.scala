@@ -92,8 +92,6 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "autoQueen" -> (if (pov.game.variant == shogi.variant.Antichess) Pref.AutoQueen.NEVER
-                                else pref.autoQueen),
                 "clockTenths"    -> pref.clockTenths,
                 "clockCountdown" -> pref.clockCountdown,
                 "moveEvent"      -> pref.moveEvent,
@@ -104,7 +102,6 @@ final class JsonView(
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
               .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
