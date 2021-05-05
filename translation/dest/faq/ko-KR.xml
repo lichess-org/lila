@@ -74,6 +74,18 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
   <string name="accounts">계정</string>
   <string name="titlesAvailableOnLichess">Lichess의 타이틀에는 무엇이 있나요?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess는 OTB (over the board) 플레이에서 얻은 모든 FIDE 타이틀과 %1$s을 인정합니다. 다음은 FIDE 타이틀 목록입니다.</string>
+  <string name="showYourTitle">OTB 타이틀이 있는 경우, 타이틀 인증서/카드의 선명한 이미지와 이것을 들고 있는 본인의 셀카를 첨부해서 %1$s을 작성해 보내주시면 타이틀을 계정에 표시해드립니다. 
+
+타이틀이 인증된 플레이어는 Lichess 타이틀 아레나 이벤트에 참여할 수 있습니다.
+
+마지막으로 명예 타이틀인 %2$s가 있습니다.</string>
   <string name="asWellAsManyNMtitles">많은 국가의 네셔널 마스터 타이틀</string>
   <string name="verificationForm">인증 양식</string>
+  <string name="canIbecomeLM">저도 Lichess 마스터 (LM) 타이틀을 얻을 수 있나요?</string>
+  <string name="noUpperCaseDot">아니오.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">이 명예 타이틀은 비공인 타이틀이며 오직 Lichess에만 존재합니다.
+
+우리는 우리의 신중한 판단에 따라 가끔씩 Lichess의 훌륭한 유저이자 매우 주목할만한 플레이어에게 이 타이틀을 수여합니다. 당신이 LM 타이틀을 획득하는 것이 아니라 LM 타이틀이 당신을 찾아갈 것입니다. 당신이 자격이 있다면 당신은 우리에게 타이틀을 받을 것인지를 묻는 메시지를 받게 될 것입니다.
+
+LM 타이틀에 대해 문의하지 마세요.</string>
 </resources>
