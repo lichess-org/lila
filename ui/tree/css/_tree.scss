@@ -18,6 +18,8 @@ $c-blunder: #df5353;
   move {
     @extend %move;
 
+    user-select: none;
+
     &.inaccuracy {
       color: $c-inaccuracy;
     }

@@ -5,7 +5,7 @@ import inline from './inlineView';
 import isCol1 from 'common/isCol1';
 import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML, bindMobileTapHold, clearSelection } from '../util';
+import { enrichText, innerHTML, bindMobileTapHold } from '../util';
 import { h, Hooks, VNode } from 'snabbdom';
 import { isEmpty, defined } from 'common';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
@@ -126,7 +126,6 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
             path,
             root: ctrl,
           });
-          clearSelection();
         }
         ctrl.redraw();
         return false;

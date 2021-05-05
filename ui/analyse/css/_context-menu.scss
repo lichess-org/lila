@@ -6,6 +6,7 @@
   display: none;
   z-index: z('context-menu');
   cursor: default;
+  user-select: none;
 
   &.visible {
     display: block;

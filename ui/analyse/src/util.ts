@@ -7,10 +7,6 @@ export const emptyRedButton = 'button.button.button-red.button-empty';
 
 const longPressDuration = 610; // used in bindMobileTapHold
 
-export function clearSelection() {
-  window.getSelection()?.removeAllRanges();
-}
-
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'white' : 'black';
 }
