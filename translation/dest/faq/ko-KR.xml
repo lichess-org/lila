@@ -52,8 +52,21 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
 상대의 기물이 상대 킹의 진로를 막고 있는 상황에서는 비숍이나 나이트 한 개만으로도 상대 킹을 체크메이트 시킬 수 있다는 것에 유의하세요.</string>
   <string name="fideHandbookX">FIDE 핸드북 %s</string>
   <string name="discoveringEnPassant">왜 폰이 이미 지나쳐간 다른 폰을 잡을 수 있나요? (앙파상)</string>
+  <string name="explainingEnPassant">\"앙파상\"이라는 규칙입니다. 위키피디아의 %1$s를 읽어보세요.
+
+또한 %2$s의 섹션 3.7 (d)에도 설명되어 있습니다.
+
+\"현재 폰이 인접한 파일의 상대 폰과 같은 랭크에 있고 상대의 해당 폰이 한 번에 두 칸을 이동해서 그 위치에 온 것이라면, 당신은 폰으로 상대 폰이 마치 한 칸만 이동한 것처럼 간주하고 상대 폰을 잡을 수 있다. 이것은 상대 폰이 전진한 바로 직후에만 가능하다. 이것을 \'앙파상\'이라고 부른다.\"
+
+연습을 위해 %3$s를 참고하세요.</string>
   <string name="goodIntroduction">기사</string>
   <string name="officialRulesPDF">공식 규칙 (PDF)</string>
   <string name="lichessTraining">Lichess 연습</string>
   <string name="threefoldRepetition">3회 반복</string>
+  <string name="threefoldRepetitionExplanation">같은 포지션이 3번 반복될 경우 플레이어들은 %1$s으로 무승부를 요청할 수 있습니다. Lichess는 FIDE 공식 규칙(%2$s의 9.2 (d))을 구현했습니다.</string>
+  <string name="threefoldRepetitionLowerCase">3회 동형반복</string>
+  <string name="notRepeatedMoves">같은 수를 반복하지 않았는데 반복이라면서 끝났는데요?</string>
+  <string name="repeatedPositionsThatMatters">3회 반복은 %1$s에 관한 것이지, 수에 관한 것이 아닙니다. 반복은 연속적으로 이루어져야만 하는 것이 아닙니다.</string>
+  <string name="positions">포지션</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">포지션이 세 번 반복되었는데 무승부가 안되는데요?</string>
 </resources>
