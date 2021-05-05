@@ -88,4 +88,13 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
 우리는 우리의 신중한 판단에 따라 가끔씩 Lichess의 훌륭한 유저이자 매우 주목할만한 플레이어에게 이 타이틀을 수여합니다. 당신이 LM 타이틀을 획득하는 것이 아니라 LM 타이틀이 당신을 찾아갈 것입니다. 당신이 자격이 있다면 당신은 우리에게 타이틀을 받을 것인지를 묻는 메시지를 받게 될 것입니다.
 
 LM 타이틀에 대해 문의하지 마세요.</string>
+  <string name="whatUsernameCanIchoose">사용자 이름으로 무엇을 사용할 수 있나요?</string>
+  <string name="usernamesNotOffensive">일반적으로, 사용자 이름으로 불쾌감을 주거나, 다른 사람을 사칭하거나, 광고를 해서는 안됩니다. 이것에 대해서는 %1$s을 읽어주세요.</string>
+  <string name="guidelines">가이드라인</string>
+  <string name="canIChangeMyUsername">사용자 이름을 변경할 수 있나요?</string>
+  <string name="usernamesCannotBeChanged">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
+  <string name="uniqueTrophies">하나뿐인 트로피</string>
+  <string name="ownerUniqueTrophies">이 트로피는 Lichess 역사에서 단 하나 뿐입니다. 오직 %1$s만이 가지고 있습니다.</string>
+  <string name="wayOfBerserkExplanation">hiimgosu는 %s에 출전해 모든 경기를 버서크 모드로 승리해 이 트로피를 획득했습니다.</string>
+  <string name="aHourlyBulletTournament">hourly 불렛 토너먼트</string>
 </resources>
