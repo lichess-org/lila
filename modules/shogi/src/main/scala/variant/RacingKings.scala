@@ -11,8 +11,6 @@ case object RacingKings
       standardInitialPosition = false
     ) {
 
-  override def allowsCastling = false
-
   // Both sides start on the first two ranks:
   // krbnNBRK
   // qrbnNBRQ
@@ -34,8 +32,6 @@ case object RacingKings
     Pos.H1 -> Sente.lance,
     Pos.H2 -> Sente.king
   )
-
-  override val castles = Castles.none
 
   override val initialFen = "8/8/8/8/8/8/krbnNBRK/qrbnNBRQ w - - 0 1"
 

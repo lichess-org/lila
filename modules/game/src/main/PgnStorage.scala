@@ -76,7 +76,6 @@ private object PgnStorage {
       positionHashes: PositionHash, // irrelevant after game ends
       checkCount: List[Int],
       lastMove: Option[Uci],
-      halfMoveClock: Int // irrelevant after game ends
   )
 
   private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =

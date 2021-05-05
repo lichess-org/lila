@@ -39,8 +39,6 @@ case object Horde
     gotePieces ++ sentePawnsHorde
   }
 
-  override val castles = Castles("kq")
-
   override val initialFen = "rnbqkbnr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1"
 
   override def valid(board: Board, strict: Boolean) =

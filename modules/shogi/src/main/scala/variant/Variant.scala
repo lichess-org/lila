@@ -33,12 +33,8 @@ abstract class Variant private[variant] (
 
   def exotic = !standard
 
-  def allowsCastling = !castles.isEmpty
-
   protected val backRank  = Vector(Lance, Knight, Silver, Gold, King, Gold, Silver, Knight, Lance)
   protected val backRank2 = Vector(Rook, Bishop)
-
-  def castles: Castles = Castles.all
 
   def initialFen = format.Forsyth.initial
 

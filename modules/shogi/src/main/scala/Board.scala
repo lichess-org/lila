@@ -119,11 +119,7 @@ case class Board(
       b3    <- b2.place(Piece(piece.color, promotedRole), pos) //todo
     } yield b3
 
-  def castles: Castles = history.castles
-
   def withHistory(h: History): Board = copy(history = h)
-
-  def withCastles(c: Castles) = withHistory(history withCastles c)
 
   def withPieces(newPieces: PieceMap) = copy(pieces = newPieces)
 
@@ -137,37 +133,6 @@ case class Board(
     withCrazyData(f(crazyData | Data.init))
 
   def ensureCrazyData = withCrazyData(crazyData | Data.init)
-
-  def unmovedRooks =
-    UnmovedRooks {
-      history.unmovedRooks.pos.filter(pos =>
-        apply(pos).exists(piece => piece.is(Rook) && piece.color.backrankY == pos.y)
-      )
-    }
-
-  def fixCastles: Board =
-    withCastles {
-      if (variant.allowsCastling) {
-        val wkPos   = kingPosOf(Sente)
-        val bkPos   = kingPosOf(Gote)
-        val wkReady = wkPos.fold(false)(_.y == 1)
-        val bkReady = bkPos.fold(false)(_.y == 8)
-        def rookReady(color: Color, kPos: Option[Pos], left: Boolean) =
-          kPos.fold(false) { kp =>
-            actorsOf(color) exists { a =>
-              a.piece.is(Rook) && a.pos.y == kp.y && (left ^ (a.pos.x > kp.x)) && history.unmovedRooks.pos(
-                a.pos
-              )
-            }
-          }
-        Castles(
-          senteKingSide = castles.senteKingSide && wkReady && rookReady(Sente, wkPos, false),
-          senteQueenSide = castles.senteQueenSide && wkReady && rookReady(Sente, wkPos, true),
-          goteKingSide = castles.goteKingSide && bkReady && rookReady(Gote, bkPos, false),
-          goteQueenSide = castles.goteQueenSide && bkReady && rookReady(Gote, bkPos, true)
-        )
-      } else Castles.none
-    }
 
   def updateHistory(f: History => History) = copy(history = f(history))
 
@@ -222,12 +187,9 @@ case class Board(
 object Board {
 
   def apply(pieces: Iterable[(Pos, Piece)], variant: Variant): Board =
-    Board(pieces.toMap, if (variant.allowsCastling) Castles.all else Castles.none, variant)
+    Board(pieces.toMap, History(), variant, variantCrazyData(variant))
 
-  def apply(pieces: Iterable[(Pos, Piece)], castles: Castles, variant: Variant): Board =
-    Board(pieces.toMap, History(castles = castles), variant, variantCrazyData(variant))
-
-  def init(variant: Variant): Board = Board(variant.pieces, variant.castles, variant)
+  def init(variant: Variant): Board = Board(variant.pieces, variant)
 
   def empty(variant: Variant): Board = Board(Nil, variant)
 

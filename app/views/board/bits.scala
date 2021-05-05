@@ -32,12 +32,6 @@ object bits {
       "fen"     -> fen.split(" ").take(4).mkString(" "),
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
-      "castles" -> Json.obj(
-        "K" -> (sit canCastle shogi.Sente on shogi.KingSide),
-        "Q" -> (sit canCastle shogi.Sente on shogi.QueenSide),
-        "k" -> (sit canCastle shogi.Gote on shogi.KingSide),
-        "q" -> (sit canCastle shogi.Gote on shogi.QueenSide)
-      ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),

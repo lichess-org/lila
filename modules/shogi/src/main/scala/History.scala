@@ -23,21 +23,11 @@ case class CheckCount(sente: Int = 0, gote: Int = 0) {
   }
 }
 
-case class UnmovedRooks(pos: Set[Pos]) extends AnyVal
-
-object UnmovedRooks {
-  val default = UnmovedRooks((Pos.senteBackrank ::: Pos.goteBackrank).toSet)
-}
-
 case class History(
     lastMove: Option[Uci] = None,
     positionHashes: PositionHash = Array.empty,
-    castles: Castles = Castles.all,
     checkCount: CheckCount = CheckCount(0, 0),
-    unmovedRooks: UnmovedRooks = UnmovedRooks.default,
-    halfMoveClock: Int = 0
 ) {
-  def setHalfMoveClock(v: Int) = copy(halfMoveClock = v)
 
   private def isRepetition(times: Int) =
     positionHashes.size > (times - 1) * 4 * Hash.size && {
@@ -55,17 +45,9 @@ case class History(
 
   def threefoldRepetition = isRepetition(4)
 
+  def fourfoldRepetition = isRepetition(4)
+
   def fivefoldRepetition = isRepetition(4)
-
-  def canCastle(color: Color) = castles can color
-
-  def withoutCastles(color: Color) = copy(castles = castles without color)
-
-  def withoutAnyCastles = copy(castles = Castles.none)
-
-  def withoutCastle(color: Color, side: Side) = copy(castles = castles.without(color, side))
-
-  def withCastles(c: Castles) = copy(castles = c)
 
   def withLastMove(m: Uci) = copy(lastMove = Some(m))
 
@@ -84,29 +66,9 @@ object History {
 
   def make(
       lastMove: Option[String], // a2a4
-      castles: String
   ): History =
     History(
       lastMove = lastMove flatMap Uci.apply,
-      castles = Castles(castles),
       positionHashes = Array()
     )
-
-  def castle(color: Color, kingSide: Boolean, queenSide: Boolean) =
-    History(
-      castles = color match {
-        case Sente =>
-          Castles.init.copy(
-            senteKingSide = kingSide,
-            senteQueenSide = queenSide
-          )
-        case Gote =>
-          Castles.init.copy(
-            goteKingSide = kingSide,
-            goteQueenSide = queenSide
-          )
-      }
-    )
-
-  def noCastle = History(castles = Castles.none)
 }

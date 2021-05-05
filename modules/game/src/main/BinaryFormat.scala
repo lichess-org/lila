@@ -213,40 +213,6 @@ object BinaryFormat {
       )
   }
 
-  object castleLastMove {
-
-    def write(clmt: CastleLastMove): ByteArray = {
-
-      val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
-        case (acc, (false, _)) => acc
-        case (acc, (true, p))  => acc + (1 << (3 - p))
-      }
-
-      def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
-      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { case (o, d) =>
-        (posInt(o) << 6) + posInt(d)
-      }
-      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
-    }
-
-    def read(ba: ByteArray): CastleLastMove = {
-      val ints = ba.value map toInt
-      doRead(ints(0), ints(1))
-    }
-
-    private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
-
-    private def doRead(b1: Int, b2: Int) =
-      CastleLastMove(
-        castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
-        lastMove = for {
-          orig <- posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          dest <- posAt((b2 & 63) >> 3, b2 & 7)
-          if orig != Pos.A1 || dest != Pos.A1
-        } yield Uci.Move(orig, dest)
-      )
-  }
-
   object piece {
 
     private val groupedPos = Pos.all grouped 2 collect { case List(p1, p2) =>
@@ -315,47 +281,6 @@ object BinaryFormat {
         case Dragon         => 13
         case Pawn           => 14
         case _              => 15
-      }
-  }
-
-  object unmovedRooks {
-
-    val emptyByteArray = ByteArray(Array(0, 0))
-
-    def write(o: UnmovedRooks): ByteArray = {
-      if (o.pos.isEmpty) emptyByteArray
-      else {
-        var sente = 0
-        var gote  = 0
-        o.pos.foreach { pos =>
-          if (pos.y == 1) sente = sente | (1 << (9 - pos.x))
-          else gote = gote | (1 << (9 - pos.x))
-        }
-        Array(sente.toByte, gote.toByte)
-      }
-    }
-
-    private def bitAt(n: Int, k: Int) = (n >> k) & 1
-
-    private val arrIndexes = 0 to 1
-    private val bitIndexes = 0 to 8
-    private val senteStd   = Set(Pos.A1, Pos.I1)
-    private val goteStd    = Set(Pos.A9, Pos.I9)
-
-    def read(ba: ByteArray) =
-      UnmovedRooks {
-        var set = Set.empty[Pos]
-        arrIndexes.foreach { i =>
-          val int = ba.value(i).toInt
-          if (int != 0) {
-            if (int == -127) set = if (i == 0) senteStd else set ++ goteStd
-            else
-              bitIndexes.foreach { j =>
-                if (bitAt(int, j) == 1) set = set + Pos.posAt(9 - j, 1 + 8 * i).get
-              }
-          }
-        }
-        set
       }
   }
 

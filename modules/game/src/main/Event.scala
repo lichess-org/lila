@@ -78,8 +78,6 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       promotion: Boolean,
-      enpassant: Option[Enpassant],
-      castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
@@ -116,12 +114,6 @@ object Event {
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion,
-        enpassant = (move.capture ifTrue move.enpassant).map {
-          Event.Enpassant(_, !move.color)
-        },
-        castle = move.castle.map { case (king, rook) =>
-          Castling(king, rook, move.color)
-        },
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,
@@ -205,25 +197,6 @@ object Event {
         }
   }
 
-  case class Enpassant(pos: Pos, color: Color) extends Event {
-    def typ = "enpassant"
-    def data =
-      Json.obj(
-        "key"   -> pos.key,
-        "color" -> color
-      )
-  }
-
-  case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
-    def typ = "castling"
-    def data =
-      Json.obj(
-        "king"  -> Json.arr(king._1.key, king._2.key),
-        "rook"  -> Json.arr(rook._1.key, rook._2.key),
-        "color" -> color
-      )
-  }
-
   case class RedirectOwner(
       color: Color,
       id: String,
@@ -239,15 +212,6 @@ object Event {
         .add("cookie" -> cookie)
     override def only = Some(color)
   }
-
-  //case class Promotion(role: PromotableRole, pos: Pos) extends Event {
-  //  def typ = "promotion"
-  //  def data =
-  //    Json.obj(
-  //      "key"        -> pos.key,
-  //      "pieceClass" -> role.toString.toLowerCase
-  //    )
-  //}
 
   case class PlayerMessage(line: PlayerLine) extends Event {
     def typ            = "message"

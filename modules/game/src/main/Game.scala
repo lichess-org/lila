@@ -5,7 +5,6 @@ import shogi.format.{ FEN, Uci }
 import shogi.opening.{ FullOpening, FullOpeningDB }
 import shogi.variant.{ FromPosition, Standard, Variant }
 import shogi.{
-  Castles,
   Centis,
   CheckCount,
   Clock,
@@ -841,28 +840,6 @@ object Game {
     val initialFen        = "if"
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
-  }
-}
-
-case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
-
-object CastleLastMove {
-
-  def init = CastleLastMove(Castles.all, None)
-
-  import reactivemongo.api.bson._
-  import lila.db.ByteArray.ByteArrayBSONHandler
-
-  implicit private[game] val castleLastMoveBSONHandler = new BSONHandler[CastleLastMove] {
-    def readTry(bson: BSONValue) =
-      bson match {
-        case bin: BSONBinary => ByteArrayBSONHandler readTry bin map BinaryFormat.castleLastMove.read
-        case b               => lila.db.BSON.handlerBadType(b)
-      }
-    def writeTry(clmt: CastleLastMove) =
-      ByteArrayBSONHandler writeTry {
-        BinaryFormat.castleLastMove write clmt
-      }
   }
 }
 

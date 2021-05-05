@@ -125,10 +125,4 @@ object GameDiff {
   private val bTrue = BSONBoolean(true)
 
   private val writeBytes = ByteArrayBSONHandler.writeTry _
-
-  private def makeCastleLastMove(g: Game) =
-    CastleLastMove(
-      lastMove = g.history.lastMove,
-      castles = g.history.castles
-    )
 }

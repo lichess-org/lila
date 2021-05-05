@@ -21,8 +21,6 @@ case class Drop(
       after updateHistory { h =>
         h.copy(
           lastMove = Some(Uci.Drop(piece.role, pos)),
-          unmovedRooks = before.unmovedRooks,
-          halfMoveClock = if (piece is Pawn) 0 else h.halfMoveClock + 1
         )
       },
       toUci,

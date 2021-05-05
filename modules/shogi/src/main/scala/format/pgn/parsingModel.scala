@@ -66,7 +66,7 @@ case class Std(
             pos.y
           ) && piece.eyesMovable(pos, dest) =>
         val a = Actor(piece, pos, situation.board)
-        a trustedMoves false find { m =>
+        a.trustedMoves() find { m =>
           m.dest == dest && a.board.variant.kingSafety(a, m)
         }
       case (m, _) => m
@@ -120,23 +120,6 @@ case class Metas(
 
 object Metas {
   val empty = Metas(false, false, Nil, Glyphs.empty, Nil)
-}
-
-case class Castle(
-    side: Side,
-    metas: Metas = Metas.empty
-) extends San {
-
-  def apply(situation: Situation) = move(situation) map Left.apply
-
-  def withMetas(m: Metas) = copy(metas = m)
-
-  def move(situation: Situation): Valid[shogi.Move] =
-    for {
-      kingPos <- situation.board kingPosOf situation.color toValid "No king found"
-      actor   <- situation.board actorAt kingPos toValid "No actor found"
-      move    <- actor.castleOn(side).headOption toValid "Cannot castle / variant is " + situation.board.variant
-    } yield move
 }
 
 case class Suffixes(

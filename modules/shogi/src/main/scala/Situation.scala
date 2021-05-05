@@ -69,8 +69,6 @@ case class Situation(board: Board, color: Color) {
   def drop(role: Role, pos: Pos): Valid[Drop] =
     board.variant.drop(this, role, pos)
 
-  def fixCastles = copy(board = board fixCastles)
-
   def withHistory(history: History) =
     copy(
       board = board withHistory history
@@ -80,27 +78,6 @@ case class Situation(board: Board, color: Color) {
     copy(
       board = board withVariant variant
     )
-
-  def canCastle = board.history.canCastle _
-
-  def enPassantSquare: Option[Pos] = {
-    // Before potentially expensive move generation, first ensure some basic
-    // conditions are met.
-    history.lastMove match {
-      case Some(move: Uci.Move) =>
-        if (
-          move.dest.yDist(move.orig) == 2 &&
-          board.actorAt(move.dest).exists(_.piece.is(Pawn)) &&
-          List(
-            Pos.posAt(move.dest.x - 1, color.passablePawnY),
-            Pos.posAt(move.dest.x + 1, color.passablePawnY)
-          ).flatten.flatMap(board.actorAt).exists(_.piece == color.pawn)
-        )
-          moves.values.flatten.find(_.enpassant).map(_.dest)
-        else None
-      case _ => None
-    }
-  }
 
   def unary_! = copy(color = !color)
 }

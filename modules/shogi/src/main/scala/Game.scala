@@ -15,7 +15,7 @@ case class Game(
       promotion: Boolean = false,
       metrics: MoveMetrics = MoveMetrics()
   ): Valid[(Game, Move)] = {
-    situation.move(orig, dest, promotion).map(_.normalizeCastle withMetrics metrics) map { move =>
+    situation.move(orig, dest, promotion).map(_ withMetrics metrics) map { move =>
       apply(move) -> move
     }
   }
@@ -73,8 +73,6 @@ case class Game(
   def board = situation.board
 
   def isStandardInit = board.pieces == shogi.variant.Standard.pieces
-
-  def halfMoveClock: Int = board.history.halfMoveClock
 
   /** Fullmove number: The number of the full move.
     * It starts at 1, and is incremented after Gote's move.

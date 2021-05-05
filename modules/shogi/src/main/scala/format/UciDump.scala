@@ -20,11 +20,7 @@ object UciDump {
 
   def move(variant: Variant)(mod: MoveOrDrop): String =
     mod match {
-      case Left(m) =>
-        m.castle.fold(m.toUci.uci) {
-          case ((kf, kt), (rf, _)) if kf == kt || variant.fromPosition => kf.key + rf.key
-          case ((kf, kt), _)                                           => kf.key + kt.key
-        }
+      case Left(m) => m.toUci.uci
       case Right(d) => d.toUci.uci
     }
 }

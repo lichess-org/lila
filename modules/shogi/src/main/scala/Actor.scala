@@ -13,11 +13,11 @@ final case class Actor(
 
   //import Actor._
 
-  lazy val moves: List[Move] = kingSafetyMoveFilter(trustedMoves(board.variant.allowsCastling))
+  lazy val moves: List[Move] = kingSafetyMoveFilter(trustedMoves())
 
   /** The moves without taking defending the king into account */
   // not optimal
-  def trustedMoves(withCastle: Boolean): List[Move] = {
+  def trustedMoves(): List[Move] = {
     val moves = piece.role match {
       case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
       case Pawn if piece.color == Gote  => shortRange(Pawn.dirsOpposite)
@@ -52,7 +52,6 @@ final case class Actor(
 
       case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
       case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)
-      case King if withCastle => shortRange(King.dirs) ::: castle
       case King               => shortRange(King.dirs)
     }
     def maybePromote(m: Move): Option[Move] =
@@ -108,10 +107,6 @@ final case class Actor(
 
   lazy val check: Boolean = board check color
 
-  private def castle: List[Move] = castleOn(KingSide) ::: castleOn(QueenSide)
-
-  def castleOn(side: Side): List[Move] = Nil
-
   private def shortRange(dirs: Directions): List[Move] =
     dirs flatMap { _(pos) } flatMap { to =>
       board.pieces.get(to) match {
@@ -151,9 +146,7 @@ final case class Actor(
       dest: Pos,
       after: Board,
       capture: Option[Pos] = None,
-      castle: Option[((Pos, Pos), (Pos, Pos))] = None,
       promotion: Boolean = false,
-      enpassant: Boolean = false
   ) =
     Move(
       piece = piece,
@@ -162,9 +155,7 @@ final case class Actor(
       situationBefore = Situation(board, piece.color),
       after = after,
       capture = capture,
-      castle = castle,
       promotion = promotion,
-      enpassant = enpassant
     )
 
   private def history = board.history

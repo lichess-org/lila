@@ -10,11 +10,10 @@ import shogi.{
   Gote,
   Status,
   Mode,
-  UnmovedRooks,
   Data,
   Pocket,
   Pockets,
-  History => ChessHistory,
+  History => ShogiHistory,
   Game => ShogiGame
 }
 import org.joda.time.DateTime
@@ -37,11 +36,6 @@ object BSONHandlers {
   implicit val StatusBSONHandler = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
-  )
-
-  implicit private[game] val unmovedRooksHandler = tryHandler[UnmovedRooks](
-    { case bin: BSONBinary => ByteArrayBSONHandler.readTry(bin) map BinaryFormat.unmovedRooks.read },
-    x => ByteArrayBSONHandler.writeTry(BinaryFormat.unmovedRooks write x).get
   )
 
   implicit private[game] val crazyhouseDataBSONHandler = new BSON[Data] {
@@ -97,19 +91,15 @@ object BSONHandlers {
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
           lastMove = r strO F.historyLastMove flatMap Uci.apply,
-          checkCount = r.intsD(F.checkCount),
-          halfMoveClock = pgnMoves.reverse.indexWhere(san =>
-            san.contains("x") || san.headOption.exists(_.isLower)
-          ) atLeast 0
+          checkCount = r.intsD(F.checkCount)
         )
       }
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
           shogi.Board(
             pieces = decoded.pieces,
-            history = ChessHistory(
+            history = ShogiHistory(
               lastMove = decoded.lastMove,
-              halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
             ),

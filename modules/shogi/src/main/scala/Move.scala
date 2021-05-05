@@ -10,8 +10,6 @@ case class Move(
     after: Board,
     capture: Option[Pos],
     promotion: Boolean,
-    castle: Option[((Pos, Pos), (Pos, Pos))],
-    enpassant: Boolean,
     metrics: MoveMetrics = MoveMetrics()
 ) {
   def before = situationBefore.board
@@ -21,40 +19,20 @@ case class Move(
   def withHistory(h: History) = copy(after = after withHistory h)
 
   def finalizeAfter: Board = {
-    val board = after updateHistory { h1 =>
-      val h2 = h1.copy(
-        lastMove = Some(toUci),
-        unmovedRooks = before.unmovedRooks,
-        halfMoveClock =
-          if ((piece is Pawn) || captures || promotes) 0
-          else h1.halfMoveClock + 1
-      )
-
-      // my broken castles
-      if ((piece is King) && h2.canCastle(color).any)
-        h2 withoutCastles color
-      else if (piece is Rook) (for {
-        kingPos <- after kingPosOf color
-        side <- Side.kingRookSide(kingPos, orig).filter { s =>
-          (h2 canCastle color on s) &&
-          h1.unmovedRooks.pos(orig)
-        }
-      } yield h2.withoutCastle(color, side)) | h2
-      else h2
-    } fixCastles
-
-    board.variant.finalizeBoard(
-      board,
+    val board = after.variant.finalizeBoard(
+      after updateHistory { h =>
+        h.copy(
+          lastMove = Some(toUci)
+        )
+      },
       toUci,
       capture flatMap before.apply,
       !situationBefore.color
-    ) updateHistory { h =>
+    )
+    
+    board updateHistory { h =>
       // Update position hashes last, only after updating the board,
-      // castling rights and en-passant rights.
-      h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ {
-        if (board.variant.isIrreversible(this)) Array.empty: PositionHash
-        else h.positionHashes
-      })
+      h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ h.positionHashes)
     }
   }
 
@@ -72,13 +50,6 @@ case class Move(
   def captures = capture.isDefined
 
   def promotes = promotion
-
-  def castles = castle.isDefined
-
-  def normalizeCastle =
-    castle.fold(this) { case (_, (rookOrig, _)) =>
-      copy(dest = rookOrig)
-    }
 
   def color = piece.color
 
