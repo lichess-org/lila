@@ -112,4 +112,5 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">플레이어가 아직 %1$s와 충분한 레이팅 게임을 하지 않았습니다.</string>
   <string name="similarOpponents">비슷한 실력의 상대</string>
   <string name="notPlayedRecently">플레이어가 최근에 게임을 하지 않았습니다. 플레이한 게임 수에 따라 다르지만 대략 1년간 비활성화 되어 있으면 다시 임시 레이팅으로 변경 됩니다.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">구체적으로 말하자면, Glicko-2 분산값이 110보다 크다는 것을 의미합니다. 분산은 레이팅의 신뢰 수준입니다. 분산값이 작다면 레이팅은 더 안정적입니다.</string>
 </resources>
