@@ -100,4 +100,16 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="goldenZeeExplanation">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
   <string name="lichessRatings">Lichess 레이팅</string>
   <string name="whichRatingSystemUsedByLichess">Lichess가 사용하는 레이팅 시스템은 무엇인가요?</string>
+  <string name="ratingSystemUsedByLichess">레이팅 점수는 Mark Glickman이 개발한 Glicko-2 레이팅 방식을 사용하여 계산됩니다. 이것은 매우 인기 있는 레이팅 시스템이며 상당수의 체스 조직에서 사용합니다 (FIDE는 ​​여전히 오래된 Elo 레이팅 시스템을 사용하기 때문에 주목할만한 반례입니다).
+
+기본적으로 Glicko 레이팅은 레이팅을 계산하고 나타낼 때 \"신뢰 구간\"을 사용합니다. 사이트를 처음 시작할 때 레이팅은 1500 ± 1000에서 시작됩니다. 1500은 레이팅을 나타내고 1000은 신뢰 구간을 나타냅니다.
+
+기본적으로 이 시스템은 당신의 레이팅이 95% 확률로 500에서 2500 사이에 있다고 가정합니다. 이것은 매우 불확실하죠. 그래서 플레이어들이 처음 시작하면 그들의 레이팅은 매우 크게, 심하면 수백 포인트씩 변화합니다. 하지만 기존 플레이어들과 게임을 하면서 신뢰 구간은 점점 좁아지고 게임의 결과로 얻고/잃는 포인트가 감소하게 됩니다.
+
+주목해야 할 또 다른 점은 시간이 지남에 따라 신뢰 구간이 점점 증가한다는 점입니다. 이것은 시간이 지남에 따라 변화하는 실력만큼 더 빠르게 점수를 얻고/잃게 됩니다.</string>
+  <string name="whatIsProvisionalRating">레이팅 옆에 물음표(?)는 무엇인가요?</string>
+  <string name="provisionalRatingExplanation">레이팅 옆에 물음표는 임시 레이팅을 의미합니다. 이유는 다음과 같습니다.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">플레이어가 아직 %1$s와 충분한 레이팅 게임을 하지 않았습니다.</string>
+  <string name="similarOpponents">비슷한 실력의 상대</string>
+  <string name="notPlayedRecently">플레이어가 최근에 게임을 하지 않았습니다. 플레이한 게임 수에 따라 다르지만 대략 1년간 비활성화 되어 있으면 다시 임시 레이팅으로 변경 됩니다.</string>
 </resources>
