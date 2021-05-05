@@ -44,4 +44,16 @@
 이 값은 플레이 수준의 지표로 사용될 수 있습니다. 매 수마다 잃는 센티폰이 적을 수록 더 강한 플레이입니다.
 
 Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
+  <string name="insufficientMaterial">시간패, 불충분한 기물로 인한 무승부</string>
+  <string name="lichessFollowFIDErules">한 플레이어가 시간이 부족한 경우 일반적으로 게임에서 패배합니다. 하지만 상대가 플레이어의 킹을 정상적으로 체크메이트 할 수 없는 경우는 무승부로 끝나게 됩니다. (%1$s)
+
+드물지만 자동으로 결정하기 힘들 수도 있습니다. (강제수, 요새 구축 등) 기본적으로 우리는 항상 시간이 부족하지 않은 플레이어의 편입니다.
+
+상대의 기물이 상대 킹의 진로를 막고 있는 상황에서는 비숍이나 나이트 한 개만으로도 상대 킹을 체크메이트 시킬 수 있다는 것에 유의하세요.</string>
+  <string name="fideHandbookX">FIDE 핸드북 %s</string>
+  <string name="discoveringEnPassant">왜 폰이 이미 지나쳐간 다른 폰을 잡을 수 있나요? (앙파상)</string>
+  <string name="goodIntroduction">기사</string>
+  <string name="officialRulesPDF">공식 규칙 (PDF)</string>
+  <string name="lichessTraining">Lichess 연습</string>
+  <string name="threefoldRepetition">3회 반복</string>
 </resources>
