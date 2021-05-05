@@ -97,4 +97,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="ownerUniqueTrophies">이 트로피는 Lichess 역사에서 단 하나 뿐입니다. 오직 %1$s만이 가지고 있습니다.</string>
   <string name="wayOfBerserkExplanation">hiimgosu는 %s에 출전해 모든 경기를 버서크 모드로 승리해 이 트로피를 획득했습니다.</string>
   <string name="aHourlyBulletTournament">hourly 불렛 토너먼트</string>
+  <string name="goldenZeeExplanation">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
+  <string name="lichessRatings">Lichess 레이팅</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess가 사용하는 레이팅 시스템은 무엇인가요?</string>
 </resources>
