@@ -69,4 +69,11 @@ Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
   <string name="repeatedPositionsThatMatters">3회 반복은 %1$s에 관한 것이지, 수에 관한 것이 아닙니다. 반복은 연속적으로 이루어져야만 하는 것이 아닙니다.</string>
   <string name="positions">포지션</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">포지션이 세 번 반복되었는데 무승부가 안되는데요?</string>
+  <string name="threeFoldHasToBeClaimed">무승부를 위해서는 한 플레이어가 요청해야 합니다. 나타난 버튼을 누르거나 마지막 반복 전에 무승부를 요청하면 됩니다. 상대가 무승부 요청을 거절하더라도 3회 반복이 나타난 순간 무승부가 됩니다. 또한 Lichess %1$s에서 자동으로 무승부 요청을 하도록 설정할 수 있습니다. 추가로 5회 반복이 일어날 경우 자동적으로 게임이 종료됩니다.</string>
+  <string name="configure">설정</string>
+  <string name="accounts">계정</string>
+  <string name="titlesAvailableOnLichess">Lichess의 타이틀에는 무엇이 있나요?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess는 OTB (over the board) 플레이에서 얻은 모든 FIDE 타이틀과 %1$s을 인정합니다. 다음은 FIDE 타이틀 목록입니다.</string>
+  <string name="asWellAsManyNMtitles">많은 국가의 네셔널 마스터 타이틀</string>
+  <string name="verificationForm">인증 양식</string>
 </resources>
