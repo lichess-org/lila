@@ -16,7 +16,7 @@ interface Coords {
 
 const elementId = 'analyse-cm';
 
-function getPosition(e: MouseEvent): Coords {
+function getPosition(e: MouseEvent): Coords | null {
   let posx = 0,
     posy = 0;
   if (e.pageX || e.pageY) {
@@ -25,7 +25,7 @@ function getPosition(e: MouseEvent): Coords {
   } else if (e.clientX || e.clientY) {
     posx = e.clientX + document.body.scrollLeft + document.documentElement!.scrollLeft;
     posy = e.clientY + document.body.scrollTop + document.documentElement!.scrollTop;
-  }
+  } else return null;
   return {
     x: posx,
     y: posy,
@@ -92,5 +92,6 @@ export default function (e: MouseEvent, opts: Opts): void {
   }
   document.addEventListener('click', close, false);
   el.innerHTML = '';
-  patch(el, view(opts, getPosition(e)));
+  const pos = getPosition(e);
+  if (pos) patch(el, view(opts, pos));
 }

@@ -119,7 +119,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.path !== '') autoScroll(ctrl, el);
-      const callback = (e: MouseEvent) => {
+      const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) {
           contextMenu(e, {
@@ -132,10 +132,10 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         return false;
       };
 
-      el.oncontextmenu = callback;
-      bindMobileTapHold(el, callback, ctrl.redraw);
+      el.oncontextmenu = ctxMenuCallback;
+      bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
 
-      el.addEventListener('click', (e: MouseEvent) => {
+      el.addEventListener('mousedown', (e: MouseEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
         if (path) ctrl.userJump(path);
