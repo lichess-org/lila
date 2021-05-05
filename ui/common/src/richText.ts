@@ -5,7 +5,7 @@ import { VNode, Hooks } from 'snabbdom';
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex = /\n/g;
-export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/g;
+export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/ig;
 
 // looks like it has a @mention or #gameid or a url.tld
 export function isMoreThanText(str: string) {
