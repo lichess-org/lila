@@ -92,15 +92,19 @@ export const bind = (ctrl: AnalyseCtrl) => {
       .bind('n', () => {
         const chapters = study.chapters.list();
         for (const i in chapters) {
-          if (chapters[i].id === study.currentChapter().id)
+          if (chapters[i].id === study.currentChapter().id) {
             study.setChapter(chapters[parseInt(i) + 1].id);
+            return
+          }
         }
       })
       .bind('p', () => {
         const chapters = study.chapters.list();
         for (const i in chapters) {
-          if (chapters[i].id === study.currentChapter().id)
+          if (chapters[i].id === study.currentChapter().id) {
             study.setChapter(chapters[parseInt(i) - 1].id);
+            return
+          }
         }
       });
   }
