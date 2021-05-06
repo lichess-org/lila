@@ -85,6 +85,28 @@ export const bind = (ctrl: AnalyseCtrl) => {
     };
     keyToMousedown('d', '.study__buttons .comments');
     keyToMousedown('g', '.study__buttons .glyphs');
+
+    // navigation for next and prev chapters
+    const study = ctrl.study;
+    kbd
+      .bind('n', () => {
+        const chapters = study.chapters.list();
+        let next = null;
+        for (const i in chapters) {
+          if (chapters[i].id === study.currentChapter().id)
+            next = chapters[parseInt(i) + 1];
+        }
+        if (next) study.setChapter(next.id);
+      })
+      .bind('p', () => {
+        const chapters = study.chapters.list();
+        let prev = null;
+        for (const i in chapters) {
+          if (chapters[i].id === study.currentChapter().id)
+            prev = chapters[parseInt(i) - 1];
+        }
+        if (prev) study.setChapter(prev.id);
+      });
   }
 };
 
