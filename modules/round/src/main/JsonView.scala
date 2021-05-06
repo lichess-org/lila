@@ -33,9 +33,6 @@ final class JsonView(
 
   private val moretimeSeconds = moretime.value.toSeconds.toInt
 
-  private def checkCount(game: Game, color: Color) =
-    (game.variant == shogi.variant.ThreeCheck) option game.history.checkCount(color)
-
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
       .obj(
@@ -48,7 +45,6 @@ final class JsonView(
       .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
-      .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
@@ -145,7 +141,6 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
@@ -199,7 +194,6 @@ final class JsonView(
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
-              .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
@@ -256,7 +250,6 @@ final class JsonView(
             "resizeHandle"      -> pref.resizeHandle,
             "pieceNotation"     -> pref.pieceNotation
           )
-          .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold))

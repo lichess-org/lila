@@ -194,16 +194,6 @@ object Pref {
 
   object KeyboardMove extends BooleanPref
 
-  object RookCastle {
-    val NO  = 0
-    val YES = 1
-
-    val choices = Seq(
-      NO  -> "Castle by moving by two squares",
-      YES -> "Castle by moving onto the rook"
-    )
-  }
-
   object MoveEvent {
     val CLICK = 0
     val DRAG  = 1

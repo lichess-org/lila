@@ -240,20 +240,6 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.Moretime.CASUAL, trans.preferences.inCasualGamesOnly.txt())
     )
 
-  def translatedAutoQueenChoices(implicit lang: Lang) =
-    List(
-      (Pref.AutoQueen.NEVER, trans.never.txt()),
-      (Pref.AutoQueen.PREMOVE, trans.preferences.whenPremoving.txt()),
-      (Pref.AutoQueen.ALWAYS, trans.always.txt())
-    )
-
-  def translatedAutoThreefoldChoices(implicit lang: Lang) =
-    List(
-      (Pref.AutoThreefold.NEVER, trans.never.txt()),
-      (Pref.AutoThreefold.ALWAYS, trans.always.txt()),
-      (Pref.AutoThreefold.TIME, trans.preferences.whenTimeRemainingLessThanThirtySeconds.txt())
-    )
-
   def submitMoveChoices(implicit lang: Lang) =
     List(
       (Pref.SubmitMove.NEVER, trans.never.txt()),
@@ -266,12 +252,6 @@ trait SetupHelper { self: I18nHelper =>
     List(
       (Pref.ConfirmResign.NO, trans.no.txt()),
       (Pref.ConfirmResign.YES, trans.yes.txt())
-    )
-
-  def translatedRookCastleChoices(implicit lang: Lang) =
-    List(
-      (Pref.RookCastle.NO, trans.preferences.castleByMovingTwoSquares.txt()),
-      (Pref.RookCastle.YES, trans.preferences.castleByMovingOntoTheRook.txt())
     )
 
   def translatedChallengeChoices(implicit lang: Lang) =

@@ -38,7 +38,6 @@ export interface Config {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played
       afterNewPiece?: (role: cg.Role, key: cg.Key, metadata: cg.MoveMetadata) => void; // called after a new piece is dropped on the board
     };
-    rookCastle?: boolean; // castle by moving the king to the rook
   };
   premovable?: {
     enabled?: boolean; // allow premoves for color that can not move
@@ -130,22 +129,6 @@ export function configure(state: State, config: Config): void {
 
   // no need for such short animations
   if (!state.animation.duration || state.animation.duration < 100) state.animation.enabled = false;
-
-  if (!state.movable.rookCastle && state.movable.dests) {
-    const rank = state.movable.color === 'sente' ? '1' : '9',
-      kingStartPos = ('e' + rank) as cg.Key,
-      dests = state.movable.dests.get(kingStartPos),
-      king = state.pieces.get(kingStartPos);
-    if (!dests || !king || king.role !== 'king') return;
-    state.movable.dests.set(
-      kingStartPos,
-      dests.filter(
-        d =>
-          !(d === 'a' + rank && dests.includes(('c' + rank) as cg.Key)) &&
-          !(d === 'h' + rank && dests.includes(('g' + rank) as cg.Key))
-      )
-    );
-  }
 }
 
 function merge(base: any, extend: any): void {

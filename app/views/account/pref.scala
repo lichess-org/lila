@@ -133,27 +133,12 @@ object pref {
               radios(form("behavior.takeback"), translatedTakebackChoices)
             ),
             setting(
-              promoteToQueenAutomatically(),
-              radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-              false
-            ),
-            setting(
-              claimDrawOnThreefoldRepetitionAutomatically(),
-              radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices),
-              false
-            ),
-            setting(
               moveConfirmation(),
               radios(form("behavior.submitMove"), submitMoveChoices)
             ),
             setting(
               confirmResignationAndDrawOffers(),
               radios(form("behavior.confirmResign"), confirmResignChoices)
-            ),
-            setting(
-              castleByMovingTheKingTwoSquaresOrOntoTheRook(),
-              radios(form("behavior.rookCastle"), translatedRookCastleChoices),
-              false
             ),
             setting(
               inputMovesWithTheKeyboard(),

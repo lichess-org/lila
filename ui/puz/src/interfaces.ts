@@ -18,7 +18,6 @@ export interface PuzPrefs {
   coords: 0 | 1 | 2;
   is3d: boolean;
   destination: boolean;
-  rookCastle: boolean;
   moveEvent: number;
   highlight: boolean;
 }

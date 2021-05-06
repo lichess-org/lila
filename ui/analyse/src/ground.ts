@@ -59,7 +59,6 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       color: opts.movable!.color,
       dests: opts.movable!.dests,
       showDests: pref.destination,
-      rookCastle: pref.rookCastle,
     },
     events: {
       move: ctrl.userMove,

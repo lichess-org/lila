@@ -17,7 +17,6 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
       color: opts.movable!.color,
       dests: opts.movable!.dests,
       showDests: pref.destination,
-      rookCastle: pref.rookCastle,
     },
     draggable: {
       enabled: pref.moveEvent > 0,
