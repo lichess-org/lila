@@ -105,18 +105,46 @@ final class Main(
       NoContent
     }
 
-  private lazy val glyphsResult: Result = {
-    import chess.format.pgn.Glyph
-    import lila.tree.Node.glyphWriter
-    JsonOk(
-      Json.obj(
-        "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
-        "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
-        "observation" -> (Glyph.Observation.display: List[Glyph])
-      )
-    )
-  }
-  val glyphs = Action(glyphsResult)
+  def glyphs =
+    Open { implicit ctx =>
+      import chess.format.pgn.Glyph
+      import lila.tree.Node.glyphWriter
+      import lila.i18n.{ I18nKeys => trans }
+      JsonOk(
+        Json.obj(
+          "move" -> List(
+            Glyph.MoveAssessment.good.copy(name = trans.glyphs.goodMove.txt()),
+            Glyph.MoveAssessment.mistake.copy(name = trans.glyphs.mistake.txt()),
+            Glyph.MoveAssessment.brillant.copy(name = trans.glyphs.brilliantMove.txt()),
+            Glyph.MoveAssessment.blunder.copy(name = trans.glyphs.blunder.txt()),
+            Glyph.MoveAssessment.interesting.copy(name = trans.glyphs.interestingMove.txt()),
+            Glyph.MoveAssessment.dubious.copy(name = trans.glyphs.dubiousMove.txt()),
+            Glyph.MoveAssessment.only.copy(name = trans.glyphs.onlyMove.txt()),
+            Glyph.MoveAssessment.zugzwang.copy(name = trans.glyphs.zugzwang.txt())
+          ),
+          "position" -> List(
+            Glyph.PositionAssessment.equal.copy(name = trans.glyphs.equalPosition.txt()),
+            Glyph.PositionAssessment.unclear.copy(name = trans.glyphs.unclearPosition.txt()),
+            Glyph.PositionAssessment.whiteSlightlyBetter.copy(name = trans.glyphs.whiteIsSlightlyBetter.txt()),
+            Glyph.PositionAssessment.blackSlightlyBetter.copy(name = trans.glyphs.blackIsSlightlyBetter.txt()),
+            Glyph.PositionAssessment.whiteQuiteBetter.copy(name = trans.glyphs.whiteIsBetter.txt()),
+            Glyph.PositionAssessment.blackQuiteBetter.copy(name = trans.glyphs.blackIsBetter.txt()),
+            Glyph.PositionAssessment.whiteMuchBetter.copy(name = trans.glyphs.whiteIsWinning.txt()),
+            Glyph.PositionAssessment.blackMuchBetter.copy(name = trans.glyphs.blackIsWinning.txt())
+          ),
+          "observation" -> List(
+            Glyph.Observation.novelty.copy(name = trans.glyphs.novelty.txt()),
+            Glyph.Observation.development.copy(name = trans.glyphs.development.txt()),
+            Glyph.Observation.initiative.copy(name = trans.glyphs.initiative.txt()),
+            Glyph.Observation.attack.copy(name = trans.glyphs.attack.txt()),
+            Glyph.Observation.counterplay.copy(name = trans.glyphs.counterplay.txt()),
+            Glyph.Observation.timeTrouble.copy(name = trans.glyphs.timeTrouble.txt()),
+            Glyph.Observation.compensation.copy(name = trans.glyphs.withCompensation.txt()),
+            Glyph.Observation.withIdea.copy(name = trans.glyphs.withTheIdea.txt())
+          )
+        )
+      ).fuccess
+    }
 
   def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
     Action.async {

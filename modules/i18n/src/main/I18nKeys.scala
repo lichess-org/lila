@@ -2055,4 +2055,31 @@ val `xRuns` = new I18nKey("storm:xRuns")
 val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
 }
 
+object glyphs {
+val `goodMove` = new I18nKey("glyphs:goodMove")
+val `mistake` = new I18nKey("glyphs:mistake")
+val `brilliantMove` = new I18nKey("glyphs:brilliantMove")
+val `blunder` = new I18nKey("glyphs:blunder")
+val `interestingMove` = new I18nKey("glyphs:interestingMove")
+val `dubiousMove` = new I18nKey("glyphs:dubiousMove")
+val `onlyMove` = new I18nKey("glyphs:onlyMove")
+val `zugzwang` = new I18nKey("glyphs:zugzwang")
+val `equalPosition` = new I18nKey("glyphs:equalPosition")
+val `unclearPosition` = new I18nKey("glyphs:unclearPosition")
+val `whiteIsSlightlyBetter` = new I18nKey("glyphs:whiteIsSlightlyBetter")
+val `blackIsSlightlyBetter` = new I18nKey("glyphs:blackIsSlightlyBetter")
+val `whiteIsBetter` = new I18nKey("glyphs:whiteIsBetter")
+val `blackIsBetter` = new I18nKey("glyphs:blackIsBetter")
+val `whiteIsWinning` = new I18nKey("glyphs:whiteIsWinning")
+val `blackIsWinning` = new I18nKey("glyphs:blackIsWinning")
+val `novelty` = new I18nKey("glyphs:novelty")
+val `development` = new I18nKey("glyphs:development")
+val `initiative` = new I18nKey("glyphs:initiative")
+val `attack` = new I18nKey("glyphs:attack")
+val `counterplay` = new I18nKey("glyphs:counterplay")
+val `timeTrouble` = new I18nKey("glyphs:timeTrouble")
+val `withCompensation` = new I18nKey("glyphs:withCompensation")
+val `withTheIdea` = new I18nKey("glyphs:withTheIdea")
+}
+
 }
