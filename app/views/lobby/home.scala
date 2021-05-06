@@ -50,8 +50,9 @@ object home {
     ) {
       main(
         cls := List(
-          "lobby"      -> true,
-          "lobby-nope" -> (playban.isDefined || currentGame.isDefined)
+          "lobby"            -> true,
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined),
+          "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
         div(cls := "lobby__table")(

@@ -113,6 +113,10 @@ $mq-not-col3: $mq-not-small;
     grid-area: forum;
   }
 
+  &--no-simuls &__forum {
+    grid-area: simuls;
+  }
+
   &__blog {
     grid-area: blog;
   }
