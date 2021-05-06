@@ -39,7 +39,6 @@ final private class Rematcher(
     .expireAfterWrite(20 minutes)
     .build[Game.ID, Offers]()
 
-  private val chess960 = new ExpireSetMemo(3 hours)
 
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
@@ -78,7 +77,6 @@ final private class Rematcher(
           nextGame <- returnGame(pov, initialFen, isHandicap) map (_.start)
           _ = offers invalidate pov.game.id
           _ = rematches.cache.put(pov.gameId, nextGame.id)
-          _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
           _ <- gameRepo insertDenormalized nextGame
         } yield {
           messenger.system(pov.game, trans.rematchOfferAccepted.txt())

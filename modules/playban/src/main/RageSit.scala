@@ -30,7 +30,6 @@ object RageSit {
       {
         import shogi.variant._
         (game.shogi.board.materialImbalance, game.variant) match {
-          case (_, Crazyhouse | Horde) => 0
           case (a, _) if a >= 4        => 1
           case (a, _) if a <= -4       => -1
           case _                       => 0

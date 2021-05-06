@@ -1,21 +1,3 @@
-.variant-racingKings .cg-wrap {
-  &.cg-wrap cg-container::before {
-    @extend %popup-shadow;
-    background: hsla(0, 0%, 90%, 0.2);
-    width: 100%;
-    height: calc(100% / 9);
-    content: '';
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  &.orientation-sente cg-container::before {
-    top: 0;
-  }
-
-  &.orientation-gote cg-container::before {
-    bottom: 0;
-  }
+.variant-miniShogi .cg-wrap {
+  
 }

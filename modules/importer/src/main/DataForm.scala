@@ -57,8 +57,6 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             else shogi.variant.Standard
           }
         } match {
-          case shogi.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
-            shogi.variant.FromPosition
           case shogi.variant.FromPosition if parsed.tags.fen.isEmpty => shogi.variant.Standard
           case shogi.variant.Standard if fromPosition                => shogi.variant.FromPosition
           case v                                                     => v

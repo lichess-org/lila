@@ -3,7 +3,7 @@ package controllers
 import shogi.format.Forsyth.SituationPlus
 import shogi.format.{ FEN, Forsyth }
 import shogi.Situation
-import shogi.variant.{ Crazyhouse, FromPosition, Standard, Variant }
+import shogi.variant.{ FromPosition, Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -33,7 +33,6 @@ final class UserAnalysis(
           case Some(variant)                   => load(fen, Standard)
           case _ if fen == Standard.initialFen => load(arg, Standard)
           case _                               => load(arg, FromPosition)
-          //case _                               => load(arg, Standard)
         }
       case _ => load("", Standard)
     }

@@ -110,14 +110,6 @@ object Query {
 
   lazy val variantStandard = variant(shogi.variant.Standard)
 
-  lazy val notHordeOrSincePawnsAreSente: Bdoc = $or(
-    F.variant $ne shogi.variant.Horde.id,
-    sinceHordePawnsAreSente
-  )
-
-  lazy val sinceHordePawnsAreSente: Bdoc =
-    createdSince(Game.hordeSentePawnsSince)
-
   val notFromPosition: Bdoc =
     F.variant $ne shogi.variant.FromPosition.id
 

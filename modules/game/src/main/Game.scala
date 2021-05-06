@@ -238,19 +238,11 @@ case class Game(
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val events = moveOrDrop.fold(
+    val events = List(moveOrDrop.fold(
       Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
       Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ) :: {
-      // abstraction leak, I know.
-      (updated.board.variant.threeCheck && game.situation.check) ?? List(
-        Event.CheckCount(
-          sente = updated.history.checkCount.sente,
-          gote = updated.history.checkCount.gote
-        )
-      )
-    }
-
+    ))
+    
     Progress(this, updated, events)
   }
 
@@ -461,8 +453,7 @@ case class Game(
 
   def analysable =
     replayable && playedTurns > 4 &&
-      Game.analysableVariants(variant) &&
-      !Game.isOldHorde(this)
+      Game.analysableVariants(variant)
 
   def ratingVariant =
     if (isTournament && variant.fromPosition) Standard
@@ -543,14 +534,13 @@ case class Game(
   def timeForFirstMove: Centis =
     Centis ofSeconds {
       import Speed._
-      val base = if (isTournament) speed match {
+      if (isTournament) speed match {
         case UltraBullet => 11
         case Bullet      => 16
         case Blitz       => 21
         case Rapid       => 25
         case _           => 30
-      }
-      else
+      } else
         speed match {
           case UltraBullet => 15
           case Bullet      => 20
@@ -558,8 +548,6 @@ case class Game(
           case Rapid       => 30
           case _           => 35
         }
-      if (variant.chess960) base * 5 / 4
-      else base
     }
 
   def expirable =
@@ -707,10 +695,6 @@ object Game {
     shogi.variant.Standard,
     shogi.variant.FromPosition
   )
-
-  val hordeSentePawnsSince = new DateTime(2015, 4, 11, 10, 0)
-
-  def isOldHorde(game: Game) = false
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {

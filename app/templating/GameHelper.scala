@@ -200,9 +200,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
-          case shogi.variant.KingOfTheHill => trans.kingInTheCenter.txt()
-          case shogi.variant.ThreeCheck    => trans.threeChecks.txt()
-          case shogi.variant.RacingKings   => trans.raceFinished.txt()
           case _                           => trans.variantEnding.txt()
         }
       case _ => ""

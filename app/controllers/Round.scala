@@ -156,8 +156,6 @@ final class Round(
   ): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-      case _ if pov.game.variant == shogi.variant.RacingKings && pov.color.gote =>
-        Redirect(routes.Round.watcher(pov.gameId, "sente")).fuccess
       case _ =>
         negotiate(
           html = {

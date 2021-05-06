@@ -56,10 +56,7 @@ final private class SandbagWatch(
     }
 
   private def isSandbag(game: Game): Boolean =
-    game.turns <= {
-      if (game.variant == shogi.variant.Atomic) 3
-      else 6
-    }
+    game.turns <= 6
 }
 
 private object SandbagWatch {

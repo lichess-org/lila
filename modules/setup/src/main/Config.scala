@@ -111,28 +111,16 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val variants       = List(shogi.variant.Standard.id, shogi.variant.Chess960.id)
+  val variants       = List(shogi.variant.Standard.id)
   val variantDefault = shogi.variant.Standard
 
   val variantsWithFen = variants :+ FromPosition.id
   val aiVariants = variants :+
-    shogi.variant.Crazyhouse.id :+
-    shogi.variant.KingOfTheHill.id :+
-    shogi.variant.ThreeCheck.id :+
-    shogi.variant.Antichess.id :+
-    shogi.variant.Atomic.id :+
-    shogi.variant.Horde.id :+
-    shogi.variant.RacingKings.id :+
+  //  shogi.variant.MiniShogi.id :+
     shogi.variant.FromPosition.id
   val variantsWithVariants =
-    variants :+
-      shogi.variant.Crazyhouse.id :+
-      shogi.variant.KingOfTheHill.id :+
-      shogi.variant.ThreeCheck.id :+
-      shogi.variant.Antichess.id :+
-      shogi.variant.Atomic.id :+
-      shogi.variant.Horde.id :+
-      shogi.variant.RacingKings.id
+    variants
+//      :+ shogi.variant.MiniShogi.id
   val variantsWithFenAndVariants =
     variantsWithVariants :+ FromPosition.id
 

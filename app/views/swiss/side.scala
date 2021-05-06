@@ -24,8 +24,7 @@ object side {
               if (s.variant.exotic) {
                 views.html.game.bits.variantLink(
                   s.variant,
-                  if (s.variant == shogi.variant.KingOfTheHill) s.variant.shortName
-                  else s.variant.name
+                  s.variant.name
                 )
               } else s.perfType.map(_.trans),
               separator,

@@ -222,7 +222,6 @@ object RoundSocket {
     } / {
       import shogi.variant._
       (pov.game.shogi.board.materialImbalance, pov.game.variant) match {
-        case (_, Antichess | Horde)                                               => 1
         case (i, _) if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
         case _                                                                    => 1
       }

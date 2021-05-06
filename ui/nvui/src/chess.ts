@@ -61,7 +61,7 @@ const letters = {
 };
 
 export function supportedVariant(key: string) {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'].includes(key);
+  return ['standard', 'fromPosition'].includes(key);
 }
 
 export function styleSetting(): Setting<Style> {

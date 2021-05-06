@@ -148,19 +148,9 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
     translatedVariantChoices
-  //variantTupleId(shogi.variant.Chess960) :+
-  //variantTupleId(shogi.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit lang: Lang) =
     translatedVariantChoices :+
-      //variantTupleId(shogi.variant.Crazyhouse) :+
-      //variantTupleId(shogi.variant.Chess960) :+
-      //variantTupleId(shogi.variant.KingOfTheHill) :+
-      //variantTupleId(shogi.variant.ThreeCheck) :+
-      //variantTupleId(shogi.variant.Antichess) :+
-      //variantTupleId(shogi.variant.Atomic) :+
-      //variantTupleId(shogi.variant.Horde) :+
-      //variantTupleId(shogi.variant.RacingKings) :+
       variantTupleId(shogi.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =

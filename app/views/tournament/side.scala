@@ -30,8 +30,7 @@ object side {
               if (tour.variant.exotic) {
                 views.html.game.bits.variantLink(
                   tour.variant,
-                  if (tour.variant == shogi.variant.KingOfTheHill) tour.variant.shortName
-                  else tour.variant.name
+                  tour.variant.name
                 )
               } else tour.perfType.map(_.trans),
               (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",

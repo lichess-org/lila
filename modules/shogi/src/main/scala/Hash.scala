@@ -28,8 +28,6 @@ object Hash {
         java.lang.Long.parseLong(s.substring(start + 8, start + 16), 16)
     val senteTurnMask       = hexToLong(ZobristTables.senteTurnMask)
     val actorMasks          = ZobristTables.actorMasks.map(hexToLong)
-    val threeCheckMasks     = ZobristTables.threeCheckMasks.map(hexToLong)
-    val crazyPromotionMasks = ZobristTables.crazyPromotionMasks.map(hexToLong)
     val crazyPocketMasks    = ZobristTables.crazyPocketMasks.map(hexToLong)
   }
 
@@ -83,17 +81,8 @@ object Hash {
       }
       .fold(hturn)(_ ^ _)
 
-    val hchecks = board.variant match {
-      case variant.ThreeCheck =>
-        val goteCount   = math.min(situation.history.checkCount.gote, 3)
-        val senteCount  = math.min(situation.history.checkCount.sente, 3)
-        val hgotechecks = if (goteCount > 0) hactors ^ table.threeCheckMasks(goteCount - 1) else hactors
-        if (senteCount > 0) hgotechecks ^ table.threeCheckMasks(senteCount + 2) else hgotechecks
-      case _ => hactors
-    }
-
     // Hash in special crazyhouse data.
-    val hcrazy = board.crazyData.fold(hchecks) { data =>
+    val hcrazy = board.crazyData.fold(hactors) { data =>
       Color.all
         .flatMap { color =>
           val colorshift = color.fold(125, -1)
@@ -101,7 +90,7 @@ object Hash {
             crazyPocketMask(role, colorshift, list.size)
           }
         }
-        .fold(hchecks)(_ ^ _)
+        .fold(hactors)(_ ^ _)
     }
 
     hcrazy
@@ -2396,90 +2385,6 @@ private object ZobristTables {
     "b183ccc9e73df9ed088dfad983bb7913",
     "fdeef11602d6b44390a852cacfc0adeb",
     "1b0ce4198b3801a6c8ce065f15fe38f5"
-  )
-
-  val crazyPromotionMasks = Array(
-    "d95f75f30819f095ef01dcf6aaf4deac",
-    "bace0e988c7011b2e9b46666d1ccf917",
-    "dd4d3c8abaa1c16524b95753fd1fa96d",
-    "63517eb95023d6bd2eb06c0718934e06",
-    "cdd766556f817d20f4f5dd9ecb5fde20",
-    "153fa9c9f7e425557fb74da31c9644d6",
-    "3dc115f6a7aa6234dbf9e05c95fb8fd9",
-    "37155a6cbb9e276f3da71f93883b7a18",
-    "83ec08dfd4c05339dd8177971cc38cc2",
-    "48a6768dc3b369628c45ee341265fef7",
-    "4afdc7bc01f74cb015473f3c4f58aab2",
-    "2831bdb0fe58ca80abec3ee61c7a0052",
-    "aa924f2c3a1c1cfe83d7f611a449d572",
-    "9646c78ec78d3284c8dbe05949986410",
-    "32a5cb087d5f8249b6958d2649606b59",
-    "42fc6acc03759676e6279bd134190878",
-    "ae33c586f1c465d59160b03881969c27",
-    "342d72345d5bc692bc09fd2e72ab1647",
-    "497539c1e11415727a69562a090a026b",
-    "f5cedb937e1a891b2edeff57bfa1e219",
-    "20817b7245f74e5d68dc4268720ae7ca",
-    "0f84978876d4a3a1a809d742634ea013",
-    "2ffe32f36457e6c416791f0396e3611f",
-    "400727b7bf256938f91199891cb050b4",
-    "0cd99cb4a454e6d5923d3f1ed7c99f3b",
-    "f82e8657ec97f9ad584a6e3d3169b380",
-    "856465bdfd5f31d0f0005ab23a83987a",
-    "e96438751f3c98db1d32336a08547fe0",
-    "c790351d0828b593de359d53546b8b64",
-    "898fbd064d6bd6635759c5f6bcc4b519",
-    "a49a60db53efbdc84341b6ab4a33c3fb",
-    "0ff01d708ba7e7b407d9d934112d1f3a",
-    "f8449289e0ef3213d9345c122bafb88c",
-    "2e7706185e150ce171fd67f9e1c26cda",
-    "d8c49f9ee35b0ea18fed91aa870e0230",
-    "1f96b2b238f6ec2dbbddec7d68be3e4c",
-    "5eb89c06c20a0c95940e8d52720f2e19",
-    "1e482062094ece25d5de36dd8843e5f6",
-    "c7ecc6de3578786620bee0eef5f71700",
-    "0ef7844e1b2cb085b0042b84c3c4f92b",
-    "587efe2744dd4a6f42ea1a520ceb5158",
-    "fb29ce501222e87beb9bcd50ec36a37e",
-    "c58302357fb2db8c5ce2cab63e502246",
-    "bb06e36c051e70d7e947f052e516ca8f",
-    "3d40eb71bb660194b70fdd3aab40e120",
-    "bde0d7cc36802dbf9517942a1b6a3185",
-    "aa7e6b9165eedc3c5cfb4c827365d36c",
-    "939b96ecd5c47e80aaa5b90ba920e1d7",
-    "804c0def37b61e33bcebe3ddc3dccfbc",
-    "9e54d691145d5ed4d911ea3f60a3f9e6",
-    "00368657ea71f32a9618802cad4d44ab",
-    "533a41df7bcb2eb5095388db2a892a01",
-    "5f4b61d078ff0316a36639f9daa3c34d",
-    "7b3de1fc031bb014224148c973dc62e3",
-    "44409bec81dac3af3e32a795b81928c8",
-    "953e18ac38726ff0f406af590a262524",
-    "45ffe2885dffc95cfa38ee2258967650",
-    "b78b3c5f3739abd6bea9cd819856ead5",
-    "61e18a7a4d6cb5659c26c0484cbc70f5",
-    "619dc5b26287826e60552eef804ec5f8",
-    "83e1c74575e66d51b8d83c47233d73a2",
-    "8f2564bec817ed58dd07c947f9a01915",
-    "51f874a50536f3fcca62dbb7730e0aae",
-    "2dbd2c08ebf1953a2e7767b10f6ea2d0",
-    "f051d5869961158c025434c280df1332",
-    "eb3dadd601702b0160ad426ceaa53a25",
-    "5a5dabc87f0666823a71a308f3b82985",
-    "2fd01cab6ddaad1572c8e5ee6224e86f",
-    "1ff39be309ae7cebeea259ce3d105770",
-    "d354d40c147ccd95c445e1ebe474441a",
-    "e0c5819cf56438be2cd1727f9d521742",
-    "d08e3163605a32a23cb31aa6dcfc2372",
-    "89c208ae99893399b9fb2b9806787c9c",
-    "19dc3b1fce84214c864e8d93fc09cbb5",
-    "2fda21150af9a53b03f6120e57a8edf9",
-    "b8901446cc7aaa4f6c0bf3092c5c906e",
-    "561ab5cd9a53021eb1d12d9add02b627",
-    "9b86896a66094029ccf721eb25b00946",
-    "1bca825ebfa01a0bd38295a356b1a12b",
-    "35cb2dfd8ec5e589dc671f4c0d4b3511",
-    "2aef1b5d00d1403a156c01c4a8437318"
   )
 
   val crazyPocketMasks = Array(

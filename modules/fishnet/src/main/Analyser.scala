@@ -26,7 +26,6 @@ final class Analyser(
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
       case true                       => fuFalse
-      case _ if Game.isOldHorde(game) => fuFalse
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {

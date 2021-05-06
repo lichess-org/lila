@@ -32,17 +32,10 @@ export function spinner() {
 
 export const perfIcons = {
   Blitz: ')',
-  'Racing Kings': '',
   UltraBullet: '{',
   Bullet: 'T',
   Classical: '+',
   Rapid: '#',
-  //'Three-check':'.',
-  //'Antichess':'@',
-  //'Horde':'_',
-  //'Atomic':'>',
-  //'Crazyhouse':'',
-  //'Chess960':'\'',
+  //'MiniShogi':'.',
   Correspondence: ';',
-  //'King of the Hill':'('
 };

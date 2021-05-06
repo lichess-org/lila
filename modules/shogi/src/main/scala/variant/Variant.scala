@@ -21,15 +21,8 @@ abstract class Variant private[variant] (
   def pieces: Map[Pos, Piece]
 
   def standard      = this == Standard
-  def chess960      = this == Chess960
+  def miniShogi     = this == MiniShogi
   def fromPosition  = this == FromPosition
-  def kingOfTheHill = this == KingOfTheHill
-  def threeCheck    = this == ThreeCheck
-  def antichess     = this == Antichess
-  def atomic        = this == Atomic
-  def horde         = this == Horde
-  def racingKings   = this == RacingKings
-  def crazyhouse    = this == Crazyhouse
 
   def exotic = !standard
 
@@ -190,7 +183,7 @@ abstract class Variant private[variant] (
 
   @nowarn def specialDraw(situation: Situation) = false
 
-  /** Returns the material imbalance in pawns (overridden in Antichess)
+  /** Returns the material imbalance in pawns
     */
   def materialImbalance(board: Board): Int =
     board.pieces.values.foldLeft(0) { case (acc, Piece(color, role)) =>
@@ -216,10 +209,6 @@ abstract class Variant private[variant] (
     * example
     */
   def addVariantEffect(move: Move): Move = move
-
-  def fiftyMoves(history: History): Boolean = false
-
-  def isIrreversible(move: Move): Boolean = false
 
   /** Once a move has been decided upon from the available legal moves, the board is finalized
     */
@@ -313,15 +302,8 @@ object Variant {
 
   val all = List(
     Standard,
-    Crazyhouse,
-    Chess960,
+    MiniShogi,
     FromPosition,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings
   )
   val byId = all map { v =>
     (v.id, v)

@@ -276,10 +276,7 @@ final class JsonView(
       "id"      -> game.id,
       "fen"     -> (shogi.format.Forsyth exportSituation game.situation),
       "pockets" -> (shogi.format.Forsyth exportCrazyPocket game.board),
-      "color" -> (game.variant match {
-        case shogi.variant.RacingKings => shogi.Sente
-        case _                         => game.firstColor
-      }).name,
+      "color"   -> game.firstColor.name,
       "lastMove" -> ~game.lastMoveKeys,
       "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
       "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)
