@@ -8,7 +8,8 @@ import lila.app._
 import lila.report.Suspect
 import play.api.data.Form
 
-final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends LilaController(env) {
+final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: => User)
+    extends LilaController(env) {
 
   private def form(implicit ctx: Context) =
     if (isGranted(_.Appeals)) lila.appeal.Appeal.modForm
@@ -65,8 +66,8 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
   def show(username: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal.discussion.show(appeal, suspect, inquiry, form, getPresets))
+        getModData(me, appeal, suspect) map { modData =>
+          Ok(html.appeal.discussion.show(appeal, form, modData))
         }
       }
     }
@@ -79,8 +80,8 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
           .bindFromRequest()
           .fold(
             err =>
-              env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-                BadRequest(html.appeal.discussion.show(appeal, suspect, inquiry, err, getPresets))
+              getModData(me, appeal, suspect) map { modData =>
+                BadRequest(html.appeal.discussion.show(appeal, err, modData))
               },
             text =>
               for {
@@ -92,6 +93,24 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic) extends L
           )
       }
     }
+
+  private def getModData(me: lila.user.Holder, appeal: lila.appeal.Appeal, suspect: Suspect)(implicit
+      ctx: Context
+  ) =
+    for {
+      users   <- env.security.userLogins(suspect.user, 100)
+      logins  <- userC.loginsTableData(suspect.user, users, 100)
+      appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
+      inquiry <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
+    } yield html.appeal.discussion.ModData(
+      mod = me,
+      suspect = suspect,
+      presets = getPresets,
+      logins = logins,
+      appeals = appeals,
+      renderIp = env.mod.ipRender(me),
+      inquiry = inquiry.filter(_.mod == me.user)
+    )
 
   def mute(username: String) =
     Secure(_.Appeals) { implicit ctx => me =>

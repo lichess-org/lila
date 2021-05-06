@@ -1,4 +1,16 @@
 .appeal {
+  h1 {
+    @extend %flex-between;
+
+    .actions {
+      font-size: 1.5rem;
+    }
+  }
+
+  #mz_others {
+    margin-bottom: 3em;
+  }
+
   &__help {
     margin-bottom: 2em;
   }
