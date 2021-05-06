@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nicht genügend gewertete Partien gespielt, um eine verlässliche Wertung zu erzielen.</string>
   <string name="progressOverLastXGames">Fortschritt über die letzten %s Spiele:</string>
   <string name="ratingDeviation">Wertungsabweichung: %s.</string>
-  <string name="ratingDeviationHelp">Niedrigere Werte bedeuten, dass die Wertung stabiler ist. Über %s heißt, dass die Wertung als provisorisch betrachtet wird.</string>
   <string name="totalGames">Insgesamte Spiele</string>
   <string name="ratedGames">Gewertete Spiele</string>
   <string name="tournamentGames">Turnierspiele</string>

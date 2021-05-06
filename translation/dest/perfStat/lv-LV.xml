@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nav spēlēts pietiekami vērtētu spēļu, lai izveidotu uzticamu reitingu.</string>
   <string name="progressOverLastXGames">Attīstība pēdējo %s spēļu laikā:</string>
   <string name="ratingDeviation">Reitinga novirze: %s.</string>
-  <string name="ratingDeviationHelp">Zemāka vērtība nozīmē stabilāku reitingu. Virs %s, reitings tiek uzskatīts par pagaidu reitingu.</string>
   <string name="totalGames">Spēles kopumā</string>
   <string name="ratedGames">Vērtētās spēles</string>
   <string name="tournamentGames">Turnīru spēles</string>

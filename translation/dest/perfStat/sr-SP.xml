@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Није одиграно довољно рангираних игара како би се оствари поуздан рејтинг.</string>
   <string name="progressOverLastXGames">Напредак кроз задњих %s партија:</string>
   <string name="ratingDeviation">Девијација рејтинга: %s.</string>
-  <string name="ratingDeviationHelp">Мања вредност значи да је рејтинг стабилнији. Преко %s, рејтинг се сматра привременим.</string>
   <string name="totalGames">Укупно партија</string>
   <string name="ratedGames">Рангиране партије</string>
   <string name="tournamentGames">Турнирске партије</string>

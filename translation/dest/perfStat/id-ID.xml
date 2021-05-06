@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Tidak mencukupi permainan dirating yang telah dimainkan untuk mendapatkan rating yang dapat diandalkan.</string>
   <string name="progressOverLastXGames">Kemajuan dalam permainan %s terakhir kali:</string>
   <string name="ratingDeviation">Selisih rating: %s.</string>
-  <string name="ratingDeviationHelp">Nilai lebih rendah berarti rating lebih stabil. Di atas %s, peringkat tersebut dianggap sementara.</string>
   <string name="totalGames">Total permainan</string>
   <string name="ratedGames">Permainan di-rating</string>
   <string name="tournamentGames">Permainan turnamen</string>

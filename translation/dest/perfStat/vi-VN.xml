@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Không có đủ trò chơi được xếp hạng đã được chơi để thiết lập một xếp hạng đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ trước đây:</string>
   <string name="ratingDeviation">Độ lệch xếp hạng:%s.</string>
-  <string name="ratingDeviationHelp">Giá trị thấp hơn có nghĩa là xếp hạng ổn định hơn. Trên %s, xếp hạng được coi là tạm thời.</string>
   <string name="totalGames">Tổng số các ván cờ</string>
   <string name="ratedGames">Các ván cờ xếp hạng</string>
   <string name="tournamentGames">Trò chơi kiểu giải đấu</string>

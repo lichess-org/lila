@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Ышанычлы рейтинг булдыру өчен җитәрлек бәяләнгән уеннар уйнамады.</string>
   <string name="progressOverLastXGames">Соңгы %s уеннарында алга китеш:</string>
   <string name="ratingDeviation">Рейтингның тайпылышы:%s.</string>
-  <string name="ratingDeviationHelp">Түбән кыйммәт - рейтинг тотрыклырак дигән сүз. %s -тан югары, рейтинг вакытлыча санала.</string>
   <string name="totalGames">Бөтен уеннар</string>
   <string name="ratedGames">Рейтинглы уеннар</string>
   <string name="tournamentGames">Бәйге уеннары</string>

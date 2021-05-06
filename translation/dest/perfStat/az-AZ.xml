@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Etibarlı reytinq yaratmaq üçün kifayət qədər reytinqli oyun oynanılmayıb.</string>
   <string name="progressOverLastXGames">Son %s oyundakı irəliləyiş:</string>
   <string name="ratingDeviation">Xal yayınma dəyəri: %s.</string>
-  <string name="ratingDeviationHelp">Aşağı dəyər reytinqin daha çox stabil olması deməkdir. Reytinqiniz %s üzərində olarsa, xalınız müvəqqəti hesab olunacaq.</string>
   <string name="totalGames">Cəmi oyunlar</string>
   <string name="ratedGames">Reytinqli oyunlar</string>
   <string name="tournamentGames">Turnir oyunları</string>

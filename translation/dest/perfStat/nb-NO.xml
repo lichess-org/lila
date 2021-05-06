@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">For få ratede partier til å kunne beregne en stabil rating.</string>
   <string name="progressOverLastXGames">Forandring over de siste %s partiene:</string>
   <string name="ratingDeviation">Ratingavvik: %s.</string>
-  <string name="ratingDeviationHelp">En lavere verdi betyr at ratingen er mer stabil. Over %s regnes ratingen som provisorisk.</string>
   <string name="totalGames">Totalt antall partier</string>
   <string name="ratedGames">Ratede partier</string>
   <string name="tournamentGames">Turneringspartier</string>

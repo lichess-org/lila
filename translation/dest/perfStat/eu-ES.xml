@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Ez duzu puntuaziorako balio duten behar adina partida jokatu.</string>
   <string name="progressOverLastXGames">Azken %s partidetako aurrerapena:</string>
   <string name="ratingDeviation">Puntuazioaren desbideraketa: %s.</string>
-  <string name="ratingDeviationHelp">Balio baxuagoek zure puntuazioa egonkorragoa dela adierazten dute. %s baino handiagoa bada, zure puntuazioa behin-behinekoa da.</string>
   <string name="totalGames">Partida kopurua</string>
   <string name="ratedGames">Puntuaziorako balio duten partidak</string>
   <string name="tournamentGames">Txapelketetako partidak</string>

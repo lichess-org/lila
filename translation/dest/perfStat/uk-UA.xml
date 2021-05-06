@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Зіграно недостатньо рейтингових ігор для встановлення точного рейтингу.</string>
   <string name="progressOverLastXGames">Прогрес за останні %s ігор:</string>
   <string name="ratingDeviation">Відхилення рейтингу: %s.</string>
-  <string name="ratingDeviationHelp">Нижнє значення означає, що рейтинг є більш стабільним. Вище %s, рейтинг вважається умовним.</string>
   <string name="totalGames">Всього партій</string>
   <string name="ratedGames">Рейтингові партії</string>
   <string name="tournamentGames">Турнірні партії</string>

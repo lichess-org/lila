@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nebyl odebrán dostatečný počet hodnocených her pro odhad spolehlivého ratingu.</string>
   <string name="progressOverLastXGames">Pokrok v posledních %s hrách:</string>
   <string name="ratingDeviation">Odchylka hodnocení: %s.</string>
-  <string name="ratingDeviationHelp">Nižší hodnota znamená, že hodnocení je stabilnější. Více než %s, hodnocení je považováno za prozatímní.</string>
   <string name="totalGames">Celkový počet her</string>
   <string name="ratedGames">Hodnocených her</string>
   <string name="tournamentGames">Turnajové partie</string>

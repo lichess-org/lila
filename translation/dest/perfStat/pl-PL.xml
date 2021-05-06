@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nie zagrano wystarczająco dużo rankingowych gier, aby ustalić wiarygodną ranking.</string>
   <string name="progressOverLastXGames">Postęp w ostatnich %s partiach:</string>
   <string name="ratingDeviation">Odchylenie rankingu: %s.</string>
-  <string name="ratingDeviationHelp">Niższa wartość oznacza, że ranking jest bardziej stabilny. Powyżej %s, ranking jest uważany za prowizoryczny.</string>
   <string name="totalGames">Wszystkie partie</string>
   <string name="ratedGames">Partie rankingowe</string>
   <string name="tournamentGames">Partie turniejowe</string>

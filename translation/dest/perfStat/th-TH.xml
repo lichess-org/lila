@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">จำนวนเกมที่ได้เล่นแบบคิดคะแนน ไม่เพียงพอในการสร้างระดับคะแนนที่เชื่อถือได้</string>
   <string name="progressOverLastXGames">ความคืบหน้าใน %s เกมล่าสุด:</string>
   <string name="ratingDeviation">ค่าเบี่ยงเบนระดับคะแนน: %s</string>
-  <string name="ratingDeviationHelp">ค่าต่ำกว่าหมายถึงระดับคะแนนมีความเสถียรมากกว่า ระดับคะแนนจะถูกพิจารณาเป็นแบบชั่วคราวเมื่อเกิน %s</string>
   <string name="totalGames">เกมทั้งหมด</string>
   <string name="ratedGames">เกมที่คิดคะแนน</string>
   <string name="tournamentGames">เกมทัวร์นาเมนต์</string>

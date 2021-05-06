@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">レート戦が少なすぎて信頼できるレーティングが算出できません。</string>
   <string name="progressOverLastXGames">過去 %s 戦での変動：</string>
   <string name="ratingDeviation">レーティング偏差：%s</string>
-  <string name="ratingDeviationHelp">数値が低いほどレーティングが信頼できます。%s 以上だと仮定的なレーティングです。</string>
   <string name="totalGames">総局数</string>
   <string name="ratedGames">レート戦局数</string>
   <string name="tournamentGames">トーナメント対局数</string>

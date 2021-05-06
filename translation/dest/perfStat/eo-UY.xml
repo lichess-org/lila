@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Ne sufiĉe taksitaj ludoj estis luditaj por estigi fidindan rangon.</string>
   <string name="progressOverLastXGames">Progreso dum la lastaj %s ludoj:</string>
   <string name="ratingDeviation">Taksa devio: %s.</string>
-  <string name="ratingDeviationHelp">Pli malalta valoro signifas, ke la takso estas pli stabila. Super %s, la rango estas konsiderata provizora.</string>
   <string name="totalGames">Totalaj ludoj</string>
   <string name="ratedGames">Rangitaj ludoj</string>
   <string name="tournamentGames">Turniraj ludoj</string>
