@@ -1122,6 +1122,8 @@ val `nbChapters` = new I18nKey("study:nbChapters")
 val `nbGames` = new I18nKey("study:nbGames")
 val `nbMembers` = new I18nKey("study:nbMembers")
 val `pasteYourPgnTextHereUpToNbGames` = new I18nKey("study:pasteYourPgnTextHereUpToNbGames")
+val `nextChapter` = new I18nKey("study:nextChapter")
+val `prevChapter` = new I18nKey("study:prevChapter")
 }
 
 object clas {

@@ -48,8 +48,8 @@ object help {
             header("Study actions"),
             row(frag(k("d")), trans.study.commentThisPosition()),
             row(frag(k("g")), trans.study.annotateWithGlyphs()),
-            row(frag(k("n")), "Next chapter"),
-            row(frag(k("p")), "Previous chapter")
+            row(frag(k("n")), trans.study.nextChapter()),
+            row(frag(k("p")), trans.study.prevChapter())
           ),
           header("Mouse tricks"),
           tr(

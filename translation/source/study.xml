@@ -128,4 +128,6 @@
   <string name="deleteStudy">Delete study</string>
   <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
+  <string name="nextChapter">Next chapter</string>
+  <string name="prevChapter">Previous chapter</string>
 </resources>
