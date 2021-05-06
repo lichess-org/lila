@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app._
@@ -430,10 +431,7 @@ final class Study(
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
             Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
-              )
+              .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
               .as(pgnContentType)
               .fuccess
           }
@@ -448,9 +446,7 @@ final class Study(
           CanViewResult(study) {
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-              .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
-              )
+              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
               .as(pgnContentType)
               .fuccess
           }
@@ -483,10 +479,7 @@ final class Study(
           .throttle(30, 1 second)
       } { source =>
         Ok.chunked(source)
-          .withHeaders(
-            noProxyBufferHeader,
-            CONTENT_DISPOSITION -> s"attachment; filename=${username}-${if (isMe) "all" else "public"}-studies.pgn"
-          )
+          .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))
           .as(pgnContentType)
       }
       .fuccess
@@ -506,10 +499,8 @@ final class Study(
           CanViewResult(study) {
             env.study.gifExport.ofChapter(chapter) map { stream =>
               Ok.chunked(stream)
-                .withHeaders(
-                  noProxyBufferHeader,
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
-                ) as "image/gif"
+                .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
+                .as("image/gif")
             }
           }
         }

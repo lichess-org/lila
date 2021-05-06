@@ -3,13 +3,14 @@ package controllers
 import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.api.Context
+import lila.api.GameApiV2
 import lila.app._
+import lila.common.config
 import lila.common.HTTPRequest
 import lila.db.dsl._
-import lila.api.GameApiV2
-import lila.common.config
 import lila.user.Holder
 
 final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
@@ -93,10 +94,8 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
           playerFile = none
         )
       )
-    }.withHeaders(
-      noProxyBufferHeader,
-      CONTENT_DISPOSITION -> s"attachment; filename=lichess_mod_${user.username}_${gameIds.size}_games.pgn"
-    ).as(pgnContentType)
+    }.pipe(asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn"))
+      .as(pgnContentType)
 
   private def guessSwisses(user: lila.user.User): Fu[Seq[lila.swiss.Swiss]] = fuccess(Nil)
 }
