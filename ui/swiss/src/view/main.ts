@@ -227,6 +227,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
   const s = ctrl.data.stats,
     noarg = ctrl.trans.noarg,
     slots = ctrl.data.round * ctrl.data.nbPlayers;
+  console.log(ctrl.data);
   return s
     ? h('div.swiss__stats', [
         h('h2', noarg('tournamentComplete')),
@@ -281,7 +282,18 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
                 download: true,
               },
             },
-            'Download results'
+            'Download results as NDJSON'
+          ),
+          h(
+            'a.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
+                download: true,
+              },
+            },
+            'Download results as CSV'
           ),
           h('br'),
           h(

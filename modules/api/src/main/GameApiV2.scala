@@ -63,6 +63,7 @@ final class GameApiV2(
     }
 
   private val fileR = """[\s,]""".r
+
   def filename(game: Game, format: Format): Fu[String] =
     gameLightUsers(game) map { case (wu, bu) =>
       fileR.replaceAllIn(
@@ -76,6 +77,7 @@ final class GameApiV2(
         "_"
       )
     }
+
   def filename(tour: Tournament, format: Format): String =
     fileR.replaceAllIn(
       "lichess_tournament_%s_%s_%s.%s".format(
@@ -86,13 +88,17 @@ final class GameApiV2(
       ),
       "_"
     )
+
   def filename(swiss: lila.swiss.Swiss, format: Format): String =
+    filename(swiss, format.toString.toLowerCase)
+
+  def filename(swiss: lila.swiss.Swiss, format: String): String =
     fileR.replaceAllIn(
       "lichess_swiss_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(swiss.startsAt),
         swiss.id,
         lila.common.String.slugify(swiss.name),
-        format.toString.toLowerCase
+        format
       ),
       "_"
     )

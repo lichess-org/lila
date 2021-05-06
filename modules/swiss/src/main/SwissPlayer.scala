@@ -53,12 +53,15 @@ object SwissPlayer {
       byes = Set.empty
     ).recomputeScore
 
-  case class Ranked(rank: Int, player: SwissPlayer) {
-    def is(other: Ranked) = player is other.player
-    override def toString = s"$rank. ${player.userId}[${player.rating}]"
+  case class WithRank(player: SwissPlayer, rank: Int) {
+    def is(other: WithRank)       = player is other.player
+    def withUser(user: LightUser) = WithUserAndRank(player, user, rank)
+    override def toString         = s"$rank. ${player.userId}[${player.rating}]"
   }
 
   case class WithUser(player: SwissPlayer, user: LightUser)
+
+  case class WithUserAndRank(player: SwissPlayer, user: LightUser, rank: Int)
 
   sealed private[swiss] trait Viewish {
     val player: SwissPlayer

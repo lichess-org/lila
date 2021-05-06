@@ -141,8 +141,8 @@ final class SwissJson(
       }
     }
 
-  def playerResult(player: SwissPlayer, rank: Int): Fu[JsObject] =
-    lightUserApi.asyncFallback(player.userId) map { user =>
+  def playerResult(p: SwissPlayer.WithUserAndRank): JsObject = p match {
+    case SwissPlayer.WithUserAndRank(player, user, rank) =>
       Json
         .obj(
           "rank"     -> rank,
@@ -154,7 +154,7 @@ final class SwissJson(
         .add("title" -> user.title)
         .add("performance" -> player.performance)
         .add("absent" -> player.absent)
-    }
+  }
 }
 
 object SwissJson {

@@ -301,20 +301,22 @@ final class Api(
       }
     }
 
-  def swissResults(id: String) =
-    Action.async { implicit req =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
-        _ ?? { swiss =>
-          jsonStream {
-            env.swiss.api
-              .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
-              .mapAsync(8) { case (player, rank) =>
-                env.swiss.json.playerResult(player, rank.toInt)
-              }
-          }.fuccess
-        }
+  def swissResults(id: String) = Action.async { implicit req =>
+    val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
+    env.swiss.api byId lila.swiss.Swiss.Id(id) map {
+      _ ?? { swiss =>
+        val source = env.swiss.api
+          .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
+          .mapAsync(8) { p =>
+            env.user.lightUserApi.asyncFallback(p.player.userId) map p.withUser
+          }
+        val result =
+          if (csv) csvStream(lila.swiss.SwissCsv(source))
+          else jsonStream(source.map(env.swiss.json.playerResult))
+        result.pipe(asAttachment(env.api.gameApiV2.filename(swiss, if (csv) "csv" else "ndjson")))
       }
     }
+  }
 
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)()(
@@ -426,20 +428,26 @@ final class Api(
       .map(some)
       .keepAlive(70.seconds, () => none) // play's idleTimeout = 75s
 
-  def sourceToNdJson(source: Source[JsValue, _]) =
+  def sourceToNdJson(source: Source[JsValue, _]): Result =
     sourceToNdJsonString {
       source.map { o =>
         Json.stringify(o) + "\n"
       }
     }
 
-  def sourceToNdJsonOption(source: Source[Option[JsValue], _]) =
+  def sourceToNdJsonOption(source: Source[Option[JsValue], _]): Result =
     sourceToNdJsonString {
       source.map { _ ?? Json.stringify + "\n" }
     }
 
-  private def sourceToNdJsonString(source: Source[String, _]) =
+  private def sourceToNdJsonString(source: Source[String, _]): Result =
     Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+
+  def csvStream(makeSource: => Source[String, _])(implicit req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToCsv)
+
+  private def sourceToCsv(source: Source[String, _]): Result =
+    Ok.chunked(source.map(_ + "\n")).as(csvContentType) pipe noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",
