@@ -39,7 +39,6 @@ package round {
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
   case object AbortForce
-  case object Threefold
   case object ResignAi
   case class ResignForce(playerId: PlayerId)
   case class DrawForce(playerId: PlayerId)

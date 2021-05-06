@@ -361,15 +361,6 @@ final private[round] class RoundDuct(
       }
     case TooManyPlies => handle(drawer force _)
 
-    case Threefold =>
-      proxy withGame { game =>
-        drawer autoThreefold game map {
-          _ foreach { pov =>
-            this ! DrawClaim(PlayerId(pov.player.id))
-          }
-        }
-      }
-
     case RematchYes(playerId) => handle(PlayerId(playerId))(rematcher.yes)
     case RematchNo(playerId)  => handle(PlayerId(playerId))(rematcher.no)
 
@@ -537,12 +528,6 @@ final private[round] class RoundDuct(
           Protocol.Out.tellVersion(roomId, version, e)
         }
       }
-      if (
-        events exists {
-          case e: Event.Move => e.threefold
-          case _             => false
-        }
-      ) this ! Threefold
     }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
