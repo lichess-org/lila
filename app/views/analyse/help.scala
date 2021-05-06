@@ -47,7 +47,9 @@ object help {
           isStudy option frag(
             header("Study actions"),
             row(frag(k("d")), trans.study.commentThisPosition()),
-            row(frag(k("g")), trans.study.annotateWithGlyphs())
+            row(frag(k("g")), trans.study.annotateWithGlyphs()),
+            row(frag(k("n")), "Next chapter"),
+            row(frag(k("p")), "Previous chapter")
           ),
           header("Mouse tricks"),
           tr(
