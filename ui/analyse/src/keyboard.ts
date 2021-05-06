@@ -94,7 +94,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
         for (const i in chapters) {
           if (chapters[i].id === study.currentChapter().id) {
             study.setChapter(chapters[parseInt(i) + 1].id);
-            return
+            return;
           }
         }
       })
@@ -103,7 +103,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
         for (const i in chapters) {
           if (chapters[i].id === study.currentChapter().id) {
             study.setChapter(chapters[parseInt(i) - 1].id);
-            return
+            return;
           }
         }
       });
