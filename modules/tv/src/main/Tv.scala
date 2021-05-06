@@ -82,56 +82,56 @@ object Tv {
         extends Channel(
           name = "Top Rated",
           icon = "C",
-          secondsSinceLastMove = freshBlitz,
-          filters = Seq(minRating(1400), standardShogiRules, noBot)
+          secondsSinceLastMove = 60 * 3,
+          filters = Seq(minRating(1400), standardShogiRules)
         )
     case object Bullet
         extends Channel(
           name = S.Bullet.name,
           icon = P.Bullet.iconChar.toString,
-          secondsSinceLastMove = 40,
-          filters = Seq(speed(S.Bullet), standardShogiRules, noBot)
+          secondsSinceLastMove = 60,
+          filters = Seq(speed(S.Bullet), standardShogiRules)
         )
     case object Blitz
         extends Channel(
           name = S.Blitz.name,
           icon = P.Blitz.iconChar.toString,
-          secondsSinceLastMove = freshBlitz,
-          filters = Seq(speed(S.Blitz), standardShogiRules, noBot)
+          secondsSinceLastMove = 60 * 3,
+          filters = Seq(speed(S.Blitz), standardShogiRules)
         )
     case object Rapid
         extends Channel(
           name = S.Rapid.name,
           icon = P.Rapid.iconChar.toString,
           secondsSinceLastMove = 60 * 5,
-          filters = Seq(speed(S.Rapid), standardShogiRules, noBot)
+          filters = Seq(speed(S.Rapid), standardShogiRules)
         )
     case object Classical
         extends Channel(
           name = S.Classical.name,
           icon = P.Classical.iconChar.toString,
           secondsSinceLastMove = 60 * 8,
-          filters = Seq(speed(S.Classical), standardShogiRules, noBot)
+          filters = Seq(speed(S.Classical), standardShogiRules)
         )
     case object UltraBullet
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.iconChar.toString,
           secondsSinceLastMove = 30,
-          filters = Seq(speed(S.UltraBullet), standardShogiRules, noBot)
+          filters = Seq(speed(S.UltraBullet), standardShogiRules)
         )
     case object Bot
         extends Channel(
           name = "Bot",
           icon = "n",
-          secondsSinceLastMove = freshBlitz,
+          secondsSinceLastMove = 60 * 2,
           filters = Seq(standardShogiRules, hasBot)
         )
     case object Computer
         extends Channel(
           name = "Computer",
           icon = "n",
-          secondsSinceLastMove = freshBlitz,
+          secondsSinceLastMove = 60 * 2,
           filters = Seq(computerStandardRules)
         )
     val all = List(
@@ -155,7 +155,6 @@ object Tv {
   private def variant(variant: shogi.variant.Variant) = (c: Candidate) => c.game.variant == variant
   private def standardShogiRules(c: Candidate) =
     c.game.variant == V.Standard || c.game.variant == V.FromPosition
-  private val freshBlitz                          = 60 * 2
   private def computerStandardRules(c: Candidate) = c.game.hasAi && standardShogiRules(c)
   private def hasBot(c: Candidate)                = c.hasBot
   private def noBot(c: Candidate)                 = !c.hasBot
