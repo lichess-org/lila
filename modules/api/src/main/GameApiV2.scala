@@ -79,12 +79,15 @@ final class GameApiV2(
     }
 
   def filename(tour: Tournament, format: Format): String =
+    filename(tour, format.toString.toLowerCase)
+
+  def filename(tour: Tournament, format: String): String =
     fileR.replaceAllIn(
       "lichess_tournament_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
         lila.common.String.slugify(tour.name),
-        format.toString.toLowerCase
+        format
       ),
       "_"
     )

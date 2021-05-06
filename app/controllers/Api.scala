@@ -235,15 +235,17 @@ final class Api(
 
   def tournamentResults(id: String) =
     Action.async { implicit req =>
-      env.tournament.tournamentRepo byId id flatMap {
+      val csv = HTTPRequest.acceptsCsv(req) || get("as", req).has("csv")
+      env.tournament.tournamentRepo byId id map {
         _ ?? { tour =>
           import lila.tournament.JsonView.playerResultWrites
-          val nb = getInt("nb", req) | Int.MaxValue
-          jsonStream {
+          val source =
             env.tournament.api
-              .resultStream(tour, MaxPerSecond(40), nb)
-              .map(playerResultWrites.writes)
-          }.fuccess
+              .resultStream(tour, MaxPerSecond(40), getInt("nb", req) | Int.MaxValue)
+          val result =
+            if (csv) csvStream(lila.tournament.TournamentCsv(source))
+            else jsonStream(source.map(lila.tournament.JsonView.playerResultWrites.writes))
+          result.pipe(asAttachment(env.api.gameApiV2.filename(tour, if (csv) "csv" else "ndjson")))
         }
       }
     }
