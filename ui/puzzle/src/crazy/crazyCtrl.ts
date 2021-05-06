@@ -7,9 +7,10 @@ import { parseFen } from 'shogiops/fen';
 import { PocketRole } from 'shogiops/types';
 import { Controller } from '../interfaces';
 
-export function shadowDrop(ctrl: Controller, color: Color, e: cg.MouchEvent): void {
+export function shadowDrop(ctrl: Controller, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
   const role = (el.getAttribute('data-role') ?? el.firstElementChild!.getAttribute('data-role')) as cg.Role;
+  const color = (el.getAttribute('data-color') ?? el.firstElementChild!.getAttribute('data-color')) as cg.Color;
   const sg = ctrl.ground();
   if (!sg) return;
   const curPiece = sg.state.drawable.piece;
@@ -32,10 +33,11 @@ export function drag(ctrl: Controller, e: cg.MouchEvent): void {
   dragNewPiece(ctrl.ground()!.state, { color, role }, e);
 }
 
-export function selectToDrop(ctrl: Controller, color: Color, e: cg.MouchEvent): void {
+export function selectToDrop(ctrl: Controller, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return;
-  if (ctrl.ground()!.state.movable.color !== color) return;
   const el = e.target as HTMLElement;
+  const color = (el.getAttribute('data-color') ?? el.firstElementChild!.getAttribute('data-color')) as cg.Color;
+  if (ctrl.ground()!.state.movable.color !== color) return;
   const role = el.getAttribute('data-role') as cg.Role,
     number = el.getAttribute('data-nb');
   const sg = ctrl.ground();

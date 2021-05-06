@@ -12,9 +12,10 @@ const li = window.lishogi;
 
 export const pieceRoles: cg.Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
 
-export function shadowDrop(ctrl: RoundController, color: Color, e: cg.MouchEvent): void {
+export function shadowDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
   const role = (el.getAttribute('data-role') ?? el.firstElementChild!.getAttribute('data-role')) as cg.Role;
+  const color = (el.getAttribute('data-color') ?? el.firstElementChild!.getAttribute('data-color')) as cg.Color;
   if (!ctrl.shogiground) return;
   const curPiece = ctrl.shogiground.state.drawable.piece;
   if (curPiece && curPiece.role == role && curPiece.color == color) ctrl.shogiground.state.drawable.piece = undefined;

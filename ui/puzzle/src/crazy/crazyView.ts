@@ -31,12 +31,12 @@ export default function (ctrl: Controller, position: Position) {
         });
         eventNames2.forEach(name => {
           el.addEventListener(name, e => {
-            selectToDrop(ctrl, color, e as MouchEvent);
+            selectToDrop(ctrl, e as MouchEvent);
           });
         });
         eventNames3.forEach(name => {
           el.addEventListener(name, e => {
-            shadowDrop(ctrl, color, e as MouchEvent);
+            shadowDrop(ctrl, e as MouchEvent);
           });
         });
       }),

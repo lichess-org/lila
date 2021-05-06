@@ -44,7 +44,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
         );
         eventNames3.forEach(name => {
           el.addEventListener(name, e => {
-            shadowDrop(ctrl, color, e as cg.MouchEvent);
+            shadowDrop(ctrl, e as cg.MouchEvent);
           });
         });
       }),
