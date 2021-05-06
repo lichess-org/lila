@@ -113,34 +113,34 @@ final class Main(
       JsonOk(
         Json.obj(
           "move" -> List(
-            Glyph.MoveAssessment.good.copy(name = trans.glyphs.goodMove.txt()),
-            Glyph.MoveAssessment.mistake.copy(name = trans.glyphs.mistake.txt()),
-            Glyph.MoveAssessment.brillant.copy(name = trans.glyphs.brilliantMove.txt()),
-            Glyph.MoveAssessment.blunder.copy(name = trans.glyphs.blunder.txt()),
-            Glyph.MoveAssessment.interesting.copy(name = trans.glyphs.interestingMove.txt()),
-            Glyph.MoveAssessment.dubious.copy(name = trans.glyphs.dubiousMove.txt()),
-            Glyph.MoveAssessment.only.copy(name = trans.glyphs.onlyMove.txt()),
-            Glyph.MoveAssessment.zugzwang.copy(name = trans.glyphs.zugzwang.txt())
+            Glyph.MoveAssessment.good.copy(name = trans.study.goodMove.txt()),
+            Glyph.MoveAssessment.mistake.copy(name = trans.study.mistake.txt()),
+            Glyph.MoveAssessment.brillant.copy(name = trans.study.brilliantMove.txt()),
+            Glyph.MoveAssessment.blunder.copy(name = trans.study.blunder.txt()),
+            Glyph.MoveAssessment.interesting.copy(name = trans.study.interestingMove.txt()),
+            Glyph.MoveAssessment.dubious.copy(name = trans.study.dubiousMove.txt()),
+            Glyph.MoveAssessment.only.copy(name = trans.study.onlyMove.txt()),
+            Glyph.MoveAssessment.zugzwang.copy(name = trans.study.zugzwang.txt())
           ),
           "position" -> List(
-            Glyph.PositionAssessment.equal.copy(name = trans.glyphs.equalPosition.txt()),
-            Glyph.PositionAssessment.unclear.copy(name = trans.glyphs.unclearPosition.txt()),
-            Glyph.PositionAssessment.whiteSlightlyBetter.copy(name = trans.glyphs.whiteIsSlightlyBetter.txt()),
-            Glyph.PositionAssessment.blackSlightlyBetter.copy(name = trans.glyphs.blackIsSlightlyBetter.txt()),
-            Glyph.PositionAssessment.whiteQuiteBetter.copy(name = trans.glyphs.whiteIsBetter.txt()),
-            Glyph.PositionAssessment.blackQuiteBetter.copy(name = trans.glyphs.blackIsBetter.txt()),
-            Glyph.PositionAssessment.whiteMuchBetter.copy(name = trans.glyphs.whiteIsWinning.txt()),
-            Glyph.PositionAssessment.blackMuchBetter.copy(name = trans.glyphs.blackIsWinning.txt())
+            Glyph.PositionAssessment.equal.copy(name = trans.study.equalPosition.txt()),
+            Glyph.PositionAssessment.unclear.copy(name = trans.study.unclearPosition.txt()),
+            Glyph.PositionAssessment.whiteSlightlyBetter.copy(name = trans.study.whiteIsSlightlyBetter.txt()),
+            Glyph.PositionAssessment.blackSlightlyBetter.copy(name = trans.study.blackIsSlightlyBetter.txt()),
+            Glyph.PositionAssessment.whiteQuiteBetter.copy(name = trans.study.whiteIsBetter.txt()),
+            Glyph.PositionAssessment.blackQuiteBetter.copy(name = trans.study.blackIsBetter.txt()),
+            Glyph.PositionAssessment.whiteMuchBetter.copy(name = trans.study.whiteIsWinning.txt()),
+            Glyph.PositionAssessment.blackMuchBetter.copy(name = trans.study.blackIsWinning.txt())
           ),
           "observation" -> List(
-            Glyph.Observation.novelty.copy(name = trans.glyphs.novelty.txt()),
-            Glyph.Observation.development.copy(name = trans.glyphs.development.txt()),
-            Glyph.Observation.initiative.copy(name = trans.glyphs.initiative.txt()),
-            Glyph.Observation.attack.copy(name = trans.glyphs.attack.txt()),
-            Glyph.Observation.counterplay.copy(name = trans.glyphs.counterplay.txt()),
-            Glyph.Observation.timeTrouble.copy(name = trans.glyphs.timeTrouble.txt()),
-            Glyph.Observation.compensation.copy(name = trans.glyphs.withCompensation.txt()),
-            Glyph.Observation.withIdea.copy(name = trans.glyphs.withTheIdea.txt())
+            Glyph.Observation.novelty.copy(name = trans.study.novelty.txt()),
+            Glyph.Observation.development.copy(name = trans.study.development.txt()),
+            Glyph.Observation.initiative.copy(name = trans.study.initiative.txt()),
+            Glyph.Observation.attack.copy(name = trans.study.attack.txt()),
+            Glyph.Observation.counterplay.copy(name = trans.study.counterplay.txt()),
+            Glyph.Observation.timeTrouble.copy(name = trans.study.timeTrouble.txt()),
+            Glyph.Observation.compensation.copy(name = trans.study.withCompensation.txt()),
+            Glyph.Observation.withIdea.copy(name = trans.study.withTheIdea.txt())
           )
         )
       ).fuccess
