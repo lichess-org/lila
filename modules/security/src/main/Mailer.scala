@@ -6,9 +6,10 @@ import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scala.concurrent.duration.{ span => _, _ }
 import scala.concurrent.{ blocking, Future }
-import scalatags.Text.all._
+import scalatags.Text.all.{ html => htmlTag, _ }
+import scalatags.Text.tags2.{ title => titleTag }
 
-import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
+import lila.common.String.html.{ nl2br }
 import lila.common.{ Chronometer, EmailAddress, ThreadLocalRandom }
 import lila.i18n.I18nKeys.{ emails => trans }
 
@@ -99,9 +100,10 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
 
   object html {
 
-    val itemscope    = attr("itemscope").empty
-    val itemtype     = attr("itemtype")
-    val itemprop     = attr("itemprop")
+    private val itemscope = attr("itemscope").empty
+    private val itemtype  = attr("itemtype")
+    private val itemprop  = attr("itemprop")
+
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
     val pDesc        = p(itemprop := "description")
     val potentialAction =
@@ -129,7 +131,7 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
 
     def standardEmail(body: String): Frag =
       emailMessage(
-        pDesc(nl2brUnsafe(body)),
+        pDesc(nl2br(body)),
         publisher
       )
 
@@ -145,20 +147,17 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         p(trans.common_orPaste(lang))
       )
 
-    private[Mailer] def wrap(subject: String, body: Frag): Frag =
+    private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =
       frag(
-        raw(s"""<!doctype html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>${escapeHtml(subject)}</title>
-  </head>
-  <body>"""),
-        body,
-        raw("""
-  </body>
-</html>""")
+        raw("<!doctype html>"),
+        htmlTag(
+          head(
+            meta(httpEquiv := "Content-Type", content := "text/html; charset=utf-8"),
+            meta(name := "viewport", content := "width=device-width"),
+            titleTag(subject)
+          ),
+          body(htmlBody)
+        )
       )
   }
 }
