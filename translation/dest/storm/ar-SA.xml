@@ -19,7 +19,7 @@
     <item quantity="other">%s جولة</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="zero">لم تلعب أي جولة</item>
+    <item quantity="zero">لم تلعب أي جولة %2$s</item>
     <item quantity="one">لعبت جولة واحدة من %2$s</item>
     <item quantity="two">لعبت جولتين من %2$s</item>
     <item quantity="few">لعبت %1$s جولات من %2$s</item>
