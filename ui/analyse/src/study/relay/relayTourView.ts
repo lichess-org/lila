@@ -32,9 +32,13 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
             : null,
         ]),
         relay.data.tour.markup
-          ? h('div', {
-              hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-            })
+          ? h(
+              'div',
+              {
+                //hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+              },
+              relay.data.tour.description
+            )
           : h('div', relay.data.tour.description),
       ]),
       multiBoardView(study.multiBoard, study),
